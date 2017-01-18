@@ -107,7 +107,7 @@ rm bitcoin-0.13.2-x86_64-linux-gnu.tar.gz
 rm -rf bitcoin-0.13.2/
 
 mkdir ~/.bitcoin
-echo -e "server=1\npar=1\nblocksonly=1\nprune=550\nmaxuploadtarget=137\nmaxconnections=16\nrpcuser=bitcoinrpc\nrpcpassword=$(xxd -l 16 -p /dev/urandom)" > ~/.bitcoin/bitcoin.conf
+echo -e "server=1\ndbcache=1536\npar=1\nblocksonly=1\nprune=550\nmaxuploadtarget=137\nmaxconnections=16\nrpcuser=bitcoinrpc\nrpcpassword=$(xxd -l 16 -p /dev/urandom)" > ~/.bitcoin/bitcoin.conf
 chmod 600 ~/.bitcoin/bitcoin.conf
 more ~/.bitcoin/bitcoin.conf
 
@@ -148,8 +148,8 @@ bc stop
 
 ### Some tutorials once you've got bitcoin installed and up-to-date
 
-- Bitcoin.org's developer examples https://bitcoin.org/en/developer-examples#transactions 
-- Jonas Nick's "How to Run a Bitcoin Node" https://github.com/jonasnick/bitcoin-node 
+- Bitcoin.org's developer examples https://bitcoin.org/en/developer-examples#transactions
+- Jonas Nick's "How to Run a Bitcoin Node" https://github.com/jonasnick/bitcoin-node
 - David DeRosa's "A Developer Oriented Series about Bitcoin" http://davidederosa.com/basic-blockchain-programming/
 
 Videos
@@ -159,6 +159,3 @@ Videos
 - Bitcoin JSON-RPC Tutorial 3 - bitcoin.conf https://www.youtube.com/watch?v=W54aRszkEOI&t=65s
 - Bitcoin JSON-RPC Tutorial 4 - Command Line Interface https://www.youtube.com/watch?v=vmdYD7vutTI
 - Bitcoin JSON-RPC Tutorial 5 - Your First Calls https://www.youtube.com/watch?v=ARL_PvDEBtU
-
-
-
