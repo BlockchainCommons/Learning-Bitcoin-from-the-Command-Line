@@ -75,11 +75,18 @@ adduser user1 sudo
 
 reboot
 
-ssh user1@162.243.130.224
+ssh user1@45.33.46.147
 
-sudo apt-get install rng-tools # Installs random number tools — otherwise gpg will not have enough randomness on a VPS
+sudo apt-get install haveged # Installs random number tools — otherwise gpg will not have enough randomness on a VPS
 
-sudo /usr/sbin/rngd -r /dev/urandom # Initialize randomness pool
+## TODO: rng-tools may be installed by haveged -- if working remove these
+#sudo apt-get install rng-tools
+#/etc/init.d/rng-tools start
+#sudo /usr/sbin/rngd -r /dev/urandom # Initialize randomness pool
+#cat /dev/urandom | rngtest -c 1000 # check randomness pool
+
+## TODO: make sure haveged is properly initialized, and that it will be started on boot
+
 gpg --gen-key # create a key for this VPS (I don't the name of this machine as the email address — all other questions I press return
     #TODO: I'm not absolutely sure that we need to do this — it is only required for fully qualified --verify if an --lsign is done of the import.
 
