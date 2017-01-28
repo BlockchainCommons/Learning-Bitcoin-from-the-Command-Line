@@ -1,0 +1,364 @@
+#!/bin/bash
+
+####
+# This is a Linode StackScript https://www.linode.com/stackscripts/ for deploying
+# a Bitcoin node optimized for use on a VPS, for learning or testing purposes.
+#
+# WARNING: Don’t use a VPS for a bitcoin wallet with significant real funds — see
+# http://blog.thestateofme.com/2012/03/03/lessons-to-be-learned-from-the-linode-bitcoin-incident/
+# it is just very nice to be able experiment with real bitcoin transactions on
+# a live node without tying up a self-hosted server on a local network. I’ve
+# also found it useful to be able to use an iPhone or iPad to communicate via
+# SSH to my VPS to do some simple bitcoin tasks.
+####
+
+# This block defines the variables the user of the script needs to input
+# when deploying using this script.
+#
+# <UDF name="btctype" label="Installation Type" oneOf="Mainnet,Pruned Mainnet,Testnet,Pruned Testnet,Private Regtest" default="Pruned Testnet" example="Bitcoin node type" />
+# BTCTYPE=
+# <UDF name="hostname" label="Short Hostname" example="Example: bitcoincore-testnet-pruned" />
+# HOSTNAME=
+# <UDF name="fqdn" label="Fully Qualified Hostname" example="Example: bitcoincore-testnet-pruned.local or bitcoincore-testnet-pruned.domain.com"/>
+# FQDN=
+# <UDF name="userpassword" label="User1 Password" example="Password to for the user1 non-privileged account." />
+# USERPASSWORD=
+# <UDF name="ssh_key" label="SSH Key" default="" example="Key for automated logins to user1 non-privileged account. Required if no User Password" optional="true" />
+# SSH_KEY=
+# <UDF name="sys_ssh_ip" label="SSH-Allowed IPs" default="" example="Comma separated list of IPs that can use SSH" optional="true" />
+# SYS_SSH_IP=
+
+####
+# 0. Set Initial Variables
+####
+
+# CURRENT BITCOIN RELEASE:
+# Change as necessary
+
+export BITCOIN=bitcoin-core-0.13.2
+
+# Set the variable $IPADDR to the IP address the new Linode receives.
+IPADDR=$(/sbin/ifconfig eth0 | awk '/inet / { print $2 }' | sed 's/addr://')
+
+# Output stdout and stderr to ~root files
+
+exec > >(tee -a /root/stackscript.log) 2> >(tee -a /root/stackscript.log /root/stackscript.err >&2)
+
+echo "$0 - BEGINNING NEW MACHINE SETUP STACKSCRIPT"
+
+####
+# 1. Update Hostname
+####
+
+echo $HOSTNAME > /etc/hostname
+/etc/init.d/hostname.sh start
+/bin/hostname $HOSTNAME
+
+echo "$0 - Set hostname as $FQDN ($IPADDR)"
+echo "$0 - TODO: Put $FQDN with IP $IPADDR in your main DNS file."
+
+# Add localhost aliases
+
+echo "127.0.0.1	localhost" > /etc/hosts
+echo "127.0.1.1 $FQDN $HOSTNAME" >> /etc/hosts
+
+echo "$0 - Set localhost"
+
+####
+# 2. Update Timezone
+####
+
+# Set Timezone to America/LA
+
+TIMEZONE="America/Los_Angeles"
+echo $TIMEZONE > /etc/timezone
+cp /usr/share/zoneinfo/${TIMEZONE} /etc/localtime
+
+echo "$0 - Set Time Zone to Lost Angeles"
+
+####
+# 3. Protect the Server
+####
+
+# Add firewall rules to block everything that's not Bitcoin, Ping, or SSH
+
+cat > /etc/iptables.firewall.rules <<EOF
+*filter
+
+#  Allow all loopback (lo0) traffic and drop all traffic to 127/8 that doesn't use lo0
+-A INPUT -i lo -j ACCEPT
+-A INPUT -d 127.0.0.0/8 -j REJECT
+
+#  Accept all established inbound connections
+-A INPUT -m state --state ESTABLISHED,RELATED -j ACCEPT
+
+#  Allow all outbound traffic - you can modify this to only allow certain traffic
+-A OUTPUT -j ACCEPT
+
+# If you want HTTP and HTTPS, uncomment these
+
+#  Allow SSH connections
+#
+#  The -dport number should be the same port number you set in sshd_config
+#
+-A INPUT -p tcp -m state --state NEW --dport 22 -j ACCEPT
+
+#  Allow ping
+-A INPUT -p icmp -j ACCEPT
+
+# Allow Bitcoin connections
+-A INPUT -p tcp --dport 22 -m conntrack --ctstate NEW,ESTABLISHED -j ACCEPT
+-A INPUT -p tcp --dport 8333 -j ACCEPT
+-A INPUT -m conntrack --ctstate ESTABLISHED -j ACCEPT
+
+#  Log iptables denied calls
+-A INPUT -m limit --limit 5/min -j LOG --log-prefix "iptables denied: " --log-level 7
+
+#  Drop all other inbound - default deny unless explicitly allowed policy
+-A INPUT -j DROP
+-A FORWARD -j DROP
+
+COMMIT
+EOF
+
+# Make a copy of the IPv4 rules for IPv6
+
+cat /etc/iptables.firewall.rules | sed 's/127.0.0.0\/8/::1\/128/' > /etc/ip6tables.firewall.rules
+
+# Make a startup file that runs IPv4 and IPv6 rules
+
+cat > /etc/network/if-pre-up.d/firewall <<EOF
+#!/bin/sh
+/sbin/iptables-restore < /etc/iptables.firewall.rules
+/sbin/ip6tables-restore < /etc/ip6tables.firewall.rules
+EOF
+
+chmod a+x /etc/network/if-pre-up.d/firewall
+
+# Then run it
+
+/etc/network/if-pre-up.d/firewall
+
+echo "$0 - Created iptables. NOTE! This will prevent everything but Bitcoin, Ping, and SSH from working!!"
+
+# Put your Login IPs into the hosts.allow file to allow access
+
+if [ -n "$SYS_SSH_IP" ]; then
+
+  echo "sshd: $SYS_SSH_IP" >> /etc/hosts.allow
+
+else
+  echo "$0 - There were no SSH IPs to set: $SYS_SSH_IP; you will not be able to SSH in!"
+fi
+
+# Block SSH access from everywhere else
+
+# Yes, this means that if you don't have an IP address for SSH, you can only login
+# from Linode's Lish Console
+
+echo "sshd: ALL" >> /etc/hosts.deny
+echo "$0 - Limited SSH access."
+
+
+####
+# 4. Set Up User
+####
+
+# Create "user1" with optional password and give them sudo capability
+
+/usr/sbin/useradd -m -p `perl -e 'printf("%s\n",crypt($ARGV[0],"password"))' "$USERPASSWORD"` -g sudo -s /bin/bash user1
+/usr/sbin/adduser user1 sudo
+
+echo "$0 - Setup user1 with sudo access."
+
+# Set up SSH Key
+
+if [ -n "$SSH_KEY" ]; then
+
+   mkdir ~user1/.ssh
+   echo "$SSH_KEY" >> ~user1/.ssh/authorized_keys
+   chown -R user1 ~user1/.ssh
+
+   echo "$0 - Added .ssh key to user1."
+
+fi
+
+# Give user some helpful bitcoin aliases
+
+sudo -u user1 cat >> ~user1/.bash_profile <<EOF
+alias btcdir="cd ~/.bitcoin/" #linux default bitcoind path
+        # alias btcdir="cd ~/Library/Application\ Support/Bitcoin/" #mac default bitcoind path
+alias bc="bitcoin-cli"
+alias bd="bitcoind"
+alias btcinfo='bitcoin-cli getinfo | egrep "\"version\"|balance|blocks|connections|errors"'
+alias btcblock="echo \\\`bitcoin-cli getblockcount 2>&1\\\`/\\\`wget -O - http://blockchain.info/q/getblockcount 2>/dev/null\\\`"
+EOF
+
+echo "$0 - Give user1 bitcoin aliases in their .bash_profile."
+
+####
+# 5. Bring Debian Up To Date
+####
+
+echo "$0 - Starting Debian updates; this will take a while!"
+
+# Make sure all packages are up-to-date
+
+export DEBIAN_FRONTEND=noninteractive
+apt-get update
+apt-get upgrade -y
+apt-get dist-upgrade -y
+
+# Install emacs (a good text editor), haveged (a random number generator
+
+apt-get install emacs -y
+apt-get install haveged -y
+
+# Set system to automatically update
+
+echo "unattended-upgrades unattended-upgrades/enable_auto_updates boolean true" | debconf-set-selections
+apt-get -y install unattended-upgrades
+
+echo "$0 - Updated Debian Packages"
+
+
+####
+# 6. Install Bitcoin
+####
+
+# Download Bitcoin
+
+echo "$0 - Downloading Bitcoin; this will also take a while!"
+
+export BITCOINPLAIN=`echo $BITCOIN | sed 's/bitcoin-core/bitcoin/'`
+
+sudo -u user1 wget https://bitcoin.org/bin/$BITCOIN/$BITCOINPLAIN-x86_64-linux-gnu.tar.gz -O ~user1/$BITCOINPLAIN-x86_64-linux-gnu.tar.gz
+sudo -u user1 wget https://bitcoin.org/bin/$BITCOIN/SHA256SUMS.asc -O ~user1/SHA256SUMS.asc
+sudo -u user1 wget https://bitcoin.org/laanwj-releases.asc -O ~user1/laanwj-releases.asc
+
+# Verifying Bitcoin: Signature
+
+echo "$0 - Verifying Bitcoin."
+
+sudo -u user1 /usr/bin/gpg --import ~user1/laanwj-releases.asc
+sudo -u user1 /usr/bin/gpg --lsign `sudo -u user1 /usr/bin/gpg --list-keys | grep pub | awk '{print $2}' | awk -F/ '{print $2}'`
+export SHASIG=`sudo -u user1 /usr/bin/gpg --verify ~user1/SHA256SUMS.asc 2>&1 | grep "Good signature"`
+
+if [[ $SHASIG ]]; then
+    echo "VERIFICATION SUCCESS / SIG: $SHASIG"
+else
+    (>&2 echo "VERIFICATION ERROR: Signature for Bitcoin did not verify!")
+fi
+
+# Verify Bitcoin: SHA
+
+export TARSHA256=`/usr/bin/sha256sum ~user1/$BITCOINPLAIN-x86_64-linux-gnu.tar.gz | awk '{print $1}'`
+export EXPECTEDSHA256=`cat ~user1/SHA256SUMS.asc | grep $BITCOINPLAIN-x86_64-linux-gnu.tar.gz | awk '{print $1}'`
+
+if [ "$TARSHA256" == "$EXPECTEDSHA256" ]; then
+   echo "VERIFICATION SUCCESS / SHA: $TARSHA256"
+else
+    (>&2 echo "VERIFICATION ERROR: SHA for Bitcoin did not match!")
+fi
+
+# Install Bitcoin
+
+echo "$0 - Installinging Bitcoin."
+
+sudo -u user1 /bin/tar xzf ~user1/$BITCOINPLAIN-x86_64-linux-gnu.tar.gz -C ~user1
+/usr/bin/install -m 0755 -o root -g root -t /usr/local/bin ~user1/$BITCOINPLAIN/bin/*
+/bin/rm -rf ~user1/$BITCOINPLAIN/
+
+# Start Up Bitcoin
+
+echo "$0 - Starting Bitcoin."
+
+sudo -u user1 /bin/mkdir ~user1/.bitcoin
+
+# The only variation between Mainnet and Testnet is that Testnet has the "testnet=1" variable
+# The only variation between Regular and Pruned is that Pruned has the "prune=550" variable, which is the smallest possible prune
+
+# TODO: need to test rpcpassword random below using EOF technique
+
+# TODO: since these are largely the same, maybe another technique?
+
+if [ "$BTCTYPE" == "Mainnet" ]; then
+
+cat >> ~user1/.bitcoin/bitcoin.conf << EOF
+server=1
+dbcache=1536
+par=1
+blocksonly=1
+maxuploadtarget=137
+maxconnections=16
+rpcuser=bitcoinrpc
+rpcpassword=$(xxd -l 16 -p /dev/urandom)
+EOF
+
+elif [ "$BTCTYPE" == "Pruned Mainnet" ]; then
+
+cat >> ~user1/.bitcoin/bitcoin.conf << EOF
+server=1
+dbcache=1536
+par=1
+blocksonly=1
+prune=550
+maxuploadtarget=137
+maxconnections=16
+rpcuser=bitcoinrpc
+rpcpassword=$(xxd -l 16 -p /dev/urandom)
+EOF
+
+elif [ "$BTCTYPE" == "Testnet" ]; then
+
+cat >> ~user1/.bitcoin/bitcoin.conf << EOF
+server=1
+dbcache=1536
+par=1
+blocksonly=1
+maxuploadtarget=137
+maxconnections=16
+testnet=1
+rpcuser=bitcoinrpc
+rpcpassword=$(xxd -l 16 -p /dev/urandom)
+EOF
+
+elif [ "$BTCTYPE" == "Pruned Testnet" ]; then
+
+cat >> ~user1/.bitcoin/bitcoin.conf << EOF
+server=1
+dbcache=1536
+par=1
+blocksonly=1
+prune=550
+maxuploadtarget=137
+maxconnections=16
+testnet=1
+rpcuser=bitcoinrpc
+rpcpassword=$(xxd -l 16 -p /dev/urandom)
+EOF
+
+elif [ "$BTCTYPE" == "Private Regtest" ]; then
+
+  (>&2 echo "$0 - ERROR: Private Regtest is not setup yet.")
+
+else
+
+  (>&2 echo "$0 - ERROR: Somehow you managed to select no Bitcoin Installation Type, so Bitcoin hasn't been properly setup. Whoops!")
+
+fi
+
+/bin/chown user1 ~user1/.bitcoin/bitcoin.conf
+/bin/chmod 600 ~user1/.bitcoin/bitcoin.conf
+
+sudo -u user1 /usr/local/bin/bitcoind -daemon
+
+# Add Bitcoin Startup to Crontab for User1
+
+sudo -u user1 sh -c '( /usr/bin/crontab -l -u user1 2>/dev/null; echo "@reboot /usr/local/bin/bitcoind -daemon" ) | /usr/bin/crontab -u user1 -'
+
+# Alert User!
+
+sudo -u user1 touch ~user1/BITCOIN-IS-READY
+
+echo "$0 - ENDING NEW MACHINE SETUP STACKSCRIPT"
