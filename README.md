@@ -4,9 +4,9 @@
 
 # Copyright
 
-Unless otherwise noted, the contents of this repository areCopyright ©2017 by Christopher Allen \<ChristopherA@LifeWithAlacrity.com\> and is licensed [CC-BY](./LICENSE-CC-BY-4.0.md).
+Unless otherwise noted, the contents of this repository areCopyright ©2017 by Christopher Allen \<ChristopherA@LifeWithAlacrity.com\> and are licensed [CC-BY](./LICENSE-CC-BY-4.0.md).
 
-## Introduction 
+## Introduction
 
 The best way to learn to learn deeply about bitcoin is to avoid GUIs (even bitcoin-qt), and instead learn it from the command line.
 
@@ -16,7 +16,7 @@ This tutorial assumes that you have some minimal background of how to use the co
 
 ## Files
 
-* [1A_Setting_up_a_Bitcoin-Core_VPS_by_Hand.md](./1A_Setting_up_a_Bitcoin-Core_VPS_by_Hand.md)
-* [1B_Setting_Up_a_Bitcoin-Core_VPS_with_StackScript.md](./1B_Setting_Up_a_Bitcoin-Core_VPS_with_StackScript.md)
-  * [Linode-Bitcoin-VPS-Setup.stackscript](./Linode-Bitcoin-VPS-Setup.stackscript)
-
+* 1A - Bitcoin-Core Basics
+* [2A - Setting Up a Bitcoin-Core VPS by Hand](./2A_Setting_Up_a_Bitcoin-Core_VPS_by_Hand.md)
+* [2B - Setting Up a Bitcoin-Core VPS with StackScript.md](./2B_Setting_Up_a_Bitcoin-Core_VPS_with_StackScript.md)
+  * [Linode_Bitcoin-Core_VPS_Setup.stackscript](./Linode_Bitcoin-Core_VPS_Setup.stackscript)
