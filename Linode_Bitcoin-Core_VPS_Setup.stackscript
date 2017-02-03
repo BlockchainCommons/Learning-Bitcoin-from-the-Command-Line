@@ -1,17 +1,5 @@
 #!/bin/bash
 
-####
-# This is a Linode StackScript https://www.linode.com/stackscripts/ for deploying
-# a Bitcoin node optimized for use on a VPS, for learning or testing purposes.
-#
-# WARNING: Don’t use a VPS for a bitcoin wallet with significant real funds — see
-# http://blog.thestateofme.com/2012/03/03/lessons-to-be-learned-from-the-linode-bitcoin-incident/
-# it is just very nice to be able experiment with real bitcoin transactions on
-# a live node without tying up a self-hosted server on a local network. I’ve
-# also found it useful to be able to use an iPhone or iPad to communicate via
-# SSH to my VPS to do some simple bitcoin tasks.
-####
-
 # This block defines the variables the user of the script needs to input
 # when deploying using this script.
 #
@@ -23,7 +11,7 @@
 # FQDN=
 # <UDF name="userpassword" label="User1 Password" example="Password to for the user1 non-privileged account." />
 # USERPASSWORD=
-# <UDF name="ssh_key" label="SSH Key" default="" example="Key for automated logins to user1 non-privileged account. Required if no User Password" optional="true" />
+# <UDF name="ssh_key" label="SSH Key" default="" example="Key for automated logins to user1 non-privileged account." optional="true" />
 # SSH_KEY=
 # <UDF name="sys_ssh_ip" label="SSH-Allowed IPs" default="" example="Comma separated list of IPs that can use SSH" optional="true" />
 # SYS_SSH_IP=
@@ -109,6 +97,7 @@ cat > /etc/iptables.firewall.rules <<EOF
 # Allow Bitcoin connections
 -A INPUT -p tcp --dport 22 -m conntrack --ctstate NEW,ESTABLISHED -j ACCEPT
 -A INPUT -p tcp --dport 8333 -j ACCEPT
+-A INPUT -p tcp --dport 18333 -j ACCEPT
 -A INPUT -m conntrack --ctstate ESTABLISHED -j ACCEPT
 
 #  Log iptables denied calls
@@ -146,9 +135,13 @@ echo "$0 - Created iptables. NOTE! This will prevent everything but Bitcoin, Pin
 if [ -n "$SYS_SSH_IP" ]; then
 
   echo "sshd: $SYS_SSH_IP" >> /etc/hosts.allow
+  echo "sshd: ALL" >> /etc/hosts.deny
+  echo "$0 - Limited SSH access."
 
 else
-  echo "$0 - There were no SSH IPs to set: $SYS_SSH_IP; you will not be able to SSH in!"
+
+  echo "$0 - WARNING: Your SSH access is not limited; this is a major security hole!"
+
 fi
 
 # Block SSH access from everywhere else
@@ -156,8 +149,6 @@ fi
 # Yes, this means that if you don't have an IP address for SSH, you can only login
 # from Linode's Lish Console
 
-echo "sshd: ALL" >> /etc/hosts.deny
-echo "$0 - Limited SSH access."
 
 
 ####
