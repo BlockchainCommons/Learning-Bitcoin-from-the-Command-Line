@@ -176,6 +176,19 @@ fi
 
 # Give user some helpful bitcoin aliases
 
+if [ "$BTCTYPE" == "Testnet" ]; then
+
+sudo -u user1 cat >> ~user1/.bash_profile <<EOF
+alias btcdir="cd ~/.bitcoin/" #linux default bitcoind path
+        # alias btcdir="cd ~/Library/Application\ Support/Bitcoin/" #mac default bitcoind path
+alias bc="bitcoin-cli"
+alias bd="bitcoind"
+alias btcinfo='bitcoin-cli getinfo | egrep "\"version\"|balance|blocks|connections|errors"'
+alias btcblock="echo \\\`bitcoin-cli getblockcount 2>&1\\\`/\\\`wget -O - http://blockexplorer.com/testnet/q/getblockcount 2> /dev/null | cut -d : -f2 | rev | cut -c 2- | rev\\\`"
+EOF
+
+else
+
 sudo -u user1 cat >> ~user1/.bash_profile <<EOF
 alias btcdir="cd ~/.bitcoin/" #linux default bitcoind path
         # alias btcdir="cd ~/Library/Application\ Support/Bitcoin/" #mac default bitcoind path
@@ -184,6 +197,10 @@ alias bd="bitcoind"
 alias btcinfo='bitcoin-cli getinfo | egrep "\"version\"|balance|blocks|connections|errors"'
 alias btcblock="echo \\\`bitcoin-cli getblockcount 2>&1\\\`/\\\`wget -O - http://blockchain.info/q/getblockcount 2>/dev/null\\\`"
 EOF
+
+fi
+
+/bin/chown user1 ~user1/.bash_profile
 
 echo "$0 - Give user1 bitcoin aliases in their .bash_profile."
 
