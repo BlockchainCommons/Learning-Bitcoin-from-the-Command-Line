@@ -296,6 +296,7 @@ cat >> ~user1/.bitcoin/bitcoin.conf << EOF
 server=1
 dbcache=1536
 par=1
+txindex=1
 blocksonly=1
 maxuploadtarget=137
 maxconnections=16
@@ -309,6 +310,7 @@ cat >> ~user1/.bitcoin/bitcoin.conf << EOF
 server=1
 dbcache=1536
 par=1
+txindex=1
 blocksonly=1
 prune=550
 maxuploadtarget=137
@@ -323,6 +325,7 @@ cat >> ~user1/.bitcoin/bitcoin.conf << EOF
 server=1
 dbcache=1536
 par=1
+txindex=1
 blocksonly=1
 maxuploadtarget=137
 maxconnections=16
@@ -337,6 +340,7 @@ cat >> ~user1/.bitcoin/bitcoin.conf << EOF
 server=1
 dbcache=1536
 par=1
+txindex=1
 blocksonly=1
 prune=550
 maxuploadtarget=137
