@@ -287,8 +287,8 @@ sudo -u user1 /bin/mkdir ~user1/.bitcoin
 # The only variation between Regular and Pruned is that Pruned has the "prune=550" variable, which is the smallest possible prune
 
 # TODO: need to test rpcpassword random below using EOF technique
-
-# TODO: since these are largely the same, maybe another technique?
+# TODO: there are other more modern ways to set up rpc authentication — to investigate and document.
+# TODO: since these are largely the same, maybe another technique to build bitcoin.conf?
 
 if [ "$BTCTYPE" == "Mainnet" ]; then
 
