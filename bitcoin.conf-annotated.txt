@@ -1,0 +1,258 @@
+###
+### DRAFT DO NOT USE YET
+### 
+
+
+##
+## bitcoin.conf configuration file. Lines beginning with # are comments.
+##
+
+## These settings are designed for Linode VPS see https://github.com/ChristopherA/Learning-Bitcoin-from-the-Command-Line
+
+## Lines beginning with # are comments.
+## Uncomment and edit options you wish to use, detailed guide here: https://en.bitcoin.it/wiki/Running_Bitcoin
+
+### Enable incoming data connections
+
+## To ensure your Fullnode validates transactions it is necessary to have both ‘upnp’ and ‘listen’ enabled.
+## Note that many users will also need to enable Port Forwarding on their home router.
+## To do this: go to your router’s page e.g. 192.168.0.1 in your browser then choose Advanced Settings
+## Setup port forwarding on TCP/UDP 8333 to 8333 for the IP address of your Fullnode and Apply Changes
+## If successful you will notice in time the number of connections increase above 8
+## For more details see here: https://bitcoin.org/en/full-node#network-configuration
+upnp=1
+
+# Listening mode, enabled by default except when 'connect' is being used
+listen=1
+
+# Do not use Internet Relay Chat to find peers.
+noirc=0
+
+## Use this for Bitcoin development and blockchain analysis. Index mode is incompatible with prune=1.
+# Note uncommenting this line will make Bitcoin rescan the whole blockchain which can takes several days
+txindex=1
+
+## Performance: Bandwidth and Memory usage
+
+# Set the number of script verification threads (-2 to 16, 0 = auto, <0 = leave that many cores free, default: 0)
+# A basic Linode has 4 cores, so set to 3.
+par=1
+
+# Set database cache size in megabytes (4 to 16384, default: 100). Lower is better when using Bitcoin
+# with other apps running, but initial blockchain download is faster if you use more memory.
+# Using Linode I suggest 1536 MB and optionally change to 256 after chain is complete.
+dbcache=1536
+
+# Send and receive complete blocks only, no loose transactions. blocksonly=1 can reduce bandwidth by 88%
+blocksonly=1
+
+# Max number of megabytes uploaded by node per day. 137MB is 144Mb, and is 1:1 ratio with downloading 1 day of blocks
+maxuploadtarget=137
+
+mempoolexpiry=72
+maxmempool=300
+maxorphantx=100
+
+## To save disk space you can prune the blockchain to n MB below. Min value is 550. 0 means Pruning is disabled.
+# Note if you prune before syncing, Bitcoin will still validate every block but it will only use up the max disk
+# space specified below, deleting block data as it syncs. The node still relays transactions to other nodes when enabled.
+#prune=550
+
+## Spam protection
+limitfreerelay=10
+minrelaytxfee=0.0001
+
+## Maximum number of inbound+outbound connections
+# Consider setting this to 16-24 if you have issues
+maxconnections=32
+
+## Data directory for bitcoin, Use for external devices or if not using the default directory
+# sample datadir=/home/media/USB/.bitcoin
+# defaults are:
+#        Linux:  ~/.bitcoin/
+#    Macintosh:  ~/Library/Application Support/Bitcoin/
+#      Windows:  %APPDATA%\Bitcoin
+#           XP:  C:\Documents and Settings\YOURUSERNAME\Application data\Bitcoin
+#    Vista & 7:  C:\Users\YOURUSERNAME\Appdata\Roaming\Bitcoin
+#datadir=
+
+#
+# JSON-RPC options (for controlling a running Bitcoin/bitcoind process)
+#
+
+# daemon=1 tells bitcoind to run in background and accept JSON-RPC commands
+daemon=1
+
+# server=1 tells Bitcoin-Qt to accept JSON-RPC commands.
+# it is also read by bitcoind to determine if RPC should be enabled
+server=1
+
+# Bind to given address and always listen on it. Use [host]:port notation for IPv6
+#bind=<addr>
+
+# Bind to given address and whitelist peers connecting to it. Use [host]:port notation for IPv6
+#whitebind=<addr>
+
+# Bind to given address to listen for JSON-RPC connections. Use [host]:port notation for IPv6.
+# This option can be specified multiple times (default: bind to all interfaces)
+#rpcbind=<addr>
+
+# If no rpcpassword is set, rpc cookie auth is sought. The default `-rpccookiefile` name
+# is .cookie and found in the `-datadir` being used for bitcoind. This option is typically used
+# when the server and client are run as the same user.
+#
+# If not, you must set rpcuser and rpcpassword to secure the JSON-RPC api. The first
+# method(DEPRECATED) is to set this pair for the server and client:
+#rpcuser=Ulysseys
+#rpcpassword=YourSuperGreatPasswordNumber_DO_NOT_USE_THIS_OR_YOU_WILL_GET_ROBBED_385593
+#
+# The second method `rpcauth` can be added to server startup argument. It is set at intialization time
+# using the output from the script in share/rpcuser/rpcuser.py after providing a username:
+#
+# ./share/rpcuser/rpcuser.py alice
+# String to be appended to bitcoin.conf:
+# rpcauth=alice:f7efda5c189b999524f151318c0c86$d5b51b3beffbc02b724e5d095828e0bc8b2456e9ac8757ae3211a5d9b16a22ae
+# Your password:
+# DONT_USE_THIS_YOU_WILL_GET_ROBBED_8ak1gI25KFTvjovL3gAM967mies3E=
+
+rpcauth=user1:376acdd3abf29a4ee9af8335b19feeef$dddf479610eb9e863a61cf0ef5e6189fb523b201bec3d5ce3940ecc9045242df
+
+# On client-side, you add the normal user/password pair to send commands:
+#rpcuser=alice
+#rpcpassword=DONT_USE_THIS_YOU_WILL_GET_ROBBED_8ak1gI25KFTvjovL3gAM967mies3E=
+#
+# You can even add multiple entries of these to the server conf file, and client can use any of them:
+# rpcauth=bob:b2dd077cb54591a2f3139e69a897ac$4e71f08d48b4347cf8eff3815c0e25ae2e9a4340474079f55705f40574f4ec99
+
+rpcuser=user1
+rpcpassword=Nzkfa1oZ5_JKMMJ-VZkXJM56dmomSEB3JqAFByFWUFU=
+
+# How many seconds Bitcoin will wait for a complete RPC HTTP request
+# after the HTTP connection is established.
+rpctimeout=30
+
+# By default, only RPC connections from localhost are allowed.
+# Specify as many rpcallowip= settings as you like to allow connections from other hosts,
+# either as a single IPv4/IPv6 or with a subnet specification.
+
+# NOTE: opening up the RPC port to hosts outside your local trusted network is NOT RECOMMENDED,
+# because the rpcpassword is transmitted over the network unencrypted.
+
+#rpcallowip=10.1.1.34/255.255.255.0
+#rpcallowip=1.2.3.4/24
+#rpcallowip=2001:db8:85a3:0:0:8a2e:370:7334/96
+
+# Listen for RPC connections on this TCP port:
+#rpcport=8332 #Default port for mainnet
+#rpcport=18332 #Default port for -testnet and -regtest — note this can confict!
+#rpcport=18334 #Suggestion for first -regtest instance
+
+# You can use bitcoin-qt or bitcoind to send commands to bitcoin-qt/bitcoind
+# running on another host using this option:
+#rpcconnect=127.0.0.1
+
+
+# Use Secure Sockets Layer (also known as TLS or HTTPS) to communicate
+# with Bitcoin -server or bitcoind
+#rpcssl=1
+
+# OpenSSL settings used when rpcssl=1
+#rpcsslciphers=TLSv1+HIGH:!SSLv2:!aNULL:!eNULL:!AH:!3DES:@STRENGTH
+#rpcsslcertificatechainfile=server.cert
+#rpcsslprivatekeyfile=server.pem
+
+### Bitcoin-related settings:
+
+# Run on the test network instead of the real bitcoin network.
+# Default directory is [system default bitcoin directory]/testnet/
+testnet=1
+
+# Run on a private #regression test network where you simulate mining
+# your own blocks using the 'generate' command
+# Default directory is [system default bitcoin directory]/regtest/
+#regtest=1
+
+# Connect via a socks proxy
+#proxy=127.0.0.1:9050
+
+# Select the version of socks proxy to use (4-5, default: 5)
+#socks=5
+
+# Use proxy to reach Tor hidden services (default: same as -proxy)
+# See Issue 6 on Github for setup: https://github.com/MrChrisJ/fullnode/issues/6
+#onlynet=tor
+#onion=127.0.0.1:9050
+
+# These are other Tor nodes that will help your node find peers
+#seednode=nkf5e6b7pl4jfd4a.onion
+#seednode=xqzfakpeuvrobvpj.onion
+#seednode=tsyvzsqwa2kkf6b2.onion
+# These lines help limit potential DOS attacks over Tor
+#banscore=10000
+#bantime=11
+
+##############################################################
+##            Quick Primer on addnode vs connect            ##
+##  Let's say for instance you use addnode=4.2.2.4          ##
+##  addnode will connect you to and tell you about the      ##
+##    nodes connected to 4.2.2.4.  In addition it will tell ##
+##    the other nodes connected to it that you exist so     ##
+##    they can connect to you.                              ##
+##  connect will not do the above when you 'connect' to it. ##
+##    It will *only* connect you to 4.2.2.4 and no one else.##
+##                                                          ##
+##  So if you're behind a firewall, or have other problems  ##
+##  finding nodes, add some using 'addnode'.                ##
+##                                                          ##
+##  If you want to stay private, use 'connect' to only      ##
+##  connect to "trusted" nodes.                             ##
+##                                                          ##
+##  If you run multiple nodes on a LAN, there's no need for ##
+##  all of them to open lots of connections.  Instead       ##
+##  'connect' them all to one node that is port forwarded   ##
+##  and has lots of connections.                            ##
+##       Thanks goes to [Noodle] on Freenode.               ##
+##############################################################
+
+# Use as many addnode= settings as you like to attempt connection to specific p$
+#addnode=69.164.218.197
+#addnode=10.0.0.2:8333
+addnode=10.0.1.3:8333
+
+# or use as many connect= settings as you like to connect ONLY to specific peer$
+#connect=69.164.218.197
+#connect=192.168.1.20:8333
+
+## Miscellaneous options
+
+# Pre-generate this many public/private key pairs, so wallet backups will be valid for
+# both prior transactions and several dozen future transactions.
+#keypool=100
+
+# Pay an optional transaction fee every time you send bitcoins. Transactions with fees
+# are more likely than free transactions to be included in generated blocks, so may
+# be validated sooner.
+#paytxfee=0.01
+
+## Transaction Fee Changes in 0.10.0
+
+# Send transactions as zero-fee transactions if possible (default: 0)
+#sendfreetransactions=0
+
+# Create transactions that have enough fees (or priority) so they are likely to begin confirmation within n blocks (default: 1).
+# This setting is over-ridden by the -paytxfee option.
+#txconfirmtarget=n
+
+
+## Debugging
+
+# Add timestamps to debug.log
+#logtimestamps=1
+
+## User interface options for bitcoin-qt
+
+# Start Bitcoin minimized
+#min=1
+
+# Minimize to the system tray
+minimizetotray=0
