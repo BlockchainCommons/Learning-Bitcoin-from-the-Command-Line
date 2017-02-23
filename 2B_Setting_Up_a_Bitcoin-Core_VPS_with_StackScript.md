@@ -46,11 +46,13 @@ There's a copy of our Bitcoin VPS Setup StackScript in [the repo here](Linode-Bi
 
 You'll next need to click to your Linodes tab and  select "Add a Linode".
 
-If you want to have a full copy of the Bitcoin blockchain in a VPS, you'll need to install a Linode with a disk in excess of 120G, which is currently the Linode 12288 at approximately $80 per month. We do _not_ suggest this.
+If you want to have a full copy of the Bitcoin blockchain in a VPS, you'll need to install a Linode with a disk in excess of 120G, which is currently the Linode 12288, which has 192G of storage and 12G of memory and costs approximately $80 per month. We do _not_ suggest this.
 
-Instead, for use in for learning and testing, a pruned copy of the Bitcoin blockchain using a smaller Linode should be sufficient, such as the Linode 2048, which has 24G of disk and costs approximately $10 a month. This is what we _do_ suggest.
+Instead, for use in for learning and testing, a pruned copy of the Bitcoin blockchain using a smaller Linode should be sufficient. The Linode 2048 has 30G of storage which is about twice as much as you need for a pruned node and 2G of memory which is barely enough. This is what we _do_ suggest.
 
 Just choose your Linode type, choose a Location that's geographically as close to you as possible, and click "Add your Linode!".
+
+_Be aware that the requirements might change over time as the blockchain continues to grow. Watch for "Out of Memory" or "Disk Space is Low!" errors. Either one indicates that you should rebuild with the next larger machine!_
 
 ### Configure Your Linode
 
@@ -90,7 +92,7 @@ _You can freely choose to enter this optional information or skip it:_
 
 **SSH-Allowed IPs.** This is a comma-separated list of IPs that will be allowed to SSH into the VPS. For example "192.168.1.15,192.168.1.16". If you do not enter any IPs, _your VPS will not be very secure_. It will constantly be bombarded by attackers trying to find their way in, and they may very well succeed. 
 
-*The remaining questions all have to do with the mechanics of the VPS deployment and should be left as they are.*
+*The remaining questions all have to do with the mechanics of the VPS deployment and should be left as they are with one exception: bump the Swap Disk from 256MB to 512MB, to ensure that you have enough memory to download the blockchain._
 
 Finally, you'll need to fill in a root password, which will be the password used for the root account.
 
