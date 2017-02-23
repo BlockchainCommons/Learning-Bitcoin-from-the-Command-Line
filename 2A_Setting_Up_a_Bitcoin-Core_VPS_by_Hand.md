@@ -256,7 +256,7 @@ EOF
 ```
 The only difference between the two is in the 'btcblock' line, which looks up the block count in different places for Mainnet and Testnet.
 
-_Warning: The btcblock alias will not work correctly if you try to place it in your .bash_profile by hand, rather than using the "cat" command as suggested. To enter it by hand, you need to adjust the number of backslashes (usually from three each to one each), so make sure you know what you're doing if you aren't entering the commands exactly as shown._
+> **WARNING:** The btcblock alias will not work correctly if you try to place it in your .bash_profile by hand, rather than using the "cat" command as suggested. To enter it by hand, you need to adjust the number of backslashes (usually from three each to one each), so make sure you know what you're doing if you aren't entering the commands exactly as shown.
 
 As usual, give your user permission:
 
