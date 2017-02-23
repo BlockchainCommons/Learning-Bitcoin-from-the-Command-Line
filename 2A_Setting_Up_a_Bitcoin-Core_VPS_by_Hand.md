@@ -47,11 +47,11 @@ If your cloud provider offers two-factor authentication for their web tools, we 
 
 ### Create a Machine
 
-You should now create your Bitcoin VPS. If you want to install an unPruned Mainnet setup, you'll need more than 120G of disk space. If you instead plan to use a Pruned setup, a much smaller amount will do: we use the smallest disk type, 24G, at Linode.
+You should now create your Bitcoin VPS. If you want to install an unPruned Mainnet setup, you'll need more than 120G of disk space. If you instead plan to use a Pruned setup, a much smaller amount will do: this currently takes up about 15G of storage, so make sure you have 24G or 30G to be sure. You'll also need at least 2G of memory to run bitcoind.
 
-We suggest going with the smaller, pruned node unless you're planning to set up a miner or a complex Bitcoin service.
+We suggest Pruned setup unless you're planning to set up a miner or a complex Bitcoin service.
 
-We also suggest you choose a Debian 8 image when you're creating your machine. These commands were all tested on Debian 8.7 (jessie).
+We also suggest you choose a Debian 8 image when you're creating your machine. These commands were all tested on Debian 8.7 (jessie). The further you get away from that, the less likely things will work as laid out here. So, another Debian is probably OK and maybe ubuntu, but we've tried these out on a Mac, and we know that it's missing some commands like "wget". So, installer beware!
 
 Afterward, boot your VPS.
 
