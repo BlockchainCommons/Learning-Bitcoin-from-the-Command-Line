@@ -374,7 +374,6 @@ $ cat >> ~user1/.bitcoin/bitcoin.conf << EOF
 server=1
 dbcache=1536
 par=1
-txindex=1
 blocksonly=1
 maxuploadtarget=137
 maxconnections=16
@@ -391,12 +390,36 @@ prune=550
 EOF
 ```
 
+Otherwise, if you are _not_ pruning add the following:
+
+```
+$ cat >> ~user1/.bitcoin/bitcoin.conf << EOF
+txindex=1
+EOF
+```
+
+(txindex gives the benefit of a complete transaction index, but is not compatible with pruning, so you choose one or the other.)
+
 Finally, if you want to use Testnet instead of Mainnet, add the following:
 
 ```
 $ cat >> ~user1/.bitcoin/bitcoin.conf << EOF
 testnet=1
 EOF
+```
+
+So, for example, a pruned testnet, which is our favored setup for playing with bitcoin, would look like this:
+```
+server=1
+dbcache=1536
+par=1
+blocksonly=1
+maxuploadtarget=137
+maxconnections=16
+rpcuser=bitcoinrpc
+rpcpassword=$(xxd -l 16 -p /dev/urandom)
+prune=550
+testnet=1
 ```
 
 _Please note that this setup does not yet support a Private Regtest. That will require a very different setup TBD._
