@@ -28,6 +28,8 @@ Your options are:
 
 **Private Regtest.** This is Regression Testing Mode, which lets you run a totally local Bitcoin server. It allows for even more in-depth testing. There's no pruning needed here, because you'll be starting from scratch.
 
+We suggest Testnet if you're planning to play around and learn Bitcoin and a Pruned setup unless you're planning to set up a miner or a complex Bitcoin service.
+
 ## Getting Started at a Cloud Provider
 
 First you'll need to choose a cloud provider. The commands in this document are derived from the script we use at linode.com, and they should also work at digitalocean.com.
@@ -58,8 +60,6 @@ Following are suggests for machine requirements:
 | Testnet | 2-3G | ~15G |
 | Pruned Testnet | 2-3G | ~5G |
 | Regtest | 2-3G | ~ |
-
-We suggest Testnet if you're planning to play around and learn Bitcoin and a Pruned setup unless you're planning to set up a miner or a complex Bitcoin service.
 
 We also suggest you choose a Debian 8 image when you're creating your machine. These commands were all tested on Debian 8.7 (jessie). The further you get away from that, the less likely things will work as laid out here. So, another Debian is probably OK and maybe ubuntu, but we've tried these out on a Mac, and we know that it's missing some commands like "wget". So, installer beware!
 
