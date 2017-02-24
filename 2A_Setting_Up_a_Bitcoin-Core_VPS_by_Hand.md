@@ -178,7 +178,7 @@ Please note that this will only allow access to your machine for only SSH, Ping,
 
 This example opens up access to port 25 for TCP and UDP connections. Other popular ports are 80 (HTTP), 443 (HTTPS), 53 (DNS), 110 (POP), and 143 (IMAP).  Be sure any such changes are put above the logs and defaults that appear at the end of the firewall files.
 
-You can immediately incorporate your changes by running the following script:
+If you made changes, you can immediately incorporate them by again running the firewall script that you created.
 
 ```
 $ /etc/network/if-pre-up.d/firewall
