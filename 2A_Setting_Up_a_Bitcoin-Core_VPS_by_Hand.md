@@ -72,7 +72,7 @@ Choose a hostname for your machine (e.g. "mybtc") and enter it into your hostnam
 ```
 $ echo "mybtc" > /etc/hostname
 $ /etc/init.d/hostname.sh start
-$ /bin/hostname $HOSTNAME
+$ /bin/hostname "mybtc"
 ```
 
 Also enter the info into your /etc/hosts file. Note that you should also enter a fully-qualified hostname into your hosts file, as shown below. If you're not making the machine part of a name, just choose a ".local" suffix.
