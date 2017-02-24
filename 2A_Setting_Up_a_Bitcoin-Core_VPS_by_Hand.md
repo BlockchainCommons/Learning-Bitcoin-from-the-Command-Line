@@ -251,7 +251,6 @@ alias btcdir="cd ~/.bitcoin/" #linux default bitcoind path
         # alias btcdir="cd ~/Library/Application\ Support/Bitcoin/" #mac default bitcoind path
 alias bc="bitcoin-cli"
 alias bd="bitcoind"
-alias btcdir='cd ~/.bitcoin'
 alias btcinfo='bitcoin-cli getinfo | egrep "\"version\"|balance|blocks|connections|errors"'
 alias btcblock="echo \\\`bitcoin-cli getblockcount 2>&1\\\`/\\\`wget -O - http://blockexplorer.com/testnet/q/getblockcount 2> /dev/null | cut -d : -f2 | rev | cut -c 2- | rev\\\`"
 EOF
@@ -263,7 +262,6 @@ alias btcdir="cd ~/.bitcoin/" #linux default bitcoind path
         # alias btcdir="cd ~/Library/Application\ Support/Bitcoin/" #mac default bitcoind path
 alias bc="bitcoin-cli"
 alias bd="bitcoind"
-alias btcdir='cd ~/.bitcoin'
 alias btcinfo='bitcoin-cli getinfo | egrep "\"version\"|balance|blocks|connections|errors"'
 alias btcblock="echo \\\`bitcoin-cli getblockcount 2>&1\\\`/\\\`wget -O - http://blockchain.info/q/getblockcount 2>/dev/null\\\`"
 EOF
