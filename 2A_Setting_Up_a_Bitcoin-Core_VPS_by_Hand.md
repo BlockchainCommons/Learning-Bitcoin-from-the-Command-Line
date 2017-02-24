@@ -207,9 +207,9 @@ $ /usr/bin/passwd user1
 $ /usr/sbin/adduser user1 sudo
 ```
 
-You'll be asked for a password after the second command.
+You'll be asked for a password for user1 after the second command.
 
-### Set Up a SSH Key
+### Optional: Set Up a SSH Key
 
 Though it's not required, we suggest copying your SSH key to your user1 account, to simplify access and make it more secure.
 
@@ -233,7 +233,7 @@ $ chown -R user1 ~user1/.ssh
 
 We find a number of Bash aliases helpful to make it easier to use Bitcoin.
 
-If you are using a Testnet setup, we suggest the following:
+If you are using a Testnet or Pruned Testnet setup, we suggest the following:
 
 ```
 $ sudo -u user1 cat >> ~user1/.bash_profile <<EOF
@@ -247,7 +247,7 @@ EOF
 ```
 Otherwise, we suggest the following:
 ```
-$ cat >> ~user1/.bash_profile <<EOF
+$ sudo -u user1 cat >> ~user1/.bash_profile <<EOF
 alias btcdir="cd ~/.bitcoin/" #linux default bitcoind path
         # alias btcdir="cd ~/Library/Application\ Support/Bitcoin/" #mac default bitcoind path
 alias bc="bitcoin-cli"
@@ -302,6 +302,7 @@ You will want to do this all in the user1 account, so switch over:
 
 ```
 $ su user1
+$ cd
 ```
 
 ### Setup Variables
@@ -356,7 +357,7 @@ If both of your verification tests succeeded, you can now install Bitcoin. (If t
 
 ```
 $ /bin/tar xzf ~user1/$BITCOINPLAIN-x86_64-linux-gnu.tar.gz -C ~user1
-$ /usr/bin/install -m 0755 -o root -g root -t /usr/local/bin ~user1/$BITCOINPLAIN/bin/*
+$ sudo /usr/bin/install -m 0755 -o root -g root -t /usr/local/bin ~user1/$BITCOINPLAIN/bin/*
 $ /bin/rm -rf ~user1/$BITCOINPLAIN/
 ```
 
@@ -412,6 +413,7 @@ EOF
 
 So, for example, a pruned testnet, which is our favored setup for playing with bitcoin, would look like this:
 ```
+$ cat ~/.bitcoin/bitcoin.conf 
 server=1
 dbcache=1536
 par=1
@@ -460,7 +462,9 @@ If you choose of the pruned mainnet, it will probably take a little over a day t
 
 So, it might be time for a few more espressos.
 
-But, when you're ready to go, continue on with [Playing with Bitcoin](-link-), where we'll talk about the files and how you can start experimenting.### Useful commands
+But, when you're ready to go, continue on with [Playing with Bitcoin](-link-), where we'll talk about the files and how you can start experimenting.
+
+### Useful commands
 
 ```
 bc help
