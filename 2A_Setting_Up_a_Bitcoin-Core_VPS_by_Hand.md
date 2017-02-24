@@ -6,7 +6,7 @@ This document explains how to set up a VPS (Virtual Private Sever) to run a Bitc
 
 > **WARNING:** Don’t use a VPS for a bitcoin wallet with significant real funds; see http://blog.thestateofme.com/2012/03/03/lessons-to-be-learned-from-the-linode-bitcoin-incident/ . It is  very nice to be able experiment with real bitcoin transactions on a live node without tying up a self-hosted server on a local network. I’ve also found it useful to be able to use an iPhone or iPad to communicate via SSH to my VPS to do some simple bitcoin tasks. But a higher level of safety is required for significant funds.
 
-If you want to instead have a script do the setup for you, specifically at Linode.com, read the parallel HOWTO file, [2A - Setting up a Bitcoin-Core VPS with StackScript](./2B_Setting_Up_a_Bitcoin-Core_VPS_with_StackScript.md).
+If you want to instead have a script do the setup for you, specifically at Linode.com, read the parallel HOWTO file, [2B - Setting up a Bitcoin-Core VPS with StackScript](./2B_Setting_Up_a_Bitcoin-Core_VPS_with_StackScript.md).
 
 If you already have a Bitcoin node running, instead read the next HOWTO file, [3 - Playing with Bitcoin Core](—link—).
 
