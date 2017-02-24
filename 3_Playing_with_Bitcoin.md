@@ -67,7 +67,40 @@ For even more complexity, you could have each of your 'start' aliases use the -c
 
 ### Verify Your Blocks
 
+You should have the whole blockchain (or the pruned blockchain) ready before you start playing. Just run the 'btcblock' alias to see if it's all loaded. You'll see two numbers, which tell you how many blocks have loaded out of how many total.
+
+If the two numbers aren't the same, as is the case for this Pruned Mainnet, you should wait:
+```
+$ btcblock
+427950/454544
+```
+Total time can take several hours for a pruned testnet, a day for a pruned mainnet or a non-pruned testnet, and longer for a non-pruned mainnet.
+
+If the two numbers are the same, as is the case for this non-Pruned Testnet, you're ready to go:
+```
+$ btcblock
+1090099/1090099
+```
+
 ### Check Your Directory
+
+Finally, before you get started, you should take a look at your ~/.bitcoin directory, just to get familiar with it.
+
+The main directory just contains your config file and the testnet directory:
+```
+$ ls ~/.bitcoin
+bitcoin.conf  testnet3
+```
+The testnet3 directory then contains all of the guts:
+```
+$ ls ~/.bitcoin/testnet3
+banlist.dat   blocks	  database  debug.log  wallet.dat
+bitcoind.pid  chainstate  db.log    peers.dat
+```
+You shouldn't mess with most of these directories, particularly the blocks and chainstate, which contain all of the blockchain data. However, do take careful note of the db.log and debug.log file, which you should reer to if you ever have problems with your setup.
+
+> **TESTNET vs MAINNET:** If you're using mainnet, then _everything_ will instead be stuck in the main ~/.bitcoin directory. These various setups _do_ elegantly stack, so if you are using mainnet, testnet, and regtest, you'll find that ~/.bitcoin contains your config file and your mainnet data, ~/.bitcoin/testnet3 contains your testnet data, and ~/.bitcoin/regtest contains your regtest data.
+
 
 ## Part One: The State of the Chain and the Wallet
 
