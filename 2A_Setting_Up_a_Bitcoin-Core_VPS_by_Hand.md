@@ -303,6 +303,7 @@ You will want to do this all in the user1 account, so switch over:
 ```
 $ su user1
 $ cd
+$ source ~/.bash_profile
 ```
 
 ### Setup Variables
