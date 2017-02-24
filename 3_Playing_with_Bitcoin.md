@@ -101,6 +101,7 @@ You shouldn't mess with most of these directories, particularly the blocks and c
 
 > **TESTNET vs MAINNET:** If you're using mainnet, then _everything_ will instead be stuck in the main ~/.bitcoin directory. These various setups _do_ elegantly stack, so if you are using mainnet, testnet, and regtest, you'll find that ~/.bitcoin contains your config file and your mainnet data, ~/.bitcoin/testnet3 contains your testnet data, and ~/.bitcoin/regtest contains your regtest data.
 
+### Get Help
 
 ## Part One: The State of the Chain and the Wallet
 
