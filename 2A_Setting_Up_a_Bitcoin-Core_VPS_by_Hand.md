@@ -41,7 +41,7 @@ Linode Referral Code: https://www.linode.com/?r=3c7fa15a78407c9a3d4aefb027539db2
 Digital Ocean: http://www.digitalocean.com/?refcode=a6060686b88a
 ```
 
-### Consider Two-Factor Authentication
+### Optional: Consider Two-Factor Authentication
 
 If your cloud provider offers two-factor authentication for their web tools, we highly suggest using it, to ensure that your machine remains secure.
 
@@ -168,6 +168,8 @@ Finally, you should immediately run that:
 ```
 $ /etc/network/if-pre-up.d/firewall
 ```
+
+#### Optional: Add More Firewall Rules
 
 Please note that this will only allow access to your machine for only SSH, Ping, and Bitcoin services. If you want to accept other types of traffic, you will need to open up additional ports ("dports") using the same methodology as shown in the Bitcoin port 8333 connections. For example, to allow connections to port 25 (mail), would require adding the following to the iptables and the ip6tables:
 
