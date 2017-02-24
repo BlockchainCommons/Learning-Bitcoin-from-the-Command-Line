@@ -46,9 +46,19 @@ There's a copy of our Bitcoin VPS Setup StackScript in [the repo here](Linode-Bi
 
 You'll next need to click to your Linodes tab and  select "Add a Linode".
 
-If you want to have a full copy of the Bitcoin blockchain in a VPS, you'll need to install a Linode with a disk in excess of 120G, which is currently the Linode 12288, which has 192G of storage and 12G of memory and costs approximately $80 per month. We do _not_ suggest this.
+A Linode 2048 will suffice for most setups, including: Pruned Mainnet, Pruned Testnet, and even non-Pruned Testnet. They all use less than 30G of storage and they can barely get by with 2G of memory. This is the setup we suggest.
 
-Instead, for use in for learning and testing, a pruned copy of the Bitcoin blockchain using a smaller Linode should be sufficient. The Linode 2048 has 30G of storage which is about twice as much as you need for a pruned node and 2G of memory which is barely enough. This is what we _do_ suggest.
+If you want to instead have a non-Pruned Mainnet in a VPS, you'll need to install a Linode with a disk in excess of 120G, which is currently the Linode 12288, which has 192G of storage and 12G of memory and costs approximately $80 per month. We do _not_ suggest this.
+
+The following chart shows minimum requirements
+
+| Setup | Memory | Storage | Linnode |
+|-------|--------|---------|---------|
+| Mainnet | 2G | 120G | L 12288 |
+| Pruned Mainnet | 2G | ~5G | L 2048 |
+| Testnet | 2G | ~15G | L 2048 |
+| Pruned Testnet | 2G | ~5G | L 2048 |
+| Regtest | 2G | ~ | L 2048 |
 
 Just choose your Linode type, choose a Location that's geographically as close to you as possible, and click "Add your Linode!".
 
