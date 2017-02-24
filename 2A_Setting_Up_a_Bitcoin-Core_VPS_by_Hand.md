@@ -190,10 +190,10 @@ $ /etc/network/if-pre-up.d/firewall
 
 If you know your fixed IP address for home, we _highly_ suggest that you lock down your SSH, so that your server can only be logged into from that IP. You can also enter multiple IP addresses if you comma separate them.
 
-To do so, just replace the following IP address with your own:
+To do so, just replace $YOUR_HOME_IP with your own:
 
 ```
-$ echo "sshd: 192.168.1.22" >> /etc/hosts.allow
+$ echo "sshd: $YOUR_HOME_IP" >> /etc/hosts.allow
 $ echo "sshd: ALL" >> /etc/hosts.deny
 ```
 
@@ -202,9 +202,9 @@ $ echo "sshd: ALL" >> /etc/hosts.deny
 It's always best to do your work with a user other than root. The following creates a user account for 'user1'
 
 ```
-/usr/sbin/useradd -m -g sudo -s /bin/bash user1
-/usr/bin/passwd user1
-/usr/sbin/adduser user1 sudo
+$ /usr/sbin/useradd -m -g sudo -s /bin/bash user1
+$ /usr/bin/passwd user1
+$ /usr/sbin/adduser user1 sudo
 ```
 
 You'll be asked for a password after the second command.
