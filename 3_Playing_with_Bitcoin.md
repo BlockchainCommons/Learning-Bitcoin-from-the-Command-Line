@@ -227,33 +227,27 @@ signmessage "bitcoinaddress" "message"
 ```
 You can also type "bitcoin help [command]" to get even more extensive info on that command. For example:
 ```
-$ bitcoin-cli help getinfo
-getinfo
-Returns an object containing various state info.
+$ bitcoin-cli help getmininginfo
+getmininginfo
 
+Returns a json object containing mining-related information.
 Result:
 {
-  "version": xxxxx,           (numeric) the server version
-  "protocolversion": xxxxx,   (numeric) the protocol version
-  "walletversion": xxxxx,     (numeric) the wallet version
-  "balance": xxxxxxx,         (numeric) the total bitcoin balance of the wallet
-  "blocks": xxxxxx,           (numeric) the current number of blocks processed in the server
-  "timeoffset": xxxxx,        (numeric) the time offset
-  "connections": xxxxx,       (numeric) the number of connections
-  "proxy": "host:port",     (string, optional) the proxy used by the server
-  "difficulty": xxxxxx,       (numeric) the current difficulty
-  "testnet": true|false,      (boolean) if the server is using testnet or not
-  "keypoololdest": xxxxxx,    (numeric) the timestamp (seconds since Unix epoch) of the oldest pre-generated key in the key pool
-  "keypoolsize": xxxx,        (numeric) how many new keys are pre-generated
-  "unlocked_until": ttt,      (numeric) the timestamp in seconds since epoch (midnight Jan 1 1970 GMT) that the wallet is unlocked for transfers, or 0 if the wallet is locked
-  "paytxfee": x.xxxx,         (numeric) the transaction fee set in BTC/kB
-  "relayfee": x.xxxx,         (numeric) minimum relay fee for non-free transactions in BTC/kB
-  "errors": "..."           (string) any error messages
+  "blocks": nnn,             (numeric) The current block
+  "currentblocksize": nnn,   (numeric) The last block size
+  "currentblockweight": nnn, (numeric) The last block weight
+  "currentblocktx": nnn,     (numeric) The last block transaction
+  "difficulty": xxx.xxxxx    (numeric) The current difficulty
+  "errors": "..."            (string) Current errors
+  "networkhashps": nnn,      (numeric) The network hashes per second
+  "pooledtx": n              (numeric) The size of the mempool
+  "testnet": true|false      (boolean) If using testnet or not
+  "chain": "xxxx",           (string) current network name as defined in BIP70 (main, test, regtest)
 }
 
 Examples:
-> bitcoin-cli getinfo 
-> curl --user myusername --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "getinfo", "params": [] }' -H 'content-type: text/plain;' http://127.0.0.1:8332/
+> bitcoin-cli getmininginfo 
+> curl --user myusername --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "getmininginfo", "params": [] }' -H 'content-type: text/plain;' http://127.0.0.1:8332/
 ```
 
 ## Part One: The State of the Chain and the Wallet
@@ -307,7 +301,7 @@ Usually you would not want to share this with anyone!
 
 ### Sign a Message
 
-Alternatively, you can just directly sign a message using your address (and your bitcoind) without saving the private key. You do with with "bitcoin-cli signmessage [address] [message]". For example:
+Alternatively, you can just directly sign a message using your address (and your bitcoind) without saving the private key. You do this with "bitcoin-cli signmessage [address] [message]". For example:
 ```
 $ bitcoin-cli signmessage $NEW_ADDRESS_1 "Hello, World"
 HzF7EWicHjDBf9faRTF5O7Q1+iSOunAYyV2880Yz0T/eaUELCukg2hGlJXj9/kptMBu2wf4DEuS8fnoq2QpvSo8=
@@ -322,5 +316,13 @@ If some black hat was making up signatures, they'd instead get a negative result
 $ bitcoin-cli verifymessage $NEW_ADDRESS_1 "FAKEEWicHjDBf9faRTF5O7Q1+iSOunAYyV2880Yz0T/eaUELCukg2hGlJXj9/kptMBu2wf4DEuS8fnoq2QpvSo8=" "Hello, World"
 false
 ```
+### Get Some Money
+
+To do anything more, you need to get some money. On testnet this is done through faucets. Since the money is all pretend, you just go to a faucet, request some money, and it's sent over to you. We suggest using the faucet at http://tpfaucet.appspot.com/ . If it's not available for some reason, search for "bitcoin testnet faucet", and you should find others.
+
+To use a faucet, you'll usually need to go to a URL and enter your address. Yes, this violates our Best Practices, but that's how the faucets tend to work.
+
+[do it]
+[wait for it to come in]
 
 
