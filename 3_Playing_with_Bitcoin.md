@@ -307,4 +307,20 @@ Usually you would not want to share this with anyone!
 
 ### Sign a Message
 
+Alternatively, you can just directly sign a message using your address (and your bitcoind) without saving the private key. You do with with "bitcoin-cli signmessage [address] [message]". For example:
+```
+$ bitcoin-cli signmessage $NEW_ADDRESS_1 "Hello, World"
+HzF7EWicHjDBf9faRTF5O7Q1+iSOunAYyV2880Yz0T/eaUELCukg2hGlJXj9/kptMBu2wf4DEuS8fnoq2QpvSo8=
+```
+This verifies that the message for the address was signed by the person who knew the address' private key. A recipient can verify it:
+```
+$ bitcoin-cli verifymessage $NEW_ADDRESS_1 "HzF7EWicHjDBf9faRTF5O7Q1+iSOunAYyV2880Yz0T/eaUELCukg2hGlJXj9/kptMBu2wf4DEuS8fnoq2QpvSo8=" "Hello, World"
+true
+```
+If some black hat was making up signatures, they'd instead get a negative result:
+```
+$ bitcoin-cli verifymessage $NEW_ADDRESS_1 "FAKEEWicHjDBf9faRTF5O7Q1+iSOunAYyV2880Yz0T/eaUELCukg2hGlJXj9/kptMBu2wf4DEuS8fnoq2QpvSo8=" "Hello, World"
+false
+```
+
 
