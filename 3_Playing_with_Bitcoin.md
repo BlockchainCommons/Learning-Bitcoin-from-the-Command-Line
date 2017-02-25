@@ -250,3 +250,39 @@ Examples:
 
 ## Part One: The State of the Chain and the Wallet
 
+You're now ready to work directly with the blockchain and your own wallet. To start with, you should learn a bit about the state of these elements.
+
+### Create an Address
+
+The first thing you need to do is create an address for receiving payments. This is done with the "bitcoin-cli getnewaddress" command. If you want more information on it, you should type "bitcoin-cli help getnewaddress".
+
+Theoretically, you could run it just by typing it on the command line:
+```
+$ bitcoin-cli getnewaddress
+miD9uGeAd2Akuf1bFVKCtE2qxfPBjVyy4p
+```
+However, this isn't best practice; if you retype that or cut and paste it, it would be easy to make a mistake. And then you're telling people to send money to somewhere else (or to nowhere!). So instead we suggest a best practice, which is meant to minimize address mistakes.
+
+#### BEST PRACTICES: Use Variables to Capture Addresses
+
+Instead, use your shell's built in variables to capture your address.
+```
+$ unset NEW_ADDRESS_1
+$ NEW_ADDRESS_1=$(bitcoin-cli getnewaddress)
+```
+These commands clear the NEW_ADDRESS_1 variable, then fill it with the results of the "bitcoin-cli getnewaddress" command.
+
+You can use your shell's "echo" command to look at your (new) address:
+```
+$ echo $NEW_ADDRESS_1
+mxn1qAvM6wfnZbJAVM2DimUAQUHoGnNb9e
+```
+Note that this address (and the earlier example) begins with m. This signifies that this is a testnet address. 
+
+> **TESTNET vs MAINNET:** The equivalent mainnet address would start with a 1.
+
+We'll use this same technique when dealing with future address; note that you could do it all by hand, instead of piping stuff in and out of variables ... but we really don't suggest it.
+
+### Capture the Private Key
+
+
