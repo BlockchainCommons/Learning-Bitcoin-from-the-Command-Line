@@ -65,6 +65,14 @@ alias br="bitcoin-cli -regtest"
 ```
 For even more complexity, you could have each of your 'start' aliases use the -conf flag to load configuration from a different file. However, this complexity goes far beyond the scope of this tutorial, but we offer it as a starting point for when your explorations of Bitcoin reach the next level.
 
+### Run Bitcoind
+
+Bitcoind _must_ be running to use bitcoin-cli. If you used our standard setup, it should be. You can double check by looking at the process table.
+```
+$ ps auxww | grep bitcoind
+user1    29360 11.5 39.6 2676812 1601416 ?     SLsl Feb23 163:42 /usr/local/bin/bitcoind -daemon
+```
+
 ### Verify Your Blocks
 
 You should have the whole blockchain (or the pruned blockchain) ready before you start playing. Just run the 'btcblock' alias to see if it's all loaded. You'll see two numbers, which tell you how many blocks have loaded out of how many total.
@@ -284,5 +292,19 @@ Note that this address (and the earlier example) begins with m. This signifies t
 We'll use this same technique when dealing with future address; note that you could do it all by hand, instead of piping stuff in and out of variables ... but we really don't suggest it.
 
 ### Capture the Private Key
+
+The address lets you receive bitcoins, but to spend them, you'll need the addresses private address. That's achieved with the "bitcoin-cli dumpprivkey" command. The following extracts the address from the variable created by the best practices, above, them dumps the private key into another variable:
+```
+$ unset NEW_PRIV_KEY_1
+$ NEW_PRIV_KEY_1=$(bitcoin-cli dumpprivkey "$NEW_ADDRESS_1")
+```
+As usual, an echo will show you what you have:
+```
+$ echo $NEW_PRIV_KEY_1
+cUPty98cDC6aYfN1ba8SCbqSh2twyAh5voFEQu8q5io7LmMANnpK
+```
+Usually you would not want to share this with anyone! 
+
+### Sign a Message
 
 
