@@ -319,11 +319,34 @@ false
 ```
 ### Get Some Money
 
-To do anything more, you need to get some money. On testnet this is done through faucets. Since the money is all pretend, you just go to a faucet, request some money, and it's sent over to you. We suggest using the faucet at http://tpfaucet.appspot.com/ . If it's not available for some reason, search for "bitcoin testnet faucet", and you should find others.
+To do anything more, you need to get some money. On testnet this is done through faucets. Since the money is all pretend, you just go to a faucet, request some money, and it's sent over to you. We suggest using the faucet at http://tpfaucet.appspot.com/. If it's not available for some reason, search for "bitcoin testnet faucet", and you should find others.
 
 To use a faucet, you'll usually need to go to a URL and enter your address. Yes, this violates our Best Practices, but that's how the faucets tend to work.
 
-[do it]
-[wait for it to come in]
+## Verify Your Money
 
+After you've requested your money, you should be able to verify it with the 'bitcoin-cli getbalance' command:
+```
+$ bitcoin-cli getbalance
+0.00000000
+```
+But wait, there's no balance yet!? Welcome to the world of Bitcoin latency. Transactions are transmitted across the network and gathered into blocks by miners. If you don't see a balance, your block hasn't been made yet. However, "bitcoin-cli get unconfirmedbalance" should still show it as long as the initial transaction has been created:
+```
+$ bitcoin-cli getunconfirmedbalance
+0.47000000
+```
+If that's still showing a zero, you're probably moving through this tutorial too fast. Wait a second. However, if your "getbalance" and your "getunconfirmedbalance" both still zero in ten minutes, then there's probably something wrong with the faucet, and you'll need to pick another. Do note that a coin can move from unconfirmedbalance to confirmedbalance almost immediately, though, so make sure you check both.
+
+After a block is built and confirmed, another block is built on top of it, and another ... Because this is a stochastic process, there's some chance for reversal when a block is still new. Thus, a block has to be buried several blocks deep in a chain before you can feel total confident in your funds. Each of those blocks tends to be built in an average of 10 minutes ... so it usually takes about an hour for a confirmed transaction to receive full confidence.
+
+You can use 'bitcoin-cli getbalance "\*" [n]' to see if a confirmed balance is 'n' blocks deep.
+
+The following shows that our transaction has been confirmed one time, but not twice:
+```
+$ bitcoin-cli getbalance "*" 1
+0.47000000
+user1@blockstream:~/.bitcoin/testnet3$ bitcoin-cli getbalance "*" 2
+0.00000000
+```
+Obviously, every ten minutes or so this depth will increase.
 
