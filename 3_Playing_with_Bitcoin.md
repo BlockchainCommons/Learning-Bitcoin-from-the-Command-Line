@@ -217,7 +217,7 @@ Examples:
 > curl --user myusername --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "getmininginfo", "params": [] }' -H 'content-type: text/plain;' http://127.0.0.1:8332/
 ```
 
-### Optional: Know Your Setup Types
+### Optional: Know Your Server Types
 
 > **TESTNET vs MAINNET:** When you set up your node, you choose to create it as either a Mainnet, Testnet, or Regtest node. Though this document presumes a testnet setup, it's worth understanding how you might access and use the other setup types — even all on the same machine!
 
@@ -513,10 +513,90 @@ You can also use it to look at individual transactions:
 ```
 https://live.blockcypher.com/btc-testnet/tx/88e5d5f3077517d76f5a61491fa52e6aaae078c52bc62d849f09507ef0cfada2/
 ```
-One thing that you'll see in this block explorer view of your transaction that wasn't obvious in the command line lookup is a fee (.00000226 BTC). It costs money to use the Bitcoin network; the money goes to miners who creates the blocks. However, the amount of the fee wasn't obvious from a casual perusual of the rawtransaction because it's just the different between the input and the output. This will have _notable_ implications when you begin writing raw transactions; not understanding it can lead to the worse problems in Bitcoin programming: _loss of funds!_
-
-However, a block explorer doesn't generally provide any more information than a command line look at a raw transaction; it just does a good job of highlighting the important information and putting together the puzzle pieces, so that you know what you're seeing.
+A block explorer doesn't generally provide any more information than a command line look at a raw transaction; it just does a good job of highlighting the important information and putting together the puzzle pieces, so that you know what you're seeing.
 
 ### Summary: Receiving a Transactions
 
 Faucets will give you money on the testnet. They come in as rawtransactions, which can be examined with 'getrawtransaction' or a block explorer. Once you've receive a transaction, you can see it in your balance and your wallet.
+
+## Part Three: Sending a Raw Transaction
+
+We're now ready to create Bitcoin transactions. For this purpose, we'll need a few new addresses. We've created a new one with the 'getnewaddress' command (msoix3SHNr6eRDUJsRSqQwZRhxZnLXhNef), which will appear as a separate address in our wallet. We'll also be sending some coins back to TP's testnet faucet (n2eMqTT929pb1RDNuqEnxdaLau1rxy3efi).
+
+### Optional: Send Coins the Easy Way
+
+It's actually _really_ simple to send coins via the command line. You just type 'bitcoin-cli sendtoaddress [address] [amount]'. So, to send a little coinage to my other address just requires:
+```
+$  bitcoin-cli sendtoaddress msoix3SHNr6eRDUJsRSqQwZRhxZnLXhNef 0.1
+6ad295c280798e9746dcdf7e5a60dfb6219d93bf31aab9b540ce892537c41e0c
+```
+Make sure the address you write is in where you want the money to go. Make _double_ sure. If you make mistakes in Bitcoin, there's no going back. 
+
+You'll receive a txid when you issue this command.
+
+> **WARNING:** The bitcoin-cli command generates JSON RPC commands to talk to the bitcoind. They can be really picky. This is an example: if you list the bitcoin amount without the leading zero (i.e. ".1" instead of "0.1"), then bitcoin-cli will fail with a mysterious message.
+
+You'll be able to see the transaction in your list immediately, but it'll take a little longer for your balances to settle, as usual. Here, note that we see the transactions for both sending the money _and_ receiving it, since it's all local. If you're sending to someone else, you'll just see the sending.
+```
+$ bitcoin-cli listtransactions
+[
+  {
+    "account": "",
+    "address": "n4cqjJE6fqcmeWpftygwPoKMMDva6BpyHf",
+    "category": "receive",
+    "amount": 0.47000000,
+    "label": "",
+    "vout": 0,
+    "confirmations": 15,
+    "blockhash": "00000000fa4fdd22a2c33c6200b68239939ad65af3f1a48ecea25f8200f5d66b",
+    "blockindex": 45,
+    "blocktime": 1488307692,
+    "txid": "88e5d5f3077517d76f5a61491fa52e6aaae078c52bc62d849f09507ef0cfada2",
+    "walletconflicts": [
+    ],
+    "time": 1488307692,
+    "timereceived": 1488307696,
+    "bip125-replaceable": "no"
+  }, 
+  {
+    "account": "",
+    "address": "msoix3SHNr6eRDUJsRSqQwZRhxZnLXhNef",
+    "category": "receive",
+    "amount": 0.10000000,
+    "label": "",
+    "vout": 0,
+    "confirmations": 0,
+    "trusted": false,
+    "txid": "6ad295c280798e9746dcdf7e5a60dfb6219d93bf31aab9b540ce892537c41e0c",
+    "walletconflicts": [
+      "c59357388b9328bddb4756f25c0de0353ad74321c65f7ec1f07412c9055ee1fe"
+    ],
+    "time": 1488321652,
+    "timereceived": 1488321652,
+    "bip125-replaceable": "unknown"
+  }, 
+  {
+    "account": "",
+    "address": "msoix3SHNr6eRDUJsRSqQwZRhxZnLXhNef",
+    "category": "send",
+    "amount": -0.10000000,
+    "label": "",
+    "vout": 0,
+    "fee": -0.00004520,
+    "confirmations": 0,
+    "trusted": false,
+    "txid": "6ad295c280798e9746dcdf7e5a60dfb6219d93bf31aab9b540ce892537c41e0c",
+    "walletconflicts": [
+      "c59357388b9328bddb4756f25c0de0353ad74321c65f7ec1f07412c9055ee1fe"
+    ],
+    "time": 1488321652,
+    "timereceived": 1488321652,
+    "bip125-replaceable": "unknown",
+    "abandoned": false
+  }
+]
+```
+Mind you, this isn't necessarily that interesting if you're planning to write your own rawtransactions. But, it's a great test so that you can successfully see a transaction leave your machine, taking some of your money with it.
+
+
+
