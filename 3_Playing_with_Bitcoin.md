@@ -513,7 +513,9 @@ You can also use it to look at individual transactions:
 ```
 https://live.blockcypher.com/btc-testnet/tx/88e5d5f3077517d76f5a61491fa52e6aaae078c52bc62d849f09507ef0cfada2/
 ```
-This doesn't provide any more information, but it does a good job of highlighting the important information, so that you know what you're seeing.
+One thing that you'll see in this block explorer view of your transaction that wasn't obvious in the command line lookup is a fee (.00000226 BTC). It costs money to use the Bitcoin network; the money goes to miners who creates the blocks. However, the amount of the fee wasn't obvious from a casual perusual of the rawtransaction because it's just the different between the input and the output. This will have _notable_ implications when you begin writing raw transactions; not understanding it can lead to the worse problems in Bitcoin programming: _loss of funds!_
+
+However, a block explorer doesn't generally provide any more information than a command line look at a raw transaction; it just does a good job of highlighting the important information and putting together the puzzle pieces, so that you know what you're seeing.
 
 ### Summary: Receiving a Transactions
 
