@@ -251,6 +251,10 @@ alias br="bitcoin-cli -regtest"
 ```
 For even more complexity, you could have each of your 'start' aliases use the -conf flag to load configuration from a different file. This goes far beyond the scope of this tutorial, but we offer it as a starting point for when your explorations of Bitcoin reach the next level.
 
+### Summary: Getting Started
+
+Before you start playing with bitcoin, you should make sure that the bitcoind is running and that all the blocks have been downloaded. You might get additional help from the 'bitcoin-cli help' command or from files in the ~/.bitcoin directory.
+
 ## Part One: Setting Up Your Wallet
 
 You're now ready to start working with Bitcoin. To begin with, you'll need to initiate your wallet with an address for receiving funds.
@@ -317,6 +321,10 @@ If some black hat was making up signatures, they'd instead get a negative result
 $ bitcoin-cli verifymessage "n4cqjJE6fqcmeWpftygwPoKMMDva6BpyHf" "FAKEBZaFeSmG2HgnH38dImzZAwAQADcOiMKTC1fryoV6Y93BelqzDMTCqNcFoik86E8qHa6o3FCmTsxWD7Wa5YY=" "Hello, World"
 false
 ```
+
+### Summary: Setting Up Your Wallet
+
+You need to create an address to receive funds. We suggest using variables to capture your address and ensure that you receive your funds. Based on that address, you can also access a private key and sign messages.
 
 ## Receiving a Transaction
 
@@ -506,3 +514,7 @@ You can also use it to look at individual transactions:
 https://live.blockcypher.com/btc-testnet/tx/88e5d5f3077517d76f5a61491fa52e6aaae078c52bc62d849f09507ef0cfada2/
 ```
 This doesn't provide any more information, but it does a good job of highlighting the important information, so that you know what you're seeing.
+
+### Summary: Receiving a Transactions
+
+Faucets will give you money on the testnet. They come in as rawtransactions, which can be examined with 'getrawtransaction' or a block explorer. Once you've receive a transaction, you can see it in your balance and your wallet.
