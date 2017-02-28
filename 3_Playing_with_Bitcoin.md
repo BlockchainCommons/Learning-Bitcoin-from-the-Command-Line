@@ -536,7 +536,7 @@ You'll receive a txid when you issue this command.
 
 > **WARNING:** The bitcoin-cli command generates JSON RPC commands to talk to the bitcoind. They can be really picky. This is an example: if you list the bitcoin amount without the leading zero (i.e. ".1" instead of "0.1"), then bitcoin-cli will fail with a mysterious message.
 
-You'll be able to see the transaction in your list immediately, but it'll take a little longer for your balances to settle, as usual. Here, note that we see the transactions for both sending the money _and_ receiving it, since it's all local. If you're sending to someone else, you'll just see the sending.
+You'll be able to see the transaction in your list immediately. Here, note that we see the transactions for both sending the money _and_ receiving it, since it's all local. If you're sending to someone else, you'll just see the sending.
 ```
 $ bitcoin-cli listtransactions
 [
@@ -569,7 +569,6 @@ $ bitcoin-cli listtransactions
     "trusted": false,
     "txid": "6ad295c280798e9746dcdf7e5a60dfb6219d93bf31aab9b540ce892537c41e0c",
     "walletconflicts": [
-      "c59357388b9328bddb4756f25c0de0353ad74321c65f7ec1f07412c9055ee1fe"
     ],
     "time": 1488321652,
     "timereceived": 1488321652,
@@ -587,7 +586,6 @@ $ bitcoin-cli listtransactions
     "trusted": false,
     "txid": "6ad295c280798e9746dcdf7e5a60dfb6219d93bf31aab9b540ce892537c41e0c",
     "walletconflicts": [
-      "c59357388b9328bddb4756f25c0de0353ad74321c65f7ec1f07412c9055ee1fe"
     ],
     "time": 1488321652,
     "timereceived": 1488321652,
@@ -596,7 +594,17 @@ $ bitcoin-cli listtransactions
   }
 ]
 ```
-Mind you, this isn't necessarily that interesting if you're planning to write your own rawtransactions. But, it's a great test so that you can successfully see a transaction leave your machine, taking some of your money with it.
+However, note that it'll take a little longer for your balances to settle, as usual. Be aware that the default transaction fee for 'sendtoaddress' is quite low, which means that it might not placed into the first several blocks, until it's reached enough priority. This is usually fine, if you're sending money to someone. It's less fine if you're working through a tutorial, wanting to get to the next step. The 'settxfee' can be used to set a different fee (per kB). But you'll get _much_ more control once you're actually writing raw transactions.
+
+Mind you, this all isn't necessarily that interesting if you're planning to write your own rawtransactions. But, it's a great test so that you can successfully see a transaction leave your machine, taking some of your money with it.
+
+### Write a Raw Transaction with One Ouput
+
+### Write a Raw Transacrion with Two Outputs
+
+### Write a Raw Transaction with Two Outputs and an OP_RETURN
+
+### Summary: Sending a Transaction
 
 
 
