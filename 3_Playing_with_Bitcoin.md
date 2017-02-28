@@ -424,6 +424,85 @@ Note that bitcoins are not just a homogeneous mess of cash jammed into your pock
 
 > **TESTNET vs MAINNET:** Why are all of these bitcoin amounts in fractions? Bitcoins are produced slowly, and so there are relatively few in circulation. As a result, each bitcoin over on the mainnet is worth quite a bit (~ $1,200 at the time of this writing). This means that people usually work in fractions. In fact, .47 BTC would be quite a lot in the real-world. You'll often be dealing with even smaller fractions on mainnet. For this reason, names have appeared for smaller amounts of bitcoins, including millibitcoins or mBTCs (one-thousandth of a bitcoin), microbitcoins or or bits μBTCs (one-millionth of a bitcoin), and satoshis (one hundred millionth of a bitcoin).
 
-### Examing Your Transaction
+### Examine Your Transaction
+
+You can get more information on a transaction with the 'bitcoin-cli getrawtransaction' command:
+```
+$ bitcoin-cli getrawtransaction "88e5d5f3077517d76f5a61491fa52e6aaae078c52bc62d849f09507ef0cfada2"
+010000000133261a25b44689bab2c6a207381ca21d243de9bbf21f0fa40c3a26ba7282a87b000000006b483045022100a2640761810dfc34dabed599928243afe24e13f520f780ceb382843a530a577c022050b92f5d9843d70ddb60a0aa294938862f2b7372818d6149ffd4f6adec5cf6c80121034dcaa515c2fda0f4a50b90a6d798e01c00a870bef0bd97154066fe202d2b5d75feffffff02c029cd02000000001976a914fd67e8a7c7813e7a5c376eb71074f373d924d96888ac17791703000000001976a914e176ee39c642344df2180863e27e2e936307273c88ac07a41000
+```
+> **WARNING:** This command will not work in some cases. Generally, some of the money must be unspent, or it must still be in your mempool (which means that it'll work fine for the money you've just received). Otherwise, if you have a non-pruned node, then you can maintain a set of all transactions with the txindex=1 configuration, which is what our scripts suggest for all non-pruned instances.
+
+Granted, this isn't super useful, because it's the hex-encoded transaction data. Fortunately, you can get a more verbose description just by adding a '1' to your command:
+```
+$ bitcoin-cli getrawtransaction "88e5d5f3077517d76f5a61491fa52e6aaae078c52bc62d849f09507ef0cfada2" 1
+{
+  "hex": "010000000133261a25b44689bab2c6a207381ca21d243de9bbf21f0fa40c3a26ba7282a87b000000006b483045022100a2640761810dfc34dabed599928243afe24e13f520f780ceb382843a530a577c022050b92f5d9843d70ddb60a0aa294938862f2b7372818d6149ffd4f6adec5cf6c80121034dcaa515c2fda0f4a50b90a6d798e01c00a870bef0bd97154066fe202d2b5d75feffffff02c029cd02000000001976a914fd67e8a7c7813e7a5c376eb71074f373d924d96888ac17791703000000001976a914e176ee39c642344df2180863e27e2e936307273c88ac07a41000",
+  "txid": "88e5d5f3077517d76f5a61491fa52e6aaae078c52bc62d849f09507ef0cfada2",
+  "hash": "88e5d5f3077517d76f5a61491fa52e6aaae078c52bc62d849f09507ef0cfada2",
+  "size": 226,
+  "vsize": 226,
+  "version": 1,
+  "locktime": 1090567,
+  "vin": [
+    {
+      "txid": "7ba88272ba263a0ca40f1ff2bbe93d241da21c3807a2c6b2ba8946b4251a2633",
+      "vout": 0,
+      "scriptSig": {
+        "asm": "3045022100a2640761810dfc34dabed599928243afe24e13f520f780ceb382843a530a577c022050b92f5d9843d70ddb60a0aa294938862f2b7372818d6149ffd4f6adec5cf6c8[ALL] 034dcaa515c2fda0f4a50b90a6d798e01c00a870bef0bd97154066fe202d2b5d75",
+        "hex": "483045022100a2640761810dfc34dabed599928243afe24e13f520f780ceb382843a530a577c022050b92f5d9843d70ddb60a0aa294938862f2b7372818d6149ffd4f6adec5cf6c80121034dcaa515c2fda0f4a50b90a6d798e01c00a870bef0bd97154066fe202d2b5d75"
+      },
+      "sequence": 4294967294
+    }
+  ],
+  "vout": [
+    {
+      "value": 0.47000000,
+      "n": 0,
+      "scriptPubKey": {
+        "asm": "OP_DUP OP_HASH160 fd67e8a7c7813e7a5c376eb71074f373d924d968 OP_EQUALVERIFY OP_CHECKSIG",
+        "hex": "76a914fd67e8a7c7813e7a5c376eb71074f373d924d96888ac",
+        "reqSigs": 1,
+        "type": "pubkeyhash",
+        "addresses": [
+          "n4cqjJE6fqcmeWpftygwPoKMMDva6BpyHf"
+        ]
+      }
+    }, 
+    {
+      "value": 0.51869975,
+      "n": 1,
+      "scriptPubKey": {
+        "asm": "OP_DUP OP_HASH160 e176ee39c642344df2180863e27e2e936307273c OP_EQUALVERIFY OP_CHECKSIG",
+        "hex": "76a914e176ee39c642344df2180863e27e2e936307273c88ac",
+        "reqSigs": 1,
+        "type": "pubkeyhash",
+        "addresses": [
+          "n256of3JH1A6X8AQUU7LYkcaRcmrfGjGKC"
+        ]
+      }
+    }
+  ],
+  "blockhash": "00000000fa4fdd22a2c33c6200b68239939ad65af3f1a48ecea25f8200f5d66b",
+  "confirmations": 3,
+  "time": 1488307692,
+  "blocktime": 1488307692
+}
+```
+Now you can see the full information on the transaction, including all of the inputs ("vin") and all the outputs ("vout). One of the interesting things to note is that though I received .47 BTC in the transaction, another .51869975 was sent to another address. It is quite typical for a transaction to have multiple inputs and/or multiple outputs.
 
 ### Optional: Use a Block Explorer
+
+Even looking at the verbose information for a transaction can be a little intimidating. The main goal of this tutorial is to teach about dealing with rawtransactions for Bitcoin from the command line. But, we're happy to talk about other tools when they're applicable. One of those tools is a block explorer, which you can use to look at transactions from a web browser in a much friendlier format.
+
+Currently, our preferred block explorer is https://live.blockcypher.com/. 
+
+You can use it to look up transactions for an address:
+```
+https://live.blockcypher.com/btc-testnet/address/n4cqjJE6fqcmeWpftygwPoKMMDva6BpyHf/
+```
+You can also use it to look at individual transactions:
+```
+https://live.blockcypher.com/btc-testnet/tx/88e5d5f3077517d76f5a61491fa52e6aaae078c52bc62d849f09507ef0cfada2/
+```
+This doesn't provide any more information, but it does a good job of highlighting the important information, so that you know what you're seeing.
