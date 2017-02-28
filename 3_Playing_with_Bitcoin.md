@@ -253,18 +253,18 @@ For even more complexity, you could have each of your 'start' aliases use the -c
 
 ## Part One: The State of the Chain and the Wallet
 
-You're now ready to work directly with the blockchain and your own wallet. To start with, you should learn a bit about the state of these elements.
+You're now ready to work directly with the blockchain and your own wallet. To beging with, you should learn a bit about the state of these elements.
 
 ### Create an Address
 
-The first thing you need to do is create an address for receiving payments. This is done with the "bitcoin-cli getnewaddress" command. If you want more information on it, you should type "bitcoin-cli help getnewaddress".
+The first thing you need to do is create an address for receiving payments. This is done with the "bitcoin-cli getnewaddress" command. Remember that if you want more information on this command, you should type "bitcoin-cli help getnewaddress".
 
 Theoretically, you could run it just by typing it on the command line:
 ```
 $ bitcoin-cli getnewaddress
-miD9uGeAd2Akuf1bFVKCtE2qxfPBjVyy4p
+n4cqjJE6fqcmeWpftygwPoKMMDva6BpyHf
 ```
-However, this isn't best practice; if you retype that or cut and paste it, it would be easy to make a mistake. And then you're telling people to send money to somewhere else (or to nowhere!). So instead we suggest a best practice, which is meant to minimize address mistakes.
+However, this isn't best practice; if you retype that address or cut and paste it, it would be easy to make a mistake. And then you're telling people to send money to somewhere else (or to nowhere!). So instead we suggest a best practice, which is meant to minimize address mistakes.
 
 #### BEST PRACTICES: Use Variables to Capture Addresses
 
@@ -275,20 +275,20 @@ $ NEW_ADDRESS_1=$(bitcoin-cli getnewaddress)
 ```
 These commands clear the NEW_ADDRESS_1 variable, then fill it with the results of the "bitcoin-cli getnewaddress" command.
 
-You can use your shell's "echo" command to look at your (new) address:
+You can then use your shell's "echo" command to look at your (new) address:
 ```
 $ echo $NEW_ADDRESS_1
-mxn1qAvM6wfnZbJAVM2DimUAQUHoGnNb9e
+n4cqjJE6fqcmeWpftygwPoKMMDva6BpyHf
 ```
-Note that this address (and the earlier example) begins with m. This signifies that this is a testnet address. 
+Note that this address begins with an "n" (but sometimes an "m"). This signifies that this is a testnet address. 
 
 > **TESTNET vs MAINNET:** The equivalent mainnet address would start with a 1.
 
-We'll use this same technique when dealing with future address; note that you could do it all by hand, instead of piping stuff in and out of variables ... but we really don't suggest it.
+We'll use this same technique for other bitcoin-cli results in the future; note that you could do it all by hand, instead of piping stuff in and out of variables ... but we really don't suggest it.
 
 ### Capture the Private Key
 
-The address lets you receive bitcoins, but to spend them, you'll need the addresses private address. That's achieved with the "bitcoin-cli dumpprivkey" command. The following extracts the address from the variable created by the best practices, above, them dumps the private key into another variable:
+The address lets you receive bitcoins, but to spend them, you'll need the address' private key. That's achieved with the "bitcoin-cli dumpprivkey" command. The following extracts the address from the variable created by the best practices, above, them dumps the private key into another variable:
 ```
 $ unset NEW_PRIV_KEY_1
 $ NEW_PRIV_KEY_1=$(bitcoin-cli dumpprivkey "$NEW_ADDRESS_1")
@@ -296,25 +296,25 @@ $ NEW_PRIV_KEY_1=$(bitcoin-cli dumpprivkey "$NEW_ADDRESS_1")
 As usual, an echo will show you what you have:
 ```
 $ echo $NEW_PRIV_KEY_1
-cUPty98cDC6aYfN1ba8SCbqSh2twyAh5voFEQu8q5io7LmMANnpK
+cW4s4MdW7BkUmqiKgYzSJdmvnzq8QDrf6gszPMC7eLmfcdoRHtHh
 ```
-Usually you would not want to share this with anyone! 
+Usually you would not want to share this with anyone! And, in fact, you might need to use other techniques to save it when you have real addresses, receiving real money in the future!
 
 ### Sign a Message
 
-Alternatively, you can just directly sign a message using your address (and your bitcoind) without saving the private key. You do this with "bitcoin-cli signmessage [address] [message]". For example:
+You can also sign a message using your address (and your bitcoind) without needing your private key on hand. You do this with "bitcoin-cli signmessage [address] [message]". For example:
 ```
 $ bitcoin-cli signmessage $NEW_ADDRESS_1 "Hello, World"
-HzF7EWicHjDBf9faRTF5O7Q1+iSOunAYyV2880Yz0T/eaUELCukg2hGlJXj9/kptMBu2wf4DEuS8fnoq2QpvSo8=
+H3yMBZaFeSmG2HgnH38dImzZAwAQADcOiMKTC1fryoV6Y93BelqzDMTCqNcFoik86E8qHa6o3FCmTsxWD7Wa5YY=
 ```
-This verifies that the message for the address was signed by the person who knew the address' private key. A recipient can verify it:
+This verifies that the message for the address was signed by the person who knew the address' private key. A recipient can verify it if he inputs the address, the signature, and the message.
 ```
-$ bitcoin-cli verifymessage $NEW_ADDRESS_1 "HzF7EWicHjDBf9faRTF5O7Q1+iSOunAYyV2880Yz0T/eaUELCukg2hGlJXj9/kptMBu2wf4DEuS8fnoq2QpvSo8=" "Hello, World"
+$ bitcoin-cli verifymessage "n4cqjJE6fqcmeWpftygwPoKMMDva6BpyHf" "H3yMBZaFeSmG2HgnH38dImzZAwAQADcOiMKTC1fryoV6Y93BelqzDMTCqNcFoik86E8qHa6o3FCmTsxWD7Wa5YY=" "Hello, World"
 true
 ```
 If some black hat was making up signatures, they'd instead get a negative result:
 ```
-$ bitcoin-cli verifymessage $NEW_ADDRESS_1 "FAKEEWicHjDBf9faRTF5O7Q1+iSOunAYyV2880Yz0T/eaUELCukg2hGlJXj9/kptMBu2wf4DEuS8fnoq2QpvSo8=" "Hello, World"
+$ bitcoin-cli verifymessage "n4cqjJE6fqcmeWpftygwPoKMMDva6BpyHf" "FAKEBZaFeSmG2HgnH38dImzZAwAQADcOiMKTC1fryoV6Y93BelqzDMTCqNcFoik86E8qHa6o3FCmTsxWD7Wa5YY=" "Hello, World"
 false
 ```
 ### Get Some Money
