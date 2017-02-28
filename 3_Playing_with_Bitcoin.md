@@ -375,6 +375,55 @@ $ bitcoin-cli getwalletinfo
 }
 ```
 
-### Look at the Transaction
+### Discover Your Transaction ID
 
-You
+Your money came into you via a transaction. You can discover that transactionid (txid) with the 'bitcoin-cli listtransactions' command:
+```
+$ bitcoin-cli listtransactions
+[
+  {
+    "account": "",
+    "address": "n4cqjJE6fqcmeWpftygwPoKMMDva6BpyHf",
+    "category": "receive",
+    "amount": 0.47000000,
+    "label": "",
+    "vout": 0,
+    "confirmations": 2,
+    "blockhash": "00000000fa4fdd22a2c33c6200b68239939ad65af3f1a48ecea25f8200f5d66b",
+    "blockindex": 45,
+    "blocktime": 1488307692,
+    "txid": "88e5d5f3077517d76f5a61491fa52e6aaae078c52bc62d849f09507ef0cfada2",
+    "walletconflicts": [
+    ],
+    "time": 1488307692,
+    "timereceived": 1488307696,
+    "bip125-replaceable": "no"
+  }
+]
+```
+This shows one transaction ("88e5d5f3077517d76f5a61491fa52e6aaae078c52bc62d849f09507ef0cfada2") that was received ("receive") by a specific address in my wallet ("n4cqjJE6fqcmeWpftygwPoKMMDva6BpyHf") for a specific amount ("0.47000000").
+
+You can access similar information with the 'bitcoin-cli listunspent' command, but it only shows the transactions for the money that you haven't sent back out:
+```
+$ bitcoin-cli listunspent
+[
+  {
+    "txid": "88e5d5f3077517d76f5a61491fa52e6aaae078c52bc62d849f09507ef0cfada2",
+    "vout": 0,
+    "address": "n4cqjJE6fqcmeWpftygwPoKMMDva6BpyHf",
+    "account": "",
+    "scriptPubKey": "76a914fd67e8a7c7813e7a5c376eb71074f373d924d96888ac",
+    "amount": 0.47000000,
+    "confirmations": 3,
+    "spendable": true,
+    "solvable": true
+  }
+]
+```
+Note that bitcoins are not just a homogeneous mess of cash jammed into your pocket. Each individual transaction that you receive or that you send is placed in the immutable blockchain ledger, in a block. You can see all of those when you look at your transactions. Note also that this means that bitcoin spending isn't quite as anonymous as you'd think. Though the addresses are fairly private, transactions can be examined as they go in and out of them. This makes the funds ultimately fungible and makes the privacy vulnerable to statistical analysis. 
+
+> **TESTNET vs MAINNET:** Why are all of these bitcoin amounts in fractions? Bitcoins are produced slowly, and so there are relatively few in circulation. As a result, each bitcoin over on the mainnet is worth quite a bit (~ $1,200 at the time of this writing). This means that people usually work in fractions. In fact, .47 BTC would be quite a lot in the real-world. You'll often be dealing with even smaller fractions on mainnet. For this reason, names have appeared for smaller amounts of bitcoins, including millibitcoins or mBTCs (one-thousandth of a bitcoin), microbitcoins or or bits μBTCs (one-millionth of a bitcoin), and satoshis (one hundred millionth of a bitcoin).
+
+### Examing Your Transaction
+
+### Optional: Use a Block Explorer
