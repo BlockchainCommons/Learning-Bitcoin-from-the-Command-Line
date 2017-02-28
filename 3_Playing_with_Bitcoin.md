@@ -345,8 +345,24 @@ The following shows that our transaction has been confirmed one time, but not tw
 ```
 $ bitcoin-cli getbalance "*" 1
 0.47000000
-user1@blockstream:~/.bitcoin/testnet3$ bitcoin-cli getbalance "*" 2
+$ bitcoin-cli getbalance "*" 2
 0.00000000
 ```
 Obviously, every ten minutes or so this depth will increase.
+
+You can also access all of this information with the 'bitcoin-cli getwalletinfo' command:
+```
+$ bitcoin-cli getwalletinfo
+{
+  "walletversion": 130000,
+  "balance": 0.47000000,
+  "unconfirmed_balance": 0.00000000,
+  "immature_balance": 0.00000000,
+  "txcount": 1,
+  "keypoololdest": 1488216266,
+  "keypoolsize": 100,
+  "paytxfee": 0.00000000,
+  "hdmasterkeyid": "b91d5ec57d5ae3e90fff50d12e819429b6496b94"
+}
+```
 
