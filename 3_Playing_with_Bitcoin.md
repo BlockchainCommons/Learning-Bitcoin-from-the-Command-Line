@@ -251,9 +251,9 @@ alias br="bitcoin-cli -regtest"
 ```
 For even more complexity, you could have each of your 'start' aliases use the -conf flag to load configuration from a different file. This goes far beyond the scope of this tutorial, but we offer it as a starting point for when your explorations of Bitcoin reach the next level.
 
-## Part One: The State of the Chain and the Wallet
+## Part One: Setting Up Your Wallet
 
-You're now ready to work directly with the blockchain and your own wallet. To beging with, you should learn a bit about the state of these elements.
+You're now ready to start working with Bitcoin. To begin with, you'll need to initiate your wallet with an address for receiving funds.
 
 ### Create an Address
 
@@ -317,13 +317,20 @@ If some black hat was making up signatures, they'd instead get a negative result
 $ bitcoin-cli verifymessage "n4cqjJE6fqcmeWpftygwPoKMMDva6BpyHf" "FAKEBZaFeSmG2HgnH38dImzZAwAQADcOiMKTC1fryoV6Y93BelqzDMTCqNcFoik86E8qHa6o3FCmTsxWD7Wa5YY=" "Hello, World"
 false
 ```
+
+## Receiving a Transaction
+
+You're now ready to receive some money at the new address you set up.
+
 ### Get Some Money
 
 To do anything more, you need to get some money. On testnet this is done through faucets. Since the money is all pretend, you just go to a faucet, request some money, and it's sent over to you. We suggest using the faucet at http://tpfaucet.appspot.com/. If it's not available for some reason, search for "bitcoin testnet faucet", and you should find others.
 
 To use a faucet, you'll usually need to go to a URL and enter your address. Yes, this violates our Best Practices, but that's how the faucets tend to work.
 
-## Verify Your Money
+> **TESTNET vs MAINNET:** Sadly, there are no faucets in real life. If you were playing on the mainnet, you'd need to go and actually buy bitcoins at a bitcoin exchange or ATM or you'd need to get someone to send them to you. Testnet life is much easier.
+
+### Verify Your Money
 
 After you've requested your money, you should be able to verify it with the 'bitcoin-cli getbalance' command:
 ```
@@ -335,7 +342,7 @@ But wait, there's no balance yet!? Welcome to the world of Bitcoin latency. Tran
 $ bitcoin-cli getunconfirmedbalance
 0.47000000
 ```
-If that's still showing a zero, you're probably moving through this tutorial too fast. Wait a second. However, if your "getbalance" and your "getunconfirmedbalance" both still zero in ten minutes, then there's probably something wrong with the faucet, and you'll need to pick another. Do note that a coin can move from unconfirmedbalance to confirmedbalance almost immediately, though, so make sure you check both.
+If that's still showing a zero, you're probably moving through this tutorial too fast. Wait a second. The coins should show up unconfirmed, then rapidly move to confirmed. However, if your "getbalance" and your "getunconfirmedbalance" both still show zero in ten minutes, then there's probably something wrong with the faucet, and you'll need to pick another. Do note that a coin can move from unconfirmedbalance to confirmedbalance almost immediately, though, so make sure you check both.
 
 After a block is built and confirmed, another block is built on top of it, and another ... Because this is a stochastic process, there's some chance for reversal when a block is still new. Thus, a block has to be buried several blocks deep in a chain before you can feel total confident in your funds. Each of those blocks tends to be built in an average of 10 minutes ... so it usually takes about an hour for a confirmed transaction to receive full confidence.
 
@@ -349,6 +356,8 @@ $ bitcoin-cli getbalance "*" 2
 0.00000000
 ```
 Obviously, every ten minutes or so this depth will increase.
+
+#### Verify Your Wallet
 
 You can also access all of this information with the 'bitcoin-cli getwalletinfo' command:
 ```
@@ -366,3 +375,6 @@ $ bitcoin-cli getwalletinfo
 }
 ```
 
+### Look at the Transaction
+
+You
