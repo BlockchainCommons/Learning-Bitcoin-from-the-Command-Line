@@ -595,23 +595,47 @@ Here's the trick: _all of the UTXOs that you gather are spent in full!_ That mea
 
 ## List Your Unspent Transactions
 
-
-
-$ bitcoin-cli listunspent
+In order to create a new raw transaction, you must know what UTXOs you have on-hand to spent. You can determine this information with the `bitcoin-cli listunspent` command:
+```
 [
   {
-    "txid": "35474b3d0646fe8d2b81e063e9b4d1c6e30ac71b9c6acc6c76c4a470d6e55697",
+    "txid": "ee9805676271f6244eba94c3d1a48b303a8f8359bf711c630eb6f2ea339d0e72",
     "vout": 0,
-    "address": "mwaJoAdBGJC3S9EThNPvpKKzj95MrNvaks",
+    "address": "mrS1ypy2pCweh2nBpkMD7r2T3Zj344wxaY",
     "account": "",
-    "scriptPubKey": "76a914b0245fe4e46bbb6125614b4a5fdbd943dc759a3288ac",
-    "amount": 0.09800000,
-    "confirmations": 44,
+    "scriptPubKey": "76a91477ba616a2778b05a5fd73c7449964050fd1a6fd288ac",
+    "amount": 0.08000000,
+    "confirmations": 2,
+    "spendable": true,
+    "solvable": true
+  }, 
+  {
+    "txid": "c1abb6951e6a9aae7e384412b69b69e59c10daac9397d01d0c52b7bc6278d589",
+    "vout": 1,
+    "address": "mygxipnJUsBgFvscKAaoxDdE8aCmHhRfTZ",
+    "account": "",
+    "scriptPubKey": "76a914c756c7bd67bf83d83c04e3dc6fd1ff0c6fe8ea9888ac",
+    "amount": 0.07800000,
+    "confirmations": 1,
+    "spendable": true,
+    "solvable": true
+  }, 
+  {
+    "txid": "ab7ca727055b812df882298f4e6e10ec699fb6250d843c813623171781f896d8",
+    "vout": 0,
+    "address": "mygxipnJUsBgFvscKAaoxDdE8aCmHhRfTZ",
+    "account": "",
+    "scriptPubKey": "76a914c756c7bd67bf83d83c04e3dc6fd1ff0c6fe8ea9888ac",
+    "amount": 0.07800000,
+    "confirmations": 1,
     "spendable": true,
     "solvable": true
   }
 ]
+```
+Here we see a listing of three different UTXOs, worth .08, .078, and .078 BTC. Note that each has its own distinct txi and remains distinct in our wallet, even though two of them were sent to the same address.
 
+These UTXOs will be the foundation of any raw transactions we create.
 
 ### Write a Raw Transaction with One Ouput
 
