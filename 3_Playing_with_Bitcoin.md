@@ -818,7 +818,7 @@ Finally, `listtransactions` should soon show a confirmed transaction of category
     "abandoned": false
   }
 ```
-You can see that it matches our txid and our address. Not only does it show the amount sent, but it also matches the fee we calculated.
+You can see that it matches our txid and our address. Not only does it show the amount sent, but it also matches the fee we calculated. And, it's already received a confirmation, because we offered a fee that would get us swept up into a block quickly.
 
 Congratulations! You're now a few satoshis poorer!
 
