@@ -581,7 +581,37 @@ Mind you, this all isn't necessarily that interesting if you're planning to writ
 
 ## Part Three: Sending a Raw Transaction
 
-We're now ready to create Bitcoin rawtransactions. This allows you to send money (as in the interlude above)
+We're now ready to create Bitcoin rawtransactions. This allows you to send money (as in the interlude above) but to craft the transactions accidentally as you want ... and to do more complex things, as we'll see.
+
+## Understand the Bitcoin Transaction
+
+Before we dive into actually creating rawtransactions, you should make sure you understand how a Bitcoin transaction works. 
+
+When you receive cash in your Bitcoin wallet, it appears as an individual transaction. Each of these transactions is called a Unspent Transaction Output (UTXO). It doesn't matter if multiple bits of money came into the same address or to multiple addresses: each UTXO remains distinct in your wallet.
+
+When you create a transaction, you gather together one or more UTXOs, each of which represents a clump of money that you received. Together their amount must equal what you want to spend _or more_. You use these as inputs into the transaction. Then, you generate one or more outputs, which give the money represented by the inputs to one or more people. This creates new UTXOs for the recipients, which may then be used to fund future transactions.
+
+Here's the trick: _all of the UTXOs that you gather are spent in full!_ That means that if you want to send just part of the money in a UTXO to someone else, then you also have to generate an additional output that sends the rest back to you!
+
+## List Your Unspent Transactions
+
+
+
+$ bitcoin-cli listunspent
+[
+  {
+    "txid": "35474b3d0646fe8d2b81e063e9b4d1c6e30ac71b9c6acc6c76c4a470d6e55697",
+    "vout": 0,
+    "address": "mwaJoAdBGJC3S9EThNPvpKKzj95MrNvaks",
+    "account": "",
+    "scriptPubKey": "76a914b0245fe4e46bbb6125614b4a5fdbd943dc759a3288ac",
+    "amount": 0.09800000,
+    "confirmations": 44,
+    "spendable": true,
+    "solvable": true
+  }
+]
+
 
 ### Write a Raw Transaction with One Ouput
 
