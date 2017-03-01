@@ -519,24 +519,20 @@ A block explorer doesn't generally provide any more information than a command l
 
 Faucets will give you money on the testnet. They come in as rawtransactions, which can be examined with 'getrawtransaction' or a block explorer. Once you've receive a transaction, you can see it in your balance and your wallet.
 
-## Part Three: Sending a Raw Transaction
+### Interlude: Sending Coins the Easy Way
 
-We're now ready to create Bitcoin transactions. For this purpose, we'll need a few new addresses. We've created a new one with the 'getnewaddress' command (msoix3SHNr6eRDUJsRSqQwZRhxZnLXhNef), which will appear as a separate address in our wallet. We'll also be sending some coins back to TP's testnet faucet (n2eMqTT929pb1RDNuqEnxdaLau1rxy3efi).
-
-### Optional: Send Coins the Easy Way
-
-It's actually _really_ simple to send coins via the command line. You just type 'bitcoin-cli sendtoaddress [address] [amount]'. So, to send a little coinage to my other address just requires:
+You're nowready to send some coins, and that's actually quite simple via the command line. You just type `bitcoin-cli sendtoaddress [address] [amount]`. So, to send a little coinage to the address `msoix3SHNr6eRDUJsRSqQwZRhxZnLXhNef` just requires:
 ```
 $  bitcoin-cli sendtoaddress msoix3SHNr6eRDUJsRSqQwZRhxZnLXhNef 0.1
 6ad295c280798e9746dcdf7e5a60dfb6219d93bf31aab9b540ce892537c41e0c
 ```
 Make sure the address you write is in where you want the money to go. Make _double_ sure. If you make mistakes in Bitcoin, there's no going back. 
 
-You'll receive a txid when you issue this command.
+You'll receive a txid back when you issue this command.
 
 > **WARNING:** The bitcoin-cli command generates JSON RPC commands to talk to the bitcoind. They can be really picky. This is an example: if you list the bitcoin amount without the leading zero (i.e. ".1" instead of "0.1"), then bitcoin-cli will fail with a mysterious message.
 
-You'll be able to see the transaction in your list immediately. Here, note that we see the transactions for both sending the money _and_ receiving it, since it's all local. If you're sending to someone else, you'll just see the sending.
+You'll be able to see the transaction in your list immediately. 
 ```
 $ bitcoin-cli listtransactions
 [
@@ -558,22 +554,7 @@ $ bitcoin-cli listtransactions
     "timereceived": 1488307696,
     "bip125-replaceable": "no"
   }, 
-  {
-    "account": "",
-    "address": "msoix3SHNr6eRDUJsRSqQwZRhxZnLXhNef",
-    "category": "receive",
-    "amount": 0.10000000,
-    "label": "",
-    "vout": 0,
-    "confirmations": 0,
-    "trusted": false,
-    "txid": "6ad295c280798e9746dcdf7e5a60dfb6219d93bf31aab9b540ce892537c41e0c",
-    "walletconflicts": [
-    ],
-    "time": 1488321652,
-    "timereceived": 1488321652,
-    "bip125-replaceable": "unknown"
-  }, 
+ 
   {
     "account": "",
     "address": "msoix3SHNr6eRDUJsRSqQwZRhxZnLXhNef",
@@ -594,11 +575,17 @@ $ bitcoin-cli listtransactions
   }
 ]
 ```
-However, note that it'll take a little longer for your balances to settle, as usual. Be aware that the default transaction fee for 'sendtoaddress' is quite low, which means that it might not placed into the first several blocks, until it's reached enough priority. This is usually fine, if you're sending money to someone. It's less fine if you're working through a tutorial, wanting to get to the next step. The 'settxfee' can be used to set a different fee (per kB). But you'll get _much_ more control once you're actually writing raw transactions.
+However, note that as always it'll take a while for your balances to settle. Be aware that the default transaction fee for 'sendtoaddress' is quite low, which means that it might not placed into the first several blocks, until it's reached enough priority. This is usually fine, if you're sending money to someone. It's less fine if you're working through a tutorial, wanting to get to the next step. The 'settxfee' can be used to set a different fee (per kB). But you'll get _much_ more control once you're actually writing raw transactions.
 
 Mind you, this all isn't necessarily that interesting if you're planning to write your own rawtransactions. But, it's a great test so that you can successfully see a transaction leave your machine, taking some of your money with it.
 
+## Part Three: Sending a Raw Transaction
+
+We're now ready to create Bitcoin rawtransactions. This allows you to send money (as in the interlude above)
+
 ### Write a Raw Transaction with One Ouput
+
+### Create a Change Address
 
 ### Write a Raw Transacrion with Two Outputs
 
