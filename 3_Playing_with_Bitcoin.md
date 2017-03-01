@@ -694,6 +694,48 @@ $ echo $rawtxhex
 0100000001720e9d33eaf2b60e631c71bf59838f3a308ba4d1c394ba4e24f67162670598ee0000000000ffffffff01b04e7900000000001976a914e7c1345fc8f87c68170b3aa798a956c2fe6a9eff88ac00000000
 ```
 
+#### Verify Your Raw Transaction
+
+You should next verify your rawtransaction with `decoderawtransaction` to make sure that it will do the right thing.
+```
+$ bitcoin-cli decoderawtransaction $rawtxhex
+{
+  "txid": "6d39d612fe382eaab9897d3ea4d5e44233d8acef40e63fe0f06df785fd7a0c45",
+  "hash": "6d39d612fe382eaab9897d3ea4d5e44233d8acef40e63fe0f06df785fd7a0c45",
+  "size": 85,
+  "vsize": 85,
+  "version": 1,
+  "locktime": 0,
+  "vin": [
+    {
+      "txid": "ee9805676271f6244eba94c3d1a48b303a8f8359bf711c630eb6f2ea339d0e72",
+      "vout": 0,
+      "scriptSig": {
+        "asm": "",
+        "hex": ""
+      },
+      "sequence": 4294967295
+    }
+  ],
+  "vout": [
+    {
+      "value": 0.07950000,
+      "n": 0,
+      "scriptPubKey": {
+        "asm": "OP_DUP OP_HASH160 e7c1345fc8f87c68170b3aa798a956c2fe6a9eff OP_EQUALVERIFY OP_CHECKSIG",
+        "hex": "76a914e7c1345fc8f87c68170b3aa798a956c2fe6a9eff88ac",
+        "reqSigs": 1,
+        "type": "pubkeyhash",
+        "addresses": [
+          "n2eMqTT929pb1RDNuqEnxdaLau1rxy3efi"
+        ]
+      }
+    }
+  ]
+}
+```
+Check the vin. Is it the right transaction? Verify that it had the right amount of money. Check your vout. Is it the right amount out? Do the math to make sure the money in the transaction in the vin minus the value in the out leaves the transaction fee that you expect. Finally, make sure it's going to the right address(es).
+
 #### Understand the Transaction Fee
 
 You'll note that we didn't send the whole .08 BTC to our recipient. That's because you have to pay minor fees to use the Bitcoin network. The amount that you pay as a fee is always equal to the amount of your input minus the amount of your output. So, you have to decrease your output a little bit from your input to make sure that your transaction goes out.
@@ -703,6 +745,82 @@ You'll note that we didn't send the whole .08 BTC to our recipient. That's becau
 How much should you spend? [Bitcoin Fees](https://bitcoinfees.21.co/) has a nice live assessment. It told us that the "fastest and cheapest transaction fee is currently 220 satoshis/byte" and that "For the median transaction size of 226 bytes, this results in a fee of 49,720 satoshis". Since this transaction will have just one input and one output, we decided that was more than enough. So, we subtracted 50,000 satoshis, which is .0005 BTC. .0800 BTC - .0005 BC= .0795, which is what we sent.
 
 > **WARNING:** The lower that you set your transaction fee, the longer before your transaction is built into a block. The Bitcoin Fees lists expected times, from an expected 0 blocks, to 22. Since blocks are built on average every 10 minutes, that's the different between a few minutes and a few hours! So, choose a transaction fee that's appropriate for what you're sending. Note that you should never drop below the minimum relay fee, which is .0001 BTC.
+
+#### Sign the Raw Transaction
+
+Finally, you need to sign your raw transaction:
+```
+$ bitcoin-cli signrawtransaction $rawtxhex
+{
+  "hex": "0100000001720e9d33eaf2b60e631c71bf59838f3a308ba4d1c394ba4e24f67162670598ee000000006b483045022100d8f17dadc2501596f75f2c90b8279130e588638d4f7a4f7d5ebb10fea15252f702200ceb164e81335c430893780d06cfe194c36acec26886f180408e3ac4a7d2292f0121035de6239e70523c8f392e32f98e65f6ef704c4b6b0df994e407212b839bf51048ffffffff01b04e7900000000001976a914e7c1345fc8f87c68170b3aa798a956c2fe6a9eff88ac00000000",
+  "complete": true
+}
+signedtx="0100000001720e9d33eaf2b60e631c71bf59838f3a308ba4d1c394ba4e24f67162670598ee000000006b483045022100d8f17dadc2501596f75f2c90b8279130e588638d4f7a4f7d5ebb10fea15252f702200ceb164e81335c430893780d06cfe194c36acec26886f180408e3ac4a7d2292f0121035de6239e70523c8f392e32f98e65f6ef704c4b6b0df994e407212b839bf51048ffffffff01b04e7900000000001976a914e7c1345fc8f87c68170b3aa798a956c2fe6a9eff88ac00000000"
+```
+Note that we captured the signed hex by hand, rather than trying to parse it out of the JSON object.
+
+#### Send the Raw Transaction
+
+You've now got a ready-to-go raw transaction, but it doesn't count until you actually put it on the network, which you do with the `sendrawtransaction` command. You'll get back a txid:
+```
+$ bitcoin-cli sendrawtransaction $signedtx
+bf02068e3d2a99542c6a9ad07d915f1664374e911d809afe156dbacc46a5183e
+```
+You'll immediately be able to see that the UTXO and its money have been removed from your account:
+```
+$ bitcoin-cli listunspent
+[
+  {
+    "txid": "c1abb6951e6a9aae7e384412b69b69e59c10daac9397d01d0c52b7bc6278d589",
+    "vout": 1,
+    "address": "mygxipnJUsBgFvscKAaoxDdE8aCmHhRfTZ",
+    "account": "",
+    "scriptPubKey": "76a914c756c7bd67bf83d83c04e3dc6fd1ff0c6fe8ea9888ac",
+    "amount": 0.07800000,
+    "confirmations": 12,
+    "spendable": true,
+    "solvable": true
+  }, 
+  {
+    "txid": "ab7ca727055b812df882298f4e6e10ec699fb6250d843c813623171781f896d8",
+    "vout": 0,
+    "address": "mygxipnJUsBgFvscKAaoxDdE8aCmHhRfTZ",
+    "account": "",
+    "scriptPubKey": "76a914c756c7bd67bf83d83c04e3dc6fd1ff0c6fe8ea9888ac",
+    "amount": 0.07800000,
+    "confirmations": 12,
+    "spendable": true,
+    "solvable": true
+  }
+]
+$ bitcoin-cli getbalance
+0.15600000
+```
+Finally, `listtransactions` should soon show a confirmed transaction of category 'send".
+```
+ {
+    "account": "",
+    "address": "n2eMqTT929pb1RDNuqEnxdaLau1rxy3efi",
+    "category": "send",
+    "amount": -0.07950000,
+    "vout": 0,
+    "fee": -0.00050000,
+    "confirmations": 1,
+    "blockhash": "0000000000000dd6f6f455be7eecaf8055bb61d5d18d142d75bcdf8aa6d81456",
+    "blockindex": 3,
+    "blocktime": 1488410944,
+    "txid": "bf02068e3d2a99542c6a9ad07d915f1664374e911d809afe156dbacc46a5183e",
+    "walletconflicts": [
+    ],
+    "time": 1488410872,
+    "timereceived": 1488410872,
+    "bip125-replaceable": "no",
+    "abandoned": false
+  }
+```
+You can see that it matches our txid and our address. Not only does it show the amount sent, but it also matches the fee we calculated.
+
+Congratulations! You're now a few satoshis poorer!
 
 ### Create a Change Address
 
