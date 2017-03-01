@@ -33,6 +33,7 @@ IPADDR=$(/sbin/ifconfig eth0 | awk '/inet / { print $2 }' | sed 's/addr://')
 exec > >(tee -a /root/stackscript.log) 2> >(tee -a /root/stackscript.log /root/stackscript.err >&2)
 
 echo "$0 - BEGINNING NEW MACHINE SETUP STACKSCRIPT"
+echo "$0 - BITCOIN SETUP TYPE IS: $BTCTYPE"
 
 ####
 # 1. Update Hostname
@@ -176,7 +177,7 @@ fi
 
 # Give user some helpful bitcoin aliases
 
-if [ "$BTCTYPE" == "Testnet" ]; then
+if [ "$BTCTYPE" == "Testnet" ] || [ "$BTCTYPE" == "Pruned Testnet" ]; then
 
 sudo -u user1 cat >> ~user1/.bash_profile <<EOF
 alias btcdir="cd ~/.bitcoin/" #linux default bitcoind path
@@ -288,64 +289,42 @@ sudo -u user1 /bin/mkdir ~user1/.bitcoin
 
 # TODO: need to test rpcpassword random below using EOF technique
 # TODO: there are other more modern ways to set up rpc authentication — to investigate and document.
-# TODO: since these are largely the same, maybe another technique to build bitcoin.conf?
-
-if [ "$BTCTYPE" == "Mainnet" ]; then
 
 cat >> ~user1/.bitcoin/bitcoin.conf << EOF
 server=1
 dbcache=1536
 par=1
-txindex=1
 blocksonly=1
 maxuploadtarget=137
 maxconnections=16
 rpcuser=bitcoinrpc
 rpcpassword=$(xxd -l 16 -p /dev/urandom)
+EOF
+
+if [ "$BTCTYPE" == "Mainnet" ]; then
+
+cat >> ~user1/.bitcoin/bitcoin.conf << EOF
+txindex=1
 EOF
 
 elif [ "$BTCTYPE" == "Pruned Mainnet" ]; then
 
 cat >> ~user1/.bitcoin/bitcoin.conf << EOF
-server=1
-dbcache=1536
-par=1
-blocksonly=1
 prune=550
-maxuploadtarget=137
-maxconnections=16
-rpcuser=bitcoinrpc
-rpcpassword=$(xxd -l 16 -p /dev/urandom)
 EOF
 
 elif [ "$BTCTYPE" == "Testnet" ]; then
 
 cat >> ~user1/.bitcoin/bitcoin.conf << EOF
-server=1
-dbcache=1536
-par=1
 txindex=1
-blocksonly=1
-maxuploadtarget=137
-maxconnections=16
 testnet=1
-rpcuser=bitcoinrpc
-rpcpassword=$(xxd -l 16 -p /dev/urandom)
 EOF
 
 elif [ "$BTCTYPE" == "Pruned Testnet" ]; then
 
 cat >> ~user1/.bitcoin/bitcoin.conf << EOF
-server=1
-dbcache=1536
-par=1
-blocksonly=1
 prune=550
-maxuploadtarget=137
-maxconnections=16
 testnet=1
-rpcuser=bitcoinrpc
-rpcpassword=$(xxd -l 16 -p /dev/urandom)
 EOF
 
 elif [ "$BTCTYPE" == "Private Regtest" ]; then
