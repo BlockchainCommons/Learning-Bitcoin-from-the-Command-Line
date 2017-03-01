@@ -682,14 +682,27 @@ $ bitcoin-cli createrawtransaction
    "'$your_recipient'": $your_amount
  }'''
  ```
- Yeah, there's all kinds of crazy quotes there, but trust they'll do the right thing. Use `'''` to mark the start and end of the JSON array and object, protect normal words like `"this"` and protect variables like `"'$variable'"`. (Whew.)
+ Yeah, there's all kinds of crazy quotes there, but trust they'll do the right thing. Use `'''` to mark the start and end of the JSON array and object. Protect normal words like `"this"` and normal numbers like `0`. If they're variables, insert single quotes, like `"'$this_word'"` and `'$this_num'`. (Whew.)
  
  Here's a command that sends creates a raw transaction to send our $utxo to our $recipient
  ```
- ```
- #### Understand the Transaction Fee
-1000 satoshis/kB
-0.0001 BTC/kB
+$ rawtxhex=$(bitcoin-cli createrawtransaction '''[ { "txid": "'$utxo_txid'", "vout": '$utxo_vout' } ]''' '''{ "'$recipient'": 0.0795 }''')
+```
+ Note that we followed our best practices to immediately save that to variable, because this is another complex result that we don't want to mess up. The result is hex, and here's what it looks like:
+```
+$ echo $rawtxhex
+0100000001720e9d33eaf2b60e631c71bf59838f3a308ba4d1c394ba4e24f67162670598ee0000000000ffffffff01b04e7900000000001976a914e7c1345fc8f87c68170b3aa798a956c2fe6a9eff88ac00000000
+```
+
+#### Understand the Transaction Fee
+
+You'll note that we didn't send the whole .08 BTC to our recipient. That's because you have to pay minor fees to use the Bitcoin network. The amount that you pay as a fee is always equal to the amount of your input minus the amount of your output. So, you have to decrease your output a little bit from your input to make sure that your transaction goes out.
+
+> **WARNING:** This is very dangerous!! Because you automatically pay out all of the amount in the UTXOs that you use, it's critically important to make sure that you know (1) precisely what UTXOs you're using; (2) exactly how much money they contain; (3) exactly how much money you're sending out; and (4) what the difference is. If you mess up and you use the wrong UTXO (with more money than you thought) or if you send out too little money, the excess is lost. Forever. Don't make that mistake! Know your inputs and outputs _precisely_.
+
+How much should you spend? [Bitcoin Fees](https://bitcoinfees.21.co/) has a nice live assessment. It told us that the "fastest and cheapest transaction fee is currently 220 satoshis/byte" and that "For the median transaction size of 226 bytes, this results in a fee of 49,720 satoshis". Since this transaction will have just one input and one output, we decided that was more than enough. So, we subtracted 50,000 satoshis, which is .0005 BTC. .0800 BTC - .0005 BC= .0795, which is what we sent.
+
+> **WARNING:** The lower that you set your transaction fee, the longer before your transaction is built into a block. The Bitcoin Fees lists expected times, from an expected 0 blocks, to 22. Since blocks are built on average every 10 minutes, that's the different between a few minutes and a few hours! So, choose a transaction fee that's appropriate for what you're sending. Note that you should never drop below the minimum relay fee, which is .0001 BTC.
 
 ### Create a Change Address
 
