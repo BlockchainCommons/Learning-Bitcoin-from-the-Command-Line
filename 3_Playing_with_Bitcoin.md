@@ -635,9 +635,61 @@ In order to create a new raw transaction, you must know what UTXOs you have on-h
 ```
 Here we see a listing of three different UTXOs, worth .08, .078, and .078 BTC. Note that each has its own distinct txi and remains distinct in our wallet, even though two of them were sent to the same address.
 
-These UTXOs will be the foundation of any raw transactions we create.
+However, when you spend a UTXO you need more than just the transaction id. That's because each transaction can have multiple outputs! The txid just refers to the overall transaction, while a `vout` says which of multiple outputs you've received. In this list, two of our UTXOs are the 0th vout of a transaction, and the other is the 1st. This makes a difference!
+
+So txid+vout=UTXO. This will be the foundation of any rawtransaction.
 
 ### Write a Raw Transaction with One Ouput
+
+#### Prepare the Raw Transaction
+
+For best practices, we'll start out each transaction by carefully recording the txids and vouts that we'll be spending.
+
+In this case, we're going to spend the oldest transaction, because that's the one that's the most validated:
+```
+$ utxo_txid="ee9805676271f6244eba94c3d1a48b303a8f8359bf711c630eb6f2ea339d0e72"
+$ utxo_vout="0"
+```
+You should similarly record your recipient address, to make sure there are no problems:
+```
+$ recipient="n2eMqTT929pb1RDNuqEnxdaLau1rxy3efi"
+```
+As always, check your variables carefully, to make sure they match!
+```
+$ echo $utxo_txid
+ee9805676271f6244eba94c3d1a48b303a8f8359bf711c630eb6f2ea339d0e72
+$ echo $utxo_vout
+0
+$ echo $recipient
+n2eMqTT929pb1RDNuqEnxdaLau1rxy3efi
+```
+That recipient is particularly important, because if you mess it up, your money is _gone_! So triple check it. 
+
+#### Write the Raw Transaction
+
+You're now ready to create the raw transaction. This uses the `createrawtransaction` command and it might look a little intimdating. That's because the `createrawtransaction` command doesn't entirely shield you from the JSON RPC that the bitcoin-cli uses. Instead, you are going to input a JSON array to list the UTXOs that you're spending and a JSON object to list the outputs.
+
+Here's the standard format:
+```
+$ bitcoin-cli createrawtransaction 
+'''[
+   {
+     "txid": "'$your_txid'",
+     "vout": "'$your_vout'"
+    }
+]'''
+'''{
+   "'$your_recipient'": $your_amount
+ }'''
+ ```
+ Yeah, there's all kinds of crazy quotes there, but trust they'll do the right thing. Use `'''` to mark the start and end of the JSON array and object, protect normal words like `"this"` and protect variables like `"'$variable'"`. (Whew.)
+ 
+ Here's a command that sends creates a raw transaction to send our $utxo to our $recipient
+ ```
+ ```
+ #### Understand the Transaction Fee
+1000 satoshis/kB
+0.0001 BTC/kB
 
 ### Create a Change Address
 
