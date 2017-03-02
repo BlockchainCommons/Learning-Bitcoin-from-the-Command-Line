@@ -1092,6 +1092,11 @@ $ signedtx3="0100000001aec98249082a086dd7ef614f04b8621f9bba4566b8921cbe5d73f7e39
 $ bitcoin-cli sendrawtransaction $signedtx3
 ecfc625fff594683e90d21618b64f44f7046c55bcda6468c1c37c1abe8b83913
 ```
+And voila!
+```
+$ bitcoin-cli getbalance
+0.01545480
+```
 We will _not_ be using this technique in the rest of the tutorial.
 
 ### Write a Raw Transaction with an OP_RETURN
