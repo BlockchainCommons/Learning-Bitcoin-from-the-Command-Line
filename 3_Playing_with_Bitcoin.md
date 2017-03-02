@@ -826,9 +826,16 @@ Congratulations! You're now a few satoshis poorer!
 
 ### Write a Raw Transacrion with Two Outputs
 
-### Write a Raw Transaction with Two Outputs and an OP_RETURN
+### Write a Raw Transaction with an OP_RETURN
+
+Saving Data on the blockchain
+[coinsecrets]
+
+[talk about P2PK vs ...]
 
 ### Summary: Sending a Transaction
+
+## Interlude: Using JQ
 
 
 
