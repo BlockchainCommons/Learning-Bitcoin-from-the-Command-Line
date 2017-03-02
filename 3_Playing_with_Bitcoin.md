@@ -332,7 +332,7 @@ You're now ready to receive some money at the new address you set up.
 
 ### Get Some Money
 
-To do anything more, you need to get some money. On testnet this is done through faucets. Since the money is all pretend, you just go to a faucet, request some money, and it's sent over to you. We suggest using the faucet at http://tpfaucet.appspot.com/. If it's not available for some reason, search for "bitcoin testnet faucet", and you should find others.
+To do anything more, you need to get some money. On testnet this is done through faucets. Since the money is all pretend, you just go to a faucet, request some money, and it's sent over to you. We suggest using the faucet at http://tpfaucet.appspot.com/. If it's not available for some reason, search for "bitcoin testnet faucet", and you should find others. We suggest https://testnet.manu.backend.hamburg/faucet as an excellent alternative.
 
 To use a faucet, you'll usually need to go to a URL and enter your address. Yes, this violates our Best Practices, but that's how the faucets tend to work.
 
