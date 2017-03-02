@@ -639,7 +639,7 @@ However, when you spend a UTXO you need more than just the transaction id. That'
 
 So txid+vout=UTXO. This will be the foundation of any rawtransaction.
 
-### Write a Raw Transaction with One Ouput
+### Write a Raw Transaction with One Output
 
 #### Prepare the Raw Transaction
 
@@ -834,7 +834,7 @@ mxU9cmhJfkKWDtBspHaA36LkeafEDeaogJ
 ```
 You now have an additional address inside your wallet that you can use to receive change from a UTXO!
 
-### Write a Raw Transacrion with Two Outputs
+### Write a Raw Transaction with Two Outputs
 
 You're now ready to write a more complex rawtransaction. It will be based on the two unspent UTXOs still in our wallet:
 ```
@@ -996,6 +996,9 @@ $ bitcoin-cli listunspent
   }
 ]
 ```
+
+This also might be a good time to revisit a blockchain explorer, so that you can see more intuitively how the inputs, outputs, and transaction fee are all laid out: [https://live.blockcypher.com/btc-testnet/tx/18f1a791e3f7735dbe1c92b86645ba9b1f62b8044f61efd76d082a084982c9ae/](https://live.blockcypher.com/btc-testnet/tx/18f1a791e3f7735dbe1c92b86645ba9b1f62b8044f61efd76d082a084982c9ae/).
+
 ### Optional: Write a Raw Transaction with Automatic Funding
 
 The purpose of this tutorial is to show you the very basics of Bitcoin scripting, so that you can work at things at a fundamental level. If you were writing a wallet or something other Bitcoin software, you'd probably want to do things exactly as described here. However, if you were for some reason regularly sending bitcoins about through rawtransactions created by hand, then you'd want to have a little better insurance that you weren't making mistakes.
@@ -1194,11 +1197,19 @@ As you can see, we're sending the majority of our money straight back to your ch
 
 Sign it and send it, and soon that OP_RETURN will be embedded in the blockchain!
 
-[coinsecrets]
+Again, remember that you can look at this transaction using a blockchain explorer: [https://live.blockcypher.com/btc-testnet/tx/ed445dc970bb40b17c207109e19a37b2be301acb474ccd30680c431cb681bce2/](https://live.blockcypher.com/btc-testnet/tx/ed445dc970bb40b17c207109e19a37b2be301acb474ccd30680c431cb681bce2/)
 
-[talk about P2PK vs ...]
+You may note a warning about our data being in an "unknown protocol". If we were designing some regular use of OP_RETURN data, we'd probably mark it with a special prefix, to mark that protocol. So, our actual OP_RETURN data might be something like "CONTRACTS3b110a164aa18d3a5ab064ba93fdce62". We don't have any such prefix, so we've opted not to muddy the dataspace.
+
+[Coinsecrets](http://coinsecrets.org/) offers another interesting way to look at OP_RETURN data. It does its best to keep abreast of protocols, so that it can tell you who is doing what in the blockchain.
 
 ### Summary: Sending a Transaction
+
+When money comes into your Bitcoin wallet, it remains as distinct clumps, called UTXOs. When you create a raw transaction to send that money back out, you use one or more UTXOs to fund it. If you want change back from the UTXOs you're spending, you _must_ create a change address to receive the excess funds. You must also define how much money to spend as the transaction fee. A transaction can also carry data, using an OP_RETURN recipient. In this case, you'll usually send all of your money to a change address, minus a transaction fee.
+
+Once you've created a raw transaction, you can check it, sign it, and then actually send it to the Bitcoin network.
+
+[talk about P2PK vs ...]
 
 ### Interlude: Using JQ
 
