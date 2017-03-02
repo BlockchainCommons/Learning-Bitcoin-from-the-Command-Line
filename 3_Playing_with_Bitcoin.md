@@ -1101,7 +1101,99 @@ We will _not_ be using this technique in the rest of the tutorial.
 
 ### Write a Raw Transaction with an OP_RETURN
 
-Saving Data on the blockchain
+Our final example of a basic raw transaction involves using an OP_RETURN output. OP_RETURN is basically a null that says that the output is invalid. However, using an OP_RETURN also allows you to store data on the blockchain: up to 80 bytes. This opens up whole new possibilities for the blockchain, because you can embed data that proves that certain things happened at certain times. Though there is some controversy over using the Bitcoin blockchain in this way, various organizations have used this for proof of existence, for copyright, to color coins, and [for other purposes](https://en.bitcoin.it/wiki/OP_RETURN). Though 80 bytes might not seem a lot, it can be quite effective if OP_RETURNs are used to store hashes of the actual data.
+
+#### Create Your OP_RETURN Data
+
+The first thing you need to do is create the 80 bytes (or less) of data that you'll be recording in your OP_RETURN. Perhaps this is as simple as preparing a message. You might also be hashing some other data. For example, using `md5sum` produces 128 bits of data, which is 16 bytes, well under the limits:
+```
+$ md5sum mycontract.jpg 
+3b110a164aa18d3a5ab064ba93fdce62  mycontract.jpg
+$ op_return_data="3b110a164aa18d3a5ab064ba93fdce62"
+```
+
+#### Prepare Some Money
+
+Your purpose in sending an OP_RETURN isn't to send money to anyone, it's to put data into the blockchain. However, you _must_ send money to do so. The trick is just to create a return address. Then you can identify a UTXO and send that to your return address, minus a transaction, while also using the same transaction to create an OP_RETURN.
+```
+$ bitcoin-cli listunspent
+[
+  {
+    "txid": "0c198125f5a0e2e598ce3b7e4253a95dce780dec12601ed0a44c8544606782b2",
+    "vout": 0,
+    "address": "n3cogFw4y3A1LJgRz2G97otEGT7BK8ca3D",
+    "account": "",
+    "scriptPubKey": "76a914f26e11dc0fcc79fe76fca1d24d7588798922ca7488ac",
+    "amount": 0.06600000,
+    "confirmations": 11,
+    "spendable": true,
+    "solvable": true
+  }
+]
+
+$ utxo_txid_4="0c198125f5a0e2e598ce3b7e4253a95dce780dec12601ed0a44c8544606782b2"
+$ utxo_vout_4="0"
+$ changeaddress_4=$(bitcoin-cli getnewaddress)
+```
+
+#### Write A Rawtransaction
+
+You can now write a new rawtransaction with two outputs: one is your change address to get back (most of) your money, the other is a data address, which represents an OP_RETURN.
+```
+$ rawtxhex4=$(bitcoin-cli createrawtransaction '''[ { "txid": "'$utxo_txid_4'", "vout": '$utxo_vout_4' } ]''' '''{ "data": "'$op_return_data'", "'$changeaddress_4'": 0.0655 }''')
+```
+
+Afterward, you can see what it looks like:
+```
+$ bitcoin-cli decoderawtransaction $rawtxhex4
+{
+  "txid": "58a75a85833c396082e6603a0a2537c7e8c207d188656791679df7da7fe0879a",
+  "hash": "58a75a85833c396082e6603a0a2537c7e8c207d188656791679df7da7fe0879a",
+  "size": 112,
+  "vsize": 112,
+  "version": 1,
+  "locktime": 0,
+  "vin": [
+    {
+      "txid": "0c198125f5a0e2e598ce3b7e4253a95dce780dec12601ed0a44c8544606782b2",
+      "vout": 0,
+      "scriptSig": {
+        "asm": "",
+        "hex": ""
+      },
+      "sequence": 4294967295
+    }
+  ],
+  "vout": [
+    {
+      "value": 0.00000000,
+      "n": 0,
+      "scriptPubKey": {
+        "asm": "OP_RETURN 3b110a164aa18d3a5ab064ba93fdce62",
+        "hex": "6a103b110a164aa18d3a5ab064ba93fdce62",
+        "type": "nulldata"
+      }
+    }, 
+    {
+      "value": 0.06550000,
+      "n": 1,
+      "scriptPubKey": {
+        "asm": "OP_DUP OP_HASH160 effa6f1be9433e051ddbc33d7021259f5e1333c7 OP_EQUALVERIFY OP_CHECKSIG",
+        "hex": "76a914effa6f1be9433e051ddbc33d7021259f5e1333c788ac",
+        "reqSigs": 1,
+        "type": "pubkeyhash",
+        "addresses": [
+          "n3PqoMxnQQmafdup2hAmV6SzanJGo4FG8f"
+        ]
+      }
+    }
+  ]
+}
+```
+As you can see, we're sending the majority of our money straight back to your change address (n3PqoMxnQQmafdup2hAmV6SzanJGo4FG8f) minus that standard transaction fee we've been using of 0.0005 BTC — though we do note our transactions are getting larger as we're adding extra outputs, and now 16 bytes of data. More importantly, the first output shows an OP_RETURN with our data (3b110a164aa18d3a5ab064ba93fdce62) right after it.
+
+Sign it and send it, and soon that OP_RETURN will be embedded in the blockchain!
+
 [coinsecrets]
 
 [talk about P2PK vs ...]
