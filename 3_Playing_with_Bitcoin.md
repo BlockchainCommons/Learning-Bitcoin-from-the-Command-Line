@@ -326,7 +326,7 @@ false
 
 You need to create an address to receive funds. We suggest using variables to capture your address and ensure that you receive your funds. Based on that address, you can also access a private key and sign messages.
 
-## Receiving a Transaction
+## Part Two: Receiving a Transaction
 
 You're now ready to receive some money at the new address you set up.
 
@@ -579,9 +579,9 @@ However, note that as always it'll take a while for your balances to settle. Be 
 
 Mind you, this all isn't necessarily that interesting if you're planning to write your own rawtransactions. But, it's a great test so that you can successfully see a transaction leave your machine, taking some of your money with it.
 
-## Part Three: Sending a Raw Transaction
+## Part Three: Sending a Raw Transaction to a P2PKH
 
-We're now ready to create Bitcoin rawtransactions. This allows you to send money (as in the interlude above) but to craft the transactions accidentally as you want ... and to do more complex things, as we'll see.
+We're now ready to create Bitcoin rawtransactions. This allows you to send money (as in the interlude above) but to craft the transactions precisely as you want. This section focuses on paying to addresses that are P2PKH: pay to public-key hashes. 
 
 ## Understand the Bitcoin Transaction
 
@@ -1102,11 +1102,17 @@ $ bitcoin-cli getbalance
 ```
 We will _not_ be using this technique in the rest of the tutorial.
 
-### Write a Raw Transaction with an OP_RETURN
+### Summary: Sending a Raw Transaction to a P2PKH
 
-Our final example of a basic raw transaction involves using an OP_RETURN output. OP_RETURN is basically a null that says that the output is invalid. However, using an OP_RETURN also allows you to store data on the blockchain: up to 80 bytes. This opens up whole new possibilities for the blockchain, because you can embed data that proves that certain things happened at certain times. Though there is some controversy over using the Bitcoin blockchain in this way, various organizations have used this for proof of existence, for copyright, to color coins, and [for other purposes](https://en.bitcoin.it/wiki/OP_RETURN). Though 80 bytes might not seem a lot, it can be quite effective if OP_RETURNs are used to store hashes of the actual data.
+When money comes into your Bitcoin wallet, it remains as distinct amounts, called UTXOs. When you create a raw transaction to send that money back out, you use one or more UTXOs to fund it. If you want change back from the UTXOs you're spending, you _must_ create a change address to receive the excess funds. You must also define how much money to spend as the transaction fee. Once you've created a raw transaction, you can check it, sign it, and then actually send it to the Bitcoin network.
 
-#### Create Your OP_RETURN Data
+## Part Four: Sending a Raw Transaction to an OP_RETURN
+
+P2PKHs are the simplest sort of Bitcoin recipient ... except perhaps the OP_RETURN. That's because an OP_RETURN is basically a null: an invalid output. Why would you use one? To store data on the blockchain: up to 80 bytes. 
+
+This opens up whole new possibilities for the blockchain, because you can embed data that proves that certain things happened at certain times. Though there is some controversy over using the Bitcoin blockchain in this way, various organizations have used this for proof of existence, for copyright, to color coins, and [for other purposes](https://en.bitcoin.it/wiki/OP_RETURN). Though 80 bytes might not seem a lot, it can be quite effective if OP_RETURNs are used to store hashes of the actual data.
+
+### Create Your OP_RETURN Data
 
 The first thing you need to do is create the 80 bytes (or less) of data that you'll be recording in your OP_RETURN. Perhaps this is as simple as preparing a message. You might also be hashing some other data. For example, using `md5sum` produces 128 bits of data, which is 16 bytes, well under the limits:
 ```
@@ -1115,7 +1121,7 @@ $ md5sum mycontract.jpg
 $ op_return_data="3b110a164aa18d3a5ab064ba93fdce62"
 ```
 
-#### Prepare Some Money
+### Prepare Some Money
 
 Your purpose in sending an OP_RETURN isn't to send money to anyone, it's to put data into the blockchain. However, you _must_ send money to do so. The trick is just to create a return address. Then you can identify a UTXO and send that to your return address, minus a transaction, while also using the same transaction to create an OP_RETURN.
 ```
@@ -1139,7 +1145,7 @@ $ utxo_vout_4="0"
 $ changeaddress_4=$(bitcoin-cli getnewaddress)
 ```
 
-#### Write A Rawtransaction
+### Write A Rawtransaction
 
 You can now write a new rawtransaction with two outputs: one is your change address to get back (most of) your money, the other is a data address, which represents an OP_RETURN.
 ```
@@ -1197,19 +1203,17 @@ As you can see, we're sending the majority of our money straight back to your ch
 
 Sign it and send it, and soon that OP_RETURN will be embedded in the blockchain!
 
+### Check Your OP_RETURN
+
 Again, remember that you can look at this transaction using a blockchain explorer: [https://live.blockcypher.com/btc-testnet/tx/ed445dc970bb40b17c207109e19a37b2be301acb474ccd30680c431cb681bce2/](https://live.blockcypher.com/btc-testnet/tx/ed445dc970bb40b17c207109e19a37b2be301acb474ccd30680c431cb681bce2/)
 
 You may note a warning about our data being in an "unknown protocol". If we were designing some regular use of OP_RETURN data, we'd probably mark it with a special prefix, to mark that protocol. So, our actual OP_RETURN data might be something like "CONTRACTS3b110a164aa18d3a5ab064ba93fdce62". We don't have any such prefix, so we've opted not to muddy the dataspace.
 
-[Coinsecrets](http://coinsecrets.org/) offers another interesting way to look at OP_RETURN data. It does its best to keep abreast of protocols, so that it can tell you who is doing what in the blockchain.
+[Coinsecrets](http://coinsecrets.org/) offers another interesting way to look at OP_RETURN data. It does its best to keep abreast of protocols, so that it can tell you who is doing what in the blockchain. Here's our transaction there: [https://www.blocktrail.com/tBTC/tx/ed445dc970bb40b17c207109e19a37b2be301acb474ccd30680c431cb681bce2](https://www.blocktrail.com/tBTC/tx/ed445dc970bb40b17c207109e19a37b2be301acb474ccd30680c431cb681bce2)
 
-### Summary: Sending a Transaction
+### Summary: Sending a Raw Transaction to an OP_RETURN
 
-When money comes into your Bitcoin wallet, it remains as distinct clumps, called UTXOs. When you create a raw transaction to send that money back out, you use one or more UTXOs to fund it. If you want change back from the UTXOs you're spending, you _must_ create a change address to receive the excess funds. You must also define how much money to spend as the transaction fee. A transaction can also carry data, using an OP_RETURN recipient. In this case, you'll usually send all of your money to a change address, minus a transaction fee.
-
-Once you've created a raw transaction, you can check it, sign it, and then actually send it to the Bitcoin network.
-
-[talk about P2PK vs ...]
+You can use an OP_RETURN output to store up to 80 bytes of data on the blockchain. You do this with the 'data' codeword for a 'vout'. You still have to send money along too, but you just send it back to a change address, minus a transaction fee.
 
 ### Interlude: Using JQ
 
