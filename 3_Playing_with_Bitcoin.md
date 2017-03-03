@@ -4,9 +4,6 @@
 
 This document explains how to begin using Bitcoin from the command line. It presumes that you have a VPS that you installed bitcoin on and that is running bitcoind. It also presumes that you are connected to testnet, allowing for access to bitcoins without using real funds. We explained how to do this either by hand in [2A - Setting up a Bitcoin-Core VPS by Hand](./2A_Setting_Up_a_Bitcoin-Core_VPS_by_Hand.md) or by using a Linode StackScript at Linode.com in [2B - Setting up a Bitcoin-Core VPS with StackScript](./2B_Setting_Up_a_Bitcoin-Core_VPS_with_StackScript.md).
 
-* auto-gen TOC:
-{:toc}
-
 ## Part Zero: Getting Started with Bitcoin
 
 Before you start playing with Bitcoin, you should ensure that everything is setup correctly.
@@ -26,35 +23,35 @@ alias btcblock="echo \\\`bitcoin-cli getblockcount 2>&1\\\`/\\\`wget -O - http:/
 EOF
 ```
 
-> **WARNING:** The btcblock alias will not work correctly if you try to place it in your .bash_profile by hand, rather than using the "cat" command as suggested. To enter it by hand, you need to adjust the number of backslashes (usually from three each to one each), so make sure you know what you're doing if you aren't entering the commands exactly as shown.
+> **WARNING:** The btcblock alias will not work correctly if you try to place it in your .bash_profile by hand, rather than using the "cat" command as suggested. If you want to enter it by hand, you need to adjust the number of backslashes (usually from three each to one each), so make sure you know what you're doing if you aren't entering the commands exactly as shown.
 
-Note that these aliases includes shortcuts for running 'bitcoin-cli', for running 'bitcoind', and for going to the Bitcoin directory. These aliases are mainly meant to make your life easier. We suggest you create other aliases to ease your use of frequent commands or strings and to minimize errors. Aliases of this sort can even more useful if you have a complex setup where you regularly run commands associated with Mainnet, with Testnet, _and_ with Regtest.
+Note that these aliases includes shortcuts for running `bitcoin-cli`, for running `bitcoind`, and for going to the Bitcoin directory. These aliases are mainly meant to make your life easier. We suggest you create other aliases to ease your use of frequent commands (and arguments) and to minimize errors. Aliases of this sort can even more useful if you have a complex setup where you regularly run commands associated with Mainnet, with Testnet, _and_ with Regtest.
 
-With that said, use of these aliases in _this_ document might accidentally obscure the core lessons being taught about Bitcoin, so the only aliases directly used here are 'btcinfo' and 'btcblock', because they encapsulate much longer and more complex commands. Otherwise, we show the full commands; adjust for your own use as appropriate.
+With that said, use of these aliases in _this_ document might accidentally obscure the core lessons being taught about Bitcoin, so the only aliases directly used here are `btcinfo` and `btcblock`, because they encapsulate much longer and more complex commands. Otherwise, we show the full commands; adjust for your own use as appropriate.
 
-> **TESTNET vs MAINNET:** Remember that this tutorial generally assumes that you are using testnet. Notes like this will comment on how things might be different over on Mainnet. In this case, the 'btcblock' alias needs to be slightly different. On testnet, you can look up the current block count with the complex command "wget -O - http://blockexplorer.com/testnet/q/getblockcount 2> /dev/null | cut -d : -f2 | rev | cut -c 2- | rev"; on mainnet, you use the much simpler 'wget -O - http://blockchain.info/q/getblockcount 2>/dev/null'
+> **TESTNET vs MAINNET:** Remember that this tutorial generally assumes that you are using testnet. Notes like this will comment on how things might be different over on Mainnet. In this case, the `btcblock` alias needs to be slightly different. On testnet, you can look up the current block count with the complex command "wget -O - http://blockexplorer.com/testnet/q/getblockcount 2> /dev/null | cut -d : -f2 | rev | cut -c 2- | rev"; on mainnet, you use the much simpler "wget -O - http://blockchain.info/q/getblockcount 2>/dev/null".
 
 ### Run Bitcoind
 
-You'll be accessing the Bitcoin network with the bitcoin-cli command. However, bitcoind _must_ be running to use bitcoin-cli. If you used our standard setup, it should be. You can double check by looking at the process table.
+You'll be accessing the Bitcoin network with the `bitcoin-cli` command. However, bitcoind _must_ be running to use bitcoin-cli, as the bitcoin-cli sends JSON-RPC commands to the bitcoind. If you used our standard setup, bitcoind should already be up and running. You can double check by looking at the process table.
 ```
 $ ps auxww | grep bitcoind
 user1    29360 11.5 39.6 2676812 1601416 ?     SLsl Feb23 163:42 /usr/local/bin/bitcoind -daemon
 ```
-If it's not running, you'll want to run '/usr/local/bin/bitcoind -daemon' by hand and also place it in your crontab, as explained in [2A - Setting up a Bitcoin-Core VPS by Hand](./2A_Setting_Up_a_Bitcoin-Core_VPS_by_Hand.md).
+If it's not running, you'll want to run "/usr/local/bin/bitcoind -daemon" by hand and also place it in your crontab, as explained in [2A - Setting up a Bitcoin-Core VPS by Hand](./2A_Setting_Up_a_Bitcoin-Core_VPS_by_Hand.md).
 
 ### Verify Your Blocks
 
-You should have the whole blockchain (or the whole pruned blockchain) ready before you start playing. Just run the 'btcblock' alias to see if it's all loaded. You'll see two numbers, which tell you how many blocks have loaded out of how many total.
+You should have the whole blockchain (or the whole pruned blockchain) ready before you start playing. Just run the `btcblock` alias to see if it's all loaded. You'll see two numbers, which tell you how many blocks have loaded out of how many total.
 
 If the two numbers aren't the same, as shown in this testnet example, you should wait:
 ```
 $ btcblock
 973212/1090099
 ```
-Total time can take several hours for a pruned testnet, a day for a pruned mainnet or a non-pruned testnet, and longer for a non-pruned mainnet.
+Total time can take from several hours to a day, depending on your setup.
 
-If the two numbers are the same, as shown in this testnet example, you're ready to go:
+If the two numbers are the same, as shown in this testnet example, you're fully loaded:
 ```
 $ btcblock
 1090099/1090099
@@ -77,7 +74,7 @@ bitcoind.pid  chainstate  db.log    peers.dat
 ```
 You shouldn't mess with most of these files and directories — particularly not the blocks and chainstate directories, which contain all of the blockchain data. However, do take careful note of the db.log and debug.log file, which you should refer to if you ever have problems with your setup.
 
-> **TESTNET vs MAINNET:** If you're using mainnet, then _everything_ will instead be stuck in the main ~/.bitcoin directory. These various setups _do_ elegantly stack, so if you are using mainnet, testnet, and regtest, you'll find that ~/.bitcoin contains your config file and your mainnet data, ~/.bitcoin/testnet3 contains your testnet data, and ~/.bitcoin/regtest contains your regtest data.
+> **TESTNET vs MAINNET:** If you're using mainnet, then _everything_ will instead be placed in the main ~/.bitcoin directory. These various setups _do_ elegantly stack, so if you are using mainnet, testnet, and regtest, you'll find that ~/.bitcoin contains your config file and your mainnet data, ~/.bitcoin/testnet3 contains your testnet data, and ~/.bitcoin/regtest contains your regtest data.
 
 ### Get Help
 
@@ -232,7 +229,7 @@ While if you're running regtest, it probably contains this line:
 ```
 regtest=1
 ```
-However, if you want to run several different sorts of nodes, you will probably decide to leave the testnet (or regtest) flag out of your configuration file. In this case, you can choose whether you're using the mainnet, the testnet, or your regtest every time you run bitcoind or bitcoin-cli.
+However, if you want to run several different sorts of nodes simultaneously, you should leave the testnet (or regtest) flag out of your configuration file. You can then choose whether you're using the mainnet, the testnet, or your regtest every time you run bitcoind or bitcoin-cli.
 
 Here's a set of aliases that would make that easier by creating a specific alias for starting and stopping the bitcoind, for going to the bitcoin directory, and for running bitcoin-cli, for each of the mainnet (which has no extra flags), the testnet (which is -testnet), or your regtest (which is -regtest).
 ```
@@ -256,7 +253,7 @@ For even more complexity, you could have each of your 'start' aliases use the -c
 
 ### Summary: Getting Started
 
-Before you start playing with bitcoin, you should make sure that the bitcoind is running and that all the blocks have been downloaded. You might get additional help from the 'bitcoin-cli help' command or from files in the ~/.bitcoin directory.
+Before you start playing with bitcoin, you should make sure that the bitcoind is running and that all the blocks have been downloaded. You might get additional help from the `bitcoin-cli help` command or from files in the ~/.bitcoin directory.
 
 ## Part One: Setting Up Your Wallet
 
