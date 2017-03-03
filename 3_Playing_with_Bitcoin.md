@@ -330,9 +330,9 @@ You're now ready to receive some money at the new address you set up.
 
 To do anything more, you need to get some money. On testnet this is done through faucets. Since the money is all pretend, you just go to a faucet, request some money, and it's sent over to you. We suggest using the faucet at http://tpfaucet.appspot.com/. If it's not available for some reason, search for "bitcoin testnet faucet", and you should find others. We suggest https://testnet.manu.backend.hamburg/faucet as an excellent alternative.
 
-To use a faucet, you'll usually need to go to a URL and enter your address. Yes, this violates our Best Practices, but that's how the faucets tend to work.
+To use a faucet, you'll usually need to go to a URL and copy and paste in your address. Yes, this violates our Best Practices, but that's how the faucets tend to work.
 
-> **TESTNET vs MAINNET:** Sadly, there are no faucets in real life. If you were playing on the mainnet, you'd need to go and actually buy bitcoins at a bitcoin exchange or ATM or you'd need to get someone to send them to you. Testnet life is much easier.
+> **TESTNET vs MAINNET:** Sadly, there are no faucets in real life. If you were playing on the mainnet, you'd need to go and actually buy bitcoins at a bitcoin exchange or ATM, or you'd need to get someone to send them to you. Testnet life is much easier.
 
 ### Verify Your Money
 
@@ -341,16 +341,20 @@ After you've requested your money, you should be able to verify it with the 'bit
 $ bitcoin-cli getbalance
 0.00000000
 ```
-But wait, there's no balance yet!? Welcome to the world of Bitcoin latency. Transactions are transmitted across the network and gathered into blocks by miners. If you don't see a balance, your block hasn't been made yet. However, "bitcoin-cli get unconfirmedbalance" should still show it as long as the initial transaction has been created:
+But wait, there's no balance yet!? 
+
+Welcome to the world of Bitcoin latency. Transactions are transmitted across the network and gathered into blocks by miners. If you don't see a balance, your block hasn't been made yet. However, `bitcoin-cli get unconfirmedbalance` should still show it as long as the initial transaction has been created:
 ```
 $ bitcoin-cli getunconfirmedbalance
 0.47000000
 ```
-If that's still showing a zero, you're probably moving through this tutorial too fast. Wait a second. The coins should show up unconfirmed, then rapidly move to confirmed. However, if your "getbalance" and your "getunconfirmedbalance" both still show zero in ten minutes, then there's probably something wrong with the faucet, and you'll need to pick another. Do note that a coin can move from unconfirmedbalance to confirmedbalance almost immediately, though, so make sure you check both.
+If that's still showing a zero too, you're probably moving through this tutorial too fast. Wait a second. The coins should show up unconfirmed, then rapidly move to confirmed. However, if your "getbalance" and your "getunconfirmedbalance" both still show zero in ten minutes, then there's probably something wrong with the faucet, and you'll need to pick another. (Do note that a coin can move from unconfirmedbalance to confirmedbalance almost immediately, so make sure you check both.)
 
-After a block is built and confirmed, another block is built on top of it, and another ... Because this is a stochastic process, there's some chance for reversal when a block is still new. Thus, a block has to be buried several blocks deep in a chain before you can feel total confident in your funds. Each of those blocks tends to be built in an average of 10 minutes ... so it usually takes about an hour for a confirmed transaction to receive full confidence.
+> **WARNING:** After a block is built and confirmed, another block is built on top of it, and another ... Because this is a stochastic process, there's some chance for reversal when a block is still new. Thus, a block has to be buried several blocks deep in a chain before you can feel total confident in your funds. Each of those blocks tends to be built in an average of 10 minutes ... so it usually takes about an hour for a confirmed transaction to receive full confidence.
 
-You can use 'bitcoin-cli getbalance "\*" [n]' to see if a confirmed balance is 'n' blocks deep.
+### Gain Confidence in Your Money
+
+You can use `bitcoin-cli getbalance "\*" [n]` to see if a confirmed balance is 'n' blocks deep.
 
 The following shows that our transaction has been confirmed one time, but not twice:
 ```
@@ -361,9 +365,11 @@ $ bitcoin-cli getbalance "*" 2
 ```
 Obviously, every ten minutes or so this depth will increase.
 
+Of course, on the testnet, no one is that worried about how reliable your funds are. You'll be able to spend your money as soon as it's confirmed.
+
 #### Verify Your Wallet
 
-You can also access all of this information with the 'bitcoin-cli getwalletinfo' command:
+You can also access all of this information with the `bitcoin-cli getwalletinfo` command:
 ```
 $ bitcoin-cli getwalletinfo
 {
@@ -381,7 +387,7 @@ $ bitcoin-cli getwalletinfo
 
 ### Discover Your Transaction ID
 
-Your money came into you via a transaction. You can discover that transactionid (txid) with the 'bitcoin-cli listtransactions' command:
+Your money came into you via a transaction. You can discover that transactionid (txid) with the `bitcoin-cli listtransactions` command:
 ```
 $ bitcoin-cli listtransactions
 [
@@ -407,7 +413,7 @@ $ bitcoin-cli listtransactions
 ```
 This shows one transaction ("88e5d5f3077517d76f5a61491fa52e6aaae078c52bc62d849f09507ef0cfada2") that was received ("receive") by a specific address in my wallet ("n4cqjJE6fqcmeWpftygwPoKMMDva6BpyHf") for a specific amount ("0.47000000").
 
-You can access similar information with the 'bitcoin-cli listunspent' command, but it only shows the transactions for the money that you haven't sent back out:
+You can access similar information with the `bitcoin-cli listunspent` command, but it only shows the transactions for the money that you haven't spent. These are also called UTXOs, and will be vitally important when you're sending money back out into the Bitcoin world:
 ```
 $ bitcoin-cli listunspent
 [
@@ -424,18 +430,18 @@ $ bitcoin-cli listunspent
   }
 ]
 ```
-Note that bitcoins are not just a homogeneous mess of cash jammed into your pocket. Each individual transaction that you receive or that you send is placed in the immutable blockchain ledger, in a block. You can see all of those when you look at your transactions. Note also that this means that bitcoin spending isn't quite as anonymous as you'd think. Though the addresses are fairly private, transactions can be examined as they go in and out of them. This makes the funds ultimately fungible and makes the privacy vulnerable to statistical analysis. 
+Note that bitcoins are not just a homogeneous mess of cash jammed into your pocket. Each individual transaction that you receive or that you send is placed in the immutable blockchain ledger, in a block. You can see all of those when you look at your transactions. Note also that this means that bitcoin spending isn't quite as anonymous as you'd think. Though the addresses are fairly private, transactions can be examined as they go in and out of addresses. This makes the funds ultimately fungible and makes the privacy vulnerable to statistical analysis. 
 
-> **TESTNET vs MAINNET:** Why are all of these bitcoin amounts in fractions? Bitcoins are produced slowly, and so there are relatively few in circulation. As a result, each bitcoin over on the mainnet is worth quite a bit (~ $1,200 at the time of this writing). This means that people usually work in fractions. In fact, .47 BTC would be quite a lot in the real-world. You'll often be dealing with even smaller fractions on mainnet. For this reason, names have appeared for smaller amounts of bitcoins, including millibitcoins or mBTCs (one-thousandth of a bitcoin), microbitcoins or or bits μBTCs (one-millionth of a bitcoin), and satoshis (one hundred millionth of a bitcoin).
+> **TESTNET vs MAINNET:** Why are all of these bitcoin amounts in fractions? Bitcoins are produced slowly, and so there are relatively few in circulation. As a result, each bitcoin over on the mainnet is worth quite a bit (~ $1,200 at the time of this writing). This means that people usually work in fractions. In fact, .47 BTC would be quite a lot in the real-world. You'll often be dealing with even smaller fractions on mainnet. For this reason, names have appeared for smaller amounts of bitcoins, including millibitcoins or mBTCs (one-thousandth of a bitcoin), microbitcoins or bits or μBTCs (one-millionth of a bitcoin), and satoshis (one hundred millionth of a bitcoin).
 
 ### Examine Your Transaction
 
-You can get more information on a transaction with the 'bitcoin-cli getrawtransaction' command:
+You can get more information on a transaction with the `bitcoin-cli getrawtransaction` command:
 ```
 $ bitcoin-cli getrawtransaction "88e5d5f3077517d76f5a61491fa52e6aaae078c52bc62d849f09507ef0cfada2"
 010000000133261a25b44689bab2c6a207381ca21d243de9bbf21f0fa40c3a26ba7282a87b000000006b483045022100a2640761810dfc34dabed599928243afe24e13f520f780ceb382843a530a577c022050b92f5d9843d70ddb60a0aa294938862f2b7372818d6149ffd4f6adec5cf6c80121034dcaa515c2fda0f4a50b90a6d798e01c00a870bef0bd97154066fe202d2b5d75feffffff02c029cd02000000001976a914fd67e8a7c7813e7a5c376eb71074f373d924d96888ac17791703000000001976a914e176ee39c642344df2180863e27e2e936307273c88ac07a41000
 ```
-> **WARNING:** This command will not work in some cases. To be able to view a rawtransaction on a standard node, some of the money must be unspent, or the transaction must still be in your mempool (which means that this command will work fine for the money you've just received). If you want to be able to view older transactions that have been entirely spent, and you have a non-pruned node, you can do so by maintaining a set of all transactions with the txindex=1 configuration, which is what our scripts suggest for all non-pruned instances.
+> **WARNING:** This command will not work in some situation. To be able to view a raw transaction on a standard node, some of the money must be unspent, or the transaction must still be in your mempool — which means that this command will work fine for the money you've just received, but not for old stuff. If you want to be able to view older transactions that have been entirely spent, you can do so by maintaining a set of all transactions with the txindex=1 configuration, which is what our scripts suggest for all non-pruned instances. (You can't maintain a transaction index if your node is pruned.)
 
 Granted, this isn't super useful, because it's the hex-encoded transaction data. Fortunately, you can get a more verbose description just by adding a '1' to your command:
 ```
@@ -493,40 +499,40 @@ $ bitcoin-cli getrawtransaction "88e5d5f3077517d76f5a61491fa52e6aaae078c52bc62d8
   "blocktime": 1488307692
 }
 ```
-Now you can see the full information on the transaction, including all of the inputs ("vin") and all the outputs ("vout). One of the interesting things to note is that though I received .47 BTC in the transaction, another .51869975 was sent to another address. It is quite typical for a transaction to have multiple inputs and/or multiple outputs.
+Now you can see the full information on the transaction, including all of the inputs ("vin") and all the outputs ("vout). One of the interesting things to note is that though we received .47 BTC in the transaction, another .51869975 was sent to another address. That was probably a change address, a concept that is explored more in the next section. It is quite typical for a transaction to have multiple inputs and/or multiple outputs.
 
 ### Optional: Use a Block Explorer
 
-Even looking at the verbose information for a transaction can be a little intimidating. The main goal of this tutorial is to teach about dealing with rawtransactions for Bitcoin from the command line. But, we're happy to talk about other tools when they're applicable. One of those tools is a block explorer, which you can use to look at transactions from a web browser in a much friendlier format.
+Even looking at the verbose information for a transaction can be a little intimidating. The main goal of this tutorial is to teach about dealing with raw transactions from the command line, but we're happy to talk about other tools when they're applicable. One of those tools is a block explorer, which you can use to look at transactions from a web browser in a much friendlier format.
 
-Currently, our preferred block explorer is https://live.blockcypher.com/. 
+Currently, our preferred block explorer is [https://live.blockcypher.com/](https://live.blockcypher.com/). 
 
 You can use it to look up transactions for an address:
 ```
-https://live.blockcypher.com/btc-testnet/address/n4cqjJE6fqcmeWpftygwPoKMMDva6BpyHf/
+[https://live.blockcypher.com/btc-testnet/address/n4cqjJE6fqcmeWpftygwPoKMMDva6BpyHf/](https://live.blockcypher.com/btc-testnet/address/n4cqjJE6fqcmeWpftygwPoKMMDva6BpyHf/)
 ```
 You can also use it to look at individual transactions:
 ```
-https://live.blockcypher.com/btc-testnet/tx/88e5d5f3077517d76f5a61491fa52e6aaae078c52bc62d849f09507ef0cfada2/
+[https://live.blockcypher.com/btc-testnet/tx/88e5d5f3077517d76f5a61491fa52e6aaae078c52bc62d849f09507ef0cfada2/](https://live.blockcypher.com/btc-testnet/tx/88e5d5f3077517d76f5a61491fa52e6aaae078c52bc62d849f09507ef0cfada2/)
 ```
-A block explorer doesn't generally provide any more information than a command line look at a raw transaction; it just does a good job of highlighting the important information and putting together the puzzle pieces, so that you know what you're seeing.
+A block explorer doesn't generally provide any more information than a command line look at a raw transaction; it just does a good job of highlighting the important information and putting together the puzzle pieces, including the transaction fees behind a transaction — another concept that we'll be covering in future sections.
 
 ### Summary: Receiving a Transactions
 
-Faucets will give you money on the testnet. They come in as rawtransactions, which can be examined with 'getrawtransaction' or a block explorer. Once you've receive a transaction, you can see it in your balance and your wallet.
+Faucets will give you money on the testnet. They come in as raw transactions, which can be examined with `getrawtransaction` or a block explorer. Once you've receive a transaction, you can see it in your balance and your wallet.
 
 ### Interlude: Sending Coins the Easy Way
 
-You're nowready to send some coins, and that's actually quite simple via the command line. You just type `bitcoin-cli sendtoaddress [address] [amount]`. So, to send a little coinage to the address `msoix3SHNr6eRDUJsRSqQwZRhxZnLXhNef` just requires:
+You're now ready to send some coins, and that's actually quite simple via the command line. You just type `bitcoin-cli sendtoaddress [address] [amount]`. So, to send a little coinage to the address `msoix3SHNr6eRDUJsRSqQwZRhxZnLXhNef` just requires:
 ```
-$  bitcoin-cli sendtoaddress msoix3SHNr6eRDUJsRSqQwZRhxZnLXhNef 0.1
+$ bitcoin-cli sendtoaddress msoix3SHNr6eRDUJsRSqQwZRhxZnLXhNef 0.1
 6ad295c280798e9746dcdf7e5a60dfb6219d93bf31aab9b540ce892537c41e0c
 ```
-Make sure the address you write is in where you want the money to go. Make _double_ sure. If you make mistakes in Bitcoin, there's no going back. 
+Make sure the address you write in is where you want the money to go. Make _double_ sure. If you make mistakes in Bitcoin, there's no going back. 
 
 You'll receive a txid back when you issue this command.
 
-> **WARNING:** The bitcoin-cli command generates JSON RPC commands to talk to the bitcoind. They can be really picky. This is an example: if you list the bitcoin amount without the leading zero (i.e. ".1" instead of "0.1"), then bitcoin-cli will fail with a mysterious message.
+> **WARNING:** As noted previously, the bitcoin-cli command generates JSON-RPC commands to talk to the bitcoind. They can be really picky. This is an example: if you list the bitcoin amount without the leading zero (i.e. ".1" instead of "0.1"), then bitcoin-cli will fail with a mysterious message.
 
 You'll be able to see the transaction in your list immediately. 
 ```
@@ -571,9 +577,9 @@ $ bitcoin-cli listtransactions
   }
 ]
 ```
-However, note that as always it'll take a while for your balances to settle. Be aware that the default transaction fee for 'sendtoaddress' is quite low, which means that it might not placed into the first several blocks, until it's reached enough priority. This is usually fine, if you're sending money to someone. It's less fine if you're working through a tutorial, wanting to get to the next step. The 'settxfee' can be used to set a different fee (per kB). But you'll get _much_ more control once you're actually writing raw transactions.
+However, note that as always it'll take a while for your balances to settle. Be aware that the default transaction fee for `sendtoaddress` is quite low and should probably be increased, as we note in later sections. This means that your transaction might not placed into the first several blocks, until it's reached enough priority. This is usually fine, if you're sending money to someone. It's less fine if you're working through a tutorial, wanting to get to the next step. 
 
-Mind you, this all isn't necessarily that interesting if you're planning to write your own rawtransactions. But, it's a great test so that you can successfully see a transaction leave your machine, taking some of your money with it.
+Using the `sendtoaddress` command isn't necessarily that interesting, if you're planning to write your own raw transactions. However, it's a great test so that you can successfully see a transaction leave your machine, taking some of your money with it.
 
 ## Part Three: Sending a Raw Transaction to a P2PKH
 
