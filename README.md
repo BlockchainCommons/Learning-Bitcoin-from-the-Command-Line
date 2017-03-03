@@ -17,6 +17,7 @@ This tutorial assumes that you have some minimal background of how to use the co
 ## Files
 
 * 1A - Bitcoin-Core Basics
-* [2A - Setting Up a Bitcoin-Core VPS by Hand](./2A_Setting_Up_a_Bitcoin-Core_VPS_by_Hand.md)
-* [2B - Setting Up a Bitcoin-Core VPS with StackScript.md](./2B_Setting_Up_a_Bitcoin-Core_VPS_with_StackScript.md)
-  * [Linode_Bitcoin-Core_VPS_Setup.stackscript](./Linode_Bitcoin-Core_VPS_Setup.stackscript)
+* [2.0: Setting Up a Bitcoin-Core VPS](2_0_Setting_Up_a_Bitcoin-Core_VPS.md)
+  * [2.1: Setting Up a Bitcoin-Core VPS by Hand](./2_1_Setting_Up_a_Bitcoin-Core_VPS_by_Hand.md)
+  * [2.2: Setting Up a Bitcoin-Core VPS with StackScript.md](./2_2_Setting_Up_a_Bitcoin-Core_VPS_with_StackScript.md)
+    * [Linode_Bitcoin-Core_VPS_Setup.stackscript](./Linode_Bitcoin-Core_VPS_Setup.stackscript)
