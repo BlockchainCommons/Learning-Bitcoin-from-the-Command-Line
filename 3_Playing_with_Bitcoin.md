@@ -1122,11 +1122,11 @@ When money comes into your Bitcoin wallet, it remains as distinct amounts, calle
 
 P2PKHs are the simplest sort of Bitcoin recipient ... except perhaps the OP_RETURN. That's because an OP_RETURN is basically a null: an invalid output. Why would you use one? To store data on the blockchain: up to 80 bytes. 
 
-This opens up whole new possibilities for the blockchain, because you can embed data that proves that certain things happened at certain times. Though there is some controversy over using the Bitcoin blockchain in this way, various organizations have used this for proof of existence, for copyright, to color coins, and [for other purposes](https://en.bitcoin.it/wiki/OP_RETURN). Though 80 bytes might not seem a lot, it can be quite effective if OP_RETURNs are used to store hashes of the actual data.
+This opens up whole new possibilities for the blockchain, because you can embed data that proves that certain things happened at certain times. Though there is some controversy over using the Bitcoin blockchain in this way, various organizations have used OP_RETURNs for proof of existence, for copyright, to color coins, and [for other purposes](https://en.bitcoin.it/wiki/OP_RETURN). Though 80 bytes might not seem a lot, it can be quite effective if OP_RETURNs are used to store hashes of the actual data.
 
 ### Create Your OP_RETURN Data
 
-The first thing you need to do is create the 80 bytes (or less) of data that you'll be recording in your OP_RETURN. Perhaps this is as simple as preparing a message. You might also be hashing some other data. For example, using `md5sum` produces 128 bits of data, which is 16 bytes, well under the limits:
+The first thing you need to do is create the 80 bytes (or less) of data that you'll be recording in your OP_RETURN. This might be as simple as preparing a message or you might be hasing existing data. For example, `md5sum` produces 128 bits of data, which is 16 bytes, well under the limits:
 ```
 $ md5sum mycontract.jpg 
 3b110a164aa18d3a5ab064ba93fdce62  mycontract.jpg
@@ -1135,7 +1135,9 @@ $ op_return_data="3b110a164aa18d3a5ab064ba93fdce62"
 
 ### Prepare Some Money
 
-Your purpose in sending an OP_RETURN isn't to send money to anyone, it's to put data into the blockchain. However, you _must_ send money to do so. The trick is just to create a return address. Then you can identify a UTXO and send that to your return address, minus a transaction, while also using the same transaction to create an OP_RETURN.
+Your purpose in creating an OP_RETURN isn't to send money to anyone, it's to put data into the blockchain. However, you _must_ send money to do so. You just need to use a change address as your _only_ recipient. Then you can identify a UTXO and send that to your change address, minus a transaction, while also using the same transaction to create an OP_RETURN.
+
+Here's that process:
 ```
 $ bitcoin-cli listunspent
 [
@@ -1159,12 +1161,12 @@ $ changeaddress_4=$(bitcoin-cli getnewaddress)
 
 ### Write A Rawtransaction
 
-You can now write a new rawtransaction with two outputs: one is your change address to get back (most of) your money, the other is a data address, which represents an OP_RETURN.
+You can now write a new rawtransaction with two outputs: one is your change address to get back (most of) your money, the other is a data address, which is bitcoin-cli's term for an OP_RETURN.
 ```
 $ rawtxhex4=$(bitcoin-cli createrawtransaction '''[ { "txid": "'$utxo_txid_4'", "vout": '$utxo_vout_4' } ]''' '''{ "data": "'$op_return_data'", "'$changeaddress_4'": 0.0655 }''')
 ```
 
-Afterward, you can see what it looks like:
+Here's what that transaction actually looks like:
 ```
 $ bitcoin-cli decoderawtransaction $rawtxhex4
 {
@@ -1211,7 +1213,7 @@ $ bitcoin-cli decoderawtransaction $rawtxhex4
   ]
 }
 ```
-As you can see, we're sending the majority of our money straight back to your change address (n3PqoMxnQQmafdup2hAmV6SzanJGo4FG8f) minus that standard transaction fee we've been using of 0.0005 BTC — though we do note our transactions are getting larger as we're adding extra outputs, and now 16 bytes of data. More importantly, the first output shows an OP_RETURN with our data (3b110a164aa18d3a5ab064ba93fdce62) right after it.
+As you can see, this sends the majority of the money straight back to the change address (n3PqoMxnQQmafdup2hAmV6SzanJGo4FG8f) minus that standard transaction fee we've been using of 0.0005 BTC. _Do_ note that these transactions get larger as they add extra inputs and outputs — and now 16 bytes of data. More importantly, the first output shows an OP_RETURN with the data (3b110a164aa18d3a5ab064ba93fdce62) right after it.
 
 Sign it and send it, and soon that OP_RETURN will be embedded in the blockchain!
 
@@ -1219,9 +1221,9 @@ Sign it and send it, and soon that OP_RETURN will be embedded in the blockchain!
 
 Again, remember that you can look at this transaction using a blockchain explorer: [https://live.blockcypher.com/btc-testnet/tx/ed445dc970bb40b17c207109e19a37b2be301acb474ccd30680c431cb681bce2/](https://live.blockcypher.com/btc-testnet/tx/ed445dc970bb40b17c207109e19a37b2be301acb474ccd30680c431cb681bce2/)
 
-You may note a warning about our data being in an "unknown protocol". If we were designing some regular use of OP_RETURN data, we'd probably mark it with a special prefix, to mark that protocol. So, our actual OP_RETURN data might be something like "CONTRACTS3b110a164aa18d3a5ab064ba93fdce62". We don't have any such prefix, so we've opted not to muddy the dataspace.
+You may note a warning about the data being in an "unknown protocol". If you were designing some regular use of OP_RETURN data, you'd probably mark it with a special prefix, to mark that protocol. Then, the actual OP_RETURN data might be something like "CONTRACTS3b110a164aa18d3a5ab064ba93fdce62". This example didn't use a prefix to avoid muddying the data space.
 
-[Coinsecrets](http://coinsecrets.org/) offers another interesting way to look at OP_RETURN data. It does its best to keep abreast of protocols, so that it can tell you who is doing what in the blockchain. Here's our transaction there: [https://www.blocktrail.com/tBTC/tx/ed445dc970bb40b17c207109e19a37b2be301acb474ccd30680c431cb681bce2](https://www.blocktrail.com/tBTC/tx/ed445dc970bb40b17c207109e19a37b2be301acb474ccd30680c431cb681bce2)
+[Coinsecrets](http://coinsecrets.org/) offers another interesting way to look at OP_RETURN data. It does its best to keep abreast of protocols, so that it can tell you who is doing what in the blockchain. Here's thisour transaction there: [https://www.blocktrail.com/tBTC/tx/ed445dc970bb40b17c207109e19a37b2be301acb474ccd30680c431cb681bce2](https://www.blocktrail.com/tBTC/tx/ed445dc970bb40b17c207109e19a37b2be301acb474ccd30680c431cb681bce2)
 
 ### Summary: Sending a Raw Transaction to an OP_RETURN
 
