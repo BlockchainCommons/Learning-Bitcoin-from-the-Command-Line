@@ -1,4 +1,4 @@
-# 2B - Setting Up a Bitcoin-Core VPS with StackScript
+# 2.2: Setting Up a Bitcoin-Core VPS with StackScript
 
 > **NOTE:** This is a draft in progress, so that I can get some feedback from early reviewers. It is not yet ready for learning.
 
@@ -6,9 +6,9 @@ This document explains how to set up a VPS (Virtual Private Sever) to run a Bitc
 
 > **WARNING:** Don’t use a VPS for a bitcoin wallet with significant real funds; see http://blog.thestateofme.com/2012/03/03/lessons-to-be-learned-from-the-linode-bitcoin-incident/ . It is  very nice to be able experiment with real bitcoin transactions on a live node without tying up a self-hosted server on a local network. I’ve also found it useful to be able to use an iPhone or iPad to communicate via SSH to my VPS to do some simple bitcoin tasks. But a higher level of safety is required for significant funds.
 
-If you want to instead do all the setup by hand, please read the parallel HOWTO file, [2A - Setting up a Bitcoin-Core VPS by Hand](./2A_Setting_Up_a_Bitcoin-Core_VPS_by_Hand.md).
+If you want to instead do all the setup by hand, please read the parallel HOWTO file, [2.1: Setting up a Bitcoin-Core VPS by Hand](./2_1_Setting_Up_a_Bitcoin-Core_VPS_by_Hand.md).
 
-If you already have a Bitcoin node running, instead read the next HOWTO file, [3 - Playing with Bitcoin Core](3_Playing_with_Bitcoin.md).
+If you already have a Bitcoin node running, instead read the next HOWTO file, [3.0: Playing with Bitcoin Core](3_0_Playing_with_Bitcoin.md).
 
 ## Getting Started with Linode
 
@@ -255,7 +255,7 @@ If you choose one of the pruned options, it'll probably take a day to download e
 
 So, it might be time for a few more espressos.
 
-But, when you're ready to go, continue on with [Playing with Bitcoin](3_Playing_with_Bitcoin.md), where we'll talk about the files and how you can start experimenting.
+But, when you're ready to go, continue on with [3.0: Playing with Bitcoin](3_0_Playing_with_Bitcoin.md), where we'll talk about the files and how you can start experimenting.
 
 ## Appendix I: Bitcoin Installation Types
 
