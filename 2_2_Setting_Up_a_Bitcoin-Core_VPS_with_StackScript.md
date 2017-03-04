@@ -255,7 +255,7 @@ If you choose one of the pruned options, it'll probably take a day to download e
 
 So, it might be time for a few more espressos.
 
-But, when you're ready to go, continue on with [3.0: Playing with Bitcoin](3_0_Playing_with_Bitcoin.md), where we'll talk about the files and how you can start experimenting.
+But, when you're ready to go, continue on with [3.0: Playing with bitcoin-cli](3_0_Playing_with_Bitcoin-CLI.md), where we'll talk about the files and how you can start experimenting.
 
 ## Appendix I: Bitcoin Installation Types
 
