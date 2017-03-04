@@ -1,4 +1,4 @@
-# Interlude: Write a Raw Transaction the Easy Way
+# Interlude: Writing a Raw Transaction the Easy Way
 
 The purpose of this tutorial is to show you the very basics of Bitcoin raw transactions, so that you can work at things at a fundamental level. If you were writing a wallet or something other Bitcoin software, you'd probably want to do things exactly as described here. However, if you were (satoshi forfend!) regularly sending bitcoins about through raw transactions created by hand, then you'd want to have a little better insurance that you weren't making mistakes.
 
