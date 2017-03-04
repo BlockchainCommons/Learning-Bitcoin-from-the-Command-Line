@@ -1,4 +1,4 @@
-# 3.0: Playing with Bitcoin Using bitcoin-cli
+# Section Three: Playing with Bitcoin Using bitcoin-cli
 
 This section explains how to begin using Bitcoin from the command line, using bitcoin-cli. 
 
