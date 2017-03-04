@@ -1,6 +1,6 @@
 # 3.0: Playing with Bitcoin Using bitcoin-cli
 
-This document explains how to begin using Bitcoin from the command line, using bitcoin-cli. 
+This section explains how to begin using Bitcoin from the command line, using bitcoin-cli. 
 
 * [Part One: Verifying Your bitcoin-cli Setup](3_1_Verifying_Your_Bitcoin-CLI_Setup.md)
 * [Part Two: Setting Up Your Wallet](3_2_Setting_Up_Your_Wallet.md)
