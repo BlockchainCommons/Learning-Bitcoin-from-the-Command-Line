@@ -15,7 +15,7 @@ n4cqjJE6fqcmeWpftygwPoKMMDva6BpyHf
 ```
 However, this isn't best practice. Though your address _is_ saved away in your wallet for your future use, you could easily make a mistake if you were retyping or cutting it somewhere else. And then you're telling people to send money to somewhere else (or to nowhere!). So instead we suggest a best practice, which is meant to minimize address mistakes.
 
-## BEST PRACTICES: Use Variables to Capture Addresses
+## Best Practices: Use Variables to Capture Addresses
 
 Instead, use your shell's built-in variables to capture your address.
 ```
