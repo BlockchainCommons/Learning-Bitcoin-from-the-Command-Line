@@ -38,7 +38,7 @@ $ bitcoin-cli listunspent
 
 $ utxo_txid_4="0c198125f5a0e2e598ce3b7e4253a95dce780dec12601ed0a44c8544606782b2"
 $ utxo_vout_4="0"
-$ changeaddress_4=$(bitcoin-cli getnewaddress)
+$ changeaddress_4=$(bitcoin-cli getrawchangeaddress)
 ```
 
 ## Write A Rawtransaction
