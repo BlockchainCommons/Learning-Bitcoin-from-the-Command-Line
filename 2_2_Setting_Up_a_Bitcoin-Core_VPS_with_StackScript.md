@@ -8,7 +8,7 @@ This document explains how to set up a VPS (Virtual Private Sever) to run a Bitc
 
 If you want to instead do all the setup by hand, please read the parallel HOWTO file, [2.1: Setting up a Bitcoin-Core VPS by Hand](./2_1_Setting_Up_a_Bitcoin-Core_VPS_by_Hand.md).
 
-If you already have a Bitcoin node running, instead read the next HOWTO file, [3.0: Playing with Bitcoin Core](3_0_Playing_with_Bitcoin.md).
+If you already have a Bitcoin node running, instead read the next HOWTO file, [3.0: Playing with bitcoin-cli](3_0_Playing_with_Bitcoin-CLI.md).
 
 ## Getting Started with Linode
 
