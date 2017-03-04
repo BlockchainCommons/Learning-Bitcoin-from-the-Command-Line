@@ -259,10 +259,12 @@ Our first raw transaction was very simplistic: we sent the entirety of a UTXO to
 
 The solution is to create a change address:
 ```
-$ changeaddress=$(bitcoin-cli getnewaddress)
+$ changeaddress=$(bitcoin-cli getrawchangeaddress)
 $ echo $changeaddress
 mxU9cmhJfkKWDtBspHaA36LkeafEDeaogJ
 ```
+Note that this is a new function: `getrawchangeaddress`. It's largely the same as `getnewaddress` but is optimized for use as a change address in a raw transaction, so it doesn't do things like make entries in your address book.
+
 You now have an additional address inside your wallet that you can use to receive change from a UTXO!
 
 ## Write a Raw Transaction with Two Outputs
