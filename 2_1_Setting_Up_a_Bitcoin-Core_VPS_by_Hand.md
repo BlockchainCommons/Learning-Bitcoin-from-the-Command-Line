@@ -434,7 +434,7 @@ If you chose the pruned mainnet, it will probably take a little over a day to do
 
 So, it might be time for a few more espressos.
 
-But, when you're ready to go, continue on with [3.0: Playing with Bitcoin](3_0_Playing_with_Bitcoin.md), where we'll talk about the files and how you can start experimenting.
+But, when you're ready to go, continue on with [3.0: Playing with bitcoin-cli](3_0_Playing_with_Bitcoin-CLI.md), where we'll talk about the files and how you can start experimenting.
 
 ### Useful commands
 
