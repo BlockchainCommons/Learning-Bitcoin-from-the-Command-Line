@@ -29,4 +29,4 @@ This tutorial assumes that you have some minimal background of how to use the co
   * [3.4: Sending a Raw Transaction to a P2PKH](3_4_Sending_a_Raw_Transaction_to_a_P2PKH.md)
     * [Interlude: Using JQ for Better Parsing](3_4__Interlude_Using_JQ_for_Better_Parsing.md)
     * [Interlude: Writing a Raw Transaction the Easy Way](3_4__Interlude_Writing_a_Raw_Transaction_The_Easy_Way.md)
-  * [3.5: Sending a Raw Transaction to an OP_RETURN](3_5_Sending_a_Raw_Transaction_to_an_OP_RETURN.md)
+  * [3.5: Sending a Raw Transaction with an OP_RETURN](3_5_Sending_a_Raw_Transaction_with_an_OP_RETURN.md)
