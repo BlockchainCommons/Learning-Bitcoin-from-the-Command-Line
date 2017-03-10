@@ -65,7 +65,7 @@ So txid+vout=UTXO. This will be the foundation of any raw transaction.
 
 ## Write a Raw Transaction with One Output
 
-You're now ready to write a simple raw transaction where you're be sending the entirety of a UTXO to another party; that is, you'll be acting like a money launderer, taking all of the money you received in one blob and just passing it on.
+You're now ready to write a simple raw transaction where you're be sending the entirety of a UTXO to another party; that is, you'll be acting like a go-between, taking all of the money you received in one blob and just passing it on.
 
 ### Prepare the Raw Transaction
 
