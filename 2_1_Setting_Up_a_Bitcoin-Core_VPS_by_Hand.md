@@ -140,7 +140,7 @@ COMMIT
 EOF
 ```
 
-Note that 8333 is the Bitcoin Mainnet Port and 18333 is the Bitcoin Testnet port. If you want to be adventurous, you can delete the one you're not using.
+> **TESTNET vs MAINNET:** Note that 8333 is the Bitcoin Mainnet Port and 18333 is the Bitcoin Testnet port. If you want to be adventurous, you can delete the one you're not using.
 
 Most work is still done on IPv4 networks, but the following will establish the same rules for IPv6:
 
@@ -223,8 +223,6 @@ $ chown -R user1 ~user1/.ssh
 ### Create Bitcoin Aliases
 
 We find a number of Bash aliases helpful to make it easier to use Bitcoin.
-
-If you are using a testnet or pruned testnet setup, we suggest the following:
 ```
 $ sudo -u user1 cat >> ~user1/.bash_profile <<EOF
 alias btcdir="cd ~/.bitcoin/" #linux default bitcoind path
@@ -234,8 +232,9 @@ alias btcinfo='bitcoin-cli getwalletinfo | egrep "\"balance\""; bitcoin-cli geti
 alias btcblock="echo \\\`bitcoin-cli getblockcount 2>&1\\\`/\\\`wget -O - http://blockexplorer.com/testnet/q/getblockcount 2> /dev/null | cut -d : -f2 | rev | cut -c 2- | rev\\\`"
 EOF
 ```
-Otherwise, if you are using a mainnet or pruned mainnet setup, we suggest the following:
-```
+
+> **TESTNET vs MAINNET:** If you are using a mainnet or pruned mainnet setup, we instead suggest the following. The only difference between the two is in the 'btcblock' line, which looks up the block count in different places for mainnet and testnet.
+> ```
 $ sudo -u user1 cat >> ~user1/.bash_profile <<EOF
 alias btcdir="cd ~/.bitcoin/" #linux default bitcoind path
 alias bc="bitcoin-cli"
@@ -243,8 +242,7 @@ alias bd="bitcoind"
 alias btcinfo='bitcoin-cli getwalletinfo | egrep "\"balance\""; bitcoin-cli getinfo | egrep "\"version\"|connections"; bitcoin-cli getmininginfo | egrep "\"blocks\"|errors"'
 alias btcblock="echo \\\`bitcoin-cli getblockcount 2>&1\\\`/\\\`wget -O - http://blockchain.info/q/getblockcount 2>/dev/null\\\`"
 EOF
-```
-The only difference between the two is in the 'btcblock' line, which looks up the block count in different places for mainnet and testnet.
+> ```
 
 > **WARNING:** The btcblock alias will not work correctly if you try to place it in your .bash_profile by hand, rather than using the "cat" command as suggested. To enter it by hand, you need to adjust the number of backslashes (usually from three each to one each), so make sure you know what you're doing if you aren't entering the commands exactly as shown.
 
