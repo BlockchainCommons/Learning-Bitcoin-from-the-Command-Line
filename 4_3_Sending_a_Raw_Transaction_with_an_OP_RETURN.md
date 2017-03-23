@@ -1,5 +1,7 @@
 # 3.5: Sending a Raw Transaction with an OP_RETURN
 
+[[maybe put this in a complex transaction section with RBF and child-funds-parent]]
+
 > **NOTE:** This is a draft in progress, so that I can get some feedback from early reviewers. It is not yet ready for learning.
 
 A P2PKH transaction is one of the simplest forms of Bitcoin transaction... except perhaps the OP_RETURN. That's because an OP_RETURN is basically a null: an invalid output. Why would you use one? To store data on the blockchain: up to 80 bytes. 
