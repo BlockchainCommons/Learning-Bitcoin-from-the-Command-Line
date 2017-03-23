@@ -40,7 +40,7 @@ Your server security won't be complete if people can break into your Linode acco
 
 ### Load the StackScript
 
-There's a copy of our Bitcoin VPS Setup StackScript in [the repo here](2_2_A_Linode_Bitcoin-Core_VPS_Setup.stackscript). This script basically automates the Bitcoin VPS setup instructions from [2A - Setting up a Bitcoin-Core VPS by Hand](./2A_Setting_Up_a_Bitcoin-Core_VPS_by_Hand.md). If you want to be particulary prudent, read it over carefully. If you are satisfied, you can copy that StackScript into your own account by going to [Manage StackScripts](https://manager.linode.com/stackscripts/index), or clicking the link under your list of Linodes. Click "Add a new StackScript", give it a good name (we use `Bitcoin VPS Setup`), then copy and paste the script.
+There's a copy of our Bitcoin VPS Setup StackScript in [the repo here](2_2__Script_Linode_Setup.stackscript). This script basically automates the Bitcoin VPS setup instructions from [2A - Setting up a Bitcoin-Core VPS by Hand](./2A_Setting_Up_a_Bitcoin-Core_VPS_by_Hand.md). If you want to be particulary prudent, read it over carefully. If you are satisfied, you can copy that StackScript into your own account by going to [Manage StackScripts](https://manager.linode.com/stackscripts/index), or clicking the link under your list of Linodes. Click "Add a new StackScript", give it a good name (we use `Bitcoin VPS Setup`), then copy and paste the script.
 
 ### Add a Linode
 
