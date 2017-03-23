@@ -21,7 +21,8 @@ Supporting objectives include the ability to:
    
 ## Table of Contents
 
-* [Part One: Verifying Your bitcoin-cli Setup](3_1_Verifying_Your_Bitcoin-CLI_Setup.md)
-* [Part Two: Setting Up Your Wallet](3_2_Setting_Up_Your_Wallet.md)
-* [Part Three: Receiving a Transaction](3_3_Receiving_a_Transaction.md)
+* [Part One: Verifying Your Bitcoin Setup](3_1_Verifying_Your_Bitcoin_Setup.md)
+* [Part Two: Knowing Your Bitcoin Setup](3_2_Knowing_Your_Bitcoin_Setup.md)
+* [Part Three: Setting Up Your Wallet](3_3_Setting_Up_Your_Wallet.md)
+* [Part Four: Receiving a Transaction](3_4_Receiving_a_Transaction.md)
 
