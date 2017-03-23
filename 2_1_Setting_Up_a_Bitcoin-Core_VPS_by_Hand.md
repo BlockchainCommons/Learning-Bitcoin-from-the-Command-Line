@@ -12,23 +12,7 @@ If you already have a Bitcoin node running, instead read the next HOWTO file, [3
 
 ## Choosing Your Bitcoin Setup
 
-Before you start, you should choose between five possible Bitcoin setups.
-
-You'll actually encode this choice at the end, when you start up Bitcoin, but in the meantime your choice will impact a few commands.
-
-Your options are:
-
-**Mainnet.** This will download the entirety of the Bitnet blockchain. That's 120G of data (and getting more every day).
-
-**Pruned Mainnet.** This will cut the blockchain you're storing down to just the last 550 blocks. If you're not mining or running some other Bitcoin service, this should be plenty for validation.
-
-**Testnet.** This gives you access to an alternative Bitcoin blockchain where the bitcoins don't actually have value. It's intended for experimentation and testing.
-
-**Pruned Testnet.** This is just the last 550 blocks of Testnet ... because the Testnet blockchain is pretty big now too.
-
-**Private Regtest.** This is Regression Testing Mode, which lets you run a totally local Bitcoin server. It allows for even more in-depth testing. There's no pruning needed here, because you'll be starting from scratch.
-
-We suggest testnet if you're planning to play around and learn Bitcoin and a pruned setup unless you're planning to set up a miner or a complex Bitcoin service.
+Before you start, you should choose between five possible Bitcoin setups, as discussed in Appendix I. We're going to make it simple: _Choose the Unpruned Testnet_ setup. This is the perfect setup for playing with Bitcoin, and we're going to assume it's the default from here on out, though we'll have some sidebars when we explain other options.
 
 ## Getting Started at a Cloud Provider
 
@@ -49,21 +33,23 @@ If your cloud provider offers two-factor authentication for their web tools, we 
 
 ### Create a Machine
 
-You should now create your Bitcoin VPS. Most setups require 5-15G of storage and 2-3G of memory. The non-Pruned Mainnet is the only setup that requires considerably more: about 120G of storage to hold the current blockchain.
-
-Following are suggestions for machine requirements:
-
-| Setup | Memory | Storage |
-|-------|--------|---------|
-| Mainnet | 2-3G | 120G |
-| Pruned Mainnet | 2-3G | ~5G |
-| Testnet | 2-3G | ~15G |
-| Pruned Testnet | 2-3G | ~5G |
-| Regtest | 2-3G | ~ |
+You should now create your Bitcoin VPS. For an Unpruned Testnet setup, you should have at least 2-3G of memory and 15G of storage.
 
 We also suggest you choose a Debian 8 image when you're creating your machine. These commands were all tested on Debian 8.7 (jessie). The further you get away from that, the less likely things will work as described here. So, another Debian is probably OK and maybe a different Ubuntu, but we've tried these out on a Mac, and we know that it's missing some commands like "wget". So, installer beware!
 
 Afterward, boot your VPS.
+
+> **TESTNET vs MAINNET:** Generally, the various setups require 5-15G of storage and 2-3G of memory. The non-Pruned Mainnet is the only setup that requires considerably more: about 120G of storage to hold the current blockchain.
+
+> Following are suggestions for machine requirements:
+
+> | Setup | Memory | Storage |
+> |-------|--------|---------|
+> | Mainnet | 2-3G | 120G |
+> | Pruned Mainnet | 2-3G | ~5G |
+> | Testnet | 2-3G | ~15G |
+> | Pruned Testnet | 2-3G | ~5G |
+> | Regtest | 2-3G | ~ |
 
 ## Configuring Your VPS
 
@@ -435,6 +421,18 @@ If you chose the pruned mainnet, it will probably take a little over a day to do
 So, it might be time for a few more espressos.
 
 But, when you're ready to go, continue on with [3.0: Playing with bitcoin-cli](3_0_Playing_with_Bitcoin-CLI.md), where we'll talk about the files and how you can start experimenting.
+
+## Appendix I: Bitcoin Installation Types
+
+**Mainnet.** This will download the entirety of the Bitnet blockchain. That's 120G of data (and getting more every day).
+
+**Pruned Mainnet.** This will cut the blockchain you're storing down to just the last 550 blocks. If you're not mining or running some other Bitcoin service, this should be plenty for validation.
+
+**Testnet.** This gives you access to an alternative Bitcoin blockchain where the bitcoins don't actually have value. It's intended for experimentation and testing.
+
+**Pruned Testnet.** This is just the last 550 blocks of Testnet ... because the Testnet blockchain is pretty big now too.
+
+**Private Regtest.** This is Regression Testing Mode, which lets you run a totally local Bitcoin server. It allows for even more in-depth testing. There's no pruning needed here, because you'll be starting from scratch.
 
 ### Useful commands
 
