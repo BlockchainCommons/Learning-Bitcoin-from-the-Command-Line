@@ -59,7 +59,9 @@ You're now ready to log. You'll need to look up the IP address of your new machi
 $ ssh root@192.168.1.52
 ```
 
-You'll need to do some bog-standard configuration, then do some work to improve the security of your machine.
+You'll need to do some bog-standard configuration, then do some work to improve the security of your machine. 
+
+_If you already have your own techniques for setting up a machine, go ahead and follow them, then jump ahead to "Setting Up a User", then "Installing Bitcoin". Otherwise,continue on!_
 
 ### Set Up Your Hostname
 
@@ -193,6 +195,28 @@ $ echo "sshd: $YOUR_HOME_IP" >> /etc/hosts.allow
 $ echo "sshd: ALL" >> /etc/hosts.deny
 ```
 
+## Updating Debian
+
+An up-to-date Debian is a safe Debian.
+
+Before you install Bitcoin, you should run the following commands to get all the latest patches:
+```
+$ export DEBIAN_FRONTEND=noninteractive
+$ apt-get update
+$ apt-get upgrade -y
+$ apt-get dist-upgrade -y
+```
+This process will take several minutes. Take a break. Have an espresso.
+
+Afterward, you also need to install a random number generator:
+```
+$ apt-get install haveged -y
+```
+Finally, we highly suggest that you set upgrades to be automatic, so that you stay up to date on updates in the future:
+```
+$ echo "unattended-upgrades unattended-upgrades/enable_auto_updates boolean true" | debconf-set-selections
+$ apt-get -y install unattended-upgrades
+```
 ## Setting Up a User
 
 It's always best to do your work with a user other than root. The following creates a user account for 'user1'
@@ -219,6 +243,10 @@ Afterward give user1 access to the file:
 $ chown -R user1 ~user1/.ssh
 ```
  If you haven't set up an SSH key on your local computer yet, there are good instructions for it on [Github](https://help.github.com/articles/generating-a-new-ssh-key-and-adding-it-to-the-ssh-agent/).
+ 
+## Installing Bitcoin
+
+You're now ready to get to the bitcoin-specific part of this tutorial!
 
 ### Create Bitcoin Aliases
 
@@ -234,7 +262,7 @@ EOF
 ```
 
 > **TESTNET vs MAINNET:** If you are using a mainnet or pruned mainnet setup, we instead suggest the following. The only difference between the two is in the 'btcblock' line, which looks up the block count in different places for mainnet and testnet.
-> ```
+```
 $ sudo -u user1 cat >> ~user1/.bash_profile <<EOF
 alias btcdir="cd ~/.bitcoin/" #linux default bitcoind path
 alias bc="bitcoin-cli"
@@ -242,7 +270,7 @@ alias bd="bitcoind"
 alias btcinfo='bitcoin-cli getwalletinfo | egrep "\"balance\""; bitcoin-cli getinfo | egrep "\"version\"|connections"; bitcoin-cli getmininginfo | egrep "\"blocks\"|errors"'
 alias btcblock="echo \\\`bitcoin-cli getblockcount 2>&1\\\`/\\\`wget -O - http://blockchain.info/q/getblockcount 2>/dev/null\\\`"
 EOF
-> ```
+```
 
 > **WARNING:** The btcblock alias will not work correctly if you try to place it in your .bash_profile by hand, rather than using the "cat" command as suggested. To enter it by hand, you need to adjust the number of backslashes (usually from three each to one each), so make sure you know what you're doing if you aren't entering the commands exactly as shown.
 
@@ -251,34 +279,9 @@ As usual, give your user permission:
 $ /bin/chown user1 ~user1/.bash_profile
 ```
 
-## Updating Debian
+### Login as Your Unprivileged User
 
-An up-to-date Debian is a safe Debian.
-
-Before you install Bitcoin, you should run the following commands to get all the latest patches:
-```
-$ export DEBIAN_FRONTEND=noninteractive
-$ apt-get update
-$ apt-get upgrade -y
-$ apt-get dist-upgrade -y
-```
-This process will take several minutes. Take a break. Have an espresso.
-
-Afterward, you also need to install a random number generator:
-```
-$ apt-get install haveged -y
-```
-Finally, we highly suggest that you set upgrades to be automatic, so that you stay up to date on updates in the future:
-```
-$ echo "unattended-upgrades unattended-upgrades/enable_auto_updates boolean true" | debconf-set-selections
-$ apt-get -y install unattended-upgrades
-```
-
-## Installing Bitcoin
-
-At last, the moment of truth, you're ready to install Bitcoin!
-
-You will want to do this all in the user1 account, so switch over:
+You now want to switch over to the user1 account for the actual install: 
 ```
 $ su user1
 $ cd
@@ -287,7 +290,7 @@ $ source ~/.bash_profile
 
 ### Setup Variables
 
-First, we suggest setting up two variables to make this installation more automatic.
+We suggest setting up two variables to make this installation more automatic.
 
 The first variable, $BITCOIN, should be set to the current version of Bitcoin. It was 0.13.2 when we wrote this. The second will then automatically generate a truncated form used by some of the files.
 ```
@@ -341,7 +344,7 @@ First, create the directory:
 ```
 $ /bin/mkdir ~user1/.bitcoin
 ```
-This is the core bitcoin.conf file, which is appropriate for a mainnet or testnet setup:
+This is the core bitcoin.conf file, which is appropriate for an unpruned testnet setup:
 ```
 $ cat >> ~user1/.bitcoin/bitcoin.conf << EOF
 server=1
@@ -352,42 +355,14 @@ maxuploadtarget=137
 maxconnections=16
 rpcuser=bitcoinrpc
 rpcpassword=$(xxd -l 16 -p /dev/urandom)
-EOF
-```
-If you want a pruned copy of the chain (and you probably should), add the following:
-```
-$ cat >> ~user1/.bitcoin/bitcoin.conf << EOF
-prune=550
-EOF
-```
-Otherwise, if you are _not_ pruning add the following:
-```
-$ cat >> ~user1/.bitcoin/bitcoin.conf << EOF
+testnet=1
 txindex=1
 EOF
 ```
-(txindex gives the benefit of a complete transaction index, but is not compatible with pruning, so you choose one or the other.)
+> **TESTNET vs MAINNET:** If you want to use mainnet instead of testnet, just omit the "testnet=1" line; easy!
 
-Finally, if you want to use testnet instead of mainnet (and you probably should for testing), add the following:
-```
-$ cat >> ~user1/.bitcoin/bitcoin.conf << EOF
-testnet=1
-EOF
-```
-So, for example, a pruned testnet, which is our favored setup for playing with bitcoin, would look like this:
-```
-$ cat ~/.bitcoin/bitcoin.conf 
-server=1
-dbcache=1536
-par=1
-blocksonly=1
-maxuploadtarget=137
-maxconnections=16
-rpcuser=bitcoinrpc
-rpcpassword=$(xxd -l 16 -p /dev/urandom)
-prune=550
-testnet=1
-```
+> **PRUNED vs UNPRUNED:** If you want to use a pruned copy of the blockchain instead of an unpruned copy, to minimize storage requirements and loading time, do _not_ include the "txindex=1" line, but instead add a "prune=550" line. txindex gives the benefit of a complete transaction index, but is not compatible with pruning, so you choose one or the other
+
 _Please note that this setup does not yet support a Private Regtest. That will require a very different setup TBD._
 
 To end, limit permissions to your configuration file:
@@ -414,9 +389,9 @@ But wait, your Bitcoin daemon is probably still downloading blocks. This alias, 
 ```
 $ btcblock
 ```
-If you chose the pruned mainnet, it will probably take a little over a day to download everything. 
+0.14.0 is quite fast to download blocks, but it might still take an hour to download the unpruned testnet. It might be time for a few more espressos.
 
-So, it might be time for a few more espressos.
+> **TESTNET vs MAINNET:** An unpruned mainnet will take hours longer.
 
 But, when you're ready to go, continue on with [3.0: Playing with bitcoin-cli](3_0_Playing_with_Bitcoin-CLI.md), where we'll talk about the files and how you can start experimenting.
 
@@ -432,7 +407,7 @@ But, when you're ready to go, continue on with [3.0: Playing with bitcoin-cli](3
 
 **Private Regtest.** This is Regression Testing Mode, which lets you run a totally local Bitcoin server. It allows for even more in-depth testing. There's no pruning needed here, because you'll be starting from scratch.
 
-### Useful commands
+### Appendix II: Useful Commands
 
 ```
 bc help
