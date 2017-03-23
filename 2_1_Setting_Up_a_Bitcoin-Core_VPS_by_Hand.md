@@ -6,13 +6,13 @@ This document explains how to set up a VPS (Virtual Private Sever) by hand to ru
 
 > **WARNING:** Don’t use a VPS for a bitcoin wallet with significant real funds; see http://blog.thestateofme.com/2012/03/03/lessons-to-be-learned-from-the-linode-bitcoin-incident/ . It is  very nice to be able experiment with real bitcoin transactions on a live node without tying up a self-hosted server on a local network. I’ve also found it useful to be able to use an iPhone or iPad to communicate via SSH to my VPS to do some simple bitcoin tasks. But a higher level of safety is required for significant funds.
 
-If you want to instead have a script do the setup for you, specifically at linode.com, read the parallel HOWTO file, [2.1: Setting up a Bitcoin-Core VPS with StackScript](./2_2_Setting_Up_a_Bitcoin-Core_VPS_with_StackScript.md).
+If you want to instead have a script do the setup for you, specifically at linode.com, read the parallel HOWTO file, [2.2: Setting up a Bitcoin-Core VPS with StackScript](./2_2_Setting_Up_a_Bitcoin-Core_VPS_with_StackScript.md).
 
 If you already have a Bitcoin node running, instead read the next HOWTO file, [3.0: Playing with bitcoin-cli](3_0_Playing_with_Bitcoin-CLI.md).
 
 ## Choosing Your Bitcoin Setup
 
-Before you start, you should choose between five possible Bitcoin setups, as discussed in Appendix I. We're going to make it simple: _Choose the Unpruned Testnet_ setup. This is the perfect setup for playing with Bitcoin, and we're going to assume it's the default from here on out, though we'll have some sidebars when we explain other options.
+Before you start, you should choose between five possible Bitcoin setups, as discussed in Appendix I. We're going to make it simple: _Choose the Unpruned Testnet_ setup. This is the perfect setup for playing with Bitcoin, and we're going to assume it's the default from here on out, though we'll have some sidebars where we explain other options.
 
 ## Getting Started at a Cloud Provider
 
@@ -33,13 +33,13 @@ If your cloud provider offers two-factor authentication for their web tools, we 
 
 ### Create a Machine
 
-You should now create your Bitcoin VPS. For an Unpruned Testnet setup, you should have at least 2-3G of memory and 15G of storage.
+You should now create your Bitcoin VPS. For an Unpruned Testnet setup, you should have at least 2-3G of memory and at least 15G of storage.
 
-We also suggest you choose a Debian 8 image when you're creating your machine. These commands were all tested on Debian 8.7 (jessie). The further you get away from that, the less likely things will work as described here. So, another Debian is probably OK and maybe a different Ubuntu, but we've tried these out on a Mac, and we know that it's missing some commands like "wget". So, installer beware!
+We also suggest that you choose a Debian 8 image when you're creating your machine. These commands were all tested on Debian 8.7 (jessie). The further you get away from that, the less likely things will work as described here. So, another Debian is probably OK and maybe a different Ubuntu, but we've tried these out on a Mac, and we know that it's missing some commands like "wget". So, installer beware!
 
 Afterward, boot your VPS.
 
-> **TESTNET vs MAINNET:** Generally, the various setups require 5-15G of storage and 2-3G of memory. The non-Pruned Mainnet is the only setup that requires considerably more: about 120G of storage to hold the current blockchain.
+> **TESTNET vs MAINNET:** The various possible setups require 5-15G of storage and 2-3G of memory. The non-Pruned Mainnet is the only setup that requires considerably more: about 120G of storage to hold the current blockchain.
 >
 > Following are suggestions for machine requirements:
 >
@@ -53,13 +53,13 @@ Afterward, boot your VPS.
 
 ## Configuring Your VPS
 
-You're now ready to log. You'll need to look up the IP address of your new machine, and then you should be able to SSH in:
+You'll need to look up the IP address of your new machine, and then you should be able to SSH in:
 
 ```
 $ ssh root@192.168.1.52
 ```
 
-You'll need to do some bog-standard configuration, then do some work to improve the security of your machine. 
+Now, you'll need to do some bog-standard configuration, then some work to improve the security of your machine. 
 
 _If you already have your own techniques for setting up a machine, go ahead and follow them, then jump ahead to "Setting Up a User", then "Installing Bitcoin". Otherwise,continue on!_
 
@@ -73,7 +73,7 @@ $ /etc/init.d/hostname.sh start
 $ /bin/hostname "mybtc"
 ```
 
-Also enter the info into your /etc/hosts file. Note that you should also enter a fully-qualified hostname, as shown below. If you're not making the machine part of a domain, just choose a ".local" suffix.
+Enter the IP and hostname info into your /etc/hosts file. Note that you should also enter a fully-qualified hostname, as shown below. If you're not making the machine part of a domain, just choose a ".local" suffix.
 
 ```
 $ echo "127.0.0.1    localhost" > /etc/hosts
@@ -91,7 +91,7 @@ $ echo "America/Los_Angeles" > /etc/timezone
 $ cp /usr/share/zoneinfo/America/Los_Angeles /etc/localtime
 ```
 
-## Protect Your VPS
+## Protecting Your VPS
 
 Though you're not putting much real value on this server, you should still make sure it's as absolutely secure as possible.
 
@@ -195,7 +195,7 @@ $ echo "sshd: $YOUR_HOME_IP" >> /etc/hosts.allow
 $ echo "sshd: ALL" >> /etc/hosts.deny
 ```
 
-## Updating Debian
+### Update Your Debian
 
 An up-to-date Debian is a safe Debian.
 
@@ -238,7 +238,7 @@ $ mkdir ~user1/.ssh
 
 Then paste your SSH key into ~user1/.ssh/authorized_keys .
 
-Afterward give user1 access to the file:
+Afterward give user1 access to the directory:
 ```
 $ chown -R user1 ~user1/.ssh
 ```
@@ -292,7 +292,7 @@ $ source ~/.bash_profile
 
 We suggest setting up two variables to make this installation more automatic.
 
-The first variable, $BITCOIN, should be set to the current version of Bitcoin. It was 0.13.2 when we wrote this. The second will then automatically generate a truncated form used by some of the files.
+The first variable, $BITCOIN, should be set to the current version of Bitcoin. It was 0.14.0 when we wrote this. The second will then automatically generate a truncated form used by some of the files.
 ```
 $ export BITCOIN=bitcoin-core-0.14.0
 $ export BITCOINPLAIN=`echo $BITCOIN | sed 's/bitcoin-core/bitcoin/'`
@@ -306,7 +306,7 @@ $ wget https://bitcoin.org/bin/$BITCOIN/$BITCOINPLAIN-x86_64-linux-gnu.tar.gz -O
 $ wget https://bitcoin.org/bin/$BITCOIN/SHA256SUMS.asc -O ~user1/SHA256SUMS.asc
 $ wget https://bitcoin.org/laanwj-releases.asc -O ~user1/laanwj-releases.asc
 ```
-This is the other step of the process that takes five minutes or so. It might be time to go have a nice walk in the sun.
+This is the other step of the setup process that takes five minutes or so. It might be time to go have a nice walk in the sun.
 
 ### Verify Bitcoin Signature
 
@@ -316,7 +316,7 @@ $ /usr/bin/gpg --import ~user1/laanwj-releases.asc
 $ /usr/bin/gpg --lsign `sudo -u user1 /usr/bin/gpg --list-keys | grep pub | awk '{print $2}' | awk -F/ '{print $2}'`
 $ /usr/bin/gpg --verify ~user1/SHA256SUMS.asc
 ```
-Amongst the info you get back from the last command should be a line telling you that you have a "Good signature".
+Amongst the info you get back from the last command should be a line telling you that you have a "Good signature". (Don't worry about the warning.)
 
 ### Verify Bitcoin SHA
 
@@ -407,18 +407,7 @@ But, when you're ready to go, continue on with [3.0: Playing with bitcoin-cli](3
 
 **Private Regtest.** This is Regression Testing Mode, which lets you run a totally local Bitcoin server. It allows for even more in-depth testing. There's no pruning needed here, because you'll be starting from scratch.
 
-### Appendix II: Useful Commands
-
-```
-bc help
-bc getblockchaininfo
-bc getnetworkinfo
-bc getnettotals
-bc getwalletinfo
-bc stop
-```
-
-### Other tutorials once you've got bitcoin installed and up-to-date
+### Appendix III: Other tutorials once you've got bitcoin installed and up-to-date
 
 - Bitcoin.org's developer examples https://bitcoin.org/en/developer-examples#transactions
 - Jonas Nick's "How to Run a Bitcoin Node" https://github.com/jonasnick/bitcoin-node
