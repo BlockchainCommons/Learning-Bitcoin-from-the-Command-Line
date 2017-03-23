@@ -28,7 +28,7 @@ With that said, use of these aliases in _this_ document might accidentally obscu
 
 ## Run Bitcoind
 
-You'll be accessing the Bitcoin network with the `bitcoin-cli` command. However, bitcoind _must_ be running to use bitcoin-cli, as the bitcoin-cli sends JSON-RPC commands to the bitcoind. If you used our standard setup, bitcoind should already be up and running. You can double check by looking at the process table.
+You'll begin your exploration of the Bitcoin network with the `bitcoin-cli` command. However, bitcoind _must_ be running to use bitcoin-cli, as bitcoin-cli sends JSON-RPC commands to the bitcoind. If you used our standard setup, bitcoind should already be up and running. You can double check by looking at the process table.
 ```
 $ ps auxww | grep bitcoind
 user1    29360 11.5 39.6 2676812 1601416 ?     SLsl Feb23 163:42 /usr/local/bin/bitcoind -daemon
@@ -37,30 +37,31 @@ If it's not running, you'll want to run "/usr/local/bin/bitcoind -daemon" by han
 
 ## Verify Your Blocks
 
-You should have the whole blockchain ready before you start playing. Just run the `btcblock` alias to see if it's all loaded. You'll see two numbers, which tell you how many blocks have loaded out of how many total.
+You should have the whole blockchain downloaded before you start playing. Just run the `btcblock` alias to see if it's all loaded. You'll see two numbers, which tell you how many blocks have loaded out of how many total.
 
 If the two numbers aren't the same, as shown in this testnet example, you should wait:
 ```
 $ btcblock
 973212/1090099
 ```
-Total time can take from an hour to several hours, depending on your setup.
+Total download time can take from an hour to several hours, depending on your setup.
 
 If the two numbers are the same, as shown in this testnet example, you're fully loaded:
 ```
 $ btcblock
 1090099/1090099
 ```
+And that means you're ready to go!
 
 ## Optional: Know Your Server Types
 
-> **TESTNET vs MAINNET:** When you set up your node, you choose to create it as either a Mainnet, Testnet, or Regtest node. Though this document presumes a testnet setup, it's worth understanding how you might access and use the other setup types — even all on the same machine!
+> **TESTNET vs MAINNET:** When you set up your node, you choose to create it as either a Mainnet, Testnet, or Regtest node. Though this document presumes a testnet setup, it's worth understanding how you might access and use the other setup types — even all on the same machine! But, if you're a first time user, skip on past this, as it's not necessary for a basic setup.
 
 The type of setup is mainly controlled through the ~/.bitcoin/bitcoin.conf file. If you're running testnet, it probably contains this line:
 ```
 testnet=1
 ```
-While if you're running regtest, it probably contains this line:
+If you're running regtest, it probably contains this line:
 ```
 regtest=1
 ```
