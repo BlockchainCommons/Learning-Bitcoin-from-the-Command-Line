@@ -1,6 +1,6 @@
 # Interlude: Sending Coins the Easy Way
 
-[[TALK ABOUT THREE WAYS TO SEND MONEY]]
+[[TALK ABOUT THREE WAYS TO SEND MONEY]] — easy, raw transaction, with fees calculated
 
 > **NOTE:** This is a draft in progress, so that I can get some feedback from early reviewers. It is not yet ready for learning.
 
