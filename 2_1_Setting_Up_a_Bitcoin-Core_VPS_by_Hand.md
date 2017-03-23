@@ -307,7 +307,7 @@ First, we suggest setting up two variables to make this installation more automa
 
 The first variable, $BITCOIN, should be set to the current version of Bitcoin. It was 0.13.2 when we wrote this. The second will then automatically generate a truncated form used by some of the files.
 ```
-$ export BITCOIN=bitcoin-core-0.13.2
+$ export BITCOIN=bitcoin-core-0.14.0
 $ export BITCOINPLAIN=`echo $BITCOIN | sed 's/bitcoin-core/bitcoin/'`
 ```
 
