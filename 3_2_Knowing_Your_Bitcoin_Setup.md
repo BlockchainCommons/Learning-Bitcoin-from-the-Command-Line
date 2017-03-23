@@ -1,4 +1,4 @@
-# 3.2: Verifying Your bitcoin-cli Setup
+# 3.2: Knowing Your bitcoin-cli Setup
 
 ## Get Help
 
