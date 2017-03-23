@@ -9,7 +9,7 @@ It presumes that you have a VPS with bitcoin installed, running bitcoind. It als
 After working through this section, a developer will be able to:
 
    * Demonstrate that Their Bitcoin Node is Installed and Up-to-date
-   * Create an Address to Receive Bitcoin funds
+   * Create an Address to Receive Bitcoin Funds
    * Use Basic Wallet Commands
    
 Supporting objectives include the ability to:
