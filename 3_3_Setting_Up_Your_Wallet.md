@@ -1,4 +1,4 @@
-# 3.2: Setting Up Your Wallet
+# 3.3: Setting Up Your Wallet
 
 > **NOTE:** This is a draft in progress, so that I can get some feedback from early reviewers. It is not yet ready for learning.
 
@@ -15,6 +15,7 @@ n4cqjJE6fqcmeWpftygwPoKMMDva6BpyHf
 ```
 However, this isn't best practice. Though your address _is_ saved away in your wallet for your future use, you could easily make a mistake if you were retyping or cutting it somewhere else. And then you're telling people to send money to somewhere else (or to nowhere!). So instead we suggest a best practice, which is meant to minimize address mistakes.
 
+[[move]]
 ## Best Practices: Use Variables to Capture Addresses
 
 Instead, use your shell's built-in variables to capture your address.
@@ -35,7 +36,7 @@ Note that this address begins with an "n" (or sometimes an "m"). This signifies 
 
 We'll use this same technique for other bitcoin-cli results in the future; note that you could do it all by hand, instead of piping stuff in and out of variables ... but we really don't suggest it.
 
-## Capture the Private Key
+## Optional: Capture the Private Key
 
 The address lets you receive bitcoins, but to spend them, you'll need the address' private key. Again, this is all stored in your wallet, and it's not something that you usually need to worry about. But, if you do need it for some purpose (such as proving ownership from some other machine), then you can access the private key with the `bitcoin-cli dumpprivkey` command.
 ```
@@ -44,7 +45,7 @@ cW4s4MdW7BkUmqiKgYzSJdmvnzq8QDrf6gszPMC7eLmfcdoRHtHh
 ```
 We opted not to put this in a variable, because it's not something you want floating around ...
 
-## Sign a Message
+## Optional: Sign a Message
 
 You can also sign a message using your address. This verifies that the message for the address was signed by the person who knew the address' private key. You do this with `bitcoin-cli signmessage [address] [message]`. For example:
 ```
@@ -62,6 +63,8 @@ If some black hat was making up signatures, they'd instead get a negative result
 $ bitcoin-cli verifymessage "n4cqjJE6fqcmeWpftygwPoKMMDva6BpyHf" "FAKEBZaFeSmG2HgnH38dImzZAwAQADcOiMKTC1fryoV6Y93BelqzDMTCqNcFoik86E8qHa6o3FCmTsxWD7Wa5YY=" "Hello, World"
 false
 ```
+
+## Optional: Dump Your Wallet
 
 ## Summary: Setting Up Your Wallet
 
