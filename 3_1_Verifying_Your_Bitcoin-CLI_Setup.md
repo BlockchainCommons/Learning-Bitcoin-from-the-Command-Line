@@ -213,6 +213,18 @@ Examples:
 > curl --user myusername --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "getmininginfo", "params": [] }' -H 'content-type: text/plain;' http://127.0.0.1:8332/
 ```
 
+## Optional: Get More Info
+
+A variety of commands will give oyu move info on your setup:
+```
+$ bitcoin-cli getblockchaininfo
+$ bitcoin-cli getmininginfo
+$ bitcoin-cli getnetworkinfo
+$ bitcoin-cli getnettotals
+$ bitcoin-cli getwalletinfo
+```
+Feel free to play with any of these, and use "bitcoin-cli help" if you want more information on what any of them do.
+
 ## Optional: Know Your Server Types
 
 > **TESTNET vs MAINNET:** When you set up your node, you choose to create it as either a Mainnet, Testnet, or Regtest node. Though this document presumes a testnet setup, it's worth understanding how you might access and use the other setup types — even all on the same machine!
