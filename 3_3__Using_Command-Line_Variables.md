@@ -6,7 +6,7 @@ If you're using `bash`, you can save information to a variable like this:
 ```
 $ VARIABLE=$(command)
 ```
-That's a simple command substitution, and the equivalent to ``VARIABLE=`command```. The command inside the parentheses is run, then assigned to the VARIABLE.
+That's a simple command substitution, and the equivalent to ``VARIABLE=`command` ``. The command inside the parentheses is run, then assigned to the VARIABLE.
 
 To create a new address would then look like this:
 ```
