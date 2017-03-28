@@ -49,7 +49,7 @@ You'll receive a txid back when you issue this command.
 ## Examine Your Transaction
 
 You can look at your transaction using your transaction id:
-``
+```
 $ bitcoin-cli gettransaction $txid
 {
   "amount": -0.10000000,
