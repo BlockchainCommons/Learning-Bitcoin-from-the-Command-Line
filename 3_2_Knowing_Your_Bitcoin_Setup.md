@@ -25,7 +25,7 @@ You shouldn't mess with most of these files and directories — particularly not
 
 ## Know Your Bitcoin-cli Commands
 
-Most of your work will be done with the "bitcoin-cli" command. If you ever want more information on its usage, just run the help argument. Without any other arguments, it shows you ever possible command:
+Most of your early work will be done with the "bitcoin-cli" command, which offers an easy interface to bitcoind. If you ever want more information on its usage, just run it with the help argument. Without any other arguments, it shows you ever possible command:
 ```
 $ bitcoin-cli help
 == Blockchain ==
@@ -139,7 +139,7 @@ setaccount "bitcoinaddress" "account"
 settxfee amount
 signmessage "bitcoinaddress" "message"
 ```
-You can also type "bitcoin help [command]" to get even more extensive info on that command. For example:
+You can also type `bitcoin help [command]` to get even more extensive info on that command. For example:
 ```
 $ bitcoin-cli help getmininginfo
 getmininginfo
@@ -163,9 +163,9 @@ Examples:
 > bitcoin-cli getmininginfo 
 > curl --user myusername --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "getmininginfo", "params": [] }' -H 'content-type: text/plain;' http://127.0.0.1:8332/
 ```
-## Optional: Know Your Other Bitcoin Info
+## Optional: Know Your Bitcoin Info
 
-A variety of commands can give you additional information on your bitcoin data. The most general ones are:
+A variety of bitcoin-cli commands can give you additional information on your bitcoin data. The most general ones are:
 ```
 $ bitcoin-cli getblockchaininfo
 $ bitcoin-cli getmininginfo
@@ -173,7 +173,7 @@ $ bitcoin-cli getnetworkinfo
 $ bitcoin-cli getnettotals
 $ bitcoin-cli getwalletinfo
 ```
-For example `bitcoin-cli getnetworkinfo` gives you a bariety of information on your setup and its access to various networks:
+For example `bitcoin-cli getnetworkinfo` gives you a variety of information on your setup and its access to various networks:
 ```
 $ bitcoin-cli getnetworkinfo
 {
