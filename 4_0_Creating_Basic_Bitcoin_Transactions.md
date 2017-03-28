@@ -1,6 +1,6 @@
 # Section Four: Creating Basic Bitcoin Transactions
 
-This section describes how to send basic Bitcoin transactions from the command line, using only the bitcoin-cli interface.
+This section describes three different methods for sending bitcoins from the command line, using only the bitcoin-cli interface.
 
 ## Objectives for This Section
 
@@ -13,19 +13,13 @@ After working through this section, a developer will be able to:
 Supporting objectives include the ability to:
 
    * Use Basic Methods to Send Money
-   * Use Shell Tools to Make Raw Transactions Simple
-   * Understand TXes
-   * Understand Transaction Fees
-   * Understand How Money Goes Through a Transaction
+   * Understand Transactions & Transaction Fees
    * Use Auto Fee Calculation Methods to Send Money
    
 ## Table of Contents
- 
- * [Interlude: Sending Coins the Easy Way](3_3__Interlude_Sending_Coins_The_Easy_Way.md)
-* [Part Four: Sending a Raw Transaction to a P2PKH](3_4_Sending_a_Raw_Transaction_to_a_P2PKH.md)
-[[break out shell tools here]]
-  * Interlude: Shell Variables
-  * [Interlude: Using JQ for Better Parsing](3_4__Interlude_Using_JQ_for_Better_Parsing.md)
-[[then continue with real raw transaction]]
-  * [Interlude: Writing a Raw Transaction the Easy Way](3_4__Interlude_Writing_a_Raw_Transaction_The_Easy_Way.md)
-* [Part Five: Sending a Raw Transaction to an OP_RETURN](3_5_Sending_a_Raw_Transaction_to_an_OP_RETURN.md)
+  
+  * [Part One: Sending Coins the Easy Way](4_1_Sending_Coins_The_Easy_Way.md)
+  * [Part Two: Creating a Raw Transaction](4_2_Creating_a_Raw_Transaction.md)
+     * [Interlude: Using JQ](4_2__Interlude_Using_JQ.md)
+  * [Part Three: Sending Coins with a Raw Transaction](4_3_Sending_Coins_with_a_Raw_Transaction.md)
+  * [Part Four: Sending Coins with an Automated Raw Transactio](4_4_Sending_Coins_with_an_Automated_Raw_Transaction.md)
