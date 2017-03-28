@@ -33,7 +33,9 @@ If your cloud provider offers two-factor authentication for their web tools, we 
 
 ### Create a Machine
 
-You should now create your Bitcoin VPS. For an Unpruned Testnet setup, you should have at least 2-3G of memory and at least 15G of storage.
+You should now create your Bitcoin VPS. For an Unpruned Testnet setup, you should have at least 2-3G of memory and at least 15G of storage. 
+
+> **WARNING:** We've occasionally had machines run out of memory after running `bitcoind` for a few days when they only had 2G. Coming back, we find that `bitcoind` has stopped, leaving the message "Error: Out of memory. Terminating." in the `debug.log` file. This simply requires a restart of `bitcoind` and ten or fifteen minutes to get the blockchain resynced. Be generous with your memory if you want to avoid this annoyance, but don't worry too much if you hit it.
 
 We also suggest that you choose a Debian 8 image when you're creating your machine. These commands were all tested on Debian 8.7 (jessie). The further you get away from that, the less likely things will work as described here. So, another Debian is probably OK and maybe a different Ubuntu, but we've tried these out on a Mac, and we know that it's missing some commands like "wget". So, installer beware!
 
