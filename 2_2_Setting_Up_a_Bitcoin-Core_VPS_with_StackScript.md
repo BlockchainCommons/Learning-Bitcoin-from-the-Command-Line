@@ -62,6 +62,8 @@ The following chart shows minimum requirements
 
 Just choose your Linode type, choose a Location that's geographically as close to you as possible, and click "Add your Linode!".
 
+> **WARNING:** We've occasionally had machines run out of memory after running `bitcoind` for a few days when they only had 2G. Coming back, we find that `bitcoind` has stopped, leaving the message "Error: Out of memory. Terminating." in the `debug.log` file. This simply requires a restart of `bitcoind` and ten or fifteen minutes to get the blockchain resynced. Be generous with your memory if you want to avoid this annoyance, but don't worry too much if you hit it.
+
 _Be aware that the requirements might change over time as the blockchain continues to grow. Watch for "Out of Memory" or "Disk Space is Low!" errors. Either one indicates that you should migrate to the next larger machine!_
 
 ### Configure Your Linode
