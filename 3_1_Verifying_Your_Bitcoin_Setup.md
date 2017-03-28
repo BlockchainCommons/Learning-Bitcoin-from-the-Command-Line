@@ -18,7 +18,7 @@ alias btcblock="echo \\\`bitcoin-cli getblockcount 2>&1\\\`/\\\`wget -O - http:/
 EOF
 ```
 
-> **WARNING:** The btcblock alias will not work correctly if you try to place it in your .bash_profile by hand, rather than using the "cat" command as suggested. If you want to enter it by hand, you need to adjust the number of backslashes (usually from three each to one each), so make sure you know what you're doing if you aren't entering the commands exactly as shown.
+> **WARNING:** The btcblock alias will not work correctly if you try to place it in your .bash_profile by hand, rather than using the "cat" command as suggested. If you want to enter it by hand, you need to adjust the number of backslashes (usually from three each to one each), so make sure you know what you're doing if you aren't entering the commands exactly as suggested.
 
 Note that these aliases includes shortcuts for running `bitcoin-cli`, for running `bitcoind`, and for going to the Bitcoin directory. These aliases are mainly meant to make your life easier. We suggest you create other aliases to ease your use of frequent commands (and arguments) and to minimize errors. Aliases of this sort can even more useful if you have a complex setup where you regularly run commands associated with Mainnet, with Testnet, _and_ with Regtest, as explained further below.
 
@@ -39,14 +39,14 @@ If it's not running, you'll want to run "/usr/local/bin/bitcoind -daemon" by han
 
 You should have the whole blockchain downloaded before you start playing. Just run the `btcblock` alias to see if it's all loaded. You'll see two numbers, which tell you how many blocks have loaded out of how many total.
 
-If the two numbers aren't the same, as shown in this testnet example, you should wait:
+If the two numbers aren't the same, you should wait:
 ```
 $ btcblock
 973212/1090099
 ```
 Total download time can take from an hour to several hours, depending on your setup.
 
-If the two numbers are the same, as shown in this testnet example, you're fully loaded:
+If the two numbers are the same, you're fully loaded:
 ```
 $ btcblock
 1090099/1090099
@@ -89,4 +89,4 @@ For even more complexity, you could have each of your 'start' aliases use the -c
 
 ## Summary: Verifying Your Bitcoin Setup
 
-Before you start playing with bitcoin, you should make sure that your aliases are setup, your bitcoind is running, and your blocks are downloaded. You may also want to setup some access to alternative Bitcoin setups, if you're an advanced user.
+Before you start playing with bitcoin, you should make sure that your aliases are setup, your bitcoind is running, and your blocks are downloaded. You may also want to set up some access to alternative Bitcoin setups, if you're an advanced user.
