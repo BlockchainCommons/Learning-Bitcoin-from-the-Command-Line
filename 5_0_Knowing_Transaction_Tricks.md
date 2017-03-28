@@ -6,15 +6,15 @@ This section describes how to use a few tricks that supplement or improve the us
 
 After working through this section, a developer will be able to:
 
-   * Create Data as Part of a Raw Transaction
-   * Decide Whether RBF or CPFP is Appropriate
+   * Decide Whether RBF or CPFP Might Help a Transaction
    * Use These Tricks to Free Up a Stuck Transaction
+   * Create Data as Part of a Transaction
 
 Supporting objectives include the ability to:
 
-   * Plan for the Power of OP_RETURN
    * Understand the Mempool
    * Experience How Miners Interact with Fees
+   * Plan for the Power of OP_RETURN
    
 ## Table of Contents
    
