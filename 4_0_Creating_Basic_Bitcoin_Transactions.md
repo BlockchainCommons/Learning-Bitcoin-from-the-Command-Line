@@ -1,3 +1,5 @@
+# Section Four: Creating Basic Bitcoin Transactions
+
 This section describes how to send basic Bitcoin transactions from the command line, using only the bitcoin-cli interface.
 
 ## Objectives for This Section
@@ -6,8 +8,7 @@ After working through this section, a developer will be able to:
 
    * Decide How to Send Money Through Bitcoin
    * Create a Raw Transaction
-   
-   [[decide whether this should include OP_RETURN or not]]
+   * Use Arithmetic to Calculate Fees
    
 Supporting objectives include the ability to:
 
