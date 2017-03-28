@@ -21,10 +21,10 @@ $ echo $NEW_ADDRESS_1
 n4cqjJE6fqcmeWpftygwPoKMMDva6BpyHf
 ```
 
-Because you have your address in a variable, you can now easily sign a message for that address, without worrying about misstyping the address. You'll of course save that signature into a variable too!
+Because you have your address in a variable, you can now easily sign a message for that address, without worrying about typoing the address. You'll of course save that signature into a variable too!
 ```
 $ NEW_SIG_1=$(bitcoin-cli signmessage $NEW_ADDRESS_1 "Hello, World")
 ```
 The rest of this tutorial will use this style of saving information to variables when it's practical.
 
-_When is it not practical? Saving your signature may not actually be practical if you're just going to have to send it to someone else, not use it yourself. In addition, in the future, some commands will output JSON objects instead of just a line of information, and variables can't be used to capture that information ... though there are alternatives._
+_When is it not practical to use command-line variables?_ Command-line variables aren't practical if you need to use the information somewhere other than on the command line. For example, saving your signature may not actually be useful if you're just going to have to send it to someone else in an email. In addition, some future commands will output JSON objects instead of simple information, and variables can't be used to capture that information ... at least not without a _little_ more work.
