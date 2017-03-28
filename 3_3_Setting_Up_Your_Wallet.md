@@ -15,20 +15,7 @@ n4cqjJE6fqcmeWpftygwPoKMMDva6BpyHf
 ```
 However, this isn't best practice. Though your address _is_ saved away in your wallet for your future use, you could easily make a mistake if you were retyping or cutting it somewhere else. And then you're telling people to send money to somewhere else (or to nowhere!). So instead we suggest a best practice, which is meant to minimize address mistakes.
 
-[[move]]
-## Best Practices: Use Variables to Capture Addresses
 
-Instead, use your shell's built-in variables to capture your address.
-```
-$ unset NEW_ADDRESS_1
-$ NEW_ADDRESS_1=$(bitcoin-cli getnewaddress)
-```
-These commands clear the NEW_ADDRESS_1 variable, then fill it with the results of the `bitcoin-cli getnewaddress` command.
-
-You can then use your shell's `echo` command to look at your (new) address:
-```
-$ echo $NEW_ADDRESS_1
-n4cqjJE6fqcmeWpftygwPoKMMDva6BpyHf
 ```
 Note that this address begins with an "n" (or sometimes an "m"). This signifies that this is a testnet address. 
 
