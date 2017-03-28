@@ -23,7 +23,6 @@ _What is a Bitcoin wallet?_ By creating your first Bitcoin address, you've also 
 
 With a single address in hand, you could jump straight to the next section, and begin receiving funds. However, before we get there, we're going to talk about a few other wallet commands that you might want to use in the future.
 
-
 ## Optional: Sign a Message
 
 Sometimes you'll need to prove that you control a Bitcoin address (or rather, that you control its private key). This is important because it lets people know that they're sending funds to the right persons. This can be done by using the `bitcoin-cli signmessage` command, in the form `bitcoin-cli signmessage [address] [message]`. For example:
@@ -44,18 +43,30 @@ $ bitcoin-cli verifymessage "n4cqjJE6fqcmeWpftygwPoKMMDva6BpyHf" "FAKEBZaFeSmG2H
 false
 ```
 
-## Optional: Capture the Private Key
+## Optional: Dump Your Wallet
 
-The address lets you receive bitcoins, but to spend them, you'll need the address' private key. Again, this is all stored in your wallet, and it's not something that you usually need to worry about. But, if you do need it for some purpose (such as proving ownership from some other machine), then you can access the private key with the `bitcoin-cli dumpprivkey` command.
+It might seem dangerous having all of your irreplacable private keys in a single file. That's what `bitcoin-cli backupwallet` is for. It lets you make a copy of your wallet.dat:
+```
+$ bitcoin-cli backupwallet backup.dat
+```
+You can then recover it with `bitcoin-cli importwallet`.
+```
+$ bitcoin-cli importwallet backup.dat
+```
+
+## Optional: View Your Private Keys
+
+Sometimes, you might want to see the private keys associated with your address. Perhaps you want to be able to sign a message or spend a coin froma different machine.
+
+To look at _all_ the keys in your wallet, type `bitcoin-cli dumpwallet mywallet.txt`. This will create a mywallet.txt file in ~/.bitcoin/testnet3 with a long list of private keys, addresses, and other information. Mind you, you'd never want to put this data out in a plain text file on a Bitcoin setup with real funds!
+
+More likely, you just want to look at the private key associated with a specific address. This can be done with the `bitcoin-cli dumpprivkey` command.
 ```
 $ bitcoin-cli dumpprivkey "n4cqjJE6fqcmeWpftygwPoKMMDva6BpyHf"
 cW4s4MdW7BkUmqiKgYzSJdmvnzq8QDrf6gszPMC7eLmfcdoRHtHh
 ```
-If you think it's a pain to have to constantly retype (or recopy) that public address, we agree. It's also prone to errors, a topic that we'll address in the next section. IN the meantime, as long as you were careful, you should now have a private key.
-
-
-## Optional: Dump Your Wallet
+If you think it's a pain to have to constantly retype (or recopy) that public address, as we have in this section, we agree. It's also prone to errors, a topic that we'll address in the very next section.
 
 ## Summary: Setting Up Your Wallet
 
-You need to create an address to receive funds. We suggest using variables to capture your address, to ensure that you give out the correct address in the future. Based on that address, you can also access a private key and sign messages.
+You need to create an address to receive funds. You can also do lots more, like dumping that address' private key or using it to sign messages. All of this is stored in a wallet, which you can back up. But really, creating that address is _all_ you need to do in order to receive Bitcoin funds.
