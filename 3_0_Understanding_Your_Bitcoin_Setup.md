@@ -1,6 +1,6 @@
 # Section Three: Understanding Your Bitcoin Setup
 
-This section lays out the basics of understanding your bitcoin setup and how to use its wallet features.
+This section lays out the basics for understanding your bitcoin setup and how to use its wallet features.
 
 It presumes that you have a VPS with bitcoin installed, running bitcoind. It also presumes that you are connected to testnet, allowing for access to bitcoins without using real funds. You can either do this by hand, per [2.1: Setting up a Bitcoin-Core VPS by Hand](./2_1_Setting_Up_a_Bitcoin-Core_VPS_by_Hand.md), or do it with a Linode StackScript at Linode.com, per [2.2: Setting up a Bitcoin-Core VPS with StackScript](./2_2_Setting_Up_a_Bitcoin-Core_VPS_with_StackScript.md).
 
