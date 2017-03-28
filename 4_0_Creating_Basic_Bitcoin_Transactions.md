@@ -1,6 +1,6 @@
 # Section Four: Creating Basic Bitcoin Transactions
 
-This section describes three different methods for sending bitcoins from the command line, using only the bitcoin-cli interface.
+This section describes three different methods for sending bitcoins to basic P2PKH addresses from the command line, using only the bitcoin-cli interface.
 
 ## Objectives for This Section
 
