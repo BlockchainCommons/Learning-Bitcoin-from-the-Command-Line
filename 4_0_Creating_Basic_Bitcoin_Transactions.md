@@ -1,6 +1,6 @@
 # Section Four: Sending Bitcoin Transactions
 
-This section describes three different methods for sending bitcoins to basic P2PKH addresses from the command line, using only the bitcoin-cli interface.
+This section describes three different methods for sending bitcoins to normal P2PKH addresses from the command line, using only the bitcoin-cli interface.
 
 ## Objectives for This Section
 
@@ -15,6 +15,7 @@ Supporting objectives include the ability to:
    * Use Basic Methods to Send Money
    * Understand Transactions & Transaction Fees
    * Use Auto Fee Calculation Methods to Send Money
+   * Understand the Dangers of Raw Transactions
    
 ## Table of Contents
   
