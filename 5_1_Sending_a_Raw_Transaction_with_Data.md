@@ -1,6 +1,4 @@
-# 3.5: Sending a Raw Transaction with an OP_RETURN
-
-[[maybe put this in a complex transaction section with RBF and child-funds-parent]]
+# 5.1: Sending a Raw Transaction with Data
 
 > **NOTE:** This is a draft in progress, so that I can get some feedback from early reviewers. It is not yet ready for learning.
 
