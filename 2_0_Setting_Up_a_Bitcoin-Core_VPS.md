@@ -1,4 +1,4 @@
-# Section Two: Setting Up a Bitcoin-Core VPS
+# Section Two: Creating a Bitcoin-Core VPS
 
 To get started with Bitcoin, you first need to set up a machine running Bitcoin. The articles in this section describe how to do so using a VPS (Virtual Private Server).
 
