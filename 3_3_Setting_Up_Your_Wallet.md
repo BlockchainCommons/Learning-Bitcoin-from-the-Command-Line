@@ -36,6 +36,8 @@ H3yMBZaFeSmG2HgnH38dImzZAwAQADcOiMKTC1fryoV6Y93BelqzDMTCqNcFoik86E8qHa6o3FCmTsxW
 ```
 You'll get the signature as a return.
 
+_What is a signature?_ A digital signature is a combination of a message and a private key that can then be unlocked with a public key. Since there's a one-to-one correspendence between the elements of a keypair, unlocking with a public key proves that the signer controlled the corresponding private key. 
+
 Another person can then use the `bitcoin-cli verifymessage` command to verify the signature. He inputs the address in question, the signature, and the message:
 ```
 $ bitcoin-cli verifymessage "n4cqjJE6fqcmeWpftygwPoKMMDva6BpyHf" "H3yMBZaFeSmG2HgnH38dImzZAwAQADcOiMKTC1fryoV6Y93BelqzDMTCqNcFoik86E8qHa6o3FCmTsxWD7Wa5YY=" "Hello, World"
@@ -62,7 +64,7 @@ $ bitcoin-cli importwallet backup.dat
 
 ## Optional: View Your Private Keys
 
-Sometimes, you might want to actually look at the private keys associated with your addresses. Perhaps you want to be able to sign a message or spend a coin from a different machine. Perhaps you just want to back up certain important private keys.
+Sometimes, you might want to actually look at the private keys associated with your addresses. Perhaps you want to be able to sign a message or spend bitcoins from a different machine. Perhaps you just want to back up certain important private keys.
 
 To look at _all_ the keys in your wallet, type `bitcoin-cli dumpwallet mywallet.txt`. This will create a mywallet.txt file in ~/.bitcoin/testnet3 with a long list of private keys, addresses, and other information. Mind you, you'd never want to put this data out in a plain text file on a Bitcoin setup with real funds!
 
@@ -71,6 +73,8 @@ More likely, you just want to look at the private key associated with a specific
 $ bitcoin-cli dumpprivkey "n4cqjJE6fqcmeWpftygwPoKMMDva6BpyHf"
 cW4s4MdW7BkUmqiKgYzSJdmvnzq8QDrf6gszPMC7eLmfcdoRHtHh
 ```
+_What is a private key?_ It's the other half of your keypair. It proves ownership of the public address and allows funds to be used.
+
 You can then save that key somewhere safe.
 
 You've been typing that Bitcoin address you generated a _lot_, while you were signing messages and now dumping keys. If you think it's a pain, we agree. It's also prone to errors, a topic that we'll address in the very next section.
