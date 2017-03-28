@@ -36,8 +36,9 @@ _What is a QR code?_ A QR code is just an encoding of a Bitcoin address. Many wa
 
 You're now ready to send some coins. This is actually quite simple via the command line. You just use `bitcoin-cli sendtoaddress [address] [amount]`. So, to send a little coinage to the address `n2eMqTT929pb1RDNuqEnxdaLau1rxy3efi` just requires:
 ```
-$ bitcoin-cli sendtoaddress n2eMqTT929pb1RDNuqEnxdaLau1rxy3efi 0.1
-6ad295c280798e9746dcdf7e5a60dfb6219d93bf31aab9b540ce892537c41e0c
+$ txid=$(bitcoin-cli sendtoaddress n2eMqTT929pb1RDNuqEnxdaLau1rxy3efi 0.1)
+$ echo $txid
+586b3ff591d43948ed4107216be52d831c551747b469626a6b7c84bbf1639f76
 ```
 Make sure the address you write in is where you want the money to go. Make _double_ sure. If you make mistakes in Bitcoin, there's no going back. 
 
@@ -47,12 +48,37 @@ You'll receive a txid back when you issue this command.
 
 ## Examine Your Transaction
 
-You'll be able to see the transaction in your list immediately. 
+You can look at your transaction using your transaction id:
+``
+$ bitcoin-cli gettransaction $txid
+{
+  "amount": -0.10000000,
+  "fee": -0.00022600,
+  "confirmations": 0,
+  "trusted": false,
+  "txid": "586b3ff591d43948ed4107216be52d831c551747b469626a6b7c84bbf1639f76",
+  "walletconflicts": [
+  ],
+  "time": 1490742233,
+  "timereceived": 1490742233,
+  "bip125-replaceable": "unknown",
+  "details": [
+    {
+      "account": "",
+      "address": "n2eMqTT929pb1RDNuqEnxdaLau1rxy3efi",
+      "category": "send",
+      "amount": -0.10000000,
+      "vout": 0,
+      "fee": -0.00022600,
+      "abandoned": false
+    }
+  ],
+  "hex": "0200000001a8b61dba544525ad267644cb78f07c1ba58586ff9089aec3ac24d8764dc21dfb000000006a47304402204c38c2530d3283200e4fd3b2d22e609fc6dc941fd3ac4bc8b73ad5a86607e723022050056ae6cfc3233fb38459a6fd5e63d54e4c85e17b91d66fb915e3977a1c77dd0121027a313901f2ac34c87761513cabe69ca9ca61e2db3c7e6f89d7eccd7fc0a5917cfeffffff0280969800000000001976a914e7c1345fc8f87c68170b3aa798a956c2fe6a9eff88ac4082820b000000001976a914a091d978794d50e5caa3e5454cc8633240640d6688aca6de1000"
+}
 ```
-$ bitcoin-cli listtransactions
+You can see now only the amount transferred (.1 BtC) but also a transaction fee (.000226 BTC), which is about a quarter of the .001 BC/kB minimum fee that was set, which suggests that the transaction was about a quarter of a kB in size.
 
-```
-However, note that as always it'll take a while for your balances to settle (particularly if your transaction minimums are set verylow).
+While you are waiting for this transaction to clear, you'll note that `bitcoin-cli getbalance` shows that all of your money is gone (or, at least, all of your money from a single incoming transaction). Similarly, `bitcoin-cli listunspent` would show an appropriately sized blob of incoming money was gone. There's a reason for this: whenever you get money in, you have to send it _all_ out together, and you have to perform some gymnastics if you actually want to keep some of it! Once again, `sendtoaddress` takes care of this all for you, which means you don't have to worry about it in full until you use a raw transaction to send out money.
 
 ## Summary: Sending Coins the Easy Way
 
