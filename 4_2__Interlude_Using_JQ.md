@@ -374,7 +374,7 @@ $ ./txfee-calc.sh $rawtxhex
 
 ## Make Some New Aliases
 
-JQ code can be a little unwieldly, so you should consider adding some longer and more interesting invocations to your ~/.bash_profile
+JQ code can be a little unwieldly, so you should consider adding some longer and more interesting invocations to your ~/.bash_profile. Any time you're looking throug a large mass of information in a JSON Object output from a bitcoin-cli command, consider writing an alias to strip it down to just what you want to see.
 ```
 alias btcunspent="bitcoin-cli listunspent | jq -r '.[] | { txid: .txid, vout: .vout, amount: .amount }'"
 alias btctxfee="~/txfee-calc.sh"
