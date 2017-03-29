@@ -13,7 +13,7 @@ Once you've downloaded the binary, you can install it on your system:
 $ mv jq-linux64 jq
 $ sudo /usr/bin/install -m 0755 -o root -g root -t /usr/local/bin jq
 ```
-## Use JQ to Capture a JSON Object Key-Value by Key
+## Use JQ to Access a JSON Object Value by Key
 
 **Usage Example:** _Capture the hex from a signed raw transaction._
 
@@ -42,7 +42,7 @@ $ echo $signedtx
 $ bitcoin-cli sendrawtransaction $signedtx
 3f9ccb6e16663e66dc119de1866610cc4f7a83079bfec2abf0598ed3adf10a78
 ```
-## Use JQ to Capture a JSON Array Key-Value by Key
+## Use JQ to Access a JSON Array Value by Key
 
 **Usage Example:** _Capture the txid and vout for a selected UTXO._
 
@@ -79,7 +79,7 @@ $ echo $newvout
 ```
 Voila! We could now create a new raw transaction using our 0th UTXO as an input, without having to type in any of the UTXO info by hand!
 
-## Use JQ to Capture Multiple JSON Array Key-Values by Key
+## Use JQ to Access Multiple JSON Array Values by Key
 
 **Usage Example:** _List the value of all unspent UTXOs._
 
@@ -103,7 +103,7 @@ $ bitcoin-cli getbalance
 6.61000000
 ```
 
-## Use JQ to Display Multiple Values by Multiple Keys
+## Use JQ to Display Multiple JSON Object Values by Multiple Keys
 
 **Usage Example:** _List usage information for all UTXOs._
 
@@ -158,7 +158,7 @@ You can of course rename your new keys as you see fit:
   "bitcoins": 1.95
 }
 ```
-## Use JQ to Capture a JSON Object Key-Value by Value
+## Use JQ to Access a JSON Object by Accessed Value
 
 **Usage Example:** _Automatically look up a UTXO being used in a transaction._
 
@@ -304,7 +304,7 @@ for txid in ${usedtxid[@]}; do bitcoin-cli listunspent | jq -r '.[] | select (.t
 }
 ```
 
-## Use JSON for Simple Calculation by Key-Value
+## Use JSON for Simple Calculation by Value
 
 **Usage Example:** _Automatically calculate the value of the UTXOs used in a transaction._
 
@@ -322,8 +322,6 @@ $ for txid in ${usedtxid[@]}; do bitcoin-cli listunspent | jq -r '.[] | select (
 4.66
 ```
 
-For more JSON magic (and if any of this isn't clear), please read the [JSON Manual](https://stedolan.github.io/jq/manual/) and the [JSON Cookbook](https://github.com/stedolan/jq/wiki/Cookbook).
-
 ## Use JQ for Complex Calculations
 
 **Usage Example:** _Calculate the fee for a real transaction._
@@ -338,14 +336,11 @@ $ echo "$btcin-$btcout"| /usr/bin/bc
 ```
 And that's also a good example of why you double-check your fees: we'd intended to send a transaction fee of 5,000 satoshis, but sent 95,000 satoshis instead. Whoops!
 
-If you'd like to have this JQ 
-> **WARNING:** This script has not been robustly checked. If you are going to use it to verify real transaction fees you should only do it as a triple-check after you've already done all the math yourself.
+For more JSON magic (and if any of this isn't clear), please read the [JSON Manual](https://stedolan.github.io/jq/manual/) and the [JSON Cookbook](https://github.com/stedolan/jq/wiki/Cookbook). We'll be regularly using JQ in future examples.
 
-### Use JQ to Calculate Transaction Fees for Real
+### The Transaction Fee Script
 
-**Usage Example:** _Calculate the fee for a real transaction._
-
-However, as we've noted, a real transaction may have more than one input and will almost always have more than one output. We'll construct one of those in a future section, but for now here's a more robust bash script that uses JQ to calculate the transaction fee for a transaction with multiple vins and vouts.
+If you'd like to have this JQ in a script, you can use the following.
 
 > **WARNING:** This script has not been robustly checked. If you are going to use it to verify real transaction fees you should only do it as a triple-check after you've already done all the math yourself.
 
@@ -376,4 +371,11 @@ $ ./txfee-calc.sh $rawtxhex
 ```
 
 ## Make Some New Aliases
+
+JQ code can be a little unwieldly, so you should consider adding some longer and more interesting invocations to your ~/.bash_profile
+```
+lias btcunspent="bitcoin-cli listunspent | jq -r '.[] | { txid: .txid, vout: .vout, amount: .amount }'"
+alias btctxfee="~/txfee-calc.sh"
+```
+
 
