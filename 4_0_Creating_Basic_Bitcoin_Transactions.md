@@ -1,10 +1,10 @@
-# Section Four: Sending Bitcoin Transactions
+# Chapter Four: Sending Bitcoin Transactions
 
-This section describes three different methods for sending bitcoins to normal P2PKH addresses from the command line, using only the bitcoin-cli interface.
+This chapter describes three different methods for sending bitcoins to normal P2PKH addresses from the command line, using only the bitcoin-cli interface.
 
-## Objectives for This Section
+## Objectives for This Chapter
 
-After working through this section, a developer will be able to:
+After working through this chapter, a developer will be able to:
 
    * Decide How to Send Money Through Bitcoin
    * Create a Raw Transaction
