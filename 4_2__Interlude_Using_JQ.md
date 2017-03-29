@@ -326,7 +326,7 @@ $ for txid in ${usedtxid[@]}; do bitcoin-cli listunspent | jq -r '.[] | select (
 
 **Usage Example:** _Calculate the fee for a real transaction._
 
-With this in hand, you can now use a few lines of code to see the transaction fee for the simple, one-input, one-output example raw transaction that we wrote in the previous section:
+A few more lines of code which add out the values of your vout, then subtract your vout from your vin can be used to calculate your transaction fee:
 ```
 $ usedtxid=($(bitcoin-cli decoderawtransaction $rawtxhex | jq -r '.vin | .[] | .txid'))
 $ btcin=$(for txid in ${usedtxid[@]}; do bitcoin-cli listunspent | jq -r '.[] | select (.txid | contains("'$txid'")) | .amount'; done | awk '{s+=$1} END {print s}')
@@ -335,6 +335,8 @@ $ echo "$btcin-$btcout"| /usr/bin/bc
 .0095
 ```
 And that's also a good example of why you double-check your fees: we'd intended to send a transaction fee of 5,000 satoshis, but sent 95,000 satoshis instead. Whoops!
+
+> **WARNING:** This was not a clever little lesson. We messed up our calculation of the the transaction fee when we wrote our raw transaction. It's *that* easy, then your money is gone.
 
 For more JSON magic (and if any of this isn't clear), please read the [JSON Manual](https://stedolan.github.io/jq/manual/) and the [JSON Cookbook](https://github.com/stedolan/jq/wiki/Cookbook). We'll be regularly using JQ in future examples.
 
@@ -364,7 +366,7 @@ btcout=$(bitcoin-cli decoderawtransaction $1 | jq -r '.vout  [] | .value' | awk
 echo "$btcin-$btcout"| /usr/bin/bc
 
 ```
-You can then run it as follows:
+You can then run the script as follows:
 ```
 $ ./txfee-calc.sh $rawtxhex
 .0095
