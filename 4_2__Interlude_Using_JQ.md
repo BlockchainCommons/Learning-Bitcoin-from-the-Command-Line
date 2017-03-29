@@ -29,7 +29,7 @@ $ bitcoin-cli signrawtransaction $rawtxhex
 ```
 Fortunately, JQ can easily capture data of that sort!
 
-To use JQ, run `jq` at the backend of a pipe, and always use the standard invocation of `jq -r '.'`. The `-r` tells JQ to produce raw output, which will work for command-line variables, while the `.` tells jq to ouput. We protected it in `' '` because we'll need that protection later.
+To use JQ, run `jq` at the backend of a pipe, and always use the standard invocation of `jq -r '.'`. The `-r` tells JQ to produce raw output, which will work for command-line variables, while the `.` tells jq to ouput. We protect those argument in `' '` because we'll need that protection later as our `jq` invocations get more complex.
 
 To capture a specific value from a JSON object, you just list the key after the `.`:
 ```
