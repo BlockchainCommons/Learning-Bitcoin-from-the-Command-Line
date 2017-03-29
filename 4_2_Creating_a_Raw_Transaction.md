@@ -2,7 +2,7 @@
 
 > **NOTE:** This is a draft in progress, so that I can get some feedback from early reviewers. It is not yet ready for learning.
 
-You're now ready to create Bitcoin raw transactions. This allows you to send money but to craft the transactions precisely as you want. This first section focuses on a simple one-input, one-output transaction. This sort of transaction _isn't_ actually that useful, because you're rarely going to want to send all of your money to one person (unless you're actually just forwarded it on, for example if you're moving things from one wallet to another). Thus, we don't label this section as a way to send money. It's just a foundational stepping stone to _actually_ sending money with a raw transaction, as outlined in the next section.
+You're now ready to create Bitcoin raw transactions. This allows you to send money but to craft the transactions precisely as you want. This first section focuses on a simple one-input, one-output transaction. This sort of transaction _isn't_ actually that useful, because you're rarely going to want to send all of your money to one person (unless you're actually just forwarding it on, such as if you're moving things from one wallet to another). Thus, we don't label this section as a way to send money. It's just a foundational stepping stone to _actually_ sending money with a raw transaction.
 
 ## Understand the Bitcoin Transaction
 
@@ -12,7 +12,7 @@ _What is a UTXO?_ When you receive cash in your Bitcoin wallet, it appears as an
 
 When you create a new outgoing transaction, you gather together one or more UTXOs, each of which represents a blob of money that you received. Together their amount must equal what you want to spend _or more_. You use these as inputs into the new transaction. Then, you generate one or more outputs, which give the money represented by the inputs to one or more people. This creates new UTXOs for the recipients, which may then use _those_ to fund future transactions.
 
-Here's the trick: _all of the UTXOs that you gather are spent in full!_ That means that if you want to send just part of the money in a UTXO to someone else, then you also have to generate an additional output that sends the rest back to you! For now, we won't worry about that, but the creation of a change address will be what turns the theory of this section until the actual use of the next section.
+Here's the trick: _all of the UTXOs that you gather are spent in full!_ That means that if you want to send just part of the money in a UTXO to someone else, then you also have to generate an additional output that sends the rest back to you! For now, we won't worry about that, but the creation of a change address will be what turns the theory of this section until the actual use of the next subsection.
 
 ## List Your Unspent Transactions
 
@@ -55,31 +55,31 @@ $ bitcoin-cli listunspent
   }
 ]
 ```
-This listing shows three different UTXOs, worth .08, .078, and .078 BTC. Note that each has its own distinct txid and remains distinct in the wallet, even though two of them were sent to the same address. (Bad practice! But used as an example to show that transaction stya distinct, no matter what!)
+This listing shows three different UTXOs, worth .08, .078, and .078 BTC. Note that each has its own distinct txid and remains distinct in the wallet, even though two of them were sent to the same address. (Bad practice! But used as an example here to show that transaction stay distinct, no matter what!)
 
-When you spend a UTXO, it's not sufficient to just know the transaction id. That's because each transaction can have multiple outputs! Remember that first chunk of money that the faucet sent us? In the transaction, some money went to us and some went to someone else. The `txid` just refers to the overall transaction, while a `vout` says which of multiple outputs you've received. In this list, two of our UTXOs are the 0th vout of a transaction, and the other is the 1st. This makes a difference!
+When you want to spend a UTXO, it's not sufficient to just know the transaction id. That's because each transaction can have multiple outputs! Remember that first chunk of money that the faucet sent us? In the transaction, some money went to us and some went to someone else. The `txid` refers to the overall transaction, while a `vout` says which of multiple outputs you've received. In this list, two of our UTXOs are the 0th vout of a transaction, and the other is the 1st. This makes a difference!
 
-So txid+vout=UTXO. This will be the foundation of any raw transaction.
+So, txid+vout=UTXO. This will be the foundation of any raw transaction.
 
 ## Write a Raw Transaction with One Output
 
 You're now ready to write a simple, example raw transaction that shows how to send the entirety of a UTXO to another party. As noted, this is not necessarily a very realistic real-world case.
 
-> **WARNING:** It is very easy to lose money with a raw transaction. Consider all instructions on sending bitcoins via raw transactions to be _very_, _very_ dangerous. Whenever you're actually sending real money to other people, you should instead use one of the other methods explained in this section. Creating raw transactions is extremely useful if you're writing bitcoin programs, but _only_ when you're writing bitcoin programs.
+> **WARNING:** It is very easy to lose money with a raw transaction. Consider all instructions on sending bitcoins via raw transactions to be _very_, _very_ dangerous. Whenever you're actually sending real money to other people, you should instead use one of the other methods explained in this chapter. Creating raw transactions is extremely useful if you're writing bitcoin programs, but _only_ when you're writing bitcoin programs.
 
 ### Prepare the Raw Transaction
 
 For best practices, we'll start out each transaction by carefully recording the txids and vouts that we'll be spending.
 
-In this case, we're going to spend the oldest transaction, because that's the one that's been validated the most:
+In this case, we're going to spend the oldest transaction, worth .08 BTC, because that's the one that's been validated the most:
 ```
 $ utxo_txid="ee9805676271f6244eba94c3d1a48b303a8f8359bf711c630eb6f2ea339d0e72"
 $ utxo_vout="0"
 ```
 
-> **TESTNET vs MAINNET:** Obviously the "validated the most" criteria would matter a lot more on mainnet, where real money is being used.
+> **TESTNET vs MAINNET:** Obviously the "validated-the-most" criteria would matter a lot more on mainnet, where real money is being used.
 
-You should similarly record your recipient address, to make sure there are no problems. We're again sending some money back to the TP faucet:
+You should similarly record your recipient address, to make sure you have it right. We're again sending some money back to the TP faucet:
 ```
 $ recipient="n2eMqTT929pb1RDNuqEnxdaLau1rxy3efi"
 ```
@@ -119,6 +119,18 @@ $ rawtxhex=$(bitcoin-cli createrawtransaction '''[ { "txid": "'$utxo_txid'", "vo
 $ echo $rawtxhex
 0100000001720e9d33eaf2b60e631c71bf59838f3a308ba4d1c394ba4e24f67162670598ee0000000000ffffffff01b04e7900000000001976a914e7c1345fc8f87c68170b3aa798a956c2fe6a9eff88ac00000000
 ```
+
+### Understand the Transaction Fee
+
+You'll note that we didn't send the whole .08 BTC to our recipient. That's because of the transaction fee, which is _implicit_ when you send a raw transaction: the amount that you will pay as a fee is always equal to the amount of your input minus the amount of your output. So, you have to decrease your output a little bit from your input to make sure that your transaction goes out.
+
+> **WARNING:** This is the very dangerous part of raw transactions!! Because you automatically expend all of the amount in the UTXOs that you use, it's critically important to make sure that you know: (1) precisely what UTXOs you're using; (2) exactly how much money they contain; (3) exactly how much money you're sending out; and (4) what the difference is. If you mess up and you use the wrong UTXO (with more money than you thought) or if you send out too little money, the excess is lost. Forever. Don't make that mistake! Know your inputs and outputs _precisely_. Or better, don't use raw transactions except as part of a carefully considered and triple-checked program.
+
+_How much should you spend on transaction fees?_ [Bitcoin Fees](https://bitcoinfees.21.co/) has a nice live assessment. It says that the "fastest and cheapest transaction fee is currently 220 satoshis/byte" and that "For the median transaction size of 226 bytes, this results in a fee of 49,720 satoshis". 
+
+That basic info is what we used to construct our raw transaction. We just subtracted 50,000 satoshis, which is .0005 BTC,  from the amount we were sending: .0800 BTC - .0005 BC= .0795, which is what we sent. (Often transactions don't need to be the "fastest" and can get away with much lower transaction fees; we opted not to because we don't want to delay working through this tutorial.)
+
+> **WARNING:** The lower that you set your transaction fee, the longer before your transaction is built into a block. The Bitcoin Fees sites lists expected times, from an expected 0 blocks, to 22. Since blocks are built on average every 10 minutes, that's the difference between a few minutes and a few hours! So, choose a transaction fee that's appropriate for what you're sending. Note that you should never drop below the minimum relay fee, which is .0001 BTC.
 
 ### Verify Your Raw Transaction
 
@@ -161,18 +173,6 @@ $ bitcoin-cli decoderawtransaction $rawtxhex
 }
 ```
 Check the vin. Are you spending the right transaction? Does it contain the expected amount of money? Check your vout. Are you sending the right amount? Is it going to the right address? Finally, do the math to make sure the money balances. Does the value of the UTXO minus the amount being spent equal the expected transaction fee?
-
-### Understand the Transaction Fee
-
-You'll note that we didn't send the whole .08 BTC to our recipient. That's because of the transaction fee, which is _implicit_ when you send a raw transaction: the amount that you will pay as a fee is always equal to the amount of your input minus the amount of your output. So, you have to decrease your output a little bit from your input to make sure that your transaction goes out.
-
-> **WARNING:** This is the very dangerous part of raw transactions!! Because you automatically expend all of the amount in the UTXOs that you use, it's critically important to make sure that you know: (1) precisely what UTXOs you're using; (2) exactly how much money they contain; (3) exactly how much money you're sending out; and (4) what the difference is. If you mess up and you use the wrong UTXO (with more money than you thought) or if you send out too little money, the excess is lost. Forever. Don't make that mistake! Know your inputs and outputs _precisely_. Or better, don't use raw transactions except as part of a carefully considered and triple-checked program.
-
-_How much should you spend on transaction fees?_ [Bitcoin Fees](https://bitcoinfees.21.co/) has a nice live assessment. It says that the "fastest and cheapest transaction fee is currently 220 satoshis/byte" and that "For the median transaction size of 226 bytes, this results in a fee of 49,720 satoshis". 
-
-That basic info is what we used to construct our raw transaction. We just subtracted 50,000 satoshis from the amount we were sending, which is .0005 BTC: .0800 BTC - .0005 BC= .0795, which is what we sent. (Often transactions don't need to be the "fastest" and can get away with much lower transaction fees; we opted not to because we don't want to delay working through this tutorial.)
-
-> **WARNING:** The lower that you set your transaction fee, the longer before your transaction is built into a block. The Bitcoin Fees sites lists expected times, from an expected 0 blocks, to 22. Since blocks are built on average every 10 minutes, that's the difference between a few minutes and a few hours! So, choose a transaction fee that's appropriate for what you're sending. Note that you should never drop below the minimum relay fee, which is .0001 BTC.
 
 ### Sign the Raw Transaction
 
