@@ -15,6 +15,8 @@ $ sudo /usr/bin/install -m 0755 -o root -g root -t /usr/local/bin jq
 ```
 ## Use JQ to Capture a JSON Object Key-Value by Key
 
+**Usage Example:** _Capture the hex from a signed raw transaction._
+
 In the previous section, the use of `signrawtransaction` offered the first example of not being able to easily capture data into variables due to the use of JSON:
 ```
 $ bitcoin-cli signrawtransaction $rawtxhex
@@ -41,6 +43,8 @@ $ bitcoin-cli sendrawtransaction $signedtx
 3f9ccb6e16663e66dc119de1866610cc4f7a83079bfec2abf0598ed3adf10a78
 ```
 ## Use JQ to Capture a JSON Array Key-Value by Key
+
+**Usage Example:** _Capture the txid and vout for a selected unspent transaction._
 
 So what happens when you instead use `jq` to parse a JSON Array? The `listunspent` command offers a great example, because it'll usually contain a number of different transactions.
 
@@ -77,6 +81,8 @@ Voila! We could now create a new raw transaction using our 0th UTXO as an input,
 
 ## Use JQ to Capture Multiple JSON Array Key-Values by Key
 
+**Usage Example:** _List the value of all unspent funds._
+
 You can alternatively use `jq '.[]'` to access all elements of a JSON Array. You might wonder why that's useful. It's because you can then capture _all_ of a specific value, from _all_ of the array indices, using the same methodology you just used to capture a simple element. For example, this would list all of our unspent funds:
 ```
 $ bitcoin-cli listunspent | jq -r '.[] | .amount'
@@ -87,6 +93,8 @@ $ bitcoin-cli listunspent | jq -r '.[] | .amount'
 
 ## Use JQ for Simple Calculations by Key
 
+**Usage Example:** _Sum the value of all unspent funds._
+
 At this point, you can start using JQ output for simple math. For example, adding up the amount of those unspent transactions with a simple `awk` script would give you the equivalent of `getbalance`:
 ```
 $ bitcoin-cli listunspent | jq -r '.[] | .amount' | awk '{s+=$1} END {print s}'
@@ -96,6 +104,8 @@ $ bitcoin-cli getbalance
 ```
 
 ## Use JQ to Display Multiple Values by Multiple Keys
+
+**Usage Example:** _List critical information for all unspent funds._
 
 JQ is great for capturing individual elements from JSON objects and arrays, and placing those elements into variables. That will be its prime use in future sections. However, it can also be used to cut down huge amounts of information into reasonable amounts of information.
 ```
@@ -149,6 +159,8 @@ You can of course rename your new keys as you see fit:
 }
 ```
 ## Use JQ to Capture a JSON Object Key-Value by Value
+
+**Usage Example:** _Automatically look up a UTXO being used in a transaction._
 
 The JQ lookups so far have been fairly simple: you use a key to lookup one or more key-values in a JSON Object or Array. But what if you instead want to lookup a key-value in an object ... by another key-value? This sort of indirect lookup has real applicability when you're working with transactions built on existing UTXOs. For example, what if you wanted to figure out the value of a UTXO we're using, something that we know is vitally important in raw transactions?
 
@@ -221,6 +233,8 @@ For more JSON magic (and if any of this isn't clear), please read the [JSON Manu
 
 ## Use JQ for Complex Calculations
 
+**Usage Example:** _Calculate the fee for a simple one-input, one-output transaction._
+
 With this in hand, you can now use a few lines of code to see the transaction fee for the simple, one-input, one-output example raw transaction that we wrote in the previous section:
 ```
 $ usedtxid=$(bitcoin-cli decoderawtransaction $rawtxhex | jq -r '.vin | .[0] | .txid')
@@ -231,6 +245,8 @@ $ echo "$btcin-$btcout"| /usr/bin/bc
 ```
 
 ### Use JQ to Calculate Transaction Fees for Real
+
+**Usage Example:** _Calculate the fee for a real transaction._
 
 However, as we've noted, a real transaction may have more than one input and will almost always have more than one output. We'll construct one of those in a future section, but for now here's a more robust bash script that uses JQ to calculate the transaction fee for a transaction with multiple vins and vouts.
 
