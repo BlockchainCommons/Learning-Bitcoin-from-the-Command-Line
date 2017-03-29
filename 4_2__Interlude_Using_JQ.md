@@ -44,7 +44,7 @@ $ bitcoin-cli sendrawtransaction $signedtx
 ```
 ## Use JQ to Capture a JSON Array Key-Value by Key
 
-**Usage Example:** _Capture the txid and vout for a selected unspent transaction._
+**Usage Example:** _Capture the txid and vout for a selected UTXO._
 
 So what happens when you instead use `jq` to parse a JSON Array? The `listunspent` command offers a great example, because it'll usually contain a number of different transactions.
 
@@ -81,7 +81,7 @@ Voila! We could now create a new raw transaction using our 0th UTXO as an input,
 
 ## Use JQ to Capture Multiple JSON Array Key-Values by Key
 
-**Usage Example:** _List the value of all unspent funds._
+**Usage Example:** _List the value of all unspent UTXOs._
 
 You can alternatively use `jq '.[]'` to access all elements of a JSON Array. You might wonder why that's useful. It's because you can then capture _all_ of a specific value, from _all_ of the array indices, using the same methodology you just used to capture a simple element. For example, this would list all of our unspent funds:
 ```
@@ -93,7 +93,7 @@ $ bitcoin-cli listunspent | jq -r '.[] | .amount'
 
 ## Use JQ for Simple Calculations by Key
 
-**Usage Example:** _Sum the value of all unspent funds._
+**Usage Example:** _Sum the value of all unspent UTXOs._
 
 At this point, you can start using JQ output for simple math. For example, adding up the amount of those unspent transactions with a simple `awk` script would give you the equivalent of `getbalance`:
 ```
@@ -105,7 +105,7 @@ $ bitcoin-cli getbalance
 
 ## Use JQ to Display Multiple Values by Multiple Keys
 
-**Usage Example:** _List critical information for all unspent funds._
+**Usage Example:** _List usage information for all UTXOs._
 
 JQ is great for capturing individual elements from JSON objects and arrays, and placing those elements into variables. That will be its prime use in future sections. However, it can also be used to cut down huge amounts of information into reasonable amounts of information.
 ```
@@ -202,6 +202,8 @@ $ bitcoin-cli decoderawtransaction $rawtxhex
   ]
 }
 ```
+[[SHOULD REALLY REDO THIS TO LIST ALL TRANSACTIONS, OR INCLUDE IT AS A SECOND EXAMPLE.]]
+
 To retrieve the 0th (and in this case only) txid, we need to `jq` to the .vin key-value, then to its 0th array, then to that array's .txid key-value. Easy:
 ```
 $ usedtxid=$(bitcoin-cli decoderawtransaction $rawtxhex | jq -r '.vin | .[0] | .txid')
@@ -252,4 +254,5 @@ However, as we've noted, a real transaction may have more than one input and wil
 
 > **WARNING:** This script has not been robustly checked. If you are going to use it to verify real transaction fees you should only do it as a triple-check after you've already done all the math yourself.
 
+## Make Some New Aliases
 
