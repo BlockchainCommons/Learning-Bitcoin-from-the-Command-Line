@@ -1,10 +1,10 @@
-# Section Two: Creating a Bitcoin-Core VPS
+# Chapter Two: Creating a Bitcoin-Core VPS
 
-To get started with Bitcoin, you first need to set up a machine running Bitcoin. The articles in this section describe how to do so using a VPS (Virtual Private Server).
+To get started with Bitcoin, you first need to set up a machine running Bitcoin. The articles in this chapter describe how to do so using a VPS (Virtual Private Server).
 
-## Objectives for this Section
+## Objectives for this Chapter
 
-After working through this section, a developer will be able to:
+After working through this chapter, a developer will be able to:
 
    * Decide Between the Five Major Types of Bitcoin Nodes
    * Create a Bitcoin Node for Development
