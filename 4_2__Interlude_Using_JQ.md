@@ -358,11 +358,8 @@ then
 fi
 
 usedtxid=($(bitcoin-cli decoderawtransaction $1 | jq -r '.vin | .[] | .txid'))
-btcin=$(for txid in ${usedtxid[@]}; do bitcoin-cli listunspent | jq -r '.[] | s
-elect (.txid | contains("'$txid'")) | .amount'; done | awk '{s+=$1} END {print 
-s}')
-btcout=$(bitcoin-cli decoderawtransaction $1 | jq -r '.vout  [] | .value' | awk
- '{s+=$1} END {print s}')
+btcin=$(for txid in ${usedtxid[@]}; do bitcoin-cli listunspent | jq -r '.[] | select (.txid | contains("'$txid'")) | .amount'; done | awk '{s+=$1} END {print s}')
+btcout=$(bitcoin-cli decoderawtransaction $1 | jq -r '.vout  [] | .value' | awk '{s+=$1} END {print s}')
 echo "$btcin-$btcout"| /usr/bin/bc
 
 ```
