@@ -374,7 +374,7 @@ $ ./txfee-calc.sh $rawtxhex
 
 JQ code can be a little unwieldly, so you should consider adding some longer and more interesting invocations to your ~/.bash_profile
 ```
-lias btcunspent="bitcoin-cli listunspent | jq -r '.[] | { txid: .txid, vout: .vout, amount: .amount }'"
+alias btcunspent="bitcoin-cli listunspent | jq -r '.[] | { txid: .txid, vout: .vout, amount: .amount }'"
 alias btctxfee="~/txfee-calc.sh"
 ```
 
