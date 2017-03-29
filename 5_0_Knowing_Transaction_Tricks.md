@@ -1,10 +1,10 @@
-# Section Five: Knowing Transaction Tricks
+# Chapter Five: Knowing Transaction Tricks
 
-This section describes how to use a few tricks that supplement or improve the use of raw transaction from the command line using bitcoin-cli.
+This chapter describes how to use a few tricks that supplement or improve the use of raw transaction from the command line using bitcoin-cli.
 
 ## Objectives for This Section
 
-After working through this section, a developer will be able to:
+After working through this chapter, a developer will be able to:
 
    * Decide Whether RBF or CPFP Might Help a Transaction
    * Use These Tricks to Free Up a Stuck Transaction
