@@ -41,7 +41,7 @@ $ utxo_txid=$(bitcoin-cli listunspent | jq -r '.[0] | .txid')
 $ utxo_vout=$(bitcoin-cli listunspent | jq -r '.[0] | .vout')
 $ recipient="n2eMqTT929pb1RDNuqEnxdaLau1rxy3efi"
 
-$  rawtxhex=$(bitcoin-cli -named createrawtransaction inputs='''[ { "txid": "'$utxo_txid'", "vout": '$utxo_vout' } ]''' outputs='''{ "'$recipient'": 0.7595 }''')
+$  rawtxhex=$(bitcoin-cli -named createrawtransaction transactions='''[ { "txid": "'$utxo_txid'", "vout": '$utxo_vout' } ]''' outputs='''{ "'$recipient'": 0.7595 }''')
 $ bitcoin-cli -named decoderawtransaction hexstring=$rawtxhex 
 {
   "txid": "f445f121085d98635f7302e641f815d1ca4ce70f0e1b03f144ad1661dc5e10e7",
@@ -84,9 +84,7 @@ $ bitcoin-cli -named sendrawtransaction hexstring=$signedtx
 ```
 Voila! You've sent out another raw transaction, but this time using named arguments for clarity and to reduce errors.
 
-> **WARNING:** This doesn't actually seem to work at the moment. The `createrawtransaction` command gives the error "Unknown named parameter inputs", though it's definitely listed as the appropriate argument name in the help page.
-
-With this lesson out of the way, we're now going to put named arguments back on the shelf. If you want to use it your own, you should; just consult the `help` info for each command to see what the arguments are called. However, this tutorial will now return to the shorter (but not necessarily more intuitive) use of ordered arguments.
+> **WARNING:** At the time of this writing, there was a bug in the `createrawtransactions` named arguments. The help files said to use `inputs`, but the code used `transactions`. We believe that `transactions` will stay in usage and the help files will be updated accordingly.
 
 ## Summary: Creating a Raw Transaction with Named Arguments
 
