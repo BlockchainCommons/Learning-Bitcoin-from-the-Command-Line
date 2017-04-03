@@ -4,7 +4,7 @@
 
 It can sometimes be daunting to figure out the right order for the arguments to a bitcoin-cli command. Fortunately, you can use _named arguments_ as an alternative.
 
-> **VERSION WARNING:** This is an innovation from Bitcoin Core v 0.14.0. If you used our setup scripts, that's what you should have, but double-check your version if you have any problems.
+> **VERSION WARNING:** This is an innovation from Bitcoin Core v 0.14.0. If you used our setup scripts, that's what you should have, but double-check your version if you have any problems. 
 
 ## Create a Named Argument Alias
 
@@ -41,7 +41,7 @@ $ utxo_txid=$(bitcoin-cli listunspent | jq -r '.[0] | .txid')
 $ utxo_vout=$(bitcoin-cli listunspent | jq -r '.[0] | .vout')
 $ recipient="n2eMqTT929pb1RDNuqEnxdaLau1rxy3efi"
 
-$  rawtxhex=$(bitcoin-cli -named createrawtransaction transactions='''[ { "txid": "'$utxo_txid'", "vout": '$utxo_vout' } ]''' outputs='''{ "'$recipient'": 0.7595 }''')
+$  rawtxhex=$(bitcoin-cli -named createrawtransaction inputs='''[ { "txid": "'$utxo_txid'", "vout": '$utxo_vout' } ]''' outputs='''{ "'$recipient'": 0.7595 }''')
 $ bitcoin-cli -named decoderawtransaction hexstring=$rawtxhex 
 {
   "txid": "f445f121085d98635f7302e641f815d1ca4ce70f0e1b03f144ad1661dc5e10e7",
@@ -84,7 +84,7 @@ $ bitcoin-cli -named sendrawtransaction hexstring=$signedtx
 ```
 Voila! You've sent out another raw transaction, but this time using named arguments for clarity and to reduce errors.
 
-> **WARNING:** At the time of this writing, there was a bug in the `createrawtransactions` named arguments. The help files said to use `inputs`, but the code used `transactions`. We believe that `transactions` will stay in usage and the help files will be updated accordingly.
+> **WARNING:** There was a bug in Bitcoin Core 0.14, where the 'inputs' argument for 'createrawtransaction' was misnamed 'transactions'. It should be fixed in future version of Bitcoin Core. If you're using 0.14, you'll need to substitute 'transactions' for 'inputs' in the above example, but otherwise it should work as written.
 
 ## Summary: Creating a Raw Transaction with Named Arguments
 
