@@ -80,7 +80,7 @@ $ utxo_vout_2=$(bitcoin-cli listunspent | jq -r '.[1] | .vout')
 
 Writing these more complex raw transaction is surprisingly simple. All you need to do is include an additional, comma-separated JSON object in the JSON array of inputs and an additional, comma-separated key-value pair in the JSON object of outputs.
 
-Here's the example. Take a look at it carefully to understand where the inputs end the outputs begin:
+Here's the example. Note the multiple inputs after the `inputs` arg and the multiple outputs after the `outputs` arg.
 ```
 $ rawtxhex2=$(bitcoin-cli -named createrawtransaction inputs='''[ { "txid": "'$utxo_txid_1'", "vout": '$utxo_vout_1' }, { "txid": "'$utxo_txid_2'", "vout": '$utxo_vout_2' } ]''' outputs='''{ "'$recipient'": 4.0, "'$changeaddress'": 1.8495 }''')
 ```
