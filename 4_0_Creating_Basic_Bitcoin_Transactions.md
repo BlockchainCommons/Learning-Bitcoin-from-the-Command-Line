@@ -23,5 +23,5 @@ Supporting objectives include the ability to:
   * [Part Two: Creating a Raw Transaction](4_2_Creating_a_Raw_Transaction.md)
      * [Interlude: Using JQ](4_2__Interlude_Using_JQ.md)
   * [Part Three: Creating a Raw Transaction with Named Arguments](4_3_Creating_a_Raw_Transaction_with_Named_Arguments.md)
-  * [Part Four: Sending Coins with a Raw Transaction](4_4_Sending_Coins_with_a_Raw_Transaction.md)
-  * [Part Five: Sending Coins with an Automated Raw Transactio](4_5_Sending_Coins_with_Automated_Raw_Transactions.md)
+  * [Part Four: Sending Coins with Raw Transactions](4_4_Sending_Coins_with_a_Raw_Transaction.md)
+  * [Part Five: Sending Coins with Automated Raw Transactions](4_5_Sending_Coins_with_Automated_Raw_Transactions.md)
