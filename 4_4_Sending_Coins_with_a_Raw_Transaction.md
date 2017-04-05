@@ -2,33 +2,33 @@
 
 > **NOTE:** This is a draft in progress, so that I can get some feedback from early reviewers. It is not yet ready for learning.
 
-As we said, the `bitcoin-cli` offers three major ways to send coins. Section 4.1 talking about sending them with the `sendtoaddress` command. Since then, we've been building details on how to send coins a second way, with raw transactions. Section 4.2 taught how to create a raw transaction, an Interlude taught how to use JQ, and Section 4.3 taught how to use named arguments.
+As noted at the start of this chapter, the `bitcoin-cli` interface offers three major ways to send coins. Section 4.1 talking about sending them the first way, with the `sendtoaddress` command. Since then, we've been building details on how to send coins a second way, with raw transactions. Section 4.2 taught how to create a raw transaction, an Interlude explained JQ, and section 4.3 demonstrated named arguments.
 
-We can now put those together and actually send cash using a raw transaction.
+We can now put those together and actually send funds using a raw transaction.
 
 ## Create a Change Address
 
-Our sample raw transaction was very simplistic: we sent the entirety of a UTXO to a new address. More frequently, you'll want to send someone an amount of money that doesn't match a UTXO. But you'll recall that the excess money from a UTXO that's not sent to your recipient just becomes a transaction fee. So, how do you send someone just part of a UTXO, while keeping the rest for yourself?
+Our sample raw transaction in section 4.2 was very simplistic: we sent the entirety of a UTXO to a new address. More frequently, you'll want to send someone an amount of money that doesn't match a UTXO. But you'll recall that the excess money from a UTXO that's not sent to your recipient just becomes a transaction fee. So, how do you send someone just part of a UTXO, while keeping the rest for yourself?
 
-The solution is to create a change address:
+The solution is actually to _send_ the rest of the funds to a second address, a change address that you've created in your wallet specifically to receive them:
 ```
 $ changeaddress=$(bitcoin-cli getrawchangeaddress)
 $ echo $changeaddress
 myrK8U3SE1nWh9y9XPho5aTrKYW6n8qSQv
 ```
-Note that this is a new function: `getrawchangeaddress`. It's largely the same as `getnewaddress` but is optimized for use as a change address in a raw transaction, so it doesn't do things like make entries in your address book.
+Note that this uses a new function: `getrawchangeaddress`. It's largely the same as `getnewaddress` but is optimized for use as a change address in a raw transaction, so it doesn't do things like make entries in your address book.
 
-You now have an additional address inside your wallet, so that you can use to receive change from a UTXO! In order to use it, you'll need to create a raw transaction with two outputs. 
+You now have an additional address inside your wallet, so that you can receive change from a UTXO! In order to use it, you'll need to create a raw transaction with two outputs. 
 
 ## Pick Sufficient UTXOs
 
-Our simple raw transaction was simple in another way: it assumed that there was enough money in a single UTXO to cover the transaction. However, you'll often want create transactions that expend more money than is in a single UTXO. To do this, you must create a raw transaction with two (or more) inputs.
+Our sample raw transaction was simple in another way: it assumed that there was enough money in a single UTXO to cover the transaction. Often this will be the case, but sometimes you'll want to create transactions that expend more money than you have in a single UTXO. To do so, you must create a raw transaction with two (or more) inputs.
 
 ## Write a Real Raw Transaction
 
-To summarize: creating a real raw transaction to send coins will often require multiple inputs and will almost always require multiple outputs, one of which is a change address.
+To summarize: creating a real raw transaction to send coins will sometimes require multiple inputs and will almost always require multiple outputs, one of which is a change address. So that's what we'll be doing here, in a new example that shows a real-life example of sending funds via Bitcoin's second methodology, raw transactions.
 
-Here's the transactions we'll be using in this example:
+Here's the transactions we'll be using:
 ```
 $ bitcoin-cli listunspent
 [
@@ -57,36 +57,36 @@ $ bitcoin-cli listunspent
 ]
 
 ```
-In this example we need to send 4.0 BTC, which is larger than either of our UTXOs. This requires combining them, then using our change address to get the unspent funds.
+In our example, we're going to send 4.0 BTC, which is larger than either of our UTXOs. This requires combining them, then using our change address to retrieve the unspent funds.
 
 ### Set Up Your Variables
 
-We've already have `$changeaddress` and `$recipient` variables from our previous examples:
+We already have `$changeaddress` and `$recipient` variables from previous examples:
 ```
 $ echo $changeaddress
 myrK8U3SE1nWh9y9XPho5aTrKYW6n8qSQv
 ~$ echo $recipient
 n2eMqTT929pb1RDNuqEnxdaLau1rxy3efi
 ```
-We also need to record the txid and vout for each of our two UTXOs:
+We also need to record the txid and vout for each of our two UTXOs. Having identified the UTXOs that we want to spend, we can use our JQ techniques to make sure doing so is error free:
 ```
 $ utxo_txid_1=$(bitcoin-cli listunspent | jq -r '.[0] | .txid') 
-$ utxo_txid_2=$(bitcoin-cli listunspent | jq -r '.[1] | .txid') 
 $ utxo_vout_1=$(bitcoin-cli listunspent | jq -r '.[0] | .vout') 
+$ utxo_txid_2=$(bitcoin-cli listunspent | jq -r '.[1] | .txid') 
 $ utxo_vout_2=$(bitcoin-cli listunspent | jq -r '.[1] | .vout') 
 ```
 
 ### Write the Transaction
 
-Writing the new raw transaction is surprisingly simple. All you need to do is include an additional, comma-separated JSON object in the JSON array of inputs and an additional, comma-separated key-value pair in the JSON object of outputs.
+Writing these more complex raw transaction is surprisingly simple. All you need to do is include an additional, comma-separated JSON object in the JSON array of inputs and an additional, comma-separated key-value pair in the JSON object of outputs.
 
 Here's the example. Take a look at it carefully to understand where the inputs end the outputs begin:
 ```
-$ rawtxhex2=$(bitcoin-cli -named createrawtransaction transactions='''[ { "txid": "'$utxo_txid_1'", "vout": '$utxo_vout_1' }, { "txid": "'$utxo_txid_2'", "vout": '$utxo_vout_2' } ]''' outputs='''{ "'$recipient'": 4.0, "'$changeaddress'": 1.8495 }''')
+$ rawtxhex2=$(bitcoin-cli -named createrawtransaction inputs='''[ { "txid": "'$utxo_txid_1'", "vout": '$utxo_vout_1' }, { "txid": "'$utxo_txid_2'", "vout": '$utxo_vout_2' } ]''' outputs='''{ "'$recipient'": 4.0, "'$changeaddress'": 1.8495 }''')
 ```
-We were _very_ careful figuring out our money math. These two UTXOs contain 5.85 BTC. After sending 4.0 BTC, we'll have 1.85 BTC left. We again chose .0005 BTC for the transaction fee. To accomodate that fee, we set our change to 1.849 BTC. If we'd messed up our math and instead set our change to 1.749 BTC, that additional .1 BTC would be lost. That's $100 gone to the miners! If we'd forgot to make change at all, then the whole 1.85 BTC ($2000!) would have disappeared. So, again, _be careful_. 
+We were _very_ careful figuring out our money math. These two UTXOs contain 5.85 BTC. After sending 4.0 BTC, we'll have 1.85 BTC left. We again chose .0005 BTC for the transaction fee. To accomodate that fee, we set our change to 1.8495 BTC. If we'd messed up our math and instead set our change to 1.7495 BTC, that additional .1 BTC would be lost. That's $100 gone to the miners! If we'd forgot to make change at all, then the whole 1.85 BTC ($2000!) would have disappeared. So, again, _be careful_. 
 
-Fortunately, we can triple-check with our JQ alias:
+Fortunately, we can triple-check with the `btctxfee` alias from the JQ Interlude:
 ```
 $ btctxfee $rawtxhex2
 .0005
@@ -98,89 +98,38 @@ You can now sign, seal, and deliver your transaction, and it's yours (and the fa
 ```
 $ signedtx2=$(bitcoin-cli -named signrawtransaction hexstring=$rawtxhex2 | jq -r '.hex')
 $ bitcoin-cli -named sendrawtransaction hexstring=$signedtx2
-e9f5979c6a57ac9154c9583a1eec7841841dbf085212ac7ec31aff020a212c25
+69c9ef4d1adb48596c470146ee9b60593023b6eb870b79ef666a8c9369768469
 ```
 
-[[REVISED UP TO HERE; JUST NEED TO PUT IN NEW DATA]]
 ### Wait
 
-As usual, your money will be in flux for a while. You used all of your UTXOs, so your `getbalance` may show that you have cash, but the transaction must be confirmed before you see a UTXO with your change.
+As usual, your money will be in flux for a while: the change will be unavailable until the transaction actually gets confirmed and a new UTXO is given to you.
 
 But, in 10 minutes or less (probably), you'll have your remaining money back and fully spendable again:
 ```
 $ bitcoin-cli listunspent
 [
   {
-    "txid": "18f1a791e3f7735dbe1c92b86645ba9b1f62b8044f61efd76d082a084982c9ae",
+    "txid": "69c9ef4d1adb48596c470146ee9b60593023b6eb870b79ef666a8c9369768469",
     "vout": 1,
-    "address": "mxU9cmhJfkKWDtBspHaA36LkeafEDeaogJ",
-    "account": "",
-    "scriptPubKey": "76a914b9f2579814712f82a3dadfd73e0356339c6705b488ac",
-    "amount": 0.05550000,
+    "address": "myrK8U3SE1nWh9y9XPho5aTrKYW6n8qSQv",
+    "scriptPubKey": "76a914c91b8f2f983aa9f8f0ba552adf6b6491ac01e02888ac",
+    "amount": 1.84950000,
     "confirmations": 2,
     "spendable": true,
     "solvable": true
-  }
+  } 
 ]
 ```
 
-This also might be a good time to revisit a blockchain explorer, so that you can see more intuitively how the inputs, outputs, and transaction fee are all laid out: [https://live.blockcypher.com/btc-testnet/tx/18f1a791e3f7735dbe1c92b86645ba9b1f62b8044f61efd76d082a084982c9ae/](https://live.blockcypher.com/btc-testnet/tx/18f1a791e3f7735dbe1c92b86645ba9b1f62b8044f61efd76d082a084982c9ae/).
-$ bitcoin-cli decoderawtransaction $rawtxhex2
-{
-  "txid": "99b7454c20313806454f9fd4f3e0454ce93e6edd5e84dfc731bcc0ad352b2260",
-  "hash": "99b7454c20313806454f9fd4f3e0454ce93e6edd5e84dfc731bcc0ad352b2260",
-  "size": 160,
-  "vsize": 160,
-  "version": 1,
-  "locktime": 0,
-  "vin": [
-    {
-      "txid": "c1abb6951e6a9aae7e384412b69b69e59c10daac9397d01d0c52b7bc6278d589",
-      "vout": 1,
-      "scriptSig": {
-        "asm": "",
-        "hex": ""
-      },
-      "sequence": 4294967295
-    }, 
-    {
-      "txid": "ab7ca727055b812df882298f4e6e10ec699fb6250d843c813623171781f896d8",
-      "vout": 0,
-      "scriptSig": {
-        "asm": "",
-        "hex": ""
-      },
-      "sequence": 4294967295
-    }
-  ],
-  "vout": [
-    {
-      "value": 0.10000000,
-      "n": 0,
-      "scriptPubKey": {
-        "asm": "OP_DUP OP_HASH160 e7c1345fc8f87c68170b3aa798a956c2fe6a9eff OP_EQUALVERIFY OP_CHECKSIG",
-        "hex": "76a914e7c1345fc8f87c68170b3aa798a956c2fe6a9eff88ac",
-        "reqSigs": 1,
-        "type": "pubkeyhash",
-        "addresses": [
-          "n2eMqTT929pb1RDNuqEnxdaLau1rxy3efi"
-        ]
-      }
-    }, 
-    {
-      "value": 0.05550000,
-      "n": 1,
-      "scriptPubKey": {
-        "asm": "OP_DUP OP_HASH160 b9f2579814712f82a3dadfd73e0356339c6705b4 OP_EQUALVERIFY OP_CHECKSIG",
-        "hex": "76a914b9f2579814712f82a3dadfd73e0356339c6705b488ac",
-        "reqSigs": 1,
-        "type": "pubkeyhash",
-        "addresses": [
-          "mxU9cmhJfkKWDtBspHaA36LkeafEDeaogJ"
-        ]
-      }
-    }
-  ]
-}
-```
-[[THEN NEW CONCLUSION]]
+This also might be a good time to revisit a blockchain explorer, so that you can see more intuitively how the inputs, outputs, and transaction fee are all laid out: [69c9ef4d1adb48596c470146ee9b60593023b6eb870b79ef666a8c9369768469](https://live.blockcypher.com/btc-testnet/tx/69c9ef4d1adb48596c470146ee9b60593023b6eb870b79ef666a8c9369768469/).
+
+## Summary: Sending Coins with Raw Transactions
+
+To send coins with raw transactions, you need to create a raw transaction with one or more inputs (to have sufficient funds) and one or more outputs (to retrieve change). Then, you can follow your normal procedure of using `createrawtransaction` with named arguments and JQ, as laid out in previous sections.
+
+### Why Use Raw Transactions
+
+_The advantages._ It gives you the best control. If your goal is to write a more intricate script or Bitcoin program, you'll probably use raw transactions so that you know exactly what's going on. This is also the _safest_ situation to use raw transactions, because you can programmatically ensure that you don't make mistakes.
+
+_The disadvantages._ It's easy to lose money. There are no warnings, no safeguards, and no programmatic backstops, unless you write them. It's also arcane. The formatting is obnoxious, even using the easy-to-use `bitcoin-cli` interface, and you have to do a lot of lookup and calculation by hand.
