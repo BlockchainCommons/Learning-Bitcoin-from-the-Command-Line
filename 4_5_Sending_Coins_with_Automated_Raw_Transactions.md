@@ -1,37 +1,65 @@
-# Interlude: Writing a Raw Transaction the Easy Way
+# 4.5: Sending Coins with Automated Raw Transactions
 
-The purpose of this tutorial is to show you the very basics of Bitcoin raw transactions, so that you can work at things at a fundamental level. If you were writing a wallet or something other Bitcoin software, you'd probably want to do things exactly as described here. However, if you were (satoshi forfend!) regularly sending bitcoins about through raw transactions created by hand, then you'd want to have a little better insurance that you weren't making mistakes.
+> **NOTE:** This is a draft in progress, so that I can get some feedback from early reviewers. It is not yet ready for learning.
 
-The bitcoin-cli accomodates this with a `fundrawtransaction` command. First, you have to make sure that your ~/.bitcoin/bitcoin.conf file has some rational variables for calculating transaction fees. We've been quite aggressive with fees in this tutorial, to make sure the examples finish quickly, but the following would allow for cheaper transmissions that might take a few hours:
+This chapter lays out three ways to send funds via Bitcoin's cli interface. Section 4.1 described how to do so with a simple command, and Section 4.4 detailed how to use a more dangerous raw transaction. This final section splits the difference by showing how to make raw transactions simpler. 
+
+## Let Bitcoin Calculate For You
+
+The methodology is simple: you create a raw transaction, but you use the `fundrawtransaction` command to ask the bitcoind to run the calculations for you.
+
+In order to use this command, you'll need to have your ~/.bitcoin/bitcoin.conf file has some rational variables for calculating transaction fees. Please see [Section 4.1](4_1_Sending_Coins_The_Easy_Way.md) for more information on this.
+
+For very conservative numbers, we suggested adding the following to the bitcoin.conf:
 ```
- paytxfee=0.0001
- mintxfee=0.0001
- txconfirmtarget=25
+mintxfee=0.0001
+txconfirmtarget=6
+```
+To keep the tutorial moving along (and more generally to move money fast) we suggested the following:
+```
+mintxfee=0.001
+txconfirmtarget=1
+```
+
+## Create a Bare Bones Raw Transaction
+
+To use `fundrawtransaction` you need to create a bare-bones raw transaction that lists _no_ inputs and _no_ change address. You'll just list your recipient and what you want to send them:
  ```
- With that in hand (and in bitcoin.conf) you can use `createrawtransaction` with just your output(s), then run `fundrawtransaction` on the resulting hex:
- ```
-$ unfinishedtx=$(bitcoin-cli createrawtransaction '''[]''' '''{ "'$recipient'": 0.04 }''')
-$ bitcoin-cli fundrawtransaction $unfinishedtx
+$ unfinishedtx=$(bitcoin-cli -named createrawtransaction transactions='''[]''' outputs='''{ "'$recipient'": 1.0 }''')
+```
+
+## Fund Your Bare Bones Transaction
+
+You then tell `bitcoin-cli` to fund that bare-bones transaction:
+```
+$ bitcoin-cli -named fundrawtransaction hexstring=$unfinishedtx
 {
-  "hex": "0100000001aec98249082a086dd7ef614f04b8621f9bba4566b8921cbe5d73f7e391a7f1180100000000feffffff0208951700000000001976a914f26e11dc0fcc79fe76fca1d24d7588798922ca7488ac00093d00000000001976a914e7c1345fc8f87c68170b3aa798a956c2fe6a9eff88ac00000000",
+  "hex": "020000000169847669938c6a66ef790b87ebb6233059609bee4601476c5948db1a4defc9690100000000feffffff02a8e30f05000000001976a914a6f0ee37c44947f4137d56e4aab12f27ad50369188ac00e1f505000000001976a914e7c1345fc8f87c68170b3aa798a956c2fe6a9eff88ac00000000",
   "changepos": 0,
-  "fee": 0.00004520
+  "fee": 0.00022600
 }
-$ rawtxhex3="0100000001aec98249082a086dd7ef614f04b8621f9bba4566b8921cbe5d73f7e391a7f1180100000000feffffff0208951700000000001976a914f26e11dc0fcc79fe76fca1d24d7588798922ca7488ac00093d00000000001976a914e7c1345fc8f87c68170b3aa798a956c2fe6a9eff88ac00000000"
 ```
-It seems like magic, but when you examine the raw transaction, you'll see it works:
+That provides a lot of useful information, but once you're confident with how it works, you'll want to use JQ to save your hex to a variable, as usual:
 ```
-$ bitcoin-cli decoderawtransaction $rawtxhex3
+$ rawtxhex3=$(bitcoin-cli -named fundrawtransaction hexstring=$unfinishedtx | jq -r '.hex')
+```
+## Verify Your Funded Transaction
+
+It seems like magic, so the first few times you do this, you'll probably want to verify it.
+
+Running `decoderawtransaction` will show that the raw transaction is now laid out correctly, using one or more of your UTXOs and splitting up the money between multiple addresses:
+```
+$ bitcoin-cli -named decoderawtransaction hexstring=$rawtxhex3
 {
-  "txid": "3099716446e0761e823077fc2f33c158b1dbaa7c157cb03c25a7cf6b7ac4921d",
-  "hash": "3099716446e0761e823077fc2f33c158b1dbaa7c157cb03c25a7cf6b7ac4921d",
+  "txid": "2e34603b7449d29412fb7b0d184085d4d839d965f2bba361749c20d9dbae3d0b",
+  "hash": "2e34603b7449d29412fb7b0d184085d4d839d965f2bba361749c20d9dbae3d0b",
   "size": 119,
   "vsize": 119,
-  "version": 1,
+  "version": 2,
   "locktime": 0,
   "vin": [
     {
-      "txid": "18f1a791e3f7735dbe1c92b86645ba9b1f62b8044f61efd76d082a084982c9ae",
+      "txid": "69c9ef4d1adb48596c470146ee9b60593023b6eb870b79ef666a8c9369768469",
       "vout": 1,
       "scriptSig": {
         "asm": "",
@@ -42,20 +70,20 @@ $ bitcoin-cli decoderawtransaction $rawtxhex3
   ],
   "vout": [
     {
-      "value": 0.01545480,
+      "value": 0.84927400,
       "n": 0,
       "scriptPubKey": {
-        "asm": "OP_DUP OP_HASH160 f26e11dc0fcc79fe76fca1d24d7588798922ca74 OP_EQUALVERIFY OP_CHECKSIG",
-        "hex": "76a914f26e11dc0fcc79fe76fca1d24d7588798922ca7488ac",
+        "asm": "OP_DUP OP_HASH160 123cd8796558d195e52137ce3800e5f8120ee46f OP_EQUALVERIFY OP_CHECKSIG",
+        "hex": "76a914123cd8796558d195e52137ce3800e5f8120ee46f88ac",
         "reqSigs": 1,
         "type": "pubkeyhash",
         "addresses": [
-          "n3cogFw4y3A1LJgRz2G97otEGT7BK8ca3D"
+          "mhBPM8hU2PHjDTUvwa3SC7pqv8ExkK6mH8"
         ]
       }
     }, 
     {
-      "value": 0.04000000,
+      "value": 1.00000000,
       "n": 1,
       "scriptPubKey": {
         "asm": "OP_DUP OP_HASH160 e7c1345fc8f87c68170b3aa798a956c2fe6a9eff OP_EQUALVERIFY OP_CHECKSIG",
@@ -70,33 +98,44 @@ $ bitcoin-cli decoderawtransaction $rawtxhex3
   ]
 }
 ```
-As you can see, `fundrawtransaction` chose UTXOs for the inputs, it created a change address, it calculated a (low) transaction fee based on the variables in the bitcoin.conf file, and it sent the amount of the UTXO minus the tx fee back to the change address.
-
-You can even verify that the new address belongs to you:
+We saw the fee in the more extensive output, before we saved things to a variable with JQ, but you can verify it with the `btctxfee` JQ alias:
 ```
-$ bitcoin-cli validateaddress n3cogFw4y3A1LJgRz2G97otEGT7BK8ca3D
+$ btctxfee $rawtxhex3
+.00023
+```
+Finally, you can use `validateaddress` to see that the generated change address really belongs to you:
+```
+$ bitcoin-cli -named validateaddress address=mhBPM8hU2PHjDTUvwa3SC7pqv8ExkK6mH8
 {
   "isvalid": true,
-  "address": "n3cogFw4y3A1LJgRz2G97otEGT7BK8ca3D",
-  "scriptPubKey": "76a914f26e11dc0fcc79fe76fca1d24d7588798922ca7488ac",
+  "address": "mhBPM8hU2PHjDTUvwa3SC7pqv8ExkK6mH8",
+  "scriptPubKey": "76a914123cd8796558d195e52137ce3800e5f8120ee46f88ac",
   "ismine": true,
   "iswatchonly": false,
   "isscript": false,
-  "pubkey": "0347251fdd4fe8f9c66c0c137cc641e864dd27fc5dc0c8d0c85ff884d2a3fa1574",
+  "pubkey": "029045eaa55d283526c723e6d5495d9b3f077b545563f86465aafcd9bfdd50359e",Y
   "iscompressed": true,
-  "hdkeypath": "m/0'/0'/4'",
-  "hdmasterkeyid": "75807dcb1226537ceb54c38c4a75a61407fdd02d"
+  "timestamp": 1489170694,
+  "hdkeypath": "m/0'/0'/11'",
+  "hdmasterkeyid": "144a68bde927a1fed7c2b71ad9010b0201819be5"
 }
 ```
-At this point you could sign and send the transaction as usual ... then wait much longer for it to come back due to the lower transaction fees!
+Note the `ismine` results.
+
+## Send Your Funded Transaction
+
+At this point you could sign and send the transaction as usual.
 ```
-$ signedtx3="0100000001aec98249082a086dd7ef614f04b8621f9bba4566b8921cbe5d73f7e391a7f118010000006b483045022100a9b1454114bb2c04b51619eb5a00ad391605920ae801405b6191a64d1fb1e6e8022054def9ccbd75cb7929279cfef73ac573cdac7a325a1e3c8f43e139a1340b5d4b012103f7c794378db1c070b07d74f427f394f8a5d53f1abe1d2dab100d5a7a49db8785feffffff0208951700000000001976a914f26e11dc0fcc79fe76fca1d24d7588798922ca7488ac00093d00000000001976a914e7c1345fc8f87c68170b3aa798a956c2fe6a9eff88ac00000000"
-$ bitcoin-cli sendrawtransaction $signedtx3
-ecfc625fff594683e90d21618b64f44f7046c55bcda6468c1c37c1abe8b83913
+$ signedtx3=$(bitcoin-cli -named signrawtransaction hexstring=$rawtxhex3 | jq -r '.hex')
+$ bitcoin-cli -named sendrawtransaction hexstring=$signedtx3
 ```
-And voila!
-```
-$ bitcoin-cli getbalance
-0.01545480
-```
-We will _not_ be using this technique in the rest of the tutorial.
+
+## Summary: Sending Coins with Automated Raw Transactions
+
+If you must send funds with raw transactions `fundrawtransaction` gives you a nice alternative where fees, inputs, and outputs are calculated for you, so you don't accidentally lose a bunch of money.
+
+### Why Use Automated Raw Transactions
+
+_The advantages._ It provides a nice balance. If you're sending funds by hand and `sendtoaddress` doesn't offer enough control for whatever reason, you can get some of the advantages of raw transactions without the dangers. This methodology should be used whenever possible if you're sending raw transactions by hand.
+
+_The disadvantages._ It's a hodge-podge. Though there are a few more options on the `fundrawtransaction` command that weren't mentioned here, your control is still limited. So, you're using raw transactions, but you're still limited in what you can do. You'd probably never want to use this method if you were writing a program where the whole goal is to know exactly what's going on.
