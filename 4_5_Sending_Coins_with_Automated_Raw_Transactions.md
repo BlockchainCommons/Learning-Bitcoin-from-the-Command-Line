@@ -2,13 +2,13 @@
 
 > **NOTE:** This is a draft in progress, so that I can get some feedback from early reviewers. It is not yet ready for learning.
 
-This chapter lays out three ways to send funds via Bitcoin's cli interface. Section 4.1 described how to do so with a simple command, and Section 4.4 detailed how to use a more dangerous raw transaction. This final section splits the difference by showing how to make raw transactions simpler. 
+This chapter lays out three ways to send funds via Bitcoin's cli interface. Section 4.1 described how to do so with a simple command, and section 4.4 detailed how to use a more dangerous raw transaction. This final section splits the difference by showing how to make raw transactions simpler and safer. 
 
 ## Let Bitcoin Calculate For You
 
-The methodology is simple: you create a raw transaction, but you use the `fundrawtransaction` command to ask the bitcoind to run the calculations for you.
+The methodology for automated raw transactions is simple: you create a raw transaction, but you use the `fundrawtransaction` command to ask the bitcoind to run the calculations for you.
 
-In order to use this command, you'll need to have your ~/.bitcoin/bitcoin.conf file has some rational variables for calculating transaction fees. Please see [Section 4.1](4_1_Sending_Coins_The_Easy_Way.md) for more information on this.
+In order to use this command, you'll need to ensure that your ~/.bitcoin/bitcoin.conf file contains rational variables for calculating transaction fees. Please see [Section 4.1](4_1_Sending_Coins_The_Easy_Way.md) for more information on this.
 
 For very conservative numbers, we suggested adding the following to the bitcoin.conf:
 ```
@@ -23,8 +23,8 @@ txconfirmtarget=1
 
 ## Create a Bare Bones Raw Transaction
 
-To use `fundrawtransaction` you need to create a bare-bones raw transaction that lists _no_ inputs and _no_ change address. You'll just list your recipient and what you want to send them:
- ```
+To use `fundrawtransaction` you first need to create a bare-bones raw transaction that lists _no_ inputs and _no_ change address. You'll just list your recipient and how much you want to send them:
+```
 $ unfinishedtx=$(bitcoin-cli -named createrawtransaction transactions='''[]''' outputs='''{ "'$recipient'": 1.0 }''')
 ```
 
@@ -45,9 +45,9 @@ $ rawtxhex3=$(bitcoin-cli -named fundrawtransaction hexstring=$unfinishedtx | jq
 ```
 ## Verify Your Funded Transaction
 
-It seems like magic, so the first few times you do this, you'll probably want to verify it.
+It seems like magic, so the first few times you use `fundrawtransaction`, you'll probably want to verify it.
 
-Running `decoderawtransaction` will show that the raw transaction is now laid out correctly, using one or more of your UTXOs and splitting up the money between multiple addresses:
+Running `decoderawtransaction` will show that the raw transaction is now laid out correctly, using one or more of your UTXOs and sending excess funds back to a change address:
 ```
 $ bitcoin-cli -named decoderawtransaction hexstring=$rawtxhex3
 {
@@ -98,7 +98,7 @@ $ bitcoin-cli -named decoderawtransaction hexstring=$rawtxhex3
   ]
 }
 ```
-We saw the fee in the more extensive output, before we saved things to a variable with JQ, but you can verify it with the `btctxfee` JQ alias:
+We saw the fee in the more extensive output, before we saved the hex to a variable with JQ, but you can verify it with the `btctxfee` JQ alias:
 ```
 $ btctxfee $rawtxhex3
 .00023
@@ -124,7 +124,7 @@ Note the `ismine` results.
 
 ## Send Your Funded Transaction
 
-At this point you could sign and send the transaction as usual.
+At this point you can sign and send the transaction as usual.
 ```
 $ signedtx3=$(bitcoin-cli -named signrawtransaction hexstring=$rawtxhex3 | jq -r '.hex')
 $ bitcoin-cli -named sendrawtransaction hexstring=$signedtx3
@@ -149,10 +149,10 @@ $ bitcoin-cli listunspent
 
 ## Summary: Sending Coins with Automated Raw Transactions
 
-If you must send funds with raw transactions `fundrawtransaction` gives you a nice alternative where fees, inputs, and outputs are calculated for you, so you don't accidentally lose a bunch of money.
+If you must send funds with raw transactions then `fundrawtransaction` gives you a nice alternative where fees, inputs, and outputs are calculated for you, so you don't accidentally lose a bunch of money.
 
 ### Why Use Automated Raw Transactions
 
 _The advantages._ It provides a nice balance. If you're sending funds by hand and `sendtoaddress` doesn't offer enough control for whatever reason, you can get some of the advantages of raw transactions without the dangers. This methodology should be used whenever possible if you're sending raw transactions by hand.
 
-_The disadvantages._ It's a hodge-podge. Though there are a few more options on the `fundrawtransaction` command that weren't mentioned here, your control is still limited. So, you're using raw transactions, but you're still limited in what you can do. You'd probably never want to use this method if you were writing a program where the whole goal is to know exactly what's going on.
+_The disadvantages._ It's a hodge-podge. Though there are a few additional options for the `fundrawtransaction` command that weren't mentioned here, your control is still limited. You'd probably never want to use this method if you were writing a program where the whole goal is to know exactly what's going on.
