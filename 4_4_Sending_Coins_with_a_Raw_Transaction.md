@@ -8,9 +8,9 @@ We can now put those together and actually send funds using a raw transaction.
 
 ## Create a Change Address
 
-Our sample raw transaction in section 4.2 was very simplistic: we sent the entirety of a UTXO to a new address. More frequently, you'll want to send someone an amount of money that doesn't match a UTXO. But you'll recall that the excess money from a UTXO that's not sent to your recipient just becomes a transaction fee. So, how do you send someone just part of a UTXO, while keeping the rest for yourself?
+Our sample raw transaction in section 4.2 was very simplistic: we sent the entirety of a UTXO to a new address. More frequently, you'll want to send someone an amount of money that doesn't match a UTXO. But, you'll recall that the excess money from a UTXO that's not sent to your recipient just becomes a transaction fee. So, how do you send someone just part of a UTXO, while keeping the rest for yourself?
 
-The solution is actually to _send_ the rest of the funds to a second address, a change address that you've created in your wallet specifically to receive them:
+The solution is to _send_ the rest of the funds to a second address, a change address that you've created in your wallet specifically to receive them:
 ```
 $ changeaddress=$(bitcoin-cli getrawchangeaddress)
 $ echo $changeaddress
@@ -22,13 +22,13 @@ You now have an additional address inside your wallet, so that you can receive c
 
 ## Pick Sufficient UTXOs
 
-Our sample raw transaction was simple in another way: it assumed that there was enough money in a single UTXO to cover the transaction. Often this will be the case, but sometimes you'll want to create transactions that expend more money than you have in a single UTXO. To do so, you must create a raw transaction with two (or more) inputs.
+Our sample raw transaction was simple in another way: it assumed that there was enough money in a single UTXO to cover the transaction. Often this will be the case, but sometimes you'll want to create transactions that spends more money than you have in a single UTXO. To do so, you must create a raw transaction with two (or more) inputs.
 
 ## Write a Real Raw Transaction
 
-To summarize: creating a real raw transaction to send coins will sometimes require multiple inputs and will almost always require multiple outputs, one of which is a change address. So that's what we'll be doing here, in a new example that shows a real-life example of sending funds via Bitcoin's second methodology, raw transactions.
+To summarize: creating a real raw transaction to send coins will sometimes require multiple inputs and will almost always require multiple outputs, one of which is a change address. We'll be creating that saw of more realistic transaction here, in a new example that shows a real-life example of sending funds via Bitcoin's second methodology, raw transactions.
 
-Here's the transactions we'll be using:
+Here's the UTXOs we'll be using:
 ```
 $ bitcoin-cli listunspent
 [
@@ -68,7 +68,7 @@ myrK8U3SE1nWh9y9XPho5aTrKYW6n8qSQv
 ~$ echo $recipient
 n2eMqTT929pb1RDNuqEnxdaLau1rxy3efi
 ```
-We also need to record the txid and vout for each of our two UTXOs. Having identified the UTXOs that we want to spend, we can use our JQ techniques to make sure doing so is error free:
+We also need to record the txid and vout for each of our two UTXOs. Having identified the UTXOs that we want to spend, we can use our JQ techniques to make sure accessing them is error free:
 ```
 $ utxo_txid_1=$(bitcoin-cli listunspent | jq -r '.[0] | .txid') 
 $ utxo_vout_1=$(bitcoin-cli listunspent | jq -r '.[0] | .vout') 
@@ -78,7 +78,7 @@ $ utxo_vout_2=$(bitcoin-cli listunspent | jq -r '.[1] | .vout')
 
 ### Write the Transaction
 
-Writing these more complex raw transaction is surprisingly simple. All you need to do is include an additional, comma-separated JSON object in the JSON array of inputs and an additional, comma-separated key-value pair in the JSON object of outputs.
+Writing the actual raw transaction is surprisingly simple. All you need to do is include an additional, comma-separated JSON object in the JSON array of inputs and an additional, comma-separated key-value pair in the JSON object of outputs.
 
 Here's the example. Note the multiple inputs after the `inputs` arg and the multiple outputs after the `outputs` arg.
 ```
@@ -130,6 +130,6 @@ To send coins with raw transactions, you need to create a raw transaction with o
 
 ### Why Use Raw Transactions
 
-_The advantages._ It gives you the best control. If your goal is to write a more intricate script or Bitcoin program, you'll probably use raw transactions so that you know exactly what's going on. This is also the _safest_ situation to use raw transactions, because you can programmatically ensure that you don't make mistakes.
+_The advantages._ It gives you the best control. If your goal is to write a more intricate Bitcoin script or program, you'll probably use raw transactions so that you know exactly what's going on. This is also the _safest_ situation to use raw transactions, because you can programmatically ensure that you don't make mistakes.
 
-_The disadvantages._ It's easy to lose money. There are no warnings, no safeguards, and no programmatic backstops, unless you write them. It's also arcane. The formatting is obnoxious, even using the easy-to-use `bitcoin-cli` interface, and you have to do a lot of lookup and calculation by hand.
+_The disadvantages._ It's easy to lose money. There are no warnings, no safeguards, and no programmatic backstops unless you write them. It's also arcane. The formatting is obnoxious, even using the easy-to-use `bitcoin-cli` interface, and you have to do a lot of lookup and calculation by hand.
