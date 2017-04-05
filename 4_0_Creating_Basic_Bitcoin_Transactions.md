@@ -12,8 +12,8 @@ After working through this chapter, a developer will be able to:
    
 Supporting objectives include the ability to:
 
-   * Use Basic Methods to Send Money
    * Understand Transactions & Transaction Fees
+   * Use Basic Methods to Send Money
    * Use Auto Fee Calculation Methods to Send Money
    * Understand the Dangers of Raw Transactions
    
@@ -24,4 +24,4 @@ Supporting objectives include the ability to:
      * [Interlude: Using JQ](4_2__Interlude_Using_JQ.md)
   * [Part Three: Creating a Raw Transaction with Named Arguments](4_3_Creating_a_Raw_Transaction_with_Named_Arguments.md)
   * [Part Four: Sending Coins with a Raw Transaction](4_4_Sending_Coins_with_a_Raw_Transaction.md)
-  * [Part Five: Sending Coins with an Automated Raw Transactio](4_5_Sending_Coins_with_an_Automated_Raw_Transaction.md)
+  * [Part Five: Sending Coins with an Automated Raw Transactio](4_5_Sending_Coins_with_Automated_Raw_Transactions.md)
