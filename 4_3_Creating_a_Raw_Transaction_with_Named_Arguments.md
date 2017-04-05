@@ -12,36 +12,36 @@ To use a named argument you must run `bitcoin-cli` with the `-named` argument. I
 ```
 alias bitcoin-cli="bitcoin-cli -named"
 ```
-As usual, that's for your ease of use, but we'll continue using the whole commands, to maintain clarity.
+As usual, that's for your ease of use, but we'll continue using the whole commands  to maintain clarity.
 
 ## Test Out a Named Argument
 
-To learn what the names are for the arguments of a command, just look at `bitcoin-cli help`. It will list the arguments in their proper order, but will now also give names for each of them.
+To learn what the names are for the arguments of a command, consult `bitcoin-cli help`. It will list the arguments in their proper order, but will now also give names for each of them.
 
-For example, `bitcoin-cli getbalance` lists the following arguments:
+For example, `bitcoin-cli help getbalance` lists these arguments:
 
    1. account
    2. minconf
    3. include watchonly
    
-The following shows a traditional, unintuitive usage of `getbalance` with `minconf`:
+The following shows a traditional, unintuitive usage of `getbalance` using the minimum confirmation argument:
 ```
 $ bitcoin-cli getbalance "*" 1
 ```
-With named arguments you can now call it like this, which improves clarities and minimizes mistakes:
+With named arguments, you can clarify what you're doing, which also minimizes mistakes:
 ```
 $ bitcoin-cli -named getbalance account="*" minconf=1
 ```
 
 ## Test Out a Raw Transaction
 
-Here's what all the commands for sending a raw transaction would look like with named arguments:
+Here's what the commands for sending a raw transaction would look like with named arguments:
 ```
 $ utxo_txid=$(bitcoin-cli listunspent | jq -r '.[0] | .txid') 
 $ utxo_vout=$(bitcoin-cli listunspent | jq -r '.[0] | .vout')
 $ recipient="n2eMqTT929pb1RDNuqEnxdaLau1rxy3efi"
 
-$  rawtxhex=$(bitcoin-cli -named createrawtransaction inputs='''[ { "txid": "'$utxo_txid'", "vout": '$utxo_vout' } ]''' outputs='''{ "'$recipient'": 0.7595 }''')
+$ rawtxhex=$(bitcoin-cli -named createrawtransaction inputs='''[ { "txid": "'$utxo_txid'", "vout": '$utxo_vout' } ]''' outputs='''{ "'$recipient'": 0.7595 }''')
 $ bitcoin-cli -named decoderawtransaction hexstring=$rawtxhex 
 {
   "txid": "f445f121085d98635f7302e641f815d1ca4ce70f0e1b03f144ad1661dc5e10e7",
@@ -84,7 +84,7 @@ $ bitcoin-cli -named sendrawtransaction hexstring=$signedtx
 ```
 Voila! You've sent out another raw transaction, but this time using named arguments for clarity and to reduce errors.
 
-> **WARNING:** There was a bug in Bitcoin Core 0.14, where the 'inputs' argument for 'createrawtransaction' was misnamed 'transactions'. It should be fixed in future version of Bitcoin Core. If you're using 0.14, you'll need to substitute 'transactions' for 'inputs' in the above example, but otherwise it should work as written.
+> **WARNING:** There is a bug in Bitcoin Core 0.14: the 'inputs' argument for 'createrawtransaction' is misnamed 'transactions'. It should be fixed in future version of Bitcoin Core. If you're using 0.14, you'll need to substitute 'transactions' for 'inputs' in the above example, but otherwise it should work as written.
 
 ## Summary: Creating a Raw Transaction with Named Arguments
 
