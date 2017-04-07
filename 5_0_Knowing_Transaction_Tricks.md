@@ -18,6 +18,7 @@ Supporting objectives include the ability to:
    
 ## Table of Contents
    
-   * [Part One: Resending a Transaction with RBF](5_1_Resending_a_Transaction_with_RBF.md)
-   * [Part Two: Funding a Transaction with CPFP](5_2_Funding_a_Transaction_with_CPFP.md)
-   * [Part Three: Sending a Raw Transaction with Data](5_3_Sending_a_Raw_Transaction_with_Data.md)
+   * [Part One: Watching for a Stuck Transaction](5_1_Watching_for_Stuck_Transactions.md)
+   * [Part Two: Resending a Transaction with RBF](5_2_Resending_a_Transaction_with_RBF.md)
+   * [Part Three: Funding a Transaction with CPFP](5_3_Funding_a_Transaction_with_CPFP.md)
+   * [Part Four: Sending a Raw Transaction with Data](5_4_Sending_a_Raw_Transaction_with_Data.md)
