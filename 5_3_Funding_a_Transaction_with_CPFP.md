@@ -21,7 +21,7 @@ Funding a transaction with CPFP is a very simple process using the methods you'r
 
    1. Find the txid and vout of the unconfirmed transaction. This may be the trickiest part, as `bitcoin-cli` generally tries to protect you from these transactions. The sender might be able to send them, or even if you have the transaction id, you should be able to figure out the vout in a blockchain explorer.
    
-   You do have one other option: `bitcoin-cli getmempool` which canbe used to list the contents of your entire mempool. You can then get more information on a specific transaction:
+   You do have one other option: `bitcoin-cli getmempool` which canbe used to list the contents of your entire mempool, whichis very the unconfirmed transactions will be. You can then get more information on a specific transaction:
    ```
    $ bitcoin-cli getrawmempool
 [
