@@ -83,3 +83,17 @@ user1@blockstream:~$ bitcoin-cli getrawtransaction 4460175e8276d5a1935f6136e3686
    4. Cross your fingers.
    
 That's really all there is to it.
+
+### Be Aware of Nuances
+
+Though CPFP is laid out as a recipient using a new transaction to pay for an old one that hasn't been confirmed, there's nuance to this.
+
+A sender could use CPFP to free up funds if he received change from a transaction. He would just use that change as his input. Mind you, he'd do better to use RBF as long as it was enabled, as the total fees would then be lower.
+
+A recipient could use CPFP even if he isn't planning on immediately spending the money, for example if he's worried that the funds may not be resent if the transaction expires. In this case, he just creates a child transaction that sends all the money (minus a transaction fee) to a change address.
+
+## Summary: Funding a Transaction with CPFP
+
+You can take advantage of the CPFP incentives to free up funds that have been sent to you that are stuck. Just use the unconfirmed transaction as UTXO and pay a higher-than-average transaction fee.
+
+_What is the power of CPFP?_ Mostly, CPFP is just useful to get funds unstuck when you're the recipient and the sender isn't being helpful for whatever reason. It doesn't have the more powerful possibilities of the other features described in this chapter, and is included largely because of its parallel to RBF.
