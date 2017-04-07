@@ -1,6 +1,6 @@
 # Chapter Five: Knowing Transaction Tricks
 
-This chapter describes how to use a few tricks that supplement or improve the use of raw transaction from the command line using bitcoin-cli.
+This chapter describes how to use a few tricks that supplement or improve the use of raw transaction from the command line using bitcoin-cli. It does so by walking through all the remaining variables available to use with bitcoin-cli raw transactions, including sequence (for RBF), data (for OP_RETURNs), and locktime (for Locktime).
 
 ## Objectives for This Section
 
