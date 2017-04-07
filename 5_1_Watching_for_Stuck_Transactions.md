@@ -10,7 +10,7 @@ You should _always_ watch to ensure that your transactions go out. `bitcoin-cli 
 
 The following shows a transaction that has not been put into a block. Note that it has no confirmations. 
 ```
-$ bitcoin-cli gettransaction 0f618e38efe887028a5dd04d0e12241431978b4de32f70308c13a114d7cfcbd2
+$  bitcoin-cli -named gettransaction txid=0f618e38efe887028a5dd04d0e12241431978b4de32f70308c13a114d7cfcbd2
 {
   "amount": -0.84927000,
   "fee": -0.00000400,
