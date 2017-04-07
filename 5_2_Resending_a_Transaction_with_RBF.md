@@ -165,11 +165,62 @@ Our recipients have their money, and the original, failed transaction will event
 
 ## Replace a Transaction the Easy Way: By bumpfee
 
+Raw transactions are very powerful, and there are a number of reasons that you can do a lot of interesting things by combining them with RBF. However, sometimes _all_ you want to do is free up a transaction that's been hanging. You can now do that with a simple command, `bumpfee`.
+
+For example, to increase the fee of transaction `4460175e8276d5a1935f6136e36868a0a3561532d44ddffb09b7cb878f76f927` you would run:
+```
+$ bitcoin-cli -named bumpfee txid=4460175e8276d5a1935f6136e36868a0a3561532d44ddffb09b7cb878f76f927
+{
+  "txid": "75208c5c8cbd83081a0085cd050fc7a4064d87c7d73176ad9a7e3aee5e70095f",
+  "origfee": 0.00000000,
+  "fee": 0.00022600,
+  "errors": [
+  ]
+}
+```
+The result is the autmoatic generation of a new transaction that has a fee determined by your bitcoin.conf file:
+```
+$ bitcoin-cli -named gettransaction txid=75208c5c8cbd83081a0085cd050fc7a4064d87c7d73176ad9a7e3aee5e70095f
+{
+  "amount": -0.10000000,
+  "fee": -0.00022600,
+  "confirmations": 0,
+  "trusted": false,
+  "txid": "75208c5c8cbd83081a0085cd050fc7a4064d87c7d73176ad9a7e3aee5e70095f",
+  "walletconflicts": [
+    "4460175e8276d5a1935f6136e36868a0a3561532d44ddffb09b7cb878f76f927"
+  ],
+  "time": 1491605676,
+  "timereceived": 1491605676,
+  "bip125-replaceable": "yes",
+  "replaces_txid": "4460175e8276d5a1935f6136e36868a0a3561532d44ddffb09b7cb878f76f927",
+  "details": [
+    {
+      "account": "",
+      "address": "n2eMqTT929pb1RDNuqEnxdaLau1rxy3efi",
+      "category": "send",
+      "amount": -0.10000000,
+      "vout": 0,
+      "fee": -0.00022600,
+      "abandoned": false
+    }
+  ],
+  "hex": "02000000014e843e22cb8ee522fbf4d8a0967a733685d2ad92697e63f52ce41bec8f7c8ac0020000006b48304502210094e54afafce093008172768d205d99ee2e9681b498326c077f0b6a845d9bbef702206d90256d5a2edee3cab1017b9b1c30b302530b0dd568e4af6f2d35380bbfaa280121029f39b2a19943fadbceb6697dbc859d4a53fcd3f9a8d2c8d523df2037e7c32a71010000000280969800000000001976a914e7c1345fc8f87c68170b3aa798a956c2fe6a9eff88ac38f25c05000000001976a914c101d8c34de7b8d83b3f8d75416ffaea871d664988ac00000000"
+}
+```
+Decoding the hex can show us even more about what `bumpfee` did:
+```
+$ bitcoin-cli -named decoderawtransaction hexstring=02000000014e843e22cb8ee522fbf4d8a0967a733685d2ad92697e63f52ce41bec8f7c8ac0020000006b48304502210094e54afafce093008172768d205d99ee2e9681b498326c077f0b6a845d9bbef702206d90256d5a2edee3cab1017b9b1c30b302530b0dd568e4af6f2d35380bbfaa280121029f39b2a19943fadbceb6697dbc859d4a53fcd3f9a8d2c8d523df2037e7c32a71010000000280969800000000001976a914e7c1345fc8f87c68170b3aa798a956c2fe6a9eff88ac38f25c05000000001976a914c101d8c34de7b8d83b3f8d75416ffaea871d664988ac00000000
+{
+  "txid": "75208c5c8cbd83081a0085cd050fc7a4064d87c7d73176ad9a7e3aee5e70095f",
+```
+
 > **VERSION WARNING:** The bumpfee RPC require Bitcoin Core v.0.14.0.
 
-### Use RBF Wisely
+## Summary: Resending a Transaction with RBF
 
--low to high transaction fees
--combine transactions
+If a transaction has gotten stuck, and you don't want to wait for it to expire entirely, you can double-spend using RBF to create a replacement transaction (or just use `bumpfee`).
 
-It doesn't solve the same problem. Core devs are looking for compressing transactions, not necessarily adding fees alone.
+_What is the power of RBF?_ Obviously, RBF is very helpful if you created a transaction with too low of a fee and you need to get those funds through. However, the ability to generally replace unconfirmed transactions with updated ones has more power than just that (and is why you might want to continue using RBF with raw transactions, even following the advent of `bumpfee`). 
+
+For example, you might send a transaction, and then before it's confirmed, combine it with a second transaction. This allows you to compress multiple transactions down into a single one, decreasing overall fees. It might also offer benefits to privacy. There are other reasons to use RBF too, for smart contracts or transaction cut-throughs, as described in the [Opt-in RBF FAQ](https://bitcoincore.org/en/faq/optin_rbf/).
