@@ -175,6 +175,8 @@ You could of course rename your new keys as you see fit. There's nothing magic i
 
 **Usage Example:** _Automatically look up UTXOs being used in a transaction._
 
+**[[[[TODO: THIS SHOULD LOOKUP BY BOTH TXID + VOUT!]]]]]
+
 The JQ lookups so far have been fairly simple: you use a key to look up one or more values in a JSON object or array. But what if you instead want to look up a value in a JSON object ... by another value? This sort of indirect lookup has real applicability when you're working with transactions built on existing UTXOs. For example, it can allow you to calculate the sum value of the UTXOs being used in a transaction, something that is vitally important.
 
 This example uses the following raw transaction. Note that this is a more complex raw transaction with two inputs and two outputs. We'll learn about making those in a few sections; for now, it's necessary to be able to offer robust examples. Note that unlike our previous examples, this one has two objects in its `vin` array and two in its `vout` array.
@@ -345,6 +347,9 @@ $ for txid in ${usedtxid[@]}; do bitcoin-cli listunspent | jq -r '.[] | select (
 ## Use JQ for Complex Calculations
 
 **Usage Example:** _Calculate the fee for a transaction._
+
+**[[[[TODO: THIS SCRIPT SHOULD LOOKUP BY BOTH TXID + VOUT!]]]]]
+
 
 To figure out the complete transaction fee at this point just requires determining out how much money is going through the .vout:
 ```
