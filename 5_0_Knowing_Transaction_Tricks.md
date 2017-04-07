@@ -7,14 +7,16 @@ This chapter describes how to use a few tricks that supplement or improve the us
 After working through this chapter, a developer will be able to:
 
    * Decide Whether RBF or CPFP Might Help a Transaction
-   * Use These Tricks to Free Up a Stuck Transaction
-   * Create Data as Part of a Transaction
-
+   * Create Transactiosn with Data
+   * Create Transactions with Locktimes
+   
 Supporting objectives include the ability to:
 
    * Understand the Mempool
-   * Experience How Miners Interact with Fees
+   * Use RBF or CPFP to Free Up a Stuck Transaction
+   * Plan for the Power of RBF
    * Plan for the Power of OP_RETURN
+   * Plan for the Power of Locktime
    
 ## Table of Contents
    
@@ -22,3 +24,4 @@ Supporting objectives include the ability to:
    * [Part Two: Resending a Transaction with RBF](5_2_Resending_a_Transaction_with_RBF.md)
    * [Part Three: Funding a Transaction with CPFP](5_3_Funding_a_Transaction_with_CPFP.md)
    * [Part Four: Sending a Raw Transaction with Data](5_4_Sending_a_Raw_Transaction_with_Data.md)
+   * [Part Five: Sending a Raw Transaction with a Locktime](5_5_Sending_a_Raw_Transaction_with_a_Locktime.md)
