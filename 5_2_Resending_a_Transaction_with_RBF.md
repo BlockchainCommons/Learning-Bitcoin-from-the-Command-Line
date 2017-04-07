@@ -4,7 +4,7 @@
 
 If your Bitcoin transaction is stuck, and you're sender, you can resend it using RBF (replace-by-fee).
 
-> **VERSION WARNING:** This is an innovation from Bitcoin Core v 0.12.0, which means that by now most miners should be using it. However, it only reached full maturity in the Bitcoin core wallet, with the `bumpfee` command in 
+> **VERSION WARNING:** This is an innovation from Bitcoin Core v 0.12.0, which means that by now most miners should be using it. However, it only reached full maturity in the Bitcoin core wallet Bitcoin Core v 0.14.0.
 
 ## Opt-In for RBF
 
@@ -59,6 +59,8 @@ If you prefer, you can _always_ opt in for RBF. Do so by running your `bitcoind`
 walletrbf=1
 ```
 Once you've done this (and restarted your `bitcoind`), then all transactions should have a lower sequence number and be marked as `bip125-replaceable`.
+
+> **VERSION WARNING:** The Walletrbf flag require Bitcoin Core v.0.14.0.
 
 ## Replace a Transaction the Hard Way: By Hand
 
