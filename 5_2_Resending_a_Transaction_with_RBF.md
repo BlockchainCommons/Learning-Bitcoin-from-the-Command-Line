@@ -60,7 +60,7 @@ walletrbf=1
 ```
 Once you've done this (and restarted your `bitcoind`), then all transactions should have a lower sequence number and be marked as `bip125-replaceable`.
 
-> **VERSION WARNING:** The Walletrbf flag require Bitcoin Core v.0.14.0.
+> **VERSION WARNING:** The walletrbf flag require Bitcoin Core v.0.14.0.
 
 ## Replace a Transaction the Hard Way: By Hand
 
@@ -69,5 +69,8 @@ Once you've done this (and restarted your `bitcoind`), then all transactions sho
 -low to high transaction fees
 -combine transactions
 
-## Replace a Transaction the Easy Way: By bumpfee
 It doesn't solve the same problem. Core devs are looking for compressing transactions, not necessarily adding fees alone.
+
+## Replace a Transaction the Easy Way: By bumpfee
+
+> **VERSION WARNING:** The bumpfee RPC require Bitcoin Core v.0.14.0.
