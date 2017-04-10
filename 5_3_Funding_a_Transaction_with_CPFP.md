@@ -2,26 +2,25 @@
 
 > **NOTE:** This is a draft in progress, so that I can get some feedback from early reviewers. It is not yet ready for learning.
 
-If your Bitcoin transaction is stuck, and you're the _recipient_, you can clear it using CPFP (child-pays-for-parent). 
-If your Bitcoin transaction is stuck, and you're sender, you can resend it using RBF (replace-by-fee).
+If your Bitcoin transaction is stuck, and you're the _recipient_, you can clear it using CPFP (child-pays-for-parent). This is alternative to the _sender's_ ability to do so with RBF.
 
 > **VERSION WARNING:** This is an innovation from Bitcoin Core v 0.13.0, which means that many miners should be using it, but not necessarily all of them.
 
 ## Understand How CPFP Works
 
-RBF was all about the sender. He'd messed up, and needed to increase the fee, or he wanted to be smart and combine transactions for a variety of reasons. It was a powerful sender-oriented feature. In some ways, CPFP is RBF's opposite, because it empowers the recipient who knows that his money hasn't arrived yet and wants to speed it up. However, it's also a much simpler feature, with less wide applicability. 
+RBF was all about the sender. He messed up and needed to increase the fee, or he wanted to be smart and combine transactions for a variety of reasons. It was a powerful sender-oriented feature. In some ways, CPFP is RBF's opposite, because it empowers the recipient who knows that his money hasn't arrived yet and wants to speed it up. However, it's also a much simpler feature, with less wide applicability. 
 
-Basically, the idea of CPFP is that a recipient has a transaction that hasn't been confimed in a block that he wants to spend. So, he includes it in a transaction and pays a high-enough fee to encourage a miner to include both the original (parent) transaction and the new (child) transaction in a block. As a result, the parent and child transactions clear simultaneously.
+Basically, the idea of CPFP is that a recipient has a transaction that hasn't been confimed in a block that he wants to spend. So, he includes that unconfirmed transaction in a new transaction and pays a high-enough fee to encourage a miner to include both the original (parent) transaction and the new (child) transaction in a block. As a result, the parent and child transactions clear simultaneously.
 
-It should be noted that CPFP is not a new feature, like RBF, which raised new questions about the protocol (and in particular pointed out the untrustworthiness of unconfirmed transactions). It's just a new incentivization scheme that can be built into transaction selection for miners. This also means that it's not as reliable as a protocol change like RBF: there might be reaosns that the parent is never put into a block, and that will prevent the child from ever bring put into a block.
+It should be noted that CPFP is not a new protocol feature, like RBF. It's just a new incentivization scheme that can be used for transaction selection by miners. This also means that it's not as reliable as a protocol change like RBF: there might be reaosns that the parent is never put into a block, and that will prevent the child from ever bring put into a block.
 
 ## Spend Unconfirmed UTXOs
 
 Funding a transaction with CPFP is a very simple process using the methods you're already familiar with:
 
-   1. Find the txid and vout of the unconfirmed transaction. This may be the trickiest part, as `bitcoin-cli` generally tries to protect you from these transactions. The sender might be able to send them, or even if you have the transaction id, you should be able to figure out the vout in a blockchain explorer.
+   1. Find the `txid` and `vout` of the unconfirmed transaction. This may be the trickiest part, as `bitcoin-cli` generally tries to protect you from unconfirmed transactions. The sender might be able to send you this info; even with just the `txid`, you should be able to figure out the vout in a blockchain explorer.
    
-   You do have one other option: `bitcoin-cli getmempool` which canbe used to list the contents of your entire mempool, whichis very the unconfirmed transactions will be. You can then get more information on a specific transaction:
+   You do have one other option: `bitcoin-cli getmempool`, which can be used to list the contents of your entire mempool, where the unconfirmed transactions will be. You can then get more information on a specific transaction:
    ```
    $ bitcoin-cli getrawmempool
 [
@@ -86,14 +85,14 @@ That's really all there is to it.
 
 ### Be Aware of Nuances
 
-Though CPFP is laid out as a recipient using a new transaction to pay for an old one that hasn't been confirmed, there's nuance to this.
+Though CPFP is usually described as being about a recipient using a new transaction to pay for an old one that hasn't been confirmed, there's nuance to this.
 
-A sender could use CPFP to free up funds if he received change from a transaction. He would just use that change as his input. Mind you, he'd do better to use RBF as long as it was enabled, as the total fees would then be lower.
+A _sender_ could use CPFP to free up a transaction if he received change from it. He would just use that change as his input, and the resultant use of CPFP would free up the entire transaction. Mind you, he'd do better to use RBF as long as it was enabled, as the total fees would then be lower.
 
-A recipient could use CPFP even if he isn't planning on immediately spending the money, for example if he's worried that the funds may not be resent if the transaction expires. In this case, he just creates a child transaction that sends all the money (minus a transaction fee) to a change address.
+A _recipient_ could use CPFP even if he wasn't planning on immediately spending the money, for example if he's worried that the funds may not be resent if the transaction expires. In this case, he just creates a child transaction that sends all the money (minus a transaction fee) to a change address.
 
 ## Summary: Funding a Transaction with CPFP
 
-You can take advantage of the CPFP incentives to free up funds that have been sent to you that are stuck. Just use the unconfirmed transaction as UTXO and pay a higher-than-average transaction fee.
+You can take advantage of the CPFP incentives to free up funds that have been sent to you but have not been confirmed. Just use the unconfirmed transaction as UTXO and pay a higher-than-average transaction fee.
 
-_What is the power of CPFP?_ Mostly, CPFP is just useful to get funds unstuck when you're the recipient and the sender isn't being helpful for whatever reason. It doesn't have the more powerful possibilities of the other features described in this chapter, and is included largely because of its parallel to RBF.
+_What is the power of CPFP?_ Mostly, CPFP is just useful to get funds unstuck when you're the recipient and the sender isn't being helpful for whatever reason. It doesn't have the more powerful possibilities of the other features described in this chapter and is included largely because of its parallel to RBF.
