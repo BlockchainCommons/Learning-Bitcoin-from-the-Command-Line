@@ -2,23 +2,23 @@
 
 > **NOTE:** This is a draft in progress, so that I can get some feedback from early reviewers. It is not yet ready for learning.
 
-The basic `bitcoin-cli` interface for sending raw transactions has a few other features, which start to veer away from the idea of just instantly sending out funds. One of those is the ability to send up to 80 bytes of data to the blockchain using an OP_RETURN code.
+The basic `bitcoin-cli` interface for sending raw transactions has a few additional features, which begin to veer away from the idea of  instantly sending out funds. One of those is the ability to send up to 80 bytes of data to the blockchain using an OP_RETURN code.
 
-## Create Your OP_RETURN Data
+## Create Your Data
 
-The first thing you need to do is create the 80 bytes (or less) of data that you'll be recording in your OP_RETURN. This might be as simple as preparing a message or you might be hasing existing data. For example, `sha256sum` produces 256 bits of data, which is 32 bytes, well under the limits:
+The first thing you need to do is create the 80 bytes (or less) of data that you'll be recording in your OP_RETURN. This might be as simple as preparing a message or you might be hahsing existing data. For example, `sha256sum` produces 256 bits of data, which is 32 bytes, well under the limits:
 ```
 $ sha256sum contract.jpg
 fe7f0a3b69f56ef2d055a78823ed3bd1422e46c3183658ea854253033ae0ccef  contract.jpg
 $ op_return_data="fe7f0a3b69f56ef2d055a78823ed3bd1422e46c3183658ea854253033ae0ccef"
 ```
-_What is an OP_RETURN?_ All Bitcoin transactions are built upon scripts that we'll meet in the next chapter. The OP_RETURN is a simple  opcode that defines a transaction as invalid. Convention has caused it to be used to embed data on the blockchain.
+_What is an OP_RETURN?_ All Bitcoin transactions are built upon opcode scripts that we'll meet in the next chapter. The OP_RETURN is a simple  opcode that defines a transaction as invalid. Convention has resulted in it being used to embed data on the blockchain.
 
 ## Prepare Some Money
 
 Your purpose in creating a data transaction isn't to send money to anyone, it's to put data into the blockchain. However, you _must_ send money to do so. You just need to use a change address as your _only_ recipient. Then you can identify a UTXO and send that to your change address, minus a transaction fee, while also using the same transaction to create an OP_RETURN.
 
-Here's our standard setup:
+Here's the standard setup:
 ```
 $ bitcoin-cli listunspent
 [
@@ -41,9 +41,9 @@ $ changeaddress=$(bitcoin-cli getrawchangeaddress)
 
 ## Write A Raw Transaction
 
-You can now write a new rawtransaction with two outputs: one is your change address to get back (most of) your money, the other is a data address, which is bitcoin-cli's term for an OP_RETURN.
+You can now write a new rawtransaction with two outputs: one is your change address to get back (most of) your money, the other is a data address, which is the `bitcoin-cli` term for an OP_RETURN.
 ```
-$ rawtxhex=$(bitcoin-cli -named createrawtransaction transactions='''[ { "txid": "'$utxo_txid'", "vout": '$utxo_vout' } ]''' outputs='''{ "data": "'$op_return_data'", "'$changeaddress'": 0.8995 }''')
+$ rawtxhex=$(bitcoin-cli -named createrawtransaction inputs='''[ { "txid": "'$utxo_txid'", "vout": '$utxo_vout' } ]''' outputs='''{ "data": "'$op_return_data'", "'$changeaddress'": 0.8995 }''')
 ```
 
 Here's what that transaction actually looks like:
@@ -93,7 +93,7 @@ $ bitcoin-cli -named decoderawtransaction hexstring=$rawtxhex
   ]
 }
 ```
-As you can see, this sends the majority of the money straight back to the change address (mhZQ3Bih6wi7jP1tpFZrCcyr4NsfCapiZP) minus that standard transaction fee we've been using of 0.0005 BTC. _Do_ note that these transactions get larger as they add extra inputs and outputs — and now 16 bytes of data. More importantly, the first output shows an OP_RETURN with the data (fe7f0a3b69f56ef2d055a78823ed3bd1422e46c3183658ea854253033ae0ccef) right after it.
+As you can see, this sends the majority of the money straight back to the change address (mhZQ3Bih6wi7jP1tpFZrCcyr4NsfCapiZP) minus that standard transaction fee we've been using of 0.0005 BTC. More importantly, the first output shows an OP_RETURN with the data (fe7f0a3b69f56ef2d055a78823ed3bd1422e46c3183658ea854253033ae0ccef) right after it.
 
 Sign it and send it, and soon that OP_RETURN will be embedded in the blockchain!
 
@@ -107,7 +107,9 @@ You may note a warning about the data being in an "unknown protocol". If you wer
 
 ## Summary: Sending a Raw Transaction with Data
 
-You can use an OP_RETURN opcode to store up to 80 bytes of data on the blockchain. You do this with the 'data' codeword for a 'vout'. You still have to send money along too, but you just send it back to a change address, minus a transaction fee.
+You can use an OP_RETURN opcode to store up to 80 bytes of data on the blockchain. You do this with the `data` codeword for a `vout`. You still have to send money along too, but you just send it back to a change address, minus a transaction fee.
 
-_What is the Power of OP_RETURN?_ The OP_RETURN opens up whole new possibilities for the blockchain, because you can embed data that proves that certain things happened at certain times. Various organizations have used OP_RETURNs for proof of existence, for copyright, to color coins, and [for other purposes](https://en.bitcoin.it/wiki/OP_RETURN). Though 80 bytes might not seem a lot, it can be quite effective if OP_RETURNs are used to store hashes of the actual data. Note that there is some controversy over using the Bitcoin blockchain in this way,
+_What is the Power of OP_RETURN?_ The OP_RETURN opens up whole new possibilities for the blockchain, because you can embed data that proves that certain things happened at certain times. Various organizations have used OP_RETURNs for proof of existence, for copyright, to color coins, and [for other purposes](https://en.bitcoin.it/wiki/OP_RETURN). Though 80 bytes might not seem a lot, it can be quite effective if OP_RETURNs are used to store hashes of the actual data. Then, you can prove the existence of your digital data by deminstrating that the hash of it matches the hash on the blockchain.
+
+Note that there is some controversy over using the Bitcoin blockchain in this way.
 
