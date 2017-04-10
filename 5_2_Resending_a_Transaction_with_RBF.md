@@ -12,7 +12,7 @@ RBF is an opt-in Bitcoin feature. Transactions are only eligible for using RBF i
 
 This is simply done by adding a `sequence` variable to the vins:
 ```
-$ rawtxhex=$(bitcoin-cli -named createrawtransaction transactions='''[ { "txid": "'$utxo_txid'", "vout": '$utxo_vout', "sequence": 1 } ]''' outputs='''{ "'$recipient'": 0.1, "'$changeaddress'": 0.9 }''')
+$ rawtxhex=$(bitcoin-cli -named createrawtransaction inputs='''[ { "txid": "'$utxo_txid'", "vout": '$utxo_vout', "sequence": 1 } ]''' outputs='''{ "'$recipient'": 0.1, "'$changeaddress'": 0.9 }''')
 ```
 You should of course sign and send your transaction as usual:
 ```
@@ -135,7 +135,7 @@ In order to create an RBF transaction by hand, all you have to do is create a ra
 
 The following example just reuses our existing variables, but increments the sequence number and decreases the amount sent to the change address, to increase the fee from the accidental 0 BTC of the original transaction to an overly generous 0.01 BTC in the new transaction:
 ```
-$ rawtxhex=$(bitcoin-cli -named createrawtransaction transactions='''[ { "txid": "'$utxo_txid'", "vout": '$utxo_vout', "sequence": 2 } ]''' outputs='''{ "'$recipient'": 0.1, "'$changeaddress'": 0.89 }''')
+$ rawtxhex=$(bitcoin-cli -named createrawtransaction inputs='''[ { "txid": "'$utxo_txid'", "vout": '$utxo_vout', "sequence": 2 } ]''' outputs='''{ "'$recipient'": 0.1, "'$changeaddress'": 0.89 }''')
 ```
 We of course my resign it and resend it:
 ```
