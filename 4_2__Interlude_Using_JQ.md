@@ -175,23 +175,21 @@ You could of course rename your new keys as you see fit. There's nothing magic i
 
 **Usage Example:** _Automatically look up UTXOs being used in a transaction._
 
-**[[[[TODO: THIS SHOULD LOOKUP BY BOTH TXID + VOUT!]]]]]
-
 The JQ lookups so far have been fairly simple: you use a key to look up one or more values in a JSON object or array. But what if you instead want to look up a value in a JSON object ... by another value? This sort of indirect lookup has real applicability when you're working with transactions built on existing UTXOs. For example, it can allow you to calculate the sum value of the UTXOs being used in a transaction, something that is vitally important.
 
 This example uses the following raw transaction. Note that this is a more complex raw transaction with two inputs and two outputs. We'll learn about making those in a few sections; for now, it's necessary to be able to offer robust examples. Note that unlike our previous examples, this one has two objects in its `vin` array and two in its `vout` array.
 ```
-$ bitcoin-cli decoderawtransaction $rawtxhex
+$ $ bitcoin-cli decoderawtransaction $rawtxhex
 {
-  "txid": "959190d447589e4c0f6ad31459579a4e4f6945b8791eadc9e5f0e55fc6205317",
-  "hash": "959190d447589e4c0f6ad31459579a4e4f6945b8791eadc9e5f0e55fc6205317",
+  "txid": "6f83a0b78c598de01915554688592da1d7a3047eacacc8a9be39f5396bf0a07e",
+  "hash": "6f83a0b78c598de01915554688592da1d7a3047eacacc8a9be39f5396bf0a07e",
   "size": 160,
   "vsize": 160,
   "version": 2,
   "locktime": 0,
   "vin": [
     {
-      "txid": "2b5f5798359e0e23e02764588166f222d4ce056419dec83c743b72aad171d708",
+      "txid": "d261b9494eb29084f668e1abd75d331fc2d6525dd206b2f5236753b5448ca12c",
       "vout": 1,
       "scriptSig": {
         "asm": "",
@@ -200,8 +198,8 @@ $ bitcoin-cli decoderawtransaction $rawtxhex
       "sequence": 4294967295
     }, 
     {
-      "txid": "ec0598918f6f5476cb90365651e8a2724ef26f949290bbf196f41ed96092a52f",
-      "vout": 0,
+      "txid": "c7c7f6371ec19330527325908a544bbf8401191645598301d24b54d37e209e7b",
+      "vout": 1,
       "scriptSig": {
         "asm": "",
         "hex": ""
@@ -211,34 +209,33 @@ $ bitcoin-cli decoderawtransaction $rawtxhex
   ],
   "vout": [
     {
-      "value": 0.65050000,
+      "value": 1.00000000,
       "n": 0,
       "scriptPubKey": {
-        "asm": "OP_DUP OP_HASH160 e7c1345fc8f87c68170b3aa798a956c2fe6a9eff OP_EQUALVERIFY OP_CHECKSIG",
-        "hex": "76a914e7c1345fc8f87c68170b3aa798a956c2fe6a9eff88ac",
+        "asm": "OP_DUP OP_HASH160 cfc39be7ea3337c450a0c77a839ad0e160739058 OP_EQUALVERIFY OP_CHECKSIG",
+        "hex": "76a914cfc39be7ea3337c450a0c77a839ad0e16073905888ac",
         "reqSigs": 1,
         "type": "pubkeyhash",
         "addresses": [
-          "n2eMqTT929pb1RDNuqEnxdaLau1rxy3efi"
+          "mzTWVv2QSgBNqXx7RC56zEhaQPve8C8VS9"
         ]
       }
     }, 
     {
-      "value": 4.00000000,
+      "value": 0.04500000,
       "n": 1,
       "scriptPubKey": {
-        "asm": "OP_DUP OP_HASH160 29193095edbef6378fbcd84a8ae7c8164e433ca7 OP_EQUALVERIFY OP_CHECKSIG",
-        "hex": "76a91429193095edbef6378fbcd84a8ae7c8164e433ca788ac",
+        "asm": "OP_DUP OP_HASH160 166692bda9f25ced145267bb44286e8ee3963d26 OP_EQUALVERIFY OP_CHECKSIG",
+        "hex": "76a914166692bda9f25ced145267bb44286e8ee3963d2688ac",
         "reqSigs": 1,
         "type": "pubkeyhash",
         "addresses": [
-          "mjGGB8rSXAHSd9xGA1bLfqMpB41XWuDdSF"
+          "mhZQ3Bih6wi7jP1tpFZrCcyr4NsfCapiZP"
         ]
       }
     }
   ]
 }
-
 ```
 
 ### Retrieve the Value(s)
@@ -247,80 +244,93 @@ Assume that we know exactly how this transaction is constructed: we know that it
 ```
 $ usedtxid1=$(bitcoin-cli decoderawtransaction $rawtxhex | jq -r '.vin | .[0] | .txid')
 $ echo $usedtxid1
-2b5f5798359e0e23e02764588166f222d4ce056419dec83c743b72aad171d708
+d261b9494eb29084f668e1abd75d331fc2d6525dd206b2f5236753b5448ca12c
 $ usedtxid2=$(bitcoin-cli decoderawtransaction $rawtxhex | jq -r '.vin | .[1] | .txid')
 $ echo $usedtxid2
-ec0598918f6f5476cb90365651e8a2724ef26f949290bbf196f41ed96092a52f
+c7c7f6371ec19330527325908a544bbf8401191645598301d24b54d37e209e7b
+
+$ vout1=$(bitcoin-cli decoderawtransaction $rawtxhex | jq -r '.vin | .[0] | .vout')
+$ echo $vout1
+1
+$ vout2=$(bitcoin-cli decoderawtransaction $rawtxhex | jq -r '.vin | .[1] | .vout')
+$ echo $vout2
+1
 ```
 However, it would be better to have a general case that _automatically_ saved all the txids of our UTXOs.
 
 We already know that we can access all of the `.txid`s by using an `.[]` array value. We can use that to build a general .txid lookup:
 ```
-usedtxid=($(bitcoin-cli decoderawtransaction $rawtxhex | jq -r '.vin | .[] | .txid'))
+$ usedtxid=($(bitcoin-cli decoderawtransaction $rawtxhex | jq -r '.vin | .[] | .txid'))
 $ echo ${usedtxid[0]}
-2b5f5798359e0e23e02764588166f222d4ce056419dec83c743b72aad171d708
+d261b9494eb29084f668e1abd75d331fc2d6525dd206b2f5236753b5448ca12c
 $ echo ${usedtxid[1]}
-ec0598918f6f5476cb90365651e8a2724ef26f949290bbf196f41ed96092a52f
+c7c7f6371ec19330527325908a544bbf8401191645598301d24b54d37e209e7b
+
+$ usedvout=($(bitcoin-cli decoderawtransaction $rawtxhex | jq -r '.vin | .[] | .vout'))
+$ echo ${usedvout[0]}
+1
+$ echo ${usedvout[1]}
+1
 ```
-The only real trick here is how we saved the information to the bash shell. Rather than saving to a variable with `$(command)`, we instead saved to an array with `($(command))`. We were then able to access the individual bash array elements with a `${variable[n]}` construction. We could instead access the whole array with `${variable[@]}`, which we'll use in the next section. (Yeah, no one ever said bash was pretty.)
+The only real trick here is how we saved the information to the bash shell. Rather than saving to a variable with `$(command)`, we instead saved to an array with `($(command))`. We were then able to access the individual bash array elements with a `${variable[n]}` construction. We could instead access the whole array with `${variable[@]}`. (Yeah, no one ever said bash was pretty.)
 
 ### Retrieve the Related Object(s)
 
-We can now use this information to reference UTXOs in `listunspent`. To find the information on the UTXOs being used by the raw transaction, we need to look through the entire JSON array (`[]`). We can then choose (`select`) individual JSON objects that include (`contains`) our txids. (The `select` and `contains` arguments show off some of the complexity of JSON, but for now just know that this particular invocation will work.)
+We can now use this information to reference UTXOs in `listunspent`. To find the information on the UTXOs being used by the raw transaction, we need to look through the entire JSON array (`[]`). We can then choose (`select`) individual JSON objects that include (`contains`) our txids. Then  select (`select`) the transactions among those that _also_ contains (`contain`) the correct vout.
+
+The use of another level of pipe is the standard methodology of JQ: we grab a set of data, then we whittle it down to all the relevant transactions, then we whittle it down to the vouts we actually used from those transactions. However, the `select` and `contains` arguments are something new. They show off some of the complexity of JSON, but for now just know that this particular invocation will work.
 
 To start simply, this picks out the two UTXOs one at a time:
 ```
-$ bitcoin-cli listunspent | jq -r '.[] | select (.txid | contains("'${usedtxid[0]}'"))'
+$ bitcoin-cli listunspent | jq -r '.[] | select (.txid | contains("'${usedtxid[0]}'")) | select(.vout | contains('${usedvout[0]}'))'
 {
-  "txid": "2b5f5798359e0e23e02764588166f222d4ce056419dec83c743b72aad171d708",
+  "txid": "d261b9494eb29084f668e1abd75d331fc2d6525dd206b2f5236753b5448ca12c",
   "vout": 1,
-  "address": "mjtEqr4Fffd1XtpAkKoDkMBP54mMXJeQ3j",
-  "account": "",
-  "scriptPubKey": "76a9142fe70d51e886b9ef73b76c1743c5a2bb2894db8588ac",
-  "amount": 0.76,
-  "confirmations": 6689,
+  "address": "miSrC3FvkPPZgqqvCiQycq7io7wTSVsAFH",
+  "scriptPubKey": "76a91420219e4f3c6bc0f6524d538009e980091b3613e888ac",
+  "amount": 0.9,
+  "confirmations": 6,
   "spendable": true,
   "solvable": true
 }
-$ bitcoin-cli listunspent | jq -r '.[] | select (.txid | contains("'${usedtxid[1]}'"))'
+$ bitcoin-cli listunspent | jq -r '.[] | select (.txid | contains("'${usedtxid[1]}'")) | select(.vout | contains('${usedvout[1]}'))'
 {
-  "txid": "ec0598918f6f5476cb90365651e8a2724ef26f949290bbf196f41ed96092a52f",
-  "vout": 0,
-  "address": "mjtEqr4Fffd1XtpAkKoDkMBP54mMXJeQ3j",
-  "account": "",
-  "scriptPubKey": "76a9142fe70d51e886b9ef73b76c1743c5a2bb2894db8588ac",
-  "amount": 3.9,
-  "confirmations": 7191,
+  "txid": "c7c7f6371ec19330527325908a544bbf8401191645598301d24b54d37e209e7b",
+  "vout": 1,
+  "address": "mzizSuAy8aL1ytFijds7pm4MuDPx5aYH5Q",
+  "scriptPubKey": "76a914d2b12da30320e81f2dfa416c5d9499d08f778f9888ac",
+  "amount": 0.4,
+  "confirmations": 5,
   "spendable": true,
   "solvable": true
 }
 ```
 A simple bash for-loop can instead give you _all_ of your UTXOs:
 ```
-for txid in ${usedtxid[@]}; do bitcoin-cli listunspent | jq -r '.[] | select (.txid | contains("'$txid'"))'; done
+$ for ((i=0; i<${#usedtxid[*]}; i++)); do txid=${usedtxid[i]}; vout=${usedvout[i]}; bitcoin-cli listunspent | jq -r '.[] | select (.txid | contains("'${txid}'")) | select(.vout | contains('$vout'))'; done;
 {
-  "txid": "2b5f5798359e0e23e02764588166f222d4ce056419dec83c743b72aad171d708",
+  "txid": "d261b9494eb29084f668e1abd75d331fc2d6525dd206b2f5236753b5448ca12c",
   "vout": 1,
-  "address": "mjtEqr4Fffd1XtpAkKoDkMBP54mMXJeQ3j",
-  "account": "",
-  "scriptPubKey": "76a9142fe70d51e886b9ef73b76c1743c5a2bb2894db8588ac",
-  "amount": 0.76,
-  "confirmations": 6699,
+  "address": "miSrC3FvkPPZgqqvCiQycq7io7wTSVsAFH",
+  "scriptPubKey": "76a91420219e4f3c6bc0f6524d538009e980091b3613e888ac",
+  "amount": 0.9,
+  "confirmations": 7,
   "spendable": true,
   "solvable": true
 }
 {
-  "txid": "ec0598918f6f5476cb90365651e8a2724ef26f949290bbf196f41ed96092a52f",
-  "vout": 0,
-  "address": "mjtEqr4Fffd1XtpAkKoDkMBP54mMXJeQ3j",
-  "account": "",
-  "scriptPubKey": "76a9142fe70d51e886b9ef73b76c1743c5a2bb2894db8588ac",
-  "amount": 3.9,
-  "confirmations": 7202,
+  "txid": "c7c7f6371ec19330527325908a544bbf8401191645598301d24b54d37e209e7b",
+  "vout": 1,
+  "address": "mzizSuAy8aL1ytFijds7pm4MuDPx5aYH5Q",
+  "scriptPubKey": "76a914d2b12da30320e81f2dfa416c5d9499d08f778f9888ac",
+  "amount": 0.4,
+  "confirmations": 6,
   "spendable": true,
   "solvable": true
 }
+
 ```
+Note that we used yet another bit of array ugliness `${#usedtxid[*]}` to determine the size of the array, then accessed each value in the `usedtxid` array (and each value in the parallel `usedvout` array).
 
 ## Use JSON for Simple Calculation by Value
 
@@ -328,47 +338,44 @@ for txid in ${usedtxid[@]}; do bitcoin-cli listunspent | jq -r '.[] | select (.t
 
 You can now go one step further, and request the .amount (or any other JSON key-value) from the UTXOs you're retrieving. 
 
-This example uses the `$usedtxid` array that was set as follows:
+This example uses the `$usedtxid` and `$usedvout` arrays that was set as follows:
 ```
 $ usedtxid=($(bitcoin-cli decoderawtransaction $rawtxhex | jq -r '.vin | .[] | .txid'))
+$ usedvout=($(bitcoin-cli decoderawtransaction $rawtxhex | jq -r '.vin | .[] | .vout'))
 ```
-You can use it to look at .amounts individually with a bash `for` script:
+We used the same `for` script that steps through the arrays, but added a new pipe to the JQ that outputs the `.amount` value for each of the UTXOs selected.
 ```
-$ for txid in ${usedtxid[@]}; do bitcoin-cli listunspent | jq -r '.[] | select (.txid | contains("'$txid'")) | .amount'; done
-0.76
-3.9
+$ for ((i=0; i<${#usedtxid[*]}; i++)); do txid=${usedtxid[i]}; vout=${usedvout[i]}; bitcoin-cli listunspent | jq -r '.[] | select (.txid | contains("'${txid}'")) | select(.vout | contains('$vout')) | .amount'; done;
+0.9
+0.4
 ```
-Alternatively, you can sum up the .amounts with an `awk` script, to really see how much money is in the UTXOs that the transaction is spending:
+At this point, you can also sum up the .amounts with an `awk` script, to really see how much money is in the UTXOs that the transaction is spending:
 ```
-$ for txid in ${usedtxid[@]}; do bitcoin-cli listunspent | jq -r '.[] | select (.txid | contains("'$txid'")) | .amount'; done | awk '{s+=$1} END {print s}'
-4.66
+$ for ((i=0; i<${#usedtxid[*]}; i++)); do txid=${usedtxid[i]}; vout=${usedvout[i]}; bitcoin-cli listunspent | jq -r '.[] | select (.txid | contains("'${txid}'")) | select(.vout | contains('$vout')) | .amount'; done | awk '{s+=$1} END {print s}'
+1.3
 ```
 
 ## Use JQ for Complex Calculations
 
 **Usage Example:** _Calculate the fee for a transaction._
 
-**[[[[TODO: THIS SCRIPT SHOULD LOOKUP BY BOTH TXID + VOUT!]]]]]
-
-
-To figure out the complete transaction fee at this point just requires determining out how much money is going through the .vout:
+To figure out the complete transaction fee at this point just requires one more bit of math: determining out how much money is going through the .vout:
 ```
 $ bitcoin-cli decoderawtransaction $rawtxhex | jq -r '.vout  [] | .value' | awk '{s+=$1} END {print s}'
-4.6505
+1.045
 ```
-Then, you subtract the .vout .amount (4.6505) from the .vin .amount (4.66) and you have a fee calculator!
-
-Putting it all together gives us a complete calculator in just four lines of script:
+Then, you subtract the .vout .amount (1.045) from the .vin .amount (1.3) and you have a fee calculator! Putting it all together creates a complete calculator in just five lines of script:
 ```
 $ usedtxid=($(bitcoin-cli decoderawtransaction $rawtxhex | jq -r '.vin | .[] | .txid'))
-$ btcin=$(for txid in ${usedtxid[@]}; do bitcoin-cli listunspent | jq -r '.[] | select (.txid | contains("'$txid'")) | .amount'; done | awk '{s+=$1} END {print s}')
+$ usedvout=($(bitcoin-cli decoderawtransaction $rawtxhex | jq -r '.vin | .[] | .vout'))
+$ btcin=$(for ((i=0; i<${#usedtxid[*]}; i++)); do txid=${usedtxid[i]}; vout=${usedvout[i]}; bitcoin-cli listunspent | jq -r '.[] | select (.txid | contains("'${txid}'")) | select(.vout | contains('$vout')) | .amount'; done | awk '{s+=$1} END {print s}')
 $ btcout=$(bitcoin-cli decoderawtransaction $rawtxhex | jq -r '.vout  [] | .value' | awk '{s+=$1} END {print s}')
 $ echo "$btcin-$btcout"| /usr/bin/bc
-.0095
+.255
 ```
-And that's also a good example of why you double-check your fees: we'd intended to send a transaction fee of 5,000 satoshis, but sent 95,000 satoshis instead. Whoops!
+And that's also a good example of why you double-check your fees: we'd intended to send a transaction fee of 5,000 satoshis, but sent 255,000 satoshis instead. Whoops!
 
-> **WARNING:** This was not an intentional lesson. We genuinelly messed up our calculation of the transaction fee when we wrote our raw transaction. It's *that* easy, then your money is gone.
+> **WARNING:** The first time we wrote up this lesson, we genuinely miscalculated our fee and didn't see it until we ran our fee calclator. It's *that* easy, then your money is gone. (The example above is actually from a second iteration of the calculator, and that time we made the mistake on purpose.)
 
 For more JSON magic (and if any of this isn't clear), please read the [JSON Manual](https://stedolan.github.io/jq/manual/) and the [JSON Cookbook](https://github.com/stedolan/jq/wiki/Cookbook). We'll be regularly using JQ in future examples.
 
@@ -380,7 +387,6 @@ If you'd like to have this JQ in a script, you can use the following.
 
 ```
 file: txfee-calc.sh
-
 #!/bin/bash
 
 if [ -z $1 ];
@@ -390,15 +396,15 @@ then
 fi
 
 usedtxid=($(bitcoin-cli decoderawtransaction $1 | jq -r '.vin | .[] | .txid'))
-btcin=$(for txid in ${usedtxid[@]}; do bitcoin-cli listunspent | jq -r '.[] | select (.txid | contains("'$txid'")) | .amount'; done | awk '{s+=$1} END {print s}')
+usedvout=($(bitcoin-cli decoderawtransaction $1 | jq -r '.vin | .[] | .vout'))
+btcin=$(for ((i=0; i<${#usedtxid[*]}; i++)); do txid=${usedtxid[i]}; vout=${usedvout[i]}; bitcoin-cli listunspent | jq -r '.[] | select (.txid | contains("'${txid}'")) | select(.vout | contains('$vout')) | .amount'; done | awk '{s+=$1} END {print s}')
 btcout=$(bitcoin-cli decoderawtransaction $1 | jq -r '.vout  [] | .value' | awk '{s+=$1} END {print s}')
 echo "$btcin-$btcout"| /usr/bin/bc
-
 ```
 You can then run the script as follows:
 ```
 $ ./txfee-calc.sh $rawtxhex
-.0095
+.255
 ```
 
 ## Make Some New Aliases
