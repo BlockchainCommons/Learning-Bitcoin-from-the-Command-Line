@@ -25,7 +25,7 @@ txconfirmtarget=1
 
 To use `fundrawtransaction` you first need to create a bare-bones raw transaction that lists _no_ inputs and _no_ change address. You'll just list your recipient and how much you want to send them:
 ```
-$ unfinishedtx=$(bitcoin-cli -named createrawtransaction transactions='''[]''' outputs='''{ "'$recipient'": 1.0 }''')
+$ unfinishedtx=$(bitcoin-cli -named createrawtransaction inputs='''[]''' outputs='''{ "'$recipient'": 1.0 }''')
 ```
 
 ## Fund Your Bare Bones Transaction
