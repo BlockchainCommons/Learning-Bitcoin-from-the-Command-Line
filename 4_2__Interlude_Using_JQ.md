@@ -240,7 +240,7 @@ $ $ bitcoin-cli decoderawtransaction $rawtxhex
 
 ### Retrieve the Value(s)
 
-Assume that we know exactly how this transaction is constructed: we know that it uses two UTXOs as input. To retrieve the txid for the two UTXOs, we could use `jq` to look up the transaction's .vin value, then reference the .vin's 0th array, then that array's .txid value. Afterward, we could do the same with the 1st array. Easy:
+Assume that we know exactly how this transaction is constructed: we know that it uses two UTXOs as input. To retrieve the txid for the two UTXOs, we could use `jq` to look up the transaction's .vin value, then reference the .vin's 0th array, then that array's .txid value. Afterward, we could do the same with the 1st array, then the same with the .vin's two .vout values. Easy:
 ```
 $ usedtxid1=$(bitcoin-cli decoderawtransaction $rawtxhex | jq -r '.vin | .[0] | .txid')
 $ echo $usedtxid1
@@ -249,11 +249,11 @@ $ usedtxid2=$(bitcoin-cli decoderawtransaction $rawtxhex | jq -r '.vin | .[1] | 
 $ echo $usedtxid2
 c7c7f6371ec19330527325908a544bbf8401191645598301d24b54d37e209e7b
 
-$ vout1=$(bitcoin-cli decoderawtransaction $rawtxhex | jq -r '.vin | .[0] | .vout')
-$ echo $vout1
+$ usedvout1=$(bitcoin-cli decoderawtransaction $rawtxhex | jq -r '.vin | .[0] | .vout')
+$ echo $usedvout1
 1
-$ vout2=$(bitcoin-cli decoderawtransaction $rawtxhex | jq -r '.vin | .[1] | .vout')
-$ echo $vout2
+$ usedvout2=$(bitcoin-cli decoderawtransaction $rawtxhex | jq -r '.vin | .[1] | .vout')
+$ echo $usedvout2
 1
 ```
 However, it would be better to have a general case that _automatically_ saved all the txids of our UTXOs.
@@ -272,15 +272,15 @@ $ echo ${usedvout[0]}
 $ echo ${usedvout[1]}
 1
 ```
-The only real trick here is how we saved the information to the bash shell. Rather than saving to a variable with `$(command)`, we instead saved to an array with `($(command))`. We were then able to access the individual bash array elements with a `${variable[n]}` construction. We could instead access the whole array with `${variable[@]}`. (Yeah, no one ever said bash was pretty.)
+The only real trick here is how we saved the information using the bash shell. Rather than saving to a variable with `$(command)`, we instead saved to an array with `($(command))`. We were then able to access the individual bash array elements with a `${variable[n]}` construction. We could instead access the whole array with `${variable[@]}`. (Yeah, no one ever said bash was pretty.)
 
 > **WARNING:** Always remember that a UTXO is a transaction _plus_ a vout. We missed the vout the first time we wrote this JQ example, and it stopped working when we ended up with a situation where we'd been sent two `vouts` from the same transaction. 
 
 ### Retrieve the Related Object(s)
 
-We can now use this information to reference UTXOs in `listunspent`. To find the information on the UTXOs being used by the raw transaction, we need to look through the entire JSON array (`[]`). We can then choose (`select`) individual JSON objects that include (`contains`) our txids. Then  select (`select`) the transactions among those that _also_ contains (`contain`) the correct vout.
+You can now use your saved `txid` and `vout` information to reference UTXOs in `listunspent`. To find the information on the UTXOs being used by the raw transaction, you need to look through the entire JSON array (`[]`) of unspent transactions. You can then choose (`select`) individual JSON objects that include (`contains`) the txids. You _then_ select (`select`) the transactions among those that _also_ contains (`contain`) the correct vout.
 
-The use of another level of pipe is the standard methodology of JQ: we grab a set of data, then we whittle it down to all the relevant transactions, then we whittle it down to the vouts we actually used from those transactions. However, the `select` and `contains` arguments are something new. They show off some of the complexity of JSON, but for now just know that this particular invocation will work.
+The use of another level of pipe is the standard methodology of JQ: you grab a set of data, then you whittle it down to all the relevant transactions, then you whittle it down to the vouts that were actually used from those transactions. However, the `select` and `contains` arguments are something new. They show off some of the complexity of JSON that goes beyond the scope of this tutorial; for now just know that this particular invocation will work to grab matching objects.
 
 To start simply, this picks out the two UTXOs one at a time:
 ```
@@ -307,7 +307,7 @@ $ bitcoin-cli listunspent | jq -r '.[] | select (.txid | contains("'${usedtxid[1
   "solvable": true
 }
 ```
-A simple bash for-loop can instead give you _all_ of your UTXOs:
+A simple bash for-loop could instead give you _all_ of your UTXOs:
 ```
 $ for ((i=0; i<${#usedtxid[*]}; i++)); do txid=${usedtxid[i]}; vout=${usedvout[i]}; bitcoin-cli listunspent | jq -r '.[] | select (.txid | contains("'${txid}'")) | select(.vout | contains('$vout'))'; done;
 {
@@ -332,7 +332,7 @@ $ for ((i=0; i<${#usedtxid[*]}; i++)); do txid=${usedtxid[i]}; vout=${usedvout[i
 }
 
 ```
-Note that we used yet another bit of array ugliness `${#usedtxid[*]}` to determine the size of the array, then accessed each value in the `usedtxid` array (and each value in the parallel `usedvout` array).
+Note that we used yet another bit of array ugliness `${#usedtxid[*]}` to determine the size of the array, then accessed each value in the `usedtxid` array and each value in the parallel `usedvout` array, putting them into simpler variables for less-ugly access.
 
 ## Use JSON for Simple Calculation by Value
 
@@ -340,12 +340,12 @@ Note that we used yet another bit of array ugliness `${#usedtxid[*]}` to determi
 
 You can now go one step further, and request the .amount (or any other JSON key-value) from the UTXOs you're retrieving. 
 
-This example uses the `$usedtxid` and `$usedvout` arrays that was set as follows:
+This example repeats the usage the `$usedtxid` and `$usedvout` arrays that were set as follows:
 ```
 $ usedtxid=($(bitcoin-cli decoderawtransaction $rawtxhex | jq -r '.vin | .[] | .txid'))
 $ usedvout=($(bitcoin-cli decoderawtransaction $rawtxhex | jq -r '.vin | .[] | .vout'))
 ```
-We used the same `for` script that steps through the arrays, but added a new pipe to the JQ that outputs the `.amount` value for each of the UTXOs selected.
+The same `for` script can be used to step through those arrays, but with an added pipe in the JQ that outputs the `amount` value for each of the UTXOs selected.
 ```
 $ for ((i=0; i<${#usedtxid[*]}; i++)); do txid=${usedtxid[i]}; vout=${usedvout[i]}; bitcoin-cli listunspent | jq -r '.[] | select (.txid | contains("'${txid}'")) | select(.vout | contains('$vout')) | .amount'; done;
 0.9
@@ -356,17 +356,20 @@ At this point, you can also sum up the .amounts with an `awk` script, to really 
 $ for ((i=0; i<${#usedtxid[*]}; i++)); do txid=${usedtxid[i]}; vout=${usedvout[i]}; bitcoin-cli listunspent | jq -r '.[] | select (.txid | contains("'${txid}'")) | select(.vout | contains('$vout')) | .amount'; done | awk '{s+=$1} END {print s}'
 1.3
 ```
+Whew!
 
 ## Use JQ for Complex Calculations
 
 **Usage Example:** _Calculate the fee for a transaction._
 
-To figure out the complete transaction fee at this point just requires one more bit of math: determining out how much money is going through the .vout:
+To figure out the complete transaction fee at this point just requires one more bit of math: determining out how much money is going through the .vout. That's a simple use of JQ where you just use `awk` to sum up the `value` of all the `vout` information:
 ```
 $ bitcoin-cli decoderawtransaction $rawtxhex | jq -r '.vout  [] | .value' | awk '{s+=$1} END {print s}'
 1.045
 ```
-Then, you subtract the .vout .amount (1.045) from the .vin .amount (1.3) and you have a fee calculator! Putting it all together creates a complete calculator in just five lines of script:
+To complete the transaction fee calculation,, you subtract the .vout .amount (1.045) from the .vin .amount (1.3).
+
+Putting it all together creates a complete calculator in just five lines of script:
 ```
 $ usedtxid=($(bitcoin-cli decoderawtransaction $rawtxhex | jq -r '.vin | .[] | .txid'))
 $ usedvout=($(bitcoin-cli decoderawtransaction $rawtxhex | jq -r '.vin | .[] | .vout'))
@@ -377,7 +380,7 @@ $ echo "$btcin-$btcout"| /usr/bin/bc
 ```
 And that's also a good example of why you double-check your fees: we'd intended to send a transaction fee of 5,000 satoshis, but sent 255,000 satoshis instead. Whoops!
 
-> **WARNING:** The first time we wrote up this lesson, we genuinely miscalculated our fee and didn't see it until we ran our fee calclator. It's *that* easy, then your money is gone. (The example above is actually from a second iteration of the calculator, and that time we made the mistake on purpose.)
+> **WARNING:** The first time we wrote up this lesson, we genuinely miscalculated our fee and didn't see it until we ran our fee calclator. It's *that* easy, then your money is gone. (The example above is actually from our second iteration of the calculator, and that time we made the mistake on purpose.)
 
 For more JSON magic (and if any of this isn't clear), please read the [JSON Manual](https://stedolan.github.io/jq/manual/) and the [JSON Cookbook](https://github.com/stedolan/jq/wiki/Cookbook). We'll be regularly using JQ in future examples.
 
