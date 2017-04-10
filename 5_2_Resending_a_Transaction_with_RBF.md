@@ -2,15 +2,15 @@
 
 > **NOTE:** This is a draft in progress, so that I can get some feedback from early reviewers. It is not yet ready for learning.
 
-If your Bitcoin transaction is stuck, and you're sender, you can resend it using RBF (replace-by-fee). However, that's not all that RBF can use: it's generally a powerful and multipurpose feature that allows Bitcoin senders to recreate transactions for a variety of reasons.
+If your Bitcoin transaction is stuck, and you're sender, you can resend it using RBF (replace-by-fee). However, that's not all that RBF can do: it's generally a powerful and multipurpose feature that allows Bitcoin senders to recreate transactions for a variety of reasons.
 
-> **VERSION WARNING:** This is an innovation from Bitcoin Core v 0.12.0, which means that by now most miners should be using it. However, it only reached full maturity in the Bitcoin core wallet Bitcoin Core v 0.14.0.
+> **VERSION WARNING:** This is an innovation from Bitcoin Core v 0.12.0, which means that by now most miners should be using it. However, it only reached full maturity in the Bitcoin core wallet with Bitcoin Core v 0.14.0.
 
 ## Opt-In for RBF
 
-RBF is an opt-in Bitcoin feature. Transactions are only eligible for using RBF if they've been created with a special RBF flag. This is done by setting their sequence number (which is typically set automatically, so that it's more than 0 and less than 0xffffffff-1. (4294967294).
+RBF is an opt-in Bitcoin feature. Transactions are only eligible for using RBF if they've been created with a special RBF flag. This is done by setting a transaction's sequence number (which is typically set automatically), so that it's more than 0 and less than 0xffffffff-1 (4294967294).
 
-This is simply done by adding a `sequence` variable to the vins:
+This is accomplished simply  by adding a `sequence` variable to the `vins`:
 ```
 $ rawtxhex=$(bitcoin-cli -named createrawtransaction inputs='''[ { "txid": "'$utxo_txid'", "vout": '$utxo_vout', "sequence": 1 } ]''' outputs='''{ "'$recipient'": 0.1, "'$changeaddress'": 0.9 }''')
 ```
@@ -48,9 +48,9 @@ $ bitcoin-cli -named gettransaction txid=7218b78ad4853eb957b610033b8e1ef48b01d94
   "hex": "02000000014e843e22cb8ee522fbf4d8a0967a733685d2ad92697e63f52ce41bec8f7c8ac0010000006b483045022100834731cd64efcc078d6c3e59cf0963599ffbc44722b7851b0404bb68e4a1fec70220759a0887ea791592c8119bbe61842eb3850a20cdf8433b4ba00d4ead752facfe012103456575f59a127a4c3e79c23f185899fa0a9ccd40162d05617fb112fa31bd14e5010000000280969800000000001976a914e7c1345fc8f87c68170b3aa798a956c2fe6a9eff88ac804a5d05000000001976a914c101d8c34de7b8d83b3f8d75416ffaea871d664988ac00000000"
 }
 ```
-The `bip125-replaceable` flag will stay `yes` until the transaction receives confirmations. At that point it is no longer replacable.
+The `bip125-replaceable` flag will stay `yes` until the transaction receives confirmations. At that point, it is no longer replacable.
 
-_Should I trust transactions with no confirmations?_ No, never. This was true before RBF and it was true after RBF. Transactions must receive confirmations before they are trustworthy. This is especially true if a transaction is marked as `bip125-replaceable`, becausethen it can be ... replaced.
+_Should I trust transactions with no confirmations?_ No, never. This was true before RBF and it was true after RBF. Transactions must receive confirmations before they are trustworthy. This is especially true if a transaction is marked as `bip125-replaceable`, because then it can be ... replaced.
 
 ### Optional: Always Opt-In for RBF
 
@@ -114,7 +114,7 @@ The RBF functionality is based on [BIP 125](https://github.com/bitcoin/bips/blob
 
 > 1. The original transactions signal replaceability explicitly or through inheritance as described in the above Summary section.
 
-We've already done this by setting our sequence number to less than 0xffffffff-1. (4294967294).
+This means that the sequence number must be set to less than 0xffffffff-1. (4294967294).
 
 > 2. The replacement transaction pays an absolute higher fee than the sum paid by the original transactions.
 > 3. The replacement transaction does not contain any new unconfirmed inputs that did not previously appear in the mempool. (Unconfirmed inputs are inputs spending outputs from currently unconfirmed transactions.)
@@ -123,21 +123,21 @@ We've already done this by setting our sequence number to less than 0xffffffff-1
 
 _What is a BIP?_ A BIP is a Bitcoin Improvement Proposal. It's an in-depth suggestion for a change to the Bitcoin Core code. Often, when a BIP has been sufficiently discussed and updated, it will become an actual part of the Bitcoin Core code. For example, BIP 125 was implemented in Bitcoin Core 0.12.0.
 
-The other thing to understand about RBF is that in order to use it, you must double-spend, reusing one or more the same UTXOs. Just sending another transaction with a different UTXO to the same recipient won't do the trick (and will likely result in your losing money. Instead, you must purposefully create a conflict, where the same UTXO is used in two different transactions. 
+The other thing to understand about RBF is that in order to use it, you must double-spend, reusing one or more the same UTXOs. Just sending another transaction with a different UTXO to the same recipient won't do the trick (and will likely result in your losing money). Instead, you must purposefully create a conflict, where the same UTXO is used in two different transactions. 
 
-Faced with this conflict, the miners will know to use the one with the higher sequence number, and they'll be incentivized to do so by the higher fees which are promised as part of the BIP.
+Faced with this conflict, the miners will know to use the one with the higher sequence number, and they'll be incentivized to do so by the higher fees that are promised as part of the BIP.
 
-_What is a double-spend?_ A double-spend occurs when someone sends the same electronic funds to two different people (or, to the same person twice, in two different transactions). This is a central problem in any e-cash system. It's solved in Bitcoin by the immutable ledger: once a transaction is sufficiently confirmed, no miners will verify transactions that reuse the same UTXO. However, it's possible to double-spend _before_ a transaction has been confirmed — which is why you always want one or more confirmations before you finalize a transaction. In the case of RBF, you purposefully double-spend because an initial transaction has stalled, and the miners accept it if you meet the specific criteria laid out by BIP 125.
+_What is a double-spend?_ A double-spend occurs when someone sends the same electronic funds to two different people (or, to the same person twice, in two different transactions). This is a central problem for any e-cash system. It's solved in Bitcoin by the immutable ledger: once a transaction is sufficiently confirmed, no miners will verify transactions that reuse the same UTXO. However, it's possible to double-spend _before_ a transaction has been confirmed — which is why you always want one or more confirmations before you finalize a transaction. In the case of RBF, you purposefully double-spend because an initial transaction has stalled, and the miners accept your double-spend if you meet the specific criteria laid out by BIP 125.
 
 ## Replace a Transaction the Hard Way: By Hand
 
-In order to create an RBF transaction by hand, all you have to do is create a raw transaction: (1) that replaces a previous raw transaction that opted-in to RBF and that is not confirmed; (2) that reuses one or more of the same UTXOs; (3) that includes a higher sequence number than the previous use of the UTXO; and (4) that increases fees.
+In order to create an RBF transaction by hand, all you have to do is create a raw transaction that: (1) replaces a previous raw transaction that opted-in to RBF and that is not confirmed; (2) reuses one or more of the same UTXOs; (3) includes a higher sequence number than the previous use of the UTXO; and (4) increases fees.
 
 The following example just reuses our existing variables, but increments the sequence number and decreases the amount sent to the change address, to increase the fee from the accidental 0 BTC of the original transaction to an overly generous 0.01 BTC in the new transaction:
 ```
 $ rawtxhex=$(bitcoin-cli -named createrawtransaction inputs='''[ { "txid": "'$utxo_txid'", "vout": '$utxo_vout', "sequence": 2 } ]''' outputs='''{ "'$recipient'": 0.1, "'$changeaddress'": 0.89 }''')
 ```
-We of course my resign it and resend it:
+We of course must resign it and resend it:
 ```
 $ signedtx=$(bitcoin-cli -named signrawtransaction hexstring=$rawtxhex | jq -r '.hex')
 $ bitcoin-cli -named sendrawtransaction hexstring=$signedtx
@@ -172,7 +172,7 @@ $ bitcoin-cli -named gettransaction txid=7218b78ad4853eb957b610033b8e1ef48b01d94
   "hex": "02000000014e843e22cb8ee522fbf4d8a0967a733685d2ad92697e63f52ce41bec8f7c8ac0010000006b483045022100834731cd64efcc078d6c3e59cf0963599ffbc44722b7851b0404bb68e4a1fec70220759a0887ea791592c8119bbe61842eb3850a20cdf8433b4ba00d4ead752facfe012103456575f59a127a4c3e79c23f185899fa0a9ccd40162d05617fb112fa31bd14e5010000000280969800000000001976a914e7c1345fc8f87c68170b3aa798a956c2fe6a9eff88ac804a5d05000000001976a914c101d8c34de7b8d83b3f8d75416ffaea871d664988ac00000000"
 }
 ```
-Note that `bitcoin-cli` recognizes that there's a conflict with another transaction in the `walletconflicts` section. Also note that it's listed with _negative confirmations_, which marks how long it's been since the double-spend was confirmed.
+Note that `bitcoin-cli` recognizes that there's a conflict with another transaction in the `walletconflicts` section. Also note that this transaction is now listed with _negative confirmations_, which marks how long it's been since the opposing double-spend was confirmed.
 
 Meanwhile, the new transaction worked fine:
 ```
@@ -209,7 +209,7 @@ Our recipients have their money, and the original, failed transaction will event
 
 ## Replace a Transaction the Easy Way: By bumpfee
 
-Raw transactions are very powerful, and there are a number of reasons that you can do a lot of interesting things by combining them with RBF. However, sometimes _all_ you want to do is free up a transaction that's been hanging. You can now do that with a simple command, `bumpfee`.
+Raw transactions are very powerful, and you can do a lot of interesting things by combining them with RBF. However, sometimes _all_ you want to do is free up a transaction that's been hanging. You can now do that with a simple command, `bumpfee`.
 
 For example, to increase the fee of transaction `4460175e8276d5a1935f6136e36868a0a3561532d44ddffb09b7cb878f76f927` you would run:
 ```
@@ -252,18 +252,12 @@ $ bitcoin-cli -named gettransaction txid=75208c5c8cbd83081a0085cd050fc7a4064d87c
   "hex": "02000000014e843e22cb8ee522fbf4d8a0967a733685d2ad92697e63f52ce41bec8f7c8ac0020000006b48304502210094e54afafce093008172768d205d99ee2e9681b498326c077f0b6a845d9bbef702206d90256d5a2edee3cab1017b9b1c30b302530b0dd568e4af6f2d35380bbfaa280121029f39b2a19943fadbceb6697dbc859d4a53fcd3f9a8d2c8d523df2037e7c32a71010000000280969800000000001976a914e7c1345fc8f87c68170b3aa798a956c2fe6a9eff88ac38f25c05000000001976a914c101d8c34de7b8d83b3f8d75416ffaea871d664988ac00000000"
 }
 ```
-Decoding the hex can show us even more about what `bumpfee` did:
-```
-$ bitcoin-cli -named decoderawtransaction hexstring=02000000014e843e22cb8ee522fbf4d8a0967a733685d2ad92697e63f52ce41bec8f7c8ac0020000006b48304502210094e54afafce093008172768d205d99ee2e9681b498326c077f0b6a845d9bbef702206d90256d5a2edee3cab1017b9b1c30b302530b0dd568e4af6f2d35380bbfaa280121029f39b2a19943fadbceb6697dbc859d4a53fcd3f9a8d2c8d523df2037e7c32a71010000000280969800000000001976a914e7c1345fc8f87c68170b3aa798a956c2fe6a9eff88ac38f25c05000000001976a914c101d8c34de7b8d83b3f8d75416ffaea871d664988ac00000000
-{
-  "txid": "75208c5c8cbd83081a0085cd050fc7a4064d87c7d73176ad9a7e3aee5e70095f",
-```
 
 > **VERSION WARNING:** The bumpfee RPC require Bitcoin Core v.0.14.0.
 
 ## Summary: Resending a Transaction with RBF
 
-If a transaction has gotten stuck, and you don't want to wait for it to expire entirely, you can double-spend using RBF to create a replacement transaction (or just use `bumpfee`).
+If a transaction is stuck, and you don't want to wait for it to expire entirely, if you opted-in to RBF, then you can double-spend using RBF to create a replacement transaction (or just use `bumpfee`).
 
 _What is the power of RBF?_ Obviously, RBF is very helpful if you created a transaction with too low of a fee and you need to get those funds through. However, the ability to generally replace unconfirmed transactions with updated ones has more power than just that (and is why you might want to continue using RBF with raw transactions, even following the advent of `bumpfee`). 
 
