@@ -34,3 +34,9 @@ This tutorial assumes that you have some minimal background of how to use the co
   * [4.3: Creating a Raw Transaction with Named Arguments](4_3_Creating_a_Raw_Transaction_with_Named_Arguments.md)
   * [4.4: Sending Coins with Raw Transactions](4_4_Sending_Coins_with_a_Raw_Transaction.md)
   * [4.5: Sending Coins with Automated Raw Transactions](4_5_Sending_Coins_with_Automated_Raw_Transactions.md)
+* [5.0: Empowering Bitcoin Transactions](5_0_Empowering_Bitcoin_Transactions.md)
+  * [5.1 Watching for Stuck Transactions](5_1_Watching_for_Stuck_Transactions.md)
+  * [5.2: Resending a Transaction with RBF](5_2_Resending_a_Transaction_with_RBF.md)
+  * [5.3: Funding a Transaction with CPFP](5_3_Funding_a_Transaction_with_CPFP.md)
+  * [5.4: Sending a Raw Transaction with Data](5_4_Sending_a_Raw_Transaction_with_Data.md)
+  * [5.5: Sending a Raw Transaction with a Locktime](5_5_Sending_a_Raw_Transaction_with_a_Locktime.md) — _Pending_
