@@ -274,6 +274,8 @@ $ echo ${usedvout[1]}
 ```
 The only real trick here is how we saved the information to the bash shell. Rather than saving to a variable with `$(command)`, we instead saved to an array with `($(command))`. We were then able to access the individual bash array elements with a `${variable[n]}` construction. We could instead access the whole array with `${variable[@]}`. (Yeah, no one ever said bash was pretty.)
 
+> **WARNING:** Always remember that a UTXO is a transaction _plus_ a vout. We missed the vout the first time we wrote this JQ example, and it stopped working when we ended up with a situation where we'd been sent two `vouts` from the same transaction. 
+
 ### Retrieve the Related Object(s)
 
 We can now use this information to reference UTXOs in `listunspent`. To find the information on the UTXOs being used by the raw transaction, we need to look through the entire JSON array (`[]`). We can then choose (`select`) individual JSON objects that include (`contains`) our txids. Then  select (`select`) the transactions among those that _also_ contains (`contain`) the correct vout.
