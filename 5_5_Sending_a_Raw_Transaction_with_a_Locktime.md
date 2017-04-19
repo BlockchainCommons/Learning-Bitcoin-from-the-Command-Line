@@ -18,28 +18,108 @@ When a locktime transaction is waiting to go into a block, it can be cancelled. 
 
 In order to create a locktime transaction, you need to first determine what you will set the locktime to.
 
-Most frequently you will set the locktime to a UNIX timestamp representing a specific date and time. You can do this at a web site like [UNIX Time Stamp](http://www.unixtimestamp.com/) or [Epoch Convertor](https://www.epochconverter.com/). However, it'd be better to write your own script on your local machine, so that you know the UNIX timestamp you receive is accurate. If you don't do that, at least double check on two different sites.
+### Figure Out Your Locktime By UNIX Timestamp
+
+Most frequently you will set the locktime to a UNIX timestamp representing a specific date and time. You can do this at a web site like [UNIX Time Stamp](http://www.unixtimestamp.com/) or [Epoch Convertor](https://www.epochconverter.com/). However, it'd be better to [write your own script](https://www.epochconverter.com/#code) on your local machine, so that you know the UNIX timestamp you receive is accurate. If you don't do that, at least double check on two different sites.
 
 _Why Would I Use a UNIX Timestamp?_ Using a UNIX timestamp makes it easy to definitively link a transaction to a specific time, without worrying about whether the speed of block creation might change at some point. Particularly if you're creating a locktime that's far in the future, it's the safer thing to do. But, beyond that, it's just more intuitive, creating a direct correlation between some calendar date and the time when the transaction can be mined.
 
 > **WARNING:** When using UNIX timestamps for locktime, there's a bit of wriggle room: the release of blocks isn't regular and block times can be two hours ahead of real time, so the locktime usually means "within a few hours of this time, plus or minus".
 
-Alternatively, you can set the locktime to a smaller number representing a block height. [figure out current][10/]
+### Figure Out Your Locktime By UNIX Timestamp
 
-[500M warning]
-### Figure Out Your Locktime
+Alternatively, you can set the locktime to a smaller number representing a block height. `bitcoin-cli getblockcount` should typically tell you the current block height. You can verify you're indeed up to date with our `btcblock` alias, which compares the blockheight from your `bitcoind` with a block height taken form the network.
 
-==
-Even today, setting all sequence numbers to 0xffffffff (the default in Bitcoin Core) can still disable the time lock, so if you want to use locktime, at least one input must have a sequence number below the maximum. Since sequence numbers are not used by the network for any other purpose, setting any sequence number to zero is sufficient to enable locktime.
-==
+Once you've figured out the current block, you can decide how far in the future to set your locktime to. Remember that on average a new block will be created every 10 minutes. So, for example, if you wanted to set the locktime for a week in the future, you'd choose a block height that is 6 x 24 x 7 = 1,008 blocks in advance of the current one.
+
+_Why Would I Use a Blockheight?_ Unlike with timestamps, there's no fuzziness for blockheights. If you set a blockheight of 120,000 for your locktime, then there's absolutely no way for it to go into block 119,999. This can make it easier to algorithmically control your locktimed transaction. The downside is that you can't be as sure of what date the locktime will occur on.
+
+> **WARNING:** If you want to set a block height locktime, you must set the locktime as less than 500 million. If you set it to 500 million or over, that will instead be interpreted as a timestamp. Since the UNIX timestamp of 500 million was November 5, 1985, that probably means that your transaction will be put into a block at the miners' first opportunity.
 
 ### Write Your Transaction
 
-[Note Sequence Number]
+Once you have figured out your locktime, all you need to do is write up a typical raw transaction, with a third variable for `locktime`:
+```
+$ $ rawtxhex=$(bitcoin-cli -named createrawtransaction transactions='''[ { "txid": "'$utxo_txid'", "vout": '$utxo_vout' } ]''' outputs='''{ "'$recipient'": 0.8, "'$changeaddress'": 0.0895 }''' locktime=1119160)
+```
+Note that this usage of `locktime` is under 500 million, which means that it defines a block height. In this case, it's just a few blocks past the current block height, meant to exemplify how locktime works without sitting around for a long time to wait and see what happens.
+
+Here's what it looks like:
+```
+$ bitcoin-cli -named decoderawtransaction hexstring=$rawtxhex 
+{
+  "txid": "34650e513b9b84bc47bc10f39ab7f66f59915b65c0c07fdcaf786502d88cec4a",
+  "hash": "34650e513b9b84bc47bc10f39ab7f66f59915b65c0c07fdcaf786502d88cec4a",
+  "size": 119,
+  "vsize": 119,
+  "version": 2,
+  "locktime": 1119160,
+  "vin": [
+    {
+      "txid": "4dcef95a7bb24d907cc0954d75754f8bf1b70cc0542ca071a023abde425a734b",
+      "vout": 1,
+      "scriptSig": {
+        "asm": "",
+        "hex": ""
+      },
+      "sequence": 4294967294
+    }
+  ],
+  "vout": [
+    {
+      "value": 0.80000000,
+      "n": 0,
+      "scriptPubKey": {
+        "asm": "OP_DUP OP_HASH160 e7c1345fc8f87c68170b3aa798a956c2fe6a9eff OP_EQUALVERIFY OP_CHECKSIG",
+        "hex": "76a914e7c1345fc8f87c68170b3aa798a956c2fe6a9eff88ac",
+        "reqSigs": 1,
+        "type": "pubkeyhash",
+        "addresses": [
+          "n2eMqTT929pb1RDNuqEnxdaLau1rxy3efi"
+        ]
+      }
+    }, 
+    {
+      "value": 0.08950000,
+      "n": 1,
+      "scriptPubKey": {
+        "asm": "OP_DUP OP_HASH160 695c79109dc8424573ca6963bda9beeb5d8a6c68 OP_EQUALVERIFY OP_CHECKSIG",
+        "hex": "76a914695c79109dc8424573ca6963bda9beeb5d8a6c6888ac",
+        "reqSigs": 1,
+        "type": "pubkeyhash",
+        "addresses": [
+          "mq842Ku2f2ySWpapEwxjuTCjR3Btvz88nx"
+        ]
+      }
+    }
+  ]
+}
+```
+Note that the sequence number (4294967294) is less than 0xffffffff. This is necessary signalling to show that the transaction includes a locktime. It's also done automatically by `bitcoin-cli` If the sequence number is instead set to 0xffffffff, your locktime will be ignored.
+
+> **WARNING:** If you are creating a locktime raw transaction by some other means than `bitcoin-cli` you will have to set the sequence to less than 0xffffffff by hand.
 
 ### Send Your Transaction
+
+By now you're probably well familiar with finishing things up:
+```
+$ signedtx=$(bitcoin-cli -named signrawtransaction hexstring=$rawtxhex | jq -r '.hex')
+$ bitcoin-cli -named sendrawtransaction hexstring=$signedtx
+error code: -26
+error message:
+64: non-final
+```
+Whoop! What's that error?
+
+Since 2013, you can't actually place the locked transaction into the mempool until its lock has expired. However, you can still send the signed transaction (`$signedtx`) to the recipient, so that he can place it in the mempool when the locktime has expired. 
+
+Once the locktime is past, anyone can send that signed transaction, and the recipient will receive the money as intended ... provided that the transaction hasn't been cancelled.
 
 ## Cancel a Locktime Transaction
 
 ## Summary: Sending a Raw Transaction with a Locktime
 
+ALTERNATIVELY:
+user1@blockstream:~$ rawtxhex=$(bitcoin-cli -named createrawtransaction transactions='''[ { "txid": "'$utxo_txid'", "vout": '$utxo_vout', "sequence": 1 } ]''' outputs='''{ "'$recipient'": 0.8, "'$changeaddress'": 0.0895 }''') locktime=1119160
+
+b0efec6f0aa74cff7f7558af5b3811744c5bb4d3c041d8967778d2fb75bc7792
