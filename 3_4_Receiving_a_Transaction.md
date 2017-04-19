@@ -25,7 +25,9 @@ But wait, there's no balance yet!?
 
 Welcome to the world of Bitcoin latency.The problem is that your transaction hasn't yet been recorded in a block!
 
-_What is a block?_ Transactions are transmitted across the network and gathered into blocks by miners. These blocks are secured with a mathematical proof-of-work, which proves that computing power has been expended as part of the block creation. It's that proof-of-work (multiplied over many blocks) that ultimately keeps Bitcoin secure.
+_What is a block?_ Transactions are transmitted across the network and gathered into blocks by miners. These blocks are secured with a mathematical proof-of-work, which proves that computing power has been expended as part of the block creation. It's that proof-of-work (multiplied over many blocks, built each atop the last) that ultimately keeps Bitcoin secure.
+
+_What is a miner?_ A miner is a participant of the Bitcoin network who works to create blocks. It's a paying job: when a miner successfully creates a block, he is paid a one-time reward plus the fees for the transactions in his block. Mining is big business. Miners tend to run on special hardware, accelerated in ways that make it more likely that they'll be able to create blocks. They also tend to be part of mining pools, where the miners all agree to share out the rewards when one of them successfully creates a block.
 
 Fortunately, `bitcoin-cli get unconfirmedbalance` should still show your updated balance as long as the initial transaction has been created:
 ```
