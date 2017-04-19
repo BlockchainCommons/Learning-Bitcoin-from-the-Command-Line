@@ -8,6 +8,8 @@ The `bitcoin-cli` interface for creating raw transactions has one last option th
 
 When you create a locktime transaction, you include a number that represents either a block height (if it's a small number) or a UNIX timestamp (if it's a big number). This tells the Bitcoin network that the transaction may not be put into a block until either the specified time has arrived or the blockchain has reached the specified height. 
 
+_What is block height?_ Block height is the height of the most recent block in the chain, counted up from the genesis block for Bitcoin. In other words, if three blocks had been created atop the genesis block, then the blockheight would be four.
+
 _What is nLockTime?_ It's the same thing as locktime. More specifically, it's what locktime is called internal to the Bitcoin Core source code.
 
 When a locktime transaction is waiting to go into a block, it can be cancelled. This means that it is far, far from finalized. In fact, the ability to cancel is the whole purpose of a locktime transaction.
