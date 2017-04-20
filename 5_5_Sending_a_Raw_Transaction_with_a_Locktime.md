@@ -14,6 +14,8 @@ _What is nLockTime?_ It's the same thing as locktime. More specifically, it's wh
 
 When a locktime transaction is waiting to go into a block, it can be cancelled. This means that it is far, far from finalized. In fact, the ability to cancel is the whole purpose of a locktime transaction.
 
+_What is CheckLockTimeVerify?_ This is another Timelock method called CheckLockTimeVerify, which is based on [BIP 65](https://github.com/bitcoin/bips/blob/master/bip-0065.mediawiki). It encumbers outputs rather than whole transactions. However, it's not available through the `bitcoin-cli` interface, so is not covered here.
+
 ## Create a Locktime Transaction
 
 In order to create a locktime transaction, you need to first determine what you will set the locktime to.
@@ -111,15 +113,16 @@ error message:
 ```
 Whoop! What's that error?
 
-Since 2013, you can't actually place the locked transaction into the mempool until its lock has expired. However, you can still send the signed transaction (`$signedtx`) to the recipient, so that he can place it in the mempool when the locktime has expired. 
+Since 2013, you generally can't place the timelocked transaction into the mempool until its lock has expired. However, you can still hold the transaction, occasionally resending it to the Bitcoin network until it's accepted into the mempool. Or, you could send the signed transaction (`$signedtx`) to the recipient, so that he could place it in the mempool when the locktime has expired. 
 
 Once the locktime is past, anyone can send that signed transaction, and the recipient will receive the money as intended ... provided that the transaction hasn't been cancelled.
 
 ## Cancel a Locktime Transaction
 
+Cancelling a locktime transaction is _very_ simple: you send a new transactions using at least one of the same UTXOs. 
+
 ## Summary: Sending a Raw Transaction with a Locktime
 
-ALTERNATIVELY:
-user1@blockstream:~$ rawtxhex=$(bitcoin-cli -named createrawtransaction transactions='''[ { "txid": "'$utxo_txid'", "vout": '$utxo_vout', "sequence": 1 } ]''' outputs='''{ "'$recipient'": 0.8, "'$changeaddress'": 0.0895 }''') locktime=1119160
+Locktime offers a way to create a transaction that _should_ not be relayable to the network and that _will_ not be accepted into a block until the appropriate time has arrived. In the meantime, it can be cancelled simply by reusing a UTXO.
 
-b0efec6f0aa74cff7f7558af5b3811744c5bb4d3c041d8967778d2fb75bc7792
+_What is the Power of Locktime?_ The power of locktime may not be immediately obvious, because of the ability to cancel it so easily. Nonetheless, it has a lot of utility in a variety of custodial or contractual situations. For example, consider a situation where a third party is holding your bitcoins. In order to guarantee the return of your bitcoins if they ever disappeared, they could produce a timelock transition to return the coins to you, then update that every once in a while with a new one, further in the future. If they ever failed to update the coins would return to you when the current timelock expired. It could similarly be applied to a payment network, where the network holds coins while they're being exchanged by network participants. Finally, a will offers an example of a more complex contract, where payments are sent out to a number of people upon the owner's death, but the timelocks are updated in the case of continued liveliness. 
