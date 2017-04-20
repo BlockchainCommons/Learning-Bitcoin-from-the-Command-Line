@@ -38,7 +38,7 @@ _Why Would I Use a Blockheight?_ Unlike with timestamps, there's no fuzziness fo
 
 > **WARNING:** If you want to set a block height locktime, you must set the locktime to less than 500 million. If you set it to 500 million or over, your number will instead be interpreted as a timestamp. Since the UNIX timestamp of 500 million was November 5, 1985, that probably means that your transaction will be put into a block at the miners' first opportunity.
 
-### Write Your Transaction
+## Write Your Transaction
 
 Once you have figured out your locktime, all you need to do is write up a typical raw transaction, with a third variable for `locktime`:
 ```
@@ -101,7 +101,7 @@ Note that the sequence number (4294967294) is less than 0xffffffff. This is nece
 
 > **WARNING:** If you are creating a locktime raw transaction by some other means than `bitcoin-cli`, you will have to set the sequence to less than 0xffffffff by hand.
 
-### Send Your Transaction
+## Send Your Transaction
 
 By now you're probably well familiar with finishing things up:
 ```
