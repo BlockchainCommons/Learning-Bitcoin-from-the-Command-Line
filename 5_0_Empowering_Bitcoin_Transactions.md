@@ -7,7 +7,7 @@ The `bitcoin-cli` interface is ultimately limited. Nonetheless, it contains a fe
 After working through this chapter, a developer will be able to:
 
    * Decide Whether RBF or CPFP Might Help a Transaction
-   * Create Transactiosn with Data
+   * Create Transactions with Data
    * Create Transactions with Locktimes
    
 Supporting objectives include the ability to:
