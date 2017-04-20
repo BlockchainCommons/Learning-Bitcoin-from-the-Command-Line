@@ -42,7 +42,7 @@ _Why Would I Use a Blockheight?_ Unlike with timestamps, there's no fuzziness fo
 
 Once you have figured out your locktime, all you need to do is write up a typical raw transaction, with a third variable for `locktime`:
 ```
-$ $ rawtxhex=$(bitcoin-cli -named createrawtransaction transactions='''[ { "txid": "'$utxo_txid'", "vout": '$utxo_vout' } ]''' outputs='''{ "'$recipient'": 0.8, "'$changeaddress'": 0.0895 }''' locktime=1119160)
+$ rawtxhex=$(bitcoin-cli -named createrawtransaction inputs='''[ { "txid": "'$utxo_txid'", "vout": '$utxo_vout' } ]''' outputs='''{ "'$recipient'": 0.8, "'$changeaddress'": 0.0895 }''' locktime=1119160)
 ```
 Note that this usage of `locktime` is under 500 million, which means that it defines a block height. In this case, it's just a few blocks past the current block height, meant to exemplify how locktime works without sitting around for a long time to wait and see what happens.
 
