@@ -91,7 +91,7 @@ One way to think of blockchain is: _a linked series of blocks of non-changeable 
 
 Blockchain has becomea popular buzz-word, but it's not a magic bullet for all technical problems. With that said, blockchains do have some very specific situations where it's a superior technology.
 
-This includes when:
+Blockchains probably _will_ be helpful if:
 
   * Users don't trust each other.
     * Or: Users are across various borders.
@@ -103,3 +103,15 @@ This includes when:
   * Users want fast transaction finality.
     * But: Users don't need instant transaction finality.
     
+Blockchains probably _will not_ be helpful if:
+
+  * Users are trusted:
+    * If: transactions occur within a business or organization.
+    * If: transactions are overseen by a central authority.
+  * Secrecy is required:
+    * If: Information should be secret.
+    * If: Transactions should be secret.
+    * If: Transactors should be secret.
+  * Users need instant transaction finality, in less than an hour.
+  
+Do note that there may still be solutions for some of these situations within the Bitcoin ecosystem. For example, payment channels are rapidly addresses questions of liquidity and payment finality. 
