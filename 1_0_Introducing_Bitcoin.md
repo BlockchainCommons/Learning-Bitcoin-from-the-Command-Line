@@ -89,15 +89,15 @@ One way to think of blockchain is: _a linked series of blocks of non-changeable 
 
 ## Is Blockchain Right for Me?
 
-Blockchain has becomea popular buzz-word, but it's not a magic bullet for all technical problems. With that said, blockchains do have some very specific situations where it's a superior technology.
+If you want to transact Bitcoins, then obviously Bitcoin is right for you. However, more widely, Blockchain has becomea popular buzz-word, and it's not a magic bullet for all technical problems. With that said, blockchains do have some very specific situations where it's a superior technology.
 
 Blockchains probably _will_ be helpful if:
 
   * Users don't trust each other.
     * Or: Users are across various borders.
   * Users don't trust central authorities.
-     * And: Users want to control their own destinies.
-     * And: Users want transparent technology.
+    * And: Users want to control their own destinies.
+  * Users want transparent technology.
   * Users want to share something.
     * And: Users want what's shared to be permanently recorded.
   * Users want fast transaction finality.
