@@ -34,30 +34,33 @@ This tutorial assumes that you have some minimal background of how to use the co
   * [4.3: Creating a Raw Transaction with Named Arguments](4_3_Creating_a_Raw_Transaction_with_Named_Arguments.md)
   * [4.4: Sending Coins with Raw Transactions](4_4_Sending_Coins_with_a_Raw_Transaction.md)
   * [4.5: Sending Coins with Automated Raw Transactions](4_5_Sending_Coins_with_Automated_Raw_Transactions.md)
-* [5.0: Empowering Bitcoin Transactions](5_0_Empowering_Bitcoin_Transactions.md)
-  * [5.1 Watching for Stuck Transactions](5_1_Watching_for_Stuck_Transactions.md)
-  * [5.2: Resending a Transaction with RBF](5_2_Resending_a_Transaction_with_RBF.md)
-  * [5.3: Funding a Transaction with CPFP](5_3_Funding_a_Transaction_with_CPFP.md)
-  * [5.4: Sending a Raw Transaction with Data](5_4_Sending_a_Raw_Transaction_with_Data.md)
-  * [5.5: Sending a Raw Transaction with a Locktime](5_5_Sending_a_Raw_Transaction_with_a_Locktime.md)
+* [5.0: Controlling Bitcoin Transactions](5_0_Empowering_Bitcoin_Transactions.md) — Needs Reorganization
+  * [5.1 Watching for Stuck Transactions](5_1_Watching_for_Stuck_Transactions.md) — Needs Reorganization
+  * [5.2: Resending a Transaction with RBF](5_2_Resending_a_Transaction_with_RBF.md) — Needs Reorganization
+  * [5.3: Funding a Transaction with CPFP](5_3_Funding_a_Transaction_with_CPFP.md) — Needs Reorganization
+* [6.0: Expanding Bitcoin Transactions](6_0_Empowering_Bitcoin_Transactions.md)
+  * [6.1: Sending a Raw Transaction with a Multsig](6_1_Sending_a_Raw_Transaction_with_a_Multisig.md) — Pending
+  * [6.2: Sending a Raw Transaction with a Locktime](5_5_Sending_a_Raw_Transaction_with_a_Locktime.md) — Needs Reorganization
+  * [6.3: Sending a Raw Transaction with Data](5_4_Sending_a_Raw_Transaction_with_Data.md) — Needs Reorganization
 
 ## Planned Future Work
 
-* 6.0: Introducing Bitcoin Scripting
-   * 6.1: Understanding the Foundation of Bitcoin
-   * 6.2: Scripting a Pay to Public Key Hash
-   * 6.3: Executing a Script
-   * 6.4: Executing CLTV
-* 7.0: Using Multisignatures in Transactions
-   * 7.1: Creating Multisig Addresses with Bitcoin-cli
-   * 7.2: Sending to Multisig Addresses
-   * 7.3: Understanding the OP Basis of Multisigs
-   * 7.4: Understanding the Script Basis of Multisigs
-   * 7.5: Creating Multisig Scripts
-* 8.0: Empowering Bitcoin Scripting
-   * 8.X: Scripting a Pay to Script Hash
-* 9.0: Introducing SegWit
-   * 9.X Scripting a Pay to Witness
+* 7.0: Introducing Bitcoin Scripting
+  * 6.1: Understanding the Foundation of Bitcoin
+  * 6.2: Scripting a Pay to Public Key Hash
+  * 6.3: Executing a Script
+* 8.0: Empowering Multisigs with Scripts
+  * 8.1: Scripting with a Multisig
+  * 8.2: Scripting with a Multisig Script
+  * 8.3: Creating Multisig Scripts
+* 9.0: Empowering Timelocks with Scripts
+  * 9.1: Understanding Timelock Options
+  * 9.2: Using CLTV in Scripts
+  * 9.3: Using CSV in Scripts
+* 10.0: Creating Original Bitcoin Scripts
+  * 10.X: Scripting a Pay to Script Hash
+* 11.0: Introducing SegWit
+   * 11.X Scripting a Pay to Witness
    
 * X.0: Introducing Elements
 * X.0: Individual Elements
