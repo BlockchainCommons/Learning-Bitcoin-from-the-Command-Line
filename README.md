@@ -59,6 +59,7 @@ This tutorial assumes that you have some minimal background of how to use the co
   * 9.3: Using CSV in Scripts
 * 10.0: Creating Original Bitcoin Scripts
   * 10.X: Scripting a Pay to Script Hash
+  * 10.X: Scripting Conditionals
 * 11.0: Introducing SegWit
    * 11.X Scripting a Pay to Witness
    
