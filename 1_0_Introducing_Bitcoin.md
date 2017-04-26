@@ -37,13 +37,13 @@ However, the process of building these blocks is stochastic: it's somewhat rando
 
 The funds contained in each Bitcoin transaction are locked with a cryptographic puzzle. These puzzles are typically designed in such a way that they can be easily opened up by the person who the funds were sent to. This is done using the power of public-key cryptography. 
 
-## How Are Transactions Written?
+### How Are Transactions Written?
 
 The heart of a Bitcoin transaction is a FORTH-like scripting language that is used to lock transactions. To respend the money, the recipient provides specific information to the script that proves he's the intended recipient.
 
 However, these Bitcoin scripts are a fairly low-level of abstraction. Much Bitcoin work is done through the `bitcoind` Bitcoin daemon, which is controlled through RPC commands. Many people send those RPC commands through the `bitcoin-cli` program, which provides an even simpler interface. (And non-programmers don't even worry about these minutia, but instead use programmed wallets with simpler interfaces.)
 
-### So, What is Bitcoin!?
+### Bitcoin — In Short
 
 One way to think of Bitcoin is as: _a sequence of atomic transactions, each of which is enabled by the sender with the solution to a cryptographic puzzle, which was stored as a script, and is then locked for the recipient with a new cryptographic puzzle, which is stored as a script, where all those transactions are recorded in a permanent global ledger._
 
@@ -67,7 +67,7 @@ A message (or more commonly, a hash of a message) can be signed with a private k
 
 A hash is an algorithm frequently used with cryptograpy. It's a way to squish an arbitrary amount of data down to a small, fixed amount of data. Thus, you might sign a small hash of a data file rather than a very large data file, for both computational and transmission efficiency.
 
-### So, What is Public-Key Cryptography!?
+### Public-Key Cryptography — In Short
 
 One way to think of public-key cryptography is: _a way for anyone to protect data that only one person can access, and for that one person to prove that he will have that access._
 
@@ -83,7 +83,7 @@ Each block in the blockchain stores a hash of the block before it. This links th
 
 Occasionally two blocks are created around the same time. This temporarily creates a one-block fork, where either current block could be the "real" one. When one of the blocks is chosen and built atop of, the other one becomes "orphaned". This is part of the stochastic process of block creation, and demonstrates that a few blocks must be built atop a block before it can be considered truly trustworthy and considered non-repudiable.
 
-### So, What is Blockchain!?
+### Blockchain — In Short
 
 One way to think of blockchain is: _a linked series of blocks of non-changeable data, going back in time_.
 
