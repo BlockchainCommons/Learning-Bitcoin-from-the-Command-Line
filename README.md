@@ -40,3 +40,27 @@ This tutorial assumes that you have some minimal background of how to use the co
   * [5.3: Funding a Transaction with CPFP](5_3_Funding_a_Transaction_with_CPFP.md)
   * [5.4: Sending a Raw Transaction with Data](5_4_Sending_a_Raw_Transaction_with_Data.md)
   * [5.5: Sending a Raw Transaction with a Locktime](5_5_Sending_a_Raw_Transaction_with_a_Locktime.md) — _Pending_
+
+## Planned Future Work
+
+* 6.0: Introducing Bitcoin Scripting
+   * 6.1: Understanding the Foundation of Bitcoin
+   * 6.2: Scripting a Pay to Public Key Hash
+   * 6.3: Executing a Script
+   * 6.4: Executing CLTV
+* 7.0: Using Multisignatures in Transactions
+   * 7.1: Creating Multisig Addresses with Bitcoin-cli
+   * 7.2: Sending to Multisig Addresses
+   * 7.3: Understanding the OP Basis of Multisigs
+   * 7.4: Understanding the Script Basis of Multisigs
+   * 7.5: Creating Multisig Scripts
+* 8.0: Empowering Bitcoin Scripting
+   * 8.X: Scripting a Pay to Script Hash
+* 9.0: Introducing SegWit
+   * 9.X Scripting a Pay to Witness
+   
+* X.0: Introducing Elements
+* X.0: Individual Elements
+
+* Appendix: Compiling Bitcoin
+   
