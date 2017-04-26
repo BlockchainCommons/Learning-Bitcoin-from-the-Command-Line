@@ -1,0 +1,15 @@
+bitcoin-cli -named createmultisig nrequired=2 keys='''["'$address1'","'$address2'","'$address3'"]'''
+{
+  "address": "2MuuAVa8xVRq6GbirCQHsYR9wvVNtWooEz7",
+  "redeemScript": "52210215a369d12f462ad9e909356afad1dc6b8002cf4b59c9609114d0a86654d6bc642102f367a7cdaa87301ca8c68bd33797e11cc0edccf1bc9e6306171d16bb843c4beb21025a21ac5b7616c777c70a0b615255139dc43b700201a576acb34ec43c25b87fde53ae"
+}
+user1@blockstream:~$ bitcoin-cli -named createmultisig nrequired=3 keys='''["'$address1'","'$address2'","'$address3'"]'''
+{
+  "address": "2NFi2zxZNSVnC6AWezif2BVKj94ubt3zS72",
+  "redeemScript": "53210215a369d12f462ad9e909356afad1dc6b8002cf4b59c9609114d0a86654d6bc642102f367a7cdaa87301ca8c68bd33797e11cc0edccf1bc9e6306171d16bb843c4beb21025a21ac5b7616c777c70a0b615255139dc43b700201a576acb34ec43c25b87fde53ae"
+}
+user1@blockstream:~$ bitcoin-cli -named createmultisig nrequired=1 keys='''["'$address1'","'$address2'","'$address3'"]'''
+{
+  "address": "2MyKi9zjfdJVy7UpS4GUD2od4PhHQNaFPMV",
+  "redeemScript": "51210215a369d12f462ad9e909356afad1dc6b8002cf4b59c9609114d0a86654d6bc642102f367a7cdaa87301ca8c68bd33797e11cc0edccf1bc9e6306171d16bb843c4beb21025a21ac5b7616c777c70a0b615255139dc43b700201a576acb34ec43c25b87fde53ae"
+}
