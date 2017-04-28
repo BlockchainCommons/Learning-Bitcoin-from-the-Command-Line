@@ -95,4 +95,4 @@ A _recipient_ could use CPFP even if he wasn't planning on immediately spending 
 
 You can take advantage of the CPFP incentives to free up funds that have been sent to you but have not been confirmed. Just use the unconfirmed transaction as UTXO and pay a higher-than-average transaction fee.
 
-_What is the power of CPFP?_ Mostly, CPFP is just useful to get funds unstuck when you're the recipient and the sender isn't being helpful for whatever reason. It doesn't have the more powerful possibilities of the other features described in this chapter and is included largely because of its parallel to RBF.
+_What is the power of CPFP?_ Mostly, CPFP is just useful to get funds unstuck when you're the recipient and the sender isn't being helpful for whatever reason. It doesn't have the more powerful possibilities of RBF, but is an alternatve way toexert control over a transaction after it's been placed in the mempool, but before it's confirmed in a block.
