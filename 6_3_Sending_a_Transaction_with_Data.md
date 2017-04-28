@@ -2,7 +2,7 @@
 
 > **NOTE:** This is a draft in progress, so that I can get some feedback from early reviewers. It is not yet ready for learning.
 
-The basic `bitcoin-cli` interface for sending raw transactions has a few additional features, which begin to veer away from the idea of  instantly sending out funds. One of those is the ability to send up to 80 bytes of data to the blockchain using an OP_RETURN code.
+The third way to vary how you send a basic transaction is to use the transaction to send data instead of funds (or really, inaddition to funds). This gives you the ability to embed information in the blockchain.
 
 ## Create Your Data
 
@@ -95,7 +95,9 @@ $ bitcoin-cli -named decoderawtransaction hexstring=$rawtxhex
 ```
 As you can see, this sends the majority of the money straight back to the change address (mhZQ3Bih6wi7jP1tpFZrCcyr4NsfCapiZP) minus that standard transaction fee we've been using of 0.0005 BTC. More importantly, the first output shows an OP_RETURN with the data (fe7f0a3b69f56ef2d055a78823ed3bd1422e46c3183658ea854253033ae0ccef) right after it.
 
-Sign it and send it, and soon that OP_RETURN will be embedded in the blockchain!
+## Send A Raw Transaction
+
+Sign your raw transaction and send it, and soon that OP_RETURN will be embedded in the blockchain!
 
 ## Check Your OP_RETURN
 
