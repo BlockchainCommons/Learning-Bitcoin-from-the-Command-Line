@@ -14,6 +14,7 @@ Supporting objectives include the ability to:
 
    * Understand How to Spend Funds Sent to a Multisignature
    * Plan for the Power of Multisignatures
+   * Understand the Different Sorts of Timelocks
    * Plan for the Power of Locktime
    * Plan for the Power of OP_RETURN
    
