@@ -1,8 +1,8 @@
-# 6.2: Sending a Raw Transaction with a Locktime
+# 6.2: Sending a Transaction with a Locktime
 
 > **NOTE:** This is a draft in progress, so that I can get some feedback from early reviewers. It is not yet ready for learning.
 
-The `bitcoin-cli` interface for creating raw transactions has one last option that we haven't covered yet: locktime. This gives you the ability to send raw transactions at some time in the future.
+The second way to vary how you send a basic transaction is to choose a locktime. This gives you the ability to send raw transactions at some time in the future.
 
 ## Understand How Locktime Works
 
@@ -10,11 +10,12 @@ When you create a locktime transaction, you lock it with a number that represent
 
 _What is block height?_ It's the total count of blocks in the chain, going back to the genesis block for Bitcoin. 
 
-_What is nLockTime?_ It's the same thing as locktime. More specifically, it's what locktime is called internal to the Bitcoin Core source code.
-
 When a locktime transaction is waiting to go into a block, it can be cancelled. This means that it is far, far from finalized. In fact, the ability to cancel is the whole purpose of a locktime transaction.
 
-_What is CheckLockTimeVerify?_ This is another timelock method called CheckLockTimeVerify, which is based on [BIP 65](https://github.com/bitcoin/bips/blob/master/bip-0065.mediawiki). It locks up outputs rather than whole transactions. However, it's not available through the `bitcoin-cli` interface, so is not covered here.
+
+_What is nLockTime?_ It's the same thing as locktime. More specifically, it's what locktime is called internal to the Bitcoin Core source code.
+
+_What is Timelock?_ Locktime is just one way to lock Bitcoin transactions; collectively they're called timelocks. Locktime is covered here because it's the most basic timelock method. It locks an entire transaction, and it's available through `bitcoin-cli`. A second timelock method is called CheckLockTimeVerify, which is based on [BIP 65](https://github.com/bitcoin/bips/blob/master/bip-0065.mediawiki). It locks up outputs rather than whole transactions. A third timelock method is called a relative timelock, which allows for timelocks based on when funds were acquired. The CheckSequenceVerify opcode, which is based on [BIP 68](https://github.com/bitcoin/bips/blob/master/bip-0068.mediawiki), [BIP 112](https://github.com/bitcoin/bips/blob/master/bip-0112.mediawiki), and [BIP 113](https://github.com/bitcoin/bips/blob/master/bip-0113.mediawiki), locks transactions based on relative times.
 
 ## Create a Locktime Transaction
 
@@ -125,4 +126,4 @@ Cancelling a locktime transaction is _very_ simple: you send a new transactions 
 
 Locktime offers a way to create a transaction that _should_ not be relayable to the network and that _will_ not be accepted into a block until the appropriate time has arrived. In the meantime, it can be cancelled simply by reusing a UTXO.
 
-_What is the Power of Locktime?_ The power of locktime may not be immediately obvious because of the ability to cancel it so easily. Nonetheless, it has a lot of utility in a variety of custodial or contractual applications. For example, consider a situation where a third party is holding your bitcoins. In order to guarantee the return of your bitcoins if the custodian ever disappeared, they could produce a timelock transition to return the coins to you, then update that every once in a while with a new one, further in the future. If they ever failed to update then the coins would return to you when the current timelock expired. Locktime could similarly be applied to a payment network, where the network holds coins while they're being exchanged by network participants. Finally, a will offers an example of a more complex contract, where payments are sent out to a number of people. These payments would be build on locktime transactions, and would be continually updated as long as the owner continues to show signs of life. (The unifying factor of all of these applications is, of course, _trust_. Simple locktime transactions only work if the holder of the coins can be trusted to send them out under the appropriate conditions.)
+_What is the Power of Locktime?_ The power of locktime may not be immediately obvious because of the ability to cancel it so easily. Nonetheless, it has a lot of utility in a variety of custodial or contractual applications. For example, consider a situation where a third party is holding your bitcoins. In order to guarantee the return of your bitcoins if the custodian ever disappeared, they could produce a timelock transition to return the coins to you, then update that every once in a while with a new one, further in the future. If they ever failed to update, then the coins would return to you when the current timelock expired. Locktime could similarly be applied to a payment network, where the network holds coins while they're being exchanged by network participants. Finally, a will offers an example of a more complex contract, where payments are sent out to a number of people. These payments would be build on locktime transactions, and would be continually updated as long as the owner continues to show signs of life. (The unifying factor of all of these applications is, of course, _trust_. Simple locktime transactions only work if the holder of the coins can be trusted to send them out under the appropriate conditions.)
