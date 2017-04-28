@@ -10,7 +10,7 @@ To do anything more, you need to get some money. On testnet this is done through
 
 To use a faucet, you'll usually need to go to a URL and copy and paste in your address. Note that this is one of those cases where you won't be able to use command-line variables, alas. Afterward, a transaction will be created that sends money from the faucet to you.
 
-_What is a transaction?_ A transaction is a bitcoin exchange. The owner of some bitcoins records that he's sending them to someone else, and signs that record with the appropriate private key. 
+_What is a transaction?_ A transaction is a bitcoin exchange. The owner of some bitcoins uses his private key to access those coins, then locks the transaction using the recipient's public key.
 
 > **TESTNET vs MAINNET:** Sadly, there are no faucets in real life. If you were playing on the mainnet, you'd need to go and actually buy bitcoins at a bitcoin exchange or ATM, or you'd need to get someone to send them to you. Testnet life is much easier.
 
@@ -25,7 +25,7 @@ But wait, there's no balance yet!?
 
 Welcome to the world of Bitcoin latency.The problem is that your transaction hasn't yet been recorded in a block!
 
-_What is a block?_ Transactions are transmitted across the network and gathered into blocks by miners. These blocks are secured with a mathematical proof-of-work, which proves that computing power has been expended as part of the block creation. It's that proof-of-work (multiplied over many blocks, built each atop the last) that ultimately keeps Bitcoin secure.
+_What is a block?_ Transactions are transmitted across the network and gathered into blocks by miners. These blocks are secured with a mathematical proof-of-work, which proves that computing power has been expended as part of the block creation. It's that proof-of-work (multiplied over many blocks, each built atop the last) that ultimately keeps Bitcoin secure.
 
 _What is a miner?_ A miner is a participant of the Bitcoin network who works to create blocks. It's a paying job: when a miner successfully creates a block, he is paid a one-time reward plus the fees for the transactions in his block. Mining is big business. Miners tend to run on special hardware, accelerated in ways that make it more likely that they'll be able to create blocks. They also tend to be part of mining pools, where the miners all agree to share out the rewards when one of them successfully creates a block.
 
@@ -52,8 +52,6 @@ $ bitcoin-cli getbalance "*" 2
 Obviously, every ten minutes or so this depth will increase.
 
 Of course, on the testnet, no one is that worried about how reliable your funds are. You'll be able to spend your money as soon as it's confirmed.
-
-_What is a blockchain?_ A blockchain is the linked set of all blocks, starting with the more recently built block and going back to the genesis block. Though Bitcoin created the blockchain technology, there are also other blockchains; some are used for alt-coins and some for other purposes.
 
 ## Verify Your Wallet
 
