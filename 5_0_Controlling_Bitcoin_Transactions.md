@@ -1,4 +1,4 @@
-# Chapter Five: Empowering Bitcoin Transactions
+# Chapter Five: Controlling Bitcoin Transactions
 
 The `bitcoin-cli` interface is ultimately limited. Nonetheless, it contains a few other options including sequence (which is used for RBF), data (for OP_RETURNs), and locktime (for Locktime). These can considerably empower your basic Bitcoin transactions. 
 
