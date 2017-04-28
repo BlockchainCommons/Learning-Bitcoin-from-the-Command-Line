@@ -34,14 +34,14 @@ This tutorial assumes that you have some minimal background of how to use the co
   * [4.3: Creating a Raw Transaction with Named Arguments](4_3_Creating_a_Raw_Transaction_with_Named_Arguments.md)
   * [4.4: Sending Coins with Raw Transactions](4_4_Sending_Coins_with_a_Raw_Transaction.md)
   * [4.5: Sending Coins with Automated Raw Transactions](4_5_Sending_Coins_with_Automated_Raw_Transactions.md)
-* [5.0: Controlling Bitcoin Transactions](5_0_Empowering_Bitcoin_Transactions.md) — Needs Reorganization
+* [5.0: Controlling Bitcoin Transactions](5_0_Controlling_Bitcoin_Transactions.md) — Needs Reorganization
   * [5.1 Watching for Stuck Transactions](5_1_Watching_for_Stuck_Transactions.md) — Needs Reorganization
   * [5.2: Resending a Transaction with RBF](5_2_Resending_a_Transaction_with_RBF.md) — Needs Reorganization
   * [5.3: Funding a Transaction with CPFP](5_3_Funding_a_Transaction_with_CPFP.md) — Needs Reorganization
 * [6.0: Expanding Bitcoin Transactions](6_0_Empowering_Bitcoin_Transactions.md) — Pending
   * [6.1: Sending a Raw Transaction with a Multsig](6_1_Sending_a_Raw_Transaction_with_a_Multisig.md) — Pending
-  * [6.2: Sending a Raw Transaction with a Locktime](5_5_Sending_a_Raw_Transaction_with_a_Locktime.md) — Needs Reorganization
-  * [6.3: Sending a Raw Transaction with Data](5_4_Sending_a_Raw_Transaction_with_Data.md) — Needs Reorganization
+  * [6.2: Sending a Raw Transaction with a Locktime](6_2_Sending_a_Raw_Transaction_with_a_Locktime.md) — Needs Reorganization
+  * [6.3: Sending a Raw Transaction with Data](6_3_Sending_a_Raw_Transaction_with_Data.md) — Needs Reorganization
 
 ## Planned Future Work
 
