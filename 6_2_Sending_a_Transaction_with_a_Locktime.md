@@ -122,7 +122,7 @@ Once the locktime is past, anyone can send that signed transaction to the networ
 
 Cancelling a locktime transaction is _very_ simple: you send a new transactions using at least one of the same UTXOs.
 
-## Summary: Sending a Raw Transaction with a Locktime
+## Summary: Sending a Transaction with a Locktime
 
 Locktime offers a way to create a transaction that _should_ not be relayable to the network and that _will_ not be accepted into a block until the appropriate time has arrived. In the meantime, it can be cancelled simply by reusing a UTXO.
 
