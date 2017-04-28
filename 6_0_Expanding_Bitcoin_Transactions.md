@@ -1,27 +1,24 @@
 # Chapter Six: Expanding Bitcoin Transactions
 
-The `bitcoin-cli` interface is ultimately limited. Nonetheless, it contains a few other options including sequence (which is used for RBF), data (for OP_RETURNs), and locktime (for Locktime). These can considerably empower your basic Bitcoin transactions. 
+Basic bitcoin transactions: (1) send funds; (2) to a single P2PKH recipient; (3) immediately. However, all three parts of this definition can be expanded using more complex Bitcoin transactions, which can alternatively send data, which can send to a group of recipients, or which can send at a later time. These three options represent further empowerment of Bitcoin and also the furthest boundaries of what you can do with the basic `bitcoin-cli` command.
 
 ## Objectives for This Section
 
 After working through this chapter, a developer will be able to:
 
-   * Decide Whether RBF or CPFP Might Help a Transaction
-   * Create Transactions with Data
+   * Create Multisignature Bitcoin Addresses
    * Create Transactions with Locktimes
+   * Create Transactions with Data
    
 Supporting objectives include the ability to:
 
-   * Understand the Mempool
-   * Use RBF or CPFP to Free Up a Stuck Transaction
-   * Plan for the Power of RBF
-   * Plan for the Power of OP_RETURN
+   * Understand How to Spend Funds Sent to a Multisignature
+   * Plan for the Power of Multisignatures
    * Plan for the Power of Locktime
+   * Plan for the Power of OP_RETURN
    
 ## Table of Contents
-   
-   * [Part One: Watching for Stuck Transactions](5_1_Watching_for_Stuck_Transactions.md)
-   * [Part Two: Resending a Transaction with RBF](5_2_Resending_a_Transaction_with_RBF.md)
-   * [Part Three: Funding a Transaction with CPFP](5_3_Funding_a_Transaction_with_CPFP.md)
-   * [Part Four: Sending a Raw Transaction with Data](5_4_Sending_a_Raw_Transaction_with_Data.md)
-   * [Part Five: Sending a Raw Transaction with a Locktime](5_5_Sending_a_Raw_Transaction_with_a_Locktime.md)
+
+   * [Part One: Sending a Transaction with a Multsig](6_1_Sending_a_Transaction_with_a_Multisig.md) — Pending
+   * [Part Two: Sending a Transaction with a Locktime](6_2_Sending_a_Transaction_with_a_Locktime.md)
+   * [Part Three: Sending a Transaction with Data](6_3_Sending_a_Transaction_with_Data.md)
