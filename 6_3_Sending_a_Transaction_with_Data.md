@@ -1,4 +1,4 @@
-# 6.3: Sending a Raw Transaction with Data
+# 6.3: Sending a Transaction with Data
 
 > **NOTE:** This is a draft in progress, so that I can get some feedback from early reviewers. It is not yet ready for learning.
 
@@ -107,7 +107,7 @@ You may note a warning about the data being in an "unknown protocol". If you wer
 
 [Coinsecrets](http://coinsecrets.org/) offers another interesting way to look at OP_RETURN data. It does its best to keep abreast of protocols, so that it can tell you who is doing what in the blockchain. Here's this transaction there: [https://www.blocktrail.com/tBTC/tx/3a62b396afb8d8a59ebe7b9e52d6aa2485f1082a1d3fc6ece61fb8b55373823d](https://www.blocktrail.com/tBTC/tx/3a62b396afb8d8a59ebe7b9e52d6aa2485f1082a1d3fc6ece61fb8b55373823d)
 
-## Summary: Sending a Raw Transaction with Data
+## Summary: Sending a Transaction with Data
 
 You can use an OP_RETURN opcode to store up to 80 bytes of data on the blockchain. You do this with the `data` codeword for a `vout`. You still have to send money along too, but you just send it back to a change address, minus a transaction fee.
 
