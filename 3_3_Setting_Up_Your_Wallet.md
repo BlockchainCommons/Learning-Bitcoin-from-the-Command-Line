@@ -19,11 +19,9 @@ Take careful note of the address. You'll need to give it to whomever will be sen
 
 _What is a Bitcoin address?_ A Bitcoin address is literally where you receive money. It's like an email address, but for funds. However unlike an email address, a Bitcoin address should be considered single use: use it to receive funds just _once_. When you want to receive funds from someone else or at some other time, generate a new address. This is suggested in large part to improve your privacy. The whole blockchain is immutable, which means that explorers can look at long chains of transactions over time, making it possible to statistically determine who you and your contacts are, no matter how careful you are. However, if you keep reusing the same address, then this becomes even easier.
 
-A Bitcoin address is also something else: a public key (or more precisely, the 160-bit hash of a public key). The public key (or address) allows you to receive money, while an associated private key lets you spend that money.
+_What is a P2PKH address?_ A Bitcoin address is also something else: a public key (or more precisely, the 160-bit hash of a public key). For this reason it's called a Pay to PubKey Hash (or P2PKH) address. The public key (or address) of your key pair allows you to receive money, while an associated private key lets you spend that money. However, bitcoins may be sent to other sorts of addresses: Pay to Script Hash (P2SH) addresses feature prominently in the latter part of this tutorial.
 
-_What is a P2PKH address?_ You may see this sort of address referred to as a Pay to PubKey Hash (P2PKH) address. That's the standard type of Bitcoin address that allows funds to be immediately sent to one person. It's largely used in contrast to more complex payment mechanisms like Pay to Script Hash (P2SH).
-
-_What is a Bitcoin wallet?_ By creating your first Bitcoin address, you've also begun to fill in your Bitcoin wallet. More precisely, you've begun to fill the `wallet.dat` file in your ~/.bitcoin/testnet3 directory. The `wallet.dat` file contains data about preferences and transactions, but more importantly it contains all of the keypairs that you create: both the public key (which is to say the address that you give to people so that you can receive funds) and the private key (which is what you use to spend those coins). For the most part, you won't have to worry about that private key: `bitcoind` will use it when it's needed. However, this makes the `wallet.dat` file extremely important: if you lose it, you lose your private keys, and if you lose your private keys, you lose your funds!
+_What is a Bitcoin wallet?_ By creating your first Bitcoin address, you've also begun to fill in your Bitcoin wallet. More precisely, you've begun to fill the `wallet.dat` file in your ~/.bitcoin/testnet3 directory. The `wallet.dat` file contains data about preferences and transactions, but more importantly it contains all of the key pairs that you create: both the public key (which is the source of the address where you receive funds) and the private key (which is how you spend those funds). For the most part, you won't have to worry about that private key: `bitcoind` will use it when it's needed. However, this makes the `wallet.dat` file extremely important: if you lose it, you lose your private keys, and if you lose your private keys, you lose your funds!
 
 With a single address in hand, you could jump straight to the next section and begin receiving funds. However, before we get there, we're going to talk about a few other wallet commands that you might want to use in the future.
 
@@ -64,7 +62,7 @@ $ bitcoin-cli importwallet backup.dat
 
 ## Optional: View Your Private Keys
 
-Sometimes, you might want to actually look at the private keys associated with your addresses. Perhaps you want to be able to sign a message or spend bitcoins from a different machine. Perhaps you just want to back up certain important private keys.
+Sometimes, you might want to actually look at the private keys associated with your Bitcoin addresses. Perhaps you want to be able to sign a message or spend bitcoins from a different machine. Perhaps you just want to back up certain important private keys.
 
 To look at _all_ the keys in your wallet, type `bitcoin-cli dumpwallet mywallet.txt`. This will create a mywallet.txt file in ~/.bitcoin/testnet3 with a long list of private keys, addresses, and other information. Mind you, you'd never want to put this data out in a plain text file on a Bitcoin setup with real funds!
 
@@ -73,8 +71,6 @@ More likely, you just want to look at the private key associated with a specific
 $ bitcoin-cli dumpprivkey "n4cqjJE6fqcmeWpftygwPoKMMDva6BpyHf"
 cW4s4MdW7BkUmqiKgYzSJdmvnzq8QDrf6gszPMC7eLmfcdoRHtHh
 ```
-_What is a private key?_ It's the other half of your keypair. It proves ownership of the public address and allows funds to be used.
-
 You can then save that key somewhere safe.
 
 You've been typing that Bitcoin address you generated a _lot_, while you were signing messages and now dumping keys. If you think it's a pain, we agree. It's also prone to errors, a topic that we'll address in the very next section.
