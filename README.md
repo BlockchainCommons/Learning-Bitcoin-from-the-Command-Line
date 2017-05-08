@@ -46,9 +46,9 @@ This tutorial assumes that you have some minimal background of how to use the co
 ## Planned Future Work
 
 * 7.0: Introducing Bitcoin Scripting
-  * 6.1: Understanding the Foundation of Bitcoin
-  * 6.2: Scripting a Pay to Public Key Hash
-  * 6.3: Executing a Script
+  * 7.1: Understanding the Foundation of Bitcoin
+  * 7.2: Scripting a Pay to Public Key Hash
+  * 7.3: Executing a Script
 * 8.0: Empowering Multisigs with Scripts
   * 8.1: Scripting with a Multisig
   * 8.2: Scripting with a Multisig Script
@@ -60,6 +60,14 @@ This tutorial assumes that you have some minimal background of how to use the co
 * 10.0: Creating Original Bitcoin Scripts
   * 10.X: Scripting a Pay to Script Hash
   * 10.X: Scripting Conditionals
+* 11.0: Writing Bitcoin RPC
+   * 11.1: Accessing RPC with Curl
+   * 11.2: Accessing RPC with C
+   * 11.3: Watching Bitcoin Addresses in C
+   
+<hr>
+This is probably all a future section on Elements.
+
 * 11.0: Introducing SegWit
    * 11.X Scripting a Pay to Witness
    
