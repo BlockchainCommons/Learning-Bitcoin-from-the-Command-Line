@@ -294,9 +294,9 @@ $ source ~/.bash_profile
 
 We suggest setting up two variables to make this installation more automatic.
 
-The first variable, $BITCOIN, should be set to the current version of Bitcoin. It was 0.14.0 when we wrote this. The second will then automatically generate a truncated form used by some of the files.
+The first variable, $BITCOIN, should be set to the current version of Bitcoin. It was 0.14.1 when we wrote this. The second will then automatically generate a truncated form used by some of the files.
 ```
-$ export BITCOIN=bitcoin-core-0.14.0
+$ export BITCOIN=bitcoin-core-0.14.1
 $ export BITCOINPLAIN=`echo $BITCOIN | sed 's/bitcoin-core/bitcoin/'`
 ```
 
@@ -391,7 +391,7 @@ But wait, your Bitcoin daemon is probably still downloading blocks. This alias, 
 ```
 $ btcblock
 ```
-0.14.0 is quite fast to download blocks, but it might still take an hour to download the unpruned testnet. It might be time for a few more espressos.
+0.14.1 is quite fast to download blocks, but it might still take an hour to download the unpruned testnet. It might be time for a few more espressos.
 
 > **TESTNET vs MAINNET:** An unpruned mainnet will take hours longer.
 
