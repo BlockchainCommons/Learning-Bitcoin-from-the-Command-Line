@@ -406,6 +406,10 @@ btcin=$(for ((i=0; i<${#usedtxid[*]}; i++)); do txid=${usedtxid[i]}; vout=${used
 btcout=$(bitcoin-cli decoderawtransaction $1 | jq -r '.vout  [] | .value' | awk '{s+=$1} END {print s}')
 echo "$btcin-$btcout"| /usr/bin/bc
 ```
+Be sure the permissions on the script are right:
+```
+$ chmod 755 txfee-calc.sh
+```
 You can then run the script as follows:
 ```
 $ ./txfee-calc.sh $rawtxhex
