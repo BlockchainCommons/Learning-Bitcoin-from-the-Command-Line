@@ -39,9 +39,10 @@ This tutorial assumes that you have some minimal background of how to use the co
   * [5.2: Resending a Transaction with RBF](5_2_Resending_a_Transaction_with_RBF.md)
   * [5.3: Funding a Transaction with CPFP](5_3_Funding_a_Transaction_with_CPFP.md)
 * [6.0: Expanding Bitcoin Transactions](6_0_Expanding_Bitcoin_Transactions.md)
-  * [6.1: Sending a Transaction with a Multsig](6_1_Sending_a_Transaction_to_a_Multisig.md) — Pending
-  * [6.2: Sending a Transaction with a Locktime](6_2_Sending_a_Transaction_with_a_Locktime.md)
-  * [6.3: Sending a Transaction with Data](6_3_Sending_a_Transaction_with_Data.md)
+  * [6.1: Sending a Transaction with a Multsig](6_1_Sending_a_Transaction_to_a_Multisig.md) — Needs Edit
+  * [6.2: Spending a Transaction with a Multsig](6_2_Spending_a_Transaction_to_a_Multisig.md) — Needs Edit
+  * [6.3: Sending a Transaction with a Locktime](6_3_Sending_a_Transaction_with_a_Locktime.md)
+  * [6.4: Sending a Transaction with Data](6_4_Sending_a_Transaction_with_Data.md)
 
 ## Planned Future Work
 
