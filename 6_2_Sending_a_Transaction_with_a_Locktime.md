@@ -1,4 +1,4 @@
-# 6.2: Sending a Transaction with a Locktime
+# 6.3: Sending a Transaction with a Locktime
 
 > **NOTE:** This is a draft in progress, so that I can get some feedback from early reviewers. It is not yet ready for learning.
 
