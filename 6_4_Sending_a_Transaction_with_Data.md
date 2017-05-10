@@ -1,4 +1,4 @@
-# 6.3: Sending a Transaction with Data
+# 6.4: Sending a Transaction with Data
 
 > **NOTE:** This is a draft in progress, so that I can get some feedback from early reviewers. It is not yet ready for learning.
 
