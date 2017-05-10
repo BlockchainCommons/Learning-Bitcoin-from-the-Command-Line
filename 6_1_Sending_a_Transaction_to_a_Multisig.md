@@ -87,6 +87,10 @@ The _address_ is what you'll give out to people to receive money. They can send 
 
 The _redeemScript_ is required to actually use the funds, alongside the private keys, of course. This will be fully explained in "8.2: Scripting with a Multisig Script". For now, be sure you don't lose your redeemScript. Fortunately, it can also be recreated at a later time by rerunning `createmultisig` with _all_ of the public keys. So, more broadly, don't lose your redeemScript along with any of the public keys. (But really, don't lose the redeemScript.)
 
+Oh, and be sure you save away the addresses you used to create the multisig, because you'll need their private keys later, so you need to know what they are.
+
+[[REWRITE: IMPORTANT STUFF TO SAVE!]]
+
 ### Optional: Save the Address
 
 The reason that you need to be careful about not losing your redeemScript is because `bitcoin-cli` doesn't automatically save the multisignature to your wallet the way that it saves addresses that you create with the normal `getnewaddress` commands. If you wish to do so, rerun [[instead run?]] your multisig using the `addmultisigaddress` command and all the same arguments. 
@@ -144,6 +148,114 @@ $ bitcoin-cli -named sendrawtransaction hexstring=$signedtx
 As you can see, there was nothing unusual in the creation of the transaction, and it looked entirely normal, albeit with an address with a different prefix than normal (`2NAGfA4nW6nrZkD5je8tSiAcYB9xL2xYMCz`).
 
 ## Spend Funds Sent to a Multisig Address
+
+Obviously, if you've received funds sent to a multisig, you need to be able to spend it.
+
+### Find Your Funds
+
+You can see any transactions related to your funds if you import the new multisig address into your wallet:
+```
+$ bitcoin-cli -named importaddress address=2NAGfA4nW6nrZkD5je8tSiAcYB9xL2xYMCz
+```
+Afterward the funds should show up when you `listunspent` ... but they aren't necessarily easily spendable yet.
+
+```
+$ bitcoin-cli listunspent
+[
+  {
+    "txid": "621be11aac439d6ec58be398058fc33c3e89cf45138a0e73e05b7001f9b6e328",
+    "vout": 0,
+    "address": "2NAGfA4nW6nrZkD5je8tSiAcYB9xL2xYMCz",
+    "account": "",
+    "scriptPubKey": "a914babf9063cee8ab6e9334f95f6d4e9148d0e551c287",
+    "amount": 1.29950000,
+    "confirmations": 62,
+    "spendable": false,
+    "solvable": false
+  }
+]
+```
+
+### Set Up Your Variables
+
+At this point, you can use that UTXO as the basis of a new transaction. Just grab the variables like usual:
+```
+user1@blockstream:~$ utxo_txid=$(bitcoin-cli listunspent | jq -r '.[0] | .txid') 
+user1@blockstream:~$ utxo_vout=$(bitcoin-cli listunspent | jq -r '.[0] | .vout')
+
+user1@blockstream:~$ echo $utxo_txid
+621be11aac439d6ec58be398058fc33c3e89cf45138a0e73e05b7001f9b6e328
+user1@blockstream:~$ echo $utxo_vout
+0
+```
+However, you're going to need two more variable. 
+
+First, the `scriptPubKey`, which is available in your `listunspent` info
+```
+$ utxo_spk=$(bitcoin-cli listunspent | jq -r '.[0] | .scriptPubKey')
+```
+[[why?]]
+
+Second, the `redeemScript` that you hopefully saved away:
+```
+$ redeem_script="52210307fd375ed7cced0f50723e3e1a97bbe7ccff7318c815df4e99a59bc94dbcd819210367c4f666f18279009c941e57fab3e42653c6553e5ca092c104d1db279e328a2852ae"
+```
+Third, you need the private keys that you signed with. You'll probably need to get them one at a time, on the individual machines. So starting with `machine1`, we reveal that private key, not saving it into a variable as usual, because we don't want to leave any footprint on the system with such delicate information:
+```
+machine1$ bitcoin-cli -named dumpprivkey address=$address1
+cMgb3KM8hPATCtgMKarKMiFesLft6eEw3DY6BB8d97fkeXeqQagw
+```
+We're just going to send the money back to ourself, but in the process, we'll free it up from the multisig, and convert it into a normal P2PKH transaction that can be confirmed by a single private key:
+```
+$ recipient=$(bitcoin-cli getrawchangeaddress)
+```
+
+### Create Your Transaction
+
+You can now create your transaction, including new `inputs` variables for the `scriptPubKey` and the `redeemScript`:
+```
+$ rawtxhex=$(bitcoin-cli -named createrawtransaction inputs='''[ { "txid": "'$utxo_txid'", "vout": '$utxo_vout', "scriptPubKey": "'$utxo_spk'", "redeemScript": "'$redeem_script'" } ]''' outputs='''{ "'$recipient'": 1.299}''')
+```
+Things get more complex when you sign, because you have to (1) tell `signrawtransaction` about all the inputs of the transaction your using; and (2) include your private key. The first is simply a copy of the `inputs` JSON array, reclassified as `prevtxs`, while the second is the private key from the first user that you dumped:
+```
+machine1$ bitcoin-cli -named signrawtransaction hexstring=$rawtxhex prevtxs='''[ { "txid": "'$utxo_txid'", "vout": '$utxo_vout', "scriptPubKey": "'$utxo_spk'", "redeemScript": "'$redeem_script'" } ]''' privkeys='["cMgb3KM8hPATCtgMKarKMiFesLft6eEw3DY6BB8d97fkeXeqQagw"]'
+{
+  "hex": "020000000128e3b6f901705be0730e8a1345cf893e3cc38f0598e38bc56e9d43ac1ae11b62000000009200483045022100a9fe6ed0dbe14c0c4c7c89cee0aef2770f0b2bdcd6b3e8d71fe91e91c4bb765e02200cfba27a59b584a0cc8e70fb4438be94da417ee77eff28deb70449e012b6d6fa014752210307fd375ed7cced0f50723e3e1a97bbe7ccff7318c815df4e99a59bc94dbcd819210367c4f666f18279009c941e57fab3e42653c6553e5ca092c104d1db279e328a2852aeffffffff01e01dbe07000000001976a914cd1b2ba4fa8ae3e62bc4fc6be467a63228ceeedf88ac00000000",
+  "complete": false,
+  "errors": [
+    {
+      "txid": "621be11aac439d6ec58be398058fc33c3e89cf45138a0e73e05b7001f9b6e328",
+      "vout": 0,
+      "scriptSig": "00483045022100a9fe6ed0dbe14c0c4c7c89cee0aef2770f0b2bdcd6b3e8d71fe91e91c4bb765e02200cfba27a59b584a0cc8e70fb4438be94da417ee77eff28deb70449e012b6d6fa014752210307fd375ed7cced0f50723e3e1a97bbe7ccff7318c815df4e99a59bc94dbcd819210367c4f666f18279009c941e57fab3e42653c6553e5ca092c104d1db279e328a2852ae",
+      "sequence": 4294967295,
+      "error": "Operation not valid with the current stack size"
+    }
+  ]
+}
+```
+That produces scary errors and says that it's not `complete`. Nonetheless, the transaction has been partially signed by the first user. You'll note there's now information in the `scriptSig` variable and the hex code is larger.
+
+#### Sign The Transaction Again
+
+Here's the final trick: the other person (or people) that are part of the multisig also need to sign the transaction. They do this by running the same signing command with you but (1) with the output hex (`bitcoin-cli -named signrawtransaction hexstring=$rawtxhex prevtxs='''[ { "txid": "'$utxo_txid'", "vout": '$utxo_vout', "scriptPubKey": "'$utxo_spk'", "redeemScript": "'$redeem_script'" } ]''' privkeys='["cMgb3KM8hPATCtgMKarKMiFesLft6eEw3DY6BB8d97fkeXeqQagw"]' | jq -r '. | .hex'`) and (2) with their own private key.
+
+So, you'd send the complete info to the next signer, including (1) the `prevtxs`; and (2) the new `hex`.
+
+They'd then dump their own private key on their own machine:
+```
+$ bitcoin-cli -named dumpprivkey address=$address2
+cTi1Muvj24vG159R8orFjtqsPygCxhu8mJt2GLDQv7bNBGYoav4B
+```
+And sign the new hex:
+```
+$ bitcoin-cli -named signrawtransaction hexstring=020000000128e3b6f901705be0730e8a1345cf893e3cc38f0598e38bc56e9d43ac1ae11b62000000009200483045022100a9fe6ed0dbe14c0c4c7c89cee0aef2770f0b2bdcd6b3e8d71fe91e91c4bb765e02200cfba27a59b584a0cc8e70fb4438be94da417ee77eff28deb70449e012b6d6fa014752210307fd375ed7cced0f50723e3e1a97bbe7ccff7318c815df4e99a59bc94dbcd819210367c4f666f18279009c941e57fab3e42653c6553e5ca092c104d1db279e328a2852aeffffffff01e01dbe07000000001976a914cd1b2ba4fa8ae3e62bc4fc6be467a63228ceeedf88ac00000000 prevtxs='''[ { "txid": "'$utxo_txid'", "vout": '$utxo_vout', "scriptPubKey": "'$utxo_spk'", "redeemScript": "'$redeem_script'" } ]''' privkeys='["cTi1Muvj24vG159R8orFjtqsPygCxhu8mJt2GLDQv7bNBGYoav4B"]'
+{
+  "hex": "020000000128e3b6f901705be0730e8a1345cf893e3cc38f0598e38bc56e9d43ac1ae11b6200000000db00483045022100a9fe6ed0dbe14c0c4c7c89cee0aef2770f0b2bdcd6b3e8d71fe91e91c4bb765e02200cfba27a59b584a0cc8e70fb4438be94da417ee77eff28deb70449e012b6d6fa01483045022100d5190eb824535423f67b15040efaba66953ea39f312540dd38504ed85ba6436402206171883ff28c235030550c36cadb31e40aaa9a74f71579557b74a5684545675c014752210307fd375ed7cced0f50723e3e1a97bbe7ccff7318c815df4e99a59bc94dbcd819210367c4f666f18279009c941e57fab3e42653c6553e5ca092c104d1db279e328a2852aeffffffff01e01dbe07000000001976a914cd1b2ba4fa8ae3e62bc4fc6be467a63228ceeedf88ac00000000",
+  "complete": true
+}
+```
+You'll note that it now says signature is complete, which means that you should just fall back on the standard JQ methodology:
+
 
 ## Summary: Sending a Transaction with a Multisig
 
