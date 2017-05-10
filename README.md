@@ -43,13 +43,13 @@ This tutorial assumes that you have some minimal background of how to use the co
   * [6.2: Spending a Transaction with a Multsig](6_2_Spending_a_Transaction_to_a_Multisig.md) — Needs Edit
   * [6.3: Sending a Transaction with a Locktime](6_3_Sending_a_Transaction_with_a_Locktime.md) — Needs Continuity Check
   * [6.4: Sending a Transaction with Data](6_4_Sending_a_Transaction_with_Data.md) — Needs Continuity Check
-
-## Planned Future Work
-
 * 7.0: Introducing Bitcoin Scripting
   * 7.1: Understanding the Foundation of Bitcoin
   * 7.2: Scripting a Pay to Public Key Hash
   * 7.3: Executing a Script
+
+## Planned Future Work
+
 * 8.0: Empowering Multisigs with Scripts
   * 8.1: Scripting with a Multisig
   * 8.2: Scripting with a Multisig Script
