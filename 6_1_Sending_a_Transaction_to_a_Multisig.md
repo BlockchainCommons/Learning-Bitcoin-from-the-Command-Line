@@ -24,12 +24,11 @@ Technically, a multisignature is created by Bitcoin with the OP_CHECKMULTISIG co
 
 In order to receive funds through a multisignature address, you must create a multisignature address. This example shows the creation of a 2-of-2 multisignature.
 
-### Collect the Addresses
+### Create the Addresses
 
 The first step is to have each of the recipients for the multisignature address contribute their own address. 
 
 This means that they'll each run the `getnewaddress` command on their own machine:
-
 ```
 machine1$ address1=$(bitcoin-cli getnewaddress)
 ```
@@ -39,11 +38,11 @@ machine2$ address2=$(bitcoin-cli getnewaddress)
 ```
 Afterwards, one of the recipients (or perhaps some third party) will need to collect the signatures. 
 
-#### Make Sure It's a Full Public Key for Remote Machines
+#### Collect Remote Public Keys
 
-But, there's a catch! You might recall that a Bitcoin address is actually the hash of a public key, not the public key itself. But, you need the full public key to create a multisignature! If you created the address on your machine, no problem. The full public key (and the private key for that matter) is sitting in your wallet. But if the address was created on a remote key, you don't have that. 
+But, there's a catch! You might recall that a Bitcoin address is actually the hash of a public key, not the public key itself. But, you need the full public key to create a multisignature! For any addresses created on your machine, no problem. The full public key (and the private key for that matter) is sitting in your wallet, so `bitcoin-cli` will be able to access them. But for any addresses created on remote machines, you'll need more.
 
-So, to collect an address from a remote user for the creation of a multisignature, you need them to send you the full public key, which they can access with the `validateaddress` command.
+The remote user must look up the complete information on his address and send you the associated public key. This can be done with the `validateaddress` command.
 ```
 machine2$ bitcoin-cli -named validateaddress address=$address2
 {
@@ -63,7 +62,7 @@ machine2$ bitcoin-cli -named validateaddress address=$address2
 ```
 The `pubkey` address (`0367c4f666f18279009c941e57fab3e42653c6553e5ca092c104d1db279e328a28`) is what's required.
 
-This process needs to be undertaken for _every_ address from a machine other than the one where the multisig is to be created. Obviously, if some third-party is creating the address, then the full publickey will need to be sent for _every_ address.
+This process needs to be undertaken for _every_ address from a machine other than the one where the multisig is being buil. Obviously, if some third-party is creating the address, then the full publickey will need to be sent for _every_ address.
 
 ### Create the Address
 
@@ -75,27 +74,26 @@ machine1$ bitcoin-cli -named createmultisig nrequired=2 keys='''["'$address1'","
   "redeemScript": "52210307fd375ed7cced0f50723e3e1a97bbe7ccff7318c815df4e99a59bc94dbcd819210367c4f666f18279009c941e57fab3e42653c6553e5ca092c104d1db279e328a2852ae"
 }
 ```
-Note that if you instead want to create an m-of-n signature wither "m < n", you just adjust the `nrequired` field or the number of signatures in the `keys` JSON object. For a 1-of-2 multisig, you'd just set `nrequired=1` while for a 2-of-3 multisig, you'd leave `nrequired=2`, but add one more public key or address to the `keys` listing.
+Note that the `createmultisig` command can be used with asymmetric inputs. In this case, it processed `$address1`, which is a public-key hash address from a local machine, and `0367c4f666f18279009c941e57fab3e42653c6553e5ca092c104d1db279e328a28`, which is a public key from a remote machine. The `createmultisig` command is smart enough to try to convert any addresses into public keys ... but if that info isn't in your local wallet, expect to see a "no full public key for address" error.
 
-Also note that the `createmultisig` command can be used with asymmetric inputs. In this case, it processed `$address1`, which is a public-key hash address, and `0367c4f666f18279009c941e57fab3e42653c6553e5ca092c104d1db279e328a28` is a public key. The `createmultisig` command is smart enough to try to look up the full public key if you feed it in address. If it's not in your local wallet, expect to see a "no full public key for address" error.
+> **M-OF-N VS N-OF-N:** This example shows the creation of a simple 2-of-2 multisig. If you instead want to create an m-of-n signature where "m < n", you adjust the `nrequired` field and/or the number of signatures in the `keys` JSON object. For a 1-of-2 multisig, you'd set `nrequired=1` while for a 2-of-3 multisig, you'd leave `nrequired=2`, but add one more public key or address to the `keys` listing.
 
 When used correctly, `createmultisig` returns two results, both of which are critically important.
 
-The _address_ is what you'll give out to people to receive money. They can send to it exactly like a standard P2PKH address, but they'll know that it's actually a P2SH address because it has a different prefix. The number `2` at the start of any address marks it as P2SH on the Testnet.
+The _address_ is what you'll give out to people who want to send funds. You'll notice that it has a new prefix of `2`, rather than the prefixes you've seen on Bitcoin addresses to date. That's because `createmultisig` is actually creating a totally new type of address called a P2SH address. It works exactly like a standard P2PKH address for sending funds, but you'll need to do a lot more work to redeem. 
 
-> **TESTNET vs MAINNET:** On mainnet, the prefix is instead `3` for P2SH addresses.
+> **TESTNET vs MAINNET:** On testnet, the prefix for P2SH addresses is `2`, and on mainnet, it's `3`.
 
-The _redeemScript_ is required to actually use the funds, alongside the private keys, of course. This will be fully explained in "8.2: Scripting with a Multisig Script". For now, be sure you don't lose your redeemScript. Fortunately, it can also be recreated at a later time by rerunning `createmultisig` with _all_ of the public keys. So, more broadly, don't lose your redeemScript along with any of the public keys. (But really, don't lose the redeemScript.)
+The _redeemScript_ is what you need to redeem the funds, along with the private keys for the associated addresses. This is another special feature of P2SH addresses and will be fully explained in "8.2: Scripting with a Multisig Script". For now, just be aware that it's a bit of data that's required to redeem your money.
 
-Oh, and be sure you save away the addresses you used to create the multisig, because you'll need their private keys later, so you need to know what they are.
+### Save Your Work
 
-[[REWRITE: IMPORTANT STUFF TO SAVE!]]
+Here's an important caveat: nothing about your multisig is saved into your wallet using these basic techniques. In order to later redeem money sent to this multisig address, you're going to need to retain two crucial bits of information:
 
-### Optional: Save the Address
-
-The reason that you need to be careful about not losing your redeemScript is because `bitcoin-cli` doesn't automatically save the multisignature to your wallet the way that it saves addresses that you create with the normal `getnewaddress` commands. If you wish to do so, rerun [[instead run?]] your multisig using the `addmultisigaddress` command and all the same arguments. 
-
-[[EXAMPLE]]
+   * A list of the Bitcoin addresses used in the multisig.
+   * The `redeemScript` output by `createmultsig`.
+   
+Technically, the `redeemScript` can be recreated by rerunning `createmultisig` with the complete list of addresses and/or public keys _in the same order_ and with the right m-of-n count. But, it's better to hold onto it and save yourself the grief.
 
 ## Send to a Multisig Address
 
@@ -157,7 +155,7 @@ You can see any transactions related to your funds if you import the new multisi
 ```
 $ bitcoin-cli -named importaddress address=2NAGfA4nW6nrZkD5je8tSiAcYB9xL2xYMCz
 ```
-Afterward the funds should show up when you `listunspent` ... but they aren't necessarily easily spendable yet.
+This can take a while, because it does a `rescan` to find all the related transactions. Afterward the funds should show up when you `listunspent` ... but they aren't necessarily easily spendable yet.
 
 ```
 $ bitcoin-cli listunspent
@@ -177,6 +175,8 @@ $ bitcoin-cli listunspent
 ```
 
 ### Set Up Your Variables
+
+When you're ready to spend your money received by a multisig address, you're going need to collect a _lot_ of data. Much more than you needed to when you spend a normal P2PKH UTXO. That's in part because the info on the multisig address isn't in your wallet, and in part because you're spending money that was send to a script address (P2SH), and that's a lot more demanding, as future chapters will explain.
 
 At this point, you can use that UTXO as the basis of a new transaction. Just grab the variables like usual:
 ```
@@ -261,13 +261,6 @@ user1@blockstream2:~$ bitcoin-cli -named sendrawtransaction hexstring=$signedtx
 99d2b5717fed8875a1ed3b2827dd60ae3089f9caa7c7c23d47635f6f5b397c04
 ```
 Whew! That took some work, but the transaction was successfully used!
-
-
-===
-IS IT EASIER LIKE THIS?
-
-$ bitcoin-cli -named addmultisigaddress nrequired=2 keys='''["'$address1'","029bf628adf0698a089137294975c8589cf0cc6be050f92d944faaa8c8a6234303"]'''
-
 
 ## Summary: Sending a Transaction with a Multisig
 
