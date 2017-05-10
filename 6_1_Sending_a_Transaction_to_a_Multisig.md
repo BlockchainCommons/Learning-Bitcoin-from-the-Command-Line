@@ -8,13 +8,11 @@ The first way to vary how you send a basic transaction is to use a multisig. Thi
 
 For a typical P2PKH transaction, bitcoins are sent to an address based on your public key, which in turn means that the related private key is required to unlock the transaction, solving the cryptographic puzzle and allowing you to reuse the funds. But what if you could instead lock a transaction with _multiple_ private keys. This would effectively allow keys to be sent to a group of people, where that group of people all has to agree to reuse the funds. 
 
-It's a great model for corporations, partnerships, committees, and other groups, but it also has even wider capabilities ...
-
 _What is a multisignature?_ A multisignature is simply a methodology that allows more than one person to jointly create a digital signature. It's a general technique for the cryptographic use of keys that goes far beyond Bitcoin.
 
 _What is a multisignature transaction?_ A multisignature transaction is a Bitcoin transaction that requires the signatures of multiple people to reuse the funds.
 
-Simple multisignatures just require everyone in a group to sign a transaction. However, there's more possible complexity than that. Multisignatures are generally described as being "m of n". That means that the transaction is locked with a group of "n" keys, but only "m" of them are required to unlock the transaction. If you've got a simple partnership, where both partners must authorize the reuse of funds, that's a "2 of 2" multisig. But, if you instead want to set up the equivalent of a join bank account where either partner can reuse funds, that's a "1 of 2" multisig. M-of-n multisigs where m < n are what allow for even more interesting uses of multisigs including escrows. For example, a real estate deal could be closed with a 2-of-3 multisig, where the signatures are submitted by the buyer, the seller, and the escrow agent. Once the escrow agent agrees that all of the conditions have been met, he frees up the funds for the seller; or alternatively, the buyer and seller can jointly free the funds.
+Simple multisignatures just require everyone in a group to sign a transaction. However, there's more possible complexity than that. Multisignatures are generally described as being "m of n". That means that the transaction is locked with a group of "n" keys, but only "m" of them are required to unlock the transaction. 
 
 _What is a m-of-n multisignature?_ A multisignature where "m" signatures out of a group of "n" are required to form the signature and "m ≤ n".
 
@@ -145,4 +143,8 @@ $ bitcoin-cli -named sendrawtransaction hexstring=$signedtx
 ```
 As you can see, there was nothing unusual in the creation of the transaction, and it looked entirely normal, albeit with an address with a different prefix than normal (`2NAGfA4nW6nrZkD5je8tSiAcYB9xL2xYMCz`).
 
+## Summary: Sending a Transaction with a Multisig
 
+Multisigs addresses lock funds to multiple private keys — possibly requiring all of those private keys, and possibly requiring just some from the set. They're easy enough to create with `bitcoin-cli` and they're entirely easy to send to, but they actually make use of P2SH addresses, a large topic that will get more coverage in the future.
+
+_What is the power of multisignatures?_ Multisignatures allow the modeling of a variety of financial arrangements, such as corporations, partnerships, committees, and other groups. A "1 of 2" multisig might be a married couple's joint bank account, while a "2 of 2" multisig might be used for large fund expenditures by a Limited Liability Partnership. Multisignatures also form one of the basis of Smart Contracts, such as escrow. For example, a real estate deal could be closed with a 2-of-3 multisig, where the signatures are submitted by the buyer, the seller, and an escrow agent. Once the escrow agent agrees that all of the conditions have been met, he frees up the funds for the seller; or alternatively, the buyer and seller can jointly free the funds.
