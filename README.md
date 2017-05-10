@@ -50,7 +50,7 @@ This tutorial assumes that you have some minimal background of how to use the co
 
 ## Planned Future Work
 
-* 8.0: Empowering Multisigs with Scripts
+* 8.0: Reviewing Multisigs with Scripts
   * 8.1: Scripting with a Multisig
   * 8.2: Scripting with a Multisig Script
   * 8.3: Creating Multisig Scripts
