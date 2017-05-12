@@ -2,7 +2,7 @@
 
 > **NOTE:** This is a draft in progress, so that I can get some feedback from early reviewers. It is not yet ready for learning.
 
-The third way to vary how you send a basic transaction is to use the transaction to send data instead of funds (or really, inaddition to funds). This gives you the ability to embed information in the blockchain.
+The third way to vary how you send a basic transaction is to use the transaction to send data instead of funds (or really, in addition to funds). This gives you the ability to embed information in the blockchain.
 
 ## Create Your Data
 
@@ -111,7 +111,7 @@ You may note a warning about the data being in an "unknown protocol". If you wer
 
 You can use an OP_RETURN opcode to store up to 80 bytes of data on the blockchain. You do this with the `data` codeword for a `vout`. You still have to send money along too, but you just send it back to a change address, minus a transaction fee.
 
-_What is the Power of OP_RETURN?_ The OP_RETURN opens up whole new possibilities for the blockchain, because you can embed data that proves that certain things happened at certain times. Various organizations have used OP_RETURNs for proof of existence, for copyright, to color coins, and [for other purposes](https://en.bitcoin.it/wiki/OP_RETURN). Though 80 bytes might not seem a lot, it can be quite effective if OP_RETURNs are used to store hashes of the actual data. Then, you can prove the existence of your digital data by deminstrating that the hash of it matches the hash on the blockchain.
+_What is the Power of OP_RETURN?_ The OP_RETURN opens up whole new possibilities for the blockchain, because you can embed data that proves that certain things happened at certain times. Various organizations have used OP_RETURNs for proof of existence, for copyright, for colored coins, and [for other purposes](https://en.bitcoin.it/wiki/OP_RETURN). Though 80 bytes might not seem a lot, it can be quite effective if OP_RETURNs are used to store hashes of the actual data. Then, you can prove the existence of your digital data by deminstrating that the hash of it matches the hash on the blockchain.
 
 Note that there is some controversy over using the Bitcoin blockchain in this way.
 
