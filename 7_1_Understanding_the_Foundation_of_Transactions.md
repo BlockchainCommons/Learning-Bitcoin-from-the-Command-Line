@@ -2,6 +2,8 @@
 
 > **NOTE:** This is a draft in progress, so that I can get some feedback from early reviewers. It is not yet ready for learning.
 
+The foundation of Bitcoin is the ability to protect the transactions, something that's done with a simple scripting language.
+
 ## Know the Parts of the Cryptographic Puzzle
 
 As described in [Chapter 1](1_0_Introducing_Bitcoin.md), the funds in each Bitcoin transaction are locked with a cryptographic puzzle. To be precise, we said that Bitcoin is made up of "a sequence of atomic transactions: each of which is enabled by the sender with the solution to a cryptographic puzzle that is stored as a script; each of which is locked for the recipient with a new cryptographic puzzle that is stored as a script". Those scripts, that lock transactions and that unlock transactions, are written in Bitcoin Script.
