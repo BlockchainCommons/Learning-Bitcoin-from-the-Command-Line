@@ -20,6 +20,7 @@ Supporting objectives include the ability to:
    
 ## Table of Contents
 
-   * [Part One: Sending a Transaction with a Multsig](6_1_Sending_a_Transaction_to_a_Multisig.md) — Pending
-   * [Part Two: Sending a Transaction with a Locktime](6_2_Sending_a_Transaction_with_a_Locktime.md)
-   * [Part Three: Sending a Transaction with Data](6_3_Sending_a_Transaction_with_Data.md)
+   * [Part One: Sending a Transaction with a Multsig](6_1_Sending_a_Transaction_to_a_Multisig.md)
+   * [Part Two: Spending a Transaction with a Multsig](6_2_Sending_a_Transaction_to_a_Multisig.md)
+   * [Part Three: Sending a Transaction with a Locktime](6_3_Sending_a_Transaction_with_a_Locktime.md)
+   * [Part Four: Sending a Transaction with Data](6_4_Sending_a_Transaction_with_Data.md)
