@@ -51,11 +51,11 @@ This tutorial assumes that you have some minimal background of how to use the co
 
 **PART THREE: BITCOIN SCRIPTING**
 
-* [7.0: Introducing Bitcoin Scripting](7_0_Introducing_Bitcoin_Scripting.md)
-  * [7.1: Understanding the Foundation of Transaction](7_1_Understanding_the_Foundation_of_Transactions.md)
-  * [7.2: Scripting a Pay to Public Key Hash](7_2_Scripting_a_Pay_to_Public_Key_Hash.md)
-  * [7.3: Testing a Bitcoin Script](7_3_Testing_a_Bitcoin_Script.md)
-  * [7.4: Executing a Script](7_4_Executing_a_Bitcoin_Script.md)
+* [7.0: Introducing Bitcoin Scripting](7_0_Introducing_Bitcoin_Scripting.md) — Needs Edit
+  * [7.1: Understanding the Foundation of Transactions](7_1_Understanding_the_Foundation_of_Transactions.md) — In Process
+  * [7.2: Scripting a Pay to Public Key Hash](7_2_Scripting_a_Pay_to_Public_Key_Hash.md) — Pending
+  * [7.3: Testing a Bitcoin Script](7_3_Testing_a_Bitcoin_Script.md) — Pending
+  * [7.4: Executing a Script](7_4_Executing_a_Bitcoin_Script.md) — Pending
 
 ## Planned Future Work
 
