@@ -133,4 +133,4 @@ Note that these two transactions are definitely locked in different ways. Bitcoi
 
 ## Summary: Understanding the Foundation of Transactions
 
-Every Bitcoin transaction includes at least one unlocking script (`scriptSiG`), which solves a previous cryptographic puzzle, and at least one locking script (`scriptPubKey`), which creates a new cryptographic puzzle. There's one `scriptSig` per input and one `scriptPubKey` per output. Each of these scripts is written in Bitcoin Script, a Forth-like language that further empowers Bitcoin.
+Every Bitcoin transaction includes at least one unlocking script (`scriptSig`), which solves a previous cryptographic puzzle, and at least one locking script (`scriptPubKey`), which creates a new cryptographic puzzle. There's one `scriptSig` per input and one `scriptPubKey` per output. Each of these scripts is written in Bitcoin Script, a Forth-like language that further empowers Bitcoin.
