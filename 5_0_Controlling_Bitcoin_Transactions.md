@@ -18,6 +18,6 @@ Supporting objectives include the ability to:
    
 ## Table of Contents
    
-   * [Part One: Watching for Stuck Transactions](5_1_Watching_for_Stuck_Transactions.md)
-   * [Part Two: Resending a Transaction with RBF](5_2_Resending_a_Transaction_with_RBF.md)
-   * [Part Three: Funding a Transaction with CPFP](5_3_Funding_a_Transaction_with_CPFP.md)
+   * [Section One: Watching for Stuck Transactions](5_1_Watching_for_Stuck_Transactions.md)
+   * [Section Two: Resending a Transaction with RBF](5_2_Resending_a_Transaction_with_RBF.md)
+   * [Section Three: Funding a Transaction with CPFP](5_3_Funding_a_Transaction_with_CPFP.md)
