@@ -20,6 +20,7 @@ Supporting objectives include the ability to:
 ## Table of Contents
 
 * [Section One: Understanding the Foundation of Transactions](7_1_Understanding_the_Foundation_of_Transactions.md)
-* [Section Two: Scripting a Pay to Public Key Hash](7_2_Scripting_a_Pay_to_Public_Key_Hash.md)
-* [Section Three: Testing a Bitcoin Script](7_3_Testing_a_Bitcoin_Script.md)
-* [Section Four: Executing a Script](7_4_Executing_a_Bitcoin_Script.md)
+* [Section Two: Running a Bitcoin Script](7_2_Running_a_Bitcoin_Script.md)
+* [Section Three: Scripting a Pay to Public Key Hash](7_3_Scripting_a_Pay_to_Public_Key_Hash.md)
+* [Section Four: Testing a Bitcoin Script](7_4_Testing_a_Bitcoin_Script.md)
+* [Section Five: Executing a Script](7_5_Executing_a_Bitcoin_Script.md)
