@@ -24,14 +24,14 @@ _What is a stack?_ A stack is a LIFO (last-in-first-out) data structure. It has 
 
 Whenever Bitcoin Script encounters a constant, it's pushed onto the Stack. So the above example of `1 2 OP_ADD1` would actually look like this as it was processed:
 ```
-<b>Script:</b> 1 2 OP_ADD
-<b>Stack:</b> [ ]
+Script: 1 2 OP_ADD
+Stack: [ ]
 
-<b>Script:</b> 2 OP_ADD
-<b>Stack:</b> [ 1 ]
+Script: 2 OP_ADD
+Stack: [ 1 ]
 
-<b>Script:</b> OP_ADD
-<b>Stack:</b> [ 1 2 ]
+Script: OP_ADD
+Stack: [ 1 2 ]
 ```
 _Note that in this and in following examples the top of the stack is to the right and the bottom is to the left._
 
@@ -41,31 +41,31 @@ So in this paradigm, what do opcodes do? They pop zero or more elements off the 
 
 OP_ADD pops two items off the stack (here: 2 then 1), adds then, and then pushes the resul (here: 3).
 ```
-<b>Script:</b>
-<b>Stack:</b> [ 3 ]
+Script:
+Stack: [ 3 ]
 ```
 
 ## Run a Simple Script
 
 Here's an example of a more complex script. It shows how operators continue to interact with the Stack, not just with the operands right before them:
 ```
-<b>Script:</b> 3 2 OP_ADD 4 OP_SUB
-<b>Stack:</b> [ ]
+Script: 3 2 OP_ADD 4 OP_SUB
+Stack: [ ]
 
-<b>Script:</b> 2 OP_ADD 4 OP_SUB
-<b>Stack:</b> [ 3 ]
+Script: 2 OP_ADD 4 OP_SUB
+Stack: [ 3 ]
 
-<b>Script:</b> OP_ADD 4 OP_SUB
-<b>Stack:</b> [ 3 2 ]
+Script: OP_ADD 4 OP_SUB
+Stack: [ 3 2 ]
 
-<b>Script:</b> 4 OP_SUB
-<b>Stack:</b> [ 5 ]
+Script: 4 OP_SUB
+Stack: [ 5 ]
 
-<b>Script:</b> OP_SUB
-<b>Stack:</b> [ 5 4 ]
+Script: OP_SUB
+Stack: [ 5 4 ]
 
-<b>Script:</b> 
-<b>Stack:</b> [ 1 ]
+Script: 
+Stack: [ 1 ]
 ```
 
 ## Understand the Usage of Bitcoin Script
@@ -79,23 +79,23 @@ As we've seen, every input for a Bitcoin transaction conttains a `scriptSig` whi
 So, presume that a UTXO were locked with a `scriptPubKey` that read `100 OP_EQUAL` and that the `scriptSig` `1 99 OP_ADD` were run to unlock it. The two scripts would efectively be run in order as `1 99 OP_ADD 100 OP_EQUAL` and the following were occur:
 
 ```
-<b>Script:</b> 1 99 OP_ADD 100 OP_EQUAL
-<b>Stack:</b> []
+Script: 1 99 OP_ADD 100 OP_EQUAL
+Stack: []
 
-<b>Script:</b> 99 OP_ADD 100 OP_EQUAL
-<b>Stack:</b> [1]
+Script: 99 OP_ADD 100 OP_EQUAL
+Stack: [1]
 
-<b>Script:</b> OP_ADD 100 OP_EQUAL
-<b>Stack:</b> [1 99]
+Script: OP_ADD 100 OP_EQUAL
+Stack: [1 99]
 
-<b>Script:</b> 100 OP_EQUAL
-<b>Stack:</b> [100]
+Script: 100 OP_EQUAL
+Stack: [100]
 
-<b>Script:</b> OP_EQUAL
-<b>Stack:</b> [100 100]
+Script: OP_EQUAL
+Stack: [100 100]
 
-<b>Script:</b> 
-<b>Stack:</b> [TRUE]
+Script: 
+Stack: [TRUE]
 ```
 This abstraction isn't quite true. For security reasons, the `scriptSig` is run, then the contents of the stack are transferred for the `scriptPubKey` to run, but it's correct enough for understanding how the key of `scriptSig` fits into the lock of `scriptPubKey`.
 
