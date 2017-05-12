@@ -54,7 +54,7 @@ This tutorial assumes that you have some minimal background of how to use the co
 * [7.0: Introducing Bitcoin Scripting](7_0_Introducing_Bitcoin_Scripting.md) — Needs Edit
   * [7.1: Understanding the Foundation of Transactions](7_1_Understanding_the_Foundation_of_Transactions.md) — Needs Edit
   * [7.2: Running a Bitcoin Script](7_2_Running_a_Bitcoin_Script.md) — Needs Edit
-  * [7.3: Scripting a Pay to Public Key Hash](7_3_Scripting_a_Pay_to_Public_Key_Hash.md) — Pending
+  * [7.3: Scripting a Pay to Public Key Hash](7_3_Scripting_a_Pay_to_Public_Key_Hash.md) — Needs Edit
  
 * [8.0: Creating Script Transactions](8_Creating_a_Pay_to_Script_Hash_Address.md) — Pending
   * [8.1: Understand the Basis of P2SH](8_1_Understand_the_Basis_of_P2SH.md) — Pending
