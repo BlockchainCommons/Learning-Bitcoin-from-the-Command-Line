@@ -103,6 +103,34 @@ That in turn is the standard method in Bitcoin Script for locking a P2PKH transa
 
 [7.3: Scripting a Pay to Public Key Hash](7_3_Scripting_a_Pay_to_Public_Key_Hash.md) explains how these go together, but first you need to know how Bitcoin Scripts are evaluated.
 
+## Examine a Different Sort of Transaction
+
+Here's the `scriptPubKey` from your new P2PKH transaction:
+```
+      "scriptPubKey": {
+        "asm": "OP_DUP OP_HASH160 371c20fb2e9899338ce5e99908e64fd30b789313 OP_EQUALVERIFY OP_CHECKSIG",
+        "hex": "76a914371c20fb2e9899338ce5e99908e64fd30b78931388ac",
+        "reqSigs": 1,
+        "type": "pubkeyhash",
+        "addresses": [
+          "mkYMA2i2vzEXjoDn4GfvPoFr3MJ62uUtMx"
+        ]
+      }
+```
+Here's the `scriptPubKey` from the multisig transaction that you created in §6.2: 
+```
+      "scriptPubKey": {
+        "asm": "OP_HASH160 babf9063cee8ab6e9334f95f6d4e9148d0e551c2 OP_EQUAL",
+        "hex": "a914babf9063cee8ab6e9334f95f6d4e9148d0e551c287",
+        "reqSigs": 1,
+        "type": "scripthash",
+        "addresses": [
+          "2NAGfA4nW6nrZkD5je8tSiAcYB9xL2xYMCz"
+        ]
+      }
+```
+Note that these two transactions are definitely locked in different ways. Bitcoin recognises the first as `pubkeyhash` (P2PKH) and second as `scripthash` (P2SH), but you should also be able to see the difference in the different `asm` code: `OP_DUP OP_HASH160 371c20fb2e9899338ce5e99908e64fd30b789313 OP_EQUALVERIFY OP_CHECKSIG` versus `OP_HASH160 babf9063cee8ab6e9334f95f6d4e9148d0e551c2 OP_EQUAL`. This is the power of scripting: it can quite simply produce some of the dramatically different sorts of transactions that you learned about in the previous chapters of the book.
+
 ## Summary: Understanding the Foundation of Transactions
 
-Every Bitcoin transaction includes at least one unlocking script (`scriptPubKey`), which solves a previous cryptographic puzzle, and at least one locking script (`scriptPubKey`), which creates a new cryptographic puzzle. There's one per input and one per output. Each of these scripts is written in Bitcoin Script, a Forth-like language that further empowers Bitcoin.
+Every Bitcoin transaction includes at least one unlocking script (`scriptSiG`), which solves a previous cryptographic puzzle, and at least one locking script (`scriptPubKey`), which creates a new cryptographic puzzle. There's one `scriptSig` per input and one `scriptPubKey` per output. Each of these scripts is written in Bitcoin Script, a Forth-like language that further empowers Bitcoin.
