@@ -53,24 +53,27 @@ This tutorial assumes that you have some minimal background of how to use the co
 
 * [7.0: Introducing Bitcoin Scripting](7_0_Introducing_Bitcoin_Scripting.md) — Needs Edit
   * [7.1: Understanding the Foundation of Transactions](7_1_Understanding_the_Foundation_of_Transactions.md) — Needs Edit
-  * [7.2: Running a Bitcoin Script](7_2_Running_a_Bitcoin_Script.md) — In Process
+  * [7.2: Running a Bitcoin Script](7_2_Running_a_Bitcoin_Script.md) — Needs Edit
   * [7.3: Scripting a Pay to Public Key Hash](7_3_Scripting_a_Pay_to_Public_Key_Hash.md) — Pending
-  * [7.4: Testing a Bitcoin Script](7_4_Testing_a_Bitcoin_Script.md) — Pending
-  * [7.5: Executing a Script](7_5_Executing_a_Bitcoin_Script.md) — Pending
+ 
+* [8.0: Creating Script Transactions](8_Creating_a_Pay_to_Script_Hash_Address.md) — Pending
+  * [8.1: Understand the Basis of P2SH](8_1_Understand_the_Basis_of_P2SH.md) — Pending
+  * [8.1: Testing a Bitcoin Script](7_4_Testing_a_Bitcoin_Script.md) — Pending
+  * [8.2: Executing a Script](7_5_Executing_a_Bitcoin_Script.md) — Pending
 
 ## Planned Future Work
 
-* 8.0: Reviewing Multisigs with Scripts
-  * 8.1: Scripting with a Multisig
-  * 8.2: Scripting with a Multisig Script
-  * 8.3: Creating Multisig Scripts
-* 9.0: Empowering Timelocks with Scripts
-  * 9.1: Understanding Timelock Options
-  * 9.2: Using CLTV in Scripts
-  * 9.3: Using CSV in Scripts
-* 10.0: Creating Original Bitcoin Scripts
-  * 10.X: Scripting a Pay to Script Hash
-  * 10.X: Scripting Conditionals
+* 9.0: Reviewing Multisigs with Scripts
+  * 9.1: Scripting with a Multisig
+  * 9.2: Scripting with a Multisig Script
+  * 9.3: Creating Multisig Scripts
+* 10.0: Empowering Timelocks with Scripts
+  * 10.1: Understanding Timelock Options
+  * 10.2: Using CLTV in Scripts
+  * 10.3: Using CSV in Scripts
+* 11.0: Expanding Bitcoin Transactions
+   * 11.X: Understanding the Possibilities
+   * 11.X: Scripting Conditionals
 * 11.0: Writing Bitcoin RPC
    * 11.1: Accessing RPC with Curl
    * 11.2: Accessing RPC with C
