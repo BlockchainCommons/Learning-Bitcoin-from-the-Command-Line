@@ -16,7 +16,7 @@ This tutorial assumes that you have some minimal background of how to use the co
 
 ## Files
 
-*PART ONE: PREPARING FOR BITCOIN*
+**PART ONE: PREPARING FOR BITCOIN**
 
 * [1.0: Introducing Bitcoin](1_0_Introducing_Bitcoin.md)
 * [2.0: Setting Up a Bitcoin-Core VPS](2_0_Setting_Up_a_Bitcoin-Core_VPS.md)
@@ -24,7 +24,7 @@ This tutorial assumes that you have some minimal background of how to use the co
   * [2.2: Setting Up a Bitcoin-Core VPS with StackScript.md](2_2_Setting_Up_a_Bitcoin-Core_VPS_with_StackScript.md)
     * [Linode_Bitcoin-Core_VPS_Setup.stackscript](2_2__Script_Linode_Setup.stackscript)
     
-*PART TWO: BITCOIN-CLI*
+**PART TWO: BITCOIN-CLI**
 
 * [3.0: Understanding Your Bitcoin Setup](3_0_Understanding_Your_Bitcoin_Setup.md)
   * [3.1: Verifying Your Bitcoin Setup](3_1_Verifying_Your_Bitcoin_Setup.md)
@@ -49,7 +49,7 @@ This tutorial assumes that you have some minimal background of how to use the co
   * [6.3: Sending a Transaction with a Locktime](6_3_Sending_a_Transaction_with_a_Locktime.md)
   * [6.4: Sending a Transaction with Data](6_4_Sending_a_Transaction_with_Data.md)
 
-*PART THREE: BITCOIN SCRIPTING*
+**PART THREE: BITCOIN SCRIPTING**
 
 * 7.0: Introducing Bitcoin Scripting
   * 7.1: Understanding the Foundation of Bitcoin
