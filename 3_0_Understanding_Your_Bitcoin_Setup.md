@@ -21,9 +21,9 @@ Supporting objectives include the ability to:
    
 ## Table of Contents
 
-* [Part One: Verifying Your Bitcoin Setup](3_1_Verifying_Your_Bitcoin_Setup.md)
-* [Part Two: Knowing Your Bitcoin Setup](3_2_Knowing_Your_Bitcoin_Setup.md)
-* [Part Three: Setting Up Your Wallet](3_3_Setting_Up_Your_Wallet.md)
+* [Section One: Verifying Your Bitcoin Setup](3_1_Verifying_Your_Bitcoin_Setup.md)
+* [Section Two: Knowing Your Bitcoin Setup](3_2_Knowing_Your_Bitcoin_Setup.md)
+* [Section Three: Setting Up Your Wallet](3_3_Setting_Up_Your_Wallet.md)
    * [Interlude: Using Command-Line Variables](3_3__Interlude_Using_Command-Line_Variables.md)
-* [Part Four: Receiving a Transaction](3_4_Receiving_a_Transaction.md)
+* [Section Four: Receiving a Transaction](3_4_Receiving_a_Transaction.md)
 
