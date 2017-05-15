@@ -58,22 +58,19 @@ This tutorial assumes that you have some minimal background of how to use the co
  
 * [8.0: Creating Script Transactions](8_Creating_a_Pay_to_Script_Hash_Address.md) — Pending
   * [8.1: Understand P2SH](8_1_Understand_P2SH.md) — Pending
-  * [8.2: Testing a Bitcoin Script](8_2_Testing_a_Bitcoin_Script.md) — Pending
-  * [8.3: Executing a Bitcoin Script](8_3_Executing_a_Bitcoin_Script.md) — Pending
+  * [8.2: Using P2SH for Multisigs](8_2_Using_P2SH_for_Multisigs.md) — Pending
+  * [8.3: Testing a Bitcoin Script](8_2_Testing_a_Bitcoin_Script.md) — Pending
+  * [8.4: Executing a Bitcoin Script](8_3_Executing_a_Bitcoin_Script.md) — Pending
 
 ## Planned Future Work
 
-* 9.0: Reviewing Multisigs with Scripts
-  * 9.1: Scripting with a Multisig
-  * 9.2: Scripting with a Multisig Script
-  * 9.3: Creating Multisig Scripts
-* 10.0: Empowering Timelocks with Scripts
-  * 10.1: Understanding Timelock Options
-  * 10.2: Using CLTV in Scripts
-  * 10.3: Using CSV in Scripts
-* 11.0: Expanding Bitcoin Transactions
-   * 11.X: Understanding the Possibilities
-   * 11.X: Scripting Conditionals
+* 9.0: Empowering Timelocks with Scripts
+  * 9.1: Understanding Timelock Options
+  * 9.2: Using CLTV in Scripts
+  * 9.3: Using CSV in Scripts
+* 10.0: Expanding Bitcoin Transactions with Scrits
+   * 10.X: Understanding the Possibilities
+   * 10.X: Scripting Conditionals
 * 11.0: Writing Bitcoin RPC
    * 11.1: Accessing RPC with Curl
    * 11.2: Accessing RPC with C
