@@ -69,7 +69,7 @@ This tutorial assumes that you have some minimal background of how to use the co
   * 9.3: Using CSV in Scripts
 * 10.0: Expanding Bitcoin Transactions with Scripts
    * 10.X: Understanding the Possibilities
-   * 10.X: Scripting Conditionals
+   * 10.X: Using Conditionals in Scripts
       * Verify
       * If
    * 10.X: Scripting Multigs by Hand
