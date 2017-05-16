@@ -6,22 +6,20 @@ The foundation of Bitcoin is the ability to protect the transactions, something 
 
 ## Know the Parts of the Cryptographic Puzzle
 
-As described in [Chapter 1](1_0_Introducing_Bitcoin.md), the funds in each Bitcoin transaction are locked with a cryptographic puzzle. To be precise, we said that Bitcoin is made up of "a sequence of atomic transactions: each of which is enabled by the sender with the solution to a cryptographic puzzle that is stored as a script; each of which is locked for the recipient with a new cryptographic puzzle that is stored as a script". Those scripts, that lock transactions and that unlock transactions, are written in Bitcoin Script.
+As described in [Chapter 1](1_0_Introducing_Bitcoin.md), the funds in each Bitcoin transaction are locked with a cryptographic puzzle. To be precise, we said that Bitcoin is made up of "a sequence of atomic transactions: each of which is enabled by the sender with the solution to a cryptographic puzzle that is stored as a script; each of which is locked for the recipient with a new cryptographic puzzle that is stored as a script". Those scripts, which lock and unlock transactions, are written in Bitcoin Script.
 
-_What is Bitcoin Script?_ Bitcoin Script is a stack-based Forth-like language that is purposefully avoids loops and is not Turing-complete. It's made up of individual opcodes. Every single transaction in Bitcoin is locked with a Bitcoin Script; when the locking transaction is run with the correct inputs, it will allow a UTXO to be respent.
+_What is Bitcoin Script?_ Bitcoin Script is a stack-based Forth-like language that purposefully avoids loops and is not Turing-complete. It's made up of individual opcodes. Every single transaction in Bitcoin is locked with a Bitcoin Script; when the locking transaction for a UTXO is run with the correct inputs, that UTXO can then be spent.
 
 The fact that transactions are locked with scripts means that they can be unlocked in a variety of different ways. In fact, we've met a number of different unlocking mechanisms to date, each of which incorporates different opcodes:
 
-   * OP_CHECKSIG, which checks a public key against a signature is the basis of a P2PKH address, as will be fully detailed in [7.3: Scripting a Pay to Public Key Hash](7_3_Scripting_a_Pay_to_Public_Key_Hash.md).
-   * OP_CHECKMULTISIG similarly checks multisigs, as will be fully detailed in Chapter 8.
+   * OP_CHECKSIG, which checks a public key against a signature is the basis of a P2PKH address, as will be fully detailed in [7.3: Scripting a P2PKH](7_3_Scripting_a_P2PKH.md).
+   * OP_CHECKMULTISIG similarly checks multisigs, as will be fully detailed in [8.2: Scripting a Multisig](8_2_Creating_Multisig_Scripts.md).
    * OP_CHECKLOCKTIMEVERIFY and OP_SEQUENCEVERIFY form the basis of more complex Timelocks, as will be fully detailed in Chapter 9.
    * OP_RETURN is the mark of an unspendable transaction, which is why it's used to carry data.
 
 ## Access Scripts In Your Transactions
 
-You may not realize it, but you've already seen these locking and unlocking scripts, all as part of the raw transactins you've been working with. 
-
-The best way to look into them with more depth is thus to create a raw transaction, then examine it.
+You may not realize it, but you've already seen these locking and unlocking scripts as part of the raw transactins you've been working with. The best way to look into these scripts in more depth is thus to create a raw transaction, then examine it.
 
 ### Create a Test Transaction
 
@@ -77,11 +75,11 @@ $ bitcoin-cli -named decoderawtransaction hexstring=$signedtx
 ```
 The two scripts are found in the two different parts of the transaction.
 
-The `scriptSig` is found in the `vin`. This is the _unlocking_ script. It's what's run to unlock the associated UTXO. There will be one `scriptSig` per UTXO in a transaction.
+The `scriptSig` is located in the `vin`. This is the _unlocking_ script. It's what's run to unlock the UTXO being used to fund this transaction. There will be one `scriptSig` per UTXO in a transaction.
 
-The `scriptPubKey` is found in the `vout`. This is the _locking_ script. It's what locks the new output from the transaction. There will be one output in a transaction.
+The `scriptPubKey` is located in the `vout`. This is the _locking_ script. It's what locks the new output from the transaction. There will be one `scriptPubKey` per output in a transaction.
 
-To be precise: the `scriptSig` of this transaction will unlock the previous UTXO; this new transaction's outputs will be locked with the `scriptPubKey`, which will be unlocked by the `scriptSig` of the transaction that reuses this UTXO.
+To be precise: the `scriptSig` of this transaction will unlock the previous UTXO; this new transaction's output will then be locked with the `scriptPubKey`, which can in turn be unlocked by the `scriptSig` of the transaction that reuses that UTXO.
 
 ### Read The Scripts in Your Transaction
 
@@ -101,22 +99,12 @@ OP_DUP OP_HASH160 371c20fb2e9899338ce5e99908e64fd30b789313 OP_EQUALVERIFY OP_CHE
 ```
 That in turn is the standard method in Bitcoin Script for locking a P2PKH transaction.
 
-[7.3: Scripting a Pay to Public Key Hash](7_3_Scripting_a_Pay_to_Public_Key_Hash.md) explains how these go together, but first you need to know how Bitcoin Scripts are evaluated.
+[7.3: Scripting a Pay to Public Key Hash](7_3_Scripting_a_Pay_to_Public_Key_Hash.md) will explain how these two scripts go together, but first you will need to know how Bitcoin Scripts are evaluated.
 
 ## Examine a Different Sort of Transaction
 
-Here's the `scriptPubKey` from your new P2PKH transaction:
-```
-      "scriptPubKey": {
-        "asm": "OP_DUP OP_HASH160 371c20fb2e9899338ce5e99908e64fd30b789313 OP_EQUALVERIFY OP_CHECKSIG",
-        "hex": "76a914371c20fb2e9899338ce5e99908e64fd30b78931388ac",
-        "reqSigs": 1,
-        "type": "pubkeyhash",
-        "addresses": [
-          "mkYMA2i2vzEXjoDn4GfvPoFr3MJ62uUtMx"
-        ]
-      }
-```
+Before we leave this foundation behind, however, we're going to look at a different type of locking script. 
+
 Here's the `scriptPubKey` from the multisig transaction that you created in §6.2: 
 ```
       "scriptPubKey": {
@@ -129,7 +117,21 @@ Here's the `scriptPubKey` from the multisig transaction that you created in §6.
         ]
       }
 ```
-Note that these two transactions are definitely locked in different ways. Bitcoin recognises the first as `pubkeyhash` (P2PKH) and second as `scripthash` (P2SH), but you should also be able to see the difference in the different `asm` code: `OP_DUP OP_HASH160 371c20fb2e9899338ce5e99908e64fd30b789313 OP_EQUALVERIFY OP_CHECKSIG` versus `OP_HASH160 babf9063cee8ab6e9334f95f6d4e9148d0e551c2 OP_EQUAL`. This is the power of scripting: it can quite simply produce some of the dramatically different sorts of transactions that you learned about in the previous chapters of the book.
+
+Compare that to the `scriptPubKey` from your new P2PKH transaction:
+```
+      "scriptPubKey": {
+        "asm": "OP_DUP OP_HASH160 371c20fb2e9899338ce5e99908e64fd30b789313 OP_EQUALVERIFY OP_CHECKSIG",
+        "hex": "76a914371c20fb2e9899338ce5e99908e64fd30b78931388ac",
+        "reqSigs": 1,
+        "type": "pubkeyhash",
+        "addresses": [
+          "mkYMA2i2vzEXjoDn4GfvPoFr3MJ62uUtMx"
+        ]
+      }
+```
+
+These two transactions are _definitely_ locked in different ways. Bitcoin recognises the first as `scripthash` (P2SH) and the second as `pubkeyhash` (P2PKH), but you should also be able to see the difference in the different `asm` code: `OP_HASH160 babf9063cee8ab6e9334f95f6d4e9148d0e551c2 OP_EQUAL` versus `OP_DUP OP_HASH160 371c20fb2e9899338ce5e99908e64fd30b789313 OP_EQUALVERIFY OP_CHECKSIG`. This is the power of scripting: it can very simply produce some of the dramatically different sorts of transactions that you learned about in the previous chapters.
 
 ## Summary: Understanding the Foundation of Transactions
 
