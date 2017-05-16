@@ -56,7 +56,7 @@ This tutorial assumes that you have some minimal background of how to use the co
   * [7.2: Running a Bitcoin Script](7_2_Running_a_Bitcoin_Script.md)
   * [7.3: Scripting a P2PKH](7_3_Scripting_a_P2PKH.md)
 * [8.0: Creating Bitcoin Script Transactions](8_Creating_Bitcoin_Script_Transactions.md) — Writing
-  * [8.1: Using P2SH for Bitcoin Scripts](8_1_Using_P2SH_for_Bitcoin_Scripts.md) — Writing
+  * [8.1: Building a Bitcoin Script with P2SH](8_1_Building_a_Bitcoin_Script_with_P2SH.md) — Writing
   * [8.2: Scripting a Multisig](8_2_Creating_Multisig_Scripts.md) — Writing
   * [8.3: Testing a Bitcoin Script](8_3_Testing_a_Bitcoin_Script.md) — Pending
   * [8.4: Executing a Bitcoin Script](8_4_Executing_a_Bitcoin_Script.md) — Pending
