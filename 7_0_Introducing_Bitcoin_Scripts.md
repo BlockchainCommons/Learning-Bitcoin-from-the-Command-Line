@@ -15,6 +15,7 @@ Supporting objectives include the ability to:
 
    * Understand the Purpose of Bitcoin Scripts
    * Understand the Usage of Bitcoin Scripts
+   * Understand the P2PKH Script
    
 ## Table of Contents
 
