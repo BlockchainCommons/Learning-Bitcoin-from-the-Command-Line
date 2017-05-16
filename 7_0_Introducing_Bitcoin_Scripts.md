@@ -1,4 +1,4 @@
-# Chapter 7: Introducing Bitcoin Scripting
+# Chapter 7: Introducing Bitcoin Scripts
 
 To date, we've been interacting with Bitcoin at a relatively high level. The `bitcoin-cli` program offers access to a variety of RPC commands that support the creation and control of raw Bitcoin transaction including funds, data, timelocks, and multisigs.
 
