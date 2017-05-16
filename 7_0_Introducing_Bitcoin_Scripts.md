@@ -9,12 +9,11 @@ However, Bitcoin offers much more complexity than that. It includes a simple scr
 After working through this chapter, a developer will be able to:
 
    * Analyze a Bitcoin Script
-   * Run a Bitcoin Script
+   * Apply a Bitcoin Script
    
 Supporting objectives include the ability to:
 
    * Understand the Purpose of Bitcoin Scripts
-   * Understand the Usage of Bitcoin Scripts
    * Understand the P2PKH Script
    
 ## Table of Contents
