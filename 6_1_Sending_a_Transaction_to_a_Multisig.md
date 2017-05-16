@@ -84,6 +84,8 @@ The _address_ is what you'll give out to people who want to send funds. You'll n
 
 The _redeemScript_ is what you need to redeem the funds, along with the private keys for "m" of the "n" addresses. This script is another special feature of P2SH addresses and will be fully explained in "8.2: Scripting with a Multisig Script". For now, just be aware that it's a bit of data that's required to redeem your money.
 
+_What is a P2SH address?_ P2SH stands for Pay-to-script. It's a different type of receipient than the standard P2PKH address, used for funds whose redemption are based on more complex Bitcoin Scripts. `bitcoin-cli` uses P2SH encapsulation to help standardize and simplify its multisigs.
+
 ### Save Your Work
 
 Here's an important caveat: nothing about your multisig is saved into your wallet using these basic techniques. In order to later redeem money sent to this multisignature address, you're going to need to retain two crucial bits of information:
