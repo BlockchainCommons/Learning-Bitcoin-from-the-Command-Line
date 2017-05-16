@@ -136,3 +136,5 @@ These two transactions are _definitely_ locked in different ways. Bitcoin recogn
 ## Summary: Understanding the Foundation of Transactions
 
 Every Bitcoin transaction includes at least one unlocking script (`scriptSig`), which solves a previous cryptographic puzzle, and at least one locking script (`scriptPubKey`), which creates a new cryptographic puzzle. There's one `scriptSig` per input and one `scriptPubKey` per output. Each of these scripts is written in Bitcoin Script, a Forth-like language that further empowers Bitcoin.
+
+_What is the power of scripts?_ Scripts unlock the full power of Smart Contracts. With the appropriate opcodes, you can make very precise decisions about who can redeem funds, when they can redeem funds, and how they can redeem funds. More intricate rules for corporate spending, partnership spending, proxy spending, and other methodologies can all be encoded within a Script, and that Script can be used as the redemption condition for specific funds.
