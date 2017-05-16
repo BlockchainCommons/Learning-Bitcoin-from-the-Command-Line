@@ -72,7 +72,9 @@ This tutorial assumes that you have some minimal background of how to use the co
    * 10.X: Scripting Conditionals
       * Verify
       * If
-   * 10.X: A Sample Script
+   * 10.X: Scripting Multigs by Hand
+      * Simple 1 of 2: if/then/endif
+      * Complex 1 or 1 OR 2 of 3
 * 11.0: Writing Bitcoin RPC
    * 11.1: Accessing RPC with Curl
    * 11.2: Accessing RPC with C
