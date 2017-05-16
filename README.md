@@ -51,7 +51,7 @@ This tutorial assumes that you have some minimal background of how to use the co
 
 **PART THREE: BITCOIN SCRIPTING**
 
-* [7.0: Introducing Bitcoin Scripting](7_0_Introducing_Bitcoin_Scripting.md) — Needs Edit
+* [7.0: Introducing Bitcoin Scripts](7_0_Introducing_Bitcoin_Scripting.md) — Needs Edit
   * [7.1: Understanding the Foundation of Transactions](7_1_Understanding_the_Foundation_of_Transactions.md) — Needs Edit
   * [7.2: Running a Bitcoin Script](7_2_Running_a_Bitcoin_Script.md) — Needs Edit
   * [7.3: Scripting a Pay to Public Key Hash](7_3_Scripting_a_Pay_to_Public_Key_Hash.md) — Needs Edit
@@ -68,9 +68,12 @@ This tutorial assumes that you have some minimal background of how to use the co
   * 9.1: Understanding Timelock Options
   * 9.2: Using CLTV in Scripts
   * 9.3: Using CSV in Scripts
-* 10.0: Expanding Bitcoin Transactions with Scrits
+* 10.0: Expanding Bitcoin Transactions with Scripts
    * 10.X: Understanding the Possibilities
    * 10.X: Scripting Conditionals
+      * Verify
+      * If
+   * 10.X: A Sample Script
 * 11.0: Writing Bitcoin RPC
    * 11.1: Accessing RPC with Curl
    * 11.2: Accessing RPC with C
