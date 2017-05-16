@@ -72,6 +72,7 @@ This tutorial assumes that you have some minimal background of how to use the co
    * 10.X: Using Conditionals in Scripts
       * Verify
       * If
+         * DOn't know inputs (in unlocking!)
    * 10.X: Scripting Multigs by Hand
       * Simple 1 of 2: if/then/endif
       * Complex 1 or 1 OR 2 of 3
