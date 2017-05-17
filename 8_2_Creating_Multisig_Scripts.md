@@ -18,6 +18,8 @@ The multisig in §6.1 was a 1-of-2 multisig built from `$address1` and `$address
 ```
 This is the form of multisig that is allowed as a standard locking script ... but which isn't usually used any more.
 
+> **WARNING:** For classic `OP_CHECKMULTISIG` signatures, "n" must be ≤ 3 for the transaction to be standard.
+
 ### Unlock a Multisig Transaction
 
 The `scriptSig` for a multisig address simply requires the submission of the missing operands for OP_CHECKMULTISIG: a "0" followed by "m" signatures. Either of the following would work for our example:
@@ -77,4 +79,30 @@ Unfortunately, the technique of embedding the entire multisig into a transaction
 
 These were generally problems with using arbitrary locking scripts for Bitcoin, but they quickly became very real problems when applied to multisigs, because they were some of the first complex scripts to be widely used on the Bitcoin network.
 
+## Create a Multisig Transaction with P2SH
 
+P2SH transactions were created to solve the very real problems of complex Bitcoin Scripts. The idea was laid out in 2012 and immediately applied to multisigs, resulting in "P2SH multisigs", which simply package up a standard multisig transaction into a standard P2SH transaction. This allows for address standardization; reduced data storage; and increased "m" and "n" counts.
+
+The technique accidentally follows the description in [8.1: Building a Bitcoin Script with P2SH](8_1_Building_a_Bitcoin_Script_with_P2SH.md), offering a pratical first example of how P2SHes really work. Here's a look at how our example multisig would work:
+
+### Create the Lock for the P2SH Multisig Transaction
+
+1. Serialize `1 $address1 $address2 2 OP_CHECKMULTISIG` (`<serializedMultiSig>`) then SHA-256 and RIPEMD-160 hash it (`<hashedMultisig>`).
+2. Save `<serializedMultiSig>` for future reference as the `redeemScript`.
+3. Produce a P2SH Multisig locking script that includes the hashed script (`OP_HASH160 <hashedMultisig> OP_EQUAL`).
+4. Create a transaction using that `scriptPubKey`.
+
+### Run the First Round of P2SH Validation
+
+1. Validate `0 $signature1 <serializedMultiSig> OP_HASH160 <hashedMultisig> OP_EQUAL` or `0 $signature1 <serializedMultiSig> OP_HASH160 <hashedMultisig> OP_EQUAL`
+
+### Run the Second Round of P2SH Validation
+
+1. Deserialize `<serializedMultiSig>`
+2. Validate `0 $signature1 1 $address1 $address2 2 OP_CHECKMULTISIG` or `0 $signature2 1 $address1 $address2 2 OP_CHECKMULTISIG`
+
+And now you know how the multisig transaction in §6.1 was actually created, and how it was actually validated for spending.
+
+## Summary: Creating Multisig Scripts
+
+Multisigs are a standard transaction type, but they're a bit cumbersome to use, so they're regularly incorporated in P2SH transactions, as they were in §6.1, when we created our first multisigs. The result is cleaner, smaller, and more standardized — but more importantly, it's also a great real-world example of how P2SH scripts really work.
