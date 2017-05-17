@@ -123,4 +123,6 @@ With that second validation _also_ true, the UTXO can now be spent!
 
 ## Summary: Building a Bitcoin Script with P2SH
 
-Arbitrary Bitcoin Scripts are non-standard in Bitcoin. However, you can incorporate them into standard transactions by using the P2SH address type. You just hash your script as part of the locking script, then you reveal and run it as part of the redemption script. As long as you can also satisfy the script, the UTXO can be spent.
+Arbitrary Bitcoin Scripts are non-standard in Bitcoin. However, you can incorporate them into standard transactions by using the P2SH address type. You just hash your script as part of the locking script, then you reveal and run it as part of the redemption script. As long as you can also satisfy the script, the UTXO can be spent. 
+
+_What is the power of P2SH?_ You already know the power of Bitcoin Script, which can allow you to create more complex Smart Contracts of all sorts. P2SH is what actually unleashes that power by letting you use arbitrary Bitcoin Script in standard Bitcoin transactions.
