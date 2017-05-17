@@ -12,6 +12,8 @@ Multisig transactions are created in Bitcoin using the `OP_CHECKMULTISIG` code.
 
 _What is a consensus rule?_ These are the rules that the Bitcoin nodes follow to work together. In large part they're defined by the Bitcoin Core code. These rules include lots of obvious mandates, such as the limit to how many Bitcoins are created for each block and the rules for how transactions may be respent. However, they also include fixes for bugs that have appeared over the years, because once a bug has been introduced into the Bitcoin codebase, it must be continually supported, lest old Bitcoins become unspendable. The extra-pop bug in OP_CHECKMULTISIG is one of the most obvious consensus rules of this sort. Because the original version of OP_CHECKMULTISIG accidentally popped an extra item off the stack, Bitcoin must forever follow that rule, lest complex redemption scripts accidentally be broken, rendering coins unredeemable. Recent versions of Bitcoin core require that leading constant, which is not used, be a "0".
 
+### Lock a Multisig Transaction
+
 The multisig in §6.1 was a 1-of-2 multisig built from `$address1` and `$address2`. the resultant `scriptPubKey` would appear as follows:
 ```
 1 $address1 $address2 2 OP_CHECKMULTISIG
