@@ -62,7 +62,7 @@ When a UTXO is redeemed, the redeemScript in the `scriptSig` is hashed and compa
 
 In [7.2: Running a Bitcoin Script](7_2_Running_a_Bitcoin_Script.md), we offered a simple example of a non-standard locking script, `OP_ADD 100 OP_EQUAL`, and we detailed how to run it as a simple concatenation of an unlocking script with that locking script. We're now going to repeat that exercise, this time within the constraints of a P2SH transaction.
 
-### Lock a P2SH Transaction
+### Create the Lock for the P2SH Transaction
 
 To lock this transaction requires the following:
 
@@ -71,7 +71,7 @@ To lock this transaction requires the following:
 3. Produce a P2SH locking script that includes the hashed script (`OP_HASH160 <hashedHundredEqual> OP_EQUAL`).
 4. Create the transaction with that `scriptPubKey`.
 
-### Unlock a P2SH Transaction: Round One
+### Run the First Round of Validation
 
 To unlock this transaction requires that the recipient produce a `scriptSig` that prepends two constants totalling one hundred to the serialized script: `1 99 <serializedHundredEqual>`.
 
@@ -102,7 +102,7 @@ The Script ends with a `True` on top of the stack, and so it succeeds ... even t
 
 However, because this was a P2SH script, the execution isn't done. 
 
-### The Second Round of Validation
+### Run the Second Round of Validation
 
 For the second round of validation, Bitcoin now runs the actual redeemScript against the items pushed onto the stack ahead of it:
 
