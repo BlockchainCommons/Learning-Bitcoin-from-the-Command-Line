@@ -76,30 +76,30 @@ That's pretty much Bitcoin Scripting ... other than a few intricacies for how th
 
 As we've seen, every input for a Bitcoin transaction contains a `scriptSig` which is used to unlock the `scriptPubKey` for the associated UTXO. The easy way to think of this is that `scriptSig` is run, then the `scriptPubKey` is run.
 
-So, presume that a UTXO were locked with a `scriptPubKey` that read `100 OP_EQUAL` and that the `scriptSig` `1 99 OP_ADD` were run to unlock it. The two scripts would effectively be run in order as `1 99 OP_ADD 100 OP_EQUAL` and the following were occur:
+So, presume that a UTXO were locked with a `scriptPubKey` that read `OP_ADD 100 OP_EQUAL`, requiring as input two numbers that add up to a hundred, and presume that the `scriptSig` of `1 99` were run to unlock it. The two scripts would effectively be run in order as `1 99 OP_ADD 100 OP_EQUAL` and the following were occur:
 
 ```
 Script: 1 99 OP_ADD 100 OP_EQUAL
 Stack: []
 
 Script: 99 OP_ADD 100 OP_EQUAL
-Stack: [1]
+Stack: [ 1 ]
 
 Script: OP_ADD 100 OP_EQUAL
-Stack: [1 99]
+Stack: [ 1 99 ]
 
 Script: 100 OP_EQUAL
-Stack: [100]
+Stack: [ 100 ]
 
 Script: OP_EQUAL
-Stack: [100 100]
+Stack: [ 100 100 ]
 
 Script: 
-Stack: [TRUE]
+Stack: [ TRUE ]
 ```
-This abstraction isn't quite true: for security reasons, the `scriptSig` is run, then the contents of the stack are transferred for the `scriptPubKey` to run, but it's true enough for understanding how the key of `scriptSig` fits into the lock of `scriptPubKey`.
+This abstraction isn't quite accurate: for security reasons, the `scriptSig` is run, then the contents of the stack are transferred for the `scriptPubKey` to run, but it's accurate enough for understanding how the key of `scriptSig` fits into the lock of `scriptPubKey`.
 
-> **WARNING** The above is a non-standard transaction type. It would not actually be accepted by nodes running Bitcoin Core with the standard settings. Chapter 8 discusses more about how you actually _could_ use a Bitcoin Script like this, thanks to the power of P2SH.
+> **WARNING** The above is a non-standard transaction type. It would not actually be accepted by nodes running Bitcoin Core with the standard settings. [8.1: Building a Bitcoin Script with P2SH.md](8_1_Building_a_Bitcoin_Script_with_P2SH.md) discusses how you actually _could_ use a Bitcoin Script like this, using the power of P2SH.
 
 ### Get the Results
 
