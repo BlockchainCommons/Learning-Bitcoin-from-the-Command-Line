@@ -103,7 +103,7 @@ The technique accidentally follows the description in [8.1: Building a Bitcoin S
 1. Deserialize `<serializedMultiSig>`
 2. Validate `0 $signature1 1 $address1 $address2 2 OP_CHECKMULTISIG` or `0 $signature2 1 $address1 $address2 2 OP_CHECKMULTISIG`
 
-And now you know how the multisig transaction in §6.1 was actually created, and how it was actually validated for spending.
+And now you know how the multisig transaction in §6.1 was actually created, how it was actually validated for spending, and why that `redeemScript` was so important.
 
 ## Summary: Creating Multisig Scripts
 
