@@ -71,7 +71,7 @@ To lock this transaction requires the following:
 1. Serialize `OP_ADD 100 OP_EQUAL` (`<serializedHundredEqual>`) then SHA-256 and RIPEMD-160 hash it (`<hashedHundredEqual>`).
 2. Save `<serializedHundredEqual>` for future reference as the `redeemScript`.
 3. Produce a P2SH locking script that includes the hashed script (`OP_HASH160 <hashedHundredEqual> OP_EQUAL`).
-4. Create the transaction with that `scriptPubKey`.
+4. Create a transaction using that `scriptPubKey`.
 
 ### Run the First Round of Validation
 
@@ -106,7 +106,7 @@ However, because this was a P2SH script, the execution isn't done.
 
 ### Run the Second Round of Validation
 
-For the second round of validation, Bitcoin now runs the actual redeemScript against the items pushed onto the stack ahead of it:
+For the second round of validation, Bitcoin now deserializes the `redeemScript`, then runs it against the items pushed onto the stack ahead of it:
 
 ```
 Script: OP_ADD 100 OP_EQUAL
