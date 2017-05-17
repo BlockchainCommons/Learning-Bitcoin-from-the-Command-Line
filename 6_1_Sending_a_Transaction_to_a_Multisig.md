@@ -86,6 +86,8 @@ The _redeemScript_ is what you need to redeem the funds, along with the private 
 
 _What is a P2SH address?_ P2SH stands for Pay-to-script. It's a different type of receipient than the standard P2PKH address, used for funds whose redemption are based on more complex Bitcoin Scripts. `bitcoin-cli` uses P2SH encapsulation to help standardize and simplify its multisigs.
 
+> **WARNING:** P2SH multisig addresses, like the ones created by `bitcoin-cli`, have a limit for "m" and "n" in multisigs based on the maximum size of the redeem script, which is currently 520 bytes. Pratically, you won't hit this unless you're doing something excessive.
+
 ### Save Your Work
 
 Here's an important caveat: nothing about your multisig is saved into your wallet using these basic techniques. In order to later redeem money sent to this multisignature address, you're going to need to retain two crucial bits of information:
