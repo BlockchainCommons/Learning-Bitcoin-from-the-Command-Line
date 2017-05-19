@@ -69,14 +69,13 @@ This tutorial assumes that you have some minimal background of how to use the co
   * 9.2: Using CLTV in Scripts
   * 9.3: Using CSV in Scripts
 * 10.0: Expanding Bitcoin Transactions with Scripts
-   * 10.X: Understanding the Possibilities
-   * 10.X: Using Conditionals in Scripts
+   * 10.X: Understanding Conditions in Scripts
       * Verify
       * If
          * DOn't know inputs (in unlocking!)
    * 10.X: Scripting Multigs by Hand
-      * Simple 1 of 2: if/then/endif
-      * Complex 1 or 1 OR 2 of 3
+      * Complex 1 or 1 OR 2 of 3 [corporation]
+      * Escrow: 2 of 3 (A | B | E); then 2 of 2 (AE) OR 2 of 2 (BE); then 2 of 2 (AE) OR 2 of 2 (BE) OR 2 of 2 after time-delay (AB)
    * 10.X: Programming Complex Scripts
       * BIP 112: Lightning
       * Peg-in Chains?
