@@ -22,5 +22,6 @@ Supporting objectives include the ability to:
 
    * [Section One: Sending a Transaction with a Multsig](6_1_Sending_a_Transaction_to_a_Multisig.md)
    * [Section Two: Spending a Transaction with a Multsig](6_2_Spending_a_Transaction_to_a_Multisig.md)
-   * [Section Three: Sending a Transaction with a Locktime](6_3_Sending_a_Transaction_with_a_Locktime.md)
-   * [Section Four: Sending a Transaction with Data](6_4_Sending_a_Transaction_with_Data.md)
+   * [Section Three: Sending & Spending an Automated Multisig](6_3_Sending_an_Automated_Multisig.md)
+   * [Section Four: Sending a Transaction with a Locktime](6_4_Sending_a_Transaction_with_a_Locktime.md)
+   * [Section Five: Sending a Transaction with Data](6_5_Sending_a_Transaction_with_Data.md)
