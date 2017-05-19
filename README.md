@@ -1,4 +1,4 @@
-# Learning Bitcoin from the Command-Line #
+# Learning Bitcoin #
 
 > NOTE: This is a draft in progress, so that I can get some feedback from early reviewers. It is not yet ready for use.
 
@@ -46,8 +46,9 @@ This tutorial assumes that you have some minimal background of how to use the co
 * [6.0: Expanding Bitcoin Transactions](6_0_Expanding_Bitcoin_Transactions.md)
   * [6.1: Sending a Transaction with a Multsig](6_1_Sending_a_Transaction_to_a_Multisig.md)
   * [6.2: Spending a Transaction with a Multsig](6_2_Spending_a_Transaction_to_a_Multisig.md)
-  * [6.3: Sending a Transaction with a Locktime](6_3_Sending_a_Transaction_with_a_Locktime.md)
-  * [6.4: Sending a Transaction with Data](6_4_Sending_a_Transaction_with_Data.md)
+  * [6.3: Sending & Spending an Automated Multisig](6_3_Sending_an_Automated_Multisig.md)
+  * [6.4: Sending a Transaction with a Locktime](6_4_Sending_a_Transaction_with_a_Locktime.md)
+  * [6.5: Sending a Transaction with Data](6_5_Sending_a_Transaction_with_Data.md)
 
 **PART THREE: BITCOIN SCRIPTING**
 
@@ -76,16 +77,34 @@ This tutorial assumes that you have some minimal background of how to use the co
    * 10.X: Scripting Multigs by Hand
       * Simple 1 of 2: if/then/endif
       * Complex 1 or 1 OR 2 of 3
-* 11.0: Writing Bitcoin RPC
-   * 11.1: Accessing RPC with Curl
-   * 11.2: Accessing RPC with C
-   * 11.3: Watching Bitcoin Addresses in C
+   * 10.X: Programming Complex Scripts
+      * BIP 112: Lightning
+      * Peg-in Chains?
+      
+** PART FOUR: BITCOIN APIS **
+
+* 11.0: Talking to Bitcoind
+   * 11.1: Accessing Bitcoind with Curl
+   * 11.2: Accessing Bitcoind with JavaScript
+   * 11.3: Accessing Bitcoind with C
+      * Watching Bitcoin Addresses in C?
+* 12.0: Programming with LibWally
+   * 12.1: Programming Transactions
+   * 12.2: Programming Scripts
+* 13.0: Programming with secp256k1
+   
+** PART FIVE: BITCOIN FUTURES **
+
+* 14.0: Setting Up a Bitcoin Regtest
+   * 14.1: Building the Regtest
+   * 14.2: Testing with Regtest
+   * 14.3: Mining with Regtest
    
 <hr>
 This is probably all a future section on Elements.
 
-* 11.0: Introducing SegWit
-   * 11.X Scripting a Pay to Witness
+* X.0: Introducing SegWit
+   * X.X Scripting a Pay to Witness
    
 * X.0: Introducing Elements
 * X.0: Individual Elements
