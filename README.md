@@ -61,6 +61,7 @@ This tutorial assumes that you have some minimal background of how to use the co
   * [8.2: Scripting a Multisig](8_2_Creating_Multisig_Scripts.md)
   * [8.3: Testing a Bitcoin Script](8_3_Testing_a_Bitcoin_Script.md) — Writing
   * [8.4: Executing a Bitcoin Script](8_4_Executing_a_Bitcoin_Script.md) — Pending
+  * [8.5: Spending a Transaction with a Bitcoin Script](8_5_Spending_a_Bitcoin_Script.md) — Pending
 
 ## Planned Future Work
 
