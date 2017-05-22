@@ -4,7 +4,7 @@
 
 > **NOTE:** This is a draft in progress, so that I can get some feedback from early reviewers. It is not yet ready for learning.
 
-Bitcoin Scripting allows for considerable new control over Bitcoin transactions, but it's all somewhat abstract. How do you actually turn that theoretical Bitcoin Script into functional Bitcoin code? The first answer is to test it.
+Bitcoin Scripting allows for considerable new control over Bitcoin transactions, but it's all somewhat abstract. How do you actually turn that theoretical Bitcoin Script into functional Bitcoin code? The first answer is to test it ... but unfortunately that answer isn't as easy as it seems.
 
 ## Get the Code Right
 
@@ -14,42 +14,33 @@ This is a critically important aspect of any Bitcoin Scripting, because there's 
 
 So the onus is on you to get that code right.
 
-## Retrieve Public Keys & Signatures
-
-Most of the Bitcoin code that you're testing will be simple operators. However, you'll also need have some Bitcoin addresses, public keys, and signatures to play with. Here's a quick reminder on how to retrieve this information:
-
-_Create an address:_
-```
-$ address=$(bitcoin-cli getnewaddress)
-$ echo $address
-mxwLPpo2X1VXXAiLHNVb55H4JASeLMDm7A
-```
-_Retrieve the public key:_
-```
-$ bitcoin-cli -named validateaddress address=$address | jq -r '.pubkey'
-03e9ddbea8336e53a7125e5be016411ffae4df06026fc3f947337ea08b74cb8476
-```
-
-_Create a signature:_
-bitcoin-cli signmessage $address "Secure"
-IO2w2knDwAig4eQxMnq+FwAoj3W1gCO/GMyzmuyTs3n3YADPdrIhfD9PVtBhCIkP0M+6NermgGz23qs86XT8nHs=
-
-[[[MAYBE]]
-
 ## Test a Script Online
 
-A few online resources exist for looking at scripts, each with some of their own quirks.
+It would seem like it should be easy to test a Bitcoin Script online in a web simulator. Unfortunately, as of the time of this writing, online simulators are few, and the ones that exist are almost fatally buggy.
 
 ### The Script Playground
 
-Charlie Marsh has built an excellent [Script Playground](http://www.crmarsh.com/script-playground/). Just put together your unlocking script and your locking script and run them. The Script Playground evaluates Bitcoin Script as if it were unlocking a transaction. That means that, just like Bitcoin, it does an OP_VERIFY at the end. As a result, `51 48 OP_ADD` won't produce anything useful (other than a green checkmark), but you can run `51 48 OP_ADD 99 OP_EQUAL` and `51 47 OP_ADD 99 OP_EQUAL` and it'll tell you which of those would verify.
+Charlie Marsh has built an excellent [Script Playground](http://www.crmarsh.com/script-playground/). Just put together your unlocking script and your locking script and run them. The Playground was run an `OP_VERIFY` at the end, and tell you with a green checkmark or a red X whether the transaction was unlocked or not.
 
-The Playground tries to be smart about converting constants without requiring you to messily enter them by hand as bytecode, but values over 100 don't appear to work.
+Type in the test from [§7.2: Running a Bitcoin Script.md](7_2_Running_a_Bitcoin_Script.md) of `1 98 OP_ADD 99 OP_EQUAL` and watch it verify; change it to `1 97 OP_ADD 99 OP_EQUAL` and see it fail.
 
-_Bitcoin Realism:_ Runs an `OP_VERIFY` at the end of every transaction.
+#### Bugs & Challenges
 
-_Keys & Signatures:_ 
+_Signature Problems._ To really test Scripts you need to be able to verify hashes and signatures. The Playground tried to make that easy with buttons that can be used to cut-and-paste public keys and signatures, but they haven't kept up with Flash security ugprades and no longer work reliably. This makes any testing extremely cumbersome, as you have to dump addresses, public keys, and private keys from `bitcoin-cli`. Signing is simplified by just checking the signature of a nonce of "Secure", but given that `bitcoin-cli` produces a base64 signature instead of a hex signature, you're deep in the weeds. As a result of all of this, unless you're deeply comfortable with Bitcoin signatures, you're unlikely to be able to use Script Playground for anything but tests of flow control.
 
+_Number Problems_. The Script Playground doesn't recognize numbers of 100 or more.
+
+### Web BTC Script Debugger
+
+WebBTC has a [Script Debugger](https://webbtc.com/script) that not only shows you the execution of a script, but also explains its parts and shows you the stack. The following example is similar to the add-to-99 script of previous chapters: [Add to 15 Script](https://webbtc.com/script/1%2014/OP_ADD%2015%20OP_EQUAL/).
+
+#### Bugs & Challenges
+
+_Web Problems._ The web submit form no longer works, requiring you to type all script into the URL in the form `https://webbtc.com/script/[unlocking-script]/[locking-script]`. Each script is a series of operators separated by `%20`s. For example `1%2014` is `1 14` and `OP_ADD%2015%20OP_EQUAL` is `OP_ADD 15 OP_EQUAL`.
+
+_Signature Problems._ [valid?]
+
+_Number Problems_. The BTC debugger doesn't recognize numbers of 17 or more. (This is not unusual: 1 to 16 become OP_1 to OP_16, but beyond that, extra work is required for numbers, work that you're usually insulated from.)
 
 ## Test a Script with Java
 
