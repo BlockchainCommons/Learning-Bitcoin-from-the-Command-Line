@@ -50,7 +50,31 @@ Since the visible locking script for a P2SH transaction is so simple, creating a
 
 _What is OP_HASH160?_ The standard hash operation for Bitcoin performs a SHA-256 hash, then a RIPEMD-160 hash.
 
-These steps can all be easily performed through a Bash script. However, the process of getting that hash (and thus the P2SH lock) into a transaction are still pretty cumbersome, as it's not easily support by the `bitcoin-cli` tool. A more precise step-by-step guide is detailed in [§8.4: Sending and Spending a Bitcoin Script](8_4_Sending_and_Spending_a_Bitcoin_Script.md).
+Each of those steps of course takes some work on their own.
+
+### Serialize a Locking Script
+
+Here's the thing: you're probably never going to do this by hand, and you probably won't even be able to do it from the shell. The reason is that simple sounding "serialize" step. This isn't some easy conversion, like running ascii-to-binary. Instead, it's a step-by-step process of translating each element of the script to a nibble of data that represents either an opcode or part of the data that's being pushed onto the stack by an opcode.
+
+For example, look at the `redeemScript` that you used [§6.1](6_1_Sending_a_Transaction_to_a_Multisig.md):
+```
+52210307fd375ed7cced0f50723e3e1a97bbe7ccff7318c815df4e99a59bc94dbcd819210367c4f666f18279009c941e57fab3e42653c6553e5ca092c104d1db279e328a2852ae
+```
+You can deserialize this by hand using the [Bitcoin Wiki Script page](https://en.bitcoin.it/wiki/Script) or by using the handy tool at [Chain Query](https://chainquery.com/bitcoin-api/decodescript). Just look at one byte (two hex characters) of data at a time, unless you're told to look at more by an OP_PUSHDATA command (0x01 to 0x78):
+
+* 0x52 = OP_2
+* 0x21 = OP_PUSHDATA 33 bytes (hex: 0x21)
+* 0x0307fd375ed7cced0f50723e3e1a97bbe7ccff7318c815df4e99a59bc94dbcd819 = 33 bytes of data, the first public-key hash
+* 0x21 = OP_PUSHDATA 33 bytes (hex: 0x21)
+* 0x0367c4f666f18279009c941e57fab3e42653c6553e5ca092c104d1db279e328a28 = 33 bytes of data, the second public-key hash
+* 0x52 = OP_2
+* 0xae = OP_CHECKMULTISIG
+
+In other words, that redeemScript was a serialization of of "2 0307fd375ed7cced0f50723e3e1a97bbe7ccff7318c815df4e99a59bc94dbcd819 0367c4f666f18279009c941e57fab3e42653c6553e5ca092c104d1db279e328a28 2 OP_CHECKMULTISIG" ... but creating that serialization would take a whole compiler. 
+
+This is going to be the first of several tasks regarding P2SH transactions that will require a larger API. But for now, you have the theory: the locking script needs to be serialized before it can be used, and that serialization involves more complexity than you can manage by hand or by shell script.
+
+### Hash a Serialized Script
 
 ## Unlock a P2SH Script Transaction
 
