@@ -4,7 +4,7 @@
 
 > **NOTE:** This is a draft in progress, so that I can get some feedback from early reviewers. It is not yet ready for learning.
 
-Bitcoin Scripting allows for considerable new control over Bitcoin transactions, but it's all somewhat abstract. How do you actually turn that theoretical Bitcoin Script into functional Bitcoin code? The first answer is to test it ... but unfortunately that answer isn't as easy as it seems.
+Bitcoin Scripting allows for considerable new control over Bitcoin transactions, but it's all somewhat abstract. How do you actually turn that theoretical Bitcoin Script into functional Bitcoin code? The first answer is to test it ... but unfortunately testing is pretty is a category that's pretty underserved right now, which means that this section mainly focuses on hopefuly futures.
 
 ## Get the Code Right
 
@@ -16,13 +16,15 @@ So the onus is on you to get that code right.
 
 ## Test a Script Online
 
-It would seem like it should be easy to test a Bitcoin Script online in a web simulator. Unfortunately, as of the time of this writing, online simulators are few, and the ones that exist are almost fatally buggy.
+Web simulators seem like they should be a great option for Bitcoin Script testing. Unfortunately, as of the time of this writing, online simulators are few, and the ones that exist are almost fatally buggy. A few are included here mainly for completeness sake: because they used to work pretty well and perhaps might again. For now, they're not particularly recommended though.
 
 ### The Script Playground
 
 Charlie Marsh has built an excellent [Script Playground](http://www.crmarsh.com/script-playground/). Just put together your unlocking script and your locking script and run them. The Playground was run an `OP_VERIFY` at the end, and tell you with a green checkmark or a red X whether the transaction was unlocked or not.
 
 Type in the test from [§7.2: Running a Bitcoin Script.md](7_2_Running_a_Bitcoin_Script.md) of `1 98 OP_ADD 99 OP_EQUAL` and watch it verify; change it to `1 97 OP_ADD 99 OP_EQUAL` and see it fail.
+
+If you prefer you can grab the [JavaScript code](https://github.com/crm416/script/) and run it on your own machine.
 
 #### Bugs & Challenges
 
@@ -46,8 +48,16 @@ _Number Problems_. The BTC debugger doesn't recognize numbers of 17 or more. (Th
 
 _If signatures were indeed considered valid, this would be a great resource, but between that not working and having to annoyingly type in code as a URL, this is another online script tester that's barely usable currently. The one saving grace is that transactions can be examined down to the Bitcoin script ... but the site hasn't been recording new transactions since December 2016.
 
-## Test a Script with Java
+## Test a Script with Software Packages
+
+Software packages may be another future for the testing of Bitcoin Scripts. A Python package called [Hashmal](https://github.com/mazaclub/hashmal) is very promising, but it was still in Alpha at the time of this writing.
 
 ## Test a Script with Bitcoin
 
+Someday web sites and software packages _might_ offer great opportunities for testing Bitcoin Scripts. However, they'll never be the real thing, because you can't guarantee that they follow the consensus rules. For example, the Script Playground explicitly says that it ignores the extra-pop multisig bug. This means that any multisig code that you successfully test on the Script Playground will break in the real-world.
+
+So the only way to _really_ test Bitcoin Scripts is to try them out on Testnet, and verify that you can redeem coins using the script _before_ you put it on Mainnet. Don't trust your code is write; don't just eyeball it. Doing so it another great way to lose funds on Bitcoin.
+
 ## Summary: Testing a Bitcoin Script
+
+Testing turns out to not be a great option right now for Bitcoin Scripts, except perhaps for some very simple flow control testing. We hope that some of the options in this section will mature in the future, but for now you're going to need to move straight on to sending and spending transactions with Bitcoin Scripts.
