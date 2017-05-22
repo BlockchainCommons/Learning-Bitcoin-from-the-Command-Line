@@ -45,7 +45,7 @@ However, these Bitcoin scripts are the lowest level of Bitcoin functionality. Mu
 
 ### Bitcoin — In Short
 
-One way to think of Bitcoin is as: _a sequence of atomic transactions: each of which is enabled by the sender with the solution to a cryptographic puzzle that is stored as a script; each of which is locked for the recipient with a new cryptographic puzzle that is stored as a script; and each of which is recorded in a permanent global ledger._
+One way to think of Bitcoin is as: _a sequence of atomic transactions: each of which is enabled by the sender with the solution to a previous cryptographic puzzle that was stored as a script; each of which is locked for the recipient with a new cryptographic puzzle that is stored as a script; and each of which is recorded in an immutable global ledger._
 
 ## What Is Public-Key Cryptography?
 
