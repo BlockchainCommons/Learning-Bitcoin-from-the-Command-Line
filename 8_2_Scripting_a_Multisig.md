@@ -1,4 +1,4 @@
-# 8.2: Creating Multisig Scripts
+# 8.2: Scripting a Multisig
 
 > **NOTE:** This is a draft in progress, so that I can get some feedback from early reviewers. It is not yet ready for learning.
 
