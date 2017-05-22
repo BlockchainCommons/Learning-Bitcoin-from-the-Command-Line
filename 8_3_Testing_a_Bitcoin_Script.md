@@ -50,7 +50,7 @@ _If signatures were indeed considered valid, this would be a great resource, but
 
 ## Test a Script with Software Packages
 
-Software packages may be another future for the testing of Bitcoin Scripts. A Python package called [Hashmal](https://github.com/mazaclub/hashmal) is very promising, but it was still in Alpha at the time of this writing.
+Software packages may be another future for the testing of Bitcoin Scripts. A Python package called [Hashmal](https://github.com/mazaclub/hashmal) is very promising, but it was still in Alpha at the time of this writing. The Python [Transaction Script Compiler](https://github.com/Kefkius/txsc) is also interesting, though it just converts a script between different representations, rather than actually running it.
 
 ## Test a Script with Bitcoin
 
