@@ -18,6 +18,6 @@ Supporting objectives include the ability to:
 ## Table of Contents
 
 * [Section One: Building a Bitcoin Script with P2SH](8_1_Building_a_Bitcoin_Script_with_P2SH.md)
-* [Section Two: Scripting a Multisig](8_2_Creating_Multisig_Scripts.md)
+* [Section Two: Scripting a Multisig](8_2_Scripting_a_Multisig.md)
 * [Section Three: Testing a Bitcoin Script](8_3_Testing_a_Bitcoin_Script.md)
 * [Section Four: Sending & Spending a Bitcoin Script](8_4_Send_and_Spending_a_Bitcoin_Script.md)
