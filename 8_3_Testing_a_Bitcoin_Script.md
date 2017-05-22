@@ -30,6 +30,8 @@ _Signature Problems._ To really test Scripts you need to be able to verify hashe
 
 _Number Problems_. The Script Playground doesn't recognize numbers of 100 or more.
 
+_If the signature buttons worked right, the Playground would be great, but until that happens, it's not very useful._
+
 ### Web BTC Script Debugger
 
 WebBTC has a [Script Debugger](https://webbtc.com/script) that not only shows you the execution of a script, but also explains its parts and shows you the stack. The following example is similar to the add-to-99 script of previous chapters: [Add to 15 Script](https://webbtc.com/script/1%2014/OP_ADD%2015%20OP_EQUAL/).
@@ -38,9 +40,11 @@ WebBTC has a [Script Debugger](https://webbtc.com/script) that not only shows yo
 
 _Web Problems._ The web submit form no longer works, requiring you to type all script into the URL in the form `https://webbtc.com/script/[unlocking-script]/[locking-script]`. Each script is a series of operators separated by `%20`s. For example `1%2014` is `1 14` and `OP_ADD%2015%20OP_EQUAL` is `OP_ADD 15 OP_EQUAL`.
 
-_Signature Problems._ [valid?]
+_Signature Problems._ Allegedly, all signatures are assumed valid if a scripthash is not provided. This does not seem to be the case. Examining [existing transactions](https://webbtc.com/script/d0d92c5ae1e70d9825ddb32cb08b51ef2bac443d84cbb100380e8a1e659f6964:0) demonstrates how their signatures were processed, but checking examples does not work, again majorly impacting the utility of this site.
 
 _Number Problems_. The BTC debugger doesn't recognize numbers of 17 or more. (This is not unusual: 1 to 16 become OP_1 to OP_16, but beyond that, extra work is required for numbers, work that you're usually insulated from.)
+
+_If signatures were indeed considered valid, this would be a great resource, but between that not working and having to annoyingly type in code as a URL, this is another online script tester that's barely usable currently. The one saving grace is that transactions can be examined down to the Bitcoin script ... but the site hasn't been recording new transactions since December 2016.
 
 ## Test a Script with Java
 
