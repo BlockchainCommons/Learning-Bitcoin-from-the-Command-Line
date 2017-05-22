@@ -52,7 +52,7 @@ _What is OP_HASH160?_ The standard hash operation for Bitcoin performs a SHA-256
 
 Each of those steps of course takes some work on their own.
 
-### Serialize a Locking Script
+#### Serialize a Locking Script
 
 Here's the thing: you're probably never going to do this by hand, and you probably won't even be able to do it from the shell. The reason is that simple sounding "serialize" step. This isn't some easy conversion, like running ascii-to-binary. Instead, it's a step-by-step process of translating each element of the script to a nibble of data that represents either an opcode or part of the data that's being pushed onto the stack by an opcode.
 
@@ -74,7 +74,13 @@ In other words, that redeemScript was a serialization of of "2 0307fd375ed7cced0
 
 This is going to be the first of several tasks regarding P2SH transactions that will require a larger API. But for now, you have the theory: the locking script needs to be serialized before it can be used, and that serialization involves more complexity than you can manage by hand or by shell script.
 
-### Hash a Serialized Script
+#### Hash a Serialized Script
+
+[((]
+
+## Send a P2SH Script Transaction
+
+[((]
 
 ## Unlock a P2SH Script Transaction
 
