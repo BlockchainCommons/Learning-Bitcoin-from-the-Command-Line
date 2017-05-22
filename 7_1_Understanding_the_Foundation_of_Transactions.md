@@ -13,7 +13,7 @@ _What is Bitcoin Script?_ Bitcoin Script is a stack-based Forth-like language th
 The fact that transactions are locked with scripts means that they can be unlocked in a variety of different ways. In fact, we've met a number of different unlocking mechanisms to date, each of which incorporates different opcodes:
 
    * OP_CHECKSIG, which checks a public key against a signature is the basis of a P2PKH address, as will be fully detailed in [§7.3: Scripting a P2PKH](7_3_Scripting_a_P2PKH.md).
-   * OP_CHECKMULTISIG similarly checks multisigs, as will be fully detailed in [§8.2: Scripting a Multisig](8_2_Creating_Multisig_Scripts.md).
+   * OP_CHECKMULTISIG similarly checks multisigs, as will be fully detailed in [§8.2: Scripting a Multisig](8_2_Scripting_a_Multisig.md).
    * OP_CHECKLOCKTIMEVERIFY and OP_SEQUENCEVERIFY form the basis of more complex Timelocks, as will be fully detailed in Chapter 9.
    * OP_RETURN is the mark of an unspendable transaction, which is why it's used to carry data.
 
