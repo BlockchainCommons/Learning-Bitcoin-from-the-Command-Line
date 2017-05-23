@@ -76,11 +76,16 @@ This is going to be the first of several tasks regarding P2SH transactions that 
 
 #### Hash a Serialized Script
 
-[((]
+Assuming that you were able to serialize your lock script, the next trick is to hash it, so that you can place the 20-byte hashed value in the P2SH script. The following accomplishes that:
+```
+$ echo -n "52210307fd375ed7cced0f50723e3e1a97bbe7ccff7318c815df4e99a59bc94dbcd819210367c4f666f18279009c941e57fab3e42653c6553e5ca092c104d1db279e328a2852ae" | xxd -r -p | openssl dgst -sha256 -binary | openssl dgst -rmd160
+(stdin)= babf9063cee8ab6e9334f95f6d4e9148d0e551c2
+```
+You may recall that a 20-byte OP_HASH160 hash is actually a combination of a SHA256 hash and a RIPEMD-160 hash. The trick is that those are both hashes of the binary form of the hexdump, so the above command: converts the hexdump to binary (`xxd -r -p`); hashes with SHA256 and produces a binary (`openssl dgst -sha256 -binary`); and then hashes with RIPEMD-160, producing a hex dump (`openssl dgst -rmd160`).
 
 ## Send a P2SH Script Transaction
 
-[((]
+So how do you actually send your P2SH transaction? That unfortunately is a trick for another day. `bitcoin-cli` doesn't provide any support for sending P2SH transactions, so you're going to need to wait until we look into some more extensive APIs to actually send a P2SH out. For now, though, you have a theory, and an understanding of how all the parts go together.
 
 ## Unlock a P2SH Script Transaction
 
