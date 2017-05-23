@@ -1,4 +1,4 @@
-# 8.1: Building a Bitcoin Script with P2SH
+# 8.1: Understanding the Foundation of P2SH
 
 > **NOTE:** This is a draft in progress, so that I can get some feedback from early reviewers. It is not yet ready for learning.
 
