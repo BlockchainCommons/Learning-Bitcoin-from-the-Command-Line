@@ -1,6 +1,6 @@
 > **WARNING:** The lack of any code Script interpretors is currently halting this section.
 
-# 8.3: Testing a Bitcoin Script
+# 8.4: Testing a Bitcoin Script
 
 > **NOTE:** This is a draft in progress, so that I can get some feedback from early reviewers. It is not yet ready for learning.
 
