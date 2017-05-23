@@ -1,4 +1,4 @@
-# Chapter 8: Creating Bitcoin Script Transactions
+# Chapter 8: Embedding Bitcoin Scripts in P2SH Transactions
 
 Bitcoin Script moves down several levels of abstraction, allowing you to minutely control the redemption conditions of Bitcoin funds. But, how do you actually incorporate those Bitcoin Scripts into the transactions you've been building to date? The answer is a new sort of Bitcoin transaction, the P2SH.
 
