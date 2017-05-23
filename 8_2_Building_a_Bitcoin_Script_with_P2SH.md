@@ -20,7 +20,7 @@ To lock this transaction do the following:
    5. `<hashed99Equal>` = "3f58b4f7b14847a9083694b9b3b52a4cea2569ed"
 2. Save `<serialized99Equal>` for future reference as the `redeemScript`.
 3. Produce a P2SH locking script that includes the hashed script (`OP_HASH160 <hashed99Equal> OP_EQUAL`).
-   1. `scriptPubKey` = a9143f58b4f7b14847a9083694b9b3b52a4cea2569ed87
+   1. `scriptPubKey` = "a9143f58b4f7b14847a9083694b9b3b52a4cea2569ed87"
 4. Create a transaction using that `scriptPubKey`.
 
 ### Run the First Round of Validation
