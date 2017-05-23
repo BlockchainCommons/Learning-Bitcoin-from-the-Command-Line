@@ -60,7 +60,7 @@ This tutorial assumes that you have some minimal background of how to use the co
   * [8.1: Understanding the Foundation of P2SH](8_1_Understanding_the_Foundation_of_P2SH.md)
   * [8.2: Building a Bitcoin Script with P2SH](8_2_Building_a_Bitcoin_Script_with_P2SH.md)
   * [8.3: Scripting a Multisig](8_3_Scripting_a_Multisig.md)
-  * [8.4: Testing a Bitcoin Script](8_4_Testing_a_Bitcoin_Script.md) — Writing
+  * [8.4: Testing a Bitcoin Script](8_4_Testing_a_Bitcoin_Script.md)
   * [8.5: Spending a Transaction with a Bitcoin script](8_5_Spending_a_Transaction_with_a_Bitcoin_script.md) — Awaiting API Work
 
 ## Planned Future Work
