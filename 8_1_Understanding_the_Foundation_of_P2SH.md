@@ -84,7 +84,7 @@ It may be easier to understand this by taking an existing hexcode and translatin
 ```
 52210307fd375ed7cced0f50723e3e1a97bbe7ccff7318c815df4e99a59bc94dbcd819210367c4f666f18279009c941e57fab3e42653c6553e5ca092c104d1db279e328a2852ae
 ```
-You can translate this back to Script by hand using either that [Bitcoin Wiki Script page](https://en.bitcoin.it/wiki/Script) or else the handy tool at [Chain Query](https://chainquery.com/bitcoin-api/decodescript). Just look at one byte (two hex characters) of data at a time, unless you're told to look at more by an OP_PUSHDATA command (0x01 to 0x4e).
+You can translate this back to Script by hand using the [Bitcoin Wiki Script page](https://en.bitcoin.it/wiki/Script) as a reference. Just look at one byte (two hex characters) of data at a time, unless you're told to look at more by an OP_PUSHDATA command (0x01 to 0x4e).
 
 The whole Script will break apart as follows:
 ```
@@ -101,6 +101,8 @@ Here's what the individual parts mean:
 * 0xae = OP_CHECKMULTISIG
 
 In other words, that `redeemScript` was a translation of of "2 0307fd375ed7cced0f50723e3e1a97bbe7ccff7318c815df4e99a59bc94dbcd819 0367c4f666f18279009c941e57fab3e42653c6553e5ca092c104d1db279e328a28 2 OP_CHECKMULTISIG" 
+
+If you'd like a mechanical hand with this sort of translation in the future, take a look at the online [Chain Query](https://chainquery.com/bitcoin-api/decodescript), which translates from hexcode to opcode, or the Python [Transaction Script Compiler](https://github.com/Kefkius/txsc), which translates back and forth.
 
 _If this is intimidating, don't worry about it; as we said, this will usually be done with an API. As we lay bare the foundation of P2SH Scripting, we're mostly explaining what those APIs will do._
 
