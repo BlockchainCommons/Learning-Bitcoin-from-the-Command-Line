@@ -13,11 +13,11 @@ In [§7.2: Running a Bitcoin Script](7_2_Running_a_Bitcoin_Script.md), we offere
 To lock this transaction do the following:
 
 1. Serialize `OP_ADD 99 OP_EQUAL` (`<serialized99Equal>`) then SHA-256 and RIPEMD-160 hash it (`<hashed99Equal>`).
-  1. OP_ADD = 0x93
-  2. 99 = 0x01, 0x63, the first to push one byte onto the stack, the second as the hex translation of 99
-  3. OP_EQUAL = 0x87
-  4. `<serialized99Equal>` = "93016387" 
-  5. `<hashed99Equal>` = "3f58b4f7b14847a9083694b9b3b52a4cea2569ed"
+   1. OP_ADD = 0x93
+   2. 99 = 0x01, 0x63, the first to push one byte onto the stack, the second as the hex translation of 99
+   3. OP_EQUAL = 0x87
+   4. `<serialized99Equal>` = "93016387" 
+   5. `<hashed99Equal>` = "3f58b4f7b14847a9083694b9b3b52a4cea2569ed"
 2. Save `<serialized99Equal>` for future reference as the `redeemScript`.
 3. Produce a P2SH locking script that includes the hashed script (`OP_HASH160 <hashed99Equal> OP_EQUAL`).
 4. Create a transaction using that `scriptPubKey`.
