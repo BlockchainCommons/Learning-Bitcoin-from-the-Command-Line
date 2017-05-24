@@ -12,7 +12,7 @@ Web simulators seem like they should be a great option for Bitcoin Script testin
 
 ### The Script Playground
 
-Charlie Marsh has built an excellent [Script Playground](http://www.crmarsh.com/script-playground/). Just put together your unlocking script and your locking script and run them. The Playground was run an `OP_VERIFY` at the end, and tell you with a green checkmark or a red X whether the transaction was unlocked or not.
+Charlie Marsh has built an excellent [Script Playground](http://www.crmarsh.com/script-playground/). Just put together your unlocking script and your locking script and run them. The Playground will play an `OP_VERIFY` at the end, and tell you with a green checkmark or a red X whether the transaction was unlocked or not.
 
 Type in the test from [§7.2: Running a Bitcoin Script.md](7_2_Running_a_Bitcoin_Script.md) of `1 98 OP_ADD 99 OP_EQUAL` and watch it verify; change it to `1 97 OP_ADD 99 OP_EQUAL` and see it fail.
 
@@ -48,10 +48,10 @@ Software packages may be a possible future for the testing of Bitcoin Scripts. A
 
 ## Test a Script with Bitcoin
 
-Someday web sites and software packages _might_ offer great opportunities for testing Bitcoin Scripts. However, they'll never be the real thing, because you can't guarantee that they follow the consensus rules. For example, the Script Playground explicitly says that it ignores the extra-pop multisig bug. This means that any multisig code that you successfully test on the Script Playground will break in the real-world.
+Someday web sites and software packages _might_ offer great opportunities for testing Bitcoin Scripts. However, they'll never be the real thing, because you can't guarantee that they follow the consensus rules. For example, the Script Playground explicitly says that it ignores the extra-pop multisig bug. This means that any multisig code that you successfully test on the Script Playground will break in the real world.
 
 So the only way to _really_ test Bitcoin Scripts is to try them out on Testnet. You need to use an API to generate a transaction with your script, then verify that you can redeem coins using the script _before_ you put it on Mainnet. Don't trust that your code is right; don't just eyeball it. Doing so is another great way to lose funds on Bitcoin.
 
 ## Summary: Testing a Bitcoin Script
 
-It turns out that there aren't currently any great tools for testing Bitcoin Scripts, except perhaps for some very simple flow control testing. We hope that some of the options in this section will mature (or regenerate) in the future, but for now you're going to need to jump ahead to APIs when you really need to do some real-world testing.
+It turns out that there aren't currently any great tools for testing Bitcoin Scripts, except perhaps for some very simple flow control testing. We hope that some of the options in this section will mature (or get fixed) in the future, but for now you're going to need to jump ahead to APIs when you really need to do some real-world testing.
