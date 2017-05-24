@@ -101,7 +101,7 @@ We're not going to continuously show how all Bitcoin Scripts are abstracted into
 
 In order to spend a UTXO that is locked with a CLTV, you must set `nLockTime` on your new transaction. Usually, you just want to set it to the present time or the present block, as appropriate. As long the CLTV time or blockheight is in the past, and as long as you supply any other data required by the unlocking script, you'll be able to process the UTXO.
 
-In the case of the above example, the following unlocking script would suffice, provided that `nLockTime` was set to somewhere in advance of the <NextYear> date, and provided it was indeed at least <NextYear>:
+In the case of the above example, the following unlocking script would suffice, provided that `nLockTime` was set to somewhere in advance of the `<NextYear>` date, and provided it was indeed at least `<NextYear>`:
 ```
 <signature> <pubKey>
 ```
@@ -113,7 +113,7 @@ To run the Script, you would first concatenate the unlocking and locking scripts
 Script: <signature> <pubKey> <NextYear> OP_CHECKLOCKTIMEVERIFY OP_DROP OP_DUP OP_HASH160 <pubKeyHash> OP_EQUALVERIFY OP_CHECKSIG
 Stack: [ ]
 ```
-The sthree constants would be pushed onto the stack:
+The three constants would be pushed onto the stack:
 ```
 Script: OP_CHECKLOCKTIMEVERIFY OP_DROP OP_DUP OP_HASH160 <pubKeyHash> OP_EQUALVERIFY OP_CHECKSIG
 Stack: [ <signature> <pubKey> <NextYear> ]
