@@ -4,6 +4,8 @@
 
 `OP_CHECKLOCKTIMEVERIFY` (or CLTV) is the natural complement to `nLockTime`. It moves the idea of locking transactions by an absolute time or blockheight into the realm of opcodes, allowing for the locking of individual UTXOs.
 
+> **VERSION WARNING:** CLTV became available with Bitcoin Core 0.11.2, and should be fairly widely deployed at this time.
+
 ## Remember nLockTime
 
 Before digging into CLTV, we should first recall how `nLockTime` works.
@@ -21,6 +23,8 @@ The transaction cannot be spent (or even put on the block chain) until either th
 
 Because CLTV is just part of a script (and presumably part of a P2SH transaction), the transaction immediately goes into the mempool; as soon as it's verified, it goes onto the blockchain, and the funds are considered spent. The trick is that all the outputs that were locked with the CLTV aren't available for _respending_ until the CLTV allows it.
 
+### Understand a CLTV Absolute Time
+
 This is how a `OP_CHECKLOCKTIMEVERIFY` might be used to check against May 24, 2017:
 ```
 1495652013 OP_CHECKLOCKTIME VERIFY
@@ -33,6 +37,9 @@ Or this:
 ```
 <AbsoluteTime> OP_CHECKLOCKTIME VERIFY
 ```
+
+### Understand a CLTV Absolute Block Height
+
 This is how `OPCHECKLOCKTIMEVERIFY` might be used to check against a blockheight that was reached on May 24, 2017:
 ```
 467951 OP_CHECKLOCKTIME VERIFY
@@ -41,8 +48,6 @@ But we'll usually abtract it like this:
 ```
 <AbsoluteBlockHeight> OP_CHECKLOCKTIME VERIFY
 ```
-
-> **VERSION WARNING:** CLTV became available with Bitcoin Core 0.11.2, and should be fairly widely deployed at this time.
 
 ### Understand How CLTV Really Works
 
