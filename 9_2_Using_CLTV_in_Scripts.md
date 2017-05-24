@@ -4,10 +4,6 @@
 
 `OP_CHECKLOCKTIMEVERIFY` (or CLTV) is the natural complement to `nLockTime`. It moves the idea of locking transactions by an absolute time or blockheight into the realm of opcodes, allowing for the locking of individual UTXOs.
 
-## Differentiate nLockTime and CLTV
-
-Though nLockTime and CLTV are siblings, they work quite differently.
-
 ### Remember nLockTime
 
 Before digging into CLTV, we should first recall how `nLockTime` works.
@@ -19,7 +15,7 @@ As detailed in [§6.4: Sending a Transaction with a Locktime](6_4_Sending_a_Tran
 
 The transaction cannot be spent (or even put on the block chain) until either the blockheight or time is reached. In the meantime, the transaction can be cancelled by respending any of the UTXOs that make up the transaction.
 
-### Meet CLTV
+## Understand the CLTV Opcode
 
 `OP_CHECKLOCKTIMEVERIFY` works within the same paradigm of absolute blockheights or absolute UNIX times, but it runs as part of a Bitcoin Script. It reads one argument, which can be a blockheight or an absolute UNIX time. Through a somewhat convoluted methodology, it compares that argument to the current time. If it's too early, the script fails, but if the time condition has met, the script carries on. 
 
@@ -48,7 +44,7 @@ But we'll usually abtract it like this:
 
 > **VERSION WARNING:** CLTV became available with Bitcoin Core 0.11.2, and should be fairly widely deployed at this time.
 
-#### How CLTV Really Works
+### Understand How CLTV Really Works
 
 The above explanation is sufficient to use and understand CLTV. However, [BIP 65](https://github.com/bitcoin/bips/blob/master/bip-0065.mediawiki) lays out all the details.
 
@@ -63,7 +59,7 @@ So the first thing to note here is that `nLockTime` is still used with CLTV. To 
 
 This is managed through a clever understanding of how `nLockTime` works: a value for `nLockTime` must always be chosen that is less than or equal to the present time, so that the respending transaction can be put on the blockchain. However, due to CLTV's requirements, a value must also be chosen that is greater than or equal to CLTV's argument. The union of these two sets is 0 until the present time matches the CLTV argument. Afterward, any value can be chosen between CLTV's argument and the present time.
 
-## Write a CLTV
+## Write a CLTV Script
 
 `OP_CHECKLOCKTIMEVERIFY` includes an `OP_VERIFY`, which means that it will immediately halt the script if its verification does not succeed. It has one other quirk: unlike most "Verify" commands, it leaves what it's testing on the stack (just in case you want to make any other checks against the time). This means that an `OP_CHECKLOCKTIMEVERIFY` is usually followed by an `OP_DROP` to clear the stack.
 
@@ -72,7 +68,7 @@ The following simple locking script could be used to transform a P2PKH output to
 <NextYear> OP_CHECKLOCKTIMEVERIFY OP_DROP OP_DUP OP_HASH160 <pubKeyHash> OP_EQUALVERIFY OP_CHECKSIG
 ```
 
-### Encode a CLTV
+### Encode a CLTV Script
 
 Of course, as with any complex Bitcoin Scripts, this would actually be encoded in a P2SH script, as explained in [§8.1: Understanding the Foundation of P2SH](8_1_Understanding_the_Foundation_of_P2SH.md). 
 
@@ -94,7 +90,7 @@ $ bitcoin-cli -named decodescript hexstring=045C2A7B9Fb17576a914371c20fb2e989933
 }
 ```
 
-We're not going to continuously show how all Bitcoin Scripts are abstracted in P2SH transactions, but will instead offer these shorthands: we will describe the `redeemScript`, which would normally be serialized and hashed in a locking script and serialized in the unlocking script; and if we show an unlocking procedure, it will be the second round of validation, following the confirmation of the locking script hash.
+We're not going to continuously show how all Bitcoin Scripts are abstracted into P2SH transactions, but will instead offer these shorthands: when we describe a script, it will be a `redeemScript`, which would normally be serialized and hashed in a locking script and serialized in the unlocking script; and when we show an unlocking procedure, it will be the second round of validation, following the confirmation of the locking script hash.
 
 ## Spend a CLTV UTXO
 
