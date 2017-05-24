@@ -128,6 +128,8 @@ $ bitcoin-cli -named decodescript hexstring=52210307fd375ed7cced0f50723e3e1a97bb
   "p2sh": "2NAGfA4nW6nrZkD5je8tSiAcYB9xL2xYMCz"
 }
 ```
+It's especially helpful to check your work.
+
 Also consider the Python [Transaction Script Compiler](https://github.com/Kefkius/txsc), which translates back and forth.
 
 _If this is intimidating, don't worry about it; as we said, this will usually be done with an API. As we lay bare the foundation of P2SH Scripting, we're mostly explaining what those APIs will do._
