@@ -4,7 +4,7 @@
 
 `OP_CHECKLOCKTIMEVERIFY` (or CLTV) is the natural complement to `nLockTime`. It moves the idea of locking transactions by an absolute time or blockheight into the realm of opcodes, allowing for the locking of individual UTXOs.
 
-### Remember nLockTime
+## Remember nLockTime
 
 Before digging into CLTV, we should first recall how `nLockTime` works.
 
