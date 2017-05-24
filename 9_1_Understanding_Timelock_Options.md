@@ -13,7 +13,7 @@ In [§6.4: Sending a Transaction with a Locktime](6_4_Sending_a_Transaction_with
 3. **No Scripts.** The original, simple use of `nLockTime` didn't allow it to be used in Scripts.
 4. **No Protection.** `nLockTime` allows the funds to be spent with a different, non-locked transaction.
 
-The last item was often the dealbreaker for `nLockTime`. It prevented a transaction from being spent, but it didn't prevent the funds from being used.
+The last item was often the dealbreaker for `nLockTime`. It prevented a transaction from being spent, but it didn't prevent the funds from being used in a different transaction. So, it had uses, but they all depended on trust.
 
 ## Understand the Possibilities of Timelock Scripts
 
