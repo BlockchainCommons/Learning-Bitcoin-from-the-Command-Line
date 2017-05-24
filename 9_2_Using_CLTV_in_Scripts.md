@@ -101,6 +101,29 @@ In the case of the above example, the following unlocking script would suffice, 
 <signature> <pubKey>
 ```
 
+### Run a CLTV Script
+
+To run the Script, you would first concatenate the unlocking and locking scripts:
+```
+Script: <signature> <pubKey> <NextYear> OP_CHECKLOCKTIMEVERIFY OP_DROP OP_DUP OP_HASH160 <pubKeyHash> OP_EQUALVERIFY OP_CHECKSIG
+Stack: [ ]
+```
+The sthree constants would be pushed onto the stack:
+```
+Script: OP_CHECKLOCKTIMEVERIFY OP_DROP OP_DUP OP_HASH160 <pubKeyHash> OP_EQUALVERIFY OP_CHECKSIG
+Stack: [ <signature> <pubKey> <NextYear> ]
+```
+Then, `OP_CHECKLOCKTIMEVERIFY` would run. It finds something on the stack and verifies that `nSequence` isn't 0xffffffff. Finally, it compares `<NextYear>` with `nLockTime`. If they are both the same sort of representation and if `nLockTime ≥ <NextYear>`, then it successfully processes (else, it ends the script):
+```
+Script: OP_DROP OP_DUP OP_HASH160 <pubKeyHash> OP_EQUALVERIFY OP_CHECKSIG
+Stack: [ <signature> <pubKey> <NextYear> ]
+```
+Then, `OP_DROP` gets rid of that `<NextYear>` left around:
+```
+Script: OP_DUP OP_HASH160 <pubKeyHash> OP_EQUALVERIFY OP_CHECKSIG
+Stack: [ <signature> <pubKey> ]
+```
+Finally, the remainder of the script runs, which is a normal check of a signature and public key.
 ## Summary: Using CLTV in Scripts
 
 `OP-CHECKLOCKTIMEVERIFY` is a simple opcode that looks at a single arguments, interprets it as a blockheight or UNIX timestamp, and only continues with a UTXO's redemption if that blockheight or UNIX timestamp is in the past. Setting `nLockTime` on the new transaction is what allows Bitcoin to make this calculation.
