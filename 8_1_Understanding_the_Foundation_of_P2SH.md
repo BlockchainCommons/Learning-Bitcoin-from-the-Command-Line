@@ -78,6 +78,18 @@ You create hexcode by stepping through your locking script and turning each elem
 * Larger constants are translated into 0x01 to 0x4e (OP_PUSHDATA, including a specification of how many bytes to push)
 * Operators are translated to the matching byte for that opcode
 
+The constants are the most troublesome part. Often you'll need to translate decimals into hexidecimals. This can be done with the `printf` command:
+```
+$ decimal=1546288031
+$ hex=(printf '%x\n' $decimal)
+$ echo $hex
+5c2a7b9f
+```
+And you'll always need to know the size of your constants. You can just remember that every two hexidecimal characters is one byte. Or, you can use `echo -n` piped to `wc -c`, and divide that in two:
+```
+user1@blockstream:~$ echo -n $hex | wc -c
+8
+```
 #### Create the Hex Code: A Multisig Example
 
 It may be easier to understand this by taking an existing hexcode and translating it back to Bitcoin Script. For example, look at the `redeemScript` that you used [§6.1](6_1_Sending_a_Transaction_to_a_Multisig.md):
