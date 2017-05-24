@@ -8,7 +8,7 @@ If your Bitcoin transaction is stuck, and you're sender, you can resend it using
 
 ## Opt-In for RBF
 
-RBF is an opt-in Bitcoin feature. Transactions are only eligible for using RBF if they've been created with a special RBF flag. This is done by setting a UTXO's sequence number (which is typically set automatically), so that it's more than 0 and less than 0xffffffff-1 (4294967294).
+RBF is an opt-in Bitcoin feature. Transactions are only eligible for using RBF if they've been created with a special RBF flag. This is done by setting any of the transaction's UTXO sequence numbers (which are typically set automatically), so that it's more than 0 and less than 0xffffffff-1 (4294967294).
 
 This is accomplished simply  by adding a `sequence` variable to your UTXO inputs:
 ```
