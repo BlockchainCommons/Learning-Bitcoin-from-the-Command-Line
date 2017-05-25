@@ -75,21 +75,46 @@ You create hexcode by stepping through your locking script and turning each elem
 
 * The constants 1-16 are translated to 0x51 to 0x61 (OP_1 to OP_16)
 * The constant -1 is translate to 0x4f (OP_1NEGATE)
-* Larger constants are translated into 0x01 to 0x4e (OP_PUSHDATA, including a specification of how many bytes to push)
+* Other constants are preceded by 0x01 to 0x4e (OP_PUSHDATA, with the number specifying how many bytes to push)
+   * Integers (4 bytes or less) are translated into hex using little-endian signed-magnitude
+   * Larger constants remain big-endian
 * Operators are translated to the matching byte for that opcode
 
-The constants are the most troublesome part. Often you'll need to translate decimals into hexidecimals. This can be done with the `printf` command:
+#### Translating Integers
+
+The integers are the most troublesome part. 
+
+First, you should verify that your number falls between -2147483647 and 2147483647, the range of four-byte integers when the most significant byte is used for signing.
+
+Second, you need to translate the decimal value into hexidecimal and pad it out to an even number of digits. This can be done with the `printf` command:
 ```
-$ decimal=1546288031
-$ hex=(printf '%x\n' $decimal)
+$ integer=1546288031
+$ hex=$(printf '%08x\n' $integer | sed 's/^\(00\)*//')
 $ echo $hex
 5c2a7b9f
 ```
-And you'll always need to know the size of your constants. You can just remember that every two hexidecimal characters is one byte. Or, you can use `echo -n` piped to `wc -c`, and divide that in two:
+Third, you need to translate the hex from big-endian (least significant digital last) to little-endian (least significant digit first). You can do this with the `tac` command (or by hand if you prefer):
 ```
-user1@blockstream:~$ echo -n $hex | wc -c
-8
+$ lehex=$(echo $hex | tac -rs .. | echo "$(tr -d '\n')")
+$ echo $lehex
+9f7b2a5c
 ```
+In addition, you'll always need to know the size of your constants. You can just remember that every two hexidecimal characters is one byte. Or, you can use `echo -n` piped to `wc -c`, and divide that in two:
+```
+$ echo -n $lehex | wc -c | awk '{print $1/2}'
+4
+```
+With that whole rigamarole, you'd know that you could translate the integer 1546288031 into an `04` opcode (to push four bytes onto the stack) followed by 9f7b2a5c (the little-endian hex representation of 1546288031).
+
+If you instead had a negative number, you'd need to (1) do your cacluations on the absolute value of the number, then (2) add 0x80. For example, 9f7b2a5c, which is 1546288031, would become 9f7b2adc, which is -1546288031:
+```
+$ neglehex=$(printf '%x\n' $((0x$lehex | 0x80)))
+$ echo $neglehex
+9f7b2adc
+```
+
+_If this is intimidating, don't worry about it; as we said, this will usually be done with an API. As we lay bare the foundation of P2SH Scripting, we're mostly explaining what those APIs will do._
+
 #### Create the Hex Code: A Multisig Example
 
 It may be easier to understand this by taking an existing hexcode and translating it back to Bitcoin Script. For example, look at the `redeemScript` that you used [§6.1](6_1_Sending_a_Transaction_to_a_Multisig.md):
@@ -131,8 +156,6 @@ $ bitcoin-cli -named decodescript hexstring=52210307fd375ed7cced0f50723e3e1a97bb
 It's especially helpful to check your work.
 
 Also consider the Python [Transaction Script Compiler](https://github.com/Kefkius/txsc), which translates back and forth.
-
-_If this is intimidating, don't worry about it; as we said, this will usually be done with an API. As we lay bare the foundation of P2SH Scripting, we're mostly explaining what those APIs will do._
 
 #### Transform the Hex to Binary
 
@@ -181,3 +204,68 @@ When a UTXO is redeemed, it runs in two rounds of verification:
 Arbitrary Bitcoin Scripts are non-standard in Bitcoin. However, you can incorporate them into standard transactions by using the P2SH address type. You just hash your script as part of the locking script, then you reveal and run it as part of the unlocking script. As long as you can also satisfy the script, the UTXO can be spent. Mind you, this is all somewhat more theoretical than previous sections, because it isn't easy to create redeemScripts by hand, nor is it possible to incorporate them into transactions using `bitcoin-cli`. 
 
 _What is the power of P2SH?_ You already know the power of Bitcoin Script, which allows you to create more complex Smart Contracts of all sorts. P2SH is what actually unleashes that power by letting you include arbitrary Bitcoin Script in standard Bitcoin transactions.
+
+## Appendix: The Integer Conversion Script
+
+The following script collects the collect methodology for changing an integer to -2147483647 and 2147483647 to a little-endian signed-magnitude representation:
+```
+file: integer2lehex.sh
+#!/bin/bash
+
+if [ -z $1 ];
+then
+    echo "You must include an integer as an argument.";
+    exit;
+fi
+
+if (( $1 > "2147483647" )) || (( $1 < "-2147483647" ));
+then
+    echo "Your number ($1) may not be between -2147483647 and 2147483647";
+    exit;
+fi
+
+if [ $1 -lt 0 ];
+then
+    integer=$(echo $((-$1)));
+    negative=1;
+else
+    integer=$1;
+    negative=0;
+fi
+
+
+hex=$(printf '%08x\n' $integer | sed 's/^\(00\)*//');
+lehex=$(echo $hex | tac -rs .. | echo "$(tr -d '\n')");
+
+if [ "$negative" -eq "1" ];
+then
+   lehex=$(printf '%x\n' $((0x$lehex | 0x80)))
+fi
+
+
+size=$(echo -n $lehex | wc -c | awk '{print $1/2}');
+hexcodeprefix=$(printf '%02x\n' $size);
+
+echo "Integer: $1";
+echo "LE Hex: $lehex";
+echo "Length: $size bytes";
+echo "Hexcode: $hexcodeprefix$lehex";
+```
+Be sure the permissions on the script are right:
+```
+$ chmod 755 integer2lehex.sh
+```
+You can then run the script as follows:
+```
+$ ./integer2lehex.sh 1546288031
+Integer: 1546288031
+LE Hex: 9f7b2a5c
+Length: 4 bytes
+Hexcode: 049f7b2a5c
+
+$ ./integer2lehex.sh -1546288031
+Integer: -1546288031
+LE Hex: 9f7b2adc
+Length: 4 bytes
+Hexcode: 049f7b2adc
+```
