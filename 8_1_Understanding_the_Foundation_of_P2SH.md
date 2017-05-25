@@ -92,7 +92,12 @@ $ hex=$(printf '%08x\n' $integer | sed 's/^\(00\)*//')
 $ echo $hex
 5c2a7b9f
 ```
-Third, you need to translate the hex from big-endian (least significant byte last) to little-endian (least significant byte first). You can do this with the `tac` command (or by hand if you prefer):
+Third, you need to add a byte of `00` if the top digit is "8" or greater, so that it's not interpretted as a negative number.
+```
+$ hexfirst=$(echo $hex | cut -c1)
+$ [[ 0x$hexfirst -gt 0x7 ]] && hex="00"$hex
+```
+Fourth, you need to translate the hex from big-endian (least significant byte last) to little-endian (least significant byte first). You can do this with the `tac` command (or by hand if you prefer):
 ```
 $ lehex=$(echo $hex | tac -rs .. | echo "$(tr -d '\n')")
 $ echo $lehex
@@ -206,7 +211,7 @@ _What is the power of P2SH?_ You already know the power of Bitcoin Script, which
 
 ## Appendix: The Integer Conversion Script
 
-The following script collects the collect methodology for changing an integer to -2147483647 and 2147483647 to a little-endian signed-magnitude representation:
+The following script collects the complete methodology for changing an integer between -2147483647 and 2147483647 to a little-endian signed-magnitude representation:
 ```
 file: integer2lehex.sh
 #!/bin/bash
@@ -232,15 +237,17 @@ else
     negative=0;
 fi
 
-
 hex=$(printf '%08x\n' $integer | sed 's/^\(00\)*//');
+
+hexfirst=$(echo $hex | cut -c1)
+[[ 0x$hexfirst -gt 0x7 ]] && hex="00"$hex
+
 lehex=$(echo $hex | tac -rs .. | echo "$(tr -d '\n')");
 
 if [ "$negative" -eq "1" ];
 then
    lehex=$(printf '%x\n' $((0x$lehex | 0x80)))
 fi
-
 
 size=$(echo -n $lehex | wc -c | awk '{print $1/2}');
 hexcodeprefix=$(printf '%02x\n' $size);
