@@ -384,9 +384,18 @@ And that's also a good example of why you double-check your fees: we'd intended 
 
 For more JSON magic (and if any of this isn't clear), please read the [JSON Manual](https://stedolan.github.io/jq/manual/) and the [JSON Cookbook](https://github.com/stedolan/jq/wiki/Cookbook). We'll be regularly using JQ in future examples.
 
-### The Transaction Fee Script
+## Make Some New Aliases
 
-If you'd like to have this JQ in a script, you can use the following.
+JQ code can be a little unwieldly, so you should consider adding some longer and more interesting invocations to your ~/.bash_profile. 
+
+Any time you're looking through a large mass of information in a JSON object output by a `bitcoin-cli` command, consider writing an alias to strip it down to just what you want to see.
+```
+alias btcunspent="bitcoin-cli listunspent | jq -r '.[] | { txid: .txid, vout: .vout, amount: .amount }'"
+```
+
+## Appendix: The Transaction Fee Script
+
+The following script runs the "Fee Calculation" from the above example.
 
 > **WARNING:** This script has not been robustly checked. If you are going to use it to verify real transaction fees you should only do it as a triple-check after you've already done all the math yourself.
 
@@ -415,14 +424,8 @@ You can then run the script as follows:
 $ ./txfee-calc.sh $rawtxhex
 .255
 ```
-
-## Make Some New Aliases
-
-JQ code can be a little unwieldly, so you should consider adding some longer and more interesting invocations to your ~/.bash_profile. 
-
-Any time you're looking through a large mass of information in a JSON object output by a bitcoin-cli command, consider writing an alias to strip it down to just what you want to see.
+You may also want to create an alias:
 ```
-alias btcunspent="bitcoin-cli listunspent | jq -r '.[] | { txid: .txid, vout: .vout, amount: .amount }'"
 alias btctxfee="~/txfee-calc.sh"
 ```
 
