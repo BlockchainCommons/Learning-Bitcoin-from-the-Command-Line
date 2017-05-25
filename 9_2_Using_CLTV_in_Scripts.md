@@ -77,21 +77,21 @@ The following simple locking script could be used to transform a P2PKH output to
 
 Of course, as with any complex Bitcoin Scripts, this would actually be encoded in a P2SH script, as explained in [§8.1: Understanding the Foundation of P2SH](8_1_Understanding_the_Foundation_of_P2SH.md). 
 
-Assuming that <NextYear> were "1546288031" (hex: 0x5c2a7b9f) and <pubKeyHash> were "371c20fb2e9899338ce5e99908e64fd30b789313", this `redeemScript` would be built as:
+Assuming that `<NextYear>` were the integer "1546288031" (little-endian hex: 0x9f7b2a5c) and `<pubKeyHash>` were "371c20fb2e9899338ce5e99908e64fd30b789313", this `redeemScript` would be built as:
 ```
-OP_PUSHDATA (4 bytes) 0x5c2a7b9f OP_CHECKLOCKTIMEVERIFY OP_DROP OP_DUP OP_HASH160 OP_PUSHDATA (20 bytes) 0x371c20fb2e9899338ce5e99908e64fd30b789313 OP_EQUALVERIFY OP_CHECKSIG
+OP_PUSHDATA (4 bytes) 0x9f7b2a5c OP_CHECKLOCKTIMEVERIFY OP_DROP OP_DUP OP_HASH160 OP_PUSHDATA (20 bytes) 0x371c20fb2e9899338ce5e99908e64fd30b789313 OP_EQUALVERIFY OP_CHECKSIG
 ```
 Which translates into hex as:
 ```
-04 5C2A7B9F b1 75 76 a9 14 371c20fb2e9899338ce5e99908e64fd30b789313 88 ac
+04 9f7b2a5c b1 75 76 a9 14 371c20fb2e9899338ce5e99908e64fd30b789313 88 ac
 ```
 The `decodescript` RPC can make sure we got it right:
 ```
-$ bitcoin-cli -named decodescript hexstring=045C2A7B9Fb17576a914371c20fb2e9899338ce5e99908e64fd30b78931388ac
+$ bitcoin-cli -named decodescript hexstring=049f7b2a5cb17576a914371c20fb2e9899338ce5e99908e64fd30b78931388ac
 {
-  "asm": "-528165468 OP_CHECKLOCKTIMEVERIFY OP_DROP OP_DUP OP_HASH160 371c20fb2e9899338ce5e99908e64fd30b789313 OP_EQUALVERIFY OP_CHECKSIG",
+  "asm": "1546288031 OP_CHECKLOCKTIMEVERIFY OP_DROP OP_DUP OP_HASH160 371c20fb2e9899338ce5e99908e64fd30b789313 OP_EQUALVERIFY OP_CHECKSIG",
   "type": "nonstandard",
-  "p2sh": "2NEPS1idT9zVGm8WJbHMyGTSwAqLHbM9RPp"
+  "p2sh": "2MxANZMPo1b2jGaeKTv9rwcBEiXcXYCc3x9"
 }
 ```
 
@@ -129,6 +129,7 @@ Script: OP_DUP OP_HASH160 <pubKeyHash> OP_EQUALVERIFY OP_CHECKSIG
 Stack: [ <signature> <pubKey> ]
 ```
 Finally, the remainder of the script runs, which is a normal check of a signature and public key.
+
 ## Summary: Using CLTV in Scripts
 
 `OP-CHECKLOCKTIMEVERIFY` is a simple opcode that looks at a single arguments, interprets it as a blockheight or UNIX timestamp, and only continues with a UTXO's redemption if that blockheight or UNIX timestamp is in the past. Setting `nLockTime` on the new transaction is what allows Bitcoin to make this calculation.
