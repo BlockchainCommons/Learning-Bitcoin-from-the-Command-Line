@@ -11,6 +11,7 @@ To lock a transaction with this Script, do the following:
 1. Serialize `OP_ADD 99 OP_EQUAL`:
    1. OP_ADD = 0x93 — a simple opcode translation
    2. 99 = 0x01, 0x63 — this opcode pushes one byte onto the stack, 99 (hex: 0x63)
+      * No worries about endian conversion because it's only one byte
    3. OP_EQUAL = 0x87 — a simple opcode translation
    4. `<serialized99Equal>` = "93016387" 
 2. SHA-256 and RIPEMD-160 hash the serialized script.
