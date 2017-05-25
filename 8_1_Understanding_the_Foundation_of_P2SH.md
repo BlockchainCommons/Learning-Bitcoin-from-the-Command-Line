@@ -67,6 +67,8 @@ _Why are P2SH scripts limited to 520 bytes?_ As with many things in Bitcoin, the
 
 Serializing a locking script is a two-part process. First, you must turn it into hexcode, then you must transform that hex into binary.
 
+_If what follows looks intimidating, don't worry about it; this will usually be done with an API. As we lay bare the foundation of P2SH Scripting, we're mostly explaining what those APIs will do._
+
 #### Create the Hex Code
 
 Creating the hexcode that is necessary to serialize a script is both a simple translation and something that's complex enough that it goes beyond any shell script that you're likely to write. As with a few other aspects of P2SH scripts, it's something that you'll probably process through an API, not by hand.
@@ -92,7 +94,7 @@ $ hex=$(printf '%08x\n' $integer | sed 's/^\(00\)*//')
 $ echo $hex
 5c2a7b9f
 ```
-Third, you need to add a byte of `00` if the top digit is "8" or greater, so that it's not interpretted as a negative number.
+Third, you need to add a top byte of `00` if the top digit is "8" or greater, so that it's not interpretted as a negative number.
 ```
 $ hexfirst=$(echo $hex | cut -c1)
 $ [[ 0x$hexfirst -gt 0x7 ]] && hex="00"$hex
@@ -103,7 +105,7 @@ $ lehex=$(echo $hex | tac -rs .. | echo "$(tr -d '\n')")
 $ echo $lehex
 9f7b2a5c
 ```
-In addition, you'll always need to know the size of your constants. You can just remember that every two hexidecimal characters is one byte. Or, you can use `echo -n` piped to `wc -c`, and divide that in two:
+In addition, you'll always need to know the size of your integers. You can just remember that every two hexidecimal characters is one byte. Or, you can use `echo -n` piped to `wc -c`, and divide that in two:
 ```
 $ echo -n $lehex | wc -c | awk '{print $1/2}'
 4
@@ -116,8 +118,6 @@ $ neglehex=$(printf '%x\n' $((0x$lehex | 0x80)))
 $ echo $neglehex
 9f7b2adc
 ```
-
-_If this is intimidating, don't worry about it; as we said, this will usually be done with an API. As we lay bare the foundation of P2SH Scripting, we're mostly explaining what those APIs will do._
 
 #### Create the Hex Code: A Multisig Example
 
