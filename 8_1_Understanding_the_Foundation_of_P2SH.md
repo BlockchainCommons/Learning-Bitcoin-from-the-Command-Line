@@ -76,11 +76,10 @@ You create hexcode by stepping through your locking script and turning each elem
 * The constants 1-16 are translated to 0x51 to 0x61 (OP_1 to OP_16)
 * The constant -1 is translate to 0x4f (OP_1NEGATE)
 * Other constants are preceded by 0x01 to 0x4e (OP_PUSHDATA, with the number specifying how many bytes to push)
-   * Integers (4 bytes or less) are translated into hex using little-endian signed-magnitude
-   * Larger constants remain big-endian
+   * Integers are translated into hex using little-endian signed-magnitude notation
 * Operators are translated to the matching byte for that opcode
 
-#### Translating Integers
+##### Translating Integers
 
 The integers are the most troublesome part. 
 
@@ -106,7 +105,7 @@ $ echo -n $lehex | wc -c | awk '{print $1/2}'
 ```
 With that whole rigamarole, you'd know that you could translate the integer 1546288031 into an `04` opcode (to push four bytes onto the stack) followed by 9f7b2a5c (the little-endian hex representation of 1546288031).
 
-If you instead had a negative number, you'd need to (1) do your cacluations on the absolute value of the number, then (2) add 0x80. For example, 9f7b2a5c, which is 1546288031, would become 9f7b2adc, which is -1546288031:
+If you instead had a negative number, you'd need to (1) do your calculations on the absolute value of the number, then (2) bitwise-| 0x80. For example, 9f7b2a5c, which is 1546288031, would become 9f7b2adc, which is -1546288031:
 ```
 $ neglehex=$(printf '%x\n' $((0x$lehex | 0x80)))
 $ echo $neglehex
@@ -153,7 +152,7 @@ $ bitcoin-cli -named decodescript hexstring=52210307fd375ed7cced0f50723e3e1a97bb
   "p2sh": "2NAGfA4nW6nrZkD5je8tSiAcYB9xL2xYMCz"
 }
 ```
-It's especially helpful to check your work.
+It's especially helpful for checking your work.
 
 Also consider the Python [Transaction Script Compiler](https://github.com/Kefkius/txsc), which translates back and forth.
 
