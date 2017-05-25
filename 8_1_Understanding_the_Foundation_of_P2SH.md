@@ -92,7 +92,7 @@ $ hex=$(printf '%08x\n' $integer | sed 's/^\(00\)*//')
 $ echo $hex
 5c2a7b9f
 ```
-Third, you need to translate the hex from big-endian (least significant digital last) to little-endian (least significant digit first). You can do this with the `tac` command (or by hand if you prefer):
+Third, you need to translate the hex from big-endian (least significant byte last) to little-endian (least significant byte first). You can do this with the `tac` command (or by hand if you prefer):
 ```
 $ lehex=$(echo $hex | tac -rs .. | echo "$(tr -d '\n')")
 $ echo $lehex
@@ -105,7 +105,7 @@ $ echo -n $lehex | wc -c | awk '{print $1/2}'
 ```
 With that whole rigamarole, you'd know that you could translate the integer 1546288031 into an `04` opcode (to push four bytes onto the stack) followed by 9f7b2a5c (the little-endian hex representation of 1546288031).
 
-If you instead had a negative number, you'd need to (1) do your calculations on the absolute value of the number, then (2) bitwise-| 0x80. For example, 9f7b2a5c, which is 1546288031, would become 9f7b2adc, which is -1546288031:
+If you instead had a negative number, you'd need to (1) do your calculations on the absolute value of the number, then (2) bitwise-or 0x80. For example, 9f7b2a5c, which is 1546288031, would become 9f7b2adc, which is -1546288031:
 ```
 $ neglehex=$(printf '%x\n' $((0x$lehex | 0x80)))
 $ echo $neglehex
