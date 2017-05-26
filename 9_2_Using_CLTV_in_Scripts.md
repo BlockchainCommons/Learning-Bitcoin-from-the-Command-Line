@@ -62,7 +62,7 @@ In order for CLTV to verify, allowing continued execution of a Bitcoin Script, t
 
 So the first thing to note here is that `nLockTime` is still used with CLTV. To be precise, it's required in a transaction that tries to _respend_ a CLTV-timelocked UTXO. That means that it's not a part of the script's logic. It's just the timer that's used to release the funds, _as defined in the script_. 
 
-This is managed through a clever understanding of how `nLockTime` works: a value for `nLockTime` must always be chosen that is less than or equal to the present time, so that the respending transaction can be put on the blockchain. However, due to CLTV's requirements, a value must also be chosen that is greater than or equal to CLTV's argument. The union of these two sets is 0 until the present time matches the CLTV argument. Afterward, any value can be chosen between CLTV's argument and the present time.
+This is managed through a clever understanding of how `nLockTime` works: a value for `nLockTime` must always be chosen that is less than or equal to the present time (or blockheight), so that the respending transaction can be put on the blockchain. However, due to CLTV's requirements, a value must also be chosen that is greater than or equal to CLTV's argument. The union of these two sets is 0 until the present time matches the CLTV argument. Afterward, any value can be chosen between CLTV's argument and the present time.
 
 ## Write a CLTV Script
 
