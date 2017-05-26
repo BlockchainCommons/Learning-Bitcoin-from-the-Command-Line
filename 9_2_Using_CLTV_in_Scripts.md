@@ -31,22 +31,22 @@ This is how a `OP_CHECKLOCKTIMEVERIFY` might be used to check against May 24, 20
 ```
 But we'll usually depict this in an abstraction like this:
 ```
-<May24> OP_CHECKLOCKTIME VERIFY
+<May24> OP_CHECKLOCKTIMEVERIFY
 ```
 Or this:
 ```
-<AbsoluteTime> OP_CHECKLOCKTIME VERIFY
+<AbsoluteTime> OP_CHECKLOCKTIMEVERIFY
 ```
 
 ### Understand a CLTV Absolute Block Height
 
 This is how `OPCHECKLOCKTIMEVERIFY` might be used to check against a blockheight that was reached on May 24, 2017:
 ```
-467951 OP_CHECKLOCKTIME VERIFY
+467951 OP_CHECKLOCKTIMEVERIFY
 ```
 But we'll usually abtract it like this:
 ```
-<AbsoluteBlockHeight> OP_CHECKLOCKTIME VERIFY
+<AbsoluteBlockHeight> OP_CHECKLOCKTIMEVERIFY
 ```
 
 ### Understand How CLTV Really Works
