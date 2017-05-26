@@ -112,7 +112,7 @@ Also consider the Python [Transaction Script Compiler](https://github.com/Kefkiu
 
 ## Hash a Serialized Script
 
-After you've created a locking script and serialized a locking script, the third step in creating a P2SH transaction is to hash the loacking script. As we noted, a 20-byte OP_HASH160 hash is created through a combination of a SHA-256 hash and a RIPEMD-160 hash. Hashing a serialized script thus takes two commands: `openssl dgst -sha256 -binary` does the SHA-256 hash and outputs a binary to be sent through the pipe, then `openssl dgst -rmd160` takes that binary stream, does a RIPEMD-160 hash, and finally outputs a human-readable hexcode.
+After you've created a locking script and serialized a locking script, the third step in creating a P2SH transaction is to hash the locking script. As we noted, a 20-byte OP_HASH160 hash is created through a combination of a SHA-256 hash and a RIPEMD-160 hash. Hashing a serialized script thus takes two commands: `openssl dgst -sha256 -binary` does the SHA-256 hash and outputs a binary to be sent through the pipe, then `openssl dgst -rmd160` takes that binary stream, does a RIPEMD-160 hash, and finally outputs a human-readable hexcode.
 
 Here's the whole pipe, including the transformation of the hex to binary:
 ```
@@ -122,9 +122,9 @@ $ echo -n $redeemScript | xxd -r -p | openssl dgst -sha256 -binary | openssl dgs
 ```
 ## Create a P2SH Transaction
 
-Your P2SH locking script would now be `OP_HASH160 babf9063cee8ab6e9334f95f6d4e9148d0e551c2 OP_EQUAL`.
+Creating your 20-bit hash just gives you the contents of your locking script. You still need to put it together with the standard opcodes: `OP_HASH160 babf9063cee8ab6e9334f95f6d4e9148d0e551c2 OP_EQUAL`.
 
-Depending on your API, you might be able to enter this as an `asm`-style `scriptPubKey` for your transaction, or you might have to translate it to hex code as well. If you have to translate, it uses the same method, resulting in `a914babf9063cee8ab6e9334f95f6d4e9148d0e551c287`.
+Depending on your API, you might be able to enter this as an `asm`-style `scriptPubKey` for your transaction, or you might have to translate it to hex code as well. If you have to translate, use the same methods described above, resulting in `a914babf9063cee8ab6e9334f95f6d4e9148d0e551c287`.
 
 Note that the `hex scriptPubKey` for P2SH Script transaction will _always_ start with an `a914`, which is the `OP_HASH160` followed by an `OP_PUSHDATA` of 20 bytes (hex: 0x14); and it will _always_ end with a `87`, which is an `OP_EQUAL`. So all you have to do is put your hashed redeem script in between those numbers.
 
@@ -134,7 +134,7 @@ Actually creating the P2SH locking script dives further into the guts of Bitcoin
 
 ## Appendix: The Integer Conversion Script
 
-The following script collects the complete methodology for changing an integer between -2147483647 and 2147483647 to a little-endian signed-magnitude representation:
+The following script collects the complete methodology for changing an integer between -2147483647 and 2147483647 to a little-endian signed-magnitude representation in hex:
 ```
 file: integer2lehex.sh
 #!/bin/bash
