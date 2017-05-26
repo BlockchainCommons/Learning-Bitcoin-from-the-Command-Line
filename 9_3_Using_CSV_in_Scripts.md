@@ -59,9 +59,9 @@ Except pretty much no one does this. The new [BIP 68](https://github.com/bitcoin
 
 <center>
 |                  | Absolute Timelock | Relative Timelock |
-|:----------------:|-------------------|-------------------|
-| Lock Transaction | nTimeLock         | nSequence         |
-| Lock Output      | OP_CHECKLOCKTIMEVERIFY| OP_CHECKSEQUENCEVERIFY |
+|------------------|-------------------|-------------------|
+| **Lock Transaction** | nTimeLock         | nSequence         |
+| **Lock Output**      | OP_CHECKLOCKTIMEVERIFY| OP_CHECKSEQUENCEVERIFY |
 </center>
 
 ## Understand the CSV Opcode
