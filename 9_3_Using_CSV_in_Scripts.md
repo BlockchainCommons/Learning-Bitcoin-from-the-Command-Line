@@ -57,12 +57,10 @@ Issue the transaction, but it can't legally be mined until enough blocks or enou
 
 Except pretty much no one does this. The new [BIP 68](https://github.com/bitcoin/bips/blob/master/bip-0068.mediawiki) definitions for `nSequence` were incorporated into Bitcoin Core at the same time as [BIP 112](https://github.com/bitcoin/bips/blob/master/bip-0112.mediawiki) which describes the CSV opcode, which works with `nSequence`, just like the CLTV opcode works with `nTimeLock`. Just like CLTV, CSV offers increased capabilities. So almost all usage of relative timelocks has been with the CSV opcode, not with the raw `nSequence` value on its own.
 
-<center>
 |                  | Absolute Timelock | Relative Timelock |
-|------------------|-------------------|-------------------|
+|:------------------:|-------------------|-------------------|
 | **Lock Transaction** | nTimeLock         | nSequence         |
 | **Lock Output**      | OP_CHECKLOCKTIMEVERIFY| OP_CHECKSEQUENCEVERIFY |
-</center>
 
 ## Understand the CSV Opcode
 
