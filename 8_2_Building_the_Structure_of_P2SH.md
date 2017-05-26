@@ -116,7 +116,8 @@ After you've created a locking script and serialized a locking script, the third
 
 Here's the whole pipe, including the transformation of the hex to binary:
 ```
-$ echo -n "52210307fd375ed7cced0f50723e3e1a97bbe7ccff7318c815df4e99a59bc94dbcd819210367c4f666f18279009c941e57fab3e42653c6553e5ca092c104d1db279e328a2852ae" | xxd -r -p | openssl dgst -sha256 -binary | openssl dgst -rmd160
+$ redeemScript="52210307fd375ed7cced0f50723e3e1a97bbe7ccff7318c815df4e99a59bc94dbcd819210367c4f666f18279009c941e57fab3e42653c6553e5ca092c104d1db279e328a2852ae"
+$ echo -n $redeemScript | xxd -r -p | openssl dgst -sha256 -binary | openssl dgst -rmd160
 (stdin)= babf9063cee8ab6e9334f95f6d4e9148d0e551c2
 ```
 ## Create a P2SH Transaction
