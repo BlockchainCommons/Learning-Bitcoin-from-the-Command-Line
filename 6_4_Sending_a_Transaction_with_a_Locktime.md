@@ -99,6 +99,8 @@ $ bitcoin-cli -named decoderawtransaction hexstring=$rawtxhex
 ```
 Note that the sequence number (4294967294) is less than 0xffffffff. This is necessary signalling to show that the transaction includes a locktime. It's also done automatically by `bitcoin-cli`. If the sequence number is instead set to 0xffffffff, your locktime will be ignored.
 
+> **SEQUENCE NOTE (II):** This is the second use of the `nSequence` value in Bitcoin. As with RBF, `nSequence` is again an opt-in, here to the use of locktime. 0xffffffff-1 (4294967294) is the preferred value for signalling locktime because it purposefully disallows the use of both RBF (which requires `nSequence < 0xffffffff-1`) and relative timelock (which requires `nSequence < 0xf0000000`), the other two uses of the `nSequence` value. If you set `nSequence` lower than `0xf0000000`, then you will also relative timelock your transaction, which is probably not what you want.
+
 > **WARNING:** If you are creating a locktime raw transaction by some other means than `bitcoin-cli`, you will have to set the sequence to less than 0xffffffff by hand.
 
 ## Send Your Transaction
