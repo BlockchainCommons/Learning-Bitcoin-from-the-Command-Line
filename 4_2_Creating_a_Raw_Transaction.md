@@ -172,7 +172,9 @@ $ bitcoin-cli decoderawtransaction $rawtxhex
   ]
 }
 ```
-Check the vin. Are you spending the right transaction? Does it contain the expected amount of money? Check your vout. Are you sending the right amount? Is it going to the right address? Finally, do the math to make sure the money balances. Does the value of the UTXO minus the amount being spent equal the expected transaction fee?
+Check the `vin`. Are you spending the right transaction? Does it contain the expected amount of money? Check your vout. Are you sending the right amount? Is it going to the right address? Finally, do the math to make sure the money balances. Does the value of the UTXO minus the amount being spent equal the expected transaction fee?
+
+> **SEQUENCE NOTE (0):** You may note that each input has a sequence number, set here to  4294967295, which is 0xFFFFFFFF. This is the last frontier of Bitcoin transactions, because it's a standard field in transactions that was originally intended for a specific purpose, but was never fully implemented. So now there's this integer sitting around in transactions that could be repurposed for other uses. And, in fact, it has been. As of this writing there are three different uses for the variable that's called `nSequence` in the Bitcoin Core code: it enables RBF, `nLockTime`, and relative timelocks. If there's nothing weird going on, `nSequence` will be set to 4294967295. Setting it to a lower value signals that special stuff is going on.
 
 ### Sign the Raw Transaction
 
@@ -180,6 +182,7 @@ To date, your raw transaction is just something theoretical: you _could_ send it
 
 First, you need to sign your raw transaction:
 ```
+
 $ bitcoin-cli signrawtransaction $rawtxhex
 {
   "hex": "0100000001720e9d33eaf2b60e631c71bf59838f3a308ba4d1c394ba4e24f67162670598ee000000006b483045022100d8f17dadc2501596f75f2c90b8279130e588638d4f7a4f7d5ebb10fea15252f702200ceb164e81335c430893780d06cfe194c36acec26886f180408e3ac4a7d2292f0121035de6239e70523c8f392e32f98e65f6ef704c4b6b0df994e407212b839bf51048ffffffff01b04e7900000000001976a914e7c1345fc8f87c68170b3aa798a956c2fe6a9eff88ac00000000",
