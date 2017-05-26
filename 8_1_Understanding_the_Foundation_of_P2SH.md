@@ -55,138 +55,20 @@ Overall, just four steps are required:
 
 _What is OP_HASH160?_ The standard hash operation for Bitcoin performs a SHA-256 hash, then a RIPEMD-160 hash.
 
-Each of those steps of course takes some work on its own.
+Each of those steps of course takes some work on its own, and some of them can be pretty intricate. The good news is that you don't really have to worry about them, because they're sufficiently complex that you'll usually have an API take care of it all for you. 
 
-### Create a Locking Script
-
-This is the subject of chapters 7-10. You can use any of the Bitcoin Script methods described therein to create any sort of locking script, as long as the resultant serialized `redeemScript` is 520 bytes or less. 
-
-_Why are P2SH scripts limited to 520 bytes?_ As with many things in Bitcoin, the answer is backward compatibility: new functionality has to constantly be built within the old constraints of the system. Is this case, 520 bytes is the maximum that can be pushed onto the stack at once. Since the whole redeemScript is pushed onto the stack as part of the redemption process, it hits that limit.
-
-### Serialize a Locking Script
-
-Serializing a locking script is a two-part process. First, you must turn it into hexcode, then you must transform that hex into binary.
-
-_If what follows looks intimidating, don't worry about it; this will usually be done with an API. As we lay bare the foundation of P2SH Scripting, we're mostly explaining what those APIs will do._
-
-#### Create the Hex Code
-
-Creating the hexcode that is necessary to serialize a script is both a simple translation and something that's complex enough that it goes beyond any shell script that you're likely to write. As with a few other aspects of P2SH scripts, it's something that you'll probably process through an API, not by hand.
-
-You create hexcode by stepping through your locking script and turning each element into one-byte command, possibly followed by additional data, per the guide at the [Bitcoin Wiki Script page](https://en.bitcoin.it/wiki/Script):
-
-* The constants 1-16 are translated to 0x51 to 0x61 (OP_1 to OP_16)
-* The constant -1 is translate to 0x4f (OP_1NEGATE)
-* Other constants are preceded by 0x01 to 0x4e (OP_PUSHDATA, with the number specifying how many bytes to push)
-   * Integers are translated into hex using little-endian signed-magnitude notation
-* Operators are translated to the matching byte for that opcode
-
-##### Translating Integers
-
-The integers are the most troublesome part. 
-
-First, you should verify that your number falls between -2147483647 and 2147483647, the range of four-byte integers when the most significant byte is used for signing.
-
-Second, you need to translate the decimal value into hexidecimal and pad it out to an even number of digits. This can be done with the `printf` command:
-```
-$ integer=1546288031
-$ hex=$(printf '%08x\n' $integer | sed 's/^\(00\)*//')
-$ echo $hex
-5c2a7b9f
-```
-Third, you need to add a top byte of `00` if the top digit is "8" or greater, so that it's not interpretted as a negative number.
-```
-$ hexfirst=$(echo $hex | cut -c1)
-$ [[ 0x$hexfirst -gt 0x7 ]] && hex="00"$hex
-```
-Fourth, you need to translate the hex from big-endian (least significant byte last) to little-endian (least significant byte first). You can do this with the `tac` command (or by hand if you prefer):
-```
-$ lehex=$(echo $hex | tac -rs .. | echo "$(tr -d '\n')")
-$ echo $lehex
-9f7b2a5c
-```
-In addition, you'll always need to know the size of your integers. You can just remember that every two hexidecimal characters is one byte. Or, you can use `echo -n` piped to `wc -c`, and divide that in two:
-```
-$ echo -n $lehex | wc -c | awk '{print $1/2}'
-4
-```
-With that whole rigamarole, you'd know that you could translate the integer 1546288031 into an `04` opcode (to push four bytes onto the stack) followed by 9f7b2a5c (the little-endian hex representation of 1546288031).
-
-If you instead had a negative number, you'd need to (1) do your calculations on the absolute value of the number, then (2) bitwise-or 0x80. For example, 9f7b2a5c, which is 1546288031, would become 9f7b2adc, which is -1546288031:
-```
-$ neglehex=$(printf '%x\n' $((0x$lehex | 0x80)))
-$ echo $neglehex
-9f7b2adc
-```
-
-#### Create the Hex Code: A Multisig Example
-
-It may be easier to understand this by taking an existing hexcode and translating it back to Bitcoin Script. For example, look at the `redeemScript` that you used [§6.1](6_1_Sending_a_Transaction_to_a_Multisig.md):
-```
-52210307fd375ed7cced0f50723e3e1a97bbe7ccff7318c815df4e99a59bc94dbcd819210367c4f666f18279009c941e57fab3e42653c6553e5ca092c104d1db279e328a2852ae
-```
-You can translate this back to Script by hand using the [Bitcoin Wiki Script page](https://en.bitcoin.it/wiki/Script) as a reference. Just look at one byte (two hex characters) of data at a time, unless you're told to look at more by an OP_PUSHDATA command (0x01 to 0x4e).
-
-The whole Script will break apart as follows:
-```
-52 / 21 / 0307fd375ed7cced0f50723e3e1a97bbe7ccff7318c815df4e99a59bc94dbcd819 / 21 / 0367c4f666f18279009c941e57fab3e42653c6553e5ca092c104d1db279e328a28 / 52 / ae
-```
-Here's what the individual parts mean:
-
-* 0x52 = OP_2
-* 0x21 = OP_PUSHDATA 33 bytes (hex: 0x21)
-* 0x0307fd375ed7cced0f50723e3e1a97bbe7ccff7318c815df4e99a59bc94dbcd819 = the next 33 bytes (public-key hash)
-* 0x21 = OP_PUSHDATA 33 bytes (hex: 0x21)
-* 0x0367c4f666f18279009c941e57fab3e42653c6553e5ca092c104d1db279e328a28 = the next 33 bytes (public-key hash)
-* 0x52 = OP_2
-* 0xae = OP_CHECKMULTISIG
-
-In other words, that `redeemScript` was a translation of of "2 0307fd375ed7cced0f50723e3e1a97bbe7ccff7318c815df4e99a59bc94dbcd819 0367c4f666f18279009c941e57fab3e42653c6553e5ca092c104d1db279e328a28 2 OP_CHECKMULTISIG" 
-
-If you'd like a mechanical hand with this sort of translation in the future, you can use `bitcoin-cli decodescript`:
-```
-$ bitcoin-cli -named decodescript hexstring=52210307fd375ed7cced0f50723e3e1a97bbe7ccff7318c815df4e99a59bc94dbcd819210367c4f666f18279009c941e57fab3e42653c6553e5ca092c104d1db279e328a2852ae
-{
-  "asm": "2 0307fd375ed7cced0f50723e3e1a97bbe7ccff7318c815df4e99a59bc94dbcd819 0367c4f666f18279009c941e57fab3e42653c6553e5ca092c104d1db279e328a28 2 OP_CHECKMULTISIG",
-  "reqSigs": 2,
-  "type": "multisig",
-  "addresses": [
-    "mg7YqyvK8HUFvpgZ5iYTfZ5vjfaJWnNTd9", 
-    "mfduLxpR6Bq1ARctV2TauhetWwqnqH1vYS"
-  ],
-  "p2sh": "2NAGfA4nW6nrZkD5je8tSiAcYB9xL2xYMCz"
-}
-```
-It's especially helpful for checking your work.
-
-Also consider the Python [Transaction Script Compiler](https://github.com/Kefkius/txsc), which translates back and forth.
-
-#### Transform the Hex to Binary
-
-Once you've got hexcode, you can finish the serialization by turning it into binary. On the command line, this just requires a simple invocation of `xxd -r -p`, however you probably want to do that as part of a a single pipe that will also hash the script ...
-
-### Hash a Serialized Script
-
-As we noted, a 20-byte OP_HASH160 hash is created through a combination of a SHA-256 hash and a RIPEMD-160 hash. Hashing a serialized script thus takes two commands: `openssl dgst -sha256 -binary` does the SHA-256 hash and outputs a binary to be sent through the pipe, then `openssl dgst -rmd160` takes that binary stream, does a RIPEMD-160 hash, and finally outputs a human-readable hexcode.
-
-Here's the whole pipe:
-```
-$ echo -n "52210307fd375ed7cced0f50723e3e1a97bbe7ccff7318c815df4e99a59bc94dbcd819210367c4f666f18279009c941e57fab3e42653c6553e5ca092c104d1db279e328a2852ae" | xxd -r -p | openssl dgst -sha256 -binary | openssl dgst -rmd160
-(stdin)= babf9063cee8ab6e9334f95f6d4e9148d0e551c2
-```
+So for now, we'll just provide you with an overview, so that you understand the general methodology. In [§8.2: Building the Structure of P2SH](8_2_Building_the_Structure_of_P2SH.md) we'll provide a more in-depth look at script creation, in case you ever want to understand the guts of this process.
 
 ## Understand How to Send a P2SH Script Transaction
 
-So how do you actually send your P2SH transaction? That's unfortunately another place where you probably need an API, because `bitcoin-cli` doesn't provide any support for sending P2SH transactions.
-
-Again, however, the theory is very simple:
+So how do you actually send your P2SH transaction? Again, the theory is very simple:
 
 1. Embed your hash in a `OP_HASH160 <redeemScriptHash> OP_EQUAL` script.
-2. Translate that into hex, using the same method as above: `a914babf9063cee8ab6e9334f95f6d4e9148d0e551c287`.
+2. Translate that into hexcode.
 3. Use that hex as your `scriptPubKey`. 
 4. Create the rest of the transaction.
 
-Note that a P2SH Script transaction will _always_ start with an `a914`, which is the OP_HASH160 followed by an OP_PUSHDATA of 20 bytes (hex: 0x14); and it will _always_ end with a `87`, which is an OP_EQUAL. So all you have to do is put your hashed redeem script in between those numbers.
+Unfortunately, this is another place where you're going to need to fall back to APIs, in large part because `bitcoin-cli` doesn't provide any support for sending P2SH transactions.
 
 ## Understand How to Unlock a P2SH Script Transaction
 
@@ -200,6 +82,8 @@ When a UTXO is redeemed, it runs in two rounds of verification:
 2. If they match, then a second round of verification begins.
 3. Second, the redeemScript is run using the prior data that was pushed on the stack. 
 4. If that second round of verification _also_ succeeds, the UTXO is unlocked.
+
+Whereas you can't easily create a P2SH transaction, you should be able to easily redeem a P2SH transaction. In fact, you already have. The process is described in [§8.6: Spending a Transaction with a Bitcoin Script.md](8_6_Spending_a_Transaction_with_a_Bitcoin_Script.md) after we've finished all the intricacies of P2SH transaction creation.
 
 > **WARNING:** You can create a perfectly valid transaction with a hashed redeemScript, but if the redeemScript doesn't run, or doesn't run correctly, your funds are lost forever. So, test, test, test the script!
 
