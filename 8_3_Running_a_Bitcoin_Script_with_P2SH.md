@@ -1,4 +1,4 @@
-# 8.3: Building a Bitcoin Script with P2SH
+# 8.3: Running a Bitcoin Script with P2SH
 
 > **NOTE:** This is a draft in progress, so that I can get some feedback from early reviewers. It is not yet ready for learning.
 
