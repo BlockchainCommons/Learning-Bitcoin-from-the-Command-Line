@@ -10,7 +10,7 @@
 
 Every UTXO used in a transaction has an `nSequence` (or if you prefer `sequence`) value. It's been a prime tool for Bitcoin expansions as discussed previously in [§5.2: Resending a Transaction with RBF](5_2_Resending_a_Transaction_with_RBF.md) and [§6.4 Sending a Transaction with a Locktime.md](6_4_Sending_a_Transaction_with_a_Locktime.md), where it was used to signal RBF and `nLockTime`, respectively. However, there's one more use for `nSequence`, described by [BIP 68](https://github.com/bitcoin/bips/blob/master/bip-0068.mediawiki): you can use it to create a relative timelock on a transaction.
 
-A relative timelock is a lock that's placed on a specific input of a transaction and that's calculated in relation to the mining date of that UTXO. For example, if a UTXO was mined at block #468260 and a transaction was created where the input for that UTXO was given an `nSequence` of 100, then the new transaction could not be mined until at least block #468360.
+A relative timelock is a lock that's placed on a specific input of a transaction and that's calculated in relation to the mining date of the UTXO being used in th einput. For example, if a UTXO was mined at block #468260 and a transaction was created where the input for that UTXO was given an `nSequence` of 100, then the new transaction could not be mined until at least block #468360.
 
 Easy!
 
@@ -47,7 +47,7 @@ $ relativevalue=$(printf '%x\n' $((0x$hexvalue | 0x400000)))
 $ echo $relativevalue
 4224679
 ```
-If you convert that back you'll see that 4224679 = 10000000111011010100111. The 23rd digit is set to a "1" and the first 2 bytes, 0111011010100111, convert to 76A7 in hex or 30375 in decimal. Multiply that by 512 and you get 15.55 million seconds, which indeed is 180 days.
+If you convert that back you'll see that 4224679 = 10000000111011010100111. The 23rd digit is set to a "1"; meanwhile the first 2 bytes, 0111011010100111, convert to 76A7 in hex or 30375 in decimal. Multiply that by 512 and you get 15.55 million seconds, which indeed is 180 days.
 
 ## Create a Transaction with a Relative Timelock
 
@@ -64,9 +64,68 @@ Except pretty much no one does this. The new [BIP 68](https://github.com/bitcoin
 
 ## Understand the CSV Opcode
 
+`OP_SEQUENCEVERIFY` in Bitcoin Scripts works pretty much like `OP_LOCKTIMEVERIFY`. 
+
+You might require a UTXO be held for a hundred blocks past its mining:
+```
+100 OP_CHECKSEQUENCEVERIFY
+```
+Or your might make a more complex calculation to require that a UTXO be held for six months, in which case you'll end up with a more complex number:
+```
+4224679 OP_CHECKSEQUENCEVERIFY
+```
+In this case we'll probably use a shorthand:
+```
+<+6Months> OP_CHECKSEQUENCEVERIFY
+```
+
+> **WARNING:** Remember that your a relative time lock is a time span since the mining of the UTXO used as an input. It is _not_ a timespan after you create the transaction. If you use a UTXO that's already been confirmed a hundred times, and you place a relative timelock of 100 blocks on it, it will be eligible for mining immediately. Relative timelocks have some very specific uses, but they probably don't apply if your only goal is to determine some set time in the future.
+
 ### Understand How CSV Really Works
 
+CSV has many of the same subtleties in usage as CLTV:
+
+* The `nVersion` field must be set to 2 or more.
+* The `nSequence` field must be set to less than 0xf0000000.
+* There must be an operand on the stack that's between 0 and 0xf0000000-1.
+* Both the stack operand and `nSequence` must have the same value on the 23rd bit.
+* The `nSequence` must be greater than or equal to the stack operand.
+
+Just as with CLTV, when you are respending a UTXO with a CSV in its locking conditions, you must set the `nSequence` to enable the transaction. You'll usually set it to the number of blocks or the converted value of seconds since the UTXO was mined, as appropriate. 
+
 ## Write a CSV Script
+
+Just like `OP_CHECKLOCKTIMEVERIFY`, `OP_CHECKSEQUENCEVERIFY` includes an implicit `OP_VERIFY` and leaves its arguments on the stack, requiring an `OP_DROP` when you're all done.
+
+A script that would lock funds until six months had passed following the mining of the input, and that would then require a standard P2PKH-style signature would look as follows:
+```
+<+6Months> OP_CHECKSEQUENCEVERIFY OP_DROP OP_DUP OP_HASH160 <pubKeyHash> OP_EQUALVERIFY OP_CHECKSIG
+```
+
+### Encode a CLTV Script
+
+When you encode a CLTV script, be careful how you encode the integer value for the relative locktime. It should be passed as a 3-byte integer, which means that you're ignoring the top byte which could inactivate the relative locktime. Since it's an integer, be sure you convert it to little-endian.
+
+This can be done with the `integer2lehex.sh` shell script from the previous chapter.
+
+For a relative time of 100 blocks:
+```
+$ ./integer2lehex.sh 100
+Integer: 100
+LE Hex: 64
+Length: 1 bytes
+Hexcode: 0164
+```
+Though that should be padded out to `000064`, requiring a code of `030164`.
+
+For a relative time of 6 months:
+```
+$ ./integer2lehex.sh 4224679
+Integer: 4224679
+LE Hex: a77640
+Length: 3 bytes
+Hexcode: 03a77640
+```
 
 ## Spend a CSV UTXO
 
