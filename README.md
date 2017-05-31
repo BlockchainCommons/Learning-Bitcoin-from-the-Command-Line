@@ -64,27 +64,18 @@ This tutorial assumes that you have some minimal background of how to use the co
   * [8.5: Testing a Bitcoin Script](8_5_Testing_a_Bitcoin_Script.md)
   * [8.6: Spending a Transaction with a Bitcoin Script](8_6_Spending_a_Transaction_with_a_Bitcoin_Script.md) — Awaiting API Work
 * [9.0: Empowering Timelock with Bitcoin Scripts](9_0_Empowering_Timelock_with_Bitcoin_Scripts.md)
-  * [9.1: Understanding Timelock Options](9_1_Understanding_Timelock_Options.md) — Needs Edit
-  * [9.2: Using CLTV in Scripts](9_2_Using_CLTV_in_Scripts.md) — Needs Edit
-  * [9.3: Using CSV in Scripts](9_3_Using_CSV_in_Scripts.md) — Needs Edit
-
+  * [9.1: Understanding Timelock Options](9_1_Understanding_Timelock_Options.md)
+  * [9.2: Using CLTV in Scripts](9_2_Using_CLTV_in_Scripts.md)
+  * [9.3: Using CSV in Scripts](9_3_Using_CSV_in_Scripts.md)
+* [10.0: Expanding Bitcoin Transactions with Scripts[(10_0_Expanding_Bitcoin_Transactions_with_Scripts.md) — Pending
+   * [10.1: Understanding Script Conditional](10_1_Understanding_Conditional_Options.md) — Pending
+   * [10.2: Understanding Other Script Commands](10_2_Understanding_Other_Script_Commands.md) — Pending
+   * [10.3: Writing Puzzles Scripts](10_3_Writing_Puzzle_Scripts.md) — Pending
+   * [10.4: Writing Complex Multisig Scripts](10_4_Writing_Complex_Multisig_Scripts](10_4_Writing_Complex_Multisig_Scripts.md) — Pending
+   * [10.5: Empowering Bitcoin with Scripts](10_5_Empowering_Bitcoin_with_Scripts.md) — Pending
+   
 ## Planned Future Work
 
-* 10.0: Expanding Bitcoin Transactions with Scripts
-   * 10.X: Understanding Conditions in Scripts
-      * Verify
-      * If
-         * DOn't know inputs (in unlocking!)
-   * 10.X: Easy Examples
-   https://medium.com/@alcio/non-standard-p2sh-scripts-508fa6292df5
-      * Bounties: https://bitcointalk.org/index.php?topic=293382.0
-   * 10.X: Scripting Multigs by Hand
-      * Complex 1 or 1 OR 2 of 3 [corporation]
-      * Escrow: 2 of 3 (A | B | E); then 2 of 2 (AE) OR 2 of 2 (BE); then 2 of 2 (AE) OR 2 of 2 (BE) OR 2 of 2 after time-delay (AB)
-   * 10.X: Programming Complex Scripts
-      * BIP 112: Lightning
-      * Peg-in Chains?
-      
 ** PART FOUR: BITCOIN APIS **
 
 * 11.0: Talking to Bitcoind
@@ -104,14 +95,16 @@ This tutorial assumes that you have some minimal background of how to use the co
    * 14.2: Testing with Regtest
    * 14.3: Mining with Regtest
    
-<hr>
-This is probably all a future section on Elements.
+** PART SIX: ELEMENTS **
 
-* X.0: Introducing SegWit
-   * X.X Scripting a Pay to Witness
+_This is still a bit in the future, but will likely include:_
    
 * X.0: Introducing Elements
+* X.0: Introducing SegWit
+   * X.X Scripting a Pay to Witness
 * X.0: Individual Elements
+
+** APPENDICES **
 
 * Appendix: Compiling Bitcoin
    
