@@ -2,7 +2,7 @@
 
 > **NOTE:** This is a draft in progress, so that I can get some feedback from early reviewers. It is not yet ready for learning.
 
-Now that you know the theory behind P2SH addresses, you're ready to turn a non-standard Bitcoin Script into an actual transaction. We'll be doing so with our simple locking script from [§7.2: Running a Bitcoin Script](7_2_Running_a_Bitcoin_Script.md), `OP_ADD 99 OP_EQUAL`.
+Now that you know the theory and practice behind P2SH addresses, you're ready to turn a non-standard Bitcoin Script into an actual transaction. We'll be reusing the simple locking script from [§7.2: Running a Bitcoin Script](7_2_Running_a_Bitcoin_Script.md), `OP_ADD 99 OP_EQUAL`.
 
 ## Create a P2SH Transaction
 
@@ -14,14 +14,14 @@ To lock a transaction with this Script, do the following:
       * No worries about endian conversion because it's only one byte
    3. OP_EQUAL = 0x87 — a simple opcode translation
    4. `<serialized99Equal>` = "93016387" 
-2. SHA-256 and RIPEMD-160 hash the serialized script.
-   1. `<hashed99Equal>` = "3f58b4f7b14847a9083694b9b3b52a4cea2569ed"
-3. Save `<serialized99Equal>` for future reference as the `redeemScript`.
+2. Save `<serialized99Equal>` for future reference as the `redeemScript`.
    1. `<redeemScript>` = "93016387"
+3. SHA-256 and RIPEMD-160 hash the serialized script.
+   1. `<hashed99Equal>` = "3f58b4f7b14847a9083694b9b3b52a4cea2569ed"
 4. Produce a P2SH locking script that includes the `<hashed99Equal>`.
    1. `scriptPubKey` = "a9143f58b4f7b14847a9083694b9b3b52a4cea2569ed87"
 
-You can then create a transaction using that `scriptPubKey`, probably via an API.
+You can then create a transaction using this `scriptPubKey`, probably via an API.
 
 ## Unlock the P2SH Transaction
 
