@@ -2,7 +2,7 @@
 
 > **NOTE:** This is a draft in progress, so that I can get some feedback from early reviewers. It is not yet ready for learning.
 
-The foundation of Bitcoin is the ability to protect the transactions, something that's done with a simple scripting language.
+The foundation of Bitcoin is the ability to protect transactions, something that's done with a simple scripting language.
 
 ## Know the Parts of the Cryptographic Puzzle
 
@@ -10,12 +10,12 @@ As described in [Chapter 1](1_0_Introducing_Bitcoin.md), the funds in each Bitco
 
 _What is Bitcoin Script?_ Bitcoin Script is a stack-based Forth-like language that purposefully avoids loops and so is not Turing-complete. It's made up of individual opcodes. Every single transaction in Bitcoin is locked with a Bitcoin Script; when the locking transaction for a UTXO is run with the correct inputs, that UTXO can then be spent.
 
-The fact that transactions are locked with scripts means that they can be unlocked in a variety of different ways. In fact, we've met a number of different unlocking mechanisms to date, each of which incorporates different opcodes:
+The fact that transactions are locked with scripts means that they can be locked in a variety of different ways, requiring a variety of different keys. In fact, we've met a number of different locking mechanisms to date, each of which used different opcodes:
 
-   * OP_CHECKSIG, which checks a public key against a signature is the basis of a P2PKH address, as will be fully detailed in [§7.3: Scripting a P2PKH](7_3_Scripting_a_P2PKH.md).
-   * OP_CHECKMULTISIG similarly checks multisigs, as will be fully detailed in [§8.2: Scripting a Multisig](8_2_Scripting_a_Multisig.md).
-   * OP_CHECKLOCKTIMEVERIFY and OP_SEQUENCEVERIFY form the basis of more complex Timelocks, as will be fully detailed in Chapter 9.
-   * OP_RETURN is the mark of an unspendable transaction, which is why it's used to carry data.
+   * OP_CHECKSIG, which checks a public key against a signature, is the basis of a P2PKH address, as will be fully detailed in [§7.3: Scripting a P2PKH](7_3_Scripting_a_P2PKH.md).
+   * OP_CHECKMULTISIG similarly checks multisigs, as will be fully detailed in [§8.4: Scripting a Multisig](8_4_Scripting_a_Multisig.md).
+   * OP_CHECKLOCKTIMEVERIFY and OP_SEQUENCEVERIFY form the basis of more complex Timelocks, as will be fully detailed in [§9.2: Using CLTV in Scripts](9_2_Using_CLTV_in_Scripts) and [§9.3: Using CSV in Scripts](9_3_Using_CSV_in_Scripts.md).
+   * OP_RETURN is the mark of an unspendable transaction, which is why it's used to carry data, as was alluded to in [§6.5: Sending a Transaction with Data](6_5_Sending_a_Transaction_with_Data.md).
 
 ## Access Scripts In Your Transactions
 
@@ -89,7 +89,7 @@ Take a look at the `asm` of the unlocking script and you'll get your first look 
 ```
 "3045022100c4ef5b531061a184404e84ab46beee94e51e8ae15ce98d2f3e10ae7774772ffd02203c546c399c4dc1d6eea692f73bb3fff490ea2e98fe300ac6a11840c7d52b6166[ALL] 0319cd3f2485e3d47552617b03c693b7f92916ac374644e22b07420c8812501cfb"
 ```
-As it happens, that mess of numbers is a private-key signature followed by the associated public key. Or at least hopefully that's what it is, because that's what's required to unlock the P2PKH UTXO that this transaction is using.
+As it happens, that mess of numbers is a private-key signature followed by the associated public key. Or at least that's hopefully what it is, because that's what's required to unlock the P2PKH UTXO that this transaction is using.
 
 Read the locking script and you'll see it's a lot more obvious:
 ```
@@ -101,7 +101,7 @@ That is the standard method in Bitcoin Script for locking a P2PKH transaction.
 
 ## Examine a Different Sort of Transaction
 
-Before we leave this foundation behind, however, we're going to look at a different type of locking script. Here's the `scriptPubKey` from the multisig transaction that you created in [§6.1: Sending a Transaction with a Multisig](6_1_Sending_a_Transaction_to_a_Multisig.md).
+Before we leave this foundation behind, we're going to look at a different type of locking script. Here's the `scriptPubKey` from the multisig transaction that you created in [§6.1: Sending a Transaction with a Multisig](6_1_Sending_a_Transaction_to_a_Multisig.md).
 ```
       "scriptPubKey": {
         "asm": "OP_HASH160 babf9063cee8ab6e9334f95f6d4e9148d0e551c2 OP_EQUAL",
