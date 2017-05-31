@@ -4,15 +4,15 @@
 
 > **NOTE:** This is a draft in progress, so that I can get some feedback from early reviewers. It is not yet ready for learning.
 
-Bitcoin Scripting allows for considerable additional control over Bitcoin transactions, but it's also somewhat dangerous. As long as you produce a legal P2SH lock, your transaction will be accepted ... but that's no guarantee that the associated Bitcoin Script with either run or produce a `True` result. So, you need to thoroughly test before you put your money into that script.
+Bitcoin Scripting allows for considerable additional control over Bitcoin transactions, but it's also somewhat dangerous. As long as you produce a legal P2SH lock, your transaction will be accepted ... but that's no guarantee that the associated Bitcoin Script with either run or produce a `True` result. So, you need to thoroughly test your Scripts before you put your money into that script.
 
 ## Test a Script Online
 
-Web simulators seem like they should be a great option for Bitcoin Script testing. Unfortunately, at the time of this writing, online simulators are few, and the ones that exist are almost fatally buggy. A few are included here mainly for completeness sake: because they used to work pretty well and perhaps might again. Someday. For now, they're not particularly recommended though.
+Web simulators seem like they should be a great option for Bitcoin Script testing. Unfortunately, at the time of this writing, online simulators are few, and the ones that exist are almost fatally buggy and also out-of-date for recent features such as CSV. A few are included here mainly for completeness sake: because they used to work pretty well and perhaps might again. Someday. For now, they're not particularly recommended though.
 
 ### The Script Playground
 
-Charlie Marsh has built an excellent [Script Playground](http://www.crmarsh.com/script-playground/). Just put together your unlocking script and your locking script and run them. The Playground will play an `OP_VERIFY` at the end, and tell you with a green checkmark or a red X whether the transaction was unlocked or not.
+Charlie Marsh has built an extensive [Script Playground](http://www.crmarsh.com/script-playground/). Just put together your unlocking script and your locking script and run them. The Playground will play an `OP_VERIFY` at the end, and tell you with a green checkmark or a red X whether the transaction was unlocked or not.
 
 Type in the test from [§7.2: Running a Bitcoin Script.md](7_2_Running_a_Bitcoin_Script.md) of `1 98 OP_ADD 99 OP_EQUAL` and watch it verify; change it to `1 97 OP_ADD 99 OP_EQUAL` and see it fail.
 
@@ -22,7 +22,7 @@ If you prefer, you can grab the [JavaScript code](https://github.com/crm416/scri
 
 _Signature Problems._ To really test Scripts you need to be able to verify hashes and signatures. The Playground tried to make that easy with buttons that can be used to cut-and-paste public keys and signatures, but they haven't kept up with Flash security upgrades and no longer work reliably. This makes any testing extremely cumbersome, as you have to dump addresses, public keys, and private keys from `bitcoin-cli`. Signing is simplified by just checking the signature of a nonce of "Secure", but given that `bitcoin-cli` produces a base64 signature instead of a hex signature, you're deep in the weeds. As a result of all of this, unless you're deeply comfortable with Bitcoin signatures, you're unlikely to be able to use Script Playground for anything but tests of flow control.
 
-_Number Problems_. The Script Playground doesn't recognize numbers of 100 or more.
+_Number Problems_. The Script Playground doesn't recognize integers of 100 or more.
 
 _If the signature buttons worked right, the Playground would be great, but until that happens, it's not very useful._
 
@@ -38,7 +38,7 @@ _Visual Problems._ The stack is upside down.
 
 _Signature Problems._ Allegedly, all signatures are assumed valid if a scripthash is not provided. This does not seem to be the case. Given that you're not signing actual transactions, and there's no discussion of how to sign a nonce, it's unclear how this even would work — again majorly impacting the utility of this site.
 
-_Number Problems_. The BTC debugger doesn't recognize numbers of 17 or more. This is not unusual, as 1 to 16 become OP_1 to OP_16, but beyond that requires an OP_PUSHDATA. However, if you're not insulated from this sort of complexity, you might as well be translating to hexcode yourself.
+_Number Problems_. The BTC debugger doesn't recognize integers of 17 or more. This is not unusual, as 1 to 16 translate to OP_1 to OP_16, while going beyond that requires an OP_PUSHDATA. However, if you're not insulated from this sort of complexity, you might as well be translating to hexcode yourself.
 
 _If signatures were indeed considered valid, this would be a great resource, but between that not working and having to annoyingly type in code as a URL, this is another online script tester that's barely usable currently. The one saving grace is that real transactions can be examined, down to the Bitcoin script ... but the site hasn't been recording new transactions since December 2016.
 
