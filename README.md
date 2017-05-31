@@ -71,7 +71,7 @@ This tutorial assumes that you have some minimal background of how to use the co
    * [10.1: Understanding Script Conditional](10_1_Understanding_Conditional_Options.md) — Pending
    * [10.2: Understanding Other Script Commands](10_2_Understanding_Other_Script_Commands.md) — Pending
    * [10.3: Writing Puzzles Scripts](10_3_Writing_Puzzle_Scripts.md) — Pending
-   * [10.4: Writing Complex Multisig Scripts](10_4_Writing_Complex_Multisig_Scripts](10_4_Writing_Complex_Multisig_Scripts.md) — Pending
+   * [10.4: Writing Complex Multisig Scripts](10_4_Writing_Complex_Multisig_Scripts.md) — Pending
    * [10.5: Empowering Bitcoin with Scripts](10_5_Empowering_Bitcoin_with_Scripts.md) — Pending
    
 ## Planned Future Work
