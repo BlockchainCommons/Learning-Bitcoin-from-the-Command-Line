@@ -1,6 +1,6 @@
 # Chapter 9: Empowering Timelock with Bitcoin Scripts
 
-The `nLockTime` argument from [§6.4](6_4_Sending_a_Transaction_with_a_Locktime.md) was just the beginning of Timelocks. When you start writing Bitcoin Scripts, two other options are available.
+The `nLockTime` feature from [§6.4](6_4_Sending_a_Transaction_with_a_Locktime.md) was just the beginning of Timelocks. When you start writing Bitcoin Scripts, two timelocking opcodes become available.
 
 ## Objectives for This Chapter
 
