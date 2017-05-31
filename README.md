@@ -56,12 +56,12 @@ This tutorial assumes that you have some minimal background of how to use the co
   * [7.1: Understanding the Foundation of Transactions](7_1_Understanding_the_Foundation_of_Transactions.md)
   * [7.2: Running a Bitcoin Script](7_2_Running_a_Bitcoin_Script.md)
   * [7.3: Scripting a P2PKH](7_3_Scripting_a_P2PKH.md)
-* [8.0: Embedding Bitcoin Scripts in P2SH Transactions](8_0_Embedding_Bitcoin_Scripts_in_P2SH_Transactions.md) — Needs Edit
-  * [8.1: Understanding the Foundation of P2SH](8_1_Understanding_the_Foundation_of_P2SH.md) — Needs Edit
-  * [8.2: Building the Structure of P2SH](8_2_Building_the_Structure_of_P2SH.md)   — Needs Edit
-  * [8.3: Running a Bitcoin Script with P2SH](8_3_Running_a_Bitcoin_Script_with_P2SH.md) — Needs Edit
-  * [8.4: Scripting a Multisig](8_4_Scripting_a_Multisig.md) — Needs Edit
-  * [8.5: Testing a Bitcoin Script](8_5_Testing_a_Bitcoin_Script.md) — Needs Edit
+* [8.0: Embedding Bitcoin Scripts in P2SH Transactions](8_0_Embedding_Bitcoin_Scripts_in_P2SH_Transactions.md)
+  * [8.1: Understanding the Foundation of P2SH](8_1_Understanding_the_Foundation_of_P2SH.md)
+  * [8.2: Building the Structure of P2SH](8_2_Building_the_Structure_of_P2SH.md)
+  * [8.3: Running a Bitcoin Script with P2SH](8_3_Running_a_Bitcoin_Script_with_P2SH.md)
+  * [8.4: Scripting a Multisig](8_4_Scripting_a_Multisig.md)
+  * [8.5: Testing a Bitcoin Script](8_5_Testing_a_Bitcoin_Script.md)
   * [8.6: Spending a Transaction with a Bitcoin Script](8_6_Spending_a_Transaction_with_a_Bitcoin_Script.md) — Awaiting API Work
 * [9.0: Empowering Timelock with Bitcoin Scripts](9_0_Empowering_Timelock_with_Bitcoin_Scripts.md)
   * [9.1: Understanding Timelock Options](9_1_Understanding_Timelock_Options.md) — Needs Edit
