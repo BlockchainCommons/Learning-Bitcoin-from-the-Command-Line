@@ -8,11 +8,11 @@ Before we close out this overview of P2SH transactions, we're going to touch upo
 
 ## Use the Redeem Script
 
-As we saw in [§6.2: Spending a Transaction to a Multisig](6_2_Spending_a_Transaction_to_a_Multisig.md), spending a P2SH transaction is all about saving that serialized version of the locking script, the so-called _redeemScript_. So, the first step to being able to spend a P2SH transaction is making sure that you save the _redeemScript_ before you give out the P2SH address to everyone. 
+As we saw in [§6.2: Spending a Transaction to a Multisig](6_2_Spending_a_Transaction_to_a_Multisig.md), spending a P2SH transaction is all about having that serialized version of the locking script, the so-called _redeemScript_. So, the first step in being able to spend a P2SH transaction is making sure that you save the _redeemScript_ before you give out the P2SH address to everyone. 
 
 ### Collect Your Variables
 
-Because P2SH addresses aren't integrated into `bitcoin-cli` there will be no short-cuts like you saw in [§6.3: Sending an Automated Multisig](6_3_Sending_an_Automated_Multisig.md). You're going to need to collect all the more complex variables on your own!
+Because P2SH addresses aren't integrated into `bitcoin-cli` there will be no short-cuts for P2SH spending like you saw in [§6.3: Sending an Automated Multisig](6_3_Sending_an_Automated_Multisig.md). You're going to need to collect all the more complex variables on your own!
 
 [[PENDING]]
 
