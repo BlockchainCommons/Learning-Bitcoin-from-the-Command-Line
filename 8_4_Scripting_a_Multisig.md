@@ -2,13 +2,11 @@
 
 > **NOTE:** This is a draft in progress, so that I can get some feedback from early reviewers. It is not yet ready for learning.
 
-Before we close out this intro to P2SH scripting, it's worth examining an even more notable example. Ever since [§6.1: Sending a Transaction to a Multisig](6_1_Sending_a_Transaction_to_a_Multisig.md), we've been casually saying that the `bitcoin-cli` interface wraps its multisig transaction in a P2SH transaction. In fact, this is the standard methodology for creating multisigs on the Blockchain. Here's how that works, in depth.
+Before we close out this intro to P2SH scripting, it's worth examining a more realistic example. Ever since [§6.1: Sending a Transaction to a Multisig](6_1_Sending_a_Transaction_to_a_Multisig.md), we've been casually saying that the `bitcoin-cli` interface wraps its multisig transaction in a P2SH transaction. In fact, this is the standard methodology for creating multisigs on the Blockchain. Here's how that works, in depth.
 
 ## Understand the Multisig Code
 
-Multisig transactions are created in Bitcoin using the `OP_CHECKMULTISIG` code. 
-
-`OP_CHECKMULTISIG` expects a long string of arguments that looks like this: `0 ... sigs ... <m> ... addresses ... <n> OP_CHECKMULTISIG`. When `OP_CHECKMULTISIG` is run, it does the following:
+Multisig transactions are created in Bitcoin using the `OP_CHECKMULTISIG` code. `OP_CHECKMULTISIG` expects a long string of arguments that looks like this: `0 ... sigs ... <m> ... addresses ... <n> OP_CHECKMULTISIG`. When `OP_CHECKMULTISIG` is run, it does the following:
 
 1. Pop the first value from the stack (`<n>`).
 2. Pop "n" values from the stack as Bitcoin addresses (hashed public keys).
@@ -30,11 +28,11 @@ As discussed in [§8.1: Building a Bitcoin Script with P2SH](8_1_Building_a_Bitc
 
 As an example, we will revisit the multisig created in [§6.1](6_1_Sending_a_Transaction_to_a_Multisig.md) one final time and build a new locking script for it using this methodology. As you may recall, that was a 2-of-2 multisig built from `$address1` and `$address2`. 
 
-An `OP_CHECKMULTISIG` locking script requires the "m" (`2`), the addresses, and the "n" (`2`). You can write the following `scriptPubKey`:
+As as `OP_CHECKMULTISIG` locking script requires the "m" (`2`), the addresses, and the "n" (`2`), you could write the following `scriptPubKey`:
 ```
 2 $address1 $address2 2 OP_CHECKMULTISIG
 ```
-If this looks familiar, that's because it's the multisig that you deserialized in [§8.1](8_1_Building_a_Bitcoin_Script_with_P2SH.md).
+If this looks familiar, that's because it's the multisig that you deserialized in [§8.2: Building the Structure of P2SH](8_2_Building_the_Structure_of_P2SH.md).
 ```
 2 0307fd375ed7cced0f50723e3e1a97bbe7ccff7318c815df4e99a59bc94dbcd819 0367c4f666f18279009c941e57fab3e42653c6553e5ca092c104d1db279e328a28 2 OP_CHECKMULTISIG
 ```
@@ -43,19 +41,19 @@ If this looks familiar, that's because it's the multisig that you deserialized i
 
 ## Unlock a Raw Multisig
 
-The `scriptSig` for a standard multisig address must then submit the missing operands for `OP_CHECKMULTISIG`: a `0` followed by "m" signatures. You could submit either of the following:
+The `scriptSig` for a standard multisig address must then submit the missing operands for `OP_CHECKMULTISIG`: a `0` followed by "m" signatures. For example:
 ```
 0 $signature1 signature2
 ```
 
 ### Run a Raw Multisig Script 
 
-In order to reuse the multisig UTXO, run the `scriptSig` and `scriptPubKey` as follows:
+In order to reuse a multisig UTXO, you run the `scriptSig` and `scriptPubKey` as follows:
 ```
 Script: 0 $signature1 $signature2 2 $address1 $address2 2 OP_CHECKMULTISIG
 Stack: [ ]
 ```
-You place all the constants on the stack:
+First, you place all the constants on the stack:
 ```
 Script: OP_CHECKMULTISIG
 Stack: [ 0 $signature1 $signature2 2 $address1 $address2 2 ]
@@ -103,7 +101,7 @@ _What is a P2SH multisig?_ P2SH multisigs were the first implementation of P2SH 
 
 ## Create a P2SH Multisig
 
-P2SH multisigs are the modern methodology for creating multisigs on the Blockchains. They can be created very simply, using the same process seen in the prvious two sections.
+P2SH multisigs are the modern methodology for creating multisigs on the Blockchains. They can be created very simply, using the same process seen in the previous two sections.
 
 ### Create the Lock for the P2SH Multisig
 
@@ -111,10 +109,10 @@ To create a P2SH multisig, follow the standard steps for creating a P2SH locking
 
 1. Serialize `2 $address1 $address2 2 OP_CHECKMULTISIG`.
    1. `<serializedMultiSig>` = "52210307fd375ed7cced0f50723e3e1a97bbe7ccff7318c815df4e99a59bc94dbcd819210367c4f666f18279009c941e57fab3e42653c6553e5ca092c104d1db279e328a2852ae"
-2. SHA-256 and RIPEMD-160 hash the serialized script.
-   1. `<hashedMultiSig>` = "babf9063cee8ab6e9334f95f6d4e9148d0e551c2"
-3. Save `<serialized99Equal>` for future reference as the redeemScript.
+2. Save `<serialized99Equal>` for future reference as the redeemScript.
    1. `<redeemScript>` = "52210307fd375ed7cced0f50723e3e1a97bbe7ccff7318c815df4e99a59bc94dbcd819210367c4f666f18279009c941e57fab3e42653c6553e5ca092c104d1db279e328a2852ae"
+3. SHA-256 and RIPEMD-160 hash the serialized script.
+   1. `<hashedMultiSig>` = "babf9063cee8ab6e9334f95f6d4e9148d0e551c2"
 4. Produce a P2SH Multisig locking script that includes the hashed script (`OP_HASH160 <hashedMultisig> OP_EQUAL`).
    1. `scriptPubKey` = "a914babf9063cee8ab6e9334f95f6d4e9148d0e551c287"
    
@@ -131,6 +129,7 @@ To unlock the P2SH multisig, first confirm the script:
 1. Produce an unlocking script of `0 $signature1 $signature2 <serializedMultiSig>`.
 2. Concatenate that with the locking script of `OP_HASH160 <hashedMultisig> OP_EQUAL`.
 3. Validate `0 $signature1 $signature2 <serializedMultiSig> OP_HASH160 <hashedMultisig> OP_EQUAL`.
+4. Succeed if the `<serializedMultisig>` matches the `<hashedMultisig>`.
 
 ### Run the Second Round of P2SH Validation
 
@@ -139,9 +138,10 @@ Then, run the multisig script:
 1. Deserialize `<serializedMultiSig>` to `2 $address1 $address2 2 OP_CHECKMULTISIG`.
 2. Concatenate that with the earlier operands in the unlocking script, `0 $signature1 $signature2`.
 3. Validate `0 $signature1 $signature2 2 $address1 $address2 2 OP_CHECKMULTISIG`.
+4. Succeed if the operands fulfill the deserialized `redeemScript`.
 
 Now you know how the multisig transaction in [§6.1](6_1_Sending_a_Transaction_to_a_Multisig.md) was actually created, how it was  validated for spending, and why that `redeemScript` was so important.
 
 ## Summary: Creating Multisig Scripts
 
-Multisigs are a standard transaction type, but they're a bit cumbersome to use, so they're regularly incorporated in P2SH transactions, as was the case in [§6.1](6_1_Sending_a_Transaction_to_a_Multisig.md), when we created our first multisigs. The result is cleaner, smaller, and more standardized — but more importantly, it's a great real-world example of how P2SH scripts really work.
+Multisigs are a standard transaction type, but they're a bit cumbersome to use, so they're regularly incorporated in P2SH transactions, as was the case in [§6.1](6_1_Sending_a_Transaction_to_a_Multisig.md) when we created our first multisigs. The result is cleaner, smaller, and more standardized — but more importantly, it's a great real-world example of how P2SH scripts really work.
