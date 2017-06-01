@@ -15,9 +15,11 @@ Supporting objectives include the ability to:
 
    * Understand the Purpose of Bitcoin Scripts
    * Understand the P2PKH Script
+   * Understand the Needs for Bitcoin Script Testing
    
 ## Table of Contents
 
 * [Section One: Understanding the Foundation of Transactions](7_1_Understanding_the_Foundation_of_Transactions.md)
 * [Section Two: Running a Bitcoin Script](7_2_Running_a_Bitcoin_Script.md)
 * [Section Three: Scripting a P2PKH](7_3_Scripting_a_P2PKH.md)
+* [Section Four: Testing a Bitcoin Script](7_4_Testing_a_Bitcoin_Script.md)
