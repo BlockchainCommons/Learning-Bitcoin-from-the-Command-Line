@@ -35,6 +35,7 @@ Script: OP_DUP OP_HASH160 <pubKeyHash> OP_EQUALVERIFY OP_CHECKSIG
 Stack: [ <signature> <pubKey> ]
 
 Script: OP_HASH160 <pubKeyHash> OP_EQUALVERIFY OP_CHECKSIG
+Running: <pubKey> OP_DUP
 Stack: [ <signature> <pubKey> <pubKey> ]
 ```
 Why the duplicate? Because that's what's required by the script!
@@ -42,6 +43,7 @@ Why the duplicate? Because that's what's required by the script!
 Next, `OP_HASH160` pops the `<pubKey>` off the stack, hashes it, and puts the result back on the stack.
 ```
 Script: <pubKeyHash> OP_EQUALVERIFY OP_CHECKSIG
+Running: <pubKey> OP_HASH160
 Stack: [ <signature> <pubKey> <pubKeyHash> ]
 ```
 Then, you place the `<pubKeyHash>` that was in the locking script on the stack:
@@ -54,11 +56,13 @@ Stack: [ <signature> <pubKey> <pubKeyHash> <pubKeyHash> ]
 Assuming the two `<pubKeyHash>es` are equal, you will have the following result:
 ```
 Script: OP_CHECKSIG
+Running: <pubKeyHash> <pubKeyHash> OP_EQUALVERIFY
 Stack: [ <signature> <pubKey> ]
 ```
 At this point you've proven that the `<pubKey>` supplied in the `scriptSig` hashes to the Bitcoin address in question, so you know that the redeemer knew the public key. They just need to prove knowledge of the private key, which is done with `OP_CHECKSIG`, which confirms that the unlocking script's signature matches that public key.
 ```
 Script:
+Running: <signature> <pubKey> OP_CHECKSIG
 Stack: [ True ]
 ```
 The Script now ends and the transaction is allowed to respend the UTXO in question.
