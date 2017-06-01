@@ -12,6 +12,7 @@ After working through this chapter, a developer will be able to:
 Supporting objectives include the ability to:
 
    * Understand the Full Range of Scripting Possibilities
+   * Identify How to Learn More about Opcodes
 
 ## Table of Contents
 
