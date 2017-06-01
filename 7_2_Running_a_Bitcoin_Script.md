@@ -42,6 +42,7 @@ When a Bitcoin Script encounters an operator, it evaluates it. Each operator pop
 OP_ADD pops two items off the stack (here: 2 then 1), adds then together, and pushes the result back on the stack (here: 3).
 ```
 Script:
+Running: 1 2 OP_ADD
 Stack: [ 3 ]
 ```
 
@@ -59,12 +60,14 @@ Script: OP_ADD 4 OP_SUB
 Stack: [ 3 2 ]
 
 Script: 4 OP_SUB
+Running: 3 2 OP_ADD
 Stack: [ 5 ]
 
 Script: OP_SUB
 Stack: [ 5 4 ]
 
 Script: 
+Running: 5 4 OP_SUB
 Stack: [ 1 ]
 ```
 
@@ -90,12 +93,14 @@ Script: OP_ADD 99 OP_EQUAL
 Stack: [ 1 98 ]
 
 Script: 99 OP_EQUAL
+Running: 1 98 OP_ADD
 Stack: [ 99 ]
 
 Script: OP_EQUAL
 Stack: [ 99 99 ]
 
 Script: 
+Running: 99 99 OP_EQUAL
 Stack: [ True ]
 ```
 This abstraction isn't quite accurate: for security reasons, the `scriptSig` is run, then the contents of the stack are transferred for the `scriptPubKey` to run, but it's accurate enough for understanding how the key of `scriptSig` fits into the lock of `scriptPubKey`.
