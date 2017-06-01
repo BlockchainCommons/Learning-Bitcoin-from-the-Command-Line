@@ -1,6 +1,6 @@
 > **WARNING:** This section is of limited utility due to a lack of good test sites and test suites.
 
-# 8.5: Testing a Bitcoin Script
+# 7.4: Testing a Bitcoin Script
 
 > **NOTE:** This is a draft in progress, so that I can get some feedback from early reviewers. It is not yet ready for learning.
 
