@@ -83,7 +83,7 @@ When a UTXO is redeemed, it runs in two rounds of verification:
 3. Second, the redeemScript is run using the prior data that was pushed on the stack. 
 4. If that second round of verification _also_ succeeds, the UTXO is unlocked.
 
-Whereas you can't easily create a P2SH transaction without an API, you should be able to easily redeem a P2SH transaction with `bitcoin-cli`. In fact, you already have. The exact process is described in [§8.6: Spending a Transaction with a Bitcoin Script.md](8_6_Spending_a_Transaction_with_a_Bitcoin_Script.md), after we've finished with all the intricacies of P2SH transaction creation.
+Whereas you can't easily create a P2SH transaction without an API, you should be able to easily redeem a P2SH transaction with `bitcoin-cli`. In fact, you already have. The exact process is described in [§8.6: Spending a P2SH Transaction.md](8_6_Spending_a_P2SH_Transaction.md), after we've finished with all the intricacies of P2SH transaction creation.
 
 > **WARNING:** You can create a perfectly valid transaction with a hashed redeemScript, but if the redeemScript doesn't run, or doesn't run correctly, your funds are lost forever. So, test, test, test the script!
 
