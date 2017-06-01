@@ -46,12 +46,14 @@ Script: OP_HASH160 <hashed99Equal> OP_EQUAL
 Stack: [ 1 98 <serialized99Equal> ]
 
 Script: <hashed99Equal> OP_EQUAL
+Running: <serialized99Equal> OP_HASH160
 Stack: [ 1 98 <hashed99Equal> ]
 
 Script: OP_EQUAL
 Stack: [ 1 98 <hashed99Equal> <hashed99Equal> ]
 
 Script: 
+Running: <hashed99Equal> <hashed99Equal> OP_EQUAL
 Stack: [ 1 98 True ]
 ```
 The Script ends with a `True` on top of the stack, and so it succeeds ... even though there's other cruft below it.
@@ -73,12 +75,14 @@ Script: OP_ADD 99 OP_EQUAL
 Stack: [ 1 98 ]
 
 Script: 99 OP_EQUAL
+Running: 1 98 OP_ADD
 Stack: [ 99 ]
 
 Script: OP_EQUAL
 Stack: [ 99 99 ]
 
 Script: 
+Running: 99 99 OP_EQUAL
 Stack: [ True ]
 ```
 With that second validation _also_ true, the UTXO can now be spent!
