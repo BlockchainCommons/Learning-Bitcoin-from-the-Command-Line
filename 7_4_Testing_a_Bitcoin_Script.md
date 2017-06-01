@@ -4,7 +4,7 @@
 
 > **NOTE:** This is a draft in progress, so that I can get some feedback from early reviewers. It is not yet ready for learning.
 
-Bitcoin Scripting allows for considerable additional control over Bitcoin transactions, but it's also somewhat dangerous. As long as you produce a legal P2SH lock, your transaction will be accepted ... but that's no guarantee that the associated Bitcoin Script with either run or produce a `True` result. So, you need to thoroughly test your Scripts before you put your money into that script.
+Bitcoin Scripting allows for considerable additional control over Bitcoin transactions, but it's also somewhat dangerous. As we'll describe in chapter 8, the actual Scripts are somewhat isolated from the Bitcoin network, which means that it's possible to write a script and have it accepted by the network even if it's impossible to redeem from that script! So, you need to thoroughly test your Scripts before you put your money into them.
 
 ## Test a Script Online
 
@@ -28,7 +28,7 @@ _If the signature buttons worked right, the Playground would be great, but until
 
 ### Web BTC Script Debugger
 
-WebBTC has a [Script Debugger](https://webbtc.com/script) that not only shows you the execution of a script, but also explains its parts and shows you the stack. The following example is similar to the add-to-99 script of previous chapters: [Add to 15 Script](https://webbtc.com/script/1%2014/OP_ADD%2015%20OP_EQUAL/).
+WebBTC has a [Script Debugger](https://webbtc.com/script) that not only shows you the execution of a script, but also explains its parts and shows you the stack. The following example is similar to the add-to-99 script from [§7.2](7_2_Running_a_Bitcoin_Script.md): [Add to 15 Script](https://webbtc.com/script/1%2014/OP_ADD%2015%20OP_EQUAL/).
 
 #### Bugs & Challenges
 
@@ -38,7 +38,7 @@ _Visual Problems._ The stack is upside down.
 
 _Signature Problems._ Allegedly, all signatures are assumed valid if a scripthash is not provided. This does not seem to be the case. Given that you're not signing actual transactions, and there's no discussion of how to sign a nonce, it's unclear how this even would work — again majorly impacting the utility of this site.
 
-_Number Problems_. The BTC debugger doesn't recognize integers of 17 or more. This is not unusual, as 1 to 16 translate to OP_1 to OP_16, while going beyond that requires an OP_PUSHDATA. However, if you're not insulated from this sort of complexity, you might as well be translating to hexcode yourself.
+_Number Problems_. The BTC debugger doesn't recognize integers of 17 or more. This is not unusual, as 1 to 16 translate to OP_1 to OP_16, while going beyond that requires more effort when you're writing opcodes. However, if you're not insulated from this sort of complexity, you might as well be doing the low-level translation of opcodes yourself.
 
 _If signatures were indeed considered valid, this would be a great resource, but between that not working and having to annoyingly type in code as a URL, this is another online script tester that's barely usable currently. The one saving grace is that real transactions can be examined, down to the Bitcoin script ... but the site hasn't been recording new transactions since December 2016.
 
@@ -48,9 +48,13 @@ Software packages may be a possible future for the testing of Bitcoin Scripts. A
 
 ## Test a Script with Bitcoin
 
-Someday web sites and software packages _might_ offer great opportunities for testing Bitcoin Scripts. However, they'll never be the real thing, because you can't guarantee that they follow the consensus rules. For example, the Script Playground explicitly says that it ignores the extra-pop multisig bug. This means that any multisig code that you successfully test on the Script Playground will break in the real world.
+Someday web sites and software packages _might_ offer great opportunities for testing Bitcoin Scripts. However, they'll never be the real thing, because you can't guarantee that they follow the consensus rules. For example, the Script Playground explicitly says that it ignores a bug that's implicit in Bitcoin multisignatures. This means that any multisig code that you successfully test on the Script Playground will break in the real world.
 
-So the only way to _really_ test Bitcoin Scripts is to try them out on Testnet. You need to use an API to generate a transaction with your script, then verify that you can redeem coins using the script _before_ you put it on Mainnet. Don't trust that your code is right; don't just eyeball it. Doing so is another great way to lose funds on Bitcoin.
+So the only way to _really_ test Bitcoin Scripts is to try them out on Testnet. 
+
+And how do you do that? As it happens that's the topic of the next chapter, which looks into introducing these abstract scripts to the real world of Bitcoin by embedding them in P2SH transactions. (But even then, you will probably need an API to push your P2SH transaction onto the Bitcoin network, so full testing will still be a ways in the future.)
+
+_Whatever_ other testing methods you've used, this should be your final test _before_ you put your Script on Mainnet. Don't trust that your code is right; don't just eyeball it. Don't even trust whatever simulators or interpreters you've been using. Doing so is another great way to lose funds on Bitcoin.
 
 ## Summary: Testing a Bitcoin Script
 
