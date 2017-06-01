@@ -62,7 +62,7 @@ This tutorial assumes that you have some minimal background of how to use the co
   * [8.2: Building the Structure of P2SH](8_2_Building_the_Structure_of_P2SH.md)
   * [8.3: Running a Bitcoin Script with P2SH](8_3_Running_a_Bitcoin_Script_with_P2SH.md)
   * [8.4: Scripting a Multisig](8_4_Scripting_a_Multisig.md)
-  * [8.5: Spending a P2SH_Transaction](8_5_Spending_a_P2SH_Transaction.md) — Awaiting API Work
+  * [8.5: Spending a P2SH Transaction](8_5_Spending_a_P2SH_Transaction.md) — Awaiting API Work
 * [9.0: Empowering Timelock with Bitcoin Scripts](9_0_Empowering_Timelock_with_Bitcoin_Scripts.md)
   * [9.1: Understanding Timelock Options](9_1_Understanding_Timelock_Options.md)
   * [9.2: Using CLTV in Scripts](9_2_Using_CLTV_in_Scripts.md)
