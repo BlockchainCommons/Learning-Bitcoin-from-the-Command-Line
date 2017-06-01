@@ -18,8 +18,172 @@ You may notice there's no `OP_VERIFY` at the end of this (or most any) script, d
 
 The other major conditional in Bitcoin Script is the classic OP_IF (0x63) / OP_ELSE (0x67) / OP_ENDIF (0x68). This is typical flow control: if `OP_IF` detects a true statement, it executes the block under it; otherwise, if there's an `OP_ELSE`, it executes that; and `OP_ENDIF` marks the end of the final block.
 
-> **WARNING:** These conditionals are technically opcodes too, but as with small numbers, we're going to leave the `OP_` prefix off for brevity and clarity. 
+> **WARNING:** These conditionals are technically opcodes too, but as with small numbers, we're going to leave the `OP_` prefix off for brevity and clarity. Thus we'll write `IF`, `ELSE`, and `ENDIF` instead of `OP_IF`, `OP_ELSE`, and `OP_ENDIF`.
 
-* Verify
-      * If
-         * DOn't know inputs (in unlocking!)
+### Understand If/Then Ordering
+
+There are two big catches to conditionals that can make it a lot harder to read and assess scripts if you're not careful.
+
+First, the `IF` conditional checks the truth of what's _before it_ (which is to say what's in the stack), not what's after it. 
+
+Second, the `IF` conditional tends to be in the locking script and what it's check tends to be in the unlocking script.
+
+Of course, you might say, that's how Bitcoin Script works. Conditionals use reverse Polish notation and they adopt the standard unlocking/locking paradigm, just like _everything else_ in Bitcoin Scripting.
+
+The problem is that using these standard methodologies for IF/ELSE conditionals confounds are standard way of reading this conditional code. Consider the following code: `IF OP_DUP OP_HASH160 <pubKeyHashA> ELSE OP_DUP OP_HASH160 <pubKeyHashA> ENDIF OP_EQUALVERIFY OP_CHECKSIG `. 
+
+Year of reading this in prefix notation might lead you to read this as:
+```
+IF (OP_DUP) THEN
+
+    OP_HASH160 
+    OP_PUSHDATA <pubKeyHashA> 
+
+ELSE 
+
+    OP_DUP 
+    OP_HASH160 
+    OP_PUSHDATA <pubKeyHashB> 
+
+ENDIF 
+ 
+ OP_EQUALVERIFY 
+ OP_CHECKSIG
+```
+So, if the `OP_DUP` is successful, then we get to do the first block, else the second. But that doesn't make any sense! Why wouldn't the `OP_DUP` succeed.
+
+And, indeed, it doesn't make any sense, because we accidentally read the statement using the wrong notation. The correct reading of this is:
+```
+IF 
+  
+    OP_DUP
+    OP_HASH160 
+    OP_PUSHDATA <pubKeyHashA> 
+
+ELSE 
+
+    OP_DUP 
+    OP_HASH160 
+    OP_PUSHDATA <pubKeyHashB> 
+
+ENDIF 
+ 
+ OP_EQUALVERIFY 
+ OP_CHECKSIG
+```
+The `True` or `False` statement is placed on the stack _prior_ to running the `IF`, then the correct block is run base on that result.
+
+This is intended as a poor man's 1-of-2 multisignature. The owner of `<privKeyA>` would put `<signatureA> <pubKeyA> True` in his locking script, while the owner of `<privKeyB>` would put `<signatureB> <pubKeyB> False` in her locking script. That trailing `True` or `False` tells the script which hash to check against, then the `OP_EQUALVERIFY` and the `OP_CHECKSIG` at the end do the real work. 
+
+But, we can actually produce a slightly smarter poor-man's multisig that doesn't require the signers to remember if they're `True` or `False`, and we're going to do that before we examine more thoroughly how this runs.
+
+### Run an If/Then Multisig
+
+The following Script takes the simplicity of a 1-of-2 multisignature and makes it more complex by laying it out as an IF/THEN statement. Because this is fully repetitive, there's not a lot of reason to do it for real, but it's a good building block:
+```
+OP_DUP OP_HASH160 <pubKeyHashA> OP_EQUAL
+IF
+
+    OP_CHECKSIG
+
+ELSE
+
+    OP_DUP OP_HASH160 <pubKeyHashB> OP_EQUALVERIFY OP_CHECKSIG
+    
+ENDIF
+
+```
+Failing to read this one in reverse Polish notation would be even more confusing, as it'd be easy to think the `IF` was looking at `OP_CHECKSIG` ... but then it goes right on to the `ELSE`.
+
+#### Run the True Branch
+
+Here's how it actally runs if unlocked with `<signatureA> <pubKeyA>`:
+
+```
+Script: <signatureA> <pubKeyA> OP_DUP OP_HASH160 <pubKeyHashA> OP_EQUAL IF OP_CHECKSIG ELSE OP_DUP OP_HASH160 <pubKeyHashB> OP_EQUALVERIFY OP_CHECKSIG ENDIF
+Stack: [ ]
+```
+First, we put constants on the stack:
+```
+Script: OP_DUP OP_HASH160 <pubKeyHashA> OP_EQUAL IF OP_CHECKSIG ELSE OP_DUP OP_HASH160 <pubKeyHashB> OP_EQUALVERIFY OP_CHECKSIG ENDIF
+Stack: [ <signatureA> <pubKeyA> ]
+```
+Then we run the first few, obvious commands, `OP_DUP` and `OP_HASH160` and push another constant:
+```
+Script: OP_HASH160 <pubKeyHashA> OP_EQUAL IF OP_CHECKSIG ELSE OP_DUP OP_HASH160 <pubKeyHashB> OP_EQUALVERIFY OP_CHECKSIG ENDIF
+Stack: [ <signatureA> <pubKeyA> <pubKeyA> ]
+
+Script: <pubKeyHashA> OP_EQUAL IF OP_CHECKSIG ELSE OP_DUP OP_HASH160 <pubKeyHashB> OP_EQUALVERIFY OP_CHECKSIG ENDIF
+Stack: [ <signatureA> <pubKeyA> <pubKeyHashA> ]
+
+Script: OP_EQUAL IF OP_CHECKSIG ELSE OP_DUP OP_HASH160 <pubKeyHashB> OP_EQUALVERIFY OP_CHECKSIG ENDIF
+Stack: [ <signatureA> <pubKeyA> <pubKeyHashA> <pubKeyHashA> ]
+```
+Next we run the `OP_EQUAL`, which is what's going to feed the `IF`:
+```
+Script: IF OP_CHECKSIG ELSE OP_DUP OP_HASH160 <pubKeyHashB> OP_EQUALVERIFY OP_CHECKSIG ENDIF
+Stack: [ <signatureA> <pubKeyA> True ]
+```
+Now the `IF` runs, and since there's a `True`, it only runs the first block, eliminating all the rest:
+```
+Script: OP_CHECKSIG
+Stack: [ <signatureA> <pubKeyA> ]
+```
+And the `OP_CHECKSIG` will end up `True` as well:
+```
+Script: 
+Stack: [ True ]
+```
+#### Run the False Branch
+
+Here's how it actally runs if unlocked with `<signatureB> <pubKeyB>`:
+```
+Script: <signatureB> <pubKeyB> OP_DUP OP_HASH160 <pubKeyHashA> OP_EQUAL IF OP_CHECKSIG ELSE OP_DUP OP_HASH160 <pubKeyHashB> OP_EQUALVERIFY OP_CHECKSIG ENDIF
+Stack: [ ]
+```
+First, we put constants on the stack:
+```
+Script: OP_DUP OP_HASH160 <pubKeyHashA> OP_EQUAL IF OP_CHECKSIG ELSE OP_DUP OP_HASH160 <pubKeyHashB> OP_EQUALVERIFY OP_CHECKSIG ENDIF
+Stack: [ <signatureB> <pubKeyB> ]
+```
+Then we run the first few, obvious commands, `OP_DUP` and `OP_HASH160` and push another constant:
+```
+Script: OP_HASH160 <pubKeyHashA> OP_EQUAL IF OP_CHECKSIG ELSE OP_DUP OP_HASH160 <pubKeyHashB> OP_EQUALVERIFY OP_CHECKSIG ENDIF
+Stack: [ <signatureB> <pubKeyB> <pubKeyB> ]
+
+Script: <pubKeyHashA> OP_EQUAL IF OP_CHECKSIG ELSE OP_DUP OP_HASH160 <pubKeyHashB> OP_EQUALVERIFY OP_CHECKSIG ENDIF
+Stack: [ <signatureB> <pubKeyB> <pubKeyHashB> ]
+
+Script: OP_EQUAL IF OP_CHECKSIG ELSE OP_DUP OP_HASH160 <pubKeyHashB> OP_EQUALVERIFY OP_CHECKSIG ENDIF
+Stack: [ <signatureB> <pubKeyB> <pubKeyHashB> <pubKeyHashA> ]
+```
+Next we run the `OP_EQUAL`, which is what's going to feed the `IF`:
+```
+Script: IF OP_CHECKSIG ELSE OP_DUP OP_HASH160 <pubKeyHashB> OP_EQUALVERIFY OP_CHECKSIG ENDIF
+Stack: [ <signatureB> <pubKeyB> False ]
+```
+Whoop! The result was `False` because `<pubKeyHashB>` does not equal `<pubKeyHashA>`. Now when the `IF` runs, it collapses down to just the `ELSE` statement:
+```
+Script: OP_DUP OP_HASH160 <pubKeyHashB> OP_EQUALVERIFY OP_CHECKSIG
+Stack: [ <signatureB> <pubKeyB> ]
+```
+Afterward, we go through the whole rigamarole again, starting with another `OP_DUP`, but eventually testing against the other `pubKeyHash`:
+```
+Script: OP_HASH160 <pubKeyHashB> OP_EQUALVERIFY OP_CHECKSIG
+Stack: [ <signatureB> <pubKeyB> <pubKeyB> ]
+
+Script: <pubKeyHashB> OP_EQUALVERIFY OP_CHECKSIG
+Stack: [ <signatureB> <pubKeyB> <pubKeyHashB> ]
+
+Script: OP_EQUALVERIFY OP_CHECKSIG
+Stack: [ <signatureB> <pubKeyB> <pubKeyHashB> <pubKeyHashB> ]
+
+Script: OP_EQUALVERIFY OP_CHECKSIG
+Stack: [ <signatureB> <pubKeyB> ]
+
+Script: 
+Stack: [ True ]
+```
+This probably isn't nearly as efficient as a true Bitcoin multisig, but it's a good example of how results pushed onto the stack by previous tests can be used to feed future conditions. In this case, it's the failure of the first signature which tells the conditional that maybe it should go check the second. 
+
+## Understand Other Conditionals
