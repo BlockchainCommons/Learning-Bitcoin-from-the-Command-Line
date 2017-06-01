@@ -60,27 +60,27 @@ Stack: [ 0 $signature1 $signature2 2 $address1 $address2 2 ]
 ```
 Then, the `OP_CHECKMULTISIG` begins to run. First, the "2" is popped:
 ```
-Script: OP_CHECKMULTISIG
+Running: OP_CHECKMULTISIG
 Stack: [ 0 $signature1 $signature2 2 $address1 $address2 ]
 ```
 Then, the "2" tells `OP_CHECKMULTISIG `to pop two addresses:
 ```
-Script: OP_CHECKMULTISIG
+Running: OP_CHECKMULTISIG
 Stack: [ 0 $signature1 $signature2 2 ]
 ```
 Then, the next "2" is popped:
 ```
-Script: OP_CHECKMULTISIG
+Running: OP_CHECKMULTISIG
 Stack: [ 0 $signature1 $signature2 ]
 ```
 Then, the "2" tells `OP_CHECKMULTISIG` to pop two signatures:
 ```
-Script: OP_CHECKMULTISIG
+Running: OP_CHECKMULTISIG
 Stack: [ 0 ]
 ```
 Then, one more item is mistakenly popped:
 ```
-Script: OP_CHECKMULTISIG
+Running: OP_CHECKMULTISIG
 Stack: [ ]
 ```
 Then, `OP_CHECKMULTISIG` completes its operation by comparing the "m" signatures to the "n" addresses:
