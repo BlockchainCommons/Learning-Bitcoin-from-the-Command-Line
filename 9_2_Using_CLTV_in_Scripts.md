@@ -121,11 +121,13 @@ Stack: [ <signature> <pubKey> <NextYear> ]
 Then, `OP_CHECKLOCKTIMEVERIFY` runs. It finds something on the stack and verifies that `nSequence` isn't 0xffffffff. Finally, it compares `<NextYear>` with `nLockTime`. If they are both the same sort of representation and if `nLockTime ≥ <NextYear>`, then it successfully processes (else, it ends the script):
 ```
 Script: OP_DROP OP_DUP OP_HASH160 <pubKeyHash> OP_EQUALVERIFY OP_CHECKSIG
+Running: <NextYear> OP_CHECKLOCKTIMEVERIFY
 Stack: [ <signature> <pubKey> <NextYear> ]
 ```
 Then, `OP_DROP` gets rid of that `<NextYear>` left around:
 ```
 Script: OP_DUP OP_HASH160 <pubKeyHash> OP_EQUALVERIFY OP_CHECKSIG
+Running: <NextYear> OP_DROP
 Stack: [ <signature> <pubKey> ]
 ```
 Finally, the remainder of the script runs, which is a normal check of a signature and public key.
