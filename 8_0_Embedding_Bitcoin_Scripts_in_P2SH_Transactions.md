@@ -21,6 +21,5 @@ Supporting objectives include the ability to:
 * [Section Two: Building the Structure of P2SH](8_2_Building_the_Structure_of_P2SH.md)  
 * [Section Three: Running a Bitcoin Script with P2SH](8_3_Running_a_Bitcoin_Script_with_P2SH.md)
 * [Section Four: Scripting a Multisig](8_4_Scripting_a_Multisig.md)
-* [Section Five: Testing a Bitcoin Script](8_5_Testing_a_Bitcoin_Script.md)
-* [Section Six: Spending a P2SH Transaction](8_6_Spending_a_P2SH_Transaction.md) — Awaiting API Work
+* [Section Five: Spending a P2SH Transaction](8_5_Spending_a_P2SH_Transaction.md) — Awaiting API Work
 
