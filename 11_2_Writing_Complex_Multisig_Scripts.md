@@ -112,7 +112,7 @@ Imagine home buyer Alice and home seller Bob who are working with an escrow agen
 
 However, this weakens the power of the escrow agent and allows our seller and buyer to accidentally make a bad decision among themselves — which is one of the things an escrow system is designed to avoid. So it could be that what we really want is the system that we just laid out, where the escrow agent is a required party in the 2-of-3 multisig: `OP_3DUP 2 <pubKeyEscrow> <pubKeyA> 2  OP_CHECKMULTISIG NOTIF 2 <pubKeyEscrow> <pubKeyB> 2  OP_CHECKMULTISIG ENDIF`.
 
-However, this doesn't pass the walk-in-front-of-a-bus test. If our escrow agent dies or flees to the Bahamas during the escrow, the buyer and seller are out a lot of money. This is where a timelock comes in. We can open an additional branch of the test that only becomes available if we're passed the end of our escrow period:
+However, this doesn't pass the walk-in-front-of-a-bus test. If our escrow agent dies or flees to the Bahamas during the escrow, the buyer and seller are out a lot of money. This is where a timelock comes in. We can create an additional test that will only be run if the standard multisigs work and we've passed the end of our escrow period:
 ```
 OP_3DUP
 2 <pubKeyRequired> <pubKeyA> 2  OP_CHECKMULTISIG
@@ -130,9 +130,9 @@ ENDIF
 ```
 First we test a signature for the buyer and the escrow agent, then a signature for the seller and the escrow agent. If both of those fail and 31 days have passed, then we also allow a signature for the buyer and seller.
 
-### Write a Buyer-Protective Escrow Multisig
+### Write a Buyer-Centric Escrow Multisig
 
-[BIP 112](https://github.com/bitcoin/bips/blob/master/bip-0112.mediawiki#Escrow_with_Timeout) offers an different example of this sort of escrow that doesn't have the extra protections for going around the escrow agent, but which does give Alice total control if the escrow fails.
+[BIP 112](https://github.com/bitcoin/bips/blob/master/bip-0112.mediawiki#Escrow_with_Timeout) offers an different example of this sort of escrow that doesn't have the extra protections to prevent going around the escrow agent, but which does give Alice total control if the escrow fails.
 ```
 IF
 
@@ -145,11 +145,11 @@ ELSE
 
 ENDIF
 ```
-Here, any two of the three signers can release the money at any time, but after 30 days, Alice can retrieve her money on her own.
+Here, any two of the three signers can release the money at any time, but after 30 days Alice can retrieve her money on her own.
 
-Note that this Script requires a `True` or `False` to be passed in to identify which branch is being used. This is a simpler, less computationally intensive way to do thing that is relatively common.
+Note that this Script requires a `True` or `False` to be passed in to identify which branch is being used. This is a simpler, less computationally intensive way to support branches in a Bitcoin Script; it's fairly common.
 
-Early on, the following `sigScript` would be allowed: `0 <signer1> <signer2> True`. Later on, also could produce a `sigScript` like this: `<sigA> False`.
+Early on, the following `sigScript` would be allowed: `0 <signer1> <signer2> True`. After 30 days, Alice could produce a `sigScript` like this: `<sigA> False`.
 
 ## Summary: Writing Complex Multisig Scripts
 
