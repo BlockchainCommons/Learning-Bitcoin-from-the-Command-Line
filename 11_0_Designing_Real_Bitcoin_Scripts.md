@@ -12,6 +12,7 @@ After working through this chapter, a developer will be able to:
 Supporting objectives include the ability to:
 
    * Understand Existing Bitcoin Scripts
+   * Understand the Importance of Signatures
 
 ## Table of Contents
 
