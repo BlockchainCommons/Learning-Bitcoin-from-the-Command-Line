@@ -70,9 +70,9 @@ This tutorial assumes that you have some minimal background of how to use the co
 * [10.0: Expanding Bitcoin Scripts](10_0_Expanding_Bitcoin_Scripts.md) — Needs Edit
   * [10.1: Using Script Conditionals](10_1_Using_Script_Conditionals.md) — Needs Edit
   * [10.2: Using Other Script Commands](10_2_Using_Other_Script_Commands.md) — Needs Edit
-* [11.0: Designing Real Bitcoin Scripts](11_0_Designing_Real_Bitcoin_Scripts.md)
-  * [11.1: Writing Puzzles Scripts](11_1_Writing_Puzzle_Scripts.md) — Pending
-  * [11.2: Writing Complex Multisig Scripts](11_2_Writing_Complex_Multisig_Scripts.md) — Pending
+* [11.0: Designing Real Bitcoin Scripts](11_0_Designing_Real_Bitcoin_Scripts.md) — Needs Edit
+  * [11.1: Writing Puzzles Scripts](11_1_Writing_Puzzle_Scripts.md) — Needs Edit
+  * [11.2: Writing Complex Multisig Scripts](11_2_Writing_Complex_Multisig_Scripts.md) — Needs Edit
   * [11.3: Empowering Bitcoin with Scripts](11_3_Empowering_Bitcoin_with_Scripts.md) — Pending
    
 ## Planned Future Work
