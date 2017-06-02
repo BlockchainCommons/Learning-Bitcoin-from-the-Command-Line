@@ -76,6 +76,8 @@ The trick to redeeming a P2SH transaction is that the recipient must have saved 
 
 An unlocking `scriptSig` for a P2SH transaction is formed as: `... data ... <redeemScript>`. The `data` must _solely_ be data that is pushed onto the stack, not operators. ([BIP 16](https://github.com/bitcoin/bips/blob/master/bip-0016.mediawiki) calls them signatures, but that's not an actual requirement.)
 
+> **WARNING:** Though signatures are not a requirement, a P2SH script actually isn't very secure if it doesn't require at least one signature in inputs. The reasons for this are described in [§11.1: Writing Puzzle Scripts](11_1_Writing_Puzzle_Scripts.md).
+
 When a UTXO is redeemed, it runs in two rounds of verification:
 
 1. First, the redeemScript in the `scriptSig` is hashed and compared to the hashed script in the `scriptPubKey`. 
