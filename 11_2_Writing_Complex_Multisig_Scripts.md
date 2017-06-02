@@ -132,7 +132,7 @@ First we test a signature for the buyer and the escrow agent, then a signature f
 
 ### Write a Simpler Escrow Multisig
 
-[BIP 112](https://github.com/bitcoin/bips/blob/master/bip-0112.mediawiki#Escrow_with_Timeout) actually offers an easier example of this sort of escrow that doesn't have the extra protections:
+[BIP 112](https://github.com/bitcoin/bips/blob/master/bip-0112.mediawiki#Escrow_with_Timeout) actually offers an easier example of this sort of escrow that doesn't have the extra protections, but which does give Alice total control if the escrow fails.
 ```
 IF
 
