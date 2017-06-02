@@ -48,7 +48,7 @@ Test three numbers:
 
 ## Understand Stack Opcodes
 
-There are a shocking number of stack opcodes, but other than `OP_DROP` and `OP_DUP` they're generally not necessary if you're careful about stack ordering. Nonetheless, here are a few of the more interesting ones:
+There are a shocking number of stack opcodes, but other than `OP_DROP`, `OP_DUP`, and sometimes `OP_SWAP` they're generally not necessary if you're careful about stack ordering. Nonetheless, here are a few of the more interesting ones:
 
 * OP_DEPTH (0x74) — Pushes the size of the stack
 * OP_DROP	(0x75) — Pops the top stack item
