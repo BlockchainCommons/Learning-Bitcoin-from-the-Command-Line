@@ -130,9 +130,9 @@ ENDIF
 ```
 First we test a signature for the buyer and the escrow agent, then a signature for the seller and the escrow agent. If both of those fail and 31 days have passed, then we also allow a signature for the buyer and seller.
 
-### Write a Simpler Escrow Multisig
+### Write a Buyer-Protective Escrow Multisig
 
-[BIP 112](https://github.com/bitcoin/bips/blob/master/bip-0112.mediawiki#Escrow_with_Timeout) actually offers an easier example of this sort of escrow that doesn't have the extra protections, but which does give Alice total control if the escrow fails.
+[BIP 112](https://github.com/bitcoin/bips/blob/master/bip-0112.mediawiki#Escrow_with_Timeout) offers an different example of this sort of escrow that doesn't have the extra protections for going around the escrow agent, but which does give Alice total control if the escrow fails.
 ```
 IF
 
