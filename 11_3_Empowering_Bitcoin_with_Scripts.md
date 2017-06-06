@@ -191,9 +191,9 @@ ENDIF
     
 OP_CHECKSIG
 ```
-The key to this is the `secretHash`, which is what allows a transaction to span the network. Each of several transactions is locked with the `secretHash`. When the transaction has spanned from its originator to its intended recipient, the `secretCode` is revealed, which allows all the participants to create a `secretHash` and unlock the whole network of payments: after the `secretCode` has been revealed, Alice can claim the funds 24 hours after the transaction is put on the Bitcoin network.
+The key to this is the `secretHash`, which is what allows a transaction to span the network. Each of several transactions is locked with the `secretHash`, allowing a transmission between two otherwise unconnected people on the Lightning network. When the transaction has spanned from its originator to its intended recipient, the `secretCode` is revealed, which allows all the participants to create a `secretHash` and unlock the whole network of payments: after the `secretCode` has been revealed, Alice can claim the funds 24 hours after the transaction is put on the Bitcoin network.
 
-However, the hash could alternatively be a `revokeHash`, which was supplied after the transaction was supplanted by a new one. Bob can relcaim the funds in that situation _or if_ an absolute timeout has occurred.
+However, as with the previous example, the hash could alternatively be a `revokeHash` that was supplied after the transaction was supplanted by a new one. Bob can relcaim the funds in that situation _or if_ an absolute timeout has occurred.
 
 #### Lock the Sender's Transaction
 
