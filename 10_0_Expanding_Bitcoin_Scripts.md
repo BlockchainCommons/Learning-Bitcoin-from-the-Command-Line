@@ -16,5 +16,5 @@ Supporting objectives include the ability to:
 
 ## Table of Contents
 
-* [Section One: Using Script Conditionals](10_1_Using_Script_Conditionals.md) — Pending
-* [Section Two: Using Other Script Commands](10_2_Using_Other_Script_Commands.md) — Pending
+* [Section One: Using Script Conditionals](10_1_Using_Script_Conditionals.md)
+* [Section Two: Using Other Script Commands](10_2_Using_Other_Script_Commands.md)
