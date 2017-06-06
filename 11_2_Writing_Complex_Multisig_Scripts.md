@@ -2,7 +2,7 @@
 
 > **NOTE:** This is a draft in progress, so that I can get some feedback from early reviewers. It is not yet ready for learning.
 
-To date, the multisigs described in these documents have been entirely simple, of the m-of-n or n-of-n form. However, you might desire more complex multisigs, signers might need different cosigners or where different options might become available over time. 
+To date, the multisigs described in these documents have been entirely simple, of the m-of-n or n-of-n form. However, you might desire more complex multisigs, where cosigners vary or where different options might become available over time. 
 
 ## Write a Variable Multisig
 
@@ -12,7 +12,7 @@ A variable multisig requires different numbers of people to sign depending on wh
 
 Imagine a corporation where either the president or two-out-of-three vice presidents could agree to the usage of funds.
 
-We could write this by creating an IF/ELSE/ENDIF statement that has two blocks, one for the president and his one-of-one signature and one for the vice-presidents and their two-of-three signatures. We could then determine which block is being used by how many signatures were in the unlocking script. Using `OP_DEPTH 1 OP_EQUAL` will tell us if there is one item on the stack, and we can go from there.
+We can write this by creating an `IF`/`ELSE`/`ENDIF` statement that has two blocks, one for the president and his one-of-one signature and one for the vice-presidents and their two-of-three signatures. We can then determine which block to use based on how many signatures are in the unlocking script. Using `OP_DEPTH 1 OP_EQUAL` will tell us if there is one item on the stack, and we can go from there.
 
 The full locking script would be `OP_DEPTH 1 OP_EQUAL IF <pubKeyPres> OP_CHECKSIGNATURE ELSE 2 <pubKeyVPA> <pubKeyVPB> <pubKeyVPC> 3 OP_CHECKMULTISIG ENDIF`
 
@@ -67,7 +67,7 @@ Script: IF <pubKeyPres> OP_CHECKSIGNATURE ELSE 2 <pubKeyVPA> <pubKeyVPB> <pubKey
 Running: 3 1 OP_EQUAL
 Stack: [ 0 <sigVPA> <sigVPB> False ]
 ```
-Because the result is `False`, the Script now collapses to the `IF` statement:
+Because the result is `False`, the Script now collapses to the `ELSE` statement:
 ```
 Script: 2 <pubKeyVPA> <pubKeyVPB> <pubKeyVPC> 3 OP_CHECKMULTISIG
 Running: False IF
@@ -80,13 +80,13 @@ Script:
 Running: 0 <sigVPA> <sigVPB> 2 <pubKeyVPA> <pubKeyVPB> <pubKeyVPC> 3 OP_CHECKMULTISIG
 Stack: [ ]
 ```
-You might notice that our `OP_CHECKSIGNATURE` is different because we included the public key in the locking script, rather than requiring a hash. This is done so that all of the submissions of signatures are the same. It should be secure, as the public key only appears in the hashed `redeemScript` in the original transaction.
+You might notice that the President's signature just uses a simple `OP_CHECKSIGNATURE` rather than the more complex code ususally required for a P2PKH. We can get away with including the public key in the locking script, obviating the usual rigamarole, because it's hashed and won't be revealed (through the `redeemScript`) until the transaction is unlocked. This also allows for all of the possible signers to sign using the same methodology.
 
-The one possible catch is what to do if the President is absent-minded and accidentally signs a transaction with one of his VPs, because he remembers this being a 2-of-3 multisig. One option is to decide that's an acceptable failure condition, because the President is using the multsig incorrectly. Another option is to turn the 2-of-3 multisig into a 2-of-4 multisig, just in case the President doesn't tolerate failure: `OP_DEPTH 1 OP_EQUAL IF <pubKeyPres> OP_CHECKSIGNATURE ELSE 2 <pubKeyVPA> <pubKeyVPB> <pubKeyVPC> <pubKeyPres> 4 OP_CHECKMULTISIG ENDIF`. This would allow the President to mistakenly sign with any Vice President, but wouldn't impact things if two Vice Presidents wanted to (correctly) sign.
+The only possible problem is if the President is absent-minded and accidentally signs a transaction with one of his VPs, because he remembers this being a 2-of-3 multisig. One option is to decide that's an acceptable failure condition, because the President is using the multsig incorrectly. Another option is to turn the 2-of-3 multisig into a 2-of-4 multisig, just in case the President doesn't tolerate failure: `OP_DEPTH 1 OP_EQUAL IF <pubKeyPres> OP_CHECKSIGNATURE ELSE 2 <pubKeyVPA> <pubKeyVPB> <pubKeyVPC> <pubKeyPres> 4 OP_CHECKMULTISIG ENDIF`. This would allow the President to mistakenly sign with any Vice President, but wouldn't impact things if two Vice Presidents wanted to (correctly) sign.
 
 ### Write a Multisig with a Required Signer
 
-Another multisig possibility includes have a m-of-n multisig were one of the signers is required. This can usually be managed by breaking the multisig down into multiple m of n-1 multisigs. For example, a 2-of-3 multisig where one of the signers is required would actually be two 2-of-2 multisigs, each including the required signer.
+Another multisig possibility involves have a m-of-n multisig were one of the signers is required. This can usually be managed by breaking the multisig down into multiple m of n-1 multisigs. For example, a 2-of-3 multisig where one of the signers is required would actually be two 2-of-2 multisigs, each including the required signer.
 
 Here's a simple way to script that:
 ```
@@ -98,37 +98,37 @@ NOTIF
 
 ENDIF
 ```
-The unlocking script would be either `0 <pubKeyRequired> <pubKeyA>` or `<pubKeyRequired> <pubKeyB>`.
+The unlocking script would be either `0 <pubKeyRequired> <pubKeyA>` or `0 <pubKeyRequired> <pubKeyB>`.
 
-First the Script would check against `<pubKeyRequired> <pubKeyA>`. If that fails, it would check against `<pubKeyRequired> <pubKeyB>`.
+First the Script would check the signatures against `<pubKeyRequired> <pubKeyA>`. If that fails, it would check against `<pubKeyRequired> <pubKeyB>`.
 
 The result of the final `OP_CHECKMULTISIG` that was run will be left on the top of the stack (though there will be cruft below it if the first one succeeded).
 
 ## Write an Escrow Multisig
 
-We've talked many times about esscrows. Complex multisigs combined with timelocks offer an automated way to create them in a robust manner.
+We've talked a lot about esscrows. Complex multisigs combined with timelocks offer an automated way to create them in a robust manner.
 
 Imagine home buyer Alice and home seller Bob who are working with an escrow agent The easy way to script this would be as a multisig where any two of the three parties could release the money: either the seller and buyer agree or the escrow agent takes over and agrees with one of the parties: `2 <pubKeyA> <pubKeyB> <pubKeyEscrow> 3 OP_CHECKMULTISG`.
 
-However, this weakens the power of the escrow agent and allows our seller and buyer to accidentally make a bad decision among themselves — which is one of the things an escrow system is designed to avoid. So it could be that what we really want is the system that we just laid out, where the escrow agent is a required party in the 2-of-3 multisig: `OP_3DUP 2 <pubKeyEscrow> <pubKeyA> 2  OP_CHECKMULTISIG NOTIF 2 <pubKeyEscrow> <pubKeyB> 2  OP_CHECKMULTISIG ENDIF`.
+However, this weakens the power of the escrow agent and allows our seller and buyer to accidentally make a bad decision between themselves — which is one of the things an escrow system is designed to avoid. So it could be that what we really want is the system that we just laid out, where the escrow agent is a required party in the 2-of-3 multisig: `OP_3DUP 2 <pubKeyEscrow> <pubKeyA> 2  OP_CHECKMULTISIG NOTIF 2 <pubKeyEscrow> <pubKeyB> 2  OP_CHECKMULTISIG ENDIF`.
 
-However, this doesn't pass the walk-in-front-of-a-bus test. If our escrow agent dies or flees to the Bahamas during the escrow, the buyer and seller are out a lot of money. This is where a timelock comes in. We can create an additional test that will only be run if the standard multisigs work and we've passed the end of our escrow period:
+However, this doesn't pass the walk-in-front-of-a-bus test. If our escrow agent dies or flees to the Bahamas during the escrow, the buyer and seller are out a lot of money. This is where a timelock comes in. We can create an additional test that will only be run if we've passed the end of our escrow period. In this situation, we allow the buyer and seller to sign together:
 ```
 OP_3DUP
-2 <pubKeyRequired> <pubKeyA> 2  OP_CHECKMULTISIG
+2 <pubKeyRequired> <pubKeyA> 2 OP_CHECKMULTISIG
 NOTIF
 
-  2 <pubKeyRequired> <pubKeyB> 2  OP_CHECKMULTISIG
-
+  OP_3DUP
+  2 <pubKeyRequired> <pubKeyB> 2 OP_CHECKMULTISIG
   NOTIF
 
-    <+31Days> OP_CHECKSEQUENCEVERIFY OP_DROP
-    2 <pubKeyA> <pubKeyB> 2  OP_CHECKMULTISIG
+    <+30Days> OP_CHECKSEQUENCEVERIFY OP_DROP
+    2 <pubKeyA> <pubKeyB> 2 OP_CHECKMULTISIG
     
   ENDIF
 ENDIF
 ```
-First we test a signature for the buyer and the escrow agent, then a signature for the seller and the escrow agent. If both of those fail and 31 days have passed, then we also allow a signature for the buyer and seller.
+First we test a signature for the buyer and the escrow agent, then a signature for the seller and the escrow agent. If both of those fail and 30 days have passed, then we also allow a signature for the buyer and seller.
 
 ### Write a Buyer-Centric Escrow Multisig
 
@@ -140,8 +140,8 @@ IF
 
 ELSE
 
-    <+31Days> OP_CHECKSEQUENCEVERIFY OP_DROP
-    <pubKeyA> OP_CHECKSIG
+    <+30Days> OP_CHECKSEQUENCEVERIFY OP_DROP
+    <pubKeyA> OP_CHECKSIGNATURE
 
 ENDIF
 ```
@@ -153,6 +153,6 @@ Early on, the following `sigScript` would be allowed: `0 <signer1> <signer2> Tru
 
 ## Summary: Writing Complex Multisig Scripts
 
-More complex multisignatures can typically be created by combining various signatures or multisignatures with conditionals and tests. The resulting multisigs can be variable requiring different numbers of signers based on who they are and when they're signing. 
+More complex multisignatures can typically be created by combining signatures or multisignatures with conditionals and tests. The resulting multisigs can be variable, requiring different numbers of signers based on who they are and when they're signing. 
 
 _What is the power of complex multisig scripts?_ More than anything we've seen to date, complex multisig scripts are truly smart contracts. They can be very precise in who is allowed to sign and when. Multi-level corporations, partnerships, and escrows alike can be supported. Using other powerful features like timelocks can further protect these funds, allowing them to be released or even returned at certain times.
