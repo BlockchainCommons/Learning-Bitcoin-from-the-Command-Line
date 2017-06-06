@@ -275,14 +275,14 @@ Running through the script, it becomes obvious that the initial checks determine
 
 #### Understand HTLCs
 
-HTLCs are quite complex, and you may not entirely understand them from just this overview. Rusty Russell's [overview](https://rusty.ozlabs.org/?p=462) of them has more and there's even more in his [Deployable Lightning](https://github.com/ElementsProject/lightning/blob/master/doc/deployable-lightning.pdf) paper. 
+HTLCs are quite complex, and you may not entirely understand them from just this overview. Rusty Russell's [overview](https://rusty.ozlabs.org/?p=462) of them has more and there's even more in his [Deployable Lightning](https://github.com/ElementsProject/lightning/blob/master/doc/deployable-lightning.pdf) paper. But don't worry if some of the intricacies still escape you, particularly the interrelations of the two scripts.
 
-For the purposes of this tutorial, two things are important for HTLCs:
+For the purposes of this tutorial, there are two important lessons for HTLCs:
 
    * Understand that a very complex structure like an HTLC can be created with Bitcoin Script.
    * Analyze how to run each of the HTLC scripts.
    
-It's worth your time running each of the HTLC scripts through each of its permutations, one stack item at a time.
+It's worth your time running each of the two HTLC scripts through each of its permutations, one stack item at a time.
 
 ### Summary: Empowering Bitcoin with Scripts
 
