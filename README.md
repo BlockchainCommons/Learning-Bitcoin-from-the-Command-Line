@@ -67,9 +67,9 @@ This tutorial assumes that you have some minimal background of how to use the co
   * [9.1: Understanding Timelock Options](9_1_Understanding_Timelock_Options.md)
   * [9.2: Using CLTV in Scripts](9_2_Using_CLTV_in_Scripts.md)
   * [9.3: Using CSV in Scripts](9_3_Using_CSV_in_Scripts.md)
-* [10.0: Expanding Bitcoin Scripts](10_0_Expanding_Bitcoin_Scripts.md) — Needs Edit
-  * [10.1: Using Script Conditionals](10_1_Using_Script_Conditionals.md) — Needs Edit
-  * [10.2: Using Other Script Commands](10_2_Using_Other_Script_Commands.md) — Needs Edit
+* [10.0: Expanding Bitcoin Scripts](10_0_Expanding_Bitcoin_Scripts.md)
+  * [10.1: Using Script Conditionals](10_1_Using_Script_Conditionals.md)
+  * [10.2: Using Other Script Commands](10_2_Using_Other_Script_Commands.md)
 * [11.0: Designing Real Bitcoin Scripts](11_0_Designing_Real_Bitcoin_Scripts.md) — Needs Edit
   * [11.1: Writing Puzzles Scripts](11_1_Writing_Puzzle_Scripts.md) — Needs Edit
   * [11.2: Writing Complex Multisig Scripts](11_2_Writing_Complex_Multisig_Scripts.md) — Needs Edit
@@ -79,22 +79,22 @@ This tutorial assumes that you have some minimal background of how to use the co
 
 ** PART FOUR: BITCOIN APIS **
 
-* 11.0: Talking to Bitcoind
-   * 11.1: Accessing Bitcoind with Curl
-   * 11.2: Accessing Bitcoind with JavaScript
-   * 11.3: Accessing Bitcoind with C
+* 12.0: Talking to Bitcoind
+   * 12.1: Accessing Bitcoind with Curl
+   * 12.2: Accessing Bitcoind with JavaScript
+   * 12.3: Accessing Bitcoind with C
       * Watching Bitcoin Addresses in C?
-* 12.0: Programming with LibWally
-   * 12.1: Programming Transactions
-   * 12.2: Programming Scripts
-* 13.0: Programming with secp256k1
+* 13.0: Programming with LibWally
+   * 13.1: Programming Transactions
+   * 13.2: Programming Scripts
+* 14.0: Programming with secp256k1
    
 ** PART FIVE: BITCOIN FUTURES **
 
-* 14.0: Setting Up a Bitcoin Regtest
-   * 14.1: Building the Regtest
-   * 14.2: Testing with Regtest
-   * 14.3: Mining with Regtest
+* 15.0: Setting Up a Bitcoin Regtest
+   * 15.1: Building the Regtest
+   * 15.2: Testing with Regtest
+   * 15.3: Mining with Regtest
    
 ** PART SIX: ELEMENTS **
 
