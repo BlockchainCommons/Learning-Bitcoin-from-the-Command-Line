@@ -2,9 +2,9 @@
 
 > **NOTE:** This is a draft in progress, so that I can get some feedback from early reviewers. It is not yet ready for learning.
 
-You may already have most of the Bitcoin Script commands that you'll be using in hand. But, Bitcoin Script offers a lot more options, which might be exactly what you need to create the financial instrument of your dreams.
+You may already have in hand most of the Bitcoin Script opcodes that you'll be using in most scripts. However, Bitcoin Script offers a lot more options, which might be exactly what you need to create the financial instrument of your dreams.
 
-You should consult the [Bitcoin Script page](https://en.bitcoin.it/wiki/Script) for a more thorough look at all of these and many other commands. This section only highlights the most notable of each.
+You should consult the [Bitcoin Script page](https://en.bitcoin.it/wiki/Script) for a more thorough look at all of these and many other commands. This section only highlights the most notable opcodes.
 
 ## Understand Arithmetic Opcodes
 
@@ -34,7 +34,7 @@ Manipulate two numbers logically:
 
 Test two numbers:
 
-* OP_NUMEQUAL	(0x9c) — 1 if numbers are equal, else 0
+* OP_NUMEQUAL	(0x9c) — 1 if both numbers are equal, else 0
 * OP_LESSTHAN	(0x9f) — 1 if first number is less than second, else 0
 * OP_GREATERTHAN (0xa0) — 1 if first number is greater than second, else 0
 * OP_LESSTHANOREQUAL (0xa1) — 1 if first number is less than or equal to second, else 0
@@ -80,4 +80,4 @@ Also see: `OP_CODESEPARATOR` (0xab), `OP_CHECKSIGVERIFY` (0xad), and `OP_CHECKMU
 
 ## Summary: Using Other Script Commands
 
-Bitcoin Script includes a wide array of arithemetic, cryptographic, and stack opcodes. Most of these additional opcodes will probably not be seen as commonly as the ones revealed in previous sections, but nonetheless they're available if they're just what you need to write your Script!
+Bitcoin Script includes a wide array of arithemetic, stack, and cryptographic opcodes. Most of these additional opcodes are probably not as common as the ones discussed in previous sections, but nonetheless they're available if they're just what you need to write your Script!
