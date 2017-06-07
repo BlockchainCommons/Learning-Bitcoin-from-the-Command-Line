@@ -94,7 +94,7 @@ When everyone that's required has signed, you're off to the races:
 $ bitcoin-cli -named sendrawtransaction hexstring=$signedtx
 3ce88839ac6165aeadcfb188c490e1b850468eff571b4ca78fac64342751510d
 ```
-As with the shortcut demonstrated in [4.5: Sending Coints with Automated Raw Transactions](4_5_Sending_Coins_with_Automated_Raw_Transactions.md), the result is a lot easier, but you lose some control in the process.
+As with the shortcut demonstrated in [§4.5: Sending Coints with Automated Raw Transactions](4_5_Sending_Coins_with_Automated_Raw_Transactions.md), the result is a lot easier, but you lose some control in the process.
 
 ## Summary: Sending & Spending an Automated Multisig
 
