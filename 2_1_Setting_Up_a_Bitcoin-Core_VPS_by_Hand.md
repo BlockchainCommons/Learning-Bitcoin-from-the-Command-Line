@@ -8,7 +8,7 @@ This document explains how to set up a VPS (Virtual Private Sever) by hand to ru
 
 If you want to instead have a script do the setup for you, specifically at linode.com, read the parallel HOWTO file, [§2.2: Setting up a Bitcoin-Core VPS with StackScript](./2_2_Setting_Up_a_Bitcoin-Core_VPS_with_StackScript.md).
 
-If you already have a Bitcoin node running, instead read the next HOWTO file, [Chapter 3: Understanding Your Bitcoin Setup](3_0_Understanding_Your_Bitcoin_Setup.md).
+If you already have a Bitcoin node running, instead read the next HOWTO file, [Chapter Three: Understanding Your Bitcoin Setup](3_0_Understanding_Your_Bitcoin_Setup.md).
 
 ## Choosing Your Bitcoin Setup
 
@@ -395,7 +395,7 @@ $ btcblock
 
 > **TESTNET vs MAINNET:** An unpruned mainnet will take hours longer.
 
-But, when you're ready to go, continue on with [Chapter 3: Understanding Your Bitcoin Setup](3_0_Understanding_Your_Bitcoin_Setup.md), where we'll talk about the files and how you can start experimenting.
+But, when you're ready to go, continue on with [Chapter Three: Understanding Your Bitcoin Setup](3_0_Understanding_Your_Bitcoin_Setup.md), where we'll talk about the files and how you can start experimenting.
 
 ## Appendix I: Bitcoin Installation Types
 
