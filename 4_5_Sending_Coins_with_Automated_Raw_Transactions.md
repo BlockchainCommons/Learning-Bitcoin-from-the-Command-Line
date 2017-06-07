@@ -2,13 +2,13 @@
 
 > **NOTE:** This is a draft in progress, so that I can get some feedback from early reviewers. It is not yet ready for learning.
 
-This chapter lays out three ways to send funds via Bitcoin's cli interface. Section 4.1 described how to do so with a simple command, and section 4.4 detailed how to use a more dangerous raw transaction. This final section splits the difference by showing how to make raw transactions simpler and safer. 
+This chapter lays out three ways to send funds via Bitcoin's cli interface. [§4.1](4_1_Sending_Coins_The_Easy_Way.md) described how to do so with a simple command, and [§4.4](4_4_Sending_Coins_with_a_Raw_Transaction.md) detailed how to use a more dangerous raw transaction. This final section splits the difference by showing how to make raw transactions simpler and safer. 
 
 ## Let Bitcoin Calculate For You
 
 The methodology for automated raw transactions is simple: you create a raw transaction, but you use the `fundrawtransaction` command to ask the bitcoind to run the calculations for you.
 
-In order to use this command, you'll need to ensure that your ~/.bitcoin/bitcoin.conf file contains rational variables for calculating transaction fees. Please see [Section 4.1](4_1_Sending_Coins_The_Easy_Way.md) for more information on this.
+In order to use this command, you'll need to ensure that your ~/.bitcoin/bitcoin.conf file contains rational variables for calculating transaction fees. Please see [§4.1: Sending Coins The Easy Way](4_1_Sending_Coins_The_Easy_Way.md) for more information on this.
 
 For very conservative numbers, we suggested adding the following to the bitcoin.conf:
 ```
