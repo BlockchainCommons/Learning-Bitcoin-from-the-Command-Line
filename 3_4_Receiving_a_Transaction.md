@@ -194,13 +194,13 @@ Even looking at the verbose information for a transaction can be a little intimi
 Currently, our preferred block explorer is [https://live.blockcypher.com/](https://live.blockcypher.com/). 
 
 You can use it to look up transactions for an address:
-```
+
 [https://live.blockcypher.com/btc-testnet/address/n4cqjJE6fqcmeWpftygwPoKMMDva6BpyHf/](https://live.blockcypher.com/btc-testnet/address/n4cqjJE6fqcmeWpftygwPoKMMDva6BpyHf/)
-```
+
 You can also use it to look at individual transactions:
-```
+
 [https://live.blockcypher.com/btc-testnet/tx/88e5d5f3077517d76f5a61491fa52e6aaae078c52bc62d849f09507ef0cfada2/](https://live.blockcypher.com/btc-testnet/tx/88e5d5f3077517d76f5a61491fa52e6aaae078c52bc62d849f09507ef0cfada2/)
-```
+
 A block explorer doesn't generally provide any more information than a command line look at a raw transaction; it just does a good job of highlighting the important information and putting together the puzzle pieces, including the transaction fees behind a transaction — another concept that we'll be covering in future sections.
 
 ## Summary: Receiving a Transactions
