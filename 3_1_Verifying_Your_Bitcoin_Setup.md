@@ -33,7 +33,7 @@ You'll begin your exploration of the Bitcoin network with the `bitcoin-cli` comm
 $ ps auxww | grep bitcoind
 user1    29360 11.5 39.6 2676812 1601416 ?     SLsl Feb23 163:42 /usr/local/bin/bitcoind -daemon
 ```
-If it's not running, you'll want to run "/usr/local/bin/bitcoind -daemon" by hand and also place it in your crontab, as explained in [2A - Setting up a Bitcoin-Core VPS by Hand](./2A_Setting_Up_a_Bitcoin-Core_VPS_by_Hand.md).
+If it's not running, you'll want to run "/usr/local/bin/bitcoind -daemon" by hand and also place it in your crontab, as explained in [§2.1: Setting up a Bitcoin-Core VPS by Hand](./2_1_Setting_Up_a_Bitcoin-Core_VPS_by_Hand.md).
 
 ## Verify Your Blocks
 
