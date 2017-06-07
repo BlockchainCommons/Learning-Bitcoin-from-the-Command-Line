@@ -77,7 +77,7 @@ Blockchain is the generalization of the methodology used by Bitcoin to create a 
 
 ### Why Is It Called a Chain?
 
-Each block in the blockchain stores a hash of the block before it. This links the current block all the way back the original "genesis block" through an unbroken chain. This also provides the security of blockchain, because each block stacked atop an old one makes it harder to recreate the old block due to the proof-of-work algorithms used in block creation. Once several blocks have been built atop a block in the chain, it's essentially irreversible. 
+Each block in the blockchain stores a hash of the block before it. This links the current block all the way back the original "genesis block" through an unbroken chain. It's a way to create absolute order among possibly conflicting data. This also provides the security of blockchain, because each block stacked atop an old one makes it harder to recreate the old block due to the proof-of-work algorithms used in block creation. Once several blocks have been built atop a block in the chain, it's essentially irreversible. 
 
 ### What is a Fork?
 
@@ -85,7 +85,7 @@ Occasionally two blocks are created around the same time. This temporarily creat
 
 ### Blockchain — In Short
 
-One way to think of blockchain is: _a linked series of blocks of unchangeable data, going back in time_.
+One way to think of blockchain is: _a linked series of blocks of unchangeable data, going back in time_. Another way is: _a linked series of blocks that absolutely order data that could be conflicting_.
 
 ## Is Blockchain Right for Me?
 
