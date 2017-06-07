@@ -395,7 +395,7 @@ $ btcblock
 
 > **TESTNET vs MAINNET:** An unpruned mainnet will take hours longer.
 
-But, when you're ready to go, continue on with [3.0: Playing with bitcoin-cli](3_0_Playing_with_Bitcoin-CLI.md), where we'll talk about the files and how you can start experimenting.
+But, when you're ready to go, continue on with [Chapter 3: Understanding Your Bitcoin Setup](3_0_Understanding_Your_Bitcoin_Setup.md), where we'll talk about the files and how you can start experimenting.
 
 ## Appendix I: Bitcoin Installation Types
 
@@ -408,17 +408,3 @@ But, when you're ready to go, continue on with [3.0: Playing with bitcoin-cli](3
 **Pruned Testnet.** This is just the last 550 blocks of Testnet ... because the Testnet blockchain is pretty big now too.
 
 **Private Regtest.** This is Regression Testing Mode, which lets you run a totally local Bitcoin server. It allows for even more in-depth testing. There's no pruning needed here, because you'll be starting from scratch.
-
-### Appendix III: Other tutorials once you've got bitcoin installed and up-to-date
-
-- Bitcoin.org's developer examples https://bitcoin.org/en/developer-examples#transactions
-- Jonas Nick's "How to Run a Bitcoin Node" https://github.com/jonasnick/bitcoin-node
-- David DeRosa's "A Developer Oriented Series about Bitcoin" http://davidederosa.com/basic-blockchain-programming/
-
-Videos
-
-- Bitcoin JSON-RPC Tutorial 1 https://www.youtube.com/watch?v=ygNit44dQHA
-- Bitcoin JSON-RPC Tutorial 2 - VPS Setup https://www.youtube.com/watch?v=ygNit44dQHA
-- Bitcoin JSON-RPC Tutorial 3 - bitcoin.conf https://www.youtube.com/watch?v=W54aRszkEOI&t=65s
-- Bitcoin JSON-RPC Tutorial 4 - Command Line Interface https://www.youtube.com/watch?v=vmdYD7vutTI
-- Bitcoin JSON-RPC Tutorial 5 - Your First Calls https://www.youtube.com/watch?v=ARL_PvDEBtU
