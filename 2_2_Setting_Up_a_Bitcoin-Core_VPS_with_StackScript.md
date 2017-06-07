@@ -6,9 +6,9 @@ This document explains how to set up a VPS (Virtual Private Sever) to run a Bitc
 
 > **WARNING:** Don’t use a VPS for a bitcoin wallet with significant real funds; see http://blog.thestateofme.com/2012/03/03/lessons-to-be-learned-from-the-linode-bitcoin-incident/ . It is  very nice to be able experiment with real bitcoin transactions on a live node without tying up a self-hosted server on a local network. I’ve also found it useful to be able to use an iPhone or iPad to communicate via SSH to my VPS to do some simple bitcoin tasks. But a higher level of safety is required for significant funds.
 
-If you want to instead do all the setup by hand, please read the parallel HOWTO file, [2.1: Setting up a Bitcoin-Core VPS by Hand](./2_1_Setting_Up_a_Bitcoin-Core_VPS_by_Hand.md).
+If you want to instead do all the setup by hand, please read the parallel HOWTO file, [§2.1: Setting up a Bitcoin-Core VPS by Hand](./2_1_Setting_Up_a_Bitcoin-Core_VPS_by_Hand.md).
 
-If you already have a Bitcoin node running, instead read the next HOWTO file, [3.0: Playing with bitcoin-cli](3_0_Playing_with_Bitcoin-CLI.md).
+If you already have a Bitcoin node running, instead read the next HOWTO file, [Chapter Three: Understanding Your Bitcoin Setup](3_0_Understanding_Your_Bitcoin_Setup.md).
 
 ## Getting Started with Linode
 
@@ -40,7 +40,7 @@ Your server security won't be complete if people can break into your Linode acco
 
 ### Load the StackScript
 
-There's a copy of our Bitcoin VPS Setup StackScript in [the repo here](2_2__Script_Linode_Setup.stackscript). This script basically automates the Bitcoin VPS setup instructions from [2A - Setting up a Bitcoin-Core VPS by Hand](./2A_Setting_Up_a_Bitcoin-Core_VPS_by_Hand.md). If you want to be particulary prudent, read it over carefully. If you are satisfied, you can copy that StackScript into your own account by going to [Manage StackScripts](https://manager.linode.com/stackscripts/index), or clicking the link under your list of Linodes. Click "Add a new StackScript", give it a good name (we use `Bitcoin VPS Setup`), then copy and paste the script.
+There's a copy of our Bitcoin VPS Setup StackScript in [the repo here](2_2__Script_Linode_Setup.stackscript). This script basically automates the Bitcoin VPS setup instructions from [§2.1: Setting Up a Bitcoin-Core VPS by Hand](2_1_Setting_Up_a_Bitcoin-Core_VPS_by_Hand.md). If you want to be particulary prudent, read it over carefully. If you are satisfied, you can copy that StackScript into your own account by going to [Manage StackScripts](https://manager.linode.com/stackscripts/index), or clicking the link under your list of Linodes. Click "Add a new StackScript", give it a good name (we use `Bitcoin VPS Setup`), then copy and paste the script.
 
 ### Add a Linode
 
@@ -257,7 +257,7 @@ If you choose one of the pruned options, it'll probably take a day to download e
 
 So, it might be time for a few more espressos.
 
-But, when you're ready to go, continue on with [3.0: Playing with bitcoin-cli](3_0_Playing_with_Bitcoin-CLI.md), where we'll talk about the files and how you can start experimenting.
+But, when you're ready to go, continue on with [Chapter Three: Understanding Your Bitcoin Setup](3_0_Understanding_Your_Bitcoin_Setup.md), where we'll talk about the files and how you can start experimenting.
 
 ## Appendix I: Bitcoin Installation Types
 
