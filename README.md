@@ -73,7 +73,7 @@ This tutorial assumes that you have some minimal background of how to use the co
 * [11.0: Designing Real Bitcoin Scripts](11_0_Designing_Real_Bitcoin_Scripts.md)
   * [11.1: Writing Puzzles Scripts](11_1_Writing_Puzzle_Scripts.md)
   * [11.2: Writing Complex Multisig Scripts](11_2_Writing_Complex_Multisig_Scripts.md)
-  * [11.3: Empowering Bitcoin with Scripts](11_3_Empowering_Bitcoin_with_Scripts.md) — Pending
+  * [11.3: Empowering Bitcoin with Scripts](11_3_Empowering_Bitcoin_with_Scripts.md)
    
 ## Planned Future Work
 
