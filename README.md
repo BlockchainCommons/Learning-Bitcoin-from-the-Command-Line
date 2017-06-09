@@ -4,15 +4,15 @@
 
 # Copyright
 
-Unless otherwise noted, the contents of this repository are Copyright ©2017 by Christopher Allen @ChristopherA \<ChristopherA@LifeWithAlacrity.com\> and are licensed [CC-BY](./LICENSE-CC-BY-4.0.md).
+Unless otherwise noted, the contents of this repository are Copyright ©2017 by Christopher Allen [@ChristopherA](https://github.com/ChristopherA) \<ChristopherA@LifeWithAlacrity.com\> and are licensed [CC-BY](./LICENSE-CC-BY-4.0.md).
 
 ### Credits
 
 | Role                | Names                                    |
 | ------------------- | ---------------------------------------- |
-| ***Lead Authors:*** | Christopher Allen @ChristopherA, Shannon Appelcline @ShannonA |
+| ***Lead Authors:*** | Christopher Allen [@ChristopherA](https://github.com/ChristopherA), Shannon Appelcline [@ShannonA](https://github.com/ShannonA) |
 | ***Contributors:*** |                                          |
-| ***Reviewers:***    | Glen Willem                              |
+| ***Reviewers:***    | Glen Willem [@gwillem](https://github.com/gwillem) |
 | ***Sponsors:***     | Blockstream Corporation                  |
 
 ## Introduction
