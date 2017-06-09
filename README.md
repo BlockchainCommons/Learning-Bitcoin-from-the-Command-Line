@@ -4,7 +4,16 @@
 
 # Copyright
 
-Unless otherwise noted, the contents of this repository areCopyright ©2017 by Christopher Allen \<ChristopherA@LifeWithAlacrity.com\> and are licensed [CC-BY](./LICENSE-CC-BY-4.0.md).
+Unless otherwise noted, the contents of this repository are Copyright ©2017 by Christopher Allen @ChristopherA \<ChristopherA@LifeWithAlacrity.com\> and are licensed [CC-BY](./LICENSE-CC-BY-4.0.md).
+
+### Credits
+
+| Role                | Names                                    |
+| ------------------- | ---------------------------------------- |
+| ***Lead Authors:*** | Christopher Allen @ChristopherA, Shannon Appelcline @ShannonA |
+| ***Contributors:*** |                                          |
+| ***Reviewers:***    | Glen Willem                              |
+| ***Sponsors:***     | Blockstream Corporation                  |
 
 ## Introduction
 
@@ -99,4 +108,3 @@ This tutorial assumes that you have some minimal background of how to use the co
 ** APPENDICES **
 
 * Appendix: Compiling Bitcoin
-
