@@ -23,7 +23,7 @@ This tutorial assumes that you have some minimal background of how to use the co
   * [2.1: Setting Up a Bitcoin-Core VPS by Hand](2_1_Setting_Up_a_Bitcoin-Core_VPS_by_Hand.md)
   * [2.2: Setting Up a Bitcoin-Core VPS with StackScript.md](2_2_Setting_Up_a_Bitcoin-Core_VPS_with_StackScript.md)
     * [Linode_Bitcoin-Core_VPS_Setup.stackscript](2_2__Script_Linode_Setup.stackscript)
-    
+
 **PART TWO: BITCOIN-CLI**
 
 * [3.0: Understanding Your Bitcoin Setup](3_0_Understanding_Your_Bitcoin_Setup.md)
@@ -74,7 +74,7 @@ This tutorial assumes that you have some minimal background of how to use the co
   * [11.1: Writing Puzzles Scripts](11_1_Writing_Puzzle_Scripts.md)
   * [11.2: Writing Complex Multisig Scripts](11_2_Writing_Complex_Multisig_Scripts.md)
   * [11.3: Empowering Bitcoin with Scripts](11_3_Empowering_Bitcoin_with_Scripts.md)
-   
+
 ## Planned Future Work
 
 ** PART FOUR: BITCOIN APIS **
@@ -88,24 +88,15 @@ This tutorial assumes that you have some minimal background of how to use the co
    * 13.1: Programming Transactions
    * 13.2: Programming Scripts
 * 14.0: Programming with secp256k1
-   
+
 ** PART FIVE: BITCOIN FUTURES **
 
 * 15.0: Setting Up a Bitcoin Regtest
    * 15.1: Building the Regtest
    * 15.2: Testing with Regtest
    * 15.3: Mining with Regtest
-   
-** PART SIX: ELEMENTS **
-
-_This is still a bit in the future, but will likely include:_
-   
-* X.0: Introducing Elements
-* X.0: Introducing SegWit
-   * X.X Scripting a Pay to Witness
-* X.0: Individual Elements
 
 ** APPENDICES **
 
 * Appendix: Compiling Bitcoin
-   
+
