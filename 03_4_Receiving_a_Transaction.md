@@ -209,4 +209,4 @@ Faucets will give you money on the testnet. They come in as raw transactions, wh
 
 ## What's Next?
 
-Advance through "bitcoin-cli" with [Chapter Four: Sending Bitcoin Transactions](04_0_Creating_Basic_Bitcoin_Transactions.md).
+Advance through "bitcoin-cli" with [Chapter Four: Sending Bitcoin Transactions](04_0_Sending_Bitcoin_Transactions.md).
