@@ -71,7 +71,7 @@ To complete your serialization, you translate the hexcode into binary. On the co
 
 ## Analyze a P2SH Multisig
 
-To better understand this process, we will reverse-engineer the P2SH multisig that we created in [§6.1: Sending a Transaction to a Multisig](6_1_Sending_a_Transaction_to_a_Multisig.md). Take a look at the `redeemScript` that you used, which you now know is the hex-serialized version of the locking script:
+To better understand this process, we will reverse-engineer the P2SH multisig that we created in [§6.1: Sending a Transaction to a Multisig](06_1_Sending_a_Transaction_to_a_Multisig.md). Take a look at the `redeemScript` that you used, which you now know is the hex-serialized version of the locking script:
 ```
 52210307fd375ed7cced0f50723e3e1a97bbe7ccff7318c815df4e99a59bc94dbcd819210367c4f666f18279009c941e57fab3e42653c6553e5ca092c104d1db279e328a2852ae
 ```
@@ -132,6 +132,10 @@ Note that the `hex scriptPubKey` for P2SH Script transaction will _always_ start
 ## Summary: Understanding the Foundation of P2SH
 
 Actually creating the P2SH locking script dives further into the guts of Bitcoin than you've ever gone before. Though it's helpful to know how all of this works at a very low level, it's most likely that you'll have an API taking care of all of the heavy-lifting for you. Your task will simply be to create the Bitcoin Script to do the locking ... which is the main topic of chapters 7 and 9-10.
+
+## What's Next?
+
+Continue "Embedding Bitcoin Scripts" with [§8.3: Running a Bitcoin Script with P2SH](08_3_Running_a_Bitcoin_Script_with_P2SH.md).
 
 ## Appendix: The Integer Conversion Script
 
