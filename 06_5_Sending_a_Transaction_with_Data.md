@@ -115,3 +115,6 @@ _What is the Power of OP_RETURN?_ The OP_RETURN opens up whole new possibilities
 
 Note that there is some controversy over using the Bitcoin blockchain in this way.
 
+## What's Next?
+
+Move on to "Bitcoin Scripting" with [Chapter Seven: Introducing Bitcoin Scripts](07_0_Introducing_Bitcoin_Scripts.md).
