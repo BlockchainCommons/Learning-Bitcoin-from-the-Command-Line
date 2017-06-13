@@ -2,7 +2,7 @@
 
 > **NOTE:** This is a draft in progress, so that I can get some feedback from early reviewers. It is not yet ready for learning.
 
-Before we close out this intro to P2SH scripting, it's worth examining a more realistic example. Ever since [§6.1: Sending a Transaction to a Multisig](6_1_Sending_a_Transaction_to_a_Multisig.md), we've been casually saying that the `bitcoin-cli` interface wraps its multisig transaction in a P2SH transaction. In fact, this is the standard methodology for creating multisigs on the Blockchain. Here's how that works, in depth.
+Before we close out this intro to P2SH scripting, it's worth examining a more realistic example. Ever since [§6.1](06_1_Sending_a_Transaction_to_a_Multisig.md), we've been casually saying that the `bitcoin-cli` interface wraps its multisig transaction in a P2SH transaction. In fact, this is the standard methodology for creating multisigs on the Blockchain. Here's how that works, in depth.
 
 ## Understand the Multisig Code
 
@@ -24,15 +24,15 @@ _What is a consensus rule?_ These are the rules that the Bitcoin nodes follow to
 
 ## Create a Raw Multisig 
 
-As discussed in [§8.1: Building a Bitcoin Script with P2SH](8_1_Building_a_Bitcoin_Script_with_P2SH.md), multisigs are one of the standard Bitcoin transaction types. A transaction can be created with a locking script that uses the raw `OP_CHECKMULTISIG` command, and it will be accepted into a block. This is the classic methodology for using multisigs in Bitcoin.
+As discussed in [§8.1: Building a Bitcoin Script with P2SH](08_1_Building_a_Bitcoin_Script_with_P2SH.md), multisigs are one of the standard Bitcoin transaction types. A transaction can be created with a locking script that uses the raw `OP_CHECKMULTISIG` command, and it will be accepted into a block. This is the classic methodology for using multisigs in Bitcoin.
 
-As an example, we will revisit the multisig created in [§6.1](6_1_Sending_a_Transaction_to_a_Multisig.md) one final time and build a new locking script for it using this methodology. As you may recall, that was a 2-of-2 multisig built from `$address1` and `$address2`. 
+As an example, we will revisit the multisig created in [§6.1](06_1_Sending_a_Transaction_to_a_Multisig.md) one final time and build a new locking script for it using this methodology. As you may recall, that was a 2-of-2 multisig built from `$address1` and `$address2`. 
 
 As as `OP_CHECKMULTISIG` locking script requires the "m" (`2`), the addresses, and the "n" (`2`), you could write the following `scriptPubKey`:
 ```
 2 $address1 $address2 2 OP_CHECKMULTISIG
 ```
-If this looks familiar, that's because it's the multisig that you deserialized in [§8.2: Building the Structure of P2SH](8_2_Building_the_Structure_of_P2SH.md).
+If this looks familiar, that's because it's the multisig that you deserialized in [§8.2: Building the Structure of P2SH](08_2_Building_the_Structure_of_P2SH.md).
 ```
 2 0307fd375ed7cced0f50723e3e1a97bbe7ccff7318c815df4e99a59bc94dbcd819 0367c4f666f18279009c941e57fab3e42653c6553e5ca092c104d1db279e328a28 2 OP_CHECKMULTISIG
 ```
@@ -140,8 +140,12 @@ Then, run the multisig script:
 3. Validate `0 $signature1 $signature2 2 $address1 $address2 2 OP_CHECKMULTISIG`.
 4. Succeed if the operands fulfill the deserialized `redeemScript`.
 
-Now you know how the multisig transaction in [§6.1](6_1_Sending_a_Transaction_to_a_Multisig.md) was actually created, how it was  validated for spending, and why that `redeemScript` was so important.
+Now you know how the multisig transaction in [§6.1](06_1_Sending_a_Transaction_to_a_Multisig.md) was actually created, how it was  validated for spending, and why that `redeemScript` was so important.
 
 ## Summary: Creating Multisig Scripts
 
 Multisigs are a standard transaction type, but they're a bit cumbersome to use, so they're regularly incorporated in P2SH transactions, as was the case in [§6.1](6_1_Sending_a_Transaction_to_a_Multisig.md) when we created our first multisigs. The result is cleaner, smaller, and more standardized — but more importantly, it's a great real-world example of how P2SH scripts really work.
+
+## What's Next?
+
+Continue "Embedding Bitcoin Scripts" with [§8.5: Spending a P2SH Transaction](08_5_Spending_a_P2SH_Transaction.md).
