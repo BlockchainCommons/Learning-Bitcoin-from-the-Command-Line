@@ -10,7 +10,7 @@ In a typical P2PKH transaction, bitcoins are sent to an address based on your pu
 
 _What is a multisignature?_ A multisignature is a methodology that allows more than one person to jointly create a digital signature. It's a general technique for the cryptographic use of keys that goes far beyond Bitcoin.
 
-Technically, a multisignature cryptographic puzzle is created by Bitcoin using the OP_CHECKMULTISIG command, and typically that's encapsulated in a P2SH address. [§8.4: Scripting a Multisig](8_4_Scripting_a_Multisig.md) will detail how that works more precisely. For now, all you need to know is that you can use `bitcoin-cli` command to create multisignature addresses; funds can be mailed to these addresses just like any normal P2PKH address, but multiple private keys will be required for the redemption of the funds.
+Technically, a multisignature cryptographic puzzle is created by Bitcoin using the OP_CHECKMULTISIG command, and typically that's encapsulated in a P2SH address. [§8.4: Scripting a Multisig](08_4_Scripting_a_Multisig.md) will detail how that works more precisely. For now, all you need to know is that you can use `bitcoin-cli` command to create multisignature addresses; funds can be mailed to these addresses just like any normal P2PKH address, but multiple private keys will be required for the redemption of the funds.
 
 _What is a multisignature transaction?_ A multisignature transaction is a Bitcoin transaction that has been sent to a multisignature address, thus requiring the signatures of certain people from the multisignature group to reuse the funds.
 
@@ -152,3 +152,7 @@ As you can see, there was nothing unusual in the creation of the transaction, an
 Multisigs addresses lock funds to multiple private keys — possibly requiring all of those private keys for redemption, and possibly requiring just some from the set. They're easy enough to create with `bitcoin-cli` and they're entirely normal to send to. This ease is due in large part to the invisible use of P2SH (pay-to-script) addresses, a large topic that will get more coverage in the future.
 
 _What is the power of multisignatures?_ Multisignatures allow the modeling of a variety of financial arrangements such as corporations, partnerships, committees, and other groups. A 1-of-2 multisig might be a married couple's joint bank account, while a 2-of-2 multisig might be used for large expenditures by a Limited Liability Partnership. Multisignatures also form one of the bases of Smart Contracts. For example, a real estate deal could be closed with a 2-of-3 multisig, where the signatures are submitted by the buyer, the seller, and an escrow agent. Once the escrow agent agrees that all of the conditions have been met, he frees up the funds for the seller; or alternatively, the buyer and seller can jointly free the funds.
+
+## What's Next?
+
+Continue "Expanding Bitcoin Transactions" with [§6.2: Spending a Transaction with a Multisig](06_2_Spending_a_Transaction_to_a_Multisig.md).
