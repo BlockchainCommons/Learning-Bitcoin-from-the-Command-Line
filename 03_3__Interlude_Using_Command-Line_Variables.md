@@ -29,3 +29,11 @@ $ NEW_SIG_1=$(bitcoin-cli signmessage $NEW_ADDRESS_1 "Hello, World")
 The rest of this tutorial will use this style of saving information to variables when it's practical.
 
 _When is it not practical to use command-line variables?_ Command-line variables aren't practical if you need to use the information somewhere other than on the command line. For example, saving your signature may not actually be useful if you're just going to have to send it to someone else in an email. In addition, some future commands will output JSON objects instead of simple information, and variables can't be used to capture that information ... at least not without a _little_ more work.
+
+## Summary: Using Command-Line Variables
+
+Shell variables can be used to hold long Bitcoin strings, minimizing the chances of mistakes.
+
+## What's Next?
+
+Continue "Understanding Your Bitcoin Setup" with [§3.4: Receiving a Transaction](03_4_Receiving_a_Transaction.md).
