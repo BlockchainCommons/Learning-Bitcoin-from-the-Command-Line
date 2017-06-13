@@ -10,7 +10,7 @@
 
 Before digging into CLTV, we should first recall how `nLockTime` works.
 
-As detailed in [§6.4: Sending a Transaction with a Locktime](6_4_Sending_a_Transaction_with_a_Locktime.md), locktime is enabled by setting two variables, `nLockTime` and the `nSequence`. The `nSequence` must be set to less than 0xffffffff (usually: 0xffffffff-1), then the `nLockTime` is interpreted as follows:
+As detailed in [§6.4: Sending a Transaction with a Locktime](06_4_Sending_a_Transaction_with_a_Locktime.md), locktime is enabled by setting two variables, `nLockTime` and the `nSequence`. The `nSequence` must be set to less than 0xffffffff (usually: 0xffffffff-1), then the `nLockTime` is interpreted as follows:
 
 * If the `nLockTime` is less than 500 million, it is interpreted as a blockheight.
 * If the `nLockTime` is 500 million or more, it is interpreted as a UNIX timestamp.
@@ -75,7 +75,7 @@ The following simple locking script could be used to transform a P2PKH output to
 
 ### Encode a CLTV Script
 
-Of course, as with any complex Bitcoin Scripts, this CLTV script would actually be encoded in a P2SH script, as explained in [§8.1: Understanding the Foundation of P2SH](8_1_Understanding_the_Foundation_of_P2SH.md) and [§8.2: Building the Structure of P2SH](8_2_Building_the_Structure_of_P2SH.md). 
+Of course, as with any complex Bitcoin Scripts, this CLTV script would actually be encoded in a P2SH script, as explained in [§8.1: Understanding the Foundation of P2SH](08_1_Understanding_the_Foundation_of_P2SH.md) and [§8.2: Building the Structure of P2SH](08_2_Building_the_Structure_of_P2SH.md). 
 
 Assuming that `<NextYear>` were the integer "1546288031" (little-endian hex: 0x9f7b2a5c) and `<pubKeyHash>` were "371c20fb2e9899338ce5e99908e64fd30b789313", this `redeemScript` would be built as:
 ```
@@ -137,3 +137,7 @@ Finally, the remainder of the script runs, which is a normal check of a signatur
 `OP-CHECKLOCKTIMEVERIFY` is a simple opcode that looks at a single argument, interprets it as a blockheight or UNIX timestamp, and only allows its UTXO to be unlocked if that blockheight or UNIX timestamp is in the past. Setting `nLockTime` on the spending transaction is what allows Bitcoin to make this calculation.
 
 _What is the Power of CLTV?_ You've already seem that simple locktimes were one of the bases of Smart Contracts. CLTV takes the next step. Now you can both guarantee that a UTXO can't be spent before a certain time _and_ guarantee that it won't be spent either. In its simplest form, this could be used to create a trust that someone could only access when they reached 18 or a retirement fund that they could only access when they turned 50. However it's true power comes when combined with conditionals, where the CLTV only activates in certain situations.
+
+## What's Next?
+
+Continue "Empowering Timelock" with [§9.3: Using CSV in Scripts](09_3_Using_CSV_in_Scripts.md). 
