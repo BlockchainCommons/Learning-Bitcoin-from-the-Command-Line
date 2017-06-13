@@ -4,7 +4,7 @@
 
 > **NOTE:** This is a draft in progress, so that I can get some feedback from early reviewers. It is not yet ready for learning.
 
-Bitcoin Scripting allows for considerable additional control over Bitcoin transactions, but it's also somewhat dangerous. As we'll describe in chapter 8, the actual Scripts are somewhat isolated from the Bitcoin network, which means that it's possible to write a script and have it accepted by the network even if it's impossible to redeem from that script! So, you need to thoroughly test your Scripts before you put your money into them.
+Bitcoin Scripting allows for considerable additional control over Bitcoin transactions, but it's also somewhat dangerous. As we'll describe in [§8.1](08_1_Understanding_the_Foundation_of_P2SH.md), the actual Scripts are somewhat isolated from the Bitcoin network, which means that it's possible to write a script and have it accepted by the network even if it's impossible to redeem from that script! So, you need to thoroughly test your Scripts before you put your money into them.
 
 ## Test a Script Online
 
@@ -14,7 +14,7 @@ Web simulators seem like they should be a great option for Bitcoin Script testin
 
 Charlie Marsh has built an extensive [Script Playground](http://www.crmarsh.com/script-playground/). Just put together your unlocking script and your locking script and run them. The Playground will play an `OP_VERIFY` at the end, and tell you with a green checkmark or a red X whether the transaction was unlocked or not.
 
-Type in the test from [§7.2: Running a Bitcoin Script.md](7_2_Running_a_Bitcoin_Script.md) of `1 98 OP_ADD 99 OP_EQUAL` and watch it verify; change it to `1 97 OP_ADD 99 OP_EQUAL` and see it fail.
+Type in the test from [§7.2: Running a Bitcoin Script.md](07_2_Running_a_Bitcoin_Script.md) of `1 98 OP_ADD 99 OP_EQUAL` and watch it verify; change it to `1 97 OP_ADD 99 OP_EQUAL` and see it fail.
 
 If you prefer, you can grab the [JavaScript code](https://github.com/crm416/script/) and run it on your own machine.
 
@@ -28,11 +28,11 @@ _If the signature buttons worked right, the Playground would be great, but until
 
 ### Web BTC Script Debugger
 
-WebBTC has a [Script Debugger](https://webbtc.com/script) that not only shows you the execution of a script, but also explains its parts and shows you the stack. The following example is similar to the add-to-99 script from [§7.2](7_2_Running_a_Bitcoin_Script.md): [Add to 15 Script](https://webbtc.com/script/1%2014/OP_ADD%2015%20OP_EQUAL/).
+WebBTC has a [Script Debugger](https://webbtc.com/script) that not only shows you the execution of a script, but also explains its parts and shows you the stack. The following example is similar to the add-to-99 script from [§7.2](07_2_Running_a_Bitcoin_Script.md): [Add to 15 Script](https://webbtc.com/script/1%2014/OP_ADD%2015%20OP_EQUAL/).
 
 #### Bugs & Challenges
 
-_Web Problems._ The web submit form no longer works, requiring you to type all script into a URL(!) of the form `https://webbtc.com/script/[unlocking-script]/[locking-script]/`. Each script is a series of opcodes or constants separated by `%20`s. For example `1%2014` is `1 14` and `OP_ADD%2015%20OP_EQUAL` is `OP_ADD 15 OP_EQUAL`.
+_Web Problems._ The web submit form no longer works, requiring you to type all script into a URL(!) of the form `https://webbtc.com/script/[unlocking-script]/[locking-script]/`. Each script is a series of opcodes and constants separated by `%20`s. For example `1%2014` is `1 14` and `OP_ADD%2015%20OP_EQUAL` is `OP_ADD 15 OP_EQUAL`. (But, you can just use spaces when you type your Script into the URL, and they'll convert to `%20`s.)
 
 _Visual Problems._ The stack is upside down.
 
@@ -59,3 +59,7 @@ _Whatever_ other testing methods you've used, this should be your final test _be
 ## Summary: Testing a Bitcoin Script
 
 It turns out that there aren't currently any great tools for testing Bitcoin Scripts, except perhaps for some very simple flow control testing. We hope that some of the options in this section will mature (or get fixed) in the future, but for now you're going to need to jump ahead to APIs when you really need to do some real-world testing.
+
+## What's Next?
+
+Advance through "Bitcoin Scripting" with [Chapter Eight: Embedding Bitcoin Scripts in P2SH Transactions](08_0_Embedding_Bitcoin_Scripts_in_P2SH_Transactions.md).
