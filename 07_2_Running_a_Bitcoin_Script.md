@@ -14,7 +14,7 @@ Bitcoin Scripts are run from left to right. That sounds easy enough, because it'
 
 For example, if you were adding together "1" and "2", your Bitcoin Script for that would be `1 2 OP_ADD`, _not_ "1 + 2". Since we know that OP_ADD operator takes two inputs, we know that the two inputs before it are its operands.
 
-> **WARNING:** Technically, everything in Bitcoin Script is an opcode, thus it would be most appropriate to record the above example as `OP_1 OP_2 OP_ADD`. In our examples, we don't worry about how the constants will be evaluated, as that's a topic of translation, as is explained in [§8.2: Building the Structure of P2SH](8_2_Building_the_Structure_of_P2SH.md). Some writers prefer to also leave the "OP" prefix off operators, but we have opted not to.
+> **WARNING:** Technically, everything in Bitcoin Script is an opcode, thus it would be most appropriate to record the above example as `OP_1 OP_2 OP_ADD`. In our examples, we don't worry about how the constants will be evaluated, as that's a topic of translation, as is explained in [§8.2: Building the Structure of P2SH](08_2_Building_the_Structure_of_P2SH.md). Some writers prefer to also leave the "OP" prefix off all operators, but we have opted not to.
 
 ### Understand the Stack
 
@@ -105,7 +105,7 @@ Stack: [ True ]
 ```
 This abstraction isn't quite accurate: for security reasons, the `scriptSig` is run, then the contents of the stack are transferred for the `scriptPubKey` to run, but it's accurate enough for understanding how the key of `scriptSig` fits into the lock of `scriptPubKey`.
 
-> **WARNING** The above is a non-standard transaction type. It would not actually be accepted by nodes running Bitcoin Core with the standard settings. [§8.1: Building a Bitcoin Script with P2SH](8_1_Building_a_Bitcoin_Script_with_P2SH.md) discusses how you actually _could_ use a Bitcoin Script like this, via the power of P2SH.
+> **WARNING** The above is a non-standard transaction type. It would not actually be accepted by nodes running Bitcoin Core with the standard settings. [§8.1: Building a Bitcoin Script with P2SH](08_1_Building_a_Bitcoin_Script_with_P2SH.md) discusses how you actually _could_ run a Bitcoin Script like this, using the power of P2SH.
 
 ### Get the Results
 
@@ -119,3 +119,8 @@ In the above example, the transaction would succeed because the stack has a `Tru
 ## Summary: Running a Bitcoin Script
 
 To process a Bitcoin Script, a `scriptSig` is run followed by the `scriptPubKey` that it's unlocking. These commands are run in order, from left to right, with constants being pushed onto a stack and operators popping elements off that stack, then pushing results back onto it. If the Script doesn't halt in the middle and if the item on top of the stack at the end is non-zero, then the UTXO is unlocked.
+
+## What's Next?
+
+Continue "Introducing Bitcoin Scripts" with [§7.3: Scripting a P2PKH](07_3_Scripting_a_P2PKH.md).
+
