@@ -152,3 +152,7 @@ Here, we saw this methodology used  to redeem multisig funds. In the future you 
 ## Summary: Spending a Transaction with a Multisig
 
 It turns out that spending money sent to a multisig address can take quite a bit of work. But as long as you have your original addresses and your redeemScript, you can do it by signing a raw transaction with each different address, and providing some more information along the way.
+
+## What's Next?
+
+Continue "Expanding Bitcoin Transactions" with [§6.3: Sending & Spending an Automated Multisig](06_3_Sending_an_Automated_Multisig.md).
