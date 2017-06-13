@@ -281,8 +281,12 @@ For the purposes of this tutorial, there are two important lessons for HTLCs:
    
 It's worth your time running each of the two HTLC scripts through each of its permutations, one stack item at a time.
 
-### Summary: Empowering Bitcoin with Scripts
+## Summary: Empowering Bitcoin with Scripts
 
 We're closing our examination of Bitcoin Scripts with a look at how truly powerful they can be. In 20 opcodes or less, a Bitcoin Script can form the basis of an entire off-chain payment channel. Similarly, two-way pegged sidechains are the product of less than twenty opcodes, as also briefly noted in [BIP 112](https://github.com/bitcoin/bips/blob/master/bip-0112.mediawiki).
 
 If you've ever seen complex Bitcoin functionality or Bitcoin-adjacent systems, they were probably built on Bitcoin Scripts. And now you have all the tools to do the same yourself.
+
+## What's Next?
+
+Move on to "Bitcoin APIs" with [Chapter Twelve: Talking to Bitcoind](12_0_Talking_to_Bitcoind.md).
