@@ -209,3 +209,7 @@ These options are used much less than the main `IF`/`ELSE`/`ENDIF` construction.
 Conditionals in Bitcoin Script allow you to halt the script (using `OP_VERIFY`) or to choose different branches of execution (using `OP_IF`). However, reading `OP_IF` can be a bit tricky. Remember that it's the item pushed onto the stack _before_ the `OP_IF` is run that controls its execution; that item will typically be part of the unlocking script (or else a direct result of items in the unlocking script).
 
 _What is the power of conditionals?_ Script Conditionals are the final major building block in Bitcoin Script. They're what are required to turn simple, static Bitcoin Scripts into complex, dynamic Bitcoin Scripts that can evaluate differently based on different times, different circumstances, or different user inputs. In other words, they're the final basis of smart contracts.
+
+## What's Next?
+
+Continue "Expanding Bitcoin Scripts" with [§10.2: Using Other Script Commands](10_2_Using_Other_Script_Commands.md).
