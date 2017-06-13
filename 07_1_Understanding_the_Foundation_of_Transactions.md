@@ -6,16 +6,16 @@ The foundation of Bitcoin is the ability to protect transactions, something that
 
 ## Know the Parts of the Cryptographic Puzzle
 
-As described in [Chapter 1](1_0_Introducing_Bitcoin.md), the funds in each Bitcoin transaction are locked with a cryptographic puzzle. To be precise, we said that Bitcoin is made up of "a sequence of atomic transactions: each of which is enabled by the sender with the solution to a previous cryptographic puzzle that was stored as a script; each of which is locked for the recipient with a new cryptographic puzzle that is stored as a script". Those scripts, which lock and unlock transactions, are written in Bitcoin Script.
+As described in [Chapter 1](01_0_Introducing_Bitcoin.md), the funds in each Bitcoin transaction are locked with a cryptographic puzzle. To be precise, we said that Bitcoin is made up of "a sequence of atomic transactions: each of which is enabled by the sender with the solution to a previous cryptographic puzzle that was stored as a script; each of which is locked for the recipient with a new cryptographic puzzle that is stored as a script". Those scripts, which lock and unlock transactions, are written in Bitcoin Script.
 
 _What is Bitcoin Script?_ Bitcoin Script is a stack-based Forth-like language that purposefully avoids loops and so is not Turing-complete. It's made up of individual opcodes. Every single transaction in Bitcoin is locked with a Bitcoin Script; when the locking transaction for a UTXO is run with the correct inputs, that UTXO can then be spent.
 
 The fact that transactions are locked with scripts means that they can be locked in a variety of different ways, requiring a variety of different keys. In fact, we've met a number of different locking mechanisms to date, each of which used different opcodes:
 
-   * OP_CHECKSIG, which checks a public key against a signature, is the basis of a P2PKH address, as will be fully detailed in [§7.3: Scripting a P2PKH](7_3_Scripting_a_P2PKH.md).
-   * OP_CHECKMULTISIG similarly checks multisigs, as will be fully detailed in [§8.4: Scripting a Multisig](8_4_Scripting_a_Multisig.md).
-   * OP_CHECKLOCKTIMEVERIFY and OP_SEQUENCEVERIFY form the basis of more complex Timelocks, as will be fully detailed in [§9.2: Using CLTV in Scripts](9_2_Using_CLTV_in_Scripts) and [§9.3: Using CSV in Scripts](9_3_Using_CSV_in_Scripts.md).
-   * OP_RETURN is the mark of an unspendable transaction, which is why it's used to carry data, as was alluded to in [§6.5: Sending a Transaction with Data](6_5_Sending_a_Transaction_with_Data.md).
+   * OP_CHECKSIG, which checks a public key against a signature, is the basis of a P2PKH address, as will be fully detailed in [§7.3: Scripting a P2PKH](07_3_Scripting_a_P2PKH.md).
+   * OP_CHECKMULTISIG similarly checks multisigs, as will be fully detailed in [§8.4: Scripting a Multisig](08_4_Scripting_a_Multisig.md).
+   * OP_CHECKLOCKTIMEVERIFY and OP_SEQUENCEVERIFY form the basis of more complex Timelocks, as will be fully detailed in [§9.2: Using CLTV in Scripts](09_2_Using_CLTV_in_Scripts) and [§9.3: Using CSV in Scripts](09_3_Using_CSV_in_Scripts.md).
+   * OP_RETURN is the mark of an unspendable transaction, which is why it's used to carry data, as was alluded to in [§6.5: Sending a Transaction with Data](06_5_Sending_a_Transaction_with_Data.md).
 
 ## Access Scripts In Your Transactions
 
@@ -97,11 +97,11 @@ OP_DUP OP_HASH160 371c20fb2e9899338ce5e99908e64fd30b789313 OP_EQUALVERIFY OP_CHE
 ```
 That is the standard method in Bitcoin Script for locking a P2PKH transaction.
 
-[§7.3](7_3_Scripting_a_P2PKH.md) will explain how these two scripts go together, but first you will need to know how Bitcoin Scripts are evaluated.
+[§7.3](07_3_Scripting_a_P2PKH.md) will explain how these two scripts go together, but first you will need to know how Bitcoin Scripts are evaluated.
 
 ## Examine a Different Sort of Transaction
 
-Before we leave this foundation behind, we're going to look at a different type of locking script. Here's the `scriptPubKey` from the multisig transaction that you created in [§6.1: Sending a Transaction with a Multisig](6_1_Sending_a_Transaction_to_a_Multisig.md).
+Before we leave this foundation behind, we're going to look at a different type of locking script. Here's the `scriptPubKey` from the multisig transaction that you created in [§6.1: Sending a Transaction with a Multisig](06_1_Sending_a_Transaction_to_a_Multisig.md).
 ```
       "scriptPubKey": {
         "asm": "OP_HASH160 babf9063cee8ab6e9334f95f6d4e9148d0e551c2 OP_EQUAL",
@@ -134,3 +134,7 @@ These two transactions are _definitely_ locked in different ways. Bitcoin recogn
 Every Bitcoin transaction includes at least one unlocking script (`scriptSig`), which solves a previous cryptographic puzzle, and at least one locking script (`scriptPubKey`), which creates a new cryptographic puzzle. There's one `scriptSig` per input and one `scriptPubKey` per output. Each of these scripts is written in Bitcoin Script, a Forth-like language that further empowers Bitcoin.
 
 _What is the power of scripts?_ Scripts unlock the full power of Smart Contracts. With the appropriate opcodes, you can make very precise decisions about who can redeem funds, when they can redeem funds, and how they can redeem funds. More intricate rules for corporate spending, partnership spending, proxy spending, and other methodologies can also be encoded within a Script. It even empowers more complex Bitcoin services such as Lightning and sidechains.
+
+## What's Next?
+
+Continue "Introducing Bitcoin Scripts" with [§7.2: Running a Bitcoin Script](07_2_Running_a_Bitcoin_Script.md).
