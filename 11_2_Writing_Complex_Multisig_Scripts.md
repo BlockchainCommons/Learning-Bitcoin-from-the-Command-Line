@@ -156,3 +156,7 @@ Early on, the following `sigScript` would be allowed: `0 <signer1> <signer2> Tru
 More complex multisignatures can typically be created by combining signatures or multisignatures with conditionals and tests. The resulting multisigs can be variable, requiring different numbers of signers based on who they are and when they're signing. 
 
 _What is the power of complex multisig scripts?_ More than anything we've seen to date, complex multisig scripts are truly smart contracts. They can be very precise in who is allowed to sign and when. Multi-level corporations, partnerships, and escrows alike can be supported. Using other powerful features like timelocks can further protect these funds, allowing them to be released or even returned at certain times.
+
+## What's Next?
+
+Continue "Designing Real Bitcoin Scripts" with [§11.3: Empowering Bitcoin with Scripts](11_3_Empowering_Bitcoin_with_Scripts.md).
