@@ -118,4 +118,4 @@ Do note that there may still be solutions for some of these situations within th
 
 ## What's Next?
 
-   * [§2.0: Setting Up a Bitcoin-Core VPS](02_0_Setting_Up_a_Bitcoin-Core_VPS.md)
+Continue "Preparing for Bitcoin" with [§2.0: Setting Up a Bitcoin-Core VPS](02_0_Setting_Up_a_Bitcoin-Core_VPS.md).
