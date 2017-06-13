@@ -206,3 +206,7 @@ A block explorer doesn't generally provide any more information than a command l
 ## Summary: Receiving a Transactions
 
 Faucets will give you money on the testnet. They come in as raw transactions, which can be examined with `getrawtransaction` or a block explorer. Once you've receive a transaction, you can see it in your balance and your wallet.
+
+## What's Next?
+
+Advance through "bitcoin-cli" with [Chapter Four: Sending Bitcoin Transactions](04_0_Creating_Basic_Bitcoin_Transactions.md).
