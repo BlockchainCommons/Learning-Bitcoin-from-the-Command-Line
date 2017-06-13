@@ -6,9 +6,9 @@ This document explains how to set up a VPS (Virtual Private Sever) to run a Bitc
 
 > **WARNING:** Don’t use a VPS for a bitcoin wallet with significant real funds; see http://blog.thestateofme.com/2012/03/03/lessons-to-be-learned-from-the-linode-bitcoin-incident/ . It is  very nice to be able experiment with real bitcoin transactions on a live node without tying up a self-hosted server on a local network. I’ve also found it useful to be able to use an iPhone or iPad to communicate via SSH to my VPS to do some simple bitcoin tasks. But a higher level of safety is required for significant funds.
 
-If you want to instead do all the setup by hand, please read the parallel HOWTO file, [§2.1: Setting up a Bitcoin-Core VPS by Hand](./2_1_Setting_Up_a_Bitcoin-Core_VPS_by_Hand.md).
+If you want to instead do all the setup by hand, please read the parallel HOWTO file, [§2.1: Setting up a Bitcoin-Core VPS by Hand](02_1_Setting_Up_a_Bitcoin-Core_VPS_by_Hand.md).
 
-If you already have a Bitcoin node running, instead read the next HOWTO file, [Chapter Three: Understanding Your Bitcoin Setup](3_0_Understanding_Your_Bitcoin_Setup.md).
+If you already have a Bitcoin node running, instead read the next HOWTO file, [Chapter Three: Understanding Your Bitcoin Setup](03_0_Understanding_Your_Bitcoin_Setup.md).
 
 ## Getting Started with Linode
 
@@ -40,7 +40,7 @@ Your server security won't be complete if people can break into your Linode acco
 
 ### Load the StackScript
 
-There's a copy of our Bitcoin VPS Setup StackScript in [the repo here](2_2__Script_Linode_Setup.stackscript). This script basically automates the Bitcoin VPS setup instructions from [§2.1: Setting Up a Bitcoin-Core VPS by Hand](2_1_Setting_Up_a_Bitcoin-Core_VPS_by_Hand.md). If you want to be particulary prudent, read it over carefully. If you are satisfied, you can copy that StackScript into your own account by going to [Manage StackScripts](https://manager.linode.com/stackscripts/index), or clicking the link under your list of Linodes. Click "Add a new StackScript", give it a good name (we use `Bitcoin VPS Setup`), then copy and paste the script.
+There's a copy of our Bitcoin VPS Setup StackScript in [the repo here](02_2__Script_Linode_Setup.stackscript). This script basically automates the Bitcoin VPS setup instructions from [§2.1](02_1_Setting_Up_a_Bitcoin-Core_VPS_by_Hand.md). If you want to be particulary prudent, read it over carefully. If you are satisfied, you can copy that StackScript into your own account by going to [Manage StackScripts](https://manager.linode.com/stackscripts/index), or clicking the link under your list of Linodes. Click "Add a new StackScript", give it a good name (we use `Bitcoin VPS Setup`), then copy and paste the script.
 
 ### Add a Linode
 
@@ -62,7 +62,7 @@ The following chart shows minimum requirements
 
 Just choose your Linode type, choose a Location that's geographically as close to you as possible, and click "Add your Linode!".
 
-> **WARNING:** We've occasionally had machines run out of memory after running `bitcoind` for a few days when they only had 2G. Coming back, we find that `bitcoind` has stopped, leaving the message "Error: Out of memory. Terminating." in the `debug.log` file. This simply requires a restart of `bitcoind` and ten or fifteen minutes to get the blockchain resynced. Be generous with your memory if you want to avoid this annoyance, but don't worry too much if you hit it.
+> **WARNING:** We've occasionally had machines run out of memory after running `bitcoind` for a few days when they only had 2G. Coming back, we find that `bitcoind` has stopped, leaving the message "Error: Out of memory. Terminating." in the `debug.log` file. This simply requires a restart of `bitcoind` and ten or fifteen minutes to get the blockchain resynced. This seems to have largely gone away with Bitcoin 0.14.1, but here's your warning in case it shows up again.
 
 _Be aware that the requirements might change over time as the blockchain continues to grow. Watch for "Out of Memory" or "Disk Space is Low!" errors. Either one indicates that you should migrate to the next larger machine!_
 
@@ -255,11 +255,21 @@ $ btcblock
 
 If you choose one of the pruned options, it'll probably take a day to download everything.
 
-So, it might be time for a few more espressos.
+So, it might be time for a few more espressos. But soon enough, your system will be ready to go, and you'll be read to start experimenting.
 
-But, when you're ready to go, continue on with [Chapter Three: Understanding Your Bitcoin Setup](3_0_Understanding_Your_Bitcoin_Setup.md), where we'll talk about the files and how you can start experimenting.
+## Summary: Setting Up a Bitcoin-Core VPS by Hand
 
-## Appendix I: Bitcoin Installation Types
+Creating a Bitcoin-Core VPS with a StackScript made the whole process quick, simple and (hopefully) painless.
+
+## What's Next?
+
+You have a few options for what's next:
+
+   * Read the [StackScript](2_2__Script_Linode_Setup.stackscript) to understand your setup.
+   * See the other method for setting up a VPS in [§2.1: Setting up a Bitcoin-Core VPS by Hand](02_1_Setting_Up_a_Bitcoin-Core_VPS_by_Hand.md). 
+   * Move on to "bitcoin-cli" with [Chapter Three: Understanding Your Bitcoin Setup](03_0_Understanding_Your_Bitcoin_Setup.md).
+
+## Appendix: Bitcoin Installation Types
 
 **Mainnet.** This will download the entirety of the Bitnet blockchain. That's 120G of data (and getting more every day).
 
