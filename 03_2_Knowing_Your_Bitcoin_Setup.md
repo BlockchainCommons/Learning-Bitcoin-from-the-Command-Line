@@ -13,7 +13,7 @@ The main directory just contains your config file and the testnet directory:
 $ ls ~/.bitcoin
 bitcoin.conf  testnet3
 ```
-The setup guides in [Chapter Two: Creating a Bitcoin-Core VPS](2_0_Setting_Up_a_Bitcoin-Core_VPS.md) laid out a standardized config file. [§3.1: Verifying Your Bitcoin Setup](3_1_Verifying_Your_Bitcoin_Setup.md) suggested how to change it to support more advanced setups. If you're interested in learning even more about the config file, you may wish to consult [Jameson Lopp's Bitcoin Core Config Generator](https://jlopp.github.io/bitcoin-core-config-generator/).
+The setup guides in [Chapter Two: Creating a Bitcoin-Core VPS](02_0_Setting_Up_a_Bitcoin-Core_VPS.md) laid out a standardized config file. [§3.1: Verifying Your Bitcoin Setup](03_1_Verifying_Your_Bitcoin_Setup.md) suggested how to change it to support more advanced setups. If you're interested in learning even more about the config file, you may wish to consult [Jameson Lopp's Bitcoin Core Config Generator](https://jlopp.github.io/bitcoin-core-config-generator/).
 
 Moving back to your ~/.bitcoin directory, you'll find that the testnet3 directory contains all of the guts:
 ```
@@ -228,3 +228,8 @@ Feel free to references any of these and to use "bitcoin-cli help" if you want m
 ## Summary: Knowing Your Bitcoin Setup
 
 The ~/.bitcoin directory contains all of your files, while `bitcoin-cli help` and a variety of info commands can be used to get more information on how your setup and Bitcoin work.
+
+## What's Next?
+
+Continue "Understanding Your Bitcoin Setup" with [§3.3: Setting Up Your Wallet](03_3_Setting_Up_Your_Wallet.md).
+
