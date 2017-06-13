@@ -84,11 +84,9 @@ This tutorial assumes that you have some minimal background of how to use the co
   * [11.2: Writing Complex Multisig Scripts](11_2_Writing_Complex_Multisig_Scripts.md)
   * [11.3: Empowering Bitcoin with Scripts](11_3_Empowering_Bitcoin_with_Scripts.md)
 
-## Planned Future Work
+** PART FOUR: BITCOIN APIS**
 
-** PART FOUR: BITCOIN APIS **
-
-* 12.0: Talking to Bitcoind
+* [12.0: Talking to Bitcoind](12_0_Talking_to_Bitcoind.md)
    * 12.1: Accessing Bitcoind with Curl
    * 12.2: Accessing Bitcoind with JavaScript
    * 12.3: Accessing Bitcoind with C
@@ -97,6 +95,9 @@ This tutorial assumes that you have some minimal background of how to use the co
    * 13.1: Programming Transactions
    * 13.2: Programming Scripts
 * 14.0: Programming with secp256k1
+## Planned Future Work
+
+
 
 ** PART FIVE: BITCOIN FUTURES **
 
