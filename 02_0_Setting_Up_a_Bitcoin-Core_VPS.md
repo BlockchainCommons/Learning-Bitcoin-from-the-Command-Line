@@ -22,5 +22,5 @@ Supporting objectives include the ability to:
 
 You can either create your VPS by hand or you can use a simple StackScript at Linode.com to do so.
 
-   * [Section One: Setting Up a Bitcoin Core VPS by Hand](2_1_Setting_Up_a_Bitcoin-Core_VPS_by_Hand.md)
-   * [Section Two: Setting Up a Bitcoin Core VPS with StackScript](2_2_Setting_Up_a_Bitcoin-Core_VPS_with_StackScript.md)
+   * [Section One: Setting Up a Bitcoin Core VPS by Hand](02_1_Setting_Up_a_Bitcoin-Core_VPS_by_Hand.md)
+   * [Section Two: Setting Up a Bitcoin Core VPS with StackScript](02_2_Setting_Up_a_Bitcoin-Core_VPS_with_StackScript.md)
