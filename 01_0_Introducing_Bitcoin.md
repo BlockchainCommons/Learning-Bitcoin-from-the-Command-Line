@@ -116,6 +116,10 @@ Blockchains probably _will not_ be helpful if:
   
 Do note that there may still be solutions for some of these situations within the Bitcoin ecosystem. For example, payment channels are rapidly addressing questions of liquidity and payment finality. 
 
+## Summary: Introducing Bitcoin
+
+Bitcoin is a peer-to-peer system that allows for the transfer of funds through transactions that are locked with puzzles. These puzzles are dependent upon public-key cryptography. When you generalize the ideas behind Bitcoin, you get blockchains, a technology that's currently growing and innovating.
+
 ## What's Next?
 
 Continue "Preparing for Bitcoin" with [§2.0: Setting Up a Bitcoin-Core VPS](02_0_Setting_Up_a_Bitcoin-Core_VPS.md).
