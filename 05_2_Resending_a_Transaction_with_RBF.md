@@ -52,7 +52,7 @@ The `bip125-replaceable` flag will stay `yes` until the transaction receives con
 
 _Should I trust transactions with no confirmations?_ No, never. This was true before RBF and it was true after RBF. Transactions must receive confirmations before they are trustworthy. This is especially true if a transaction is marked as `bip125-replaceable`, because then it can be ... replaced.
 
-> **SEQUENCE NOTE (I):** This is the first use of the `nSequence` value in Bitcoin. You can set it between 1 and 0xffffffff-2 (4294967293) and enable RBF, but if you're not careful you can run up against the parallel use of `nSequence` for relative timelocks. We suggest always setting it to "1", which is what Bitcoin Core does, but the other option is to set it a value between 0xf0000000 (4026531840) and 0xffffffff-2 (4294967293). Setting to "1" effectively makes relative timelocks irrelevent and setting to 0xf0000000 or higher deactivates them. This is all explained further in [§9.3: Using CSV in Scripts](9_3_Using_CSV_in_Scripts.md). For now, just choose one of the non-conflicting values for `nSequence`.
+> **SEQUENCE NOTE (I):** This is the first use of the `nSequence` value in Bitcoin. You can set it between 1 and 0xffffffff-2 (4294967293) and enable RBF, but if you're not careful you can run up against the parallel use of `nSequence` for relative timelocks. We suggest always setting it to "1", which is what Bitcoin Core does, but the other option is to set it a value between 0xf0000000 (4026531840) and 0xffffffff-2 (4294967293). Setting it to "1" effectively makes relative timelocks irrelevent and setting it to 0xf0000000 or higher deactivates them. This is all explained further in [§9.3: Using CSV in Scripts](09_3_Using_CSV_in_Scripts.md). For now, just choose one of the non-conflicting values for `nSequence`.
 
 ### Optional: Always Opt-In for RBF
 
@@ -257,7 +257,7 @@ $ bitcoin-cli -named gettransaction txid=75208c5c8cbd83081a0085cd050fc7a4064d87c
 }
 ```
 
-> **VERSION WARNING:** The bumpfee RPC require Bitcoin Core v.0.14.0.
+> **VERSION WARNING:** The `bumpfee` RPC require Bitcoin Core v.0.14.0.
 
 ## Summary: Resending a Transaction with RBF
 
@@ -266,3 +266,7 @@ If a transaction is stuck, and you don't want to wait for it to expire entirely,
 _What is the power of RBF?_ Obviously, RBF is very helpful if you created a transaction with too low of a fee and you need to get those funds through. However, the ability to generally replace unconfirmed transactions with updated ones has more power than just that (and is why you might want to continue using RBF with raw transactions, even following the advent of `bumpfee`). 
 
 For example, you might send a transaction, and then before it's confirmed, combine it with a second transaction. This allows you to compress multiple transactions down into a single one, decreasing overall fees. It might also offer benefits to privacy. There are other reasons to use RBF too, for smart contracts or transaction cut-throughs, as described in the [Opt-in RBF FAQ](https://bitcoincore.org/en/faq/optin_rbf/).
+
+## What's Next?
+
+Continue "Controlling Bitcoin Transactions" with [§5.3: Funding a Transaction with CPFP](05_3_Funding_a_Transaction_with_CPFP.md).  
