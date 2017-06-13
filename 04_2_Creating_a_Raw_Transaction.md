@@ -255,6 +255,10 @@ You can see that it matches the txid and the recipient address. Not only does it
 
 Congratulations! You're now a few satoshis poorer!
 
-### Summary: Creating a Raw Transaction
+## Summary: Creating a Raw Transaction
 
 When money comes into your Bitcoin wallet, it remains as distinct amounts, called UTXOs. When you create a raw transaction to send that money back out, you use one or more UTXOs to fund it. You then can create a raw transaction, sign it, and send it on the Bitcoin network. However, this is just a foundation: you'll usually need to create a raw transaction with multiple outputs to actually send something on the bitcoin network!
+
+## What's Next?
+
+Step Back from "Sending Bitcoin Transactions" with [Interlude: Using JQ](04_2__Interlude_Using_JQ.md).
