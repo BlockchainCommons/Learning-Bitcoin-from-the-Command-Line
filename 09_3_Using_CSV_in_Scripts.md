@@ -8,7 +8,7 @@
 
 ## Understand nSequence
 
-Every input into in a transaction has an `nSequence` (or if you prefer `sequence`) value. It's been a prime tool for Bitcoin expansions as discussed previously in [§5.2: Resending a Transaction with RBF](5_2_Resending_a_Transaction_with_RBF.md) and [§6.4 Sending a Transaction with a Locktime.md](6_4_Sending_a_Transaction_with_a_Locktime.md), where it was used to signal RBF and `nLockTime`, respectively. However, there's one more use for `nSequence`, described by [BIP 68](https://github.com/bitcoin/bips/blob/master/bip-0068.mediawiki): you can use it to create a relative timelock on a transaction.
+Every input into in a transaction has an `nSequence` (or if you prefer `sequence`) value. It's been a prime tool for Bitcoin expansions as discussed previously in [§5.2: Resending a Transaction with RBF](05_2_Resending_a_Transaction_with_RBF.md) and [§6.4 Sending a Transaction with a Locktime.md](06_4_Sending_a_Transaction_with_a_Locktime.md), where it was used to signal RBF and `nLockTime`, respectively. However, there's one more use for `nSequence`, described by [BIP 68](https://github.com/bitcoin/bips/blob/master/bip-0068.mediawiki): you can use it to create a relative timelock on a transaction.
 
 A relative timelock is a lock that's placed on a specific input of a transaction and that's calculated in relation to the mining date of the UTXO being used in the input. For example, if a UTXO was mined at block #468260 and a transaction was created where the input for that UTXO was given an `nSequence` of 100, then the new transaction could not be mined until at least block #468360.
 
@@ -124,7 +124,7 @@ LE Hex: 64
 Length: 1 bytes
 Hexcode: 0164
 ```
-Though that should be padded out to `000064`, requiring a code of `030164`.
+Though that should be padded out to `000064`, requiring a code of `03000064`.
 
 For a relative time of 6 months:
 ```
@@ -143,4 +143,10 @@ To spend a UTXO locked with a CSV script, you must set the `nSequence` of that i
 
 `nSequence` and CSV offer an alternative to `nLockTime` and CLTV where you lock a transaction based on a relative time since the input was mined, rather than basing the lock on a set time in the future. They work almost identically, other than the fact that the `nSequence` value is encoded slightly differently than the `nLockTime` value, with specific bits meaning specific things.
 
-_What is the power of CSV?_ CSV isn't just a lazy way to lock, when you don't want to calculate a time in the future. Instead, it's a totally different paradigm, a lock that you would use if it was important to create a specific minimum duration between when a transaction is mined and when its funds can be respent. The most obvious usage is (once more) for an escrow, when you want a precise time between the input of funds and their output. However, it has much more powerful possibilities in off-chain transactions, including payment channels. These applications are by definition built on transactions that are not actually put onto the blockchain, which means that if they are later put on the blockchain an enforced time-lapse can be very helpful. [Hashed Timelock Contracts](https://en.bitcoin.it/wiki/Hashed_Timelock_Contracts) have been one such implementation, empowering the Lightning payment network.
+_What is the power of CSV?_ CSV isn't just a lazy way to lock, when you don't want to calculate a time in the future. Instead, it's a totally different paradigm, a lock that you would use if it was important to create a specific minimum duration between when a transaction is mined and when its funds can be respent. The most obvious usage is (once more) for an escrow, when you want a precise time between the input of funds and their output. However, it has much more powerful possibilities in off-chain transactions, including payment channels. These applications are by definition built on transactions that are not actually put onto the blockchain, which means that if they are later put on the blockchain an enforced time-lapse can be very helpful. [Hashed Timelock Contracts](https://en.bitcoin.it/wiki/Hashed_Timelock_Contracts) have been one such implementation, empowering the Lightning payment network. They're discussed in [§11.3: Empowering Bitcoin with Scripts](11_3_Empowering_Bitcoin_with_Scripts.md).
+
+## What's Next?
+
+Advance through "Bitcoin Scripting" with [Chapter Ten: Expanding Bitcoin Scripts](10_0_Expanding_Bitcoin_Scripts.md).
+
+## W
