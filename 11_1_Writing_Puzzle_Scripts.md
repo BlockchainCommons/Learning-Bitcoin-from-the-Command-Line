@@ -6,7 +6,7 @@ Bitcoin Scripts _don't_ actually have to depend on the knowledge of a secret key
 
 ## Write Simple Algebra Scripts
 
-Our first real Script, from [§7.2: Running a Bitcoin Script](7_2_Running_a_Bitcoin_Script.md) was an alegbraic puzzle. That Bitcoin Script, `OP_ADD 99 OP_EQUAL`, could have been alternatively described as `x + y = 99`.
+Our first real Script, from [§7.2: Running a Bitcoin Script](07_2_Running_a_Bitcoin_Script.md) was an alegbraic puzzle. That Bitcoin Script, `OP_ADD 99 OP_EQUAL`, could have been alternatively described as `x + y = 99`.
 
 This sort of Script doesn't have a lot of applicability in the real world, as it's too easy to claim the funds. But, a puzzle-solving contest giving out Bitcoin dust might offer it as a fun entertainment.
 
@@ -190,3 +190,7 @@ Yet, Peter Todd's cryptographic bounties prove that puzzle scripts do have some 
 Puzzles scripts are a great introduction to more realistic and complex Bitcoin Scripts. They demonstrate the power of the mathematical and stack functions in Bitcoin Script and how they can be carefully combined to create questions that require very specific answers. However, their real-world usage is also limited by the security issues inherent in non-signed Bitcoin transactions.
 
 _What is the power of puzzle script?_ Despite their limitations, puzzles scripts have been used in the real world as the prizes for computational bounties. Anyone who can figure out a complex puzzle, whose solution presmably has some real-world impact, can win the bounty. Whether they get to actually keep it is another question.
+
+## What's Next?
+
+Continue "Designing Real Bitcoin Scripts" with [§11.2: Writing Complex Multisig Scripts](11_2_Writing_Complex_Multisig_Scripts.md).
