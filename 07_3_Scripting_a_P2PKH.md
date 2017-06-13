@@ -70,3 +70,7 @@ The Script now ends and the transaction is allowed to respend the UTXO in questi
 ## Summary: Scripting a Pay to Public Key Hash
 
 Sending to a P2PKH address was relatively easy when you were just using `bitcoin-cli`. Examining the Bitcoin Script underlying it lays bare the cryptographic functions that were implicit in funding that transaction: how the UTXO was unlocked with a signature and a public key. 
+
+## What's Next?
+
+Continue "Introducing Bitcoin Scripts" with [§7.4: Testing a Bitcoin Script](07_4_Testing_a_Bitcoin_Script.md).
