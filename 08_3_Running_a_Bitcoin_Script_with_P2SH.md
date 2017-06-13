@@ -2,7 +2,7 @@
 
 > **NOTE:** This is a draft in progress, so that I can get some feedback from early reviewers. It is not yet ready for learning.
 
-Now that you know the theory and practice behind P2SH addresses, you're ready to turn a non-standard Bitcoin Script into an actual transaction. We'll be reusing the simple locking script from [§7.2: Running a Bitcoin Script](7_2_Running_a_Bitcoin_Script.md), `OP_ADD 99 OP_EQUAL`.
+Now that you know the theory and practice behind P2SH addresses, you're ready to turn a non-standard Bitcoin Script into an actual transaction. We'll be reusing the simple locking script from [§7.2: Running a Bitcoin Script](07_2_Running_a_Bitcoin_Script.md), `OP_ADD 99 OP_EQUAL`.
 
 ## Create a P2SH Transaction
 
@@ -90,3 +90,7 @@ With that second validation _also_ true, the UTXO can now be spent!
 ## Summary: Building a Bitcoin Script with P2SH
 
 Once you know the technique of building P2SHes, any Script can be embedded in a Bitcoin transaction; and once you understand the technique of validating P2SHes, it's easy to run the scripts in two rounds.
+
+## What's Next?
+
+Continue "Embedding Bitcoin Scripts" with [§8.4: Scripting a Multisig](08_4_Scripting_a_Multisig.md).
