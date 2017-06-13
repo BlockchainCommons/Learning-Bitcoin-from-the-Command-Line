@@ -17,9 +17,9 @@ Supporting objectives include the ability to:
    
 ## Table of Contents
 
-* [Section One: Understanding the Foundation of P2SH](8_1_Understanding_the_Foundation_of_P2SH.md)
-* [Section Two: Building the Structure of P2SH](8_2_Building_the_Structure_of_P2SH.md)  
-* [Section Three: Running a Bitcoin Script with P2SH](8_3_Running_a_Bitcoin_Script_with_P2SH.md)
-* [Section Four: Scripting a Multisig](8_4_Scripting_a_Multisig.md)
-* [Section Five: Spending a P2SH Transaction](8_5_Spending_a_P2SH_Transaction.md) — Awaiting API Work
+* [Section One: Understanding the Foundation of P2SH](08_1_Understanding_the_Foundation_of_P2SH.md)
+* [Section Two: Building the Structure of P2SH](08_2_Building_the_Structure_of_P2SH.md)  
+* [Section Three: Running a Bitcoin Script with P2SH](08_3_Running_a_Bitcoin_Script_with_P2SH.md)
+* [Section Four: Scripting a Multisig](08_4_Scripting_a_Multisig.md)
+* [Section Five: Spending a P2SH Transaction](08_5_Spending_a_P2SH_Transaction.md) — Awaiting API Work
 
