@@ -392,6 +392,13 @@ Any time you're looking through a large mass of information in a JSON object out
 ```
 alias btcunspent="bitcoin-cli listunspent | jq -r '.[] | { txid: .txid, vout: .vout, amount: .amount }'"
 ```
+## Summary: Using JQ
+
+JQ makes it easy to extract information from JSON arrays and objects. It can also be used in shell scripts for fairly complex calculations that will make your life easier.
+
+## What's Next?
+
+Continue "Sending Bitcoin Transactions" with [§4.3 Creating a Raw Transaction with Named Arguments](04_3_Creating_a_Raw_Transaction_with_Named_Arguments.md).
 
 ## Appendix: The Transaction Fee Script
 
