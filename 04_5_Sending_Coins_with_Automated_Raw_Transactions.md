@@ -2,13 +2,13 @@
 
 > **NOTE:** This is a draft in progress, so that I can get some feedback from early reviewers. It is not yet ready for learning.
 
-This chapter lays out three ways to send funds via Bitcoin's cli interface. [§4.1](4_1_Sending_Coins_The_Easy_Way.md) described how to do so with a simple command, and [§4.4](4_4_Sending_Coins_with_a_Raw_Transaction.md) detailed how to use a more dangerous raw transaction. This final section splits the difference by showing how to make raw transactions simpler and safer. 
+This chapter lays out three ways to send funds via Bitcoin's cli interface. [§4.1](04_1_Sending_Coins_The_Easy_Way.md) described how to do so with a simple command, and [§4.4](04_4_Sending_Coins_with_a_Raw_Transaction.md) detailed how to use a more dangerous raw transaction. This final section splits the difference by showing how to make raw transactions simpler and safer. 
 
 ## Let Bitcoin Calculate For You
 
 The methodology for automated raw transactions is simple: you create a raw transaction, but you use the `fundrawtransaction` command to ask the bitcoind to run the calculations for you.
 
-In order to use this command, you'll need to ensure that your ~/.bitcoin/bitcoin.conf file contains rational variables for calculating transaction fees. Please see [§4.1: Sending Coins The Easy Way](4_1_Sending_Coins_The_Easy_Way.md) for more information on this.
+In order to use this command, you'll need to ensure that your ~/.bitcoin/bitcoin.conf file contains rational variables for calculating transaction fees. Please see [§4.1: Sending Coins The Easy Way](04_1_Sending_Coins_The_Easy_Way.md) for more information on this.
 
 For very conservative numbers, we suggested adding the following to the bitcoin.conf:
 ```
@@ -156,3 +156,7 @@ If you must send funds with raw transactions then `fundrawtransaction` gives you
 _The advantages._ It provides a nice balance. If you're sending funds by hand and `sendtoaddress` doesn't offer enough control for whatever reason, you can get some of the advantages of raw transactions without the dangers. This methodology should be used whenever possible if you're sending raw transactions by hand.
 
 _The disadvantages._ It's a hodge-podge. Though there are a few additional options for the `fundrawtransaction` command that weren't mentioned here, your control is still limited. You'd probably never want to use this method if you were writing a program where the whole goal is to know exactly what's going on.
+
+## What's Next?
+
+Advance through "bitcoin-cli" with [Chapter Five: Controlling Bitcoin Transactions](05_0_Controlling_Bitcoin_Transactions.md).
