@@ -115,3 +115,7 @@ Blockchains probably _will not_ be helpful if:
   * Users need instant transaction finality, in less than an hour.
   
 Do note that there may still be solutions for some of these situations within the Bitcoin ecosystem. For example, payment channels are rapidly addressing questions of liquidity and payment finality. 
+
+## What's Next?
+
+   * [§2.0: Setting Up a Bitcoin-Core VPS](02_0_Setting_Up_a_Bitcoin-Core_VPS.md)
