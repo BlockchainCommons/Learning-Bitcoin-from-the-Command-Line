@@ -86,3 +86,7 @@ _You've been typing that Bitcoin address you generated a _lot_, while you were s
 ## Summary: Setting Up Your Wallet
 
 You need to create an address to receive funds. Your address is stored in a wallet, which you can back up. You can also do lots more with an address, like dumping its private key or using it to sign messages. But really, creating that address is _all_ you need to do in order to receive Bitcoin funds.
+
+## What's Next?
+
+Step back from "Understanding Your Bitcoin Setup" with [Interlude: Using Command-Line Variables](03_3__Interlude_Using_Command-Line_Variables.md).
