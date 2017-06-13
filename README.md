@@ -41,7 +41,7 @@ This tutorial assumes that you have some minimal background of how to use the co
   * [3.3: Setting Up Your Wallet](03_3_Setting_Up_Your_Wallet.md)
     * [Interlude: Using Command-Line Variables](03_3__Interlude_Using_Command-Line_Variables.md)
   * [3.4: Receiving a Transaction](03_4_Receiving_a_Transaction.md)
-* [4.0: Creating Basic Bitcoin Transactions](04_0_Creating_Basic_Bitcoin_Transactions.md)
+* [4.0: Sending Bitcoin Transactions](04_0_Sending_Bitcoin_Transactions.md)
   * [4.1: Sending Coins the Easy Way](04_1_Sending_Coins_The_Easy_Way.md)
   * [4.2: Creating a Raw Transaction](04_2_Creating_a_Raw_Transaction.md)
      * [Interlude: Using JQ](04_2__Interlude_Using_JQ.md)
