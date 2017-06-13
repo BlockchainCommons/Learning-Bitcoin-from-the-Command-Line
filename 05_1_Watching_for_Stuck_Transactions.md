@@ -50,10 +50,14 @@ If your transaction is stuck longer than you want, you can typically do one of f
 
 **2. Wait Until it Expires.** If you accidentally sent with no transaction fee, or if any number or other conditions are met, then your transaction might never go through. However, your coins aren't lost. As long as you don't have a wallet that purposefully resends unconfirmed transactions, it should clear from the mempool in three days or so, and then you can try again.
 
-**3. Use RBF as the Sender.** If you are the sender of the transaction, and you opted-in to RBF (Replace-By-Fee), then you can try again with a higher fee. See [§5.2: Resending a Transaction with RBF](5_2_Resending_a_Transaction_with_RBF.md).
+**3. Use RBF as the Sender.** If you are the sender of the transaction, and you opted-in to RBF (Replace-By-Fee), then you can try again with a higher fee. See [§5.2: Resending a Transaction with RBF](05_2_Resending_a_Transaction_with_RBF.md).
 
-**4. Use CPFP as the Receiver.** Alternatively, if you are the receiver of the transaction, you can use CPFP (Child-pays-for-parent) to use the unconfirmed transaction as an input to a new transaction. See [§5.3: Funding a Transaction with CPFP](5_3_Funding_a_Transaction_with_CPFP.md).
+**4. Use CPFP as the Receiver.** Alternatively, if you are the receiver of the transaction, you can use CPFP (Child-pays-for-parent) to use the unconfirmed transaction as an input to a new transaction. See [§5.3: Funding a Transaction with CPFP](05_3_Funding_a_Transaction_with_CPFP.md).
 
 ## Summary: Watching for Stuck Transactios
 
 This is an introduction to the power of Bitcoin transactions. If you know that a transaction is stuck, then you can decide to free it up with features like RBF or CPFP.
+
+## What's Next?
+
+Continue "Controlling Bitcoin Transactions" with [§5.2: Resending a Transaction with RBF](05_2_Resending_a_Transaction_with_RBF.md).  
