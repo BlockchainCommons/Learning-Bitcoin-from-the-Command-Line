@@ -122,4 +122,4 @@ Bitcoin is a peer-to-peer system that allows for the transfer of funds through t
 
 ## What's Next?
 
-Continue "Preparing for Bitcoin" with [§2.0: Setting Up a Bitcoin-Core VPS](02_0_Setting_Up_a_Bitcoin-Core_VPS.md).
+Advance through "Preparing for Bitcoin" with [Chapter Two: Setting Up a Bitcoin-Core VPS](02_0_Setting_Up_a_Bitcoin-Core_VPS.md).
