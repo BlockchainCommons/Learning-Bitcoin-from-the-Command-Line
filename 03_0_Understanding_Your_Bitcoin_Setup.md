@@ -1,8 +1,8 @@
 # Chapter Three: Understanding Your Bitcoin Setup
 
-This chapter lays out the basics for understanding your bitcoin setup and how to use its wallet features.
+You're now ready to begin working with the `bitcoin-cli` command-line interface. But that first requires that you understand your Bitcoin setup and its wallet features, which is what will be explained in this chapter.
 
-It presumes that you have a VPS with bitcoin installed, running bitcoind. It also presumes that you are connected to testnet, allowing for access to bitcoins without using real funds. You can either do this by hand, per [§2.1: Setting up a Bitcoin-Core VPS by Hand](./2_1_Setting_Up_a_Bitcoin-Core_VPS_by_Hand.md), or do it with a Linode StackScript at Linode.com, per [§2.2: Setting up a Bitcoin-Core VPS with StackScript](./2_2_Setting_Up_a_Bitcoin-Core_VPS_with_StackScript.md).
+For this and future chapters, we presume that you have a VPS with Bitcoin installed, running `bitcoind`. We also presume that you are connected to testnet, allowing for access to bitcoins without using real funds. You can either do this by hand, per [§2.1: Setting up a Bitcoin-Core VPS by Hand](02_1_Setting_Up_a_Bitcoin-Core_VPS_by_Hand.md) or with a Linode StackScript at Linode.com, per [§2.2: Setting up a Bitcoin-Core VPS with StackScript](02_2_Setting_Up_a_Bitcoin-Core_VPS_with_StackScript.md).
 
 ## Objectives for This Chapter
 
@@ -21,9 +21,9 @@ Supporting objectives include the ability to:
    
 ## Table of Contents
 
-* [Section One: Verifying Your Bitcoin Setup](3_1_Verifying_Your_Bitcoin_Setup.md)
-* [Section Two: Knowing Your Bitcoin Setup](3_2_Knowing_Your_Bitcoin_Setup.md)
-* [Section Three: Setting Up Your Wallet](3_3_Setting_Up_Your_Wallet.md)
-   * [Interlude: Using Command-Line Variables](3_3__Interlude_Using_Command-Line_Variables.md)
-* [Section Four: Receiving a Transaction](3_4_Receiving_a_Transaction.md)
+* [Section One: Verifying Your Bitcoin Setup](03_1_Verifying_Your_Bitcoin_Setup.md)
+* [Section Two: Knowing Your Bitcoin Setup](03_2_Knowing_Your_Bitcoin_Setup.md)
+* [Section Three: Setting Up Your Wallet](03_3_Setting_Up_Your_Wallet.md)
+   * [Interlude: Using Command-Line Variables](03_3__Interlude_Using_Command-Line_Variables.md)
+* [Section Four: Receiving a Transaction](03_4_Receiving_a_Transaction.md)
 
