@@ -84,7 +84,7 @@ This tutorial assumes that you have some minimal background of how to use the co
   * [11.2: Writing Complex Multisig Scripts](11_2_Writing_Complex_Multisig_Scripts.md)
   * [11.3: Empowering Bitcoin with Scripts](11_3_Empowering_Bitcoin_with_Scripts.md)
 
-** PART FOUR: BITCOIN APIS**
+**PART FOUR: BITCOIN APIS**
 
 * [12.0: Talking to Bitcoind](12_0_Talking_to_Bitcoind.md) — Writing
   * [12.1: Accessing Bitcoind with Curl](12_1_Accessing_Bitcoind_with_Curl.md) — Writing
