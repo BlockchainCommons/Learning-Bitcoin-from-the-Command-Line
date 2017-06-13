@@ -84,10 +84,14 @@ $ bitcoin-cli -named sendrawtransaction hexstring=$signedtx
 ```
 Voila! You've sent out another raw transaction, but this time using named arguments for clarity and to reduce errors.
 
-> **VERSION WARNING:** There is where the bug in Bitcoin Core 0.14 shows up: the 'inputs' argument for 'createrawtransaction' is misnamed 'transactions'. So, if you're on Bitcoin Core 0.14.0, substitute the named argument 'inputs' with 'transactions' for this and future examples. Based on the current code updates, this example should work as shown when Bitcoin Core 0.14.1 is released.
+> **VERSION WARNING:** There is where the bug in Bitcoin Core 0.14 shows up: the 'inputs' argument for 'createrawtransaction' is misnamed 'transactions'. So, if you're on Bitcoin Core 0.14.0, substitute the named argument 'inputs' with 'transactions' for this and future examples. However, as of Bitcoin Core 0.14.1, this code should work as shown.
 
 ## Summary: Creating a Raw Transaction with Named Arguments
 
 By running `bitcoin-cli` with the `-named` flag, you can use named arguments rather than depending on ordered arguments. `bitcoin-cli help` will always show you the right name for each argument. This can result in more robust, easier-to-read, less error-prone code.
 
 _These docs will use named arguments for all future examples, for clarity and to establish best practices. However, it will also show all arguments in the correct order. So, if you prefer not to use named args, just strip out the '-named' flag and all of the "name="s and the examples should continue to work correctly._
+
+## What's Next?
+
+Continue "Sending Bitcoin Transactions" with [§4.4: Sending Coins with Raw Transactions](04_4_Sending_Coins_with_a_Raw_Transaction.md).
