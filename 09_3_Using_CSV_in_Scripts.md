@@ -148,5 +148,3 @@ _What is the power of CSV?_ CSV isn't just a lazy way to lock, when you don't wa
 ## What's Next?
 
 Advance through "Bitcoin Scripting" with [Chapter Ten: Expanding Bitcoin Scripts](10_0_Expanding_Bitcoin_Scripts.md).
-
-## W
