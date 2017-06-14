@@ -90,7 +90,7 @@ To make sure that you can set up your VPS to your specifications, the StackScrip
 
 _This setup may not work if you do not enter all of this mandatory information:_
 
-**Installation Type.** See _Appendix I_ for more on these Bitcoin installation types. If you're planning to get on the main Bitcoin network, you'll probably want to choose "Pruned Mainnet". If you're wanting to play with Bitcoin Core and learn more about how it works, you'll probably want to choose "Pruned Testnet" or "Private Regtest".
+**Installation Type.** See _Appendix I_ for more on these Bitcoin installation types. If you're planning to get on the main Bitcoin network, you'll probably want to choose "Pruned Mainnet". If you're wanting to play with Bitcoin Core and learn more about how it works, you'll probably want to choose "Unpruned Testnet".
 
 **Short Hostname.** Pick a name for your VPS. For example, "mybtctest"
 
@@ -279,4 +279,4 @@ You have a few options for what's next:
 
 **Pruned Testnet.** This is just the last 550 blocks of Testnet ... because the Testnet blockchain is pretty big now too.
 
-**Private Regtest.** This is Regression Testing Mode, which lets you run a totally local Bitcoin server. It allows for even more in-depth testing. There's no pruning needed here, because you'll be starting from scratch.
+**Private Regtest.** This is Regression Testing Mode, which lets you run a totally local Bitcoin server. It allows for even more in-depth testing. There's no pruning needed here, because you'll be starting from scratch. This is a very different setup, and so is covered near the end of this tutorial.
