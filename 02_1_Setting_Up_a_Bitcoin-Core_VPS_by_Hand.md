@@ -357,6 +357,7 @@ maxuploadtarget=137
 maxconnections=16
 rpcuser=bitcoinrpc
 rpcpassword=$(xxd -l 16 -p /dev/urandom)
+rpcallowip=127.0.0.1
 testnet=1
 txindex=1
 EOF
@@ -364,8 +365,6 @@ EOF
 > **TESTNET vs MAINNET:** If you want to use mainnet instead of testnet, just omit the "testnet=1" line; easy!
 
 > **PRUNED vs UNPRUNED:** If you want to use a pruned copy of the blockchain instead of an unpruned copy, to minimize storage requirements and loading time, do _not_ include the "txindex=1" line, but instead add a "prune=550" line. txindex gives the benefit of a complete transaction index, but is not compatible with pruning, so you choose one or the other
-
-_Please note that this setup does not yet support a Private Regtest. That will require a very different setup TBD._
 
 To end, limit permissions to your configuration file:
 ```
@@ -415,4 +414,4 @@ See the other method for setting up a VPS with [§2.2: Setting up a Bitcoin-Core
 
 **Pruned Testnet.** This is just the last 550 blocks of Testnet ... because the Testnet blockchain is pretty big now too.
 
-**Private Regtest.** This is Regression Testing Mode, which lets you run a totally local Bitcoin server. It allows for even more in-depth testing. There's no pruning needed here, because you'll be starting from scratch.
+**Private Regtest.** This is Regression Testing Mode, which lets you run a totally local Bitcoin server. It allows for even more in-depth testing. There's no pruning needed here, because you'll be starting from scratch. This is a very different setup, and so is covered near the end of this tutorial.
