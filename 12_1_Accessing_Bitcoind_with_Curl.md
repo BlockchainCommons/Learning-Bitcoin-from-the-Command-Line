@@ -95,6 +95,11 @@ So, welcome to the club.
 
 ## Manipulate Your Wallet
 
+### Lookup Addresses
+
+### Lookup Funds
+
+### Create an Address
 
 ## Create a Transaction
 
