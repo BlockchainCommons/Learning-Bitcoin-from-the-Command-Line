@@ -299,6 +299,7 @@ maxuploadtarget=137
 maxconnections=16
 rpcuser=bitcoinrpc
 rpcpassword=$(xxd -l 16 -p /dev/urandom)
+rpcallowip=127.0.0.1
 EOF
 
 if [ "$BTCTYPE" == "Mainnet" ]; then
