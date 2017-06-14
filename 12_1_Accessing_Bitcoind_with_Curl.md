@@ -39,10 +39,6 @@ And there's the `curl` command, at the end of the help screen! This somewhat len
 
 _Whenever you're unusure about how to directly access an RPC command via curl, just look at the bitcoin-cli help and go from there._
 
-#### Know Your Parameters Format
-
-[[BETTER EXPLAIN PARAMETERS FROM START]]
-
 ### Know Your User Name
 
 In order to speak with the `bitcoind` port, you need a user name and password. These were created as part of your initial Bitcoin setup, and can be found in `~/.bitcoin/bitcoin.conf`. 
@@ -82,12 +78,28 @@ The port should be easy, it's the `http://127.0.0.1:8332/` shown in the tutorial
 
 > **MAINNET VS. TESTNET.** To access RPC commands on the mainnet, use port 8332, but to do so on testnet, use port 18332.
 
-However, with the right port number in hand, you should now be able to `curl` out to the `bitcoind`:
+### Know Your Command & Parameters
+
+By now it may be obvious that there are only two elements of the standard `curl` command which tend to change.
+
+The first is `method`, which is the RPC method being used. This should generally match with the command names you've been feeding into `bitcoin-cli` for ages. 
+
+The second is `params`, which is a JSON array of parameters. These are the same as the arguments (or named arguments) that you've been using. They're also the most confusing part of `curl`, as we'll further discuss when we send a transaction, in large part because they're a structured array rather than a simple list.
+
+Here's what some parameter arrays will look like:
+
+  * `[]` — An empty array
+  * `["000b4430a7a2ba60891b01b718747eaf9665cb93fbc0c619c99419b5b5cf3ad2"]` — An array with data
+  * `["'$signedhex'"]` — An array with a variable
+  * `[6, 9999999]` — An array with two parameters
+  * `[''[ { "txid": "'$utxo_txid'", "vout": '$utxo_vout' } ]'', ''{ "'$recipient'": 0.298, "'$changeaddress'": 1.0}'']` — An array with an array and an ojbect
+
+With that in hand, you should now be able to `curl` out to the `bitcoind`:
 ```
 $ curl --user bitcoinrpc:d8340efbcd34e312044c8431c59c792c --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "getmininginfo", "params": [] }' -H 'content-type: text/plain;' http://127.0.0.1:18332/
 {"result":{"blocks":1128599,"currentblocksize":0,"currentblockweight":0,"currentblocktx":0,"difficulty":1,"errors":"Warning: unknown new rules activated (versionbit 28)","networkhashps":8658807967387.751,"pooledtx":0,"chain":"test"},"error":null,"id":"curltest"}
 ```
-We provided the method, `getmininginfo`, and the null set for parameters, and everything else was the standard JSON input.
+We provided the method, `getmininginfo`, and the null set `[]` for parameters, and everything else was the standard JSON input.
 
 You'll note that the result is another JSON array, which is kind of ugly to read if you're using `curl` by hand. That's why `bitcoin-cli` and `curl` libraries exist. Fortunately, you can clean it up very simply by piping it through `jq`:
 ```
