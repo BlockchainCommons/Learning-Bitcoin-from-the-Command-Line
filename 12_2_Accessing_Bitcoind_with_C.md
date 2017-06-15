@@ -25,6 +25,12 @@ You'll probably need to adjust your `$PATH`, so that you can access `/sbin/ldcon
 ```
 $ PATH="/sbin:$PATH"
 ```
+You'll also want to adjust the `INSTALL_LIBPATH` in the `Makefile` to install to `/usr/lib` instead of `/usr/local/lib`:
+```
+INSTALL_LIBPATH    := $(INSTALL_PREFIX)/usr/lib
+```
+(If you prefer not to sully your `/usr/lib`, the alternative is to change your `etc/ld.so.conf` or its dependent files appropriately ... but for a test setup on a test machine, this is probably fine.)
+
 Then you can compile:
 ```
 $ make
