@@ -39,3 +39,9 @@ If that works, you can install the package:
 ```
 $ sudo make install
 ```
+
+....
+
+
+cc footest.c -lbitcoinrpc -ljansson -o foot
+
