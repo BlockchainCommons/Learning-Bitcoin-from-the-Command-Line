@@ -27,3 +27,38 @@ $ npm install
 
 ### Testing BCRPC
 
+To test the BCRPC package, you must first set environmental variables for your rpcuser and rpcpassword. As noted in [§12.1: Accessing Bitcoind with Curl](12_1_Accessing_Bitcoind_with_Curl.md), these come from `~/.bitcoin/bitcoin.conf`.
+```
+$ export BITCOIND_USER=bitcoinrpc
+$ export BITCOIND_PASS=d8340efbcd34e312044c8431c59c792c
+```
+> **WARNING:** Obviously, you'd never put set your password in an environmental variable in a production environment.
+
+You can now verify everything is working correctly:
+```
+$ npm test
+
+> bcrpc@0.0.5 test /home/user1/bcrpc-master
+> mocha tests.js
+
+  BitcoinD
+    ✓ is running
+
+  bcrpc
+    ✓ can get info
+
+  2 passing (36ms)
+```
+Congratulations, you now have a Bitcoin-ready RPC wrapper for node.js.
+
+## Manipulate Your Wallet
+
+### Look Up Addresses
+
+### Look Up Funds
+
+### Create an Address
+
+## Create a Transaction
+ 
+## Summary: Accessing Bitcoind with Node
