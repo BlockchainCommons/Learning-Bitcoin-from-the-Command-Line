@@ -4,7 +4,7 @@
 
 Accessing the `bitcoind` doesn't require `curl`. All you need is simple RPC functionality. That's what's provided by [BCRPC](https://github.com/dgarage/bcrpc) by kallewoof of Digital Garage.
 
-## Setting Up Node.js
+## Set Up Node.js
 
 BCRPC is built on node.js. Thus, you'll first need to install the `node.js` and `npm` (node package manager) packages for your system. 
 
@@ -14,7 +14,7 @@ curl -sL https://deb.nodesource.com/setup_8.x | sudo -E bash -
 sudo apt-get install -y nodejs
 sudo apt-get install mocha -g
 ```
-### Setting Up BCRPC
+### Set Up BCRPC
 
 You should next download BCRPC from the [BCRPC Repository](https://github.com/dgarage/bcrpc). Clone it or download it, as you prefer.
 
@@ -25,7 +25,7 @@ $ cd bcrpc-master
 $ npm install
 ```
 
-### Testing BCRPC
+### Test BCRPC
 
 To test the BCRPC package, you must first set environmental variables for your rpcuser and rpcpassword. As noted in [§12.1: Accessing Bitcoind with Curl](12_1_Accessing_Bitcoind_with_Curl.md), these come from `~/.bitcoin/bitcoin.conf`.
 ```
