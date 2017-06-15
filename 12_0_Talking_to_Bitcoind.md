@@ -19,4 +19,4 @@ Supporting objectives include the ability to:
 
   * [Section One: Accessing Bitcoind with Curl](12_1_Accessing_Bitcoind_with_Curl.md)
   * [Section Two: Accessing Bitcoind with C](12_2_Accessing_Bitcoind_with_C.md)
-  * [Section Three: Accessing Bitcoind with Node](12_3_Accessing_Bitcoind_with_JavaScript.md) 
+  * [Section Three: Accessing Bitcoind with Node](12_3_Accessing_Bitcoind_with_Node.md) 
