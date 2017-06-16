@@ -53,11 +53,11 @@ blocksonly=1
 maxuploadtarget=137
 maxconnections=16
 rpcuser=bitcoinrpc
-rpcpassword=d8340efbcd34e312044c8431c59c792c
+rpcpassword=73bd45ba60ab8f9ff9846b6404769487
 txindex=1
 testnet=1
 ```
-Clearly, our user is `bitcoinrpc` and our password is `d8340efbcd34e312044c8431c59c792c`.
+Clearly, our user is `bitcoinrpc` and our password is `73bd45ba60ab8f9ff9846b6404769487`.
 
 The secure way to access your user name is as follows:
 ```
@@ -68,7 +68,7 @@ As noted, you will be prompted for your password.
 
 The insecure way to do so is as follows:
 ```
-$ curl --user bitcoinrpc:d8340efbcd34e312044c8431c59c792c --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "getmininginfo", "params": [] }' -H 'content-type: text/plain;' http://127.0.0.1:8332/
+$ curl --user bitcoinrpc:73bd45ba60ab8f9ff9846b6404769487 --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "getmininginfo", "params": [] }' -H 'content-type: text/plain;' http://127.0.0.1:8332/
 ```
 > **WARNING:** Entering your password on the command line may put your password into the process table and/or save it into a history. It's not recommended, except for testing on testnet. If you want to do it anywhere else, make sure you know what you're doing!
 
@@ -96,14 +96,14 @@ Here's what some parameter arrays will look like:
 
 With that in hand, you should now be able to `curl` out to the `bitcoind`:
 ```
-$ curl --user bitcoinrpc:d8340efbcd34e312044c8431c59c792c --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "getmininginfo", "params": [] }' -H 'content-type: text/plain;' http://127.0.0.1:18332/
+$ curl --user bitcoinrpc:73bd45ba60ab8f9ff9846b6404769487 --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "getmininginfo", "params": [] }' -H 'content-type: text/plain;' http://127.0.0.1:18332/
 {"result":{"blocks":1128599,"currentblocksize":0,"currentblockweight":0,"currentblocktx":0,"difficulty":1,"errors":"Warning: unknown new rules activated (versionbit 28)","networkhashps":8658807967387.751,"pooledtx":0,"chain":"test"},"error":null,"id":"curltest"}
 ```
 We provided the method, `getmininginfo`, and the null set `[]` for parameters, and everything else was the standard JSON input.
 
 You'll note that the result is another JSON array, which is kind of ugly to read if you're using `curl` by hand. That's why `bitcoin-cli` and `curl` libraries exist. Fortunately, you can clean it up very simply by piping it through `jq`:
 ```
-$ curl --user bitcoinrpc:d8340efbcd34e312044c8431c59c792c --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "getmininginfo", "params": [] }' -H 'content-type: text/plain;' http://127.0.0.1:18332/ | jq -r '.'
+$ curl --user bitcoinrpc:73bd45ba60ab8f9ff9846b6404769487 --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "getmininginfo", "params": [] }' -H 'content-type: text/plain;' http://127.0.0.1:18332/ | jq -r '.'
 
 % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
                                  Dload  Upload   Total   Spent    Left  Speed
@@ -137,7 +137,7 @@ Though you're accessing `bitcoind` directly, you'll still get access to wallet f
 
 The `getaddressesbyaccount` RPC lists all of your current addresses:
 ```
-$ curl --user bitcoinrpc:d8340efbcd34e312044c8431c59c792c --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "getaddressesbyaccount", "params": [""] }' -H 'content-type: text/plain;' http://127.0.0.1:18332/ | jq -r '.'
+$ curl --user bitcoinrpc:73bd45ba60ab8f9ff9846b6404769487 --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "getaddressesbyaccount", "params": [""] }' -H 'content-type: text/plain;' http://127.0.0.1:18332/ | jq -r '.'
  
  {
   "result": [
@@ -168,7 +168,7 @@ The result is a list of all the addresses that have been used by this wallet ...
 
 The `listunspent` RPC lists out the funds that you have available:
 ```
-$ curl --user bitcoinrpc:d8340efbcd34e312044c8431c59c792c --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "listunspent", "params": [] }' -H 'content-type: text/plain;' http://127.0.0.1:18332/ | jq -r '.'
+$ curl --user bitcoinrpc:73bd45ba60ab8f9ff9846b6404769487 --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "listunspent", "params": [] }' -H 'content-type: text/plain;' http://127.0.0.1:18332/ | jq -r '.'
 
 {
   "result": [
@@ -238,7 +238,7 @@ This is almost exactly the same output that you get when you type `bitcoin-cli l
 
 So you know where your funds are, as you're aware the next step in creating a transaction is to create a change address. By now you've probably got the hang of this, and you know that for simple RPC commands, all you need to do is adjust the `method` is the `curl` command:
 ```
-$ curl --user bitcoinrpc:d8340efbcd34e312044c8431c59c792c --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "getrawchangeaddress", "params": [] }' -H 'content-type: text/plain;' http://127.0.0.1:18332/ | jq -r '.'
+$ curl --user bitcoinrpc:73bd45ba60ab8f9ff9846b6404769487 --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "getrawchangeaddress", "params": [] }' -H 'content-type: text/plain;' http://127.0.0.1:18332/ | jq -r '.'
  
  {
   "result": "mznccEt2ozGFN6oVaYU5BGgTzcdH8Zj8wf",
@@ -248,7 +248,7 @@ $ curl --user bitcoinrpc:d8340efbcd34e312044c8431c59c792c --data-binary '{"jsonr
 ```
 At this point, we can even revert to our standard practice of saving results to variables:
 ```
-$ changeaddress=$(curl --user bitcoinrpc:d8340efbcd34e312044c8431c59c792c --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "getrawchangeaddress", "params": [] }' -H 'content-type: text/plain;' http://127.0.0.1:18332/ | jq -r '.result')
+$ changeaddress=$(curl --user bitcoinrpc:73bd45ba60ab8f9ff9846b6404769487 --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "getrawchangeaddress", "params": [] }' -H 'content-type: text/plain;' http://127.0.0.1:18332/ | jq -r '.result')
 
 $ echo $changeaddress
 mmDWRH3CbeXwCqBwdHCj7E9d3oWTuuizxc
@@ -263,10 +263,10 @@ You're now ready to create a transaction with `curl`.
 
 Just as with `bitcoin-cli`, in order to create a transaction using the RPC directly, you should first save your variables. The only change here is that you always need to pipe through the `.result` tag before you do anything else. This example sets up our variables for using the 1.2985 BTC in funds listed in the first unspent transaction above:
 ```
-$ utxo_txid=$(curl --user bitcoinrpc:d8340efbcd34e312044c8431c59c792c --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "listunspent", "params": [] }' -H 'content-type: text/plain;' http://127.0.0.1:18332/ | jq -r '.result | .[0] | .txid')
-$ utxo_vout=$(curl --user bitcoinrpc:d8340efbcd34e312044c8431c59c792c --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "listunspent", "params": [] }' -H 'content-type: text/plain;' http://127.0.0.1:18332/ | jq -r '.result | .[0] | .vout')
+$ utxo_txid=$(curl --user bitcoinrpc:73bd45ba60ab8f9ff9846b6404769487 --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "listunspent", "params": [] }' -H 'content-type: text/plain;' http://127.0.0.1:18332/ | jq -r '.result | .[0] | .txid')
+$ utxo_vout=$(curl --user bitcoinrpc:73bd45ba60ab8f9ff9846b6404769487 --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "listunspent", "params": [] }' -H 'content-type: text/plain;' http://127.0.0.1:18332/ | jq -r '.result | .[0] | .vout')
 recipient=mwCwTceJvYV27KXBc3NJZys6CjsgsoeHmf
-$ changeaddress=$(curl --user bitcoinrpc:d8340efbcd34e312044c8431c59c792c --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "getrawchangeaddress", "params": [] }' -H 'content-type: text/plain;' http://127.0.0.1:18332/ | jq -r '.result')
+$ changeaddress=$(curl --user bitcoinrpc:73bd45ba60ab8f9ff9846b6404769487 --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "getrawchangeaddress", "params": [] }' -H 'content-type: text/plain;' http://127.0.0.1:18332/ | jq -r '.result')
 
 $ echo $utxo_txid
 6a184a2f07fa30189f4831d6f041d52653a103b3883d2bec2f79187331fd7f0e
@@ -282,7 +282,7 @@ mmDWRH3CbeXwCqBwdHCj7E9d3oWTuuizxc
 
 The transaction created with `curl` is very similar to the transaction created with `bitcoin-cli`, but a few subtle differences:
 ```
-$ curl --user bitcoinrpc:d8340efbcd34e312044c8431c59c792c --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "createrawtransaction", "params": [''[ { "txid": "'$utxo_txid'", "vout": '$utxo_vout' } ]'', ''{ "'$recipient'": 0.298, "'$changeaddress'": 1.0}'']}' -H 'content-type: text/plain;' http://127.0.0.1:18332/ | jq -r '.'
+$ curl --user bitcoinrpc:73bd45ba60ab8f9ff9846b6404769487 --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "createrawtransaction", "params": [''[ { "txid": "'$utxo_txid'", "vout": '$utxo_vout' } ]'', ''{ "'$recipient'": 0.298, "'$changeaddress'": 1.0}'']}' -H 'content-type: text/plain;' http://127.0.0.1:18332/ | jq -r '.'
  
  {
   "result": "02000000010e7ffd317318792fec2b3d88b303a15326d541f0d631489f1830fa072f4a186a0000000000ffffffff0240b6c601000000001976a914ac19d3fd17710e6b9a331022fe92c693fdf6659588ac00e1f505000000001976a9143e84156731d67c80c3dff6c1cc3b4f58460e642388ac00000000",
@@ -302,7 +302,7 @@ However, there's one last thing of note in this example, and it can be _maddenin
 
 Having verified that things work, you probably want to save this into a variable:
 ```
-$ hexcode=$(curl --user bitcoinrpc:d8340efbcd34e312044c8431c59c792c --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "createrawtransaction", "params": [''[ { "txid": "'$utxo_txid'", "vout": '$utxo_vout' } ]'', ''{ "'$recipient'": 0.298, "'$changeaddress'": 1.0}'']}' -H 'content-type: text/plain;' http://127.0.0.1:18332/ | jq -r '.result')
+$ hexcode=$(curl --user bitcoinrpc:73bd45ba60ab8f9ff9846b6404769487 --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "createrawtransaction", "params": [''[ { "txid": "'$utxo_txid'", "vout": '$utxo_vout' } ]'', ''{ "'$recipient'": 0.298, "'$changeaddress'": 1.0}'']}' -H 'content-type: text/plain;' http://127.0.0.1:18332/ | jq -r '.result')
 ```
 
 ### Sign and Send
@@ -310,9 +310,9 @@ $ hexcode=$(curl --user bitcoinrpc:d8340efbcd34e312044c8431c59c792c --data-binar
 Signing and sending is an easy use of the `signrawtransaction` and `sendrawtransaction` functions:
 
 ```
-$ signedhex=$(curl --user bitcoinrpc:d8340efbcd34e312044c8431c59c792c --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "signrawtransaction", "params": ["'$hexcode'"] }' -H 'content-type: text/plain;' http://127.0.0.1:18332/ | jq -r '.result | .hex')
+$ signedhex=$(curl --user bitcoinrpc:73bd45ba60ab8f9ff9846b6404769487 --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "signrawtransaction", "params": ["'$hexcode'"] }' -H 'content-type: text/plain;' http://127.0.0.1:18332/ | jq -r '.result | .hex')
 
-$ curl --user bitcoinrpc:d8340efbcd34e312044c8431c59c792c --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "sendrawtransaction", "params": ["'$signedhex'"] }' -H 'content-type: text/plain;' http://127.0.0.1:18332/ | jq -r '.'
+$ curl --user bitcoinrpc:73bd45ba60ab8f9ff9846b6404769487 --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "sendrawtransaction", "params": ["'$signedhex'"] }' -H 'content-type: text/plain;' http://127.0.0.1:18332/ | jq -r '.'
 {
   "result": "000b4430a7a2ba60891b01b718747eaf9665cb93fbc0c619c99419b5b5cf3ad2",
   "error": null,
