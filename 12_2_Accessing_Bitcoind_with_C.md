@@ -120,18 +120,8 @@ In order to you an RPC method in `bitcoinrpc`, you must initialize a variable of
 bitcoinrpc_method_t *getmininginfo  = NULL;
 getmininginfo = bitcoinrpc_method_init(BITCOINRPC_METHOD_GETMININGINFO);
 ```
-You must next input the parameters for your methods, which is done by creating a JSON array, then (if necessary) filling it. This is done with the `jansson` library; see the [jansson Reference](http://jansson.readthedocs.io/en/2.8/apiref.html) for more information on its specific function calls. 
+Usually you would set parameters here, but in this get, `getmininginfo` requires no parameters, so we can skip that.
 
-In this case, we just input an empty array, because we're not sending any arguments to `getmininginfo`. We'll have some increasingly complex examples of parameter submission later on.
-```
-json_t *params = NULL;
-params = json_array();
-```
-The parameters are input to the method as follows. After inputting the parameters into the method, they can be neatly cleared away.
-```
-bitcoinrpc_method_set_params(getmininginfo, params);
-json_decref(params);
-```
 Two more objects are required, a "response object" and an "error object". They're created via standard `bitcoinrpc` function calls:
 ```
 bitcoinrpc_resp_t *btcresponse  = NULL;
@@ -143,4 +133,40 @@ And now you can put it all together to make a `getmininginfo` RPC call:
 ```
 bitcoinrpc_call (rpc_client, getmininginfo, btcresponse, &btcerror);
 ```
-[[AND, I JUST GET LITERALLY INDECIPHERABLE ERROR MESSAGES AT THIS POINT, AND THE SAMPLE CODE DOESN'T WORK EITHER. I'M NOT SURE IF THIS LIBRARY STILL WORKS.]]
+### Output Your Response
+
+Retrieve the output of your call with `bitcoinrpc_resp_get`.
+```
+json_t *jsonresponse = NULL;
+jsonresponse = bitcoinrpc_resp_get (btcresponse);
+```
+If you want to output the complete JSON results of the RPC call, you can do so with a simple invocation of `json_dumps`, from the `jansson` library:
+```
+fprintf (stderr, "%s\n", json_dumps (j, JSON_INDENT(2)));
+```
+However since your now writing complete programs, you're probably going to want to do more subtle work, such as pulling out individual JSON values for specific usage. The [jansson Reference](https://jansson.readthedocs.io/en/2.10/apiref.html) tells how to do so.
+
+You can then drill down to the `result` JSON object:
+```
+json_t *jsonresult = NULL;
+jsonresult = json_object_get(jsonresponse,"result");
+fprintf (stderr, "%s\n", json_dumps (jsonresult, JSON_INDENT(2)));
+```
+Finall, you can drill down to an individual item like `blocks`:
+```
+json_t *jsonblocks = NULL;
+jsonresult = json_object_get(jsonresult,"blocks");
+
+int blocks;
+blocks = json_integer_value(jsonresult);
+printf("Block Count: %d\n",blocks);
+```
+
+
+[[SUMMARY]]
+[[APPENDIX 1: First Code]]
+[[APPENDIX 2: First Code]]
+   [[clean up organizing of initialization of variables]]
+   [[FREE up the JSON objects]]
+
+[[BREAK OUT TWO MORE CHAPTERS ON GETTING INFO + PUTTING TRANSACTION TOGETHER; OR 1?]]
