@@ -25,3 +25,41 @@ Since this is our first functional C program, we're going to try and keep it sim
    3. Combine multiple UTXOs if necessary
    
 If you want to continue to expand this example, these would be an excellent place to start, especially the latter points, which will approve your understanding and usage of actual RPC commands.
+
+## Write Your Transaction Software
+
+We're now going to take that plan step by step
+
+### 1. Request an Address and an Amount
+
+Inputting the information is easy enough via command line arguments:
+```
+if (argc != 3) {
+
+  printf("ERROR: Only %i arguments! Correct usage is '%s [recipient] [amount]'\n",argc-1,argv[0]);
+  exit(-1);
+
+}
+
+char *tx_recipient = argv[1];
+float tx_amount = atof(argv[2]);
+
+printf("Sending %4.8f BTC to %s\n",tx_amount,tx_recipient);
+```
+
+> **WARNING:** A real program would need much better sanitization of these variables. 
+
+### 2. Set an Arbitrary Fee
+
+We're just setting the 0.0005 BTC fee that we've reguarly used to ensure that our test transactions go through quickly:
+```
+float	tx_fee = 0.0005;
+float	tx_total =	tx_amount + tx_fee;
+```
+
+> **WARNING:** A real program would calculate a fee that minimized cost while ensuring the speed was sufficient for the sender. 
+
+### X. Prepare Your RPC
+
+### 3. Find a UTXO
+
