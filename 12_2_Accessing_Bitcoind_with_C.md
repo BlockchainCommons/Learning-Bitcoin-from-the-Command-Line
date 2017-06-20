@@ -2,7 +2,7 @@
 
 > **NOTE:** This is a draft in progress, so that I can get some feedback from early reviewers. It is not yet ready for learning.
 
-Though command-line `curl` is the easiest way to access the `bitcoind` directly, there are [many other options](https://en.bitcoin.it/wiki/API_reference_(JSON-RPC)) for doing so and most of them support more fully featured programming languages. The best package for doing so in C is currently [libbitcoinrpc](https://github.com/gitmarek/libbitcoinrpc/blob/master/README.md). It uses a `curl` library for accessing the data and it uses the somewhat clunky `jansson` library for decoding JSON. The advantage of a full programming language over command-line `curl` for writing more complex code should be obvious.
+Though command-line `curl` is the easiest way to access the `bitcoind` directly, there are [many other options](https://en.bitcoin.it/wiki/API_reference_(JSON-RPC)) for doing so and most of them support more fully featured programming languages. The best package for doing so in C is currently [libbitcoinrpc](https://github.com/gitmarek/libbitcoinrpc/blob/master/README.md). It uses a `curl` library for accessing the data and it uses the somewhat clunky `jansson` library for decoding the JSON. 
 
 ## Set Up libbitcoinrpc
 
@@ -19,11 +19,11 @@ $ cd libbitcoinrpc-master/
 
 ### Compile libbitcoinrpc
 
-You'll probably need to adjust your `$PATH`, so that you can access `/sbin/ldconfig`:
+Before you can compile and install the package, you'll probably need to adjust your `$PATH`, so that you can access `/sbin/ldconfig`:
 ```
 $ PATH="/sbin:$PATH"
 ```
-For a Ubunto system, you'll also want to adjust the `INSTALL_LIBPATH` in the `Makefile` to install to `/usr/lib` instead of `/usr/local/lib`:
+For a Ubunto system, you'll also want to adjust the `INSTALL_LIBPATH` in the `libbitcoinrpc` `Makefile` to install to `/usr/lib` instead of `/usr/local/lib`:
 ```
 INSTALL_LIBPATH    := $(INSTALL_PREFIX)/usr/lib
 ```
@@ -44,7 +44,7 @@ $ sudo make install
 
 ### Setup Your Code
 
-Make sure that your code files include the appropriate headers:
+To use `libbitcoinrpc`, make sure that your code files include the appropriate headers:
 ```
 #include <jansson.h>
 #include <bitcoinrpc.h>
@@ -56,13 +56,13 @@ $ cc mybitcoinclient.c -lbitcoinrpc -ljansson -o rpcclient
 
 ### Build Your Connection
 
-There are just a few steps involved with building the connection to your `bitcoind` server. 
+Building the connection to your `bitcoind` server takes a few simple steps.
 
-First, you initialize the library:
+First, initialize the library:
 ```
 bitcoinrpc_global_init();
 ```
-Then you connect to your `bitcoind`. The four arguments for `bitcoinrpc_cl_init_params` are username, password, IP address, and port. As usual, you should extract the user and password from `~/.bitcoin/bitcoin.conf`, while IP address 127.0.0.1 and port 18332 should be correct for the standard testnet setup described in this documents.
+Then connect to your `bitcoind`. The four arguments for `bitcoinrpc_cl_init_params` are username, password, IP address, and port. As usual, you should extract the user and password from `~/.bitcoin/bitcoin.conf`, while IP address 127.0.0.1 and port 18332 should be correct for the standard testnet setup described in this documents.
 ```
 bitcoinrpc_cl_t *rpc_client;
 rpc_client = bitcoinrpc_cl_init_params ("bitcoinrpc", "d8340efbcd34e312044c8431c59c792c", "127.0.0.1", 18332);
@@ -72,11 +72,66 @@ rpc_client = bitcoinrpc_cl_init_params ("bitcoinrpc", "d8340efbcd34e312044c8431c
 
 If `rpc_client` is successful, then you can go. 
 
-When you're all done with everything, you should close your connection:
+Later, when you're all done with your `bitcoind` connection, you should close it:
 ```
 bitcoinrpc_global_cleanup();
 ```
-#### Test Your Connection
+
+Appendix I shows the complete code for a test of a `bitcoind` connection.
+
+### Make an RPC Call
+
+In order to use an RPC method in `bitcoinrpc`, you must initialize a variable of type `bitcoinrpc_method_t`. You do so with the appropriate value for the method you want to use, all of which are listed in the [bitcoinrpc Reference](https://github.com/gitmarek/libbitcoinrpc/blob/master/doc/reference.md).
+```
+bitcoinrpc_method_t *getmininginfo  = NULL;
+getmininginfo = bitcoinrpc_method_init(BITCOINRPC_METHOD_GETMININGINFO);
+```
+Usually you would set parameters here, but `getmininginfo` requires no parameters, so you can skip that for now.
+
+Two more objects are required, a "response object" and an "error object". They're created via standard `bitcoinrpc` function calls:
+```
+bitcoinrpc_resp_t *btcresponse  = NULL;
+btcresponse = bitcoinrpc_resp_init();
+
+bitcoinrpc_err_t btcerror;
+```
+And now you can put it all together to make a `getmininginfo` RPC call:
+```
+bitcoinrpc_call (rpc_client, getmininginfo, btcresponse, &btcerror);
+```
+### Output Your Response
+
+Retrieve the output of your call as a JSON object with `bitcoinrpc_resp_get`.
+```
+json_t *jsonresponse = NULL;
+jsonresponse = bitcoinrpc_resp_get (btcresponse);
+```
+If you want to output the complete JSON results of the RPC call, you can do so with a simple invocation of `json_dumps`, from the `jansson` library:
+```
+printf ("%s\n", json_dumps (j, JSON_INDENT(2)));
+```
+However since your now writing complete programs, you're probably going to want to do more subtle work, such as pulling out individual JSON values for specific usage. The [jansson Reference](https://jansson.readthedocs.io/en/2.10/apiref.html) details how to do so.
+
+You can drill down to the `result` JSON object:
+```
+json_t *jsonresult = NULL;
+jsonresult = json_object_get(jsonresponse,"result");
+printf ("%s\n", json_dumps (jsonresult, JSON_INDENT(2)));
+```
+Alternatively, you can drill down to an individual item like `blocks`:
+```
+json_t *jsonblocks = NULL;
+jsonresult = json_object_get(jsonresult,"blocks");
+
+int blocks;
+blocks = json_integer_value(jsonresult);
+printf("Block Count: %d\n",blocks);
+```
+Appendix II has an example of this complete code, with the variable initiatialization all rearranged to the top, and with cleanup of the JSON objects.
+
+[[SUMMARY]]
+
+## Appendix I: Testing a Bitcoind Connection
 
 Here's the complete code for a test of the connection to `bitcoind`.
 ```
@@ -90,8 +145,7 @@ int main(void) {
   bitcoinrpc_global_init();
 
   bitcoinrpc_cl_t *rpc_client;
-  rpc_client = bitcoinrpc_cl_init_params ("bitcoinrpc", "d8340efbcd34e312044c843
-1c59c792c", "127.0.0.1", 18332);
+  rpc_client = bitcoinrpc_cl_init_params ("bitcoinrpc", "d8340efbcd34e312044c8431c59c792c", "127.0.0.1", 18332);
 
   if (rpc_client) {
 
@@ -107,64 +161,14 @@ int main(void) {
 
 }
 ```
-Test it out to make sure everything is working:
+You can compile and run this as follows:
 ```
 $ cc testbitcoin.c -lbitcoinrpc -ljansson -o testbitcoin
 $ ./testbitcoin 
 Successfully connected to server!
 ```
-### Make an RPC Call
+## Appendix II: Getting Mining Info
 
-In order to you an RPC method in `bitcoinrpc`, you must initialize a variable of type `bitcoinrpc_method_t`. You do so with the appropriate value for the method you want to use, all of which are listed in the [bitcoinrpc Reference](https://github.com/gitmarek/libbitcoinrpc/blob/master/doc/reference.md), which includes all of the `bitcoinrpc` constants, including RPC calls and error messages.
-```
-bitcoinrpc_method_t *getmininginfo  = NULL;
-getmininginfo = bitcoinrpc_method_init(BITCOINRPC_METHOD_GETMININGINFO);
-```
-Usually you would set parameters here, but in this get, `getmininginfo` requires no parameters, so we can skip that.
-
-Two more objects are required, a "response object" and an "error object". They're created via standard `bitcoinrpc` function calls:
-```
-bitcoinrpc_resp_t *btcresponse  = NULL;
-btcresponse = bitcoinrpc_resp_init();
-
-bitcoinrpc_err_t btcerror;
-```
-And now you can put it all together to make a `getmininginfo` RPC call:
-```
-bitcoinrpc_call (rpc_client, getmininginfo, btcresponse, &btcerror);
-```
-### Output Your Response
-
-Retrieve the output of your call with `bitcoinrpc_resp_get`.
-```
-json_t *jsonresponse = NULL;
-jsonresponse = bitcoinrpc_resp_get (btcresponse);
-```
-If you want to output the complete JSON results of the RPC call, you can do so with a simple invocation of `json_dumps`, from the `jansson` library:
-```
-fprintf (stderr, "%s\n", json_dumps (j, JSON_INDENT(2)));
-```
-However since your now writing complete programs, you're probably going to want to do more subtle work, such as pulling out individual JSON values for specific usage. The [jansson Reference](https://jansson.readthedocs.io/en/2.10/apiref.html) tells how to do so.
-
-You can then drill down to the `result` JSON object:
-```
-json_t *jsonresult = NULL;
-jsonresult = json_object_get(jsonresponse,"result");
-fprintf (stderr, "%s\n", json_dumps (jsonresult, JSON_INDENT(2)));
-```
-Finall, you can drill down to an individual item like `blocks`:
-```
-json_t *jsonblocks = NULL;
-jsonresult = json_object_get(jsonresult,"blocks");
-
-int blocks;
-blocks = json_integer_value(jsonresult);
-printf("Block Count: %d\n",blocks);
-```
-
-
-[[SUMMARY]]
-[[APPENDIX 1: First Code]]
 [[APPENDIX 2: First Code]]
    [[clean up organizing of initialization of variables]]
    [[FREE up the JSON objects]]
