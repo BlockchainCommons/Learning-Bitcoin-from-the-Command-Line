@@ -121,15 +121,19 @@ printf ("%s\n", json_dumps (jsonresult, JSON_INDENT(2)));
 Alternatively, you can drill down to an individual item like `blocks`:
 ```
 json_t *jsonblocks = NULL;
-jsonresult = json_object_get(jsonresult,"blocks");
+jsonblocks = json_object_get(jsonresult,"blocks");
 
 int blocks;
-blocks = json_integer_value(jsonresult);
+blocks = json_integer_value(jsonblocks);
 printf("Block Count: %d\n",blocks);
 ```
-Appendix II has an example of this complete code, with the variable initiatialization all rearranged to the top, and with cleanup of the JSON objects.
+Appendix II has an example of this complete code.
 
-[[SUMMARY]]
+## Summary: Accessing Bitcoind with C
+
+By linking to the `bitcoinrpc` and `jansson` libraries, you can easily access `bitcoind` via RPC calls from a C library. To do so, you create an RPC connection, then make individual RPC calls. `jansson` then allows you to decode the JSON responses.
+
+_What is the power of C?_ C allows you to take the next step beyond shell-scripting, permitting the creation of more comprehensive and robust programs. A more comprehensive example will appear in the next chapter.
 
 ## Appendix I: Testing a Bitcoind Connection
 
@@ -169,8 +173,115 @@ Successfully connected to server!
 ```
 ## Appendix II: Getting Mining Info
 
-[[APPENDIX 2: First Code]]
-   [[clean up organizing of initialization of variables]]
-   [[FREE up the JSON objects]]
+Here's the complete code for the `getmininginfo` command, with organized variable initiatialization, error checking, and variable cleanup.
+```
+file: getmininginfo.c
 
-[[BREAK OUT TWO MORE CHAPTERS ON GETTING INFO + PUTTING TRANSACTION TOGETHER; OR 1?]]
+#include <jansson.h>
+#include <bitcoinrpc.h>
+
+int main(void) {
+
+  bitcoinrpc_cl_t *rpc_client;
+  bitcoinrpc_method_t *getmininginfo  = NULL;
+  bitcoinrpc_resp_t *btcresponse  = NULL;
+  bitcoinrpc_err_t btcerror;
+
+  json_t *jsonresponse = NULL;
+  json_t *jsonresult = NULL;
+  json_t *jsonblocks = NULL;
+  int blocks;
+
+  bitcoinrpc_global_init();
+
+  rpc_client = bitcoinrpc_cl_init_params ("bitcoinrpc", "73bd45ba60ab8f9ff9846b6404769487", "127.0.0.1", 18332);
+
+  if (rpc_client) {
+    getmininginfo = bitcoinrpc_method_init(BITCOINRPC_METHOD_GETMININGINFO);
+
+    if (!getmininginfo) {
+
+      printf("ERROR: Unable to initialize getmininginfo method!\n");
+      exit(-1);
+
+    }
+
+    btcresponse = bitcoinrpc_resp_init();
+    if (!btcresponse) {
+
+      printf("Error: Cannot initialize response object!\n");
+      exit(-1);
+
+    }
+
+    bitcoinrpc_call(rpc_client, getmininginfo, btcresponse, &btcerror);
+    
+    if (btcerror.code != BITCOINRPCE_OK) {
+
+
+      printf("Error: getmininginfo error code %d [%s]\n", btcerror.code,btcerror.msg);
+      exit(-1);
+
+    }
+
+    printf("Full Response: ");
+    jsonresponse = bitcoinrpc_resp_get (btcresponse);
+    printf ("%s\n", json_dumps (jsonresponse, JSON_INDENT(2)));
+
+    printf("\nJust the Result: ");
+    jsonresult = json_object_get(jsonresponse,"result");
+    printf ("%s\n", json_dumps (jsonresult, JSON_INDENT(2)));
+
+    jsonblocks = json_object_get(jsonresult,"blocks");
+    blocks = json_integer_value(jsonblocks);
+    printf("\nBlock Count: %d\n",blocks);
+
+    json_decref(jsonblocks);
+    json_decref(jsonresult);
+    json_decref(jsonresponse);
+
+  } else {
+
+    printf("ERROR: Failed to connect to server!\n");
+
+  }
+
+  bitcoinrpc_cl_free(rpc_client);
+  bitcoinrpc_global_cleanup();
+
+}
+```
+As usual, you can compile and run as follows:
+```
+$ cc getmininginfo.c -lbitcoinrpc -ljansson -o getmininginfo
+$ ./getmininginfo 
+Full Response: {
+  "id": "03406237-cd8f-466d-ac31-86711ea9d1db",
+  "result": {
+    "blocks": 1147154,
+    "errors": "Warning: unknown new rules activated (versionbit 28)",
+    "pooledtx": 0,
+    "currentblocksize": 0,
+    "currentblockweight": 0,
+    "currentblocktx": 0,
+    "difficulty": 313525.08513550513,
+    "networkhashps": 3958339463617.417,
+    "chain": "test"
+  },
+  "error": null
+}
+
+Just the Result: {
+  "blocks": 1147154,
+  "errors": "Warning: unknown new rules activated (versionbit 28)",
+  "pooledtx": 0,
+  "currentblocksize": 0,
+  "currentblockweight": 0,
+  "currentblocktx": 0,
+  "difficulty": 313525.08513550513,
+  "networkhashps": 3958339463617.417,
+  "chain": "test"
+}
+
+Block Count: 1147154
+```
