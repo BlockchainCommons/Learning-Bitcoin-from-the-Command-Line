@@ -115,14 +115,14 @@ Is the UTXO large enough to pay out your transaction? If so, grab it!
     tx_vout = json_integer_value(lu_vout);
 
     json_decref(lu_amount);
-	  json_decref(lu_txid);
+    json_decref(lu_txid);
     json_decref(lu_vout);
-	  json_decref(lu_data);
+    json_decref(lu_data);
     break;
 
   } 
 ```
-Make sure to clean things up as you go through failed loops:
+Make sure to clean things up as you go through failed loops and then when you finish the loops:
 ```
   json_decref(lu_amount);
   json_decref(lu_data);
@@ -132,7 +132,7 @@ Make sure to clean things up as you go through failed loops:
 json_decref(lu_result);
 json_decref(lu_response);
 ```      
-If you didn't find any large-enough UTXOs, you'll have to report that sad fact to the user ... and perhaps suggest that they should use a better sending program that will correctly merge UTXOs.
+If you didn't find any large-enough UTXOs, you'll have to report that sad fact to the user ... and perhaps suggest that they should use a better program that will correctly merge UTXOs.
 ```
 if (!tx_id) {
 
@@ -147,7 +147,7 @@ printf("We are using txid %s with vout %i\n",tx_id,tx_vout);
 
 ### 4. Create a Change Address
 
-Repeat this methodology to get a change address:
+Repeat the standard RPC-lookup methodology to get a change address:
 ```
 rpc_method = bitcoinrpc_method_init(BITCOINRPC_METHOD_GETRAWCHANGEADDRESS);
 
@@ -172,7 +172,7 @@ lu_response = bitcoinrpc_resp_get (btcresponse);
 lu_result = json_object_get(lu_response,"result");
 char *changeaddress = strdup(json_string_value(lu_result));
 ```
-The only difference is what in particular we extract from our JSON object.
+The only difference is in what particular information we extract from our JSON object.
 
 > **WARNING:** Here's another place that a subroutine would be really nice: to abstract out the whole RPC method initialization and call.
 
