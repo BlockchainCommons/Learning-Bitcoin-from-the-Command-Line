@@ -91,30 +91,30 @@ int i;
 
 const char *tx_id = 0;
 int tx_vout = 0;
-double tx_amount = 0.0;
+double tx_value = 0.0;
 
 for (i = 0 ; i < json_array_size(lu_result) ; i++) {
 
   json_t *lu_data = NULL;
   lu_data = json_array_get(lu_result, i);
   
-  json_t *lu_amount = NULL;
-  lu_amount = json_object_get(lu_data,"amount");
-  tx_amount = json_real_value(lu_amount);
+  json_t *lu_value = NULL;
+  lu_value = json_object_get(lu_data,"amount");
+  tx_value = json_real_value(lu_value);
 ```
 Is the UTXO large enough to pay out your transaction? If so, grab it!
 ```
-  if (tx_amount > tx_total) {
+  if (tx_value > tx_total) {
 
     json_t *lu_txid = NULL;
     lu_txid = json_object_get(lu_data,"txid");
     tx_id = strdup(json_string_value(lu_txid));
 
     json_t *lu_vout = NULL;
-	  lu_vout = json_object_get(lu_data,"vout");
+    lu_vout = json_object_get(lu_data,"vout");
     tx_vout = json_integer_value(lu_vout);
 
-    json_decref(lu_amount);
+    json_decref(lu_value);
     json_decref(lu_txid);
     json_decref(lu_vout);
     json_decref(lu_data);
@@ -124,7 +124,7 @@ Is the UTXO large enough to pay out your transaction? If so, grab it!
 ```
 Make sure to clean things up as you go through failed loops and then when you finish the loops:
 ```
-  json_decref(lu_amount);
+  json_decref(lu_value);
   json_decref(lu_data);
 
 }
@@ -139,8 +139,6 @@ if (!tx_id) {
   printf("Very Sad: You don't have any UTXOs larger than %f",tx_total);
   exit(-1);
 }
-
-printf("We are using txid %s with vout %i\n",tx_id,tx_vout);
 ```
 
 > **WARNING:** A real program would use subroutines for this sort of lookup, so that you could confidentally call various RPCs from a library of C functions. We're just going to blob it all into `main` as part of our KISS philosophy of simple examples.
