@@ -85,6 +85,9 @@ json_t *lu_result = NULL;
 lu_response = bitcoinrpc_resp_get (btcresponse);
 lu_result = json_object_get(lu_response,"result");
 ```
+
+> **WARNING:** You only get a result if there wasn't an error. Here's another place for better error checking for production code.
+
 Then, you go into a loop, examining each unspent transaction, which appears as an element in your JSON result array:
 ```
 int i;
