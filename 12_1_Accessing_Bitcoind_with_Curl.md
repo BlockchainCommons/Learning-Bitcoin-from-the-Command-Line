@@ -59,6 +59,8 @@ testnet=1
 ```
 Clearly, our user is `bitcoinrpc` and our password is `73bd45ba60ab8f9ff9846b6404769487`.
 
+> **WARNING:** Clearly, it's not very secure to have this information in a plain text file. As of Bitcoin Core 0.12, you can instead omit the `rpcpassword` from your `bitcoin.conf` file, and have `bitcoind` generate a new cookie whenever it starts up. The downside of this is that it makes use of RPC commands by other applications, such as the ones detailed in this chapter, more difficult. So, we're going to stick with the plain `rpcuser` and `rpcpassword` information for now, but for production software, consider moving to cookies.
+
 The secure way to access your user name is as follows:
 ```
 $ curl --user bitcoinrpc --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "getmininginfo", "params": [] }' -H 'content-type: text/plain;' http://127.0.0.1:8332/
@@ -70,7 +72,7 @@ The insecure way to do so is as follows:
 ```
 $ curl --user bitcoinrpc:73bd45ba60ab8f9ff9846b6404769487 --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "getmininginfo", "params": [] }' -H 'content-type: text/plain;' http://127.0.0.1:8332/
 ```
-> **WARNING:** Entering your password on the command line may put your password into the process table and/or save it into a history. It's not recommended, except for testing on testnet. If you want to do it anywhere else, make sure you know what you're doing!
+> **WARNING:** Entering your password on the command line may put your password into the process table and/or save it into a history. This is even less recommended than putting it in a file, except for testing on testnet. If you want to do it anywhere else, make sure you know what you're doing!
 
 ### Know Your Port
 
