@@ -146,3 +146,34 @@ printf("We are using txid %s with vout %i\n",tx_id,tx_vout);
 > **WARNING:** A real program would use subroutines for this sort of lookup, so that you could confidentally call various RPCs from a library of C functions. We're just going to blob it all into `main` as part of our KISS philosophy of simple examples.
 
 ### 4. Create a Change Address
+
+Repeat this methodology to get a change address:
+```
+rpc_method = bitcoinrpc_method_init(BITCOINRPC_METHOD_GETRAWCHANGEADDRESS);
+
+if (!rpc_method) {
+
+  printf("ERROR: Unable to initialize listunspent method!\n");
+  exit(-1);
+
+}
+
+bitcoinrpc_call(rpc_client, rpc_method, btcresponse, &btcerror);
+
+if (btcerror.code != BITCOINRPCE_OK) {
+
+printf("Error: listunspent error code %d [%s]\n", btcerror.code,btcerror.msg);
+
+  exit(-1);
+
+}
+
+lu_response = bitcoinrpc_resp_get (btcresponse);
+lu_result = json_object_get(lu_response,"result");
+char *changeaddress = strdup(json_string_value(lu_result));
+```
+The only difference is what in particular we extract from our JSON object.
+
+> **WARNING:** Here's another place that a subroutine would be really nice: to abstract out the whole RPC method initialization and call.
+
+### 5. Create a Raw Transaction
