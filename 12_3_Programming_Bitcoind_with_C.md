@@ -53,8 +53,8 @@ printf("Sending %4.8f BTC to %s\n",tx_amount,tx_recipient);
 
 We're just setting the 0.0005 BTC fee that we've reguarly used to ensure that our test transactions go through quickly:
 ```
-float	tx_fee = 0.0005;
-float	tx_total =	tx_amount + tx_fee;
+float tx_fee = 0.0005;
+float tx_total = tx_amount + tx_fee;
 ```
 
 > **WARNING:** A real program would calculate a fee that minimized cost while ensuring the speed was sufficient for the sender. 
@@ -106,7 +106,7 @@ Is the UTXO large enough to pay out your transaction? If so, grab it!
 ```
   if (tx_amount > tx_total) {
 
-	  json_t *lu_txid = NULL;
+    json_t *lu_txid = NULL;
     lu_txid = json_object_get(lu_data,"txid");
     tx_id = strdup(json_string_value(lu_txid));
 
