@@ -23,8 +23,10 @@ Since this is our first functional C program, we're going to try and keep it sim
    1. Test and/or sanitize the inputs
    2. Calculate a fee automatically
    3. Combine multiple UTXOs if necessary
+   4. Watch for more errors in the `libbitcoinrpc` or `jansson` commands
+   5. Watch for errors in the RPC responses
    
-If you want to continue to expand this example, these would be an excellent place to start, especially the latter points, which will approve your understanding and usage of actual RPC commands.
+If you want to continue to expand this example, addressing the inadequacies of this example program would be a great place to start.
 
 ## Write Your Transaction Software
 
@@ -125,16 +127,16 @@ Is the UTXO large enough to pay out your transaction? If so, grab it!
 
   } 
 ```
-Make sure to clean things up as you go through failed loops and then when you finish the loops:
+You should clear your main JSON elements as well:
 ```
-  json_decref(lu_value);
-  json_decref(lu_data);
-
 }
 
 json_decref(lu_result);
 json_decref(lu_response);
 ```      
+
+> **WARNING:** A real-world program would also make sure the UTXOs were `spendable`.
+
 If you didn't find any large-enough UTXOs, you'll have to report that sad fact to the user ... and perhaps suggest that they should use a better program that will correctly merge UTXOs.
 ```
 if (!tx_id) {
@@ -257,3 +259,35 @@ lu_result = json_object_get(lu_response,"result");
 
 char *tx_rawhex = strdup(json_string_value(lu_result));
 ```
+### 6. Sign the Transaction
+
+It's a lot easier to assign a simple parameter to a function. You just create a JSON array, then assign the parameter to the array:
+```
+params = json_array();
+json_array_append_new(params,json_string(tx_rawhex));
+```
+Sign the transaction by following the typical rigamarole for creating an RPC call:
+```
+rpc_method = bitcoinrpc_method_init(BITCOINRPC_METHOD_SIGNRAWTRANSACTION);
+if (bitcoinrpc_method_set_params(rpc_method, params) != BITCOINRPCE_OK) {
+
+  fprintf (stderr, "Error: Could not set params for signrawtransaction");
+
+}
+
+json_decref(params);
+
+bitcoinrpc_call(rpc_client, rpc_method, btcresponse, &btcerror);
+lu_response = bitcoinrpc_resp_get(btcresponse);
+```
+Again, using `jansson` to access the output can be a little tricky. Here you have to remember that `hex` is part of a JSON object, not a standalone result, as was the case when we created the raw transaction. Of course, you can always access this information from command line help: `bitcoin-cli help signrawtransaction`:
+```
+lu_result = json_object_get(lu_response,"result");
+json_t *lu_signature = json_object_get(lu_result,"hex");
+char *tx_signrawhex = strdup(json_string_value(lu_signature));
+json_decref(lu_signature);
+```
+
+> ***WARNING:*** A real-world program would obviously carefully test the response of every RPC command to make sure there were no errors. That's especially true for `signrawtransaction`, because you might end up with a partially signed transaction. Worse, if you don't check the errors in the JSON object, you'll just see the `hex` and not realize that it's either unsigned or partially signed. 
+
+### 7. Send the Transaction
