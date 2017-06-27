@@ -178,3 +178,82 @@ The only difference is in what particular information we extract from our JSON o
 > **WARNING:** Here's another place that a subroutine would be really nice: to abstract out the whole RPC method initialization and call.
 
 ### 5. Create a Raw Transaction
+
+Creating the actual raw transaction is the other tricky part of programming your `sendtoaddress` replacement. That's because it requires the creation of a complex JSON object as a paramter.
+
+To correctly create these parameters, you'll need to review what the `createrawtransaction` RPC expects. Fortunately, this is easy to determine using the `bitcoin-cli help` functionality:
+```
+$ bitcoin-cli help createrawtransaction
+createrawtransaction [{"txid":"id","vout":n},...] {"address":amount,"data":"hex",...} ( locktime )
+```
+To review, your inputs will be a JSON array containing one JSON object for each UTXO. Then the ouputs will all be in one JSON object. It's easiest to create these JSON elements from the inside out, using `jansson` commands. 
+
+#### 5.1. Create the Input Parameters
+
+To create the input object for your UTXO, use `json_object`, then fill it with key-values using either `json_object_set_new` (for newly created references) or `json_object_set` (for existing references):
+```
+json_t *inputtxid = NULL;
+inputtxid = json_object();
+
+json_object_set_new(inputtxid,"txid",json_string(tx_id));
+json_object_set_new(inputtxid,"vout",json_integer(tx_vout));
+```
+You'll note that you have to translate each C variable type into a JSON variable type using the appropriate function, such as `json_string` or `json_integer`.
+
+To create the overall input array for all your UTXOs, use `json_array`, then fill it up with objects using `json_array_append`:
+```
+json_t *inputparams = NULL;
+inputparams = json_array();
+json_array_append(inputparams,inputtxid);
+```
+
+#### 5.2 Create the Output Parameters
+
+To create the output array for your transaction, follow the same format, creating a JSON object with `json_object`, then filling it with `json_object_set`:
+```
+json_t *outputparams = NULL;
+outputparams = json_object();
+
+char tx_amount_string[32];
+sprintf(tx_amount_string,"%.8f",tx_amount);
+char tx_change_string[32];
+sprintf(tx_change_string,"%.8f",tx_value - tx_total);
+
+json_object_set(outputparams, tx_recipient, json_string(tx_amount_string));
+json_object_set(outputparams, changeaddress, json_string(tx_change_string));
+```
+
+> **WARNING:** You might expect to input your Bitcoin values as numbers, using `json_real`. Unfortunately, this exposes one of the major problems with integrating the `jansson` library and Bitcoin. Bitcoin is only valid to eight significant digits past the decimal point. You might recall that .00000001 BTC is a satoshi, and that's the smallest possible division of a Bitcoin. Doubles in C offer more significant digits than that, though they're often imprecise out past eight decimals. If you try to convert straight from your double value in C (or a float value, for that matter) to a Bitcoin value, the imprecision will often create a Bitcoin value with more than eight significant digits. Before Bitcoin Core 0.12 this appears to work, and you could use `json_real`. But as of Bitcoin Core 0.12, if you try to give `createrawtransaction` a Bitcoin value with too many significant digits, you'll instead get an error and the transaction will not be created. As a result, if the Bitcoin value has _ever_ become a double or float, you must reformat it to eight significant digits past the digit before feeding it in as a string. This is obviously a kludge, so you should make sure it continues to work in future versions of Bitcoin Core.
+
+#### 5.3 Create the Parameter Array
+
+To finish creating your parameters, simply to bundle them all up in a JSON array:
+```
+json_t *params = NULL;
+params = json_array();
+json_array_append(params,inputparams);
+json_array_append(params,outputparams);
+```
+#### 5.4 Make the RPC Call
+
+Use the normal method to create your RPC call:
+```
+rpc_method = bitcoinrpc_method_init(BITCOINRPC_METHOD_CREATERAWTRANSACTION);
+```
+However, now you must feed it your parameters. This simply done with `bitcoinrpc_method_set_params`:
+```
+if (bitcoinrpc_method_set_params(rpc_method, params) != BITCOINRPCE_OK) {
+
+  fprintf (stderr, "Error: Could not set params for createrawtransaction");
+
+}
+```
+Afterward, run the RPC and get the results as usual:
+```
+bitcoinrpc_call(rpc_client, rpc_method, btcresponse, &btcerror);
+
+lu_response = bitcoinrpc_resp_get(btcresponse);
+lu_result = json_object_get(lu_response,"result");
+
+char *tx_rawhex = strdup(json_string_value(lu_result));
+```
