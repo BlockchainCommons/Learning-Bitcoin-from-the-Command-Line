@@ -22,9 +22,10 @@ Since this is our first functional C program, we're going to try and keep it sim
 
    1. Test and/or sanitize the inputs
    2. Calculate a fee automatically
-   3. Combine multiple UTXOs if necessary
-   4. Watch for more errors in the `libbitcoinrpc` or `jansson` commands
-   5. Watch for errors in the RPC responses
+   3. Think logically about which vlid UTXO to use
+   4. Combine multiple UTXOs if necessary
+   5. Watch for more errors in the `libbitcoinrpc` or `jansson` commands
+   6. Watch for errors in the RPC responses
    
 If you want to continue to expand this example, addressing the inadequacies of this example program would be a great place to start.
 
@@ -108,6 +109,9 @@ for (i = 0 ; i < json_array_size(lu_result) ; i++) {
   tx_value = json_real_value(lu_value);
 ```
 Is the UTXO large enough to pay out your transaction? If so, grab it!
+
+> **WARNING:** A real-world program would think more carefully about which UTXO to grab, based on size and other factors. It probably wouldn't just grab the first thing it saw that worked.
+
 ```
   if (tx_value > tx_total) {
 
