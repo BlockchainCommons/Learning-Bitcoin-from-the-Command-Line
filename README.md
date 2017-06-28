@@ -88,8 +88,8 @@ This tutorial assumes that you have some minimal background of how to use the co
 
 * [12.0: Talking to Bitcoind](12_0_Talking_to_Bitcoind.md) — Needs Editing
   * [12.1: Accessing Bitcoind with Curl](12_1_Accessing_Bitcoind_with_Curl.md) — Needs Editing
-  * [12.2: Accessing Bitcoind with C](12_2_Accessing_Bitcoind_with_C.md) — Writing
-  * [12.3: Programming Bitcoind with C](12_3_Programming_Bitcoind_with_C.md) — Pending
+  * [12.2: Accessing Bitcoind with C](12_2_Accessing_Bitcoind_with_C.md) — Needs Editing
+  * [12.3: Programming Bitcoind with C](12_3_Programming_Bitcoind_with_C.md) — Needs Editing
   * [12.4: Accessing Bitcoind with JavaScript](12_4_Accessing_Bitcoind_with_Node.md)  — Writing
       * Watching Bitcoin Addresses in C?
 * 13.0: Programming with LibWally
