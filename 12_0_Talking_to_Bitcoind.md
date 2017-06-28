@@ -21,5 +21,5 @@ Supporting objectives include the ability to:
   * [Section One: Accessing Bitcoind with Curl](12_1_Accessing_Bitcoind_with_Curl.md)
   * [Section Two: Accessing Bitcoind with C](12_2_Accessing_Bitcoind_with_C.md)
   * [Section Three: Programming Bitcoind with C](12_3_Programming_Bitcoind_with_C.md)
-  * [Section Four: Receiving Bitcoind Notifications with C](12_4_Receiving_Bitcoind_Notifications_with_C.md) — Pending
-  * [Section Five: Accessing Bitcoind with Other Languages](12_5_Accessing_Bitcoind_with_Other_Languages.md)  — Writing
+  * [Section Four: Receiving Bitcoind Notifications with C](12_4_Receiving_Bitcoind_Notifications_with_C.md)
+  * [Section Five: Accessing Bitcoind with Other Languages](12_5_Accessing_Bitcoind_with_Other_Languages.md)
