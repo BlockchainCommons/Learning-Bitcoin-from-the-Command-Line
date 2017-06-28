@@ -87,11 +87,11 @@ This tutorial assumes that you have some minimal background of how to use the co
 **PART FOUR: BITCOIN APIS**
 
 * [12.0: Talking to Bitcoind](12_0_Talking_to_Bitcoind.md) — Needs Editing
-  * [12.1: Accessing Bitcoind with Curl](12_1_Accessing_Bitcoind_with_Curl.md) — Needs Editing
+  * [12.1: Accessing Bitcoind with Curl](12_1_Accessing_Bitcoind_with_Curl.md)
   * [12.2: Accessing Bitcoind with C](12_2_Accessing_Bitcoind_with_C.md) — Needs Editing
   * [12.3: Programming Bitcoind with C](12_3_Programming_Bitcoind_with_C.md) — Needs Editing
-  * [12.4: Accessing Bitcoind with JavaScript](12_4_Accessing_Bitcoind_with_Node.md)  — Writing
-      * Watching Bitcoin Addresses in C?
+  * [12.4: Receiving Bitcoind Notifications with C](12_4_Receiving_Bitcoind_Notifications_with_C.md) — Pending
+  * [12.5: Accessing Bitcoind with Other Languages](12_5_Accessing_Bitcoind_with_Other_Languages.md)  — Writing
 * 13.0: Programming with LibWally
    * 13.1: Programming Transactions
    * 13.2: Programming Scripts
