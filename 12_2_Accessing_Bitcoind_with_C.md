@@ -110,7 +110,7 @@ If you want to output the complete JSON results of the RPC call, you can do so w
 ```
 printf ("%s\n", json_dumps (j, JSON_INDENT(2)));
 ```
-However since your now writing complete programs, you're probably going to want to do more subtle work, such as pulling out individual JSON values for specific usage. The [jansson Reference](https://jansson.readthedocs.io/en/2.10/apiref.html) details how to do so.
+However since you're now writing complete programs, you're probably going to want to do more subtle work, such as pulling out individual JSON values for specific usage. The [jansson Reference](https://jansson.readthedocs.io/en/2.10/apiref.html) details how to do so.
 
 You can drill down to the `result` JSON object:
 ```
@@ -127,11 +127,43 @@ int blocks;
 blocks = json_integer_value(jsonblocks);
 printf("Block Count: %d\n",blocks);
 ```
+
+> **WARNING:** It's extremely easy to segfault your C code when working with jansson objects if you get confused with what type of object you're retrieving. Make careful use of `bitcoin-cli help` to know what you should expect, and if you experience a segmentation fault, first look at your JSON retrieval functions.
+
 Appendix II has an example of this complete code.
+
+### Make an RPC Call with Arguments
+
+But what if your RPC call _did_ have arguments? 
+
+#### Create a JSON Array
+
+To send parameters to your RPC call using `libbitcoinrpc` you have to wrap them in a JSON array. An array is just a simple listing of values, so all you have to do is encode the parameters as elements of the array. 
+
+Create the array using the `json_array` function from `jansson`:
+```
+json_t *params = NULL;
+params = json_array();
+```
+You can then fill it by converting C-typed objects into JSON-typed objects and appending them to the array:
+```
+json_array_append_new(params,json_string(tx_rawhex));
+```
+Note that there are two variants to the append command: `json_array_append_new`, which appends a newly created variable, and `json_array_append`, which appends an existing variable.
+
+This methodology will serve for the majority of RPC commands with parameters, but there are some that are much more complex. In these cases you may need to create subsidiary JSON objects or JSON arrays, which you then append to the parameters array as usual. The next section contains an example of doing so using `createrawtransaction`, which contains an array of objects for the inputs, an object for the outputs and the `locktime` parameter. 
+
+#### Assign the Parameters
+
+When you've created your parameters JSON array, you simply assign it after you've initialized your RPC method, as follows:
+```
+bitcoinrpc_method_set_params(rpc_method, params)
+```
+This section doesn't include a full example of this more complex methodology, but we'll see it in action multiple times in our first comprehensive RPC-based C program, in the next section.
 
 ## Summary: Accessing Bitcoind with C
 
-By linking to the `bitcoinrpc` and `jansson` libraries, you can easily access `bitcoind` via RPC calls from a C library. To do so, you create an RPC connection, then make individual RPC calls. `jansson` then allows you to decode the JSON responses.
+By linking to the `bitcoinrpc` and `jansson` libraries, you can easily access `bitcoind` via RPC calls from a C library. To do so, you create an RPC connection, then make individual RPC calls, some of them with parameters. `jansson` then allows you to decode the JSON responses.
 
 _What is the power of C?_ C allows you to take the next step beyond shell-scripting, permitting the creation of more comprehensive and robust programs. A more comprehensive example will appear in the next chapter.
 
