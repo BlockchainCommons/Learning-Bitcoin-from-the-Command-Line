@@ -295,3 +295,32 @@ json_decref(lu_signature);
 > ***WARNING:*** A real-world program would obviously carefully test the response of every RPC command to make sure there were no errors. That's especially true for `signrawtransaction`, because you might end up with a partially signed transaction. Worse, if you don't check the errors in the JSON object, you'll just see the `hex` and not realize that it's either unsigned or partially signed. 
 
 ### 7. Send the Transaction
+
+You can now send your transaction, using all of the previous techniques:
+```
+params = json_array();
+json_array_append_new(params,json_string(tx_signrawhex));
+
+rpc_method = bitcoinrpc_method_init(BITCOINRPC_METHOD_SENDRAWTRANSACTION);
+
+if (bitcoinrpc_method_set_params(rpc_method, params) != BITCOINRPCE_OK) {
+
+  fprintf (stderr, "Error: Could not set params for sendrawtransaction");
+
+}
+
+json_decref(params);
+
+bitcoinrpc_call(rpc_client, rpc_method, btcresponse, &btcerror);
+lu_response = bitcoinrpc_resp_get(btcresponse);
+lu_result = json_object_get(lu_response,"result");
+
+char *tx_newid = strdup(json_string_value(lu_result));
+
+printf("Txid: %s\n",tx_newid);
+```
+The entire code, with a _little_ more error-checking appears in the Appendix.
+
+## Summary: Programming Bitcoind with C
+
+Using the techniques outlined in [§12.2](12_2_Accessing_Bitcoind_with_C.md) you can write a much more complex program using C calls. This section offers an example, with the first cut of a program that will send money to an address, without your users worrying about where it's coming from, how much they're paying as a fee, or how they get their change back. Obviously, a real-world program would need much better user-input control and error handling, but by outlining how the RPC code works, this section opens up the programming doorways to allow you to take the next step.
