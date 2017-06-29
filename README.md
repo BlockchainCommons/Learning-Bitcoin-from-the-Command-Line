@@ -88,7 +88,7 @@ This tutorial assumes that you have some minimal background of how to use the co
 
 * [12.0: Talking to Bitcoind](12_0_Talking_to_Bitcoind.md) — Needs Editing
   * [12.1: Accessing Bitcoind with Curl](12_1_Accessing_Bitcoind_with_Curl.md)
-  * [12.2: Accessing Bitcoind with C](12_2_Accessing_Bitcoind_with_C.md) — Needs Editing
+  * [12.2: Accessing Bitcoind with C](12_2_Accessing_Bitcoind_with_C.md
   * [12.3: Programming Bitcoind with C](12_3_Programming_Bitcoind_with_C.md) — Needs Editing
   * [12.4: Receiving Bitcoind Notifications with C](12_4_Receiving_Bitcoind_Notifications_with_C.md) — Pending
   * [12.5: Accessing Bitcoind with Other Languages](12_5_Accessing_Bitcoind_with_Other_Languages.md)  — Writing
