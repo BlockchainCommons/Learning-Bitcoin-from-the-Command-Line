@@ -98,6 +98,8 @@ This tutorial assumes that you have some minimal background of how to use the co
 * 14.0: Programming with secp256k1
 ## Planned Future Work
 
+Add: HOW TO DO A REFUND (short answer: ask!)
+
 
 
 ** PART FIVE: BITCOIN FUTURES **
