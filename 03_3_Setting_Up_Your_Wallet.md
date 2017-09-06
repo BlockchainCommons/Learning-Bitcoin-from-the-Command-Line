@@ -77,7 +77,7 @@ You can import any private key, from a wallet dump or an individual key dump, as
 ```
 $ bitcoin-cli importprivkey cW4s4MdW7BkUmqiKgYzSJdmvnzq8QDrf6gszPMC7eLmfcdoRHtHh
 ```
-Expect this to take a while, as `bitcoind` needs to reread all past transactions, to see if there are any now ones that it should pay attention to.
+Expect this to take a while, as `bitcoind` needs to reread all past transactions, to see if there are any new ones that it should pay attention to.
 
 > **NOTE:** Many modern wallets prefer [mnemonic codes](https://github.com/bitcoin/bips/blob/master/bip-0039.mediawiki) to generate the seeds necessary to create the private keys. This methodology is not used `bitcoin-cli`, so you won't be able to generate handy word lists to remember your private keys.
 
