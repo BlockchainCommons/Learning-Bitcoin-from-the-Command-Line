@@ -13,6 +13,6 @@ $ bitcoin-cli -regtest getbalance
 ```
 
 ## Testing the Regtest
-Now you should be able to use this balance for any kind of interaction with the private Blockchain, such as sending Bitcoin transactions according to [Chapter 4]((04_0_Sending_Bitcoin_Transactions.md)) in this guide.
+Now you should be able to use this balance for any type of interaction with the private Blockchain, such as sending Bitcoin transactions according to [Chapter 4]((04_0_Sending_Bitcoin_Transactions.md)) in this guide.
 
-It is important to note that in order for your transactions to complete, you will have to generate/mine new blocks, so the transactions can be included into them.
+It is important to note that for your transactions to complete, you will have to generate/mine new blocks so that the transactions can be included into them.
