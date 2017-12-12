@@ -69,7 +69,7 @@ submitblock "hexdata" ( "jsonparametersobject" )
 == Network ==
 addnode "node" "add|remove|onetry"
 clearbanned
-disconnectnode "node" 
+disconnectnode "node"
 getaddednodeinfo dummy ( "node" )
 getconnectioncount
 getnettotals
@@ -162,7 +162,7 @@ Result:
 }
 
 Examples:
-> bitcoin-cli getmininginfo 
+> bitcoin-cli getmininginfo
 > curl --user myusername --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "getmininginfo", "params": [] }' -H 'content-type: text/plain;' http://127.0.0.1:8332/
 ```
 _What is RPC?_ `bitcoin-cli` is just a handy interface that lets you send commands to the `bitcoind`. More specifically, it's an interface that lets you send RPC (or Remote Procedure Protocol) commands to the `bitcoind`. Often, the `bitcoin-cli` command and the RPC command have identical names and interfaces, but some `bitcoin-cli` commands instead provide shortcuts for more complex RPC requests. Generally, the `bitcoin-cli` interface is much cleaner and simpler than trying to send RPC commands by hand, using `curl` or some other method. However, it also has limitations as to what you can ultimately do.
@@ -182,7 +182,7 @@ For example `bitcoin-cli getnetworkinfo` gives you a variety of information on y
 $ bitcoin-cli getnetworkinfo
 {
   "version": 140000,
-  "subversion": "/Satoshi:0.14.0/",
+  "subversion": "/Satoshi:0.15.1/",
   "protocolversion": 70015,
   "localservices": "000000000000000d",
   "localrelay": false,
@@ -196,14 +196,14 @@ $ bitcoin-cli getnetworkinfo
       "reachable": true,
       "proxy": "",
       "proxy_randomize_credentials": false
-    }, 
+    },
     {
       "name": "ipv6",
       "limited": false,
       "reachable": true,
       "proxy": "",
       "proxy_randomize_credentials": false
-    }, 
+    },
     {
       "name": "onion",
       "limited": true,
@@ -232,4 +232,3 @@ The ~/.bitcoin directory contains all of your files, while `bitcoin-cli help` an
 ## What's Next?
 
 Continue "Understanding Your Bitcoin Setup" with [§3.3: Setting Up Your Wallet](03_3_Setting_Up_Your_Wallet.md).
-
