@@ -1,6 +1,6 @@
 # Chapter 15: Setting Up a Bitcoin Regtest
 
-While developing Bitcoin applications, it might happen that you want to use your applications isolated from any public Blockchain such as the Mainnet or the Testnet.
+While developing Bitcoin applications, you might want to use your applications isolated from any public Blockchain such as the Mainnet or the Testnet.
 You can create a Blockchain from scratch using the Regtest, with one main advantage over Testnet: you choose when to create new blocks, so you have complete control over the environment.
 
 ## Objectives for This Chapter
