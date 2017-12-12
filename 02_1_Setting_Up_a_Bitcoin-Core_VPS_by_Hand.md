@@ -33,7 +33,7 @@ If your cloud provider offers two-factor authentication for their web tools, we 
 
 ### Create a Machine
 
-You should now create your Bitcoin VPS. For an Unpruned Testnet setup, you should have at least 2-3G of memory and at least 15G of storage. 
+You should now create your Bitcoin VPS. For an Unpruned Testnet setup, you should have at least 2-3G of memory and at least 15G of storage.
 
 > **WARNING:** We've occasionally had machines run out of memory after running `bitcoind` for a few days when they only had 2G. Coming back, we find that `bitcoind` has stopped, leaving the message "Error: Out of memory. Terminating." in the `debug.log` file. This simply requires a restart of `bitcoind` and ten or fifteen minutes to get the blockchain resynced. Be generous with your memory if you want to avoid this annoyance, but don't worry too much if you hit it.
 
@@ -61,7 +61,7 @@ You'll need to look up the IP address of your new machine, and then you should b
 $ ssh root@192.168.1.52
 ```
 
-Now, you'll need to do some bog-standard configuration, then some work to improve the security of your machine. 
+Now, you'll need to do some bog-standard configuration, then some work to improve the security of your machine.
 
 _If you already have your own techniques for setting up a machine, go ahead and follow them, then jump ahead to "Setting Up a User", then "Installing Bitcoin". Otherwise,continue on!_
 
@@ -99,7 +99,7 @@ Though you're not putting much real value on this server, you should still make 
 
 ### Create Firewall Rules
 
-To start with, create a firewall rules file. 
+To start with, create a firewall rules file.
 
 _For all instructions that look like this, you should just be able to cut from the "cat" all the way down to the EOF, and everything will be placed into the appropriate file._
 ```
@@ -245,7 +245,7 @@ Afterward give user1 access to the directory:
 $ chown -R user1 ~user1/.ssh
 ```
  If you haven't set up an SSH key on your local computer yet, there are good instructions for it on [Github](https://help.github.com/articles/generating-a-new-ssh-key-and-adding-it-to-the-ssh-agent/).
- 
+
 ## Installing Bitcoin
 
 You're now ready to get to the bitcoin-specific part of this tutorial!
@@ -283,7 +283,7 @@ $ /bin/chown user1 ~user1/.bash_profile
 
 ### Login as Your Unprivileged User
 
-You now want to switch over to the user1 account for the actual install: 
+You now want to switch over to the user1 account for the actual install:
 ```
 $ su user1
 $ cd
@@ -294,9 +294,9 @@ $ source ~/.bash_profile
 
 We suggest setting up two variables to make this installation more automatic.
 
-The first variable, $BITCOIN, should be set to the current version of Bitcoin. It was 0.14.1 when we wrote this. The second will then automatically generate a truncated form used by some of the files.
+The first variable, $BITCOIN, should be set to the current version of Bitcoin. It was 0.15.1 when we wrote this. The second will then automatically generate a truncated form used by some of the files.
 ```
-$ export BITCOIN=bitcoin-core-0.14.1
+$ export BITCOIN=bitcoin-core-0.15.1
 $ export BITCOINPLAIN=`echo $BITCOIN | sed 's/bitcoin-core/bitcoin/'`
 ```
 
@@ -390,7 +390,7 @@ But wait, your Bitcoin daemon is probably still downloading blocks. This alias, 
 ```
 $ btcblock
 ```
-0.14.1 is quite fast to download blocks, but it might still take an hour to download the unpruned testnet. It might be time for a few more espressos.
+0.15.1 is quite fast to download blocks, but it might still take an hour to download the unpruned testnet. It might be time for a few more espressos.
 
 > **TESTNET vs MAINNET:** An unpruned mainnet will take hours longer.
 

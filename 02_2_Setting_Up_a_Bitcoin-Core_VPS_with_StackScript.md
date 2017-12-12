@@ -102,7 +102,7 @@ _You can freely choose to enter this optional information or skip it:_
 
 **SSH Key.** Copy your local computer's SSH key here; this allows you be able to automatically login in via SSH to your user1 account. If you haven't setup an SSH key on your local computer yet, there are good instructions for it on [Github](https://help.github.com/articles/generating-a-new-ssh-key-and-adding-it-to-the-ssh-agent/).  You may also want to add your SSH key into your Linode LISH (Linode Interactive Shell) by going to your "Linode Home Page / My Preferences / LISH Settings /  LISH Keys". Using an SSH key will give you a simpler and safer way to log in to your server.
 
-**SSH-Allowed IPs.** This is a comma-separated list of IPs that will be allowed to SSH into the VPS. For example "192.168.1.15,192.168.1.16". If you do not enter any IPs, _your VPS will not be very secure_. It will constantly be bombarded by attackers trying to find their way in, and they may very well succeed. 
+**SSH-Allowed IPs.** This is a comma-separated list of IPs that will be allowed to SSH into the VPS. For example "192.168.1.15,192.168.1.16". If you do not enter any IPs, _your VPS will not be very secure_. It will constantly be bombarded by attackers trying to find their way in, and they may very well succeed.
 
 *The remaining questions all have to do with the mechanics of the VPS deployment and should be left as they are with one exception: bump the Swap Disk from 256MB to 512MB, to ensure that you have enough memory to download the blockchain._
 
@@ -148,7 +148,7 @@ You will know the StackScripts are done when a BITCOIN-IS-READY file appears in 
 
 ```
 $ ls
-bitcoin-0.14.1-x86_64-linux-gnu.tar.gz    laanwj-releases.asc
+bitcoin-0.15.1-x86_64-linux-gnu.tar.gz    laanwj-releases.asc
 BITCOIN-IS-READY            SHA256SUMS.asc
 ```
 
@@ -266,7 +266,7 @@ Creating a Bitcoin-Core VPS with a StackScript made the whole process quick, sim
 You have a few options for what's next:
 
    * Read the [StackScript](02_2__Script_Linode_Setup.stackscript) to understand your setup.
-   * See the other method for setting up a VPS in [§2.1: Setting up a Bitcoin-Core VPS by Hand](02_1_Setting_Up_a_Bitcoin-Core_VPS_by_Hand.md). 
+   * See the other method for setting up a VPS in [§2.1: Setting up a Bitcoin-Core VPS by Hand](02_1_Setting_Up_a_Bitcoin-Core_VPS_by_Hand.md).
    * Move on to "bitcoin-cli" with [Chapter Three: Understanding Your Bitcoin Setup](03_0_Understanding_Your_Bitcoin_Setup.md).
 
 ## Appendix: Bitcoin Installation Types
