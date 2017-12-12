@@ -32,57 +32,64 @@ Most of your early work will be done with the `bitcoin-cli` command, which offer
 $ bitcoin-cli help
 == Blockchain ==
 getbestblockhash
-getblock "hash" ( verbose )
+getblock "blockhash" ( verbosity )
 getblockchaininfo
 getblockcount
-getblockhash index
+getblockhash height
 getblockheader "hash" ( verbose )
 getchaintips
+getchaintxstats ( nblocks blockhash )
 getdifficulty
 getmempoolancestors txid (verbose)
 getmempooldescendants txid (verbose)
 getmempoolentry txid
 getmempoolinfo
 getrawmempool ( verbose )
-gettxout "txid" n ( includemempool )
+gettxout "txid" n ( include_mempool )
 gettxoutproof ["txid",...] ( blockhash )
 gettxoutsetinfo
-verifychain ( checklevel numblocks )
+preciousblock "blockhash"
+pruneblockchain
+verifychain ( checklevel nblocks )
 verifytxoutproof "proof"
 
 == Control ==
 getinfo
+getmemoryinfo ("mode")
 help ( "command" )
 stop
+uptime
 
 == Generating ==
-generate numblocks ( maxtries )
-generatetoaddress numblocks address (maxtries)
+generate nblocks ( maxtries )
+generatetoaddress nblocks address (maxtries)
 
 == Mining ==
 getblocktemplate ( TemplateRequest )
 getmininginfo
-getnetworkhashps ( blocks height )
-prioritisetransaction <txid> <priority delta> <fee delta>
-submitblock "hexdata" ( "jsonparametersobject" )
+getnetworkhashps ( nblocks height )
+prioritisetransaction <txid> <dummy value> <fee delta>
+submitblock "hexdata"  ( "dummy" )
 
 == Network ==
 addnode "node" "add|remove|onetry"
 clearbanned
-disconnectnode "node"
-getaddednodeinfo dummy ( "node" )
+disconnectnode "[address]" [nodeid]
+getaddednodeinfo ( "node" )
 getconnectioncount
 getnettotals
 getnetworkinfo
 getpeerinfo
 listbanned
 ping
-setban "ip(/netmask)" "add|remove" (bantime) (absolute)
+setban "subnet" "add|remove" (bantime) (absolute)
+setnetworkactive true|false
 
 == Rawtransactions ==
-createrawtransaction [{"txid":"id","vout":n},...] {"address":amount,"data":"hex",...} ( locktime )
+combinerawtransaction ["hexstring",...]
+createrawtransaction [{"txid":"id","vout":n},...] {"address":amount,"data":"hex",...} ( locktime ) ( replaceable )
 decoderawtransaction "hexstring"
-decodescript "hex"
+decodescript "hexstring"
 fundrawtransaction "hexstring" ( options )
 getrawtransaction "txid" ( verbose )
 sendrawtransaction "hexstring" ( allowhighfees )
@@ -91,55 +98,57 @@ signrawtransaction "hexstring" ( [{"txid":"id","vout":n,"scriptPubKey":"hex","re
 == Util ==
 createmultisig nrequired ["key",...]
 estimatefee nblocks
-estimatepriority nblocks
-estimatesmartfee nblocks
-estimatesmartpriority nblocks
+estimatesmartfee conf_target ("estimate_mode")
 signmessagewithprivkey "privkey" "message"
-validateaddress "bitcoinaddress"
-verifymessage "bitcoinaddress" "signature" "message"
+validateaddress "address"
+verifymessage "address" "signature" "message"
 
 == Wallet ==
 abandontransaction "txid"
+abortrescan
 addmultisigaddress nrequired ["key",...] ( "account" )
 addwitnessaddress "address"
 backupwallet "destination"
-dumpprivkey "bitcoinaddress"
+bumpfee "txid" ( options )
+dumpprivkey "address"
 dumpwallet "filename"
 encryptwallet "passphrase"
-getaccount "bitcoinaddress"
+getaccount "address"
 getaccountaddress "account"
 getaddressesbyaccount "account"
-getbalance ( "account" minconf includeWatchonly )
+getbalance ( "account" minconf include_watchonly )
 getnewaddress ( "account" )
 getrawchangeaddress
 getreceivedbyaccount "account" ( minconf )
-getreceivedbyaddress "bitcoinaddress" ( minconf )
-gettransaction "txid" ( includeWatchonly )
+getreceivedbyaddress "address" ( minconf )
+gettransaction "txid" ( include_watchonly )
 getunconfirmedbalance
 getwalletinfo
 importaddress "address" ( "label" rescan p2sh )
-importprivkey "bitcoinprivkey" ( "label" rescan )
+importmulti "requests" ( "options" )
+importprivkey "privkey" ( "label" ) ( rescan )
 importprunedfunds
 importpubkey "pubkey" ( "label" rescan )
 importwallet "filename"
 keypoolrefill ( newsize )
-listaccounts ( minconf includeWatchonly)
+listaccounts ( minconf include_watchonly)
 listaddressgroupings
 listlockunspent
-listreceivedbyaccount ( minconf includeempty includeWatchonly)
-listreceivedbyaddress ( minconf includeempty includeWatchonly)
-listsinceblock ( "blockhash" target-confirmations includeWatchonly)
-listtransactions ( "account" count from includeWatchonly)
-listunspent ( minconf maxconf  ["address",...] )
+listreceivedbyaccount ( minconf include_empty include_watchonly)
+listreceivedbyaddress ( minconf include_empty include_watchonly)
+listsinceblock ( "blockhash" target_confirmations include_watchonly include_removed )
+listtransactions ( "account" count skip include_watchonly)
+listunspent ( minconf maxconf  ["addresses",...] [include_unsafe] [query_options])
+listwallets
 lockunspent unlock ([{"txid":"txid","vout":n},...])
 move "fromaccount" "toaccount" amount ( minconf "comment" )
 removeprunedfunds "txid"
-sendfrom "fromaccount" "tobitcoinaddress" amount ( minconf "comment" "comment-to" )
-sendmany "fromaccount" {"address":amount,...} ( minconf "comment" ["address",...] )
-sendtoaddress "bitcoinaddress" amount ( "comment" "comment-to" subtractfeefromamount )
-setaccount "bitcoinaddress" "account"
+sendfrom "fromaccount" "toaddress" amount ( minconf "comment" "comment_to" )
+sendmany "fromaccount" {"address":amount,...} ( minconf "comment" ["address",...] replaceable conf_target "estimate_mode")
+sendtoaddress "address" amount ( "comment" "comment_to" subtractfeefromamount replaceable conf_target "estimate_mode")
+setaccount "address" "account"
 settxfee amount
-signmessage "bitcoinaddress" "message"
+signmessage "address" "message"
 ```
 You can also type `bitcoin help [command]` to get even more extensive info on that command. For example:
 ```
@@ -181,7 +190,7 @@ For example `bitcoin-cli getnetworkinfo` gives you a variety of information on y
 ```
 $ bitcoin-cli getnetworkinfo
 {
-  "version": 140000,
+  "version": 150100,
   "subversion": "/Satoshi:0.15.1/",
   "protocolversion": 70015,
   "localservices": "000000000000000d",
