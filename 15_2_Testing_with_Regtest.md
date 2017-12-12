@@ -4,8 +4,15 @@
 
 This document explains how to test a Regtest (Regression Test).
 
-## Testing with Regtest
 
-After [starting Bitcoind using Regtest mode](15_1_Building_the_Regtest.md) you can use any `bitcoin-cli` command or interact with the blockchain using the RPC (Remote Procedure Call) service.
+## Verifying balance
 
-You can try to create transactions referring to [Chapter 4 - Sending Bitcoin Transactions](04_0_Sending_Bitcoin_Transactions.md) in this guide. In order to get balance in your Regtest Wallet, you are able to [mine blocks with minimal proof-of-work and get the rewards](15_3_Mining_with_Regtest.md).
+After [mining blocks](15_3_Mining_with_Regtest.md) and getting the rewards, you can verify the balance on your wallet:
+```
+$ bitcoin-cli -regtest getbalance
+```
+
+## Testing the Regtest
+Now you should be able to use this balance for any kind of interaction with the private Blockchain, such as sending Bitcoin transactions according to [Chapter 4]((04_0_Sending_Bitcoin_Transactions.md)) in this guide.
+
+It is important to note that in order for your transactions to complete, you will have to generate/mine new blocks, so the transactions can be included into them.
