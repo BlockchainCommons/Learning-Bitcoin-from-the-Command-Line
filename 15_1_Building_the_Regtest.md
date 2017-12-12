@@ -7,28 +7,13 @@ Bitcoin Core’s regression test mode (regtest mode) lets you instantly create a
 
 ## Starting Bitcoind in Regtest Mode
 
-To start your bitcoind (Bitcoin Daemon) in Regtest mode and create a private Blockchain, you have to use the following command:
+To start your Bitcoind (Bitcoin Daemon) in Regtest mode and create a private Blockchain, you have to use the following command:
 ```
 $ bitcoind -regtest -daemon
 ```
 
-## Generating blocks
+## What's next
 
-You can generate/mine new blocks using the RPC method `generate`. This method is only available in the Regtest mode, using the following command:
-```
-$ bitcoin-cli -regtest generate 101
-```
+After starting your bitcoind in the Regtest mode, you can now use Regtest-specific RPC commands to [generate/mine blocks in your private chain](15_3_Mining_with_Regtest.md).
+This will allow you to get balance into your wallet and [test the Regtest blockchain](15_2_Testing_with_Regtest.md)
 
-This command will generate 101 blocks using a special RPC which is only available in regtest mode. This takes less than a second on a generic PC. 
-Because this is a new block chain using Bitcoin’s default rules, the first blocks pay a block reward of 50 bitcoins. 
-Unlike mainnet, in regtest mode only the first 150 blocks pay a reward of 50 bitcoins. 
-However, a block must have 100 confirmations before that reward can be spent, so we generate 101 blocks to get access to the coinbase transaction from block #1.
-
-## Verifying balance
-
-After mining blocks and getting the reward for the first one, you can verify the balance on your wallet:
-```
-$ bitcoin-cli -regtest getbalance
-```
-
-Now you can use this balance for any kind of interaction with the private Blockchain, such as sending Bitcoin transactions according to [Chapter 4]((04_0_Sending_Bitcoin_Transactions.md)) in this guide.
