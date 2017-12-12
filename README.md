@@ -17,7 +17,7 @@ Unless otherwise noted, the contents of this repository are Copyright ©2017 by 
 
 ## Introduction
 
-The best way to learn to learn deeply about bitcoin is to avoid GUIs (even bitcoin-qt), and instead learn it from the command line.
+The best way to learn deeply about bitcoin is to avoid GUIs (even bitcoin-qt), and instead learn it from the command line.
 
 ## Requirements
 
