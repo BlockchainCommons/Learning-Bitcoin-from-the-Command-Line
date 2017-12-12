@@ -203,7 +203,7 @@ You can also use it to look at individual transactions:
 
 A block explorer doesn't generally provide any more information than a command line look at a raw transaction; it just does a good job of highlighting the important information and putting together the puzzle pieces, including the transaction fees behind a transaction — another concept that we'll be covering in future sections.
 
-## Summary: Receiving a Transactions
+## Summary: Receiving a Transaction
 
 Faucets will give you money on the testnet. They come in as raw transactions, which can be examined with `getrawtransaction` or a block explorer. Once you've receive a transaction, you can see it in your balance and your wallet.
 
