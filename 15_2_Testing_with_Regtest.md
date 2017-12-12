@@ -16,3 +16,13 @@ $ bitcoin-cli -regtest getbalance
 Now you should be able to use this balance for any type of interaction with the private Blockchain, such as sending Bitcoin transactions according to [Chapter 4]((04_0_Sending_Bitcoin_Transactions.md)) in this guide. The only difference is that you need to use the flag `-regtest` when running the `bitcoin-cli` in order for the request to be sent to the Regtest Bitcoin daemon.
 
 It is important to note that for your transactions to complete, you will have to generate/mine new blocks so that the transactions can be included into them.
+
+For example, to create a transaction and include into a block:
+```
+$ bitcoin-cli -regtest sendtoaddress [address] 10.0
+```
+
+And after it, if your application requires 6 confirmations, you can mine additional 6 blocks into your Regtest chain:
+```
+$ bitcoin-cli -regtest generate 6
+```
