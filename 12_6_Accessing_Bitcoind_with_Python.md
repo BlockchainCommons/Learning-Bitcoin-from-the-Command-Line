@@ -38,9 +38,9 @@ You can even use this interface to run wallet commands, and add paramaters to th
 >>> rpc_connection.dumpprivkey('1BFcCbjDPBoCwR76PCFEeTRZEVfKAwP11v')
 'L4dnpfiZ69PKsKyym5o7HvoftvHjw1z2QkojQBwYRPUuaWgzTnNS'
 ```
-If your wallet was encrypted, you would have to unlock it first by sending it your wallet passphrase and a length of time (in seconds) that `bitcoind` will keep the wallet unlocked in memory:
+If your wallet was encrypted, you would have to unlock it first by sending your wallet passphrase and a length of time (in seconds) that `bitcoind` will keep the wallet unlocked in memory:
 ```
->>> rpc_connection.walletpassphrase('TOTALLY-SECRET-PASSPHRASE',60)
+>>> rpc_connection.walletpassphrase('TOTALLY-SECRET-PASSPHRASE', 60)
 ```
 
 ## Appendix I: Monitoring the mempool size in real-time with a loop
@@ -69,10 +69,12 @@ $ python3 MempoolMonitor.py
 
 ## Appendix II: Using `blocknotify` to run a python script for every new block
 
-`bitcoind` has a feature that will run a system command every time tip of the blockchain is updated (every time a new block is mined and added to the chain). You can start `bitcoind` with a `-blocknotify=...` command, but it is easier to just include it in your conf file at `~/.bitcoin/bitcoin.conf`. The `%s` is replaced by the new block's hash:
+`bitcoind` has a feature that will run a system command whenever the tip of the blockchain is updated (every time a new block is mined and added to the chain). You can start `bitcoind` with a `-blocknotify=...` command, but it is easier to just include the following line in your conf file at `~/.bitcoin/bitcoin.conf`:
 ```
 blocknotify = python3 /home/USERNAME/FUN-WITH-BITCOIN/block.py %s
 ```
+(The `%s` will be replaced by the new block's hash when the command is run)
+
 Maybe you just want to keep a text file of all the new block hashes? Edit the file at `/home/USERNAME/FUN-WITH-BITCOIN/block.py` to include:
 ```
 from sys import argv
