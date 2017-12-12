@@ -12,6 +12,11 @@ To start your Bitcoind (Bitcoin Daemon) in Regtest mode and create a private Blo
 $ bitcoind -regtest -daemon
 ```
 
+## Resetting the Regtest Blockchain
+
+Regtest wallets and block chain state (chainstate) are saved in the regtest subdirectory of the Bitcoin configuration directory. 
+If you want to start a brand new Blockchain using the Regtest mode, all you have to do is delete the `regtest` folder and restart the Bitcoind.
+
 ## What's Next?
 
 After starting your bitcoind in the Regtest mode, you can now use Regtest-specific RPC commands to [generate/mine blocks in your private chain](15_3_Mining_with_Regtest.md).
