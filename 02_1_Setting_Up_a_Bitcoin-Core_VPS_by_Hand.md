@@ -41,13 +41,13 @@ We also suggest that you choose a Debian 8 image when you're creating your machi
 
 Afterward, boot your VPS.
 
-> **TESTNET vs MAINNET:** The various possible setups require 5-15G of storage and 2-3G of memory. The non-Pruned Mainnet is the only setup that requires considerably more: about 120G of storage to hold the current blockchain.
+> **TESTNET vs MAINNET:** The various possible setups require 5-15G of storage and 2-3G of memory. The non-Pruned Mainnet is the only setup that requires considerably more: about 170G of storage to hold the current blockchain.
 >
 > Following are suggestions for machine requirements:
 >
 > | Setup | Memory | Storage |
 > |-------|--------|---------|
-> | Mainnet | 2-3G | 120G |
+> | Mainnet | 2-3G | 170G |
 > | Pruned Mainnet | 2-3G | ~5G |
 > | Testnet | 2-3G | ~15G |
 > | Pruned Testnet | 2-3G | ~5G |
