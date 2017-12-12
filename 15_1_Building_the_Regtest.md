@@ -12,7 +12,7 @@ To start your Bitcoind (Bitcoin Daemon) in Regtest mode and create a private Blo
 $ bitcoind -regtest -daemon
 ```
 
-## What's next
+## What's Next?
 
 After starting your bitcoind in the Regtest mode, you can now use Regtest-specific RPC commands to [generate/mine blocks in your private chain](15_3_Mining_with_Regtest.md).
 This will allow you to get balance in your wallet and [test the Regtest blockchain](15_2_Testing_with_Regtest.md).
