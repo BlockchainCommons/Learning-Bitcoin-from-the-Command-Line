@@ -10,8 +10,9 @@ This document explains how to test a Regtest (Regression Test).
 After [mining blocks](15_2_Mining_with_Regtest.md) and getting the rewards, you can verify the balance on your wallet:
 ```
 $ bitcoin-cli -regtest getbalance
-
+50.00000000
 ```
+This will print the balance in your wallet.
 
 ## Testing the Regtest
 Now you should be able to use this balance for any type of interaction with the private Blockchain, such as sending Bitcoin transactions according to [Chapter 4]((04_0_Sending_Bitcoin_Transactions.md)) in this guide. The only difference is that you need to use the flag `-regtest` when running the `bitcoin-cli` in order for the request to be sent to the Regtest Bitcoin daemon.
