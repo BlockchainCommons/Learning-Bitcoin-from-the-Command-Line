@@ -10,9 +10,9 @@ After working through this chapter, a developer will be able to:
    * Create your own Blockchain from scratch
    * Create the Genesis block and more blocks on top of it
    * Get balance and interact with Bitcoind in a private way
-   
+
 ## Table of Contents
 
   * [Section One: Building the Regtest](15_1_Building_the_Regtest.md)
-  * [Section Two: Testing with Regtest](15_2_Testing_with_Regtest.md)
-  * [Section Three: Mining with Regtest](15_3_Mining_with_Regtest.md)
+  * [Section Two: Mining with Regtest](15_2_Mining_with_Regtest.md)
+  * [Section Three: Testing with Regtest](15_3_Testing_with_Regtest.md)

@@ -106,8 +106,8 @@ Add: HOW TO DO A REFUND (short answer: ask!)
 
 * [15.0: Setting Up a Bitcoin Regtest](15_0_Setting_Up_a_Bitcoin_Regtest.md)
    * [15.1: Building the Regtest](15_1_Building_the_Regtest.md)
-   * [15.2: Testing with Regtest](15_2_Testing_with_Regtest.md)
-   * [15.3: Mining with Regtest](15_3_Mining_with_Regtest.md)
+   * [15.2: Mining with Regtest](15_2_Mining_with_Regtest.md)
+   * [15.3: Testing with Regtest](15_3_Testing_with_Regtest.md)
 
 ** APPENDICES **
 
