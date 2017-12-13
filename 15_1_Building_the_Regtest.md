@@ -7,15 +7,23 @@ Bitcoin Core’s regression test mode (regtest mode) lets you instantly create a
 
 ## Starting Bitcoind in Regtest Mode
 
-To start your Bitcoind (Bitcoin Daemon) in Regtest mode and create a private Blockchain, you have to use the following command:
+After [setting up your Bitcoin-Core VPS](02_0_Setting_Up_a_Bitcoin-Core_VPS.md), you are now able to use the Regtest mode. To start Bitcoind (Bitcoin Daemon) in Regtest mode and create a private Blockchain, you have to use the following command:
 ```
 $ bitcoind -regtest -daemon
 ```
 
 ## Resetting the Regtest Blockchain
 
-Regtest wallets and block chain state (chainstate) are saved in the regtest subdirectory of the Bitcoin configuration directory. 
-If you want to start a brand new Blockchain using the Regtest mode, all you have to do is delete the `regtest` folder and restart the Bitcoind.
+Regtest wallets and block chain state (chainstate) are saved in the regtest subdirectory of the Bitcoin configuration directory:
+```
+user@mybtc:~/.bitcoin# ls
+bitcoin.conf  regtest  testnet3
+```
+
+If you want to start a brand new Blockchain using the Regtest mode, all you have to do is delete the `regtest` folder and restart the Bitcoind:
+```
+$ rm -rf regtest
+```
 
 ## What's Next?
 
