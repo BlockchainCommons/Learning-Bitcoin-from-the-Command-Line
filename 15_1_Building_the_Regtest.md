@@ -27,6 +27,5 @@ $ rm -rf regtest
 
 ## What's Next?
 
-After starting your bitcoind in the Regtest mode, you can now use Regtest-specific RPC commands to [generate/mine blocks in your private chain](15_3_Mining_with_Regtest.md).
-This will allow you to get balance in your wallet and [test the Regtest blockchain](15_2_Testing_with_Regtest.md).
-
+After starting your bitcoind in the Regtest mode, you can now use Regtest-specific RPC commands to [generate/mine blocks in your private chain](15_2_Mining_with_Regtest.md).
+This will allow you to get balance in your wallet and [test the Regtest blockchain](15_3_Testing_with_Regtest.md).
