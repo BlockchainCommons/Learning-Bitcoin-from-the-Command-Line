@@ -4,6 +4,33 @@
 
 Bitcoin Scripts may not initially seem that intuitive, but their execution is quite simple, using reverse Polish notation and a stack.
 
+## Running Bitcoin Script code
+
+It is recommended that you run through the examples in a Bitcoin Script Debugger (`btcdeb`) to see the transformations happening
+on the stack.
+
+### Installing btcdeb
+
+From some appropriate folder (e.g. `~/workspace`), clone the btcdeb project from Github and compile/install it. Note that it is recommended that you install readline, as this makes the debugger a lot easier to use (history using up/down arrows, left-right movement, autocompletion using tab, etc.). The package is usually called `libreadline-dev` (linux) or just `readline` (mac).
+
+```Bash
+$ git clone https://github.com/kallewoof/btcdeb.git
+$ cd btcdeb
+$ ./autogen.sh
+$ ./configure
+$ make
+$ make install
+```
+
+### Bitcoin Script Debugging Primer
+
+`btcdeb` takes a script, as well as any number of stack entries, as startup arguments. If you start it up with no arguments, you simply get an interpreter
+where you may issue `exec [opcode]` commands to perform actions directly.
+
+`btcc` takes script opcodes and data and outputs a Bitcoin Script in hexadecimal form.
+
+We will make use of both of these in the sections below.
+
 ## Understand the Scripting Language
 
 A Bitcoin Script has three parts: it has a line of input; it has a stack for storage; and it has specific commands for execution.
@@ -34,6 +61,45 @@ Script: OP_ADD
 Stack: [ 1 2 ]
 ```
 _Note that in this and in following examples the top of the stack is to the right and the bottom is to the left._
+
+Let's try this out:
+```Bash
+$ btcc OP_1 OP_2 OP_ADD
+515293
+$ btcdeb $(btcc OP_1 OP_2 OP_ADD) # or: btcdeb 515293
+btcdeb -- type `btcdeb -h` for start up options
+valid script
+3 op script loaded. type `help` for usage information
+script  |  stack
+--------+--------
+1       |
+2       |
+OP_ADD  |
+#0001 1
+btcdeb> step
+		<> PUSH stack 01
+script  |  stack
+--------+--------
+2       |      01
+OP_ADD  |
+#0002 2
+btcdeb> step
+		<> PUSH stack 02
+script  |  stack
+--------+--------
+OP_ADD  |      02
+        |      01
+#0003 OP_ADD
+btcdeb> step
+		<> POP  stack
+		<> POP  stack
+		<> PUSH stack 03
+script  |  stack
+--------+--------
+        |      03
+```
+
+> `btcdeb` allows you to repeat the previous command by hitting enter. We will be doing this in subsequent examples, so don't be surprised about `btcdeb>` prompts with nothing as input. It is simply repeating the previous (often `step`) command.
 
 ### Understand the Opcodes
 
@@ -69,6 +135,62 @@ Stack: [ 5 4 ]
 Script: 
 Running: 5 4 OP_SUB
 Stack: [ 1 ]
+```
+
+Let's try this one too:
+```Bash
+$ btcdeb $(btcc OP_3 OP_2 OP_ADD OP_4 OP_SUB)
+btcdeb -- type `btcdeb -h` for start up options
+valid script
+5 op script loaded. type `help` for usage information
+script  |  stack
+--------+--------
+3       |
+2       |
+OP_ADD  |
+4       |
+OP_SUB  |
+#0001 3
+btcdeb> step
+		<> PUSH stack 03
+script  |  stack
+--------+--------
+2       |      03
+OP_ADD  |
+4       |
+OP_SUB  |
+#0002 2
+btcdeb>
+		<> PUSH stack 02
+script  |  stack
+--------+--------
+OP_ADD  |      02
+4       |      03
+OP_SUB  |
+#0003 OP_ADD
+btcdeb>
+		<> POP  stack
+		<> POP  stack
+		<> PUSH stack 05
+script  |  stack
+--------+--------
+4       |      05
+OP_SUB  |
+#0004 4
+btcdeb>
+		<> PUSH stack 04
+script  |  stack
+--------+--------
+OP_SUB  |      04
+        |      05
+#0005 OP_SUB
+btcdeb>
+		<> POP  stack
+		<> POP  stack
+		<> PUSH stack 01
+script  |  stack
+--------+--------
+        |      01
 ```
 
 ## Understand the Usage of Bitcoin Script
