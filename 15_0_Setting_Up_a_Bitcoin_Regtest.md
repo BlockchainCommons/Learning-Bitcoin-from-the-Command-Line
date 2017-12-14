@@ -8,11 +8,11 @@ You can create a Blockchain from scratch using the Regtest, with one main advant
 After working through this chapter, a developer will be able to:
 
    * Create your own Blockchain from scratch
-   * Create the Genesis block and more blocks on top of it
+   * Generate/mine blocks and get the rewards
    * Get balance and interact with Bitcoind in a private way
 
 ## Table of Contents
 
-  * [Section One: Building the Regtest](15_1_Building_the_Regtest.md)
+  * [Section One: Starting the Regtest](15_1_Starting_the_Regtest.md)
   * [Section Two: Mining with Regtest](15_2_Mining_with_Regtest.md)
   * [Section Three: Testing with Regtest](15_3_Testing_with_Regtest.md)
