@@ -26,3 +26,8 @@ This command will generate 101 blocks using a special RPC which is only availabl
 Because this is a new block chain using Bitcoin’s default rules, the first blocks pay a block reward of 50 bitcoins.
 Unlike mainnet, in regtest mode only the first 150 blocks pay a reward of 50 bitcoins.
 However, a block must have 100 confirmations before that reward can be spent, so we generate 101 blocks to get access to the coinbase transaction from block #1.
+
+
+## What's Next?
+
+After starting your bitcoind in the Regtest mode and generating the first blocks, you have balance in your address to spend and [test the Regtest blockchain](15_3_Testing_with_Regtest.md).
