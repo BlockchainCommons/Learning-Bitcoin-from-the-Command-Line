@@ -14,7 +14,7 @@ $ bitcoin-cli -regtest getbalance
 ```
 This will print the balance in your wallet.
 
-## Testing the Regtest
+## Validating the Regtest
 Now you should be able to use this balance for any type of interaction with the private Blockchain, such as sending Bitcoin transactions according to [Chapter 4]((04_0_Sending_Bitcoin_Transactions.md)) in this guide. The only difference is that you need to use the flag `-regtest` when running the `bitcoin-cli` in order for the request to be sent to the Regtest Bitcoin daemon.
 
 It is important to note that for your transactions to complete, you will have to generate/mine new blocks so that the transactions can be included into them.
@@ -75,4 +75,66 @@ $ bitcoin-cli -regtest generate 6
   "2cb276f5ed251bf629dd52fd108163703473f57c24eac94e169514ce04899581",
   "57193ba8fd2761abf4a5ebcb4ed1a9ec2e873d67485a7cb41e75e13c65928bf3"
 ]
+```
+
+
+## Testing with Regtest
+
+When you are in the Regtest mode, you are able to simulate edge cases and attacks that might happen in the real world, such  as Double Spend.
+We are going to use the package [bitcointest by dgarage](https://github.com/dgarage/bitcointest) to simulate a transaction from one wallet to another, but you can check [their guide](https://www.npmjs.com/package/bitcointest) for more specific attack simulations, such as Double Spend.
+
+First of all, you need to install Node.js, and use the NPM (Node Package Manager) to install `bitcointest`:
+```
+$ curl -sL https://deb.nodesource.com/setup_8.x | sudo -E bash -
+$ sudo apt-get install -y nodejs
+$ npm install -g bitcointest
+```
+
+After installing `bitcointest`, you can create the `test.js` file with the following content:
+```
+$ nano test.js
+const { BitcoinNet, BitcoinGraph } = require('bitcointest');
+net = new BitcoinNet('/usr/local/bin', '/tmp/bitcointest/', 22001, 22002);
+graph = new BitcoinGraph(net);
+
+try {
+
+  console.log('Launching nodes...');
+  
+  const nodes = net.launchBatchS(4);
+  const [ n1, n2 ] = nodes;
+  net.waitForNodesS(nodes, 20000);
+
+  console.log('Connected!');
+  const blocks = n1.generateBlocksS(110);
+  console.info('Generated 110 blocks');
+
+  console.log(`n2.balance (before) = ${n2.getBalanceS()}`);
+
+  const sometxid = n1.sendToNodeS(n2, 100);
+  console.log(`Generated transaction = ${sometxid}`);
+  n1.generateBlocksS(110);
+  n2.waitForBalanceChangeS(0);
+
+  const sometx = n2.getTransactionS(sometxid);
+  console.log(`n2.balance (after) = ${n2.getBalanceS()}`);
+
+
+} catch (e) {
+    console.error(e);
+    net.shutdownS();
+    throw e;
+}
+```
+
+When running `node test.js`, the command outputs:
+```
+$ node test.js
+Launching nodes...
+Connected!
+Generated 110 blocks
+n2.balance (before) = 0
+Generated transaction = 91e0040c26fc18312efb80bad6ec3b00202a83465872ecf495c392a0b6afce35
+n2.after (before) = 100
+
 ```
