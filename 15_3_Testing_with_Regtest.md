@@ -93,6 +93,8 @@ $ npm install -g bitcointest
 After installing `bitcointest`, you can create the `test.js` file with the following content:
 ```
 $ nano test.js
+```
+```javascript
 const { BitcoinNet, BitcoinGraph } = require('bitcointest');
 net = new BitcoinNet('/usr/local/bin', '/tmp/bitcointest/', 22001, 22002);
 graph = new BitcoinGraph(net);
