@@ -2,7 +2,7 @@
 
 > **NOTE:** This is a draft in progress, so that I can get some feedback from early reviewers. It is not yet ready for learning.
 
-This document explains how to test a Regtest (Regression Test).
+This document explains how to test transactions and situations using regtest (regression test).
 
 
 ## Verifying balance
@@ -80,7 +80,7 @@ $ bitcoin-cli -regtest generate 6
 
 ## Testing with Regtest
 
-When you are in the Regtest mode, you are able to simulate edge cases and attacks that might happen in the real world, such  as Double Spend.
+When you are on regtest, you are able to simulate edge cases and attacks that might happen in the real world, such  as Double Spend.
 We are going to use the package [bitcointest by dgarage](https://github.com/dgarage/bitcointest) to simulate a transaction from one wallet to another, but you can check [their guide](https://www.npmjs.com/package/bitcointest) for more specific attack simulations, such as Double Spend.
 
 First of all, you need to install Node.js, and use the NPM (Node Package Manager) to install `bitcointest`:
@@ -96,8 +96,8 @@ $ nano test.js
 ```
 ```javascript
 const { BitcoinNet, BitcoinGraph } = require('bitcointest');
-net = new BitcoinNet('/usr/local/bin', '/tmp/bitcointest/', 22001, 22002);
-graph = new BitcoinGraph(net);
+const net = new BitcoinNet('/usr/local/bin', '/tmp/bitcointest/', 22001, 22002);
+const graph = new BitcoinGraph(net);
 
 try {
 
@@ -123,9 +123,9 @@ try {
 
 
 } catch (e) {
-    console.error(e);
-    net.shutdownS();
-    throw e;
+  console.error(e);
+  net.shutdownS();
+  throw e;
 }
 ```
 
