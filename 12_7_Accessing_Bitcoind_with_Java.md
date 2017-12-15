@@ -39,7 +39,7 @@ rpcClient.stop();
 
 ### Making your first RPC Call
 
-In order to use an RPC method using `JavaBitcoindRpcClient`, you'll find that the `BitcoindRpcClient` provides most of the functionality that can be accessed through `bitcloin-cli` or `curl`.
+In order to use an RPC method using `JavaBitcoindRpcClient`, you'll find that the `BitcoindRpcClient` provides most of the functionality that can be accessed through `bitcoin-cli` or `curl`.
 
 For example, to execute the `getmininginfo`, you should use the `getMiningInfo()` method:
 ```java
