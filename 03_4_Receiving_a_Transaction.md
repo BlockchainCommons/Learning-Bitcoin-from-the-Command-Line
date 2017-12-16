@@ -29,7 +29,7 @@ _What is a block?_ Transactions are transmitted across the network and gathered 
 
 _What is a miner?_ A miner is a participant of the Bitcoin network who works to create blocks. It's a paying job: when a miner successfully creates a block, he is paid a one-time reward plus the fees for the transactions in his block. Mining is big business. Miners tend to run on special hardware, accelerated in ways that make it more likely that they'll be able to create blocks. They also tend to be part of mining pools, where the miners all agree to share out the rewards when one of them successfully creates a block.
 
-Fortunately, `bitcoin-cli get unconfirmedbalance` should still show your updated balance as long as the initial transaction has been created:
+Fortunately, `bitcoin-cli getunconfirmedbalance` should still show your updated balance as long as the initial transaction has been created:
 ```
 $ bitcoin-cli getunconfirmedbalance
 0.47000000
