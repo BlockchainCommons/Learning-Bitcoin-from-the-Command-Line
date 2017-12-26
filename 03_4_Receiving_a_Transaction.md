@@ -6,7 +6,7 @@ You're now ready to receive some money at the new address you set up.
 
 ## Get Some Money
 
-To do anything more, you need to get some money. On testnet this is done through faucets. Since the money is all pretend, you just go to a faucet, request some money, and it will be sent over to you. We suggest using the faucet at https://testnet.manu.backend.hamburg/faucet. If it's not available for some reason, search for "bitcoin testnet faucet", and you should find others. We suggest http://tpfaucet.appspot.com/ as an excellent alternative.
+To do anything more, you need to get some money. On testnet this is done through faucets. Since the money is all pretend, you just go to a faucet, request some money, and it will be sent over to you. We suggest using the faucet at https://testnet.manu.backend.hamburg/faucet. If it's not available for some reason, search for "bitcoin testnet faucet", and you should find others. We suggest http://tpfaucet.appspot.com/ as an excellent alternative. Another testnet faucet is https://testnet.coinfaucet.eu/en/.
 
 To use a faucet, you'll usually need to go to a URL and copy and paste in your address. Note that this is one of those cases where you won't be able to use command-line variables, alas. Afterward, a transaction will be created that sends money from the faucet to you.
 
@@ -29,7 +29,7 @@ _What is a block?_ Transactions are transmitted across the network and gathered 
 
 _What is a miner?_ A miner is a participant of the Bitcoin network who works to create blocks. It's a paying job: when a miner successfully creates a block, he is paid a one-time reward plus the fees for the transactions in his block. Mining is big business. Miners tend to run on special hardware, accelerated in ways that make it more likely that they'll be able to create blocks. They also tend to be part of mining pools, where the miners all agree to share out the rewards when one of them successfully creates a block.
 
-Fortunately, `bitcoin-cli get unconfirmedbalance` should still show your updated balance as long as the initial transaction has been created:
+Fortunately, `bitcoin-cli getunconfirmedbalance` should still show your updated balance as long as the initial transaction has been created:
 ```
 $ bitcoin-cli getunconfirmedbalance
 0.47000000
