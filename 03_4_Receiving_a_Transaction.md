@@ -38,7 +38,7 @@ If that's still showing a zero too, you're probably moving through this tutorial
 
 ### Gain Confidence in Your Money
 
-You can use `bitcoin-cli getbalance "\*" [n]` to see if a confirmed balance is 'n' blocks deep.
+You can use `bitcoin-cli getbalance "*" [n]` to see if a confirmed balance is 'n' blocks deep.
 
 _What is block depth?_ After a block is built and confirmed, another block is built on top of it, and another ... Because this is a stochastic process, there's some chance for reversal when a block is still new. Thus, a block has to be buried several blocks deep in a chain before you can feel totally confident in your funds. Each of those blocks tends to be built in an average of 10 minutes ... so it usually takes about an hour for a confirmed transaction to receive full confidence.
 
