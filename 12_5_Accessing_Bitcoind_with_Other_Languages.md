@@ -21,15 +21,14 @@ sudo apt-get install mocha -g
 ```
 ### Set Up BCRPC
 
-You should next download BCRPC from the [BCRPC Repository](https://github.com/dgarage/bcrpc). Clone it or download it, as you prefer.
-
-Once you've done that, you can finish setting it up:
+Create a new node.js project and install BCRPC via NPM.
 ```
-$ unzip bcrpc-master.zip
-$ cd bcrpc-master
-$ npm install
+$ mkdir myproject
+$ cd myproject
+$ npm init
+[...]
+$ npm install --save bcrpc
 ```
-
 ### Test BCRPC
 
 To test the BCRPC package, you must first set environmental variables for your rpcuser and rpcpassword. As noted in [§12.1: Accessing Bitcoind with Curl](12_1_Accessing_Bitcoind_with_Curl.md), these come from `~/.bitcoin/bitcoin.conf`.
