@@ -4,6 +4,23 @@
 
 Interacting with the `bitcoind` directly and using command-line `curl` can get simple if you understand how it works, but there's a project [JavaBitcoindRpcClient](https://github.com/Polve/JavaBitcoindRpcClient) that provides the functionality in a Java-API level, making it even easier to interact with your Bitcoin Server.
 
+
+## Setup Java
+
+To install Java on the VPS Server, you are able to use the `apt-get` command. We will also use [Apache Maven](http://maven.apache.org/) to manage the dependencies, so we will install it together.
+
+```
+$ apt-get install openjdk-9-jre-headless maven
+```
+
+You can verify your Java installation:
+```
+$ java -version
+openjdk version "9-internal"
+OpenJDK Runtime Environment (build 9-internal+0-2016-04-14-195246.buildd.src)
+OpenJDK 64-Bit Server VM (build 9-internal+0-2016-04-14-195246.buildd.src, mixed mode)
+```
+
 ## Setup Dependency
 
 If you use Maven in your Java project, you can include the dependency:
@@ -19,6 +36,8 @@ Or if you use Gradle:
 ```groovy
 compile 'wf.bitcoin:JavaBitcoindRpcClient:0.9.13'
 ```
+
+If you want a sample project and some instructions on how to run it on the server that we just created, you can refer to the [Bitcoind Java Sample Project](https://github.com/brunocvcunha/bitcoind-java-client-sample/).
 
 ### Build Your Connection
 
