@@ -58,9 +58,9 @@ rpcClient.stop();
 
 ### Making your first RPC Call
 
-In order to use an RPC method using `JavaBitcoindRpcClient`, you'll find that the `BitcoindRpcClient` provides most of the functionality that can be accessed through `bitcoin-cli` or `curl`.
+In order to use an RPC method using `JavaBitcoindRpcClient`, you'll find that the `BitcoindRpcClient` provides most of the functionality that can be accessed through `bitcoin-cli` or `curl`, using the same method names. For more details about the commands that you are able to execute and what to expect back, you should refer to [3.2: Knowing Your Bitcoin Setup](03_2_Knowing_Your_Bitcoin_Setup.md).
 
-For example, to execute the `getmininginfo`, you should use the `getMiningInfo()` method:
+For example, to execute the `getmininginfo` command to get the block information and the difficulty on the network, you should use the `getMiningInfo()` method:
 ```java
 MiningInfo info = rpcClient.getMiningInfo();
 System.out.println("Mining Information");
@@ -82,7 +82,9 @@ Hash Power.: 6585163152453.466796875
 
 ### Creating an Address
 
-You can create a new address attaching a specific label to it, as well as dump the private key for a specific address:
+You can create a new address on your wallet attaching a specific label to it, as well as dump the private key for a specific address.
+For more information about the wallet setup, you can check [3.3: Setting Up Your Wallet](03_3_Setting_Up_Your_Wallet.md).
+
 ```java
   String address = rpcClient.getNewAddress("Learning-Bitcoin-from-the-Command-Line");
   System.out.println("New Address: " + address);
@@ -101,6 +103,8 @@ Priv Key: cTy2AnmAALsHokYzJzTdsUBSqBtypmWfmSNYgG6qQH43euUZgqic
 ### Sending Transactions
 
 You can easily send a transaction using the method `sendToAddress()`.
+For more information about sending transactions, you can check [4: Sending Bitcoin Transactions](04_0_Sending_Bitcoin_Transactions.md).
+
 
 ```java
 String sendToAddress = rpcClient.sendToAddress("mgnNsZj6tPzpd7JwTTidUKnGoDTkcucLT5", 1);
