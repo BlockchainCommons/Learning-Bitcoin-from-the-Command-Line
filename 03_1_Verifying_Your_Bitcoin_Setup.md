@@ -14,7 +14,7 @@ alias btcdir="cd ~/.bitcoin/" #linux default bitcoind path
 alias bc="bitcoin-cli"
 alias bd="bitcoind"
 alias btcinfo='bitcoin-cli getwalletinfo | egrep "\"balance\""; bitcoin-cli getinfo | egrep "\"version\"|connections"; bitcoin-cli getmininginfo | egrep "\"blocks\"|errors"'
-alias btcblock="echo \\\`bitcoin-cli getblockcount 2>&1\\\`/\\\`wget -O - http://blockexplorer.com/testnet/q/getblockcount 2> /dev/null | cut -d : -f2 | rev | cut -c 2- | rev\\\`"
+alias btcblock="echo \\\`bitcoin-cli getblockcount 2>&1\\\`/\\\`wget -O - https://blockexplorer.com/testnet/q/getblockcount 2> /dev/null | cut -d : -f2 | rev | cut -c 2- | rev\\\`"
 EOF
 source ~/.bash_profile
 ```
@@ -25,7 +25,7 @@ Note that these aliases includes shortcuts for running `bitcoin-cli`, for runnin
 
 With that said, use of these aliases in _this_ document might accidentally obscure the core lessons being taught about Bitcoin, so the only aliases directly used here are `btcinfo` and `btcblock`, because they encapsulate much longer and more complex commands. Otherwise, we show the full commands; adjust for your own use as appropriate.
 
-> **TESTNET vs MAINNET:** Remember that this tutorial generally assumes that you are using testnet. Tthe `btcblock` alias needs to be slightly different on mainnet, where you can use the simpler "wget -O - http://blockchain.info/q/getblockcount 2>/dev/null".
+> **TESTNET vs MAINNET:** Remember that this tutorial generally assumes that you are using testnet. Tthe `btcblock` alias needs to be slightly different on mainnet, where you can use the simpler "wget -O - https://blockexplorer.com/q/getblockcount 2>/dev/null".
 
 ## Run Bitcoind
 
