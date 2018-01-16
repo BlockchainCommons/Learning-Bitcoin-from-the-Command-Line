@@ -43,7 +43,7 @@ If this looks familiar, that's because it's the multisig that you deserialized i
 
 The `scriptSig` for a standard multisig address must then submit the missing operands for `OP_CHECKMULTISIG`: a `0` followed by "m" signatures. For example:
 ```
-0 $signature1 signature2
+0 $signature1 $signature2
 ```
 
 ### Run a Raw Multisig Script 
