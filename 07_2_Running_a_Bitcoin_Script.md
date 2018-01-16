@@ -66,7 +66,7 @@ Let's try this out:
 ```Bash
 $ btcc OP_1 OP_2 OP_ADD
 515293
-$ btcdeb $(btcc OP_1 OP_2 OP_ADD) # or: btcdeb 515293
+$ btcdeb '[OP_1 OP_2 OP_ADD]' # or: btcdeb 0x515293
 btcdeb -- type `btcdeb -h` for start up options
 valid script
 3 op script loaded. type `help` for usage information
@@ -139,7 +139,7 @@ Stack: [ 1 ]
 
 Let's try this one too:
 ```Bash
-$ btcdeb $(btcc OP_3 OP_2 OP_ADD OP_4 OP_SUB)
+$ btcdeb '[OP_3 OP_2 OP_ADD OP_4 OP_SUB]'
 btcdeb -- type `btcdeb -h` for start up options
 valid script
 5 op script loaded. type `help` for usage information
