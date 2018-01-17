@@ -32,7 +32,7 @@ Of course, you might say, that's how Bitcoin Script works. Conditionals use reve
 
 Consider the following code: `IF OP_DUP OP_HASH160 <pubKeyHashA> ELSE OP_DUP OP_HASH160 <pubKeyHashA> ENDIF OP_EQUALVERIFY OP_CHECKSIG `. 
 
-Year of looking at conditionals in prefix notation might lead you to read this as:
+Looking at conditionals in prefix notation might lead you to read this as:
 ```
 IF (OP_DUP) THEN
 
