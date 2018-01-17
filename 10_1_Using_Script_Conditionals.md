@@ -30,9 +30,9 @@ Second, the `IF` conditional tends to be in the locking script and what it's che
 
 Of course, you might say, that's how Bitcoin Script works. Conditionals use reverse Polish notation and they adopt the standard unlocking/locking paradigm, just like _everything else_ in Bitcoin Scripting. That's all true, but it also goes contrary to the standard way we read IF/ELSE conditionals in other programming languages; thus, it's easy to unconsciously read Bitcoin conditionals wrong.
 
-Consider the following code: `IF OP_DUP OP_HASH160 <pubKeyHashA> ELSE OP_DUP OP_HASH160 <pubKeyHashA> ENDIF OP_EQUALVERIFY OP_CHECKSIG `. 
+Consider the following code: `IF OP_DUP OP_HASH160 <pubKeyHashA> ELSE OP_DUP OP_HASH160 <pubKeyHashB> ENDIF OP_EQUALVERIFY OP_CHECKSIG `. 
 
-Year of looking at conditionals in prefix notation might lead you to read this as:
+Looking at conditionals in prefix notation might lead you to read this as:
 ```
 IF (OP_DUP) THEN
 

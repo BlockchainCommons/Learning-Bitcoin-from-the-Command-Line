@@ -181,7 +181,7 @@ Here's where the security falls down:
 
 First, anyone can redeem them without knowing much of a secret. They do have to have the `redeemScript`, which offers some protection, but once they do, that's probably the only secret that's necessary — unless your puzzle is _really_ tough, such as a computational puzzle.
 
-Second, the actual redemption isn't secure. Normally, a Bitcoin transction is protected by the signature. Because the signature covers the transaction, no one on the network can rewrite that transaction to instead send to their address without invalidating the signature (and thus the transaction). That isn't true with a transactions whose inputs are just numbers. Anyone could grab the transaction and rewrite it to allow them to steal the funds. If they can get their transaction into a block before yours, they win, and you don't get the puzzle money. There are solutions for this, but they involve mining the block yourself of having a trusted pool mine it, and neither of those options is rational for an average Bitcoin user. 
+Second, the actual redemption isn't secure. Normally, a Bitcoin transction is protected by the signature. Because the signature covers the transaction, no one on the network can rewrite that transaction to instead send to their address without invalidating the signature (and thus the transaction). That isn't true with a transactions whose inputs are just numbers. Anyone could grab the transaction and rewrite it to allow them to steal the funds. If they can get their transaction into a block before yours, they win, and you don't get the puzzle money. There are solutions for this, but they involve mining the block yourself or having a trusted pool mine it, and neither of those options is rational for an average Bitcoin user. 
 
 Yet, Peter Todd's cryptographic bounties prove that puzzle scripts do have some real-world application.
 
@@ -189,7 +189,7 @@ Yet, Peter Todd's cryptographic bounties prove that puzzle scripts do have some 
 
 Puzzles scripts are a great introduction to more realistic and complex Bitcoin Scripts. They demonstrate the power of the mathematical and stack functions in Bitcoin Script and how they can be carefully combined to create questions that require very specific answers. However, their real-world usage is also limited by the security issues inherent in non-signed Bitcoin transactions.
 
-_What is the power of puzzle script?_ Despite their limitations, puzzles scripts have been used in the real world as the prizes for computational bounties. Anyone who can figure out a complex puzzle, whose solution presmably has some real-world impact, can win the bounty. Whether they get to actually keep it is another question.
+_What is the power of puzzle script?_ Despite their limitations, puzzles scripts have been used in the real world as the prizes for computational bounties. Anyone who can figure out a complex puzzle, whose solution presumably has some real-world impact, can win the bounty. Whether they get to actually keep it is another question.
 
 ## What's Next?
 

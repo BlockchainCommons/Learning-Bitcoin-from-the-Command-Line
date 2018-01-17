@@ -43,7 +43,7 @@ If this looks familiar, that's because it's the multisig that you deserialized i
 
 The `scriptSig` for a standard multisig address must then submit the missing operands for `OP_CHECKMULTISIG`: a `0` followed by "m" signatures. For example:
 ```
-0 $signature1 signature2
+0 $signature1 $signature2
 ```
 
 ### Run a Raw Multisig Script 
@@ -109,7 +109,7 @@ To create a P2SH multisig, follow the standard steps for creating a P2SH locking
 
 1. Serialize `2 $address1 $address2 2 OP_CHECKMULTISIG`.
    1. `<serializedMultiSig>` = "52210307fd375ed7cced0f50723e3e1a97bbe7ccff7318c815df4e99a59bc94dbcd819210367c4f666f18279009c941e57fab3e42653c6553e5ca092c104d1db279e328a2852ae"
-2. Save `<serialized99Equal>` for future reference as the redeemScript.
+2. Save `<serializedMultiSig>` for future reference as the redeemScript.
    1. `<redeemScript>` = "52210307fd375ed7cced0f50723e3e1a97bbe7ccff7318c815df4e99a59bc94dbcd819210367c4f666f18279009c941e57fab3e42653c6553e5ca092c104d1db279e328a2852ae"
 3. SHA-256 and RIPEMD-160 hash the serialized script.
    1. `<hashedMultiSig>` = "babf9063cee8ab6e9334f95f6d4e9148d0e551c2"

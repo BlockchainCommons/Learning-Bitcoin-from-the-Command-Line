@@ -27,7 +27,7 @@ Because CLTV is just part of a script (and presumably part of a P2SH transaction
 
 This is how `OP_CHECKLOCKTIMEVERIFY` would be used to check against May 24, 2017:
 ```
-1495652013 OP_CHECKLOCKTIME VERIFY
+1495652013 OP_CHECKLOCKTIMEVERIFY
 ```
 But we'll usually depict this in an abstraction like this:
 ```
