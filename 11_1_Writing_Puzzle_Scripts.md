@@ -189,7 +189,7 @@ Yet, Peter Todd's cryptographic bounties prove that puzzle scripts do have some 
 
 Puzzles scripts are a great introduction to more realistic and complex Bitcoin Scripts. They demonstrate the power of the mathematical and stack functions in Bitcoin Script and how they can be carefully combined to create questions that require very specific answers. However, their real-world usage is also limited by the security issues inherent in non-signed Bitcoin transactions.
 
-_What is the power of puzzle script?_ Despite their limitations, puzzles scripts have been used in the real world as the prizes for computational bounties. Anyone who can figure out a complex puzzle, whose solution presmably has some real-world impact, can win the bounty. Whether they get to actually keep it is another question.
+_What is the power of puzzle script?_ Despite their limitations, puzzles scripts have been used in the real world as the prizes for computational bounties. Anyone who can figure out a complex puzzle, whose solution presumably has some real-world impact, can win the bounty. Whether they get to actually keep it is another question.
 
 ## What's Next?
 
