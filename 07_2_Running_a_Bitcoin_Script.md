@@ -7,19 +7,38 @@ Bitcoin Scripts may not initially seem that intuitive, but their execution is qu
 ## Running Bitcoin Script code
 
 It is recommended that you run through the examples in a Bitcoin Script Debugger (`btcdeb`) to see the transformations happening
-on the stack.
+on the stack. This will require setting up C++ and a few other accessories on your machine, so choose if you want to add this additional material to your machine.
 
 ### Installing btcdeb
 
-From some appropriate folder (e.g. `~/workspace`), clone the btcdeb project from Github and compile/install it. Note that it is recommended that you install readline, as this makes the debugger a lot easier to use (history using up/down arrows, left-right movement, autocompletion using tab, etc.). The package is usually called `libreadline-dev` (linux) or just `readline` (mac).
+From some appropriate folder (e.g. `~/workspace`), clone the btcdeb project from Github and compile/install it. 
 
 ```Bash
+$ sudo apt-get install git
 $ git clone https://github.com/kallewoof/btcdeb.git
+```
+Then, get C++ and other packages installed, so that you can get `btcdeb` running.
+```Bash
+$ sudo apt-get install autoconf
+$ sudo apt-get install libtool
+$ sudo apt-get install g++
+$ sudo apt-get install pkg-config
+$ sudo apt-get install make
+
 $ cd btcdeb
 $ ./autogen.sh
 $ ./configure
 $ make
-$ make install
+$ sudo make install
+```
+After all of that, you should have a copy of `btcdeb`:
+```
+$ which btcdeb
+/usr/local/bin/btcdeb
+```
+It is recommended that you all install readline, as this makes the debugger a lot easier to use by supporting history using up/down arrows, left-right movement, autocompletion using tab, etc. The package is usually called `libreadline-dev` (linux) or just `readline` (mac).
+```Bash
+$ sudo apt-get install libreadline-dev
 ```
 
 ### Bitcoin Script Debugging Primer
