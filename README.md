@@ -92,6 +92,8 @@ This tutorial assumes that you have some minimal background of how to use the co
   * [12.3: Programming Bitcoind with C](12_3_Programming_Bitcoind_with_C.md) — Needs Editing
   * [12.4: Receiving Bitcoind Notifications with C](12_4_Receiving_Bitcoind_Notifications_with_C.md) — Pending
   * [12.5: Accessing Bitcoind with Other Languages](12_5_Accessing_Bitcoind_with_Other_Languages.md)  — Writing
+  * [12.6: Accessing Bitcoind with Python](12_6_Accessing_Bitcoind_with_Python.md)  — Writing
+  * [12.7: Accessing Bitcoind with Java](12_7_Accessing_Bitcoind_with_Java.md)
 * 13.0: Programming with LibWally
    * 13.1: Programming Transactions
    * 13.2: Programming Scripts
