@@ -23,7 +23,7 @@
 # CURRENT BITCOIN RELEASE:
 # Change as necessary
 
-export BITCOIN=bitcoin-core-0.15.1
+export BITCOIN=bitcoin-core-0.16.0
 
 # Set the variable $IPADDR to the IP address the new Linode receives.
 IPADDR=$(/sbin/ifconfig eth0 | awk '/inet / { print $2 }' | sed 's/addr://')
@@ -182,10 +182,10 @@ if [ "$BTCTYPE" == "Testnet" ] || [ "$BTCTYPE" == "Pruned Testnet" ]; then
 sudo -u user1 cat >> ~user1/.bash_profile <<EOF
 alias btcdir="cd ~/.bitcoin/" #linux default bitcoind path
         # alias btcdir="cd ~/Library/Application\ Support/Bitcoin/" #mac default bitcoind path
-alias bc="bitcoin-cli"
-alias bd="bitcoind"
-alias btcinfo='bitcoin-cli getwalletinfo | egrep "\"balance\""; bitcoin-cli getinfo | egrep "\"version\"|connections"; bitcoin-cli getmininginfo | egrep "\"blocks\"|errors"'
-alias btcblock="echo \\\`bitcoin-cli getblockcount 2>&1\\\`/\\\`wget -O - http://blockexplorer.com/testnet/q/getblockcount 2> /dev/null | cut -d : -f2 | rev | cut -c 2- | rev\\\`"
+alias bt="bitcoin-cli -testnet"
+alias btd="bitcoind -testnet"
+alias btinfo='bitcoin-cli -testnet getwalletinfo | egrep "\"balance\""; bitcoin-cli -testnet -getinfo | egrep "\"version\"|connections"; bitcoin-cli getmininginfo | egrep "\"blocks\"|errors"'
+alias btblock="echo \\\`bitcoin-cli -testnet getblockcount 2>&1\\\`/\\\`wget -O - https://blockexplorer.com/testnet/q/getblockcount 2> /dev/null | cut -d : -f2 | rev | cut -c 2- | rev\\\`"
 EOF
 
 else
@@ -194,9 +194,9 @@ sudo -u user1 cat >> ~user1/.bash_profile <<EOF
 alias btcdir="cd ~/.bitcoin/" #linux default bitcoind path
         # alias btcdir="cd ~/Library/Application\ Support/Bitcoin/" #mac default bitcoind path
 alias bc="bitcoin-cli"
-alias bd="bitcoind"
-alias btcinfo='bitcoin-cli getwalletinfo | egrep "\"balance\""; bitcoin-cli getinfo | egrep "\"version\"|connections"; bitcoin-cli getmininginfo | egrep "\"blocks\"|errors"'
-alias btcblock="echo \\\`bitcoin-cli getblockcount 2>&1\\\`/\\\`wget -O - http://blockchain.info/q/getblockcount 2>/dev/null\\\`"
+alias bcd="bitcoind"
+alias bcinfo='bitcoin-cli getwalletinfo | egrep "\"balance\""; bitcoin-cli -getinfo | egrep "\"version\"|connections"; bitcoin-cli getmininginfo | egrep "\"blocks\"|errors"'
+alias bcblock="echo \\\`bitcoin-cli getblockcount 2>&1\\\`/\\\`wget -O - https://blockexplorer.com/q/getblockcount 2>/dev/null\\\`"
 EOF
 
 fi

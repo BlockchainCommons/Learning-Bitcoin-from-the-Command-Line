@@ -256,10 +256,10 @@ We find a number of Bash aliases helpful to make it easier to use Bitcoin.
 ```
 $ sudo -u user1 cat >> ~user1/.bash_profile <<EOF
 alias btcdir="cd ~/.bitcoin/" #linux default bitcoind path
-alias bc="bitcoin-cli"
-alias bd="bitcoind"
-alias btcinfo='bitcoin-cli getwalletinfo | egrep "\"balance\""; bitcoin-cli getinfo | egrep "\"version\"|connections"; bitcoin-cli getmininginfo | egrep "\"blocks\"|errors"'
-alias btcblock="echo \\\`bitcoin-cli getblockcount 2>&1\\\`/\\\`wget -O - http://blockexplorer.com/testnet/q/getblockcount 2> /dev/null | cut -d : -f2 | rev | cut -c 2- | rev\\\`"
+alias bt="bitcoin-cli -testnet"
+alias btd="bitcoind -testnet"
+alias btinfo='bitcoin-cli -testnet getwalletinfo | egrep "\"balance\""; bitcoin-cli -testnet -getinfo | egrep "\"version\"|connections"; bitcoin-cli getmininginfo | egrep "\"blocks\"|errors"'
+alias btblock="echo \\\`bitcoin-cli -testnet getblockcount 2>&1\\\`/\\\`wget -O - https://blockexplorer.com/testnet/q/getblockcount 2> /dev/null | cut -d : -f2 | rev | cut -c 2- | rev\\\`"
 EOF
 ```
 
@@ -268,9 +268,9 @@ EOF
 $ sudo -u user1 cat >> ~user1/.bash_profile <<EOF
 alias btcdir="cd ~/.bitcoin/" #linux default bitcoind path
 alias bc="bitcoin-cli"
-alias bd="bitcoind"
-alias btcinfo='bitcoin-cli getwalletinfo | egrep "\"balance\""; bitcoin-cli getinfo | egrep "\"version\"|connections"; bitcoin-cli getmininginfo | egrep "\"blocks\"|errors"'
-alias btcblock="echo \\\`bitcoin-cli getblockcount 2>&1\\\`/\\\`wget -O - http://blockchain.info/q/getblockcount 2>/dev/null\\\`"
+alias bcd="bitcoind"
+alias bcinfo='bitcoin-cli getwalletinfo | egrep "\"balance\""; bitcoin-cli -getinfo | egrep "\"version\"|connections"; bitcoin-cli getmininginfo | egrep "\"blocks\"|errors"'
+alias bcblock="echo \\\`bitcoin-cli getblockcount 2>&1\\\`/\\\`wget -O - https://blockexplorer.com/q/getblockcount 2>/dev/null\\\`"
 EOF
 ```
 
@@ -294,9 +294,9 @@ $ source ~/.bash_profile
 
 We suggest setting up two variables to make this installation more automatic.
 
-The first variable, $BITCOIN, should be set to the current version of Bitcoin. It was 0.15.1 when we wrote this. The second will then automatically generate a truncated form used by some of the files.
+The first variable, $BITCOIN, should be set to the current version of Bitcoin. It was 0.16.0 when we wrote this. The second will then automatically generate a truncated form used by some of the files.
 ```
-$ export BITCOIN=bitcoin-core-0.15.1
+$ export BITCOIN=bitcoin-core-0.16.0
 $ export BITCOINPLAIN=`echo $BITCOIN | sed 's/bitcoin-core/bitcoin/'`
 ```
 
@@ -388,9 +388,9 @@ So now you probably want to play with Bitcoin!
 
 But wait, your Bitcoin daemon is probably still downloading blocks. This alias, from your .bash configuration will tell you how things are going:
 ```
-$ btcblock
+$ btblock
 ```
-0.15.1 is quite fast to download blocks, but it might still take an hour to download the unpruned testnet. It might be time for a few more espressos.
+0.16.0 is quite fast to download blocks, but it might still take an hour to download the unpruned testnet. It might be time for a few more espressos.
 
 > **TESTNET vs MAINNET:** An unpruned mainnet will take hours longer.
 
