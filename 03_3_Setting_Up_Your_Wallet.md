@@ -36,7 +36,9 @@ Sometimes you'll need to prove that you control a Bitcoin address (or rather, th
 $ bitcoin-cli signmessage "n4cqjJE6fqcmeWpftygwPoKMMDva6BpyHf" "Hello, World"
 H3yMBZaFeSmG2HgnH38dImzZAwAQADcOiMKTC1fryoV6Y93BelqzDMTCqNcFoik86E8qHa6o3FCmTsxWD7Wa5YY=
 ```
-You'll get the signature as a return.
+You'll get the signature as a return. 
+
+Note that `signmessage`/`verifymessage` with Bitcoin Core 0.16.0 currently doesn't support segwit addresses, so you will have to generate a legacy address for this exercise.
 
 _What is a signature?_ A digital signature is a combination of a message and a private key that can then be unlocked with a public key. Since there's a one-to-one correspendence between the elements of a keypair, unlocking with a public key proves that the signer controlled the corresponding private key. 
 
