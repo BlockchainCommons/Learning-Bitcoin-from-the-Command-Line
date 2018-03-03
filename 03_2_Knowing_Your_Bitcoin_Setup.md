@@ -50,13 +50,14 @@ gettxoutproof ["txid",...] ( blockhash )
 gettxoutsetinfo
 preciousblock "blockhash"
 pruneblockchain
+savemempool
 verifychain ( checklevel nblocks )
 verifytxoutproof "proof"
 
 == Control ==
-getinfo
 getmemoryinfo ("mode")
 help ( "command" )
+logging ( <include> <exclude> )
 stop
 uptime
 
@@ -88,16 +89,16 @@ setnetworkactive true|false
 == Rawtransactions ==
 combinerawtransaction ["hexstring",...]
 createrawtransaction [{"txid":"id","vout":n},...] {"address":amount,"data":"hex",...} ( locktime ) ( replaceable )
-decoderawtransaction "hexstring"
+decoderawtransaction "hexstring" ( iswitness )
 decodescript "hexstring"
-fundrawtransaction "hexstring" ( options )
-getrawtransaction "txid" ( verbose )
+fundrawtransaction "hexstring" ( options iswitness )
+getrawtransaction "txid" ( verbose "blockhash" )
 sendrawtransaction "hexstring" ( allowhighfees )
 signrawtransaction "hexstring" ( [{"txid":"id","vout":n,"scriptPubKey":"hex","redeemScript":"hex"},...] ["privatekey1",...] sighashtype )
+signrawtransactionwithkey "hexstring" ["privatekey1",...] ( [{"txid":"id","vout":n,"scriptPubKey":"hex","redeemScript":"hex"},...] sighashtype )
 
 == Util ==
 createmultisig nrequired ["key",...]
-estimatefee nblocks
 estimatesmartfee conf_target ("estimate_mode")
 signmessagewithprivkey "privkey" "message"
 validateaddress "address"
@@ -106,8 +107,7 @@ verifymessage "address" "signature" "message"
 == Wallet ==
 abandontransaction "txid"
 abortrescan
-addmultisigaddress nrequired ["key",...] ( "account" )
-addwitnessaddress "address"
+addmultisigaddress nrequired ["key",...] ( "account" "address_type" )
 backupwallet "destination"
 bumpfee "txid" ( options )
 dumpprivkey "address"
@@ -116,9 +116,10 @@ encryptwallet "passphrase"
 getaccount "address"
 getaccountaddress "account"
 getaddressesbyaccount "account"
+getaddressinfo "address"
 getbalance ( "account" minconf include_watchonly )
-getnewaddress ( "account" )
-getrawchangeaddress
+getnewaddress ( "account" "address_type" )
+getrawchangeaddress ( "address_type" )
 getreceivedbyaccount "account" ( minconf )
 getreceivedbyaddress "address" ( minconf )
 gettransaction "txid" ( include_watchonly )
@@ -143,12 +144,17 @@ listwallets
 lockunspent unlock ([{"txid":"txid","vout":n},...])
 move "fromaccount" "toaccount" amount ( minconf "comment" )
 removeprunedfunds "txid"
+rescanblockchain ("start_height") ("stop_height")
 sendfrom "fromaccount" "toaddress" amount ( minconf "comment" "comment_to" )
 sendmany "fromaccount" {"address":amount,...} ( minconf "comment" ["address",...] replaceable conf_target "estimate_mode")
 sendtoaddress "address" amount ( "comment" "comment_to" subtractfeefromamount replaceable conf_target "estimate_mode")
 setaccount "address" "account"
 settxfee amount
 signmessage "address" "message"
+signrawtransactionwithwallet "hexstring" ( [{"txid":"id","vout":n,"scriptPubKey":"hex","redeemScript":"hex"},...] sighashtype )
+walletlock
+walletpassphrase "passphrase" timeout
+walletpassphrasechange "oldpassphrase" "newpassphrase"
 ```
 You can also type `bitcoin help [command]` to get even more extensive info on that command. For example:
 ```
@@ -159,15 +165,13 @@ Returns a json object containing mining-related information.
 Result:
 {
   "blocks": nnn,             (numeric) The current block
-  "currentblocksize": nnn,   (numeric) The last block size
   "currentblockweight": nnn, (numeric) The last block weight
   "currentblocktx": nnn,     (numeric) The last block transaction
   "difficulty": xxx.xxxxx    (numeric) The current difficulty
-  "errors": "..."            (string) Current errors
   "networkhashps": nnn,      (numeric) The network hashes per second
   "pooledtx": n              (numeric) The size of the mempool
-  "testnet": true|false      (boolean) If using testnet or not
   "chain": "xxxx",           (string) current network name as defined in BIP70 (main, test, regtest)
+  "warnings": "..."          (string) any network and blockchain warnings
 }
 
 Examples:
