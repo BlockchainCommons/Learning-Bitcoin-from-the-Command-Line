@@ -362,12 +362,12 @@ Whew!
 
 **Usage Example:** _Calculate the fee for a transaction._
 
-To figure out the complete transaction fee at this point just requires one more bit of math: determining out how much money is going through the .vout. That's a simple use of JQ where you just use `awk` to sum up the `value` of all the `vout` information:
+To figure out the complete transaction fee at this point just requires one more bit of math: determining how much money is going through the .vout. That's a simple use of JQ where you just use `awk` to sum up the `value` of all the `vout` information:
 ```
 $ bitcoin-cli decoderawtransaction $rawtxhex | jq -r '.vout  [] | .value' | awk '{s+=$1} END {print s}'
 1.045
 ```
-To complete the transaction fee calculation,, you subtract the .vout .amount (1.045) from the .vin .amount (1.3).
+To complete the transaction fee calculation, you subtract the .vout .amount (1.045) from the .vin .amount (1.3).
 
 Putting it all together creates a complete calculator in just five lines of script:
 ```
