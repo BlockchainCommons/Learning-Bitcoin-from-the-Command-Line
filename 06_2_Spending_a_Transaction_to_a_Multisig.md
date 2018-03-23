@@ -31,7 +31,7 @@ $ bitcoin-cli listunspent
 
 ## Set Up Your Variables
 
-When you're ready to spend the funds received by a multisignature address, you're going need to collect a _lot_ of data: much more than you need when you spend a normal P2PKH UTXO. That's in part because the info on the multisig address isn't in your wallet, and in part because you're spending money that was sent to a P2SH (pay-to-script) address, and that's a lot more demanding.
+When you're ready to spend the funds received by a multisignature address, you're going need to collect a _lot_ of data: much more than you need when you spend a normal P2PKH UTXO. That's in part because the info on the multisig address isn't in your wallet, and in part because you're spending money that was sent to a P2SH (pay-to-script-hash) address, and that's a lot more demanding.
 
 In total, you're going to need to collect three things: extended information about the UTXO; the redeemScript; and all the private keys involved. You'll of course need a new recipient address too. The private keys need to wait for the signing step, but everything else can be done now.
 
