@@ -84,7 +84,7 @@ The _address_ is what you'll give out to people who want to send funds. You'll n
 
 The _redeemScript_ is what you need to redeem the funds, along with the private keys for "m" of the "n" addresses. This script is another special feature of P2SH addresses and will be fully explained in [§8.1: Building a Bitcoin Script with P2SH](08_1_Building_a_Bitcoin_Script_with_P2SH.md). For now, just be aware that it's a bit of data that's required to get your money.
 
-_What is a P2SH address?_ P2SH stands for Pay-to-script. It's a different type of receipient than a standard P2PKH address, used for funds whose redemption are based on more complex Bitcoin Scripts. `bitcoin-cli` uses P2SH encapsulation to help standardize and simplify its multisigs as "P2SH multisigs".
+_What is a P2SH address?_ P2SH stands for Pay-to-script-hash. It's a different type of receipient than a standard P2PKH address, used for funds whose redemption are based on more complex Bitcoin Scripts. `bitcoin-cli` uses P2SH encapsulation to help standardize and simplify its multisigs as "P2SH multisigs".
 
 > **WARNING:** P2SH multisig addresses, like the ones created by `bitcoin-cli`, have a limit for "m" and "n" in multisigs based on the maximum size of the redeem script, which is currently 520 bytes. Pratically, you won't hit this unless you're doing something excessive.
 
@@ -149,7 +149,7 @@ As you can see, there was nothing unusual in the creation of the transaction, an
 
 ## Summary: Sending a Transaction with a Multisig
 
-Multisigs addresses lock funds to multiple private keys — possibly requiring all of those private keys for redemption, and possibly requiring just some from the set. They're easy enough to create with `bitcoin-cli` and they're entirely normal to send to. This ease is due in large part to the invisible use of P2SH (pay-to-script) addresses, a large topic that will get more coverage in the future.
+Multisig addresses lock funds to multiple private keys — possibly requiring all of those private keys for redemption, and possibly requiring just some from the set. They're easy enough to create with `bitcoin-cli` and they're entirely normal to send to. This ease is due in large part to the invisible use of P2SH (pay-to-script-hash) addresses, a large topic that will get more coverage in the future.
 
 _What is the power of multisignatures?_ Multisignatures allow the modeling of a variety of financial arrangements such as corporations, partnerships, committees, and other groups. A 1-of-2 multisig might be a married couple's joint bank account, while a 2-of-2 multisig might be used for large expenditures by a Limited Liability Partnership. Multisignatures also form one of the bases of Smart Contracts. For example, a real estate deal could be closed with a 2-of-3 multisig, where the signatures are submitted by the buyer, the seller, and an escrow agent. Once the escrow agent agrees that all of the conditions have been met, he frees up the funds for the seller; or alternatively, the buyer and seller can jointly free the funds.
 
