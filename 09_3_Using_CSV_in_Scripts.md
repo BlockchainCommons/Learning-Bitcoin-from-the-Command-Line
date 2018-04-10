@@ -110,9 +110,9 @@ A script that would lock funds until six months had passed following the mining 
 <+6Months> OP_CHECKSEQUENCEVERIFY OP_DROP OP_DUP OP_HASH160 <pubKeyHash> OP_EQUALVERIFY OP_CHECKSIG
 ```
 
-### Encode a CLTV Script
+### Encode a CSV Script
 
-When you encode a CLTV script, be careful how you encode the integer value for the relative locktime. It should be passed as a 3-byte integer, which means that you're ignoring the top byte, which could inactivate the relative locktime. Since it's an integer, be sure you convert it to little-endian.
+When you encode a CSV script, be careful how you encode the integer value for the relative locktime. It should be passed as a 3-byte integer, which means that you're ignoring the top byte, which could inactivate the relative locktime. Since it's an integer, be sure you convert it to little-endian.
 
 This can be done with the `integer2lehex.sh` shell script from the previous chapter.
 
