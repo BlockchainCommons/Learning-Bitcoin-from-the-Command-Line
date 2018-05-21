@@ -23,15 +23,15 @@ Bitcoin is a programmatic system that allows for the transfer of the bitcoin cur
 
 Bitcoin currency isn't physical coins. Instead it's an endless series of ownership reassignments. When one person sends coins to another, that transfer is stored as a transaction. It's the transaction that actually records the ownership of the money, not any token local to the owner's wallet or their machine.
 
-### Who Can You Send Transactions To?
+### Who Can You Send Coins To?
 
-The vast majority of bitcoin transactions are sent to individual people (or at least to individual Bitcoin addresses). However, more complex methodologies can be used to send bitcoins to groups of people or to scripts. These various methodologies have names like P2PKH, multisig, and P2SH.
+The vast majority of bitcoin transactions involve coins being sent to individual people (or at least to individual Bitcoin addresses). However, more complex methodologies can be used to send bitcoins to groups of people or to scripts. These various methodologies have names like P2PKH, multisig, and P2SH.
 
 ### How Are Transactions Stored?
 
-Transactions are combined into larger blocks of data, which are stored on the network. A block is built in such a way that it can not be replaced or rewritten once several blocks have been built after it. This is what makes bitcoins non-repudiable: the decentralized global ledger where everything is recorded is effectively a permanent and unchangeable database.
+Transactions are combined into larger blocks of data, which are stored on the network. A block is built in such a way that it cannot be replaced or rewritten once several blocks have been built after it. This is what makes bitcoins non-repudiable: the decentralized global ledger where everything is recorded is effectively a permanent and unchangeable database.
 
-However, the process of building these blocks is stochastic: it's somewhat random, and so you can never be assured that a transaction will be placed in a specific block. Moreso, there can be changes in blocks if they're very recent, but only if they're _very_ recent. So, things become non-repudiable (and permanent and unchangeable) after a little bit of time.
+However, the process of building these blocks is stochastic: it's somewhat random, so you can never be assured that a transaction will be placed in a specific block. Moreso, there can be changes in blocks if they're very recent, but only if they're _very_ recent. So, things become non-repudiable (and permanent and unchangeable) after a little bit of time.
 
 ### How Are Transactions Protected?
 
