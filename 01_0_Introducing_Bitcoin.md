@@ -1,6 +1,6 @@
 # Chapter One: Introducing Bitcoin
 
-These tutorial will lead you through basic Bitcoin usage and programming, highlighting a variety of techniques from the command line to scripting. However, before you should get started, you should have a basic understanding of what Bitcoin is, and how it works. This chapter provides that overview. Many more definitions will appear within the document itself; this is only intended to lay the foundation.
+These tutorials will lead you through basic Bitcoin usage and programming, highlighting a variety of techniques from the command line to scripting. However, before you get started, you should have a basic understanding of what Bitcoin is and how it works. This chapter provides that overview. Many more definitions will appear within the document itself; this is only intended to lay the foundation.
 
 ## Objectives for this Chapter
 
