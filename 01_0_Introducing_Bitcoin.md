@@ -45,7 +45,7 @@ However, these Bitcoin scripts are the lowest level of Bitcoin functionality. Mu
 
 ### Bitcoin — In Short
 
-One way to think of Bitcoin is as: _a sequence of atomic transactions: each of which is enabled by the sender with the solution to a previous cryptographic puzzle that was stored as a script; each of which is locked for the recipient with a new cryptographic puzzle that is stored as a script; and each of which is recorded in an immutable global ledger._
+One way to think of Bitcoin is as _a sequence of atomic transactions_. Each transaction is enabled by a sender with the solution to a previous cryptographic puzzle that is stored as a script. The new transaction is locked for the recipient with a new cryptographic puzzle that is stored as a script. Every transaction is recorded in an immutable global ledger.
 
 ## What Is Public-Key Cryptography?
 
@@ -57,7 +57,7 @@ A public key is the key given out to other people. In a typical public-key syste
 
 ### What Is a Private Key?
 
-A private key is linked to a public key in a key pair. In a typical public-key system, a user keeps his private key secure and uses it to decrypt messages sent to him, encrypted with the public key.
+A private key is linked to a public key in a key pair. In a typical public-key system, a user keeps his private key secure and uses it to decrypt messages that were encrypted with his public key in the process of being sent to him..
 
 ### What Is a Signature?
 
