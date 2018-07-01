@@ -150,7 +150,7 @@ setaccount "address" "account"
 settxfee amount
 signmessage "address" "message"
 ```
-You can also type `bitcoin help [command]` to get even more extensive info on that command. For example:
+You can also type `bitcoin-cli help [command]` to get even more extensive info on that command. For example:
 ```
 $ bitcoin-cli help getmininginfo
 getmininginfo
