@@ -6,7 +6,7 @@ The third way to vary how you send a basic transaction is to use the transaction
 
 ## Create Your Data
 
-The first thing you need to do is create the 80 bytes (or less) of data that you'll be recording in your OP_RETURN. This might be as simple as preparing a message or you might be hahsing existing data. For example, `sha256sum` produces 256 bits of data, which is 32 bytes, well under the limits:
+The first thing you need to do is create the 80 bytes (or less) of data that you'll be recording in your OP_RETURN. This might be as simple as preparing a message or you might be hashing existing data. For example, `sha256sum` produces 256 bits of data, which is 32 bytes, well under the limits:
 ```
 $ sha256sum contract.jpg
 fe7f0a3b69f56ef2d055a78823ed3bd1422e46c3183658ea854253033ae0ccef  contract.jpg
