@@ -11,6 +11,23 @@ The first thing you need to do is create an address for receiving payments. This
 $ bitcoin-cli getnewaddress
 n4cqjJE6fqcmeWpftygwPoKMMDva6BpyHf
 ```
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+bitcoin-cli getnewaddress
+--> It produced an address: 2N2yv1XcYfNXR54J7ZJvBxY6ZnmZFbz89tm
+
+bitcoin-cli signmessage "2N2yv1XcYfNXR54J7ZJvBxY6ZnmZFbz89tm" "Hello there"
+
+--> Get following error
+error code: -3
+error message:
+Address does not refer to key
+
+
+This is happening because of the update to segwith. Signmessage is not in this update, see: https://bitcointalk.org/index.php?topic=3225732.msg33564199
+
+A workarround is to create a new address  adding legacy behind the command like:
+bitcoin-cli -testnet getnewaddress "" legacy
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 Note that this address begins with an "n" (or sometimes an "m"). This signifies that this is a testnet address. 
 
 > **TESTNET vs MAINNET:** The equivalent mainnet address would start with a 1.
