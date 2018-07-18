@@ -54,11 +54,11 @@ The following chart shows minimum requirements
 
 | Setup | Memory | Storage | Linnode |
 |-------|--------|---------|---------|
-| Mainnet | 2G | 120G | L 12288 |
-| Pruned Mainnet | 2G | ~5G | L 2048 |
-| Testnet | 2G | ~15G | L 2048 |
-| Pruned Testnet | 2G | ~5G | L 2048 |
-| Regtest | 2G | ~ | L 2048 |
+| Mainnet | 2G | 120G | Linode 8GB |
+| Pruned Mainnet | 2G | ~5G | Linode 2GB |
+| Testnet | 2G | ~15G | Linode 2GB |
+| Pruned Testnet | 2G | ~5G | Linode 2GB |
+| Regtest | 2G | ~ | Linode 2GB |
 
 Just choose your Linode type, choose a Location that's geographically as close to you as possible, and click "Add your Linode!".
 
