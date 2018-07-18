@@ -23,7 +23,7 @@
 # CURRENT BITCOIN RELEASE:
 # Change as necessary
 
-export BITCOIN=bitcoin-core-0.15.1
+export BITCOIN=bitcoin-core-0.16.0
 
 # Set the variable $IPADDR to the IP address the new Linode receives.
 IPADDR=$(/sbin/ifconfig eth0 | awk '/inet / { print $2 }' | sed 's/addr://')
@@ -40,7 +40,7 @@ echo "$0 - BITCOIN SETUP TYPE IS: $BTCTYPE"
 ####
 
 echo $HOSTNAME > /etc/hostname
-/etc/init.d/hostname.sh start
+# /etc/init.d/hostname.sh start
 /bin/hostname $HOSTNAME
 
 echo "$0 - Set hostname as $FQDN ($IPADDR)"
@@ -250,7 +250,6 @@ sudo -u user1 wget https://bitcoin.org/laanwj-releases.asc -O ~user1/laanwj-rele
 echo "$0 - Verifying Bitcoin."
 
 sudo -u user1 /usr/bin/gpg --import ~user1/laanwj-releases.asc
-sudo -u user1 /usr/bin/gpg --lsign `sudo -u user1 /usr/bin/gpg --list-keys | grep pub | awk '{print $2}' | awk -F/ '{print $2}'`
 export SHASIG=`sudo -u user1 /usr/bin/gpg --verify ~user1/SHA256SUMS.asc 2>&1 | grep "Good signature"`
 
 if [[ $SHASIG ]]; then
