@@ -296,7 +296,7 @@ We suggest setting up two variables to make this installation more automatic.
 
 The first variable, $BITCOIN, should be set to the current version of Bitcoin. It was 0.15.1 when we wrote this. The second will then automatically generate a truncated form used by some of the files.
 ```
-$ export BITCOIN=bitcoin-core-0.15.1
+$ export BITCOIN=bitcoin-core-0.16.0
 $ export BITCOINPLAIN=`echo $BITCOIN | sed 's/bitcoin-core/bitcoin/'`
 ```
 
@@ -315,7 +315,6 @@ This is the other step of the setup process that takes five minutes or so. It mi
 You want to make extra sure that your Bitcoin setup is authentic and hasn't been messed with. The first way to do that is to look at the signature:
 ```
 $ /usr/bin/gpg --import ~user1/laanwj-releases.asc
-$ /usr/bin/gpg --lsign `sudo -u user1 /usr/bin/gpg --list-keys | grep pub | awk '{print $2}' | awk -F/ '{print $2}'`
 $ /usr/bin/gpg --verify ~user1/SHA256SUMS.asc
 ```
 Amongst the info you get back from the last command should be a line telling you that you have a "Good signature". (Don't worry about the warning.)
