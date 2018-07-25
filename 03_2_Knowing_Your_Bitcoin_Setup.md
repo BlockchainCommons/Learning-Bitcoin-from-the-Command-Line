@@ -27,7 +27,7 @@ You shouldn't mess with most of these files and directories — particularly not
 
 ## Know Your Bitcoin-cli Commands
 
-Most of your early work will be done with the `bitcoin-cli` command, which offers an easy interface to `bitcoind`. If you ever want more information on its usage, just run it with the `help` argument. Without any other arguments, it shows you ever possible command:
+Most of your early work will be done with the `bitcoin-cli` command, which offers an easy interface to `bitcoind`. If you ever want more information on its usage, just run it with the `help` argument. Without any other arguments, it shows you every possible command:
 ```
 $ bitcoin-cli help
 == Blockchain ==
