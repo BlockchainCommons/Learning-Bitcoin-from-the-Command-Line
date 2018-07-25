@@ -8,10 +8,12 @@ You're now ready to start working with Bitcoin. To begin with, you'll need to cr
 
 The first thing you need to do is create an address for receiving payments. This is done with the `bitcoin-cli getnewaddress` command. Remember that if you want more information on this command, you should type `bitcoin-cli help getnewaddress`.
 ```
-$ bitcoin-cli getnewaddress
+$ bitcoin-cli getnewaddress "" legacy
 n4cqjJE6fqcmeWpftygwPoKMMDva6BpyHf
 ```
 Note that this address begins with an "n" (or sometimes an "m"). This signifies that this is a testnet address. 
+
+The "legacy" flag is necessary to generate a traditional address, rather than a p2sh-segwit or bech32 address. The legacy address is currently required from the command line to make sure that signing works correctly.
 
 > **TESTNET vs MAINNET:** The equivalent mainnet address would start with a 1.
 
