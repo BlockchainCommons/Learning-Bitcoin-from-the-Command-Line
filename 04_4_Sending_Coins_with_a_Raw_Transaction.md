@@ -26,7 +26,7 @@ Our sample raw transaction was simple in another way: it assumed that there was 
 
 ## Write a Real Raw Transaction
 
-To summarize: creating a real raw transaction to send coins will sometimes require multiple inputs and will almost always require multiple outputs, one of which is a change address. We'll be creating that saw of more realistic transaction here, in a new example that shows a real-life example of sending funds via Bitcoin's second methodology, raw transactions.
+To summarize: creating a real raw transaction to send coins will sometimes require multiple inputs and will almost always require multiple outputs, one of which is a change address. We'll be creating that sort of more realistic transaction here, in a new example that shows a real-life example of sending funds via Bitcoin's second methodology, raw transactions.
 
 Here's the UTXOs we'll be using:
 ```

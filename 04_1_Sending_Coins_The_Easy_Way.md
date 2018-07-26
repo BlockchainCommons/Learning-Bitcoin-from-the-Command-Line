@@ -76,7 +76,7 @@ $ bitcoin-cli gettransaction $txid
   "hex": "0200000001a8b61dba544525ad267644cb78f07c1ba58586ff9089aec3ac24d8764dc21dfb000000006a47304402204c38c2530d3283200e4fd3b2d22e609fc6dc941fd3ac4bc8b73ad5a86607e723022050056ae6cfc3233fb38459a6fd5e63d54e4c85e17b91d66fb915e3977a1c77dd0121027a313901f2ac34c87761513cabe69ca9ca61e2db3c7e6f89d7eccd7fc0a5917cfeffffff0280969800000000001976a914e7c1345fc8f87c68170b3aa798a956c2fe6a9eff88ac4082820b000000001976a914a091d978794d50e5caa3e5454cc8633240640d6688aca6de1000"
 }
 ```
-You can see now only the amount transferred (.1 BtC) but also a transaction fee (.000226 BTC), which is about a quarter of the .001 BC/kB minimum fee that was set, which suggests that the transaction was about a quarter of a kB in size.
+You can see not only the amount transferred (.1 BTC) but also a transaction fee (.000226 BTC), which is about a quarter of the .001 BC/kB minimum fee that was set, which suggests that the transaction was about a quarter of a kB in size.
 
 While you are waiting for this transaction to clear, you'll note that `bitcoin-cli getbalance` shows that all of your money is gone (or, at least, all of your money from a single incoming transaction). Similarly, `bitcoin-cli listunspent` would show an appropriately sized blob of incoming money was gone. There's a reason for this: whenever you get money in, you have to send it _all_ out together, and you have to perform some gymnastics if you actually want to keep some of it! Once again, `sendtoaddress` takes care of this all for you, which means you don't have to worry about it in full until you use a raw transaction to send out money.
 
