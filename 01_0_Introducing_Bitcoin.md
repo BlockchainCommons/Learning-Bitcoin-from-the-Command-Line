@@ -114,7 +114,7 @@ Blockchains probably _will not_ be helpful if:
     * e.g.: Transactors should be secret.
     * Unless: A methodology for cryptographic secrecy is carefully considered, analyzed, and tested
   * Users need instant transaction finality.
-    * e.g., in less than 10 minutes on a Bitcoin-like network, in less than 2.5 minutes on a Litecoin-like network, in less than 15 seconds on an Ethereum-like network
+    * e.g.: in less than 10 minutes on a Bitcoin-like network, in less than 2.5 minutes on a Litecoin-like network, in less than 15 seconds on an Ethereum-like network
   
 Do note that there may still be solutions for some of these situations within the Bitcoin ecosystem. For example, payment channels are rapidly addressing questions of liquidity and payment finality. 
 
