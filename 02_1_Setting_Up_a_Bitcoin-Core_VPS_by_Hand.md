@@ -359,6 +359,7 @@ rpcpassword=$(xxd -l 16 -p /dev/urandom)
 rpcallowip=127.0.0.1
 testnet=1
 txindex=1
+walletbroadcast=1
 EOF
 ```
 > **TESTNET vs MAINNET:** If you want to use mainnet instead of testnet, just omit the "testnet=1" line; easy!
