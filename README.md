@@ -59,6 +59,11 @@ This tutorial assumes that you have some minimal background of how to use the co
   * [6.4: Sending a Transaction with a Locktime](06_4_Sending_a_Transaction_with_a_Locktime.md)
   * [6.5: Sending a Transaction with Data](06_5_Sending_a_Transaction_with_Data.md)
 
+SET THIS AS AN INTERLUDE:
+  * [12.1: Accessing Bitcoind with Curl](12_1_Accessing_Bitcoind_with_Curl.md)
+
+Add: HOW TO DO A REFUND (short answer: ask!)
+
 **PART THREE: BITCOIN SCRIPTING**
 
 * [7.0: Introducing Bitcoin Scripts](07_0_Introducing_Bitcoin_Scripts.md)
@@ -84,33 +89,35 @@ This tutorial assumes that you have some minimal background of how to use the co
   * [11.2: Writing Complex Multisig Scripts](11_2_Writing_Complex_Multisig_Scripts.md)
   * [11.3: Empowering Bitcoin with Scripts](11_3_Empowering_Bitcoin_with_Scripts.md)
 
-**PART FOUR: BITCOIN APIS**
+**PART FOUR: The Lightning Command Line**
 
-* [12.0: Talking to Bitcoind](12_0_Talking_to_Bitcoind.md) — Needs Editing
-  * [12.1: Accessing Bitcoind with Curl](12_1_Accessing_Bitcoind_with_Curl.md)
+* X.0: Setting Up TOR
+* X.0: Setting Up Lightning
+* X.0: Using Lightning
+
+**PART FIVE: BITCOIN Programming**
+
+* [12.0: Talking to Bitcoind with C](12_0_Talking_to_Bitcoind.md) — Needs Editing
   * [12.2: Accessing Bitcoind with C](12_2_Accessing_Bitcoind_with_C.md)
   * [12.3: Programming Bitcoind with C](12_3_Programming_Bitcoind_with_C.md) — Needs Editing
   * [12.4: Receiving Bitcoind Notifications with C](12_4_Receiving_Bitcoind_Notifications_with_C.md) — Pending
-  * [12.5: Accessing Bitcoind with Other Languages](12_5_Accessing_Bitcoind_with_Other_Languages.md)  — Writing
-  * [12.6: Accessing Bitcoind with Python](12_6_Accessing_Bitcoind_with_Python.md)  — Writing
-  * [12.7: Accessing Bitcoind with Java](12_7_Accessing_Bitcoind_with_Java.md)
 * 13.0: Programming with LibWally
    * 13.1: Programming Transactions
    * 13.2: Programming Scripts
-* 14.0: Programming with secp256k1
-## Planned Future Work
+* X.0: Talking to Bitcoind with Other Languages
+  * [12.5: Accessing Bitcoind with_Node_JS](12_5_Accessing_Bitcoind_with_Other_Languages.md)  — Writing
+  * [12.6: Accessing Bitcoind with Python](12_6_Accessing_Bitcoind_with_Python.md)  — Writing
+  * [12.7: Accessing Bitcoind with Java](12_7_Accessing_Bitcoind_with_Java.md)
 
-Add: HOW TO DO A REFUND (short answer: ask!)
+**APPENDICES**
 
+* Appendix I: Compiling Bitcoin
 
-
-** PART FIVE: BITCOIN FUTURES **
+* Appendix II: Using Bitcoin Regtest
 
 * [15.0: Setting Up a Bitcoin Regtest](15_0_Setting_Up_a_Bitcoin_Regtest.md)
    * [15.1: Starting the Regtest](15_1_Starting_the_Regtest.md)
    * [15.2: Mining with Regtest](15_2_Mining_with_Regtest.md)
    * [15.3: Testing with Regtest](15_3_Testing_with_Regtest.md)
 
-** APPENDICES **
-
-* Appendix: Compiling Bitcoin
+[why is Regtest important if you're compiling it yourself?]
