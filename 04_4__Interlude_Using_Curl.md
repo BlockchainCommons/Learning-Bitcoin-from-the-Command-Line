@@ -1,3 +1,5 @@
+_TODO: THIS NEEDS TO BE REWRITTEN TO REPOSITION THIS INTO THE FLOW OF CHAPTER 4._
+
 # 12.1: Accessing Bitcoind with Curl
 
 > **NOTE:** This is a draft in progress, so that I can get some feedback from early reviewers. It is not yet ready for learning.
