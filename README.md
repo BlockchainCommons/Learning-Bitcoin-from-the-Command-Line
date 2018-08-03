@@ -47,7 +47,7 @@ This tutorial assumes that you have some minimal background of how to use the co
      * [Interlude: Using JQ](04_2__Interlude_Using_JQ.md)
   * [4.3: Creating a Raw Transaction with Named Arguments](04_3_Creating_a_Raw_Transaction_with_Named_Arguments.md)
   * [4.4: Sending Coins with Raw Transactions](04_4_Sending_Coins_with_a_Raw_Transaction.md)
-     * [Interlude: Using Curl](04_4__Interlude_Using_Curl.md)
+     * [Interlude: Using Curl](04_4__Interlude_Using_Curl.md) — Needs Rewrite for New Section
   * [4.5: Sending Coins with Automated Raw Transactions](04_5_Sending_Coins_with_Automated_Raw_Transactions.md)
 * [5.0: Controlling Bitcoin Transactions](05_0_Controlling_Bitcoin_Transactions.md)
   * [5.1 Watching for Stuck Transactions](05_1_Watching_for_Stuck_Transactions.md)
@@ -95,27 +95,27 @@ _This section is unwritten currently, and will probably involve chapter 14.0 exp
 
 **PART FIVE: BITCOIN & LIGHTNING PROGRAMMING**
 
-_This section is currently a messy set of older writings which are being reorganized as listed below. We're not going to work through this section until we've got chapters 1-11 updated per our current notes, then 12-14 written. But, if you'd like to see what we have to date on programming in correlation with Bitcoin Core, please feel free. 
+_This section is currently a messy set of older writings which are being reorganized as listed below. We're not going to work through this section until we've got chapters 1-11 updated per our current notes, then 12-14 written. But, if you'd like to see what we have to date on programming in correlation with Bitcoin Core, please feel free._
 
-* [15.0: Talking to Bitcoind with C](12_0_Talking_to_Bitcoind.md) — Needs Editing
-  * [15.1: Accessing Bitcoind with C](12_2_Accessing_Bitcoind_with_C.md)
-  * [15.2: Programming Bitcoind with C](12_3_Programming_Bitcoind_with_C.md) — Needs Editing
-  * [15.3: Receiving Bitcoind Notifications with C](12_4_Receiving_Bitcoind_Notifications_with_C.md) — Pending
+* [15.0: Talking to Bitcoind with C](15_0_Talking_to_Bitcoind.md) — Needs Rewrite + Editing
+  * [15.1: Accessing Bitcoind with C](15_1_Accessing_Bitcoind_with_C.md) — Needs Rewrite
+  * [15.2: Programming Bitcoind with C](15_2_Programming_Bitcoind_with_C.md) — Needs Rewrite + Editing
+  * [15.3: Receiving Bitcoind Notifications with C](15_3_Receiving_Bitcoind_Notifications_with_C.md) — Pending
 * 16.0: Talking to Lightningd with C
 * 17.0: Programming with LibWally
    * 17.1: Using secp256k1 Functions
    * 17.2: Writing Wallet Functions
    * 17.3: Integrating Libwally and Scripts
 * 18.0: Talking to Bitcoind with Other Languages
-  * [18.1: Accessing Bitcoind with_Node_JS](12_5_Accessing_Bitcoind_with_Other_Languages.md)  — Writing
-  * [18.2: Accessing Bitcoind with Python](12_6_Accessing_Bitcoind_with_Python.md)  — Writing
-  * [18.3: Accessing Bitcoind with Java](12_7_Accessing_Bitcoind_with_Java.md)
+  * [18.1: Accessing Bitcoind with_Node_JS](18_1_Accessing_Bitcoind_with_Other_Languages.md)  — Needs Rewrite + Editing
+  * [18.2: Accessing Bitcoind with Python](18_2_Accessing_Bitcoind_with_Python.md)  — Needs Info form PR + Expansion + Editing
+  * [18.3: Accessing Bitcoind with Java](18_3_Accessing_Bitcoind_with_Java.md) — Needs Rewrite + Editing
 
 **APPENDICES**
 
-* Appendix I: Compiling Bitcoin
+Appendix I: Compiling Bitcoin
 
-* Appendix II: Using Bitcoin Regtest
+Appendix II: Using Bitcoin Regtest
 
 * [A2.0: Setting Up a Bitcoin Regtest](15_0_Setting_Up_a_Bitcoin_Regtest.md)
    * [A2.1: Starting the Regtest](15_1_Starting_the_Regtest.md)
