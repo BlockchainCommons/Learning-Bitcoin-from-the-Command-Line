@@ -280,6 +280,11 @@ As usual, give your user permission:
 ```
 $ /bin/chown user1 ~user1/.bash_profile
 ```
+And put a copy in `.bashrc` for use with interactive non-login shells:
+```
+$ cp ~user1/.bash_profile ~user1/.bashrc
+$ /bin/chown user1 ~user1/.bashrc
+```
 
 ### Login as Your Unprivileged User
 
