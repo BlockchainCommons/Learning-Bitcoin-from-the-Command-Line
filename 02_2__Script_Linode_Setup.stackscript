@@ -202,6 +202,8 @@ EOF
 fi
 
 /bin/chown user1 ~user1/.bash_profile
+cp ~user1/.bash_profile ~user1/.bashrc
+/bin/chown user1 ~user1/.bashrc
 
 echo "$0 - Give user1 bitcoin aliases in their .bash_profile."
 
