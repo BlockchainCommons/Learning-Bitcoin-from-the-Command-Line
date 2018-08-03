@@ -117,8 +117,8 @@ Appendix I: Compiling Bitcoin
 
 Appendix II: Using Bitcoin Regtest
 
-* [A2.0: Setting Up a Bitcoin Regtest](15_0_Setting_Up_a_Bitcoin_Regtest.md)
-   * [A2.1: Starting the Regtest](15_1_Starting_the_Regtest.md)
-   * [A2.2: Mining with Regtest](15_2_Mining_with_Regtest.md)
-   * [A2.3: Testing with Regtest](15_3_Testing_with_Regtest.md)
+* [A2.0: Setting Up a Bitcoin Regtest](A2_0_Setting_Up_a_Bitcoin_Regtest.md) — Needs Rewrite + Editing
+   * [A2.1: Starting the Regtest](A2_1_Starting_the_Regtest.md) — Needs Rewrite + Editing
+   * [A2.2: Mining with Regtest](A2_2_Mining_with_Regtest.md) — Needs Rewrite + Editing
+   * [A2.3: Testing with Regtest](A2_3_Testing_with_Regtest.md) — Needs Rewrite + Editing
    * [why is Regtest important if you're compiling it yourself?]
