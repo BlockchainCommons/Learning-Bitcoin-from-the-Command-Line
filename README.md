@@ -101,9 +101,11 @@ Add: HOW TO DO A REFUND (short answer: ask!)
   * [12.2: Accessing Bitcoind with C](12_2_Accessing_Bitcoind_with_C.md)
   * [12.3: Programming Bitcoind with C](12_3_Programming_Bitcoind_with_C.md) — Needs Editing
   * [12.4: Receiving Bitcoind Notifications with C](12_4_Receiving_Bitcoind_Notifications_with_C.md) — Pending
+* X.0: Talking to LightningD with C
 * 13.0: Programming with LibWally
    * 13.1: Programming Transactions
    * 13.2: Programming Scripts
+   * Using secp256k1 in this?
 * X.0: Talking to Bitcoind with Other Languages
   * [12.5: Accessing Bitcoind with_Node_JS](12_5_Accessing_Bitcoind_with_Other_Languages.md)  — Writing
   * [12.6: Accessing Bitcoind with Python](12_6_Accessing_Bitcoind_with_Python.md)  — Writing
