@@ -47,6 +47,7 @@ This tutorial assumes that you have some minimal background of how to use the co
      * [Interlude: Using JQ](04_2__Interlude_Using_JQ.md)
   * [4.3: Creating a Raw Transaction with Named Arguments](04_3_Creating_a_Raw_Transaction_with_Named_Arguments.md)
   * [4.4: Sending Coins with Raw Transactions](04_4_Sending_Coins_with_a_Raw_Transaction.md)
+     * [Interlude: Using Curl](04_4__Interlude_Using_Curl.md)
   * [4.5: Sending Coins with Automated Raw Transactions](04_5_Sending_Coins_with_Automated_Raw_Transactions.md)
 * [5.0: Controlling Bitcoin Transactions](05_0_Controlling_Bitcoin_Transactions.md)
   * [5.1 Watching for Stuck Transactions](05_1_Watching_for_Stuck_Transactions.md)
@@ -58,11 +59,6 @@ This tutorial assumes that you have some minimal background of how to use the co
   * [6.3: Sending & Spending an Automated Multisig](06_3_Sending_an_Automated_Multisig.md)
   * [6.4: Sending a Transaction with a Locktime](06_4_Sending_a_Transaction_with_a_Locktime.md)
   * [6.5: Sending a Transaction with Data](06_5_Sending_a_Transaction_with_Data.md)
-
-SET THIS AS AN INTERLUDE:
-  * [12.1: Accessing Bitcoind with Curl](12_1_Accessing_Bitcoind_with_Curl.md)
-
-Add: HOW TO DO A REFUND (short answer: ask!)
 
 **PART THREE: BITCOIN SCRIPTING**
 
@@ -89,13 +85,13 @@ Add: HOW TO DO A REFUND (short answer: ask!)
   * [11.2: Writing Complex Multisig Scripts](11_2_Writing_Complex_Multisig_Scripts.md)
   * [11.3: Empowering Bitcoin with Scripts](11_3_Empowering_Bitcoin_with_Scripts.md)
 
-**PART FOUR: The Lightning Command Line**
+**PART FOUR: LIGHTNING-CLI**
 
 * X.0: Setting Up TOR
 * X.0: Setting Up Lightning
 * X.0: Using Lightning
 
-**PART FIVE: BITCOIN Programming**
+**PART FIVE: BITCOIN & LIGHTNING PROGRAMMING**
 
 * [12.0: Talking to Bitcoind with C](12_0_Talking_to_Bitcoind.md) — Needs Editing
   * [12.2: Accessing Bitcoind with C](12_2_Accessing_Bitcoind_with_C.md)
