@@ -3,7 +3,7 @@
 # This block defines the variables the user of the script needs to input
 # when deploying using this script.
 #
-# <UDF name="btctype" label="Installation Type" oneOf="Mainnet,Pruned Mainnet,Testnet,Pruned Testnet,Private Regtest" default="Pruned Testnet" example="Bitcoin node type" />
+# <UDF name="btctype" label="Installation Type" oneOf="Mainnet,Pruned Mainnet,Testnet,Pruned Testnet,Private Regtest" default="Testnet" example="Bitcoin node type" />
 # BTCTYPE=
 # <UDF name="hostname" label="Short Hostname" example="Example: bitcoincore-testnet-pruned" />
 # HOSTNAME=
