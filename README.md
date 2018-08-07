@@ -1,4 +1,7 @@
-# Learning Bitcoin #
+# Programming Bitcoind and Lightningd
+## (Or: Programming with Bitcoin Core and Lightning)
+
+_This is a tutorial for working with Bitcoin (and Lightning) that teaches direct interact with the severs themselves, as the most robust and secure way to begin cryptocurrency work._
 
 > NOTE: This is a draft in progress, so that I can get some feedback from early reviewers. It is not yet ready for use.
 
