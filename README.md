@@ -7,7 +7,7 @@ _This is a tutorial for working with Bitcoin (and Lightning) that teaches direct
 
 # Copyright
 
-Unless otherwise noted, the contents of this repository are Copyright ©2017 by Christopher Allen [@ChristopherA](https://github.com/ChristopherA) \<ChristopherA@LifeWithAlacrity.com\> and are licensed [CC-BY](./LICENSE-CC-BY-4.0.md).
+Unless otherwise noted, the contents of this repository are Copyright ©2018 by Christopher Allen [@ChristopherA](https://github.com/ChristopherA) \<ChristopherA@LifeWithAlacrity.com\> and are licensed [CC-BY](./LICENSE-CC-BY-4.0.md).
 
 ### Credits
 
