@@ -148,7 +148,7 @@ You will know the StackScripts are done when a BITCOIN-IS-READY file appears in 
 
 ```
 $ ls
-bitcoin-0.16.1-x86_64-linux-gnu.tar.gz    laanwj-releases.asc
+bitcoin-0.16.2-x86_64-linux-gnu.tar.gz    laanwj-releases.asc
 BITCOIN-IS-READY            SHA256SUMS.asc
 ```
 
