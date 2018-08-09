@@ -14,7 +14,7 @@ In order to use `curl` with `bitcoind`, you must know three things: the standard
 
 ### Know Your Format
 
-The `bitcoin-cli` commands are all linked to RPC commands in `bitcoind`. That makes the transition from using `bitcoin-cli` to using `curl` very simple. In fact, if you look at any of the help pages for `bitcoin-cli`, you'll see that they list not only the `bitcoin-cli` commands, but also parallel `curl` commands. For example, here is `bitcoin-cli getinfo help`:
+The `bitcoin-cli` commands are all linked to RPC commands in `bitcoind`. That makes the transition from using `bitcoin-cli` to using `curl` very simple. In fact, if you look at any of the help pages for `bitcoin-cli`, you'll see that they list not only the `bitcoin-cli` commands, but also parallel `curl` commands. For example, here is `bitcoin-cli help getmininginfo`:
 ```
 $ bitcoin-cli help getmininginfo
 getmininginfo
