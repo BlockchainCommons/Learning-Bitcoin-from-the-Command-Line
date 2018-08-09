@@ -23,11 +23,16 @@ Before you can compile and install the package, you'll probably need to adjust y
 ```
 $ PATH="/sbin:$PATH"
 ```
-For a Ubunto system, you'll also want to adjust the `INSTALL_LIBPATH` in the `libbitcoinrpc` `Makefile` to install to `/usr/lib` instead of `/usr/local/lib`:
+For an Ubuntu system, you'll also want to adjust the `INSTALL_LIBPATH` in the `libbitcoinrpc` `Makefile` to install to `/usr/lib` instead of `/usr/local/lib`:
 ```
 INSTALL_LIBPATH    := $(INSTALL_PREFIX)/usr/lib
 ```
 (If you prefer not to sully your `/usr/lib`, the alternative is to change your `etc/ld.so.conf` or its dependent files appropriately ... but for a test setup on a test machine, this is probably fine.)
+
+Likewise, you'll also want to adjust the `INSTALL_HEADERPATH` in the `libbitcoinrpc` `Makefile` to install to `/usr/include` instead of `/usr/local/include`:
+```
+INSTALL_HEADERPATH    := $(INSTALL_PREFIX)/usr/include
+```
 
 Then you can compile:
 ```
