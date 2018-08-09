@@ -52,6 +52,7 @@ This tutorial assumes that you have some minimal background of how to use the co
   * [4.4: Sending Coins with Raw Transactions](04_4_Sending_Coins_with_a_Raw_Transaction.md)
      * [Interlude: Using Curl](04_4__Interlude_Using_Curl.md) — Needs Rewrite for New Section
   * [4.5: Sending Coins with Automated Raw Transactions](04_5_Sending_Coins_with_Automated_Raw_Transactions.md)
+  * [4.6: Creating a Segwit Transaction](04_6_Creating_a_Segwit_Transaction) — Awaiting Better Integration of Segwit into CLI
 * [5.0: Controlling Bitcoin Transactions](05_0_Controlling_Bitcoin_Transactions.md)
   * [5.1 Watching for Stuck Transactions](05_1_Watching_for_Stuck_Transactions.md)
   * [5.2: Resending a Transaction with RBF](05_2_Resending_a_Transaction_with_RBF.md)
