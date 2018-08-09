@@ -246,7 +246,8 @@ Stack: [ True ]
 ```
 This abstraction isn't quite accurate: for security reasons, the `scriptSig` is run, then the contents of the stack are transferred for the `scriptPubKey` to run, but it's accurate enough for understanding how the key of `scriptSig` fits into the lock of `scriptPubKey`.
 
-> **WARNING** The above is a non-standard transaction type. It would not actually be accepted by nodes running Bitcoin Core with the standard settings. [§8.1: Building a Bitcoin Script with P2SH](08_1_Building_a_Bitcoin_Script_with_P2SH.md) discusses how you actually _could_ run a Bitcoin Script like this, using the power of P2SH.
+> **WARNING** The above is a non-standard transaction type. It would not actually be accepted by nodes running Bitcoin Core with the standard settings. [§8.1: Building a Bitcoin Script with P2SH](08_1_Understanding_the_Foundation_of_P2SH.md
+) discusses how you actually _could_ run a Bitcoin Script like this, using the power of P2SH.
 
 ### Get the Results
 
