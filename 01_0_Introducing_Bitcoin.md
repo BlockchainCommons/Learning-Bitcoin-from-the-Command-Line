@@ -1,13 +1,14 @@
 # Chapter One: Introducing Bitcoin
 
-These tutorials will lead you through basic Bitcoin usage and programming, highlighting a variety of techniques from the command line to scripting. However, before you get started, you should have a basic understanding of what Bitcoin is and how it works. This chapter provides that overview. Many more definitions will appear within the document itself; this is only intended to lay the foundation.
+Before you can get started programming Bitcoin (and Lightning), you should have a basic understanding of what they are and how they work. This chapter provides that overview. Many more definitions will appear within the document itself; this is only intended to lay the foundation.
 
 ## Objectives for this Chapter
 
 After working through this chapter, a developer will be able to:
 
    * Assess the Parts of the Bitcoin System
-   * Decide Whether Blockchain is Right for Them
+   * Understand its Relation with Lightning
+   * Decide When Blockchain is Useful
 
 Supporting objectives include the ability to:
 
@@ -15,9 +16,11 @@ Supporting objectives include the ability to:
    * Understand What Blockchain Transactions Are
    * Understand What Blockchain Is
    
-## What Is Bitcoin?
+## About Bitcoin
 
-Bitcoin is a programmatic system that allows for the transfer of the bitcoin currency. It is enabled by a peer-to-peer system of nodes, which include full nodes, wallets, and miners. Working together, they ensure that bitcoin transactions are fast and non-repudiable.
+Bitcoin is a programmatic system that allows for the transfer of the bitcoin currency. It is enabled by a decentralized, peer-to-peer system of nodes, which include full nodes, wallets, and miners. Working together, they ensure that bitcoin transactions are fast and non-repudiable. Thanks to the decentralized nature of the system, these transactions are also censor-resistant and can provide other advantages such as pseudonymity and non-correlation if used well.
+
+Obviously, Bitcoin is the heart of this book, but it's also the originator of many other systems, including blockchains and Lightning, which are both detailed in this tutorial, and many other cryptocurrencies such as Ethereum and Litecoins, which are not. 
 
 ### How Are Coins Transferred?
 
@@ -29,15 +32,17 @@ The vast majority of bitcoin transactions involve coins being sent to individual
 
 ### How Are Transactions Stored?
 
-Transactions are combined into larger blocks of data, which are stored on the network. A block is built in such a way that it cannot be replaced or rewritten once several blocks have been built after it. This is what makes bitcoins non-repudiable: the decentralized global ledger where everything is recorded is effectively a permanent and unchangeable database.
+Transactions are combined into larger blocks of data, which are then written to the blockchain ledger. A block is built in such a way that it cannot be replaced or rewritten once several blocks have been built after it. This is what makes bitcoins non-repudiable: the decentralized global ledger where everything is recorded is effectively a permanent and unchangeable database.
 
-However, the process of building these blocks is stochastic: it's somewhat random, so you can never be assured that a transaction will be placed in a specific block. Moreso, there can be changes in blocks if they're very recent, but only if they're _very_ recent. So, things become non-repudiable (and permanent and unchangeable) after a little bit of time.
+However, the process of building these blocks is stochastic: it's somewhat random, so you can never be assured that a transaction will be placed in a specific block. There can also be changes in blocks if they're very recent, but only if they're _very_ recent. So, things become non-repudiable (and permanent and unchangeable) after a little bit of time.
 
 ### How Are Transactions Protected?
 
 The funds contained in a Bitcoin transaction are locked with a cryptographic puzzle. These puzzles are designed so that they can be easily solved by the person who the funds were sent to. This is done using the power of public-key cryptography. 
 
-### How Are Transactions Written?
+Funds are further protected by the use of hashes. Public keys aren't actually stored in the blockchain, only public-key hashes are. This means that even if quantum computer were to come along, Bitcoin transactions would remain protected by this second level of cryptography.
+
+### How Are Transactions Created?
 
 The heart of each Bitcoin transaction is a FORTH-like scripting language that is used to lock the transaction. To respend the money, the recipient provides specific information to the script that proves he's the intended recipient.
 
@@ -45,11 +50,13 @@ However, these Bitcoin scripts are the lowest level of Bitcoin functionality. Mu
 
 ### Bitcoin — In Short
 
-One way to think of Bitcoin is as _a sequence of atomic transactions_. Each transaction is enabled by a sender with the solution to a previous cryptographic puzzle that is stored as a script. The new transaction is locked for the recipient with a new cryptographic puzzle that is stored as a script. Every transaction is recorded in an immutable global ledger.
+One way to think of Bitcoin is as _a sequence of atomic transactions_. Each transaction is authenticated by a sender with the solution to a previous cryptographic puzzle that was stored as a script. The new transaction is locked for the recipient with a new cryptographic puzzle that is stored as a script. Every transaction is recorded in an immutable global ledger.
 
-## What Is Public-Key Cryptography?
+## About Public-Key Cryptography
 
 Public-key cryptography is a mathematical system for protecting data and proving ownership through an asymmetric pair of linked keys: the public key and the private key.
+
+It's important to Bitcoin (and to most blockchain systems) because it's the basis of a lot of the cryptography that protects the cryptocurrency funds. A Bitcoin transaction is typically sent to an address that is a hashed public key. The recipient is then able to retrieve the money by revealing both the public key and the private key.
 
 ### What Is a Public Key?
 
@@ -67,13 +74,34 @@ A message (or more commonly, a hash of a message) can be signed with a private k
 
 A hash function is an algorithm frequently used with cryptography. It's a way to map a large, arbitrary amount of data to a small, fixed amount of data. Hash functions used in cryptography are one-way and collision-resistant, meaning that a hash can very reliably be linked to the original data, but the original data can not be regenerated from the hash. Hashes thus allow the transmission of small amounts of data to represent large amounts of data, which can be important for efficiency and storage requirements. 
 
+Hashes also disguise what the original data is, which in the case of Bitcoin allows the concealment of the actual public key, making transactions resistant to quantum computing.
+
 ### Public-Key Cryptography — In Short
 
-One way to think of public-key cryptography is: _a way for anyone to protect data such that only an authorized person can access it, and for that authorized person to prove that he will have that access._
+One way to think of public-key cryptography is: _a way for anyone to protect data such that only an authorized person can access it, and such that the authorized person can prove that he will have that access._
 
-## What Is Blockchain?
+## About ECC
+
+[[TODO]]
+
+[[summary]]
+[[why it's less an issue in this book]]
+
+### What is an Elliptic Curve?
+
+### What are Finite Fields?
+
+### How Are Elliptic Curves Used in Cryptography?
+
+### What Are the Advantages of ECC?
+
+### ECC - In Short
+
+## About Blockchains
 
 Blockchain is the generalization of the methodology used by Bitcoin to create a distributed global ledger. Bitcoin is a blockchain as are any number of alt-coins, each of which lives in its networks and writes to its own chain. Sidechains like Liquid are blockchains too. Blockchains don't even need to have anything to do with finances. For example, there have been many discussions of using blockchains to protect self-sovereign identities.
+
+Though you need to understand the basics of how a blockchain works to understand how transactions work in Bitcoin, you won't need to go any further than that. Because blockchains have become a wide category of technology, those basic concepts are likely to be applicable to many other projects in this growing technology sector. The specific programming commands learned in this book will not be, however, as they're fairly specific to Bitcoin (and Lightning). 
 
 ### Why Is It Called a Chain?
 
@@ -89,7 +117,7 @@ One way to think of blockchain is: _a linked series of blocks of unchangeable da
 
 ## Is Blockchain Right for Me?
 
-If you want to transact bitcoins, then obviously Bitcoin is right for you. However, more widely, Blockchain has become a popular buzz-word even though it's not a magic bullet for all technical problems. With that said, there are many specific situations where blockchain is a superior technology.
+If you want to transact bitcoins, then obviously Bitcoin is right for you. However, more widely, blockchain has become a popular buzz-word even though it's not a magic bullet for all technical problems. With that said, there are many specific situations where blockchain is a superior technology.
 
 Blockchains probably _will_ be helpful if:
 
@@ -112,11 +140,25 @@ Blockchains probably _will not_ be helpful if:
     * e.g.: Information should be secret.
     * e.g.: Transactions should be secret.
     * e.g.: Transactors should be secret.
-    * Unless: A methodology for cryptographic secrecy is carefully considered, analyzed, and tested
+    * Unless: A methodology for cryptographic secrecy is carefully considered, analyzed, and tested.
   * Users need instant transaction finality.
     * e.g.: in less than 10 minutes on a Bitcoin-like network, in less than 2.5 minutes on a Litecoin-like network, in less than 15 seconds on an Ethereum-like network
   
 Do note that there may still be solutions for some of these situations within the Bitcoin ecosystem. For example, payment channels are rapidly addressing questions of liquidity and payment finality. 
+
+## About Lightning
+
+[[TODO]]
+
+### What is a Layer-2 Protocol?
+
+### What is a Lightning Channel?
+
+### What is a Lightning Network?
+
+### What are the Advantages of Lightning?
+
+### Lightning - In Short
 
 ## Summary: Introducing Bitcoin
 
