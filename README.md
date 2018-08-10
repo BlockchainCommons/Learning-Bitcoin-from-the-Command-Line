@@ -1,5 +1,5 @@
-# Programming Bitcoind and Lightningd
-## (Or: Programming with Bitcoin Core and Lightning)
+# Programming with Bitcoin Core and Lightning
+## (Or: Programming Bitcoind and Lightningd)
 
 _This is a tutorial for working with Bitcoin (and Lightning) that teaches direct interact with the severs themselves, as the most robust and secure way to begin cryptocurrency work._
 
