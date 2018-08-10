@@ -28,6 +28,8 @@ This tutorial assumes that you have some minimal background of how to use the co
 
 ## Files
 
+* [0.0: Introduction to Programming with Bitcoin Core and Lightning](00_0_Introduction.md)
+
 **PART ONE: PREPARING FOR BITCOIN**
 
 * [1.0: Introducing Bitcoin](01_0_Introducing_Bitcoin.md)
