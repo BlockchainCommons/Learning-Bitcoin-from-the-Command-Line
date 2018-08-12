@@ -353,17 +353,40 @@ $ /bin/mkdir ~user1/.bitcoin
 This is the core bitcoin.conf file, which is appropriate for an unpruned testnet setup:
 ```
 $ cat >> ~user1/.bitcoin/bitcoin.conf << EOF
+# Accept command line and JSON-RPC commands
 server=1
+
+# Set database cache size in megabytes (4 to 16384, default: 450)
 dbcache=1536
+
+# Set the number of script verification threads (-6 to 16, 0 = auto, <0 = leave that many cores free, default: 0)
 par=1
+
+# Set to blocksonly mode, sends and receives no lose transactions, instead handles only complete blocks
 blocksonly=1
+
+# Tries to keep outbound traffic under the given target (in MiB per 24h), 0 = no limit (default: 0)
 maxuploadtarget=137
+
+# Maintain at most <n> connections to peers (default: 125)
 maxconnections=16
+
+# Username for JSON-RPC connections
 rpcuser=bitcoinrpc
+
+# Password for JSON-RPC connections
 rpcpassword=$(xxd -l 16 -p /dev/urandom)
+
+# Allow JSON-RPC connections from, by default only localhost are allowed
 rpcallowip=127.0.0.1
+
+# Use the test chain
 testnet=1
+
+# Maintain a full transaction index, used by the getrawtransaction rpc call (default: 0)
 txindex=1
+
+# Make the wallet broadcast transactions (default: 1)
 walletbroadcast=1
 EOF
 ```
