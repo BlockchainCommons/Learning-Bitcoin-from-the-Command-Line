@@ -2,7 +2,7 @@
 
 > **NOTE:** This is a draft in progress, so that I can get some feedback from early reviewers. It is not yet ready for learning.
 
-This document explains how to set up a VPS (Virtual Private Sever) by hand to run a Bitcoin node on a cloud computer. You'll need to set up your computer yourself, but then this document will provide you with important commands to secure your VPS and to get it running Bitcoin. The setup should all be done in my session, so you don't lose the variables `export`ed at the start. 
+This document explains how to set up a VPS (Virtual Private Sever) by hand to run a Bitcoin node on a cloud computer. You'll need to set up your computer yourself, but then this document will provide you with important commands to secure your VPS and to get it running Bitcoin. The setup should all be done in my session, so you don't lose the variables `export`ed at the start.
 
 > **WARNING:** Don’t use a VPS for a bitcoin wallet with significant real funds; see http://blog.thestateofme.com/2012/03/03/lessons-to-be-learned-from-the-linode-bitcoin-incident/ . It is  very nice to be able experiment with real bitcoin transactions on a live node without tying up a self-hosted server on a local network. I’ve also found it useful to be able to use an iPhone or iPad to communicate via SSH to my VPS to do some simple bitcoin tasks. But a higher level of safety is required for significant funds.
 
@@ -131,6 +131,7 @@ $ cat > /etc/iptables.firewall.rules <<EOF
 -A INPUT -p tcp --dport 22 -m conntrack --ctstate NEW,ESTABLISHED -j ACCEPT
 -A INPUT -p tcp --dport 8333 -j ACCEPT
 -A INPUT -p tcp --dport 18333 -j ACCEPT
+-A INPUT -p tcp --dport 9735 -j ACCEPT
 -A INPUT -m conntrack --ctstate ESTABLISHED -j ACCEPT
 
 #  Log iptables denied calls
@@ -144,7 +145,7 @@ COMMIT
 EOF
 ```
 
-> **TESTNET vs MAINNET:** Note that 8333 is the Bitcoin Mainnet Port and 18333 is the Bitcoin Testnet port. If you want to be adventurous, you can delete the one you're not using.
+> **TESTNET vs MAINNET:** Note that 8333 is the Bitcoin Mainnet Port, 18333 is the Bitcoin Testnet port, and 9735 is the Lightning port. If you want to be adventurous, you can delete the one you're not using.
 
 Most work is still done on IPv4 networks, but the following will establish the same rules for IPv6:
 

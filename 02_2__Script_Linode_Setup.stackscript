@@ -99,6 +99,7 @@ cat > /etc/iptables.firewall.rules <<EOF
 -A INPUT -p tcp --dport 22 -m conntrack --ctstate NEW,ESTABLISHED -j ACCEPT
 -A INPUT -p tcp --dport 8333 -j ACCEPT
 -A INPUT -p tcp --dport 18333 -j ACCEPT
+-A INPUT -p tcp --dport 9735 -j ACCEPT
 -A INPUT -m conntrack --ctstate ESTABLISHED -j ACCEPT
 
 #  Log iptables denied calls
