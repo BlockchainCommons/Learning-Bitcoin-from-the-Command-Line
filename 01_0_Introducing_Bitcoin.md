@@ -64,20 +64,27 @@ One way to think of public-key cryptography is: _a way for anyone to protect dat
 
 ## About ECC
 
-[[TODO]]
+ECC stands for elliptic-curve cryptography. It's a specific branch of public-key cryptography that depends on mathematical calculations conducted using elliptic curves defined over a final field. It's more complex and harder to explain than classic public-key cryptography (which used prime numbers), but it has some nice advantages.
 
-[[summary]]
-[[why it's less an issue in this book]]
+ECC is not really focused on in this book. That's because this book is all about integrating with Bitcoin Core and Lightning servers, which have already taken care of the cryptography for you. In fact, this book's particular focused was developed so that you don't have to worry about cryptography, because that's something that you _really_ want to expert to deal with.
 
-### What is an Elliptic Curve?
+**_What is an Elliptic Curve?_** An elliptic curve is a geometric curve that takes the form `y<sup>2</sup> = x<sup>3</sup> + ax + b`. A specific elliptic curve is chosen by the careful definition of `a` and `b`. For cryptographic purposes, it must then be carefully examined to determine if it works well for cryptography. For example, the secp256k1 used by Bitcoin is defined as `a=0` and `b=7`.
 
-### What are Finite Fields?
+Any line that intersects an elliptic curve will do so at either 1 or 3 points ... and that's the basis of elliptic-curve cryptopgrahy.
 
-### How Are Elliptic Curves Used in Cryptography?
+**_What are Finite Fields?_** A finite field is a finite set of numbers, where all addition, subtraction, multiplication, and division is defined so that it results in other numbers also in the same finite field. One simple way to create a finite field is through the use of a modulo function. 
 
-### What Are the Advantages of ECC?
+**_How is an Elliptic Curve Defined Over a Finite Field?_** An ellipitic curve defined over a finite field is a specifically defined elliptic curve where all the points are drawn from a specific finite field. It's effectively defined as `y<sup>2</sup> % field-size = (x<sup>3</sup> + ax + b) % field-size` The finite field used for secp256k1 is `2<sup>256</sup> - 2<sup>32</sup> - 2<sup>9</sup> - 2<sup>8</sup> - 2<sup>7</sup> - 2<sup>6</sup> - 2<sup>4</sup> - <sup>1</sup>`. 
+
+**_How Are Elliptic Curves Used in Cryptography?_** In elliptic-curve cryptography, a user picks a very large (256-bit) number as his private key. He then adds a set base point on the curve to itself that many times. (In secp256k1, the base point is `G = 04 79BE667E F9DCBBAC 55A06295 CE870B07 029BFCDB 2DCE28D9 59F2815B 16F81798 483ADA77 26A3C465 5DA4FBFC 0E1108A8 FD17B448 A6855419 9C47D08F FB10D4B8`, which prefixes the two parts of the tuple with an `04` to say that it's in unomcpressed form.) The resultant number is the public key. Various mathematical formula can then be used to prove ownership of the public key, given the private key. As with any cryptographic function, this one is a trap door: it's easy to go from private key to public key and largely impossible to go from public key to private key.
+
+This particular methodology also explains why finite fields are used in elliptic curves: it ensures that the private key will not grow too large. Note that the finite field for secp256k1 is slightly smaller than 256 bits, which means that all public keys will be 256 bits large, just like the private keys are.
+
+**_What Are the Advantages of ECC?_** The main advantage of ECC is that it allows the same security as classic public-key cryptography with a much smaller key. A 256-bit elliptic-curve public key corresponds to a traditional 3072-bit public key.
 
 ### ECC - In Short
+
+One way to think of public-key cryptography is: _a way to enable public-key cryptography that uses very small keys and very obscure math._
 
 ## About Blockchains
 
