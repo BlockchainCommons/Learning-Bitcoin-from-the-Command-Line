@@ -126,17 +126,25 @@ Do note that there may still be solutions for some of these situations within th
 
 ## About Lightning
 
-[[TODO]]
+Lightning is a layer-2 protocol that interacts with Bitcoin to allow users to use their bitcoins "off-chain". It has both advantages and disadvantages over using Bitcoin on its own.
 
-### What is a Layer-2 Protocol?
+Lightning is also the secondary focus of this book. Though the book is mostly about interacting directly with Bitcoin (and the `bitcoind`), Lightning is an upcoming technology that is likely to become a popular alternative to Bitcoin in the near future. This book thus takes the same approach to Lightning as to Bitcoin: it teaches how to interact directly with a trusted Lightning daemon from the command line.
 
-### What is a Lightning Channel?
+Unlike with Bitcoin, there are actually several variants of Lightning. This tutorial uses the standard-compliant [c-lightning](https://github.com/ElementsProject/lightning) implementation as its trusted Lightning server.
+weeneeee
+**_What is a Layer-2 Protocol?_** A layer-2 Bitcoin protocol works on top of Bitcoin. In this case, Lightning works atop Bitcoin, interacting with it through smart contracts.
 
-### What is a Lightning Network?
+**_What is a Lightning Channel?_** A Lightning Channel is a connection between two Lightning users. Each of the users locks up some number of bitcoins with a multi-sig signed by both of them. The two users can then exchange bitcoins without ever writing to the blockchain. Only when they want to close out their channel do their settle their bitcoins, based on the final division of coins.
 
-### What are the Advantages of Lightning?
+**_What is a Lightning Network?_** When you put together a number of Lightning Channels, this creates the Lightning Network. This allows two users who have not created a channel between themselves to exchange bitcoins with Lightning. The protocol forms a chain of Channels between the two users, then exchanges the coins through the chain using time-locked transactions.
+
+**_What are the Advantages of Lightning?_** Lightning allows for faster transactions with lower fees. This creates the real possibility for bitcoin-funded micropayments. It also offers better privacy, since it's off-chain with only the first and last states of the transaction being written to the immutable Bitcoin ledger. 
+
+**_What are the Disadvatnages of Lightning?_** Lightning is still a very new technology and hasn't been tested as thoroughly as Bitcoin. That's not just a question of the technological implementation, but also whether the design itself can be gamed in any unexpected ways.
 
 ### Lightning - In Short
+
+One way to think of Lightning is: _a way to transact bitcoins using electronic contracts between pairs of people, so that only a first and final state have to be written to the blockchain_.
 
 ## Summary: Introducing Bitcoin
 
