@@ -7,7 +7,6 @@ Before you can get started programming Bitcoin (and Lightning), you should have 
 After working through this chapter, a developer will be able to:
 
    * Assess the Parts of the Bitcoin System
-   * Understand its Relation with Lightning
    * Decide When Blockchain is Useful
 
 Supporting objectives include the ability to:
@@ -15,6 +14,7 @@ Supporting objectives include the ability to:
    * Understand What Bitcoin Is
    * Understand What Blockchain Transactions Are
    * Understand What Blockchain Is
+   * Understand What Lightnign Is
    
 ## About Bitcoin
 
