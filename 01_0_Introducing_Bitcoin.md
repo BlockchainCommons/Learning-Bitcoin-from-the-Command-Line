@@ -131,7 +131,7 @@ Lightning is a layer-2 protocol that interacts with Bitcoin to allow users to us
 Lightning is also the secondary focus of this book. Though the book is mostly about interacting directly with Bitcoin (and the `bitcoind`), Lightning is an upcoming technology that is likely to become a popular alternative to Bitcoin in the near future. This book thus takes the same approach to Lightning as to Bitcoin: it teaches how to interact directly with a trusted Lightning daemon from the command line.
 
 Unlike with Bitcoin, there are actually several variants of Lightning. This tutorial uses the standard-compliant [c-lightning](https://github.com/ElementsProject/lightning) implementation as its trusted Lightning server.
-weeneeee
+
 **_What is a Layer-2 Protocol?_** A layer-2 Bitcoin protocol works on top of Bitcoin. In this case, Lightning works atop Bitcoin, interacting with it through smart contracts.
 
 **_What is a Lightning Channel?_** A Lightning Channel is a connection between two Lightning users. Each of the users locks up some number of bitcoins with a multi-sig signed by both of them. The two users can then exchange bitcoins without ever writing to the blockchain. Only when they want to close out their channel do their settle their bitcoins, based on the final division of coins.
