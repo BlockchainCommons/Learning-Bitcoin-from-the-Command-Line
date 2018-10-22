@@ -18,7 +18,7 @@ myrK8U3SE1nWh9y9XPho5aTrKYW6n8qSQv
 ```
 Note that this uses a new function: `getrawchangeaddress`. It's largely the same as `getnewaddress` but is optimized for use as a change address in a raw transaction, so it doesn't do things like make entries in your address book.
 
-You now have an additional address inside your wallet, so that you can receive change from a UTXO! In order to use it, you'll need to create a raw transaction with two outputs. 
+You now have an additional address inside your wallet, so that you can receive change from a UTXO! In order to use it, you'll need to create a raw transaction with two outputs.
 
 ## Pick Sufficient UTXOs
 
@@ -42,7 +42,7 @@ $ bitcoin-cli listunspent
     "confirmations": 9551,
     "spendable": true,
     "solvable": true
-  }, 
+  },
   {
     "txid": "3470e5fe08633583d136b9cd49bb1a224c9d9313a0b4584fd3b7438dbdf34dbd",
     "vout": 0,
@@ -70,10 +70,10 @@ n2eMqTT929pb1RDNuqEnxdaLau1rxy3efi
 ```
 We also need to record the txid and vout for each of our two UTXOs. Having identified the UTXOs that we want to spend, we can use our JQ techniques to make sure accessing them is error free:
 ```
-$ utxo_txid_1=$(bitcoin-cli listunspent | jq -r '.[0] | .txid') 
-$ utxo_vout_1=$(bitcoin-cli listunspent | jq -r '.[0] | .vout') 
-$ utxo_txid_2=$(bitcoin-cli listunspent | jq -r '.[1] | .txid') 
-$ utxo_vout_2=$(bitcoin-cli listunspent | jq -r '.[1] | .vout') 
+$ utxo_txid_1=$(bitcoin-cli listunspent | jq -r '.[0] | .txid')
+$ utxo_vout_1=$(bitcoin-cli listunspent | jq -r '.[0] | .vout')
+$ utxo_txid_2=$(bitcoin-cli listunspent | jq -r '.[1] | .txid')
+$ utxo_vout_2=$(bitcoin-cli listunspent | jq -r '.[1] | .vout')
 ```
 
 ### Write the Transaction
@@ -84,7 +84,7 @@ Here's the example. Note the multiple inputs after the `inputs` arg and the mult
 ```
 $ rawtxhex2=$(bitcoin-cli -named createrawtransaction inputs='''[ { "txid": "'$utxo_txid_1'", "vout": '$utxo_vout_1' }, { "txid": "'$utxo_txid_2'", "vout": '$utxo_vout_2' } ]''' outputs='''{ "'$recipient'": 4.0, "'$changeaddress'": 1.8495 }''')
 ```
-We were _very_ careful figuring out our money math. These two UTXOs contain 5.85 BTC. After sending 4.0 BTC, we'll have 1.85 BTC left. We again chose .0005 BTC for the transaction fee. To accomodate that fee, we set our change to 1.8495 BTC. If we'd messed up our math and instead set our change to 1.7495 BTC, that additional .1 BTC would be lost. That's $100 gone to the miners! If we'd forgot to make change at all, then the whole 1.85 BTC ($2000!) would have disappeared. So, again, _be careful_. 
+We were _very_ careful figuring out our money math. These two UTXOs contain 5.85 BTC. After sending 4.0 BTC, we'll have 1.85 BTC left. We again chose .0005 BTC for the transaction fee. To accommodate that fee, we set our change to 1.8495 BTC. If we'd messed up our math and instead set our change to 1.7495 BTC, that additional .1 BTC would be lost. That's $100 gone to the miners! If we'd forgot to make change at all, then the whole 1.85 BTC ($2000!) would have disappeared. So, again, _be careful_. 
 
 Fortunately, we can triple-check with the `btctxfee` alias from the JQ Interlude:
 ```
@@ -118,7 +118,7 @@ $ bitcoin-cli listunspent
     "confirmations": 2,
     "spendable": true,
     "solvable": true
-  } 
+  }
 ]
 ```
 

@@ -34,18 +34,18 @@ Result:
 }
 
 Examples:
-> bitcoin-cli getmininginfo 
+> bitcoin-cli getmininginfo
 > curl --user myusername --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "getmininginfo", "params": [] }' -H 'content-type: text/plain;' http://127.0.0.1:8332/
 ```
-And there's the `curl` command, at the end of the help screen! This somewhat lengthy command has four major parts: (1) a listing of your user name; (2) a `--data-binary` flag; (3) a JSON object that tells `bitcoind` what to do, including a JSON array of parameters; and (4) an HTTP header that includes the `bitcoind` URL. 
+And there's the `curl` command, at the end of the help screen! This somewhat lengthy command has four major parts: (1) a listing of your user name; (2) a `--data-binary` flag; (3) a JSON object that tells `bitcoind` what to do, including a JSON array of parameters; and (4) an HTTP header that includes the `bitcoind` URL.
 
 When you are working with `curl`, most of these arguments to `curl` will stay the same from command to command; only the `method` and `params` entries in the JSON array will typically change. However, you need to know how to fill in your username and your URL address in order to make it work in the first place!
 
-_Whenever you're unusure about how to curl an RPC command, just look at the bitcoin-cli help and go from there._
+_Whenever you're unsure about how to curl an RPC command, just look at the bitcoin-cli help and go from there._
 
 ### Know Your User Name
 
-In order to speak with the `bitcoind` port, you need a user name and password. These were created as part of your initial Bitcoin setup, and can be found in `~/.bitcoin/bitcoin.conf`. 
+In order to speak with the `bitcoind` port, you need a user name and password. These were created as part of your initial Bitcoin setup, and can be found in `~/.bitcoin/bitcoin.conf`.
 
 For example, here's our current setup:
 ```
@@ -89,7 +89,7 @@ The port should be easy, it's the `http://127.0.0.1:8332/` shown in the tutorial
 
 With all of that in hand, you're ready to send off standard RPC commands with `curl` ... but you still need to know how to incorporate the two elements that tend to change in the `curl` command.
 
-The first is `method`, which is the RPC method being used. This should generally match the command names you've been feeding into `bitcoin-cli` for ages. 
+The first is `method`, which is the RPC method being used. This should generally match the command names you've been feeding into `bitcoin-cli` for ages.
 
 The second is `params`, which is a JSON array of parameters. These are the same as the arguments (or named arguments) that you've been using. They're also the most confusing part of `curl`, in large part because they're a structured array rather than a simple list.
 
@@ -136,7 +136,7 @@ $ curl --user bitcoinrpc:73bd45ba60ab8f9ff9846b6404769487 --data-binary '{"jsonr
   "id": "curltest"
 }
 ```
-You'll see a bit of connectivity reporting as the data is downloaded, then when that data hits `jq`, everything will be output in a correctly indented form. (We'll be omiting the download information in future examples.)
+You'll see a bit of connectivity reporting as the data is downloaded, then when that data hits `jq`, everything will be output in a correctly indented form. (We'll be omitting the download information in future examples.)
 
 ## Manipulate Your Wallet
 
@@ -147,7 +147,7 @@ Though you're accessing `bitcoind` directly, you'll still get access to wallet f
 Use the `getaddressesbyaccount` RPC to list all of your current addresses:
 ```
 $ curl --user bitcoinrpc:73bd45ba60ab8f9ff9846b6404769487 --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "getaddressesbyaccount", "params": [""] }' -H 'content-type: text/plain;' http://127.0.0.1:18332/ | jq -r '.'
- 
+
  {
   "result": [
     "mg7YqyvK8HUFvpgZ5iYTfZ5vjfaJWnNTd9",
@@ -248,7 +248,7 @@ This is almost exactly the same output that you receive when you type `bitcoin-c
 After you know where your funds are, the next step in crafting a transaction is to get a change address. By now you've probably got the hang of this, and you know that for simple RPC commands, all you need to do is adjust the `method` is the `curl` command:
 ```
 $ curl --user bitcoinrpc:73bd45ba60ab8f9ff9846b6404769487 --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "getrawchangeaddress", "params": [] }' -H 'content-type: text/plain;' http://127.0.0.1:18332/ | jq -r '.'
- 
+
  {
   "result": "mznccEt2ozGFN6oVaYU5BGgTzcdH8Zj8wf",
   "error": null,
@@ -270,7 +270,7 @@ You're now ready to create a transaction with `curl`.
 
 ### Ready Your Variables
 
-Just as with `bitcoin-cli`, in order to create a transaction by curling RPC commands, you should first save your variables. The only change here is that `curl` creates a JSON object that includes a `result` key-value, so you always need to pipe through the `.result` tag before you do anything else. 
+Just as with `bitcoin-cli`, in order to create a transaction by curling RPC commands, you should first save your variables. The only change here is that `curl` creates a JSON object that includes a `result` key-value, so you always need to pipe through the `.result` tag before you do anything else.
 
 This example sets up our variables for using the 1.2985 BTC in funds listed in the first unspent transaction above:
 ```
@@ -294,7 +294,7 @@ mmDWRH3CbeXwCqBwdHCj7E9d3oWTuuizxc
 The transaction created with `curl` is very similar to the transaction created with `bitcoin-cli`, but with a few subtle differences:
 ```
 $ curl --user bitcoinrpc:73bd45ba60ab8f9ff9846b6404769487 --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "createrawtransaction", "params": [''[ { "txid": "'$utxo_txid'", "vout": '$utxo_vout' } ]'', ''{ "'$recipient'": 0.298, "'$changeaddress'": 1.0}'']}' -H 'content-type: text/plain;' http://127.0.0.1:18332/ | jq -r '.'
- 
+
  {
   "result": "02000000010e7ffd317318792fec2b3d88b303a15326d541f0d631489f1830fa072f4a186a0000000000ffffffff0240b6c601000000001976a914ac19d3fd17710e6b9a331022fe92c693fdf6659588ac00e1f505000000001976a9143e84156731d67c80c3dff6c1cc3b4f58460e642388ac00000000",
   "error": null,
@@ -335,4 +335,3 @@ $ curl --user bitcoinrpc:73bd45ba60ab8f9ff9846b6404769487 --data-binary '{"jsonr
 Having finished this section, you may feel that accessing `bitcoind` via `curl` is very much like accessing it through `bitcoin-cli` ... but more cumbersome. And, you'd be right. `bitcoin-cli` has pretty complete RPC functionality, so anything that you do through `curl` you can probably do through `bitcoin-cli`.
 
 _What is the power of curl?_ Most obviously, `curl` takes out one level of indirection. Instead of working with `bitcoin-cli` which sends RPC commands to `bitcoind`, you're sending those RPC commands directly. This allows for more robust programming, because you don't have to worry about what unexpected things that `bitcoin-cli` might do or how it might change over time. However, you're also taking your first steps toward using a more comprehensive programming language than the poor options offered by a shell script. But for that, you'll need to use a `curl` library within a more familiar language like C. In other words, command-line `curl` was just the first step, the basis to better explain what you're doing as you move forward.
-

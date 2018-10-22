@@ -16,7 +16,7 @@ Here's the trick: _all of the UTXOs that you gather are spent in full!_ That mea
 
 ## List Your Unspent Transactions
 
-In order to create a new raw transaction, you must know what UTXOs you have on-hand to spent. You can determine this information with the `bitcoin-cli listunspent` command:
+In order to create a new raw transaction, you must know what UTXOs you have on-hand to spend. You can determine this information with the `bitcoin-cli listunspent` command:
 ```
 $ bitcoin-cli listunspent
 [
@@ -30,7 +30,7 @@ $ bitcoin-cli listunspent
     "confirmations": 2,
     "spendable": true,
     "solvable": true
-  }, 
+  },
   {
     "txid": "c1abb6951e6a9aae7e384412b69b69e59c10daac9397d01d0c52b7bc6278d589",
     "vout": 1,
@@ -41,7 +41,7 @@ $ bitcoin-cli listunspent
     "confirmations": 1,
     "spendable": true,
     "solvable": true
-  }, 
+  },
   {
     "txid": "ab7ca727055b812df882298f4e6e10ec699fb6250d843c813623171781f896d8",
     "vout": 0,
@@ -92,7 +92,7 @@ $ echo $utxo_vout
 $ echo $recipient
 n2eMqTT929pb1RDNuqEnxdaLau1rxy3efi
 ```
-That recipient is particularly important, because if you mess it up, your money is _gone_! So triple check it. 
+That recipient is particularly important, because if you mess it up, your money is _gone_! So triple check it.
 
 ### Write the Raw Transaction
 
@@ -100,7 +100,7 @@ You're now ready to create the raw transaction. This uses the `createrawtransact
 
 Here's the standard format:
 ```
-$ bitcoin-cli createrawtransaction 
+$ bitcoin-cli createrawtransaction
 '''[
      {
        "txid": "'$your_txid'",
@@ -112,7 +112,7 @@ $ bitcoin-cli createrawtransaction
  }'''
  ```
  Yeah, there are all kinds of crazy quotes there, but trust that they'll do the right thing. Use `'''` to mark the start and end of the JSON array and the JSON object. Protect normal words like `"this"` and normal numbers like `0`. If they're variables, insert single quotes, like `"'$this_word'"` and `'$this_num'`. (Whew. You'll get used to it.)
- 
+
  Here's a command that creates a raw transaction to send your $utxo to your $recipient
  ```
 $ rawtxhex=$(bitcoin-cli createrawtransaction '''[ { "txid": "'$utxo_txid'", "vout": '$utxo_vout' } ]''' '''{ "'$recipient'": 0.0795 }''')
@@ -126,7 +126,7 @@ You'll note that we didn't send the whole .08 BTC to our recipient. That's becau
 
 > **WARNING:** This is the very dangerous part of raw transactions!! Because you automatically expend all of the amount in the UTXOs that you use, it's critically important to make sure that you know: (1) precisely what UTXOs you're using; (2) exactly how much money they contain; (3) exactly how much money you're sending out; and (4) what the difference is. If you mess up and you use the wrong UTXO (with more money than you thought) or if you send out too little money, the excess is lost. Forever. Don't make that mistake! Know your inputs and outputs _precisely_. Or better, don't use raw transactions except as part of a carefully considered and triple-checked program.
 
-_How much should you spend on transaction fees?_ [Bitcoin Fees](https://bitcoinfees.21.co/) has a nice live assessment. It says that the "fastest and cheapest transaction fee is currently 220 satoshis/byte" and that "For the median transaction size of 226 bytes, this results in a fee of 49,720 satoshis". 
+_How much should you spend on transaction fees?_ [Bitcoin Fees](https://bitcoinfees.21.co/) has a nice live assessment. It says that the "fastest and cheapest transaction fee is currently 220 satoshis/byte" and that "For the median transaction size of 226 bytes, this results in a fee of 49,720 satoshis".
 
 That basic info is what we used to construct our raw transaction. We just subtracted 50,000 satoshis, which is .0005 BTC,  from the amount we were sending: .0800 BTC - .0005 BC= .0795, which is what we sent. (Often transactions don't need to be the "fastest" and can get away with much lower transaction fees; we opted not to because we don't want to delay working through this tutorial.)
 
@@ -213,7 +213,7 @@ $ bitcoin-cli listunspent
     "confirmations": 12,
     "spendable": true,
     "solvable": true
-  }, 
+  },
   {
     "txid": "ab7ca727055b812df882298f4e6e10ec699fb6250d843c813623171781f896d8",
     "vout": 0,
