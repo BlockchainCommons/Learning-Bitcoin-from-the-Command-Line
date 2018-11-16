@@ -14,7 +14,7 @@ Supporting objectives include the ability to:
    * Understand What Bitcoin Is
    * Understand What Blockchain Transactions Are
    * Understand What Blockchain Is
-   * Understand What Lightnign Is
+   * Understand What Lightning Is
    
 ## About Bitcoin
 
