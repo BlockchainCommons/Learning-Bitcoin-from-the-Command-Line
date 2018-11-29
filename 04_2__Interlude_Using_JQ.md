@@ -129,9 +129,9 @@ ec0598918f6f5476cb90365651e8a2724ef26f949290bbf196f41ed96092a52f
 0
 1.95
 ```
-This makes it easy to decide which UTXOs to spend in a raw transaction, but it's not very pretty. 
+This makes it easy to decide which UTXOs to spend in a raw transaction, but it's not very pretty.
 
-Fortunately, JQ also lets you be fancy. You can use `{}`s to create new JSON objects (either for additional parsing or for pretty output). You also get to define the name of the new key for each of your values. The resulting output should be much more intuitive and less prone to error (though obviously, less useful for dumping info straight into variables). 
+Fortunately, JQ also lets you be fancy. You can use `{}`s to create new JSON objects (either for additional parsing or for pretty output). You also get to define the name of the new key for each of your values. The resulting output should be much more intuitive and less prone to error (though obviously, less useful for dumping info straight into variables).
 
 The following example shows the exact same parsing of `listunspent`, but with the each old JSON object rebuilt as a new, abridged JSON object, with all of the new values named with their old keys:
 ```
@@ -196,7 +196,7 @@ $ bitcoin-cli decoderawtransaction $rawtxhex
         "hex": ""
       },
       "sequence": 4294967295
-    }, 
+    },
     {
       "txid": "c7c7f6371ec19330527325908a544bbf8401191645598301d24b54d37e209e7b",
       "vout": 1,
@@ -220,7 +220,7 @@ $ bitcoin-cli decoderawtransaction $rawtxhex
           "mzTWVv2QSgBNqXx7RC56zEhaQPve8C8VS9"
         ]
       }
-    }, 
+    },
     {
       "value": 0.04500000,
       "n": 1,
@@ -274,7 +274,7 @@ $ echo ${usedvout[1]}
 ```
 The only real trick here is how we saved the information using the bash shell. Rather than saving to a variable with `$(command)`, we instead saved to an array with `($(command))`. We were then able to access the individual bash array elements with a `${variable[n]}` construction. We could instead access the whole array with `${variable[@]}`. (Yeah, no one ever said bash was pretty.)
 
-> **WARNING:** Always remember that a UTXO is a transaction _plus_ a vout. We missed the vout the first time we wrote this JQ example, and it stopped working when we ended up with a situation where we'd been sent two `vouts` from the same transaction. 
+> **WARNING:** Always remember that a UTXO is a transaction _plus_ a vout. We missed the vout the first time we wrote this JQ example, and it stopped working when we ended up with a situation where we'd been sent two `vouts` from the same transaction.
 
 ### Retrieve the Related Object(s)
 
@@ -338,7 +338,7 @@ Note that we used yet another bit of array ugliness `${#usedtxid[*]}` to determi
 
 **Usage Example:** _Automatically calculate the value of the UTXOs used in a transaction._
 
-You can now go one step further, and request the .amount (or any other JSON key-value) from the UTXOs you're retrieving. 
+You can now go one step further, and request the .amount (or any other JSON key-value) from the UTXOs you're retrieving.
 
 This example repeats the usage the `$usedtxid` and `$usedvout` arrays that were set as follows:
 ```
@@ -362,7 +362,7 @@ Whew!
 
 **Usage Example:** _Calculate the fee for a transaction._
 
-To figure out the complete transaction fee at this point just requires one more bit of math: determining how much money is going through the .vout. That's a simple use of JQ where you just use `awk` to sum up the `value` of all the `vout` information:
+Figuring out the complete transaction fee at this point just requires one more bit of math: determining how much money is going through the .vout. That's a simple use of JQ where you just use `awk` to sum up the `value` of all the `vout` information:
 ```
 $ bitcoin-cli decoderawtransaction $rawtxhex | jq -r '.vout  [] | .value' | awk '{s+=$1} END {print s}'
 1.045
@@ -386,7 +386,7 @@ For more JSON magic (and if any of this isn't clear), please read the [JSON Manu
 
 ## Make Some New Aliases
 
-JQ code can be a little unwieldly, so you should consider adding some longer and more interesting invocations to your ~/.bash_profile. 
+JQ code can be a little unwieldy, so you should consider adding some longer and more interesting invocations to your ~/.bash_profile. 
 
 Any time you're looking through a large mass of information in a JSON object output by a `bitcoin-cli` command, consider writing an alias to strip it down to just what you want to see.
 ```
@@ -435,5 +435,3 @@ You may also want to create an alias:
 ```
 alias btctxfee="~/txfee-calc.sh"
 ```
-
-
