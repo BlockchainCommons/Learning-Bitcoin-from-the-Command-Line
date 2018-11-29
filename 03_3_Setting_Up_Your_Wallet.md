@@ -11,7 +11,7 @@ The first thing you need to do is create an address for receiving payments. This
 $ bitcoin-cli getnewaddress "" legacy
 n4cqjJE6fqcmeWpftygwPoKMMDva6BpyHf
 ```
-Note that this address begins with an "n" (or sometimes an "m"). This signifies that this is a testnet address. 
+Note that this address begins with an "n" (or sometimes an "m"). This signifies that this is a testnet address.
 
 The "legacy" flag is necessary to generate a traditional address, rather than a p2sh-segwit or bech32 address. The legacy address is currently required from the command line to make sure that signing works correctly.
 
@@ -36,7 +36,7 @@ H3yMBZaFeSmG2HgnH38dImzZAwAQADcOiMKTC1fryoV6Y93BelqzDMTCqNcFoik86E8qHa6o3FCmTsxW
 ```
 You'll get the signature as a return.
 
-_What is a signature?_ A digital signature is a combination of a message and a private key that can then be unlocked with a public key. Since there's a one-to-one correspendence between the elements of a keypair, unlocking with a public key proves that the signer controlled the corresponding private key. 
+_What is a signature?_ A digital signature is a combination of a message and a private key that can then be unlocked with a public key. Since there's a one-to-one correspendence between the elements of a keypair, unlocking with a public key proves that the signer controlled the corresponding private key.
 
 Another person can then use the `bitcoin-cli verifymessage` command to verify the signature. He inputs the address in question, the signature, and the message:
 ```
@@ -53,7 +53,7 @@ false
 
 ## Optional: Dump Your Wallet
 
-It might seem dangerous having all of your irreplacable private keys in a single file. That's what `bitcoin-cli backupwallet` is for. It lets you make a copy of your wallet.dat:
+It might seem dangerous having all of your irreplaceable private keys in a single file. That's what `bitcoin-cli backupwallet` is for. It lets you make a copy of your wallet.dat:
 ```
 $ bitcoin-cli backupwallet backup.dat
 ```

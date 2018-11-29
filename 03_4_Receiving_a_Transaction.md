@@ -21,7 +21,7 @@ After you've requested your money, you should be able to verify it with the 'bit
 $ bitcoin-cli getbalance
 0.00000000
 ```
-But wait, there's no balance yet!? 
+But wait, there's no balance yet!?
 
 Welcome to the world of Bitcoin latency.The problem is that your transaction hasn't yet been recorded in a block!
 
@@ -34,7 +34,7 @@ Fortunately, `bitcoin-cli getunconfirmedbalance` should still show your updated 
 $ bitcoin-cli getunconfirmedbalance
 0.47000000
 ```
-If that's still showing a zero too, you're probably moving through this tutorial too fast. Wait a second. The coins should show up unconfirmed, then rapidly move to confirmed. Do note that a coin can move from unconfirmedbalance to confirmedbalance almost immediately, so make sure you check both. However, if your `getbalance` and your `getunconfirmedbalance` both still show zero in ten minutes, then there's probably something wrong with the faucet, and you'll need to pick another. 
+If that's still showing a zero too, you're probably moving through this tutorial too fast. Wait a second. The coins should show up unconfirmed, then rapidly move to confirmed. Do note that a coin can move from unconfirmedbalance to confirmedbalance almost immediately, so make sure you check both. However, if your `getbalance` and your `getunconfirmedbalance` both still show zero in ten minutes, then there's probably something wrong with the faucet, and you'll need to pick another.
 
 ### Gain Confidence in Your Money
 
@@ -162,7 +162,7 @@ $ bitcoin-cli getrawtransaction "88e5d5f3077517d76f5a61491fa52e6aaae078c52bc62d8
           "n4cqjJE6fqcmeWpftygwPoKMMDva6BpyHf"
         ]
       }
-    }, 
+    },
     {
       "value": 0.51869975,
       "n": 1,
@@ -183,7 +183,7 @@ $ bitcoin-cli getrawtransaction "88e5d5f3077517d76f5a61491fa52e6aaae078c52bc62d8
   "blocktime": 1488307692
 }
 ```
-Now you can see the full information on the transaction, including all of the inputs ("vin") and all the outputs ("vout). One of the interesting things to note is that though we received .47 BTC in the transaction, another .51869975 was sent to another address. That was probably a change address, a concept that is explored in the next section. It is quite typical for a transaction to have multiple inputs and/or multiple outputs.
+Now you can see the full information on the transaction, including all of the inputs ("vin") and all the outputs ("vout). One of the interesting things to note is that although we received .47 BTC in the transaction, another .51869975 was sent to another address. That was probably a change address, a concept that is explored in the next section. It is quite typical for a transaction to have multiple inputs and/or multiple outputs.
 
 > **WARNING:** These commands will not work in some situations. To be able to view a raw transaction on a standard node, some of the money must be unspent, or the transaction must still be in your mempool — which means that this command will work fine for the money you've just received, but not for old stuff. If you want to be able to view older transactions that have been spent, you can do so by maintaining a set of all transactions with the txindex=1 configuration, which is what our scripts suggest for all non-pruned instances. (You can't maintain a transaction index if your node is pruned.)
 
@@ -191,7 +191,7 @@ Now you can see the full information on the transaction, including all of the in
 
 Even looking at the verbose information for a transaction can be a little intimidating. The main goal of this tutorial is to teach how to deal with raw transactions from the command line, but we're happy to talk about other tools when they're applicable. One of those tools is a block explorer, which you can use to look at transactions from a web browser in a much friendlier format.
 
-Currently, our preferred block explorer is [https://live.blockcypher.com/](https://live.blockcypher.com/). 
+Currently, our preferred block explorer is [https://live.blockcypher.com/](https://live.blockcypher.com/).
 
 You can use it to look up transactions for an address:
 

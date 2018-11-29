@@ -1,4 +1,4 @@
-# Interlude: Using Command-Line Variables 
+# Interlude: Using Command-Line Variables
 
 > **NOTE:** This is a draft in progress, so that I can get some feedback from early reviewers. It is not yet ready for learning.
 
@@ -22,7 +22,7 @@ You can then use your shell's `echo` command to look at your (new) address:
 $ echo $NEW_ADDRESS_1
 n4cqjJE6fqcmeWpftygwPoKMMDva6BpyHf
 ```
-Because you have your address in a variable, you can now easily sign a message for that address, without worrying about typoing the address. You'll of course save that signature into a variable too!
+Because you have your address in a variable, you can now easily sign a message for that address, without worrying about mistyping the address. You'll of course save that signature into a variable too!
 ```
 $ NEW_SIG_1=$(bitcoin-cli signmessage $NEW_ADDRESS_1 "Hello, World")
 ```
