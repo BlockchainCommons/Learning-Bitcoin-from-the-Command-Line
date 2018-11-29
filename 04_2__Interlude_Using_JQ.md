@@ -70,7 +70,7 @@ $ bitcoin-cli listunspent | jq -r '.[0]'
 ```
 You can then capture an individual value from that selected array by (1) using a pipe _within_ the JQ arguments; and then (2) requesting the specific value afterward, as in the previous example. The following would capture the `txid` from the 0th JSON object in the JSON array produced by `listunspent`:
 ```
-~$ bitcoin-cli listunspent | jq -r '.[0] | .txid'
+$ bitcoin-cli listunspent | jq -r '.[0] | .txid'
 2b5f5798359e0e23e02764588166f222d4ce056419dec83c743b72aad171d708
 ```
 Carefully note how the `' 's` go around the whole JQ expression _including_ the pipe.
@@ -154,7 +154,7 @@ $ bitcoin-cli listunspent | jq -r '.[] | { txid: .txid, vout: .vout, amount: .am
 ```
 You could of course rename your new keys as you see fit. There's nothing magic in the original names:
 ```
-~$ bitcoin-cli listunspent | jq -r '.[] | { tx: .txid, output: .vout, bitcoins: .amount }'
+$ bitcoin-cli listunspent | jq -r '.[] | { tx: .txid, output: .vout, bitcoins: .amount }'
 {
   "tx": "2b5f5798359e0e23e02764588166f222d4ce056419dec83c743b72aad171d708",
   "output": 1,
@@ -179,7 +179,7 @@ The JQ lookups so far have been fairly simple: you use a key to look up one or m
 
 This example uses the following raw transaction. Note that this is a more complex raw transaction with two inputs and two outputs. We'll learn about making those in a few sections; for now, it's necessary to be able to offer robust examples. Note that unlike our previous examples, this one has two objects in its `vin` array and two in its `vout` array.
 ```
-$ $ bitcoin-cli decoderawtransaction $rawtxhex
+$ bitcoin-cli decoderawtransaction $rawtxhex
 {
   "txid": "6f83a0b78c598de01915554688592da1d7a3047eacacc8a9be39f5396bf0a07e",
   "hash": "6f83a0b78c598de01915554688592da1d7a3047eacacc8a9be39f5396bf0a07e",
