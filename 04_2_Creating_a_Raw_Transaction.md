@@ -104,7 +104,7 @@ $ bitcoin-cli createrawtransaction
 '''[
      {
        "txid": "'$your_txid'",
-       "vout": "'$your_vout'"
+       "vout": '$your_vout'
       }
 ]'''
 '''{
