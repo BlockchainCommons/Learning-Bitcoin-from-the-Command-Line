@@ -23,7 +23,7 @@
 # CURRENT BITCOIN RELEASE:
 # Change as necessary
 
-export BITCOIN=bitcoin-core-0.16.2
+export BITCOIN=bitcoin-core-0.17.0
 
 # Set the variable $IPADDR to the IP address the new Linode receives.
 IPADDR=$(/sbin/ifconfig eth0 | awk '/inet / { print $2 }' | sed 's/addr://')
@@ -252,8 +252,9 @@ sudo -u user1 wget https://bitcoin.org/laanwj-releases.asc -O ~user1/laanwj-rele
 
 echo "$0 - Verifying Bitcoin."
 
-sudo -u user1 /usr/bin/gpg --import ~user1/laanwj-releases.asc
-export SHASIG=`sudo -u user1 /usr/bin/gpg --verify ~user1/SHA256SUMS.asc 2>&1 | grep "Good signature"`
+sudo -u user1 /usr/bin/gpg --no-tty --import ~user1/laanwj-releases.asc
+export SHASIG=`sudo -u user1 /usr/bin/gpg --no-tty --verify ~user1/SHA256SUMS.asc 2>&1 | grep "Good signature"`
+echo "SHASIG is $SHASIG"
 
 if [[ $SHASIG ]]; then
     echo "VERIFICATION SUCCESS / SIG: $SHASIG"
