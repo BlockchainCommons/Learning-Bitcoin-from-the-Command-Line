@@ -101,7 +101,7 @@ Sign your raw transaction and send it, and soon that OP_RETURN will be embedded 
 
 ## Check Your OP_RETURN
 
-Again, remember that you can look at this transaction using a blockchain explorer: [https://live.blockcypher.com/btc-testnet/tx/3a62b396afb8d8a59ebe7b9e52d6aa2485f1082a1d3fc6ece61fb8b55373823d/](https://live.blockcypher.com/btc-testnet/tx/3a62b396afb8d8a59ebe7b9e52d6aa2485f1082a1d3fc6ece61fb8b55373823d/)
+Again, remember that you can look at this transaction using a blockchain explorer: [https://www.blocktrail.com/tBTC/tx/3a62b396afb8d8a59ebe7b9e52d6aa2485f1082a1d3fc6ece61fb8b55373823d](https://www.blocktrail.com/tBTC/tx/3a62b396afb8d8a59ebe7b9e52d6aa2485f1082a1d3fc6ece61fb8b55373823d)
 
 You may note a warning about the data being in an "unknown protocol". If you were designing some regular use of OP_RETURN data, you'd probably mark it with a special prefix, to mark that protocol. Then, the actual OP_RETURN data might be something like "CONTRACTS3b110a164aa18d3a5ab064ba93fdce62". This example didn't use a prefix to avoid muddying the data space.
 
