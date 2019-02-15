@@ -14,7 +14,7 @@ alias btcdir="cd ~/.bitcoin/" #linux default bitcoind path
 alias bc="bitcoin-cli"
 alias bd="bitcoind"
 alias btcinfo='bitcoin-cli getwalletinfo | egrep "\"balance\""; bitcoin-cli getnetworkinfo | egrep "\"version\"|connections"; bitcoin-cli getmininginfo | egrep "\"blocks\"|errors"'
-alias btcblock="echo \\\`bitcoin-cli getblockcount 2>&1\\\`/\\\`wget -O - http://blockexplorer.com/testnet/q/getblockcount 2> /dev/null | cut -d : -f2 | rev | cut -c 2- | rev\\\`"
+alias btcblock="echo \\\`bitcoin-cli getblockcount 2>&1\\\`/\\\`wget -q -O - 'https://testnet.blockexplorer.com/api/status?q=getBlockCount' | cut -d , -f3 | cut -d : -f 2\\\`"
 EOF
 ```
 
@@ -78,7 +78,7 @@ alias btstop="bitcoin-cli -testnet stop"
 alias brstop="bitcoin-cli -regtest -stop"
 
 alias bcdir="cd ~/.bitcoin/" #linux default bitcoin path
-alias btdir="cd ~/.bitcoin/testnet" #linux default bitcoin testnet path
+alias btdir="cd ~/.bitcoin/testnet3" #linux default bitcoin testnet path
 alias brdir="cd ~/.bitcoin/regtest" #linux default bitcoin regtest path
 
 alias bc="bitcoin-cli"
