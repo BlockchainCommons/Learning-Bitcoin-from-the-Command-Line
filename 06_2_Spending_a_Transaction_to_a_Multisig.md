@@ -6,7 +6,7 @@ The classic, and complex, way of spending funds sent to a multisignature address
 
 ## Find Your Funds
 
-To start with, you need to find your funds; your computer doesn't know to look for them, because they're not associated with any addresses in your walet. You can alert `bitcoind` to do so using the `importaddress` command:
+To start with, you need to find your funds; your computer doesn't know to look for them, because they're not associated with any addresses in your wallet. You can alert `bitcoind` to do so using the `importaddress` command:
 ```
 $ bitcoin-cli -named importaddress address=2NAGfA4nW6nrZkD5je8tSiAcYB9xL2xYMCz
 ```
