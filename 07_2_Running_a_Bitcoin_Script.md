@@ -222,7 +222,7 @@ As we've seen, every input for a Bitcoin transaction contains a `scriptSig` that
 
 So, presume that a UTXO were locked with a `scriptPubKey` that read `OP_ADD 99 OP_EQUAL`, requiring as input two numbers that add up to ninety-nine, and presume that the `scriptSig` of `1 98` were run to unlock it. The two scripts would effectively be run in order as `1 98 OP_ADD 99 OP_EQUAL`.
 
-Evaulate the result:
+Evaluate the result:
 ```
 Script: 1 98 OP_ADD 99 OP_EQUAL
 Stack: []
