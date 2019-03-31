@@ -54,7 +54,6 @@ verifychain ( checklevel nblocks )
 verifytxoutproof "proof"
 
 == Control ==
-getinfo
 getmemoryinfo ("mode")
 help ( "command" )
 stop
