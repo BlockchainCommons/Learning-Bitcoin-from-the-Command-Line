@@ -133,7 +133,6 @@ In several minutes, you'll have your change back:
 ```
 $ bitcoin-cli listunspent
 [
-
   {
     "txid": "37698ad6e7f62df07c2fbc549339aa680a7fa18328d7ad14ecb72b21c505cbc6",
     "vout": 0,

@@ -229,7 +229,7 @@ $ bitcoin-cli listunspent
 $ bitcoin-cli getbalance
 0.15600000
 ```
-However, `listtransactions` should soon show a confirmed transaction of category 'send".
+Soon `listtransactions` should show a confirmed transaction of category 'send".
 ```
  {
     "account": "",

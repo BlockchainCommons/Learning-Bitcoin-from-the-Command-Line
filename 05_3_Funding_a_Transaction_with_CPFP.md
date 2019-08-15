@@ -12,7 +12,7 @@ RBF was all about the sender. He messed up and needed to increase the fee, or he
 
 Basically, the idea of CPFP is that a recipient has a transaction that hasn't been confirmed in a block that he wants to spend. So, he includes that unconfirmed transaction in a new transaction and pays a high-enough fee to encourage a miner to include both the original (parent) transaction and the new (child) transaction in a block. As a result, the parent and child transactions clear simultaneously.
 
-It should be noted that CPFP is not a new protocol feature, like RBF. It's just a new incentivization scheme that can be used for transaction selection by miners. This also means that it's not as reliable as a protocol change like RBF: there might be reasons that the parent is never put into a block, and that will prevent the child from ever bring put into a block.
+It should be noted that CPFP is not a new protocol feature, like RBF. It's just a new incentivization scheme that can be used for transaction selection by miners. This also means that it's not as reliable as a protocol change like RBF: there might be reasons that the child is never selected either to be put into a block, and that will prevent the parent from ever being put into a block.
 
 ## Spend Unconfirmed UTXOs
 
@@ -20,7 +20,7 @@ Funding a transaction with CPFP is a very simple process using the methods you'r
 
    1. Find the `txid` and `vout` of the unconfirmed transaction. This may be the trickiest part, as `bitcoin-cli` generally tries to protect you from unconfirmed transactions. The sender might be able to send you this info; even with just the `txid`, you should be able to figure out the `vout` in a blockchain explorer.
    
-   You do have one other option: use `bitcoin-cli getmempool`, which can be used to list the contents of your entire mempool, where the unconfirmed transactions will be. You may have to dig through several if the mempool is particularly busy. You can then get more information on a specific transaction with `bitcoin-cli getrawtransaction`:
+   You do have one other option: use `bitcoin-cli getrawmempool`, which can be used to list the contents of your entire mempool, where the unconfirmed transactions will be. You may have to dig through several if the mempool is particularly busy. You can then get more information on a specific transaction with `bitcoin-cli getrawtransaction` with the verbose flag set to `true`:
    ```
 $ bitcoin-cli getrawmempool
 [
@@ -80,14 +80,13 @@ $ rawtxhex=$(bitcoin-cli -named createrawtransaction inputs='''[ { "txid": "'$ut
 
 $ bitcoin-cli -named signrawtransaction hexstring=$rawtxhex | jq -r '.hex'
 02000000012b137ef780666ba214842ff6ea2c3a0b36711bcaba839c3710f763e3d9687fed000000006a473044022003ca1f6797d781ef121ba7c2d1d41d763a815e9dad52aa8bc5ea61e4d521f68e022036b992e8e6bf2c44748219ca6e0056a88e8250f6fd0794dc69f79a2e8993671601210317b163ab8c8862e09c71767112b828abd3852e315441893fa0f535de4fa39b8dffffffff01905abd07000000001976a91450b1d90a130c4f3f1e5fbfa7320fd36b7265db0488ac00000000
-user1@blockstream:~$ signedtx=$(bitcoin-cli -named signrawtransaction hexstring=$rawtxhex | jq -r '.hex')
 
 $ signedtx=$(bitcoin-cli -named signrawtransaction hexstring=$rawtxhex | jq -r '.hex')
 $ bitcoin-cli -named sendrawtransaction hexstring=$signedtx
 6a184a2f07fa30189f4831d6f041d52653a103b3883d2bec2f79187331fd7f0e
 ```
 
-   4. Cross your fingers.
+   4. Crossing your fingers is not needed. You have verified your data is correct. From this point on, things are out of your hands.
    
 Your transactions may go through quickly. They may not. It all depends on whether the miners who are randomly generating the current blocks have the CPFP patch or not. But you've given your transactions the best chance.
 
