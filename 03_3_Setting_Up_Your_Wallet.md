@@ -66,7 +66,6 @@ $ bitcoin-cli importwallet backup.dat
 
 Sometimes, you might want to actually look at the private keys associated with your Bitcoin addresses. Perhaps you want to be able to sign a message or spend bitcoins from a different machine. Perhaps you just want to back up certain important private keys.
 
-To look at _all_ the keys in your wallet, type `bitcoin-cli ~/dumpwallet mywallet.txt`.
 To look at _all_ the keys in your wallet, type `bitcoin-cli dumpwallet ~/mywallet.txt`.
 ```
 $ bitcoin-cli dumpwallet ~/mywallet.txt
