@@ -380,7 +380,7 @@ $ echo "$btcin-$btcout"| /usr/bin/bc
 ```
 And that's also a good example of why you double-check your fees: we'd intended to send a transaction fee of 5,000 satoshis, but sent 255,000 satoshis instead. Whoops!
 
-> **WARNING:** The first time we wrote up this lesson, we genuinely miscalculated our fee and didn't see it until we ran our fee calclator. It's *that* easy, then your money is gone. (The example above is actually from our second iteration of the calculator, and that time we made the mistake on purpose.)
+> **WARNING:** The first time we wrote up this lesson, we genuinely miscalculated our fee and didn't see it until we ran our fee calculator. It's *that* easy, then your money is gone. (The example above is actually from our second iteration of the calculator, and that time we made the mistake on purpose.)
 
 For more JSON magic (and if any of this isn't clear), please read the [JSON Manual](https://stedolan.github.io/jq/manual/) and the [JSON Cookbook](https://github.com/stedolan/jq/wiki/Cookbook). We'll be regularly using JQ in future examples.
 
