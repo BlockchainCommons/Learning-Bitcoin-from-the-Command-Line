@@ -8,7 +8,7 @@ You're now ready to start working with Bitcoin. To begin with, you'll need to cr
 
 The first thing you need to do is create an address for receiving payments. This is done with the `bitcoin-cli getnewaddress` command. Remember that if you want more information on this command, you should type `bitcoin-cli help getnewaddress`.
 ```
-$ bitcoin-cli getnewaddress "" legacy
+$ bitcoin-cli -testnet getnewaddress "" legacy
 n4cqjJE6fqcmeWpftygwPoKMMDva6BpyHf
 ```
 Note that this address begins with an "n" (or sometimes an "m"). This signifies that this is a testnet address.
@@ -31,7 +31,7 @@ With a single address in hand, you could jump straight to the next section and b
 
 Sometimes you'll need to prove that you control a Bitcoin address (or rather, that you control its private key). This is important because it lets people know that they're sending funds to the right person. This can be done by creating a signature with the `bitcoin-cli signmessage` command, in the form `bitcoin-cli signmessage [address] [message]`. For example:
 ```
-$ bitcoin-cli signmessage "n4cqjJE6fqcmeWpftygwPoKMMDva6BpyHf" "Hello, World"
+$ bitcoin-cli -testnet signmessage "n4cqjJE6fqcmeWpftygwPoKMMDva6BpyHf" "Hello, World"
 H3yMBZaFeSmG2HgnH38dImzZAwAQADcOiMKTC1fryoV6Y93BelqzDMTCqNcFoik86E8qHa6o3FCmTsxWD7Wa5YY=
 ```
 You'll get the signature as a return.
@@ -40,14 +40,14 @@ _What is a signature?_ A digital signature is a combination of a message and a p
 
 Another person can then use the `bitcoin-cli verifymessage` command to verify the signature. He inputs the address in question, the signature, and the message:
 ```
-$ bitcoin-cli verifymessage "n4cqjJE6fqcmeWpftygwPoKMMDva6BpyHf" "H3yMBZaFeSmG2HgnH38dImzZAwAQADcOiMKTC1fryoV6Y93BelqzDMTCqNcFoik86E8qHa6o3FCmTsxWD7Wa5YY=" "Hello, World"
+$ bitcoin-cli -testnet verifymessage "n4cqjJE6fqcmeWpftygwPoKMMDva6BpyHf" "H3yMBZaFeSmG2HgnH38dImzZAwAQADcOiMKTC1fryoV6Y93BelqzDMTCqNcFoik86E8qHa6o3FCmTsxWD7Wa5YY=" "Hello, World"
 true
 ```
 If they all match up, then the other person knows that he can safely transfer funds to the person who signed the message by sending to the address.
 
 If some black hat was making up signatures, this would instead produce a negative result:
 ```
-$ bitcoin-cli verifymessage "n4cqjJE6fqcmeWpftygwPoKMMDva6BpyHf" "FAKEBZaFeSmG2HgnH38dImzZAwAQADcOiMKTC1fryoV6Y93BelqzDMTCqNcFoik86E8qHa6o3FCmTsxWD7Wa5YY=" "Hello, World"
+$ bitcoin-cli -testnet verifymessage "n4cqjJE6fqcmeWpftygwPoKMMDva6BpyHf" "FAKEBZaFeSmG2HgnH38dImzZAwAQADcOiMKTC1fryoV6Y93BelqzDMTCqNcFoik86E8qHa6o3FCmTsxWD7Wa5YY=" "Hello, World"
 false
 ```
 
@@ -55,11 +55,11 @@ false
 
 It might seem dangerous having all of your irreplaceable private keys in a single file. That's what `bitcoin-cli backupwallet` is for. It lets you make a copy of your wallet.dat:
 ```
-$ bitcoin-cli backupwallet backup.dat
+$ bitcoin-cli -testnet backupwallet backup.dat
 ```
 You can then recover it with `bitcoin-cli importwallet`.
 ```
-$ bitcoin-cli importwallet backup.dat
+$ bitcoin-cli -testnet importwallet backup.dat
 ```
 
 ## Optional: View Your Private Keys
@@ -69,14 +69,14 @@ Sometimes, you might want to actually look at the private keys associated with y
 To look at _all_ the keys in your wallet, type `bitcoin-cli ~/dumpwallet mywallet.txt`.
 To look at _all_ the keys in your wallet, type `bitcoin-cli dumpwallet ~/mywallet.txt`.
 ```
-$ bitcoin-cli dumpwallet ~/mywallet.txt
+$ bitcoin-cli -testnet dumpwallet ~/mywallet.txt
 {
   "filename": "/home/user1/mywallet.txt"
 }
 ```
 This will create a mywallet.txt file in your home directory with a long list of private keys, addresses, and other information. Mind you, you'd never want to put this data out in a plain text file on a Bitcoin setup with real funds!
 
-More likely, you just want to look at the private key associated with a specific address. This can be done with the `bitcoin-cli dumpprivkey` command.
+More likely, you just want to look at the private key associated with a specific address. This can be done with the `bitcoin-cli -testnet dumpprivkey` command.
 ```
 $ bitcoin-cli dumpprivkey "n4cqjJE6fqcmeWpftygwPoKMMDva6BpyHf"
 cW4s4MdW7BkUmqiKgYzSJdmvnzq8QDrf6gszPMC7eLmfcdoRHtHh
