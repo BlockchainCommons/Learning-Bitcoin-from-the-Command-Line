@@ -13,8 +13,10 @@ cat >> ~/.bash_profile <<EOF
 alias btcdir="cd ~/.bitcoin/" #linux default bitcoind path
 alias bc="bitcoin-cli"
 alias bd="bitcoind"
-alias btcinfo='bitcoin-cli getwalletinfo | egrep "\"balance\""; bitcoin-cli getnetworkinfo | egrep "\"version\"|connections"; bitcoin-cli getmininginfo | egrep "\"blocks\"|errors"'
-alias btcblock="echo \\\`bitcoin-cli getblockcount 2>&1\\\`/\\\`wget -O - http://blockexplorer.com/testnet/q/getblockcount 2> /dev/null | cut -d : -f2 | rev | cut -c 2- | rev\\\`"
+alias binfo='bitcoin-cli getwalletinfo | egrep "\"balance\""; bitcoin-cli getnetworkinfo | egrep "\"version\"|connections"; bitcoin-cli getmininginfo | egrep "\"blocks\"|errors"'
+alias btinfo='bitcoin-cli -testnet getwalletinfo | egrep "\"balance\""; bitcoin-cli -testnet getnetworkinfo | egrep "\"version\"|connections"; bitcoin-cli -testnet getmininginfo | egrep "\"blocks\"|errors"'
+alias bblock="echo \\\`bitcoin-cli getblockcount 2>&1\\\`/\\\`wget -O - https://testnet.blockexplorer.com/api/status?q=getBlockCount 2> /dev/null | cut -d":" -f5 | cut -d"," -f1\\\`"
+alias btblock="echo \\\`bitcoin-cli -testnet getblockcount 2>&1\\\`/\\\`wget -O - https://testnet.blockexplorer.com/api/status?q=getBlockCount 2> /dev/null | cut -d":" -f5 | cut -d"," -f1\\\`"
 EOF
 ```
 
@@ -23,6 +25,8 @@ EOF
 Note that these aliases includes shortcuts for running `bitcoin-cli`, for running `bitcoind`, and for going to the Bitcoin directory. These aliases are mainly meant to make your life easier. We suggest you create other aliases to ease your use of frequent commands (and arguments) and to minimize errors. Aliases of this sort can be even more useful if you have a complex setup where you regularly run commands associated with Mainnet, with Testnet, _and_ with Regtest, as explained further below.
 
 With that said, use of these aliases in _this_ document might accidentally obscure the core lessons being taught about Bitcoin, so the only aliases directly used here are `btcinfo` and `btcblock`, because they encapsulate much longer and more complex commands. Otherwise, we show the full commands; adjust for your own use as appropriate.
+
+If the color of your terminal changes after you have added these commands to your `~/.bash_profile` file, then just add them to your `~/.bash_aliases` instead (& delete bash_profiles `rm ~/.bash_profile`).
 
 > **TESTNET vs MAINNET:** Remember that this tutorial generally assumes that you are using testnet. The `btcblock` alias needs to be slightly different on mainnet, where you can use the simpler "wget -O - http://blockchain.info/q/getblockcount 2>/dev/null".
 
