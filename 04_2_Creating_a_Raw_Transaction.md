@@ -183,7 +183,7 @@ To date, your raw transaction is just something theoretical: you _could_ send it
 First, you need to sign your raw transaction:
 ```
 
-$ bitcoin-cli signrawtransaction $rawtxhex
+$ bitcoin-cli signrawtransactionwithwallet $rawtxhex
 {
   "hex": "0100000001720e9d33eaf2b60e631c71bf59838f3a308ba4d1c394ba4e24f67162670598ee000000006b483045022100d8f17dadc2501596f75f2c90b8279130e588638d4f7a4f7d5ebb10fea15252f702200ceb164e81335c430893780d06cfe194c36acec26886f180408e3ac4a7d2292f0121035de6239e70523c8f392e32f98e65f6ef704c4b6b0df994e407212b839bf51048ffffffff01b04e7900000000001976a914e7c1345fc8f87c68170b3aa798a956c2fe6a9eff88ac00000000",
   "complete": true
