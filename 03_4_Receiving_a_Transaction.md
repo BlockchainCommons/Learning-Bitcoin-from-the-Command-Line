@@ -55,7 +55,7 @@ Of course, on the testnet, no one is that worried about how reliable your funds 
 
 ## Verify Your Wallet
 
-The `bitcoin-cli getwalletinfo` command gives you more money on the balance of your wallet:
+The `bitcoin-cli getwalletinfo` command gives you more info on the balance of your wallet:
 ```
 $ bitcoin-cli getwalletinfo
 {
