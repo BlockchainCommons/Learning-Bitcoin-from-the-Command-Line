@@ -19,12 +19,7 @@ $ git clone https://github.com/kallewoof/btcdeb.git
 ```
 Then, get C++ and other packages installed, so that you can get `btcdeb` running.
 ```Bash
-$ sudo apt-get install autoconf
-$ sudo apt-get install libtool
-$ sudo apt-get install g++
-$ sudo apt-get install pkg-config
-$ sudo apt-get install make
-
+$ sudo apt-get install autoconf libtool g++ pkg-config make
 $ cd btcdeb
 $ ./autogen.sh
 $ ./configure
@@ -222,7 +217,7 @@ As we've seen, every input for a Bitcoin transaction contains a `scriptSig` that
 
 So, presume that a UTXO were locked with a `scriptPubKey` that read `OP_ADD 99 OP_EQUAL`, requiring as input two numbers that add up to ninety-nine, and presume that the `scriptSig` of `1 98` were run to unlock it. The two scripts would effectively be run in order as `1 98 OP_ADD 99 OP_EQUAL`.
 
-Evaulate the result:
+Evaluate the result:
 ```
 Script: 1 98 OP_ADD 99 OP_EQUAL
 Stack: []
