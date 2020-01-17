@@ -126,7 +126,7 @@ Note the `ismine` results.
 
 At this point you can sign and send the transaction as usual.
 ```
-$ signedtx3=$(bitcoin-cli -named signrawtransaction hexstring=$rawtxhex3 | jq -r '.hex')
+$ signedtx3=$(bitcoin-cli -named signrawtransactionwithwallet hexstring=$rawtxhex3 | jq -r '.hex')
 $ bitcoin-cli -named sendrawtransaction hexstring=$signedtx3
 ```
 In several minutes, you'll have your change back:
