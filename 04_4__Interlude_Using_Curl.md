@@ -318,10 +318,10 @@ $ hexcode=$(curl --user bitcoinrpc:73bd45ba60ab8f9ff9846b6404769487 --data-binar
 
 ### Sign and Send
 
-Signing and sending your transaction using `curl` is an easy use of the `signrawtransaction` and `sendrawtransaction` RPC:
+Signing and sending your transaction using `curl` is an easy use of the `signrawtransactionwithwallet` and `sendrawtransaction` RPC:
 
 ```
-$ signedhex=$(curl --user bitcoinrpc:73bd45ba60ab8f9ff9846b6404769487 --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "signrawtransaction", "params": ["'$hexcode'"] }' -H 'content-type: text/plain;' http://127.0.0.1:18332/ | jq -r '.result | .hex')
+$ signedhex=$(curl --user bitcoinrpc:73bd45ba60ab8f9ff9846b6404769487 --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "signrawtransactionwithwallet", "params": ["'$hexcode'"] }' -H 'content-type: text/plain;' http://127.0.0.1:18332/ | jq -r '.result | .hex')
 
 $ curl --user bitcoinrpc:73bd45ba60ab8f9ff9846b6404769487 --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "sendrawtransaction", "params": ["'$signedhex'"] }' -H 'content-type: text/plain;' http://127.0.0.1:18332/ | jq -r '.'
 {
