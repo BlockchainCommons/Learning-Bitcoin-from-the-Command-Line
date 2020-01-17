@@ -96,7 +96,7 @@ $ btctxfee $rawtxhex2
 
 You can now sign, seal, and deliver your transaction, and it's yours (and the faucet's):
 ```
-$ signedtx2=$(bitcoin-cli -named signrawtransaction hexstring=$rawtxhex2 | jq -r '.hex')
+$ signedtx2=$(bitcoin-cli -named signrawtransactionwithwallet hexstring=$rawtxhex2 | jq -r '.hex')
 $ bitcoin-cli -named sendrawtransaction hexstring=$signedtx2
 69c9ef4d1adb48596c470146ee9b60593023b6eb870b79ef666a8c9369768469
 ```
