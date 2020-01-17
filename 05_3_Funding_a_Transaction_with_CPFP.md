@@ -12,7 +12,7 @@ RBF was all about the sender. He messed up and needed to increase the fee, or he
 
 Basically, the idea of CPFP is that a recipient has a transaction that hasn't been confirmed in a block that he wants to spend. So, he includes that unconfirmed transaction in a new transaction and pays a high-enough fee to encourage a miner to include both the original (parent) transaction and the new (child) transaction in a block. As a result, the parent and child transactions clear simultaneously.
 
-It should be noted that CPFP is not a new protocol feature, like RBF. It's just a new incentivization scheme that can be used for transaction selection by miners. This also means that it's not as reliable as a protocol change like RBF: there might be reasons that the child is never selected either to be put into a block, and that will prevent the parent from ever being put into a block.
+It should be noted that CPFP is not a new protocol feature, like RBF. It's just a new incentivization scheme that can be used for transaction selection by miners. This also means that it's not as reliable as a protocol change like RBF: there might be reasons that the child is not selected to be put into a block, and that will prevent the parent from ever being put into a block.
 
 ## Spend Unconfirmed UTXOs
 
