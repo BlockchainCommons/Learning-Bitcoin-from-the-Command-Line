@@ -85,11 +85,11 @@ alias bc="bitcoin-cli"
 alias bt="bitcoin-cli -testnet"
 alias br="bitcoin-cli -regtest"
 ```
-For even more complexity, you could have each of your 'start' aliases use the -conf flag to load configuration from a different file. This goes far beyond the scope of this tutorial, but we offer it as a starting point for when your explorations of Bitcoin reach the next level.
+For even more complexity, you could have each of your 'start' aliases use the -conf flag to load configuration from a different file. This goes far beyond the scope of this tutorial, but we offer it as a starting point for when your explorations of Bitcoin reaches the next level.
 
 ## Summary: Verifying Your Bitcoin Setup
 
-Before you start playing with bitcoin, you should make sure that your aliases are setup, your bitcoind is running, and your blocks are downloaded. You may also want to set up some access to alternative Bitcoin setups, if you're an advanced user.
+Before you start playing with bitcoin, you should make sure that your aliases are set up, your bitcoind is running, and your blocks are downloaded. You may also want to set up some access to alternative Bitcoin setups, if you're an advanced user.
 
 ## What's Next?
 
