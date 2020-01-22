@@ -34,45 +34,74 @@ machine2$ address2=$(bitcoin-cli getnewaddress)
 ```
 Afterwards, one of the recipients (or perhaps some third party) will need to collect the signatures. 
 
-#### Collect Remote Public Keys
+#### Collect Public Keys
 
-But, there's a catch! You might recall that a Bitcoin address is actually the hash of a public key, not the public key itself. But, you need the full public key to create a multisignature! For any P2PKH addresses that were created on the machine that's creating the multisignature address, there's no problem. The full public key (and the private key for that matter) is sitting in that machine's wallet, so `bitcoin-cli` will be able to access them. But for any addresses created on remote machines, you'll need more.
+However, you don't need the addresses, which are the hashes of public keys, to create an multi-sig, but instead the public keys themselves.
 
-As a result, any remote user must look up the complete information about his address and send the associated public key to the multisig creator. This can be done with the `validateaddress` command.
+This information is readily available with the `getaddressinfo` command.
+
+Over on the remote machine, which we assume here is `machine2`, you can get the information out of the listing. 
 ```
-machine2$ bitcoin-cli -named validateaddress address=$address2
+machine2$ bitcoin-cli -named getaddressinfo address=$address2
 {
-  "isvalid": true,
-  "address": "mfduLxpR6Bq1ARctV2TauhetWwqnqH1vYS",
-  "scriptPubKey": "76a9140150730730b1b681a7757f1188322dcb31d8ddbd88ac",
+  "address": "2N9Qnf7kGS5QX8mRDFQv7QWARFRqkKdp9pN",
+  "scriptPubKey": "a914b15107009c65b631226d0626b22150098c91d35587",
   "ismine": true,
+  "solvable": true,
+  "desc": "sh(wpkh([801811ed/0'/0'/4']0373de7b25896556c33e7a6f5379151291d380c60b84c3ee9a8c933b08ce0da9f4))#rxfcwarv",
   "iswatchonly": false,
-  "isscript": false,
-  "pubkey": "0367c4f666f18279009c941e57fab3e42653c6553e5ca092c104d1db279e328a28",
-  "iscompressed": true,
-  "account": "",
-  "timestamp": 1494285568,
-  "hdkeypath": "m/0'/0'/1'",
-  "hdmasterkeyid": "2333fedaf15c11ca577af6d9ac51d3c506fc13c5"
+  "isscript": true,
+  "iswitness": false,
+  "script": "witness_v0_keyhash",
+  "hex": "0014c06d895303bd7dff0320d7df9f33f99e8b9b0d93",
+  "pubkey": "0373de7b25896556c33e7a6f5379151291d380c60b84c3ee9a8c933b08ce0da9f4",
+  "embedded": {
+    "isscript": false,
+    "iswitness": true,
+    "witness_version": 0,
+    "witness_program": "c06d895303bd7dff0320d7df9f33f99e8b9b0d93",
+    "pubkey": "0373de7b25896556c33e7a6f5379151291d380c60b84c3ee9a8c933b08ce0da9f4",
+    "address": "tb1qcpkcj5crh47l7qeq6l0e7vlen69ekrvn509duc",
+    "scriptPubKey": "0014c06d895303bd7dff0320d7df9f33f99e8b9b0d93"
+  },
+  "label": "",
+  "ischange": false,
+  "timestamp": 1579204237,
+  "hdkeypath": "m/0'/0'/4'",
+  "hdseedid": "67ffe46aa0cfd46eb342b78579f72fd1597833b4",
+  "hdmasterfingerprint": "801811ed",
+  "labels": [
+    {
+      "name": "",
+      "purpose": "receive"
+    }
+  ]
 }
 ```
-The `pubkey` address (`0367c4f666f18279009c941e57fab3e42653c6553e5ca092c104d1db279e328a28`) is what's required.
+The `pubkey` address (`0373de7b25896556c33e7a6f5379151291d380c60b84c3ee9a8c933b08ce0da9f4`) is what's required. Copy it over to your local machine by whatever means you find most efficient and _least error prone_.
 
-This process needs to be undertaken for _every_ address from a machine other than the one where the multisig is being built. Obviously, if some third-party is creating the address, then the full publickey will need to be sent for _every_ address.
+This process needs to be undertaken for _every_ address from a machine other than the one where the multisig is being built. Obviously, if some third-party is creating the address, then you'll to do this for every address.
 
 > **WARNING:** Bitcoin's use of public-key hashes as addresses, instead of public keys, actually represents an additional layer of security. Thus, sending a public key slightly increases the vulnerability of the associated address, for some far-future possibility of a compromise of the elliptic curve. You shouldn't worry about having to occasionally send out a public key for a usage such as this, but you should be aware that the public-key hashes represent security, and so the actual public keys should not be sent around willy nilly.
+
+However, if one of the addresses was created on your local machine, which we assume here is `machine1`, you can just dump the `pubkey` address into a new variable.
+```
+machine1$ pubkey1=$(bitcoin-cli -named getaddressinfo address=$address1 | jq -r '.pubkey')
+```
 
 ### Create the Address
 
 A multisig can now be created with the `createmultisig` command:
 ```
-machine1$ bitcoin-cli -named createmultisig nrequired=2 keys='''["'$address1'","0367c4f666f18279009c941e57fab3e42653c6553e5ca092c104d1db279e328a28"]'''
+machine1$ bitcoin-cli -named createmultisig nrequired=2 keys='''["'$pubkey1'","0373de7b25896556c33e7a6f5379151291d380c60b84c3ee9a8c933b08ce0da9f4"]'''
 {
-  "address": "2NAGfA4nW6nrZkD5je8tSiAcYB9xL2xYMCz",
-  "redeemScript": "52210307fd375ed7cced0f50723e3e1a97bbe7ccff7318c815df4e99a59bc94dbcd819210367c4f666f18279009c941e57fab3e42653c6553e5ca092c104d1db279e328a2852ae"
+  "address": "2NDU6abQtzh4LcNs4Vd7WQJwZhkXSt1aZGM",
+  "redeemScript": "522103f92e9f4c83f4438c86814952ab28836b6e3bfb38089a1f23ff8869eaf217982c210373de7b25896556c33e7a6f5379151291d380c60b84c3ee9a8c933b08ce0da9f452ae"
 }
 ```
-When creating the multisignature address, you list how many signatures are required with the `nrequired` argument (that's "m" in a "m-of-n" multisignature), then you list the total set of possible signatures with the `keys` argument (that's "n"). Note that the the `keys` entries can be asymmetric. In this case, we included `$address1`, which is a P2PKH address from a local machine, and `0367c4f666f18279009c941e57fab3e42653c6553e5ca092c104d1db279e328a28`, which is a public key from a remote machine. The `createmultisig` command is smart enough to try to convert any addresses into public keys ... but if that info isn't in your local wallet, expect to see a "no full public key for address" error.
+> **VERSION WARNING:** Older versions of `createmultisig` allowed you to enter an address instead of a public key, if the full information about the address was in your local wallet. This is no longer the case for modern Bitcoin core release, and so the shorthand should not be used.
+
+When creating the multisignature address, you list how many signatures are required with the `nrequired` argument (that's "m" in a "m-of-n" multisignature), then you list the total set of possible signatures with the `keys` argument (that's "n"). Note that the the `keys` entries likely came from different places. In this case, we included `$pubkey1` from the local machine and `0373de7b25896556c33e7a6f5379151291d380c60b84c3ee9a8c933b08ce0da9f4` from a remote machine. 
 
 > **M-OF-N VS N-OF-N:** This example shows the creation of a simple 2-of-2 multisig. If you instead want to create an m-of-n signature where "m < n", you adjust the `nrequired` field and/or the number of signatures in the `keys` JSON object. For a 1-of-2 multisig, you'd set `nrequired=1`, while for a 2-of-3 multisig, you'd leave `nrequired=2`, but add one more public key or address to the `keys` listing.
 
