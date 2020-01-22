@@ -54,8 +54,8 @@ verifychain ( checklevel nblocks )
 verifytxoutproof "proof"
 
 == Control ==
-getinfo
 getmemoryinfo ("mode")
+getnetworkinginfo
 help ( "command" )
 stop
 uptime
