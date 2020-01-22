@@ -78,7 +78,7 @@ $ bitcoin-cli -named decoderawtransaction hexstring=$rawtxhex
   ]
 }
 
-$ signedtx=$(bitcoin-cli -named signrawtransaction hexstring=$rawtxhex | jq -r '.hex')
+$ signedtx=$(bitcoin-cli -named signrawtransactionwithwallet hexstring=$rawtxhex | jq -r '.hex')
 $ bitcoin-cli -named sendrawtransaction hexstring=$signedtx
 8000dca7b1e7ab70f4056bc4512af6ffff7727d1588436521da3e5d886dbcddf
 ```

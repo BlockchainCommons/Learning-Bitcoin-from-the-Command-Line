@@ -126,14 +126,13 @@ Note the `ismine` results.
 
 At this point you can sign and send the transaction as usual.
 ```
-$ signedtx3=$(bitcoin-cli -named signrawtransaction hexstring=$rawtxhex3 | jq -r '.hex')
+$ signedtx3=$(bitcoin-cli -named signrawtransactionwithwallet hexstring=$rawtxhex3 | jq -r '.hex')
 $ bitcoin-cli -named sendrawtransaction hexstring=$signedtx3
 ```
 In several minutes, you'll have your change back:
 ```
 $ bitcoin-cli listunspent
 [
-
   {
     "txid": "37698ad6e7f62df07c2fbc549339aa680a7fa18328d7ad14ecb72b21c505cbc6",
     "vout": 0,
