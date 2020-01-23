@@ -1,6 +1,6 @@
 # 6.4: Sending a Transaction with a Locktime
 
-> **NOTE:** This is a draft in progress, so that I can get some feedback from early reviewers. It is not yet ready for learning.
+> :information_source: **NOTE:** This is a draft in progress, so that I can get some feedback from early reviewers. It is not yet ready for learning.
 
 The second way to vary how you send a basic transaction is to choose a locktime. This gives you the ability to send raw transactions at some time in the future.
 
@@ -26,7 +26,7 @@ Most frequently you will set the locktime to a UNIX timestamp representing a spe
 
 _Why Would I Use a UNIX Timestamp?_ Using a UNIX timestamp makes it easy to definitively link a transaction to a specific time, without worrying about whether the speed of block creation might change at some point. Particularly if you're creating a locktime that's far in the future, it's the safer thing to do. But, beyond that, it's just more intuitive, creating a direct correlation between some calendar date and the time when the transaction can be mined.
 
-> **WARNING:** Locktime with UNIX timestamps has a bit of wriggle room: the release of blocks isn't regular and block times can be two hours ahead of real time, so a locktime actually means "within a few hours of this time, plus or minus".
+> :warning: **WARNING:** Locktime with UNIX timestamps has a bit of wriggle room: the release of blocks isn't regular and block times can be two hours ahead of real time, so a locktime actually means "within a few hours of this time, plus or minus".
 
 ### Figure Out Your Locktime By Block Height
 
@@ -36,7 +36,7 @@ Once you've figured out the current height, you can decide how far in the future
 
 _Why Would I Use a Blockheight?_ Unlike with timestamps, there's no fuzziness for blockheights. If you set a blockheight of 120,000 for your locktime, then there's absolutely no way for it to go into block 119,999. This can make it easier to algorithmically control your locktimed transaction. The downside is that you can't be as sure of when precisely the locktime will be.
 
-> **WARNING:** If you want to set a block-height locktime, you must set the locktime to less than 500 million. If you set it to 500 million or over, your number will instead be interpreted as a timestamp. Since the UNIX timestamp of 500 million was November 5, 1985, that probably means that your transaction will be put into a block at the miners' first opportunity.
+> :warning: **WARNING:** If you want to set a block-height locktime, you must set the locktime to less than 500 million. If you set it to 500 million or over, your number will instead be interpreted as a timestamp. Since the UNIX timestamp of 500 million was November 5, 1985, that probably means that your transaction will be put into a block at the miners' first opportunity.
 
 ## Write Your Transaction
 
@@ -99,9 +99,9 @@ $ bitcoin-cli -named decoderawtransaction hexstring=$rawtxhex
 ```
 Note that the sequence number (4294967294) is less than 0xffffffff. This is necessary signalling to show that the transaction includes a locktime. It's also done automatically by `bitcoin-cli`. If the sequence number is instead set to 0xffffffff, your locktime will be ignored.
 
-> **SEQUENCE NOTE (II):** This is the second use of the `nSequence` value in Bitcoin. As with RBF, `nSequence` is again used as an opt-in, this time for the use of locktime. 0xffffffff-1 (4294967294) is the preferred value for signalling locktime because it purposefully disallows the use of both RBF (which requires `nSequence < 0xffffffff-1`) and relative timelock (which requires `nSequence < 0xf0000000`), the other two uses of the `nSequence` value. If you set `nSequence` lower than `0xf0000000`, then you will also relative timelock your transaction, which is probably not what you want.
+> :information_source: **NOTE — SEQUENCE:** This is the second use of the `nSequence` value in Bitcoin. As with RBF, `nSequence` is again used as an opt-in, this time for the use of locktime. 0xffffffff-1 (4294967294) is the preferred value for signalling locktime because it purposefully disallows the use of both RBF (which requires `nSequence < 0xffffffff-1`) and relative timelock (which requires `nSequence < 0xf0000000`), the other two uses of the `nSequence` value. If you set `nSequence` lower than `0xf0000000`, then you will also relative timelock your transaction, which is probably not what you want.
 
-> **WARNING:** If you are creating a locktime raw transaction by some other means than `bitcoin-cli`, you will have to set the sequence to less than 0xffffffff by hand.
+> :warning: **WARNING:** If you are creating a locktime raw transaction by some other means than `bitcoin-cli`, you will have to set the sequence to less than 0xffffffff by hand.
 
 ## Send Your Transaction
 
