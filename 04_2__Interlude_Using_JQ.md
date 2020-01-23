@@ -1,6 +1,6 @@
 # Interlude: Using JQ
 
-> **NOTE:** This is a draft in progress, so that I can get some feedback from early reviewers. It is not yet ready for learning.
+> :information_source: **NOTE:** This is a draft in progress, so that I can get some feedback from early reviewers. It is not yet ready for learning.
 
 Creating a raw transaction revealed how more complex bitcoin-cli results can't easily be saved into command-line variables. The answer is JQ, which allows you to filter out individual elements from more complex JSON data.
 
@@ -274,7 +274,7 @@ $ echo ${usedvout[1]}
 ```
 The only real trick here is how we saved the information using the bash shell. Rather than saving to a variable with `$(command)`, we instead saved to an array with `($(command))`. We were then able to access the individual bash array elements with a `${variable[n]}` construction. We could instead access the whole array with `${variable[@]}`. (Yeah, no one ever said bash was pretty.)
 
-> **WARNING:** Always remember that a UTXO is a transaction _plus_ a vout. We missed the vout the first time we wrote this JQ example, and it stopped working when we ended up with a situation where we'd been sent two `vouts` from the same transaction.
+> :warning: **WARNING:** Always remember that a UTXO is a transaction _plus_ a vout. We missed the vout the first time we wrote this JQ example, and it stopped working when we ended up with a situation where we'd been sent two `vouts` from the same transaction.
 
 ### Retrieve the Related Object(s)
 
@@ -380,7 +380,7 @@ $ echo "$btcin-$btcout"| /usr/bin/bc
 ```
 And that's also a good example of why you double-check your fees: we'd intended to send a transaction fee of 5,000 satoshis, but sent 255,000 satoshis instead. Whoops!
 
-> **WARNING:** The first time we wrote up this lesson, we genuinely miscalculated our fee and didn't see it until we ran our fee calculator. It's *that* easy, then your money is gone. (The example above is actually from our second iteration of the calculator, and that time we made the mistake on purpose.)
+> :warning: **WARNING:** The first time we wrote up this lesson, we genuinely miscalculated our fee and didn't see it until we ran our fee calculator. It's *that* easy, then your money is gone. (The example above is actually from our second iteration of the calculator, and that time we made the mistake on purpose.)
 
 For more JSON magic (and if any of this isn't clear), please read the [JSON Manual](https://stedolan.github.io/jq/manual/) and the [JSON Cookbook](https://github.com/stedolan/jq/wiki/Cookbook). We'll be regularly using JQ in future examples.
 
@@ -404,7 +404,7 @@ Continue "Sending Bitcoin Transactions" with [§4.3 Creating a Raw Transaction w
 
 The following script runs the "Fee Calculation" from the above example.
 
-> **WARNING:** This script has not been robustly checked. If you are going to use it to verify real transaction fees you should only do it as a triple-check after you've already done all the math yourself.
+> :warning: **WARNING:** This script has not been robustly checked. If you are going to use it to verify real transaction fees you should only do it as a triple-check after you've already done all the math yourself.
 
 ```
 file: txfee-calc.sh
