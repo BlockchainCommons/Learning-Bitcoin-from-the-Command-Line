@@ -1,6 +1,6 @@
 # 6.2: Spending a Transaction with a Multisig
 
-> **NOTE:** This is a draft in progress, so that I can get some feedback from early reviewers. It is not yet ready for learning.
+> :information_source: **NOTE:** This is a draft in progress, so that I can get some feedback from early reviewers. It is not yet ready for learning.
 
 The classic, and complex, way of spending funds sent to a multisignature address using `bitcoin-cli` requires that you do a lot of foot work.
 
@@ -77,7 +77,7 @@ Because this transaction isn't making full use of your wallet, you're going to n
 machine1$ bitcoin-cli -named dumpprivkey address=$address1
 cMgb3KM8hPATCtgMKarKMiFesLft6eEw3DY6BB8d97fkeXeqQagw
 ```
-> **WARNING:** Directly accessing your private keys from the shell is very dangerous behavior and should be done with extreme care if you're using real money. At the least, don't save the information into a variable that could be accessed from your machine. Removing your shell's history is another great step. At the most, don't do it.
+> :warning: **WARNING:** Directly accessing your private keys from the shell is very dangerous behavior and should be done with extreme care if you're using real money. At the least, don't save the information into a variable that could be accessed from your machine. Removing your shell's history is another great step. At the most, don't do it.
 
 ### Make Your First Signature
 
@@ -108,7 +108,7 @@ That produces scary errors and says that it's not `complete`. This is all correc
 
 You can now pass the transaction on, to be signed again by anyone else required for the mutisig. They do this by running the same signing command that you did but: (1) with the longer `hex` that you output (`bitcoin-cli -named signrawtransaction hexstring=$rawtxhex prevtxs='''[ { "txid": "'$utxo_txid'", "vout": '$utxo_vout', "scriptPubKey": "'$utxo_spk'", "redeemScript": "'$redeem_script'" } ]''' privkeys='["cMgb3KM8hPATCtgMKarKMiFesLft6eEw3DY6BB8d97fkeXeqQagw"]' | jq -r '. | .hex'`); and (2) with their own private key.
 
-> **M-OF-N VS N-OF-N:** Obviously, if you have an n-of-n signature (like the 2-of-2 multisignature in this example), then everyone has to sign, but if you hae a m-of-n multisignature where "m < n", then the signature will be complete when only some ("m") of the signers have signed.
+> :information_source: **NOTE — M-OF-N VS N-OF-N:** Obviously, if you have an n-of-n signature (like the 2-of-2 multisignature in this example), then everyone has to sign, but if you hae a m-of-n multisignature where "m < n", then the signature will be complete when only some ("m") of the signers have signed.
 
 To do so first they access their private keys:
 ```
