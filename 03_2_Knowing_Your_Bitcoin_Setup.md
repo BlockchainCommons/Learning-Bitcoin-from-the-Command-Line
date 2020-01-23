@@ -1,6 +1,6 @@
 # 3.2: Knowing Your Bitcoin Setup
 
-> **NOTE:** This is a draft in progress, so that I can get some feedback from early reviewers. It is not yet ready for learning.
+> :information_source: **NOTE:** This is a draft in progress, so that I can get some feedback from early reviewers. It is not yet ready for learning.
 
 Before you start playing with Bitcoin, you may always want to come to a better understanding of your setup.
 
@@ -23,7 +23,7 @@ bitcoind.pid  chainstate  db.log    peers.dat
 ```
 You shouldn't mess with most of these files and directories — particularly not the blocks and chainstate directories, which contain all of the blockchain data, and the wallet.dat file, which contains your personal wallet. However, do take careful note of the db.log and debug.log file, which you should refer to if you ever have problems with your setup.
 
-> **TESTNET vs MAINNET:** If you're using mainnet, then _everything_ will instead be placed in the main ~/.bitcoin directory. These various setups _do_ elegantly stack, so if you are using mainnet, testnet, and regtest, you'll find that ~/.bitcoin contains your config file and your mainnet data, ~/.bitcoin/testnet3 contains your testnet data, and ~/.bitcoin/regtest contains your regtest data.
+> :link: **TESTNET vs MAINNET:** If you're using mainnet, then _everything_ will instead be placed in the main ~/.bitcoin directory. These various setups _do_ elegantly stack, so if you are using mainnet, testnet, and regtest, you'll find that ~/.bitcoin contains your config file and your mainnet data, ~/.bitcoin/testnet3 contains your testnet data, and ~/.bitcoin/regtest contains your regtest data.
 
 ## Know Your Bitcoin-cli Commands
 
