@@ -1,6 +1,6 @@
 # 6.5: Sending a Transaction with Data
 
-> **NOTE:** This is a draft in progress, so that I can get some feedback from early reviewers. It is not yet ready for learning.
+> :information_source: **NOTE:** This is a draft in progress, so that I can get some feedback from early reviewers. It is not yet ready for learning.
 
 The third way to vary how you send a basic transaction is to use the transaction to send data instead of funds (or really, in addition to funds). This gives you the ability to embed information in the blockchain.
 
