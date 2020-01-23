@@ -1,10 +1,10 @@
 # 4.3 Creating a Raw Transaction with Named Arguments
 
-> **NOTE:** This is a draft in progress, so that I can get some feedback from early reviewers. It is not yet ready for learning.
+> :information_source: **NOTE:** This is a draft in progress, so that I can get some feedback from early reviewers. It is not yet ready for learning.
 
 It can sometimes be daunting to figure out the right order for the arguments to a bitcoin-cli command. Fortunately, you can use _named arguments_ as an alternative.
 
-> **VERSION WARNING:** This is an innovation from Bitcoin Core v 0.14.0. If you used our setup scripts, that's what you should have, but double-check your version if you have any problems. There is also a bug in the `createrawtransaction` command's use of named arguments that will presumably be fixed in 0.14.1.
+> :warning: **VERSION WARNING:** This is an innovation from Bitcoin Core v 0.14.0. If you used our setup scripts, that's what you should have, but double-check your version if you have any problems. There is also a bug in the `createrawtransaction` command's use of named arguments that will presumably be fixed in 0.14.1.
 
 ## Create a Named Argument Alias
 
@@ -84,7 +84,7 @@ $ bitcoin-cli -named sendrawtransaction hexstring=$signedtx
 ```
 Voila! You've sent out another raw transaction, but this time using named arguments for clarity and to reduce errors.
 
-> **VERSION WARNING:** There is where the bug in Bitcoin Core 0.14 shows up: the 'inputs' argument for 'createrawtransaction' is misnamed 'transactions'. So, if you're on Bitcoin Core 0.14.0, substitute the named argument 'inputs' with 'transactions' for this and future examples. However, as of Bitcoin Core 0.14.1, this code should work as shown.
+> :warning: **VERSION WARNING:** There is where the bug in Bitcoin Core 0.14 shows up: the 'inputs' argument for 'createrawtransaction' is misnamed 'transactions'. So, if you're on Bitcoin Core 0.14.0, substitute the named argument 'inputs' with 'transactions' for this and future examples. However, as of Bitcoin Core 0.14.1, this code should work as shown.
 
 ## Summary: Creating a Raw Transaction with Named Arguments
 
