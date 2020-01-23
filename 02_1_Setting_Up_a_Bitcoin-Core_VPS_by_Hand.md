@@ -1,10 +1,10 @@
 # 2.1: Setting Up a Bitcoin-Core VPS by Hand
 
-> **NOTE:** This is a draft in progress, so that I can get some feedback from early reviewers. It is not yet ready for learning.
+> :information_source: **NOTE:** This is a draft in progress, so that I can get some feedback from early reviewers. It is not yet ready for learning.
 
 This document explains how to set up a VPS (Virtual Private Server) by hand to run a Bitcoin node on a cloud computer. You'll need to set up your computer yourself, but then this document will provide you with important commands to secure your VPS and to get it running Bitcoin. The setup should all be done in my session, so you don't lose the variables `export`ed at the start.
 
-> **WARNING:** Don’t use a VPS for a bitcoin wallet with significant real funds; see http://blog.thestateofme.com/2012/03/03/lessons-to-be-learned-from-the-linode-bitcoin-incident/ . It is  very nice to be able experiment with real bitcoin transactions on a live node without tying up a self-hosted server on a local network. I’ve also found it useful to be able to use an iPhone or iPad to communicate via SSH to my VPS to do some simple bitcoin tasks. But a higher level of safety is required for significant funds.
+> :warning: **WARNING:** Don’t use a VPS for a bitcoin wallet with significant real funds; see http://blog.thestateofme.com/2012/03/03/lessons-to-be-learned-from-the-linode-bitcoin-incident/ . It is  very nice to be able experiment with real bitcoin transactions on a live node without tying up a self-hosted server on a local network. I’ve also found it useful to be able to use an iPhone or iPad to communicate via SSH to my VPS to do some simple bitcoin tasks. But a higher level of safety is required for significant funds.
 
 If you want to instead have a script do the setup for you, specifically at linode.com, read the parallel HOWTO file, [§2.2: Setting up a Bitcoin-Core VPS with StackScript](02_2_Setting_Up_a_Bitcoin-Core_VPS_with_StackScript.md).
 
@@ -35,13 +35,13 @@ If your cloud provider offers two-factor authentication for their web tools, we 
 
 You should now create your Bitcoin VPS. For an Unpruned Testnet setup, you should have at least 2-3G of memory and at least 19G of storage.
 
-> **WARNING:** We've occasionally had machines run out of memory after running `bitcoind` for a few days when they only had 2G. Coming back, we find that `bitcoind` has stopped, leaving the message "Error: Out of memory. Terminating." in the `debug.log` file. This simply requires a restart of `bitcoind` and ten or fifteen minutes to get the blockchain resynced. Be generous with your memory if you want to avoid this annoyance, but don't worry too much if you hit it.
+> :warning: **WARNING:** We've occasionally had machines run out of memory after running `bitcoind` for a few days when they only had 2G. Coming back, we find that `bitcoind` has stopped, leaving the message "Error: Out of memory. Terminating." in the `debug.log` file. This simply requires a restart of `bitcoind` and ten or fifteen minutes to get the blockchain resynced. Be generous with your memory if you want to avoid this annoyance, but don't worry too much if you hit it.
 
 We also suggest that you choose a Debian 9 image when you're creating your machine. These commands were all tested on Debian 9.5 (stretch). The further you get away from that, the less likely things will work as described here. So, another Debian is probably OK and maybe a different Ubuntu, but we've tried these out on a Mac, and we know that it's missing some commands like "wget". So, installer beware!
 
 Afterward, boot your VPS.
 
-> **TESTNET vs MAINNET:** The various possible setups require 5-19G of storage and 2-3G of memory. The non-Pruned Mainnet is the only setup that requires considerably more: about 170G of storage to hold the current blockchain.
+> :link: **TESTNET vs MAINNET:** The various possible setups require 5-19G of storage and 2-3G of memory. The non-Pruned Mainnet is the only setup that requires considerably more: about 170G of storage to hold the current blockchain.
 >
 > Following are suggestions for machine requirements:
 >
@@ -145,7 +145,7 @@ COMMIT
 EOF
 ```
 
-> **TESTNET vs MAINNET:** Note that 8333 is the Bitcoin Mainnet Port, 18333 is the Bitcoin Testnet port, and 9735 is the Lightning port. If you want to be adventurous, you can delete the one you're not using.
+> :link: **TESTNET vs MAINNET:** Note that 8333 is the Bitcoin Mainnet Port, 18333 is the Bitcoin Testnet port, and 9735 is the Lightning port. If you want to be adventurous, you can delete the one you're not using.
 
 Most work is still done on IPv4 networks, but the following will establish the same rules for IPv6:
 
@@ -265,7 +265,7 @@ alias btcinfo='bitcoin-cli getwalletinfo | egrep "\"balance\""; bitcoin-cli getn
 EOF
 ```
 
-> **TESTNET vs MAINNET:** If you are using a mainnet or pruned mainnet setup, we instead suggest the following. The only difference between the two is in the 'btcblock' line, which looks up the block count in different places for mainnet and testnet.
+> :link: **TESTNET vs MAINNET:** If you are using a mainnet or pruned mainnet setup, we instead suggest the following. The only difference between the two is in the 'btcblock' line, which looks up the block count in different places for mainnet and testnet.
 ```
 $ sudo -u user1 cat >> ~user1/.bash_profile <<EOF
 alias btcdir="cd ~/.bitcoin/" #linux default bitcoind path
@@ -276,7 +276,7 @@ alias btcblock="echo \\\`bitcoin-cli getblockcount 2>&1\\\`/\\\`wget -O - http:/
 EOF
 ```
 
-> **WARNING:** The btcblock alias will not work correctly if you try to place it in your .bash_profile by hand, rather than using the "cat" command as suggested. To enter it by hand, you need to adjust the number of backslashes (usually from three each to one each), so make sure you know what you're doing if you aren't entering the commands exactly as shown.
+> :warning: **WARNING:** The btcblock alias will not work correctly if you try to place it in your .bash_profile by hand, rather than using the "cat" command as suggested. To enter it by hand, you need to adjust the number of backslashes (usually from three each to one each), so make sure you know what you're doing if you aren't entering the commands exactly as shown.
 
 As usual, give your user permission:
 ```
@@ -392,9 +392,9 @@ txindex=1
 walletbroadcast=1
 EOF
 ```
-> **TESTNET vs MAINNET:** If you want to use mainnet instead of testnet, just omit the "testnet=1" line; easy!
+> :link: **TESTNET vs MAINNET:** If you want to use mainnet instead of testnet, just omit the "testnet=1" line; easy!
 
-> **PRUNED vs UNPRUNED:** If you want to use a pruned copy of the blockchain instead of an unpruned copy, to minimize storage requirements and loading time, do _not_ include the "txindex=1" line, but instead add a "prune=550" line. txindex gives the benefit of a complete transaction index, but is not compatible with pruning, so you choose one or the other
+> :link: **PRUNED vs UNPRUNED:** If you want to use a pruned copy of the blockchain instead of an unpruned copy, to minimize storage requirements and loading time, do _not_ include the "txindex=1" line, but instead add a "prune=550" line. txindex gives the benefit of a complete transaction index, but is not compatible with pruning, so you choose one or the other
 
 To end, limit permissions to your configuration file:
 ```
@@ -422,7 +422,7 @@ $ btcblock
 ```
 0.15.1 is quite fast to download blocks, but it might still take an hour to download the unpruned testnet. It might be time for a few more espressos.
 
-> **TESTNET vs MAINNET:** An unpruned mainnet will take hours longer.
+> :link: **TESTNET vs MAINNET:** An unpruned mainnet will take hours longer.
 
 But, when you're ready to go, continue on with [Chapter Three: Understanding Your Bitcoin Setup](03_0_Understanding_Your_Bitcoin_Setup.md), where we'll talk about the files and how you can start experimenting.
 
