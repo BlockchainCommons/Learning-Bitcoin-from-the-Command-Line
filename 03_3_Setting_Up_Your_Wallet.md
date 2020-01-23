@@ -1,6 +1,6 @@
 # 3.3: Setting Up Your Wallet
 
-> **NOTE:** This is a draft in progress, so that I can get some feedback from early reviewers. It is not yet ready for learning.
+> :information_source: **NOTE:** This is a draft in progress, so that I can get some feedback from early reviewers. It is not yet ready for learning.
 
 You're now ready to start working with Bitcoin. To begin with, you'll need to create an address for receiving funds.
 
@@ -15,7 +15,7 @@ Note that this address begins with an "n" (or sometimes an "m"). This signifies 
 
 The "legacy" flag is necessary to generate a traditional address, rather than a p2sh-segwit or bech32 address. The legacy address is currently required from the command line to make sure that signing works correctly.
 
-> **TESTNET vs MAINNET:** The equivalent mainnet address would start with a 1.
+> :link: **TESTNET vs MAINNET:** The equivalent mainnet address would start with a 1.
 
 Take careful note of the address. You'll need to give it to whomever will be sending you funds.
 
@@ -88,7 +88,7 @@ $ bitcoin-cli importprivkey cW4s4MdW7BkUmqiKgYzSJdmvnzq8QDrf6gszPMC7eLmfcdoRHtHh
 ```
 Expect this to take a while, as `bitcoind` needs to reread all past transactions, to see if there are any new ones that it should pay attention to.
 
-> **NOTE:** Many modern wallets prefer [mnemonic codes](https://github.com/bitcoin/bips/blob/master/bip-0039.mediawiki) to generate the seeds necessary to create the private keys. This methodology is not used `bitcoin-cli`, so you won't be able to generate handy word lists to remember your private keys.
+> :information_source: **NOTE:** Many modern wallets prefer [mnemonic codes](https://github.com/bitcoin/bips/blob/master/bip-0039.mediawiki) to generate the seeds necessary to create the private keys. This methodology is not used `bitcoin-cli`, so you won't be able to generate handy word lists to remember your private keys.
 
 _You've been typing that Bitcoin address you generated a _lot_, while you were signing messages and now dumping keys. If you think it's a pain, we agree. It's also prone to errors, a topic that we'll address in the very next section._
 
