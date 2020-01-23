@@ -62,7 +62,7 @@ The following chart shows minimum requirements
 
 Just choose your Linode type, choose a Location that's geographically as close to you as possible, and click "Add your Linode!".
 
-> **WARNING:** We've occasionally had machines run out of memory after running `bitcoind` for a few days when they only had 2G. Coming back, we find that `bitcoind` has stopped, leaving the message "Error: Out of memory. Terminating." in the `debug.log` file. This simply requires a restart of `bitcoind` and ten or fifteen minutes to get the blockchain resynced. This seems to have largely gone away with Bitcoin 0.14.1, but here's your warning in case it shows up again.
+> :warning: **WARNING:** We've occasionally had machines run out of memory after running `bitcoind` for a few days when they only had 2G. Coming back, we find that `bitcoind` has stopped, leaving the message "Error: Out of memory. Terminating." in the `debug.log` file. This simply requires a restart of `bitcoind` and ten or fifteen minutes to get the blockchain resynced. This problem has seemed more prevelant starting with our upgrade to 0.18 (after largely going away), so it's possible you'll need to upgrade to the 4G machines solely due to memory issues.
 
 _Be aware that the requirements might change over time as the blockchain continues to grow. Watch for "Out of Memory" or "Disk Space is Low!" errors. Either one indicates that you should migrate to the next larger machine!_
 
