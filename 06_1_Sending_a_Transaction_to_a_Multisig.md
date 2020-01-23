@@ -1,6 +1,6 @@
 # 6.1: Sending a Transaction with a Multisig
 
-> **NOTE:** This is a draft in progress, so that I can get some feedback from early reviewers. It is not yet ready for learning.
+> :information_source: **NOTE:** This is a draft in progress, so that I can get some feedback from early reviewers. It is not yet ready for learning.
 
 The first way to vary how you send a basic transaction is to use a multisig. This gives you the ability to require that multiple people (or at least multiple private keys) authorize the use of funds.
 
@@ -82,7 +82,7 @@ The `pubkey` address (`0373de7b25896556c33e7a6f5379151291d380c60b84c3ee9a8c933b0
 
 This process needs to be undertaken for _every_ address from a machine other than the one where the multisig is being built. Obviously, if some third-party is creating the address, then you'll to do this for every address.
 
-> **WARNING:** Bitcoin's use of public-key hashes as addresses, instead of public keys, actually represents an additional layer of security. Thus, sending a public key slightly increases the vulnerability of the associated address, for some far-future possibility of a compromise of the elliptic curve. You shouldn't worry about having to occasionally send out a public key for a usage such as this, but you should be aware that the public-key hashes represent security, and so the actual public keys should not be sent around willy nilly.
+> :warning: **WARNING:** Bitcoin's use of public-key hashes as addresses, instead of public keys, actually represents an additional layer of security. Thus, sending a public key slightly increases the vulnerability of the associated address, for some far-future possibility of a compromise of the elliptic curve. You shouldn't worry about having to occasionally send out a public key for a usage such as this, but you should be aware that the public-key hashes represent security, and so the actual public keys should not be sent around willy nilly.
 
 However, if one of the addresses was created on your local machine, which we assume here is `machine1`, you can just dump the `pubkey` address into a new variable.
 ```
@@ -99,23 +99,23 @@ machine1$ bitcoin-cli -named createmultisig nrequired=2 keys='''["'$pubkey1'","0
   "redeemScript": "522103f92e9f4c83f4438c86814952ab28836b6e3bfb38089a1f23ff8869eaf217982c210373de7b25896556c33e7a6f5379151291d380c60b84c3ee9a8c933b08ce0da9f452ae"
 }
 ```
-> **VERSION WARNING:** Older versions of `createmultisig` allowed you to enter an address instead of a public key, if the full information about the address was in your local wallet. This is no longer the case for modern Bitcoin core release, and so the shorthand should not be used.
+> :warning: **VERSION WARNING:** Older versions of `createmultisig` allowed you to enter an address instead of a public key, if the full information about the address was in your local wallet. This is no longer the case for modern Bitcoin core release, and so the shorthand should not be used.
 
 When creating the multisignature address, you list how many signatures are required with the `nrequired` argument (that's "m" in a "m-of-n" multisignature), then you list the total set of possible signatures with the `keys` argument (that's "n"). Note that the the `keys` entries likely came from different places. In this case, we included `$pubkey1` from the local machine and `0373de7b25896556c33e7a6f5379151291d380c60b84c3ee9a8c933b08ce0da9f4` from a remote machine. 
 
-> **M-OF-N VS N-OF-N:** This example shows the creation of a simple 2-of-2 multisig. If you instead want to create an m-of-n signature where "m < n", you adjust the `nrequired` field and/or the number of signatures in the `keys` JSON object. For a 1-of-2 multisig, you'd set `nrequired=1`, while for a 2-of-3 multisig, you'd leave `nrequired=2`, but add one more public key or address to the `keys` listing.
+> :information_source: **NOTE — M-OF-N VS N-OF-N:** This example shows the creation of a simple 2-of-2 multisig. If you instead want to create an m-of-n signature where "m < n", you adjust the `nrequired` field and/or the number of signatures in the `keys` JSON object. For a 1-of-2 multisig, you'd set `nrequired=1`, while for a 2-of-3 multisig, you'd leave `nrequired=2`, but add one more public key or address to the `keys` listing.
 
 When used correctly, `createmultisig` returns two results, both of which are critically important.
 
 The _address_ is what you'll give out to people who want to send funds. You'll notice that it has a new prefix of `2`, rather than the prefixes you've seen on Bitcoin addresses to date. That's because `createmultisig` is actually creating a totally new type of address called a P2SH address. It works exactly like a standard P2PKH address for sending funds, but you'll need to do a lot more work to spend them. 
 
-> **TESTNET vs MAINNET:** On testnet, the prefix for P2SH addresses is `2`, while on mainnet, it's `3`.
+> :link: **TESTNET vs MAINNET:** On testnet, the prefix for P2SH addresses is `2`, while on mainnet, it's `3`.
 
 The _redeemScript_ is what you need to redeem the funds, along with the private keys for "m" of the "n" addresses. This script is another special feature of P2SH addresses and will be fully explained in [§8.1: Building a Bitcoin Script with P2SH](08_1_Building_a_Bitcoin_Script_with_P2SH.md). For now, just be aware that it's a bit of data that's required to get your money.
 
 _What is a P2SH address?_ P2SH stands for Pay-to-script-hash. It's a different type of receipient than a standard P2PKH address, used for funds whose redemption are based on more complex Bitcoin Scripts. `bitcoin-cli` uses P2SH encapsulation to help standardize and simplify its multisigs as "P2SH multisigs".
 
-> **WARNING:** P2SH multisig addresses, like the ones created by `bitcoin-cli`, have a limit for "m" and "n" in multisigs based on the maximum size of the redeem script, which is currently 520 bytes. Pratically, you won't hit this unless you're doing something excessive.
+> :warning: **WARNING:** P2SH multisig addresses, like the ones created by `bitcoin-cli`, have a limit for "m" and "n" in multisigs based on the maximum size of the redeem script, which is currently 520 bytes. Pratically, you won't hit this unless you're doing something excessive.
 
 ### Save Your Work
 
