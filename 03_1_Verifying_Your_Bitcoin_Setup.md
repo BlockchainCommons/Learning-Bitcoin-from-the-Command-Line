@@ -1,6 +1,6 @@
 # 3.1: Verifying Your Bitcoin Setup
 
-> **NOTE:** This is a draft in progress, so that I can get some feedback from early reviewers. It is not yet ready for learning.
+> :information_source: **NOTE:** This is a draft in progress, so that I can get some feedback from early reviewers. It is not yet ready for learning.
 
 Before you start playing with Bitcoin, you should ensure that everything is setup correctly.
 
@@ -18,13 +18,13 @@ alias btcblock="echo \\\`bitcoin-cli getblockcount 2>&1\\\`/\\\`wget -O - http:/
 EOF
 ```
 
-> **WARNING:** The btcblock alias will not work correctly if you try to place it in your .bash_profile by hand, rather than using the "cat" command as suggested. If you want to enter it by hand, you need to adjust the number of backslashes (usually from three each to one each), so make sure you know what you're doing if you aren't entering the commands exactly as suggested.
+> :warning: **WARNING:** The btcblock alias will not work correctly if you try to place it in your .bash_profile by hand, rather than using the "cat" command as suggested. If you want to enter it by hand, you need to adjust the number of backslashes (usually from three each to one each), so make sure you know what you're doing if you aren't entering the commands exactly as suggested.
 
 Note that these aliases includes shortcuts for running `bitcoin-cli`, for running `bitcoind`, and for going to the Bitcoin directory. These aliases are mainly meant to make your life easier. We suggest you create other aliases to ease your use of frequent commands (and arguments) and to minimize errors. Aliases of this sort can be even more useful if you have a complex setup where you regularly run commands associated with Mainnet, with Testnet, _and_ with Regtest, as explained further below.
 
 With that said, use of these aliases in _this_ document might accidentally obscure the core lessons being taught about Bitcoin, so the only aliases directly used here are `btcinfo` and `btcblock`, because they encapsulate much longer and more complex commands. Otherwise, we show the full commands; adjust for your own use as appropriate.
 
-> **TESTNET vs MAINNET:** Remember that this tutorial generally assumes that you are using testnet. The `btcblock` alias needs to be slightly different on mainnet, where you can use the simpler "wget -O - http://blockchain.info/q/getblockcount 2>/dev/null".
+> :link: **TESTNET vs MAINNET:** Remember that this tutorial generally assumes that you are using testnet. The `btcblock` alias needs to be slightly different on mainnet, where you can use the simpler "wget -O - http://blockchain.info/q/getblockcount 2>/dev/null".
 
 ## Run Bitcoind
 
