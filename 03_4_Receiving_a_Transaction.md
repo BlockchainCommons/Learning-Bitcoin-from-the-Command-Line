@@ -1,6 +1,6 @@
 # 3.4: Receiving a Transaction
 
-> **NOTE:** This is a draft in progress, so that I can get some feedback from early reviewers. It is not yet ready for learning.
+> :information_source: **NOTE:** This is a draft in progress, so that I can get some feedback from early reviewers. It is not yet ready for learning.
 
 You're now ready to receive some money at the new address you set up.
 
@@ -185,7 +185,7 @@ $ bitcoin-cli getrawtransaction "88e5d5f3077517d76f5a61491fa52e6aaae078c52bc62d8
 ```
 Now you can see the full information on the transaction, including all of the inputs ("vin") and all the outputs ("vout). One of the interesting things to note is that although we received .47 BTC in the transaction, another .51869975 was sent to another address. That was probably a change address, a concept that is explored in the next section. It is quite typical for a transaction to have multiple inputs and/or multiple outputs.
 
-> **WARNING:** These commands will not work in some situations. To be able to view a raw transaction on a standard node, some of the money must be unspent, or the transaction must still be in your mempool — which means that this command will work fine for the money you've just received, but not for old stuff. If you want to be able to view older transactions that have been spent, you can do so by maintaining a set of all transactions with the txindex=1 configuration, which is what our scripts suggest for all non-pruned instances. (You can't maintain a transaction index if your node is pruned.)
+> :warning: **WARNING:** These commands will not work in some situations. To be able to view a raw transaction on a standard node, some of the money must be unspent, or the transaction must still be in your mempool — which means that this command will work fine for the money you've just received, but not for old stuff. If you want to be able to view older transactions that have been spent, you can do so by maintaining a set of all transactions with the txindex=1 configuration, which is what our scripts suggest for all non-pruned instances. (You can't maintain a transaction index if your node is pruned.)
 
 ## Optional: Use a Block Explorer
 
