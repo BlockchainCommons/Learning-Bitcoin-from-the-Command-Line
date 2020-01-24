@@ -1,6 +1,6 @@
  # 11.3: Empowering Bitcoin with Scripts
 
-> **NOTE:** This is a draft in progress, so that I can get some feedback from early reviewers. It is not yet ready for learning.
+> :information_source: **NOTE:** This is a draft in progress, so that I can get some feedback from early reviewers. It is not yet ready for learning.
 
 Bitcoin Scripts can go far beyond the relatively simple financial instruments detailed to date. They're also the foundation of most  complex usages of the Bitcoin network, as demonstrated by these real-world examples of off-chain functionality, drawn from the Lightning Network examples in BIP 112.
 
