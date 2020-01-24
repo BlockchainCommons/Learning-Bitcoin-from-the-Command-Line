@@ -73,7 +73,7 @@ ENDIF
 ```
 The `True` or `False` statement is placed on the stack _prior_ to running the `IF`, then the correct block of code is run based on that result.
 
-This particular example code is intended as a poor man's 1-of-2 multisignature. The owner of `<privKeyA>` would put `<signatureA> <pubKeyA> True` in his locking script, while the owner of `<privKeyB>` would put `<signatureB> <pubKeyB> False` in her locking script. That trailing `True` or `False` is what's checked by the `IF`/`ELSE` statement.  It tells the script which public-key hash to check against, then the `OP_EQUALVERIFY` and the `OP_CHECKSIG` at the end do the real work. 
+This particular example code is intended as a poor man's 1-of-2 multisignature. The owner of `<privKeyA>` would put `<signatureA> <pubKeyA> True` in his unlocking script, while the owner of `<privKeyB>` would put `<signatureB> <pubKeyB> False` in her unlocking script. That trailing `True` or `False` is what's checked by the `IF`/`ELSE` statement.  It tells the script which public-key hash to check against, then the `OP_EQUALVERIFY` and the `OP_CHECKSIG` at the end do the real work. 
 
 ### Run an If/Then Multisig
 
