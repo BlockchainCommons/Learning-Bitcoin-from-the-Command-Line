@@ -87,7 +87,7 @@ When a UTXO is redeemed, it runs in two rounds of verification:
 
 Whereas you can't easily create a P2SH transaction without an API, you should be able to easily redeem a P2SH transaction with `bitcoin-cli`. In fact, you already have. The exact process is described in [§8.5: Spending a P2SH Transaction.md](08_5_Spending_a_P2SH_Transaction.md), after we've finished with all the intricacies of P2SH transaction creation.
 
-> **WARNING:** You can create a perfectly valid transaction with a hashed redeemScript, but if the redeemScript doesn't run, or doesn't run correctly, your funds are lost forever. That's why it is so important to test your Scripts, as discussed in [§7.4: Testing a Bitcoin Script](07_4_Testing_a_Bitcoin_Script.md)
+> :warning: **WARNING:** You can create a perfectly valid transaction with a hashed redeemScript, but if the redeemScript doesn't run, or doesn't run correctly, your funds are lost forever. That's why it is so important to test your Scripts, as discussed in [§7.4: Testing a Bitcoin Script](07_4_Testing_a_Bitcoin_Script.md)
 
 ## Summary: Understanding the Foundation of P2SH
 
