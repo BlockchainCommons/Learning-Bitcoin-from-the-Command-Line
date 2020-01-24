@@ -1,6 +1,6 @@
 # 7.3: Scripting a P2PKH
 
-> **NOTE:** This is a draft in progress, so that I can get some feedback from early reviewers. It is not yet ready for learning.
+> :information_source: **NOTE:** This is a draft in progress, so that I can get some feedback from early reviewers. It is not yet ready for learning.
 
 With a basic understanding of Bitcoin Scripting in hand, you can now easily analyze the functioning of a standard P2PKH script.
 
