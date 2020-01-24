@@ -1,8 +1,8 @@
-> **WARNING:** This section is of limited utility due to a lack of good test sites and test suites.
+> :warning: **WARNING:** This section is of limited utility due to a lack of good test sites and test suites.
 
 # 7.4: Testing a Bitcoin Script
 
-> **NOTE:** This is a draft in progress, so that I can get some feedback from early reviewers. It is not yet ready for learning.
+> :information_source: **NOTE:** This is a draft in progress, so that I can get some feedback from early reviewers. It is not yet ready for learning.
 
 Bitcoin Scripting allows for considerable additional control over Bitcoin transactions, but it's also somewhat dangerous. As we'll describe in [§8.1](08_1_Understanding_the_Foundation_of_P2SH.md), the actual Scripts are somewhat isolated from the Bitcoin network, which means that it's possible to write a script and have it accepted by the network even if it's impossible to redeem from that script! So, you need to thoroughly test your Scripts before you put your money into them.
 
