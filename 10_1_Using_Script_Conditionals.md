@@ -1,6 +1,6 @@
 # 10.1: Using Script Conditionals
 
-> **NOTE:** This is a draft in progress, so that I can get some feedback from early reviewers. It is not yet ready for learning.
+> :information_source: **NOTE:** This is a draft in progress, so that I can get some feedback from early reviewers. It is not yet ready for learning.
 
 There's one final aspect of Bitcoin Scripting that's crucial to unlocking its true power: conditionals allow you create various paths of execution.
 
@@ -18,7 +18,7 @@ You may notice there's no `OP_VERIFY` at the end of this (or most any) script, d
 
 The other major conditional in Bitcoin Script is the classic `OP_IF` (0x63) / `OP_ELSE` (0x67) / `OP_ENDIF` (0x68). This is typical flow control: if `OP_IF` detects a true statement, it executes the block under it; otherwise, if there's an `OP_ELSE`, it executes that; and `OP_ENDIF` marks the end of the final block.
 
-> **WARNING:** These conditionals are technically opcodes too, but as with small numbers, we're going to leave the `OP_` prefix off for brevity and clarity. Thus we'll write `IF`, `ELSE`, and `ENDIF` instead of `OP_IF`, `OP_ELSE`, and `OP_ENDIF`.
+> :warning: **WARNING:** These conditionals are technically opcodes too, but as with small numbers, we're going to leave the `OP_` prefix off for brevity and clarity. Thus we'll write `IF`, `ELSE`, and `ENDIF` instead of `OP_IF`, `OP_ELSE`, and `OP_ENDIF`.
 
 ### Understand If/Then Ordering
 
