@@ -1,10 +1,10 @@
 # 9.3: Using CSV in Scripts
 
-> **NOTE:** This is a draft in progress, so that I can get some feedback from early reviewers. It is not yet ready for learning.
+> :information_source: **NOTE:** This is a draft in progress, so that I can get some feedback from early reviewers. It is not yet ready for learning.
 
 `nLockTime` and `OP_CHECKLOCKTIMEVERIFY` (or CLTV) are just one side of the timelock equation. On the other side are `nSequence` and `OP_CHECKSEQUENCEVERIFY`, which can be used to check against relative times rather than absolute times.
 
-> **VERSION WARNING:** CSV became available with Bitcoin Core 0.12.1, in spring 2016.
+> :warning: **VERSION WARNING:** CSV became available with Bitcoin Core 0.12.1, in spring 2016.
 
 ## Understand nSequence
 
@@ -14,7 +14,7 @@ A relative timelock is a lock that's placed on a specific input of a transaction
 
 Easy!
 
-> **SEQUENCE NOTE (III):** This is the third use of the `nSequence` value in Bitcoin. Any `nSequence` value without the 32nd bit set (1<<31), so 0x00000001 to 0x7ffffffff, will be interpreted as a relative timelock if `nVersion ≥ 2` (which is the default starting in Bitcoin Core 0.14.0). You should be careful to ensure that relative timelocks don't conflict with the other two uses of `nSequence`, for signalling `nTimeLock` and RBF. `nTimeLock` usually sets a value of 0xffffffff-1, where a relative timelock is disallowed; and RBF usually sets a value of "1", where a relative timelock is irrelevent, because it defines a timelock of 1 block. 
+> :information_source: **NOTE — SEQUENCE:** This is the third use of the `nSequence` value in Bitcoin. Any `nSequence` value without the 32nd bit set (1<<31), so 0x00000001 to 0x7ffffffff, will be interpreted as a relative timelock if `nVersion ≥ 2` (which is the default starting in Bitcoin Core 0.14.0). You should be careful to ensure that relative timelocks don't conflict with the other two uses of `nSequence`, for signalling `nTimeLock` and RBF. `nTimeLock` usually sets a value of 0xffffffff-1, where a relative timelock is disallowed; and RBF usually sets a value of "1", where a relative timelock is irrelevent, because it defines a timelock of 1 block. 
 
 > In general, remember: with a `nVersion` value of 2, a `nSequence` value of 0x00000001 to 0x7fffffff allows relative timelock, RBF, and `nTimeLock`; a `nSequence` value of 0x7fffffff to 0xffffffff-2 allows RBF and `nTimeLock`; a `nSequence` value of 0xffffffff-1 allows only `nTimeLock`; a `nSequence` value of 0xffffffff allows none; and `nVersion` can be set to 1 to disallow relative timelocks for any value of `nSequence`. Whew!
 
@@ -87,7 +87,7 @@ In this case we'll probably use a shorthand:
 <+6Months> OP_CHECKSEQUENCEVERIFY
 ```
 
-> **WARNING:** Remember that a relative timelock is a time span since the mining of the UTXO used as an input. It is _not_ a timespan after you create the transaction. If you use a UTXO that's already been confirmed a hundred times, and you place a relative timelock of 100 blocks on it, it will be eligible for mining immediately. Relative timelocks have some very specific uses, but they probably don't apply if your only goal is to determine some set time in the future.
+> :warning: **WARNING:** Remember that a relative timelock is a time span since the mining of the UTXO used as an input. It is _not_ a timespan after you create the transaction. If you use a UTXO that's already been confirmed a hundred times, and you place a relative timelock of 100 blocks on it, it will be eligible for mining immediately. Relative timelocks have some very specific uses, but they probably don't apply if your only goal is to determine some set time in the future.
 
 ### Understand How CSV Really Works
 
