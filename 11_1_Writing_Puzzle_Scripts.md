@@ -1,6 +1,6 @@
  # 11.1: Writing Puzzle Scripts
 
-> **NOTE:** This is a draft in progress, so that I can get some feedback from early reviewers. It is not yet ready for learning.
+> :information_source: **NOTE:** This is a draft in progress, so that I can get some feedback from early reviewers. It is not yet ready for learning.
 
 Bitcoin Scripts _don't_ actually have to depend on the knowledge of a secret key. They can instead be puzzles of any sort. 
 
@@ -113,7 +113,7 @@ Stack: [ True ]
 ```
 See also the [WebBTC Debug Execution](https://webbtc.com/script/1%202%203/OP_3DUP%20OP_ADD%205%20OP_EQUALVERIFY%20OP_ADD%204%20OP_EQUALVERIFY%20OP_ADD%203%20OP_EQUAL/) of this script.
 
-> **WARNING** The WebBTC Debugger was used not just to offer another visualization of these scripts, but to also double-check the results. Sure enough, we got this one wrong the first time, testing the equations in the wrong order. That's how easy it is to make a financially fatal mistake in a Bitcoin Script, and that's why every script must be tested.
+> :warning: **WARNING** The WebBTC Debugger was used not just to offer another visualization of these scripts, but to also double-check the results. Sure enough, we got this one wrong the first time, testing the equations in the wrong order. That's how easy it is to make a financially fatal mistake in a Bitcoin Script, and that's why every script must be tested.
 
 ## Write Simple Computational Scripts
 
