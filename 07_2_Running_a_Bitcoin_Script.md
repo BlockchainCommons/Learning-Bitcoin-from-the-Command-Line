@@ -1,6 +1,6 @@
 # 7.2: Running a Bitcoin Script
 
-> **NOTE:** This is a draft in progress, so that I can get some feedback from early reviewers. It is not yet ready for learning.
+> :information_source: **NOTE:** This is a draft in progress, so that I can get some feedback from early reviewers. It is not yet ready for learning.
 
 Bitcoin Scripts may not initially seem that intuitive, but their execution is quite simple, using reverse Polish notation and a stack.
 
@@ -55,7 +55,7 @@ Bitcoin Scripts are run from left to right. That sounds easy enough, because it'
 
 For example, if you were adding together "1" and "2", your Bitcoin Script for that would be `1 2 OP_ADD`, _not_ "1 + 2". Since we know that OP_ADD operator takes two inputs, we know that the two inputs before it are its operands.
 
-> **WARNING:** Technically, everything in Bitcoin Script is an opcode, thus it would be most appropriate to record the above example as `OP_1 OP_2 OP_ADD`. In our examples, we don't worry about how the constants will be evaluated, as that's a topic of translation, as is explained in [§8.2: Building the Structure of P2SH](08_2_Building_the_Structure_of_P2SH.md). Some writers prefer to also leave the "OP" prefix off all operators, but we have opted not to.
+> :warning: **WARNING:** Technically, everything in Bitcoin Script is an opcode, thus it would be most appropriate to record the above example as `OP_1 OP_2 OP_ADD`. In our examples, we don't worry about how the constants will be evaluated, as that's a topic of translation, as is explained in [§8.2: Building the Structure of P2SH](08_2_Building_the_Structure_of_P2SH.md). Some writers prefer to also leave the "OP" prefix off all operators, but we have opted not to.
 
 ### Understand the Stack
 
@@ -241,7 +241,7 @@ Stack: [ True ]
 ```
 This abstraction isn't quite accurate: for security reasons, the `scriptSig` is run, then the contents of the stack are transferred for the `scriptPubKey` to run, but it's accurate enough for understanding how the key of `scriptSig` fits into the lock of `scriptPubKey`.
 
-> **WARNING** The above is a non-standard transaction type. It would not actually be accepted by nodes running Bitcoin Core with the standard settings. [§8.1: Building a Bitcoin Script with P2SH](08_1_Understanding_the_Foundation_of_P2SH.md
+> :warning: **WARNING** The above is a non-standard transaction type. It would not actually be accepted by nodes running Bitcoin Core with the standard settings. [§8.1: Building a Bitcoin Script with P2SH](08_1_Understanding_the_Foundation_of_P2SH.md
 ) discusses how you actually _could_ run a Bitcoin Script like this, using the power of P2SH.
 
 ### Get the Results
