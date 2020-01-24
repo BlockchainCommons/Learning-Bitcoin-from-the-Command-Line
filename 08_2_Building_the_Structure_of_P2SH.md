@@ -1,6 +1,6 @@
 # 8.2: Building the Structure of P2SH
 
-> **NOTE:** This is a draft in progress, so that I can get some feedback from early reviewers. It is not yet ready for learning.
+> :information_source: **NOTE:** This is a draft in progress, so that I can get some feedback from early reviewers. It is not yet ready for learning.
 
 In the previous section we overviewed the theory of how to create P2SH transactions to hold Bitcoin Scripts. The actual practice of doing so is _much more difficult_, but for the sake of completeness, we're going to look at it here. This is probably not something you'd ever do without an API, so if it gets to intimidating, be aware that we'll returning to pristine, high-level Scripts in a moment.
 
@@ -141,7 +141,7 @@ Continue "Embedding Bitcoin Scripts" with [§8.3: Running a Bitcoin Script with 
 
 The following script collects the complete methodology for changing an integer between -2147483647 and 2147483647 to a little-endian signed-magnitude representation in hex:
 
-> **WARNING:** This script has not been robustly checked. If you are going to use it to create real locking scripts you should make sure to double-check and test your results.
+> :warning: **WARNING:** This script has not been robustly checked. If you are going to use it to create real locking scripts you should make sure to double-check and test your results.
 ```
 file: integer2lehex.sh
 #!/bin/bash
