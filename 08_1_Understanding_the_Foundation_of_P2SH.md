@@ -1,6 +1,6 @@
 # 8.1: Understanding the Foundation of P2SH
 
-> **NOTE:** This is a draft in progress, so that I can get some feedback from early reviewers. It is not yet ready for learning.
+> :information_source: **NOTE:** This is a draft in progress, so that I can get some feedback from early reviewers. It is not yet ready for learning.
 
 You know that Bitcoin Scripts can be used to control the redemption of UTXOs. The next step is creating Scripts of your own ... but that requires a very specific technique.
 
@@ -40,7 +40,7 @@ _What is a redeemScript?_ Each P2SH transaction carries the fingerprint of a hid
 
 One of the interesting elements of P2SH transactions is that neither the sender nor the Blockchain actually knows what the `redeemScript` is! A sender just sends to a standardized P2SH address marked with a "2" prefix and they don't worry about how the recipient is going to retrieve the funds at the end.
 
-> **TESTNET vs MAINNET:** Reminder: on testnet, the prefix for P2SH addresses is `2`, while on mainnet, it's `3`.
+> :link: **TESTNET vs MAINNET:** Reminder: on testnet, the prefix for P2SH addresses is `2`, while on mainnet, it's `3`.
 
 ## Understand How to Build a P2SH Script
 
@@ -76,7 +76,7 @@ The trick to redeeming a P2SH transaction is that the recipient must have saved 
 
 An unlocking `scriptSig` for a P2SH transaction is formed as: `... data ... <redeemScript>`. The `data` must _solely_ be data that is pushed onto the stack, not operators. ([BIP 16](https://github.com/bitcoin/bips/blob/master/bip-0016.mediawiki) calls them signatures, but that's not an actual requirement.)
 
-> **WARNING:** Though signatures are not a requirement, a P2SH script actually isn't very secure if it doesn't require at least one signature in its inputs. The reasons for this are described in [§11.1: Writing Puzzle Scripts](11_1_Writing_Puzzle_Scripts.md).
+> :warning: **WARNING:** Though signatures are not a requirement, a P2SH script actually isn't very secure if it doesn't require at least one signature in its inputs. The reasons for this are described in [§11.1: Writing Puzzle Scripts](11_1_Writing_Puzzle_Scripts.md).
 
 When a UTXO is redeemed, it runs in two rounds of verification:
 
