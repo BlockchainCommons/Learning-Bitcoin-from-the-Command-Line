@@ -20,11 +20,11 @@ First you'll need to choose a cloud provider. The commands in this document are 
 
 ### Set Up an Account
 
-After you've selected your cloud provider, you'll need to setup an account, if you don't already have one. If you wish, the following referral codes can be used to earn about a month of free time:
+After you've selected your cloud provider, you'll need to setup an account, if you don't already have one. If you wish, you can take a look if some discount is available:
 
 ```
-Linode Referral Code: https://www.linode.com/?r=3c7fa15a78407c9a3d4aefb027539db2557b3765
-Digital Ocean: http://www.digitalocean.com/?refcode=a6060686b88a
+Linode: https://www.linode.com/lp/price-performance/ (50$ free for 60 days as of now)
+Digital Ocean: https://m.do.co/c/de06f00a961e (100$ free for 60 days)
 ```
 
 ### Optional: Consider Two-Factor Authentication
@@ -65,6 +65,26 @@ Now, you'll need to do some bog-standard configuration, then some work to improv
 
 _If you already have your own techniques for setting up a machine, go ahead and follow them, then jump ahead to "Setting Up a User", then "Installing Bitcoin". Otherwise,continue on!_
 
+
+### Prettify your terminal
+This is optional but if you want you can customize your terminal so that is more readable and usable.
+
+Just open your _~/.bash_profile_, or create it if the file is not existing yet and insert the following commands:
+```
+export PS1="\[\033[36m\]\u\[\033[m\]@\[\033[32m\]\h:\[\033[33;1m\]\w\[\033[m\]\$ "
+export CLICOLOR=1
+export LSCOLORS=ExFxBxDxCxegedabagacad
+alias ls='ls -GFh'
+```
+
+Then to apply the changes, run this command from the terminal:
+```
+$ source ~/.bash_profile
+```
+
+Feel free to play with the settings until you are satisfied!
+
+
 ### Set Up Your Hostname
 
 Choose a hostname for your machine (e.g. "mybtc") and enter it into your hostname file; afterward, run a few commands to propagate that new info:
@@ -74,6 +94,12 @@ $ echo "mybtc" > /etc/hostname
 $ /etc/init.d/hostname.sh start
 $ /bin/hostname "mybtc"
 ```
+
+Otherwise, if you have _systemd_ installed, you can use just the following command:
+```
+$ hostnamectl set-hostname mybtc
+```
+This setting will be applied once you restart your machine.
 
 Enter the IP and hostname info into your /etc/hosts file. Note that you should also enter a fully-qualified hostname, as shown below. If you're not making the machine part of a domain, just choose a ".local" suffix.
 
@@ -86,12 +112,23 @@ $ echo "127.0.1.1 mybtc.local mybtc" >> /etc/hosts
 
 Make sure your timezone is correct.
 
+First, take a look at the regions available in the following directory:
+```
+$ /usr/share/zoneinfo
+```
+
 The following example sets your machine to the American west coast timezone:
 
 ```
-$ echo "America/Los_Angeles" > /etc/timezone
-$ cp /usr/share/zoneinfo/America/Los_Angeles /etc/localtime
+$ sudo rm /etc/localtime
+$ sudo ln -s /usr/share/zoneinfo/America/Los_Angeles /etc/localtime
 ```
+
+Just run
+```
+$ date
+```
+in your terminal to check that everything is correct.
 
 ## Protecting Your VPS
 
@@ -169,6 +206,38 @@ Finally, you should immediately run that:
 
 ```
 $ /etc/network/if-pre-up.d/firewall
+```
+
+At this point, if you run on your terminal
+```
+$ iptables -L
+```
+
+you should see the following output:
+
+```
+Chain INPUT (policy ACCEPT)
+target     prot opt source               destination         
+ACCEPT     all  --  anywhere             anywhere            
+REJECT     all  --  anywhere             loopback/8           reject-with icmp-port-unreachable
+ACCEPT     all  --  anywhere             anywhere             state RELATED,ESTABLISHED
+ACCEPT     tcp  --  anywhere             anywhere             state NEW tcp dpt:ssh
+ACCEPT     icmp --  anywhere             anywhere            
+ACCEPT     tcp  --  anywhere             anywhere             tcp dpt:ssh ctstate NEW,ESTABLISHED
+ACCEPT     tcp  --  anywhere             anywhere             tcp dpt:8333
+ACCEPT     tcp  --  anywhere             anywhere             tcp dpt:18333
+ACCEPT     tcp  --  anywhere             anywhere             tcp dpt:9735
+ACCEPT     all  --  anywhere             anywhere             ctstate ESTABLISHED
+LOG        all  --  anywhere             anywhere             limit: avg 5/min burst 5 LOG level debug prefix "iptables denied: "
+DROP       all  --  anywhere             anywhere            
+
+Chain FORWARD (policy ACCEPT)
+target     prot opt source               destination         
+DROP       all  --  anywhere             anywhere            
+
+Chain OUTPUT (policy ACCEPT)
+target     prot opt source               destination         
+ACCEPT     all  --  anywhere             anywhere  
 ```
 
 #### Optional: Add More Firewall Rules
@@ -260,8 +329,8 @@ alias btcdir="cd ~/.bitcoin/" #linux default bitcoind path
 alias bc="bitcoin-cli"
 alias bd="bitcoind"
 alias btcinfo='bitcoin-cli getwalletinfo | egrep "\"balance\""; bitcoin-cli getnetworkinginfo | egrep "\"version\"|connections"; bitcoin-cli getmininginfo | egrep "\"blocks\"|errors"'
-# next alias not working; blockexplorer.com is not redirecting properly
-# alias btcblock="echo \\\`bitcoin-cli getblockcount 2>&1\\\`/\\\`wget -O - http://blockexplorer.com/testnet/q/getblockcount 2> /dev/null | cut -d : -f2 | rev | cut -c 2- | rev\\\`"
+alias btcblock='bitcoin-cli getblockcount'
+alias latesttestnetblock='wget -O - https://testnet.blockexplorer.com/api/status?q=getBlockCount 2> /dev/null | cut -d : -f5 | cut -f1 -d","'
 EOF
 ```
 
@@ -272,11 +341,10 @@ alias btcdir="cd ~/.bitcoin/" #linux default bitcoind path
 alias bc="bitcoin-cli"
 alias bd="bitcoind"
 alias btcinfo='bitcoin-cli getwalletinfo | egrep "\"balance\""; bitcoin-cli getnetworkinginfo | egrep "\"version\"|connections"; bitcoin-cli getmininginfo | egrep "\"blocks\"|errors"'
-alias btcblock="echo \\\`bitcoin-cli getblockcount 2>&1\\\`/\\\`wget -O - http://blockchain.info/q/getblockcount 2>/dev/null\\\`"
+alias btcblock='bitcoin-cli getblockcount'
+alias latesttestnetblock='wget -O - https://blockexplorer.com/api/status?q=getBlockCount 2> /dev/null | cut -d : -f5 | cut -f1 -d","'
 EOF
 ```
-
-> :warning: **WARNING:** The btcblock alias will not work correctly if you try to place it in your .bash_profile by hand, rather than using the "cat" command as suggested. To enter it by hand, you need to adjust the number of backslashes (usually from three each to one each), so make sure you know what you're doing if you aren't entering the commands exactly as shown.
 
 As usual, give your user permission:
 ```
@@ -301,10 +369,15 @@ $ source ~/.bash_profile
 
 We suggest setting up two variables to make this installation more automatic.
 
-The first variable, $BITCOIN, should be set to the current version of Bitcoin. It was 0.16.2 when we wrote this. The second will then automatically generate a truncated form used by some of the files.
+The first variable, $BITCOIN, should be set to the current version of Bitcoin. It was 0.19.0.1 when we wrote this. The second will then automatically generate a truncated form used by some of the files.
+Insert this in the _~/.bash_profile_ file to make it persistent.
 ```
-$ export BITCOIN=bitcoin-core-0.16.2
-$ export BITCOINPLAIN=`echo $BITCOIN | sed 's/bitcoin-core/bitcoin/'`
+export BITCOIN=bitcoin-core-0.19.0.1
+export BITCOINPLAIN=`echo $BITCOIN | sed 's/bitcoin-core/bitcoin/'`
+```
+Then reload your configuration by running:
+```
+$ source ~/.bash_profile
 ```
 
 ### Download Files
@@ -339,7 +412,7 @@ If those both produce the same number, it's OK.
 
 If both of your verification tests succeeded, you can now install Bitcoin. (If they didn't, you need to start looking into what's going on!)
 ```
-$ /bin/tar xzf ~user1/$BITCOINPLAIN-x86_64-linux-gnu.tar.gz -C ~user1
+$ /bin/tar xzf ~user1/bitcoin-0.19.0.1-x86_64-linux-gnu.tar.gz -C ~user1
 $ sudo /usr/bin/install -m 0755 -o root -g root -t /usr/local/bin ~user1/$BITCOINPLAIN/bin/*
 $ /bin/rm -rf ~user1/$BITCOINPLAIN/
 ```
@@ -407,7 +480,12 @@ After all of that, starting the Bitcoin daemon is anticlimatically simple:
 ```
 $ /usr/local/bin/bitcoind -daemon
 ```
-You should also add a crontab entry , so that the bitcoin daemon starts up whenever your VPS restarts:
+If everything is fine you should see the following message:
+```
+Bitcoin Core starting
+```
+
+You should also add a crontab entry, so that the bitcoin daemon starts up whenever your VPS restarts:
 ```
 $ ( /usr/bin/crontab -l -u user1 2>/dev/null; echo "@reboot /usr/local/bin/bitcoind -daemon" ) | /usr/bin/crontab -u user1 -
 ```
@@ -416,11 +494,18 @@ $ ( /usr/bin/crontab -l -u user1 2>/dev/null; echo "@reboot /usr/local/bin/bitco
 
 So now you probably want to play with Bitcoin!
 
-But wait, your Bitcoin daemon is probably still downloading blocks. This alias, from your .bash configuration will tell you how things are going:
+But wait, your Bitcoin daemon is probably still downloading blocks. This alias, from your .bash configuration will tell you which block you are downloading:
 ```
 $ btcblock
 ```
-0.15.1 is quite fast to download blocks, but it might still take an hour to download the unpruned testnet. It might be time for a few more espressos.
+
+You can compare that with the value of the actual latest testnet block by launching this previously set alias:
+```
+$ latesttestnetblock
+```
+When these values are equal then the downloading is finished.
+
+0.19.0.1 is quite fast to download blocks, but it might still take an hour to download the unpruned testnet. It might be time for a few more espressos.
 
 > :link: **TESTNET vs MAINNET:** An unpruned mainnet will take hours longer.
 
