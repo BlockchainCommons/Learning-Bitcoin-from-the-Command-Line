@@ -99,6 +99,8 @@ _This section is unwritten currently, and will probably involve chapter 14.0 exp
 * 13.0: Setting Up Lightning
 * 14.0: Using Lightning
 
+Some good docs from one of the developers are here: https://diyhpl.us/wiki/transcripts/blockstream-webinars/2019-07-31-rusty-russell-getting-started-with-c-lightning/
+
 **PART FIVE: BITCOIN & LIGHTNING PROGRAMMING**
 
 _This section is currently a messy set of older writings which are being reorganized as listed below. We're not going to work through this section until we've got chapters 1-11 updated per our current notes, then 12-14 written. But, if you'd like to see what we have to date on programming in correlation with Bitcoin Core, please feel free._
