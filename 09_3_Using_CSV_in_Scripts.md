@@ -94,7 +94,7 @@ In this case we'll probably use a shorthand:
 CSV has many of the same subtleties in usage as CLTV:
 
 * The `nVersion` field must be set to 2 or more.
-* The `nSequence` field must be set to less than 0xf0000000.
+* The `nSequence` field must be set to less than 0x80000000.
 * When CSV is run, there must be an operand on the stack that's between 0 and 0xf0000000-1.
 * Both the stack operand and `nSequence` must have the same value on the 23rd bit.
 * The `nSequence` must be greater than or equal to the stack operand.
