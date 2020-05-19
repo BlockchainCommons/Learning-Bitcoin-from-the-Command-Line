@@ -263,7 +263,7 @@ alias btcdir="cd ~/.bitcoin/" #linux default bitcoind path
 alias bc="bitcoin-cli"
 alias bd="bitcoind"
 alias btcinfo='bitcoin-cli getwalletinfo | egrep "\"balance\""; bitcoin-cli getnetworkinginfo | egrep "\"version\"|connections"; bitcoin-cli getmininginfo | egrep "\"blocks\"|errors"'
-# next alias not working; blockexplorer.com is not redirecting properly
+# Currently not working. We keep losing explorers that can tell us the latest block on testnet
 # alias btcblock="echo \\\`bitcoin-cli getblockcount 2>&1\\\`/\\\`wget -O - http://blockexplorer.com/testnet/q/getblockcount 2> /dev/null | cut -d : -f2 | rev | cut -c 2- | rev\\\`"
 EOF
 ```
@@ -304,9 +304,9 @@ $ source ~/.bash_profile
 
 We suggest setting up two variables to make this installation more automatic.
 
-The first variable, $BITCOIN, should be set to the current version of Bitcoin. It was 0.16.2 when we wrote this. The second will then automatically generate a truncated form used by some of the files.
+The first variable, $BITCOIN, should be set to the current version of Bitcoin. It was 0.18.0 when we wrote this. The second will then automatically generate a truncated form used by some of the files.
 ```
-$ export BITCOIN=bitcoin-core-0.16.2
+$ export BITCOIN=bitcoin-core-0.18.0
 $ export BITCOINPLAIN=`echo $BITCOIN | sed 's/bitcoin-core/bitcoin/'`
 ```
 
@@ -410,6 +410,10 @@ After all of that, starting the Bitcoin daemon is anticlimatically simple:
 ```
 $ /usr/local/bin/bitcoind -daemon
 ```
+If everything is fine you should see the following message:
+```
+Bitcoin Core starting
+```
 You should also add a crontab entry , so that the bitcoin daemon starts up whenever your VPS restarts:
 ```
 $ ( /usr/bin/crontab -l -u user1 2>/dev/null; echo "@reboot /usr/local/bin/bitcoind -daemon" ) | /usr/bin/crontab -u user1 -
@@ -419,11 +423,11 @@ $ ( /usr/bin/crontab -l -u user1 2>/dev/null; echo "@reboot /usr/local/bin/bitco
 
 So now you probably want to play with Bitcoin!
 
-But wait, your Bitcoin daemon is probably still downloading blocks. This alias, from your .bash configuration will tell you how things are going:
+But wait, your Bitcoin daemon is probably still downloading blocks. This alias, from your .bash configuration will tell you which blocks have been downloaded:
 ```
 $ btcblock
 ```
-0.15.1 is quite fast to download blocks, but it might still take an hour to download the unpruned testnet. It might be time for a few more espressos.
+0.18.0 is quite fast to download blocks, but it might still take an hour to download the unpruned testnet. It might be time for a few more espressos.
 
 > :link: **TESTNET vs MAINNET:** An unpruned mainnet will take hours longer.
 
