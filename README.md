@@ -130,3 +130,7 @@ Appendix II: Using Bitcoin Regtest
    * [A2.2: Mining with Regtest](A2_2_Mining_with_Regtest.md) — Needs Rewrite + Editing
    * [A2.3: Testing with Regtest](A2_3_Testing_with_Regtest.md) — Needs Rewrite + Editing
    * [why is Regtest important if you're compiling it yourself?]
+   
+## TODOs
+
+The empty chapters above show some of our current plans for future work. Other plans, mainly drawn from old issues, can be found in [TODO.md](TODO.md)
