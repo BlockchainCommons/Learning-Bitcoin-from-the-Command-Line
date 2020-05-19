@@ -6,22 +6,23 @@ You're now ready to start working with Bitcoin. To begin with, you'll need to cr
 
 ## Create an Address
 
-The first thing you need to do is create an address for receiving payments. This is done with the `bitcoin-cli getnewaddress` command. Remember that if you want more information on this command, you should type `bitcoin-cli help getnewaddress`.
+The first thing you need to do is create an address for receiving payments. This is done with the `bitcoin-cli getnewaddress` command. Remember that if you want more information on this command, you should type `bitcoin-cli help getnewaddress`. Bitcoin Core 0.16.0 gives p2sh-segwit as default address, this can be changed by `-addresstype`. Otherwise, you can specify the address type between "legacy", "p2sh-segwit", and "bech32".
+
 ```
 $ bitcoin-cli getnewaddress "" legacy
 n4cqjJE6fqcmeWpftygwPoKMMDva6BpyHf
 ```
-Note that this address begins with an "n" (or sometimes an "m"). This signifies that this is a testnet address.
+Note that this address begins with an "n" (or sometimes an "m", "2", or "tb1). This signifies that this is a testnet address.
 
 The "legacy" flag is necessary to generate a traditional address, rather than a p2sh-segwit or bech32 address. The legacy address is currently required from the command line to make sure that signing works correctly.
 
-> :link: **TESTNET vs MAINNET:** The equivalent mainnet address would start with a 1.
+> :link: **TESTNET vs MAINNET:** The equivalent mainnet address would start with a "1", "3", or "bc1".
 
 Take careful note of the address. You'll need to give it to whomever will be sending you funds.
 
 _What is a Bitcoin address?_ A Bitcoin address is literally where you receive money. It's like an email address, but for funds. However unlike an email address, a Bitcoin address should be considered single use: use it to receive funds just _once_. When you want to receive funds from someone else or at some other time, generate a new address. This is suggested in large part to improve your privacy. The whole blockchain is immutable, which means that explorers can look at long chains of transactions over time, making it possible to statistically determine who you and your contacts are, no matter how careful you are. However, if you keep reusing the same address, then this becomes even easier.
 
-_What is a P2PKH address?_ A Bitcoin address is also something else: a public key (or more precisely, the 160-bit hash of a public key). For this reason it's called a Pay to PubKey Hash (or P2PKH) address. This public key of your key pair allows you to receive money, while an associated private key lets you spend that money. However, bitcoins may be sent to other sorts of addresses: Pay to Script Hash (P2SH) addresses feature prominently in the latter part of this tutorial.
+_What is a P2PKH address?_ A Bitcoin address is also something else: a public key (or more precisely, the 160-bit hash of a public key). For this reason it's called a Pay to PubKey Hash (or P2PKH) address. This public key of your key pair allows you to receive money, while an associated private key lets you spend that money. However, bitcoins may be sent to other sorts of addresses: Pay to Script Hash (P2SH)  and Native Segwit (Bech32) addresses feature prominently in the latter part of this tutorial.
 
 _What is a Bitcoin wallet?_ By creating your first Bitcoin address, you've also begun to fill in your Bitcoin wallet. More precisely, you've begun to fill the `wallet.dat` file in your ~/.bitcoin/testnet3 directory. The `wallet.dat` file contains data about preferences and transactions, but more importantly it contains all of the key pairs that you create: both the public key (which is the source of the address where you receive funds) and the private key (which is how you spend those funds). For the most part, you won't have to worry about that private key: `bitcoind` will use it when it's needed. However, this makes the `wallet.dat` file extremely important: if you lose it, you lose your private keys, and if you lose your private keys, you lose your funds!
 
