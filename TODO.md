@@ -13,3 +13,7 @@ Per @ChristopherA:
 ## 2. Update Setup Instructions & Script to Debian 10
 
 Per @matthiasdebernardini, our current script no longer works.
+
+## 3. Upgrade to 0.19.1
+
+We need to upgrade the whole tutorial to the newest BitCoin Core, and that means walking through it entirely, making sure it works, and redoing an examples with different output.
