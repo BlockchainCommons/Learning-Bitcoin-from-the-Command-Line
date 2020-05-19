@@ -23,7 +23,7 @@
 # CURRENT BITCOIN RELEASE:
 # Change as necessary
 
-export BITCOIN=bitcoin-core-0.17.0
+export BITCOIN=bitcoin-core-0.18.0
 
 # Set the variable $IPADDR to the IP address the new Linode receives.
 IPADDR=$(/sbin/ifconfig eth0 | awk '/inet / { print $2 }' | sed 's/addr://')
