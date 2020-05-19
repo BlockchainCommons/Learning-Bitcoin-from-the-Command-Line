@@ -13,7 +13,7 @@ That's a simple command substitution, the equivalent to ``VARIABLE=`command` ``.
 To create a new address would then look like this:
 ```
 $ unset NEW_ADDRESS_1
-$ NEW_ADDRESS_1=$(bitcoin-cli getnewaddress)
+$ NEW_ADDRESS_1=$(bitcoin-cli getnewaddress "" legacy)
 ```
 These commands clear the NEW_ADDRESS_1 variable, just to be sure, then fill it with the results of the `bitcoin-cli getnewaddress` command.
 
