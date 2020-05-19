@@ -86,12 +86,15 @@ $ echo "127.0.1.1 mybtc.local mybtc" >> /etc/hosts
 
 Make sure your timezone is correct.
 
+You can find a list of possible timezones in `/usr/share/zoneinfo`. 
+
 The following example sets your machine to the American west coast timezone:
 
 ```
 $ echo "America/Los_Angeles" > /etc/timezone
 $ cp /usr/share/zoneinfo/America/Los_Angeles /etc/localtime
 ```
+Afterward you can run `date` to ensure everything was set correctly
 
 ## Protecting Your VPS
 
