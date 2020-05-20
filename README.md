@@ -4,15 +4,13 @@ Learning Bitcoin from the Command Line is a tutorial for working with Bitcoin (a
 
 > NOTE: This is a draft in progress, so that I can get some feedback from early reviewers. It is not yet ready for use.
 
-## Additional Information
+## Table of Contents
 
-This tutorial assumes that you have some minimal background of how to use the command line interface. If not, there are many tutorials available, and I have one for Mac users at https://github.com/ChristopherA/intro-mac-command-line
-
-Learning Bitcoin from the Command Line is laid out as a book:
+_This tutorial assumes that you have some minimal background of how to use the command line interface. If not, there are many tutorials available, and I have one for Mac users at https://github.com/ChristopherA/intro-mac-command-line._
 
 * [0.0: Introduction to Programming with Bitcoin Core and Lightning](00_0_Introduction.md)
 
-**PART ONE: PREPARING FOR BITCOIN**
+### PART ONE: PREPARING FOR BITCOIN
 
 * [1.0: Introducing Bitcoin](01_0_Introducing_Bitcoin.md)
 * [2.0: Setting Up a Bitcoin-Core VPS](02_0_Setting_Up_a_Bitcoin-Core_VPS.md)
@@ -21,7 +19,7 @@ Learning Bitcoin from the Command Line is laid out as a book:
     * [Linode_Bitcoin-Core_VPS_Setup.stackscript](02_2__Script_Linode_Setup.stackscript)
   * [2.3: Setting Up a Bitcoin-Core Machine via Other Means](02_3_Setting_Up_Bitcoin_Core_Other.md)
 
-**PART TWO: BITCOIN-CLI**
+### PART TWO: BITCOIN-CLI
 
 * [3.0: Understanding Your Bitcoin Setup](03_0_Understanding_Your_Bitcoin_Setup.md)
   * [3.1: Verifying Your Bitcoin Setup](03_1_Verifying_Your_Bitcoin_Setup.md)
@@ -49,7 +47,7 @@ Learning Bitcoin from the Command Line is laid out as a book:
   * [6.4: Sending a Transaction with a Locktime](06_4_Sending_a_Transaction_with_a_Locktime.md)
   * [6.5: Sending a Transaction with Data](06_5_Sending_a_Transaction_with_Data.md)
 
-**PART THREE: BITCOIN SCRIPTING**
+## PART THREE: BITCOIN SCRIPTING
 
 * [7.0: Introducing Bitcoin Scripts](07_0_Introducing_Bitcoin_Scripts.md)
   * [7.1: Understanding the Foundation of Transactions](07_1_Understanding_the_Foundation_of_Transactions.md)
@@ -74,7 +72,7 @@ Learning Bitcoin from the Command Line is laid out as a book:
   * [11.2: Writing Complex Multisig Scripts](11_2_Writing_Complex_Multisig_Scripts.md)
   * [11.3: Empowering Bitcoin with Scripts](11_3_Empowering_Bitcoin_with_Scripts.md)
 
-**PART FOUR: LIGHTNING-CLI**
+### PART FOUR: LIGHTNING-CLI
 
 _This section is unwritten currently, and will probably involve chapter 14.0 expanding into at least two chapters._
 
@@ -84,7 +82,7 @@ _This section is unwritten currently, and will probably involve chapter 14.0 exp
 
 Some good docs from one of the developers are here: https://diyhpl.us/wiki/transcripts/blockstream-webinars/2019-07-31-rusty-russell-getting-started-with-c-lightning/
 
-**PART FIVE: BITCOIN & LIGHTNING PROGRAMMING**
+### PART FIVE: BITCOIN & LIGHTNING PROGRAMMING
 
 _This section is currently a messy set of older writings which are being reorganized as listed below. We're not going to work through this section until we've got chapters 1-11 updated per our current notes, then 12-14 written. But, if you'd like to see what we have to date on programming in correlation with Bitcoin Core, please feel free._
 
@@ -102,13 +100,10 @@ _This section is currently a messy set of older writings which are being reorgan
   * [18.2: Accessing Bitcoind with Python](18_2_Accessing_Bitcoind_with_Python.md)  — Needs Info form PR + Expansion + Editing
   * [18.3: Accessing Bitcoind with Java](18_3_Accessing_Bitcoind_with_Java.md) — Needs Rewrite + Editing
 
-**APPENDICES**
+### APPENDICE
 
-Appendix I: Compiling Bitcoin
-
-Appendix II: Using Bitcoin Regtest
-
-* [A2.0: Setting Up a Bitcoin Regtest](A2_0_Setting_Up_a_Bitcoin_Regtest.md) — Needs Rewrite + Editing
+* Appendix I: Compiling Bitcoin
+* [Appendix II: Using Bitcoin Regtest](A2_0_Setting_Up_a_Bitcoin_Regtest.md) — Needs Rewrite + Editing
    * [A2.1: Starting the Regtest](A2_1_Starting_the_Regtest.md) — Needs Rewrite + Editing
    * [A2.2: Mining with Regtest](A2_2_Mining_with_Regtest.md) — Needs Rewrite + Editing
    * [A2.3: Testing with Regtest](A2_3_Testing_with_Regtest.md) — Needs Rewrite + Editing
@@ -124,7 +119,7 @@ Obviously, this work in progress should not be used for production tasks until i
 
 ## Origin, Authors, Copyright & Licenses
 
-Unless otherwise noted (either in this [/README.md](./README.md) or in the file's header comments) the contents of this repository are Copyright © 2020 by Blockchain Commons, LLC, and are [licensed](./LICENSE) under  [CC-BY](./LICENSE-CC-BY-4.0.md).
+Unless otherwise noted (either in this [/README.md](./README.md) or in the file's header comments) the contents of this repository are Copyright © 2020 by Blockchain Commons, LLC, and are licensed under  [CC-BY](./LICENSE-CC-BY-4.0.md).
 
 ## Financial Support
 
