@@ -80,7 +80,7 @@ _This section is unwritten currently, and will probably involve chapter 14.0 exp
 * 13.0: Setting Up Lightning
 * 14.0: Using Lightning
 
-Some good docs from one of the developers are here: https://diyhpl.us/wiki/transcripts/blockstream-webinars/2019-07-31-rusty-russell-getting-started-with-c-lightning/
+> _Some good docs from one of the developers are here: https://diyhpl.us/wiki/transcripts/blockstream-webinars/2019-07-31-rusty-russell-getting-started-with-c-lightning/._
 
 ### PART FIVE: BITCOIN & LIGHTNING PROGRAMMING
 
