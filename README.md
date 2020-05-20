@@ -1,4 +1,4 @@
-# Learning Bitcoin (and Lightning)
+# Learning Bitcoin (and Lightning) from the Command Line
 
 Learning Bitcoin from the Command Line is a tutorial for working with Bitcoin (and Lightning) that teaches direct interaction with the servers themselves, as the most robust and secure way to begin cryptocurrency work.
 
