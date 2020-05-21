@@ -146,7 +146,7 @@ Though you're accessing `bitcoind` directly, you'll still get access to wallet f
 
 Use the `getaddressesbyaccount` RPC to list all of your current addresses:
 ```
-$ curl --user bitcoinrpc:73bd45ba60ab8f9ff9846b6404769487 --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "getaddressesbyaccount", "params": [""] }' -H 'content-type: text/plain;' http://127.0.0.1:18332/ | jq -r '.'
+$ curl --user bitcoinrpc:73bd45ba60ab8f9ff9846b6404769487 --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "getaddressesbylabel", "params": [""] }' -H 'content-type: text/plain;' http://127.0.0.1:18332/ | jq -r '.'
 
  {
   "result": [
