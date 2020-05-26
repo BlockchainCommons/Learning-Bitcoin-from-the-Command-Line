@@ -16,7 +16,7 @@ $ rawtxhex=$(bitcoin-cli -named createrawtransaction inputs='''[ { "txid": "'$ut
 ```
 You should of course sign and send your transaction as usual:
 ```
-$ signedtx=$(bitcoin-cli -named signrawtransaction hexstring=$rawtxhex | jq -r '.hex')
+$ signedtx=$(bitcoin-cli -named signrawtransactionwithwallet hexstring=$rawtxhex | jq -r '.hex')
 $ bitcoin-cli -named sendrawtransaction hexstring=$signedtx
 7218b78ad4853eb957b610033b8e1ef48b01d948e0ec5dbf79f12caebc2b17e2
 ```
@@ -143,7 +143,7 @@ $ rawtxhex=$(bitcoin-cli -named createrawtransaction inputs='''[ { "txid": "'$ut
 ```
 We of course must re-sign it and resend it:
 ```
-$ signedtx=$(bitcoin-cli -named signrawtransaction hexstring=$rawtxhex | jq -r '.hex')
+$ signedtx=$(bitcoin-cli -named signrawtransactionwithwallet hexstring=$rawtxhex | jq -r '.hex')
 $ bitcoin-cli -named sendrawtransaction hexstring=$signedtx
 959b0b0f4c8350e9038279dfe0f5ae7b165660cc1281e37bea08d0bd084edb39
 ```
