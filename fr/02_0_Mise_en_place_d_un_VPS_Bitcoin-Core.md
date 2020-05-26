@@ -10,7 +10,7 @@ Après avoir parcouru ce chapitre, un développeur sera en mesure de :
 - Créer un nœud Bitcoin pour le développement
 - Create a Local Instance of the Bitcoin Blockchain
 
-Les objectifs de ce cours comprennent la capacité à :
+Ce cours couvre les objectifs suivants :
 
 - Comprendre la configuration de base du réseau du VPS
 - Décider des priorités de sécurité à mettre en œuvre
