@@ -1,59 +1,64 @@
-# AFAIRE 3.3: Configurer votre portefeuille
+# 3.3: Configurer votre portefeuille
 
-> :information_source: **NOTE:** This is a draft in progress, so that I can get some feedback from early reviewers. It is not yet ready for learning.
+> :information_source: **NOTE:** Ce texte est encore un brouillon, afin que je puisse obtenir un retour d'information de la part des premiers examinateurs. Il n'est pas encore prêt pour l'apprentissage.
 
-You're now ready to start working with Bitcoin. To begin with, you'll need to create an address for receiving funds.
+Vous êtes maintenant prêt à commencer à travailler avec Bitcoin. Pour commencer, vous devrez créer une adresse pour recevoir des fonds.
 
-## Create an Address
+## Créer une adresse
 
-The first thing you need to do is create an address for receiving payments. This is done with the `bitcoin-cli getnewaddress` command. Remember that if you want more information on this command, you should type `bitcoin-cli help getnewaddress`.
+La première chose à faire est de créer une adresse pour recevoir les paiements. Cela se fait avec la commande `bitcoin-cli getnewaddress`. N'oubliez pas que si vous souhaitez obtenir plus d'informations sur cette commande, vous pouvez taper `bitcoin-cli help getnewaddress`.
+
 ```
 $ bitcoin-cli getnewaddress "" legacy
 n4cqjJE6fqcmeWpftygwPoKMMDva6BpyHf
 ```
-Note that this address begins with an "n" (or sometimes an "m"). This signifies that this is a testnet address.
+Notez que cette adresse commence par un "n" (ou parfois un "m"). Cela signifie qu'il s'agit d'une adresse testnet.
 
-The "legacy" flag is necessary to generate a traditional address, rather than a p2sh-segwit or bech32 address. The legacy address is currently required from the command line to make sure that signing works correctly.
+L'option "legacy" est nécessaire pour générer une adresse traditionnelle, plutôt qu'une adresse p2sh-segwit ou bech32. L'adresse "legacy" est actuellement requise à partir de la ligne de commande pour s'assurer que la signature fonctionne correctement.
 
-> :link: **TESTNET vs MAINNET:** The equivalent mainnet address would start with a 1.
+> :link: **TESTNET vs MAINNET:** L'adresse équivalente pour le réseau principal commencerait par un 1.
 
-Take careful note of the address. You'll need to give it to whomever will be sending you funds.
+Prenez soigneusement note de l'adresse. Vous devrez la donner à la personne qui vous enverra des fonds.
 
-_What is a Bitcoin address?_ A Bitcoin address is literally where you receive money. It's like an email address, but for funds. However unlike an email address, a Bitcoin address should be considered single use: use it to receive funds just _once_. When you want to receive funds from someone else or at some other time, generate a new address. This is suggested in large part to improve your privacy. The whole blockchain is immutable, which means that explorers can look at long chains of transactions over time, making it possible to statistically determine who you and your contacts are, no matter how careful you are. However, if you keep reusing the same address, then this becomes even easier.
+_Qu'est-ce qu'une adresse Bitcoin?_ Une adresse Bitcoin est littéralement l'endroit où vous recevez de l'argent. C'est comme une adresse électronique, mais pour les fonds. Toutefois, contrairement à une adresse électronique, une adresse Bitcoin doit être considérée comme à usage unique : utilisez-la pour recevoir des fonds _une seule fois_. Lorsque vous souhaitez recevoir des fonds de quelqu'un d'autre ou à un autre moment, générez une nouvelle adresse. Cela est suggéré en grande partie pour améliorer la protection de votre vie privée. Toute la chaîne de blocs est immuable, ce qui signifie que les explorateurs peuvent examiner de longues chaînes de transactions au fil du temps, ce qui permet de déterminer statistiquement qui vous êtes et qui sont vos contacts, même si vous êtes prudent. Si vous réutilisez toujours la même adresse, cela devient encore plus facile.
 
-_What is a P2PKH address?_ A Bitcoin address is also something else: a public key (or more precisely, the 160-bit hash of a public key). For this reason it's called a Pay to PubKey Hash (or P2PKH) address. This public key of your key pair allows you to receive money, while an associated private key lets you spend that money. However, bitcoins may be sent to other sorts of addresses: Pay to Script Hash (P2SH) addresses feature prominently in the latter part of this tutorial.
+_Qu'est-ce qu'une adresse P2PKH?_ Une adresse Bitcoin, c'est aussi autre chose : une clé publique (ou plus précisément, le hachage en 160 bits d'une clé publique). C'est pourquoi on appelle cela une adresse "Pay to PubKey Hash" (ou P2PKH). Cette clé publique de votre paire de clés vous permet de recevoir de l'argent, tandis qu'une clé privée associée vous permet de dépenser cet argent. Ceci dit, les bitcoins peuvent être envoyés à d'autres types d'adresses : Les adresses de type "Pay to Script Hash" (P2SH) figurent en bonne place dans la dernière partie de ce tutoriel.
 
-_What is a Bitcoin wallet?_ By creating your first Bitcoin address, you've also begun to fill in your Bitcoin wallet. More precisely, you've begun to fill the `wallet.dat` file in your ~/.bitcoin/testnet3 directory. The `wallet.dat` file contains data about preferences and transactions, but more importantly it contains all of the key pairs that you create: both the public key (which is the source of the address where you receive funds) and the private key (which is how you spend those funds). For the most part, you won't have to worry about that private key: `bitcoind` will use it when it's needed. However, this makes the `wallet.dat` file extremely important: if you lose it, you lose your private keys, and if you lose your private keys, you lose your funds!
+_Qu'est-ce qu'un portefeuille Bitcoin?_ En créant votre première adresse Bitcoin, vous avez également commencé à remplir votre portefeuille Bitcoin (_NDT : wallet_). Plus précisément, vous avez commencé à remplir le fichier `wallet.dat` dans votre répertoire ~/.bitcoin/testnet3. Le fichier `wallet.dat` contient des données sur les préférences et les transactions, mais surtout il contient toutes les paires de clés que vous créez : la clé publique (qui est la source de l'adresse où vous recevez des fonds) et la clé privée (qui est la façon dont vous dépensez ces fonds). Dans la plupart des cas, vous n'aurez pas à vous préoccuper de cette clé privée : bitcoind l'utilisera quand elle sera nécessaire. Cependant, cela rend le fichier wallet.dat extrêmement important : si vous le perdez, vous perdez vos clés privées, et si vous perdez vos clés privées, vous perdez vos fonds !
 
-With a single address in hand, you could jump straight to the next section and begin receiving funds. However, before we get there, we're going to talk about a few other wallet commands that you might want to use in the future.
+Avec une seule adresse en main, vous pourriez passer directement à la section suivante et commencer à recevoir des fonds. Cependant, avant d'en arriver là, nous allons parler de quelques autres commandes concernant le portefeuille que vous pourriez vouloir utiliser à l'avenir.
 
-## Optional: Sign a Message
+## Facultatif : Signer un message
 
-Sometimes you'll need to prove that you control a Bitcoin address (or rather, that you control its private key). This is important because it lets people know that they're sending funds to the right person. This can be done by creating a signature with the `bitcoin-cli signmessage` command, in the form `bitcoin-cli signmessage [address] [message]`. For example:
+Parfois, vous devrez prouver que vous contrôlez une adresse Bitcoin (ou plutôt, que vous contrôlez sa clé privée). C'est important car cela permet aux gens de savoir qu'ils envoient des fonds à la bonne personne. Cela peut être fait en créant une signature avec la commande `bitcoin-cli signmessage`, sous la forme `bitcoin-cli signmessage [adresse] [message]`. Par exemple :
+
 ```
 $ bitcoin-cli signmessage "n4cqjJE6fqcmeWpftygwPoKMMDva6BpyHf" "Hello, World"
 H3yMBZaFeSmG2HgnH38dImzZAwAQADcOiMKTC1fryoV6Y93BelqzDMTCqNcFoik86E8qHa6o3FCmTsxWD7Wa5YY=
 ```
-You'll get the signature as a return.
+Vous obtiendrez la signature en retour.
 
-_What is a signature?_ A digital signature is a combination of a message and a private key that can then be unlocked with a public key. Since there's a one-to-one correspendence between the elements of a keypair, unlocking with a public key proves that the signer controlled the corresponding private key.
+_Qu'est-ce qu'une signature ?_ Une signature numérique est une combinaison d'un message et d'une clé privée qui peut ensuite être déverrouillée avec une clé publique. Comme il existe une bijection entre les éléments d'une paire de clés, le déverrouillage avec une clé publique prouve que le signataire contrôle la clé privée correspondante.
 
-Another person can then use the `bitcoin-cli verifymessage` command to verify the signature. He inputs the address in question, the signature, and the message:
+Une autre personne peut alors utiliser la commande `verifymessage` de `bitcoin-cli` pour vérifier la signature. Elle entre l'adresse en question, la signature et le message :
+
 ```
 $ bitcoin-cli verifymessage "n4cqjJE6fqcmeWpftygwPoKMMDva6BpyHf" "H3yMBZaFeSmG2HgnH38dImzZAwAQADcOiMKTC1fryoV6Y93BelqzDMTCqNcFoik86E8qHa6o3FCmTsxWD7Wa5YY=" "Hello, World"
 true
 ```
-If they all match up, then the other person knows that he can safely transfer funds to the person who signed the message by sending to the address.
+Si tout correspond, l'autre personne sait qu'elle peut transférer des fonds en toute sécurité à la personne qui a signé le message envoyé.
 
-If some black hat was making up signatures, this would instead produce a negative result:
+Si un chapeau noir inventait des signatures, cela produirait plutôt un résultat négatif :
+
 ```
 $ bitcoin-cli verifymessage "n4cqjJE6fqcmeWpftygwPoKMMDva6BpyHf" "FAKEBZaFeSmG2HgnH38dImzZAwAQADcOiMKTC1fryoV6Y93BelqzDMTCqNcFoik86E8qHa6o3FCmTsxWD7Wa5YY=" "Hello, World"
 false
 ```
 
-## Optional: Dump Your Wallet
+## Facultatif : Videz votre portefeuille
 
-It might seem dangerous having all of your irreplaceable private keys in a single file. That's what `bitcoin-cli backupwallet` is for. It lets you make a copy of your wallet.dat:
+Il peut sembler dangereux d'avoir toutes vos clés privées irremplaçables dans un seul fichier. C'est à cela que sert le portefeuille de sauvegarde (`backupwallet`) de `bitcoin-cli`. Il vous permet de faire une copie de votre wallet.dat :
+
 ```
 $ bitcoin-cli backupwallet backup.dat
 ```
@@ -62,40 +67,43 @@ You can then recover it with `bitcoin-cli importwallet`.
 $ bitcoin-cli importwallet backup.dat
 ```
 
-## Optional: View Your Private Keys
+## Facultatif : Voir vos clés privées
 
-Sometimes, you might want to actually look at the private keys associated with your Bitcoin addresses. Perhaps you want to be able to sign a message or spend bitcoins from a different machine. Perhaps you just want to back up certain important private keys.
+Parfois, vous pourriez avoir envie de regarder les clés privées associées à vos adresses Bitcoin. Peut-être souhaitez-vous pouvoir signer un message ou dépenser des bitcoins à partir d'une autre machine. Peut-être souhaitez-vous simplement sauvegarder certaines clés privées importantes.
 
-To look at _all_ the keys in your wallet, type `bitcoin-cli dumpwallet ~/mywallet.txt`.
+Pour consulter _toutes_ les clés de votre portefeuille, tapez `bitcoin-cli dumpwallet ~/mywallet.txt`.
+
 ```
 $ bitcoin-cli dumpwallet ~/mywallet.txt
 {
   "filename": "/home/user1/mywallet.txt"
 }
 ```
-This will create a mywallet.txt file in your home directory with a long list of private keys, addresses, and other information. Mind you, you'd never want to put this data out in a plain text file on a Bitcoin setup with real funds!
+Cela créera un fichier mywallet.txt dans votre répertoire personnel avec une longue liste de clés privées, d'adresses et d'autres informations. Attention, vous ne devriez jamais mettre ces données dans un fichier en texte brut sur une installation Bitcoin avec de vrais fonds !
 
-More likely, you just want to look at the private key associated with a specific address. This can be done with the `bitcoin-cli dumpprivkey` command.
+Il est plus probable que vous souhaitiez simplement examiner la clé privée associée à une adresse spécifique. Cela peut être fait avec la commande `bitcoin-cli dumpprivkey`.
+
 ```
 $ bitcoin-cli dumpprivkey "n4cqjJE6fqcmeWpftygwPoKMMDva6BpyHf"
 cW4s4MdW7BkUmqiKgYzSJdmvnzq8QDrf6gszPMC7eLmfcdoRHtHh
 ```
-You can then save that key somewhere safe, preferably somewhere not connected to the internet.
+Vous pouvez ensuite conserver cette clé dans un endroit sûr, de préférence un endroit non connecté à l'internet.
 
-You can import any private key, from a wallet dump or an individual key dump, as follows:
+Vous pouvez importer n'importe quelle clé privée, à partir d'une décharge (_NDT : dump_) de portefeuille ou d'une décharge de clés individuelles, comme suit :
+
 ```
 $ bitcoin-cli importprivkey cW4s4MdW7BkUmqiKgYzSJdmvnzq8QDrf6gszPMC7eLmfcdoRHtHh
 ```
-Expect this to take a while, as `bitcoind` needs to reread all past transactions, to see if there are any new ones that it should pay attention to.
+Attendez-vous à ce que cela prenne un certain temps, car `bitcoind` doit relire toutes les transactions passées, pour voir s'il y en a de nouvelles auxquelles il doit prêter attention.
 
-> :information_source: **NOTE:** Many modern wallets prefer [mnemonic codes](https://github.com/bitcoin/bips/blob/master/bip-0039.mediawiki) to generate the seeds necessary to create the private keys. This methodology is not used `bitcoin-cli`, so you won't be able to generate handy word lists to remember your private keys.
+> :information_source: **NOTE:** De nombreux portefeuilles modernes préfèrent les [mnémoniques](https://github.com/bitcoin/bips/blob/master/bip-0039.mediawiki) pour générer les graines nécessaires à la création des clés privées. Cette méthodologie n'est pas utilisée par `bitcoin-cli`, vous ne pourrez donc pas générer de listes de mots pratiques pour vous souvenir de vos clés privées.
 
-_You've been typing that Bitcoin address you generated a _lot_, while you were signing messages and now dumping keys. If you think it's a pain, we agree. It's also prone to errors, a topic that we'll address in the very next section._
+_Vous avez tapé souvent cette adresse Bitcoin que vous avez générée_, pendant que vous signiez des messages et que vous déverrouillez des clés. Si vous pensez que c'est pénible, nous sommes d'accord. Elle est également sujette à des erreurs, un sujet que nous aborderons dans la section suivante.
 
-## Summary: Setting Up Your Wallet
+## Résumé : Configurer votre portefeuille
 
-You need to create an address to receive funds. Your address is stored in a wallet, which you can back up. You can also do lots more with an address, like dumping its private key or using it to sign messages. But really, creating that address is _all_ you need to do in order to receive Bitcoin funds.
+Vous devez créer une adresse pour recevoir des fonds. Votre adresse est stockée dans un portefeuille, que vous pouvez sauvegarder. Vous pouvez également faire bien d'autres choses avec une adresse, par exemple en conservant sa clé privée ou en l'utilisant pour signer des messages. Mais en fait, il vous suffit de créer cette adresse pour recevoir des fonds Bitcoin.
 
-## What's Next?
+## Quelle est la prochaine étape ?
 
-Step back from "Understanding Your Bitcoin Setup" with [Interlude: Using Command-Line Variables](03_3__Interlude_Using_Command-Line_Variables.md).
+Prenez du recul par rapport à "Comprendre votre configuration Bitcoin" avec [Interlude : Utilisation des variables de la ligne de commande](03_3__Interlude_Utilisation_des_variables_de_la_ligne_de_commande.md).

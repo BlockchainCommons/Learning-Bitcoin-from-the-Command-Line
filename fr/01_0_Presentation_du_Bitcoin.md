@@ -1,12 +1,12 @@
 # Chapitre 1 : Présentation du Bitcoin
 
-Avant de pouvoir commencer à programmer Bitcoin (et Lightning), vous devez avoir une compréhension de base de ce qu'ils sont et de leur fonctionnement. Le présent chapitre vous donne un aperçu de ces notions. De nombreuses autres définitions apparaîtront dans le document lui-même ; elles ne visent qu'à jeter les bases.
+Avant de pouvoir commencer à programmer Bitcoin (et Lightning), vous devez avoir une compréhension de base de ce qu'ils sont et de leur fonctionnement. Le présent chapitre ne vous en donne qu'un aperçu. De nombreuses autres définitions apparaîtront dans le document lui-même ; elles ne visent qu'à jeter les bases.
 
 ## Objectifs de ce chapitre
 
-Après avoir parcouru ce chapitre, un développeur sera en mesure de faire ceci :
+Après avoir parcouru ce chapitre, un développeur sera en mesure de :
 
-- Évaluer les parties du système Bitcoin
+- Comprendre les composantes du système Bitcoin
 
 
 - Décider de l'utilité d'une chaîne de blocs
@@ -24,17 +24,17 @@ Les objectifs de ce cours sont de permettre de :
 
 ## A propos du Bitcoin
 
-Bitcoin est un système programmatique qui permet le transfert de la monnaie bitcoin. Il est activé par un système décentralisé de nœuds pairs-à-pair (ndt : peer-to-peer), qui comprend des nœuds complets, des portefeuilles et des mineurs. En travaillant ensemble, ils s'assurent que les transactions de bitcoin sont rapides et non répudiables. Grâce à la nature décentralisée du système, ces transactions sont également résistantes à la censure et peuvent offrir d'autres avantages tels que le "pseudonymat" et la non-corrélation si elles sont bien utilisées.
+Bitcoin est un système programmable qui permet le transfert de la monnaie bitcoin. Il est rendu possible par un système décentralisé de nœuds pairs-à-pair (NDT : peer-to-peer), qui comprend des nœuds complets, des portefeuilles et des mineurs. En travaillant ensemble, ils s'assurent que les transactions de bitcoin sont rapides et non répudiables. Grâce à la nature décentralisée du système, ces transactions sont également résistantes à la censure et peuvent offrir d'autres avantages tels que le "pseudonymat" et la non-corrélation si elles sont bien utilisées.
 
-Evidemment, Bitcoin est le cœur de ce livre, mais il est également à l'origine de nombreux autres systèmes, notamment les blockchains et Lightning, qui sont tous deux détaillés dans ce tutoriel, et de nombreuses autres crypto-monnaies telles que Ethereum et Litecoins, qui ne le sont pas. 
+Evidemment, Bitcoin est le cœur de ce livre, mais il est également à l'origine de nombreux autres systèmes, notamment les blockchains et Lightning, qui sont tous deux détaillés dans ce tutoriel, et de nombreuses autres crypto-monnaies telles que Ethereum et Litecoin, qui ne le sont pas. 
 
 **_Comment les pièces sont-elles transférées ?_** Les pièces de monnaie ne sont pas des pièces physiques. Il s'agit plutôt d'une série ininterrompue de transferts de propriété. Lorsqu'une personne envoie des pièces à une autre, ce transfert est enregistré comme une transaction. C'est la transaction qui enregistre réellement la propriété de l'argent, et non pas un quelconque jeton local au portefeuille du propriétaire ou à sa machine.
 
-**_À qui pouvez-vous envoyer des pièces ?_** La grande majorité des transactions de bitcoin implique l'envoi de pièces à des personnes individuelles (ou au moins à des adresses de bitcoin individuelles). Cependant, des méthodes plus complexes peuvent être utilisées pour envoyer des bitcoins à des groupes de personnes ou à des scripts. Ces diverses méthodologies portent des noms tels que P2PKH, multisig et P2SH.
+**_À qui pouvez-vous envoyer des pièces ?_** La grande majorité des transactions de bitcoin implique l'envoi de pièces à des personnes individuelles (ou au moins à des adresses de bitcoin individuelles). Cependant, des méthodes plus complexes peuvent être utilisées pour envoyer des bitcoins à des groupes de personnes ou à des scripts. Ces diverses méthodes portent des noms tels que P2PKH, multisig et P2SH.
 
-**_Comment les transactions sont-elles stockées ?_** Les transactions sont regroupées en blocs de données plus importants, qui sont ensuite inscrits dans le livre de la chaîne de blocs. Un bloc est construit de telle manière qu'il ne peut être remplacé ou réécrit une fois que plusieurs blocs ont été construits après lui. C'est ce qui rend les bitcoins non répudiables : le grand livre global décentralisé où tout est enregistré est en fait une base de données permanente et inaltérable.
+**_Comment les transactions sont-elles stockées ?_** Les transactions sont regroupées en blocs de données plus importants, qui sont ensuite inscrits dans le registre de la chaîne de blocs. Un bloc est construit de telle manière qu'il ne peut être remplacé ou réécrit une fois que plusieurs blocs ont été construits après lui. C'est ce qui rend les bitcoins non répudiables : le grand registre global décentralisé où tout est enregistré est en fait une base de données permanente et inaltérable.
 
-Cependant, le processus de construction de ces blocs est stochastique : il est quelque peu aléatoire, de sorte que vous ne pouvez jamais être assuré qu'une transaction sera placée dans un bloc spécifique. Il peut également y avoir des changements dans les blocs s'ils sont très récents, mais seulement s'ils sont très récents. Ainsi, les choses deviennent non répudiables (et permanentes et immuables) après un certain temps.
+Cependant, le processus de construction de ces blocs est stochastique : il est quelque peu aléatoire, de sorte que vous ne pouvez jamais être assuré qu'une transaction sera placée dans un bloc spécifique. Il peut également y avoir des changements dans les blocs s'ils sont très récents, mais seulement s'ils sont _très_ récents. Ainsi, les choses deviennent non répudiables (et permanentes et immuables) après un certain temps.
 
 **_Comment les transactions sont-elles protégées ?_** Les fonds contenus dans une transaction Bitcoin sont verrouillés à l'aide d'un puzzle cryptographique. Ces puzzles sont conçus de manière à pouvoir être facilement résolus par la personne à qui les fonds ont été envoyés. Cela se fait grâce à la puissance de la cryptographie à clé publique. 
 
