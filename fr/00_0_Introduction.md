@@ -14,4 +14,4 @@ Une grande partie de ce livre traite donc de la manière de lancer Bitcoin (et L
 
 ## Quelle est la prochaine étape ?
 
-Apprenez les bases du bitcoin dans le premier chapitre : [Chapitre 1 : Présentation du bitcoin](01_0_Presentation_du_Bitcoin.md).
+Apprenez les bases de Bitcoin dans le premier chapitre : Chapitre 1 : (01_0_Presentation_du_Bitcoin.md).
