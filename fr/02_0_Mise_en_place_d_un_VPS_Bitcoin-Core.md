@@ -20,7 +20,7 @@ Ce cours couvre les objectifs suivants :
 
 ## Table des matières
 
-Vous pouvez soit créer votre VPS à la main, soit utiliser StackScript sur Linode.com pour le faire.
+Il vous est possible de créer votre VPS soit manuellement, soit avec StackScript sur Linode.com.
 
 
 
