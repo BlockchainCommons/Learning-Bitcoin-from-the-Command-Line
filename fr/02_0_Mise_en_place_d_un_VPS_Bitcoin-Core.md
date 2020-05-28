@@ -16,7 +16,7 @@ Ce cours couvre les objectifs suivants :
 - Décider des priorités de sécurité à mettre en œuvre
 - Comprendre la différence entre les nœuds élagués et non élagués
 - Comprendre la différence entre les nœuds Mainnet, Testnet et Regtest
-- Interpréter les bases du fichier de configuration Bitcoin
+- Assimiler les rudiments du fichier de configuration Bitcoin
 
 ## Table des matières
 
