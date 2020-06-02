@@ -17,13 +17,13 @@ You start off creating P2PKH addresses and retrieving public keys as usual, for 
 machine1$ address3=$(bitcoin-cli getnewaddress)
 machine1$ echo $address3
 mkMkhbUzcSPdEHUoRQkBKHe8otP1SzWWeb
-machine1$ bitcoin-cli -named validateaddress address=$address3 | jq -r '. | .pubkey'
+machine1$ bitcoin-cli -named getaddressinfo address=$address3 | jq -r '. | .pubkey'
 02e7356952f4bb1daf475c04b95a2f7e0d9a12cf5b5c48a25b2303783d91849ba4
 
 machine2$ address4=$(bitcoin-cli getnewaddress)
 $ echo $address4
 mkyeUBPDoeyFrfLE4V5oAQfee99pT2W1E3
-$ bitcoin-cli -named validateaddress address=$address4 | jq -r '. | .pubkey'
+$ bitcoin-cli -named getaddressinfo address=$address4 | jq -r '. | .pubkey'
 030186d2b55de166389aefe209f508ce1fbd79966d9ac417adef74b7c1b5e07776
 ```
 
@@ -66,7 +66,7 @@ machine1$ rawtxhex=$(bitcoin-cli -named createrawtransaction inputs='''[ { "txid
 ```
 Then you sign it:
 ```
-machine1$ bitcoin-cli -named signrawtransaction hexstring=$rawtxhex
+machine1$ bitcoin-cli -named signrawtransactionwithwallet hexstring=$rawtxhex
 {
   "hex": "02000000014ecda61c45f488e35c613a7c4ae26335a8d7bfd0a942f026d0fb1050e744a67d000000009100473044022025decef887fe2e3eb1c4b3edaa155e5755102d1570716f1467bb0b518b777ddf022017e97f8853af8acab4853ccf502213b7ff4cc3bd9502941369905371545de28d0147522102e7356952f4bb1daf475c04b95a2f7e0d9a12cf5b5c48a25b2303783d91849ba421030186d2b55de166389aefe209f508ce1fbd79966d9ac417adef74b7c1b5e0777652aeffffffff0130e1be07000000001976a9148dfbf103e48df7d1993448aa387dc31a2ebd522d88ac00000000",
   "complete": false,
@@ -81,13 +81,13 @@ machine1$ bitcoin-cli -named signrawtransaction hexstring=$rawtxhex
   ]
 }
 ```
-Note that you no longer had to give `signrawtransaction` extra help, because all of that extra information was already in your wallet. Most importantly, you didn't make your private keys vulnerable by directly manipulating them. Instead the process was _exactly_ the same as respending a normal UTXO, except that the transaction wasn't fully signed at the end.
+Note that you no longer had to give `signrawtransactionwithkey` extra help, because all of that extra information was already in your wallet. Most importantly, you didn't make your private keys vulnerable by directly manipulating them. Instead the process was _exactly_ the same as respending a normal UTXO, except that the transaction wasn't fully signed at the end.
 
 ### Sign It On Other Machines
 
 The final step is exporting the partially signed `hex` to any other machines and signing it again:
 ```
-$ signedtx=$(bitcoin-cli -named signrawtransaction hexstring=02000000014ecda61c45f488e35c613a7c4ae26335a8d7bfd0a942f026d0fb1050e744a67d000000009100473044022025decef887fe2e3eb1c4b3edaa155e5755102d1570716f1467bb0b518b777ddf022017e97f8853af8acab4853ccf502213b7ff4cc3bd9502941369905371545de28d0147522102e7356952f4bb1daf475c04b95a2f7e0d9a12cf5b5c48a25b2303783d91849ba421030186d2b55de166389aefe209f508ce1fbd79966d9ac417adef74b7c1b5e0777652aeffffffff0130e1be07000000001976a9148dfbf103e48df7d1993448aa387dc31a2ebd522d88ac00000000 | jq -r '.hex')
+$ signedtx=$(bitcoin-cli -named signrawtransactionwithwallet hexstring=02000000014ecda61c45f488e35c613a7c4ae26335a8d7bfd0a942f026d0fb1050e744a67d000000009100473044022025decef887fe2e3eb1c4b3edaa155e5755102d1570716f1467bb0b518b777ddf022017e97f8853af8acab4853ccf502213b7ff4cc3bd9502941369905371545de28d0147522102e7356952f4bb1daf475c04b95a2f7e0d9a12cf5b5c48a25b2303783d91849ba421030186d2b55de166389aefe209f508ce1fbd79966d9ac417adef74b7c1b5e0777652aeffffffff0130e1be07000000001976a9148dfbf103e48df7d1993448aa387dc31a2ebd522d88ac00000000 | jq -r '.hex')
 ```
 When everyone that's required has signed, you're off to the races:
 ```
