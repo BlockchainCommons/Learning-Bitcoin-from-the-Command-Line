@@ -1,6 +1,6 @@
 # Chapitre 1 : Présentation du Bitcoin
 
-Avant de pouvoir commencer à programmer Bitcoin (et Lightning), vous devez avoir une compréhension de base de ce qu'ils sont et de leur fonctionnement. Le présent chapitre ne vous en donne qu'un aperçu. De nombreuses autres définitions apparaîtront dans le document lui-même ; elles ne visent qu'à jeter les bases.
+Avant de pouvoir commencer à programmer Bitcoin (et Lightning), il est nécessaire d'en comprendre les rudiments, et d'en saisir le fonctionnement. Ce chapitre n'est qu'un aperçu: de nombreuses autres définitions apparaîtront dans le reste du document; cette partie ne vise qu'à jeter les bases.
 
 ## Objectifs de ce chapitre
 
