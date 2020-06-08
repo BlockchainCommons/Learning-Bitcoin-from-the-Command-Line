@@ -22,7 +22,7 @@ Les objectifs de ce cours sont de permettre de :
 
 - Comprendre ce qu'est Lightning
 
-## A propos du Bitcoin
+## A propos de Bitcoin
 
 Bitcoin est un système programmable qui permet le transfert de la monnaie bitcoin. Il est rendu possible par un système décentralisé de nœuds pairs-à-pair (NDT : peer-to-peer), qui comprend des nœuds complets, des portefeuilles et des mineurs. En travaillant ensemble, ils s'assurent que les transactions de bitcoin sont rapides et non répudiables. Grâce à la nature décentralisée du système, ces transactions sont également résistantes à la censure et peuvent offrir d'autres avantages tels que le "pseudonymat" et la non-corrélation si elles sont bien utilisées.
 
