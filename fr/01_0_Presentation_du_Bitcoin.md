@@ -1,6 +1,6 @@
 # Chapitre 1 : Présentation du Bitcoin
 
-Avant de pouvoir commencer à programmer Bitcoin (et Lightning), vous devez avoir une compréhension de base de ce qu'ils sont et de leur fonctionnement. Le présent chapitre ne vous en donne qu'un aperçu. De nombreuses autres définitions apparaîtront dans le document lui-même ; elles ne visent qu'à jeter les bases.
+Avant de pouvoir commencer à programmer Bitcoin (et Lightning), il est nécessaire d'en comprendre les rudiments, et d'en saisir le fonctionnement. Ce chapitre n'est qu'un aperçu: de nombreuses autres définitions apparaîtront dans le reste du document; cette partie ne vise qu'à jeter les bases.
 
 ## Objectifs de ce chapitre
 
@@ -22,11 +22,10 @@ Les objectifs de ce cours sont de permettre de :
 
 - Comprendre ce qu'est Lightning
 
-## A propos du Bitcoin
+## A propos de Bitcoin
 
-Bitcoin est un système programmable qui permet le transfert de la monnaie bitcoin. Il est rendu possible par un système décentralisé de nœuds pairs-à-pair (NDT : peer-to-peer), qui comprend des nœuds complets, des portefeuilles et des mineurs. En travaillant ensemble, ils s'assurent que les transactions de bitcoin sont rapides et non répudiables. Grâce à la nature décentralisée du système, ces transactions sont également résistantes à la censure et peuvent offrir d'autres avantages tels que le "pseudonymat" et la non-corrélation si elles sont bien utilisées.
-
-Evidemment, Bitcoin est le cœur de ce livre, mais il est également à l'origine de nombreux autres systèmes, notamment les blockchains et Lightning, qui sont tous deux détaillés dans ce tutoriel, et de nombreuses autres crypto-monnaies telles que Ethereum et Litecoin, qui ne le sont pas. 
+Bitcoin est un programme qui permet le transfert de la crypto-monnaie du même nom. Un réseau décentralisé peer-to-peer le sous-tend, composé de nœuds complets, de porte-monnaies et de mineurs. Leur coopération assure l'intangibilité des transactions Bitcoin ainsi que leur rapide exécution. La nature décentralisée du système protège ces transactions de toute censure, et offre d'autres avantages tels que l'anonymat et l'impossibilité de les corréler, pour peu que le programme soit correctement utilisé.
+Au coeur de cet ouvrage, Bitcoin est aussi l'origine de nombreux autres concepts, notamment Blockchains et Lightning, détaillés dans ce tutoriel, ainsi que d'autres crypto-monnaies telles Ethereum et Litecoin, qui ne le sont pas. 
 
 **_Comment les pièces sont-elles transférées ?_** Les pièces de monnaie ne sont pas des pièces physiques. Il s'agit plutôt d'une série ininterrompue de transferts de propriété. Lorsqu'une personne envoie des pièces à une autre, ce transfert est enregistré comme une transaction. C'est la transaction qui enregistre réellement la propriété de l'argent, et non pas un quelconque jeton local au portefeuille du propriétaire ou à sa machine.
 
