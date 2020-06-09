@@ -1,27 +1,27 @@
-# AFAIRE Chapitre 4 : Envoi de transactions Bitcoin
+# Chapitre 4 : Envoi de transactions Bitcoin
 
-This chapter describes three different methods for sending bitcoins to normal P2PKH addresses from the command line, using only the bitcoin-cli interface.
+Ce chapitre décrit trois méthodes différentes pour envoyer des bitcoins à des adresses P2PKH normales à partir de la ligne de commande, en utilisant uniquement l'interface bitcoin-cli.
 
-## Objectives for This Chapter
+## Objectifs de ce chapitre
 
-After working through this chapter, a developer will be able to:
+Après avoir travaillé sur ce chapitre, un développeur sera en mesure de :
 
-   * Decide How to Send Money Through Bitcoin
-   * Create a Raw Transaction
-   * Use Arithmetic to Calculate Fees
+   * Décider comment envoyer de l'argent via Bitcoin
+   * Créer une transaction brute
+   * Utiliser l'arithmétique pour calculer les frais de transaction
 
-Supporting objectives include the ability to:
+Les objectifs de ce cours incluent :
 
-   * Understand Transactions & Transaction Fees
-   * Use Basic Methods to Send Money
-   * Use Auto Fee Calculation Methods to Send Money
-   * Understand the Dangers of Raw Transactions
+   * Comprendre les transactions et les frais de transaction
+   * Utiliser les méthodes de base pour envoyer de l'argent
+   * Utilisez les méthodes de calcul automatique des frais pour envoyer de l'argent
+   * Comprendre les dangers des transactions brutes
 
 ## Table of Contents
 
-  * [Section One: Sending Coins the Easy Way](04_1_Sending_Coins_The_Easy_Way.md)
-  * [Section Two: Creating a Raw Transaction](04_2_Creating_a_Raw_Transaction.md)
-     * [Interlude: Using JQ](04_2__Interlude_Using_JQ.md)
-  * [Section Three: Creating a Raw Transaction with Named Arguments](04_3_Creating_a_Raw_Transaction_with_Named_Arguments.md)
-  * [Section Four: Sending Coins with Raw Transactions](04_4_Sending_Coins_with_a_Raw_Transaction.md)
-  * [Section Five: Sending Coins with Automated Raw Transactions](04_5_Sending_Coins_with_Automated_Raw_Transactions.md)
+  * [Section 1 : Envoi de pièces par la voie la plus simple](04_1_Envoi_de_pieces_par_la_voie_la_plus_simple.md)
+  * [Section 2 : Création d'une transaction brute](04_2_Creation_d_une_transaction_brute.md)
+     * [Interlude : Utilisation de JQ](04_2__Utilisation_de_JQ.md)
+  * [Section 3 : Création d'une transaction brute avec des arguments nommés](04_3_Creation_d_une_transaction_brute_avec_des_arguments_nommes.md)
+  * [Section 4 : Envoi de pièces à l'aide des transactions brutes](04_4_Envoi_de_pieces_a_l_aide_des_transactions_brutes.md)
+  * [Section 5 : Envoyer des pièces à l'aide des transactions brutes automatisées](04_5_Envoyer_des_pieces_a_l_aide_des_transactions_brutes_automatisees.md)
