@@ -1,4 +1,4 @@
-# 12.7: Accessing Bitcoind with Java
+# 18.2: Accessing Bitcoind with Java
 
 > **NOTE:** This is a draft in progress, so that I can get some feedback from early reviewers. It is not yet ready for learning.
 
