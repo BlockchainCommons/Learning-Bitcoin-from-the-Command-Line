@@ -72,17 +72,25 @@ _This tutorial assumes that you have some minimal background of how to use the c
   * [11.2: Writing Complex Multisig Scripts](11_2_Writing_Complex_Multisig_Scripts.md)
   * [11.3: Empowering Bitcoin with Scripts](11_3_Empowering_Bitcoin_with_Scripts.md)
 
-### PART FOUR: LIGHTNING-CLI
+### PART FOUR: TOR
+
+_The section is currently unwritten._
+
+* 12.0: Setting Up Tor
+  * 12.1: Verifying Your Tor Setup
+  * 12.2: Changing Your Bitcoin Hidden Services
+  * 12.3: Adding SSH Hiddne Services
+  
+### PART FIVE: LIGHTNING-CLI
 
 _This section is unwritten currently, and will probably involve chapter 14.0 expanding into at least two chapters._
 
-* 12.0: Setting Up TOR
 * 13.0: Setting Up Lightning
 * 14.0: Using Lightning
 
 > _Some good docs from one of the developers are here: https://diyhpl.us/wiki/transcripts/blockstream-webinars/2019-07-31-rusty-russell-getting-started-with-c-lightning/._
 
-### PART FIVE: BITCOIN & LIGHTNING PROGRAMMING
+### PART SIX: BITCOIN & LIGHTNING PROGRAMMING
 
 _This section is currently a messy set of older writings which are being reorganized as listed below. We're not going to work through this section until we've got chapters 1-11 updated per our current notes, then 12-14 written. But, if you'd like to see what we have to date on programming in correlation with Bitcoin Core, please feel free._
 
@@ -96,10 +104,13 @@ _This section is currently a messy set of older writings which are being reorgan
    * 17.2: Writing Wallet Functions
    * 17.3: Integrating Libwally and Scripts
 * 18.0: Talking to Bitcoind with Other Languages
-  * [18.1: Accessing Bitcoind with_Node_JS](18_1_Accessing_Bitcoind_with_Other_Languages.md)  — Needs Rewrite + Editing
-  * [18.2: Accessing Bitcoind with Python](18_2_Accessing_Bitcoind_with_Python.md)  — Needs Info form PR + Expansion + Editing
-  * [18.3: Accessing Bitcoind with Java](18_3_Accessing_Bitcoind_with_Java.md) — Needs Rewrite + Editing
-
+  * [18.1: Accessing Bitcoind with Go]
+  * [18.2: Accessing Bitcoind with Java](18_3_Accessing_Bitcoind_with_Java.md) — Needs Rewrite + Editing
+  * [18.3: Accessing Bitcoind with_Node_JS](18_1_Accessing_Bitcoind_with_Other_Languages.md)  — Needs Rewrite + Editing
+  * [18.4: Accessing Bitcoind with Python]
+  * [18.5: Accessing Bitcoind with Rust]
+  * [18.6: Accessing Bitcoind with Swift]
+  
 ### APPENDICE
 
 * Appendix I: Compiling Bitcoin
