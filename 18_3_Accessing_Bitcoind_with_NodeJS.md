@@ -1,13 +1,6 @@
-# 12.5: Accessing Bitcoind with Other Languages
+# 18.3: Accessing Bitcoind with NodeJS
 
 > **NOTE:** This is a draft in progress, so that I can get some feedback from early reviewers. It is not yet ready for learning.
-
-[[REVISE TO BE ABOUT MULTIPLE LANGUAGES]]
-[[GIVE EXTENSIVE DETAILS FOR NODE, AND LIST SOME OTHERS]]
-
-Here's the master list:  [many other options](https://en.bitcoin.it/wiki/API_reference_(JSON-RPC))
-
-Accessing the `bitcoind` doesn't require `curl`. All you need is simple RPC functionality. That's what's provided by [BCRPC](https://github.com/dgarage/bcrpc) by kallewoof of Digital Garage.
 
 ## Set Up Node.js
 
