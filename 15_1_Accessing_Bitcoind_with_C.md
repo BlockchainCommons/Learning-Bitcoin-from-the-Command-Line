@@ -1,8 +1,8 @@
-# 12.2: Accessing Bitcoind with C
+# 15.1: Accessing Bitcoind with C
 
 > **NOTE:** This is a draft in progress, so that I can get some feedback from early reviewers. It is not yet ready for learning.
 
-Though command-line `curl` is the easiest way to access the `bitcoind` directly, there are many other options for doing so and most of them support more fully featured programming languages. The best package for doing so in C is currently [libbitcoinrpc](https://github.com/gitmarek/libbitcoinrpc/blob/master/README.md). It uses a `curl` library for accessing the data and it uses the somewhat clunky `jansson` library for encoding and decoding the JSON. 
+[needs new intro]
 
 ## Set Up libbitcoinrpc
 
