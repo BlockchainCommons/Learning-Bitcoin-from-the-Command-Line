@@ -105,8 +105,8 @@ _This section is currently a messy set of older writings which are being reorgan
    * 17.3: Integrating Libwally and Scripts
 * 18.0: Talking to Bitcoind with Other Languages
   * [18.1: Accessing Bitcoind with Go]
-  * [18.2: Accessing Bitcoind with Java](18_3_Accessing_Bitcoind_with_Java.md) — Needs Rewrite + Editing
-  * [18.3: Accessing Bitcoind with_Node_JS](18_1_Accessing_Bitcoind_with_Other_Languages.md)  — Needs Rewrite + Editing
+  * [18.2: Accessing Bitcoind with Java](18_2_Accessing_Bitcoind_with_Java.md) — Needs Rewrite + Editing
+  * [18.3: Accessing Bitcoind with_Node_JS](18_3_Accessing_Bitcoind_with_NodeJS.md)  — Needs Rewrite + Editing
   * [18.4: Accessing Bitcoind with Python]
   * [18.5: Accessing Bitcoind with Rust]
   * [18.6: Accessing Bitcoind with Swift]
