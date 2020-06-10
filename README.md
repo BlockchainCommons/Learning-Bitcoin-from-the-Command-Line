@@ -98,11 +98,12 @@ _This section is currently a messy set of older writings which are being reorgan
   * [15.1: Accessing Bitcoind with C](15_1_Accessing_Bitcoind_with_C.md) — Needs Rewrite
   * [15.2: Programming Bitcoind with C](15_2_Programming_Bitcoind_with_C.md) — Needs Rewrite + Editing
   * [15.3: Receiving Bitcoind Notifications with C](15_3_Receiving_Bitcoind_Notifications_with_C.md) — Pending
-* 16.0: Talking to Lightningd with C
-* 17.0: Programming with LibWally
-   * 17.1: Using secp256k1 Functions
-   * 17.2: Writing Wallet Functions
-   * 17.3: Integrating Libwally and Scripts
+* 16.0: Programming with LibWally
+   * 17.1: Getting ready for LibWally
+   * 17.2: Using secp256k1 Functions
+   * 17.3: Writing Wallet Functions
+   * 17.4: Integrating Libwally and Scripts
+* 17.0: Talking to Lightningd with C
 * 18.0: Talking to Bitcoind with Other Languages
   * [18.1: Accessing Bitcoind with Go]
   * [18.2: Accessing Bitcoind with Java](18_2_Accessing_Bitcoind_with_Java.md) — Needs Rewrite + Editing
