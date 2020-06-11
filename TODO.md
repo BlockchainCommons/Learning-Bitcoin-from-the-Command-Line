@@ -2,7 +2,26 @@
 
 This is a list of potential (or planned) TODO items for "Learning Bitcoin from the Command Line". Many are drawn from issues found at the previous locale of this repo.
 
-## 1. Add BTCDEB Support
+## 1. Integrate with Bitcoin-Standup
+
+Replace our current scripts with Bitcoin Standup (which was based on those scripts)
+
+1. Fix Verification errors in Bitcoin Standup Scripts
+2. Upgrade Bitcoin Standup Scripts to Debian 10
+3. Upgrade Bitcoin Standup Scripts to Bitcoin 0.20
+4. Ensure Bitcoin Standup covers everything else in previous scripts
+5. Rewrite the StackScript chapter
+6. Rewrite the "by-hand" chapter to match Bitcoin Standup
+7. Reintroduce aliases after setup
+8. Figure out what to do about the old `btcblock` on testnet, where there seems to be no CLI way to determine blockheight.
+
+## 2. Upgrade to 0.20
+
+9. Walk through chapters 1-11, making sure all commands work with Bitcoin Core 0.20 (and changing them if not). Redo the output of all examples.
+
+## 3. Add BTCDEB Support
+
+10. Make all examples in [7.4](https://github.com/BlockchainCommons/Learning-Bitcoin-from-the-Command-Line/blob/master/07_4_Testing_a_Bitcoin_Script.md) and possibly elsewhere use BTCDeb.
 
 Per @ChristopherA:
 
@@ -10,14 +29,24 @@ Per @ChristopherA:
 
 `btcdeb -v` will now show you what BTC Core version it's based on in its minor version. As of now it's `0.2.19`, which is BTC Core 0.19.
 
-## 2. Update Setup Instructions & Script to Debian 10
+## 4. Add New Concepts
 
-Per @matthiasdebernardini, our current script no longer works.
+Add and document the following new concepts:
 
-## 3. Upgrade to 0.19.1
+11. Add SegWit Transactions. The majority of Bitcoin transactions now use this signing methodology, so it needs to be fully explained and incorporated, alongside its newer bech32 addresses.
+12. Add PSBT. Partially Signed Bitcoin Transactions are a powerful new interchange format that should be fully included in our discussions of multi-sigs and escrows (which instead fell back on older methodologies in v1.0).
+13. Add Wallet Updates. Some improvements have been made to wallet functionality, including Bitcoin Descriptors, and they should be added to the course.
+14. Consider HWI. We need to investigate the Hardware Wallet Interface, which uses PSBTs with hardware wallets, and see if it's something we should include (and if our readers want us to).
 
-We need to upgrade the whole tutorial to the newest BitCoin Core, and that means walking through it entirely, making sure it works, and redoing an examples with different output.
+## 5. Finish Later Chapters
 
-## 4. Fix BTCBlock for Testnet
+15. Write Tor Chapter. We want to fully integrate Tor into the installation of Bitcoin and then later talk about its usage.
+16. Write Lightning Chapters. We'd like to parallel the CLI introduction to Bitcoin with a similar CLI introduction to Lightning.
+17. Edit & Integrate all "C" work
+18. Edit & Integrate all "Other Languages" work
+19. Edit & Integrate Appendices work
+20. Write or request Lightning/C chapter
 
-The `btcblock` for testnet alias has had constant issues with the URLs delivering us total blockcounts for testnet going away. I'm not currently aware of any that work.
+## 6. Finalize Book
+
+21. Re-edit everything
