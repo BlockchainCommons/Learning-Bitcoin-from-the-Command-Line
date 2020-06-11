@@ -7,7 +7,7 @@ This is a list of potential (or planned) TODO items for "Learning Bitcoin from t
 Replace our current scripts with Bitcoin Standup (which was based on those scripts)
 
 1. <strike>Fix Verification errors in Bitcoin Standup Scripts</strike> **6/10**
-   * Fix IPADDR error in Bitcoin Standup Scripts
+   * <strike>Fix IPADDR error in Bitcoin Standup Scripts</strike> **6/10**
 2. Upgrade Bitcoin Standup Scripts to Debian 10
 3. Upgrade Bitcoin Standup Scripts to Bitcoin 0.20
 4. Ensure Bitcoin Standup covers everything else in previous scripts
