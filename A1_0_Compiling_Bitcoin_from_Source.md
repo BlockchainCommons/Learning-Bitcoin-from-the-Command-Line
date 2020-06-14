@@ -8,7 +8,7 @@ In this tutorial we will learn how to compile Bitcoin Core from source on a Debi
 
 ## Environment
 
-This tutorial uses Debian 10.4.0 OS on amd64 architecture(64 bit computers), but you can use this tutorial on any Debian based system e.g. Ubuntu, Mint, etc. On other linux systems, you can adapt the following steps with the package manager for that system.
+This tutorial uses Debian 10.4.kv0 OS on amd64 architecture(64 bit computers), but you can use this tutorial on any Debian based system e.g. Ubuntu, Mint, etc. On other linux systems, you can adapt the following steps with the package manager for that system.
 
 ## Legend
 
@@ -58,7 +58,7 @@ Check the contents of the repo:
 
 `$ ls bitcoin`
 
-![cloning the repo](/res/LBftCLI-compiling_bitcoin-git.png)
+![cloning the repo](./public/LBftCLI-compiling_bitcoin-git.png)
 
 ### 4. Install Berkley DB v4.8
 
@@ -67,7 +67,7 @@ Check the contents of the repo:
 
 Once it's downloaded you should see the following output. Take note of the output, we will use it to configure bitcoin while building:
 
-![db4](res/LBftCLI-compiling_bitcoin-db4.png)
+![db4](./public/LBftCLI-compiling_bitcoin-db4.png)
 
 ### 5. Compile Bitcoin Core
 
