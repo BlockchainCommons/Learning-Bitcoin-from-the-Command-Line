@@ -75,7 +75,7 @@ _This tutorial assumes that you have some minimal background of how to use the c
 
 _The section is currently unwritten._
 
-* 12.0: Setting Up Tor
+* [12.0: Using Tor](12_0_Using_Tor.md)
   * 12.1: Verifying Your Tor Setup
   * 12.2: Changing Your Bitcoin Hidden Services
   * 12.3: Adding SSH Hiddne Services
