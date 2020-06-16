@@ -1,10 +1,10 @@
-# 2.2: Setting Up a Bitcoin-Core VPS with StackScript
+# 2.2: Setting Up a Bitcoin-Core VPS with Bitcoin StandUp
 
 > :information_source: **NOTE:** This is a draft in progress, so that I can get some feedback from early reviewers. It is not yet ready for learning.
 
-This document explains how to set up a VPS (Virtual Private Sever) to run a Bitcoin node on Linode.com, installed using an automated StackScript. You just need to enter a few commands and boot your VPS. Then, after you go and get yourself an espresso, you'll be able to come back and find your new Bitcoin node happily downloading blocks.
+This document explains how to set up a VPS (Virtual Private Sever) to run a Bitcoin node on Linode.com, installed using an automated StackScript from the [Bitcoin Standup project](https://github.com/BlockchainCommons/Bitcoin-Standup-Scripts). You just need to enter a few commands and boot your VPS. Almost immediately after you boot, you'll find find your new Bitcoin node happily downloading blocks.
 
-> :warning: **WARNING:** Don’t use a VPS for a bitcoin wallet with significant real funds; see http://blog.thestateofme.com/2012/03/03/lessons-to-be-learned-from-the-linode-bitcoin-incident/ . It is  very nice to be able experiment with real bitcoin transactions on a live node without tying up a self-hosted server on a local network. I’ve also found it useful to be able to use an iPhone or iPad to communicate via SSH to my VPS to do some simple bitcoin tasks. But a higher level of safety is required for significant funds.
+> :warning: **WARNING:** Don’t use a VPS for a bitcoin wallet with significant real funds; see http://blog.thestateofme.com/2012/03/03/lessons-to-be-learned-from-the-linode-bitcoin-incident/ . It is  very nice to be able experiment with real bitcoin transactions on a live node without tying up a self-hosted server on a local network. It's also useful to be able to use an iPhone or iPad to communicate via SSH to your VPS to do some simple bitcoin tasks. But a higher level of safety is required for significant funds.
 
 If you want to instead do all the setup by hand, please read the parallel HOWTO file, [§2.1: Setting up a Bitcoin-Core VPS by Hand](02_1_Setting_Up_a_Bitcoin-Core_VPS_by_Hand.md).
 
@@ -40,119 +40,112 @@ Your server security won't be complete if people can break into your Linode acco
 
 ### Load the StackScript
 
-There's a copy of our Bitcoin VPS Setup StackScript in [the repo here](02_2__Script_Linode_Setup.stackscript). This script basically automates the Bitcoin VPS setup instructions from [§2.1](02_1_Setting_Up_a_Bitcoin-Core_VPS_by_Hand.md). If you want to be particulary prudent, read it over carefully. If you are satisfied, you can copy that StackScript into your own account by going to [Manage StackScripts](https://manager.linode.com/stackscripts/index), or clicking the link under your list of Linodes. Click "Add a new StackScript", give it a good name (we use `Bitcoin VPS Setup`), then copy and paste the script.
+Download the [Linode Standup Script](https://github.com/BlockchainCommons/Bitcoin-Standup-Scripts/blob/master/Scripts/LinodeStandUp.sh) from the [Bitcoin Standup Scripts report](https://github.com/BlockchainCommons/Bitcoin-Standup-Scripts). This script basically automates the Bitcoin VPS setup instructions from [§2.1](02_1_Setting_Up_a_Bitcoin-Core_VPS_by_Hand.md). If you want to be particulary prudent, read it over carefully. If you are satisfied, you can copy that StackScript into your own account by going to the [Stackscripts page](https://cloud.linode.com/stackscripts?type=account) on your Linode account and selecting to [Create New Stackscript](https://cloud.linode.com/stackscripts/create). Give it a good name (we use `Bitcoin Standup`), then copy and paste the script. Choose Debian 10 for your target image and "Save" it.
 
-### Add a Linode
+### Do the Initial Setup
 
-You'll next need to click to your Linodes tab and  select "Add a Linode".
+You're now ready to create a node based on the Stackscript.
 
-A Linode 2G will suffice for most setups, including: Pruned Mainnet, Pruned Testnet, and even non-Pruned Testnet. They all use less than 50G of storage and they can barely get by with 2G of memory. This is the setup we suggest.
-
-If you want to instead have a non-Pruned Mainnet in a VPS, you'll need to install a Linode with a disk in excess of 120G, which is currently the Linode 12288, which has 192G of storage and 12G of memory and costs approximately $80 per month. We do _not_ suggest this.
-
-The following chart shows minimum requirements
-
-| Setup | Memory | Storage | Linnode |
-|-------|--------|---------|---------|
-| Mainnet | 2G | 120G | Linode 8GB |
-| Pruned Mainnet | 2G | ~5G | Linode 2GB |
-| Testnet | 2G | ~15G | Linode 2GB |
-| Pruned Testnet | 2G | ~5G | Linode 2GB |
-| Regtest | 2G | ~ | Linode 2GB |
-
-Just choose your Linode type, choose a Location that's geographically as close to you as possible, and click "Add your Linode!".
-
-> :warning: **WARNING:** We've occasionally had machines run out of memory after running `bitcoind` for a few days when they only had 2G. Coming back, we find that `bitcoind` has stopped, leaving the message "Error: Out of memory. Terminating." in the `debug.log` file. This simply requires a restart of `bitcoind` and ten or fifteen minutes to get the blockchain resynced. This problem has seemed more prevelant starting with our upgrade to 0.18 (after largely going away), so it's possible you'll need to upgrade to the 4G machines solely due to memory issues.
-
-_Be aware that the requirements might change over time as the blockchain continues to grow. Watch for "Out of Memory" or "Disk Space is Low!" errors. Either one indicates that you should migrate to the next larger machine!_
-
-### Configure Your Linode
-
-You should now be back on your list of Linodes page, with your VPS listed with a status of "Brand New".
-
-Click on this new Linode to go to its Dashboard.
-
-You will see that no disks are installed yet.
-
-Make sure that Lindeo has completed the initial configuration, which just takes a minute or two. Just look for "Linode Initial Configuration" in the "Host Job Queue" and ensure that it has a little green "Success" buttton.
-
-### Run the StackScript
-
-You're now ready to run your StackScript!
-
-Click on "Deploy an Image" then chooose "Deploying using StackScripts".
-
-If you already added the StackScript to your account, it should be on the list of "Your StackScripts"; select it.
-
-### Enter Stackscript Options
-
-To make sure that you can set up your VPS to your specifications, the StackScript has a few options. Here's what you should enter into them.
-
-_This setup may not work if you do not enter all of this mandatory information:_
-
-**Installation Type.** See _Appendix I_ for more on these Bitcoin installation types. If you're planning to get on the main Bitcoin network, you'll probably want to choose "Pruned Mainnet". If you're wanting to play with Bitcoin Core and learn more about how it works, you'll probably want to choose "Unpruned Testnet".
-
-**Short Hostname.** Pick a name for your VPS. For example, "mybtctest"
-
-**Fully Qualified Hostname.** If you're going to include this VPS as part of a network with full DNS records, type in the hostname with its domain. For example, "mybtctest.mydomain.com". Otherwise, just repeat the short hostname and add ".local", for example "mybtctest.local".
-
-**User Password.** Bitcoin will be setup in an account called "user1". This is the password for that account.
-
-_You can freely choose to enter this optional information or skip it:_
-
-**SSH Key.** Copy your local computer's SSH key here; this allows you be able to automatically login in via SSH to your user1 account. If you haven't setup an SSH key on your local computer yet, there are good instructions for it on [Github](https://help.github.com/articles/generating-a-new-ssh-key-and-adding-it-to-the-ssh-agent/).  You may also want to add your SSH key into your Linode LISH (Linode Interactive Shell) by going to your "Linode Home Page / My Preferences / LISH Settings /  LISH Keys". Using an SSH key will give you a simpler and safer way to log in to your server.
-
-**SSH-Allowed IPs.** This is a comma-separated list of IPs that will be allowed to SSH into the VPS. For example "192.168.1.15,192.168.1.16". If you do not enter any IPs, _your VPS will not be very secure_. It will constantly be bombarded by attackers trying to find their way in, and they may very well succeed.
+1. On the [Stackscripts page](https://cloud.linode.com/stackscripts?type=account), click on the "..." to the right of your new script and choose "Deploy New Linode".
+2. Fill in a short and fully qualified hostname
+   * **Short Hostname.** Pick a name for your VPS. For example, "mybtctest"
+   * **Fully Qualified Hostname.** If you're going to include this VPS as part of a network with full DNS records, type in the hostname with its domain. For example, "mybtctest.mydomain.com". Otherwise, just repeat the short hostname and add ".local", for example "mybtctest.local".
+3. Enter the password for the "standup" user.
+4. Choose an Installation Type in the advanced options. 
+   * **Installation Type.** This is likely "Mainnet" or "Pruned Mainnet" if you are setting up a node for usage and "Pruned Testnet" if you're just playing around. See the [Appendix](#Appendix) for more information on these options.
+5. Fill in any other appropriate advanced options.
+   * **X25519 Public Key.** This is a public key to add to Tor's list of authorized clients. If you don't use it, anyone who gets the QR code for your node can access it. You'll get this public key from whichever client you're using to connect to your node. For example, if you use [FullyNoded 2](https://github.com/BlockchainCommons/FullyNoded-2), you can go to its settings and "Export Tor V3 Authentication Public Key" for use here.
+  * **SSH Key.** Copy your local computer's SSH key here; this allows you be able to automatically login in via SSH to the standup account. If you haven't setup an SSH key on your local computer yet, there are good instructions for it on [Github](https://help.github.com/articles/generating-a-new-ssh-key-and-adding-it-to-the-ssh-agent/).  You may also want to add your SSH key into your Linode LISH (Linode Interactive Shell) by going to your "Linode Home Page / My Preferences / LISH Settings /  LISH Keys". Using an SSH key will give you a simpler and safer way to log in to your server.
+  * **SSH-Allowed IPs.** This is a comma-separated list of IPs that will be allowed to SSH into the VPS. For example "192.168.1.15,192.168.1.16". If you do not enter any IPs, _your VPS will not be very secure_. It will constantly be bombarded by attackers trying to find their way in, and they may very well succeed.
+4. Select an Image
+   * **Target Image.** If you followed the instructions, this will only allow you to select "Debian 10", though "Debian 9" did also work with previous versions of this Stackscript (and might still).
+5. Choose a region for where the Linode will be located.
 
 *The remaining questions all have to do with the mechanics of the VPS deployment and should be left as they are with one exception: bump the Swap Disk from 256MB to 512MB, to ensure that you have enough memory to download the blockchain._
 
 Finally, you'll need to fill in a root password, which will be the password used for the root account.
 
+### Choose a Linode Plan
+
+You'll next to choose a Linode plan.
+
+A Linode 4GB will suffice for most setups, including: Pruned Mainnet, Pruned Testnet, and even non-Pruned Testnet. They all use less than 50G of storage and 4GB is a comfortable amount of memory. This is the setup we suggest. It runs $20 per month.
+
+If you want to instead have a non-Pruned Mainnet in a VPS, you'll need to install a Linode with a disk in excess of 280G(!), which is currently the Linode 16GB, which has 320G of storage and 16G of memory and costs approximately $80 per month. We do _not_ suggest this.
+
+The following chart shows minimum requirements
+
+| Setup | Memory | Storage | Linnode |
+|-------|--------|---------|---------|
+| Mainnet | 2G | 120G | Linode 16GB |
+| Pruned Mainnet | 2G | ~5G | Linode 4GB |
+| Testnet | 2G | ~15G | Linode 4GB |
+| Pruned Testnet | 2G | ~5G | Linode 4GB |
+| Regtest | 2G | ~ | Linode 4GB |
+
+Note, there may be ways to reduce both costs.
+
+* For the machines we suggest as **Linode 4GB**, you may be able to reduce that to a Linode 2GB. Some versions of Bitcoin Core have worked well at that size, some have occasionally run out of memory and then recovered, and some have continuously run out of memory. Use at your own risk.
+* For the Unpruned Mainnet, which we suggest as a **Linode 16GB**, you can probably get by with a Linode 4GB, but add [Block Storage](https://cloud.linode.com/volumes) sufficient to store the blockchain. This is certainly a better long-term solution since the Bitcoin blockchain's storage requirements continuously increase if you don't prune, while the CPU requirements don't (or don't to the same degree). A 320 GibiByte storage would be $32 a month, which combined with a Linode 4GB is $52 a month, instead of $80, and more importantly you can keep growing it. We don't fully document this setup for two reasons (1) we don't suggest the unpruned mainnet setup, and so we suspect it's a much less common setup; and (2) we haven't tested how Linodes volumes compare to their intrinic SSDs for performance and usage. But there's full documentation on the Block Storage page. You'd need to set up the Linode, run its stackscript, but then interrupt it to move the blockchain storage overly to a newly commissioned volume.
+
+Just choose your Linode type, choose a Location that's geographically as close to you as possible, and click "Add your Linode!".
+
+### Do the Final Setup
+
+The last thing you need to do is enter a root password, then click create. (If you missed anything, you'll be told so now!)
+
+
+**Installation Type.** See _Appendix I_ for more on these Bitcoin installation types. If you're planning to get on the main Bitcoin network, you'll probably want to choose "Pruned Mainnet". If you're wanting to play with Bitcoin Core and learn more about how it works, you'll probably want to choose "Unpruned Testnet".
+
+
 Click "Deploy" to initialize your disks and to prepare your VPS. The whole queue should run in less than a minute. When it's done you should see in the "Host Job Queue", green "Success" buttons stating "Disk Create from StackScript - Setting password for root… done." and "Create Filesystem - 256MB Swap Image".
 
 You may now want to change your Linode VPS's name from the default `linodexxxxxxxx`.  Go to the Settings tab, and change the label to be more useful, such as your VPS's short hostname. For instance I have renamed mine to `bitcoin-testnet-pruned` to differentiate it from other VPSs in my account.
 
-## Boot Your VPS
+## Login to Your VPS
 
-Your Linode VPS is now ready to boot. If you are not at your new VPS's Dashboard, click on it.
-
-Now select the button "Boot". As soon as you see the green button "Success: System Boot" you can login.
+If you watch your Linode control panel, you should see the new computer spin up. When the job has reached 100%, you'll be able to login.
 
 First, you'll need the IP address. Click on the "Linodes" tab and you should see a listing of your VPS, the fact that it's running, its "plan", its IP address, and some other information.
 
 Go to your local console and login to the user1 account using that address:
 
 ```
-ssh user1@[IP-ADDRESS]
+ssh standup@[IP-ADDRESS]
 ```
 
 For example:
 
 ```
-ssh user1@192.168.33.11
+ssh standup@192.168.33.11
 ```
 
 If you configured your VPS to use an SSH key, the login should be automatic (possibly requiring your SSH password to unlock your key). If you didn't configure a SSH key, then you'll need to type in the user1 password.
 
-### Get an Espresso
+### Wait a Few Minutes
 
-Here's the big catch: _your StackScript is running right now_. The BASH script gets executed the first time the VPS is booted. That means your VPS isn't ready yet.
+Here's a little catch: _your StackScript is running right now_. The BASH script gets executed the first time the VPS is booted. That means your VPS isn't ready yet.
 
-So, go take a break, get an espresso, or otherwise relax for a few minutes. There are two parts of the script that take a while: the updating of all the Debian packages; and the downloading of the Bitcoin code. They shouldn't take more than 5 minutes each, which means if you come back in 10 minutes, you'll probably be ready to go.
+In past versions, this has taken a bit of time, but the Standup script seems to finish in about 10 minutes. So, go take a break, get an espresso, or otherwise relax for a few minutes. There are two parts of the script that take a while: the updating of all the Debian packages; and the downloading of the Bitcoin code. They shouldn't take more than 5 minutes each, which means if you come back in 10 minutes, you'll probably be ready to go.
 
-If you're impatient you can jump ahead and `sudo tail -f ~root/stackscript.log` which will display the current progress of installation, as described in the next section.
+If you're impatient you can jump ahead and `sudo tail -f ~root/standup.log` which will display the current progress of installation, as described in the next section.
 
 ## Verify Your Installation
 
-You will know the StackScripts are done when a BITCOIN-IS-READY file appears in the user1 home directory. At that point, your home directory should look like this:
+You'll know that stackscrpit is done when the `standup.log` says something like the following:
+```
+/root/StackScript - Bitcoin is setup as a service and will automatically start if your VPS reboots and so is Tor
+/root/StackScript - You can manually stop Bitcoin with: sudo systemctl stop bitcoind.service
+/root/StackScript - You can manually start Bitcoin with: sudo systemctl start bitcoind.service
+```
+At that point, your home directory should look like this:
 
 ```
-$ ls
-bitcoin-0.18.0-x86_64-linux-gnu.tar.gz    laanwj-releases.asc
-BITCOIN-IS-READY            SHA256SUMS.asc
+~$ ls
+bitcoin-0.20.0-x86_64-linux-gnu.tar.gz  laanwj-releases.asc  SHA256SUMS.asc
 ```
 
-Alongside the BITCOIN-IS-READY file are the various files that were used to install Bitcoin on your VPS. _None_ of them are necessary. We've just left them in case you want to do any additional verification. Otherwise, you can delete them:
+These are the various files that were used to install Bitcoin on your VPS. _None_ of them are necessary. We've just left them in case you want to do any additional verification. Otherwise, you can delete them:
 
 ```
 $ rm *
@@ -163,17 +156,16 @@ $ rm *
 In order to ensure that the downloaded Bitcoin release is valid, the StackScript checks both the signature and the SHA checksum. You should verify that both of those tests came back right:
 
 ```
-$ sudo grep VERIFICATION ~root/stackscript.log
+$ sudo grep VERIFICATION ~root/standup.log
 ```
 
 If you see something like the following, all should be well:
 
 ```
-VERIFICATION SUCCESS / SIG: gpg: Good signature from &quot;Wladimir J. van der Laan (Bitcoin Core binary release signing key) &lt;laanwj@gmail.com&gt;&quot;
-VERIFICATION SUCCESS / SHA: 29215a7fe7430224da52fc257686d2d387546eb8acd573a949128696e8761149
+/root/StackScript - VERIFICATION SUCCESS / SIG: gpg: Good signature from "Wladimir J. van der Laan (Bitcoin Core binary release signing key) <laanwj@gmail.com>" [unknown]
+/root/StackScript - VERIFICATION SUCCESS / SHA: 35ec10f87b6bc1e44fd9cd1157e5dfa4```
 ```
-
-However, if either of those two checks instead reads "VERIFICATION ERROR", then there's a problem. Since this is all scripted, it's possible that there's just been a minor change that has caused the script's checks not to work right. But, it's also possible that someone is trying to encourage you to run a fake copy of the Bitcoin daemon. So, _be very sure you know what happened before you make use of Bitcoin!_
+However, if either of those two checks instead reads "VERIFICATION ERROR", then there's a problem. Since this is all scripted, it's possible that there's just been a minor change that has caused the script's checks not to work right. (This has happened a few times over the existence of this script.) But, it's also possible that someone is trying to encourage you to run a fake copy of the Bitcoin daemon. So, _be very sure you know what happened before you make use of Bitcoin!_
 
 ### Read the Logs
 
@@ -181,13 +173,13 @@ You may also want to read through all of the setup log files, to make sure that 
 
 It's best to look through the standard StackScript log file, which has all of the output, including errors:
 
-`$ sudo more ~root/stackscript.log`
+`$ sudo more ~root/standup.log`
 
 Note that it is totally normal to see _some_ errors, particularly when running the very noisy gpg software and when various things try to access the non-existant /dev/tty device.
 
 If you want instead to look at a smaller set of info, all of the errors should be in:
 
-`$ sudo more ~root/stackscript.err`
+`$ sudo more ~root/standup.err`
 
 It still has a fair amount of information that isn't errors, but it's a quicker read.
 
@@ -195,33 +187,15 @@ If all look good, congratulations, you have a functioning Bitcoin node using Lin
 
 ## What We Have Wrought
 
-Although the default Debian 8 image that we are using for your VPS has been modified by Linode to be relatively secure, your Bitcoin node as installed through the Linode StackScript is set up with an even high level of security. You may find this limiting, or be unable to do things that you expect. Here are a few notes on that:
+Although the default Debian 10 image that we are using for your VPS has been modified by Linode to be relatively secure, your Bitcoin node as installed through the Linode StackScript is set up with an even high level of security. You may find this limiting, or be unable to do things that you expect. Here are a few notes on that:
 
-### Protected Services
+### Protect Services
 
-Your Bitcoin VPS installation is minimal and allows almost no communication. This is managed through Part 3 of the StackScript, which blocks access to most of the ports on the VPS.
+Your Bitcoin VPS installation is minimal and allows almost no communication. This is managed through Part 5 of the StackScript, which sets up Tor and ensures that it's the only way to speak with the Bitcoin ports, other than localhost connections. It's further supplement by the uncomplicated firewall (`ufw`), which blocks everything except SSH connections. 
 
-Two files control these restrictions, one for IPv4 and one for IPv6:
+You should probably leave things like this! You don't want to use a Bitcoin machine for other services, because everyone increases your vulnerability!
 
-```
-/etc/iptables.firewall.rules
-/etc/ip6tables.firewall.rules
-```
-
-If you look at the rules, you'll see they allow all outbound traffic and all local loopback traffic. However, for inbound traffic, the only connections accepted are Bitcoin, Ping, and SSH. If you want to accept other types of traffic, you will need to open up additional ports ("dports") using the same methodology as shown in the Bitcoin port 8333 connection. For example, to allow connections to port 25 (mail), would require adding the following to the iptables and the ip6tables:
-
-```
--A INPUT -p tcp --dport 25 -j ACCEPT
--A INPUT -p udp --dport 25 -j ACCEPT
-```
-
-This example opens up access to port 25 for TCP and UDP connections. Other popular ports are 80 (HTTP), 443 (HTTPS), 53 (DNS), 110 (POP), and 143 (IMAP).  Be sure any such changes are put above the logs and defaults that appear at the end of the iptables.firewall.rules files.
-
-You can immediately incorporate your changes by running the following script:
-
-```
-$ /etc/network/if-pre-up.d/firewall
-```
+If you decide otherwise, there are several [guides to UFW](https://www.digitalocean.com/community/tutorials/ufw-essentials-common-firewall-rules-and-commands) that will allow you to add services. It's, as advertised, uncomplicated. For example adding mail services would just require opening the mail port: `sudo ufw allow 25`. But don't do that.
 
 ### Protected Shells
 
@@ -247,15 +221,18 @@ echo "unattended-upgrades unattended-upgrades/enable_auto_updates boolean false"
 
 So now you probably want to play with Bitcoin!
 
-But wait, your Bitcoin daemon is probably still downloading blocks. This alias, from your .bash configuration will tell you how things are going:
+But wait, your Bitcoin daemon is probably still downloading blocks. This alias, from your .bash configuration will tell you how things are going.
 
+The `bitcoin-cli getblockcount` will tell you how you're currently doing:
 ```
-$ btcblock
+$ bitcoin-cli getblockcount
+1771352
 ```
+If it's different every time you type the command, you need to wait before working with Bitcoin. This typically takes 1-6 hours currently fora  pruned setup, depending on your precise machine. 
 
-If you choose one of the pruned options, it'll probably take a day to download everything.
+But, once it settles at a number, you're ready to continue!
 
-So, it might be time for a few more espressos. But soon enough, your system will be ready to go, and you'll be read to start experimenting.
+Still, it might be time for a few more espressos. But soon enough, your system will be ready to go, and you'll be read to start experimenting.
 
 ## Summary: Setting Up a Bitcoin-Core VPS by Hand
 
@@ -265,7 +242,7 @@ Creating a Bitcoin-Core VPS with a StackScript made the whole process quick, sim
 
 You have a few options for what's next:
 
-   * Read the [StackScript](02_2__Script_Linode_Setup.stackscript) to understand your setup.
+   * Read the [StackScript](https://github.com/BlockchainCommons/Bitcoin-Standup-Scripts/blob/master/Scripts/LinodeStandUp.sh) to understand your setup.
    * See the other method for setting up a VPS in [§2.1: Setting up a Bitcoin-Core VPS by Hand](02_1_Setting_Up_a_Bitcoin-Core_VPS_by_Hand.md).
    * Choose an entirely alternate methodology in [§2.3: Setting Up a Bitcoin-Core Machine via Other Means](02_3_Setting_Up_Bitcoin_Core_Other.md).
    * Move on to "bitcoin-cli" with [Chapter Three: Understanding Your Bitcoin Setup](03_0_Understanding_Your_Bitcoin_Setup.md).
