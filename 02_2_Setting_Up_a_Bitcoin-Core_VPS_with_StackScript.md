@@ -189,13 +189,13 @@ If all look good, congratulations, you have a functioning Bitcoin node using Lin
 
 Although the default Debian 10 image that we are using for your VPS has been modified by Linode to be relatively secure, your Bitcoin node as installed through the Linode StackScript is set up with an even high level of security. You may find this limiting, or be unable to do things that you expect. Here are a few notes on that:
 
-### Protect Services
+### Protected Services
 
 Your Bitcoin VPS installation is minimal and allows almost no communication. This is managed through Part 5 of the StackScript, which sets up Tor and ensures that it's the only way to speak with the Bitcoin ports, other than localhost connections. It's further supplement by the uncomplicated firewall (`ufw`), which blocks everything except SSH connections. 
 
-You should probably leave things like this! You don't want to use a Bitcoin machine for other services, because everyone increases your vulnerability!
+**Adjusting Tor.** You might want to better protect services like SSH. See [Chapter 12: Using Tor](https://github.com/BlockchainCommons/Learning-Bitcoin-from-the-Command-Line/blob/master/12_0_Using_Tor.md) for more on Tor.
 
-If you decide otherwise, there are several [guides to UFW](https://www.digitalocean.com/community/tutorials/ufw-essentials-common-firewall-rules-and-commands) that will allow you to add services. It's, as advertised, uncomplicated. For example adding mail services would just require opening the mail port: `sudo ufw allow 25`. But don't do that.
+**Adjusting UFW.** You should probably leave UFW in its super-protected stage! You don't want to use a Bitcoin machine for other services, because everyone increases your vulnerability! If you decide otherwise, there are several [guides to UFW](https://www.digitalocean.com/community/tutorials/ufw-essentials-common-firewall-rules-and-commands) that will allow you to add services. It's, as advertised, uncomplicated. For example adding mail services would just require opening the mail port: `sudo ufw allow 25`. But don't do that.
 
 ### Protected Shells
 
