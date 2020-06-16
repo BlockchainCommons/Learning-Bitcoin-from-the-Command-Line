@@ -8,7 +8,7 @@ Replace our current scripts with Bitcoin Standup (which was based on those scrip
 
 1. <strike>Fix Verification errors in Bitcoin Standup Scripts</strike> **6/10**
    * <strike>Fix IPADDR error in Bitcoin Standup Scripts</strike> **6/10**
-2. Upgrade Bitcoin Standup Scripts to Debian 10
+2. <strike>Upgrade Bitcoin Standup Scripts to Debian 10</strike> **6/16**
 3. Upgrade Bitcoin Standup Scripts to Bitcoin 0.20
 4. Ensure Bitcoin Standup covers everything else in previous scripts
 5. Rewrite the StackScript chapter
