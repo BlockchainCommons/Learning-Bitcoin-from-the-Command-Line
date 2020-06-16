@@ -258,7 +258,7 @@ You're now ready to get to the bitcoin-specific part of this tutorial!
 
 We find a number of Bash aliases helpful to make it easier to use Bitcoin.
 ```
-$ sudo -u user1 cat >> ~user1/.bash_profile <<EOF
+$ sudo -u user1 cat >> ~user1/.bash_aliases <<EOF
 alias btcdir="cd ~/.bitcoin/" #linux default bitcoind path
 alias bc="bitcoin-cli"
 alias bd="bitcoind"
