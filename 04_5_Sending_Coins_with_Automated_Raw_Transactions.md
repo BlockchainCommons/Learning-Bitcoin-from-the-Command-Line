@@ -98,7 +98,7 @@ $ bitcoin-cli -named decoderawtransaction hexstring=$rawtxhex3
   ]
 }
 ```
-We saw the fee in the more extensive output, before we saved the hex to a variable with JQ, but you can verify it with the `btctxfee` JQ alias:
+We saw the fee in the more extensive output, before we saved the hex to a variable with JQ, but you can verify it with the `btctxfee` JQ alias created in the [JQ Interlude](https://github.com/BlockchainCommons/Learning-Bitcoin-from-the-Command-Line/blob/master/04_2__Interlude_Using_JQ.md):
 ```
 $ btctxfee $rawtxhex3
 .00023
