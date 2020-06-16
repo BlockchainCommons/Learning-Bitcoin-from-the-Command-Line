@@ -75,7 +75,7 @@ alias brstart="bitcoind -regtest -daemon"
 
 alias bcstop="bitcoin-cli stop"
 alias btstop="bitcoin-cli -testnet stop"
-alias brstop="bitcoin-cli -regtest -stop"
+alias brstop="bitcoin-cli -regtest stop"
 
 alias bcdir="cd ~/.bitcoin/" #linux default bitcoin path
 alias btdir="cd ~/.bitcoin/testnet" #linux default bitcoin testnet path
