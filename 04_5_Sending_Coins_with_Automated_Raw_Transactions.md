@@ -99,7 +99,7 @@ $ bitcoin-cli -named decoderawtransaction hexstring=$rawtxhex3
 }
 ```
 We saw the fee in the more extensive output, before we saved the hex to a variable with JQ, but you can verify it with the `btctxfee` JQ alias:
-```
+```#Where is this command btxfee eralier specified? Can't find it?!
 $ btctxfee $rawtxhex3
 .00023
 ```
