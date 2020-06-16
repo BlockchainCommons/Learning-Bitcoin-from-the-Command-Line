@@ -44,7 +44,8 @@ $ changeaddress=$(bitcoin-cli getrawchangeaddress)
 You can now write a new rawtransaction with two outputs: one is your change address to get back (most of) your money, the other is a data address, which is the `bitcoin-cli` term for an OP_RETURN.
 ```
 $ rawtxhex=$(bitcoin-cli -named createrawtransaction inputs='''[ { "txid": "'$utxo_txid'", "vout": '$utxo_vout' } ]''' outputs='''{ "data": "'$op_return_data'", "'$changeaddress'": 0.8995 }''')
-```
+```#this end in an error: Error parsing JSON:{ "data": "transactie
+
 
 Here's what that transaction actually looks like:
 ```
