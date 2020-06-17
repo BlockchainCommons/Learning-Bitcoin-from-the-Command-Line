@@ -26,7 +26,7 @@ Type the commands without `$` or `#`
 ```
 $ su -  # enter root. It will ask you for the root password.
 # apt-get install sudo  # check if sudo is installed.
-# usermod -aG <username> sudo  # add user to the sudoers list
+# usermod -aG sudo <username>  # add user to the sudoers list
 # reboot  # reboot computer
 ```
 
