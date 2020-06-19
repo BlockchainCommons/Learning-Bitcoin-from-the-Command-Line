@@ -13,8 +13,8 @@ Replace our current scripts with Bitcoin Standup (which was based on those scrip
 4. <strike>Ensure Bitcoin Standup covers everything else in previous scripts</strike> **6/16**
 5. <strike>Rewrite the StackScript chapter</strike> **6/16**
 6. Rewrite the "by-hand" chapter to match Bitcoin Standup (Pending summer work)
-7. Reintroduce aliases after setup
-8. Figure out what to do about the old `btcblock` on testnet, where there seems to be no CLI way to determine blockheight.
+7. <strike>Reintroduce aliases after setup</strike> **6/19**
+8. <strike>Figure out what to do about the old `btcblock` on testnet, where there seems to be no CLI way to determine blockheight.</strike> **No Known Solution on Testnet**
 
 ## 2. Upgrade to 0.20
 
