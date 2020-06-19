@@ -12,14 +12,25 @@ Replace our current scripts with Bitcoin Standup (which was based on those scrip
 3. <strike>Upgrade Bitcoin Standup Scripts to Bitcoin 0.20</strike> **6/16**
 4. <strike>Ensure Bitcoin Standup covers everything else in previous scripts</strike> **6/16**
 5. <strike>Rewrite the StackScript chapter</strike> **6/16**
-6. Rewrite the "by-hand" chapter to match Bitcoin Standup
+6. Rewrite the "by-hand" chapter to match Bitcoin Standup (Pending summer work)
 7. Reintroduce aliases after setup
 8. Figure out what to do about the old `btcblock` on testnet, where there seems to be no CLI way to determine blockheight.
 
 ## 2. Upgrade to 0.20
 
 9. Walk through chapters 1-11, making sure all commands work with Bitcoin Core 0.20 (and changing them if not). Redo the output of all examples.
-
+   * Edit Chapter 1
+   * Re-edit Chapter 2
+   * Check Chapter 3
+   * Check Chapter 4
+   * Check Chapter 5
+   * Check Chapter 6
+   * Check Chapter 7
+   * Check Chapter 8
+   * Check Chapter 9
+   * Check Chapter 10
+   * Check Chapter 11
+   
 ## 3. Add BTCDEB Support
 
 10. Make all examples in [7.4](https://github.com/BlockchainCommons/Learning-Bitcoin-from-the-Command-Line/blob/master/07_4_Testing_a_Bitcoin_Script.md) and possibly elsewhere use BTCDeb.
