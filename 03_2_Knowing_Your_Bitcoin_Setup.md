@@ -6,7 +6,7 @@ Before you start playing with Bitcoin, you may always want to come to a better u
 
 ## Know Your Bitcoin Directory
 
-To start with, you should understand where everything is kept: the ~/.bitcoin directory.
+To start with, you should understand where everything is kept: the `~/.bitcoin` directory.
 
 The main directory just contains your config file and the testnet directory:
 ```
@@ -18,12 +18,12 @@ The setup guides in [Chapter Two: Creating a Bitcoin-Core VPS](02_0_Setting_Up_a
 Moving back to your ~/.bitcoin directory, you'll find that the testnet3 directory contains all of the guts:
 ```
 $ ls ~/.bitcoin/testnet3
-banlist.dat   blocks	  database  debug.log  wallet.dat
-bitcoind.pid  chainstate  db.log    peers.dat
+banlist.dat   blocks	  debug.log	     mempool.dat	peers.dat
+bitcoind.pid  chainstate  fee_estimates.dat  onion_private_key	wallets
 ```
-You shouldn't mess with most of these files and directories — particularly not the blocks and chainstate directories, which contain all of the blockchain data, and the wallet.dat file, which contains your personal wallet. However, do take careful note of the db.log and debug.log file, which you should refer to if you ever have problems with your setup.
+You shouldn't mess with most of these files and directories — particularly not the `blocks` and `chainstate` directories, which contain all of the blockchain data, and the information in your `wallets` directory, which contains your personal wallet. However, do take careful note of the `debug.log` file, which you should refer to if you ever have problems with your setup.
 
-> :link: **TESTNET vs MAINNET:** If you're using mainnet, then _everything_ will instead be placed in the main ~/.bitcoin directory. These various setups _do_ elegantly stack, so if you are using mainnet, testnet, and regtest, you'll find that ~/.bitcoin contains your config file and your mainnet data, ~/.bitcoin/testnet3 contains your testnet data, and ~/.bitcoin/regtest contains your regtest data.
+> :link: **TESTNET vs MAINNET:** If you're using mainnet, then _everything_ will instead be placed in the main `~/.bitcoin` directory. These various setups _do_ elegantly stack, so if you are using mainnet, testnet, and regtest, you'll find that `~/.bitcoin` contains your config file and your mainnet data, the `~/.bitcoin/testnet3` directory contains your testnet data, and the `~/.bitcoin/regtest` directory contains your regtest data.
 
 ## Know Your Bitcoin-cli Commands
 
@@ -35,70 +35,87 @@ getbestblockhash
 getblock "blockhash" ( verbosity )
 getblockchaininfo
 getblockcount
+getblockfilter "blockhash" ( "filtertype" )
 getblockhash height
-getblockheader "hash" ( verbose )
+getblockheader "blockhash" ( verbose )
+getblockstats hash_or_height ( stats )
 getchaintips
-getchaintxstats ( nblocks blockhash )
+getchaintxstats ( nblocks "blockhash" )
 getdifficulty
-getmempoolancestors txid (verbose)
-getmempooldescendants txid (verbose)
-getmempoolentry txid
+getmempoolancestors "txid" ( verbose )
+getmempooldescendants "txid" ( verbose )
+getmempoolentry "txid"
 getmempoolinfo
 getrawmempool ( verbose )
 gettxout "txid" n ( include_mempool )
-gettxoutproof ["txid",...] ( blockhash )
+gettxoutproof ["txid",...] ( "blockhash" )
 gettxoutsetinfo
 preciousblock "blockhash"
-pruneblockchain
+pruneblockchain height
+savemempool
+scantxoutset "action" ( [scanobjects,...] )
 verifychain ( checklevel nblocks )
 verifytxoutproof "proof"
 
 == Control ==
-getmemoryinfo ("mode")
-getnetworkinginfo
+getmemoryinfo ( "mode" )
+getrpcinfo
 help ( "command" )
+logging ( ["include_category",...] ["exclude_category",...] )
 stop
 uptime
 
 == Generating ==
-generate nblocks ( maxtries )
-generatetoaddress nblocks address (maxtries)
+generatetoaddress nblocks "address" ( maxtries )
+generatetodescriptor num_blocks "descriptor" ( maxtries )
 
 == Mining ==
-getblocktemplate ( TemplateRequest )
+getblocktemplate ( "template_request" )
 getmininginfo
 getnetworkhashps ( nblocks height )
-prioritisetransaction <txid> <dummy value> <fee delta>
-submitblock "hexdata"  ( "dummy" )
+prioritisetransaction "txid" ( dummy ) fee_delta
+submitblock "hexdata" ( "dummy" )
+submitheader "hexdata"
 
 == Network ==
-addnode "node" "add|remove|onetry"
+addnode "node" "command"
 clearbanned
-disconnectnode "[address]" [nodeid]
+disconnectnode ( "address" nodeid )
 getaddednodeinfo ( "node" )
 getconnectioncount
 getnettotals
 getnetworkinfo
+getnodeaddresses ( count )
 getpeerinfo
 listbanned
 ping
-setban "subnet" "add|remove" (bantime) (absolute)
-setnetworkactive true|false
+setban "subnet" "command" ( bantime absolute )
+setnetworkactive state
 
 == Rawtransactions ==
+analyzepsbt "psbt"
+combinepsbt ["psbt",...]
 combinerawtransaction ["hexstring",...]
-createrawtransaction [{"txid":"id","vout":n},...] {"address":amount,"data":"hex",...} ( locktime ) ( replaceable )
-decoderawtransaction "hexstring"
+converttopsbt "hexstring" ( permitsigdata iswitness )
+createpsbt [{"txid":"hex","vout":n,"sequence":n},...] [{"address":amount},{"data":"hex"},...] ( locktime replaceable )
+createrawtransaction [{"txid":"hex","vout":n,"sequence":n},...] [{"address":amount},{"data":"hex"},...] ( locktime replaceable )
+decodepsbt "psbt"
+decoderawtransaction "hexstring" ( iswitness )
 decodescript "hexstring"
-fundrawtransaction "hexstring" ( options )
-getrawtransaction "txid" ( verbose )
-sendrawtransaction "hexstring" ( allowhighfees )
-signrawtransaction "hexstring" ( [{"txid":"id","vout":n,"scriptPubKey":"hex","redeemScript":"hex"},...] ["privatekey1",...] sighashtype )
+finalizepsbt "psbt" ( extract )
+fundrawtransaction "hexstring" ( options iswitness )
+getrawtransaction "txid" ( verbose "blockhash" )
+joinpsbts ["psbt",...]
+sendrawtransaction "hexstring" ( maxfeerate )
+signrawtransactionwithkey "hexstring" ["privatekey",...] ( [{"txid":"hex","vout":n,"scriptPubKey":"hex","redeemScript":"hex","witnessScript":"hex","amount":amount},...] "sighashtype" )
+testmempoolaccept ["rawtx",...] ( maxfeerate )
+utxoupdatepsbt "psbt" ( ["",{"desc":"str","range":n or [n,n]},...] )
 
 == Util ==
-createmultisig nrequired ["key",...]
-estimatefee nblocks
-estimatesmartfee conf_target ("estimate_mode")
+createmultisig nrequired ["key",...] ( "address_type" )
+deriveaddresses "descriptor" ( range )
+estimatesmartfee conf_target ( "estimate_mode" )
+getdescriptorinfo "descriptor"
 signmessagewithprivkey "privkey" "message"
 validateaddress "address"
 verifymessage "address" "signature" "message"
@@ -106,75 +123,85 @@ verifymessage "address" "signature" "message"
 == Wallet ==
 abandontransaction "txid"
 abortrescan
-addmultisigaddress nrequired ["key",...] ( "account" )
-addwitnessaddress "address"
+addmultisigaddress nrequired ["key",...] ( "label" "address_type" )
 backupwallet "destination"
 bumpfee "txid" ( options )
+createwallet "wallet_name" ( disable_private_keys blank "passphrase" avoid_reuse )
 dumpprivkey "address"
 dumpwallet "filename"
 encryptwallet "passphrase"
-getaccount "address"
-getaccountaddress "account"
-getaddressesbyaccount "account"
-getbalance ( "account" minconf include_watchonly )
-getnewaddress ( "account" )
-getrawchangeaddress
-getreceivedbyaccount "account" ( minconf )
+getaddressesbylabel "label"
+getaddressinfo "address"
+getbalance ( "dummy" minconf include_watchonly avoid_reuse )
+getbalances
+getnewaddress ( "label" "address_type" )
+getrawchangeaddress ( "address_type" )
 getreceivedbyaddress "address" ( minconf )
-gettransaction "txid" ( include_watchonly )
+getreceivedbylabel "label" ( minconf )
+gettransaction "txid" ( include_watchonly verbose )
 getunconfirmedbalance
 getwalletinfo
 importaddress "address" ( "label" rescan p2sh )
 importmulti "requests" ( "options" )
-importprivkey "privkey" ( "label" ) ( rescan )
-importprunedfunds
+importprivkey "privkey" ( "label" rescan )
+importprunedfunds "rawtransaction" "txoutproof"
 importpubkey "pubkey" ( "label" rescan )
 importwallet "filename"
 keypoolrefill ( newsize )
-listaccounts ( minconf include_watchonly)
 listaddressgroupings
+listlabels ( "purpose" )
 listlockunspent
-listreceivedbyaccount ( minconf include_empty include_watchonly)
-listreceivedbyaddress ( minconf include_empty include_watchonly)
+listreceivedbyaddress ( minconf include_empty include_watchonly "address_filter" )
+listreceivedbylabel ( minconf include_empty include_watchonly )
 listsinceblock ( "blockhash" target_confirmations include_watchonly include_removed )
-listtransactions ( "account" count skip include_watchonly)
-listunspent ( minconf maxconf  ["addresses",...] [include_unsafe] [query_options])
+listtransactions ( "label" count skip include_watchonly )
+listunspent ( minconf maxconf ["address",...] include_unsafe query_options )
+listwalletdir
 listwallets
-lockunspent unlock ([{"txid":"txid","vout":n},...])
-move "fromaccount" "toaccount" amount ( minconf "comment" )
+loadwallet "filename"
+lockunspent unlock ( [{"txid":"hex","vout":n},...] )
 removeprunedfunds "txid"
-sendfrom "fromaccount" "toaddress" amount ( minconf "comment" "comment_to" )
-sendmany "fromaccount" {"address":amount,...} ( minconf "comment" ["address",...] replaceable conf_target "estimate_mode")
-sendtoaddress "address" amount ( "comment" "comment_to" subtractfeefromamount replaceable conf_target "estimate_mode")
-setaccount "address" "account"
+rescanblockchain ( start_height stop_height )
+sendmany "" {"address":amount} ( minconf "comment" ["address",...] replaceable conf_target "estimate_mode" )
+sendtoaddress "address" amount ( "comment" "comment_to" subtractfeefromamount replaceable conf_target "estimate_mode" avoid_reuse )
+sethdseed ( newkeypool "seed" )
+setlabel "address" "label"
 settxfee amount
+setwalletflag "flag" ( value )
 signmessage "address" "message"
+signrawtransactionwithwallet "hexstring" ( [{"txid":"hex","vout":n,"scriptPubKey":"hex","redeemScript":"hex","witnessScript":"hex","amount":amount},...] "sighashtype" )
+unloadwallet ( "wallet_name" )
+walletcreatefundedpsbt [{"txid":"hex","vout":n,"sequence":n},...] [{"address":amount},{"data":"hex"},...] ( locktime options bip32derivs )
+walletlock
+walletpassphrase "passphrase" timeout
+walletpassphrasechange "oldpassphrase" "newpassphrase"
+walletprocesspsbt "psbt" ( sign "sighashtype" bip32derivs )
+
+== Zmq ==
+getzmqnotifications
 ```
 You can also type `bitcoin-cli help [command]` to get even more extensive info on that command. For example:
 ```
-$ bitcoin-cli help getmininginfo
 getmininginfo
 
 Returns a json object containing mining-related information.
 Result:
-{
-  "blocks": nnn,             (numeric) The current block
-  "currentblocksize": nnn,   (numeric) The last block size
-  "currentblockweight": nnn, (numeric) The last block weight
-  "currentblocktx": nnn,     (numeric) The last block transaction
-  "difficulty": xxx.xxxxx    (numeric) The current difficulty
-  "errors": "..."            (string) Current errors
-  "networkhashps": nnn,      (numeric) The network hashes per second
-  "pooledtx": n              (numeric) The size of the mempool
-  "testnet": true|false      (boolean) If using testnet or not
-  "chain": "xxxx",           (string) current network name as defined in BIP70 (main, test, regtest)
+{                              (json object)
+  "blocks" : n,                (numeric) The current block
+  "currentblockweight" : n,    (numeric, optional) The block weight of the last assembled block (only present if a block was ever assembled)
+  "currentblocktx" : n,        (numeric, optional) The number of block transactions of the last assembled block (only present if a block was ever assembled)
+  "difficulty" : n,            (numeric) The current difficulty
+  "networkhashps" : n,         (numeric) The network hashes per second
+  "pooledtx" : n,              (numeric) The size of the mempool
+  "chain" : "str",             (string) current network name (main, test, regtest)
+  "warnings" : "str"           (string) any network and blockchain warnings
 }
 
 Examples:
-> bitcoin-cli getmininginfo
-> curl --user myusername --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "getmininginfo", "params": [] }' -H 'content-type: text/plain;' http://127.0.0.1:8332/
+> bitcoin-cli getmininginfo 
+> curl --user myusername --data-binary '{"jsonrpc": "1.0", "id": "curltest", "method": "getmininginfo", "params": []}' -H 'content-type: text/plain;' http://127.0.0.1:8332/
 ```
-_What is RPC?_ `bitcoin-cli` is just a handy interface that lets you send commands to the `bitcoind`. More specifically, it's an interface that lets you send RPC (or Remote Procedure Protocol) commands to the `bitcoind`. Often, the `bitcoin-cli` command and the RPC command have identical names and interfaces, but some `bitcoin-cli` commands instead provide shortcuts for more complex RPC requests. Generally, the `bitcoin-cli` interface is much cleaner and simpler than trying to send RPC commands by hand, using `curl` or some other method. However, it also has limitations as to what you can ultimately do.
+> :book: ***What is RPC?*** `bitcoin-cli` is just a handy interface that lets you send commands to the `bitcoind`. More specifically, it's an interface that lets you send RPC (or Remote Procedure Protocol) commands to the `bitcoind`. Often, the `bitcoin-cli` command and the RPC command have identical names and interfaces, but some `bitcoin-cli` commands instead provide shortcuts for more complex RPC requests. Generally, the `bitcoin-cli` interface is much cleaner and simpler than trying to send RPC commands by hand, using `curl` or some other method. However, it also has limitations as to what you can ultimately do.
 
 ## Optional: Know Your Bitcoin Info
 
@@ -190,14 +217,18 @@ For example `bitcoin-cli getnetworkinfo` gives you a variety of information on y
 ```
 $ bitcoin-cli getnetworkinfo
 {
-  "version": 150100,
-  "subversion": "/Satoshi:0.15.1/",
+  "version": 200000,
+  "subversion": "/Satoshi:0.20.0/",
   "protocolversion": 70015,
-  "localservices": "000000000000000d",
-  "localrelay": false,
+  "localservices": "0000000000000408",
+  "localservicesnames": [
+    "WITNESS",
+    "NETWORK_LIMITED"
+  ],
+  "localrelay": true,
   "timeoffset": 0,
   "networkactive": true,
-  "connections": 9,
+  "connections": 10,
   "networks": [
     {
       "name": "ipv4",
@@ -215,28 +246,39 @@ $ bitcoin-cli getnetworkinfo
     },
     {
       "name": "onion",
-      "limited": true,
-      "reachable": false,
-      "proxy": "",
-      "proxy_randomize_credentials": false
+      "limited": false,
+      "reachable": true,
+      "proxy": "127.0.0.1:9050",
+      "proxy_randomize_credentials": true
     }
   ],
   "relayfee": 0.00001000,
   "incrementalfee": 0.00001000,
   "localaddresses": [
     {
-      "address": "192.168.1.17",
+      "address": "45.79.111.171",
       "port": 18333,
-      "score": 52
+      "score": 1
+    },
+    {
+      "address": "2600:3c01::f03c:92ff:fecc:fdb7",
+      "port": 18333,
+      "score": 1
+    },
+    {
+      "address": "4wrr3ktm6gl4sojx.onion",
+      "port": 18333,
+      "score": 4
     }
   ],
-  "warnings": "Warning: unknown
+  "warnings": "Warning: unknown new rules activated (versionbit 28)"
+}
 ```
-Feel free to references any of these and to use "bitcoin-cli help" if you want more information on what any of them do.
+Feel free to reference any of these and to use "bitcoin-cli help" if you want more information on what any of them do.
 
 ## Summary: Knowing Your Bitcoin Setup
 
-The ~/.bitcoin directory contains all of your files, while `bitcoin-cli help` and a variety of info commands can be used to get more information on how your setup and Bitcoin work.
+The `~/.bitcoin` directory contains all of your files, while `bitcoin-cli help` and a variety of info commands can be used to get more information on how your setup and Bitcoin work.
 
 ## What's Next?
 
