@@ -22,7 +22,7 @@ Replace our current scripts with Bitcoin Standup (which was based on those scrip
    * <strike>Edit Chapter 0</strike> **6/19**
    * <strike>Edit Chapter 1</strike> **6/19**
    * <strike>Re-edit Chapter 2</strike> **6/19**
-   * Edit & Check Chapter 3
+   * <strike>Edit & Check Chapter 3</strike> **6/19**
    * Edit & Check Chapter 4
    * Edit & Check Chapter 5
    * Edit & Check Chapter 6
