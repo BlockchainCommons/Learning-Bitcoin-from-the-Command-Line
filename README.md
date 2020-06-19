@@ -18,7 +18,7 @@ _This tutorial assumes that you have some minimal background of how to use the c
   * [2.2: Setting Up a Bitcoin-Core VPS with Bitcoin Standup](02_2_Setting_Up_a_Bitcoin-Core_VPS_with_StackScript.md)
   * [2.3: Setting Up a Bitcoin-Core Machine via Other Means](02_3_Setting_Up_Bitcoin_Core_Other.md)
 
-### PART TWO: BITCOIN-CLI
+### PART TWO: USING BITCOIN-CLI
 
 * [3.0: Understanding Your Bitcoin Setup](03_0_Understanding_Your_Bitcoin_Setup.md)
   * [3.1: Verifying Your Bitcoin Setup](03_1_Verifying_Your_Bitcoin_Setup.md)
@@ -71,7 +71,7 @@ _This tutorial assumes that you have some minimal background of how to use the c
   * [11.2: Writing Complex Multisig Scripts](11_2_Writing_Complex_Multisig_Scripts.md)
   * [11.3: Empowering Bitcoin with Scripts](11_3_Empowering_Bitcoin_with_Scripts.md)
 
-### PART FOUR: TOR
+### PART FOUR: USING TOR
 
 _The section is currently unwritten._
 
@@ -80,7 +80,7 @@ _The section is currently unwritten._
   * 12.2: Changing Your Bitcoin Hidden Services
   * 12.3: Adding SSH Hiddne Services
   
-### PART FIVE: LIGHTNING-CLI
+### PART FIVE: USING LIGHTNING-CLI
 
 _This section is unwritten currently, and will probably involve chapter 14.0 expanding into at least two chapters._
 
@@ -89,7 +89,7 @@ _This section is unwritten currently, and will probably involve chapter 14.0 exp
 
 > _Some good docs from one of the developers are here: https://diyhpl.us/wiki/transcripts/blockstream-webinars/2019-07-31-rusty-russell-getting-started-with-c-lightning/._
 
-### PART SIX: BITCOIN & LIGHTNING PROGRAMMING
+### PART SIX: PROGRAMMING WITH RPC
 
 _This section is currently a messy set of older writings which are being reorganized as listed below. We're not going to work through this section until we've got chapters 1-11 updated per our current notes, then 12-14 written. But, if you'd like to see what we have to date on programming in correlation with Bitcoin Core, please feel free._
 
@@ -111,9 +111,9 @@ _This section is currently a messy set of older writings which are being reorgan
   * [18.5: Accessing Bitcoind with Rust]
   * [18.6: Accessing Bitcoind with Swift]
   
-### APPENDICE
+### APPENDICES
 
-* Appendix I: Compiling Bitcoin
+* [Appendix I: Compiling Bitcoin from Source](A1_0_Compiling_Bitcoin_from_Source.md)
 * [Appendix II: Using Bitcoin Regtest](A2_0_Setting_Up_a_Bitcoin_Regtest.md) — Needs Rewrite + Editing
    * [A2.1: Starting the Regtest](A2_1_Starting_the_Regtest.md) — Needs Rewrite + Editing
    * [A2.2: Mining with Regtest](A2_2_Mining_with_Regtest.md) — Needs Rewrite + Editing
