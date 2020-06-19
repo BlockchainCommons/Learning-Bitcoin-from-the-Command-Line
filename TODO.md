@@ -22,19 +22,19 @@ Replace our current scripts with Bitcoin Standup (which was based on those scrip
    * <strike>Edit Chapter 0</strike> **6/19**
    * <strike>Edit Chapter 1</strike> **6/19**
    * <strike>Re-edit Chapter 2</strike> **6/19**
-   * Check Chapter 3
-   * Check Chapter 4
-   * Check Chapter 5
-   * Check Chapter 6
-   * Check Chapter 7
-   * Check Chapter 8
-   * Check Chapter 9
-   * Check Chapter 10
-   * Check Chapter 11
+   * Edit & Check Chapter 3
+   * Edit & Check Chapter 4
+   * Edit & Check Chapter 5
+   * Edit & Check Chapter 6
    
 ## 3. Add BTCDEB Support
 
 10. Make all examples in [7.4](https://github.com/BlockchainCommons/Learning-Bitcoin-from-the-Command-Line/blob/master/07_4_Testing_a_Bitcoin_Script.md) and possibly elsewhere use BTCDeb.
+   * Edit & Integrate Chapter 7
+   * Check Chapter 8
+   * Check Chapter 9
+   * Check Chapter 10
+   * Check Chapter 11
 
 Per @ChristopherA:
 
@@ -47,6 +47,7 @@ Per @ChristopherA:
 Add and document the following new concepts:
 
 11. Add SegWit Transactions. The majority of Bitcoin transactions now use this signing methodology, so it needs to be fully explained and incorporated, alongside its newer bech32 addresses.
+   * Do we still have to use "bitcoin-cli getnewaddress "" legacy" on CLI? If not, run back through chapters that use legacy in their examples, starting in 3.3
 12. Add PSBT. Partially Signed Bitcoin Transactions are a powerful new interchange format that should be fully included in our discussions of multi-sigs and escrows (which instead fell back on older methodologies in v1.0).
 13. Add Wallet Updates. Some improvements have been made to wallet functionality, including Bitcoin Descriptors, and they should be added to the course.
 14. Consider HWI. We need to investigate the Hardware Wallet Interface, which uses PSBTs with hardware wallets, and see if it's something we should include (and if our readers want us to).
