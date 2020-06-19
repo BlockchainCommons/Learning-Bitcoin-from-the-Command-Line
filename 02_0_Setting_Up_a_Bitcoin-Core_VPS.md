@@ -23,5 +23,5 @@ Supporting objectives include the ability to:
 You don't actually need to read this entire chapter. Decide if you want to set up your VPS by hand, typing in every command (§2.1); if you want to run a StackScript to set it up on a Linode VPS (§2.2); or you want to set up on a different environment, such as on an AWS machine or a Mac (§2.3). Then, jump to the appropriate section.
 
    * [Section One: Setting Up a Bitcoin Core VPS by Hand](02_1_Setting_Up_a_Bitcoin-Core_VPS_by_Hand.md)
-   * [Section Two: Setting Up a Bitcoin Core VPS with StackScript](02_2_Setting_Up_a_Bitcoin-Core_VPS_with_StackScript.md)
+   * [Section Two: Setting Up a Bitcoin Core VPS with Bitcoin Standup](02_2_Setting_Up_a_Bitcoin-Core_VPS_with_StackScript.md)
    * [Section Three: Setting Up a Bitcoin Core Machine via Other Means](02_3_Setting_Up_Bitcoin_Core_Other.md)
