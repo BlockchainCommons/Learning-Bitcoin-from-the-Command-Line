@@ -2,7 +2,7 @@
 
 You're now ready to begin working with the `bitcoin-cli` command-line interface. But that first requires that you understand your Bitcoin setup and its wallet features, which is what will be explained in this chapter.
 
-For this and future chapters, we presume that you have a VPS with Bitcoin installed, running `bitcoind`. We also presume that you are connected to testnet, allowing for access to bitcoins without using real funds. You can either do this by hand, per [§2.1: Setting up a Bitcoin-Core VPS by Hand](02_1_Setting_Up_a_Bitcoin-Core_VPS_by_Hand.md) or with a Linode StackScript at Linode.com, per [§2.2: Setting up a Bitcoin-Core VPS with StackScript](02_2_Setting_Up_a_Bitcoin-Core_VPS_with_StackScript.md).
+For this and future chapters, we presume that you have a VPS with Bitcoin installed, running `bitcoind`. We also presume that you are connected to testnet, allowing for access to bitcoins without using real funds. You can either do this by hand, per [§2.1: Setting up a Bitcoin-Core VPS by Hand](02_1_Setting_Up_a_Bitcoin-Core_VPS_by_Hand.md), with Bitcoin Standup at Linode.com, per [§2.2: Setting up a Bitcoin-Core VPS with Bitcoin Standup](02_2_Setting_Up_a_Bitcoin-Core_VPS_with_StackScript.md), or via other means, per [§2.3: Setting up a Bitcoin-Core Machine via Other Means](02_3_Setting_Up_Bitcoin_Core_Other.md).
 
 ## Objectives for This Chapter
 
