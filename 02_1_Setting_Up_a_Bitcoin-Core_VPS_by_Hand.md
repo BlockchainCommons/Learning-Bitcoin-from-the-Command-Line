@@ -2,7 +2,7 @@
 
 > :information_source: **NOTE:** This is a draft in progress, so that I can get some feedback from early reviewers. It is not yet ready for learning.
 
-> :information_source: **WARNING:** This chapter is currently out of sync with the Bitcoin Standup script, and won't be updated until we finish some changes to Standup this summer. We very much suggest using the Script instead of this by-hand description, because it includes Tor and other security functions.
+> :information_source: **WARNING:** This chapter is currently out of sync with the Bitcoin Standup script, and won't be updated until we finish some changes to Standup this summer. We very much suggest [using the Script](https://github.com/BlockchainCommons/Learning-Bitcoin-from-the-Command-Line/blob/master/02_2_Setting_Up_a_Bitcoin-Core_VPS_with_StackScript.md) instead of this by-hand description, because it includes Tor and other security functions.
 
 This document explains how to set up a VPS (Virtual Private Server) by hand to run a Bitcoin node on a cloud computer. You'll need to set up your computer yourself, but then this document will provide you with important commands to secure your VPS and to get it running Bitcoin. The setup should all be done in my session, so you don't lose the variables `export`ed at the start.
 
