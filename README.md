@@ -4,13 +4,15 @@ Learning Bitcoin from the Command Line is a tutorial for working with Bitcoin (a
 
 > NOTE: This is a draft in progress, so that I can get some feedback from early reviewers. It is not yet ready for use.
 
-## Table of Contents
-
 _This tutorial assumes that you have some minimal background of how to use the command line interface. If not, there are many tutorials available, and I have one for Mac users at https://github.com/ChristopherA/intro-mac-command-line._
+
+## Table of Contents
 
 * [0.0: Introduction to Programming with Bitcoin Core and Lightning](00_0_Introduction.md)
 
 ### PART ONE: PREPARING FOR BITCOIN
+
+**Status:** Undergoing light editing. Needs to have concepts brought up to 0.20.
 
 * [1.0: Introducing Bitcoin](01_0_Introducing_Bitcoin.md)
 * [2.0: Setting Up a Bitcoin-Core VPS](02_0_Setting_Up_a_Bitcoin-Core_VPS.md)
@@ -19,6 +21,8 @@ _This tutorial assumes that you have some minimal background of how to use the c
   * [2.3: Setting Up a Bitcoin-Core Machine via Other Means](02_3_Setting_Up_Bitcoin_Core_Other.md)
 
 ### PART TWO: USING BITCOIN-CLI
+
+**Status:** Requires editing; requires check that it works in 0.20; requires concepts brought up to 0.20.
 
 * [3.0: Understanding Your Bitcoin Setup](03_0_Understanding_Your_Bitcoin_Setup.md)
   * [3.1: Verifying Your Bitcoin Setup](03_1_Verifying_Your_Bitcoin_Setup.md)
@@ -48,6 +52,8 @@ _This tutorial assumes that you have some minimal background of how to use the c
 
 ## PART THREE: BITCOIN SCRIPTING
 
+**Status:** Requires editing; requires check that it works in 0.20; requires concepts brought up to 0.20.
+
 * [7.0: Introducing Bitcoin Scripts](07_0_Introducing_Bitcoin_Scripts.md)
   * [7.1: Understanding the Foundation of Transactions](07_1_Understanding_the_Foundation_of_Transactions.md)
   * [7.2: Running a Bitcoin Script](07_2_Running_a_Bitcoin_Script.md)
@@ -73,7 +79,7 @@ _This tutorial assumes that you have some minimal background of how to use the c
 
 ### PART FOUR: USING TOR
 
-_The section is currently unwritten._
+**Status:** Unwritten.
 
 * [12.0: Using Tor](12_0_Using_Tor.md)
   * 12.1: Verifying Your Tor Setup
@@ -82,7 +88,7 @@ _The section is currently unwritten._
   
 ### PART FIVE: USING LIGHTNING-CLI
 
-_This section is unwritten currently, and will probably involve chapter 14.0 expanding into at least two chapters._
+**Status:** Unwritten. Chapter 14 may expand into multiple chapters.
 
 * 13.0: Setting Up Lightning
 * 14.0: Using Lightning
@@ -91,7 +97,7 @@ _This section is unwritten currently, and will probably involve chapter 14.0 exp
 
 ### PART SIX: PROGRAMMING WITH RPC
 
-_This section is currently a messy set of older writings which are being reorganized as listed below. We're not going to work through this section until we've got chapters 1-11 updated per our current notes, then 12-14 written. But, if you'd like to see what we have to date on programming in correlation with Bitcoin Core, please feel free._
+**Status:** This section is currently a messy set of older writings which are being reorganized as listed below. We're not going to work through this section until we've got chapters 1-11 updated per our current notes, then 12-14 written. But, if you'd like to see what we have to date on programming in correlation with Bitcoin Core, please feel free.
 
 * [15.0: Talking to Bitcoind with C](15_0_Talking_to_Bitcoind.md) — Needs Rewrite + Editing
   * [15.1: Accessing Bitcoind with C](15_1_Accessing_Bitcoind_with_C.md) — Needs Rewrite
@@ -112,6 +118,8 @@ _This section is currently a messy set of older writings which are being reorgan
   * [18.6: Accessing Bitcoind with Swift]
   
 ### APPENDICES
+
+**Status:** Varied. Appendix I is recent that just needs editing for style; Appendix II needs a rewrite.
 
 * [Appendix I: Compiling Bitcoin from Source](A1_0_Compiling_Bitcoin_from_Source.md)
 * [Appendix II: Using Bitcoin Regtest](A2_0_Setting_Up_a_Bitcoin_Regtest.md) — Needs Rewrite + Editing
