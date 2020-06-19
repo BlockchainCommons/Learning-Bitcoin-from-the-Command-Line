@@ -85,7 +85,7 @@ You can look at your transaction using your transaction id:
 ```
 You can see not only the amount transferred (.001 BTC) but also a transaction fee (.000222 BTC), which is about a quarter of the .001 BTC/kB minimum fee that was set, which suggests that the transaction was about a quarter of a kB in size.
 
-While you are waiting for this transaction to clear, you'll note that `bitcoin-cli getbalance` shows that all of your money is gone (or, at least, all of your money from a single incoming transaction). Similarly, `bitcoin-cli listunspent` will show that an entire transaction is gone, even if it was more than what you wanted to send. There's a reason for this: whenever you get money in, you have to send it _all_ out together, and you have to perform some gymnastics if you actually want to keep some of it! Once again, `sendtoaddress` takes care of this all for you, which means you don't have to worry about making change until you send a raw transaction.
+While you are waiting for this transaction to clear, you'll note that `bitcoin-cli getbalance` shows that all of your money is gone (or, at least, all of your money from a single incoming transaction). Similarly, `bitcoin-cli listunspent` will show that an entire transaction is gone, even if it was more than what you wanted to send. There's a reason for this: whenever you get money in, you have to send it _all_ out together, and you have to perform some gymnastics if you actually want to keep some of it! Once again, `sendtoaddress` takes care of this all for you, which means you don't have to worry about making change until you send a raw transaction. In this case, a new transaction will appear with your change when your spend is incorporated into a block.
 
 ## Summary: Sending Coins the Easy Way
 
