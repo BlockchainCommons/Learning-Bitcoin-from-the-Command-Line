@@ -23,9 +23,9 @@ Replace our current scripts with Bitcoin Standup (which was based on those scrip
    * <strike>Edit Chapter 1</strike> **6/19**
    * <strike>Re-edit Chapter 2</strike> **6/19**
    * <strike>Edit & Check Chapter 3</strike> **6/19**
-   * Edit & Check Chapter 4
+   * Edit & Check Chapter 4 **4.1 through 4.4; 4.5 waiting**
       * <strike>Double-check fee calculator in 4.2I with a more complex example</strike> **6/19**
-      * Interate older Curl Interlude
+      * <strike>Interate older Curl Interlude</strike> **6/19**
    * Edit & Check Chapter 5
    * Edit & Check Chapter 6
    
