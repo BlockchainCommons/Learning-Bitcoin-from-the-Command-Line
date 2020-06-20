@@ -33,10 +33,10 @@ Replace our current scripts with Bitcoin Standup (which was based on those scrip
 
 10. Make all examples in [7.4](https://github.com/BlockchainCommons/Learning-Bitcoin-from-the-Command-Line/blob/master/07_4_Testing_a_Bitcoin_Script.md) and possibly elsewhere use BTCDeb.
    * Edit & Integrate Chapter 7
-   * Check Chapter 8
-   * Check Chapter 9
-   * Check Chapter 10
-   * Check Chapter 11
+   * Edit & Integrate Chapter 8
+   * Edit & Integrate Chapter 9
+   * Edit & Integrate Chapter 10
+   * Edit & Integrate Chapter 11
 
 Per @ChristopherA:
 
