@@ -18,7 +18,7 @@ Replace our current scripts with Bitcoin Standup (which was based on those scrip
 
 ## 2. Upgrade to 0.20
 
-9. Walk through chapters 1-11, making sure all commands work with Bitcoin Core 0.20 (and changing them if not). Redo the output of all examples.
+9. Walk through chapters 1-6, making sure all commands work with Bitcoin Core 0.20 (and changing them if not). Redo the output of all examples.
    * <strike>Edit Chapter 0</strike> **6/19**
    * <strike>Edit Chapter 1</strike> **6/19**
    * <strike>Re-edit Chapter 2</strike> **6/19**
