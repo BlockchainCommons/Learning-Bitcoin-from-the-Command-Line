@@ -142,6 +142,36 @@ $ bitcoin-cli listunspent
   }
 ]
 ```
+And the change will eventuall arrive:
+```
+[
+  {
+    "txid": "e7071092dee0b2ae584bf6c1ee3c22164304e3a17feea7a32c22db5603cd6a0d",
+    "vout": 1,
+    "address": "mk9ry5VVy8mrA8SygxSQQUDNSSXyGFot6h",
+    "scriptPubKey": "76a91432db726320e4ad170c9c1ee83cd4d8a243c3435988ac",
+    "amount": 0.00090000,
+    "confirmations": 1,
+    "spendable": true,
+    "solvable": true,
+    "desc": "pkh([d6043800/0'/1'/2']02881697d252d8bf181d08c58de1f02aec088cd2d468fc5fd888c6e39909f7fabf)#p6k7dptk",
+    "safe": true
+  },
+  {
+    "txid": "91261eafae15ea53dedbea7c1db748c52bbc04a85859ffd0d839bda1421fda4c",
+    "vout": 0,
+    "address": "mjehC2KHzXcBDcwTd4LhZ2GzyzrZ3Kd3ff",
+    "label": "",
+    "scriptPubKey": "76a9142d573900aa357a38afd741fbf24b075d263ea6e088ac",
+    "amount": 0.00022000,
+    "confirmations": 16,
+    "spendable": true,
+    "solvable": true,
+    "desc": "pkh([d6043800/0'/0'/3']0278608b54b8fb0d8379d3823d31f03a7c6ab0adffb07dd3811819fdfc34f8c132)#nhjc3f8y",
+    "safe": true
+  }
+]
+```
 
 This also might be a good time to revisit a blockchain explorer, so that you can see more intuitively how the inputs, outputs, and transaction fee are all laid out: [e7071092dee0b2ae584bf6c1ee3c22164304e3a17feea7a32c22db5603cd6a0d](https://live.blockcypher.com/btc-testnet/tx/e7071092dee0b2ae584bf6c1ee3c22164304e3a17feea7a32c22db5603cd6a0d/).
 
