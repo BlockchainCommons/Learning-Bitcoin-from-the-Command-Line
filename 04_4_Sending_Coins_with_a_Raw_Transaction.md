@@ -179,12 +179,15 @@ This also might be a good time to revisit a blockchain explorer, so that you can
 
 To send coins with raw transactions, you need to create a raw transaction with one or more inputs (to have sufficient funds) and one or more outputs (to retrieve change). Then, you can follow your normal procedure of using `createrawtransaction` with named arguments and JQ, as laid out in previous sections.
 
-### Why Use Raw Transactions
+> :fire: ***What is the power of sending coins with raw transactions?***
 
-_The advantages._ It gives you the best control. If your goal is to write a more intricate Bitcoin script or program, you'll probably use raw transactions so that you know exactly what's going on. This is also the _safest_ situation to use raw transactions, because you can programmatically ensure that you don't make mistakes.
+> _The advantages._ It gives you the best control. If your goal is to write a more intricate Bitcoin script or program, you'll probably use raw transactions so that you know exactly what's going on. This is also the _safest_ situation to use raw transactions, because you can programmatically ensure that you don't make mistakes.
 
-_The disadvantages._ It's easy to lose money. There are no warnings, no safeguards, and no programmatic backstops unless you write them. It's also arcane. The formatting is obnoxious, even using the easy-to-use `bitcoin-cli` interface, and you have to do a lot of lookup and calculation by hand.
+> _The disadvantages._ It's easy to lose money. There are no warnings, no safeguards, and no programmatic backstops unless you write them. It's also arcane. The formatting is obnoxious, even using the easy-to-use `bitcoin-cli` interface, and you have to do a lot of lookup and calculation by hand.
 
 ## What's Next?
 
 See another alternative way to input commands with [Interlude: Using Curl](04_4__Interlude_Using_Curl.md).
+
+Or, you prefer to skip what's frankly a digression, learn one more way to "Send Bitcoin Transactions" with [§4.5 Sending Coins with Automated Raw Transactions](04_5_Sending_Coins_with_Automated_Raw_Transactions.md).
+
