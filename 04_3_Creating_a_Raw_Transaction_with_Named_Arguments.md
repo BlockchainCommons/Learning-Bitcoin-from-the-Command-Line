@@ -20,9 +20,10 @@ To learn what the names are for the arguments of a command, consult `bitcoin-cli
 
 For example, `bitcoin-cli help getbalance` lists these arguments:
 
-   1. account
+   1. dummy [used to be account]
    2. minconf
-   3. include watchonly
+   3. include_watchonly
+   4. avoid_reuse
    
 The following shows a traditional, unintuitive usage of `getbalance` using the minimum confirmation argument:
 ```
@@ -30,7 +31,7 @@ $ bitcoin-cli getbalance "*" 1
 ```
 With named arguments, you can clarify what you're doing, which also minimizes mistakes:
 ```
-$ bitcoin-cli -named getbalance account="*" minconf=1
+$ bitcoin-cli -named getbalance minconf=1
 ```
 
 ## Test Out a Raw Transaction
@@ -41,19 +42,20 @@ $ utxo_txid=$(bitcoin-cli listunspent | jq -r '.[0] | .txid')
 $ utxo_vout=$(bitcoin-cli listunspent | jq -r '.[0] | .vout')
 $ recipient="n2eMqTT929pb1RDNuqEnxdaLau1rxy3efi"
 
-$ rawtxhex=$(bitcoin-cli -named createrawtransaction inputs='''[ { "txid": "'$utxo_txid'", "vout": '$utxo_vout' } ]''' outputs='''{ "'$recipient'": 0.7595 }''')
+$ rawtxhex=$(bitcoin-cli -named createrawtransaction inputs='''[ { "txid": "'$utxo_txid'", "vout": '$utxo_vout' } ]''' outputs='''{ "'$recipient'": 0.00001 }''')
 $ bitcoin-cli -named decoderawtransaction hexstring=$rawtxhex 
 {
-  "txid": "f445f121085d98635f7302e641f815d1ca4ce70f0e1b03f144ad1661dc5e10e7",
-  "hash": "f445f121085d98635f7302e641f815d1ca4ce70f0e1b03f144ad1661dc5e10e7",
+  "txid": "2b59c31bc232c0399acee4c2a381b564b6fec295c21044fbcbb899ffa56c3da5",
+  "hash": "2b59c31bc232c0399acee4c2a381b564b6fec295c21044fbcbb899ffa56c3da5",
+  "version": 2,
   "size": 85,
   "vsize": 85,
-  "version": 2,
+  "weight": 340,
   "locktime": 0,
   "vin": [
     {
-      "txid": "2b5f5798359e0e23e02764588166f222d4ce056419dec83c743b72aad171d708",
-      "vout": 1,
+      "txid": "ca4898d8f950df03d6bfaa00578bd0305d041d24788b630d0c4a32debcac9f36",
+      "vout": 0,
       "scriptSig": {
         "asm": "",
         "hex": ""
@@ -63,7 +65,7 @@ $ bitcoin-cli -named decoderawtransaction hexstring=$rawtxhex
   ],
   "vout": [
     {
-      "value": 0.75950000,
+      "value": 0.00001000,
       "n": 0,
       "scriptPubKey": {
         "asm": "OP_DUP OP_HASH160 e7c1345fc8f87c68170b3aa798a956c2fe6a9eff OP_EQUALVERIFY OP_CHECKSIG",
@@ -80,7 +82,7 @@ $ bitcoin-cli -named decoderawtransaction hexstring=$rawtxhex
 
 $ signedtx=$(bitcoin-cli -named signrawtransactionwithwallet hexstring=$rawtxhex | jq -r '.hex')
 $ bitcoin-cli -named sendrawtransaction hexstring=$signedtx
-8000dca7b1e7ab70f4056bc4512af6ffff7727d1588436521da3e5d886dbcddf
+e70dd2aa13422d12c222481c17ca21a57071f92ff86bdcffd7eaca71772ba172
 ```
 Voila! You've sent out another raw transaction, but this time using named arguments for clarity and to reduce errors.
 
