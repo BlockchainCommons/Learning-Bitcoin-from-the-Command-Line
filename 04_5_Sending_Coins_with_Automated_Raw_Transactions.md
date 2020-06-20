@@ -150,11 +150,11 @@ $ bitcoin-cli listunspent
 
 If you must send funds with raw transactions then `fundrawtransaction` gives you a nice alternative where fees, inputs, and outputs are calculated for you, so you don't accidentally lose a bunch of money.
 
-### Why Use Automated Raw Transactions
+> :fire: ***What the power of sending coins with automated raw transactions?***
 
-_The advantages._ It provides a nice balance. If you're sending funds by hand and `sendtoaddress` doesn't offer enough control for whatever reason, you can get some of the advantages of raw transactions without the dangers. This methodology should be used whenever possible if you're sending raw transactions by hand.
+> _The advantages._ It provides a nice balance. If you're sending funds by hand and `sendtoaddress` doesn't offer enough control for whatever reason, you can get some of the advantages of raw transactions without the dangers. This methodology should be used whenever possible if you're sending raw transactions by hand.
 
-_The disadvantages._ It's a hodge-podge. Though there are a few additional options for the `fundrawtransaction` command that weren't mentioned here, your control is still limited. You'd probably never want to use this method if you were writing a program where the whole goal is to know exactly what's going on.
+> _The disadvantages._ It's a hodge-podge. Though there are a few additional options for the `fundrawtransaction` command that weren't mentioned here, your control is still limited. You'd probably never want to use this method if you were writing a program where the whole goal is to know exactly what's going on.
 
 ## What's Next?
 
