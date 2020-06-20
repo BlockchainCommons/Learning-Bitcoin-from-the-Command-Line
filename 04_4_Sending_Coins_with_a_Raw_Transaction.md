@@ -187,4 +187,4 @@ _The disadvantages._ It's easy to lose money. There are no warnings, no safeguar
 
 ## What's Next?
 
-Continue "Sending Bitcoin Transactions" with [§4.5: Sending Coins with Automated Raw Transactions](04_5_Sending_Coins_with_Automated_Raw_Transactions.md).
+See another alternative way to input commands with [Interlude: Using Curl](04_4__Interlude_Using_Curl.md).
