@@ -51,6 +51,7 @@ Add and document the following new concepts:
 11. Add SegWit Transactions. The majority of Bitcoin transactions now use this signing methodology, so it needs to be fully explained and incorporated, alongside its newer bech32 addresses.
    * Add definitions of Segwit and bech32 addresses to 3.3
    * Do we still have to use "bitcoin-cli getnewaddress "" legacy" on CLI? If not, run back through chapters that use legacy in their examples, starting in 3.3
+   * Write chapter 4.6
 12. Add PSBT. Partially Signed Bitcoin Transactions are a powerful new interchange format that should be fully included in our discussions of multi-sigs and escrows (which instead fell back on older methodologies in v1.0).
 13. Add Wallet Updates. Some improvements have been made to wallet functionality, including Bitcoin Descriptors, and they should be added to the course.
 14. Consider HWI. We need to investigate the Hardware Wallet Interface, which uses PSBTs with hardware wallets, and see if it's something we should include (and if our readers want us to).
