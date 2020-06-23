@@ -2,17 +2,19 @@
 
 > :information_source: **NOTE:** This is a draft in progress, so that I can get some feedback from early reviewers. It is not yet ready for learning.
 
-Once upon a time, the Bitcoin heavens shook with the blocksize wars. Users were worried about scaling, fees were skyrocketing. The Bitcoin Core developers were reluctant to simply increase the blocksize, so they arrived upon another solution: SegWit, the Segregated Witness. Segregated Witness is a fancy way of saying "Separated Signature". It creates new sorts of addresses that remove signatures to the end of the transaction. By combining this with increased block sizes that only are visible to upgraded nodes, SegWit resolved the scaling problems for Bitcoin at the time (and also resolved a nasty malleability bug that made improved scaling with layer-2 protocols like Lightning unfeasible). 
+Once upon a time, the Bitcoin heavens shook with the blocksize wars. Fees were skyrocketing, and users were worried about scaling. The Bitcoin Core developers were reluctant to simply increase the blocksize, but they came upon a compromise: SegWit, the Segregated Witness. Segregated Witness is a fancy way of saying "Separated Signature". It creates new sorts of transactions that remove signatures to the end of the transaction. By combining this with increased block sizes that only are visible to upgraded nodes, SegWit resolved the scaling problems for Bitcoin at the time (and also resolved a nasty malleability bug that had previously made even better scaling with layer-2 protocols like Lightning impractical). 
 
-The catch? SegWit uses different addresses, some of which are compatible with older nodes, of some of which are not.
+The catch? SegWit uses different addresses, some of which are compatible with older nodes, and some of which are not.
 
-> :warning: **VERSION WARNING:** SegWit was introduced in BitCoin 0.16.0 with what was described at the time as "full support". With that said, there were some flaws in its integration with `bitcoin-cli` which prevented signing from working correctly on new P2SH-SegWit addresses. The non-backward-compatible Bech32 address was also introduced in Bitcoin 0.16.0 and made the default addresstype in Bitcoin 0.19.0. All of this functionality should now fully work with regard to `bitcoin-cli` functions (and thus this tutorial). The catch comes in interacting with the wider world. Everyone should be able to send to a P2SH-SegWit address, because it was purposefully built to support backward compatibility by wrapping the SegWit functionality in a Bitcoin Script. The same isn't true for Bech32 addresses: if someone tells you that they're unable to send to your Bech32 address, this is why, and you need to generate a `legacy` or P2SH-SegWit address for their usage. (Many sites, particularly exchanges, can also not generate or receive on SegWit addresses, particularly Bech32 addresses, but that's a whole different issue and doesn't affect your usage of them).
+> :warning: **VERSION WARNING:** SegWit was introduced in BitCoin 0.16.0 with what was described at the time as "full support". With that said, there were some flaws in its integration with `bitcoin-cli` at the time which prevented signing from working correctly on new P2SH-SegWit addresses. The non-backward-compatible Bech32 address was also introduced in Bitcoin 0.16.0 and was made the default addresstype in Bitcoin 0.19.0. All of this functionality should now fully work with regard to `bitcoin-cli` functions (and thus this tutorial). 
+
+> The catch comes in interacting with the wider world. Everyone should be able to send to a P2SH-SegWit address because it was purposefully built to support backward compatibility by wrapping the SegWit functionality in a Bitcoin Script. The same isn't true for Bech32 addresses: if someone tells you that they're unable to send to your Bech32 address, this is why, and you need to generate a `legacy` or P2SH-SegWit address for their usage. (Many sites, particularly exchanges, can also not generate or receive on SegWit addresses, particularly Bech32 addresses, but that's a whole different issue and doesn't affect your usage of them.)
 
 ## Understand a SegWit Transaction
 
-In classic transactions, signature (witness) information was stored toward the middle of the transaction, while in SegWit transactions, it's at the bottom. This goes hand-in-hand with the blocksize increases that were introduced in the SegWit upgrade. The blocksize was increased from 1M to a variable amount based on how many SegWit transactions are in a block, starting as low as 1M (no SegWit transactions) and going as high as 4M (all SegWit transactions). This variable sized was created to accomodate classic nodes, so that everything remains backward compatible. If a classic node sees a SegWit tranaction, it throws out the witness information (resulting in a smaller sized block, under the old 1M limit), while if a new node sees a SegWit transaction, it keeps the witness information (resulting in a larger sizde block, up to the new 4M limit).
+In classic transactions, signature (witness) information was stored toward the middle of the transaction, while in SegWit transactions, it's at the bottom. This goes hand-in-hand with the blocksize increases that were introduced in the SegWit upgrade. The blocksize was increased from 1M to a variable amount based on how many SegWit transactions are in a block, starting as low as 1M (no SegWit transactions) and going as high as 4M (all SegWit transactions). This variable sized was created to accomodate classic nodes, so that everything remains backward compatible. If a classic node sees a SegWit tranaction, it throws out the witness information (resulting in a smaller sized block, under the old 1M limit), while if a new node sees a SegWit transaction, it keeps the witness information (resulting in a larger sized block, up to the new 4M limit).
 
-So that's the what and how og SegWit transactions. Not that you need to know any of it to use them. Most transactions on the BitCoin network are now SegWit. They're what you're going to natively use for more transactions and receipts of money. The details are no more relevant at this point than the details of how most of Bitcoin works.
+So that's the what and how of SegWit transactions. Not that you need to know any of it to use them. Most transactions on the BitCoin network are now SegWit. They're what you're going to natively use for more transactions and receipts of money. The details are no more relevant at this point than the details of how most of Bitcoin works.
 
 ## Create a SegWit Address
 
@@ -38,7 +40,7 @@ $ bitcoin-cli getrawchangeaddress
 tb1q05wx5tyadm8qe83exdqdyqvqqzjt3m38vfu8ff
 ```
 
-Again note the unique "tb1" prefix denoted Bech32.
+Here, note that the unique "tb1" prefix denoted Bech32.
 
 > :link: **TESTNET vs MAINNET:** "bc1" for mainnet.
 
@@ -109,14 +111,14 @@ $ bitcoin-cli listaddressgroupings
 
 ## Send a SegWit Transaction The Easy Way
 
-So how do you send a Bitcoin transaction? Exactly like any other transaction. It doesn't matter if the UTXO is SegWit, the address is SegWit, or some combination thereof. You can expect `bitcoin-cli` to do the right thing. Though you can tell the differences via the addresses, they don't matter. (And this is one of the advantages of using the command line and the RPC interface, as suggested in this tutorial: because experts have already done the hard work for you, including things how to send to both legacy and Bech32 addresses. You just get to use that functionality to your own advantage.)
+So how do you send a Bitcoin transaction? Exactly like any other transaction. It doesn't matter if the UTXO is SegWit, the address is SegWit, or some combination thereof. You can expect `bitcoin-cli` to do the right thing. Though you can tell the differences via the addresses, they don't matter for interacting with things at the `bitcoin-cli` or RPC level. (And this is one of the advantages of using the command line and the RPC interface, as suggested in this tutorial: experts have already done the hard work for you, including things like how to send to both legacy and Bech32 addresses. You just get to use that functionality to your own advantage.)
 
 Here's an example of sending to a SegWit address, the easy way:
 ```
-$ bitcoin-cli sendtoaddress address=tb1qw508d6qejxtdg4y5r3zarvary0c5xw7kxpjzsx 0.005
+$ bitcoin-cli sendtoaddress tb1qw508d6qejxtdg4y5r3zarvary0c5xw7kxpjzsx 0.005
 854a833b667049ac811b4cf1cad40fa7f8dce8b0f4c1018a58b84559b6e05f42
 ```
-If you look at your transaction, you can see use of the Bech32 address:
+If you look at your transaction, you can see the use of the Bech32 address:
 ```
 $ bitcoin-cli gettransaction txid="854a833b667049ac811b4cf1cad40fa7f8dce8b0f4c1018a58b84559b6e05f42" verbose=true
 {
@@ -200,7 +202,7 @@ $ bitcoin-cli gettransaction txid="854a833b667049ac811b4cf1cad40fa7f8dce8b0f4c10
   }
 }
 ```
-In fact, both of the `vouts` use Bech32 addresses.
+In fact, both of the `vouts` use Bech32 addresses: your recipient and the automatically generated change address.
 
 But when we backtrack our `vin`, we discover that came from a legacy address. Because it doesn't matter:
 ```
@@ -233,7 +235,7 @@ $ bitcoin-cli -named gettransaction txid="33173618421804343e8f6cc21316d97a24f743
 
 ## Send a SegWit Transaction The Hard Way
 
-You can similarly fund a transaction with a Bech32 address with no difference to the techniques you've learned so far:
+You can similarly fund a transaction with a Bech32 address with no difference to the techniques you've learned so far. Here's an exactly of doing so with a complete raw transaction:
 ```
 $ changeaddress=$(bitcoin-cli getrawchangeaddress)
 $ echo $changeaddress
@@ -262,20 +264,20 @@ $ echo $utxo_txid $utxo_vout
 003bfdca5578c0045a76768281f05d5e6f57774be399a76f387e2a0e99e4e452 0
 $ rawtxhex=$(bitcoin-cli -named createrawtransaction inputs='''[ { "txid": "'$utxo_txid'", "vout": '$utxo_vout' } ]''' outputs='''{ "'$recipient'": 0.002, "'$changeaddress'": 0.007 }''')
 $ signedtx=$(bitcoin-cli -named signrawtransactionwithwallet hexstring=$rawtxhex | jq -r '.hex')
-standup@btctest20:~$ bitcoin-cli -named sendrawtransaction hexstring=$signedtx
+$ bitcoin-cli -named sendrawtransaction hexstring=$signedtx
 e02568b706b21bcb56fcf9c4bb7ba63fdbdec1cf2866168c4f50bc0ad693f26c
 ```
 It all works exactly the same as other sorts of transactions!
 
 ## Summary: Creating a SegWit Transaction
 
-There's really no complexity to creating SegWit transactions. Internally, they're structured differently from legacy transactions, but from the command line there's no difference: you just use an address with a different prefix. The only thing to watch for is that some people may not be able to send to a Bech32 address, if they're using obsolete software.
+There's really no complexity to creating SegWit transactions. Internally, they're structured differently from legacy transactions, but from the command line there's no difference: you just use an address with a different prefix. The only thing to watch for is that some people may not be able to send to a Bech32 address if they're using obsolete software.
 
 > :fire: ***What the power of sending coins with SegWit?***
 
-> _The Advantages._ SegWit transactions are smaller, and so will be cheaper to send than legacy transactions due to lower fees. Bech32 doubles down on this advantage, and also creates addresses that are hard to make mistakes when transcribing — and that's pretty important, given that user error is one of the most likely ways to lose your Bitcoins.
+> _The Advantages._ SegWit transactions are smaller, and so will be cheaper to send than legacy transactions due to lower fees. Bech32 doubles down on this advantage, and also creates addresses that are harder to foul up when transcribing — and that's pretty important, given that user error is one of the most likely ways to lose your bitcoins.
 
-> _The Disadvantages._ SegWit transactions may not be supported by obsolete Bitcoin software. In particular, people may not be able to send to your Bech32 address.
+> _The Disadvantages._ SegWit addresses may not be supported by obsolete Bitcoin software. In particular, people may not be able to send to your Bech32 address.
 
 ## What's Next?
 
