@@ -90,7 +90,9 @@ _This tutorial assumes that you have some minimal background of how to use the c
 
 **Status:** Unwritten. Chapter 14 may expand into multiple chapters.
 
-* 13.0: Setting Up Lightning
+(At this point, I'm assuming that Lightning will be integrated into Standup, at which point we just need to tech how to use it.)
+
+* 13.0: Understanding Lightning
 * 14.0: Using Lightning
 
 > _Some good docs from one of the developers are here: https://diyhpl.us/wiki/transcripts/blockstream-webinars/2019-07-31-rusty-russell-getting-started-with-c-lightning/._
