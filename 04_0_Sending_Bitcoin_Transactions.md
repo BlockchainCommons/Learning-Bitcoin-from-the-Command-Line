@@ -13,6 +13,7 @@ After working through this chapter, a developer will be able to:
 Supporting objectives include the ability to:
 
    * Understand Transactions & Transaction Fees
+   * Understand Legacy & SegWit Transactions
    * Use Basic Methods to Send Money
    * Use Auto Fee Calculation Methods to Send Money
    * Understand the Dangers of Raw Transactions
@@ -25,3 +26,4 @@ Supporting objectives include the ability to:
   * [Section Three: Creating a Raw Transaction with Named Arguments](04_3_Creating_a_Raw_Transaction_with_Named_Arguments.md)
   * [Section Four: Sending Coins with Raw Transactions](04_4_Sending_Coins_with_a_Raw_Transaction.md)
   * [Section Five: Sending Coins with Automated Raw Transactions](04_5_Sending_Coins_with_Automated_Raw_Transactions.md)
+  * [Section Six: Creating a SegWit Transaction](04_6_Creating_a_Segwit_Transaction.md)
