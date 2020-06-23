@@ -110,12 +110,12 @@ _This tutorial assumes that you have some minimal background of how to use the c
    * 17.4: Integrating Libwally and Scripts
 * 17.0: Talking to Lightningd with C
 * 18.0: Talking to Bitcoind with Other Languages
-  * [18.1: Accessing Bitcoind with Go]
-  * [18.2: Accessing Bitcoind with Java](18_2_Accessing_Bitcoind_with_Java.md) — Needs Rewrite + Editing
+  * [18.1: Accessing Bitcoind with Go] — Unwritten
+  * [18.2: Accessing Bitcoind with Java](18_2_Accessing_Bitcoind_with_Java.md)
   * [18.3: Accessing Bitcoind with_Node_JS](18_3_Accessing_Bitcoind_with_NodeJS.md)  — Needs Rewrite + Editing
-  * [18.4: Accessing Bitcoind with Python]
-  * [18.5: Accessing Bitcoind with Rust]
-  * [18.6: Accessing Bitcoind with Swift]
+  * [18.4: Accessing Bitcoind with Python](18_4_Accessing_Bitcoind_with_Python.md)
+  * [18.5: Accessing Bitcoind with Rust] — Unwritten
+  * [18.6: Accessing Bitcoind with Swift] — Unwritten
   
 ### APPENDICES
 
@@ -171,7 +171,7 @@ Additional contributions are listed below:
 
 | Role                | Names                                    |
 | ------------------- | ---------------------------------------- |
-| ***Contributors:*** | [jodobear](https://github.com/jodobear) (Appendix I)                                   |
+| ***Contributors:*** | [javiervargas](https://github.com/javiervargas) (Java secction), [jodobear](https://github.com/jodobear) (Appendix I, Python section)                                   |
 | ***Reviewers:***    | Glen Willem [@gwillem](https://github.com/gwillem) |
 | ***Sponsors:***     | Blockstream Corporation                  |
 
