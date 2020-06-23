@@ -100,7 +100,9 @@ $ bitcoin-cli -named decoderawtransaction hexstring=$rawtxhex3
   ]
 }
 ```
-We saw the fee in the more extensive output, before we saved the hex to a variable with JQ, but you can verify it with the `txfee-calc.sh` JQ script created in the [JQ Interlude](https://github.com/BlockchainCommons/Learning-Bitcoin-from-the-Command-Line/blob/master/04_2__Interlude_Using_JQ.md):
+One thing of interest here is the change address, with is the second `vout`. Note that it's a `tb1` address, which means that it's Bech32; when we gave Bitcoin Core the total ability to manage our change, it did so using its default address type, Bech32, and it worked fine. That's why our change to SegWit addresses in [§4.6](04_6_Creating_a_Segwit_Transaction.md) really isn't that big of a deal, but there are some gotchas for wider usage, which we'll talk about there.
+
+Though we saw the fee in the `fundrawtransaction` output, it's not visible here. However, you can verify it with the `txfee-calc.sh` JQ script created in the [JQ Interlude](https://github.com/BlockchainCommons/Learning-Bitcoin-from-the-Command-Line/blob/master/04_2__Interlude_Using_JQ.md):
 ```
 $ ~/txfee-calc.sh $rawtxhex3
 .000222
