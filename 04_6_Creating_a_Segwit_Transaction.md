@@ -32,25 +32,17 @@ However, if the person you're interacting with has a fully mature client, they'l
 $ bitcoin-cli getnewaddress
 tb1q5gnwrh7ss5mmqt0qfan85jdagmumnatcscwpk6
 ```
-
 As we've already seen, change addresses generated from within `bitcoin-cli` interact fine with Bech32 addresses, so there's no point in using the `legacy` flag there either:
 ```
 $ bitcoin-cli getrawchangeaddress
 tb1q05wx5tyadm8qe83exdqdyqvqqzjt3m38vfu8ff
 ```
 
-There are 2 different Segwit address formats. They are P2SH (starting with a "3") and bech32 (starting "bc1")
-P2SH can be sent to by people using older Bitcoin software with no Segwit support. This supports backwards compatibility
-People sending from newer Bitcoin software that has Segwit and bech32 can send to the new address type that starts "bc1"
-People sending from older Bitcoin software that has no Segwit probably cannot send to the new address type that starts "bc1"
+Again note the unique "tb1" prefix denoted Bech32.
 
-So, if people send you BTC from old software, give them the Segwit addresses that start with "3". If people send you BTC using new Segwit Bitcoin software, give them the Segwit addresses that start with "bc1".
+> :link: **TESTNET vs MAINNET:** "bc1" for mainnet.
 
-```
-$ bitcoin-cli getnewaddress
-tb1q5gnwrh7ss5mmqt0qfan85jdagmumnatcscwpk6
-```
-And Bitcoin-cli doesn't care. You can run a command like `listaddressgroupings` and it will freely mix addresses of the different types:
+Bitcoin-cli doesn't care which address type you're using. You can run a command like `listaddressgroupings` and it will freely mix addresses of the different types:
 ```
 $ bitcoin-cli listaddressgroupings
 [
@@ -115,7 +107,7 @@ $ bitcoin-cli listaddressgroupings
 ]
 ```
 
-## Send a SegWit Transaction
+## Send a SegWit Transaction The Easy Way
 
 So how do you send a Bitcoin transaction? Exactly like any other transaction. It doesn't matter if the UTXO is SegWit, the address is SegWit, or some combination thereof. You can expect `bitcoin-cli` to do the right thing. Though you can tell the differences via the addresses, they don't matter. (And this is one of the advantages of using the command line and the RPC interface, as suggested in this tutorial: because experts have already done the hard work for you, including things how to send to both legacy and Bech32 addresses. You just get to use that functionality to your own advantage.)
 
@@ -238,6 +230,9 @@ $ bitcoin-cli -named gettransaction txid="33173618421804343e8f6cc21316d97a24f743
   "hex": "020000000001016a66efa334f06e2c54963e48d049a35d7a1bda44633b7464621cae302f35174a0100000017160014f17b16c6404e85165af6f123173e0705ba31ec25feffffff0240420f00000000001976a914626ab1ca41d98f597d18d1ff8151e31a40d4967288acd2125d000000000017a914d5e76abfe5362704ff6bbb000db9cdfa43cd2881870247304402203b3ba83f51c1895b5f639e9bfc40124715e2495ef2c79d4e49c0f8f70fbf2feb02203d50710abe3cf37df4d2a73680dadf3cecbe4f2b5d0b276dbe7711d0c2fa971a012102e64f83ee1c6548bcf44cb965ffdb803f30224459bd2e57a5df97cb41ba476b119b0e1b00"
 }
 ```
+
+## Send a SegWit Transaction The Hard Way
+
 You can similarly fund a transaction with a Bech32 address with no difference to the techniques you've learned so far:
 ```
 $ changeaddress=$(bitcoin-cli getrawchangeaddress)
