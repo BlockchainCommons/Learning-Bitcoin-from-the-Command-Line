@@ -90,10 +90,15 @@ _This tutorial assumes that you have some minimal background of how to use the c
 
 **Status:** Unwritten. Chapter 14 may expand into multiple chapters.
 
-(At this point, I'm assuming that Lightning will be integrated into Standup, at which point we just need to tech how to use it.)
+(At this point, I'm assuming that Lightning will be integrated into Standup, at which point we just need to tech how to use it at a pretty basic level.)
 
 * 13.0: Understanding Lightning
+  * 13.1: Verifying Your Lightning Setup
+  * 13.2: Setting up a Channel
+  * 13.3: Receiving a Transaction
 * 14.0: Using Lightning
+  * 14.1: Sending a Transaction
+  * 14.X: Closing a Channel
 
 > _Some good docs from one of the developers are here: https://diyhpl.us/wiki/transcripts/blockstream-webinars/2019-07-31-rusty-russell-getting-started-with-c-lightning/._
 
