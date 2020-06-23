@@ -12,7 +12,7 @@ _This tutorial assumes that you have some minimal background of how to use the c
 
 ### PART ONE: PREPARING FOR BITCOIN
 
-**Status:** Undergoing light editing. Needs to have concepts brought up to 0.20.
+**Status:** May need new concepts from 0.20.
 
 * [1.0: Introducing Bitcoin](01_0_Introducing_Bitcoin.md)
 * [2.0: Setting Up a Bitcoin-Core VPS](02_0_Setting_Up_a_Bitcoin-Core_VPS.md)
