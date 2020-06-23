@@ -16,7 +16,7 @@ $ changeaddress=$(bitcoin-cli getrawchangeaddress legacy)
 $ echo $changeaddress
 mk9ry5VVy8mrA8SygxSQQUDNSSXyGFot6h
 ```
-Note that this uses a new function: `getrawchangeaddress`. It's largely the same as `getnewaddress` but is optimized for use as a change address in a raw transaction, so it doesn't do things like make entries in your address book.
+Note that this uses a new function: `getrawchangeaddress`. It's largely the same as `getnewaddress` but is optimized for use as a change address in a raw transaction, so it doesn't do things like make entries in your address book. We again selected the `legacy` address, instead of going with the default of `bech32`, simply for consistency. This is a situation where it would have been entirely safe to generate a default Bech32 address, just by using `bitcoin-cli getrawchangeaddress`, because it would being sent and received by you on your Bitcoin Core node which fully supports this. But, hobgoblins; we'll shift this over to Bech32 as well in [§4.6](04_6_Creating_a_Segwit_Transaction.md).
 
 You now have an additional address inside your wallet, so that you can receive change from a UTXO! In order to use it, you'll need to create a raw transaction with two outputs.
 
