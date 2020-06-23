@@ -2,7 +2,7 @@
 
 > :information_source: **NOTE:** This is a draft in progress, so that I can get some feedback from early reviewers. It is not yet ready for learning.
 
-In the previous section we overviewed the theory of how to create P2SH transactions to hold Bitcoin Scripts. The actual practice of doing so is _much more difficult_, but for the sake of completeness, we're going to look at it here. This is probably not something you'd ever do without an API, so if it gets to intimidating, be aware that we'll returning to pristine, high-level Scripts in a moment.
+In the previous section we overviewed the theory of how to create P2SH transactions to hold Bitcoin Scripts. The actual practice of doing so is _much more difficult_, but for the sake of completeness, we're going to look at it here. This is probably not something you'd ever do without an API, so if it gets too intimidating, be aware that we'll be returning to pristine, high-level Scripts in a moment.
 
 ## Create a Locking Script
 
