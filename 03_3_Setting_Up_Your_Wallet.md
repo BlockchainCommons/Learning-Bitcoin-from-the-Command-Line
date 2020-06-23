@@ -44,9 +44,9 @@ SegWit simply means "segregated witness" and it's a way of separating the transa
 
 There are two addresses of this sort:
 
-> :book: ***What is a P2SH-SegWit (Nested SegWit) address?*** This is the first generation of SegWit. It wraps the SegWit address in a Script hash to ensure backward compatibility. The result creates transactions that are about 25%+ smaller (with corresponding reductions in transaction fees). 
+> :book: ***What is a P2SH-SegWit (aka Nested SegWit, aka P2WSH) address?*** This is the first generation of SegWit. It wraps the SegWit address in a Script hash to ensure backward compatibility. The result creates transactions that are about 25%+ smaller (with corresponding reductions in transaction fees). 
 
-> :book: ***What is a Bech32 (Native SegWit) address?*** This is the second generation of SegWit. It's fully described in [BIP 173](https://en.bitcoin.it/wiki/BIP_0173). It creates transactions that are even smaller but more notably also has some advantages in creating addresses that are less prone to human error and have some implicit error-correction beyond that. It is *not* backward compatible like P2SH-SegWit was, and so some people may not be able to send to it.
+> :book: ***What is a Bech32 (aka Native SegWit, aka P2WPKH) address?*** This is the second generation of SegWit. It's fully described in [BIP 173](https://en.bitcoin.it/wiki/BIP_0173). It creates transactions that are even smaller but more notably also has some advantages in creating addresses that are less prone to human error and have some implicit error-correction beyond that. It is *not* backward compatible like P2SH-SegWit was, and so some people may not be able to send to it.
 
 There are other sorts of Bitcoin addresses, such as P2PK (which paid to a bare public key, and is deprecated because of its future insecurity) and P2SH (which pays to a Script Hash, and which is used by the first-generation Nested SegWit addresses; we'll meet it more fully in a few chapters).
 
