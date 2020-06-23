@@ -36,7 +36,7 @@ _This tutorial assumes that you have some minimal background of how to use the c
      * [Interlude: Using JQ](04_2__Interlude_Using_JQ.md)
   * [4.3: Creating a Raw Transaction with Named Arguments](04_3_Creating_a_Raw_Transaction_with_Named_Arguments.md)
   * [4.4: Sending Coins with Raw Transactions](04_4_Sending_Coins_with_a_Raw_Transaction.md)
-     * [Interlude: Using Curl](04_4__Interlude_Using_Curl.md) — Needs Rewrite for New Section
+     * [Interlude: Using Curl](04_4__Interlude_Using_Curl.md)
   * [4.5: Sending Coins with Automated Raw Transactions](04_5_Sending_Coins_with_Automated_Raw_Transactions.md)
   * [4.6: Creating a Segwit Transaction](04_6_Creating_a_Segwit_Transaction) — Awaiting Better Integration of Segwit into CLI
 * [5.0: Controlling Bitcoin Transactions](05_0_Controlling_Bitcoin_Transactions.md)
@@ -171,7 +171,7 @@ Additional contributions are listed below:
 
 | Role                | Names                                    |
 | ------------------- | ---------------------------------------- |
-| ***Contributors:*** | [javiervargas](https://github.com/javiervargas) (Java secction), [jodobear](https://github.com/jodobear) (Appendix I, Python section)                                   |
+| ***Contributors:*** | [Javier Vargas](https://github.com/javiervargas) (Java secction), [jodobear](https://github.com/jodobear) (Appendix I, Python section)                                   |
 | ***Reviewers:***    | Glen Willem [@gwillem](https://github.com/gwillem) |
 | ***Sponsors:***     | Blockstream Corporation                  |
 
