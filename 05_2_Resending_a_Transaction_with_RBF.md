@@ -4,7 +4,7 @@
 
 If your Bitcoin transaction is stuck, and you're sender, you can resend it using RBF (replace-by-fee). However, that's not all that RBF can do: it's generally a powerful and multipurpose feature that allows Bitcoin senders to recreate transactions for a variety of reasons.
 
-> :warning: **VERSION WARNING:** This is an innovation from Bitcoin Core v 0.12.0,that reached full maturity in the Bitcoin core wallet with Bitcoin Core v 0.14.0. Obviously, most people should be using it by now.
+> :warning: **VERSION WARNING:** This is an innovation from Bitcoin Core v 0.12.0,that reached full maturity in the Bitcoin Core wallet with Bitcoin Core v 0.14.0. Obviously, most people should be using it by now.
 
 ## Opt-In for RBF
 
@@ -12,45 +12,37 @@ RBF is an opt-in Bitcoin feature. Transactions are only eligible for using RBF i
 
 This is accomplished simply  by adding a `sequence` variable to your UTXO inputs:
 ```
-$ rawtxhex=$(bitcoin-cli -named createrawtransaction inputs='''[ { "txid": "'$utxo_txid'", "vout": '$utxo_vout', "sequence": 1 } ]''' outputs='''{ "'$recipient'": 0.1, "'$changeaddress'": 0.9 }''')
+$ rawtxhex=$(bitcoin-cli -named createrawtransaction inputs='''[ { "txid": "'$utxo_txid'", "vout": '$utxo_vout', "sequence": 1 } ]''' outputs='''{ "'$recipient'": 0.00007658, "'$changeaddress'": 0.00000001 }''')
 ```
 You should of course sign and send your transaction as usual:
 ```
 $ signedtx=$(bitcoin-cli -named signrawtransactionwithwallet hexstring=$rawtxhex | jq -r '.hex')
-$ bitcoin-cli -named sendrawtransaction hexstring=$signedtx
-7218b78ad4853eb957b610033b8e1ef48b01d948e0ec5dbf79f12caebc2b17e2
+standup@btctest20:~$ bitcoin-cli -named sendrawtransaction hexstring=$signedtx
+5b953a0bdfae0d11d20d195ea43ab7c31a5471d2385c258394f3bb9bb3089375
 ```
 Now, when you look at your transaction, you should see something new: the `bip125-replaceable` line, which has always been marked `no` before, is now marked `yes`:
 ```
-$ bitcoin-cli -named gettransaction txid=7218b78ad4853eb957b610033b8e1ef48b01d948e0ec5dbf79f12caebc2b17e2
+$ bitcoin-cli -named gettransaction txid=5b953a0bdfae0d11d20d195ea43ab7c31a5471d2385c258394f3bb9bb3089375                                                                     
+      
 {
-  "amount": -0.10000000,
-  "fee": 0.00000000,
+  "amount": 0.00000000,
+  "fee": -0.00000141,
   "confirmations": 0,
   "trusted": true,
-  "txid": "7218b78ad4853eb957b610033b8e1ef48b01d948e0ec5dbf79f12caebc2b17e2",
+  "txid": "5b953a0bdfae0d11d20d195ea43ab7c31a5471d2385c258394f3bb9bb3089375",
   "walletconflicts": [
   ],
-  "time": 1491603320,
-  "timereceived": 1491603320,
+  "time": 1592954399,
+  "timereceived": 1592954399,
   "bip125-replaceable": "yes",
   "details": [
-    {
-      "account": "",
-      "address": "n2eMqTT929pb1RDNuqEnxdaLau1rxy3efi",
-      "category": "send",
-      "amount": -0.10000000,
-      "vout": 0,
-      "fee": 0.00000000,
-      "abandoned": false
-    }
   ],
-  "hex": "02000000014e843e22cb8ee522fbf4d8a0967a733685d2ad92697e63f52ce41bec8f7c8ac0010000006b483045022100834731cd64efcc078d6c3e59cf0963599ffbc44722b7851b0404bb68e4a1fec70220759a0887ea791592c8119bbe61842eb3850a20cdf8433b4ba00d4ead752facfe012103456575f59a127a4c3e79c23f185899fa0a9ccd40162d05617fb112fa31bd14e5010000000280969800000000001976a914e7c1345fc8f87c68170b3aa798a956c2fe6a9eff88ac804a5d05000000001976a914c101d8c34de7b8d83b3f8d75416ffaea871d664988ac00000000"
+  "hex": "02000000000101fa364ad3cbdb08dd0b83aac009a42a9ed00594acd6883d2a466699996cd69d8b01000000000100000002ea1d000000000000160014d591091b8074a2375ed9985a9c4b18efecfd416501000000000000001600146c45d3afa8762086c4bd76d8a71ac7c976e1919602473044022077007dff4df9ce75430e3065c82321dca9f6bdcfd5812f8dc0daeb957d3dfd1602203a624d4e9720a06def613eeea67fbf13ce1fb6188d3b7e780ce6e40e859f275d0121038a2702938e548eaec28feb92c7e4722042cfd1ea16bec9fc274640dc5be05ec500000000"
 }
 ```
 The `bip125-replaceable` flag will stay `yes` until the transaction receives confirmations. At that point, it is no longer replacable.
 
-_Should I trust transactions with no confirmations?_ No, never. This was true before RBF and it was true after RBF. Transactions must receive confirmations before they are trustworthy. This is especially true if a transaction is marked as `bip125-replaceable`, because then it can be ... replaced.
+> :book: ***Should I trust transactions with no confirmations?*** No, never. This was true before RBF and it was true after RBF. Transactions must receive confirmations before they are trustworthy. This is especially true if a transaction is marked as `bip125-replaceable`, because then it can be ... replaced.
 
 > :information_source: **NOTE — SEQUENCE:** This is the first use of the `nSequence` value in Bitcoin. You can set it between 1 and 0xffffffff-2 (4294967293) and enable RBF, but if you're not careful you can run up against the parallel use of `nSequence` for relative timelocks. We suggest always setting it to "1", which is what Bitcoin Core does, but the other option is to set it to a value between 0xf0000000 (4026531840) and 0xffffffff-2 (4294967293). Setting it to "1" effectively makes relative timelocks irrelevent and setting it to 0xf0000000 or higher deactivates them. This is all explained further in [§9.3: Using CSV in Scripts](09_3_Using_CSV_in_Scripts.md). For now, just choose one of the non-conflicting values for `nSequence`.
 
@@ -58,56 +50,6 @@ _Should I trust transactions with no confirmations?_ No, never. This was true be
 
 If you prefer, you can _always_ opt in for RBF. Do so by running your `bitcoind` with the `-walletrbf` command. Once you've done this (and restarted your `bitcoind`), then all UTXOs should have a lower sequence number and the transaction should be marked as `bip125-replaceable`.
 
-Note the following example generated by `bitcoind`, where the UTXO indeed uses a sequence number of "1":
-```
-{
-  "txid": "d261b9494eb29084f668e1abd75d331fc2d6525dd206b2f5236753b5448ca12c",
-  "hash": "d261b9494eb29084f668e1abd75d331fc2d6525dd206b2f5236753b5448ca12c",
-  "size": 226,
-  "vsize": 226,
-  "version": 2,
-  "locktime": 0,
-  "vin": [
-    {
-      "txid": "4075dbf84303c01adcb0b36cd2c164e2b447192c2d9fbf5fde3b99d0ac7e64b6",
-      "vout": 1,
-      "scriptSig": {
-        "asm": "3045022100b3a0d66abe3429f81a6dc397369d6ac9cb025a2243b68649d95665967fe4365b022038cf037aaab9368268e97203494d1b542e83101e6aaaf97957daf70dee6ee0af[ALL] 022615f4b6417b991530df4bc8c8ee10b8925c741773fead7a5edd89337caeba53",
-        "hex": "483045022100b3a0d66abe3429f81a6dc397369d6ac9cb025a2243b68649d95665967fe4365b022038cf037aaab9368268e97203494d1b542e83101e6aaaf97957daf70dee6ee0af0121022615f4b6417b991530df4bc8c8ee10b8925c741773fead7a5edd89337caeba53"
-      },
-      "sequence": 1
-    }
-  ],
-  "vout": [
-    {
-      "value": 0.10000000,
-      "n": 0,
-      "scriptPubKey": {
-        "asm": "OP_DUP OP_HASH160 e7c1345fc8f87c68170b3aa798a956c2fe6a9eff OP_EQUALVERIFY OP_CHECKSIG",
-        "hex": "76a914e7c1345fc8f87c68170b3aa798a956c2fe6a9eff88ac",
-        "reqSigs": 1,
-        "type": "pubkeyhash",
-        "addresses": [
-          "n2eMqTT929pb1RDNuqEnxdaLau1rxy3efi"
-        ]
-      }
-    }, 
-    {
-      "value": 0.90000000,
-      "n": 1,
-      "scriptPubKey": {
-        "asm": "OP_DUP OP_HASH160 20219e4f3c6bc0f6524d538009e980091b3613e8 OP_EQUALVERIFY OP_CHECKSIG",
-        "hex": "76a91420219e4f3c6bc0f6524d538009e980091b3613e888ac",
-        "reqSigs": 1,
-        "type": "pubkeyhash",
-        "addresses": [
-          "miSrC3FvkPPZgqqvCiQycq7io7wTSVsAFH"
-        ]
-      }
-    }
-  ]
-}
-```
 > :warning: **VERSION WARNING:** The walletrbf flag require Bitcoin Core v.0.14.0.
 
 ## Understand How RBF Works
@@ -123,13 +65,13 @@ This means that the sequence number must be set to less than 0xffffffff-1. (4294
 > 4. The replacement transaction must pay for its own bandwidth in addition to the amount paid by the original transactions at or above the rate set by the node's minimum relay fee setting. For example, if the minimum relay fee is 1 satoshi/byte and the replacement transaction is 500 bytes total, then the replacement must pay a fee at least 500 satoshis higher than the sum of the originals.
 > 5. The number of original transactions to be replaced and their descendant transactions which will be evicted from the mempool must not exceed a total of 100 transactions.
 
-_What is a BIP?_ A BIP is a Bitcoin Improvement Proposal. It's an in-depth suggestion for a change to the Bitcoin Core code. Often, when a BIP has been sufficiently discussed and updated, it will become an actual part of the Bitcoin Core code. For example, BIP 125 was implemented in Bitcoin Core 0.12.0.
+> :book: ***What is a BIP?*** A BIP is a Bitcoin Improvement Proposal. It's an in-depth suggestion for a change to the Bitcoin Core code. Often, when a BIP has been sufficiently discussed and updated, it will become an actual part of the Bitcoin Core code. For example, BIP 125 was implemented in Bitcoin Core 0.12.0.
 
 The other thing to understand about RBF is that in order to use it, you must double-spend, reusing one or more the same UTXOs. Just sending another transaction with a different UTXO to the same recipient won't do the trick (and will likely result in your losing money). Instead, you must purposefully create a conflict, where the same UTXO is used in two different transactions. 
 
 Faced with this conflict, the miners will know to use the one with the higher fee, and they'll be incentivized to do so by that higher fee.
 
-_What is a double-spend?_ A double-spend occurs when someone sends the same electronic funds to two different people (or, to the same person twice, in two different transactions). This is a central problem for any e-cash system. It's solved in Bitcoin by the immutable ledger: once a transaction is sufficiently confirmed, no miners will verify transactions that reuse the same UTXO. However, it's possible to double-spend _before_ a transaction has been confirmed — which is why you always want one or more confirmations before you finalize a transaction. In the case of RBF, you purposefully double-spend because an initial transaction has stalled, and the miners accept your double-spend if you meet the specific criteria laid out by BIP 125.
+> :book: ***What is a double-spend?*** A double-spend occurs when someone sends the same electronic funds to two different people (or, to the same person twice, in two different transactions). This is a central problem for any e-cash system. It's solved in Bitcoin by the immutable ledger: once a transaction is sufficiently confirmed, no miners will verify transactions that reuse the same UTXO. However, it's possible to double-spend _before_ a transaction has been confirmed — which is why you always want one or more confirmations before you finalize a transaction. In the case of RBF, you purposefully double-spend because an initial transaction has stalled, and the miners accept your double-spend if you meet the specific criteria laid out by BIP 125.
 
 > :warning: **WARNING:** Some early discussions of this policy suggested that the `nSequence` number also be increased. This in fact was the intended use of `nSequence` in its original form. This is _not_ a part of the published policy in BIP 125. In fact, increasing your sequence number can accidentally lock your transaction with a relative timelock, unless you use sequence numbers in the range of 0xf0000000 (4026531840) to 0xffffffff-2 (4294967293).
 
@@ -139,74 +81,77 @@ In order to create an RBF transaction by hand, all you have to do is create a ra
 
 The following example just reuses our existing variables, but decreases the amount sent to the change address, to increase the fee from the accidental 0 BTC of the original transaction to an overly generous 0.01 BTC in the new transaction:
 ```
-$ rawtxhex=$(bitcoin-cli -named createrawtransaction inputs='''[ { "txid": "'$utxo_txid'", "vout": '$utxo_vout', "sequence": 1 } ]''' outputs='''{ "'$recipient'": 0.1, "'$changeaddress'": 0.89 }''')
+$ rawtxhex=$(bitcoin-cli -named createrawtransaction inputs='''[ { "txid": "'$utxo_txid'", "vout": '$utxo_vout', "sequence": 1 } ]''' outputs='''{ "'$recipient'": 0.000075, "'$changeaddress'": 0.00000001 }''')
 ```
 We of course must re-sign it and resend it:
 ```
 $ signedtx=$(bitcoin-cli -named signrawtransactionwithwallet hexstring=$rawtxhex | jq -r '.hex')
 $ bitcoin-cli -named sendrawtransaction hexstring=$signedtx
-959b0b0f4c8350e9038279dfe0f5ae7b165660cc1281e37bea08d0bd084edb39
+c6de60427b28d8ec8102e49771e5d0348fc3ef6a5bf02eb864ec745105a6951b
 ```
-After several blocks have been created, the original transaction continues to hang around:
+You can now look at your original transaction and see that it has `walletconflicts`:
 ```
-$ bitcoin-cli -named gettransaction txid=7218b78ad4853eb957b610033b8e1ef48b01d948e0ec5dbf79f12caebc2b17e2
+$ bitcoin-cli -named gettransaction txid=5b953a0bdfae0d11d20d195ea43ab7c31a5471d2385c258394f3bb9bb3089375
 {
-  "amount": -0.10000000,
-  "fee": 0.00000000,
-  "confirmations": -5,
+  "amount": 0.00000000,
+  "fee": -0.00000141,
+  "confirmations": 0,
   "trusted": false,
-  "txid": "7218b78ad4853eb957b610033b8e1ef48b01d948e0ec5dbf79f12caebc2b17e2",
+  "txid": "5b953a0bdfae0d11d20d195ea43ab7c31a5471d2385c258394f3bb9bb3089375",
   "walletconflicts": [
-    "959b0b0f4c8350e9038279dfe0f5ae7b165660cc1281e37bea08d0bd084edb39"
+    "c6de60427b28d8ec8102e49771e5d0348fc3ef6a5bf02eb864ec745105a6951b"
   ],
-  "time": 1491603320,
-  "timereceived": 1491603320,
+  "time": 1592954399,
+  "timereceived": 1592954399,
   "bip125-replaceable": "yes",
   "details": [
-    {
-      "account": "",
-      "address": "n2eMqTT929pb1RDNuqEnxdaLau1rxy3efi",
-      "category": "send",
-      "amount": -0.10000000,
-      "vout": 0,
-      "fee": 0.00000000,
-      "abandoned": false
-    }
   ],
-  "hex": "02000000014e843e22cb8ee522fbf4d8a0967a733685d2ad92697e63f52ce41bec8f7c8ac0010000006b483045022100834731cd64efcc078d6c3e59cf0963599ffbc44722b7851b0404bb68e4a1fec70220759a0887ea791592c8119bbe61842eb3850a20cdf8433b4ba00d4ead752facfe012103456575f59a127a4c3e79c23f185899fa0a9ccd40162d05617fb112fa31bd14e5010000000280969800000000001976a914e7c1345fc8f87c68170b3aa798a956c2fe6a9eff88ac804a5d05000000001976a914c101d8c34de7b8d83b3f8d75416ffaea871d664988ac00000000"
+  "hex": "02000000000101fa364ad3cbdb08dd0b83aac009a42a9ed00594acd6883d2a466699996cd69d8b01000000000100000002ea1d000000000000160014d591091b8074a2375ed9985a9c4b18efecfd416501000000000000001600146c45d3afa8762086c4bd76d8a71ac7c976e1919602473044022077007dff4df9ce75430e3065c82321dca9f6bdcfd5812f8dc0daeb957d3dfd1602203a624d4e9720a06def613eeea67fbf13ce1fb6188d3b7e780ce6e40e859f275d0121038a2702938e548eaec28feb92c7e4722042cfd1ea16bec9fc274640dc5be05ec500000000"
 }
 ```
-Note that `bitcoin-cli` recognizes that there's a conflict with another transaction in the `walletconflicts` section. Also note that this transaction is now listed with _negative confirmations_, which marks how long it's been since the opposing double-spend was confirmed.
+This represents the fact that two different transactions are both trying to use the same UTXO. 
 
-Meanwhile, the new transaction worked fine:
+Eventually, the transaction with the larger fee should be accepted:
 ```
-$ bitcoin-cli -named gettransaction txid=959b0b0f4c8350e9038279dfe0f5ae7b165660cc1281e37bea08d0bd084edb39
+$ bitcoin-cli -named gettransaction txid=c6de60427b28d8ec8102e49771e5d0348fc3ef6a5bf02eb864ec745105a6951b
 {
-  "amount": -0.10000000,
-  "fee": -0.01000000,
-  "confirmations": 5,
-  "blockhash": "00000000000006eeb468791e5ee0d86613c03acd871ef7d89c25fd28474754d5",
-  "blockindex": 20,
-  "blocktime": 1491603862,
-  "txid": "959b0b0f4c8350e9038279dfe0f5ae7b165660cc1281e37bea08d0bd084edb39",
+  "amount": 0.00000000,
+  "fee": -0.00000299,
+  "confirmations": 2,
+  "blockhash": "0000000000000055ac4b6578d7ffb83b0eccef383ca74500b00f59ddfaa1acab",
+  "blockheight": 1773266,
+  "blockindex": 9,
+  "blocktime": 1592955002,
+  "txid": "c6de60427b28d8ec8102e49771e5d0348fc3ef6a5bf02eb864ec745105a6951b",
   "walletconflicts": [
-    "7218b78ad4853eb957b610033b8e1ef48b01d948e0ec5dbf79f12caebc2b17e2"
+    "5b953a0bdfae0d11d20d195ea43ab7c31a5471d2385c258394f3bb9bb3089375"
   ],
-  "time": 1491603673,
-  "timereceived": 1491603673,
+  "time": 1592954467,
+  "timereceived": 1592954467,
   "bip125-replaceable": "no",
   "details": [
-    {
-      "account": "",
-      "address": "n2eMqTT929pb1RDNuqEnxdaLau1rxy3efi",
-      "category": "send",
-      "amount": -0.10000000,
-      "vout": 0,
-      "fee": -0.01000000,
-      "abandoned": false
-    }
   ],
-  "hex": "02000000014e843e22cb8ee522fbf4d8a0967a733685d2ad92697e63f52ce41bec8f7c8ac0010000006a47304402207fea4a11db8576257b9d9e104aa07cb3d3ae6a42e38dd7126111276ca5b45daa0220594a3553cc278c43fd015b35029d5b9596d4ac9f36d3d20fb1a8c9efface5c50012103456575f59a127a4c3e79c23f185899fa0a9ccd40162d05617fb112fa31bd14e5020000000280969800000000001976a914e7c1345fc8f87c68170b3aa798a956c2fe6a9eff88ac40084e05000000001976a914c101d8c34de7b8d83b3f8d75416ffaea871d664988ac00000000"
+  "hex": "02000000000101fa364ad3cbdb08dd0b83aac009a42a9ed00594acd6883d2a466699996cd69d8b010000000001000000024c1d000000000000160014d591091b8074a2375ed9985a9c4b18efecfd416501000000000000001600146c45d3afa8762086c4bd76d8a71ac7c976e1919602473044022077dcdd98d85f6247450185c2b918a0f434d9b2e647330d741944ecae60d6ff790220424f85628cebe0ffe9fa11029b8240d08bdbfcc0c11f799483e63b437841b1cd0121038a2702938e548eaec28feb92c7e4722042cfd1ea16bec9fc274640dc5be05ec500000000"
+}
+```
+Meanwhile, the original transaction with the lower fee starts picking up negative confirmations, to show its divergence from the blockchain:
+```
+$ bitcoin-cli -named gettransaction txid=5b953a0bdfae0d11d20d195ea43ab7c31a5471d2385c258394f3bb9bb3089375
+{
+  "amount": 0.00000000,
+  "fee": -0.00000141,
+  "confirmations": -2,
+  "trusted": false,
+  "txid": "5b953a0bdfae0d11d20d195ea43ab7c31a5471d2385c258394f3bb9bb3089375",
+  "walletconflicts": [
+    "c6de60427b28d8ec8102e49771e5d0348fc3ef6a5bf02eb864ec745105a6951b"
+  ],
+  "time": 1592954399,
+  "timereceived": 1592954399,
+  "bip125-replaceable": "yes",
+  "details": [
+  ],
+  "hex": "02000000000101fa364ad3cbdb08dd0b83aac009a42a9ed00594acd6883d2a466699996cd69d8b01000000000100000002ea1d000000000000160014d591091b8074a2375ed9985a9c4b18efecfd416501000000000000001600146c45d3afa8762086c4bd76d8a71ac7c976e1919602473044022077007dff4df9ce75430e3065c82321dca9f6bdcfd5812f8dc0daeb957d3dfd1602203a624d4e9720a06def613eeea67fbf13ce1fb6188d3b7e780ce6e40e859f275d0121038a2702938e548eaec28feb92c7e4722042cfd1ea16bec9fc274640dc5be05ec500000000"
 }
 ```
 Our recipients have their money, and the original, failed transaction will eventually fall out of the mempool.
