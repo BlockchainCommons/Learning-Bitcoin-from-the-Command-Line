@@ -2,18 +2,37 @@
 
 > **NOTE:** This is a draft in progress, so that I can get some feedback from early reviewers. It is not yet ready for learning.
 
-[needs new intro]
+Interacting with the bitcoind directly and using command-line curl can get simple if you understand how it works, thus in this section we'll show how to use a good package for doing so in C called libbitcoinrpc that provides the functionality to access JSON-RPC bitcoind API.  It uses a curl library for accessing the data and it uses the jansson library for encoding and decoding the JSON.
 
 ## Set Up libbitcoinrpc
 
 To use `libbitcoinrpc`, you need to install a basic C setup and the dependent packages `libcurl`, `libjansson`, and `libuuid`. The following will do so on a Ubuntu system:
 ```
 $ sudo apt-get install make gcc libcurl4-openssl-dev libjansson-dev uuid-dev
+Suggested packages:
+  libcurl4-doc libidn11-dev libkrb5-dev libldap2-dev librtmp-dev libssh2-1-dev
+The following NEW packages will be installed:
+  libcurl4-openssl-dev libjansson-dev uuid-dev
+0 upgraded, 3 newly installed, 0 to remove and 4 not upgraded.
+Need to get 358 kB of archives.
+After this operation, 1.696 kB of additional disk space will be used.
+Do you want to continue? [Y/n] y
 ```
 You can then download [libbitcoinrpc from Github](https://github.com/gitmarek/libbitcoinrpc/blob/master/README.md). Clone it or grab a zip file, as you prefer.
 ```
 $ sudo apt-get unzip
 $ unzip libbitcoinrpc-master.zip 
+unzip libbitcoinrpc-master.zip 
+Archive:  libbitcoinrpc-master.zip
+a2285e8f221185cd0afdcfaf1bc8c78988fce09a
+   creating: libbitcoinrpc-master/
+  inflating: libbitcoinrpc-master/.gitignore  
+  inflating: libbitcoinrpc-master/.travis.yml  
+  inflating: libbitcoinrpc-master/CREDITS  
+  inflating: libbitcoinrpc-master/Changelog.md  
+  inflating: libbitcoinrpc-master/LICENSE  
+  inflating: libbitcoinrpc-master/Makefile  
+  inflating: libbitcoinrpc-master/README.md  
 $ cd libbitcoinrpc-master/
 ```
 
@@ -36,11 +55,55 @@ INSTALL_HEADERPATH    := $(INSTALL_PREFIX)/usr/include
 
 Then you can compile:
 ```
-$ make
+$ ~/libbitcoinrpc-master$ make
+
+gcc -fPIC -O3 -g -Wall -Werror -Wextra -std=c99 -D VERSION=\"0.2\" -o src/bitcoinrpc_err.o -c src/bitcoinrpc_err.c
+gcc -fPIC -O3 -g -Wall -Werror -Wextra -std=c99 -D VERSION=\"0.2\" -o src/bitcoinrpc_global.o -c src/bitcoinrpc_global.c
+gcc -fPIC -O3 -g -Wall -Werror -Wextra -std=c99 -D VERSION=\"0.2\" -o src/bitcoinrpc.o -c src/bitcoinrpc.c
+gcc -fPIC -O3 -g -Wall -Werror -Wextra -std=c99 -D VERSION=\"0.2\" -o src/bitcoinrpc_resp.o -c src/bitcoinrpc_resp.c
+gcc -fPIC -O3 -g -Wall -Werror -Wextra -std=c99 -D VERSION=\"0.2\" -o src/bitcoinrpc_cl.o -c src/bitcoinrpc_cl.c
+gcc -fPIC -O3 -g -Wall -Werror -Wextra -std=c99 -D VERSION=\"0.2\" -o src/bitcoinrpc_method.o -c src/bitcoinrpc_method.c
+gcc -fPIC -O3 -g -Wall -Werror -Wextra -std=c99 -D VERSION=\"0.2\" -shared -Wl,-soname,libbitcoinrpc.so.0 \
+src/bitcoinrpc_err.o src/bitcoinrpc_global.o src/bitcoinrpc.o src/bitcoinrpc_resp.o src/bitcoinrpc_cl.o src/bitcoinrpc_method.o \
+-o .lib/libbitcoinrpc.so.0.2 \
+-Wl,--copy-dt-needed-entries -luuid -ljansson -lcurl
+ldconfig -v -n .lib
+.lib:
+	libbitcoinrpc.so.0 -> libbitcoinrpc.so.0.2 (changed)
+ln -fs libbitcoinrpc.so.0 .lib/libbitcoinrpc.so
+~/libbitcoinrpc-master$ sudo make install
+Installing to 
+install .lib/libbitcoinrpc.so.0.2 /usr/local/lib
+ldconfig  -n /usr/local/lib
+ln -fs libbitcoinrpc.so.0 /usr/local/lib/libbitcoinrpc.so
+install -m 644 src/bitcoinrpc.h /usr/local/include
+Installing docs to /usr/share/doc/bitcoinrpc
+mkdir -p /usr/share/doc/bitcoinrpc
+install -m 644 doc/*.md /usr/share/doc/bitcoinrpc
+install -m 644 CREDITS /usr/share/doc/bitcoinrpc
+install -m 644 LICENSE /usr/share/doc/bitcoinrpc
+install -m 644 Changelog.md /usr/share/doc/bitcoinrpc
+Installing man pages
+install -m 644 doc/man3/bitcoinrpc*.gz /usr/local/man/man3
+~/libbitcoinrpc-master$
+
 ```
 If that works, you can install the package:
 ```
 $ sudo make install
+Installing to 
+install .lib/libbitcoinrpc.so.0.2 /usr/local/lib
+ldconfig  -n /usr/local/lib
+ln -fs libbitcoinrpc.so.0 /usr/local/lib/libbitcoinrpc.so
+install -m 644 src/bitcoinrpc.h /usr/local/include
+Installing docs to /usr/share/doc/bitcoinrpc
+mkdir -p /usr/share/doc/bitcoinrpc
+install -m 644 doc/*.md /usr/share/doc/bitcoinrpc
+install -m 644 CREDITS /usr/share/doc/bitcoinrpc
+install -m 644 LICENSE /usr/share/doc/bitcoinrpc
+install -m 644 Changelog.md /usr/share/doc/bitcoinrpc
+Installing man pages
+install -m 644 doc/man3/bitcoinrpc*.gz /usr/local/man/man3
 ```
 
 ## Write Code in C
@@ -212,7 +275,7 @@ Successfully connected to server!
 ```
 ## Appendix II: Getting Mining Info
 
-Here's the complete code for the `getmininginfo` command, with organized variable initiatialization, error checking, and variable cleanup.
+Here's the complete code for the `getmininginfo` command, with organized variable initiatialization, error checking, and variable cleanup.   For this example we use a regtest network and show it's output.
 ```
 file: getmininginfo.c
 
@@ -233,7 +296,7 @@ int main(void) {
 
   bitcoinrpc_global_init();
 
-  rpc_client = bitcoinrpc_cl_init_params ("bitcoinrpc", "73bd45ba60ab8f9ff9846b6404769487", "127.0.0.1", 18332);
+  rpc_client = bitcoinrpc_cl_init_params ("bitcoinrpc", "73bd45ba60ab8f9ff9846b6404769487", "127.0.0.1", 18443);
 
   if (rpc_client) {
     getmininginfo = bitcoinrpc_method_init(BITCOINRPC_METHOD_GETMININGINFO);
@@ -295,32 +358,26 @@ As usual, you can compile and run as follows:
 $ cc getmininginfo.c -lbitcoinrpc -ljansson -o getmininginfo
 $ ./getmininginfo 
 Full Response: {
-  "id": "03406237-cd8f-466d-ac31-86711ea9d1db",
   "result": {
-    "blocks": 1147154,
-    "errors": "Warning: unknown new rules activated (versionbit 28)",
-    "pooledtx": 0,
-    "currentblocksize": 0,
-    "currentblockweight": 0,
-    "currentblocktx": 0,
-    "difficulty": 313525.08513550513,
-    "networkhashps": 3958339463617.417,
-    "chain": "test"
+    "blocks": 1100,
+    "difficulty": 4.6565423739069252e-10,
+    "networkhashps": 0.01006838108822419,
+    "pooledtx": 1,
+    "chain": "regtest",
+    "warnings": ""
   },
-  "error": null
+  "error": null,
+  "id": "d07a55cc-000a-469e-ad7f-c8cef46644da"
 }
 
 Just the Result: {
-  "blocks": 1147154,
-  "errors": "Warning: unknown new rules activated (versionbit 28)",
-  "pooledtx": 0,
-  "currentblocksize": 0,
-  "currentblockweight": 0,
-  "currentblocktx": 0,
-  "difficulty": 313525.08513550513,
-  "networkhashps": 3958339463617.417,
-  "chain": "test"
+  "blocks": 1100,
+  "difficulty": 4.6565423739069252e-10,
+  "networkhashps": 0.01006838108822419,
+  "pooledtx": 1,
+  "chain": "regtest",
+  "warnings": ""
 }
 
-Block Count: 1147154
+Block Count: 1100
 ```
