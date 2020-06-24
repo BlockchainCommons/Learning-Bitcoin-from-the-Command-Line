@@ -22,7 +22,7 @@ You create a SegWit address the same way as any other address, with the `getnewa
 
 If you need to create an address for someone who can't send to the newer Bech32 addresses, then use the `p2sh-segwit` addresstype:
 ```
-$ bitcoin-cli getnewaddress -addresstype p2sh-segwit
+$ bitcoin-cli -named getnewaddress address_type=p2sh-segwit
 2N5h2r4karVqN7uFtpcn8xnA3t5cbpszgyN
 ```
 Seeing an address with a "2" prefix means that you did it right.
