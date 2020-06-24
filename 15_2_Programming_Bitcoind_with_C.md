@@ -64,7 +64,7 @@ float tx_total = tx_amount + tx_fee;
 
 ### X. Prepare Your RPC 
 
-Obviously, you're going to need to get all of your variables ready again, as discussed in [§12.2: Accessing Bitcoind with C](15_1_Accessing_Bitcoind_with_C.md). You also need to initialize your library, connect your RPC client, and prepare your response object:
+Obviously, you're going to need to get all of your variables ready again, as discussed in [§15.1: Accessing Bitcoind with C](15_1_Accessing_Bitcoind_with_C.md). You also need to initialize your library, connect your RPC client, and prepare your response object:
 ```
 bitcoinrpc_global_init();
 rpc_client = bitcoinrpc_cl_init_params ("bitcoinrpc", "73bd45ba60ab8f9ff9846b6404769487", "127.0.0.1", 18332);
