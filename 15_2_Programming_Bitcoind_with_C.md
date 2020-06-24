@@ -157,6 +157,7 @@ if (!tx_id) {
 
 Repeat the standard RPC-lookup methodology to get a new address using get new address method.
 ```
+    rpc_method = bitcoinrpc_method_init(BITCOINRPC_METHOD_GETNEWADDRESS);
     lu_response = bitcoinrpc_resp_get (btcresponse);
     lu_result = json_object_get(lu_response,"result");
     char *address = strdup(json_string_value(lu_result));
