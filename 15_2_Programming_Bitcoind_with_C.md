@@ -341,7 +341,7 @@ The entire code, with a _little_ more error-checking appears in the Appendix.
 
 ## Summary: Programming Bitcoind with C
 
-Using the techniques outlined in [§12.2](12_2_Accessing_Bitcoind_with_C.md) you can write a much more complex program using C calls. This section offers an example, with the first cut of a program that will send money to an address, without your users worrying about where it's coming from, how much they're paying as a fee, or how they get their change back. Obviously, a real-world program would need much better user-input control and error handling, but by outlining how the RPC code works, this section opens up the programming doorways to allow you to take the next step.
+Using the techniques outlined in [§15.1](15_1_Accessing_Bitcoind_with_C.md) you can write a much more complex program using C calls. This section offers an example, with the first cut of a program that will send money to an address, without your users worrying about where it's coming from, how much they're paying as a fee, or how they get their change back. Obviously, a real-world program would need much better user-input control and error handling, but by outlining how the RPC code works, this section opens up the programming doorways to allow you to take the next step.
 
 ## Appendix: Sending to an Address
 
