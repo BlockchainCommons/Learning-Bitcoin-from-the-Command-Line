@@ -26,7 +26,7 @@ Replace our current scripts with Bitcoin Standup (which was based on those scrip
    * <strike>Edit & Check Chapter 4</strike> **6/23**
       * <strike>Double-check fee calculator in 4.2I with a more complex example</strike> **6/19**
       * <strike>Integrate older Curl Interlude</strike> **6/19**
-   * Edit & Check Chapter 5
+   * <strike>Edit & Check Chapter 5</strike> **6/23**
    * Edit & Check Chapter 6
    
 ## 3. Add BTCDEB Support
