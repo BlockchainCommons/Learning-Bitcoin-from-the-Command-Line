@@ -512,7 +512,7 @@ int main(int argc, char *argv[]) {
 
     /* 5.2 Create the Output Parameters */
     
-    json_t *outputparams = NULL;
+     json_t *outputparams = NULL;
     outputparams = json_object();
     
     char tx_amount_string[32];
