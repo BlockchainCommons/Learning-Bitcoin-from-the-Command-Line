@@ -27,7 +27,7 @@ Replace our current scripts with Bitcoin Standup (which was based on those scrip
       * <strike>Double-check fee calculator in 4.2I with a more complex example</strike> **6/19**
       * <strike>Integrate older Curl Interlude</strike> **6/19**
    * <strike>Edit & Check Chapter 5</strike> **6/23**
-   * Edit & Check Chapter 6
+   * Edit & Check Chapter 6 **6.1, 6.2, 6.3 done**
    
 ## 3. Add BTCDEB Support
 
@@ -54,7 +54,9 @@ Add and document the following new concepts:
    * <strike>Integrate discussions of SegWit into early parts of chapter 4.</strike> **6/23**
    * <strike>Write chapter 4.6</strike> **6/23**
 12. Add PSBT. Partially Signed Bitcoin Transactions are a powerful new interchange format that should be fully included in our discussions of multi-sigs and escrows (which instead fell back on older methodologies in v1.0).
-13. Add Wallet Updates. Some improvements have been made to wallet functionality, including Bitcoin Descriptors, and they should be added to the course.
+13. Add Wallet Updates.
+   * Bitcoin Descriptors
+   * Key Ordering
 14. Consider HWI. We need to investigate the Hardware Wallet Interface, which uses PSBTs with hardware wallets, and see if it's something we should include (and if our readers want us to).
 
 ## 5. Finish Later Chapters
