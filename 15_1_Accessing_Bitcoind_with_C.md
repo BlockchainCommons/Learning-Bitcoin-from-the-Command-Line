@@ -275,7 +275,7 @@ Successfully connected to server!
 ```
 ## Appendix II: Getting Mining Info
 
-Here's the complete code for the `getmininginfo` command, with organized variable initiatialization, error checking, and variable cleanup.   For this example we use a regtest network and show it's output.
+Here's the complete code for the `getmininginfo` command, with organized variable initiatialization, error checking, and variable cleanup.   For this example we use a testnet network and show it's output.
 ```
 file: getmininginfo.c
 
@@ -359,25 +359,25 @@ $ cc getmininginfo.c -lbitcoinrpc -ljansson -o getmininginfo
 $ ./getmininginfo 
 Full Response: {
   "result": {
-    "blocks": 1100,
-    "difficulty": 4.6565423739069252e-10,
-    "networkhashps": 0.01006838108822419,
-    "pooledtx": 1,
-    "chain": "regtest",
-    "warnings": ""
+    "blocks": 1773353,
+    "difficulty": 10178811.406987719,
+    "networkhashps": 129510207940932.2,
+    "pooledtx": 9,
+    "chain": "test",
+    "warnings": "Warning: unknown new rules activated (versionbit 28)"
   },
   "error": null,
-  "id": "d07a55cc-000a-469e-ad7f-c8cef46644da"
+  "id": "6e502927-b065-486a-8182-bc1acd843bae"
 }
 
 Just the Result: {
-  "blocks": 1100,
-  "difficulty": 4.6565423739069252e-10,
-  "networkhashps": 0.01006838108822419,
-  "pooledtx": 1,
-  "chain": "regtest",
-  "warnings": ""
+  "blocks": 1773353,
+  "difficulty": 10178811.406987719,
+  "networkhashps": 129510207940932.2,
+  "pooledtx": 9,
+  "chain": "test",
+  "warnings": "Warning: unknown new rules activated (versionbit 28)"
 }
 
-Block Count: 1100
+Block Count: 1773353
 ```
