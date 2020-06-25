@@ -1,4 +1,4 @@
-# 18.1: Accessing Bitcoind with NodeJS
+# 18.1: Accessing Bitcoind with Go
 
 ## Set up Go
 
