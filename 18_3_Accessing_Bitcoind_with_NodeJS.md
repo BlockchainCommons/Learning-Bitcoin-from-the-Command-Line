@@ -201,9 +201,9 @@ You should get an output similar to this:
 }
 ```
 
-### Get address balance
+### Get Amount Received by an Address
 
-A useful function when accepting Bitcoin is checking the balance of a specific address in your wallet. For example, if you were running an online store accepting Bitcoin, for each payment from a customer, you would generate a new address (as we did with ```getNewAddress``` function), show that address to the customer, then check the balance of the address after some time, to make sure the correct amount has been received:
+A useful function when accepting Bitcoin is checking the received Bitcoin of a specific address in your wallet. For example, if you were running an online store accepting Bitcoin, for each payment from a customer, you would generate a new address (as we did with ```getNewAddress``` function), show that address to the customer, then check the balance of the address after some time, to make sure the correct amount has been received:
 
 ```
 agent.getReceivedByAddress('mpGpCMX6SuUimDZKiVViuhd7EGyVxkNnha', function (err, addressInfo) {
