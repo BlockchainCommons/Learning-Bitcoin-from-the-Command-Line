@@ -1,7 +1,5 @@
 # 18.3: Accessing Bitcoind with NodeJS
 
-> **NOTE:** This is a draft in progress, so that I can get some feedback from early reviewers. It is not yet ready for learning.
-
 ## Set Up Node.js
 
 BCRPC is built on node.js. Thus, you'll first need to install the `node.js` and `npm` (node package manager) packages for your system. 
