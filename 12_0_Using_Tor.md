@@ -4,6 +4,6 @@ _This is currently a placeholder; Writing it in Task #15 on the current [TODO li
 
 This section will talk about using the Tor services that are now available courtesy of Bitcoin Standup._)
 
-  * [12.1: Verifying Your Tor Setup](12_1_Verifying_Your_Tor_Setup)
+  * [12.1: Verifying Your Tor Setup](https://github.com/javiervargas/Learning-Bitcoin-from-the-Command-Line/blob/master/12_1_Verifying_Your_Tor_Setup.md)
   * 12.2: Changing Your Bitcoin Hidden Services
   * 12.3: Adding SSH Hiddne Services
