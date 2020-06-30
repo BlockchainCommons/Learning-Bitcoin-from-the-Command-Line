@@ -18,7 +18,7 @@ Configuration was valid
 ```
 ## Verify bitcoind Tor setup
 
-You should see something like this in your debug log file to verify your ID onion address.
+You should see something like this in your debug log file to verify your ID onion address, which confirms you're using an onion hidden service that will bypass firewalls and NAT's and allows you connect to your node remotely using your ID and port.
 
 ```
 $ grep -e "tor: " debug.log
