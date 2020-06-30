@@ -11,6 +11,7 @@ After working through this chapter, a developer will be able to:
    * Demonstrate that Their Bitcoin Node is Installed and Up-to-date
    * Create an Address to Receive Bitcoin Funds
    * Use Basic Wallet Commands
+   * Import Addresses
    
 Supporting objectives include the ability to:
 
