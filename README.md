@@ -121,7 +121,7 @@ _This tutorial assumes that you have some minimal background of how to use the c
   * [18.2: Accessing Bitcoind with Java](18_2_Accessing_Bitcoind_with_Java.md)
   * [18.3: Accessing Bitcoind with_Node_JS](18_3_Accessing_Bitcoind_with_NodeJS.md)  — Needs Rewrite + Editing
   * [18.4: Accessing Bitcoind with Python](18_4_Accessing_Bitcoind_with_Python.md)
-  * [18.5: Accessing Bitcoind with Rust] — Unwritten
+  * [18.5: Accessing Bitcoind with Rust](18_5_Accessing_Bitcoind_with_Rust.md)
   * [18.6: Accessing Bitcoind with Swift] — Unwritten
   
 ### APPENDICES
@@ -200,4 +200,3 @@ The following keys may be used to communicate sensitive information to developer
 | Christopher Allen | FDFE 14A5 4ECB 30FC 5D22  74EF F8D3 6C91 3574 05ED |
 
 You can import a key by running the following command with that individual’s fingerprint: `gpg --recv-keys "<fingerprint>"` Ensure that you put quotes around fingerprints that contain spaces.
-
