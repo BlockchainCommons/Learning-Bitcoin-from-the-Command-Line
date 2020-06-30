@@ -16,3 +16,73 @@ Configuration was valid
 
 ~$ 
 ```
+## Verify bitcoind Tor setup
+
+You should see something like this in your debug log file to verify your ID onion address.
+
+```
+$ grep -e "tor: " debug.log
+```
+Output
+
+```
+2020-06-25T18:16:44Z tor: Thread interrupt
+2020-06-25T19:11:12Z tor: Got service ID [YOUR_ONION_ID], advertising service your_onion_id.onion:8333
+```
+Using bitcoin-cli you should use:
+
+```
+$ bitcoin-cli getnetworkinfo
+```
+Output
+
+```
+{
+  "version": 200000,
+  "subversion": "/Satoshi:0.20.0/",
+  "protocolversion": 70015,
+  "localservices": "0000000000000409",
+  "localservicesnames": [
+    "NETWORK",
+    "WITNESS",
+    "NETWORK_LIMITED"
+  ],
+  "localrelay": true,
+  "timeoffset": 0,
+  "networkactive": true,
+  "connections": 5,
+  "networks": [
+    {
+      "name": "ipv4",
+      "limited": false,
+      "reachable": true,
+      "proxy": "",
+      "proxy_randomize_credentials": false
+    },
+    {
+      "name": "ipv6",
+      "limited": false,
+      "reachable": true,
+      "proxy": "",
+      "proxy_randomize_credentials": false
+    },
+    {
+      "name": "onion",
+      "limited": false,
+      "reachable": true,
+      "proxy": "127.0.0.1:9050",
+      "proxy_randomize_credentials": true
+    }
+  ],
+  "relayfee": 0.00001000,
+  "incrementalfee": 0.00001000,
+  "localaddresses": [
+    {
+      "address": "your_onion_id.onion",
+      "port": 8333,
+      "score": 4
+    }
+  ],
+  "warnings": ""
+}
+```
