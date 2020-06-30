@@ -28,4 +28,4 @@ Supporting objectives include the ability to:
 * [Section Three: Setting Up Your Wallet](03_3_Setting_Up_Your_Wallet.md)
    * [Interlude: Using Command-Line Variables](03_3__Interlude_Using_Command-Line_Variables.md)
 * [Section Four: Receiving a Transaction](03_4_Receiving_a_Transaction.md)
-
+* [Section Five: Understanding the Descriptor](03_5_Understanding_the_Descriptor.md)
