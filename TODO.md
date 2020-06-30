@@ -18,7 +18,7 @@ Replace our current scripts with Bitcoin Standup (which was based on those scrip
 
 ## 2. Upgrade to 0.20
 
-9. Walk through chapters 1-6, making sure all commands work with Bitcoin Core 0.20 (and changing them if not). Redo the output of all examples.
+9. <strike>Walk through chapters 1-6, making sure all commands work with Bitcoin Core 0.20 (and changing them if not). Redo the output of all examples.</strike> **6/19**, **6/23**, **6/30**
    * <strike>Edit Chapter 0</strike> **6/19**
    * <strike>Edit Chapter 1</strike> **6/19**
    * <strike>Re-edit Chapter 2</strike> **6/19**
@@ -27,7 +27,7 @@ Replace our current scripts with Bitcoin Standup (which was based on those scrip
       * <strike>Double-check fee calculator in 4.2I with a more complex example</strike> **6/19**
       * <strike>Integrate older Curl Interlude</strike> **6/19**
    * <strike>Edit & Check Chapter 5</strike> **6/23**
-   * Edit & Check Chapter 6 **6.1, 6.2, 6.3 done**
+   * <strike>Edit & Check Chapter 6</strike> **6/30**
    
 ## 3. Add BTCDEB Support
 
