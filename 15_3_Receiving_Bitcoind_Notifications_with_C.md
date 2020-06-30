@@ -76,7 +76,7 @@ Processing triggers for libc-bin (2.27-3ubuntu1) ...
 
 ### 2. Create C Program
 
-Now we've installed ZMQ and we can compile our C program using it's notifications.   
+Now we've installed ZMQ and we can compile our C program using it's notifications.  This C program it's a simple client that subscribes to a connection point served by bitcoind and ZMQ interface and reads incoming messages.
 The program use czmq.h library and receives two parameters as follows,  first param is the point exposed by bitcoind and second the topic about we'll listen.
 
 ``` c
