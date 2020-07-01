@@ -76,8 +76,14 @@ Processing triggers for libc-bin (2.27-3ubuntu1) ...
 
 ### 2. Create C Program
 
-Now we've installed ZMQ and we can compile our C program using it's notifications.  This C program it's a simple client that subscribes to a connection point served by bitcoind and ZMQ interface and reads incoming messages.
-The program use czmq.h library and receives two parameters as follows,  first param is the point exposed by bitcoind and second the topic about we'll listen.
+Now we've installed ZMQ and we can compile our C program using it's notifications.  This C program it's a simple client that subscribes to a connection point served by bitcoind and ZMQ interface and reads incoming messages.  
+The program use czmq.h library and receives two parameters as follows,  first param is the point exposed by bitcoind that should be tcp connection point depending second param that could be one of these:
+
+zmqpubrawblock
+zmqpubrawtx
+zmqpubhashtx
+zmqpubhashblock
+
 
 ``` c
 #include <czmq.h>
@@ -134,6 +140,24 @@ gcc -o chainlistener chainlistener.c -I/usr/local/include -L/usr/local/lib -lzmq
 
 ### 4. Configure ZMQ on bitcoind
 
+#### ZMQ
+
+ZeroMQ is a high-performance asynchronous messaging library that provides a message queue.  ZeroMQ supports common messaging patterns (pub/sub, request/reply, client/server and others) over a variety of transports (TCP, in-process, inter-process, multicast, WebSocket and more), making inter-process messaging as simple as inter-thread messaging.   As the purpose of this chapter is to show how to receive bitcoind notifications in the C language, ZMQ will be used for it.
+
+Currently, the ZeroMQ facility only needs to have the ZeroMQ endpoint specified.  ZeroMQ publish sockets prepend each data item with an arbitrary topic
+prefix that allows subscriber clients to request only those items with a matching prefix.
+
+Topics.
+
+```
+zmqpubrawblock=tcp://127.0.0.1:28332
+zmqpubrawtx=tcp://127.0.0.1:28333
+zmqpubhashtx=tcp://127.0.0.1:28334
+zmqpubhashblock=tcp://127.0.0.1:28335
+```
+
+In this example we'll use raw tx that is the topic that notifies about new transactions in raw format.
+
 Add this lines to bitcoin.conf file and restart daemon.    
 
 ```
@@ -162,6 +186,8 @@ Output:
 ```
 ### 5. Execute listener:
 
+When you execute chainlistener and passes these params you'll get an output like this:
+
 ```
 $ ./chainlistener tcp://127.0.0.1:28333 rawtx
 Size: 250
@@ -178,7 +204,9 @@ Data: 0200000000010137527957C9AD6CFF0C9A74597E6EFCD7E1EBD53E942AB2FA34A831046CA1
 No: 70
 .......
 ```
+The first param it's bitcoind connection point where ZMQ will notifies all about transactions in raw format.   It corresponds to this line in bitcoin.conf file zmqpubrawtx=tcp://127.0.0.1:28333
 
+The second param is the topic selected rawtx explained above.
 
 ### For More Information
 
