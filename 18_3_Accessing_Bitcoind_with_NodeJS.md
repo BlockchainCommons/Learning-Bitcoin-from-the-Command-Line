@@ -171,7 +171,7 @@ $ bitcoin-cli getnewaddress -addresstype legacy
 mtGPcBvRPZFEHo2YX8un9qqPBydhG82uuZ
 ```
 
-In BCRPC ```getnewaddress``` is in camelCase (```getNewAddress```) and the flags are normally separated by spaces are put in strings and separated by commas.
+In BCRPC ```getnewaddress``` is in camelCase (```getNewAddress```) and the that flags are normally separated by spaces are instead put in strings and separated by commas.
 
 ### List transactions
 
