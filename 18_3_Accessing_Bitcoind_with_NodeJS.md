@@ -31,6 +31,7 @@ $ export BITCOIND_PORT=18332
 ```
 
 > **WARNING:** Obviously, you'd never put set your password in an environmental variable in a production environment.
+
 > **MAINNET VS TESTNET:** The port would be 8332 for a mainnet setup.
 
 You can now verify everything is working correctly:
@@ -96,6 +97,17 @@ You can run it with ```$ node server.js```. You should get an output similar to 
 ```
 1773373
 0000000000000083d29c524d4cfc257adfab8fa9b6f0d207d1d0f1b63e1de11e
+```
+
+The BCRPC functions can accept inputs. For example, ```getBlockHash``` takes ```blockCount.result``` as an input. The result of the BCRPC functions is a JSON object containing information about any errors and the id of the request. When accessing our result, we add ```.result``` to the end of it to specify that we are interested in the actual result, not information about errors. This is what output of the above example would look like if we replaced ```console.log(blockCount.result);``` and ```console.log(hash.result);``` with ```console.log(blockCount);``` and ```console.log(hash);```, respectively:
+
+```
+{ result: 1774686, error: null, id: null }
+{
+  result: '00000000000000d980c495a2b7addf09bb0a9c78b5b199c8e965ee54753fa5da',
+  error: null,
+  id: null
+}
 ```
 
 ## Look Up Your Wallet

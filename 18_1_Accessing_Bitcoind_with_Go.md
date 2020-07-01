@@ -50,7 +50,7 @@ $ mkdir $HOME/work
 
 ## Setup btcd rpcclient
 
-We will be using the rpcclient that comes with btcd, a Bitcoin implementation written in Go. Although btcd was originally designed to work with the btcd Bitcoin full node, it also works with Bitcoin core. It has some quirks which we will be looking at. We can use ```go get``` to download it:
+We will be using the rpcclient that comes with btcd, a Bitcoin implementation written in Go. Although rpcclient was originally designed to work with the btcd Bitcoin full node, it also works with Bitcoin core. It has some quirks which we will be looking at. We can use ```go get``` to download it:
 
 ```
 $ go get github.com/btcsuite/btcd/rpcclient
