@@ -13,6 +13,12 @@ Add your user to debian-tor group like this:
 ~$ sudo usermod -a -G debian-tor [CHANGE_MY_USER]
 ```
 
+If you're running a older version Tor like 0.2.7 add this lines to /etc/tor/torrc file:
 
- ll /run/tor/control.authcookie
--rw-r----- 1 debian-tor debian-tor 32 jun 26 09:44 /run/tor/control.authcookie
+```
+HiddenServiceDir /var/lib/tor/bitcoin-service/
+HiddenServicePort 8333 127.0.0.1:8333
+HiddenServicePort 18333 127.0.0.1:18333
+```
+If you're running Tor version 3 bitcoind will configurate hidden services to listen on.
+
