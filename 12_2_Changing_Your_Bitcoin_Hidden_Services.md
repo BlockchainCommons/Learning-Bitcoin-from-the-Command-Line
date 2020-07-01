@@ -7,7 +7,13 @@ In this chapter we will show you how to create or change your local Bitcoin Hidd
 -rw-r----- 1 debian-tor debian-tor 32 jun 26 09:44 /run/tor/control.authcookie
 ```
 
-Add your user to debian-tor group like this:
+To avoid see a message like this in debug log file you need to add your current user to debian-tor group like this:
+
+debug.log
+
+```
+2020-05-15T16:49:20Z tor: Authentication cookie /run/tor/control.authcookie could not be opened (check permissions)
+```
 
 ```
 ~$ sudo usermod -a -G debian-tor [CHANGE_MY_USER]
