@@ -137,7 +137,7 @@ The btcd rpcclient works by calling bitcoin-cli commands through in PascalCase. 
 
 The ```import``` declaration at the top allows you to import relevant libraries. For every example here we will need to import ```"log", "fmt"``` and ```"github.com/btcsuite/btcd/rpcclient"```. We may need to import additional libraries for some examples. ```log``` is used for printing out error messages. After each time our Bitcoin node is called, we have an if statement checking if there are any errors. If there are errors, ```log``` is used to print them out. ```fmt``` is used for printing out our output. Since the examples in this document have different libraries to import, I will be showing the entire Go file, not just the specific function.
 
-The ```defer client.Shutdown()``` line is for disconnecting the connection to our Bitcoin node from the rpcclient, once the ```main()``` function finishes executing. After the ```defer client.Shutdown()``` line is where the exciting stuff is, like ```client.GetBlockCount()``` and ```client.GetBlockHash(blockCount)```.
+The ```defer client.Shutdown()``` line is for disconnecting from our Bitcoin node, once the ```main()``` function finishes executing. After the ```defer client.Shutdown()``` line is where the exciting stuff is, like ```client.GetBlockCount()``` and ```client.GetBlockHash(blockCount)```.
 
 The rpcclient functions can take inputs as well, for example ```client.GetBlockHash(blockCount)``` takes the block count as an input. The ```client.GetBlockHash(blockCount)``` from above would look like this as a ```bitcoin-cli``` command:
 
