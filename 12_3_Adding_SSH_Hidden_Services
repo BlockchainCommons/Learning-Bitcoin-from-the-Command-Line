@@ -16,9 +16,9 @@ HiddenServicePort 22 127.0.0.1:22
 HiddenServiceAuthorizeClient stealth hidden-service-ssh
 ```
 
-* HiddenServiceDir indicates tor that you have a hidden service directory with the neccesary configuration on path.
-* HiddenServicePort indicates tor port to be used,  in SSH case is 22, if you want use other port you can change here.
-* HiddenServiceAuthorizeClient As it's name indicates authorize a client to connect to the hidden service. 
+* HiddenServiceDir: indicates tor that you have a hidden service directory with the neccesary configuration on path.
+* HiddenServicePort:  indicates tor port to be used,  in SSH case is 22, if you want use other port you can change here.
+* HiddenServiceAuthorizeClient: As it's name indicates authorize a client to connect to the hidden service. 
 
 After add lines to tor file you need to restart tor service
 
