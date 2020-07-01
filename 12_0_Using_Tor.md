@@ -6,4 +6,4 @@ This section will talk about using the Tor services that are now available court
 
   * [12.1: Verifying Your Tor Setup](12_1_Verifying_Your_Tor_Setup.md)
   * [12.2: Changing Your Bitcoin Hidden Services](12_2_Changing_Your_Bitcoin_Hidden_Services.md)
-  * [12.3: Adding SSH Hiddne Services](12_3_Adding_SSH_Hidden_Services)
+  * [12.3: Adding SSH Hidden Services](12_3_Adding_SSH_Hidden_Services)
