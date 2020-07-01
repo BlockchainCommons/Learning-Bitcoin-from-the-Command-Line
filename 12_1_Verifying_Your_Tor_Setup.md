@@ -29,7 +29,17 @@ Output
 2020-06-25T18:16:44Z tor: Thread interrupt
 2020-06-25T19:11:12Z tor: Got service ID [YOUR_ONION_ID], advertising service your_onion_id.onion:8333
 ```
-Using bitcoin-cli you should use:
+Using bitcoin-cli you should use getnetworkinfo to get your onion id like this:
+
+```
+ "localaddresses": [
+    {
+      "address": "your_onion_id.onion",
+      "port": 8333,
+      "score": 4
+    }
+  ],
+```
 
 ```
 $ bitcoin-cli getnetworkinfo
