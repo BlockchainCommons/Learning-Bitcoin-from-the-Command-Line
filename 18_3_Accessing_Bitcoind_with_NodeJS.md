@@ -164,6 +164,15 @@ Output:
 mtGPcBvRPZFEHo2YX8un9qqPBydhG82uuZ
 ```
 
+This example shows how we can use the same flags as ```bitcoin-cli``` in BCRPC. The example above would look like this from the command line:
+
+```
+$ bitcoin-cli getnewaddress -addresstype legacy
+mtGPcBvRPZFEHo2YX8un9qqPBydhG82uuZ
+```
+
+In BCRPC ```getnewaddress``` is in camelCase (```getNewAddress```) and the flags are normally separated by spaces are put in strings and separated by commas.
+
 ### List transactions
 
 We can list our previous transactions and view information about transactions such as amount and number of confirmations:
