@@ -1,10 +1,10 @@
 # Chapter 12.3: Adding SSH Hidden Services
 
-In this chapter we will show you how to add a ssh hidden service to login remotelly using tor.
+In this chapter we will show you how to add a ssh hidden service to login remotelly using Tor. 
 
 ## Create SSH Hidden Services
 
-To create new service you need to add some lines in your torrcfile.
+To create new service you need to add some lines in your torrc file.
 
 This should be under /etc/tor/torrc
 
@@ -16,7 +16,7 @@ HiddenServicePort 22 127.0.0.1:22
 HiddenServiceAuthorizeClient stealth hidden-service-ssh
 ```
 
-* HiddenServiceDir: indicates tor that you have a hidden service directory with the neccesary configuration on path.
+* HiddenServiceDir: indicates tor that you have a hidden service directory with the necessary configuration on path.
 * HiddenServicePort:  indicates tor port to be used,  in SSH case is 22, if you want use other port you can change here.
 * HiddenServiceAuthorizeClient: As it's name indicates authorize a client to connect to the hidden service. 
 
