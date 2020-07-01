@@ -311,4 +311,7 @@ Faucets will give you money on the testnet. They come in as raw transactions, wh
 
 ## What's Next?
 
-Continue "Understanding Your Bitcoin Setup" with [§3.5: Understanding the Descriptor](03_5_Understanding_the_Descriptor.md).
+For a deep dive into how addresses are described, so that they can be transferred or made into parts of a multi-signature, see [§3.5: Understanding the Descriptor](03_5_Understanding_the_Descriptor.md).
+
+But if that's too in-depth, continue on to [Chapter Four: Sending Bitcoin Transactions](04_0_Sending_Bitcoin_Transactions.md).
+
