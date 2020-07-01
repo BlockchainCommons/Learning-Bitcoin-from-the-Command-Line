@@ -251,4 +251,4 @@ We can also use the ```getTransaction``` function to view how many confirmations
 
 ## Summary: Accessing Bitcoind with Node
 
-With BCRPC we can do all the commands available through ```bitcoin-cli```, in JavaScript. Based on these examples you should be able to incorporate Bitcoin in a Node.js project and do things like sending and receiving coins.
+With BCRPC we can do all the commands available through ```bitcoin-cli```, in JavaScript. The [BCRPC README](https://github.com/dgarage/bcrpc) has some examples which use promises (the examples in this document use callbacks). The [JavaScript behind it](https://github.com/dgarage/bcrpc/blob/master/index.js) is short and readable. Based on these examples you should be able to incorporate Bitcoin in a Node.js project and do things like sending and receiving coins.

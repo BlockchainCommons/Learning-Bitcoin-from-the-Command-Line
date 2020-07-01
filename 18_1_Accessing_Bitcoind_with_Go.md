@@ -50,7 +50,7 @@ $ mkdir $HOME/work
 
 ## Setup btcd rpcclient
 
-We will be using the rpcclient that comes with btcd, a Bitcoin implementation written in Go. We can use ```go get``` to download it:
+We will be using the rpcclient that comes with btcd, a Bitcoin implementation written in Go. Although btcd was originally designed to work with the btcd Bitcoin full node, it also works with Bitcoin core. It has some quirks which we will be looking at. We can use ```go get``` to download it:
 
 ```
 $ go get github.com/btcsuite/btcd/rpcclient
@@ -69,6 +69,7 @@ Modify the ```main.go``` file and enter the details associated with your Bitcoin
 		User:         "bitcoinrpc",
 		Pass:         "d8340efbcd34e312044c8431c59c792c",
 ```
+> **MAINNET VS TESTNET:** The port would be 8332 for a mainnet setup.
 
 Now run:
 
@@ -130,7 +131,15 @@ func main() {
 }
 ```
 
-Make sure to change your username and password to those from your ```~/.bitcoin/bitcoin.conf``` file. When you run this:
+Make sure to change your username and password to those from your ```~/.bitcoin/bitcoin.conf``` file. 
+
+The btcd rpcclient works by calling bitcoin-cli commands through in PascalCase. For example, ```bitcoin-cli getblockcount``` is ```client.GetBlockCount``` in Go. The ```connCfg``` parameters allow you to choose the Bitcoin RPC port, username, password and whether you are on testnet or mainnet. Using ```rpcclient.New(connCfg, nil)``` we configure ```client``` to connect to our Bitcoin node.
+
+The ```import``` declaration at the top allows you to import relevant libraries. For every example here we will need to import ```"log", "fmt" and "github.com/btcsuite/btcd/rpcclient"```. We may need to import additional libraries for some examples. ```log``` is used for printing out error messages. After each time our Bitcoin node is called, we have an if statement checking if there are any errors. If there are errors, ```log``` is used to print them out. ```fmt``` is used for printing out our output. Since the examples in this document have different libraries to import, I will be showing the entire Go file, not just the specific function.
+
+A quirk with hashes in rpcclient is that they will typically print in a different encoding if you were to print it normally with ```blockHash```. In order to print them as a string, we need to use ```blockHash.String()```.
+
+We can run Go code with ```go run main.go```:
 
 ```
 $ go run main.go
@@ -142,7 +151,7 @@ The latest block number along with its hash should be printed out.
 
 ### Getting your wallet balance
 
-Since the btcd rpcclient is quite limited, we can't make a use the ```getwalletinfo``` functino, however we can get the balance of our wallet:
+Since the btcd rpcclient has some limits, we can't make a use of the ```getwalletinfo``` function, however we can get the balance of our wallet:
 
 ```
 package main
@@ -171,6 +180,7 @@ func main() {
 	if err != nil {
 		log.Fatal(err)
 	}
+
 	fmt.Println(wallet)
 }
 ```
@@ -180,6 +190,50 @@ You should get an output similar to this:
 ```
 0.000689 BTC
 ```
+
+```client.GetBalance("*")``` requires the ```"*"``` input, due to a quirk with btcd. The asterisk signifies that we want to get the balance of all our wallets.
+
+### Generate an address
+
+We can generate addresses, but we can't specify the address type:
+
+```
+package main
+
+import (
+	"log"
+	"fmt"
+	"github.com/btcsuite/btcd/rpcclient"
+	"github.com/btcsuite/btcd/chaincfg"
+)
+
+func main() {
+	connCfg := &rpcclient.ConnConfig{
+		Host:         "localhost:18332",
+		User:         "bitcoinrpc",
+		Pass:         "431451790e3eee1913115b9dd2fbf0ac",
+		HTTPPostMode: true,
+		DisableTLS:   true,
+		Params: chaincfg.TestNet3Params.Name,
+	}
+	client, err := rpcclient.New(connCfg, nil)
+	if err != nil {
+		log.Fatal(err)
+	}
+	defer client.Shutdown()
+
+	address, err := client.GetNewAddress("")
+	if err != nil {
+		log.Fatal(err)
+	}
+	fmt.Println(address)
+}
+```
+> **MAINNET VS TESTNET:** ```Params: chaincfg.TestNet3Params.Name,``` should be ```Params: chaincfg.MainNetParams.Name,``` on mainnet.
+
+You may notice that the ```connCfg``` clause is different in this example. ```Params: chaincfg.TestNet3Params.Name,``` is added here, so that the rpcclient knows that we are dealing with testnet addresses. You would change ```chaincfg.TestNet3Params.Name``` to ```chaincfg.MainNetParams.Name``` if you were on mainnet. This specification is only required during address generation, which is why I only kept it in this example. You can include this in other examples as well, but it isn't necessary. Make sure to import ```"github.com/btcsuite/btcd/chaincfg"``` if you are using it. 
+
+A quirk with ```client.GetNewAddress("")``` is that an empty string needs to be included for it to work.
 
 ### Get amount received by an address
 
@@ -216,12 +270,22 @@ func main() {
 		log.Fatal(err)
 	}
 	wallet, err := client.GetReceivedByAddress(addr)
+	if err != nil {
+		log.Fatal(err)
+	}
 
 	fmt.Println(wallet)
 }
 ```
+> **MAINNET VS TESTNET:** ```&chaincfg.TestNet3Params``` should be ```&chaincfg.TestNet3Params``` on mainnet.
 
-The defaultNet variable is used to specify whether our Bitcoin node is on testnet or on mainnet.
+You should get an output similar to this:
+
+```
+0.000089 BTC
+```
+
+The defaultNet variable is used to specify whether our Bitcoin node is on testnet or on mainnet. This example requires us to import the ```"github.com/btcsuite/btcutil"``` and ```"github.com/btcsuite/btcd/chaincfg"``` libraries. ```btcutil``` allows for a Bitcoin address to be decoded in a way that the rpcclient can understand. This is necessary when working with addresses in rpcclient. ```chaincfg``` is used to configure our chain as the Testnet chain. This is necessary for address decoding since the addresses used on Mainnet and Testnet are different.
 
 ### Sending Bitcoin to an address
 
@@ -255,16 +319,20 @@ func main() {
 	if err != nil {
 		log.Fatal(err)
 	}
-
 	sent, err := client.SendToAddress(addr, btcutil.Amount(1e4))
 	if err != nil {
 		log.Fatal(err)
 	}
+
 	fmt.Println(sent)
 }
 ```
 
-This outputs the txid of the transaction.
+After the transaction is sent, the txid of the transaction is outputted: 
+
+```
+9aa4cd6559e0d69059eae142c35bfe78b71a8084e1fcc2c74e2a9675e9e7489d
+```
 
 ### Lookup a transaction
 
@@ -300,6 +368,7 @@ func main() {
 	if err != nil {
 		log.Fatal(err)
 	}
+
 	fmt.Println(transactions)
 }
 ```
@@ -332,6 +401,8 @@ This prints out the details associated with a transaction, such as its amount an
 }
 ```
 
-## Summary: Accessing Bitcoind with Node
+```"github.com/btcsuite/btcd/chaincfg/chainhash"``` is imported in order to allow hashes to be stored in the Go code. ```chainhash.NewHashFromStr("hash")``` converts a hash in a string, to a format that works with rpcclient.
 
-Although the btcd rpcclient is quite limited, we can still perform a lot of the main rpc commands in Go. 
+## Summary: Accessing Bitcoind with Go
+
+Although the btcd rpcclient has some limits, we can still perform the main rpc commands in Go. The documentation for rpcclient is available on [Godoc](https://godoc.org/github.com/btcsuite/btcd/rpcclient). If the documentation doesn't have what your looking for, have a look at the [btcd repository](https://github.com/btcsuite/btcd). It is generally well documented and easy to read. Based on these examples you should be able to incorporate Bitcoin in a Go project and do things like sending and receiving coins.
