@@ -2,7 +2,9 @@
 
 > :information_source: **NOTE:** This is a draft in progress, so that I can get some feedback from early reviewers. It is not yet ready for learning.
 
-You may have noticed a weird "desc:" field in the `listunspent` command of the previous section. Here's what's all about.
+You may have noticed a weird `desc:` field in the `listunspent` command of the previous section. Here's what's all about (and how it can be used to transfer addresses).
+
+> :warning: **VERSION WARNING:** This is an innovation from Bitcoin Core v 0.17.0 that had continued to be expanded through Bitcoin Core 0.20.0.
 
 ## Know about Transferring Addresses
 
