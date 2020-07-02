@@ -54,8 +54,8 @@ _This tutorial assumes that you have some minimal background of how to use the c
   * [7.2: Using a Partially Signed Bitcoin Transaction](07_2_Using_a_Partially_Signed_Bitcoin_Transaction.md)
   * [7.3: Integrating with Hardware Wallets](07_3_Integrating_with_Hardware_Wallets.md)
 * [8.0: Expanding Bitcoin Transactions in Other Ways](08_0_Expanding_Bitcoin_Transactions_Other.md)  
-  * [8_1: Sending a Transaction with a Locktime](08_1_Sending_a_Transaction_with_a_Locktime.md)
-  * [8.5: Sending a Transaction with Data](08_2_Sending_a_Transaction_with_Data.md)
+  * [8.1: Sending a Transaction with a Locktime](08_1_Sending_a_Transaction_with_a_Locktime.md)
+  * [8.2: Sending a Transaction with Data](08_2_Sending_a_Transaction_with_Data.md)
   
 ## PART THREE: BITCOIN SCRIPTING
 
