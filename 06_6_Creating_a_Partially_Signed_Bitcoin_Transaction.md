@@ -14,7 +14,9 @@
 
 ## Create a PSBT the Easy Way
 
-## Examine Your PSBT
+## Examine a PSBT
+
+## Update a PSBT
 
 ## Summary: Creating a Partially Signed Bitcoin Transaction
 
