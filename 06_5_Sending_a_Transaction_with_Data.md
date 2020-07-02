@@ -120,4 +120,4 @@ Note that there is some controversy over using the Bitcoin blockchain in this wa
 
 ## What's Next?
 
-Move on to "Bitcoin Scripting" with [Chapter Seven: Introducing Bitcoin Scripts](07_0_Introducing_Bitcoin_Scripts.md).
+Continue "Expanding Bitcoin Transactions" with [§6.6: Creating a Partially Signed Bitcoin Transaction](06_6_Creating_a_Partially_Signed_Bitcoin_Transaction.md).
