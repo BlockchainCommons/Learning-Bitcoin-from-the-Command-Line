@@ -66,7 +66,7 @@ Add and document the following new concepts:
 
 ## 5. Finish Later Chapters
 
-15. Write Tor Chapter. We want to fully integrate Tor into the installation of Bitcoin and then later talk about its usage.
+15. Edit & Intregtrate Tor Chapter. 
 16. Write Lightning Chapters. We'd like to parallel the CLI introduction to Bitcoin with a similar CLI introduction to Lightning.
 17. Edit & Integrate all "C" work
 18. Edit & Integrate all "Other Languages" work
