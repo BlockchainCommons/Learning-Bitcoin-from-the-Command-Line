@@ -55,7 +55,9 @@ Add and document the following new concepts:
    * <strike>Write chapter 4.6</strike> **6/23**
 12. Add PSBT. Partially Signed Bitcoin Transactions are a powerful new interchange format that should be fully included in our discussions of multi-sigs and escrows (which instead fell back on older methodologies in v1.0).
    * <strike>Research PSBTs</strike> **7/2**
-   * Update Outlines
+   * <strike>Update Outlines</strike> **7/2**
+   * Write 6.6: Creating a PSBT
+   * Write 6.7: Using a PSBT
 13. Add Wallet Updates.
    * <strike>Bitcoin Descriptors</strike> **6/30**
       * <strike>Show what a SegWit descriptor looks like</strike> **7/2**
