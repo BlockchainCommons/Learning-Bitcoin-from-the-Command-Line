@@ -10,7 +10,7 @@ You may have noticed a weird `desc:` field in the `listunspent` command of the p
 
 Most of this course presumes that you're working entirely from a single node where you manage your own wallet, sending and receiving payments with the addresses created by that wallet. However, that's not necessarily how the larger Bitcoin ecosystem works. There, you're more likely to be moving addresses between wallets and even setting up wallets to watch over funds controlled by different wallets. 
 
-That's where descriptors come in. They're most useful if you're interacting with software _other_ than Bitcoin Core, and really need to lean on this sort of compatibility function, but we'll also use a tiny bit of what we learned here in [§6.3](https://github.com/BlockchainCommons/Learning-Bitcoin-from-the-Command-Line/blob/master/06_3_Sending_an_Automated_Multisig.md).
+That's where descriptors come in. They're most useful if you're interacting with software _other_ than Bitcoin Core, and really need to lean on this sort of compatibility function: see [§6.1](https://github.com/BlockchainCommons/Learning-Bitcoin-from-the-Command-Line/blob/master/06_1_Sending_a_Transaction_to_a_Multisig.md) for a real-world example of how having the capability of descriptors is critical.
 
 Moving addresses between wallets used to focus on `xpub` and `xprv`, and those are still supported. 
 
