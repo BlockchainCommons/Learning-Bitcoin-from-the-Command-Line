@@ -51,8 +51,8 @@ _This tutorial assumes that you have some minimal background of how to use the c
   * [6.3: Sending & Spending an Automated Multisig](06_3_Sending_an_Automated_Multisig.md)
   * [6.4: Sending a Transaction with a Locktime](06_4_Sending_a_Transaction_with_a_Locktime.md)
   * [6.5: Sending a Transaction with Data](06_5_Sending_a_Transaction_with_Data.md)
-  * [6.6: Creating a PSBT](06_6_Creating_a_PSBT.md)
-  * [6.7: Using a PSBT](06_7_Using_a-PSBT.md)
+  * [6.6: Creating a Partially Signed Bitcoin Transaction](06_6_Creating_a_Partially_Signed_Bitcoin_Transaction.md)
+  * [6.7: Using a Partially Signed Bitcoin Transaction](06_7_Using_a_Partially_Signed_Bitcoin_Transaction.md)
   
 ## PART THREE: BITCOIN SCRIPTING
 
