@@ -126,4 +126,4 @@ You can take advantage of the CPFP incentives to free up funds that have been se
 
 ## What's Next?
 
-Advance through "bitcoin-cli" with [Chapter Six: Expanding Bitcoin Transactions](06_0_Expanding_Bitcoin_Transactions.md).
+Advance through "bitcoin-cli" with [Chapter Six: Expanding Bitcoin Transactions with Multisigs](06_0_Expanding_Bitcoin_Transactions_Multisigs.md).
