@@ -269,6 +269,12 @@ e02568b706b21bcb56fcf9c4bb7ba63fdbdec1cf2866168c4f50bc0ad693f26c
 ```
 It all works exactly the same as other sorts of transactions!
 
+### Recognize the New Descriptor
+
+If you look at the `desc` field, you'll note that the SegWit address has a different style descriptor than those encountered in [§3.5: Understanding the Descriptor](03_5_Understanding_the_Descriptor.md). A legacy descriptor described in that section looked like this: `pkh([d6043800/0'/0'/18']03efdee34c0009fd175f3b20b5e5a5517fd5d16746f2e635b44617adafeaebc388)#4ahsl9pk`. Our new SegWit descriptor instead looks like this: `wpkh([d6043800/0'/0'/5']0327dbe2d58d9ed2dbeca28cd26e18f48aa94c127fa6fb4b60e4188f6360317640)#hd66hknp"`.
+
+The big thing to note is that function has changed. It was previously `pkh`, which is a standard P2PKH hashed public-key address. The SegWit address is instead `wpkh`, which means that it's a P2WPKH native SegWit address. This underlines the :fire: ***power of descriptors***. They describe how to create an address from a key or other information, with the functions unambiguously defining how to make the address based on its type.
+
 ## Summary: Creating a SegWit Transaction
 
 There's really no complexity to creating SegWit transactions. Internally, they're structured differently from legacy transactions, but from the command line there's no difference: you just use an address with a different prefix. The only thing to watch for is that some people may not be able to send to a Bech32 address if they're using obsolete software.
