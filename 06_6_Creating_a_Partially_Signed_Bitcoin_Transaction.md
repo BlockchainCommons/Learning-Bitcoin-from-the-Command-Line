@@ -19,3 +19,5 @@
 ## Summary: Creating a Partially Signed Bitcoin Transaction
 
 ## What's Next?
+
+Continue "Expanding Bitcoin Transactions" with [§6.7: Using a Partially Signed Bitcoin Transaction](06_7_Using_a_Partially_Signed_Bitcoin_Transaction.md).
