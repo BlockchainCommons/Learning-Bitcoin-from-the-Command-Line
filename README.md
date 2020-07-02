@@ -22,7 +22,7 @@ _This tutorial assumes that you have some minimal background of how to use the c
 
 ### PART TWO: USING BITCOIN-CLI
 
-**Status:** Needs new content on (1) PSBTs; (2) sorted multisigs; and (3) if appropriate HWI. Also needs a little integration of descriptors in later chapters (3.5, 6.2+)
+**Status:** The PSBT and HWI content (chapter 6) is new, and so still being written.
 
 * [3.0: Understanding Your Bitcoin Setup](03_0_Understanding_Your_Bitcoin_Setup.md)
   * [3.1: Verifying Your Bitcoin Setup](03_1_Verifying_Your_Bitcoin_Setup.md)
