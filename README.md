@@ -45,18 +45,21 @@ _This tutorial assumes that you have some minimal background of how to use the c
   * [5.1 Watching for Stuck Transactions](05_1_Watching_for_Stuck_Transactions.md)
   * [5.2: Resending a Transaction with RBF](05_2_Resending_a_Transaction_with_RBF.md)
   * [5.3: Funding a Transaction with CPFP](05_3_Funding_a_Transaction_with_CPFP.md)
-* [6.0: Expanding Bitcoin Transactions](06_0_Expanding_Bitcoin_Transactions.md)
+* [6.0: Expanding Bitcoin Transactions with Multisigs](06_0_Expanding_Bitcoin_Transactions_Multisigs.md)
   * [6.1: Sending a Transaction with a Multsig](06_1_Sending_a_Transaction_to_a_Multisig.md)
   * [6.2: Spending a Transaction with a Multsig](06_2_Spending_a_Transaction_to_a_Multisig.md)
   * [6.3: Sending & Spending an Automated Multisig](06_3_Sending_an_Automated_Multisig.md)
-  * [6.4: Sending a Transaction with a Locktime](06_4_Sending_a_Transaction_with_a_Locktime.md)
-  * [6.5: Sending a Transaction with Data](06_5_Sending_a_Transaction_with_Data.md)
-  * [6.6: Creating a Partially Signed Bitcoin Transaction](06_6_Creating_a_Partially_Signed_Bitcoin_Transaction.md)
-  * [6.7: Using a Partially Signed Bitcoin Transaction](06_7_Using_a_Partially_Signed_Bitcoin_Transaction.md)
+* [7.0: Expanding Bitcoin Transactions with PSBTs](07_0_Expanding_Bitcoin_Transactions_PSBTs.md)
+  * [7.1: Creating a Partially Signed Bitcoin Transaction](07_1_Creating_a_Partially_Signed_Bitcoin_Transaction.md)
+  * [7.2: Using a Partially Signed Bitcoin Transaction](07_2_Using_a_Partially_Signed_Bitcoin_Transaction.md)
+  * [7.3: Integrating with Hardware Wallets](07_3_Integrating_with_Hardware_Wallets.md)
+* [8.0: Expanding Bitcoin Transactions in Other Ways](08_0_Expanding_Bitcoin_Transactions_Other.md)  
+  * [8_1: Sending a Transaction with a Locktime](08_1_Sending_a_Transaction_with_a_Locktime.md)
+  * [8.5: Sending a Transaction with Data](08_2_Sending_a_Transaction_with_Data.md)
   
 ## PART THREE: BITCOIN SCRIPTING
 
-**Status:** Requires editing; requires check that it works in 0.20; requires concepts brought up to 0.20.
+**Status:** Requires renumbering; requires editing; requires check that it works in 0.20; requires concepts brought up to 0.20.
 
 * [7.0: Introducing Bitcoin Scripts](07_0_Introducing_Bitcoin_Scripts.md)
   * [7.1: Understanding the Foundation of Transactions](07_1_Understanding_the_Foundation_of_Transactions.md)
@@ -83,7 +86,7 @@ _This tutorial assumes that you have some minimal background of how to use the c
 
 ### PART FOUR: USING TOR
 
-**Status:** Unwritten.
+**Status:** Requires renumbering; Unwritten.
 
 * [12.0: Using Tor](12_0_Using_Tor.md)
   * 12.1: Verifying Your Tor Setup
@@ -92,7 +95,7 @@ _This tutorial assumes that you have some minimal background of how to use the c
   
 ### PART FIVE: USING LIGHTNING-CLI
 
-**Status:** Unwritten. Chapter 14 may expand into multiple chapters.
+**Status:** Requires renumbering; Unwritten. Chapter 14 may expand into multiple chapters.
 
 (At this point, I'm assuming that Lightning will be integrated into Standup, at which point we just need to tech how to use it at a pretty basic level.)
 
@@ -108,7 +111,7 @@ _This tutorial assumes that you have some minimal background of how to use the c
 
 ### PART SIX: PROGRAMMING WITH RPC
 
-**Status:** This section is currently a messy set of older writings which are being reorganized as listed below. We're not going to work through this section until we've got chapters 1-11 updated per our current notes, then 12-14 written. But, if you'd like to see what we have to date on programming in correlation with Bitcoin Core, please feel free.
+**Status:** Requires renumbering; This section is currently a messy set of older writings which are being reorganized as listed below. We're not going to work through this section until we've got chapters 1-11 updated per our current notes, then 12-14 written. But, if you'd like to see what we have to date on programming in correlation with Bitcoin Core, please feel free.
 
 * [15.0: Talking to Bitcoind with C](15_0_Talking_to_Bitcoind.md) — Needs Rewrite + Editing
   * [15.1: Accessing Bitcoind with C](15_1_Accessing_Bitcoind_with_C.md) — Needs Rewrite
