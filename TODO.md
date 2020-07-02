@@ -65,16 +65,17 @@ Add and document the following new concepts:
       * Revise based on comments
    * <strike>Key Ordering (sortedmulti)</strike> **7/2** **Partially Supported in 0.20**
 14. Consider HWI. We need to investigate the Hardware Wallet Interface, which uses PSBTs with hardware wallets, and see if it's something we should include (and if our readers want us to).
+15. Consider splitting up Chapter 6 (definitely if we get an HWI chapter)
 
 ## 5. Finish Later Chapters
 
-15. Edit & Intregtrate Tor Chapter. 
-16. Write Lightning Chapters. We'd like to parallel the CLI introduction to Bitcoin with a similar CLI introduction to Lightning.
-17. Edit & Integrate all "C" work
-18. Edit & Integrate all "Other Languages" work
-19. Edit & Integrate Appendices work
-20. Write or request Lightning/C chapter
+16. Edit & Intregtrate Tor Chapter. 
+17. Write Lightning Chapters. We'd like to parallel the CLI introduction to Bitcoin with a similar CLI introduction to Lightning.
+18. Edit & Integrate all "C" work
+19. Edit & Integrate all "Other Languages" work
+20. Edit & Integrate Appendices work
+21. Write or request Lightning/C chapter
 
 ## 6. Finalize Book
 
-21. Re-edit everything
+22. Re-edit everything
