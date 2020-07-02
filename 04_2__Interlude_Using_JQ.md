@@ -13,7 +13,7 @@ Once you've downloaded the binary, you can install it on your system. If you're 
 $ mv jq-linux64 jq
 $ sudo /usr/bin/install -m 0755 -o root -g root -t /usr/local/bin jq
 ```
-_What is JQ?_ The repository explains it best, saying "jq is like sed for JSON data - you can use it to slice and filter and map and transform structured data with the same ease that sed, awk, grep and friends let you play with text."
+> :book: ***What is JQ?*** The repository explains it best, saying "jq is like sed for JSON data - you can use it to slice and filter and map and transform structured data with the same ease that sed, awk, grep and friends let you play with text."
 
 ## Use JQ to Access a JSON Object Value by Key
 
@@ -23,7 +23,7 @@ In the previous section, the use of `signrawtransaction` offered an example of n
 ```
 $ bitcoin-cli signrawtransactionwithwallet $rawtxhex
 {
-  "hex": "0200000001735dfa1584b930a78ad2c1d6db72dd2a80ae5e5d552ad97e19f1d50d41fdd6d8000000006a47304402202210ce4b2a037da02622c380278cd79fec4e0e016e66f3eb894a2dcbb9ee998f02202cac167e6abdbbf08af139fb7c6b86e9d2e58e5516cd566ae2d54953ead9923b012102111bb978a3c93a00038ae344a1a017d7fee8a9be9d0558b5793ce6f440704a96ffffffff01b0e78604000000001976a914e7c1345fc8f87c68170b3aa798a956c2fe6a9eff88ac00000000",
+  "hex": "02000000013a6e4279b799791049e1826602e84d2e36797e2005887b98c3ecf16b01b7f361010000006a4730440220335d15a2a2ca3ce6a302ce041686739d4a38eb0599a5ea08305de71965268d05022015f77a33cf7d613015b2aba5beb03088033625505ad5d4d0624defdbea22262b01210278608b54b8fb0d8379d3823d31f03a7c6ab0adffb07dd3811819fdfc34f8c132ffffffff01409c0000000000001976a914e7c1345fc8f87c68170b3aa798a956c2fe6a9eff88ac00000000",
   "complete": true
 }
 ```
@@ -34,17 +34,17 @@ To use JQ, run `jq` at the backend of a pipe, and always use the standard invoca
 To capture a specific value from a JSON object, you just list the key after the `.`:
 ```
 $ bitcoin-cli signrawtransactionwithwallet $rawtxhex | jq -r '.hex'
-0200000001735dfa1584b930a78ad2c1d6db72dd2a80ae5e5d552ad97e19f1d50d41fdd6d8000000006a47304402202210ce4b2a037da02622c380278cd79fec4e0e016e66f3eb894a2dcbb9ee998f02202cac167e6abdbbf08af139fb7c6b86e9d2e58e5516cd566ae2d54953ead9923b012102111bb978a3c93a00038ae344a1a017d7fee8a9be9d0558b5793ce6f440704a96ffffffff01b0e78604000000001976a914e7c1345fc8f87c68170b3aa798a956c2fe6a9eff88ac00000000
+02000000013a6e4279b799791049e1826602e84d2e36797e2005887b98c3ecf16b01b7f361010000006a4730440220335d15a2a2ca3ce6a302ce041686739d4a38eb0599a5ea08305de71965268d05022015f77a33cf7d613015b2aba5beb03088033625505ad5d4d0624defdbea22262b01210278608b54b8fb0d8379d3823d31f03a7c6ab0adffb07dd3811819fdfc34f8c132ffffffff01409c0000000000001976a914e7c1345fc8f87c68170b3aa798a956c2fe6a9eff88ac00000000
 ```
 With that tool in hand, you can capture information from JSON objects to command-line variables:
 ```
 $ signedtx=$(bitcoin-cli signrawtransactionwithwallet $rawtxhex | jq -r '.hex')
 $ echo $signedtx
-0200000001735dfa1584b930a78ad2c1d6db72dd2a80ae5e5d552ad97e19f1d50d41fdd6d8000000006a47304402202210ce4b2a037da02622c380278cd79fec4e0e016e66f3eb894a2dcbb9ee998f02202cac167e6abdbbf08af139fb7c6b86e9d2e58e5516cd566ae2d54953ead9923b012102111bb978a3c93a00038ae344a1a017d7fee8a9be9d0558b5793ce6f440704a96ffffffff01b0e78604000000001976a914e7c1345fc8f87c68170b3aa798a956c2fe6a9eff88ac00000000
+02000000013a6e4279b799791049e1826602e84d2e36797e2005887b98c3ecf16b01b7f361010000006a4730440220335d15a2a2ca3ce6a302ce041686739d4a38eb0599a5ea08305de71965268d05022015f77a33cf7d613015b2aba5beb03088033625505ad5d4d0624defdbea22262b01210278608b54b8fb0d8379d3823d31f03a7c6ab0adffb07dd3811819fdfc34f8c132ffffffff01409c0000000000001976a914e7c1345fc8f87c68170b3aa798a956c2fe6a9eff88ac00000000
 ```
 You can then use those variables easily and without error:
 ```
-$ bitcoin-cli sendrawtransactionwithwallet $signedtx
+$ bitcoin-cli sendrawtransaction $signedtx
 3f9ccb6e16663e66dc119de1866610cc4f7a83079bfec2abf0598ed3adf10a78
 ```
 ## Use JQ to Access Single JSON Object Values in an Array by Key
@@ -53,38 +53,40 @@ $ bitcoin-cli sendrawtransactionwithwallet $signedtx
 
 Grabbing data out of a JSON object is easy, but what if that JSON object is in a JSON array? The `listunspent` command offers a great example, because it'll usually contain a number of different transactions. What if you want to capture specific information from _one_ of them?
 
-When working with a JSON array, the first thing you need to do is tell JQ which index to access. For example, you might have looked through your transactions in `listunspent` and decided that you wanted to work with the first of them. You use `'.[0]'` to access that first element. The `[]` says that we're referencing a JSON array and the `0` says we want the 0th index.
+When working with a JSON array, the first thing you need to do is tell JQ which index to access. For example, you might have looked through your transactions in `listunspent` and decided that you wanted to work with the second of them. You use `'.[1]'` to access that first element. The `[]` says that we're referencing a JSON array and the `0` says we want the 0th index.
 ```
-$ bitcoin-cli listunspent | jq -r '.[0]'
+$ bitcoin-cli listunspent | jq -r '.[1]'
 {
-  "txid": "2b5f5798359e0e23e02764588166f222d4ce056419dec83c743b72aad171d708",
-  "vout": 1,
-  "address": "mjtEqr4Fffd1XtpAkKoDkMBP54mMXJeQ3j",
-  "account": "",
-  "scriptPubKey": "76a9142fe70d51e886b9ef73b76c1743c5a2bb2894db8588ac",
-  "amount": 0.76,
-  "confirmations": 6578,
+  "txid": "91261eafae15ea53dedbea7c1db748c52bbc04a85859ffd0d839bda1421fda4c",
+  "vout": 0,
+  "address": "mjehC2KHzXcBDcwTd4LhZ2GzyzrZ3Kd3ff",
+  "label": "",
+  "scriptPubKey": "76a9142d573900aa357a38afd741fbf24b075d263ea6e088ac",
+  "amount": 0.00022,
+  "confirmations": 9,
   "spendable": true,
-  "solvable": true
+  "solvable": true,
+  "desc": "pkh([d6043800/0'/0'/3']0278608b54b8fb0d8379d3823d31f03a7c6ab0adffb07dd3811819fdfc34f8c132)#nhjc3f8y",
+  "safe": true
 }
 ```
 You can then capture an individual value from that selected array by (1) using a pipe _within_ the JQ arguments; and then (2) requesting the specific value afterward, as in the previous example. The following would capture the `txid` from the 0th JSON object in the JSON array produced by `listunspent`:
 ```
-$ bitcoin-cli listunspent | jq -r '.[0] | .txid'
-2b5f5798359e0e23e02764588166f222d4ce056419dec83c743b72aad171d708
+$ bitcoin-cli listunspent | jq -r '.[1] | .txid'
+91261eafae15ea53dedbea7c1db748c52bbc04a85859ffd0d839bda1421fda4c
 ```
 Carefully note how the `' 's` go around the whole JQ expression _including_ the pipe.
 
 This method can be used to fill in variables for a UTXO that you want to use:
 ```
-$ newtxid=$(bitcoin-cli listunspent | jq -r '.[0] | .txid')
-$ newvout=$(bitcoin-cli listunspent | jq -r '.[0] | .vout')
+$ newtxid=$(bitcoin-cli listunspent | jq -r '.[1] | .txid')
+$ newvout=$(bitcoin-cli listunspent | jq -r '.[1] | .vout')
 $ echo $newtxid
-2b5f5798359e0e23e02764588166f222d4ce056419dec83c743b72aad171d708
+91261eafae15ea53dedbea7c1db748c52bbc04a85859ffd0d839bda1421fda4c
 $ echo $newvout
-1
+0
 ```
-Voila! We could now create a new raw transaction using our 0th UTXO as an input, without having to type in any of the UTXO info by hand!
+Voila! We could now create a new raw transaction using our 1st UTXO as an input, without having to type in any of the UTXO info by hand!
 
 ## Use JQ to Access Matching JSON Object Values in an Array by Key
 
@@ -93,9 +95,8 @@ Voila! We could now create a new raw transaction using our 0th UTXO as an input,
 Instead of accessing a single, specific value in a specific JSON object, you could instead access all of a specific value across all the JSON objects. This is done with `.[]`, where no index is specified. For example, this would list all unspent funds:
 ```
 $ bitcoin-cli listunspent | jq -r '.[] | .amount'
-0.76
-3.9
-1.95
+0.0001
+0.00022
 ```
 
 ## Use JQ for Simple Calculations by Key
@@ -105,9 +106,9 @@ $ bitcoin-cli listunspent | jq -r '.[] | .amount'
 At this point, you can start using JQ output for simple math. For example, adding up the values of those unspent transactions with a simple `awk` script would give you the equivalent of `getbalance`:
 ```
 $ bitcoin-cli listunspent | jq -r '.[] | .amount' | awk '{s+=$1} END {print s}'
-6.61
+0.00032
 $ bitcoin-cli getbalance
-6.61000000
+0.00032000
 ```
 
 ## Use JQ to Display Multiple JSON Object Values in an Array by Multiple Keys
@@ -119,15 +120,12 @@ JQ can easily capture individual elements from JSON objects and arrays and place
 For example, you might want to see a listing of all your UTXOs (`.[]`) and get a listing of all of their most important information (`.txid, .vout, .amount`):
 ```
 $ bitcoin-cli listunspent | jq -r '.[] | .txid, .vout, .amount'
-2b5f5798359e0e23e02764588166f222d4ce056419dec83c743b72aad171d708
-1
-0.76
-ec0598918f6f5476cb90365651e8a2724ef26f949290bbf196f41ed96092a52f
+ca4898d8f950df03d6bfaa00578bd0305d041d24788b630d0c4a32debcac9f36
 0
-3.9
-3470e5fe08633583d136b9cd49bb1a224c9d9313a0b4584fd3b7438dbdf34dbd
+0.0001
+91261eafae15ea53dedbea7c1db748c52bbc04a85859ffd0d839bda1421fda4c
 0
-1.95
+0.00022
 ```
 This makes it easy to decide which UTXOs to spend in a raw transaction, but it's not very pretty.
 
@@ -137,38 +135,28 @@ The following example shows the exact same parsing of `listunspent`, but with th
 ```
 $ bitcoin-cli listunspent | jq -r '.[] | { txid: .txid, vout: .vout, amount: .amount }'
 {
-  "txid": "2b5f5798359e0e23e02764588166f222d4ce056419dec83c743b72aad171d708",
-  "vout": 1,
-  "amount": 0.76
+  "txid": "ca4898d8f950df03d6bfaa00578bd0305d041d24788b630d0c4a32debcac9f36",
+  "vout": 0,
+  "amount": 0.0001
 }
 {
-  "txid": "ec0598918f6f5476cb90365651e8a2724ef26f949290bbf196f41ed96092a52f",
+  "txid": "91261eafae15ea53dedbea7c1db748c52bbc04a85859ffd0d839bda1421fda4c",
   "vout": 0,
-  "amount": 3.9
-}
-{
-  "txid": "3470e5fe08633583d136b9cd49bb1a224c9d9313a0b4584fd3b7438dbdf34dbd",
-  "vout": 0,
-  "amount": 1.95
+  "amount": 0.00022
 }
 ```
 You could of course rename your new keys as you see fit. There's nothing magic in the original names:
 ```
 $ bitcoin-cli listunspent | jq -r '.[] | { tx: .txid, output: .vout, bitcoins: .amount }'
 {
-  "tx": "2b5f5798359e0e23e02764588166f222d4ce056419dec83c743b72aad171d708",
-  "output": 1,
-  "bitcoins": 0.76
+  "tx": "ca4898d8f950df03d6bfaa00578bd0305d041d24788b630d0c4a32debcac9f36",
+  "output": 0,
+  "bitcoins": 0.0001
 }
 {
-  "tx": "ec0598918f6f5476cb90365651e8a2724ef26f949290bbf196f41ed96092a52f",
+  "tx": "91261eafae15ea53dedbea7c1db748c52bbc04a85859ffd0d839bda1421fda4c",
   "output": 0,
-  "bitcoins": 3.9
-}
-{
-  "tx": "3470e5fe08633583d136b9cd49bb1a224c9d9313a0b4584fd3b7438dbdf34dbd",
-  "output": 0,
-  "bitcoins": 1.95
+  "bitcoins": 0.00022
 }
 ```
 ## Use JQ to Access JSON Objects by Looked-Up Value
@@ -368,6 +356,11 @@ $ bitcoin-cli decoderawtransaction $rawtxhex | jq -r '.vout  [] | .value' | awk 
 1.045
 ```
 To complete the transaction fee calculation, you subtract the .vout .amount (1.045) from the .vin .amount (1.3).
+
+To do this, you'll need to install `bc`:
+```
+$ sudo apt-get intall bc
+```
 
 Putting it all together creates a complete calculator in just five lines of script:
 ```

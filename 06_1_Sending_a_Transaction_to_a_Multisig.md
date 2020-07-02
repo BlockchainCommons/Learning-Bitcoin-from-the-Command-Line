@@ -6,17 +6,17 @@ The first way to vary how you send a basic transaction is to use a multisig. Thi
 
 ## Understand How Multisigs Work
 
-In a typical P2PKH transaction, bitcoins are sent to an address based on your public key, which in turn means that the related private key is required to unlock the transaction, solving the cryptographic puzzle and allowing you to reuse the funds. But what if you could instead lock a transaction with _multiple_ private keys. This would effectively allow funds to be sent to a group of people, where those people all have to agree to reuse the funds. 
+In a typical P2PKH or SegWit transaction, bitcoins are sent to an address based on your public key, which in turn means that the related private key is required to unlock the transaction, solving the cryptographic puzzle and allowing you to reuse the funds. But what if you could instead lock a transaction with _multiple_ private keys. This would effectively allow funds to be sent to a group of people, where those people all have to agree to reuse the funds. 
 
-_What is a multisignature?_ A multisignature is a methodology that allows more than one person to jointly create a digital signature. It's a general technique for the cryptographic use of keys that goes far beyond Bitcoin.
+> :book: ***What is a multisignature?*** A multisignature is a methodology that allows more than one person to jointly create a digital signature. It's a general technique for the cryptographic use of keys that goes far beyond Bitcoin.
 
 Technically, a multisignature cryptographic puzzle is created by Bitcoin using the OP_CHECKMULTISIG command, and typically that's encapsulated in a P2SH address. [§8.4: Scripting a Multisig](08_4_Scripting_a_Multisig.md) will detail how that works more precisely. For now, all you need to know is that you can use `bitcoin-cli` command to create multisignature addresses; funds can be mailed to these addresses just like any normal P2PKH address, but multiple private keys will be required for the redemption of the funds.
 
-_What is a multisignature transaction?_ A multisignature transaction is a Bitcoin transaction that has been sent to a multisignature address, thus requiring the signatures of certain people from the multisignature group to reuse the funds.
+> :book: ***What is a multisignature transaction?*** A multisignature transaction is a Bitcoin transaction that has been sent to a multisignature address, thus requiring the signatures of certain people from the multisignature group to reuse the funds.
 
 Simple multisignatures require everyone in the group to sign the UTXO when it's spent. However, there's more complexity possible. Multisignatures are generally described as being "m of n". That means that the transaction is locked with a group of "n" keys, but only "m" of them are required to unlock the transaction. 
 
-_What is a m-of-n multisignature?_ In a multisignature, "m" signatures out of a group of "n" are required to form the signature, where "m ≤ n".
+> :book: ***What is a m-of-n multisignature?*** In a multisignature, "m" signatures out of a group of "n" are required to form the signature, where "m ≤ n".
 
 ## Create a Multisig Address
 
@@ -24,7 +24,7 @@ In order to lock a UTXO with multiple private keys, you must first create a mult
 
 ### Create the Addresses
 
-To create a multisignature address, you must first ready the P2PKH addresses that the multisig will combine. Best practice suggests that you always create new addresses. This means that the participants will each run the `getnewaddress` command on their own machine:
+To create a multisignature address, you must first ready the addresses that the multisig will combine. Best practice suggests that you always create new addresses. This means that the participants will each run the `getnewaddress` command on their own machine:
 ```
 machine1$ address1=$(bitcoin-cli getnewaddress)
 ```
@@ -44,41 +44,28 @@ Over on the remote machine, which we assume here is `machine2`, you can get the 
 ```
 machine2$ bitcoin-cli -named getaddressinfo address=$address2
 {
-  "address": "2N9Qnf7kGS5QX8mRDFQv7QWARFRqkKdp9pN",
-  "scriptPubKey": "a914b15107009c65b631226d0626b22150098c91d35587",
+  "address": "tb1qr2tkjh8rs9xn5xaktf5phct0wxqufplawrfd9q",
+  "scriptPubKey": "00141a97695ce3814d3a1bb65a681be16f7181c487fd",
   "ismine": true,
   "solvable": true,
-  "desc": "sh(wpkh([801811ed/0'/0'/4']0373de7b25896556c33e7a6f5379151291d380c60b84c3ee9a8c933b08ce0da9f4))#rxfcwarv",
+  "desc": "wpkh([fe6f2292/0'/0'/1']02bfde48be4aa8f4bf76c570e98a8d287f9be5638412ab38dede8e78df82f33fa3)#zc64l8dw",
   "iswatchonly": false,
-  "isscript": true,
-  "iswitness": false,
-  "script": "witness_v0_keyhash",
-  "hex": "0014c06d895303bd7dff0320d7df9f33f99e8b9b0d93",
-  "pubkey": "0373de7b25896556c33e7a6f5379151291d380c60b84c3ee9a8c933b08ce0da9f4",
-  "embedded": {
-    "isscript": false,
-    "iswitness": true,
-    "witness_version": 0,
-    "witness_program": "c06d895303bd7dff0320d7df9f33f99e8b9b0d93",
-    "pubkey": "0373de7b25896556c33e7a6f5379151291d380c60b84c3ee9a8c933b08ce0da9f4",
-    "address": "tb1qcpkcj5crh47l7qeq6l0e7vlen69ekrvn509duc",
-    "scriptPubKey": "0014c06d895303bd7dff0320d7df9f33f99e8b9b0d93"
-  },
-  "label": "",
+  "isscript": false,
+  "iswitness": true,
+  "witness_version": 0,
+  "witness_program": "1a97695ce3814d3a1bb65a681be16f7181c487fd",
+  "pubkey": "02bfde48be4aa8f4bf76c570e98a8d287f9be5638412ab38dede8e78df82f33fa3",
   "ischange": false,
-  "timestamp": 1579204237,
-  "hdkeypath": "m/0'/0'/4'",
-  "hdseedid": "67ffe46aa0cfd46eb342b78579f72fd1597833b4",
-  "hdmasterfingerprint": "801811ed",
+  "timestamp": 1592957904,
+  "hdkeypath": "m/0'/0'/1'",
+  "hdseedid": "1dc70547f2b80e9bb5fde5f34fb3d85f8d8d1dab",
+  "hdmasterfingerprint": "fe6f2292",
   "labels": [
-    {
-      "name": "",
-      "purpose": "receive"
-    }
+    ""
   ]
 }
 ```
-The `pubkey` address (`0373de7b25896556c33e7a6f5379151291d380c60b84c3ee9a8c933b08ce0da9f4`) is what's required. Copy it over to your local machine by whatever means you find most efficient and _least error prone_.
+The `pubkey` address (`02bfde48be4aa8f4bf76c570e98a8d287f9be5638412ab38dede8e78df82f33fa3`) is what's required. Copy it over to your local machine by whatever means you find most efficient and _least error prone_.
 
 This process needs to be undertaken for _every_ address from a machine other than the one where the multisig is being built. Obviously, if some third-party is creating the address, then you'll to do this for every address.
 
@@ -93,27 +80,28 @@ machine1$ pubkey1=$(bitcoin-cli -named getaddressinfo address=$address1 | jq -r 
 
 A multisig can now be created with the `createmultisig` command:
 ```
-machine1$ bitcoin-cli -named createmultisig nrequired=2 keys='''["'$pubkey1'","0373de7b25896556c33e7a6f5379151291d380c60b84c3ee9a8c933b08ce0da9f4"]'''
+machine1$ bitcoin-cli -named createmultisig nrequired=2 keys='''["'$pubkey1'","02bfde48be4aa8f4bf76c570e98a8d287f9be5638412ab38dede8e78df82f33fa3"]'''
 {
-  "address": "2NDU6abQtzh4LcNs4Vd7WQJwZhkXSt1aZGM",
-  "redeemScript": "522103f92e9f4c83f4438c86814952ab28836b6e3bfb38089a1f23ff8869eaf217982c210373de7b25896556c33e7a6f5379151291d380c60b84c3ee9a8c933b08ce0da9f452ae"
+  "address": "2N8MytPW2ih27LctLjn6LfLFZZb1PFSsqBr",
+  "redeemScript": "522102da2f10746e9778dd57bd0276a4f84101c4e0a711f9cfd9f09cde55acbdd2d1912102bfde48be4aa8f4bf76c570e98a8d287f9be5638412ab38dede8e78df82f33fa352ae",
+  "descriptor": "sh(multi(2,02da2f10746e9778dd57bd0276a4f84101c4e0a711f9cfd9f09cde55acbdd2d191,02bfde48be4aa8f4bf76c570e98a8d287f9be5638412ab38dede8e78df82f33fa3))#0pazcr4y"
 }
 ```
 > :warning: **VERSION WARNING:** Older versions of `createmultisig` allowed you to enter an address instead of a public key, if the full information about the address was in your local wallet. This is no longer the case for modern Bitcoin core release, and so the shorthand should not be used.
 
-When creating the multisignature address, you list how many signatures are required with the `nrequired` argument (that's "m" in a "m-of-n" multisignature), then you list the total set of possible signatures with the `keys` argument (that's "n"). Note that the the `keys` entries likely came from different places. In this case, we included `$pubkey1` from the local machine and `0373de7b25896556c33e7a6f5379151291d380c60b84c3ee9a8c933b08ce0da9f4` from a remote machine. 
+When creating the multisignature address, you list how many signatures are required with the `nrequired` argument (that's "m" in a "m-of-n" multisignature), then you list the total set of possible signatures with the `keys` argument (that's "n"). Note that the the `keys` entries likely came from different places. In this case, we included `$pubkey1` from the local machine and `02bfde48be4aa8f4bf76c570e98a8d287f9be5638412ab38dede8e78df82f33fa3` from a remote machine. 
 
 > :information_source: **NOTE — M-OF-N VS N-OF-N:** This example shows the creation of a simple 2-of-2 multisig. If you instead want to create an m-of-n signature where "m < n", you adjust the `nrequired` field and/or the number of signatures in the `keys` JSON object. For a 1-of-2 multisig, you'd set `nrequired=1`, while for a 2-of-3 multisig, you'd leave `nrequired=2`, but add one more public key or address to the `keys` listing.
 
 When used correctly, `createmultisig` returns two results, both of which are critically important.
 
-The _address_ is what you'll give out to people who want to send funds. You'll notice that it has a new prefix of `2`, rather than the prefixes you've seen on Bitcoin addresses to date. That's because `createmultisig` is actually creating a totally new type of address called a P2SH address. It works exactly like a standard P2PKH address for sending funds, but you'll need to do a lot more work to spend them. 
+The _address_ is what you'll give out to people who want to send funds. You'll notice that it has a new prefix of `2`, exactly like those P2SH-SegWit addresses. That's because, like them, `createmultisig` is actually creating a totally new type of address called a P2SH address. It works exactly like a standard P2PKH address for sending funds, but since this one has been built to require multiple addresses, you'll need to do a lot more work to spend them. 
 
 > :link: **TESTNET vs MAINNET:** On testnet, the prefix for P2SH addresses is `2`, while on mainnet, it's `3`.
 
-The _redeemScript_ is what you need to redeem the funds, along with the private keys for "m" of the "n" addresses. This script is another special feature of P2SH addresses and will be fully explained in [§8.1: Building a Bitcoin Script with P2SH](08_1_Building_a_Bitcoin_Script_with_P2SH.md). For now, just be aware that it's a bit of data that's required to get your money.
+The _redeemScript_ is what you need to redeem the funds (along with the private keys for "m" of the "n" addresses). This script is another special feature of P2SH addresses and will be fully explained in [§8.1: Building a Bitcoin Script with P2SH](08_1_Building_a_Bitcoin_Script_with_P2SH.md). For now, just be aware that it's a bit of data that's required to get your money.
 
-_What is a P2SH address?_ P2SH stands for Pay-to-script-hash. It's a different type of receipient than a standard P2PKH address, used for funds whose redemption are based on more complex Bitcoin Scripts. `bitcoin-cli` uses P2SH encapsulation to help standardize and simplify its multisigs as "P2SH multisigs".
+> :book: ***What is a P2SH address?*** P2SH stands for Pay-to-script-hash. It's a different type of receipient than a standard P2PKH address or even a Bech32, used for funds whose redemption are based on more complex Bitcoin Scripts. `bitcoin-cli` uses P2SH encapsulation to help standardize and simplify its multisigs as "P2SH multisigs", just like P2SH-SegWit was actually using P2SH to standardize its SegWit addresses, and make them fully backward compatible.
 
 > :warning: **WARNING:** P2SH multisig addresses, like the ones created by `bitcoin-cli`, have a limit for "m" and "n" in multisigs based on the maximum size of the redeem script, which is currently 520 bytes. Pratically, you won't hit this unless you're doing something excessive.
 
@@ -124,7 +112,7 @@ Here's an important caveat: nothing about your multisig is saved into your walle
    * A list of the Bitcoin addresses used in the multisig.
    * The `redeemScript` output by `createmultsig`.
    
-Technically, the `redeemScript` can be recreated by rerunning `createmultisig` with the complete list of addresses and/or public keys _in the same order_ and with the right m-of-n count. But, it's better to hold onto it and save yourself stress and grief.
+Technically, the `redeemScript` can be recreated by rerunning `createmultisig` with the complete list of public keys _in the same order_ and with the right m-of-n count. But, it's better to hold onto it and save yourself stress and grief.
 
 ## Send to a Multisig Address
 
@@ -132,20 +120,21 @@ If you've got a multisignature in a convenient P2SH format, like the one generat
 ```
 $ utxo_txid=$(bitcoin-cli listunspent | jq -r '.[0] | .txid') 
 $ utxo_vout=$(bitcoin-cli listunspent | jq -r '.[0] | .vout')
-$ recipient="2NAGfA4nW6nrZkD5je8tSiAcYB9xL2xYMCz"
+$ recipient="2N8MytPW2ih27LctLjn6LfLFZZb1PFSsqBr"
 
-$ rawtxhex=$(bitcoin-cli -named createrawtransaction inputs='''[ { "txid": "'$utxo_txid'", "vout": '$utxo_vout' } ]''' outputs='''{ "'$recipient'": 1.2995}''')
+$ rawtxhex=$(bitcoin-cli -named createrawtransaction inputs='''[ { "txid": "'$utxo_txid'", "vout": '$utxo_vout' } ]''' outputs='''{ "'$recipient'": 0.000065}''')
 $ bitcoin-cli -named decoderawtransaction hexstring=$rawtxhex 
 {
-  "txid": "ad16ea68a62af2d3930a48c5ca811bf66935f768bb369a85298ee6697167c667",
-  "hash": "ad16ea68a62af2d3930a48c5ca811bf66935f768bb369a85298ee6697167c667",
+  "txid": "b164388854f9701051809eed166d9f6cedba92327e4296bf8a265a5da94f6521",
+  "hash": "b164388854f9701051809eed166d9f6cedba92327e4296bf8a265a5da94f6521",
+  "version": 2,
   "size": 83,
   "vsize": 83,
-  "version": 2,
+  "weight": 332,
   "locktime": 0,
   "vin": [
     {
-      "txid": "ad16098f5c8904a4de7c152efc56359c22be37d447cd78019c398791a7bdd928",
+      "txid": "c6de60427b28d8ec8102e49771e5d0348fc3ef6a5bf02eb864ec745105a6951b",
       "vout": 0,
       "scriptSig": {
         "asm": "",
@@ -156,31 +145,32 @@ $ bitcoin-cli -named decoderawtransaction hexstring=$rawtxhex
   ],
   "vout": [
     {
-      "value": 1.29950000,
+      "value": 0.00006500,
       "n": 0,
       "scriptPubKey": {
-        "asm": "OP_HASH160 babf9063cee8ab6e9334f95f6d4e9148d0e551c2 OP_EQUAL",
-        "hex": "a914babf9063cee8ab6e9334f95f6d4e9148d0e551c287",
+        "asm": "OP_HASH160 a5d106eb8ee51b23cf60d8bd98bc285695f233f3 OP_EQUAL",
+        "hex": "a914a5d106eb8ee51b23cf60d8bd98bc285695f233f387",
         "reqSigs": 1,
         "type": "scripthash",
         "addresses": [
-          "2NAGfA4nW6nrZkD5je8tSiAcYB9xL2xYMCz"
+          "2N8MytPW2ih27LctLjn6LfLFZZb1PFSsqBr"
         ]
       }
     }
   ]
 }
-$ signedtx=$(bitcoin-cli -named signrawtransaction hexstring=$rawtxhex | jq -r '.hex')
+
+$ signedtx=$(bitcoin-cli -named signrawtransactionwithwallet hexstring=$rawtxhex | jq -r '.hex')
 $ bitcoin-cli -named sendrawtransaction hexstring=$signedtx
-621be11aac439d6ec58be398058fc33c3e89cf45138a0e73e05b7001f9b6e328
+b164388854f9701051809eed166d9f6cedba92327e4296bf8a265a5da94f6521
 ```
-As you can see, there was nothing unusual in the creation of the transaction, and it looked entirely normal, albeit with an address with a different prefix than normal (`2NAGfA4nW6nrZkD5je8tSiAcYB9xL2xYMCz`).
+As you can see, there was nothing unusual in the creation of the transaction, and it looked entirely normal, albeit with an address with a different prefix than normal (`2N8MytPW2ih27LctLjn6LfLFZZb1PFSsqBr`). No surprise, as we similarly saw no difference when we sent to Bech32 addresses for the first time in [§4.6](04_6_Creating_a_Segwit_Transaction.md).
 
 ## Summary: Sending a Transaction with a Multisig
 
-Multisig addresses lock funds to multiple private keys — possibly requiring all of those private keys for redemption, and possibly requiring just some from the set. They're easy enough to create with `bitcoin-cli` and they're entirely normal to send to. This ease is due in large part to the invisible use of P2SH (pay-to-script-hash) addresses, a large topic that will get more coverage in the future.
+Multisig addresses lock funds to multiple private keys — possibly requiring all of those private keys for redemption, and possibly requiring just some from the set. They're easy enough to create with `bitcoin-cli` and they're entirely normal to send to. This ease is due in large part to the invisible use of P2SH (pay-to-script-hash) addresses, a large topic that we've touched upon twice now, with P2SH-SegWit and multisig addresses, and one that will get more coverage in the future.
 
-_What is the power of multisignatures?_ Multisignatures allow the modeling of a variety of financial arrangements such as corporations, partnerships, committees, and other groups. A 1-of-2 multisig might be a married couple's joint bank account, while a 2-of-2 multisig might be used for large expenditures by a Limited Liability Partnership. Multisignatures also form one of the bases of Smart Contracts. For example, a real estate deal could be closed with a 2-of-3 multisig, where the signatures are submitted by the buyer, the seller, and an escrow agent. Once the escrow agent agrees that all of the conditions have been met, he frees up the funds for the seller; or alternatively, the buyer and seller can jointly free the funds.
+> :fire: ***What is the power of multisignatures?*** Multisignatures allow the modeling of a variety of financial arrangements such as corporations, partnerships, committees, and other groups. A 1-of-2 multisig might be a married couple's joint bank account, while a 2-of-2 multisig might be used for large expenditures by a Limited Liability Partnership. Multisignatures also form one of the bases of Smart Contracts. For example, a real estate deal could be closed with a 2-of-3 multisig, where the signatures are submitted by the buyer, the seller, and an escrow agent. Once the escrow agent agrees that all of the conditions have been met, he frees up the funds for the seller; or alternatively, the buyer and seller can jointly free the funds.
 
 ## What's Next?
 
