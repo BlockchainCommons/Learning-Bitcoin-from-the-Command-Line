@@ -54,10 +54,13 @@ Add and document the following new concepts:
    * <strike>Integrate discussions of SegWit into early parts of chapter 4.</strike> **6/23**
    * <strike>Write chapter 4.6</strike> **6/23**
 12. Add PSBT. Partially Signed Bitcoin Transactions are a powerful new interchange format that should be fully included in our discussions of multi-sigs and escrows (which instead fell back on older methodologies in v1.0).
+   * <strike>Research PSBTs</strike> **7/2**
+   * Update Outlines
 13. Add Wallet Updates.
    * <strike>Bitcoin Descriptors</strike> **6/30**
-      * Show what a SegWit descriptor looks like
+      * <strike>Show what a SegWit descriptor looks like</strike> **7/2**
       * Show what a multi-sig descriptor looks like
+      * Revise based on comments
    * Key Ordering
 14. Consider HWI. We need to investigate the Hardware Wallet Interface, which uses PSBTs with hardware wallets, and see if it's something we should include (and if our readers want us to).
 
