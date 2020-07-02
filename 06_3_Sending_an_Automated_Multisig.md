@@ -120,4 +120,4 @@ There's an easier way to resepend funds sent to multisig addresses that simply r
 
 ## What's Next?
 
-Continue "Expanding Bitcoin Transactions" with [§6.4: Sending a Transaction with a Locktime](06_4_Sending_a_Transaction_with_a_Locktime.md).
+Advance through "bitcoin-cli" with [Chapter Seven: Expanding Bitcoin Transactions with PSBTs](07_0_Expanding_Bitcoin_Transactions_PSBTs.md).
