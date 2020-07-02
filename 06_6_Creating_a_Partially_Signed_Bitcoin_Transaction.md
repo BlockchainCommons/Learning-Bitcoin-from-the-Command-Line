@@ -4,7 +4,7 @@
 
 [intro]
 
-> :warning: **VERSION WARNING:** This is an innovation from Bitcoin Core v 0.17.0 that had continued to be expanded through Bitcoin Core 0.20.0. Most of the commands in this section are from 0.17.0, but the updated `importmulti` that support descriptors is from 0.18.0.
+> :warning: **VERSION WARNING:** This is an innovation from Bitcoin Core v 0.17.0. Earlier versions of Bitcoin Core will not be able to work with the PSBT while it is in process (though they will still be able to recognize the final transaction).
 
 ## Understand a PSBT
 
