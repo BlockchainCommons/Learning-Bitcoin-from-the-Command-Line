@@ -61,9 +61,9 @@ Add and document the following new concepts:
 13. Add Wallet Updates.
    * <strike>Bitcoin Descriptors</strike> **6/30**
       * <strike>Show what a SegWit descriptor looks like</strike> **7/2**
-      * Show what a multi-sig descriptor looks like
+      * <strike>Show what a multi-sig descriptor looks like</strike> **7/2**
       * Revise based on comments
-   * Key Ordering
+   * <strike>Key Ordering (sortedmulti)</strike> **7/2** **Partially Supported in 0.20**
 14. Consider HWI. We need to investigate the Hardware Wallet Interface, which uses PSBTs with hardware wallets, and see if it's something we should include (and if our readers want us to).
 
 ## 5. Finish Later Chapters
