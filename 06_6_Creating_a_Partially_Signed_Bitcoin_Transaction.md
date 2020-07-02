@@ -18,6 +18,8 @@
 
 ## Update a PSBT
 
+## Sign a PSBT
+
 ## Summary: Creating a Partially Signed Bitcoin Transaction
 
 ## What's Next?
