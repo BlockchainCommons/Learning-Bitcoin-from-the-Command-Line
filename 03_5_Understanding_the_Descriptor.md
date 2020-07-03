@@ -67,6 +67,7 @@ function([derivation-path]key)#checksum
 Here's what that all means:
 * **Function.** The function that is used to create an address from that key. In this cases it's `pkh`, which is the standard P2PKH legacy address that you met in [§3.3: Setting Up Your Wallet](03_3_Setting_Up_Your_Wallet.md). Similarly, a P2WSH SegWit address would use `wsh` and a P2WPKH address would use `wpkh`.
 * **Derivation Path.** This describes what part of an HD wallet is being exported. In this case it's a seed with the fingerprint `d6043800` and then the 18th child of the 0th child of the 0th child (`0'/0'/18'`) of that seed. There may also be a further derivation after the key: `function([derivation-path]key/more-derivation)#checksum`
+   * It's worth noting here that if you ever get a derivation path without a fingerprint, you can make it up. It's just that if there's an existing one, you should match it, because if you ever go back to the device that created the fingerprint, you'll need to have the same one.
 * **Key**. The key or keys that are being transferred. This could be something traditional like an `xpub` or `xprv`, it could just be a public key for an address as in this case, it could be a set of addresses for a multi-signature, or it could be something else. This is the core data: the function explains what to do with it.
 * **Checksum**. Descriptors are meant to be human transferrable. This checksum makes sure you got it right.
 
@@ -118,7 +119,7 @@ remote$ bitcoin-cli importmulti '[{"desc": "pkh([d6043800/0'"'"'/0'"'"'/18'"'"']
   }
 ]
 ```
-First, you'll note our first really ugly use of quotes. Every `'` in the derivation path had to be replaced with `'"'"'`. Just expect to have to do that if you're manipulating a descriptor that contains a derivation path. 
+First, you'll note our first really ugly use of quotes. Every `'` in the derivation path had to be replaced with `'"'"'`. Just expect to have to do that if you're manipulating a descriptor that contains a derivation path. (The other option is to exchange the `'` with a `h` for hardened, but that will change you checksum, so if you prefer that for its ease of use, you'll need to get a new checksum with `getdescriptorinfo`.)
 
 Second, you'll note that we flagged this as `watchonly`. That's because we know that it's a public key, so we can't spend with it. If we'd failed to enter this flag, `importmulti` would helpfully have told us something like: `Some private keys are missing, outputs will be considered watchonly. If this is intentional, specify the watchonly flag.`.
 
