@@ -66,7 +66,11 @@ Add and document the following new concepts:
    * <strike>Key Ordering (sortedmulti)</strike> **7/2** **Partially Supported in 0.20**
 14. Consider HWI. We need to investigate the Hardware Wallet Interface, which uses PSBTs with hardware wallets, and see if it's something we should include (and if our readers want us to).
 15. Consider splitting up Chapter 6 (definitely if we get an HWI chapter)
-   * Rearrange all early files and links
+   * <strike>Break apart Chapter 6</strike> **7/2**
+   * Rewrite all section links in early chapters (1-5, 6, 8)
+   * Update Script Chapters
+   * Update Tor Chapter
+   * Update Programming Chapters
    
 ## 5. Finish Later Chapters
 
