@@ -185,7 +185,7 @@ Additional contributions are listed below:
 
 | Role                | Names                                    |
 | ------------------- | ---------------------------------------- |
-| ***Contributors:*** | [gorazdko](https://github.com/gorazdko) (Rust section), [Javier Vargas](https://github.com/javiervargas) (C, Java, Tor sections), [jodobear](https://github.com/jodobear) (Appendix I, Python section)                                   |
+| ***Contributors:*** | [gg2001](https://github.com/gg2001) (Go, Node.js sections), [gorazdko](https://github.com/gorazdko) (Rust section), [Javier Vargas](https://github.com/javiervargas) (C, Java, Tor sections), [jodobear](https://github.com/jodobear) (Appendix I, Python section)                                   |
 | ***Reviewers:***    | Glen Willem [@gwillem](https://github.com/gwillem) |
 | ***Sponsors:***     | Blockstream Corporation                  |
 
