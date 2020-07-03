@@ -1,4 +1,4 @@
-# 6.5: Sending a Transaction with Data
+# 8.2: Sending a Transaction with Data
 
 > :information_source: **NOTE:** This is a draft in progress, so that I can get some feedback from early reviewers. It is not yet ready for learning.
 
@@ -120,4 +120,4 @@ Note that there is some controversy over using the Bitcoin blockchain in this wa
 
 ## What's Next?
 
-Continue "Expanding Bitcoin Transactions" with [§6.6: Creating a Partially Signed Bitcoin Transaction](06_6_Creating_a_Partially_Signed_Bitcoin_Transaction.md).
+Move on to "Bitcoin Scripting" with [Chapter Seven: Introducing Bitcoin Scripts](07_0_Introducing_Bitcoin_Scripts.md).
