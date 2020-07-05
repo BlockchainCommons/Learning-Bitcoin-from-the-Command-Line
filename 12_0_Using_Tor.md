@@ -37,10 +37,6 @@ When a user connects to an Internet Server using tor it create a circuit using r
 21:06:52.776968 IP 195-xxx-xxx-x.rev.pxxxxxm.eu.9999 > bitcoin.58776: Flags [.], ack 265189, win 501, options [nop,nop,TS val 3018177533 ecr 209009853], length 0
 ```
 
-## 3. Accessing Tor services.
-
-
-
   * [12.1: Verifying Your Tor Setup](12_1_Verifying_Your_Tor_Setup.md)
   * [12.2: Changing Your Bitcoin Hidden Services](12_2_Changing_Your_Bitcoin_Hidden_Services.md)
   * [12.3: Adding SSH Hidden Services](12_3_Adding_SSH_Hidden_Services.md)
