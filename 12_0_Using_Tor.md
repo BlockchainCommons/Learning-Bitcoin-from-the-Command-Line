@@ -36,6 +36,82 @@ When a user connects to an Internet Server using tor it create a circuit using t
 21:06:52.744602 IP bitcoin.58776 > 195-xxx-xxx-x.rev.pxxxxxm.eu.9999: Flags [P.], seq 264139:265189, ack 3519373, win 3410, options [nop,nop,TS val 209009853 ecr 3018177498], length 1050
 21:06:52.776968 IP 195-xxx-xxx-x.rev.pxxxxxm.eu.9999 > bitcoin.58776: Flags [.], ack 265189, win 501, options [nop,nop,TS val 3018177533 ecr 209009853], length 0
 ```
+### Bitcoin tor connections
+
+Using bitcoin-cli parameter getpeerinfo you can see what nodes are connected to your node and check that it swaps connections over tor.
+
+```
+$ bitcoin-cli getpeerinfo
+```
+Output
+
+```
+ {
+    "id": 9,
+    "addr": "nkv.......xxx.onion:8333",
+    "addrbind": "127.0.0.1:51716",
+    "services": "000000000000040d",
+    "servicesnames": [
+      "NETWORK",
+      "BLOOM",
+      "WITNESS",
+      "NETWORK_LIMITED"
+    ],
+    "relaytxes": true,
+    "lastsend": 1593981053,
+    "lastrecv": 1593981057,
+    "bytessent": 1748,
+    "bytesrecv": 41376,
+    "conntime": 1593980917,
+    "timeoffset": -38,
+    "pingwait": 81.649295,
+    "version": 70015,
+    "subver": "/Satoshi:0.20.0/",
+    "inbound": false,
+    "addnode": false,
+    "startingheight": 637875,
+    "banscore": 0,
+    "synced_headers": -1,
+    "synced_blocks": -1,
+    "inflight": [
+    ],
+    "whitelisted": false,
+    "permissions": [
+    ],
+    "minfeefilter": 0.00000000,
+    "bytessent_per_msg": {
+      "addr": 55,
+      "feefilter": 32,
+      "getaddr": 24,
+      "getheaders": 1053,
+      "inv": 280,
+      "ping": 32,
+      "pong": 32,
+      "sendcmpct": 66,
+      "sendheaders": 24,
+      "verack": 24,
+      "version": 126
+    },
+    "bytesrecv_per_msg": {
+      "addr": 30082,
+      "feefilter": 32,
+      "getdata": 280,
+      "getheaders": 1053,
+      "headers": 106,
+      "inv": 9519,
+      "ping": 32,
+      "pong": 32,
+      "sendcmpct": 66,
+      "sendheaders": 24,
+      "verack": 24,
+      "version": 126
+    }
+  }
+```
+
+
+
+
 
   * [12.1: Verifying Your Tor Setup](12_1_Verifying_Your_Tor_Setup.md)
   * [12.2: Changing Your Bitcoin Hidden Services](12_2_Changing_Your_Bitcoin_Hidden_Services.md)
