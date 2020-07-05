@@ -16,7 +16,7 @@ The basic architecture of the Tor network is made up of the following components
 input (Guard), intermediate nodes (Middle), and output nodes (Exit).
 *  Directory servers: Directory servers store the information of onion routers and onion servers (hidden services), such as their
 public keys.
-*  Onion servers (hidden servers): They support TCP applications as a service web or IRC service
+*  Onion servers (hidden servers): They support TCP applications as a service web or IRC service.
 
 ### Clear internet connection
 
