@@ -30,13 +30,12 @@ Output
 ```
 20:58:03.804787 IP bitcoin.36300 > lb-140-82-114-25-iad.github.com.443: Flags [P.], seq 1:30, ack 25, win 501, options [nop,nop,TS val 3087919981 ecr 802303366], length 29
 ```
-When a user connects to an Internet Server using tor it create a circuit using relay nodes that only nows previous and the next hop.
+When a user connects to an Internet Server using tor it create a circuit using relay nodes that only knows previous and the next hop.
 
 ```
 21:06:52.744602 IP bitcoin.58776 > 195-xxx-xxx-x.rev.pxxxxxm.eu.9999: Flags [P.], seq 264139:265189, ack 3519373, win 3410, options [nop,nop,TS val 209009853 ecr 3018177498], length 1050
 21:06:52.776968 IP 195-xxx-xxx-x.rev.pxxxxxm.eu.9999 > bitcoin.58776: Flags [.], ack 265189, win 501, options [nop,nop,TS val 3018177533 ecr 209009853], length 0
 ```
-
 
 ## 3. Accessing Tor services.
 
