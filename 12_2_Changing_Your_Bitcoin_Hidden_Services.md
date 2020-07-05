@@ -26,5 +26,5 @@ HiddenServiceDir /var/lib/tor/bitcoin-service/
 HiddenServicePort 8333 127.0.0.1:8333
 HiddenServicePort 18333 127.0.0.1:18333
 ```
-If you're running Tor version 3 bitcoind will configurate hidden services automatically to listen on.
+If you're running Tor version 3 bitcoind will configurate hidden services automatically to listen on.   If you want to change your onion id delete file onion_private_key located in bitcoin data dir.
 
