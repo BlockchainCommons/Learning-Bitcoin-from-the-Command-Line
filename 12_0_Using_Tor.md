@@ -6,7 +6,20 @@ In this section will talk about Tor network and how to use its services that are
 
 Tor is a low-latency anonymity and overlay network based on onion routing and path-building design for enabling anonymous communication.  Tor is free and open-source software and the name derived from the acronym for the original software project name "The Onion Router".  The Tor Project, Inc. is a Massachusetts-based  research-education nonprofit organization founded by computer scientists Roger Dingledine, Nick Mathewson and others. The Tor Project is primarily responsible for maintaining software for the [Tor anonymity network](https://www.torproject.org/)
 
-## 2. How it works
+## 2. ¿Why use Bitcoin over Tor? 
+
+The Bitcoin network is a peer-to-peer network that listen for transactions and propagates them using an IP public address.  When you use default configuration you share your ip address that could expose to a third party your location, your uptime and others details that becomes a undesirable privacy practice.   To protect you online you should use tools like Tor to hidden your connection details.   Tor allows improve your privacy online as your data goes through different nodes using cryptography and decoding one layer at a time at the different nodes.
+
+### Weaknesses
+
+Tor isn't a perfect tool and given that at the exit nodes the information of the Tor network is decrypted and sent to its final destinations, theoretically if someone is monitoring this traffic, and the data is no longer encrypted or observer can collect sufficiently metadata the anonymity is compromised and could potentially identify users.
+
+There are some studies about possible exploits on Bitcoin's anti-DoS protection that could allow an attacker to force other users which uses Tor to connect exclusively through his Tor Exit nodes or to his Bitcoin peers,  isolating the client from the rest of the Bitcoin network. 
+This could expose users to attacks in which the attacker controls which Bitcoin blocks and transactions receives and lost some level of anonymity.
+
+Fingerprint attack Bitcoin Tor users by setting an address cookie on their nodes. This cookie  allows correlate different transactions of the user exposing transactions propagated without Tor and correlating to his IP address, and later deanonymizing all his transactions sent previously through Tor. 
+
+## 3. How it works
 
 When a user wants to connect to an Internet server Tor tries to build a path formed by at least three Tor nodes relays called Guard, Middle and Exit.  In this building path creates a circuit that negotiates encrypted symmetric keys,that while the message goes along the circuit, each relay strips off its layer of encryption. In this way the message arrives at the final destination in its original form and each party only knows the previous and the next hop and cannot determinate origin or destination.
 
