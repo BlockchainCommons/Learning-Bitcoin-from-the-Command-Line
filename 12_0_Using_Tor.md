@@ -8,7 +8,7 @@ Tor is a low-latency anonymity and overlay network based on onion routing and pa
 
 ## 2. ¿Why use Bitcoin over Tor? 
 
-The Bitcoin network is a peer-to-peer network that listen for transactions and propagates them using an IP public address.  When you use default configuration you share your ip address that could expose to a third party your location, your uptime and others details that becomes a undesirable privacy practice.   To protect you online you should use tools like Tor to hidden your connection details.   Tor allows improve your privacy online as your data goes through different nodes using cryptography and decoding one layer at a time at the different nodes.
+The Bitcoin network is a peer-to-peer network that listen for transactions and propagates them using an IP public address.  When you use default configuration you share your ip address that could expose to a third party your location, your uptime and others details that becomes a undesirable privacy practice.   To protect you online you should use tools like Tor to hide your connection details.   Tor allows improve your privacy online as your data goes through different nodes using cryptography and decoding one layer at a time at the different nodes.
 
 ### Weaknesses
 
