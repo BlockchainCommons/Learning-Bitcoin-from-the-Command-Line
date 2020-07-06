@@ -12,7 +12,7 @@ The Bitcoin network is a peer-to-peer network that listen for transactions and p
 
 ### Weaknesses
 
-Tor isn't a perfect tool and given that at the exit nodes the information of the Tor network is decrypted and sent to its final destinations, theoretically if someone is monitoring this traffic, and the data is no longer encrypted or observer can collect sufficiently metadata the anonymity is compromised and could potentially identify users.
+Tor isn't a perfect tool and given that at the exit nodes the information of the Tor network is decrypted and sent to its final destinations, theoretically if someone is monitoring this traffic, and the data is no longer encrypted an observer can collect sufficiently metadata compromising the anonymity and could potentially identify users.
 
 There are some studies about possible exploits on Bitcoin's anti-DoS protection that could allow an attacker to force other users which uses Tor to connect exclusively through his Tor Exit nodes or to his Bitcoin peers,  isolating the client from the rest of the Bitcoin network. 
 This could expose users to attacks in which the attacker controls which Bitcoin blocks and transactions receives and lost some level of anonymity.
