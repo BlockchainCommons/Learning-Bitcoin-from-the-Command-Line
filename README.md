@@ -4,22 +4,25 @@ Learning Bitcoin from the Command Line is a tutorial for working with Bitcoin (a
 
 > NOTE: This is a draft in progress, so that I can get some feedback from early reviewers. It is not yet ready for use.
 
-## Table of Contents
-
 _This tutorial assumes that you have some minimal background of how to use the command line interface. If not, there are many tutorials available, and I have one for Mac users at https://github.com/ChristopherA/intro-mac-command-line._
+
+## Table of Contents
 
 * [0.0: Introduction to Programming with Bitcoin Core and Lightning](00_0_Introduction.md)
 
 ### PART ONE: PREPARING FOR BITCOIN
 
+**Status:** May need new concepts from 0.20.
+
 * [1.0: Introducing Bitcoin](01_0_Introducing_Bitcoin.md)
 * [2.0: Setting Up a Bitcoin-Core VPS](02_0_Setting_Up_a_Bitcoin-Core_VPS.md)
   * [2.1: Setting Up a Bitcoin-Core VPS by Hand](02_1_Setting_Up_a_Bitcoin-Core_VPS_by_Hand.md)
-  * [2.2: Setting Up a Bitcoin-Core VPS with StackScript.md](02_2_Setting_Up_a_Bitcoin-Core_VPS_with_StackScript.md)
-    * [Linode_Bitcoin-Core_VPS_Setup.stackscript](02_2__Script_Linode_Setup.stackscript)
+  * [2.2: Setting Up a Bitcoin-Core VPS with Bitcoin Standup](02_2_Setting_Up_a_Bitcoin-Core_VPS_with_StackScript.md)
   * [2.3: Setting Up a Bitcoin-Core Machine via Other Means](02_3_Setting_Up_Bitcoin_Core_Other.md)
 
-### PART TWO: BITCOIN-CLI
+### PART TWO: USING BITCOIN-CLI
+
+**Status:** The PSBT and HWI content (chapter 6) is new, and so still being written.
 
 * [3.0: Understanding Your Bitcoin Setup](03_0_Understanding_Your_Bitcoin_Setup.md)
   * [3.1: Verifying Your Bitcoin Setup](03_1_Verifying_Your_Bitcoin_Setup.md)
@@ -27,27 +30,36 @@ _This tutorial assumes that you have some minimal background of how to use the c
   * [3.3: Setting Up Your Wallet](03_3_Setting_Up_Your_Wallet.md)
     * [Interlude: Using Command-Line Variables](03_3__Interlude_Using_Command-Line_Variables.md)
   * [3.4: Receiving a Transaction](03_4_Receiving_a_Transaction.md)
+  * [3.5: Understanding the Descriptor](03_5_Understanding_the_Descriptor.md)
+  
 * [4.0: Sending Bitcoin Transactions](04_0_Sending_Bitcoin_Transactions.md)
   * [4.1: Sending Coins the Easy Way](04_1_Sending_Coins_The_Easy_Way.md)
   * [4.2: Creating a Raw Transaction](04_2_Creating_a_Raw_Transaction.md)
      * [Interlude: Using JQ](04_2__Interlude_Using_JQ.md)
   * [4.3: Creating a Raw Transaction with Named Arguments](04_3_Creating_a_Raw_Transaction_with_Named_Arguments.md)
   * [4.4: Sending Coins with Raw Transactions](04_4_Sending_Coins_with_a_Raw_Transaction.md)
-     * [Interlude: Using Curl](04_4__Interlude_Using_Curl.md) — Needs Rewrite for New Section
+     * [Interlude: Using Curl](04_4__Interlude_Using_Curl.md)
   * [4.5: Sending Coins with Automated Raw Transactions](04_5_Sending_Coins_with_Automated_Raw_Transactions.md)
-  * [4.6: Creating a Segwit Transaction](04_6_Creating_a_Segwit_Transaction) — Awaiting Better Integration of Segwit into CLI
+  * [4.6: Creating a Segwit Transaction](04_6_Creating_a_Segwit_Transaction.md)
 * [5.0: Controlling Bitcoin Transactions](05_0_Controlling_Bitcoin_Transactions.md)
   * [5.1 Watching for Stuck Transactions](05_1_Watching_for_Stuck_Transactions.md)
   * [5.2: Resending a Transaction with RBF](05_2_Resending_a_Transaction_with_RBF.md)
   * [5.3: Funding a Transaction with CPFP](05_3_Funding_a_Transaction_with_CPFP.md)
-* [6.0: Expanding Bitcoin Transactions](06_0_Expanding_Bitcoin_Transactions.md)
+* [6.0: Expanding Bitcoin Transactions with Multisigs](06_0_Expanding_Bitcoin_Transactions_Multisigs.md)
   * [6.1: Sending a Transaction with a Multsig](06_1_Sending_a_Transaction_to_a_Multisig.md)
   * [6.2: Spending a Transaction with a Multsig](06_2_Spending_a_Transaction_to_a_Multisig.md)
   * [6.3: Sending & Spending an Automated Multisig](06_3_Sending_an_Automated_Multisig.md)
-  * [6.4: Sending a Transaction with a Locktime](06_4_Sending_a_Transaction_with_a_Locktime.md)
-  * [6.5: Sending a Transaction with Data](06_5_Sending_a_Transaction_with_Data.md)
-
+* [7.0: Expanding Bitcoin Transactions with PSBTs](07_0_Expanding_Bitcoin_Transactions_PSBTs.md)
+  * [7.1: Creating a Partially Signed Bitcoin Transaction](07_1_Creating_a_Partially_Signed_Bitcoin_Transaction.md)
+  * [7.2: Using a Partially Signed Bitcoin Transaction](07_2_Using_a_Partially_Signed_Bitcoin_Transaction.md)
+  * [7.3: Integrating with Hardware Wallets](07_3_Integrating_with_Hardware_Wallets.md)
+* [8.0: Expanding Bitcoin Transactions in Other Ways](08_0_Expanding_Bitcoin_Transactions_Other.md)  
+  * [8.1: Sending a Transaction with a Locktime](08_1_Sending_a_Transaction_with_a_Locktime.md)
+  * [8.2: Sending a Transaction with Data](08_2_Sending_a_Transaction_with_Data.md)
+  
 ## PART THREE: BITCOIN SCRIPTING
+
+**Status:** Requires renumbering; requires editing; requires check that it works in 0.20; requires concepts brought up to 0.20.
 
 * [7.0: Introducing Bitcoin Scripts](07_0_Introducing_Bitcoin_Scripts.md)
   * [7.1: Understanding the Foundation of Transactions](07_1_Understanding_the_Foundation_of_Transactions.md)
@@ -72,27 +84,34 @@ _This tutorial assumes that you have some minimal background of how to use the c
   * [11.2: Writing Complex Multisig Scripts](11_2_Writing_Complex_Multisig_Scripts.md)
   * [11.3: Empowering Bitcoin with Scripts](11_3_Empowering_Bitcoin_with_Scripts.md)
 
-### PART FOUR: TOR
+### PART FOUR: USING TOR
 
-_The section is currently unwritten._
+**Status:** Requires renumbering; Unwritten.
 
-* 12.0: Setting Up Tor
+* [12.0: Using Tor](12_0_Using_Tor.md)
   * 12.1: Verifying Your Tor Setup
   * 12.2: Changing Your Bitcoin Hidden Services
   * 12.3: Adding SSH Hiddne Services
   
-### PART FIVE: LIGHTNING-CLI
+### PART FIVE: USING LIGHTNING-CLI
 
-_This section is unwritten currently, and will probably involve chapter 14.0 expanding into at least two chapters._
+**Status:** Requires renumbering; Unwritten. Chapter 14 may expand into multiple chapters.
 
-* 13.0: Setting Up Lightning
+(At this point, I'm assuming that Lightning will be integrated into Standup, at which point we just need to tech how to use it at a pretty basic level.)
+
+* 13.0: Understanding Lightning
+  * 13.1: Verifying Your Lightning Setup
+  * 13.2: Setting up a Channel
+  * 13.3: Receiving a Transaction
 * 14.0: Using Lightning
+  * 14.1: Sending a Transaction
+  * 14.X: Closing a Channel
 
 > _Some good docs from one of the developers are here: https://diyhpl.us/wiki/transcripts/blockstream-webinars/2019-07-31-rusty-russell-getting-started-with-c-lightning/._
 
-### PART SIX: BITCOIN & LIGHTNING PROGRAMMING
+### PART SIX: PROGRAMMING WITH RPC
 
-_This section is currently a messy set of older writings which are being reorganized as listed below. We're not going to work through this section until we've got chapters 1-11 updated per our current notes, then 12-14 written. But, if you'd like to see what we have to date on programming in correlation with Bitcoin Core, please feel free._
+**Status:** Requires renumbering; This section is currently a messy set of older writings which are being reorganized as listed below. We're not going to work through this section until we've got chapters 1-11 updated per our current notes, then 12-14 written. But, if you'd like to see what we have to date on programming in correlation with Bitcoin Core, please feel free.
 
 * [15.0: Talking to Bitcoind with C](15_0_Talking_to_Bitcoind.md) — Needs Rewrite + Editing
   * [15.1: Accessing Bitcoind with C](15_1_Accessing_Bitcoind_with_C.md) — Needs Rewrite
@@ -105,16 +124,18 @@ _This section is currently a messy set of older writings which are being reorgan
    * 17.4: Integrating Libwally and Scripts
 * 17.0: Talking to Lightningd with C
 * 18.0: Talking to Bitcoind with Other Languages
-  * [18.1: Accessing Bitcoind with Go]
-  * [18.2: Accessing Bitcoind with Java](18_2_Accessing_Bitcoind_with_Java.md) — Needs Rewrite + Editing
-  * [18.3: Accessing Bitcoind with_Node_JS](18_3_Accessing_Bitcoind_with_NodeJS.md)  — Needs Rewrite + Editing
-  * [18.4: Accessing Bitcoind with Python]
-  * [18.5: Accessing Bitcoind with Rust]
+  * [18.1: Accessing Bitcoind with Go](18_1_Accessing_Bitcoind_with_Go.md)
+  * [18.2: Accessing Bitcoind with Java](18_2_Accessing_Bitcoind_with_Java.md)
+  * [18.3: Accessing Bitcoind with Node JS](18_3_Accessing_Bitcoind_with_NodeJS.md)
+  * [18.4: Accessing Bitcoind with Python](18_4_Accessing_Bitcoind_with_Python.md)
+  * [18.5: Accessing Bitcoind with Rust](18_5_Accessing_Bitcoind_with_Rust.md)
   * [18.6: Accessing Bitcoind with Swift]
   
-### APPENDICE
+### APPENDICES
 
-* Appendix I: Compiling Bitcoin
+**Status:** Varied. Appendix I is recent that just needs editing for style; Appendix II needs a rewrite.
+
+* [Appendix I: Compiling Bitcoin from Source](A1_0_Compiling_Bitcoin_from_Source.md)
 * [Appendix II: Using Bitcoin Regtest](A2_0_Setting_Up_a_Bitcoin_Regtest.md) — Needs Rewrite + Editing
    * [A2.1: Starting the Regtest](A2_1_Starting_the_Regtest.md) — Needs Rewrite + Editing
    * [A2.2: Mining with Regtest](A2_2_Mining_with_Regtest.md) — Needs Rewrite + Editing
@@ -164,7 +185,7 @@ Additional contributions are listed below:
 
 | Role                | Names                                    |
 | ------------------- | ---------------------------------------- |
-| ***Contributors:*** |                                          |
+| ***Contributors:*** | [gg2001](https://github.com/gg2001) (Go, Node.js sections), [gorazdko](https://github.com/gorazdko) (Rust section), [Javier Vargas](https://github.com/javiervargas) (C, Java, Tor sections), [jodobear](https://github.com/jodobear) (Appendix I, Python section)                                   |
 | ***Reviewers:***    | Glen Willem [@gwillem](https://github.com/gwillem) |
 | ***Sponsors:***     | Blockstream Corporation                  |
 
@@ -186,4 +207,3 @@ The following keys may be used to communicate sensitive information to developer
 | Christopher Allen | FDFE 14A5 4ECB 30FC 5D22  74EF F8D3 6C91 3574 05ED |
 
 You can import a key by running the following command with that individual’s fingerprint: `gpg --recv-keys "<fingerprint>"` Ensure that you put quotes around fingerprints that contain spaces.
-

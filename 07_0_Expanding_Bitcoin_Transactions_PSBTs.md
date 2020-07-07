@@ -1,6 +1,6 @@
 # Chapter Six: Expanding Bitcoin Transactions
 
-Basic bitcoin transactions: (1) send funds; (2) to a single P2PKH recipient; (3) immediately. However, all three parts of this definition can be expanded using more complex Bitcoin transactions, which can alternatively send data, which can send to a group of recipients, or which can send at a later time. These three options represent further empowerment of Bitcoin and also the furthest boundaries of what you can do with the basic `bitcoin-cli` command.
+Basic bitcoin transactions: (1) send funds; (2) to a single P2PKH or SegWit recipient; (3) immediately. However, all three parts of this definition can be expanded using more complex Bitcoin transactions, which can alternatively send data, which can send to a group of recipients, or which can send at a later time. These three options represent further empowerment of Bitcoin and also the furthest boundaries of what you can do with the basic `bitcoin-cli` command.
 
 ## Objectives for This Section
 

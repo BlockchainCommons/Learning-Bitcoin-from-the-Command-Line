@@ -2,15 +2,15 @@
 
 > NOTE: This is a draft in progress, so that I can get some feedback from early reviewers. It is not yet ready for learning.
 
-Interacting with the bitcoind directly and using command-line curl can be simple if you understand how it works, but there's a project [Python-BitcoinRPC](https://github.com/jgarzik/python-bitcoinrpc) that provides the functionality in a Python-API level, making it even easier to interact with your Bitcoin Server.
+Interacting with the bitcoind directly and using command-line curl can get simple if you understand how it works, but there's a project [Python-BitcoinRPC](https://github.com/jgarzik/python-bitcoinrpc) that provides the functionality in a Python-API level, making it even easier to interact with your Bitcoin Server.
 
 ## Setup Python
 
-We are going to be using python 3 for this chapter. Debian 10 installs python3 and if you have bitcoin-core installed, you should have it installed already. Let's check, run:
+We are going to be using python 3 for this chapter. Debian 10 installs python3 and if you have bitcoin-core installed, you should have it installed. Let's check, run:
 
 `$ python3 --version`
 
-If it returns the version number, then you have python3 installed. If it returns nothing or an error, then we will build python from source with the following steps:
+If it returns the version number then you have python3 installed. If it returns nothing or an error then we will build python from source, do:
 
 #### 1. Install dependencies:
 ```sh

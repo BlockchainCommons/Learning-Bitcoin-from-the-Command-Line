@@ -10,35 +10,33 @@ You should _always_ watch to ensure that your transactions go out. `bitcoin-cli 
 
 The following shows a transaction that has not been put into a block. You can tell this because it has no confirmations. 
 ```
-$  bitcoin-cli -named gettransaction txid=0f618e38efe887028a5dd04d0e12241431978b4de32f70308c13a114d7cfcbd2
+$ bitcoin-cli -named gettransaction txid=fa2ddf84a4a632586d435e10880a2921db6310dfbd6f0f8f583aa0feacb74c8e
 {
-  "amount": -0.84927000,
-  "fee": -0.00000400,
+  "amount": -0.00020000,
+  "fee": -0.00001000,
   "confirmations": 0,
   "trusted": true,
-  "txid": "0f618e38efe887028a5dd04d0e12241431978b4de32f70308c13a114d7cfcbd2",
+  "txid": "fa2ddf84a4a632586d435e10880a2921db6310dfbd6f0f8f583aa0feacb74c8e",
   "walletconflicts": [
   ],
-  "time": 1491588722,
-  "timereceived": 1491588722,
+  "time": 1592953220,
+  "timereceived": 1592953220,
   "bip125-replaceable": "no",
   "details": [
     {
-      "account": "",
-      "address": "n2eMqTT929pb1RDNuqEnxdaLau1rxy3efi",
+      "address": "tb1qw508d6qejxtdg4y5r3zarvary0c5xw7kxpjzsx",
       "category": "send",
-      "amount": -0.84927000,
+      "amount": -0.00020000,
       "vout": 0,
-      "fee": -0.00000400,
+      "fee": -0.00001000,
       "abandoned": false
     }
   ],
-  "hex": "0200000001c6cb05c5212bb7ec14add72883a17f0a68aa399354bc2f7cf02df6e7d68a6937000000006a47304402203f21d769cbf3cf1626ef09bb35d0d8e88efe9f14d097f4b493628e96b2e1c90b0220162ff60701525e70942f5090dc48ec2b2f3b87cd40185351ab316991567f61c50121029045eaa55d283526c723e6d5495d9b3f077b545563f86465aafcd9bfdd50359effffffff0118e20f05000000001976a914e7c1345fc8f87c68170b3aa798a956c2fe6a9eff88ac00000000"
-}
+  "hex": "02000000014cda1f42a1bd39d8d0ff5958a804bc2bc548b71d7ceadbde53ea15aeaf1e2691000000006a473044022016a7a9f045a0f6a52129f48adb7da35c2f54a0741d6614e9d55b8a3bc3e1490a0220391e9085a3697bc790e94bb924d5310e16f23489d9c600864a32674e871f523c01210278608b54b8fb0d8379d3823d31f03a7c6ab0adffb07dd3811819fdfc34f8c132ffffffff02204e000000000000160014751e76e8199196d454941c45d1b3a323f1433bd6e8030000000000001600146c45d3afa8762086c4bd76d8a71ac7c976e1919600000000"
 ```
 A transaction can be considered stuck if it stays in this state for an extended amount of time. Not too many years ago, you could be sure that every transaction would go out _eventually_. But, that's no longer the case due to the increased usage of Bitcoin. Now, if a transaction is stuck too long, it will drop out of the mempool and then be lost from the Bitcoin network.
 
-_What is mempool?_ Mempool (or Memory Pool) is a pool of all unconfirmed transactions at a bitcoin node. These are the transactions that a node has received from the p2p network which are not yet included in a block. Each bitcoin node can have a slightly different set of transactions in its mempool: different transactions might have propogated to a specific node. This depends on when the node was last started and also its limits on how much it's willing to store. When a miner makes a block, he uses transactions from his mempool. Then, when a block is verified, all the miners remove the transactions it contains from their pools. As of Bitcoin 0.12, unconfirmed transactions can also expire from mempools if they're old enough, typically, 72 hours, and as of version 0.14.0 eviction time was increased to 2 weeks. Mining pools might have their own mempool-management mechanisms.
+> :book: ***What is mempool?*** Mempool (or Memory Pool) is a pool of all unconfirmed transactions at a bitcoin node. These are the transactions that a node has received from the p2p network which are not yet included in a block. Each bitcoin node can have a slightly different set of transactions in its mempool: different transactions might have propogated to a specific node. This depends on when the node was last started and also its limits on how much it's willing to store. When a miner makes a block, he uses transactions from his mempool. Then, when a block is verified, all the miners remove the transactions it contains from their pools. As of Bitcoin 0.12, unconfirmed transactions can also expire from mempools if they're old enough, typically, 72 hours, and as of version 0.14.0 eviction time was increased to 2 weeks. Mining pools might have their own mempool-management mechanisms.
 
 This list of all [unconfirmed transactions](https://blockchain.info/unconfirmed-transactions) might not match any individual machine's mempool, but it should (mostly) be a superset of them.
 

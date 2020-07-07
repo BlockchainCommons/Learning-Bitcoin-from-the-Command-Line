@@ -2,11 +2,13 @@
 
 > :information_source: **NOTE:** This is a draft in progress, so that I can get some feedback from early reviewers. It is not yet ready for learning.
 
+> :information_source: **WARNING:** This chapter is currently out of sync with the Bitcoin Standup script, and won't be updated until we finish some changes to Standup this summer. We very much suggest [using the Script](https://github.com/BlockchainCommons/Learning-Bitcoin-from-the-Command-Line/blob/master/02_2_Setting_Up_a_Bitcoin-Core_VPS_with_StackScript.md) instead of this by-hand description, because it includes Tor and other security functions.
+
 This document explains how to set up a VPS (Virtual Private Server) by hand to run a Bitcoin node on a cloud computer. You'll need to set up your computer yourself, but then this document will provide you with important commands to secure your VPS and to get it running Bitcoin. The setup should all be done in my session, so you don't lose the variables `export`ed at the start.
 
 > :warning: **WARNING:** Don’t use a VPS for a bitcoin wallet with significant real funds; see http://blog.thestateofme.com/2012/03/03/lessons-to-be-learned-from-the-linode-bitcoin-incident/ . It is  very nice to be able experiment with real bitcoin transactions on a live node without tying up a self-hosted server on a local network. I’ve also found it useful to be able to use an iPhone or iPad to communicate via SSH to my VPS to do some simple bitcoin tasks. But a higher level of safety is required for significant funds.
 
-If you want to instead have a script do the setup for you, specifically at linode.com, read the parallel HOWTO file, [§2.2: Setting up a Bitcoin-Core VPS with StackScript](02_2_Setting_Up_a_Bitcoin-Core_VPS_with_StackScript.md).
+If you want to instead have a script do the setup for you, specifically at linode.com, read the parallel HOWTO file, [§2.2: Setting up a Bitcoin-Core VPS with StackScript](02_2_Setting_Up_a_Bitcoin-Core_VPS_with_StackScript.md). This
 
 If you already have a Bitcoin node running, instead read the next HOWTO file, [Chapter Three: Understanding Your Bitcoin Setup](03_0_Understanding_Your_Bitcoin_Setup.md).
 
@@ -258,7 +260,7 @@ You're now ready to get to the bitcoin-specific part of this tutorial!
 
 We find a number of Bash aliases helpful to make it easier to use Bitcoin.
 ```
-$ sudo -u user1 cat >> ~user1/.bash_profile <<EOF
+$ sudo -u user1 cat >> ~user1/.bash_aliases <<EOF
 alias btcdir="cd ~/.bitcoin/" #linux default bitcoind path
 alias bc="bitcoin-cli"
 alias bd="bitcoind"

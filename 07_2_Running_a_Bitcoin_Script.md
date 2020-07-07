@@ -80,7 +80,7 @@ Let's try this out:
 ```Bash
 $ btcc OP_1 OP_2 OP_ADD
 515293
-$ btcdeb '[OP_1 OP_2 OP_ADD]' # or: btcdeb 515293
+$ btcdeb '[OP_1 OP_2 OP_ADD]' # or: btcdeb 0x515293
 btcdeb -- type `btcdeb -h` for start up options
 valid script
 3 op script loaded. type `help` for usage information
