@@ -40,7 +40,7 @@ If that's still showing a zero too, you're probably moving through this tutorial
 
 You can use `bitcoin-cli getbalance "*" [n]`, where you replace `[n]` with an integer, to see if a confirmed balance is 'n' blocks deep.
 
-> :book: ***What is block depth?*** After a block is built and confirmed, another block is built on top of it, and another ... Because this is a stochastic process, there's some chance for reversal when a block is still new. Thus, a block has to be buried several blocks deep in a chain before you can feel totally confident in your funds. Each of those blocks tends to be built in an average of 10 minutes ... so it usually takes about an hour for a confirmed transaction to receive six blooks deep, which is the measure for full confidence in Bitcoin.
+> :book: ***What is block depth?*** After a block is built and confirmed, another block is built on top of it, and another ... Because this is a stochastic process, there's some chance for reversal when a block is still new. Thus, a block has to be buried several blocks deep in a chain before you can feel totally confident in your funds. Each of those blocks tends to be built in an average of 10 minutes ... so it usually takes about an hour for a confirmed transaction to receive six blocks deep, which is the measure for full confidence in Bitcoin.
 
 The following shows that our transactions have been confirmed one time, but not twice:
 ```
@@ -121,7 +121,7 @@ $ bitcoin-cli listtransactions
 ]
 
 ```
-This shows two transactions (`8e2ab10cabe9ec04ed438086a80b1ac72558cc05bb206e48fc9a18b01b9282e9`) and (`ca4898d8f950df03d6bfaa00578bd0305d041d24788b630d0c4a32debcac9f36`) for a specific amount (`0.01000000` and `0.00010000`), which were both received (`receive`) by the same address in our wallet (`mi25UrzHnvn3bpEfFCNqJhPWJn5b77a5NE`). That's bad key hygeine, by the by: you should use a new address for every single Bitcoin you ever receive. In this case, we got impatient because the first faucet didn't seem to be working.
+This shows two transactions (`8e2ab10cabe9ec04ed438086a80b1ac72558cc05bb206e48fc9a18b01b9282e9`) and (`ca4898d8f950df03d6bfaa00578bd0305d041d24788b630d0c4a32debcac9f36`) for a specific amount (`0.01000000` and `0.00010000`), which were both received (`receive`) by the same address in our wallet (`mi25UrzHnvn3bpEfFCNqJhPWJn5b77a5NE`). That's bad key hygeine, by the way: you should use a new address for every single Bitcoin you ever receive. In this case, we got impatient because the first faucet didn't seem to be working.
 
 You can access similar information with the `bitcoin-cli listunspent` command, but it only shows the transactions for the money that you haven't spent. These are called UTXOs, and will be vitally important when you're sending money back out into the Bitcoin world:
 ```
