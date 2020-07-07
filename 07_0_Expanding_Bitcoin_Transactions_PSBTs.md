@@ -1,27 +1,24 @@
-# Chapter Six: Expanding Bitcoin Transactions
+# Chapter Seven: Expanding Bitcoin Transactions with PSBTs
 
-Basic bitcoin transactions: (1) send funds; (2) to a single P2PKH or SegWit recipient; (3) immediately. However, all three parts of this definition can be expanded using more complex Bitcoin transactions, which can alternatively send data, which can send to a group of recipients, or which can send at a later time. These three options represent further empowerment of Bitcoin and also the furthest boundaries of what you can do with the basic `bitcoin-cli` command.
+The previous chapter discussed how to use multisigs to collaboratively determine consent among multiple parties. It's not the only way to collaborate in the creation of Bitcoin transactions. PSBTs are a much newer technology that allow you to collaborate in a variety of stages, including the creation, funding, and authentication of a Bitcoin transaction. 
 
 ## Objectives for This Section
 
 After working through this chapter, a developer will be able to:
 
-   * Create Multisignature Bitcoin Addresses
-   * Create Transactions with Locktimes
-   * Create Transactions with Data
+   * Create Transactions with PSBTs
+   * Use Command Line Tools to Complete PSBTs
+   * Use HWI to Interact with a Hardware Wallet
    
 Supporting objectives include the ability to:
 
-   * Understand How to Spend Funds Sent to a Multisignature
-   * Plan for the Power of Multisignatures
-   * Understand the Different Sorts of Timelocks
-   * Plan for the Power of Locktime
-   * Plan for the Power of OP_RETURN
+   * Undestand How PSBTs Differ from Multisignatures
+   * Plan for the power of PSBTs
+   * Understand The Use of a Hardware Wallet
    
 ## Table of Contents
 
-   * [Section One: Sending a Transaction with a Multsig](06_1_Sending_a_Transaction_to_a_Multisig.md)
-   * [Section Two: Spending a Transaction with a Multsig](06_2_Spending_a_Transaction_to_a_Multisig.md)
-   * [Section Three: Sending & Spending an Automated Multisig](06_3_Sending_an_Automated_Multisig.md)
-   * [Section Four: Sending a Transaction with a Locktime](06_4_Sending_a_Transaction_with_a_Locktime.md)
-   * [Section Five: Sending a Transaction with Data](06_5_Sending_a_Transaction_with_Data.md)
+   * [Section One: Creating a Partially Signed Bitcoin Transaction](07_1_Creating_a_Partially_Signed_Bitcoin_Transaction.md)
+   * [Section Two: Using a Partially Signed Bitcoin Transaction](07_2_Using_a_Partially_Signed_Bitcoin_Transaction.md)
+   * [Section Three: Integrating with Hardware Wallets](07_3_Integrating_with_Hardware_Wallets.md)
+   
