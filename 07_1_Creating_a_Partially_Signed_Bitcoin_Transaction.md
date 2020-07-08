@@ -485,14 +485,24 @@ $ psbt_hex=$(bitcoin-cli finalizepsbt $psbt_f | jq -r '.hex')
 $ bitcoin-cli -named sendrawtransaction hexstring=$psbt_hex
 ea73a631b456d2b041ed73bf5767946408c6ff067716929a68ecda2e3e4de6d3
 ```
-## Understand the Process
+## Review the Workflow
 
 If creating `bitcoin-cli` software, it's most likely that you'll fulfill the five core roles of PSBTs with `createpsbt`, `walletprocesspsbt`, and `finalizepsbt`. Here's what that flow looks like:
 
 ![](images/psbt-roles-for-cli-1.png)
 
+If you choose to use the shortcut of `walletcreatefundedpsbt`, this is what it looks like instead:
+
+![](images/psbt-roles-for-cli-2.png)
+
+Finally, if you instead need more control and choose to use `utxoupdatepsbt` (which is largely undocumented here), you instead have this workflow:
+
+![](images/psbt-roles-for-cli-3.png)
+
 ## Summary: Creating a Partially Signed Bitcoin Transaction
+
+Creating a PSBT involves a somewhat complex workflow of Creating, Updating, Signing, Finalizing, and Extracting a PSBT, after which it converts back into a raw transaction. Why would you go to all that trouble? Because you want to in some way collaborate between multiple users or multiple programs. Now that you understand this workflow, the next section has some real-life examples of doing so.
 
 ## What's Next?
 
-Continue "Expanding Bitcoin Transactions" with [§7.1: Using a Partially Signed Bitcoin Transaction](06_7_Using_a_Partially_Signed_Bitcoin_Transaction.md).
+Continue "Expanding Bitcoin Transactions with PSBTs" with [§7.1: Using a Partially Signed Bitcoin Transaction](07_1_Using_a_Partially_Signed_Bitcoin_Transaction.md).
