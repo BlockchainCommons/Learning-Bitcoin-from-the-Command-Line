@@ -60,6 +60,11 @@ Add and document the following new concepts:
    * <strike>Write 7.1: Creating a PSBT</strike> **7/7**
       * <strike>Create Illustrations for 7.1</strike> **7/7**
    * Write 7.2: Using a PSBT
+      * <strike>Multisigs</strike> **7/7**
+         * Redo with correct math
+      * Fund Pooling
+      * CoinJoins
+      
 13. Add Wallet Updates.
    * <strike>Bitcoin Descriptors</strike> **6/30**
       * <strike>Show what a SegWit descriptor looks like</strike> **7/2**
