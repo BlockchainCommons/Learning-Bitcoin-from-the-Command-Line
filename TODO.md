@@ -70,7 +70,7 @@ Add and document the following new concepts:
   * Edit All of Chapter 7
 15. Consider splitting up Chapter 6 (definitely if we get an HWI chapter)
    * <strike>Break apart Chapter 6</strike> **7/2**
-   * Rewrite all section links in early chapters (1-5, 6, 8)
+   * <strike>Rewrite all section links in early chapters (1-5, 6, 8)</strike> **7/7**
    * Update Script Chapters
    * Update Tor Chapter
    * Update Programming Chapters
