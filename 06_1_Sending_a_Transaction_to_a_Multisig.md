@@ -10,7 +10,7 @@ In a typical P2PKH or SegWit transaction, bitcoins are sent to an address based 
 
 > :book: ***What is a multisignature?*** A multisignature is a methodology that allows more than one person to jointly create a digital signature. It's a general technique for the cryptographic use of keys that goes far beyond Bitcoin.
 
-Technically, a multisignature cryptographic puzzle is created by Bitcoin using the OP_CHECKMULTISIG command, and typically that's encapsulated in a P2SH address. [§8.4: Scripting a Multisig](08_4_Scripting_a_Multisig.md) will detail how that works more precisely. For now, all you need to know is that you can use `bitcoin-cli` command to create multisignature addresses; funds can be mailed to these addresses just like any normal P2PKH address, but multiple private keys will be required for the redemption of the funds.
+Technically, a multisignature cryptographic puzzle is created by Bitcoin using the OP_CHECKMULTISIG command, and typically that's encapsulated in a P2SH address. [§10.4: Scripting a Multisig](10_4_Scripting_a_Multisig.md) will detail how that works more precisely. For now, all you need to know is that you can use `bitcoin-cli` command to create multisignature addresses; funds can be mailed to these addresses just like any normal P2PKH address, but multiple private keys will be required for the redemption of the funds.
 
 > :book: ***What is a multisignature transaction?*** A multisignature transaction is a Bitcoin transaction that has been sent to a multisignature address, thus requiring the signatures of certain people from the multisignature group to reuse the funds.
 
