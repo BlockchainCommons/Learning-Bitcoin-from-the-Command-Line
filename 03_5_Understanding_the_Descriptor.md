@@ -24,6 +24,8 @@ The fact that you can have a "whole sequence of children ... keys" reveals the f
 
 > :book ***What is a Derivation Path?*** When you have hierarchical keys, you need to be able to define individual keys as descendents of a seed. For example `[0]` is the 0th key, `[0/1]` is the first son of the 0th key, `[1/0/1]` is the first grandson of the zeroth son of the 1st key. Some keys also contain a `'` after the number, to show they're hardened, which protects them from a specific attack that can be used to derive an `xprv` from an `xpub`. You don't need to worry about the specifics, other than the fact that those `'`s will cause you formatting troubles when working from the command line.
 
+> :information_source: **NOTE:** a derivation path defines a key, which means that a key represents a derivation path. They're equivalent. In the case of a descriptor, the derivation path lets `bitcoind` know where the key that follows in the descriptor came from!
+
 `xpubs` and `xprvs` proved insufficient when the types of public keys multiplied under the [SegWit expansion](https://github.com/BlockchainCommons/Learning-Bitcoin-from-the-Command-Line/blob/master/04_6_Creating_a_Segwit_Transaction.md), thus the need for "output descriptors".
 
 > :book: ***What is an output descriptor?*** A precise description of how to derive a Bitcoin address from a combination of a function and one or more inputs to that function.
