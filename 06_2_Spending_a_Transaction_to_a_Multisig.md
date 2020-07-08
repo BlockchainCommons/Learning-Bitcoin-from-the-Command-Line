@@ -10,7 +10,11 @@ To start with, you need to find your funds; your computer doesn't know to look f
 ```
 $ bitcoin-cli -named importaddress address=2NAGfA4nW6nrZkD5je8tSiAcYB9xL2xYMCz
 ```
-Here's the catch: you can't do this if you have a pruned node! This command can take a while to run because it does a `rescan` to find all the related transactions. Afterward the funds should show up when you `listunspent` ... but they still aren't easily spendable. (In fact, your wallet may claim they're not `spendable` at all!)
+If you've got a pruned node (and you probably do), you'll instead need to tell it no to rescan:
+```
+$ bitcoin-cli -named importaddress address=2NAGfA4nW6nrZkD5je8tSiAcYB9xL2xYMCz rescan="false"
+```
+Afterward the funds should show up when you `listunspent` ... but they still aren't easily spendable. (In fact, your wallet may claim they're not `spendable` at all!)
 
 If you're not able to incorporate the address into your wallet due to pruning, using `gettransaction` to get info instead (or look on a block explorer).
 ```
