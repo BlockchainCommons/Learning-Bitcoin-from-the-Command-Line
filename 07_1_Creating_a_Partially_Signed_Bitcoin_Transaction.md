@@ -487,6 +487,9 @@ ea73a631b456d2b041ed73bf5767946408c6ff067716929a68ecda2e3e4de6d3
 ```
 ## Understand the Process
 
+If creating `bitcoin-cli` software, it's most likely that you'll fulfill the five core roles of PSBTs with `createpsbt`, `walletprocesspsbt`, and `finalizepsbt`. Here's what that flow looks like:
+
+![](images/psbt-roles-for-cli-1.pdf)
 
 ## Summary: Creating a Partially Signed Bitcoin Transaction
 
