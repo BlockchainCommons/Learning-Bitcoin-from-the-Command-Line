@@ -23,6 +23,8 @@ In general, PSBTs provide a number of functional elements that improve these use
 
 PSBTs do their work by supplementing normal transaction information with a set of inputs and outputs, each of which defines everything you need to know about those UTXOs, so that even an airgapped wallet can make an informed decision about signatures. Thus, an input lists out the amount of money in a UTXO and what needs to be done to spend it, while an output does the same for the UTXOs it's creating.
 
+This first section will outline the standard PSBT process of: Creator, Updater, Signer, Finalizer, Extractor. It'll do so from one machine, which will sort of make this look like a convoluted way to create a raw transaction. But, have faith, there's a purpose to this! [§7.2](07_2_Using_a_Partially_Signed_Bitcoin_Transaction.md) will show some real-life examples of using PSBTs and will turn this simple system into a collaborative process shared between multiple machines that has real effects and creates real opportunities.
+
 ## Create a PSBT the Old-Fashioned Way
 #### PSBT Role: Creator
 
@@ -38,13 +40,13 @@ $ utxo_vout_2=$(bitcoin-cli listunspent | jq -r '.[1] | .vout')
 $ echo $utxo_txid_1 $utxo_vout_1 $utxo_txid_2 $utxo_vout_2
 c6de60427b28d8ec8102e49771e5d0348fc3ef6a5bf02eb864ec745105a6951b 1 8748eff5f12ca886e3603d9e30227dcb3f0332e0706c4322fec96001f7c7f41c 0
 $ recipient=tb1qcaedd724gts3aug73m78c7nfsv9d8zs9q6h2kd
-$ rawtxhex=$(bitcoin-cli -named createrawtransaction inputs='''[ { "txid": "'$utxo_txid_1'", "vout": '$utxo_vout_1' }, { "txid": "'$utxo_txid_2'", "vout": '$utxo_vout_2' } ]''' outputs='''{ "'$recipient'": 0.000008 }''')
+$ rawtxhex=$(bitcoin-cli -named createrawtransaction inputs='''[ { "txid": "'$utxo_txid_1'", "vout": '$utxo_vout_1' }, { "txid": "'$utxo_txid_2'", "vout": '$utxo_vout_2' } ]''' outputs='''{ "'$recipient'": 0.0000065 }''')
 ```
 Then you convert it:
 ```
 $ psbt=$(bitcoin-cli -named converttopsbt hexstring=$rawtxhex)
 $ echo $psbt
-cHNidP8BAHsCAAAAAhuVpgVRdOxkuC7wW2rvw4800OVxl+QCgezYKHtCYN7GAQAAAAD/////HPTH9wFgyf4iQ2xw4DIDP8t9IjCePWDjhqgs8fXvSIcAAAAAAP////8BIAMAAAAAAAAWABTHctb5VULhHvEejvx8emmDCtOKBQAAAAAAAAAA
+cHNidP8BAHsCAAAAAhuVpgVRdOxkuC7wW2rvw4800OVxl+QCgezYKHtCYN7GAQAAAAD/////HPTH9wFgyf4iQ2xw4DIDP8t9IjCePWDjhqgs8fXvSIcAAAAAAP////8BigIAAAAAAAAWABTHctb5VULhHvEejvx8emmDCtOKBQAAAAAAAAAA
 ```
 You'll note that the PSBT encoding looks very different from the transaction hex.
 
@@ -57,14 +59,14 @@ The first methodology for creating a PSBT without going through another format i
 
 The CLI should look quite familiar, just with a new RPC command:
 ```
-$ psbt_1=$(bitcoin-cli -named createpsbt inputs='''[ { "txid": "'$utxo_txid_1'", "vout": '$utxo_vout_1' }, { "txid": "'$utxo_txid_2'", "vout": '$utxo_vout_2' } ]''' outputs='''{ "'$recipient'": 0.000008 }''')
+$ psbt_1=$(bitcoin-cli -named createpsbt inputs='''[ { "txid": "'$utxo_txid_1'", "vout": '$utxo_vout_1' }, { "txid": "'$utxo_txid_2'", "vout": '$utxo_vout_2' } ]''' outputs='''{ "'$recipient'": 0.0000065 }''')
 ```
 The Bitcoin Core team made sure that `createpsbt` worked much like `createrawtransaction`, so you don't need to learn a different creation format.
 
 You can verify that the new PSBT is the same as the one created by `converttopsbt`:
 ```
 $ echo $psbt_1
-cHNidP8BAHsCAAAAAhuVpgVRdOxkuC7wW2rvw4800OVxl+QCgezYKHtCYN7GAQAAAAD/////HPTH9wFgyf4iQ2xw4DIDP8t9IjCePWDjhqgs8fXvSIcAAAAAAP////8BIAMAAAAAAAAWABTHctb5VULhHvEejvx8emmDCtOKBQAAAAAAAAAA
+cHNidP8BAHsCAAAAAhuVpgVRdOxkuC7wW2rvw4800OVxl+QCgezYKHtCYN7GAQAAAAD/////HPTH9wFgyf4iQ2xw4DIDP8t9IjCePWDjhqgs8fXvSIcAAAAAAP////8BigIAAAAAAAAWABTHctb5VULhHvEejvx8emmDCtOKBQAAAAAAAAAA
 $ if [ "$psbt" == "$psbt_1" ]; then     echo "PSBTs are equal"; else     echo "PSBTs are not equal"; fi
 PSBTs are equal
 ```
@@ -77,8 +79,8 @@ So what does your PSBT actually look like. You can see that with the `decodepsbt
 $ bitcoin-cli -named decodepsbt psbt=$psbt
 {
   "tx": {
-    "txid": "7380bbb8cf17cf411aed5704e8cd348c2f5451fbf6f6da7d66e69f2dcc39887e",
-    "hash": "7380bbb8cf17cf411aed5704e8cd348c2f5451fbf6f6da7d66e69f2dcc39887e",
+    "txid": "ea73a631b456d2b041ed73bf5767946408c6ff067716929a68ecda2e3e4de6d3",
+    "hash": "ea73a631b456d2b041ed73bf5767946408c6ff067716929a68ecda2e3e4de6d3",
     "version": 2,
     "size": 123,
     "vsize": 123,
@@ -106,7 +108,7 @@ $ bitcoin-cli -named decodepsbt psbt=$psbt
     ],
     "vout": [
       {
-        "value": 0.00000800,
+        "value": 0.00000650,
         "n": 0,
         "scriptPubKey": {
           "asm": "0 c772d6f95542e11ef11e8efc7c7a69830ad38a05",
@@ -166,7 +168,7 @@ Instead, you should move straight on to finalizing your transaction with `wallet
 ```
 $ bitcoin-cli walletprocesspsbt $psbt
 {
-  "psbt": "cHNidP8BAHsCAAAAAhuVpgVRdOxkuC7wW2rvw4800OVxl+QCgezYKHtCYN7GAQAAAAD/////HPTH9wFgyf4iQ2xw4DIDP8t9IjCePWDjhqgs8fXvSIcAAAAAAP////8BIAMAAAAAAAAWABTHctb5VULhHvEejvx8emmDCtOKBQAAAAAAAQEfAQAAAAAAAAAWABRsRdOvqHYghsS9dtinGsfJduGRlgEIawJHMEQCIATeBwStEFO5UXTVvf7oZb0r721WcWnrV3FEsq2pRI1BAiBOMY3nqXajbAKENLdXuKSPJgOJpNq54Lo0SppvyYcKIgEhArrDpkX9egpTfGJ6039faVBYxY0ZzrADPpE/Gpl14A3uAAEBH0gDAAAAAAAAFgAU1ZEJG4B0ojde2ZhanEsY7+z9QWUBCGsCRzBEAiA1dVYc0/PYalniefsvbPpgMqdvQMxG9MPQfYT/jL6s+AIgcV4q335UMp6SYtGdOCSWgIwpSSNGel/fq8UoGKwjM1MBIQKIO7VGPjfVUlLYs9XCFBsAezfIp9tiEfdclVrMXqMl6wAA",
+  "psbt": "cHNidP8BAHsCAAAAAhuVpgVRdOxkuC7wW2rvw4800OVxl+QCgezYKHtCYN7GAQAAAAD/////HPTH9wFgyf4iQ2xw4DIDP8t9IjCePWDjhqgs8fXvSIcAAAAAAP////8BigIAAAAAAAAWABTHctb5VULhHvEejvx8emmDCtOKBQAAAAAAAQEfAQAAAAAAAAAWABRsRdOvqHYghsS9dtinGsfJduGRlgEIawJHMEQCIAqJbxz6dBzNpfaDu4XZXb+DbDkM3UWnhezh9UdmeVghAiBRxMlW2o0wEtphtUZRWIiJOaGtXfsQbB4lovkvE4eRIgEhArrDpkX9egpTfGJ6039faVBYxY0ZzrADPpE/Gpl14A3uAAEBH0gDAAAAAAAAFgAU1ZEJG4B0ojde2ZhanEsY7+z9QWUBCGsCRzBEAiB+sNNCO4xiFQ+DoHVrqqk9yM0V4H9ZSyExx1PW7RbjsgIgUeWkQ3L7aAv1xIe7h+8PZb8ECsXg1UzbtPW8wd2qx0UBIQKIO7VGPjfVUlLYs9XCFBsAezfIp9tiEfdclVrMXqMl6wAA",
   "complete": true
 }
 ```
@@ -179,8 +181,8 @@ You can see the `inputs` have now been filled in:
 $ bitcoin-cli decodepsbt $psbt_f
 {
   "tx": {
-    "txid": "7380bbb8cf17cf411aed5704e8cd348c2f5451fbf6f6da7d66e69f2dcc39887e",
-    "hash": "7380bbb8cf17cf411aed5704e8cd348c2f5451fbf6f6da7d66e69f2dcc39887e",
+    "txid": "ea73a631b456d2b041ed73bf5767946408c6ff067716929a68ecda2e3e4de6d3",
+    "hash": "ea73a631b456d2b041ed73bf5767946408c6ff067716929a68ecda2e3e4de6d3",
     "version": 2,
     "size": 123,
     "vsize": 123,
@@ -208,7 +210,7 @@ $ bitcoin-cli decodepsbt $psbt_f
     ],
     "vout": [
       {
-        "value": 0.00000800,
+        "value": 0.00000650,
         "n": 0,
         "scriptPubKey": {
           "asm": "0 c772d6f95542e11ef11e8efc7c7a69830ad38a05",
@@ -236,7 +238,7 @@ $ bitcoin-cli decodepsbt $psbt_f
         }
       },
       "final_scriptwitness": [
-        "3044022004de0704ad1053b95174d5bdfee865bd2bef6d567169eb577144b2ada9448d4102204e318de7a976a36c028434b757b8a48f260389a4dab9e0ba344a9a6fc9870a2201",
+        "304402200a896f1cfa741ccda5f683bb85d95dbf836c390cdd45a785ece1f54766795821022051c4c956da8d3012da61b5465158888939a1ad5dfb106c1e25a2f92f1387912201",
         "02bac3a645fd7a0a537c627ad37f5f695058c58d19ceb0033e913f1a9975e00dee"
       ]
     },
@@ -251,7 +253,7 @@ $ bitcoin-cli decodepsbt $psbt_f
         }
       },
       "final_scriptwitness": [
-        "304402203575561cd3f3d86a59e279fb2f6cfa6032a76f40cc46f4c3d07d84ff8cbeacf80220715e2adf7e54329e9262d19d382496808c294923467a5fdfabc52818ac23335301",
+        "304402207eb0d3423b8c62150f83a0756baaa93dc8cd15e07f594b2131c753d6ed16e3b2022051e5a44372fb680bf5c487bb87ef0f65bf040ac5e0d54cdbb4f5bcc1ddaac74501",
         "02883bb5463e37d55252d8b3d5c2141b007b37c8a7db6211f75c955acc5ea325eb"
       ]
     }
@@ -260,52 +262,33 @@ $ bitcoin-cli decodepsbt $psbt_f
     {
     }
   ],
-  "fee": 0.00000041
-}
-$ bitcoin-cli analyzepsbt $psbt_f
-{
-  "inputs": [
-    {
-      "has_utxo": true,
-      "is_final": true,
-      "next": "extractor"
-    },
-    {
-      "has_utxo": true,
-      "is_final": true,
-      "next": "extractor"
-    }
-  ],
-  "estimated_vsize": 177,
-  "estimated_feerate": 0.00000231,
-  "fee": 0.00000041,
-  "next": "extractor"
+  "fee": 0.00000191
 }
 ```
 Or to be more precise: (1) the PSBT has been updated with the `witness_utxo` information; (2) the PSBT has been signed; and (3) the PSBT has been finalized.
 
-> :information_source: **NOTE:** If you'd chosen to Update the PSBT with `utxoupdatepsbt`, you'd still need to use `walletprocesspsbt` to Sign it: it's the only Signer-role command for PSBTs that's available in PSBT.
+> :information_source: **NOTE:** If you'd chosen to Update the PSBT with `utxoupdatepsbt`, you'd still need to use `walletprocesspsbt` to Sign it: it's the only Signer-role command for PSBTs that's available in `bitcoin-cli`.
 
 ## Create a PSBT the Easy Way
 #### PSBT Role: Creator, Updater
 
-If you think that there should be a command that's the equivalent of `fundrawtransaction`, you'll be pleased to know there is: `walletcreatedfundedpsbt`. You could use it just the same as `createpsbt`:
+If you think that there should be a command that's the equivalent of `fundrawtransaction`, you'll be pleased to know there is: `walletcreatefundedpsbt`. You could use it just the same as `createpsbt`:
 ```
-$ bitcoin-cli -named walletcreatefundedpsbt inputs='''[ { "txid": "'$utxo_txid_1'", "vout": '$utxo_vout_1' }, { "txid": "'$utxo_txid_2'", "vout": '$utxo_vout_2' } ]''' outputs='''{ "'$recipient'": 0.000008 }'''
+$ bitcoin-cli -named walletcreatefundedpsbt inputs='''[ { "txid": "'$utxo_txid_1'", "vout": '$utxo_vout_1' }, { "txid": "'$utxo_txid_2'", "vout": '$utxo_vout_2' } ]''' outputs='''{ "'$recipient'": 0.0000065 }'''
 {
-  "psbt": "cHNidP8BAOwCAAAABBuVpgVRdOxkuC7wW2rvw4800OVxl+QCgezYKHtCYN7GAQAAAAD/////HPTH9wFgyf4iQ2xw4DIDP8t9IjCePWDjhqgs8fXvSIcAAAAAAP////+F4znnstDchqSWKbMzVhfABTYrhWlrI5Dq5N+SafvZCgAAAAAA/v///+4XB6sA0qPJUrpZpHuDOVf6U5/45Gx+M/ktgJI0huFoAAAAAAD+////AiADAAAAAAAAFgAUx3LW+VVC4R7xHo78fHppgwrTigVAIxAAAAAAABYAFIXoteaWZc8dsEBQFhlsg63+L4AUAAAAAAABAR8BAAAAAAAAABYAFGxF06+odiCGxL122Kcax8l24ZGWIgYCusOmRf16ClN8YnrTf19pUFjFjRnOsAM+kT8amXXgDe4Q1gQ4AAAAAIABAACADgAAgAABAR9IAwAAAAAAABYAFNWRCRuAdKI3XtmYWpxLGO/s/UFlIgYCiDu1Rj431VJS2LPVwhQbAHs3yKfbYhH3XJVazF6jJesQ1gQ4AAAAAIABAACADAAAgAABAR8ThgEAAAAAABYAFNWRCRuAdKI3XtmYWpxLGO/s/UFlIgYCiDu1Rj431VJS2LPVwhQbAHs3yKfbYhH3XJVazF6jJesQ1gQ4AAAAAIABAACADAAAgAABAIwCAAAAAdVmsvkSBmfeHqNAe/wDCQ5lEp9F/587ftzCD1UL60nMAQAAABcWABRzFxRJfFPl8FJ6SxjAJzy3mCAMXf7///8CQEIPAAAAAAAZdqkUf0NzebzGbEB0XtwYkeprODDhl12IrMEwLQAAAAAAF6kU/d+kMX6XijmD+jWdUrLZlJUnH2iHPhQbACIGA+/e40wACf0XXzsgteWlUX/V0WdG8uY1tEYXra/q68OIENYEOAAAAACAAAAAgBIAAIAAACICAykwveCMRaAvXurm5dP7a1thD33hyGTaharyzLkhCnVRENYEOAAAAACAAQAAgBMAAIAA",
+  "psbt": "cHNidP8BAOwCAAAABBuVpgVRdOxkuC7wW2rvw4800OVxl+QCgezYKHtCYN7GAQAAAAD/////HPTH9wFgyf4iQ2xw4DIDP8t9IjCePWDjhqgs8fXvSIcAAAAAAP/////uFwerANKjyVK6WaR7gzlX+lOf+ORsfjP5LYCSNIbhaAAAAAAA/v///4XjOeey0NyGpJYpszNWF8AFNiuFaWsjkOrk35Jp+9kKAAAAAAD+////AtYjEAAAAAAAFgAUMPsier2ey1eH48oGqrbbYGzNHgKKAgAAAAAAABYAFMdy1vlVQuEe8R6O/Hx6aYMK04oFAAAAAAABAR8BAAAAAAAAABYAFGxF06+odiCGxL122Kcax8l24ZGWIgYCusOmRf16ClN8YnrTf19pUFjFjRnOsAM+kT8amXXgDe4Q1gQ4AAAAAIABAACADgAAgAABAR9IAwAAAAAAABYAFNWRCRuAdKI3XtmYWpxLGO/s/UFlIgYCiDu1Rj431VJS2LPVwhQbAHs3yKfbYhH3XJVazF6jJesQ1gQ4AAAAAIABAACADAAAgAABAIwCAAAAAdVmsvkSBmfeHqNAe/wDCQ5lEp9F/587ftzCD1UL60nMAQAAABcWABRzFxRJfFPl8FJ6SxjAJzy3mCAMXf7///8CQEIPAAAAAAAZdqkUf0NzebzGbEB0XtwYkeprODDhl12IrMEwLQAAAAAAF6kU/d+kMX6XijmD+jWdUrLZlJUnH2iHPhQbACIGA+/e40wACf0XXzsgteWlUX/V0WdG8uY1tEYXra/q68OIENYEOAAAAACAAAAAgBIAAIAAAQEfE4YBAAAAAAAWABTVkQkbgHSiN17ZmFqcSxjv7P1BZSIGAog7tUY+N9VSUtiz1cIUGwB7N8in22IR91yVWsxeoyXrENYEOAAAAACAAQAAgAwAAIAAIgICKMavAB+71Adqsbf+XtC1g/OlmLEuTp3U0axyeu/LAI0Q1gQ4AAAAAIABAACAGgAAgAAA",
   "fee": 0.00042300,
-  "changepos": 1
+  "changepos": 0
 }
 ```
 However, the big advantage is that you can use it to self-fund, just like `fundrawtransaction`. 
 ```
-$ psbt_new=$(bitcoin-cli -named walletcreatefundedpsbt inputs='''[]''' outputs='''{ "'$recipient'": 0.000008 }''' | jq -r '.psbt')
+$ psbt_new=$(bitcoin-cli -named walletcreatefundedpsbt inputs='''[]''' outputs='''{ "'$recipient'": 0.0000065 }''' | jq -r '.psbt')
 $ bitcoin-cli decodepsbt $psbt_new
 {
   "tx": {
-    "txid": "53b63fe92abf334ec4018cee51f985c4c02dbda79ca5d72af4a0e1457d69c888",
-    "hash": "53b63fe92abf334ec4018cee51f985c4c02dbda79ca5d72af4a0e1457d69c888",
+    "txid": "9f2c6205ac797c1020f7f261e3ab71cd0699ff4b1a8934f68b273c71547e235f",
+    "hash": "9f2c6205ac797c1020f7f261e3ab71cd0699ff4b1a8934f68b273c71547e235f",
     "version": 2,
     "size": 154,
     "vsize": 154,
@@ -313,7 +296,7 @@ $ bitcoin-cli decodepsbt $psbt_new
     "locktime": 0,
     "vin": [
       {
-        "txid": "68e1863492802df9337e6ce4f89f53fa5739837ba459ba52c9a3d200ab0717ee",
+        "txid": "8748eff5f12ca886e3603d9e30227dcb3f0332e0706c4322fec96001f7c7f41c",
         "vout": 0,
         "scriptSig": {
           "asm": "",
@@ -322,7 +305,7 @@ $ bitcoin-cli decodepsbt $psbt_new
         "sequence": 4294967294
       },
       {
-        "txid": "8748eff5f12ca886e3603d9e30227dcb3f0332e0706c4322fec96001f7c7f41c",
+        "txid": "68e1863492802df9337e6ce4f89f53fa5739837ba459ba52c9a3d200ab0717ee",
         "vout": 0,
         "scriptSig": {
           "asm": "",
@@ -333,20 +316,20 @@ $ bitcoin-cli decodepsbt $psbt_new
     ],
     "vout": [
       {
-        "value": 0.00971240,
+        "value": 0.00971390,
         "n": 0,
         "scriptPubKey": {
-          "asm": "0 bbb0caabea5ef17717d3280af131a5cc61691b79",
-          "hex": "0014bbb0caabea5ef17717d3280af131a5cc61691b79",
+          "asm": "0 09a74ef0bae4d68b0b2ec9a7c4557a2b5c85bd8b",
+          "hex": "001409a74ef0bae4d68b0b2ec9a7c4557a2b5c85bd8b",
           "reqSigs": 1,
           "type": "witness_v0_keyhash",
           "addresses": [
-            "tb1qhwcv42l2tmchw97n9q90zvd9e3skjxmeqmpjq0"
+            "tb1qpxn5au96untgkzewexnug4t69dwgt0vtfahcv6"
           ]
         }
       },
       {
-        "value": 0.00000800,
+        "value": 0.00000650,
         "n": 1,
         "scriptPubKey": {
           "asm": "0 c772d6f95542e11ef11e8efc7c7a69830ad38a05",
@@ -363,6 +346,24 @@ $ bitcoin-cli decodepsbt $psbt_new
   "unknown": {
   },
   "inputs": [
+    {
+      "witness_utxo": {
+        "amount": 0.00000840,
+        "scriptPubKey": {
+          "asm": "0 d591091b8074a2375ed9985a9c4b18efecfd4165",
+          "hex": "0014d591091b8074a2375ed9985a9c4b18efecfd4165",
+          "type": "witness_v0_keyhash",
+          "address": "tb1q6kgsjxuqwj3rwhkenpdfcjccalk06st9z0k0kh"
+        }
+      },
+      "bip32_derivs": [
+        {
+          "pubkey": "02883bb5463e37d55252d8b3d5c2141b007b37c8a7db6211f75c955acc5ea325eb",
+          "master_fingerprint": "d6043800",
+          "path": "m/0'/1'/12'"
+        }
+      ]
+    },
     {
       "non_witness_utxo": {
         "txid": "68e1863492802df9337e6ce4f89f53fa5739837ba459ba52c9a3d200ab0717ee",
@@ -419,33 +420,15 @@ $ bitcoin-cli decodepsbt $psbt_new
           "path": "m/0'/0'/18'"
         }
       ]
-    },
-    {
-      "witness_utxo": {
-        "amount": 0.00000840,
-        "scriptPubKey": {
-          "asm": "0 d591091b8074a2375ed9985a9c4b18efecfd4165",
-          "hex": "0014d591091b8074a2375ed9985a9c4b18efecfd4165",
-          "type": "witness_v0_keyhash",
-          "address": "tb1q6kgsjxuqwj3rwhkenpdfcjccalk06st9z0k0kh"
-        }
-      },
-      "bip32_derivs": [
-        {
-          "pubkey": "02883bb5463e37d55252d8b3d5c2141b007b37c8a7db6211f75c955acc5ea325eb",
-          "master_fingerprint": "d6043800",
-          "path": "m/0'/1'/12'"
-        }
-      ]
     }
   ],
   "outputs": [
     {
       "bip32_derivs": [
         {
-          "pubkey": "02d856a663c46aece1e9d6eca3af2cbece0ceca617d72dd7f16c6e7383a0f63c2e",
+          "pubkey": "029bb586a52657dd98852cecef78552a4e21d081a7a30e4008ce9b419840d4deac",
           "master_fingerprint": "d6043800",
-          "path": "m/0'/1'/22'"
+          "path": "m/0'/1'/27'"
         }
       ]
     },
@@ -454,41 +437,12 @@ $ bitcoin-cli decodepsbt $psbt_new
   ],
   "fee": 0.00028800
 }
-$ bitcoin-cli analyzepsbt $psbt_new
-{
-  "inputs": [
-    {
-      "has_utxo": true,
-      "is_final": false,
-      "next": "signer",
-      "missing": {
-        "signatures": [
-          "7f437379bcc66c40745edc1891ea6b3830e1975d"
-        ]
-      }
-    },
-    {
-      "has_utxo": true,
-      "is_final": false,
-      "next": "signer",
-      "missing": {
-        "signatures": [
-          "d591091b8074a2375ed9985a9c4b18efecfd4165"
-        ]
-      }
-    }
-  ],
-  "estimated_vsize": 288,
-  "estimated_feerate": 0.00100000,
-  "fee": 0.00028800,
-  "next": "signer"
-}
 ```
 As you can see it Created the PSBT, and then Updated it with all the information it could find locally.
 
 From there, you need to use `walletprocesspsbt` to finalize it, as usual:
 ```
-$ psbt_new_f=$(bitcoin-cli walletprocesspsbt $psbt | jq -r '.psbt')
+$ psbt_new_f=$(bitcoin-cli walletprocesspsbt $psbt_new | jq -r '.psbt')
 ```
 Afterward, an analysis will show it's about ready to go too:
 ```
@@ -506,15 +460,33 @@ $ bitcoin-cli analyzepsbt $psbt_new_f
       "next": "extractor"
     }
   ],
-  "estimated_vsize": 177,
-  "estimated_feerate": 0.00000231,
-  "fee": 0.00000041,
+  "estimated_vsize": 288,
+  "estimated_feerate": 0.00100000,
+  "fee": 0.00028800,
   "next": "extractor"
 }
 ```
 Now would you realy want to use `walletcreatefundedpsbt` if you were creating a Bitcoin-CLI program? Probably not. But it's the same analysis as whether to use `fundrawtransaction`. Do you let Bitcoin Core do the analysis and calculation and decisions, or do you take that on yourself?
 
 ## Send a PSBT
+#### PSBT Role: Extractor
+
+To finalize the PSBT, you use `finalizepsbt`, which will turn your PSBT back into hex. (It'll also take on the Finalizer role, if that didn't happen already.
+```
+$ bitcoin-cli finalizepsbt $psbt_f
+{
+  "hex": "020000000001021b95a6055174ec64b82ef05b6aefc38f34d0e57197e40281ecd8287b4260dec60100000000ffffffff1cf4c7f70160c9fe22436c70e032033fcb7d22309e3d60e386a82cf1f5ef48870000000000ffffffff018a02000000000000160014c772d6f95542e11ef11e8efc7c7a69830ad38a050247304402200a896f1cfa741ccda5f683bb85d95dbf836c390cdd45a785ece1f54766795821022051c4c956da8d3012da61b5465158888939a1ad5dfb106c1e25a2f92f13879122012102bac3a645fd7a0a537c627ad37f5f695058c58d19ceb0033e913f1a9975e00dee0247304402207eb0d3423b8c62150f83a0756baaa93dc8cd15e07f594b2131c753d6ed16e3b2022051e5a44372fb680bf5c487bb87ef0f65bf040ac5e0d54cdbb4f5bcc1ddaac745012102883bb5463e37d55252d8b3d5c2141b007b37c8a7db6211f75c955acc5ea325eb00000000",
+  "complete": true
+}
+```
+As usual you'll want to save that and then you can send it out
+```
+$ psbt_hex=$(bitcoin-cli finalizepsbt $psbt_f | jq -r '.hex')
+$ bitcoin-cli -named sendrawtransaction hexstring=$psbt_hex
+ea73a631b456d2b041ed73bf5767946408c6ff067716929a68ecda2e3e4de6d3
+```
+## Understand the Process
+
 
 ## Summary: Creating a Partially Signed Bitcoin Transaction
 
