@@ -28,6 +28,7 @@ Replace our current scripts with Bitcoin Standup (which was based on those scrip
       * <strike>Integrate older Curl Interlude</strike> **6/19**
    * <strike>Edit & Check Chapter 5</strike> **6/23**
    * <strike>Edit & Check Chapter 6</strike> **6/30**
+      * <strike>Update for change in importaddress</strike> **7/7**
    
 ## 3. Add BTCDEB Support
 
