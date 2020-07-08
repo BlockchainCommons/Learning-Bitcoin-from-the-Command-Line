@@ -51,11 +51,10 @@ As noted in the previous section, it doesn't matter whether you use addresses or
 
 Afterward, the members of the multisig will still need to run `importaddress` to watch for funds received on the multisig address:
 ```
-machine1$ bitcoin-cli -named importaddress address=2Mzw7WBvh9RAQ4ssKqxyNyP7L9NAojLqSW8
+machine1$ bitcoin-cli -named importaddress address=2Mzw7WBvh9RAQ4ssKqxyNyP7L9NAojLqSW8 rescan="false"
 
-machine2$ bitcoin-cli -named importaddress address=2Mzw7WBvh9RAQ4ssKqxyNyP7L9NAojLqSW8
+machine2$ bitcoin-cli -named importaddress address=2Mzw7WBvh9RAQ4ssKqxyNyP7L9NAojLqSW8 rescan="false"
 ```
-(Or use other means if they have a pruned node.)
 
 ## Respend with an Automated Transaction
 
