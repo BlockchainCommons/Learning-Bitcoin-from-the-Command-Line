@@ -505,4 +505,4 @@ Creating a PSBT involves a somewhat complex workflow of Creating, Updating, Sign
 
 ## What's Next?
 
-Continue "Expanding Bitcoin Transactions with PSBTs" with [§7.1: Using a Partially Signed Bitcoin Transaction](07_1_Using_a_Partially_Signed_Bitcoin_Transaction.md).
+Continue "Expanding Bitcoin Transactions with PSBTs" with [§7.2: Using a Partially Signed Bitcoin Transaction](07_2_Using_a_Partially_Signed_Bitcoin_Transaction.md).
