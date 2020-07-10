@@ -587,8 +587,12 @@ The best way to manage a CoinJoin is to send out the base PSBT to all the partie
 
 ## Summary: Using a Partially Signed Bitcoin Transaction
 
-> :fire: ***What's the power of a PSBT?***
+You've now seen the PSBT process that you learned in [§7.1](07_1_Creating_a_Partially_Signed_Bitcoin_Transaction.md) in use in three real-life examples: creating a multi-sig, pooling funds, and CoinJoining. These were all theoretically possible in classic Bitcoin by having multiple people sign carefully constructed transactions, but PSBTs make it standardized and simple.
+
+> :fire: ***What's the power of a PSBT?*** PSBT allows for the creation of trustless transactions between multiple parties and multiple machines. If more than one party would need to fund a transaction, if more than one party would need to sign a transaction, or if a transaction needs to be created on one machine and signed on another, then PSBT makes it simple without depending on the proprietary partial signing mechanisms that used to exist before PSBT.
+
+That last point, on creating a transaction on machine and signing on another, is an element of PSBTs that we haven't gotten to yet. It's at the heart of hardware wallets, where you often want to create a transaction on a full node, then pass it on to a hardware wallet when a signature is required. That's the topic of the last section in this chapter on PSBTs.
 
 ## What's Next?
 
-Move on to "Bitcoin Scripting" with [Chapter Seven: Introducing Bitcoin Scripts](07_0_Introducing_Bitcoin_Scripts.md).
+Continue "Expanding Bitcoin Transactions with PSBTs" with [§7.3: Inegrating with Hardware Wallets](07_3_Integrating_with_Hardware_Wallets.md).
