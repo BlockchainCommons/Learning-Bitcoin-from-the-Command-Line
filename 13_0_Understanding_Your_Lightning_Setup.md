@@ -8,18 +8,18 @@ For this and future chapters, we presume that you have a VPS with c-lightning in
 
 After working through this chapter, a developer will be able to:
 
-   * Demonstrate that Their c-lightning Node is Installed and Up-to-date
-   * Use Basic Wallet Commands
+   * Demonstrate that their c-lightning Node is Installed and Up-to-date
+   * Use basic wallet Commands
    * Setting up a channel.
    * Pay an invoice
    * Generate a payment request.
    
 Supporting objectives include the ability to:
 
-   * Use Basic Informational Commands
-   * Understand What a lightning channel  Is
-   * Understand What a invoice Is
-   * Understand How to pay an invoice
+   * Use Basic Informational Commands.
+   * Understand what a lightning channel is.
+   * Understand what a invoice is.
+   * Understand how to pay an invoice.
    
 ## Table of Contents
 
