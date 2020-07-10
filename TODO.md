@@ -54,16 +54,16 @@ Add and document the following new concepts:
    * <strike>Do we still have to use "bitcoin-cli getnewaddress "" legacy" on CLI? If not, run back through chapters that use legacy in their examples, starting in 3.3</strike> **Gonna leave it for now. A future version might shift to P2SH-SegWit as default.**
    * <strike>Integrate discussions of SegWit into early parts of chapter 4.</strike> **6/23**
    * <strike>Write chapter 4.6</strike> **6/23**
-12. Add PSBT. Partially Signed Bitcoin Transactions are a powerful new interchange format that should be fully included in our discussions of multi-sigs and escrows (which instead fell back on older methodologies in v1.0).
+12. <strike>Add PSBT. Partially Signed Bitcoin Transactions are a powerful new interchange format that should be fully included in our discussions of multi-sigs and escrows (which instead fell back on older methodologies in v1.0).</strike> **7/2**, **7/7**, **7/10**
    * <strike>Research PSBTs</strike> **7/2**
    * <strike>Update Outlines</strike> **7/2**
    * <strike>Write 7.1: Creating a PSBT</strike> **7/7**
       * <strike>Create Illustrations for 7.1</strike> **7/7**
-   * Write 7.2: Using a PSBT
+   * <strike>Write 7.2: Using a PSBT</strike> **7/7**, **7/10**
       * <strike>Multisigs</strike> **7/7**
-         * Redo with correct math
-      * Fund Pooling
-      * CoinJoins
+         * <strike>Redo with correct math</strike> **7/10**
+      * <strike>Fund Pooling</strike> **7/10**
+      * <strike>CoinJoins</strike> **7/10**
       
 13. Add Wallet Updates.
    * <strike>Bitcoin Descriptors</strike> **6/30**
