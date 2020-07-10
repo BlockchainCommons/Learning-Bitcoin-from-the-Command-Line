@@ -1,0 +1,30 @@
+# Chapter Thirteen: Understanding Your Lighting Setup
+
+You're now ready to begin working with the `lightning-cli` command-line interface. But that first requires that you understand your c-lightning setup and its features, which is what will be explained in this chapter.
+
+For this and future chapters, we presume that you have a VPS with c-lightning installed, running `lightningd`. We also presume that you are connected to testnet, allowing for access to bitcoins without using real funds. You can either do this by hand, per [§2.1: Setting up a Bitcoin-Core VPS by Hand](02_1_Setting_Up_a_Bitcoin-Core_VPS_by_Hand.md), with Bitcoin Standup at Linode.com, per [§2.2: Setting up a Bitcoin-Core VPS with Bitcoin Standup](02_2_Setting_Up_a_Bitcoin-Core_VPS_with_StackScript.md), or via other means, per [§2.3: Setting up a Bitcoin-Core Machine via Other Means](02_3_Setting_Up_Bitcoin_Core_Other.md).
+
+## Objectives for This Chapter
+
+After working through this chapter, a developer will be able to:
+
+   * Demonstrate that Their c-lightning Node is Installed and Up-to-date
+   * Use Basic Wallet Commands
+   * Setting up a channel.
+   * Pay an invoice
+   * Generate a payment request.
+   
+Supporting objectives include the ability to:
+
+   * Use Basic Informational Commands
+   * Understand What a lightning channel  Is
+   * Understand What a invoice Is
+   * Understand How to pay an invoice
+   
+## Table of Contents
+
+* [Section One: Verifying Your Lightning Setup](13_1_Verifying_Your_Lightning_Setup.md)
+* [Section Two: Knowing Your Lightning Setup](13_2_Knowing_Your_lightning_Setup.md)
+* [Section Three: Setting Up a chhanel](13_3_Setting_Up_a_Channel.md)
+* [Section Four: Paying an invoice](13_4_Paying_a_Invoice.md)
+* [Section Five: Generate a payment request](01_5_Generate_a_Payment_Request.md)
