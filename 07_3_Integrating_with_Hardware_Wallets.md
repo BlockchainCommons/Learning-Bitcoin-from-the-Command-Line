@@ -35,6 +35,14 @@ Mac$ $ alias bitcoin-cli="~/StandUp/BitcoinCore/bitcoin-0.20.0/bin/bitcoin-cli -
 
 The HWI program is written in `python`, so you'll also need to install that.
 
+[[... how to ...]
+
+## Prepare Your Ledger
+
+If you were working with Bitcoins on your Ledger, you probably wouldn't need to do anything. But, to work with Testnet (as suggested by this course), you'll need to make a few updates. First, go to Settings on your Ledger Live app (it's the gear), and turn on "Developer Mode", then go to the "Manager" and install "Bitcoin Test". The current version requires that you have "Bitcoin" and "Etereum" installed first.
+
+Now you're ready to ... TEST.
+
 ## Link to a Ledger
 
 ## Import Addresses
