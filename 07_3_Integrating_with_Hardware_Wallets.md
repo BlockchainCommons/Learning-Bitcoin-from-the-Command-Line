@@ -12,6 +12,10 @@ The methodology for integrating with a Hardware Wallet that is described in this
 
 ## Install Bitcoin Core on a Local Machine
 
+_If you just plan to read over this section and not try to work with the commands until you have a local development environment set up, you can skip this instruction, which is about creating a Bitcoin Core installation on a local machine such as a Mac or UNIX machine._
+
+
+
 ## Link to a Ledger
 
 ## Import Addresses
