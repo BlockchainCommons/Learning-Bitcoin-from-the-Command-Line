@@ -14,7 +14,26 @@ The methodology for integrating with a Hardware Wallet that is described in this
 
 _If you just plan to read over this section and not try to work with the commands until you have a local development environment set up, you can skip this instruction, which is about creating a Bitcoin Core installation on a local machine such as a Mac or UNIX machine._
 
+There are versions of the Bitcoin Standup script that you used to create your VM for MacOS and for other UNIX instances.
 
+If you have MacOS, you can install [Bitcoin Standup MacOS](https://github.com/BlockchainCommons/Bitcoin-Standup-MacOS/blob/master/README.md).
+
+If you have a local UNIX machine, you can install [Bitcoin Standup Linux Scripts](https://github.com/BlockchainCommons/Bitcoin-Standup-MacOS/blob/master/README.md).
+
+We will be using a Macintosh for the examples in this section.
+
+### Create an Alias for Bitcoin-CLI
+
+Create an alias that causes `bitcoin-cli` to run the correct command from the correct directory with any appropriate flags.
+
+Here's an example alias from a Mac:
+```
+Mac$ $ alias bitcoin-cli="~/StandUp/BitcoinCore/bitcoin-0.20.0/bin/bitcoin-cli -testnet"
+```
+
+### Install Python
+
+The HWI program is written in `python`, so you'll also need to install that.
 
 ## Link to a Ledger
 
