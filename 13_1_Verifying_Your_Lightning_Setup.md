@@ -12,7 +12,7 @@ We suggest creating some aliases to make it easier to use c-lightning.
 You can do so by putting them in your `.bash_profile`.
 ```
 cat >> ~/.bash_profile <<EOF
-alias lndir="cd ~/.lightningn/" #linux default c-lightning path
+alias lndir="cd ~/.lightning/" #linux default c-lightning path
 alias lnc="lightning-cli"
 alias lnd="lightningd"
 alias lninfo='lightning-cli getinfo'
