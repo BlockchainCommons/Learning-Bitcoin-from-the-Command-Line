@@ -35,7 +35,7 @@ If it's not running, you'll want to run `lightningd --network=testnet` by hand.
 
 ## Verify your node
 
-You should have the whole blockchain downloaded before you start playing. Just run the `bitcoin-cli getblockcount` alias to see if it's all loaded. 
+You should have an output like this indicating your node is ready.  
 ```
 $ lightning-cli --network=testnet getinfo
 {
@@ -68,9 +68,15 @@ $ lightning-cli --network=testnet getinfo
 }
 ```
 
+If node is still sycing with bitcoin network you should see a message like this.
+
+```
+"warning_bitcoind_sync": "Bitcoind is not up-to-date with network."
+```
+
 ## Summary: Verifying your Lightning setup
 
-Before you start playing with lightning, you should make sure that your aliases are set up, your lightinnd is running, and your node is synced. You may also want to set up some access to alternative lightning setups, if you're an advanced user.
+Before you start playing with lightning, you should make sure that your aliases are set up, your lightningd is running, and your node is synced. You may also want to set up some access to alternative lightning setups, if you're an advanced user.
 
 ## What's Next?
 
