@@ -15,7 +15,7 @@ cat >> ~/.bash_profile <<EOF
 alias lndir="cd ~/.lightningn/" #linux default c-lightning path
 alias lnc="lightning-cli"
 alias lnd="lightningd"
-alias lninfo='bitcoin-cli getwalletinfo | egrep "\"balance\""; bitcoin-cli getnetworkinfo | egrep "\"version\"|connections"; bitcoin-cli getmininginfo | egrep "\"blocks\"|errors"'
+alias lninfo='lightning-cli getinfo'
 EOF
 ```
 After you enter these aliases you can either `source .bash_profile` to input them or just log out and back in.
