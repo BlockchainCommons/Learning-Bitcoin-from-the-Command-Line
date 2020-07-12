@@ -35,7 +35,8 @@ If it's not running, you'll want to run `lightningd --network=testnet` by hand.
 
 ## Verify your node
 
-You should have an output like this indicating your node is ready.  
+You should have an output like this indicating your node is ready if blockheight  shows a height value that match with your most recent number getblockcount `bitcoin-cli getblockcount`  command output.
+
 ```
 $ lightning-cli --network=testnet getinfo
 {
@@ -73,6 +74,26 @@ If node is still sycing with bitcoin network you should see a message like this.
 ```
 "warning_bitcoind_sync": "Bitcoind is not up-to-date with network."
 ```
+If you're not up-to-date, you'll get a message to you `getinfo command` like this:
+```
+"warning_lightningd_sync": "Still loading latest blocks from bitcoind."
+```
+
+## Optional: Know Your Server Types
+
+> **TESTNET vs MAINNET:** When you set up your node, you choose to create it as either a Mainnet, Testnet, or Regtest node. Though this document presumes a testnet setup, it's worth understanding how you might access and use the other setup types — even all on the same machine! But, if you're a first-time user, skip on past this, as it's not necessary for a basic setup.
+
+When lightningd starts up it usually reads a general configuration file located depending on the network you are using (default: $HOME/.lightning/testnet/config). This can be changed: see –conf and –lightning-dir.
+
+The type of setup is mainly controlled through the ~/.lightning/config file. If you're running testnet, it probably will be located in ~/.lightning/testnet/config.   In next section we will explain how to manage your lightning daemon options or general options.
+
+```
+~/.lightning/testnet$ ls -la config
+-rw-rw-r-- 1 user user 267 jul 12 17:08 config
+:~/.lightning/testnet$ 
+
+```
+If you want to run several different sorts of nodes simultaneously, you must leave the testnet (or regtest) flag out of your configuration file. You should then choose whether you're using the mainnet, the testnet, or your regtest every time you run lightningd or lightning-cli.
 
 ## Summary: Verifying your Lightning setup
 
