@@ -237,7 +237,7 @@ $ lightning-cli listtransactions
 $ lightning-cli listinvoices
 $ lightning-cli listnodes   
 ```
-For example `lightning-cli getnetworkinfo` gives you a variety of information on your setup and its access to various networks:
+For example `lightning-cli listconfigs` gives you a variety of information on your setup:
 ```
 lightning-cli --network=testnet listconfigs
 {
