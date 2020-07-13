@@ -320,3 +320,11 @@ lightning-cli --network=testnet listconfigs
    "log-prefix": "lightningd"
 }
 ```
+
+## Summary: Knowing Your lightning Setup
+
+The `~/.lightning` directory contains all of your files, while `lightning-cli help` and a variety of info commands can be used to get more information on how your setup and Lightning Network work.
+
+## What's Next?
+
+Continue "Understanding Your Lightning Setup" with [§13.3: Setting Up_a_Channel](13_3_Setting_Up_a_Channel.md).
