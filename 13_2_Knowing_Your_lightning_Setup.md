@@ -226,3 +226,97 @@ dev-rescan-outputs
 ---
 run `lightning-cli help <command>` for more information on a specific command
 ```
+
+## Optional: Know your lightning lnfo
+
+A variety of lightning-cli commands can give you additional information on your lightning node. The most general ones are:
+```
+$ lightning-cli listconfigs
+$ lightning-cli listfunds
+$ lightning-cli listtransactions
+$ lightning-cli listinvoices
+$ lightning-cli listnodes   
+```
+For example `lightning-cli getnetworkinfo` gives you a variety of information on your setup and its access to various networks:
+```
+lightning-cli --network=testnet listconfigs
+{
+   "# version": "v0.8.2-398-g869fa08",
+   "lightning-dir": "/home/user/.lightning",
+   "network": "testnet",
+   "allow-deprecated-apis": true,
+   "rpc-file": "lightning-rpc",
+   "plugin": "/usr/local/bin/../libexec/c-lightning/plugins/fundchannel",
+   "plugin": "/usr/local/bin/../libexec/c-lightning/plugins/autoclean",
+   "plugin": "/usr/local/bin/../libexec/c-lightning/plugins/bcli",
+   "plugin": "/usr/local/bin/../libexec/c-lightning/plugins/pay",
+   "plugin": "/usr/local/bin/../libexec/c-lightning/plugins/keysend",
+   "plugins": [
+      {
+         "path": "/usr/local/bin/../libexec/c-lightning/plugins/fundchannel",
+         "name": "fundchannel"
+      },
+      {
+         "path": "/usr/local/bin/../libexec/c-lightning/plugins/autoclean",
+         "name": "autoclean",
+         "options": {
+            "autocleaninvoice-cycle": null,
+            "autocleaninvoice-expired-by": null
+         }
+      },
+      {
+         "path": "/usr/local/bin/../libexec/c-lightning/plugins/bcli",
+         "name": "bcli",
+         "options": {
+            "bitcoin-datadir": null,
+            "bitcoin-cli": null,
+            "bitcoin-rpcuser": null,
+            "bitcoin-rpcpassword": null,
+            "bitcoin-rpcconnect": null,
+            "bitcoin-rpcport": null,
+            "bitcoin-retry-timeout": null,
+            "commit-fee": "500"
+         }
+      },
+      {
+         "path": "/usr/local/bin/../libexec/c-lightning/plugins/pay",
+         "name": "pay"
+      },
+      {
+         "path": "/usr/local/bin/../libexec/c-lightning/plugins/keysend",
+         "name": "keysend"
+      }
+   ],
+   "disable-plugin": [],
+   "always-use-proxy": false,
+   "daemon": "false",
+   "wallet": "sqlite3:///home/user/.lightning/testnet/lightningd.sqlite3",
+   "wumbo": false,
+   "wumbo": false,
+   "rgb": "03fce2",
+   "alias": "learningBitcoin",
+   "pid-file": "/home/user/.lightning/lightningd-testnet.pid",
+   "ignore-fee-limits": false,
+   "watchtime-blocks": 144,
+   "max-locktime-blocks": 720,
+   "funding-confirms": 3,
+   "commit-fee-min": 200,
+   "commit-fee-max": 2000,
+   "cltv-delta": 6,
+   "cltv-final": 10,
+   "commit-time": 10,
+   "fee-base": 1,
+   "rescan": 15,
+   "fee-per-satoshi": 10,
+   "max-concurrent-htlcs": 483,
+   "min-capacity-sat": 10000,
+   "offline": "false",
+   "autolisten": true,
+   "disable-dns": "false",
+   "enable-autotor-v2-mode": "false",
+   "encrypted-hsm": false,
+   "rpc-file-mode": "0600",
+   "log-level": "DEBUG",
+   "log-prefix": "lightningd"
+}
+```
