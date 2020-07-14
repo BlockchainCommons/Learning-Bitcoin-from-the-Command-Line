@@ -1,6 +1,6 @@
 # Chapter Seven: Expanding Bitcoin Transactions with PSBTs
 
-The previous chapter discussed how to use multisigs to collaboratively determine consent among multiple parties. It's not the only way to collaborate in the creation of Bitcoin transactions. PSBTs are a much newer technology that allow you to collaborate in a variety of stages, including the creation, funding, and authentication of a Bitcoin transaction. 
+The previous chapter discussed how to use multisigs to collaboratively determine consent among multiple parties. It's not the only way to collaborate in the creation of Bitcoin transactions. PSBTs are a much newer technology that allow you to collaborate at a variety of stages, including the creation, funding, and authentication of a Bitcoin transaction. 
 
 ## Objectives for This Section
 
@@ -12,8 +12,9 @@ After working through this chapter, a developer will be able to:
    
 Supporting objectives include the ability to:
 
-   * Undestand How PSBTs Differ from Multisignatures
-   * Plan for the power of PSBTs
+   * Understand How PSBTs Differ from Multisignatures
+   * Understand the Full Workflow of Working with PSBTs
+   * Plan for the Power of PSBTs
    * Understand The Use of a Hardware Wallet
    
 ## Table of Contents
