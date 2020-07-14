@@ -58,8 +58,8 @@ sudo chown $(whoami):admin /usr/local/Frameworks
 
 If you have `brew` installed, then you can then easily install `python`:
 ```
+$ brew install python
 $ brew install libusb
-$ brew install poetry
 ```
 
 
@@ -77,30 +77,7 @@ $ git clone https://github.com/bitcoin-core/HWI.git
 Afterward, you need to install the package and its dependencies:
 ```
 $ cd HWI
-$ poetry install
-Creating virtualenv hwi-Qw5zZLjb-py3.8 in /Users/shannona/Library/Caches/pypoetry/virtualenvs
-Installing dependencies from lock file
-
-
-Package operations: 16 installs, 0 updates, 0 removals
-
-  - Installing altgraph (0.17)
-  - Installing dis3 (0.1.3)
-  - Installing mccabe (0.6.1)
-  - Installing pbkdf2 (1.3)
-  - Installing pycodestyle (2.6.0)
-  - Installing pyflakes (2.2.0)
-  - Installing autopep8 (1.5.2)
-  - Installing ecdsa (0.13.3)
-  - Installing flake8 (3.8.1)
-  - Installing hidapi (0.7.99.post21)
-  - Installing libusb1 (1.8)
-  - Installing macholib (1.14)
-  - Installing mnemonic (0.18)
-  - Installing pyaes (1.6.1)
-  - Installing pyinstaller (3.6)
-  - Installing typing-extensions (3.7.4.2)
-  - Installing hwi (1.1.2)
+HWI$ python3 setup.py install
 ```
 
 ## Prepare Your Ledger
@@ -115,9 +92,18 @@ To work with Testnet, as suggested by this course, you'll need to make a few upd
 2. Go to the "Manager" and install "Bitcoin Test". The current version requires that you have "Bitcoin" and "Etereum" installed first.
 3. Go to the "Manager", scroll to your new "Bitcoin Test", and "Add Account"
 
-TO fully test, you will also want to request some Testnet coins from a faucet as described in [§3.4: Receiving a Transaction](03_4_Receiving_a_Transaction.md).
+To fully test, you will also want to request some Testnet coins from a faucet as described in [§3.4: Receiving a Transaction](03_4_Receiving_a_Transaction.md).
 
 ## Link to a Ledger
+
+In order for a Ledger to be accessible, you must login with your PIN and then call up the app that you want to use, in this case the "Bitcoin Test" app. Once you've done that, you can ask for HWI to access the Ledger:
+```
+HWI$ ./hwi.py enumerate
+[{"type": "ledger", "model": "ledger_nano_s", "path": "IOService:/AppleACPIPlatformExpert/PCI0@0/AppleACPIPCI/XHC1@14/XHC1@14000000/HS05@14100000/Nano S@14100000/Nano S@0/IOUSBHostHIDDevice@14100000,0", "fingerprint": "9a1d520b", "needs_pin_sent": false, "needs_passphrase_sent": false}]
+```
+If you got information on your device, you're set!
+
+If you instead got `[]`, then either (1) you didn't get your Ledger device ready by entering your PIN and choosing the correct application, or (2) there's something wrong with your Python setup, probably a missing dependency: you should consider `uninstall`ing it and trying from scratch.
 
 ## Import Addresses
 
