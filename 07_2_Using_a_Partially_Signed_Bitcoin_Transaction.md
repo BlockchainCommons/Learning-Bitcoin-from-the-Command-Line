@@ -8,9 +8,9 @@ Following are three examples of using PSBTs for: multi-sigs, pooling money, and 
 
 > :warning: **VERSION WARNING:** This is an innovation from Bitcoin Core v 0.17.0. Earlier versions of Bitcoin Core will not be able to work with the PSBT while it is in process (though they will still be able to recognize the final transaction).
 
-## Use a PSBT to MultiSig
+## Use a PSBT to Spend MultiSig Funds
 
-Assume you've created a new multi-sig, just like you did in [§6.3](06_3_Sending_an_Automated_Multisig.md). 
+Assume you've created a multisig address, just like you did in [§6.3](06_3_Sending_an_Automated_Multisig.md). 
 ```
 machine1$ bitcoin-cli -named addmultisigaddress nrequired=2 keys='''["'$pubkey1'","'$pubkey2'"]'''
 {
@@ -48,16 +48,16 @@ $ bitcoin-cli listunspent
   }
 ]
 ```
-You _could_ spend this using the mechanisms in [§6.2](06_2_Spending_a_Transaction_to_a_Multisig.md), where you serially signed a transaction, but instead we're going to show the advantage of PSBTs for multi-sigs: you can generate a single PSBT, allow everyone to sign that in parallel, and then combine the results! There's no more laboriously passing an ever-expanding hex from person to person, which speeds things up and reduces the chances of errors.
+You _could_ spend this using the mechanisms in [Chapter 6](06_0_Expanding_Bitcoin_Transactions_Multisigs.md), where you serially signed a transaction, but instead we're going to show the advantage of PSBTs for multi-sigs: you can generate a single PSBT, allow everyone to sign that in parallel, and then combine the results! There's no more laboriously passing an ever-expanding hex from person to person, which speeds things up and reduces the chances of errors.
 
-TO demonstrate this methodology, we're going to pull that 0.02 BTC out of the multi-sig and divide it between the two signers, who each generated a new address for that purpose:
+To demonstrate this methodology, we're going to pull that 0.02 BTC out of the multi-sig and divide it between the two signers, who each generated a new address for that purpose:
 ```
 machine1$ bitcoin-cli getnewaddress
 tb1qem5l3q5g5h6fsqv352xh4cy07kzq2rd8gphqma
 machine2$ bitcoin-cli getnewaddress
 tb1q3krplahg4ncu523m8h2eephjazs2hf6ur8r6zp
 ```
-The first thing we do is create a PSBT on the machine of our choice. (It doesn't matter which.) We need to use `createpsbt` from [§7.1](07_1_Creating_a_Partially_Signed_Bitcoin_Transaction.md) for this, not the simpler `walletcreatefundedpsbt`, because we need the extra control of selecting the money protected by the multi-sig. (This will be the case for all three examples in this section, which demonstrate why you usually need to use `createpsbt` for the complex stuff.)
+The first thing we do is create a PSBT on the machine of our choice. (It doesn't matter which.) We need to use `createpsbt` from [§7.1](07_1_Creating_a_Partially_Signed_Bitcoin_Transaction.md) for this, not the simpler `walletcreatefundedpsbt`, because we need the extra control of selecting the money protected by the multi-sig. (This will be the case for all three examples in this section, which demonstrates why you usually need to use `createpsbt` for the complex stuff.)
 ```
 machine1$ utxo_txid=53ec62c5c2fe8b16ee2164e9699d16c7b8ac30ec53a696e55f09b79704b539b5
 machine1$ utxo_vout=0
@@ -280,7 +280,7 @@ machine2$ psbt_p2=$(bitcoin-cli walletprocesspsbt $psbt | jq -r '.psbt')
 machine3$ echo $psbt_p2
 cHNidP8BAHECAAAAAbU5tQSXtwlf5ZamU+wwrLjHFp1p6WQh7haL/sLFYuxTAAAAAAD/////AnhBDwAAAAAAFgAUzun4goil9JgBkaKNeuCP9YQFDad4QQ8AAAAAABYAFI2GH/borPHKKjs91ZyG8uigq6dcAAAAAAABASu4gx4AAAAAACIAICJMtQOn94NXmbnCLuDDx9k9CQNW4w5wAVw+u/pRWjB0IgIDeJ9UNCNnDhaWZ/9+Hy2iqX3xsJEicuFC1YJFGs69BjZHMEQCIDJ71isvR2We6ym1QByLV5SQ+XEJD0SAP76fe1JU5PZ/AiB3V7ejl2H+9LLS6ubqYr/bSKfRfEqrp2FCMISjrWGZ6QEBBUdSIQONc63yx+oz+dw0t3titZr0M8HenHYzMtp56D4VX5YDDiEDeJ9UNCNnDhaWZ/9+Hy2iqX3xsJEicuFC1YJFGs69BjZSriIGA3ifVDQjZw4Wlmf/fh8toql98bCRInLhQtWCRRrOvQY2ENPtiCUAAACAAAAAgAYAAIAiBgONc63yx+oz+dw0t3titZr0M8HenHYzMtp56D4VX5YDDgRZu4lPAAAiAgNJzEMyT3rZS7QHqb8SvFCv2ee0MKRyVy8bY8tVUDT1KhDT7YglAAAAgAAAAIADAACAAA==
 ```
-Note again that we managed the signing of this multi-sig by generating a totally unsigned PSBT with the correct UTXO, then allowing each of the users to process that PSBT on their own, adding UTXOs and signatures. As a result, we have two PSBTs each of which contain one signature and not the other. That wouldn't work in the classic multi-sig scenario, because all the signatures have to be serialized. Here, instead, we can sign in parallel and then make use of the Combiner role to mush those together.
+Note again that we managed the signing of this multi-sig by generating a totally unsigned PSBT with the correct UTXO, then allowing each of the users to process that PSBT on their own, adding inputs and signatures. As a result, we have two PSBTs each of which contain one signature and not the other. That wouldn't work in the classic multi-sig scenario, because all the signatures have to be serialized. Here, instead, we can sign in parallel and then make use of the Combiner role to mush those together.
 
 We again go to either machine, and make sure we have both PSBTs in variables, then we combine them:
 ```
@@ -415,7 +415,7 @@ machine2$ psbt_c_hex=$(bitcoin-cli finalizepsbt $psbt_c | jq -r '.hex')
 standup@btctest2:~$ bitcoin-cli -named sendrawtransaction hexstring=$psbt_c_hex
 ee82d3e0d225e0fb919130d68c5052b6e3c362c866acc54d89af975330bb4d16
 ```
-Obviously, there wasn't a big improvement in using this method over serially signing a transaction for a 2-of-2 multisig when everyone was using `bitcoin-cli`: we could have passed a raw transaction with partial signatures from one user to the other just as easily as that PSBT. But, this was the simplest case. As we delve into more complex multisigs, this methodology becomes better and better. 
+Obviously, there wasn't a big improvement in using this method over serially signing a transaction for a 2-of-2 multisig when everyone was using `bitcoin-cli`: we could have passed a raw transaction with partial signatures from one user to the other just as easily as sending that PSBT. But, this was the simplest case. As we delve into more complex multisigs, this methodology becomes better and better. 
 
 First of all, it's platform independent. As long as everyone is using a service that supports Bitcoin Core 0.17, they'll all be able to sign this transaction, which isn't true when classic multi-sigs are being passed around among different platforms. 
 
@@ -423,15 +423,15 @@ Second, it's a lot more scalable. Consider a 3-of-5 multisig. Under the old meth
 
 ## Use a PSBT to Pool Money
 
-Multisigs like the one used in the previous example are often used to receive payments for collaborative work, whether it be royalties for a book or payments made to a company. In that situation, the above example works great: the two participants receive their money which they then up. But what about the converse case, where two (or more) participants want to set up a joint venture, and they need to seed it with money? 
+Multisigs like the one used in the previous example are often used to receive payments for collaborative work, whether it be royalties for a book or payments made to a company. In that situation, the above example works great: the two participants receive their money which they then split up. But what about the converse case, where two (or more) participants want to set up a joint venture, and they need to seed it with money? 
 
-The traditional answer is to create a multisig, then to have the participants individually send their funds to it. The problem is that the first payer has to depend on the good faith of the second, and that doesn't depend on the strength of Bitcoin, which is its _trustlessness_. Fortunately, with the advent of PSBTs, we can now make trustless payments that pool funds.
+The traditional answer is to create a multisig, then to have the participants individually send their funds to it. The problem is that the first payer has to depend on the good faith of the second, and that doesn't built on the strength of Bitcoin, which is its _trustlessness_. Fortunately, with the advent of PSBTs, we can now make trustless payments that pool funds.
 
 > :book: ***What does trustless mean?*** Trustless means that no participant has to trust any other participant. They instead expect the software protocols to ensure that everything is enacted fairly in an expected manner. Bitcoin is a trustless protocol because you don't need anyone else to act in good faith; the system manages it. Similarly, PSBTs allow for the trustless creation of transactions that pool or split funds.
 
 The following example shows two users who each have 0.010 BTC that they want to pool to the multisig address `tb1qyfxt2qa877p40xdecghwps78my7sjq6kuv88qq2u86al5526xp6qfqjud0`, created above.
 ```
-machine1% bitcoin-cli listunspent
+machine1$ bitcoin-cli listunspent
 [
   {
     "txid": "2536855bc8588e87206600cc980c30e8a65cf7f81002a34d6c37535e38a5b9db",
@@ -447,7 +447,7 @@ machine1% bitcoin-cli listunspent
     "safe": true
   }
 ]
-machine2% bitcoin-cli listunspent
+machine2$ bitcoin-cli listunspent
 [
  {
     "txid": "d7c7c24aeb1a61cdab81be6aefbf6c6a27562079629ffd9da4729bb82d93e4fe",
@@ -594,7 +594,7 @@ You've now seen the PSBT process that you learned in [§7.1](07_1_Creating_a_Par
 
 > :fire: ***What's the power of a PSBT?*** A PSBT allows for the creation of trustless transactions between multiple parties and multiple machines. If more than one party would need to fund a transaction, if more than one party would need to sign a transaction, or if a transaction needs to be created on one machine and signed on another, then a PSBT makes it simple without depending on the non-standardized partial signing mechanisms that used to exist before PSBT.
 
-That last point, on creating a transaction on one machine and signing on another, is an element of PSBTs that we haven't gotten to yet. It's at the heart of hardware wallets, where you often want to create a transaction on a full node, then pass it on to a hardware wallet when a signature is required. That's the topic of the last section in this chapter on PSBTs.
+That last point, on creating a transaction on one machine and signing on another, is an element of PSBTs that we haven't gotten to yet. It's at the heart of hardware wallets, where you often want to create a transaction on a full node, then pass it on to a hardware wallet when a signature is required. That's the topic of the last section (and our fourth real-life example) in this chapter on PSBTs.
 
 ## What's Next?
 
