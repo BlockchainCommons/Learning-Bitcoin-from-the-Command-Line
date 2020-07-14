@@ -26,6 +26,6 @@ Supporting objectives include the ability to:
 
 * [Section One: Verifying Your Lightning Setup](13_1_Verifying_Your_Lightning_Setup.md)
 * [Section Two: Knowing Your Lightning Setup](13_2_Knowing_Your_lightning_Setup.md)
-* [Section Three: Setting Up a chhanel](13_3_Setting_Up_a_Channel.md)
+* [Section Three: Setting Up a channel](13_3_Setting_Up_a_Channel.md)
 * [Section Four: Paying an invoice](13_4_Paying_a_Invoice.md)
 * [Section Five: Generate a payment request](01_5_Generate_a_Payment_Request.md)
