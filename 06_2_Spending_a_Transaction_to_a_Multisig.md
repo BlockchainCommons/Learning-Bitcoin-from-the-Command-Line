@@ -14,9 +14,18 @@ If you've got a pruned node (and you probably do), you'll instead need to tell i
 ```
 $ bitcoin-cli -named importaddress address=2NAGfA4nW6nrZkD5je8tSiAcYB9xL2xYMCz rescan="false"
 ```
+If you prefer, you can import the address using its descriptor (and this is generally the better, more standardized answer):
+```
+$ bitcoin-cli importmulti '[{"desc": "sh(multi(2,02da2f10746e9778dd57bd0276a4f84101c4e0a711f9cfd9f09cde55acbdd2d191,02bfde48be4aa8f4bf76c570e98a8d287f9be5638412ab38dede8e78df82f33fa3))#0pazcr4y", "timestamp": "now", "watchonly": true}]'
+[
+  {
+    "success": true
+  }
+]
+```
 Afterward the funds should show up when you `listunspent` ... but they still aren't easily spendable. (In fact, your wallet may claim they're not `spendable` at all!)
 
-If you're not able to incorporate the address into your wallet due to pruning, using `gettransaction` to get info instead (or look on a block explorer).
+If for some reason you're not able to incorporate the address into your wallet, you can use `gettransaction` to get info instead (or look at a block explorer).
 ```
 $ bitcoin-cli -named gettransaction txid=b164388854f9701051809eed166d9f6cedba92327e4296bf8a265a5da94f6521 verbose=true
 {
@@ -166,7 +175,7 @@ machine1$ bitcoin-cli -named signrawtransactionwithkey hexstring=$rawtxhex prevt
 }
 
 ```
-That produces scary errors and says that it's not `failing`. This is all correct. You can see that the signature has been partially successfully because the `hex` has gotten longer. Though the transaction has been partially signed, it's not done because it needs more signatures. 
+That produces scary errors and says that it's `failing`. This is all fine. You can see that the signature has been partially successfully because the `hex` has gotten longer. Though the transaction has been partially signed, it's not done because it needs more signatures. 
 
 ### Repeat for Other Signers
 
