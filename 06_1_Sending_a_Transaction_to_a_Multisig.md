@@ -87,7 +87,7 @@ machine1$ bitcoin-cli -named createmultisig nrequired=2 keys='''["'$pubkey1'","0
   "descriptor": "sh(multi(2,02da2f10746e9778dd57bd0276a4f84101c4e0a711f9cfd9f09cde55acbdd2d191,02bfde48be4aa8f4bf76c570e98a8d287f9be5638412ab38dede8e78df82f33fa3))#0pazcr4y"
 }
 ```
-> :warning: **VERSION WARNING:** Older versions of `createmultisig` allowed you to enter an address instead of a public key, if the full information about the address was in your local wallet. This is no longer the case for modern Bitcoin Core release, and so the shorthand should not be used.
+> :warning: **VERSION WARNING:** Some versions of `createmultisig` have allowed entry of public keys or addresses, some have required public keys only. Currently, either one seems to be allowed.
 
 When creating the multisignature address, you list how many signatures are required with the `nrequired` argument (that's "m" in a "m-of-n" multisignature), then you list the total set of possible signatures with the `keys` argument (that's "n"). Note that the the `keys` entries likely came from different places. In this case, we included `$pubkey1` from the local machine and `02bfde48be4aa8f4bf76c570e98a8d287f9be5638412ab38dede8e78df82f33fa3` from a remote machine. 
 
