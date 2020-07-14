@@ -188,7 +188,9 @@ $ bitcoin-cli -rpcwallet=ledger importmulti '[{"desc": "wpkh([9a1d520b/84h/1h/0h
   }
 ]
 ```
-You can now view the watch-only addresse that you received using the `getaddressesbylabel` command. All 1000 of the receive addresses are right there, in the `ledger` wallet!
+(Note that HWI helpfully output the derivation path with `h`s to show hardened derivations rather than `'`s, and calculated its checksum accordingly, so that we don't have to do massive quoting like we did in §3.5.)
+
+You can now list all of the watch-only addresse that you received using the `getaddressesbylabel` command. All 1000 of the receive addresses are right there, in the `ledger` wallet!
 ```
 $ bitcoin-cli -rpcwallet=ledger getaddressesbylabel "" | more
 {
@@ -201,7 +203,241 @@ $ bitcoin-cli -rpcwallet=ledger getaddressesbylabel "" | more
 ...
 }
 ```
+## Receive a Transaction
+
+Obviously, receiving a transaction is simple. You use `getnewaddress` to request one of those addresses:
+```
+$ bitcoin-cli -rpcwallet=ledger getnewaddress
+tb1qqqvnezljtmc9d7x52udpc0m9zgl9leugd2ur7y
+```
+Then you send money to it.
+
+The power of HWI is that you can now watch the payments from your Bitcoin Core node, rather than having to plug in your hardware wallet and query it.
+```
+$ bitcoin-cli -rpcwallet=ledger listunspent
+[
+  {
+    "txid": "c733533eb1c052242f9ed89cd8927aedb41852156e684634ee7c74028774e595",
+    "vout": 1,
+    "address": "tb1q948388a23pfsf52kz6skd5k4z4627jja2evztr",
+    "label": "",
+    "scriptPubKey": "00142d4f139faa885304d15616a166d2d51574af4a5d",
+    "amount": 0.01000000,
+    "confirmations": 12,
+    "spendable": false,
+    "solvable": true,
+    "desc": "wpkh([9a1d520b/84'/1'/0'/0/0]02a013cf9c4b5f5689d9253036a3e477cf98689626f7814c94f092726f11b741ab)#9za8hlvk",
+    "safe": true
+  },
+  {
+    "txid": "5b3c4aeb811f9a119fd633b12a6927415cc61b8654628df58e9141cab804bab8",
+    "vout": 0,
+    "address": "tb1qqqvnezljtmc9d7x52udpc0m9zgl9leugd2ur7y",
+    "label": "",
+    "scriptPubKey": "001400193c8bf25ef056f8d4571a1c3f65123e5fe788",
+    "amount": 0.01000000,
+    "confirmations": 1,
+    "spendable": false,
+    "solvable": true,
+    "desc": "wpkh([9a1d520b/84'/1'/0'/0/569]030168d9482e2b02d7027fb4a89edc54adaa1adf709334f647d0a1b0533828aec5)#sx9haake",
+    "safe": true
+  }
+]
+```
 ## Create a Transaction with PSBT
+
+Watching and receiving payments is just half-the-battle. You may also want to make payments using accounts held by your hardware wallet. This is a fourth realworld example of PSBT, per the process we learned in [§7.1: Creating a Partially Signed Bitcoin Transaction](7_1_Creating_a_Partially_Signed_Bitcoin_Transaction.md). 
+
+$ bitcoin-cli -named -rpcwallet=ledger walletcreatefundedpsbt inputs='''[]''' outputs='''[{"tb1qcaedd724gts3aug73m78c7nfsv9d8zs9q6h2kd":0.015}]'''
+{
+  "psbt": "cHNidP8BAJoCAAAAAri6BLjKQZGO9Y1iVIYbxlxBJ2kqsTPWnxGaH4HrSjxbAAAAAAD+////leV0hwJ0fO40RmhuFVIYtO16ktic2J4vJFLAsT5TM8cBAAAAAP7///8CYOMWAAAAAAAWABTHctb5VULhHvEejvx8emmDCtOKBU+gBwAAAAAAFgAU9Ojd5ds3CJi1fIRWbj92CYhQgX0AAAAAAAEBH0BCDwAAAAAAFgAUABk8i/Je8Fb41FcaHD9lEj5f54giBgMBaNlILisC1wJ/tKie3FStqhrfcJM09kfQobBTOCiuxRiaHVILVAAAgAEAAIAAAACAAAAAADkCAAAAAQEfQEIPAAAAAAAWABQtTxOfqohTBNFWFqFm0tUVdK9KXSIGAqATz5xLX1aJ2SUwNqPkd8+YaJYm94FMlPCScm8Rt0GrGJodUgtUAACAAQAAgAAAAIAAAAAAAAAAAAAAIgID2UK1nupSfXC81nmB65XZ+pYlJp/W6wNk5FLt5ZCSx6kYmh1SC1QAAIABAACAAAAAgAEAAAABAAAAAA==",
+  "fee": 0.00000209,
+  "changepos": 1
+}
+
+$ psbt="cHNidP8BAJoCAAAAAri6BLjKQZGO9Y1iVIYbxlxBJ2kqsTPWnxGaH4HrSjxbAAAAAAD+////leV0hwJ0fO40RmhuFVIYtO16ktic2J4vJFLAsT5TM8cBAAAAAP7///8CYOMWAAAAAAAWABTHctb5VULhHvEejvx8emmDCtOKBU+gBwAAAAAAFgAU9Ojd5ds3CJi1fIRWbj92CYhQgX0AAAAAAAEBH0BCDwAAAAAAFgAUABk8i/Je8Fb41FcaHD9lEj5f54giBgMBaNlILisC1wJ/tKie3FStqhrfcJM09kfQobBTOCiuxRiaHVILVAAAgAEAAIAAAACAAAAAADkCAAAAAQEfQEIPAAAAAAAWABQtTxOfqohTBNFWFqFm0tUVdK9KXSIGAqATz5xLX1aJ2SUwNqPkd8+YaJYm94FMlPCScm8Rt0GrGJodUgtUAACAAQAAgAAAAIAAAAAAAAAAAAAAIgID2UK1nupSfXC81nmB65XZ+pYlJp/W6wNk5FLt5ZCSx6kYmh1SC1QAAIABAACAAAAAgAEAAAABAAAAAA=="
+
+$ bitcoin-cli decodepsbt $psbt
+{
+  "tx": {
+    "txid": "45f996d4ff8c9e9ab162f611c5b6ad752479ede9780f9903bdc80cd96619676d",
+    "hash": "45f996d4ff8c9e9ab162f611c5b6ad752479ede9780f9903bdc80cd96619676d",
+    "version": 2,
+    "size": 154,
+    "vsize": 154,
+    "weight": 616,
+    "locktime": 0,
+    "vin": [
+      {
+        "txid": "5b3c4aeb811f9a119fd633b12a6927415cc61b8654628df58e9141cab804bab8",
+        "vout": 0,
+        "scriptSig": {
+          "asm": "",
+          "hex": ""
+        },
+        "sequence": 4294967294
+      },
+      {
+        "txid": "c733533eb1c052242f9ed89cd8927aedb41852156e684634ee7c74028774e595",
+        "vout": 1,
+        "scriptSig": {
+          "asm": "",
+          "hex": ""
+        },
+        "sequence": 4294967294
+      }
+    ],
+    "vout": [
+      {
+        "value": 0.01500000,
+        "n": 0,
+        "scriptPubKey": {
+          "asm": "0 c772d6f95542e11ef11e8efc7c7a69830ad38a05",
+          "hex": "0014c772d6f95542e11ef11e8efc7c7a69830ad38a05",
+          "reqSigs": 1,
+          "type": "witness_v0_keyhash",
+          "addresses": [
+            "tb1qcaedd724gts3aug73m78c7nfsv9d8zs9q6h2kd"
+          ]
+        }
+      },
+      {
+        "value": 0.00499791,
+        "n": 1,
+        "scriptPubKey": {
+          "asm": "0 f4e8dde5db370898b57c84566e3f76098850817d",
+          "hex": "0014f4e8dde5db370898b57c84566e3f76098850817d",
+          "reqSigs": 1,
+          "type": "witness_v0_keyhash",
+          "addresses": [
+            "tb1q7n5dmewmxuyf3dtus3txu0mkpxy9pqtacuprak"
+          ]
+        }
+      }
+    ]
+  },
+  "unknown": {
+  },
+  "inputs": [
+    {
+      "witness_utxo": {
+        "amount": 0.01000000,
+        "scriptPubKey": {
+          "asm": "0 00193c8bf25ef056f8d4571a1c3f65123e5fe788",
+          "hex": "001400193c8bf25ef056f8d4571a1c3f65123e5fe788",
+          "type": "witness_v0_keyhash",
+          "address": "tb1qqqvnezljtmc9d7x52udpc0m9zgl9leugd2ur7y"
+        }
+      },
+      "bip32_derivs": [
+        {
+          "pubkey": "030168d9482e2b02d7027fb4a89edc54adaa1adf709334f647d0a1b0533828aec5",
+          "master_fingerprint": "9a1d520b",
+          "path": "m/84'/1'/0'/0/569"
+        }
+      ]
+    },
+    {
+      "witness_utxo": {
+        "amount": 0.01000000,
+        "scriptPubKey": {
+          "asm": "0 2d4f139faa885304d15616a166d2d51574af4a5d",
+          "hex": "00142d4f139faa885304d15616a166d2d51574af4a5d",
+          "type": "witness_v0_keyhash",
+          "address": "tb1q948388a23pfsf52kz6skd5k4z4627jja2evztr"
+        }
+      },
+      "bip32_derivs": [
+        {
+          "pubkey": "02a013cf9c4b5f5689d9253036a3e477cf98689626f7814c94f092726f11b741ab",
+          "master_fingerprint": "9a1d520b",
+          "path": "m/84'/1'/0'/0/0"
+        }
+      ]
+    }
+  ],
+  "outputs": [
+    {
+    },
+    {
+      "bip32_derivs": [
+        {
+          "pubkey": "03d942b59eea527d70bcd67981eb95d9fa9625269fd6eb0364e452ede59092c7a9",
+          "master_fingerprint": "9a1d520b",
+          "path": "m/84'/1'/0'/1/1"
+        }
+      ]
+    }
+  ],
+  "fee": 0.00000209
+}
+
+$ bitcoin-cli analyzepsbt $psbt
+{
+  "inputs": [
+    {
+      "has_utxo": true,
+      "is_final": false,
+      "next": "signer",
+      "missing": {
+        "signatures": [
+          "00193c8bf25ef056f8d4571a1c3f65123e5fe788"
+        ]
+      }
+    },
+    {
+      "has_utxo": true,
+      "is_final": false,
+      "next": "signer",
+      "missing": {
+        "signatures": [
+          "2d4f139faa885304d15616a166d2d51574af4a5d"
+        ]
+      }
+    }
+  ],
+  "estimated_vsize": 208,
+  "estimated_feerate": 0.00001004,
+  "fee": 0.00000209,
+  "next": "signer"
+}
+
+$ hwi -f 9a1d520b signtx $psbt
+{"psbt": "cHNidP8BAJoCAAAAAri6BLjKQZGO9Y1iVIYbxlxBJ2kqsTPWnxGaH4HrSjxbAAAAAAD+////leV0hwJ0fO40RmhuFVIYtO16ktic2J4vJFLAsT5TM8cBAAAAAP7///8CYOMWAAAAAAAWABTHctb5VULhHvEejvx8emmDCtOKBU+gBwAAAAAAFgAU9Ojd5ds3CJi1fIRWbj92CYhQgX0AAAAAAAEBH0BCDwAAAAAAFgAUABk8i/Je8Fb41FcaHD9lEj5f54giAgMBaNlILisC1wJ/tKie3FStqhrfcJM09kfQobBTOCiuxUcwRAIgAxkQlk2fqEMxvP54WWyiFhlfSul9sd4GzKDhfGpmlewCIHYej3zXWWMgWI6rixxQw9yzGozDaFPqQNNIvcFPk+lfASIGAwFo2UguKwLXAn+0qJ7cVK2qGt9wkzT2R9ChsFM4KK7FGJodUgtUAACAAQAAgAAAAIAAAAAAOQIAAAABAR9AQg8AAAAAABYAFC1PE5+qiFME0VYWoWbS1RV0r0pdIgICoBPPnEtfVonZJTA2o+R3z5holib3gUyU8JJybxG3QatHMEQCIH5t6T2yufUP7glYZ8YH0/PhDFpotSmjgZUhvj6GbCFIAiBcgXzyYl7IjYuaF3pJ7AgW1rLYkjeCJJ2M9pVUrq5vFwEiBgKgE8+cS19WidklMDaj5HfPmGiWJveBTJTwknJvEbdBqxiaHVILVAAAgAEAAIAAAACAAAAAAAAAAAAAACICA9lCtZ7qUn1wvNZ5geuV2fqWJSaf1usDZORS7eWQksepGJodUgtUAACAAQAAgAAAAIABAAAAAQAAAAA="}
+
+$ bitcoin-cli analyzepsbt $psbt_f
+{
+  "inputs": [
+    {
+      "has_utxo": true,
+      "is_final": false,
+      "next": "finalizer"
+    },
+    {
+      "has_utxo": true,
+      "is_final": false,
+      "next": "finalizer"
+    }
+  ],
+  "estimated_vsize": 208,
+  "estimated_feerate": 0.00001004,
+  "fee": 0.00000209,
+  "next": "finalizer"
+}
+
+
+check inputs, outputs, fees
+
+ bitcoin-cli finalizepsbt $psbt_f
+{
+  "hex": "02000000000102b8ba04b8ca41918ef58d6254861bc65c4127692ab133d69f119a1f81eb4a3c5b0000000000feffffff95e5748702747cee3446686e155218b4ed7a92d89cd89e2f2452c0b13e5333c70100000000feffffff0260e3160000000000160014c772d6f95542e11ef11e8efc7c7a69830ad38a054fa0070000000000160014f4e8dde5db370898b57c84566e3f76098850817d024730440220031910964d9fa84331bcfe78596ca216195f4ae97db1de06cca0e17c6a6695ec0220761e8f7cd7596320588eab8b1c50c3dcb31a8cc36853ea40d348bdc14f93e95f0121030168d9482e2b02d7027fb4a89edc54adaa1adf709334f647d0a1b0533828aec50247304402207e6de93db2b9f50fee095867c607d3f3e10c5a68b529a3819521be3e866c214802205c817cf2625ec88d8b9a177a49ec0816d6b2d8923782249d8cf69554aeae6f17012102a013cf9c4b5f5689d9253036a3e477cf98689626f7814c94f092726f11b741ab00000000",
+  "complete": true
+}
+
+hex=02000000000102b8ba04b8ca41918ef58d6254861bc65c4127692ab133d69f119a1f81eb4a3c5b0000000000feffffff95e5748702747cee3446686e155218b4ed7a92d89cd89e2f2452c0b13e5333c70100000000feffffff0260e3160000000000160014c772d6f95542e11ef11e8efc7c7a69830ad38a054fa0070000000000160014f4e8dde5db370898b57c84566e3f76098850817d024730440220031910964d9fa84331bcfe78596ca216195f4ae97db1de06cca0e17c6a6695ec0220761e8f7cd7596320588eab8b1c50c3dcb31a8cc36853ea40d348bdc14f93e95f0121030168d9482e2b02d7027fb4a89edc54adaa1adf709334f647d0a1b0533828aec50247304402207e6de93db2b9f50fee095867c607d3f3e10c5a68b529a3819521be3e866c214802205c817cf2625ec88d8b9a177a49ec0816d6b2d8923782249d8cf69554aeae6f17012102a013cf9c4b5f5689d9253036a3e477cf98689626f7814c94f092726f11b741ab00000000
+
+$ bitcoin-cli sendrawtransaction $hex
+45f996d4ff8c9e9ab162f611c5b6ad752479ede9780f9903bdc80cd96619676d
 
 ## Summary: Integrating with Hardware Wallets
 
