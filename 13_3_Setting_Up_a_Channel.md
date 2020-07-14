@@ -35,7 +35,7 @@ $ lightning-cli --network=testnet newaddr
 To check you local balance you should use `lightning-cli listfunds` command:
 
 ```       
-lightning-cli --network=testnet listfunds
+$ lightning-cli --network=testnet listfunds
 {
    "outputs": [],
    "channels": []
@@ -45,20 +45,128 @@ lightning-cli --network=testnet listfunds
 Since we still do not have the confirmed transaction we do not have a balance,  after 6 confirmations we should see balance available:
 
 ```       
-lightning-cli --network=testnet listfunds
+$ lightning-cli --network=testnet listfunds
 {
    "outputs": [],
    "channels": []
 }
 ```       
 
-
 Later we send some sats to this address in this transaction [11094bb9ac29ce5af9f1e5a0e4aac2066ae132f25b72bff90fcddf64bf2feb02](https://blockstream.info/testnet/tx/11094bb9ac29ce5af9f1e5a0e4aac2066ae132f25b72bff90fcddf64bf2feb02)
 
+Now that we have funded our c-lightning wallet we will get information about remote node to start creating channel process.  On LND nodes you can get information about your node using `lncli -n testnet getinfo`:
+
+```       
+lncli -n testnet getinfo
+{
+    "version": "0.10.99-beta commit=clock/v1.0.0-171-g8cb1276dbf0bfd9fcbf599df87a43238e599eaac",
+    "commit_hash": "8cb1276dbf0bfd9fcbf599df87a43238e599eaac",
+    "identity_pubkey": "0302d48972ba7eef8b40696102ad114090fd4c146e381f18c7932a2a1d73566f84",
+    "alias": "0302d48972ba7eef8b40",
+    "color": "#3399ff",
+    "num_pending_channels": 0,
+    "num_active_channels": 0,
+    "num_inactive_channels": 0,
+    "num_peers": 0,
+    "block_height": 1780686,
+    "block_hash": "000000000000000beb29fa5d3afb713a253f949b12f5f5be25935bb26764e321",
+    "best_header_timestamp": "1594737322",
+    "synced_to_chain": true,
+    "synced_to_graph": true,
+    "testnet": true,
+    "chains": [
+        {
+            "chain": "bitcoin",
+            "network": "testnet"
+        }
+    ],
+    "uris": [
+    ],
+    "features": {
+        "0": {
+            "name": "data-loss-protect",
+            "is_required": true,
+            "is_known": true
+        },
+        "5": {
+            "name": "upfront-shutdown-script",
+            "is_required": false,
+            "is_known": true
+        },
+        "7": {
+            "name": "gossip-queries",
+            "is_required": false,
+            "is_known": true
+        },
+        "9": {
+            "name": "tlv-onion",
+            "is_required": false,
+            "is_known": true
+        },
+        "13": {
+            "name": "static-remote-key",
+            "is_required": false,
+            "is_known": true
+        },
+        "15": {
+            "name": "payment-addr",
+            "is_required": false,
+            "is_known": true
+        },
+        "17": {
+            "name": "multi-path-payments",
+            "is_required": false,
+            "is_known": true
+        }
+    }
+}
+```       
 
 #### Connect to remote node
 
-The first thing you need to do is connect your node to a peer. This is done with the `lightning-cli connect` command. Remember that if you want more information on this command, you should type `lightning-cli help connect`. 
+The first thing you need to do is connect your node to a peer. This is done with the `lightning-cli connect` command. Remember that if you want more information on this command, you should type `lightning-cli help connect`.   The connect RPC command establishes a new connection with another node in the Lightning Network.
+
+To connect your node to a remote peer you need it's id that represents the target node’s public key. As a convenience, id may be of the form id@host or id@host:port. In this case, the port parameter must be changed due we're running two nodes on the same machine,  c-lightning node it's running on 9735 default port and we've started LND node on 9736 port with this parameter.
+
+```       
+$ lnd --listen=0.0.0.0:9736 
+```       
+We can check it's listening on 9736 port using this command:
+
+```       
+$ netstat -aon | grep 9736
+tcp6       0      0 :::9736                 :::*                    LISTEN      off (0.00/0/0)
+$ 
+```       
+Now we can use `lightning-cli connect` command to reach node as a peer:
+
+```       
+$ lightning-cli --network=testnet connect 0302d48972ba7eef8b40696102ad114090fd4c146e381f18c7932a2a1d73566f84@127.0.0.1:9736
+{
+   "id": "0302d48972ba7eef8b40696102ad114090fd4c146e381f18c7932a2a1d73566f84",
+   "features": "02a2a1"
+}
+```       
+
+To check out:
+
+```       
+$ lightning-cli --network=testnet listpeers
+{
+   "peers": [
+      {
+         "id": "0302d48972ba7eef8b40696102ad114090fd4c146e381f18c7932a2a1d73566f84",
+         "connected": true,
+         "netaddr": [
+            "127.0.0.1:9736"
+         ],
+         "features": "02a2a1",
+         "channels": []
+      }
+   ]
+}
+```       
+On success, an object with a “peers” key is returned containing a list distinct objects. Object features are bit flags showing supported features (BOLT #9).
 
 #### Open channel
 
@@ -67,5 +175,5 @@ In this example we will use two lightning nodes running c-lightning and LND impl
 
 ```
 $ lightning-cli getinfo
-moKVV6XEhfrBCE3QCYq6ppT7AaMF8KsZ1B
+
 ```
