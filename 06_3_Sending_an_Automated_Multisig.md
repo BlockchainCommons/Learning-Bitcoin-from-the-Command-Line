@@ -8,11 +8,11 @@ The standard technique for creating multisignature addresses and for spending th
 
 ## Create a Multisig Address in Your Wallet
 
-In order to make funds sent to multisig addresses easier to spend, you need to have done some prep using the `addmultisigaddress` command. It's probably not what you'd want to do if you were writing multisig wallet programs, but if you were just trying to receive some funds by hand, it might save you some hair-pulling.
+In order to make funds sent to multisig addresses easier to spend, you just need to do some prep using the `addmultisigaddress` command. It's probably not what you'd want to do if you were writing multisig wallet programs, but if you were just trying to receive some funds by hand, it might save you some hair-pulling.
 
 ### Collect the Keys
 
-You start off creating P2PKH addresses and retrieving public keys as usual, for each user who will be part of the multisig:
+You start off creating P2PKH addresses and retrieving public keys, as usual, for each user who will be part of the multisig:
 ```
 machine1$ address3=$(bitcoin-cli getnewaddress)
 machine1$ echo $address3
@@ -21,9 +21,9 @@ machine1$ bitcoin-cli -named getaddressinfo address=$address3 | jq -r '. | .pubk
 0297e681bff16cd4600138449e2527db4b2f83955c691a1b84254ecffddb9bfbfc
 
 machine2$ address4=$(bitcoin-cli getnewaddress)
-$ echo $address4
+machine2$ echo $address4
 tb1qa9v5h6zkhq8wh0etnv3ae9cdurkh085xufl3de
-$ bitcoin-cli -named getaddressinfo address=$address4 | jq -r '. | .pubkey'
+machine2$ bitcoin-cli -named getaddressinfo address=$address4 | jq -r '. | .pubkey'
 02a0d96e16458ff0c90db4826f86408f2cfa0e960514c0db547ff152d3e567738f
 ```
 
