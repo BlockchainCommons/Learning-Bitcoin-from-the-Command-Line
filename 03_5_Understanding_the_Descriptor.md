@@ -99,7 +99,7 @@ $ bitcoin-cli getdescriptorinfo "pkh([d6043800/0'/0'/18']03efdee34c0009fd175f3b2
   "hasprivatekeys": false
 }
 ```
-Besides giving you the checksum, this command also provides useful information like whether a descriptor contains private keys.
+Besides giving you the checksum, this command also verifies the validity of the descriptor and provides useful information like whether a descriptor contains private keys.
 
 One of the powers of a descriptor is being able to derive an address in a regular way. This is done with the `deriveaddresses` RPC.
 ```
@@ -141,6 +141,8 @@ remote$ bitcoin-cli getaddressesbylabel ""
 Descriptors let you pass public keys and private keys among wallets, but more than that, they allow you to precisely and correctly to define addresses and to derive addresses of a lot of different sorts from a standardized description format.
 
 > :fire: ***What is the power of descriptors?*** Descriptors allow you to import and export seeds and keys. That's great if you want to move between different wallets. As a developer, they also allow you to build up the precise sort of addresses that you're interested in creating. For example, we use it in [FullyNoded 2](https://github.com/BlockchainCommons/FullyNoded-2/blob/master/Docs/How-it-works.md) to generate a multi-sig from three seeds. 
+
+We'll make real use of descriptors in [§7.3](07_3_Integrating_with_Hardware_Wallets.md), when we're importing addresses from a hardware wallet.
 
 ## What's Next?
 
