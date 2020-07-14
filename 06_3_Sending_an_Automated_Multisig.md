@@ -45,7 +45,7 @@ machine2$ bitcoin-cli -named addmultisigaddress nrequired=2 keys='''["0297e681bf
   "descriptor": "wsh(multi(2,[ae42a66f]0297e681bff16cd4600138449e2527db4b2f83955c691a1b84254ecffddb9bfbfc,[fe6f2292/0'/0'/2']02a0d96e16458ff0c90db4826f86408f2cfa0e960514c0db547ff152d3e567738f))#cc96c5n6"
 }
 ```
-As noted in the previous section, it doesn't matter whether you use addresses or public keys: you'll get the same multisig address. However, _you must use the same order_. Thus, it's best for the members of the multisig to check amongst themselves to make sure they all got the same result.
+As noted in the previous section, it currently doesn't matter whether you use addresses or public keys, so we've shown the other mechanism here, mixing the two. You will get the same multisig address either way. However, _you must use the same order_. Thus, it's best for the members of the multisig to check amongst themselves to make sure they all got the same result.
 
 ### Watch for Funds
 
@@ -58,9 +58,9 @@ machine2$ bitcoin-cli -named importaddress address=2Mzw7WBvh9RAQ4ssKqxyNyP7L9NAo
 
 ## Respend with an Automated Transaction
 
-Afterward, you will be able to receive funds on the multisiganture address as normal. The use of `addmultisigaddress` is simply a bureaucratic issue on the part of the recipients: a bit of bookkeeping to make life easier for them.
+Afterward, you will be able to receive funds on the multisiganture address as normal. The use of `addmultisigaddress` is simply a bureaucratic issue on the part of the recipients: a bit of bookkeeping to make life easier for them when they want to spend their funds.
 
-But, it makes life a lot easier. Because everything is in the wallet, the signers will be able to respend the funds sent to the multisignature address exactly the same as any other address ... other than the need to sign on multiple machines.
+But, it makes life a lot easier. Because information was saved into the wallet, the signers will be able to respend the funds sent to the multisignature address exactly the same as any other address ... other than the need to sign on multiple machines.
 
 You start by collecting your variables, but you no longer need to worry about `scriptPubKey` or `redeemScript`.
 
@@ -104,14 +104,14 @@ Note that you no longer had to give `signrawtransactionwithkey` extra help, beca
 
 The final step is exporting the partially signed `hex` to any other machines and signing it again:
 ```
-$ signedtx=$(bitcoin-cli -named signrawtransactionwithwallet hexstring=02000000014ecda61c45f488e35c613a7c4ae26335a8d7bfd0a942f026d0fb1050e744a67d000000009100473044022025decef887fe2e3eb1c4b3edaa155e5755102d1570716f1467bb0b518b777ddf022017e97f8853af8acab4853ccf502213b7ff4cc3bd9502941369905371545de28d0147522102e7356952f4bb1daf475c04b95a2f7e0d9a12cf5b5c48a25b2303783d91849ba421030186d2b55de166389aefe209f508ce1fbd79966d9ac417adef74b7c1b5e0777652aeffffffff0130e1be07000000001976a9148dfbf103e48df7d1993448aa387dc31a2ebd522d88ac00000000 | jq -r '.hex')
+machine2$ signedtx=$(bitcoin-cli -named signrawtransactionwithwallet hexstring=02000000014ecda61c45f488e35c613a7c4ae26335a8d7bfd0a942f026d0fb1050e744a67d000000009100473044022025decef887fe2e3eb1c4b3edaa155e5755102d1570716f1467bb0b518b777ddf022017e97f8853af8acab4853ccf502213b7ff4cc3bd9502941369905371545de28d0147522102e7356952f4bb1daf475c04b95a2f7e0d9a12cf5b5c48a25b2303783d91849ba421030186d2b55de166389aefe209f508ce1fbd79966d9ac417adef74b7c1b5e0777652aeffffffff0130e1be07000000001976a9148dfbf103e48df7d1993448aa387dc31a2ebd522d88ac00000000 | jq -r '.hex')
 ```
 When everyone that's required has signed, you're off to the races:
 ```
-$ bitcoin-cli -named sendrawtransaction hexstring=$signedtx
+machine2$ bitcoin-cli -named sendrawtransaction hexstring=$signedtx
 3ce88839ac6165aeadcfb188c490e1b850468eff571b4ca78fac64342751510d
 ```
-As with the shortcut demonstrated in [§4.5: Sending Coins with Automated Raw Transactions](04_5_Sending_Coins_with_Automated_Raw_Transactions.md), the result is a lot easier, but you lose some control in the process.
+As with the shortcut discussed in [§4.5: Sending Coins with Automated Raw Transactions](04_5_Sending_Coins_with_Automated_Raw_Transactions.md), the result is a lot easier, but you lose some control in the process.
 
 ## Summary: Sending & Spending an Automated Multisig
 
@@ -119,4 +119,4 @@ There's an easier way to resepend funds sent to multisig addresses that simply r
 
 ## What's Next?
 
-Advance through "bitcoin-cli" with [Chapter Seven: Expanding Bitcoin Transactions with PSBTs](07_0_Expanding_Bitcoin_Transactions_PSBTs.md).
+Learn more about "Expanding Bitcoin Transactions" with [Chapter Seven: Expanding Bitcoin Transactions with PSBTs](07_0_Expanding_Bitcoin_Transactions_PSBTs.md).
