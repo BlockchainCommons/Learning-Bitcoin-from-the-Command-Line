@@ -22,7 +22,7 @@ In this chapter we will use testnet network and will use c-lightning as primary 
 
 #### Fund you c-lightning wallet.
 
-The first thing you need to do is send some satoshis to your c-lightning wallet.  You can create a new address using this command an send it money.  This is done with the `lightning-cli newaddr` command. The newaddr RPC command generates a new address which can subsequently be used to fund channels managed by the c-lightning node.  This transaction is called the [funding transaction](https://github.com/lightningnetwork/lightning-rfc/blob/master/03-transactions.md#funding-transaction-output) and it needs to be confirmed before funds can be used.  You can specify the type of address wanted,  if not specified the address generated will be a bench32.
+The first thing you need to do is send some satoshis to your c-lightning wallet.  You can create a new address using  `lightning-cli newaddr` command to use it later. The newaddr RPC command generates a new address which can subsequently be used to fund channels managed by the c-lightning node.  This transaction is called the [funding transaction](https://github.com/lightningnetwork/lightning-rfc/blob/master/03-transactions.md#funding-transaction-output) and it needs to be confirmed before funds can be used.  You can specify the type of address wanted,  if not specified the address generated will be a bench32.
 
 ```
 $ lightning-cli --network=testnet newaddr
@@ -31,6 +31,7 @@ $ lightning-cli --network=testnet newaddr
    "bech32": "tb1qefule33u7ukfuzkmxpz02kwejl8j8dt5jpgtu6"
 }
 ```       
+We send some sats to this address in this transaction [11094bb9ac29ce5af9f1e5a0e4aac2066ae132f25b72bff90fcddf64bf2feb02](https://blockstream.info/testnet/tx/11094bb9ac29ce5af9f1e5a0e4aac2066ae132f25b72bff90fcddf64bf2feb02)
 
 To check you local balance you should use `lightning-cli listfunds` command:
 
@@ -42,7 +43,7 @@ $ lightning-cli --network=testnet listfunds
 }
 ```       
 
-Since we still do not have the confirmed transaction we do not have a balance,  after 6 confirmations we should see balance available:
+Since we still do not have 6 confirmations we do not have a balance,  after 6 confirmations we should see balance available:
 
 ```       
 $ lightning-cli --network=testnet listfunds
@@ -51,8 +52,6 @@ $ lightning-cli --network=testnet listfunds
    "channels": []
 }
 ```       
-
-Later we send some sats to this address in this transaction [11094bb9ac29ce5af9f1e5a0e4aac2066ae132f25b72bff90fcddf64bf2feb02](https://blockstream.info/testnet/tx/11094bb9ac29ce5af9f1e5a0e4aac2066ae132f25b72bff90fcddf64bf2feb02)
 
 Now that we have funded our c-lightning wallet we will get information about remote node to start creating channel process.  On LND nodes you can get information about your node using `lncli -n testnet getinfo`:
 
@@ -166,10 +165,9 @@ $ lightning-cli --network=testnet listpeers
    ]
 }
 ```       
-On success, an object with a “peers” key is returned containing a list distinct objects. Object features are bit flags showing supported features (BOLT #9).
+On success, an object with a “peers” key is returned containing a list distinct objects. Object features are bit flags showing supported features.
 
 #### Open channel
-
 
 In this example we will use two lightning nodes running c-lightning and LND implmentations.   
 
