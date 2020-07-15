@@ -32,18 +32,15 @@ Replace our current scripts with Bitcoin Standup (which was based on those scrip
    
 ## 3. Add BTCDEB Support
 
-10. Make all examples in [7.4](https://github.com/BlockchainCommons/Learning-Bitcoin-from-the-Command-Line/blob/master/07_4_Testing_a_Bitcoin_Script.md) and possibly elsewhere use BTCDeb.
-   * Edit & Integrate Chapter 7
-   * Edit & Integrate Chapter 8
+10. Update Scripting & Integrate `btcdeb`
    * Edit & Integrate Chapter 9
+      * Fix P2PKH Example
+      * Write P2WPH Chapter
    * Edit & Integrate Chapter 10
+      * Write P2WSH Chapter
    * Edit & Integrate Chapter 11
-
-Per @ChristopherA:
-
-> @kallewoof has written a better Bitcoin Script debugging tool at https://github.com/kallewoof/btcdeb — we should re-write chapter 7 to use it.
-
-`btcdeb -v` will now show you what BTC Core version it's based on in its minor version. As of now it's `0.2.19`, which is BTC Core 0.19.
+   * Edit & Integrate Chapter 12
+   * Edit & Integrate Chapter 13
 
 ## 4. Add New Concepts
 
