@@ -166,6 +166,24 @@ script  |  stack
 ```
 We'll be returning to `btcdeb` from time to time, and it will remain an excellent tool for testing your own scripts.
 
+### Use the Power of btcdeb
+
+`btcdeb` also has a few more powerful functions, such as `print` and `stack`, which show you the script and the stack at any time.
+
+For example, in the above script, once you've advanced to the `OP_ADD` command, you can see the following:
+```
+btcdeb> print
+    #0000 3
+    #0001 2
+ -> #0002 OP_ADD
+    #0003 4
+    #0004 OP_SUB
+btcdeb> stack
+<01>	02	(top)
+<02>	03
+```
+Using these commands can make it easier to see what's going on and where you are.
+
 ## Test a Script Online
 
 There are also a few web simulators that you can use to test scripts online. They can be superior to a command-line tool by offering a more graphical output, but we also find that they tend to have shortcomings.
