@@ -458,6 +458,13 @@ $ bitcoin-cli sendrawtransaction $hex
 ```
 You've successfully sent funds using the private keys held on your hardware wallet!
 
+## Learn Other HWI Commands
+
+There are a variety of other commands available for use with HWI. At the time of this writing, they are:
+```
+numerate,getmasterxpub,signtx,getxpub,signmessage,getkeypool,getdescriptors,displayaddress,setup,wipe,restore,backup,promptpin,togglepassphrase,sendpin
+```
+
 ## Summary: Integrating with Hardware Wallets
 
 Hardware wallets can offer better protection by keeping your private keys offline, protected in the hardware. Fortunately, there's still a way to interact with them using `bitcoin-cli`. You just install HWI and it will then allow you to (1) import public keys to watch them; and (2) sign transactions using your hardware wallet.
