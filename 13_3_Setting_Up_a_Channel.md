@@ -48,15 +48,28 @@ Since we still do not have 6 confirmations we do not have a balance,  after 6 co
 ```       
 $ lightning-cli --network=testnet listfunds
 {
-   "outputs": [],
+   "outputs": [
+      {
+         "txid": "11094bb9ac29ce5af9f1e5a0e4aac2066ae132f25b72bff90fcddf64bf2feb02",
+         "output": 0,
+         "value": 300000,
+         "amount_msat": "300000000msat",
+         "scriptpubkey": "0014ca79fcc63cf72c9e0adb3044f559d997cf23b574",
+         "address": "tb1qefule33u7ukfuzkmxpz02kwejl8j8dt5jpgtu6",
+         "status": "confirmed",
+         "blockheight": 1780680,
+         "reserved": false
+      }
+   ],
    "channels": []
 }
+
 ```       
 
 Now that we have funded our c-lightning wallet we will get information about remote node to start creating channel process.  On LND nodes you can get information about your node using `lncli -n testnet getinfo`:
 
 ```       
-lncli -n testnet getinfo
+$ lncli -n testnet getinfo
 {
     "version": "0.10.99-beta commit=clock/v1.0.0-171-g8cb1276dbf0bfd9fcbf599df87a43238e599eaac",
     "commit_hash": "8cb1276dbf0bfd9fcbf599df87a43238e599eaac",
