@@ -28,7 +28,7 @@ Once you've gotten Bitcoin Standup running on your local machine, you'll want to
 
 We will be using a Macintosh and Testnet for the examples in this section.
 
-### Creating an Alias for Bitcoin-CLI
+### Create an Alias for Bitcoin-CLI
 
 Create an alias that runs `bitcoin-cli` from the correct directory with any appropriate flags.
 
@@ -44,7 +44,7 @@ _The following instructions again assume a Mac, and you can again skip this subs
 
 HWI is a Bitcoin Core program available in python that can be used to interact with hardware wallets.
 
-### Installing Python
+### Install Python
 
 Because HWI  is written in `python`, you'll need to install that as well as a few auxilliary programs.
 
@@ -70,7 +70,7 @@ $ brew install python
 $ brew install libusb
 ```
 
-### Installing HWI
+### Install HWI
 
 You're now ready to install HWI, which requires cloning a GitHub repo and running an install script.
 
@@ -87,7 +87,7 @@ $ cd HWI
 HWI$ python3 setup.py install
 ```
 
-### Creating an Alias for HWI
+### Create an Alias for HWI
 
 You'll want to create an alias here too, varied by your actual install location:
 ```
@@ -126,7 +126,7 @@ Interacting with a hardware wallet usually comes in two parts: watching for fund
 
 You can watch for funds by importing addresses from your hardware wallet to your full node, using HWI and `bitcoin-cli`.
 
-### Creating a Wallet
+### Create a Wallet
 
 To use your hardware wallet with `bitcoin-cli`, you'll want to create a specific named wallet in Bitcoin Core, using the `createwallet` RPC, which is a command we haven't previously discussed.
 ```
@@ -150,7 +150,7 @@ $ bitcoin-cli listwallets
 ```
 Because you've created a second wallet, some commands will now require a `-rpcwallet=` flag, to specify which one you're using
 
-### Importing the Keys
+### Import the Keys
 
 You now have to import a watch-list of addresses from the hardware wallet. This is done with HWI's `getkeypool` command:
 ```
