@@ -59,30 +59,30 @@ _This tutorial assumes that you have some minimal background of how to use the c
   
 ## PART THREE: BITCOIN SCRIPTING
 
-**Status:** Requires renumbering; requires editing; requires check that it works in 0.20; requires concepts brought up to 0.20.
+**Status:** Rrequires editing; requires check that it works in 0.20; requires concepts brought up to 0.20; requires integration with 
 
-* [7.0: Introducing Bitcoin Scripts](07_0_Introducing_Bitcoin_Scripts.md)
-  * [7.1: Understanding the Foundation of Transactions](07_1_Understanding_the_Foundation_of_Transactions.md)
-  * [7.2: Running a Bitcoin Script](07_2_Running_a_Bitcoin_Script.md)
-  * [7.3: Scripting a P2PKH](07_3_Scripting_a_P2PKH.md)
-  * [7.4: Testing a Bitcoin Script](07_4_Testing_a_Bitcoin_Script.md)
-* [8.0: Embedding Bitcoin Scripts in P2SH Transactions](08_0_Embedding_Bitcoin_Scripts_in_P2SH_Transactions.md)
-  * [8.1: Understanding the Foundation of P2SH](08_1_Understanding_the_Foundation_of_P2SH.md)
-  * [8.2: Building the Structure of P2SH](08_2_Building_the_Structure_of_P2SH.md)
-  * [8.3: Running a Bitcoin Script with P2SH](08_3_Running_a_Bitcoin_Script_with_P2SH.md)
-  * [8.4: Scripting a Multisig](08_4_Scripting_a_Multisig.md)
-  * [8.5: Spending a P2SH Transaction](08_5_Spending_a_P2SH_Transaction.md) — Awaiting API Work
-* [9.0: Empowering Timelock with Bitcoin Scripts](09_0_Empowering_Timelock_with_Bitcoin_Scripts.md)
-  * [9.1: Understanding Timelock Options](09_1_Understanding_Timelock_Options.md)
-  * [9.2: Using CLTV in Scripts](09_2_Using_CLTV_in_Scripts.md)
-  * [9.3: Using CSV in Scripts](09_3_Using_CSV_in_Scripts.md)
-* [10.0: Expanding Bitcoin Scripts](10_0_Expanding_Bitcoin_Scripts.md)
-  * [10.1: Using Script Conditionals](10_1_Using_Script_Conditionals.md)
-  * [10.2: Using Other Script Commands](10_2_Using_Other_Script_Commands.md)
-* [11.0: Designing Real Bitcoin Scripts](11_0_Designing_Real_Bitcoin_Scripts.md)
-  * [11.1: Writing Puzzles Scripts](11_1_Writing_Puzzle_Scripts.md)
-  * [11.2: Writing Complex Multisig Scripts](11_2_Writing_Complex_Multisig_Scripts.md)
-  * [11.3: Empowering Bitcoin with Scripts](11_3_Empowering_Bitcoin_with_Scripts.md)
+* [9.0: Introducing Bitcoin Scripts](09_0_Introducing_Bitcoin_Scripts.md)
+  * [9.1: Understanding the Foundation of Transactions](09_1_Understanding_the_Foundation_of_Transactions.md)
+  * [9.2: Running a Bitcoin Script](09_2_Running_a_Bitcoin_Script.md)
+  * [9.3: Scripting a P2PKH](09_3_Scripting_a_P2PKH.md)
+  * [9.4: Testing a Bitcoin Script](09_4_Testing_a_Bitcoin_Script.md)
+* [10.0: Embedding Bitcoin Scripts in P2SH Transactions](10_0_Embedding_Bitcoin_Scripts_in_P2SH_Transactions.md)
+  * [10.1: Understanding the Foundation of P2SH](10_1_Understanding_the_Foundation_of_P2SH.md)
+  * [10.2: Building the Structure of P2SH](10_2_Building_the_Structure_of_P2SH.md)
+  * [10.3: Running a Bitcoin Script with P2SH](10_3_Running_a_Bitcoin_Script_with_P2SH.md)
+  * [10.4: Scripting a Multisig](10_4_Scripting_a_Multisig.md)
+  * [10.5: Spending a P2SH Transaction](10_5_Spending_a_P2SH_Transaction.md) — Awaiting API Work
+* [11.0: Empowering Timelock with Bitcoin Scripts](11_0_Empowering_Timelock_with_Bitcoin_Scripts.md)
+  * [11.1: Understanding Timelock Options](11_1_Understanding_Timelock_Options.md)
+  * [11.2: Using CLTV in Scripts](11_2_Using_CLTV_in_Scripts.md)
+  * [11.3: Using CSV in Scripts](11_3_Using_CSV_in_Scripts.md)
+* [12.0: Expanding Bitcoin Scripts](12_0_Expanding_Bitcoin_Scripts.md)
+  * [12.1: Using Script Conditionals](12_1_Using_Script_Conditionals.md)
+  * [12.2: Using Other Script Commands](12_2_Using_Other_Script_Commands.md)
+* [13.0: Designing Real Bitcoin Scripts](13_0_Designing_Real_Bitcoin_Scripts.md)
+  * [13.1: Writing Puzzles Scripts](13_1_Writing_Puzzle_Scripts.md)
+  * [13.2: Writing Complex Multisig Scripts](13_2_Writing_Complex_Multisig_Scripts.md)
+  * [13.3: Empowering Bitcoin with Scripts](13_3_Empowering_Bitcoin_with_Scripts.md)
 
 ### PART FOUR: USING TOR
 
@@ -93,23 +93,7 @@ _This tutorial assumes that you have some minimal background of how to use the c
   * 12.2: Changing Your Bitcoin Hidden Services
   * 12.3: Adding SSH Hiddne Services
   
-### PART FIVE: USING LIGHTNING-CLI
-
-**Status:** Requires renumbering; Unwritten. Chapter 14 may expand into multiple chapters.
-
-(At this point, I'm assuming that Lightning will be integrated into Standup, at which point we just need to tech how to use it at a pretty basic level.)
-
-* 13.0: Understanding Lightning
-  * 13.1: Verifying Your Lightning Setup
-  * 13.2: Setting up a Channel
-  * 13.3: Receiving a Transaction
-* 14.0: Using Lightning
-  * 14.1: Sending a Transaction
-  * 14.X: Closing a Channel
-
-> _Some good docs from one of the developers are here: https://diyhpl.us/wiki/transcripts/blockstream-webinars/2019-07-31-rusty-russell-getting-started-with-c-lightning/._
-
-### PART SIX: PROGRAMMING WITH RPC
+### PART FIVE: PROGRAMMING WITH RPC
 
 **Status:** Requires renumbering; This section is currently a messy set of older writings which are being reorganized as listed below. We're not going to work through this section until we've got chapters 1-11 updated per our current notes, then 12-14 written. But, if you'd like to see what we have to date on programming in correlation with Bitcoin Core, please feel free.
 
@@ -122,7 +106,6 @@ _This tutorial assumes that you have some minimal background of how to use the c
    * 17.2: Using secp256k1 Functions
    * 17.3: Writing Wallet Functions
    * 17.4: Integrating Libwally and Scripts
-* 17.0: Talking to Lightningd with C
 * 18.0: Talking to Bitcoind with Other Languages
   * [18.1: Accessing Bitcoind with Go](18_1_Accessing_Bitcoind_with_Go.md)
   * [18.2: Accessing Bitcoind with Java](18_2_Accessing_Bitcoind_with_Java.md)
@@ -131,6 +114,23 @@ _This tutorial assumes that you have some minimal background of how to use the c
   * [18.5: Accessing Bitcoind with Rust](18_5_Accessing_Bitcoind_with_Rust.md)
   * [18.6: Accessing Bitcoind with Swift]
   
+### PART SIX: USING LIGHTNING-CLI
+
+**Status:** Requires renumbering; Unwritten. Chapter 14 may expand into multiple chapters.
+
+(At this point, I'm assuming that Lightning will be integrated into Standup, at which point we just need to tech how to use it at a pretty basic level.)
+
+* 13.0: Understanding Lightning
+  * 13.1: Verifying Your Lightning Setup
+  * 13.2: Setting up a Channel
+  * 13.3: Receiving a Transaction
+* 14.0: Using Lightning
+  * 14.1: Sending a Transaction
+  * 14.X: Closing a Channel
+* 17.0: Talking to Lightningd with C
+
+> _Some good docs from one of the developers are here: https://diyhpl.us/wiki/transcripts/blockstream-webinars/2019-07-31-rusty-russell-getting-started-with-c-lightning/._
+
 ### APPENDICES
 
 **Status:** Varied. Appendix I is recent that just needs editing for style; Appendix II needs a rewrite.
