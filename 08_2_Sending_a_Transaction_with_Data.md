@@ -2,17 +2,19 @@
 
 > :information_source: **NOTE:** This is a draft in progress, so that I can get some feedback from early reviewers. It is not yet ready for learning.
 
-The third way to vary how you send a basic transaction is to use the transaction to send data instead of funds (or really, in addition to funds). This gives you the ability to embed information in the blockchain.
+The final way to vary how you send a basic transaction is to use the transaction to send data instead of funds (or really, in addition to funds). This gives you the ability to embed information in the blockchain. It is done through a special `OP_RETURN` command.
+
+The catch? You can only store 80 bytes at a time!
 
 ## Create Your Data
 
-The first thing you need to do is create the 80 bytes (or less) of data that you'll be recording in your OP_RETURN. This might be as simple as preparing a message or you might be hashing existing data. For example, `sha256sum` produces 256 bits of data, which is 32 bytes, well under the limits:
+The first thing you need to do is create the 80 bytes (or less) of data that you'll be recording in your `OP_RETURN`. This might be as simple as preparing a message or you might be hashing existing data. For example, `sha256sum` produces 256 bits of data, which is 32 bytes, well under the limits:
 ```
 $ sha256sum contract.jpg
 b9f81a8919e5aba39aeb86145c684010e6e559b580a85003ae25d78237a12e75  contract.jpg
 $ op_return_data="b9f81a8919e5aba39aeb86145c684010e6e559b580a85003ae25d78237a12e75"
 ```
-> :book: _What is an OP_RETURN?_ All Bitcoin transactions are built upon opcode scripts that we'll meet in the next chapter. The OP_RETURN is a simple  opcode that defines an OUTPUT as invalid. Convention has resulted in it being used to embed data on the blockchain.
+> :book: _What is an OP_RETURN?_ All Bitcoin transactions are built upon opcode scripts that we'll meet in the next chapter. The `OP_RETURN` is a simple  opcode that defines an OUTPUT as invalid. Convention has resulted in it being used to embed data on the blockchain.
 
 ## Prepare Some Money
 
@@ -108,11 +110,11 @@ Sign your raw transaction and send it, and soon that OP_RETURN will be embedded 
 Again, remember that you can look at this transaction using a blockchain explorer: 
 [https://live.blockcypher.com/btc-testnet/tx/a600148ac3b05f0c774b8687a71c545077ea5dfb9677e5c6d708215053d892e8/](https://live.blockcypher.com/btc-testnet/tx/a600148ac3b05f0c774b8687a71c545077ea5dfb9677e5c6d708215053d892e8/)
 
-You may note a warning about the data being in an "unknown protocol". If you were designing some regular use of OP_RETURN data, you'd probably mark it with a special prefix, to mark that protocol. Then, the actual OP_RETURN data might be something like "CONTRACTS3b110a164aa18d3a5ab064ba93fdce62". This example didn't use a prefix to avoid muddying the data space.
+You may note a warning about the data being in an "unknown protocol". If you were designing some regular use of `OP_RETURN` data, you'd probably mark it with a special prefix, to mark that protocol. Then, the actual OP_RETURN data might be something like "CONTRACTS3b110a164aa18d3a5ab064ba93fdce62". This example didn't use a prefix to avoid muddying the data space.
 
 ## Summary: Sending a Transaction with Data
 
-You can use an OP_RETURN opcode to store up to 80 bytes of data on the blockchain. You do this with the `data` codeword for a `vout`. You still have to send money along too, but you just send it back to a change address, minus a transaction fee.
+You can use an `OP_RETURN` opcode to store up to 80 bytes of data on the blockchain. You do this with the `data` codeword for a `vout`. You still have to send money along too, but you just send it back to a change address, minus a transaction fee.
 
 > :fire: _What is the Power of OP_RETURN?_ The OP_RETURN opens up whole new possibilities for the blockchain, because you can embed data that proves that certain things happened at certain times. Various organizations have used OP_RETURNs for proof of existence, for copyright, for colored coins, and [for other purposes](https://en.bitcoin.it/wiki/OP_RETURN). Though 80 bytes might not seem a lot, it can be quite effective if OP_RETURNs are used to store hashes of the actual data. Then, you can prove the existence of your digital data by deminstrating that the hash of it matches the hash on the blockchain.
 
@@ -120,4 +122,4 @@ Note that there is some controversy over using the Bitcoin blockchain in this wa
 
 ## What's Next?
 
-Move on to "Bitcoin Scripting" with [Chapter Seven: Introducing Bitcoin Scripts](07_0_Introducing_Bitcoin_Scripts.md).
+Move on to "Bitcoin Scripting" with [Chapter Nine: Introducing Bitcoin Scripts](09_0_Introducing_Bitcoin_Scripts.md).
