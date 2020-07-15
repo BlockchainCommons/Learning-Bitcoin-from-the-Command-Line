@@ -1,6 +1,6 @@
 # Chapter Thirteen: Understanding Your Lighting Setup
 
-You're now ready to begin working with the `lightning-cli` command-line interface. But that first requires that you understand your c-lightning setup and its features, which is what will be explained in this chapter.
+In this chapter you'll be ready to begin working with the `lightning-cli` command-line interface. But that first requires that you understand your c-lightning setup and its features, which is what will be explained.
 
 For this and future chapters, we presume that you have a VPS with c-lightning installed, running `lightningd` courtersy of [Bitcoin Standup Scripts](https://github.com/BlockchainCommons/Bitcoin-Standup-Scripts).
 We also presume that you are connected to testnet, allowing for access to bitcoins without using real funds. You can either do this by hand, per [§2.1: Setting up a Bitcoin-Core VPS by Hand](02_1_Setting_Up_a_Bitcoin-Core_VPS_by_Hand.md), with Bitcoin Standup at Linode.com, per [§2.2: Setting up a Bitcoin-Core VPS with Bitcoin Standup](02_2_Setting_Up_a_Bitcoin-Core_VPS_with_StackScript.md), or via other means, per [§2.3: Setting up a Bitcoin-Core Machine via Other Means](02_3_Setting_Up_Bitcoin_Core_Other.md).
