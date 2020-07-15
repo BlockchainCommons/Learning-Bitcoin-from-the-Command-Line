@@ -180,7 +180,7 @@ $ lightning-cli --network=testnet listpeers
 ```       
 On success, an object with a “peers” key is returned containing a list distinct objects. Object features are bit flags showing supported features.
 
-#### Open channel
+#### Open a channel
 
 The fundchannel RPC command opens a payment channel with a peer by committing a funding transaction to the blockchain.  You should use `lightning-cli fundchannel` command that receives this parameters:
 
@@ -239,6 +239,22 @@ lightning-cli --network=testnet listfunds
    ]
 }
 ```
-While the channel with 280.000 satoshis is confirmed its state will be CHANNELD_AWAITING_LOCKIN and we got an change output with 19238 sats.   
+While the channel with 280.000 satoshis (Channel capacity) is confirmed its state will be CHANNELD_AWAITING_LOCKIN and we got an change output with 19238 sats.   
 As we're using testnet network these values are used as an example to show the different states that a channel can have. In a channel with real funds, the actual mining circumstances of the mainnet network must be taken into account.
+
+The funding_txid onchain is [9843c037f54a4660b297a9f2454e11d26d8659f084a284a5740bb15cb1d97aa6](https://blockstream.info/testnet/tx/9843c037f54a4660b297a9f2454e11d26d8659f084a284a5740bb15cb1d97aa6)
+
+#### Channel capacity
+
+As we said before both sides of the channel own a portion of its capacity. The amount on your side of the channel is called *local balance* and the amount on your peer’s side is called *remote balance*. Both balances can be updated many times without closing the channel (sending final balance to the blockchain), but the channel capacity cannot change without closing or splicing it.   Next chapter we will deep creating and paying invoices.
+
+
+## Summary: Setting up a channel
+
+You need to create a channel with remote nodes to be able to receive and send money over the lightning network.    Further a maintenance task is required to the channels to keep them balanced.
+
+## What's Next?
+
+Continue "Understanding Your Lightning Setup" with [§13.4: Paying_a_Invoice](13_4_Paying_a_Invoice.md).
+
 
