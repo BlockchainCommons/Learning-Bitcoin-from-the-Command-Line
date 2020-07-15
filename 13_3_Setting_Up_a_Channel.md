@@ -182,9 +182,63 @@ On success, an object with a “peers” key is returned containing a list disti
 
 #### Open channel
 
-In this example we will use two lightning nodes running c-lightning and LND implmentations.   
+The fundchannel RPC command opens a payment channel with a peer by committing a funding transaction to the blockchain.  You should use `lightning-cli fundchannel` command that receives this parameters:
+
+* **id** is the peer id obtained from connect.
+
+* **amount** is the amount in satoshis taken from the internal wallet to fund the channel.  The value cannot be less than the dust limit, currently set to 546, nor more than 16777215 satoshi (unless large channels were negotiated with the peer).
+
+* **feerate** is an optional feerate used for the opening transaction and as initial feerate for commitment and HTLC transactions. 
+
+* **announce** is an optional flag that triggers whether to announce this channel or not. Defaults to true. If you want to create an unannounced private channel put to false.
+
+* **minconf** specifies the minimum number of confirmations that used outputs should have. Default is 1.
+
+* **utxos** specifies the utxos to be used to fund the channel, as an array of “txid:vout”.
+
+Now we open the channel like this:
 
 ```
-$ lightning-cli getinfo
+$ lightning-cli --network=testnet fundchannel 0302d48972ba7eef8b40696102ad114090fd4c146e381f18c7932a2a1d73566f84 280000 urgent true 1
+{
+   "tx": "0200000000010102eb2fbf64dfcd0ff9bf725bf232e16a06c2aae4a0e5f1f95ace29acb94b09110000000000feffffff02264b000000000000160014aa572371f29310cd677d039cdcd054156c1a9545c045040000000000220020c1ebc407d32cd1fdcd7c0deb6817243b2b982cdaf3c70413f9d3ead29c36f11f024730440220676592b102ee659dfe5ac3acddbe35885140a8476ae7dbbb2f53a939cc815ac0022057a66de1ea16644008791d5cd510439bac00def02cbaa46d04febfe1d5e7e1e001210284368eca82346929a1c3ee2625077571b434b4c8111b81a715dfce5ea86dce1f1f2c1b00",
+   "txid": "9843c037f54a4660b297a9f2454e11d26d8659f084a284a5740bb15cb1d97aa6",
+   "channel_id": "a67ad9b15cb10b74a584a284f059866dd2114e45f2a997b260464af537c04399"
+}
+```
+To confirm channel status use `lightning-cli listfunds` command:
 
 ```
+lightning-cli --network=testnet listfunds
+{
+   "outputs": [
+      {
+         "txid": "9843c037f54a4660b297a9f2454e11d26d8659f084a284a5740bb15cb1d97aa6",
+         "output": 0,
+         "value": 19238,
+         "amount_msat": "19238000msat",
+         "scriptpubkey": "0014aa572371f29310cd677d039cdcd054156c1a9545",
+         "address": "tb1q4ftjxu0jjvgv6emaqwwde5z5z4kp49299gmdpd",
+         "status": "confirmed",
+         "blockheight": 1780768,
+         "reserved": false
+      }
+   ],
+   "channels": [
+      {
+         "peer_id": "0302d48972ba7eef8b40696102ad114090fd4c146e381f18c7932a2a1d73566f84",
+         "connected": true,
+         "state": "CHANNELD_AWAITING_LOCKIN",
+         "channel_sat": 280000,
+         "our_amount_msat": "280000000msat",
+         "channel_total_sat": 280000,
+         "amount_msat": "280000000msat",
+         "funding_txid": "9843c037f54a4660b297a9f2454e11d26d8659f084a284a5740bb15cb1d97aa6",
+         "funding_output": 1
+      }
+   ]
+}
+```
+While the channel with 280.000 satoshis is confirmed its state will be CHANNELD_AWAITING_LOCKIN and we got an change output with 19238 sats.   
+As we're using testnet network these values are used as an example to show the different states that a channel can have. In a channel with real funds, the actual mining circumstances of the mainnet network must be taken into account.
+
