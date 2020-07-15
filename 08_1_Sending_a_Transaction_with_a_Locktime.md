@@ -134,4 +134,4 @@ Locktime offers a way to create a transaction that _should_ not be relayable to 
 
 ## What's Next?
 
-Continue "Expanding Bitcoin Transactions" with [§8.2: Sending a Transaction with Data](08.2_Sending_a_Transaction_with_Data.md).
+Continue "Expanding Bitcoin Transactions" with [§8.2: Sending a Transaction with Data](08_2_Sending_a_Transaction_with_Data.md).
