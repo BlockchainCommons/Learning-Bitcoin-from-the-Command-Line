@@ -1,5 +1,7 @@
 # Chapter Thirteen: Understanding Your Lighting Setup
 
+> :information_source: **NOTE:** This is a draft in progress, so that I can get some feedback from early reviewers. It is not yet ready for learning.
+
 In this chapter you'll be ready to begin working with the `lightning-cli` command-line interface. But that first requires that you understand your c-lightning setup and its features, which is what will be explained with some examples and basic configuration.
 
 For this and future chapters, we presume that you have a VPS with c-lightning installed, running `lightningd` courtersy of [Bitcoin Standup Scripts](https://github.com/BlockchainCommons/Bitcoin-Standup-Scripts).
