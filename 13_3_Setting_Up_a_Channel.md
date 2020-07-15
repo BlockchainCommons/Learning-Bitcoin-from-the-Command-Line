@@ -43,7 +43,7 @@ $ lightning-cli --network=testnet listfunds
 }
 ```       
 
-Since we still do not have 6 confirmations we do not have a balance,  after 6 confirmations we should see balance available:
+Since we still do not have 6 confirmations we do not have balance available,  after 6 confirmations we should see balance:
 
 ```       
 $ lightning-cli --network=testnet listfunds
