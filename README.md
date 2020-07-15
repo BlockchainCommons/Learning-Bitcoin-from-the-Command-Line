@@ -12,7 +12,7 @@ _This tutorial assumes that you have some minimal background of how to use the c
 
 ### PART ONE: PREPARING FOR BITCOIN
 
-**Status:** May need new concepts from 0.20.
+**Status:** Updated for 0.20.
 
 * [1.0: Introducing Bitcoin](01_0_Introducing_Bitcoin.md)
 * [2.0: Setting Up a Bitcoin-Core VPS](02_0_Setting_Up_a_Bitcoin-Core_VPS.md)
@@ -22,7 +22,7 @@ _This tutorial assumes that you have some minimal background of how to use the c
 
 ### PART TWO: USING BITCOIN-CLI
 
-**Status:** The PSBT and HWI content (chapter 6) is new, and so still being written.
+**Status:** Updated for 0.20.
 
 * [3.0: Understanding Your Bitcoin Setup](03_0_Understanding_Your_Bitcoin_Setup.md)
   * [3.1: Verifying Your Bitcoin Setup](03_1_Verifying_Your_Bitcoin_Setup.md)
