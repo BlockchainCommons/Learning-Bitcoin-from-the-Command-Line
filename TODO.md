@@ -65,15 +65,15 @@ Add and document the following new concepts:
       * <strike>Fund Pooling</strike> **7/10**
       * <strike>CoinJoins</strike> **7/10**
       
-13. Add Wallet Updates.
+13. <strike>Add Wallet Updates.</strike> **6/30**, **7/2**, **7/7**
    * <strike>Bitcoin Descriptors</strike> **6/30**
       * <strike>Show what a SegWit descriptor looks like</strike> **7/2**
       * <strike>Show what a multi-sig descriptor looks like</strike> **7/2**
       * <strike>Revise based on comments</strike> **7/7**
    * <strike>Key Ordering (sortedmulti)</strike> **7/2** **Partially Supported in 0.20**
-14. Consider HWI.
+14. <strike>Consider HWI.</strike> **7/14**
   * <strike>Write 7.3: Using HWI</strike> **7/14**
-  * Edit All of Chapter 6-8
+  * <strike>Edit All of Chapter 6-8</strike> **7/14**
 15. Consider splitting up Chapter 6 (definitely if we get an HWI chapter)
    * <strike>Break apart Chapter 6</strike> **7/2**
    * <strike>Rewrite all section links in early chapters (1-5, 6, 8)</strike> **7/7**
