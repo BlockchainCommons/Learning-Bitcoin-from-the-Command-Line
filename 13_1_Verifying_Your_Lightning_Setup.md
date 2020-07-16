@@ -74,7 +74,7 @@ If node is still sycing with bitcoin network you should see a message like this.
 ```
 "warning_bitcoind_sync": "Bitcoind is not up-to-date with network."
 ```
-If you're not up-to-date, you'll get a message to you `getinfo command` like this:
+If your lightning daemon is not up-to-date, you'll get a message to you `getinfo command` like this:
 ```
 "warning_lightningd_sync": "Still loading latest blocks from bitcoind."
 ```
