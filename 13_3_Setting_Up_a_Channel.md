@@ -10,7 +10,7 @@ In simple terms a lightning channel is a money tube that allows fast, cheap and 
 More technically a channel is a 2-of-2 multisignature bitcoin onchain transaction that establishes a financial relationship between two agents without trust.
 Channels on the Lightning Network always are created between two nodes. Although a Lightning channel only allows payment between two users, channels can be connected together to form a network that allows payments between members that doesn't have a direct channel between them. The channel mantains a local database with bitcoin balance for both parts keeping track of how much money they each have.  The two users can then exchange bitcoins through their Lightning channel without ever writing to the Bitcoin blockchain. Only when they want to close out their channel do they settle their bitcoins, based on the final division of coins.
 
-> :warning: **WARNING:** In this chapter we will use testnet network and will use c-lightning as **primary node** to show all processes related but we will use a second lnd node too to create a channel with it.  All c-lightning commands will use prompt shell c$ and LND commands will use prompt shell lnd$.    If you're running our BitcoinStandup setup you could choose either of the two implementations at the time of installing.
+In this chapter we will use testnet network and will use c-lightning as **primary node** to show all processes related.
 
 ### Steps to create a channel
 
