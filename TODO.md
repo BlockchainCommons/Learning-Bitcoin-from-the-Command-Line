@@ -33,10 +33,10 @@ Replace our current scripts with Bitcoin Standup (which was based on those scrip
 ## 3. Add BTCDEB Support
 
 10. Update Scripting & Integrate `btcdeb`
-   * Edit & Integrate Chapter 9
-      * Fix P2PKH Example
-      * Write P2WPH Chapter
-   * Edit & Integrate Chapter 10
+   * <strike>Edit & Integrate Chapter 9</strike> **7/15**
+      * <strike>Fix P2PKH Example</strike> **7/15**
+      * <strike>Write P2WPKH Chapter</strike> **7/15**
+   * Edit & Integrate Chapter 10 **Up to 10.2**
       * Write P2WSH Chapter
    * Edit & Integrate Chapter 11
    * Edit & Integrate Chapter 12
