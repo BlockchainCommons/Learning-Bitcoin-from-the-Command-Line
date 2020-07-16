@@ -110,10 +110,10 @@ c$ lightning-cli --network listchannels
 
 The first thing you need to do is connect your node to a peer. This is done with the `lightning-cli connect` command. Remember that if you want more information on this command, you should type `lightning-cli help connect`.   The connect RPC command establishes a new connection with another node in the Lightning Network.
 
-To connect your node to a remote peer you need it's id that represents the target node’s public key. As a convenience, id may be of the form id@host or id@host:port.  Using `lightning-cli help listnodes` command you obtain all nodes available on the network and choose one.
+To connect your node to a remote peer you need it's id that represents the target node’s public key. As a convenience, id may be of the form id@host or id@host:port.  Using `lightning-cli listnodes` command you obtain all nodes available on the network and choose one.
 
 ```       
-c$ lightning-cli help listnodes
+c$ lightning-cli listnodes
 ```       
 Output
 ```       
