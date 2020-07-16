@@ -4,7 +4,7 @@
 
 You're now ready to your first lightning network channel. To begin with, you'll need to understand what is and how it's created an c-lightning channel.
 
-## What is a channel
+> :book: ***What is a channel
 
 In simple terms a lightning channel is a money tube that allows fast, cheap and private transfers of money without sending transactions to the blockchain. 
 More technically a channel is a 2-of-2 multisignature bitcoin onchain transaction that establishes a financial relationship between two agents without trust.
