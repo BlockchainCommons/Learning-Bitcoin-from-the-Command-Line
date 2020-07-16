@@ -5,9 +5,9 @@
 
 > :book: ***What is Lightning Network?*** 
 
-Lightning Network is a decentralized network using smart contract functionality in the bitcoin blockchain to enable instant payments across a network of participants.   Lightning is build like a layer-2 protocol that interacts with Bitcoin to allow users to exchange their bitcoins "off-chain". 
+Lightning Network is a decentralized network using smart contract functionality in the bitcoin blockchain to enable instant payments across a network of participants.   Lightning is builded like a layer-2 protocol that interacts with Bitcoin to allow users to exchange their bitcoins "off-chain". 
 
-Before you start playing with c-lightning, you should ensure that everything is setup correctly.
+This tutorial uses the standard-compliant c-lightning implementation as its trusted Lightning server.  Before you start playing with c-lightning, you should ensure that everything is setup correctly.
 
 ## Create Your Aliases
 
