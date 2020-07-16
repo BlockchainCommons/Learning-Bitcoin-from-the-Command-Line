@@ -64,47 +64,7 @@ c$ lightning-cli --network=testnet listfunds
 
 ```       
 
-Now that we have funded our c-lightning wallet we will get information about remote node to start creating channel process.  Using  `lightning-cli --network testnet listchannels` command you can list all active channels and select one remote node and it's public key:
-
-```       
-c$ lightning-cli --network listchannels
- {
-         "source": "03eef6610d26489b897d81eb142f28ad5cd48a6b3e5c4e42a697cd00d5eb059313",
-         "destination": "020b1052c80eb9b2af1126e377640ff9534d8e27556ed78af9329c13c3d932c45f",
-         "short_channel_id": "1780579x3x1",
-         "public": true,
-         "satoshis": 120000,
-         "amount_msat": "120000000msat",
-         "message_flags": 1,
-         "channel_flags": 3,
-         "active": false,
-         "last_update": 1594650095,
-         "base_fee_millisatoshi": 1000,
-         "fee_per_millionth": 1,
-         "delay": 40,
-         "htlc_minimum_msat": "1000msat",
-         "htlc_maximum_msat": "118800000msat",
-         "features": ""
-      },
-      {
-         "source": "038863cf8ab91046230f561cd5b386cbff8309fa02e3f0c3ed161a3aeb64a643b9",
-         "destination": "03f60f7369dd4dcff6a13d401b159e0bfc6aca34f05a93a8a897b75c7940a55bb9",
-         "short_channel_id": "1780610x42x1",
-         "public": true,
-         "satoshis": 50000,
-         "amount_msat": "50000000msat",
-         "message_flags": 1,
-         "channel_flags": 0,
-         "active": true,
-         "last_update": 1594658630,
-         "base_fee_millisatoshi": 1000,
-         "fee_per_millionth": 1,
-         "delay": 40,
-         "htlc_minimum_msat": "1000msat",
-         "htlc_maximum_msat": "49500000msat",
-         "features": ""
-      },
-```       
+Now that we have funded our c-lightning wallet we will get information about remote node to start creating channel process. 
 
 #### Connect to remote node
 
@@ -158,7 +118,7 @@ Output
       },
      
 ```       
-We've selected node with public key 0302d48972ba7eef8b40696102ad114090fd4c146e381f18c7932a2a1d73566f84 and we'll connect as a peer with `lightning-cli connect` command:
+We've selected node with public key 0302d48972ba7eef8b40696102ad114090fd4c146e381f18c7932a2a1d73566f84 and we'll connect it with `lightning-cli connect` command:
 
 ```       
 c$ lightning-cli --network=testnet connect 0302d48972ba7eef8b40696102ad114090fd4c146e381f18c7932a2a1d73566f84@127.0.0.1:9736
