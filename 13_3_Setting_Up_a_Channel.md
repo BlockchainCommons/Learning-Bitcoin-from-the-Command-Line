@@ -64,91 +64,101 @@ c$ lightning-cli --network=testnet listfunds
 
 ```       
 
-Now that we have funded our c-lightning wallet we will get information about remote node to start creating channel process.  On LND nodes you can get information about your node using `lncli -n testnet getinfo`:
+Now that we have funded our c-lightning wallet we will get information about remote node to start creating channel process.  Using  `lightning-cli --network testnet listchannels` command you can list all active channels and select one remote node and it's public key:
 
 ```       
-lnd$ lncli -n testnet getinfo
-{
-    "version": "0.10.99-beta commit=clock/v1.0.0-171-g8cb1276dbf0bfd9fcbf599df87a43238e599eaac",
-    "commit_hash": "8cb1276dbf0bfd9fcbf599df87a43238e599eaac",
-    "identity_pubkey": "0302d48972ba7eef8b40696102ad114090fd4c146e381f18c7932a2a1d73566f84",
-    "alias": "0302d48972ba7eef8b40",
-    "color": "#3399ff",
-    "num_pending_channels": 0,
-    "num_active_channels": 0,
-    "num_inactive_channels": 0,
-    "num_peers": 0,
-    "block_height": 1780686,
-    "block_hash": "000000000000000beb29fa5d3afb713a253f949b12f5f5be25935bb26764e321",
-    "best_header_timestamp": "1594737322",
-    "synced_to_chain": true,
-    "synced_to_graph": true,
-    "testnet": true,
-    "chains": [
-        {
-            "chain": "bitcoin",
-            "network": "testnet"
-        }
-    ],
-    "uris": [
-    ],
-    "features": {
-        "0": {
-            "name": "data-loss-protect",
-            "is_required": true,
-            "is_known": true
-        },
-        "5": {
-            "name": "upfront-shutdown-script",
-            "is_required": false,
-            "is_known": true
-        },
-        "7": {
-            "name": "gossip-queries",
-            "is_required": false,
-            "is_known": true
-        },
-        "9": {
-            "name": "tlv-onion",
-            "is_required": false,
-            "is_known": true
-        },
-        "13": {
-            "name": "static-remote-key",
-            "is_required": false,
-            "is_known": true
-        },
-        "15": {
-            "name": "payment-addr",
-            "is_required": false,
-            "is_known": true
-        },
-        "17": {
-            "name": "multi-path-payments",
-            "is_required": false,
-            "is_known": true
-        }
-    }
-}
+c$ lightning-cli --network listchannels
+ {
+         "source": "03eef6610d26489b897d81eb142f28ad5cd48a6b3e5c4e42a697cd00d5eb059313",
+         "destination": "020b1052c80eb9b2af1126e377640ff9534d8e27556ed78af9329c13c3d932c45f",
+         "short_channel_id": "1780579x3x1",
+         "public": true,
+         "satoshis": 120000,
+         "amount_msat": "120000000msat",
+         "message_flags": 1,
+         "channel_flags": 3,
+         "active": false,
+         "last_update": 1594650095,
+         "base_fee_millisatoshi": 1000,
+         "fee_per_millionth": 1,
+         "delay": 40,
+         "htlc_minimum_msat": "1000msat",
+         "htlc_maximum_msat": "118800000msat",
+         "features": ""
+      },
+      {
+         "source": "038863cf8ab91046230f561cd5b386cbff8309fa02e3f0c3ed161a3aeb64a643b9",
+         "destination": "03f60f7369dd4dcff6a13d401b159e0bfc6aca34f05a93a8a897b75c7940a55bb9",
+         "short_channel_id": "1780610x42x1",
+         "public": true,
+         "satoshis": 50000,
+         "amount_msat": "50000000msat",
+         "message_flags": 1,
+         "channel_flags": 0,
+         "active": true,
+         "last_update": 1594658630,
+         "base_fee_millisatoshi": 1000,
+         "fee_per_millionth": 1,
+         "delay": 40,
+         "htlc_minimum_msat": "1000msat",
+         "htlc_maximum_msat": "49500000msat",
+         "features": ""
+      },
 ```       
 
 #### Connect to remote node
 
 The first thing you need to do is connect your node to a peer. This is done with the `lightning-cli connect` command. Remember that if you want more information on this command, you should type `lightning-cli help connect`.   The connect RPC command establishes a new connection with another node in the Lightning Network.
 
-To connect your node to a remote peer you need it's id that represents the target node’s public key. As a convenience, id may be of the form id@host or id@host:port. In this case, the port parameter must be changed due we're running two nodes on the same machine,  c-lightning node it's running on 9735 default port and we've started LND node on 9736 port with this parameter.
+To connect your node to a remote peer you need it's id that represents the target node’s public key. As a convenience, id may be of the form id@host or id@host:port.  Using `lightning-cli help listnodes` command you obtain all nodes available on the network and choose one.
 
 ```       
-lnd$ lnd --listen=0.0.0.0:9736 
+c$ lightning-cli help listnodes
 ```       
-We can check it's listening on 9736 port using this command:
-
+Output
 ```       
-c$ netstat -aon | grep 9736
-tcp6       0      0 :::9736                 :::*                    LISTEN      off (0.00/0/0)
-c$ 
+  {
+         "nodeid": "033c2c5eb5cc514b54264a838048b4e7194281e2dcd4ad03bab0198259df2dcbc7",
+         "alias": "shangoa0c8225d-d86b-4",
+         "color": "e20f00",
+         "last_timestamp": 1533416062,
+         "features": "",
+         "addresses": [
+            {
+               "type": "ipv4",
+               "address": "54.158.207.111",
+               "port": 9735
+            }
+         ]
+      },
+      {
+         "nodeid": "03dc1ad7b657c4d7a042f1847ffcb953cd353bcfe818bce008c35abdcdc25a5257"
+      },
+      {
+         "nodeid": "030b3a8efb847f1c267172d7afbfe93bf501c44a76c6ac6294a8b6b59335d5cdcd",
+         "alias": "030b3a8efb847f1c2671",
+         "color": "3399ff",
+         "last_timestamp": 1558873572,
+         "features": "",
+         "addresses": [
+            {
+               "type": "ipv4",
+               "address": "167.99.231.18",
+               "port": 9735
+            }
+         ]
+      },
+      {
+         **"nodeid": "0302d48972ba7eef8b40696102ad114090fd4c146e381f18c7932a2a1d73566f84",**
+         "alias": "0302d48972ba7eef8b40",
+         "color": "3399ff",
+         "last_timestamp": 1594828492,
+         "features": "02a2a1",
+         "addresses": []
+      },
+     
 ```       
-Now we can use `lightning-cli connect` command to reach node as a peer:
+We've selected node with public key 0302d48972ba7eef8b40696102ad114090fd4c146e381f18c7932a2a1d73566f84 and we'll connect as a peer with `lightning-cli connect` command:
 
 ```       
 c$ lightning-cli --network=testnet connect 0302d48972ba7eef8b40696102ad114090fd4c146e381f18c7932a2a1d73566f84@127.0.0.1:9736
