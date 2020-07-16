@@ -113,7 +113,7 @@ The first thing you need to do is connect your node to a peer. This is done with
 To connect your node to a remote peer you need it's id that represents the target node’s public key. As a convenience, id may be of the form id@host or id@host:port.  Using `lightning-cli listnodes` command you obtain all nodes available on the network and choose one.
 
 ```       
-c$ lightning-cli listnodes
+c$ lightning-cli --network testnet listnodes
 ```       
 Output
 ```       
