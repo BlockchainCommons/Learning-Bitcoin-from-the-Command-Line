@@ -11,13 +11,13 @@ To start with, you should understand where everything is kept: the `~/.lightning
 The main directory just contains as many networks as configured,  in this case we have testnet directory.
 
 ```
-$ ls ~/.lightning
+c$ ls ~/.lightning
 testnet
 ```
 
 In your ~/.lightning/testnet directory, you'll find that contains all of the guts:
 ```
-$ ls ~/.lightning/testnet3
+c$ ls ~/.lightning/testnet3
 config  gossip_store  hsm_secret  lightningd.sqlite3  lightningd.sqlite3-journal  lightning-rpc
 ```
 
@@ -27,7 +27,7 @@ config  gossip_store  hsm_secret  lightningd.sqlite3  lightningd.sqlite3-journal
 
 Most of your early work will be done with the `lightning-cli` command, which offers an easy interface to `lightningd`. 
 ```
-$ lightning-cli help
+c$ lightning-cli help
 lightning-cli: WARNING: default network changing in 2020: please set network=testnet in config!
 === bitcoin ===
 
@@ -231,15 +231,15 @@ run `lightning-cli help <command>` for more information on a specific command
 
 A variety of lightning-cli commands can give you additional information on your lightning node. The most general ones are:
 ```
-$ lightning-cli listconfigs
-$ lightning-cli listfunds
-$ lightning-cli listtransactions
-$ lightning-cli listinvoices
-$ lightning-cli listnodes   
+c$ lightning-cli listconfigs
+c$ lightning-cli listfunds
+c$ lightning-cli listtransactions
+c$ lightning-cli listinvoices
+c$ lightning-cli listnodes   
 ```
 For example `lightning-cli listconfigs` gives you a variety of information on your setup:
 ```
-lightning-cli --network=testnet listconfigs
+c$ lightning-cli --network=testnet listconfigs
 {
    "# version": "v0.8.2-398-g869fa08",
    "lightning-dir": "/home/user/.lightning",
