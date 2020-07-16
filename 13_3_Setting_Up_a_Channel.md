@@ -23,7 +23,7 @@ Channels on the Lightning Network always are created between two nodes. The chan
 The first thing you need to do is send some satoshis to your c-lightning wallet.  You can create a new address using  `lightning-cli newaddr` command to use it later. The newaddr RPC command generates a new address which can subsequently be used to fund channels managed by the c-lightning node.  This last transaction is called the [funding transaction](https://github.com/lightningnetwork/lightning-rfc/blob/master/03-transactions.md#funding-transaction-output) and it needs to be confirmed before funds can be used.  You can specify the type of address wanted,  if not specified the address generated will be a bench32.
 
 ```
-$ lightning-cli --network=testnet newaddr
+c$ lightning-cli --network=testnet newaddr
 {
    "address": "tb1qefule33u7ukfuzkmxpz02kwejl8j8dt5jpgtu6",
    "bech32": "tb1qefule33u7ukfuzkmxpz02kwejl8j8dt5jpgtu6"
@@ -34,7 +34,7 @@ We send some sats to this address in this transaction [11094bb9ac29ce5af9f1e5a0e
 To check you local balance you should use `lightning-cli listfunds` command:
 
 ```       
-$ lightning-cli --network=testnet listfunds
+c$ lightning-cli --network=testnet listfunds
 {
    "outputs": [],
    "channels": []
@@ -44,7 +44,7 @@ $ lightning-cli --network=testnet listfunds
 Since we still do not have 6 confirmations we do not have balance available,  after 6 confirmations we should see balance:
 
 ```       
-$ lightning-cli --network=testnet listfunds
+c$ lightning-cli --network=testnet listfunds
 {
    "outputs": [
       {
@@ -67,7 +67,7 @@ $ lightning-cli --network=testnet listfunds
 Now that we have funded our c-lightning wallet we will get information about remote node to start creating channel process.  On LND nodes you can get information about your node using `lncli -n testnet getinfo`:
 
 ```       
-$ lncli -n testnet getinfo
+lnd$ lncli -n testnet getinfo
 {
     "version": "0.10.99-beta commit=clock/v1.0.0-171-g8cb1276dbf0bfd9fcbf599df87a43238e599eaac",
     "commit_hash": "8cb1276dbf0bfd9fcbf599df87a43238e599eaac",
@@ -139,19 +139,19 @@ The first thing you need to do is connect your node to a peer. This is done with
 To connect your node to a remote peer you need it's id that represents the target node’s public key. As a convenience, id may be of the form id@host or id@host:port. In this case, the port parameter must be changed due we're running two nodes on the same machine,  c-lightning node it's running on 9735 default port and we've started LND node on 9736 port with this parameter.
 
 ```       
-$ lnd --listen=0.0.0.0:9736 
+lnd$ lnd --listen=0.0.0.0:9736 
 ```       
 We can check it's listening on 9736 port using this command:
 
 ```       
-$ netstat -aon | grep 9736
+c$ netstat -aon | grep 9736
 tcp6       0      0 :::9736                 :::*                    LISTEN      off (0.00/0/0)
-$ 
+c$ 
 ```       
 Now we can use `lightning-cli connect` command to reach node as a peer:
 
 ```       
-$ lightning-cli --network=testnet connect 0302d48972ba7eef8b40696102ad114090fd4c146e381f18c7932a2a1d73566f84@127.0.0.1:9736
+c$ lightning-cli --network=testnet connect 0302d48972ba7eef8b40696102ad114090fd4c146e381f18c7932a2a1d73566f84@127.0.0.1:9736
 {
    "id": "0302d48972ba7eef8b40696102ad114090fd4c146e381f18c7932a2a1d73566f84",
    "features": "02a2a1"
@@ -161,7 +161,7 @@ $ lightning-cli --network=testnet connect 0302d48972ba7eef8b40696102ad114090fd4c
 To check out:
 
 ```       
-$ lightning-cli --network=testnet listpeers
+c$ lightning-cli --network=testnet listpeers
 {
    "peers": [
       {
@@ -197,7 +197,7 @@ The fundchannel RPC command opens a payment channel with a peer by committing a 
 Now we open the channel like this:
 
 ```
-$ lightning-cli --network=testnet fundchannel 0302d48972ba7eef8b40696102ad114090fd4c146e381f18c7932a2a1d73566f84 280000 urgent true 1
+c$ lightning-cli --network=testnet fundchannel 0302d48972ba7eef8b40696102ad114090fd4c146e381f18c7932a2a1d73566f84 280000 urgent true 1
 {
    "tx": "0200000000010102eb2fbf64dfcd0ff9bf725bf232e16a06c2aae4a0e5f1f95ace29acb94b09110000000000feffffff02264b000000000000160014aa572371f29310cd677d039cdcd054156c1a9545c045040000000000220020c1ebc407d32cd1fdcd7c0deb6817243b2b982cdaf3c70413f9d3ead29c36f11f024730440220676592b102ee659dfe5ac3acddbe35885140a8476ae7dbbb2f53a939cc815ac0022057a66de1ea16644008791d5cd510439bac00def02cbaa46d04febfe1d5e7e1e001210284368eca82346929a1c3ee2625077571b434b4c8111b81a715dfce5ea86dce1f1f2c1b00",
    "txid": "9843c037f54a4660b297a9f2454e11d26d8659f084a284a5740bb15cb1d97aa6",
@@ -207,7 +207,7 @@ $ lightning-cli --network=testnet fundchannel 0302d48972ba7eef8b40696102ad114090
 To confirm channel status use `lightning-cli listfunds` command:
 
 ```
-lightning-cli --network=testnet listfunds
+c$ lightning-cli --network=testnet listfunds
 {
    "outputs": [
       {
