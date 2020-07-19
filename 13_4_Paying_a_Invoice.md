@@ -2,6 +2,10 @@
 
 > :information_source: **NOTE:** This is a draft in progress, so that I can get some feedback from early reviewers. It is not yet ready for learning.
 
+> :book: ***What is an invoice
+
+
+
 ### Understanding your invoice
 
 ```
@@ -13,7 +17,7 @@ c$lightning-cli --network=testnet decodepay lntb1m1p03ft7lpp5zve4dsgwgdxekqqq39v
    "payee": "0302d48972ba7eef8b40696102ad114090fd4c146e381f18c7932a2a1d73566f84",
    "msatoshi": 100000000,
    "amount_msat": "100000000msat",
-   "description": "",
+   "description": "First LN Payment - Learning Bitcoin and Lightning from the Command line.",
    "min_final_cltv_expiry": 40,
    "payment_secret": "ad3a5486ed3ee9d207f8e1f743d6981d76f16264335ae6551116e2a204764b6a",
    "features": "028200",
