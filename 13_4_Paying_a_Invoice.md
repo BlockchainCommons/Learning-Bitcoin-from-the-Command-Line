@@ -23,6 +23,16 @@ This invoice starts with prefix ln+tb+1m that indicates milli, so you should mul
 
 If you want to decode your lightning invoice you should use `lightning-cli decodepay ` command that receives a string and checks and parses as specified by the [BOLT 11 specification](https://github.com/lightningnetwork/lightning-rfc/blob/master/11-payment-encoding.md).
 
+On success it returns an object with the following fields:
+
+* currency: Currency.
+* timestamp: the UNIX-style timestamp of the invoice.
+* expiry: the number of seconds this is valid after timestamp.
+* payee: the public key of the recipient.
+* payment_hash: the payment hash of the request.
+* signature: the DER-encoded signature.
+* description: Description.
+
 ```
 c$lightning-cli --network=testnet decodepay lntb1m1p03ft7lpp5zve4dsgwgdxekqqq39vhgcnv6gfa2g2ktqy9lf0aph60d0388xmqdqqcqzpgsp545a9fphd8m5ayplcu8m5845cr4m0zcnyxddwv4g3zm32yprkfd4q9qy9qsq3s4y6cmyvh0qw9qm0sf80llxyyjy9xwrjds7lpkqhzv247jsm6q5me8t9e6ftquma664gz5u4a2rvs0yf4f0mlwtwfs6as5uj5djzhcqpnqlcj
 {
@@ -42,7 +52,7 @@ c$lightning-cli --network=testnet decodepay lntb1m1p03ft7lpp5zve4dsgwgdxekqqq39v
 ```
 ### Check your balance
 
-As we did in previous chapter we have established an channel with a total capacity of 280.000 sats.
+As we did in previous chapter we have established an channel with a total capacity of 280.000 sats.   This will be channel used to pay the invoice.
 
 ```
 c$ lightning-cli --network=testnet listfunds
@@ -100,7 +110,7 @@ lntb1m1p03ft7lpp5zve4dsgwgdxekqqq39vhgcnv6gfa2g2ktqy9lf0aph60d0388xmqdqqcqzpgsp5
 
 ### Check your balance
 
-We've performed payment successfully
+We've performed payment successfully and gets decreased channel balance on our side.  Now it has 180000 as available balance.
 
 ```
 c$ lightning-cli --network=testnet listfunds
