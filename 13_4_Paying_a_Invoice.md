@@ -12,11 +12,16 @@ Invoices have two parts:
       
 - Data part : UNIX Timestamp + tagged parts include a payment hash, the pubkey of the payee node, an optional description of the payment, an expiration time, and some extra routing information.
 
-Conside this ln invoice `lntb1m1p03ft7lpp5zve4dsgwgdxekqqq39vhgcnv6gfa2g2ktqy9lf0aph60d0388xmqdqqcqzpgsp545a9fphd8m5ayplcu8m5845cr4m0zcnyxddwv4g3zm32yprkfd4q9qy9qsq3s4y6cmyvh0qw9qm0sf80llxyyjy9xwrjds7lpkqhzv247jsm6q5me8t9e6ftquma664gz5u4a2rvs0yf4f0mlwtwfs6as5uj5djzhcqpnqlcj
+Conside this ln invoice 
+
+`lntb1m1p03ft7lpp5zve4dsgwgdxekqqq39vhgcnv6gfa2g2ktqy9lf0aph60d0388xmqdqqcqzpgsp545a9fphd8m5ayplcu8m5845cr4m0zcnyxddwv4g3zm32yprkfd4q9qy9qsq3s4y6cmyvh0qw9qm0sf80llxyyjy9xwrjds7lpkqhzv247jsm6q5me8t9e6ftquma664gz5u4a2rvs0yf4f0mlwtwfs6as5uj5djzhcqpnqlcj
 `  
+
 This invoice starts with prefix ln+tb+1m that indicates milli, so you should multi by 0.001.   That means we'll pay an invoice by 100000 satoshis.
 
 ### Understanding your invoice
+
+If you want to decode your lightning invoice you should use `lightning-cli decodepay ` command that receives a string and checks and parses as specified by the [BOLT 11 specification](https://github.com/lightningnetwork/lightning-rfc/blob/master/11-payment-encoding.md).
 
 ```
 c$lightning-cli --network=testnet decodepay lntb1m1p03ft7lpp5zve4dsgwgdxekqqq39vhgcnv6gfa2g2ktqy9lf0aph60d0388xmqdqqcqzpgsp545a9fphd8m5ayplcu8m5845cr4m0zcnyxddwv4g3zm32yprkfd4q9qy9qsq3s4y6cmyvh0qw9qm0sf80llxyyjy9xwrjds7lpkqhzv247jsm6q5me8t9e6ftquma664gz5u4a2rvs0yf4f0mlwtwfs6as5uj5djzhcqpnqlcj
@@ -36,6 +41,8 @@ c$lightning-cli --network=testnet decodepay lntb1m1p03ft7lpp5zve4dsgwgdxekqqq39v
 }
 ```
 ### Check your balance
+
+As we did in previous chapter we have established an channel with a total capacity of 280.000 sats.
 
 ```
 c$ lightning-cli --network=testnet listfunds
@@ -60,7 +67,7 @@ c$ lightning-cli --network=testnet listfunds
          "state": "CHANNELD_AWAITING_LOCKIN",
          "channel_sat": 280000,
          "our_amount_msat": "280000000msat",
-         "channel_total_sat": 280000,
+         "channel_total_sat": **280000**,
          "amount_msat": "280000000msat",
          "funding_txid": "9843c037f54a4660b297a9f2454e11d26d8659f084a284a5740bb15cb1d97aa6",
          "funding_output": 1
@@ -69,8 +76,9 @@ c$ lightning-cli --network=testnet listfunds
 }
 ```
 
-
 ### Paying your invoice
+
+You should use `lightning-cli pay ` command to pay the invoice.  The pay RPC command attempts to find a route to the given destination, and send the funds asked in amount value.
 
 ```
 c$lightning-cli --network=testnet pay 
@@ -91,6 +99,8 @@ lntb1m1p03ft7lpp5zve4dsgwgdxekqqq39vhgcnv6gfa2g2ktqy9lf0aph60d0388xmqdqqcqzpgsp5
 ```
 
 ### Check your balance
+
+We've performed payment successfully
 
 ```
 c$ lightning-cli --network=testnet listfunds
