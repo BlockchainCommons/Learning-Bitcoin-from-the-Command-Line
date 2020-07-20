@@ -6,7 +6,7 @@
 
 Almost all payments made on the Lightning Network require an invoice, which is nothing more than a request for payment made by the recipient of the money and sent by different means to the user who will pay.  The format for a Lightning invoice uses bech32 encoding, which is already used for Bitcoin Segregated Witness and all payment requests are single use.
 
-Invoices have two parts:
+An invoice is made up of two parts,  one is human readable and other is 
 
 - Human readable part: `ln` + (`lnbc` for Bitcoin mainnet, `lntb` for Bitcoin testnet, and `lnbcrt` for Bitcoin regtest) + data amount
       
