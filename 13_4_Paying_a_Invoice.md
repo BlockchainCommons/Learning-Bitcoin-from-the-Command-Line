@@ -12,7 +12,7 @@ An invoice is made up of two parts,  one is human readable and other is
       
 - Data part : UNIX Timestamp + tagged parts include a payment hash, the pubkey of the payee node, an optional description of the payment, an expiration time, and some extra routing information.
 
-Conside this ln invoice 
+Consider this ln invoice:
 
 `lntb1m1p03ft7lpp5zve4dsgwgdxekqqq39vhgcnv6gfa2g2ktqy9lf0aph60d0388xmqdqqcqzpgsp545a9fphd8m5ayplcu8m5845cr4m0zcnyxddwv4g3zm32yprkfd4q9qy9qsq3s4y6cmyvh0qw9qm0sf80llxyyjy9xwrjds7lpkqhzv247jsm6q5me8t9e6ftquma664gz5u4a2rvs0yf4f0mlwtwfs6as5uj5djzhcqpnqlcj
 `  
