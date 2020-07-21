@@ -57,7 +57,7 @@ $ echo -n $lehex | wc -c | awk '{print $1/2}'
 ```
 With that whole rigamarole, you'd know that you could translate the integer 1546288031 into an `04` opcode (to push four bytes onto the stack) followed by `9f7b2a5c` (the little-endian hex representation of 1546288031).
 
-If you instead had a negative number, you would need to (1) do your calculations on the absolute value of the number, then (2) bitwise-or 0x80 to your final, little-endian result. For example, `9f7b2a5c`, which is 1546288031, would become 9f7b2adc, which is -1546288031:
+If you instead had a negative number, you would need to (1) do your calculations on the absolute value of the number, then (2) bitwise-or 0x80 to your final, little-endian result. For example, `9f7b2a5c`, which is 1546288031, would become `9f7b2adc`, which is -1546288031:
 ```
 $ neglehex=$(printf '%x\n' $((0x$lehex | 0x80)))
 $ echo $neglehex
@@ -146,9 +146,9 @@ $ echo -n $redeemScript | xxd -r -p | openssl dgst -sha256 -binary | openssl dgs
 
 Creating your 20-bit hash just gives you the hash at the center of a P2SH locking script. You still need to put it together with the other opcodes that create a standard P2SH transaction: `OP_HASH160 a5d106eb8ee51b23cf60d8bd98bc285695f233f3 OP_EQUAL`.
 
-Depending on your API, you might be able to enter this as an `asm`-style `scriptPubKey` for your transaction, or you might have to translate it to `hex` code as well. If you have to translate, use the same methods described above for "Creating the Hex Code" (or `btcc`), resulting in `a914a5d106eb8ee51b23cf60d8bd98bc285695f233f387`.
+Depending on your API, you might be able to enter this as an `asm`-style `scriptPubKey` for your transaction, or you might have to translate it to `hex` code as well. If you have to translate, use the same methods described above for "Creating the Hex Code" (or use `btcc`), resulting in `a914a5d106eb8ee51b23cf60d8bd98bc285695f233f387`.
 
-Note that the `hex scriptPubKey` for P2SH Script transaction will _always_ start with an `a914`, which is the `OP_HASH160` followed by an `OP_PUSHDATA` of 20 bytes (hex: 0x14); and it will _always_ end with a `87`, which is an `OP_EQUAL`. So all you have to do is put your hashed redeem script in between those numbers.
+Note that the `hex scriptPubKey` for P2SH Script transaction will _always_ start with an `a914`, which is the `OP_HASH160` followed by an `OP_PUSHDATA` of 20 bytes (hex: `0x14`); and it will _always_ end with a `87`, which is an `OP_EQUAL`. So all you have to do is put your hashed redeem script in between those numbers.
 
 ## Summary: Understanding the Foundation of P2SH
 
