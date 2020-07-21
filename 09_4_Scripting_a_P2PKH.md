@@ -51,12 +51,13 @@ You can see that its `scriptSig` unlocking script has two values. That's a `<sig
 ```
 304402201cc39005b076cb06534cd084fcc522e7bf937c4c9654c1c9dfba68b92cbab7d1022066f273178febc7a37568e2e9f4dec980a2e9a95441abe838c7ef64c39d85849c[ALL] 0315a0aeb37634a71ede72d903acae4c6efa77f3423dcbcd6de3e13d9fd989438b
 ```
+That's all an unlock script is! (For a P2PKH.)
 
 ## Understand the Locking Script
 
-Remember that each unlocking script unlocks a previous UTXO. In the above example, the `vin` reveals that it's actually unlocking vout `0` of txif `bb4362dec15e67d366088f5493c789f22fb4a604e767dae1f6a631687e2784aa`.
+Remember that each unlocking script unlocks a previous UTXO. In the above example, the `vin` reveals that it's actually unlocking vout `0` of txid `bb4362dec15e67d366088f5493c789f22fb4a604e767dae1f6a631687e2784aa`.
 
-You can examine that with `gettransaction`.
+You can examine that UTXO with `gettransaction`.
 ```
 $ bitcoin-cli gettransaction "bb4362dec15e67d366088f5493c789f22fb4a604e767dae1f6a631687e2784aa"
 {
@@ -84,7 +85,7 @@ $ bitcoin-cli gettransaction "bb4362dec15e67d366088f5493c789f22fb4a604e767dae1f6
   "hex": "020000000001011efcc3bf9950ac2ea08c53b43a0f8cc21e4b5564e205f996f7cadb7d13bb79470000000017160014c4ea10874ae77d957e170bd43f2ee828a8e3bc71feffffff0218730100000000001976a91441d83eaffbf80f82dee4c152de59a38ffd0b602188ac713b10000000000017a914b780fc2e945bea71b9ee2d8d2901f00914a25fbd8702473044022025ee4fd38e6865125f7c315406c0b3a8139d482e3be333727d38868baa656d3d02204b35d9b5812cb85894541da611d5cec14c374ae7a7b8ba14bb44495747b571530121033cae26cb3fa063c95e2c55a94bd04ab9cf173104555efe448b1bfc3a68c8f873342c1b00"
 }
 ```
-But as you can see, you didn't get the `scriptPubKey`. You need to take an additional step to retrieve that by examining the raw transaction info (that's the `hex`) with `decoderawtransaction`:
+But as you can see, you didn't get the `scriptPubKey` with `gettransaction`. You need to take an additional step to retrieve that by examining the raw transaction info (that's the `hex`) with `decoderawtransaction`:
 ```
 $ hex=$(bitcoin-cli gettransaction "bb4362dec15e67d366088f5493c789f22fb4a604e767dae1f6a631687e2784aa" | jq -r '.hex')
 $ bitcoin-cli decoderawtransaction $hex
@@ -143,15 +144,15 @@ $ bitcoin-cli decoderawtransaction $hex
 ```
 You can now look at `vout` `0` and see it was locked with the `scriptPubKey` of `OP_DUP OP_HASH160 41d83eaffbf80f82dee4c152de59a38ffd0b6021 OP_EQUALVERIFY OP_CHECKSIG`. That's the standard locking methodology used for an older P2PKH address with the `<pubKeyHash>` stuck in the middle.
 
-Running it will show how it works.
+Running it will demonstrate how it works.
 
 ## Run a P2PKH Script
 
-When you unlock a P2PKH UTXO, you (effectively) concatenate the unlocking and locking scripts, producing:
+When you unlock a P2PKH UTXO, you (effectively) concatenate the unlocking and locking scripts. For a P2PKH address, like the example used in this chapter, that produces:
 ```
 Script: <signature> <pubKey> OP_DUP OP_HASH160 <pubKeyHash> OP_EQUALVERIFY OP_CHECKSIG
 ```
-Now, you can examinine how the P2PKH UTXO is unlocked. 
+With that put together, you can examinine how a P2PKH UTXO is unlocked. 
 
 First, you put the initial constants on the stack, then make a duplicate of the pubKey with `OP_DUP`:
 ```
@@ -168,7 +169,7 @@ Script: OP_HASH160 <pubKeyHash> OP_EQUALVERIFY OP_CHECKSIG
 Running: <pubKey> OP_DUP
 Stack: [ <signature> <pubKey> <pubKey> ]
 ```
-Why the duplicate? Because that's what the script says to do!
+Why the duplicate? Because it's needed to check the two unlocking elements: the public key and the signature.
 
 Next, `OP_HASH160` pops the `<pubKey>` off the stack, hashes it, and puts the result back on the stack.
 ```
@@ -195,11 +196,11 @@ Script:
 Running: <signature> <pubKey> OP_CHECKSIG
 Stack: [ True ]
 ```
-The Script now ends and the transaction is allowed to respend the UTXO in question.
+The Script now ends and if it was successful, the transaction is allowed to respend the UTXO in question.
 
 ### Use btcdeb for a P2PKH Example
 
-Testing out actual Bitcoin transactions with `btcdeb` is a bit trickier, because you need to know the public key and a signature to make everything work, and generating the latter is somewhat difficult. However, one way to test things is to let Bitcoin do the work for you in generating a transaction that will unlock a UTXO. That's what you've done above, generating a new transaction to let `bitcoin-cli` do the work of calculating the `<signature>` and `<pubKey>` and then looking at the raw transaction information of the UTXO to learn the locking script including the `<pubKeyHash>`
+Testing out actual Bitcoin transactions with `btcdeb` is a bit trickier, because you need to know the public key and a signature to make everything work, and generating the latter is somewhat difficult. However, one way to test things is to let Bitcoin do the work for you in generating a transaction that _would_ unlock a UTXO. That's what you've done above: generating the transaction to spend the UTXO caused `bitcoin-cli` to calculate the `<signature>` and `<pubKey>`. You then look at the raw transaction information of the UTXO to learn the locking script including the `<pubKeyHash>`
 
 You can put together the locking script, the signature, and the pubkey using `btcdeb`, showing how simple a P2PKH script is.
 ```
@@ -210,30 +211,33 @@ valid script
 7 op script loaded. type `help` for usage information
 script                                                             |                                                             stack 
 -------------------------------------------------------------------+-------------------------------------------------------------------
-304402201cc39005b076cb06534cd084fcc522e7bf937c4c9654c1c9dfba68b... | and_v(
-0315a0aeb37634a71ede72d903acae4c6efa77f3423dcbcd6de3e13d9fd989438b |     sig(304402201cc39005b076cb06534cd084fcc522e7bf937c4c9654c1c...
-OP_DUP                                                             |     and_v(
-OP_HASH160                                                         |         pk(0315a0aeb37634a71ede72d903acae4c6efa77f3423dcbcd6de3...
-41d83eaffbf80f82dee4c152de59a38ffd0b6021                           |         c:pk_h(030500000000000000000000000000000000000000000000...
-OP_EQUALVERIFY                                                     |     )
+304402201cc39005b076cb06534cd084fcc522e7bf937c4c9654c1c9dfba68b... | 
+0315a0aeb37634a71ede72d903acae4c6efa77f3423dcbcd6de3e13d9fd989438b | 
+OP_DUP                                                             |
+OP_HASH160                                                         |
+41d83eaffbf80f82dee4c152de59a38ffd0b6021                           | 
+OP_EQUALVERIFY                                                     | 
 OP_CHECKSIG                                                        | 
-                                                                   | )
+                                                                   | 
                                                                    | 
 #0000 304402201cc39005b076cb06534cd084fcc522e7bf937c4c9654c1c9dfba68b92cbab7d1022066f273178febc7a37568e2e9f4dec980a2e9a95441abe838c7ef64c39d85849c
+```
+You push the `<signature>` and `<pubKey>` onto the stack:
+```
 btcdeb> step
 		<> PUSH stack 304402201cc39005b076cb06534cd084fcc522e7bf937c4c9654c1c9dfba68b92cbab7d1022066f273178febc7a37568e2e9f4dec980a2e9a95441abe838c7ef64c39d85849c
 script                                                             |                                                             stack 
 -------------------------------------------------------------------+-------------------------------------------------------------------
 0315a0aeb37634a71ede72d903acae4c6efa77f3423dcbcd6de3e13d9fd989438b | 304402201cc39005b076cb06534cd084fcc522e7bf937c4c9654c1c9dfba68b...
 OP_DUP                                                             | 
-OP_HASH160                                                         | and_v(
-41d83eaffbf80f82dee4c152de59a38ffd0b6021                           |     sig(304402201cc39005b076cb06534cd084fcc522e7bf937c4c9654c1c...
-OP_EQUALVERIFY                                                     |     and_v(
-OP_CHECKSIG                                                        |         pk(0315a0aeb37634a71ede72d903acae4c6efa77f3423dcbcd6de3...
-                                                                   |         c:pk_h(030500000000000000000000000000000000000000000000...
-                                                                   |     )
+OP_HASH160                                                         | 
+41d83eaffbf80f82dee4c152de59a38ffd0b6021                           |  
+OP_EQUALVERIFY                                                     |  
+OP_CHECKSIG                                                        |     
+                                                                   |   
                                                                    | 
-                                                                   | )
+                                                                   | 
+                                                                   | 
                                                                    | 
 #0001 0315a0aeb37634a71ede72d903acae4c6efa77f3423dcbcd6de3e13d9fd989438b
 btcdeb> step
@@ -243,15 +247,18 @@ script                                                             |            
 OP_DUP                                                             | 0315a0aeb37634a71ede72d903acae4c6efa77f3423dcbcd6de3e13d9fd989438b
 OP_HASH160                                                         | 304402201cc39005b076cb06534cd084fcc522e7bf937c4c9654c1c9dfba68b...
 41d83eaffbf80f82dee4c152de59a38ffd0b6021                           | 
-OP_EQUALVERIFY                                                     | and_v(
-OP_CHECKSIG                                                        |     sig(304402201cc39005b076cb06534cd084fcc522e7bf937c4c9654c1c...
-                                                                   |     and_v(
-                                                                   |         pk(0315a0aeb37634a71ede72d903acae4c6efa77f3423dcbcd6de3...
-                                                                   |         c:pk_h(030500000000000000000000000000000000000000000000...
-                                                                   |     )
+OP_EQUALVERIFY                                                     |
+OP_CHECKSIG                                                        |  
+                                                                   |   
+                                                                   |    
                                                                    | 
-                                                                   | )
+                                                                   |
                                                                    | 
+                                                                   | 
+                                                               | 
+```
+You `OP_DUP` and `OP_HASH` the `<pubKey>`:
+```
 #0002 OP_DUP
 btcdeb> step
 		<> PUSH stack 0315a0aeb37634a71ede72d903acae4c6efa77f3423dcbcd6de3e13d9fd989438b
@@ -261,14 +268,14 @@ OP_HASH160                                                         | 0315a0aeb37
 41d83eaffbf80f82dee4c152de59a38ffd0b6021                           | 0315a0aeb37634a71ede72d903acae4c6efa77f3423dcbcd6de3e13d9fd989438b
 OP_EQUALVERIFY                                                     | 304402201cc39005b076cb06534cd084fcc522e7bf937c4c9654c1c9dfba68b...
 OP_CHECKSIG                                                        | 
-                                                                   | and_v(
-                                                                   |     sig(304402201cc39005b076cb06534cd084fcc522e7bf937c4c9654c1c...
-                                                                   |     and_v(
-                                                                   |         pk(0315a0aeb37634a71ede72d903acae4c6efa77f3423dcbcd6de3...
-                                                                   |         c:pk_h(030500000000000000000000000000000000000000000000...
-                                                                   |     )
                                                                    | 
-                                                                   | )
+                                                                   |   
+                                                                   |  
+                                                                   |   
+                                                                   |   
+                                                                   | 
+                                                                   | 
+                                                                   |
                                                                    | 
 #0003 OP_HASH160
 btcdeb> step
@@ -280,15 +287,18 @@ script                                                             |            
 OP_EQUALVERIFY                                                     | 0315a0aeb37634a71ede72d903acae4c6efa77f3423dcbcd6de3e13d9fd989438b
 OP_CHECKSIG                                                        | 304402201cc39005b076cb06534cd084fcc522e7bf937c4c9654c1c9dfba68b...
                                                                    | 
-                                                                   | and_v(
-                                                                   |     sig(304402201cc39005b076cb06534cd084fcc522e7bf937c4c9654c1c...
-                                                                   |     and_v(
-                                                                   |         pk(0315a0aeb37634a71ede72d903acae4c6efa77f3423dcbcd6de3...
-                                                                   |         c:pk_h(030500000000000000000000000000000000000000000000...
-                                                                   |     )
                                                                    | 
-                                                                   | )
+                                                                   |   
+                                                                   |    
+                                                                   |    
+                                                                   |     
                                                                    | 
+                                                                   | 
+                                                                   | 
+                                                                   | 
+```
+You push the `<pubKeyHash>` from the locking script onto the stack and verify it:
+```
 #0004 41d83eaffbf80f82dee4c152de59a38ffd0b6021
 btcdeb> step
 		<> PUSH stack 41d83eaffbf80f82dee4c152de59a38ffd0b6021
@@ -299,14 +309,14 @@ OP_CHECKSIG                                                        |            
                                                                    | 0315a0aeb37634a71ede72d903acae4c6efa77f3423dcbcd6de3e13d9fd989438b
                                                                    | 304402201cc39005b076cb06534cd084fcc522e7bf937c4c9654c1c9dfba68b...
                                                                    | 
-                                                                   | and_v(
-                                                                   |     sig(304402201cc39005b076cb06534cd084fcc522e7bf937c4c9654c1c...
-                                                                   |     and_v(
-                                                                   |         pk(0315a0aeb37634a71ede72d903acae4c6efa77f3423dcbcd6de3...
-                                                                   |         c:pk_h(030500000000000000000000000000000000000000000000...
-                                                                   |     )
                                                                    | 
-                                                                   | )
+                                                                   |  
+                                                                   |  
+                                                                   |  
+                                                                   |       
+                                                                   |   
+                                                                   | 
+                                                                   |
                                                                    | 
 #0005 OP_EQUALVERIFY
 btcdeb> step
@@ -328,16 +338,21 @@ OP_CHECKSIG                                                        | 0315a0aeb37
                                                                    | 
                                                                    | )
                                                                    | 
+			
+```
+And that point, all that's required is the `OP_CHECKSIG`:
+```
 #0006 OP_CHECKSIG
 btcdeb> step
 error: Signature is found in scriptCode
-[[NOTE: THIS CURRENTLY HAS SOME MESS IN THE OUTPUT AND THE CHECKSUM]]
 ```
-If you read through that you can see the usage of elements like the `OP_DUP` to duplicate the hash for testing, and how that result is then pushed out of the way to test out the signature. As is shown, a P2PKH is quite simple: its protection comes about those the strength of its cryptography.
+(Unfortunately this checking may or may not be working at any point due to vagaries of the Bitcoin Core and `btcdeb` code.)
+
+As is shown, a P2PKH is quite simple: its protection comes about those the strength of its cryptography.
 
 ### How to Look Up a Pub Key & Signature by Hand
 
-What if you wanted to generate the <signature> and <PubKey> information yourself, without leaning on `bitcoin-cli` to create a transaction.
+What if you wanted to generate the `<signature>` and `<PubKey>` information needed to unlock a UTXO yourself, without leaning on `bitcoin-cli` to create a transaction?
 	
 It turns out that it's pretty easy to get a `<pubKey>` You just need to use `getaddressinfo` to examine the address where the UTXO is currently sitting:
 ```
@@ -363,7 +378,7 @@ $ bitcoin-cli getaddressinfo mmX7GUoXq2wVcbnrnFJrGKsGR14fXiGbD9
   ]
 }
 ```
-Figuring out that signature, however, requires really understanding the nuts and bolts of how Bitcoin transactions are created. So we leave that as advanced study for the reader: creating a transaction to "solve" a UTXO is the best solution to that for the moment.
+Figuring out that signature, however, requires really understanding the nuts and bolts of how Bitcoin transactions are created. So we leave that as advanced study for the reader: creating a `bitcoin-cli` transaction to "solve" a UTXO is the best solution to that for the moment.
 
 ## Summary: Scripting a Pay to Public Key Hash
 
