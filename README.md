@@ -73,7 +73,7 @@ _This tutorial assumes that you have some minimal background of how to use the c
   * [10.3: Running a Bitcoin Script with P2SH](10_3_Running_a_Bitcoin_Script_with_P2SH.md)
   * [10.4: Scripting a Multisig](10_4_Scripting_a_Multisig.md)
   * [10.5: Scripting a Segwit Script](10_5_Scripting_a_Segwit_Script.md)
-  * [10.6: Spending a P2SH Transaction](10_6_Spending_a_P2SH_Transaction.md) — Awaiting API Work
+  * [10.6: Spending a P2SH Transaction](10_6_Spending_a_P2SH_Transaction.md)
 * [11.0: Empowering Timelock with Bitcoin Scripts](11_0_Empowering_Timelock_with_Bitcoin_Scripts.md)
   * [11.1: Understanding Timelock Options](11_1_Understanding_Timelock_Options.md)
   * [11.2: Using CLTV in Scripts](11_2_Using_CLTV_in_Scripts.md)
