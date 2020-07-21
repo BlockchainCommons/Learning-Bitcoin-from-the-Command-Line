@@ -1,4 +1,4 @@
-# 10.1: Using Script Conditionals
+# 12.1: Using Script Conditionals
 
 > :information_source: **NOTE:** This is a draft in progress, so that I can get some feedback from early reviewers. It is not yet ready for learning.
 
@@ -10,7 +10,7 @@ You've already seen one conditional in scripts: `OP_VERIFY` (0x69). It pops the 
 
 Verify is usually incorporated into other opcodes. You've already seen `OP_EQUALVERIFY` (0xad), `OP_CHECKLOCKTIMEVERIFY` (0xb1), and `OP_CHECKSEQUENCEVERIFY` (0xb2). Each of these opcodes does its core action (equal, checklocktime, or checksequence) and then does a verify afterward. The other verify opcodes that you haven't seen are: `OP_NUMEQUALVERIFY` (0x9d), `OP_CHECKSIGVERIFY` (0xad), and `OP_CHECKMULTISIGVERIFY` (0xaf).
 
-So how is `OP_VERIFY` a conditional? It's the most powerful sort of conditional. Using `OP_VERIFY`, _if_ a condition is true, the Script continues executing, _else_ the Script exits. This is how you check conditions that are absolutely required for a Script to succeed. For example, the P2PKH script (`OP_DUP OP_HASH160 <pubKeyHash> OP_EQUALVERIFY OP_CHECKSIG`) has two required conditions: (1) that the supplied public key match the public-key hash; and (2) that the supplied signature match that public key. An `OP_EQUALVERIFY` is used for the check of the public key and the public-key hash because it's an absolutely required condition. You don't _want_ the script to continue on if that fails.
+So how is `OP_VERIFY` a conditional? It's the most powerful sort of conditional. Using `OP_VERIFY`, _if_ a condition is true, the Script continues executing, _else_ the Script exits. This is how you check conditions that are absolutely required for a Script to succeed. For example, the P2PKH script (`OP_DUP OP_HASH160 <pubKeyHash> OP_EQUALVERIFY OP_CHECKSIG`) has two required conditions: (1) that the supplied public key match the public-key hash; and (2) that the supplied signature match that public key. An `OP_EQUALVERIFY` is used for the comparison of the hashed public key and the public-key hash because it's an absolutely required condition. You don't _want_ the script to continue on if that fails.
 
 You may notice there's no `OP_VERIFY` at the end of this (or most any) script, despite the final condition being required as well. That's because Bitcoin effectively does an `OP_VERIFY` at the very end of each Script, to ensure that the final stack result is true. You don't _want_ to do an `OP_VERIFY` before the end of the script, because you need to leave something on the stack to be tested!
 
@@ -71,7 +71,7 @@ ENDIF
  OP_EQUALVERIFY 
  OP_CHECKSIG
 ```
-The `True` or `False` statement is placed on the stack _prior_ to running the `IF`, then the correct block of code is run based on that result.
+The statement that will evaluate to `True` or `False` is placed on the stack _prior_ to running the `IF`, then the correct block of code is run based on that result.
 
 This particular example code is intended as a poor man's 1-of-2 multisignature. The owner of `<privKeyA>` would put `<signatureA> <pubKeyA> True` in his unlocking script, while the owner of `<privKeyB>` would put `<signatureB> <pubKeyB> False` in her unlocking script. That trailing `True` or `False` is what's checked by the `IF`/`ELSE` statement.  It tells the script which public-key hash to check against, then the `OP_EQUALVERIFY` and the `OP_CHECKSIG` at the end do the real work. 
 
@@ -202,14 +202,14 @@ There are a few other conditionals of note. The big one is `OP_NOTIF` (0x64), wh
 
 There's also an `OP_IFDUP` (0x73), which duplicates the top stack item only if it's not 0.
 
-These options are used much less than the main `IF`/`ELSE`/`ENDIF` construction.
+These options are used much less often than the main `IF`/`ELSE`/`ENDIF` construction.
 
 ## Summary: Using Script Conditionals
 
 Conditionals in Bitcoin Script allow you to halt the script (using `OP_VERIFY`) or to choose different branches of execution (using `OP_IF`). However, reading `OP_IF` can be a bit tricky. Remember that it's the item pushed onto the stack _before_ the `OP_IF` is run that controls its execution; that item will typically be part of the unlocking script (or else a direct result of items in the unlocking script).
 
-_What is the power of conditionals?_ Script Conditionals are the final major building block in Bitcoin Script. They're what are required to turn simple, static Bitcoin Scripts into complex, dynamic Bitcoin Scripts that can evaluate differently based on different times, different circumstances, or different user inputs. In other words, they're the final basis of smart contracts.
+> :fire: ***What is the power of conditionals?*** Script Conditionals are the final major building block in Bitcoin Script. They're what are required to turn simple, static Bitcoin Scripts into complex, dynamic Bitcoin Scripts that can evaluate differently based on different times, different circumstances, or different user inputs. In other words, they're the final basis of smart contracts.
 
 ## What's Next?
 
-Continue "Expanding Bitcoin Scripts" with [§10.2: Using Other Script Commands](10_2_Using_Other_Script_Commands.md).
+Continue "Expanding Bitcoin Scripts" with [§12.2: Using Other Script Commands](12_2_Using_Other_Script_Commands.md).
