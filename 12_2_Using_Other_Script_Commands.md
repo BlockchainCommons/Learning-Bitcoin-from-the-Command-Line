@@ -1,4 +1,4 @@
-# 10.2: Using Other Script Commands
+# 12.2: Using Other Script Commands
 
 > :information_source: **NOTE:** This is a draft in progress, so that I can get some feedback from early reviewers. It is not yet ready for learning.
 
@@ -84,4 +84,4 @@ Bitcoin Script includes a wide array of arithemetic, stack, and cryptographic op
 
 ## What's Next?
 
-Advance through "Bitcoin Scripting" with [Chapter Eleven: Designing Real Bitcoin Scripts](11_0_Designing_Real_Bitcoin_Scripts.md).
+Advance through "Bitcoin Scripting" with [Chapter Thirteen: Designing Real Bitcoin Scripts](13_0_Designing_Real_Bitcoin_Scripts.md).
