@@ -35,7 +35,7 @@ To unlock this transaction requires that the recipient produce a `scriptSig` tha
 
 ### Run the First Round of Validation
 
-The process of unlocking the P2SH transaction then begins with a first round of validation. 
+The process of unlocking the P2SH transaction then begins with a first round of validation, which checks that the redeem script matches the hashed value in the locking script. 
 
 Concatenate `scriptSig` and `scriptPubKey` and execute them, as normal:
 ```
@@ -68,7 +68,7 @@ However, because this was a P2SH script, the execution isn't done.
 
 ### Run the Second Round of Validation
 
-For the second round of validation, deserialize the `redeemScript` ("93016387" = "OP_ADD 99 OP_EQUAL"), then execute it using the items in the `scriptSig` prior to the serialized script:
+For the second round of validation, verify that the values in the unlocking script satisfy the `redeemScript`: deserialize the `redeemScript` ("93016387" = "OP_ADD 99 OP_EQUAL"), then execute it using the items in the `scriptSig` prior to the serialized script:
 
 ```
 Script: 1 98 OP_ADD 99 OP_EQUAL
