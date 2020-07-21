@@ -99,4 +99,4 @@ Once you know the technique of building P2SHes, any Script can be embedded in a 
 
 ## What's Next?
 
-Continue "Embedding Bitcoin Scripts" with [§8.4: Scripting a Multisig](08_4_Scripting_a_Multisig.md).
+Continue "Embedding Bitcoin Scripts" with [§10.4: Scripting a Multisig](10_4_Scripting_a_Multisig.md).
