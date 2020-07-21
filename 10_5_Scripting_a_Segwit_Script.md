@@ -34,9 +34,9 @@ $ bitcoin-cli listunspent
     "safe": true
   }
 ```
-The `redeemScript` here is particularly interesting, because it's just `OP_0 OP_PUSH20 3ab2a09a1a5f2feb6c799b5ab345069a96e1a0a`.
+More importantly, there's a `redeemScript`, which decodes to `OP_0 OP_PUSH20 3ab2a09a1a5f2feb6c799b5ab345069a96e1a0a`. The should look familiar, because it's an `OP_0` followed by 20-byte hexcode of a public key hash. In other words, a P2SH-SegWit is precisely a SegWit `scriptPubKey` jammed into script. That's all there is to it. It precisely matches how modern multisigs are a multsig jammed into a P2SH, as discussed in [§10.4: Scripting a Multisig](10_4_Scripting_a_Multisig.md).
 
-You can then look at the raw transaction:
+The raw transaction reveals a bit more when you look at the `vout` `1`:
 ```
 $ hex=$(bitcoin-cli gettransaction "bb4362dec15e67d366088f5493c789f22fb4a604e767dae1f6a631687e2784aa" | jq -r '.hex')
 $ bitcoin-cli decoderawtransaction $hex
@@ -93,68 +93,30 @@ $ bitcoin-cli decoderawtransaction $hex
   ]
 }
 ```
-The script pubKey is then `"OP_DUP OP_HASH160 41d83eaffbf80f82dee4c152de59a38ffd0b6021 OP_EQUALVERIFY OP_CHECKSIG"`. In other words, this is just a standard P2SH address! Which is important, because an old exchange or wallet might not know how to send to a Bech32 address, but it can send to a P2SH address.
-
-The node where you try to spend that UTXO, however, must be up-to-date. Here's what the signed transaction that spends the UTXO looks like:
-```
-$ bitcoin-cli decoderawtransaction $signtx
-{
-  "txid": "2d8c306071c1801b97541b654f2f2af9d3941fc1aab95626fb3cf2a12d7563ba",
-  "hash": "acac8706b69bd6099f4748d6b2545a0d2d0487e2cfaef58eb67e08ffa97bed07",
-  "version": 2,
-  "size": 214,
-  "vsize": 133,
-  "weight": 529,
-  "locktime": 0,
-  "vin": [
-    {
-      "txid": "ed752673bfd4338ccf0995983086da846ad652ae0f28280baf87f9fd44b3c45f",
-      "vout": 1,
-      "scriptSig": {
-        "asm": "001443ab2a09a1a5f2feb6c799b5ab345069a96e1a0a",
-        "hex": "16001443ab2a09a1a5f2feb6c799b5ab345069a96e1a0a"
-      },
-      "txinwitness": [
-        "3044022067210ddd31c35312ed6c1fb073978df8e0fc5121e75fc2df46dbc2e8bc6c1c8b02204d5da4da46257ffe5857e3e57813dd25ed6e423ceef263eade6f0a8b72117c2001",
-        "03bb469e961e9a9cd4c23db8442d640d9b0b11702dc0126462ac9eb88b64a4dd48"
-      ],
-      "sequence": 4294967295
-    }
-  ],
-  "vout": [
-    {
-      "value": 0.00090000,
-      "n": 0,
-      "scriptPubKey": {
-        "asm": "0 f54449dc190e1824086af17560f7d7528e189823",
-        "hex": "0014f54449dc190e1824086af17560f7d7528e189823",
-        "reqSigs": 1,
-        "type": "witness_v0_keyhash",
-        "addresses": [
-          "tb1q74zynhqepcvzgzr2796kpa7h228p3xprxxrdlr"
-        ]
-      }
-    }
-  ]
-}
-```
-It's got a simple `asm` of 
-
-[example]
-[how to spend]
+This confirms that this is just a normal P2SH, locked by `"OP_DUP OP_HASH160 41d83eaffbf80f82dee4c152de59a38ffd0b6021 OP_EQUALVERIFY OP_CHECKSIG"`. It's when the redeem script is run that the magic occurs, just like in a P2WPKH: an old node wil see `OP_0 OP_PUSH20 3ab2a09a1a5f2feb6c799b5ab345069a96e1a0a` and verify that while a new node will read that, know it's a P2WPKH, and so go out to the `witnesses`. See [§9.5: Scripting a P2WPKH](09_5_Scripting_a_P2WPKH.md).
 
 ## Understand a P2WSH Script
 
 Contrariwise, the P2WSH transactions should be ever-increasing in usage, since they're the native Segwit replacement for P2SH, offering all the same advantages of blocksize that were created with native Segwit P2WPKH transactions.
 
+This is example of P2WSH address:
+[https://blockstream.info/testnet/address/tb1qrp33g0q5c5txsp9arysrx4k6zdkfs4nce4xj0gdcccefvpysxf3q0sl5k7](https://blockstream.info/testnet/address/tb1qrp33g0q5c5txsp9arysrx4k6zdkfs4nce4xj0gdcccefvpysxf3q0sl5k7)
+
+The details show that a UTXO sent to this address is locked with a `scriptPubKey` like this:
+```
+OP_0 OP_PUSH_32 1863143c14c5166804bd19203356da136c985678cd4d27a1b8c6329604903262
+```
+This works _exactly_ like a P2WPKH address, the only difference being that instead of a 20-byte public-key-hash, the UTXO includes a 32-byte script-hash. Just as with a P2WPKH, old nodes just verify this, while new nodes recognize this is a P2WSH and so internally verify the script as described in previous sections, but using the `witness` data, which now includes the redeem script.
+
+There is also one more variant, a P2WSH script embedded in a P2SH script. (Whew!)
 
 ## Summary: Scripting a Pay to Witness Public Key Hash
 
-To a large extent you _don't_ script a P2WPKH. Instead, Bitcoin Core creates the transaction in a different way, placing the witness information in a different place rather than a traditional `scriptSig`. That means that P2WPKHs are a digression from the Bitcoin Scripts of this part of the book, because they're an expansion of Bitcoin that steps away from traditional Scripting.
+There are two sorts of P2SH scripts that relate to Segwit. 
 
-However, SegWit was also a clever usage of Bitcoin Scripts. Knowing that there would be nodes that didn't upgrade and needing to stay backward compatible, the developers created the P2WPKH format so that it generated a script that always validated on old nodes (while still having that script provide information to new nodes in the form of a version number and a hashed public key).
+The P2SH-Segwit address is a nested Segwit address that embed the simple Segwit `scriptPubkey` inside a Script, just like multisigs are embedded in scripts nowadays: the Segwit-style key is unwound, and then parsed like normal on a machine that understands Segwit.
 
-When you're programming from the command line, you fundamentally don't have to worry about this, other than knowing that you won't find traditional scripts in raw SegWit transactions (which, again, was the point).
+The P2WSH address is a Segwit variant of P2SH, just as P2WPKH is a Segwit variant of P2WSH. It works with the same logic, and is identified by having a 32-byte hash instead of a 20-byte hash.
 
 ## What's Next?
 
