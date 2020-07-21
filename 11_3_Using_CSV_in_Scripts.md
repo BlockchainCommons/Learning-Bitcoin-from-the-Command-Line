@@ -8,7 +8,7 @@
 
 ## Understand nSequence
 
-Every input into in a transaction has an `nSequence` (or if you prefer `sequence`) value. It's been a prime tool for Bitcoin expansions as discussed previously in [§5.2: Resending a Transaction with RBF](05_2_Resending_a_Transaction_with_RBF.md) and [§6.4 Sending a Transaction with a Locktime.md](06_4_Sending_a_Transaction_with_a_Locktime.md), where it was used to signal RBF and `nLockTime`, respectively. However, there's one more use for `nSequence`, described by [BIP 68](https://github.com/bitcoin/bips/blob/master/bip-0068.mediawiki): you can use it to create a relative timelock on a transaction.
+Every input into in a transaction has an `nSequence` (or if you prefer `sequence`) value. It's been a prime tool for Bitcoin expansions as discussed previously in [§5.2: Resending a Transaction with RBF](05_2_Resending_a_Transaction_with_RBF.md) and [§8.1 Sending a Transaction with a Locktime.md](08_1_Sending_a_Transaction_with_a_Locktime.md), where it was used to signal RBF and `nLockTime`, respectively. However, there's one more use for `nSequence`, described by [BIP 68](https://github.com/bitcoin/bips/blob/master/bip-0068.mediawiki): you can use it to create a relative timelock on a transaction.
 
 A relative timelock is a lock that's placed on a specific input of a transaction and that's calculated in relation to the mining date of the UTXO being used in the input. For example, if a UTXO was mined at block #468260 and a transaction was created where the input for that UTXO was given an `nSequence` of 100, then the new transaction could not be mined until at least block #468360.
 
@@ -26,7 +26,7 @@ The format for using `nSequence` to represent relative time locks is defined in 
 * The 23rd bit is used to positively signal if the lock refers to a time rather than a blockheight.
 * The 32nd bit is used to positively signal if relative timelocks are deactivated.
 
-If you want to create a block-based relative timelock, the construction is still quite easy: you set `nSequence` to a value between 1 and 0xffff (65535). The new transaction can be mined that number of blocks after the associated UTXO was mined.
+With that said, the construction of a block-based relative timelock is still quite easy, because the two flagged bits are set to `0`, so you just set `nSequence` to a value between 1 and 0xffff (65535). The new transaction can be mined that number of blocks after the associated UTXO was mined.
 
 ### Create a CSV Relative Time
 
@@ -82,7 +82,7 @@ Or your might make a more complex calculation to require that a UTXO be held for
 ```
 4224679 OP_CHECKSEQUENCEVERIFY
 ```
-In this case we'll probably use a shorthand:
+In this case we'll use a shorthand:
 ```
 <+6Months> OP_CHECKSEQUENCEVERIFY
 ```
@@ -143,7 +143,7 @@ To spend a UTXO locked with a CSV script, you must set the `nSequence` of that i
 
 `nSequence` and CSV offer an alternative to `nLockTime` and CLTV where you lock a transaction based on a relative time since the input was mined, rather than basing the lock on a set time in the future. They work almost identically, other than the fact that the `nSequence` value is encoded slightly differently than the `nLockTime` value, with specific bits meaning specific things.
 
-_What is the power of CSV?_ CSV isn't just a lazy way to lock, when you don't want to calculate a time in the future. Instead, it's a totally different paradigm, a lock that you would use if it was important to create a specific minimum duration between when a transaction is mined and when its funds can be respent. The most obvious usage is (once more) for an escrow, when you want a precise time between the input of funds and their output. However, it has much more powerful possibilities in off-chain transactions, including payment channels. These applications are by definition built on transactions that are not actually put onto the blockchain, which means that if they are later put on the blockchain an enforced time-lapse can be very helpful. [Hashed Timelock Contracts](https://en.bitcoin.it/wiki/Hashed_Timelock_Contracts) have been one such implementation, empowering the Lightning payment network. They're discussed in [§13.3: Empowering Bitcoin with Scripts](13_3_Empowering_Bitcoin_with_Scripts.md).
+> :fire: ***What is the power of CSV?*** CSV isn't just a lazy way to lock, when you don't want to calculate a time in the future. Instead, it's a totally different paradigm, a lock that you would use if it was important to create a specific minimum duration between when a transaction is mined and when its funds can be respent. The most obvious usage is (once more) for an escrow, when you want a precise time between the input of funds and their output. However, it has much more powerful possibilities in off-chain transactions, including payment channels. These applications are by definition built on transactions that are not actually put onto the blockchain, which means that if they are later put on the blockchain an enforced time-lapse can be very helpful. [Hashed Timelock Contracts](https://en.bitcoin.it/wiki/Hashed_Timelock_Contracts) have been one such implementation, empowering the Lightning payment network. They're discussed in [§13.3: Empowering Bitcoin with Scripts](13_3_Empowering_Bitcoin_with_Scripts.md).
 
 ## What's Next?
 
