@@ -1,4 +1,4 @@
-# 9.3: Using CSV in Scripts
+# 11.3: Using CSV in Scripts
 
 > :information_source: **NOTE:** This is a draft in progress, so that I can get some feedback from early reviewers. It is not yet ready for learning.
 
@@ -143,8 +143,8 @@ To spend a UTXO locked with a CSV script, you must set the `nSequence` of that i
 
 `nSequence` and CSV offer an alternative to `nLockTime` and CLTV where you lock a transaction based on a relative time since the input was mined, rather than basing the lock on a set time in the future. They work almost identically, other than the fact that the `nSequence` value is encoded slightly differently than the `nLockTime` value, with specific bits meaning specific things.
 
-_What is the power of CSV?_ CSV isn't just a lazy way to lock, when you don't want to calculate a time in the future. Instead, it's a totally different paradigm, a lock that you would use if it was important to create a specific minimum duration between when a transaction is mined and when its funds can be respent. The most obvious usage is (once more) for an escrow, when you want a precise time between the input of funds and their output. However, it has much more powerful possibilities in off-chain transactions, including payment channels. These applications are by definition built on transactions that are not actually put onto the blockchain, which means that if they are later put on the blockchain an enforced time-lapse can be very helpful. [Hashed Timelock Contracts](https://en.bitcoin.it/wiki/Hashed_Timelock_Contracts) have been one such implementation, empowering the Lightning payment network. They're discussed in [§11.3: Empowering Bitcoin with Scripts](11_3_Empowering_Bitcoin_with_Scripts.md).
+_What is the power of CSV?_ CSV isn't just a lazy way to lock, when you don't want to calculate a time in the future. Instead, it's a totally different paradigm, a lock that you would use if it was important to create a specific minimum duration between when a transaction is mined and when its funds can be respent. The most obvious usage is (once more) for an escrow, when you want a precise time between the input of funds and their output. However, it has much more powerful possibilities in off-chain transactions, including payment channels. These applications are by definition built on transactions that are not actually put onto the blockchain, which means that if they are later put on the blockchain an enforced time-lapse can be very helpful. [Hashed Timelock Contracts](https://en.bitcoin.it/wiki/Hashed_Timelock_Contracts) have been one such implementation, empowering the Lightning payment network. They're discussed in [§13.3: Empowering Bitcoin with Scripts](13_3_Empowering_Bitcoin_with_Scripts.md).
 
 ## What's Next?
 
-Advance through "Bitcoin Scripting" with [Chapter Ten: Expanding Bitcoin Scripts](10_0_Expanding_Bitcoin_Scripts.md).
+Advance through "Bitcoin Scripting" with [Chapter Twelve: Expanding Bitcoin Scripts](12_0_Expanding_Bitcoin_Scripts.md).
