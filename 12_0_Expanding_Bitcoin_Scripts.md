@@ -1,4 +1,4 @@
-# Chapter 10: Expanding Bitcoin Scripts
+# Chapter 12: Expanding Bitcoin Scripts
 
 There's still a little more to Bitcoin Scripts. Conditionals give you full access to flow control, while a variety of other opcodes can expand your possibilities.
 
@@ -16,5 +16,5 @@ Supporting objectives include the ability to:
 
 ## Table of Contents
 
-* [Section One: Using Script Conditionals](10_1_Using_Script_Conditionals.md)
-* [Section Two: Using Other Script Commands](10_2_Using_Other_Script_Commands.md)
+* [Section One: Using Script Conditionals](12_1_Using_Script_Conditionals.md)
+* [Section Two: Using Other Script Commands](12_2_Using_Other_Script_Commands.md)
