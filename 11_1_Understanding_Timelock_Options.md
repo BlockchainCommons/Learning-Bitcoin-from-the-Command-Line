@@ -48,4 +48,4 @@ You now have four options for Timelock:
 
 ## What's Next?
 
-Continue "Empowering Timelock" with [§9.2: Using CLTV in Scripts](09_2_Using_CLTV_in_Scripts.md). 
+Continue "Empowering Timelock" with [§11.2: Using CLTV in Scripts](11_2_Using_CLTV_in_Scripts.md). 
