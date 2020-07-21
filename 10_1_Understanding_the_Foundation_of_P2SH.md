@@ -6,7 +6,7 @@ You know that Bitcoin Scripts can be used to control the redemption of UTXOs. Th
 
 ## Know the Bitcoin Standards
 
-Here's the gotcha for using Bitcoin Scripts: for security reasons, most Bitcoin nodes will only accept five types of "standard" Bitcoin transactions.
+Here's the gotcha for using Bitcoin Scripts: for security reasons, most Bitcoin nodes will only accept six types of "standard" Bitcoin transactions.
 
 * __Pay to Public Key (P2PK)__ — An older, deprecated transaction (`<pubKey> OP_CHECKSIG`) that has been replaced by the better security of P2PKH.
 * __Pay to Public Key Hash (P2PKH)__ — A standard transaction (`OP_DUP OP_HASH160 <pubKeyHash> OP_EQUALVERIFY OP_CHECKSIG`) that pays to the hash of a public key.
