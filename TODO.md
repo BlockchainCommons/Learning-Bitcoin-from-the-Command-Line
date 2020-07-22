@@ -83,7 +83,7 @@ Add and document the following new concepts:
 ## 5. Finish Later Chapters
 
 16. Edit & Integrate Tor Chapter. 
-17. Write Lightning Chapters. We'd like to parallel the CLI introduction to Bitcoin with a similar CLI introduction to Lightning.
+17. Edit & Integrate Lightning Chapters.
 18. Edit & Integrate all "C" work
    * Write the Libwally section
    * Like the seedtool and keytool, but simpler
