@@ -62,8 +62,15 @@ Configuration was valid
 ```
 > :warning: **WARNING:** This just means that Tor is running, not that its being used for all connections.
 
-### Verify Your Tor Setup for Bitcoin
+### Verify Your Tor Setup for Bitcoind
 
+You can verify the initial setup of Tor for `bitcoind` by grepping for 'tor' in the `debug.log` in your data directory:
+```
+$ grep "tor:" ~/.bitcoin/testnet3/debug.log 
+2020-07-15T17:56:34Z tor: ADD_ONION successful
+2020-07-15T17:56:34Z tor: Got service ID zbyqk2tmq4c4vzeo, advertising service zbyqk2tmq4c4vzeo.onion:18333
+2020-07-15T17:56:34Z tor: Cached service private key to /home/standup/.bitcoin/testnet3/onion_private_key
+```
 You can verify that a Tor hidden service has been created for Bitcoin with the `getnetworkinfo` RPC call:
 
 ```
@@ -155,6 +162,7 @@ You can see similar information with `getnetworkinfo`.
   "warnings": "Warning: unknown new rules activated (versionbit 28)"
 }
 ```
+This hidden service will allow connections to your `bitcoind` over the Bitcoin Network.
 
 > :book: *What is a Tor Hidden Service?* A hidden service (aka "an onion service") is a service that is accessible via Tor. Connection made to that service _using the Onion Network_ will be protected. In this case, there is a hidden service for `bitcoind` on Testnet, but there are also visible services using IPv4 and IPv6.
 
