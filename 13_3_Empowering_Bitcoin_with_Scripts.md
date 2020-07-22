@@ -1,22 +1,22 @@
- # 11.3: Empowering Bitcoin with Scripts
+ # 13.3: Empowering Bitcoin with Scripts
 
 > :information_source: **NOTE:** This is a draft in progress, so that I can get some feedback from early reviewers. It is not yet ready for learning.
 
-Bitcoin Scripts can go far beyond the relatively simple financial instruments detailed to date. They're also the foundation of most  complex usages of the Bitcoin network, as demonstrated by these real-world examples of off-chain functionality, drawn from the Lightning Network examples in BIP 112.
+Bitcoin Scripts can go far beyond the relatively simple financial instruments detailed to date. They're also the foundation of most  complex usages of the Bitcoin network, as demonstrated by these real-world examples of off-chain functionality, drawn from the Lightning Network examples in [BIP 112](https://github.com/bitcoin/bips/blob/master/bip-0112.mediawiki).
 
 ## Lock for the Lightning Network
 
-The [Lightning Network](https://rusty.ozlabs.org/?p=450) is a payment channel that allows users to take funds off-chain and engage in numerous microtransactions before finalizing the payment channel and bringing the funds back into Bitcoin. Benefits include lower fees and faster transaction speeds.
+The [Lightning Network](https://rusty.ozlabs.org/?p=450) is a payment channel that allows users to take funds off-chain and engage in numerous microtransactions before finalizing the payment channel and bringing the funds back into Bitcoin. Benefits include lower fees and faster transaction speeds. It's discussed in more detail, with examples of how to use it from the command line, starting [Chapter 18](18_0_Understanding_Lightning.md).
 
 [BIP 112](https://github.com/bitcoin/bips/blob/master/bip-0112.mediawiki) contains a few examples of how these off-chain transactions could be generated, using Bitcoin locking scripts.
 
 ### Lock with Revocable Commitment Transactions
 
-The trick with Lightning is the fact that it's off-chain. Too use Lightning, participants jointly lock funds on Bitcoin with an n-of-n multisignature. Then, they engage in a number of transactions between themselves. Each new "commitment transaction" splits those joint funds in a different way; these transactions are partially signed but _they aren't put on the blockchain_. 
+The trick with Lightning is the fact that it's off-chain. To use Lightning, participants jointly lock funds on the Bitcoin blockchain with an n-of-n multisignature. Then, they engage in a number of transactions between themselves. Each new "commitment transaction" splits those joint funds in a different way; these transactions are partially signed but _they aren't put on the blockchain_. 
 
-If you have a mass of unpublished transactions, any of which _could_ be placed on the Blockchain, how do you keep one of the participants from reverting back to an old transaction that's more beneficial to them? The answer is _revocation_. A simplified example in BIP 112, which offers one of the stepping stones to Lightning, shows how. You give the participant who would be harmed by reversion to a revoked transaction the ability to reclaim the funds himself if the the other participant illegitimately tries to use the revoked transaction.
+If you have a mass of unpublished transactions, any of which _could_ be placed on the Blockchain, how do you keep one of the participants from reverting back to an old transaction that's more beneficial to them? The answer is _revocation_. A simplified example in BIP 112, which offers one of the stepping stones to Lightning, shows how: you give the participant who would be harmed by reversion to a revoked transaction the ability to reclaim the funds himself if the the other participant illegitimately tries to use the revoked transaction.
 
-For example, presume that Alice and Bob update the commitment transaction to give more of the funds to Bob (effectively: Alice sent funds to Bob via this proto-Lightning network). They partially sign new transactions, but they also each offer up their own `revokeCode` for previous transactions. This effectively guarantees that they won't publish previous transactions, because doing so would allow their counterparty to claim those previous funds.
+For example, presume that Alice and Bob update the commitment transaction to give more of the funds to Bob (effectively: Alice sent funds to Bob via the Lightning network). They partially sign new transactions, but they also each offer up their own `revokeCode` for previous transactions. This effectively guarantees that they won't publish previous transactions, because doing so would allow their counterparty to claim those previous funds.
 
 So what does the old transaction look like? It was a commitment transaction showing funds intended for Alice, before she gave them to Bob. It had a locking script as follows:
 ```
@@ -40,7 +40,7 @@ OP_CHECKSIG
 ```
 The `ELSE` block is where Alice got her funds, after a 24-hour delay. However now it's been superceded; that's the whole point of a Lightning-style payment channel, after all. In this situation, this transaction should never be published. Bob has no incentive to because he has a newer transaction, which benefits him more because he's been sent some of Alice's funds. Alice has no incentive either, because she loses the funds if she tries because of that `revokeCode`. So no one puts the transaction onto the blockchain, and the off-chain transactions continue.
 
-It's worth exploring how this script would work in a variety of situations, most of which involve Alice trying to cheat by reverting to this older transaction, which depicts the funds _before_ Alice sent some of them to Bob.
+It's worth exploring how this script would work in a variety of situations, most of which involve Alice trying to cheat by reverting to this older transaction, which describes the funds _before_ Alice sent some of them to Bob.
 
 #### Run the Lock Script for Cheating Alice, with Revocation Code
 
@@ -195,7 +195,7 @@ ENDIF
     
 OP_CHECKSIG
 ```
-The key to these new HTLCs is the `secretHash`, which we've seen is what allows a transaction to span the network. When the transaction has spanned from its originator to its intended recipient, the `secretCode` is revealed, which allows all the participants to create a `secretHash` and unlock the whole network of payments.
+The key to these new HTLCs is the `secretHash`, which we said is what allows a transaction to span the network. When the transaction has spanned from its originator to its intended recipient, the `secretCode` is revealed, which allows all the participants to create a `secretHash` and unlock the whole network of payments.
 
 After the `secretCode` has been revealed, the `IF` branch opens up: Alice can claim the funds 24 hours after the transaction is put on the Bitcoin network.
 
@@ -268,7 +268,7 @@ Initial Script:
 Running: <wasItSecretHash?> <wasItRevokeHash?> OP_ADD
 Stack: [ <wasItSecretOrRevokeHash?> ]
 ```
-Running through the script reveals that the initial checks, above the `IF`/`ELSE`/`ENDIF` determine if the hash was either the `secretCode` _or_ the `revokeCode`. If so, Alice can take the funds in the first block. If not, Bob can take the funds, but only after Alice has had her chance, and both the 24 hour timeout and the absolute timeout have passed.
+Running through the script reveals that the initial checks, above the `IF`/`ELSE`/`ENDIF`, determine if the hash was _either_ the `secretCode` _or_ the `revokeCode`. If so, Alice can take the funds in the first block. If not, Bob can take the funds, but only after Alice has had her chance and after both the 24 hour timeout and the absolute timeout have passed.
 
 #### Understand HTLCs
 
@@ -289,4 +289,4 @@ If you've ever seen complex Bitcoin functionality or Bitcoin-adjacent systems, t
 
 ## What's Next?
 
-Move on to "Bitcoin APIs" with [Chapter Twelve: Talking to Bitcoind](12_0_Talking_to_Bitcoind.md).
+Move on to "Bitcoin APIs" with [Chapter Fourteen: Using Tor](14_0_Using_Tor.md).
