@@ -42,6 +42,8 @@ There are also studies that suggest that possible exploits of Bitcoin's anti-DoS
 
 Similarly, Bitcoin Tor users could be fingerprint-attacked by setting an address cookie on their nodes. This would also allow correlation and thus deanonymization.
 
+Meanwhile, even over Tor, Bitcoin is only a pseudoanonymous service due to the many dangers of correlation that stem from the permanent ledger itself. This means that Bitcoin usage over Tor is actually more likely to be _deanonymized_ than other services (and could lead to the deanonymization of other activities).
+
 With that said, Tor is generally considered far safer than the alternative, which is non-anonymous browsing.
 
 ## Verify Your Tor Setup
