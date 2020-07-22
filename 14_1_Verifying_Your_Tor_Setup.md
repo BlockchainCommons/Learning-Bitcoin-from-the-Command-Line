@@ -1,65 +1,166 @@
-# Chapter 12: Verifying Your Tor Setup
+# 12.1: Verifying Your Tor Setup
 
-In this section will talk about Tor network and how to use its services that are now available courtesy of [Bitcoin Standup](https://github.com/BlockchainCommons/Bitcoin-Standup-Scripts)
+> :information_source:  **NOTE:** This is a draft in progress, so that I can get some feedback from early reviewers. It is not yet ready for learning.
 
-## 1. Tor network
+If you did a standard installation with [Bitcoin Standup](https://github.com/BlockchainCommons/Bitcoin-Standup) then you should have Tor setup as part of your Bitcoin node. This section talks about what it is and what to do with it.
 
-Tor is a low-latency anonymity and overlay network based on onion routing and path-building design for enabling anonymous communication.  Tor is free and open-source software and the name derived from the acronym for the original software project name "The Onion Router".  The Tor Project, Inc. is a Massachusetts-based  research-education nonprofit organization founded by computer scientists Roger Dingledine, Nick Mathewson and others. The Tor Project is primarily responsible for maintaining software for the [Tor anonymity network](https://www.torproject.org/)
+> :book: ***What is Tor?*** Tor is a low-latency anonymity and overlay network based on onion routing and path-building design for enabling anonymous communication. It's free and open-source software with the name derived from the acronym for the original software project name: "The Onion Router". 
 
-## 2. ¿Why use Bitcoin over Tor? 
+> :book: ***Why Use Tor for Bitcoin?*** The Bitcoin network is a peer-to-peer network that listen for transactions and propagates them using an IP public address.  With the default (non-Tor) configuration you would share your IP address, which could expose your location, your uptime, and others details to third parties, which is an undesirable privacy practice. To protect yourself online online you should use tools like Tor to hide your connection details. Tor allows improve your privacy online as your data is cryptographically encoded and goes through different nodes, each one decoding a single layer (hence the onion metaphor).
 
-The Bitcoin network is a peer-to-peer network that listen for transactions and propagates them using an IP public address.  When you use default configuration you share your ip address that could expose to a third party your location, your uptime and others details that becomes a undesirable privacy practice.   To protect you online you should use tools like Tor to hide your connection details.   Tor allows improve your privacy online as your data goes through different nodes using cryptography and decoding one layer at a time at the different nodes.
+## Understand Tor
 
-### Weaknesses
+So how does Tor work?
 
-Tor isn't a perfect tool and given that at the exit nodes the information of the Tor network is decrypted and sent to its final destinations, theoretically if someone is monitoring this traffic, and the data is no longer encrypted an observer can collect sufficiently metadata compromising the anonymity and could potentially identify users.
+When a user wants to connect to an Internet server, Tor tries to build a path formed by at least three Tor nodes relays, called Guard, Middle, and Exit. While building this path, symmetric encryption keys are negotiated; when a message moves along the path, each relay then strips of its layer of encryption. In this way, the message arrives at the final destination in its original form, and each party only knows the previous and the next hop and cannot determinate origin or destination.
 
-There are some studies about possible exploits on Bitcoin's anti-DoS protection that could allow an attacker to force other users which uses Tor to connect exclusively through his Tor Exit nodes or to his Bitcoin peers,  isolating the client from the rest of the Bitcoin network. 
-This could expose users to attacks in which the attacker controls which Bitcoin blocks and transactions receives and lost some level of anonymity.
-
-Fingerprint attack Bitcoin Tor users by setting an address cookie on their nodes. This cookie  allows correlate different transactions of the user exposing transactions propagated without Tor and correlating to his IP address, and later deanonymizing all his transactions sent previously through Tor. 
-
-## 3. How it works
-
-When a user wants to connect to an Internet server Tor tries to build a path formed by at least three Tor nodes relays called Guard, Middle and Exit.  In this building path creates a circuit that negotiates encrypted symmetric keys,that while the message goes along the circuit, each relay strips off its layer of encryption. In this way the message arrives at the final destination in its original form and each party only knows the previous and the next hop and cannot determinate origin or destination.
-
-The basic architecture of the Tor network is made up of the following components:
-* Tor Clients (OP or Onion Proxy): A Tor client installs local software considered as an onion proxy, which packages the application data into cells the same size (512 bytes) that it sends to the Tor network. A cell is the basic unit of Tor transmission.
-* Onion node (OR or Onion Router): Onion nodes transmit cells coming from the Tor client and server. There are three types of onion nodes:
-input (Guard), intermediate nodes (Middle), and output nodes (Exit).
-*  Directory servers: Directory servers store the information of onion routers and onion servers (hidden services), such as their
-public keys.
-*  Onion servers (hidden servers): They support TCP applications as a service web or IRC service.
-
-### Clear internet connection
-
-When a user connects to an Internet Server it shares it's ip address, location, operating system and other details with the server.   Using a data-network packet analyzer like tcpdump we see how connection is established.
-
-```
-$ tcpdump
-```
-Output
-
+Here's what a connction looks like in the clear, without Tor:
 ```
 20:58:03.804787 IP bitcoin.36300 > lb-140-82-114-25-iad.github.com.443: Flags [P.], seq 1:30, ack 25, win 501, options [nop,nop,TS val 3087919981 ecr 802303366], length 29
 ```
-When a user connects to an Internet Server using tor it create a circuit using three relay nodes that only knows previous and the next hop.   This is the output first server or Guard node.
-
+Contrariwise, with Tor much less information is transmitted:
 ```
 21:06:52.744602 IP bitcoin.58776 > 195-xxx-xxx-x.rev.pxxxxxm.eu.9999: Flags [P.], seq 264139:265189, ack 3519373, win 3410, options [nop,nop,TS val 209009853 ecr 3018177498], length 1050
 21:06:52.776968 IP 195-xxx-xxx-x.rev.pxxxxxm.eu.9999 > bitcoin.58776: Flags [.], ack 265189, win 501, options [nop,nop,TS val 3018177533 ecr 209009853], length 0
 ```
-### Bitcoin tor connections
+Bottom line: Tor encrypts your data in such a way that it hides your origin, your destination, and what services you're using, whereas a standard encryption protocol like TLS *only* protects what your data contains.
 
-Using bitcoin-cli parameter getpeerinfo you can see what nodes are connected to your node and check that it swaps connections over tor.
+### Understand the Tor Network Architecture
+
+The basic architecture of the Tor network is made up of the following components:
+
+* **Tor Client (OP or Onion Proxy).** A Tor client installs local software that acts as an onion proxy. It packages application data into cells that are all the same size (512 bytes), which it then sends to the Tor network. A cell is the basic unit of Tor transmission.
+* **Onion Node (OR or Onion Router).** Onion nodes transmit cells coming from the Tor client and from online servers. There are three types of onion nodes: input (Guard), intermediate nodes (Middle), and output nodes (Exit).
+*  **Directory Server.** Directory servers store the information of onion routers and onion servers (hidden services), such as their public keys.
+*  **Onion Servers (hidden server).** Onion servers support TCP applications such as web or IRC as services.
+
+### Understand the Limitations of Tor
+
+Tor isn't a perfect tool. Because information from the Tor network is decrypted at the exit nodes before being sent to its final destinations, theoretically an observer could collect sufficient metadata to compromise anonymity and potentially identify users.
+
+There are also studies that suggest that possible exploits of Bitcoin's anti-DoS protection could allow an attacker to force other users who use Tor to connect exclusively through his Tor Exit nodes or to his Bitcoin peers,  isolating the client from the rest of the Bitcoin network and exposing them to censorship, correlation, and other attacks.
+
+Similarly, Bitcoin Tor users could be fingerprint-attacked by setting an address cookie on their nodes. This would also allow correlation and thus deanonymization.
+
+With that said, Tor is generally considered far safer than the alternative, which is clear-text browsing
+
+## Verify Your Tor Setup
+
+So how do you verify that you're using Tor? If you installed with Bitcoin standup, the following will verify your setup:
+```
+$ sudo -u debian-tor tor --verify-config
+```
+
+If Tor is installed correctly you should see an output like this:
+```
+Jun 26 21:52:09.230 [notice] Tor 0.4.3.5 running on Linux with Libevent 2.0.21-stable, OpenSSL 1.0.2n, Zlib 1.2.11, Liblzma 5.2.2, and Libzstd N/A.
+Jun 26 21:52:09.230 [notice] Tor can't help you if you use it wrong! Learn how to be safe at https://www.torproject.org/download/download#warning
+Jun 26 21:52:09.230 [notice] Read configuration file "/etc/tor/torrc".
+Configuration was valid
+```
+
+### Verify Your Tor Setup for Bitcoin
+
+You can verify that Bitcoin is linked to Tor by using the `getnetworkinfo` RPC call:
 
 ```
+$ bitcoin-cli getnetworkinfo
+...
+ "localaddresses": [
+    {
+      "address": "173.255.245.83",
+      "port": 18333,
+      "score": 1
+    },
+    {
+      "address": "2600:3c01::f03c:92ff:fe86:f26",
+      "port": 18333,
+      "score": 1
+    },
+    {
+      "address": "zbyqk2tmq4c4vzeo.onion",
+      "port": 18333,
+      "score": 4
+    }
+  ],
+...
+```
+This shows three addresses to access your Bitcoin server, an IPv4 address (`173.255.245.83`), an IPv6 address (`2600:3c01::f03c:92ff:fe86:f26`) and a Tor address (`zbyqk2tmq4c4vzeo.onion`).
+
+> **TESTNET vs MAINNET:** Mainnet is run on port 8333, testnet on port 18333.
+
+> :warning: **WARNING:** Obviously: never reveal your Tor address!
+
+You can see similar information with `getnetworkinfo`.
+```
+ bitcoin-cli getnetworkinfo
+{
+  "version": 200000,
+  "subversion": "/Satoshi:0.20.0/",
+  "protocolversion": 70015,
+  "localservices": "0000000000000408",
+  "localservicesnames": [
+    "WITNESS",
+    "NETWORK_LIMITED"
+  ],
+  "localrelay": true,
+  "timeoffset": 0,
+  "networkactive": true,
+  "connections": 10,
+  "networks": [
+    {
+      "name": "ipv4",
+      "limited": false,
+      "reachable": true,
+      "proxy": "",
+      "proxy_randomize_credentials": false
+    },
+    {
+      "name": "ipv6",
+      "limited": false,
+      "reachable": true,
+      "proxy": "",
+      "proxy_randomize_credentials": false
+    },
+    {
+      "name": "onion",
+      "limited": false,
+      "reachable": true,
+      "proxy": "127.0.0.1:9050",
+      "proxy_randomize_credentials": true
+    }
+  ],
+  "relayfee": 0.00001000,
+  "incrementalfee": 0.00001000,
+  "localaddresses": [
+    {
+      "address": "173.255.245.83",
+      "port": 18333,
+      "score": 1
+    },
+    {
+      "address": "2600:3c01::f03c:92ff:fe86:f26",
+      "port": 18333,
+      "score": 1
+    },
+    {
+      "address": "zbyqk2tmq4c4vzeo.onion",
+      "port": 18333,
+      "score": 4
+    }
+  ],
+  "warnings": "Warning: unknown new rules activated (versionbit 28)"
+}
+```
+
+### Verify Your Tor Setup for Peers
+
+Using the RPC command `getpeerinfo`, you can see what nodes are connected to your node and check whether they are connected with Tor.
+
 $ bitcoin-cli getpeerinfo
 ```
-Output
-
-```
- {
+...
+{
     "id": 9,
     "addr": "nkv.......xxx.onion:8333",
     "addrbind": "127.0.0.1:51716",
@@ -120,104 +221,16 @@ Output
       "version": 126
     }
   }
+  ...
 ```
+> :warning: **WARNING:** This basic setup does not force usage of Tor. You may well see all IPv4 peers. 
 
+## Summary: Verifying Your Tor Setup
 
+Tor is a software package installed at part of Bitcoin Standup that allows you to exchange communications anonymously. It's the foundation of privacy and security for your Bitcoin setup.
 
+> :fire ***What is the power of Tor?*** Many attacks on Bitcoin users depend on knowing who the victim is and that they're transacting in Bitcoins. Tor can protect you from that by hiding both where you are and what you're doing. The best use of the basic Tor setup is to allow a software wallet such as [Bitcoin Standup Remote](https://github.com/BlockchainCommons/Bitcoin-Standup-Remote) to connect to your node anonymously, allowing you to remotely transact without anyone knowing you're doing so. However, there are also fully anonymous setups that can be created for Bitcoin (though they are not recommended).
 
-In this chapter we will verify tor installation and setup.
+## What's Next?
 
-```
-~$ sudo -u debian-tor tor --verify-config
-```
-
-If tor is installed correctly you should see an output like this:
-
-```
-Jun 26 21:52:09.230 [notice] Tor 0.4.3.5 running on Linux with Libevent 2.0.21-stable, OpenSSL 1.0.2n, Zlib 1.2.11, Liblzma 5.2.2, and Libzstd N/A.
-Jun 26 21:52:09.230 [notice] Tor can't help you if you use it wrong! Learn how to be safe at https://www.torproject.org/download/download#warning
-Jun 26 21:52:09.230 [notice] Read configuration file "/etc/tor/torrc".
-Configuration was valid
-
-~$ 
-```
-## Verify bitcoind Tor setup
-
-You should see something like this in your debug log file to verify your ID onion address, which confirms you're using an onion hidden service that will bypass firewalls and NAT's and allows you connect to your node remotely using your ID and port.
-
-```
-$ grep -e "tor: " debug.log
-```
-Output
-
-```
-2020-06-25T18:16:44Z tor: Thread interrupt
-2020-06-25T19:11:12Z tor: Got service ID [YOUR_ONION_ID], advertising service your_onion_id.onion:8333
-```
-Using bitcoin-cli you should use getnetworkinfo to get your onion id like this:
-
-```
- "localaddresses": [
-    {
-      "address": "your_onion_id.onion",
-      "port": 8333,
-      "score": 4
-    }
-  ],
-```
-
-```
-$ bitcoin-cli getnetworkinfo
-```
-Output
-
-```
-{
-  "version": 200000,
-  "subversion": "/Satoshi:0.20.0/",
-  "protocolversion": 70015,
-  "localservices": "0000000000000409",
-  "localservicesnames": [
-    "NETWORK",
-    "WITNESS",
-    "NETWORK_LIMITED"
-  ],
-  "localrelay": true,
-  "timeoffset": 0,
-  "networkactive": true,
-  "connections": 5,
-  "networks": [
-    {
-      "name": "ipv4",
-      "limited": false,
-      "reachable": true,
-      "proxy": "",
-      "proxy_randomize_credentials": false
-    },
-    {
-      "name": "ipv6",
-      "limited": false,
-      "reachable": true,
-      "proxy": "",
-      "proxy_randomize_credentials": false
-    },
-    {
-      "name": "onion",
-      "limited": false,
-      "reachable": true,
-      "proxy": "127.0.0.1:9050",
-      "proxy_randomize_credentials": true
-    }
-  ],
-  "relayfee": 0.00001000,
-  "incrementalfee": 0.00001000,
-  "localaddresses": [
-    {
-      "address": "your_onion_id.onion",
-      "port": 8333,
-      "score": 4
-    }
-  ],
-  "warnings": ""
-}
-```
+Continue "Understanding Tor" with [§14.2: Changing Your Bitcoin Hidden Services](14_2_Changing_Your_Bitcoin_Hidden_Services.md).
