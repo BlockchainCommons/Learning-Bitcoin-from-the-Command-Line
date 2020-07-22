@@ -59,7 +59,7 @@ _This tutorial assumes that you have some minimal background of how to use the c
   
 ## PART THREE: BITCOIN SCRIPTING
 
-**Status:** Rrequires editing; requires check that it works in 0.20; requires concepts brought up to 0.20; requires integration with 
+**Status:** Updated for 0.20 and btcdeb.
 
 * [9.0: Introducing Bitcoin Scripts](09_0_Introducing_Bitcoin_Scripts.md)
   * [9.1: Understanding the Foundation of Transactions](09_1_Understanding_the_Foundation_of_Transactions.md)
