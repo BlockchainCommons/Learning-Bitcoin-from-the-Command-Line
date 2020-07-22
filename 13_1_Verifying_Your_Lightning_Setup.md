@@ -58,7 +58,7 @@ The following additional packages will be installed:
 
 ```
 c$ git clone https://github.com/ElementsProject/lightning.git
-cd lightning
+c$ cd lightning
 ```
 
 * Get additional dependencies for development or testing.
