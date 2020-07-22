@@ -62,7 +62,44 @@ Configuration was valid
 ```
 > :warning: **WARNING:** This just means that Tor is running, not that its being used for all connections.
 
+### Verify Your Tor Setup for RPC
+
+The most important purpose of Tor, as installed by Bitcoin Standup, is to offer hidden services for the RPC ports that are used to send command-line style commands to `bitcoind`.
+
+> :book: *What is a Tor Hidden Service?* A hidden service (aka "an onion service") is a service that is accessible via Tor. Connection made to that service _using the Onion Network_ will be protected. In this case, there is a hidden service for `bitcoind` on Testnet, but there are also visible services using IPv4 and IPv6.
+
+The Tor config file is found at `/etc/tor/torrc`. If you look at it, you should see the following services to protect your RPC ports:
+```
+HiddenServiceDir /var/lib/tor/standup/
+HiddenServiceVersion 3
+HiddenServicePort 1309 127.0.0.1:18332
+HiddenServicePort 1309 127.0.0.1:18443
+HiddenServicePort 1309 127.0.0.1:8332
+```
+> **TESTNET vs MAINNET:** Mainnet RPC is run on port 8332, testnet on port 18332.
+
+The easy way to test this is to use the [QuickConnect API](https://github.com/BlockchainCommons/Bitcoin-Standup/blob/master/Docs/Quick-Connect-API.md) built into Bitcoin Standup.
+
+Just download the QR code found at `/qrcode.png` and scan it using a wallet or node that support QuickConnect, such as [FullyNoded 2](https://github.com/BlockchainCommons/FullyNoded-2). When you scan the QR, you should see the wallet sync up with your node.
+
+The hard way is to send a `bitcoin-cli` command with `torify`, which allows you to translate a normal UNIX command to a Tor-protected command. It's difficult because you need to grab three pieces of information.
+
+1. **Your Hideen Service Port.** This comes from `/etc/tor/torrc/`. By default, it's 1309.
+2. **Your Tor Address.** This is in the `hostname` directory in the `HiddenServiceDir` defined in `/etc/tor/torrc`. By default the file is thus `/var/lib/tor/standup/hostname`. It's protected, so you'll need to `sudo` to access it:
+```
+$ sudo more /var/lib/tor/standup/hostname
+mgcym6je63k44b3i5uachhsndayzx7xi4ldmwrm7in7yvc766rykz6yd.onion
+```
+3. **Your RPC Password.** This is in `~/.bitcoin/bitcoin.conf`
+
+When you have all of that information you can issue a `bitcoin-cli` command using `torify` and specifying the `-rpcconnect` as your onion address, the `-rpcport` as your hidden service port, and the `-rpcpassword` as your password:
+```
+$ torify bitcoin-cli -rpcconnect=mgcym6je63k44b3i5uachhsndayzx7xi4ldmwrm7in7yvc766rykz6yd.onion -rpcport=1309 -rpcpassword=685316cc239c24ba71fd0969fa55634f getblockcount
+```
+
 ### Verify Your Tor Setup for Bitcoind
+
+Bitcoin Standup also ensures that your `bitcoind` is set up to optionally answer on an onion address.
 
 You can verify the initial setup of Tor for `bitcoind` by grepping for 'tor' in the `debug.log` in your data directory:
 ```
@@ -71,6 +108,8 @@ $ grep "tor:" ~/.bitcoin/testnet3/debug.log
 2020-07-15T17:56:34Z tor: Got service ID zbyqk2tmq4c4vzeo, advertising service zbyqk2tmq4c4vzeo.onion:18333
 2020-07-15T17:56:34Z tor: Cached service private key to /home/standup/.bitcoin/testnet3/onion_private_key
 ```
+> **TESTNET vs MAINNET:** Mainnet `bitcoind` responds on port 8333, testnet on port 18333.
+
 You can verify that a Tor hidden service has been created for Bitcoin with the `getnetworkinfo` RPC call:
 
 ```
@@ -97,9 +136,7 @@ $ bitcoin-cli getnetworkinfo
 ```
 This shows three addresses to access your Bitcoin server, an IPv4 address (`173.255.245.83`), an IPv6 address (`2600:3c01::f03c:92ff:fe86:f26`), and a Tor address (`zbyqk2tmq4c4vzeo.onion`).
 
-> **TESTNET vs MAINNET:** Mainnet is run on port 8333, testnet on port 18333.
-
-> :warning: **WARNING:** Obviously: never reveal your Tor address!
+> :warning: **WARNING:** Obviously: never reveal your Tor address in a way that's associated with your name or other PII!
 
 You can see similar information with `getnetworkinfo`.
 ```
@@ -163,8 +200,6 @@ You can see similar information with `getnetworkinfo`.
 }
 ```
 This hidden service will allow connections to your `bitcoind` over the Bitcoin Network.
-
-> :book: *What is a Tor Hidden Service?* A hidden service (aka "an onion service") is a service that is accessible via Tor. Connection made to that service _using the Onion Network_ will be protected. In this case, there is a hidden service for `bitcoind` on Testnet, but there are also visible services using IPv4 and IPv6.
 
 > :warning: **WARNING:** Running Tor and having a Tor hidden service doesn't force either you or your peers to use Tor.
 
@@ -313,17 +348,15 @@ Some might not, such as this IPv6 connection:
   }
 ...
 ```
-> :warning: **WARNING:** Remember that the basic setup does not force usage of Tor. You may well see all IPv4 and IPv6 peers. 
+Having Tor connections for your `bitcoind` is probably somewhat less useful than having Tor for your RPC connections. That's in part because it's not particularly recommended to try and send all your Bitcoin connections via Tor, and in part because protecting your RPC commands is really where it's at, because you're much more likely to be doing that remotely, from a software wallet like FullyNoded 2, while your server itself is more likely to be sitting in your office, basement, or bunker.
 
-So what's the use of Tor if it doesn't force the usage of Tor for connections? The best use of the basic Tor setup is to allow a software wallet such as [Bitcoin Standup Remote](https://github.com/BlockchainCommons/Bitcoin-Standup-Remote) to connect to your node anonymously via the Tor hidden service, allowing you to remotely transact without anyone knowing you're doing so. 
-  
-However, there are also fully anonymous setups that can be created for Bitcoin (though they are not recommended). 
-  
+There are some setups to push Bitcoin further into usage of Tor, as discussed in the next section.
+
 ## Summary: Verifying Your Tor Setup
 
-Tor is a software package installed at part of Bitcoin Standup that allows you to exchange communications anonymously. It's the foundation of privacy and security for your Bitcoin setup, and you can verify it's available and linked to Bitcoin with a few simple commands.
+Tor is a software package installed at part of Bitcoin Standup that allows you to exchange communications anonymously. It will protect both your RPC ports (8332 or 18332) and your `bitcoind` ports (8333 or 18333) — but you have to actively connect to the onion address to use them! Tor is the foundation of privacy and security for your Bitcoin setup, and you can verify it's available and linked to Bitcoin with a few simple commands.
 
-> :fire ***What is the power of Tor?*** Many attacks on Bitcoin users depend on knowing who the victim is and that they're transacting Bitcoins. Tor can protect you from that by hiding both where you are and what you're doing. It's particularly important if you want to connect to your own node remotely via a software wallet, and can be crucial if you do so in some country where you might not feel that your Bitcoin usage is appreciated or protected.
+> :fire ***What is the power of Tor?*** Many attacks on Bitcoin users depend on knowing who the victim is and that they're transacting Bitcoins. Tor can protect you from that by hiding both where you are and what you're doing. It's particularly important if you want to connect to your own node remotely via a software wallet, and can be crucial if you do so in some country where you might not feel that your Bitcoin usage is appreciated or protected. If you must take your Bitcoin services on the road, make sure that your wallet fully supports Tor and exchanges all RPC commands with your server using that protocol.
 
 ## What's Next?
 
