@@ -1,50 +1,58 @@
-# Chapter 12.3: Adding SSH Hidden Services
+# Chapter 14.3: Adding SSH Hidden Services
 
-In this chapter we will show you how to add a ssh hidden service to login remotelly using Tor. 
+> :information_source:  **NOTE:** This is a draft in progress, so that I can get some feedback from early reviewers. It is not yet ready for learning.
+
+To date, you've used Tor with your Bitcoin services, but you can also use it to protect other services on your machine, improving its security and privacy. This chapter demonstrates how by introducing an `ssh` hidden service to login remotely using Tor. 
 
 ## Create SSH Hidden Services
 
-To create new service you need to add some lines in your torrc file.
-
-This should be under /etc/tor/torrc
-
-Add this lines:
-
+New services are created by adding them to the `/etc/tor/torrc` file:
 ```
+$ su 
+# cat >> /etc/tor/torrc << EOF
 HiddenServiceDir /var/lib/tor/hidden-service-ssh/
 HiddenServicePort 22 127.0.0.1:22
-HiddenServiceAuthorizeClient stealth hidden-service-ssh
+EOF
+# exit
+```
+Here's what that means:
+
+* HiddenServiceDir: Indicates tor that you have a hidden service directory with the necessary configuration at this path.
+* HiddenServicePort: Indicates the tor port to be used; in the case of SSH, this is usually 22.
+* HiddenServiceAuthorizeClient: As its name indicates, authorizes a client to connect to the hidden service. 
+
+After you add the lines to your `torrc` file, you will need to restart the Tor service:
+```
+$ sudo /etc/init.d/tor restart
 ```
 
-* HiddenServiceDir: indicates tor that you have a hidden service directory with the necessary configuration on path.
-* HiddenServicePort:  indicates tor port to be used,  in SSH case is 22, if you want use other port you can change here.
-* HiddenServiceAuthorizeClient: As it's name indicates authorize a client to connect to the hidden service. 
-
-After add lines to tor file you need to restart tor service
-
+After the restart, your `HiddenServiceDir` should have new files as follows:
 ```
-sudo /etc/init.d/tor restart
+$ sudo ls -l /var/lib/tor/hidden-service-ssh
+total 16
+drwx--S--- 2 debian-tor debian-tor 4096 Jul 22 14:55 authorized_clients
+-rw------- 1 debian-tor debian-tor   63 Jul 22 14:56 hostname
+-rw------- 1 debian-tor debian-tor   64 Jul 22 14:55 hs_ed25519_public_key
+-rw------- 1 debian-tor debian-tor   96 Jul 22 14:55 hs_ed25519_secret_key
 ```
-
-After restart you should have three new files like this:
-
+The file `hostname` in this directory contains your new onion ID:
 ```
-total 24
-drwx--S--- 3 debian-tor debian-tor 4096 jul  1 18:39 ./
-drwx--S--- 5 debian-tor debian-tor 4096 jul  1 18:39 ../
-drwx--S--- 2 debian-tor debian-tor 4096 jul  1 18:39 authorized_clients/
--rw------- 1 debian-tor debian-tor   63 jul  1 18:39 hostname
--rw------- 1 debian-tor debian-tor   64 jul  1 18:39 hs_ed25519_public_key
--rw------- 1 debian-tor debian-tor   96 jul  1 18:39 hs_ed25519_secret_key
+$ sudo cat /var/lib/tor/hidden-service-ssh/hostname
+qwkemc3vusd73glx22t3sglf7izs75hqodxsgjqgqlujemv73j73qpid.onion
 ```
-The file hostname contains your id onion.
-
-Use this address to connect to your ssh hidden service like this:
-
+You can connect to the `ssh` hidden service using `torify` and that address:
 ```
-torify ssh <your-username>@your_new_onion_id.onion
+$ torify ssh standup@qwkemc3vusd73glx22t3sglf7izs75hqodxsgjqgqlujemv73j73qpid.onion
+The authenticity of host 'qwkemc3vusd73glx22t3sglf7izs75hqodxsgjqgqlujemv73j73qpid.onion (127.42.42.0)' can't be established.
+ECDSA key fingerprint is SHA256:LQiWMtM8qD4Nv7eYT1XwBPDq8fztQafEJ5nfpNdDtCU.
+Are you sure you want to continue connecting (yes/no)? yes
+Warning: Permanently added 'qwkemc3vusd73glx22t3sglf7izs75hqodxsgjqgqlujemv73j73qpid.onion' (ECDSA) to the list of known hosts.
+standup@qwkemc3vusd73glx22t3sglf7izs75hqodxsgjqgqlujemv73j73qpid.onion's password: 
 ```
+## Summary: Adding SSH Hidden Services
 
+Now that you've got Tor installed and know how to use it, you can add other services to Tor. You just add lines to your `torrc` (on your server), then connect with `torify` (on your client).
 
+> :fire: ***What's the power of Other Hidden Services?*** Every time you access a service on your server remotely, you leave footprints on the network. Even if the data is encrypted by something like SSH (or TLS), lurkers on the network can see where you're connecting from, where you're connecting to, and what service you're using. Does this matter? This is the question you have to ask. But if the answer is "Yes", you can protect the connection with a hidden service.
 
-
+Move on to "Programming with RPC" with [Chapter Fifteen: Talking to Bitcoind with C](5_0_Talking_to_Bitcoind.md).
