@@ -93,7 +93,7 @@ _This tutorial assumes that you have some minimal background of how to use the c
 * [14.0: Using Tor](14_0_Using_Tor.md)
   * [14.1: Verifying Your Tor Setup](14_1_Verifying_Your_Tor_Setup.md)
   * [14.2: Changing Your Bitcoin Hidden Services](14_2_Changing_Your_Bitcoin_Hidden_Services.md)
-  * [14.3: Adding SSH Hiddne Services](14_3_Adding_SSH_Hidden_Services.md)
+  * [14.3: Adding SSH Hidden Services](14_3_Adding_SSH_Hidden_Services.md)
   
 ### PART FIVE: PROGRAMMING WITH RPC
 
