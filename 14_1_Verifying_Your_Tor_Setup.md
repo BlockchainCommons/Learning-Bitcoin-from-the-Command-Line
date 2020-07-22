@@ -156,7 +156,7 @@ You can see similar information with `getnetworkinfo`.
 
 > :book: *What is a Tor Hidden Service?* A hidden service (aka "an onion service") is a service that is accessible via Tor. Connection made to that service _using the Onion Network_ will be protected. In this case, there is a hidden service for `bitcoind` on Testnet, but there are also visible services using IPv4 and IPv6.
 
-> :warning: **WARNING:** Just because you're running Tor and have a Tor hidden service doesn't mean that your server won't connect to other Bitcoin servers using regular IP, and it doesn't mean that others won't connect to you in the same way. 
+> :warning: **WARNING:** Running Tor and having a Tor hidden service doesn't force either you or your peers to use Tor.
 
 ### Verify Your Tor Setup for Peers
 
@@ -303,7 +303,7 @@ Some might not, such as this IPv6 connection:
   }
 ...
 ```
-> :warning: **WARNING:** This basic setup does not force usage of Tor. You may well see all IPv4 and IPv6 peers. 
+> :warning: **WARNING:** Remember that the basic setup does not force usage of Tor. You may well see all IPv4 and IPv6 peers. 
 
 So what's the use of Tor if it doesn't force the usage of Tor for connections? The best use of the basic Tor setup is to allow a software wallet such as [Bitcoin Standup Remote](https://github.com/BlockchainCommons/Bitcoin-Standup-Remote) to connect to your node anonymously via the Tor hidden service, allowing you to remotely transact without anyone knowing you're doing so. 
   
