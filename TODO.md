@@ -36,12 +36,14 @@ Replace our current scripts with Bitcoin Standup (which was based on those scrip
    * <strike>Edit & Integrate Chapter 9</strike> **7/15**
       * <strike>Fix P2PKH Example</strike> **7/15**
       * <strike>Write P2WPKH Chapter</strike> **7/15**
-   * Edit & Integrate Chapter 10 **Up to 10.2**
-      * Write P2WSH Chapter
-   * Edit & Integrate Chapter 11
-   * Edit & Integrate Chapter 12
-   * Edit & Integrate Chapter 13
-
+   * <strike>Edit & Integrate Chapter 10</strike> **7/15, 7/21**
+      * <strike>Write P2WSH Chapter</strike> **7/21**
+   * <strike>Edit & Integrate Chapter 11</strike> **7/21**
+   * <strike>Edit & Integrate Chapter 12</strike> **7/21**
+   * <strike>Edit & Integrate Chapter 13</strike> **7/21**
+   * Turn off verbose info on btcdeb?
+   * Get sigs working right on btcdeb?
+   
 ## 4. Add New Concepts
 
 Add and document the following new concepts:
@@ -74,7 +76,7 @@ Add and document the following new concepts:
 15. Consider splitting up Chapter 6 (definitely if we get an HWI chapter)
    * <strike>Break apart Chapter 6</strike> **7/2**
    * <strike>Rewrite all section links in early chapters (1-5, 6, 8)</strike> **7/7**
-   * Update Script Chapters
+   * <strike>Update Script Chapters</strike> **7/15**
    * Update Tor Chapter
    * Update Programming Chapters
    
