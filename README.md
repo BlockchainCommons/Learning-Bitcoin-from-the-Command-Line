@@ -88,16 +88,16 @@ _This tutorial assumes that you have some minimal background of how to use the c
 
 ### PART FOUR: USING TOR
 
-**Status:** Requires renumbering; Unwritten.
+**Status:** Unfinished. Requires editing & cleanup.
 
-* [12.0: Using Tor](12_0_Using_Tor.md)
-  * 12.1: Verifying Your Tor Setup
-  * 12.2: Changing Your Bitcoin Hidden Services
-  * 12.3: Adding SSH Hiddne Services
+* [14.0: Using Tor](14_0_Using_Tor.md)
+  * [14.1: Verifying Your Tor Setup](14_1_Verifying_Your_Tor_Setup.md)
+  * [14.2: Changing Your Bitcoin Hidden Services](14_2_Changing_Your_Bitcoin_Hidden_Services.md)
+  * [14.3: Adding SSH Hiddne Services](14_3_Adding_SSH_Hidden_Services.md)
   
 ### PART FIVE: PROGRAMMING WITH RPC
 
-**Status:** Requires renumbering; This section is currently a messy set of older writings which are being reorganized as listed below. We're not going to work through this section until we've got chapters 1-11 updated per our current notes, then 12-14 written. But, if you'd like to see what we have to date on programming in correlation with Bitcoin Core, please feel free.
+**Status:** VERY Unfinished. Requires editing C-chapter; writing Libwally chapter, regularizing other languages chapter; and deciding what to do with Swift
 
 * [15.0: Talking to Bitcoind with C](15_0_Talking_to_Bitcoind.md) — Needs Rewrite + Editing
   * [15.1: Accessing Bitcoind with C](15_1_Accessing_Bitcoind_with_C.md) — Needs Rewrite
@@ -108,34 +108,34 @@ _This tutorial assumes that you have some minimal background of how to use the c
    * 17.2: Using secp256k1 Functions
    * 17.3: Writing Wallet Functions
    * 17.4: Integrating Libwally and Scripts
-* 18.0: Talking to Bitcoind with Other Languages
-  * [18.1: Accessing Bitcoind with Go](18_1_Accessing_Bitcoind_with_Go.md)
-  * [18.2: Accessing Bitcoind with Java](18_2_Accessing_Bitcoind_with_Java.md)
-  * [18.3: Accessing Bitcoind with Node JS](18_3_Accessing_Bitcoind_with_NodeJS.md)
-  * [18.4: Accessing Bitcoind with Python](18_4_Accessing_Bitcoind_with_Python.md)
-  * [18.5: Accessing Bitcoind with Rust](18_5_Accessing_Bitcoind_with_Rust.md)
-  * [18.6: Accessing Bitcoind with Swift]
+* 17.0: Talking to Bitcoind with Other Languages
+  * [17.1: Accessing Bitcoind with Go](17_1_Accessing_Bitcoind_with_Go.md)
+  * [17.2: Accessing Bitcoind with Java](17_2_Accessing_Bitcoind_with_Java.md)
+  * [17.3: Accessing Bitcoind with Node JS](17_3_Accessing_Bitcoind_with_NodeJS.md)
+  * [17.4: Accessing Bitcoind with Python](17_4_Accessing_Bitcoind_with_Python.md)
+  * [17.5: Accessing Bitcoind with Rust](17_5_Accessing_Bitcoind_with_Rust.md)
+  * [17.6: Accessing Bitcoind with Swift]
   
 ### PART SIX: USING LIGHTNING-CLI
 
-**Status:** Requires renumbering; Unwritten. Chapter 14 may expand into multiple chapters.
+**Status:** Unfinished. Requires renumbering [currently all listed as chapter 13], editing
 
 (At this point, I'm assuming that Lightning will be integrated into Standup, at which point we just need to tech how to use it at a pretty basic level.)
 
-* 13.0: Understanding Lightning
-  * 13.1: Verifying Your Lightning Setup
-  * 13.2: Setting up a Channel
-  * 13.3: Receiving a Transaction
-* 14.0: Using Lightning
-  * 14.1: Sending a Transaction
-  * 14.X: Closing a Channel
-* 17.0: Talking to Lightningd with C
+* 18.0: Understanding Lightning
+  * 18.1: Verifying Your Lightning Setup
+  * 18.2: Setting up a Channel
+* 19.0: Using Lightning
+  * 19.1: Creating an Invoice
+  * 19.2: Paying an Invoice
+  * 19.3: Closing a Channel
+* 20.0: Talking to Lightningd with C
 
 > _Some good docs from one of the developers are here: https://diyhpl.us/wiki/transcripts/blockstream-webinars/2019-07-31-rusty-russell-getting-started-with-c-lightning/._
 
 ### APPENDICES
 
-**Status:** Varied. Appendix I is recent that just needs editing for style; Appendix II needs a rewrite.
+**Status:** Unfinished. Requires editing
 
 * [Appendix I: Compiling Bitcoin from Source](A1_0_Compiling_Bitcoin_from_Source.md)
 * [Appendix II: Using Bitcoin Regtest](A2_0_Setting_Up_a_Bitcoin_Regtest.md) — Needs Rewrite + Editing
