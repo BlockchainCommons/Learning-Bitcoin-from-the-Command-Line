@@ -104,10 +104,10 @@ _This tutorial assumes that you have some minimal background of how to use the c
   * [15.2: Programming Bitcoind with C](15_2_Programming_Bitcoind_with_C.md) — Needs Rewrite + Editing
   * [15.3: Receiving Bitcoind Notifications with C](15_3_Receiving_Bitcoind_Notifications_with_C.md) — Pending
 * 16.0: Programming with LibWally
-   * 17.1: Getting ready for LibWally
-   * 17.2: Using secp256k1 Functions
-   * 17.3: Writing Wallet Functions
-   * 17.4: Integrating Libwally and Scripts
+   * 16.1: Getting ready for LibWally
+   * 16.2: Using secp256k1 Functions
+   * 16.3: Writing Wallet Functions
+   * 16.4: Integrating Libwally and Scripts
 * 17.0: Talking to Bitcoind with Other Languages
   * [17.1: Accessing Bitcoind with Go](17_1_Accessing_Bitcoind_with_Go.md)
   * [17.2: Accessing Bitcoind with Java](17_2_Accessing_Bitcoind_with_Java.md)
@@ -187,7 +187,7 @@ Additional contributions are listed below:
 
 | Role                | Names                                    |
 | ------------------- | ---------------------------------------- |
-| ***Contributors:*** | [gg2001](https://github.com/gg2001) (Go, Node.js sections), [gorazdko](https://github.com/gorazdko) (Rust section), [Javier Vargas](https://github.com/javiervargas) (C, Java, Tor sections), [jodobear](https://github.com/jodobear) (Appendix I, Python section)                                   |
+| ***Contributors:*** | [gg2001](https://github.com/gg2001) (Go, Node.js sections), [gorazdko](https://github.com/gorazdko) (Rust section), [Javier Vargas](https://github.com/javiervargas) (C, Java, Lightning, Tor sections), [jodobear](https://github.com/jodobear) (Appendix I, Python section)                                   |
 | ***Reviewers:***    | Glen Willem [@gwillem](https://github.com/gwillem) |
 | ***Sponsors:***     | Blockstream Corporation                  |
 
