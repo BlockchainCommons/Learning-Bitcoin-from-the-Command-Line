@@ -12,6 +12,7 @@ After working through this chapter, a developer will be able to:
 Supporting objectives include the ability to:
 
   * Understand the Tor Network
+  * Understand Bitcoin's Various Ports
   
 ## Table of Contents
 
