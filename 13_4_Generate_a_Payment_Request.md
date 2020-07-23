@@ -3,7 +3,7 @@
 
 > :information_source: **NOTE:** This is a draft in progress, so that I can get some feedback from early reviewers. It is not yet ready for learning.
 
-This chapter shows what is and how to create a payment request.    For this example we've created a second lightning node using LND implementation to create an invoice to pay using our main c-lighting installation in next chapter.  We will refer to this instance using `lnd$ ` prompt shell to indicate place where we'll generate LND commands.   If you want to reproduce this steps you should use Bitcoin Standup to create a second machine and install LND.
+This chapter shows what is and how to create a payment request.    For this example we've created a second lightning node using LND implementation to create an invoice to be payed later using our main c-lighting installation in next chapter.  We will refer to this instance using `lnd$ ` prompt shell to indicate place where we'll generate LND commands.   If you want to reproduce this steps you should use Bitcoin Standup to create a second machine and install LND.
 
 > :book: ***What is an invoice
 
