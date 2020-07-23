@@ -94,7 +94,13 @@ _This tutorial assumes that you have some minimal background of how to use the c
   * [14.1: Verifying Your Tor Setup](14_1_Verifying_Your_Tor_Setup.md)
   * [14.2: Changing Your Bitcoin Hidden Services](14_2_Changing_Your_Bitcoin_Hidden_Services.md)
   * [14.3: Adding SSH Hidden Services](14_3_Adding_SSH_Hidden_Services.md)
-  
+
+_This is the end of the polished second-edition course as it currently stands. We are looking for reviews on chapters 0-14 above. Thank you for your help & support!_
+
+<hr>
+
+_We want to expand this course to also introduce programming with RPC and finally talk about Lightning. The material below is all in process. We'll move it "above the line" for review and learning when we finish it up._
+
 ### PART FIVE: PROGRAMMING WITH RPC
 
 **Status:** VERY Unfinished. Requires editing C-chapter; writing Libwally chapter, regularizing other languages chapter; and deciding what to do with Swift
