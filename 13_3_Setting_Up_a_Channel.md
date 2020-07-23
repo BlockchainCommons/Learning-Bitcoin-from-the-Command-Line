@@ -227,6 +227,6 @@ You need to create a channel with remote nodes to be able to receive and send mo
 
 ## What's Next?
 
-Continue "Understanding Your Lightning Setup" with [§13.4: Paying_a_Invoice](13_4_Paying_a_Invoice.md).
+Continue "Understanding Your Lightning Setup" with [§13.4: Generate a Payment request](13_4_Generate_a_Payment_Request.md).
 
 
