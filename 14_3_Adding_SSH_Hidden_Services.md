@@ -2,7 +2,7 @@
 
 > :information_source:  **NOTE:** This is a draft in progress, so that I can get some feedback from early reviewers. It is not yet ready for learning.
 
-To date, you've used Tor with your Bitcoin services, but you can also use it to protect other services on your machine, improving its security and privacy. This chapter demonstrates how by introducing an `ssh` hidden service to login remotely using Tor. 
+To date, you've used Tor with your Bitcoin services, but you can also use it to protect other services on your machine, improving their security and privacy. This section demonstrates how by introducing an `ssh` hidden service to login remotely using Tor. 
 
 ## Create SSH Hidden Services
 
@@ -17,11 +17,10 @@ EOF
 ```
 Here's what that means:
 
-* HiddenServiceDir: Indicates tor that you have a hidden service directory with the necessary configuration at this path.
+* HiddenServiceDir: Indicates that you have a hidden service directory with the necessary configuration at this path.
 * HiddenServicePort: Indicates the tor port to be used; in the case of SSH, this is usually 22.
-* HiddenServiceAuthorizeClient: As its name indicates, authorizes a client to connect to the hidden service. 
 
-After you add the lines to your `torrc` file, you will need to restart the Tor service:
+After you add the appropriate lines to your `torrc` file, you will need to restart Tor:
 ```
 $ sudo /etc/init.d/tor restart
 ```
