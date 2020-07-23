@@ -12,7 +12,7 @@ _This tutorial assumes that you have some minimal background of how to use the c
 
 ### PART ONE: PREPARING FOR BITCOIN
 
-**Status:** Updated for 0.20.
+**Status:** Finished. Updated for 0.20.
 
 * [1.0: Introducing Bitcoin](01_0_Introducing_Bitcoin.md)
 * [2.0: Setting Up a Bitcoin-Core VPS](02_0_Setting_Up_a_Bitcoin-Core_VPS.md)
@@ -22,7 +22,7 @@ _This tutorial assumes that you have some minimal background of how to use the c
 
 ### PART TWO: USING BITCOIN-CLI
 
-**Status:** Updated for 0.20.
+**Status:** Finished. Updated for 0.20.
 
 * [3.0: Understanding Your Bitcoin Setup](03_0_Understanding_Your_Bitcoin_Setup.md)
   * [3.1: Verifying Your Bitcoin Setup](03_1_Verifying_Your_Bitcoin_Setup.md)
@@ -59,7 +59,7 @@ _This tutorial assumes that you have some minimal background of how to use the c
   
 ## PART THREE: BITCOIN SCRIPTING
 
-**Status:** Updated for 0.20 and btcdeb.
+**Status:** Finished. Updated for 0.20 and btcdeb.
 
 * [9.0: Introducing Bitcoin Scripts](09_0_Introducing_Bitcoin_Scripts.md)
   * [9.1: Understanding the Foundation of Transactions](09_1_Understanding_the_Foundation_of_Transactions.md)
@@ -88,7 +88,7 @@ _This tutorial assumes that you have some minimal background of how to use the c
 
 ### PART FOUR: USING TOR
 
-**Status:** Unfinished. Requires editing & cleanup.
+**Status:** Finished.
 
 * [14.0: Using Tor](14_0_Using_Tor.md)
   * [14.1: Verifying Your Tor Setup](14_1_Verifying_Your_Tor_Setup.md)
