@@ -2,21 +2,12 @@
 
 > :information_source: **NOTE:** This is a draft in progress, so that I can get some feedback from early reviewers. It is not yet ready for learning.
 
-> :book: ***What is an invoice
+As we did in previous chapter we have an invoice to pay.  
 
-Almost all payments made on the Lightning Network require an invoice, which is nothing more than a request for payment made by the recipient of the money and sent by different means to the user who will pay.  The format for a Lightning invoice uses bech32 encoding, which is already used for Bitcoin Segregated Witness and all payment requests are single use.
-
-An invoice is made up of two parts,  one is human readable and other is 
-
-- Human readable part: `ln` + (`lnbc` for Bitcoin mainnet, `lntb` for Bitcoin testnet, and `lnbcrt` for Bitcoin regtest) + data amount
-      
-- Data part : UNIX Timestamp + tagged parts include a payment hash, the pubkey of the payee node, an optional description of the payment, an expiration time, and some extra routing information.
-
-Consider this ln invoice:
+Consider this ln invoice, created before:
 
 `lntb1m1p03ft7lpp5zve4dsgwgdxekqqq39vhgcnv6gfa2g2ktqy9lf0aph60d0388xmqdqqcqzpgsp545a9fphd8m5ayplcu8m5845cr4m0zcnyxddwv4g3zm32yprkfd4q9qy9qsq3s4y6cmyvh0qw9qm0sf80llxyyjy9xwrjds7lpkqhzv247jsm6q5me8t9e6ftquma664gz5u4a2rvs0yf4f0mlwtwfs6as5uj5djzhcqpnqlcj
 `  
-
 This invoice starts with prefix ln+tb+1m that indicates milli, so you should multi by 0.001.   That means we'll pay an invoice by 100000 satoshis.
 
 ### Understanding your invoice
