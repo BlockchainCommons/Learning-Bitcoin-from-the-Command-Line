@@ -1,30 +1,61 @@
-# Chapter 12.2: Changing Your Bitcoin Hidden Services
+# Chapter 14.2: Changing Your Bitcoin Hidden Services
 
-In this chapter we will show you how to create or change your local Bitcoin Hidden Service.   To archieve this we need to add current user to tor or debian-tor group to guarantee that Bitcoin daemon can sets up an automatic hidden service on the first startup if it's correclty configured.    Bitcoind will create a file called onion_private_key in the data directory.  Further check if file control.authcookie exists like this:
+> :information_source:  **NOTE:** This is a draft in progress, so that I can get some feedback from early reviewers. It is not yet ready for learning.
 
+You've got a working Tor service, but if you want you can make changes to it.
+
+## Reset Your `bitcoind` Onion Address
+
+If you ever want to reset your onion address for `bitcoind`, just remove the `onion_private_key` in your data directory, such as `~/.bitcoin/testnet`:
 ```
-~$ ll /run/tor/control.authcookie
--rw-r----- 1 debian-tor debian-tor 32 jun 26 09:44 /run/tor/control.authcookie
+$ rm onion_private_key 
 ```
-
-To avoid see a message like this in debug log file you need to add your current user to debian-tor group like this:
-
-debug.log
-
+Wehn you restart, a new onion address will be generated:
 ```
-2020-05-15T16:49:20Z tor: Authentication cookie /run/tor/control.authcookie could not be opened (check permissions)
-```
-
-```
-~$ sudo usermod -a -G debian-tor [CHANGE_MY_USER]
+2020-07-22T23:52:27Z tor: Got service ID pyrtqyiqbwb3rhe7, advertising service pyrtqyiqbwb3rhe7.onion:18333
+2020-07-22T23:52:27Z tor: Cached service private key to /home/standup/.bitcoin/testnet3/onion_private_key
 ```
 
-If you're running a older version Tor like 0.2.7 add this lines to /etc/tor/torrc file:
+## Reset Your RPC Onion Address
 
+If you want to reset your onion address for RPC access, you similarly delete the `HiddenServiceDirectory` and restart Tor:
 ```
-HiddenServiceDir /var/lib/tor/bitcoin-service/
-HiddenServicePort 8333 127.0.0.1:8333
-HiddenServicePort 18333 127.0.0.1:18333
+$ sudo rm -f /var/lib/tor/standup/
+$ sudo /etc/init.d/tor restart
 ```
-If you're running Tor version 3 bitcoind will configurate hidden services automatically to listen on.   If you want to change your onion id delete file onion_private_key located in bitcoin data dir.
 
+> :warning: **WARNING:** Reseting your RPC onion address will disconnect any mobile wallets or other services that you've connected using the Quicklink API. Do this with extreme caution.
+
+## Forcing `bitcoind` to Use Tor
+
+Finally, you can force `bitcoind` to use onion by adding the following to your `bitcoin.conf`:
+```
+proxy=127.0.0.1:9050
+listen=1
+bind=127.0.0.1
+onlynet=onion
+```
+You will then need to add onion-based seed nodes or other nodes to your setup, once more by editing the `bitcoin.conf`:
+```
+seednode=address.onion
+seednode=address.onion
+seednode=address.onion
+seednode=address.onion
+addnode=address.onion
+addnode=address.onion
+addnode=address.onion
+addnode=address.onion
+```
+Afterward, restart `tor` and `bitcoind`
+
+You should now be communicating exlusively on Tor. But, unless you are in a hostile state, this level of anonymity is probably not required. It also is not particularly recommended: you might greatly decrease your number of potential peers, inviting problems of censorship or even correlation. And, this setup may give you a false sense of anonymity that really doesn't exist on the Bitcoin network.
+
+> :warning: **WARNING:** This setup is untested! Use at your own risk!
+
+## Summary: Changing Your Bitcoin Hidden Services
+
+You probably won't need to fool with your Onion services once you've investigated them but in case you do, here's how to reset a Tor address that has become compromised or to move over to exclusive-Tor use for your `bitcoind`.
+
+## What's Next?
+
+Continue "Understanding Tor" with [14.3: Adding SSH Hidden Services](14_3_Adding_SSH_Hidden_Services.md).
