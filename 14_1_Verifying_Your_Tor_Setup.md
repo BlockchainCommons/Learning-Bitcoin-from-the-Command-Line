@@ -66,7 +66,7 @@ Configuration was valid
 
 The most important purpose of Tor, as installed by Bitcoin Standup, is to offer hidden services for the RPC ports that are used to send command-line style commands to `bitcoind`.
 
-> :book: *What is a Tor Hidden Service?* A hidden service (aka "an onion service") is a service that is accessible via Tor. Connection made to that service _using the Onion Network_ will be protected. In this case, there is a hidden service for `bitcoind` on Testnet, but there are also visible services using IPv4 and IPv6.
+> :book: ***What is a Tor Hidden Service?*** A hidden service (aka "an onion service") is a service that is accessible via Tor. Connection made to that service _using the Onion Network_ will be protected. In this case, there is a hidden service for `bitcoind` on Testnet, but there are also visible services using IPv4 and IPv6.
 
 The Tor config file is found at `/etc/tor/torrc`. If you look at it, you should see the following services to protect your RPC ports:
 ```
@@ -76,7 +76,9 @@ HiddenServicePort 1309 127.0.0.1:18332
 HiddenServicePort 1309 127.0.0.1:18443
 HiddenServicePort 1309 127.0.0.1:8332
 ```
-> **TESTNET vs MAINNET:** Mainnet RPC is run on port 8332, testnet on port 18332.
+> :link: **TESTNET vs MAINNET:** Mainnet RPC is run on port 8332, testnet on port 18332.
+
+> :information_source: **NOTE:** The `HiddenServiceDir` is where all the files are kept for this particular service. If you need to access keys or add authorized clients, this is where to do so!
 
 The easy way to test this is to use the [QuickConnect API](https://github.com/BlockchainCommons/Bitcoin-Standup/blob/master/Docs/Quick-Connect-API.md) built into Bitcoin Standup.
 
