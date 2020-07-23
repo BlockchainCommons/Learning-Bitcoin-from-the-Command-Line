@@ -100,5 +100,14 @@ lnd$ lncli -n testnet addinvoice --amt 100000 --memo "First LN Payment - Learnin
 }
 ```
 
+## Summary: Generating a Payment request.
+
+In most cases you need to receive an invoice to use Lightning Network payments. In this example we've created on manually but in real cases you can buy products and services that will generate a respective invoice for it.
+
+## What's Next?
+
+Continue "Understanding Your Lightning Setup" with [§13.5: Paying_a_Invoice](13_5_Paying_a_Invoice.md).
+
+
 
 
