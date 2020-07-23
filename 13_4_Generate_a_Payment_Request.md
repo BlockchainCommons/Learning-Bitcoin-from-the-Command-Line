@@ -18,7 +18,7 @@ An invoice is made up of two parts,  one is human readable and other is
 
 ### Node information
 
-In this second instance we refer before you may get information about it using `lnd$lncli -n testnet getinfo` command.
+In this second instance that we refer before you may get information about it using `lnd$lncli -n testnet getinfo` command.
 
 ```
 lnd$ lncli -n testnet getinfo
@@ -89,7 +89,7 @@ lnd$ lncli -n testnet getinfo
 
 ### Generate a Payment request.
 
-Now you can create a payment request using using `lnd$lncli -n testnet addinvoice` command.    You can use --amt argument to indicate amount to be payed and add a description using --memo argument.
+Now you can create a payment request using `lnd$lncli -n testnet addinvoice` command.    You can use --amt argument to indicate amount to be payed and add a description using --memo argument.
 
 ```
 lnd$ lncli -n testnet addinvoice --amt 100000 --memo "First LN Payment - Learning Bitcoin and Lightning from the Command line."
