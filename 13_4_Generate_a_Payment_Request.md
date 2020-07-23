@@ -20,7 +20,8 @@ An invoice is made up of two parts,  one is human readable and other is
 
 In this second instance we refer before you may get information about it using `lnd$lncli -n testnet getinfo` command.
 
-`lnd$ lncli -n testnet getinfo
+```
+lnd$ lncli -n testnet getinfo
 {
     "version": "0.10.99-beta commit=clock/v1.0.0-171-g8cb1276dbf0bfd9fcbf599df87a43238e599eaac",
     "commit_hash": "8cb1276dbf0bfd9fcbf599df87a43238e599eaac",
@@ -84,20 +85,20 @@ In this second instance we refer before you may get information about it using `
         }
     }
 }
-`
+```
 
 ### Generate a Payment request.
 
 Now you can create a payment request using using `lnd$lncli -n testnet addinvoice` command.    You can use --amt argument to indicate amount to be payed and add a description using --memo argument.
 
-`
+```
 lnd$ lncli -n testnet addinvoice --amt 100000 --memo "First LN Payment - Learning Bitcoin and Lightning from the Command line."
 {
     "r_hash": "72fbf5c2baadc780b17a27d983bd685f7d6ddf682b028c6dc13a50976e9e6e6c",
     "payment_request": "lntb1m1p03ft7lpp5zve4dsgwgdxekqqq39vhgcnv6gfa2g2ktqy9lf0aph60d0388xmqdqqcqzpgsp545a9fphd8m5ayplcu8m5845cr4m0zcnyxddwv4g3zm32yprkfd4q9qy9qsq3s4y6cmyvh0qw9qm0sf80llxyyjy9xwrjds7lpkqhzv247jsm6q5me8t9e6ftquma664gz5u4a2rvs0yf4f0mlwtwfs6as5uj5djzhcqpnqlcj",
     "add_index": "1"
 }
-`
+```
 
 
 
