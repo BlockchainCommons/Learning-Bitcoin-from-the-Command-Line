@@ -6,7 +6,7 @@ Tor is one of the standard programs installed by [Bitcoin Standup](https://githu
 
 After working through this chapter, a developer will be able to:
 
-  * Design a Tor Setup
+  * Use a Tor Setup
   * Perform Tor Maintenance
   
 Supporting objectives include the ability to:
