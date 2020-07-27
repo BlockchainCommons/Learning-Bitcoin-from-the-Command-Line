@@ -31,3 +31,4 @@ Supporting objectives include the ability to:
 * [Section Three: Setting Up a channel](13_3_Setting_Up_a_Channel.md)
 * [Section Four: Generate a payment request](13_4_Generate_a_Payment_Request.md)
 * [Section Five: Paying an invoice](13_5_Paying_a_Invoice.md)
+* [Section Five: Close a Channel](13_6_Close_channel.md)
