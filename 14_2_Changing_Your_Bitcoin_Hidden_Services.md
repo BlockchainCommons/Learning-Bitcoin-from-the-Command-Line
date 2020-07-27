@@ -6,7 +6,7 @@ You've got a working Tor service, but over time you may wish to reset or otherwi
 
 ## Secure Your Hidden Services
 
-Tor allows you to limit which clients talk to your hidden services. To take advantage of this, you should do the following:
+Tor allows you to limit which clients talk to your hidden services. If you did not already authenticate your client during your server setup, at the earliest opportunity you should do the following:
 
 1. Request your Tor V3 Authentication Public Key from your client. (In [GordianWallet](https://github.com/BlockchainCommons/GordianWallet-iOS), it's available under the settings menu.)
 2. Go to the appropriate subdirectory for your Bitcoin hidden service, which if you used Bitcoin Standup is `/var/lib/tor/standup/`.
