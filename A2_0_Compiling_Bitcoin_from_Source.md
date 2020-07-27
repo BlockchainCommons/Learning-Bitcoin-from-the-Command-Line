@@ -1,4 +1,4 @@
-# Appendix I - Compiling Bitcoin from Source
+# Appendix II - Compiling Bitcoin from Source
 
 In this tutorial we will learn how to compile Bitcoin Core from source on a Debian based system. It is not necessary to compile bitcoin from source but, it has many benefits:
 
