@@ -1,4 +1,4 @@
-# 2.2: Setting Up a Bitcoin-Core VPS with Bitcoin Standup
+# 2.1: Setting Up a Bitcoin-Core VPS with Bitcoin Standup
 
 > :information_source: **NOTE:** This is a draft in progress, so that I can get some feedback from early reviewers. It is not yet ready for learning.
 
@@ -88,12 +88,13 @@ Note, there may be ways to reduce both costs.
 * For the machines we suggest as **Linode 4GB**, you may be able to reduce that to a Linode 2GB. Some versions of Bitcoin Core have worked well at that size, some have occasionally run out of memory and then recovered, and some have continuously run out of memory. Remember to up that swap space to maximize the odds of this working. Use at your own risk.
 * For the Unpruned Mainnet, which we suggest as a **Linode 16GB**, you can probably get by with a Linode 4GB, but add [Block Storage](https://cloud.linode.com/volumes) sufficient to store the blockchain. This is certainly a better long-term solution since the Bitcoin blockchain's storage requirements continuously increase if you don't prune, while the CPU requirements don't (or don't to the same degree). A 320 GibiByte storage would be $32 a month, which combined with a Linode 4GB is $52 a month, instead of $80, and more importantly you can keep growing it. We don't fully document this setup for two reasons (1) we don't suggest the unpruned mainnet setup, and so we suspect it's a much less common setup; and (2) we haven't tested how Linodes volumes compare to their intrinic SSDs for performance and usage. But there's full documentation on the Block Storage page. You'd need to set up the Linode, run its stackscript, but then interrupt it to move the blockchain storage overly to a newly commissioned volume before continuing.
 
-
 ### Do the Final Setup
 
 The last thing you need to do is enter a root password. (If you missed anything, you'll be told so now!)
 
 Click "Deploy" to initialize your disks and to prepare your VPS. The whole queue should run in less than a minute. When it's done you should see in the "Host Job Queue", green "Success" buttons stating "Disk Create from StackScript - Setting password for root… done." and "Create Filesystem - 256MB Swap Image".
+
+_If you'd like to know more about what the Bitcoin Standup stackscript does, please see [Appendix I: Understanding Bitcoin Standup](A1_0_Understanding_Bitcoin_Standup.md)._
 
 You may now want to change your Linode VPS's name from the default `linodexxxxxxxx`.  Go to the Settings tab, and change the label to be more useful, such as your VPS's short hostname. For instance you might name it `bitcoin-testnet-pruned` to differentiate it from other VPSs in your account.
 
