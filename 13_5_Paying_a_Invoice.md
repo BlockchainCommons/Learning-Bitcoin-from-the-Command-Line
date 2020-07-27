@@ -135,3 +135,11 @@ c$ lightning-cli --network=testnet listfunds
    ]
 }
 ```
+
+## Summary: Paying a Invoice
+
+We've created an invoice by 100.000 satoshis using a second machine and we've payed it using our main Lightning network node c-lightning.  The channel was created with an initial amount of 280000 satoshis.   This is called Total capacity channel.  Later we've payed invoice we proved local balance was reduced remaining at 180.000 satoshis.
+
+## What's Next?
+
+Continue "Understanding Your Lightning Setup" with [§13.6: Close a Channel](13_6_Close_channel.md).
