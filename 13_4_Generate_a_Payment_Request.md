@@ -3,7 +3,8 @@
 
 > :information_source: **NOTE:** This is a draft in progress, so that I can get some feedback from early reviewers. It is not yet ready for learning.
 
-This chapter shows what is and how to create a payment request.    For this example we've created a second lightning node using LND implementation to create an invoice to be payed later using our main c-lighting installation in next chapter.  We will refer to this instance using `lnd$ ` prompt shell to indicate place where we'll generate LND commands.   If you want to reproduce this steps you should use Bitcoin Standup to create a second machine and install LND.
+This chapter shows what is and how to create a payment request.  We will explain briefly how works payments on the Lightning Network.
+For this example we've created a second lightning node using LND implementation to create an invoice to be payed later using our main c-lighting installation in next chapter.  We will refer to this instance using `lnd$ ` prompt shell to indicate place where we'll generate LND commands.   If you want to reproduce this steps you should use Bitcoin Standup to create a second machine and install LND.
 
 > :book: ***What is an invoice
 
@@ -15,6 +16,17 @@ An invoice is made up of two parts,  one is human readable and other is
       
 - Data part : UNIX Timestamp + tagged parts include a payment hash, the pubkey of the payee node, an optional description of the payment, an expiration time, and some extra routing information.
 
+> :book: ***Conditional payments.
+
+As we said in Setting a channel chapter and although the channels are created between two participants, the channels can be connected to each other forming a payment network to allow payments between all the network participants without having a direct channel between them using an smart contract called **Hashed Time Locked Contract**.
+
+> :book: ***Hashed Time Locked Contract.
+
+A Hashed Time Locked Contract is a conditional payment that use hashlocks and timelocks to ensure payment security. This means that receiver must presents a payment preimage or generate a cryptographic proof of payment before a given time otherwise the payer can cancel the contract by spending it.   This contracts are created as outputs from the Commitment transaction.
+
+> :book: ***Commitment transaction.
+
+Commitment transactions is a transaction that spends the funding transaction. Each peer holds the other peer's signature meaning that either one can spent his commitment transaction whatever he wants.  After each new commitment transaction is created the old one is revoked.
 
 ### Node information
 
