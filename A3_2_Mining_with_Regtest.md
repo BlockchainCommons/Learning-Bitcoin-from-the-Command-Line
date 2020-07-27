@@ -31,4 +31,4 @@ However, a block must have 100 confirmations before that reward can be spent, so
 
 ## What's Next?
 
-After starting your bitcoind on regtest and generating the first blocks, you have balance in your address to spend and [test using Regtest blockchain](15_3_Testing_with_Regtest.md).
+After starting your bitcoind on regtest and generating the first blocks, you have balance in your address to spend and [test using Regtest blockchain](A3_3_Testing_with_Regtest.md).
