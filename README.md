@@ -143,11 +143,12 @@ _We want to expand this course to also introduce programming with RPC and finall
 
 **Status:** Unfinished. Requires editing
 
-* [Appendix I: Compiling Bitcoin from Source](A1_0_Compiling_Bitcoin_from_Source.md)
-* [Appendix II: Using Bitcoin Regtest](A2_0_Setting_Up_a_Bitcoin_Regtest.md) — Needs Rewrite + Editing
-   * [A2.1: Starting the Regtest](A2_1_Starting_the_Regtest.md) — Needs Rewrite + Editing
-   * [A2.2: Mining with Regtest](A2_2_Mining_with_Regtest.md) — Needs Rewrite + Editing
-   * [A2.3: Testing with Regtest](A2_3_Testing_with_Regtest.md) — Needs Rewrite + Editing
+* [Appendix I: Understanding Bitcoin Standup](A1_0_Understanding_Bitcoin_Standup.md)
+* [Appendix II: Compiling Bitcoin from Source](A2_0_Compiling_Bitcoin_from_Source.md)
+* [Appendix III: Using Bitcoin Regtest](A3_0_Setting_Up_a_Bitcoin_Regtest.md) — Needs Rewrite + Editing
+   * [A2.1: Starting the Regtest](A3_1_Starting_the_Regtest.md) — Needs Rewrite + Editing
+   * [A2.2: Mining with Regtest](A3_2_Mining_with_Regtest.md) — Needs Rewrite + Editing
+   * [A2.3: Testing with Regtest](A3_3_Testing_with_Regtest.md) — Needs Rewrite + Editing
    * [why is Regtest important if you're compiling it yourself?]
    
 ## Status - Work in Progress
@@ -193,7 +194,7 @@ Additional contributions are listed below:
 
 | Role                | Names                                    |
 | ------------------- | ---------------------------------------- |
-| ***Contributors:*** | [gg2001](https://github.com/gg2001) (Go, Node.js sections), [gorazdko](https://github.com/gorazdko) (Rust section), [Javier Vargas](https://github.com/javiervargas) (C, Java, Lightning, Tor sections), [jodobear](https://github.com/jodobear) (Appendix I, Python section)                                   |
+| ***Contributors:*** | [gg2001](https://github.com/gg2001) (Go, Node.js sections), [gorazdko](https://github.com/gorazdko) (Rust section), [Javier Vargas](https://github.com/javiervargas) (C, Java, Lightning, Tor sections), [jodobear](https://github.com/jodobear) (Appendix: Compiling Bitcoin, Python section)                                   |
 | ***Reviewers:***    | Glen Willem [@gwillem](https://github.com/gwillem) |
 | ***Sponsors:***     | Blockstream Corporation                  |
 
