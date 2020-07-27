@@ -12,6 +12,6 @@ After working through this chapter, a developer will be able to:
    * Get balance and interact with Bitcoind in a private way
 
 ## Table of Contents
-  * [Section One: Starting the Regtest](A2_1_Starting_the_Regtest.md)
-  * [Section Two: Mining with Regtest](A2_2_Mining_with_Regtest.md)
-  * [Section Three: Testing with Regtest](A2_3_Testing_with_Regtest.md)
+  * [Section One: Starting the Regtest](A3_1_Starting_the_Regtest.md)
+  * [Section Two: Mining with Regtest](A3_2_Mining_with_Regtest.md)
+  * [Section Three: Testing with Regtest](A3_3_Testing_with_Regtest.md)
