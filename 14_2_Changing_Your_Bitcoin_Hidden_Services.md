@@ -4,6 +4,18 @@
 
 You've got a working Tor service, but over time you may wish to reset or otherwise adjust it.
 
+## Secure Your Hidden Services
+
+Tor allows you to limit which clients talk to your hidden services. To take advantage of this, you should do the following:
+
+1. Request your Tor V3 Authentication Public Key from your client. (In [GordianWallet](https://github.com/BlockchainCommons/GordianWallet-iOS), it's available under the settings menu.)
+2. Go to the appropriate subdirectory for your Bitcoin hidden service, which if you used Bitcoin Standup is `/var/lib/tor/standup/`.
+3. Go to the `authorized_clients` subdirectory.
+4. Add a file called `[anything].auth`. The `[anything]` can really be anything.
+5. Place the public key (and nothing else) in the file.
+
+Once you've added an `.auth` file to the `authorized_client` subdirectory, then only authorized clients will be able to communicate with that hidden service. You can add ~330 different public keys to enable different clients.
+
 ## Reset Your `bitcoind` Onion Address
 
 If you ever want to reset your onion address for `bitcoind`, just remove the `onion_private_key` in your data directory, such as `~/.bitcoin/testnet`:
@@ -27,7 +39,7 @@ $ sudo /etc/init.d/tor restart
 
 > :warning: **WARNING:** Reseting your RPC onion address will disconnect any mobile wallets or other services that you've connected using the Quicklink API. Do this with extreme caution.
 
-## Forcing `bitcoind` to Use Tor
+## Force `bitcoind` to Use Tor
 
 Finally, you can force `bitcoind` to use onion by adding the following to your `bitcoin.conf`:
 ```
