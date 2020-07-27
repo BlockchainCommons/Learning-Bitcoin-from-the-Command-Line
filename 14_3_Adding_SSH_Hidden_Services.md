@@ -54,4 +54,4 @@ Now that you've got Tor installed and know how to use it, you can add other serv
 
 > :fire: ***What's the power of Other Hidden Services?*** Every time you access a service on your server remotely, you leave footprints on the network. Even if the data is encrypted by something like SSH (or TLS), lurkers on the network can see where you're connecting from, where you're connecting to, and what service you're using. Does this matter? This is the question you have to ask. But if the answer is "Yes", you can protect the connection with a hidden service.
 
-Move on to "Programming with RPC" with [Chapter Fifteen: Talking to Bitcoind with C](5_0_Talking_to_Bitcoind.md).
+Move on to "Programming with RPC" with [Chapter Fifteen: Talking to Bitcoind with C](15_0_Talking_to_Bitcoind.md).
