@@ -43,7 +43,7 @@ c$ lightning-cli --network=testnet listfunds
 }
 ```
 
-### Closing a channel
+## Closing a channel
 
 You should use  `lightning-cli close` command to close the channel.  This RPC command attempts to close the channel cooperatively with the peer, or unilaterally after unilateraltimeout expires, and the to-local output will be sent to the address specified in destination.
 
