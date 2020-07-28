@@ -8,6 +8,7 @@ Consider this ln invoice, created before:
 
 `lntb1m1p03ft7lpp5zve4dsgwgdxekqqq39vhgcnv6gfa2g2ktqy9lf0aph60d0388xmqdqqcqzpgsp545a9fphd8m5ayplcu8m5845cr4m0zcnyxddwv4g3zm32yprkfd4q9qy9qsq3s4y6cmyvh0qw9qm0sf80llxyyjy9xwrjds7lpkqhzv247jsm6q5me8t9e6ftquma664gz5u4a2rvs0yf4f0mlwtwfs6as5uj5djzhcqpnqlcj
 `  
+
 This invoice starts with prefix ln+tb+1m that indicates milli, so you should multi by 0.001.   That means we'll pay an invoice by 100000 satoshis.
 
 ### Understanding your invoice
