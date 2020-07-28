@@ -43,7 +43,7 @@ c$lightning-cli --network=testnet decodepay lntb1m1p03ft7lpp5zve4dsgwgdxekqqq39v
 ```
 Check payee value is the same as identity_pubkey value seen previous chapter.
 
-"identity_pubkey": "0302d48972ba7eef8b40696102ad114090fd4c146e381f18c7932a2a1d73566f84",
+**"identity_pubkey": "0302d48972ba7eef8b40696102ad114090fd4c146e381f18c7932a2a1d73566f84",**
 
 ### Check your balance
 
