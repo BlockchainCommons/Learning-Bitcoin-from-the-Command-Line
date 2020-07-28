@@ -16,9 +16,8 @@ _This tutorial assumes that you have some minimal background of how to use the c
 
 * [1.0: Introducing Bitcoin](01_0_Introducing_Bitcoin.md)
 * [2.0: Setting Up a Bitcoin-Core VPS](02_0_Setting_Up_a_Bitcoin-Core_VPS.md)
-  * [2.1: Setting Up a Bitcoin-Core VPS by Hand](02_1_Setting_Up_a_Bitcoin-Core_VPS_by_Hand.md) **—Will be updated or dropped following Bitcoin Standup work this summer**
-  * [2.2: Setting Up a Bitcoin-Core VPS with Bitcoin Standup](02_2_Setting_Up_a_Bitcoin-Core_VPS_with_StackScript.md)
-  * [2.3: Setting Up a Bitcoin-Core Machine via Other Means](02_3_Setting_Up_Bitcoin_Core_Other.md)
+  * [2.1: Setting Up a Bitcoin-Core VPS with Bitcoin Standup](02_2_Setting_Up_a_Bitcoin-Core_VPS_with_StackScript.md)
+  * [2.2: Setting Up a Bitcoin-Core Machine via Other Means](02_3_Setting_Up_Bitcoin_Core_Other.md)
 
 ### PART TWO: USING BITCOIN-CLI
 
@@ -95,6 +94,12 @@ _This tutorial assumes that you have some minimal background of how to use the c
   * [14.2: Changing Your Bitcoin Hidden Services](14_2_Changing_Your_Bitcoin_Hidden_Services.md)
   * [14.3: Adding SSH Hidden Services](14_3_Adding_SSH_Hidden_Services.md)
 
+### APPENDICES
+
+**Status:** Unfinished. Requires editing
+
+* [Appendix I: Understanding Bitcoin Standup](A1_0_Understanding_Bitcoin_Standup.md)
+
 _This is the end of the polished second-edition course as it currently stands. We are looking for reviews on chapters 0-14 above. Thank you for your help & support!_
 
 <hr>
@@ -139,11 +144,10 @@ _We want to expand this course to also introduce programming with RPC and finall
 
 > _Some good docs from one of the developers are here: https://diyhpl.us/wiki/transcripts/blockstream-webinars/2019-07-31-rusty-russell-getting-started-with-c-lightning/._
 
-### APPENDICES
+### UNINISHED APPENDICES
 
 **Status:** Unfinished. Requires editing
 
-* [Appendix I: Understanding Bitcoin Standup](A1_0_Understanding_Bitcoin_Standup.md)
 * [Appendix II: Compiling Bitcoin from Source](A2_0_Compiling_Bitcoin_from_Source.md)
 * [Appendix III: Using Bitcoin Regtest](A3_0_Setting_Up_a_Bitcoin_Regtest.md) — Needs Rewrite + Editing
    * [A2.1: Starting the Regtest](A3_1_Starting_the_Regtest.md) — Needs Rewrite + Editing
