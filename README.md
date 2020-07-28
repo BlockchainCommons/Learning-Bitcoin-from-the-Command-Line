@@ -96,9 +96,10 @@ _This tutorial assumes that you have some minimal background of how to use the c
 
 ### APPENDICES
 
-**Status:** Unfinished. Requires editing
+**Status:** Appendices I-II are finished, III requires updates and editing.
 
 * [Appendix I: Understanding Bitcoin Standup](A1_0_Understanding_Bitcoin_Standup.md)
+* [Appendix II: Compiling Bitcoin from Source](A2_0_Compiling_Bitcoin_from_Source.md)
 
 _This is the end of the polished second-edition course as it currently stands. We are looking for reviews on chapters 0-14 above. Thank you for your help & support!_
 
@@ -148,7 +149,6 @@ _We want to expand this course to also introduce programming with RPC and finall
 
 **Status:** Unfinished. Requires editing
 
-* [Appendix II: Compiling Bitcoin from Source](A2_0_Compiling_Bitcoin_from_Source.md)
 * [Appendix III: Using Bitcoin Regtest](A3_0_Setting_Up_a_Bitcoin_Regtest.md) — Needs Rewrite + Editing
    * [A2.1: Starting the Regtest](A3_1_Starting_the_Regtest.md) — Needs Rewrite + Editing
    * [A2.2: Mining with Regtest](A3_2_Mining_with_Regtest.md) — Needs Rewrite + Editing
