@@ -95,5 +95,116 @@ $ lightning-cli listchannels | jq '.channels[] | select(.source == '$NODEID' or 
   "features": ""
 }
 ```
+### Closing a channel
 
+Finally you should use `lightning-cli close` command to close the channel. The close RPC command attempts to close the channel cooperatively with the peer,  if you want to close it unilaterally set unilateraltimeout argument with number of seconds command will wait.   If you set to 0 and the peer is online command can negotiate a mutual close.   For this example we use an mutual close.
 
+```
+lightning-cli --network=testnet close 0302d48972ba7eef8b40696102ad114090fd4c146e381f18c7932a2a1d73566f84 0
+{
+   "tx": "0200000001a67ad9b15cb10b74a584a284f059866dd2114e45f2a997b260464af537c043980100000000ffffffff02a08601000000000016001404e34b25e1310c9b90c7a53a6eba88f4eefe8efb69be020000000000160014865353eaccaa94aa4f90d3a0acdf3903c06c12c400000000",
+   "txid": "b4c0a1993dd113081eff5369a22d6afe1af9f0d07b29a590e8772ac7f712736a",
+   "type": "mutual"
+}
+```
+The closing transaction onchain is [b4c0a1993dd113081eff5369a22d6afe1af9f0d07b29a590e8772ac7f712736a](https://blockstream.info/testnet/tx/b4c0a1993dd113081eff5369a22d6afe1af9f0d07b29a590e8772ac7f712736a).
+
+This transaction has two outputs, one for remote node and other for local c-lightning wallet.   Output on index 0 corresponds to remote node with a value of 100000.   Output on index 1 correspond to local node with a value of 179817.
+
+```
+c$ bitcoin-cli -testnet getrawtransaction b4c0a1993dd113081eff5369a22d6afe1af9f0d07b29a590e8772ac7f712736a 1
+{
+  "txid": "b4c0a1993dd113081eff5369a22d6afe1af9f0d07b29a590e8772ac7f712736a",
+  "hash": "9433409227ca3d7a6999cdcc2856272314aef96f0e869a04711eda4969bbd21f",
+  "version": 2,
+  "size": 334,
+  "vsize": 169,
+  "weight": 673,
+  "locktime": 0,
+  "vin": [
+    {
+      "txid": "9843c037f54a4660b297a9f2454e11d26d8659f084a284a5740bb15cb1d97aa6",
+      "vout": 1,
+      "scriptSig": {
+        "asm": "",
+        "hex": ""
+      },
+      "txinwitness": [
+        "",
+        "3045022100ef40a71fc4d4d0e197cd3d503961da90b71cedab25f6f30740b3640664efb617022061f68aaffccf739824668d07519c8cb59ec30117d87beff2ef217e31cb5e628801",
+        "304402201a28274f64ec78fecba74ebc2b13582564ab155f83593c65ca1667bb92c42de10220489e7c3adc5be8bac2c5771482e5571abd3f602cb40ece2cfea3b768eb5341ea01",
+        "52210364d9b2e600d837aad224702c5f30c0ab73ac499cb67f43899cbf83f6358d422c21036695eadb796fe140434aad02c7da76395a44f62747770bf381fa4a3c52ff279452ae"
+      ],
+      "sequence": 4294967295
+    }
+  ],
+  "vout": [
+    {
+      "value": 0.00100000,
+      "n": 0,
+      "scriptPubKey": {
+        "asm": "0 04e34b25e1310c9b90c7a53a6eba88f4eefe8efb",
+        "hex": "001404e34b25e1310c9b90c7a53a6eba88f4eefe8efb",
+        "reqSigs": 1,
+        "type": "witness_v0_keyhash",
+        "addresses": [
+          "tb1qqn35kf0pxyxfhyx855axaw5g7nh0arhmxyv3zk"
+        ]
+      }
+    },
+    {
+      "value": 0.00179817,
+      "n": 1,
+      "scriptPubKey": {
+        "asm": "0 865353eaccaa94aa4f90d3a0acdf3903c06c12c4",
+        "hex": "0014865353eaccaa94aa4f90d3a0acdf3903c06c12c4",
+        "reqSigs": 1,
+        "type": "witness_v0_keyhash",
+        "addresses": [
+          "tb1qsef486kv42225nus6ws2eheeq0qxcykycqsymn"
+        ]
+      }
+    }
+  ],
+  "hex": "02000000000101a67ad9b15cb10b74a584a284f059866dd2114e45f2a997b260464af537c043980100000000ffffffff02a08601000000000016001404e34b25e1310c9b90c7a53a6eba88f4eefe8efb69be020000000000160014865353eaccaa94aa4f90d3a0acdf3903c06c12c40400483045022100ef40a71fc4d4d0e197cd3d503961da90b71cedab25f6f30740b3640664efb617022061f68aaffccf739824668d07519c8cb59ec30117d87beff2ef217e31cb5e62880147304402201a28274f64ec78fecba74ebc2b13582564ab155f83593c65ca1667bb92c42de10220489e7c3adc5be8bac2c5771482e5571abd3f602cb40ece2cfea3b768eb5341ea014752210364d9b2e600d837aad224702c5f30c0ab73ac499cb67f43899cbf83f6358d422c21036695eadb796fe140434aad02c7da76395a44f62747770bf381fa4a3c52ff279452ae00000000"
+}
+```
+
+Listing funds onchain or offchain we get an output with a value of 179817 that results of 280000 minus 183 per fee in 279817.   We have to substract 100000 paid on the invoice of the previous chapter to finally receives 179817 satoshis.
+
+```
+lightning-cli --network=testnet listfunds
+{
+   "outputs": [
+      {
+         "txid": "9843c037f54a4660b297a9f2454e11d26d8659f084a284a5740bb15cb1d97aa6",
+         "output": 0,
+         "value": 19238,
+         "amount_msat": "19238000msat",
+         "scriptpubkey": "0014aa572371f29310cd677d039cdcd054156c1a9545",
+         "address": "tb1q4ftjxu0jjvgv6emaqwwde5z5z4kp49299gmdpd",
+         "status": "confirmed",
+         "blockheight": 1780768,
+         "reserved": false
+      },
+      {
+         "txid": "b4c0a1993dd113081eff5369a22d6afe1af9f0d07b29a590e8772ac7f712736a",
+         "output": 1,
+         "value": 179817,
+         "amount_msat": "179817000msat",
+         "scriptpubkey": "0014865353eaccaa94aa4f90d3a0acdf3903c06c12c4",
+         "address": "tb1qsef486kv42225nus6ws2eheeq0qxcykycqsymn",
+         "status": "confirmed",
+         "blockheight": 1781830,
+         "reserved": false
+      }
+}
+```
+
+## Summary: Closing a channel
+
+When you close a channel you perform an onchain transaction ending your financial relationship with remote node.   To close a channel you must take into account its status and the type of closure you want to execute and decide some arguments to do it.
+
+## What's Next?
+
+Continue "Understanding Your Lightning Setup" with [§13.7: Lightning Network Implementations](13_7_Lightning_Network_Implementations.md).
