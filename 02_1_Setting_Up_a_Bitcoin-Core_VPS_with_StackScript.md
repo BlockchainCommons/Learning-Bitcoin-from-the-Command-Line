@@ -237,8 +237,8 @@ Creating a Bitcoin-Core VPS with the Standup scripts made the whole process quic
 You have a few options for what's next:
 
    * Read the [StackScript](https://github.com/BlockchainCommons/Bitcoin-Standup-Scripts/blob/master/Scripts/LinodeStandUp.sh) to understand your setup.
-   * See the other method for setting up a VPS in [§2.1: Setting up a Bitcoin-Core VPS by Hand](02_1_Setting_Up_a_Bitcoin-Core_VPS_by_Hand.md).
-   * Choose an entirely alternate methodology in [§2.3: Setting Up a Bitcoin-Core Machine via Other Means](02_3_Setting_Up_Bitcoin_Core_Other.md).
+   * Read what the StackScript does in [Appendix I](A1_0_Understanding_Bitcoin_Standup.md).
+   * Choose an entirely alternate methodology in [§2.2: Setting Up a Bitcoin-Core Machine via Other Means](02_2_Setting_Up_Bitcoin_Core_Other.md).
    * Move on to "bitcoin-cli" with [Chapter Three: Understanding Your Bitcoin Setup](03_0_Understanding_Your_Bitcoin_Setup.md).
 
 ## Synopsis: Bitcoin Installation Types
