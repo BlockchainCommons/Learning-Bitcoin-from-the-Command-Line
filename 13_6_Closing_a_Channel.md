@@ -49,14 +49,15 @@ You should use  `lightning-cli close` command to close the channel.  This RPC co
 
 ### Types of Closing Channels.
 
-Each participant of the channel is able to create as many Lightning payments to their counterparty as their funds they have.  Most of the time there will be no disagreements between the participants, so there will only be two onchain transactions, one opening and the other closing the channel.
+Each participant of the channel is able to create as many Lightning payments to their counterparty as their funds they have.  Most of the time there will be no disagreements between the participants, so there will only be two onchain transactions, one opening and the other closing the channel.   However, there may be other scenarios in which you are not online, you do not agree with the last state of the channel or someone tries to steal funds from the other party.
 
 #### Cooperative Close
 
 In this case both channel participants agree to close the channel and settle the final state to the blockchain. Both participants must be online and it's performed by broadcasting an unconditional spend of the funding transaction with an output to each peer. 
 
-#### Foce Close
+#### Force Close
 
 In this case when only one participant is online or if the participants disagree on the last state of the channel,  so one peer can perform an unilateral close of the channel without the cooperation of the other node.   It's performed by broadcasting a commitment transaction that commits to a previous channel state which both parts have agreed upon.
+This commitment transaction contains the channel state divided in two parts: the balance of each participant and all the pending payments (HTLCs).
 
 
