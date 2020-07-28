@@ -30,7 +30,9 @@ Commitment transactions is a transaction that spends the funding transaction. Ea
 
 ### Node information
 
-In this second instance that we refer before you may get information about it using `lnd$lncli -n testnet getinfo` command.
+In this second instance that we refer before you may get information about it using `lnd$lncli -n testnet getinfo` command.   Remember identity_pubkey field,  due it will be the same value when you pay the invoice. 
+
+**"identity_pubkey": "0302d48972ba7eef8b40696102ad114090fd4c146e381f18c7932a2a1d73566f84"**
 
 > :warning: **WARNING:**   Notice this example is using an LND instance,   if you want to reproduce this steps you should use Bitcoin Standup Script and install a new LND instance.
 
