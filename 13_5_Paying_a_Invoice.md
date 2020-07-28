@@ -2,9 +2,9 @@
 
 > :information_source: **NOTE:** This is a draft in progress, so that I can get some feedback from early reviewers. It is not yet ready for learning.
 
-As we did in previous chapter we have an invoice to pay.  
+In this chapter you will learn how to pay an invoice using `lightning-cli pay ` command.    As we did in previous chapter we already have an invoice to pay.  
 
-Consider this ln invoice, created before:
+Check ln invoice:
 
 `lntb1m1p03ft7lpp5zve4dsgwgdxekqqq39vhgcnv6gfa2g2ktqy9lf0aph60d0388xmqdqqcqzpgsp545a9fphd8m5ayplcu8m5845cr4m0zcnyxddwv4g3zm32yprkfd4q9qy9qsq3s4y6cmyvh0qw9qm0sf80llxyyjy9xwrjds7lpkqhzv247jsm6q5me8t9e6ftquma664gz5u4a2rvs0yf4f0mlwtwfs6as5uj5djzhcqpnqlcj
 `  
