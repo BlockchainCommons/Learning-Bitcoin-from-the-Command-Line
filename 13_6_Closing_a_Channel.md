@@ -46,3 +46,17 @@ c$ lightning-cli --network=testnet listfunds
 ### Closing a channel
 
 You should use  `lightning-cli close` command to close the channel.  This RPC command attempts to close the channel cooperatively with the peer, or unilaterally after unilateraltimeout expires, and the to-local output will be sent to the address specified in destination.
+
+### Types of Closing Channels.
+
+Each participant of the channel is able to create as many Lightning payments to their counterparty as their funds they have.  Most of the time there will be no disagreements between the participants, so there will only be two onchain transactions, one opening and the other closing the channel.
+
+#### Cooperative Close
+
+In this case both channel participants agree to close the channel and settle the final state to the blockchain. Both participants must be online and it's performed by broadcasting an unconditional spend of the funding transaction with an output to each peer. 
+
+#### Foce Close
+
+In this case when only one participant is online or if the participants disagree on the last state of the channel,  so one peer can perform an unilateral close of the channel without the cooperation of the other node.   It's performed by broadcasting a commitment transaction that commits to a previous channel state which both parts have agreed upon.
+
+
