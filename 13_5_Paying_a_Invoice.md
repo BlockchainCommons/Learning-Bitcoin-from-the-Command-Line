@@ -148,4 +148,4 @@ We've created an invoice by 100.000 satoshis using a second machine and we've pa
 
 ## What's Next?
 
-Continue "Understanding Your Lightning Setup" with [§13.6: Close a Channel](13_6_Close_channel.md).
+Continue "Understanding Your Lightning Setup" with [§13.6: Close a Channel](13_6_Close_Channel.md).
