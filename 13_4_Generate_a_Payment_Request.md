@@ -32,6 +32,8 @@ Commitment transactions is a transaction that spends the funding transaction. Ea
 
 In this second instance that we refer before you may get information about it using `lnd$lncli -n testnet getinfo` command.
 
+> :warning: **WARNING:**   Notice this example is using an LND instance,   if you want to reproduce this steps you should use Bitcoin Standup Script and install a new LND instance.
+
 ```
 lnd$ lncli -n testnet getinfo
 {
