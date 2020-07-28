@@ -84,6 +84,7 @@ c$ lightning-cli --network=testnet listfunds
 ### Paying your invoice
 
 You should use `lightning-cli pay ` command to pay the invoice.  The pay RPC command attempts to find a route to the given destination, and send the funds asked in amount value.
+Notice amount is expressed in milli-satoshi.
 
 ```
 c$lightning-cli --network=testnet pay 
