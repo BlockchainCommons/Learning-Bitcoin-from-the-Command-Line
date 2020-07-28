@@ -41,6 +41,10 @@ c$lightning-cli --network=testnet decodepay lntb1m1p03ft7lpp5zve4dsgwgdxekqqq39v
    "signature": "30450221008c2a4d636465de07141b7c1277ffe621244299c39361ef86c0b898aafa50de8102204de4eb2e7495839beeb5540a9caf543641e44d52fdfdcb7261aec29c951b215f"
 }
 ```
+Check payee value is the same as identity_pubkey value seen previous chapter.
+
+"identity_pubkey": "0302d48972ba7eef8b40696102ad114090fd4c146e381f18c7932a2a1d73566f84",
+
 ### Check your balance
 
 As we did in previous chapter we have established an channel with a total capacity of 280.000 sats.   This will be channel used to pay the invoice.
