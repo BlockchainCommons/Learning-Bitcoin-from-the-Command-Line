@@ -218,7 +218,8 @@ The funding_txid onchain is [9843c037f54a4660b297a9f2454e11d26d8659f084a284a5740
 
 #### Channel capacity
 
-As we said before both sides of the channel own a portion of its capacity. The amount on your side of the channel is called *local balance* and the amount on your peer’s side is called *remote balance*. Both balances can be updated many times without closing the channel (sending final balance to the blockchain), but the channel capacity cannot change without closing or splicing it.   Next chapter we will deep creating and paying invoices.
+As we said before both sides of the channel own a portion of its capacity. The amount on your side of the channel is called *local balance* and the amount on your peer’s side is called *remote balance*. Both balances can be updated many times without closing the channel (sending final balance to the blockchain), but the channel capacity cannot change without closing or splicing it.   The total capacity of a channel is the sum of the balance held by each participant in the channel.
+Next chapter we will deep creating and paying invoices.
 
 
 ## Summary: Setting up a channel
