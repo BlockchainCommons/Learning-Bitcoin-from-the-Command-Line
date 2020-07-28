@@ -12,7 +12,9 @@ Replace our current scripts with Bitcoin Standup (which was based on those scrip
 3. <strike>Upgrade Bitcoin Standup Scripts to Bitcoin 0.20</strike> **6/16**
 4. <strike>Ensure Bitcoin Standup covers everything else in previous scripts</strike> **6/16**
 5. <strike>Rewrite the StackScript chapter</strike> **6/16**
-6. Rewrite the "by-hand" chapter to match Bitcoin Standup (Pending summer work)
+6. <strike>Rewrite the "by-hand" chapter to match Bitcoin Standup</strike> **7/27**
+   * <strike>Write New Appendix 1</strike> **7/27**
+   * <strike>Revise All Chapter Ordering for Cut §2.1</strike> **7/27**
 7. <strike>Reintroduce aliases after setup</strike> **6/19**
 8. <strike>Figure out what to do about the old `btcblock` on testnet, where there seems to be no CLI way to determine blockheight.</strike> **No Known Solution on Testnet**
 
@@ -77,18 +79,20 @@ Add and document the following new concepts:
    * <strike>Break apart Chapter 6</strike> **7/2**
    * <strike>Rewrite all section links in early chapters (1-5, 6, 8)</strike> **7/7**
    * <strike>Update Script Chapters</strike> **7/15**
-   * Update Tor Chapter
+   * <strike>Update Tor Chapter</strike> **7/22**
    * Update Programming Chapters
    
 ## 5. Finish Later Chapters
 
-16. Edit & Integrate Tor Chapter. 
-17. Edit & Integrate Lightning Chapters.
-18. Edit & Integrate all "C" work
+16. <strike>Edit & Integrate Tor Chapter. </strike> **7/22**
+17. Edit & Integrate all "C" work
    * Write the Libwally section
    * Like the seedtool and keytool, but simpler
-19. Edit & Integrate all "Other Languages" work
-20. Edit & Integrate Appendices work
+18. Edit & Integrate all "Other Languages" work
+19. Edit & Integrate Appendices work
+   * <strike>Edit & Integrate A2: Compiling</strike> **7/27**
+   * Edit & Integrate A3: RegTest
+20. Edit & Integrate Lightning Chapters.
 21. Write or request Lightning/C chapter
 
 ## 6. Finalize Book
