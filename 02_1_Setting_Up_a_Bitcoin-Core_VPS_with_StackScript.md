@@ -6,8 +6,8 @@ This document explains how to set up a VPS (Virtual Private Sever) to run a Bitc
 
 > :warning: **WARNING:** Don’t use a VPS for a bitcoin wallet with significant real funds; see http://blog.thestateofme.com/2012/03/03/lessons-to-be-learned-from-the-linode-bitcoin-incident/ . It is  very nice to be able experiment with real bitcoin transactions on a live node without tying up a self-hosted server on a local network. It's also useful to be able to use an iPhone or iPad to communicate via SSH to your VPS to do some simple bitcoin tasks. But a higher level of safety is required for significant funds.
 
-* If you want to instead do all the setup by hand, goto [§2.1: Setting up a Bitcoin-Core VPS by Hand](02_1_Setting_Up_a_Bitcoin-Core_VPS_by_Hand.md).
-* If you want to instead setup on a machine other than a Linode VPS, such as an AWS machine or a Mac, goto [§2.3: Setting Up a Bitcoin-Core via Other Means](02_3_Setting_Up_Bitcoin_Core_Other.md)
+* If you want to understand what this setup does, read [Appendix I: Understanding Bitcoin Standup](A1_0_Understanding_Bitcoin_Standup.md) as you install.
+* If you want to instead setup on a machine other than a Linode VPS, such as an AWS machine or a Mac, goto [§2.2: Setting Up a Bitcoin-Core via Other Means](02_2_Setting_Up_Bitcoin_Core_Other.md)
 * If you already have a Bitcoin node running, goto [Chapter Three: Understanding Your Bitcoin Setup](03_0_Understanding_Your_Bitcoin_Setup.md).
 
 ## Getting Started with Linode
@@ -52,7 +52,7 @@ You're now ready to create a node based on the Stackscript.
    * **Fully Qualified Hostname.** If you're going to include this VPS as part of a network with full DNS records, type in the hostname with its domain. For example, "mybtctest.mydomain.com". Otherwise, just repeat the short hostname and add ".local", for example "mybtctest.local".
 3. Enter the password for the "standup" user.
 4. Choose an Installation Type in the advanced options. 
-   * **Installation Type.** This is likely "Mainnet" or "Pruned Mainnet" if you are setting up a node for usage and "Pruned Testnet" if you're just playing around. See the [Appendix](#appendix-bitcoin-installation-types) for more information on these options.
+   * **Installation Type.** This is likely "Mainnet" or "Pruned Mainnet" if you are setting up a node for usage and "Pruned Testnet" if you're just playing around. See the [Synopsis](#synopsis-bitcoin-installation-types) for more information on these options.
 5. Fill in any other appropriate advanced options.
    * **X25519 Public Key.** This is a public key to add to Tor's list of authorized clients. If you don't use it, anyone who gets the QR code for your node can access it. You'll get this public key from whichever client you're using to connect to your node. For example, if you use [FullyNoded 2](https://github.com/BlockchainCommons/FullyNoded-2), you can go to its settings and "Export Tor V3 Authentication Public Key" for use here.
   * **SSH Key.** Copy your local computer's SSH key here; this allows you be able to automatically login in via SSH to the standup account. If you haven't setup an SSH key on your local computer yet, there are good instructions for it on [Github](https://help.github.com/articles/generating-a-new-ssh-key-and-adding-it-to-the-ssh-agent/).  You may also want to add your SSH key into your Linode LISH (Linode Interactive Shell) by going to your "Linode Home Page / My Preferences / LISH Settings /  LISH Keys". Using an SSH key will give you a simpler and safer way to log in to your server.
@@ -93,8 +93,6 @@ Note, there may be ways to reduce both costs.
 The last thing you need to do is enter a root password. (If you missed anything, you'll be told so now!)
 
 Click "Deploy" to initialize your disks and to prepare your VPS. The whole queue should run in less than a minute. When it's done you should see in the "Host Job Queue", green "Success" buttons stating "Disk Create from StackScript - Setting password for root… done." and "Create Filesystem - 256MB Swap Image".
-
-_If you'd like to know more about what the Bitcoin Standup stackscript does, please see [Appendix I: Understanding Bitcoin Standup](A1_0_Understanding_Bitcoin_Standup.md)._
 
 You may now want to change your Linode VPS's name from the default `linodexxxxxxxx`.  Go to the Settings tab, and change the label to be more useful, such as your VPS's short hostname. For instance you might name it `bitcoin-testnet-pruned` to differentiate it from other VPSs in your account.
 
@@ -187,11 +185,11 @@ Although the default Debian 10 image that we are using for your VPS has been mod
 
 ### Protected Services
 
-Your Bitcoin VPS installation is minimal and allows almost no communication. This is managed through Part 5 of the StackScript, which sets up Tor and ensures that it's the only way to speak with the Bitcoin ports, other than localhost connections. It's further supplemented by the uncomplicated firewall (`ufw`), which blocks everything except SSH connections. 
+Your Bitcoin VPS installation is minimal and allows almost no communication. This is done through the uncomplicated firewall (`ufw`), which blocks everything except SSH connections. There's also some additional security possible for your RFC ports, thanks to the hidden services installed by Tor.
+
+**Adjusting UFW.** You should probably leave UFW in its super-protected stage! You don't want to use a Bitcoin machine for other services, because everyone increases your vulnerability! If you decide otherwise, there are several [guides to UFW](https://www.digitalocean.com/community/tutorials/ufw-essentials-common-firewall-rules-and-commands) that will allow you to add services. As advertised, it's ncomplicated. For example adding mail services would just require opening the mail port: `sudo ufw allow 25`. But don't do that.
 
 **Adjusting Tor.** You might want to better protect services like SSH. See [Chapter 12: Using Tor](https://github.com/BlockchainCommons/Learning-Bitcoin-from-the-Command-Line/blob/master/12_0_Using_Tor.md) for more on Tor.
-
-**Adjusting UFW.** You should probably leave UFW in its super-protected stage! You don't want to use a Bitcoin machine for other services, because everyone increases your vulnerability! If you decide otherwise, there are several [guides to UFW](https://www.digitalocean.com/community/tutorials/ufw-essentials-common-firewall-rules-and-commands) that will allow you to add services. As advertised, uit's ncomplicated. For example adding mail services would just require opening the mail port: `sudo ufw allow 25`. But don't do that.
 
 ### Protected Shells
 
@@ -212,6 +210,8 @@ If for some reason you wanted to change this (_we don't suggest it_), you can do
 ```
 echo "unattended-upgrades unattended-upgrades/enable_auto_updates boolean false" | debconf-set-selections
 ```
+
+_If you'd like to know more about what the Bitcoin Standup stackscript does, please see [Appendix I: Understanding Bitcoin Standup](A1_0_Understanding_Bitcoin_Standup.md)._
 
 ## Playing with Bitcoin
 
@@ -241,7 +241,7 @@ You have a few options for what's next:
    * Choose an entirely alternate methodology in [§2.3: Setting Up a Bitcoin-Core Machine via Other Means](02_3_Setting_Up_Bitcoin_Core_Other.md).
    * Move on to "bitcoin-cli" with [Chapter Three: Understanding Your Bitcoin Setup](03_0_Understanding_Your_Bitcoin_Setup.md).
 
-## Appendix: Bitcoin Installation Types
+## Synopsis: Bitcoin Installation Types
 
 **Mainnet.** This will download the entirety of the Bitnet blockchain. That's 280G of data (and getting more every day).
 
