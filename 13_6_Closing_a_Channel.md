@@ -77,15 +77,15 @@ Later we'll use select to show only data containing public_key id as source or d
 ```
 $ lightning-cli listchannels | jq '.channels[] | select(.source == '$NODEID' or .destination == '$NODEID')'
 {
-  "source": "0302d48972ba7eef8b40696102ad114090fd4c146e381f18c7932a2a1d73566f84",
-  "destination": "03fce2a20393a65b9d6cab5425f4cd33ddc621ade458efd69d652917e2b5eaf59c",
+  "source": "03fce2a20393a65b9d6cab5425f4cd33ddc621ade458efd69d652917e2b5eaf59c",
+  "destination": "0302d48972ba7eef8b40696102ad114090fd4c146e381f18c7932a2a1d73566f84",
   "short_channel_id": "1780768x12x1",
   "public": true,
   "satoshis": 280000,
   "amount_msat": "280000000msat",
   "message_flags": 1,
   "channel_flags": 2,
-  "active": false,
+  "active": true,
   "last_update": 1595508075,
   "base_fee_millisatoshi": 1000,
   "fee_per_millionth": 1,
@@ -94,7 +94,6 @@ $ lightning-cli listchannels | jq '.channels[] | select(.source == '$NODEID' or 
   "htlc_maximum_msat": "280000000msat",
   "features": ""
 }
-
 ```
 
 
