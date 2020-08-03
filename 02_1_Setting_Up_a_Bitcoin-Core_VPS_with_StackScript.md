@@ -22,7 +22,7 @@ You can create a Linode account by going here:
 https://www.linode.com
 ```
 
-If you prefer, the following referral code will give you about a month worse of free usage, great for learning Bitcoin:
+If you prefer, the following referral code will give you about a months worth of free usage, great for learning Bitcoin:
 
 ```
 https://www.linode.com/?r=23211828bc517e2cb36e0ca81b91cc8c0e1b2d96
