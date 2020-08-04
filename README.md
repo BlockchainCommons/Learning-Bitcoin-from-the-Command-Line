@@ -96,11 +96,12 @@ _This tutorial assumes that you have some minimal background of how to use the c
 
 ### APPENDICES
 
-**Status:** Appendices I-II are finished, III requires updates and editing.
+**Status:** Finished.
 
-* [Appendix I: Understanding Bitcoin Standup](A1_0_Understanding_Bitcoin_Standup.md)
-* [Appendix II: Compiling Bitcoin from Source](A2_0_Compiling_Bitcoin_from_Source.md)
-* [Appendix III: Using Bitcoin Regtest](A3_0_Using_Bitcoin_Regtest.md)
+* [Appendices](A0_Appendices.md)
+  * [Appendix I: Understanding Bitcoin Standup](A1_0_Understanding_Bitcoin_Standup.md)
+  * [Appendix II: Compiling Bitcoin from Source](A2_0_Compiling_Bitcoin_from_Source.md)
+  * [Appendix III: Using Bitcoin Regtest](A3_0_Using_Bitcoin_Regtest.md)
 
 _This is the end of the polished second-edition course as it currently stands. We are looking for reviews on chapters 0-14 above. Thank you for your help & support!_
 
