@@ -55,6 +55,8 @@ You'll receive a txid back when you issue this command.
 
 > :warning: **WARNING:** The `bitcoin-cli` command actually generates JSON-RPC commands when it's talking to the bitcoind. They can be really picky. This is an example: if you list the bitcoin amount without the leading zero (i.e. ".1" instead of "0.1"), then bitcoin-cli will fail with a mysterious message.
 
+> :warning: **WARNING:** Even if you're careful with your inputs, you could see "Fee estimation failed. Fallbackfee is disabled." Fundamentally, this means that your local `bitcoind` doesn't have enough information to estimate fees. You should really never see it if you've waited for your blockchain to sync and set up your system with Bitcoin Standup. But if you're not entirely synced, you may see this. It also could be that you're not using a standard `bitcoin.conf`: the entry `blocksonly=1` will cause your `bitcoind` to be unable to estimate fees.
+
 ## Examine Your Transaction
 
 You can look at your transaction using your transaction id:
