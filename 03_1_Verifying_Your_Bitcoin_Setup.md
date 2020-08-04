@@ -45,7 +45,17 @@ That tells you what's loaded; you'll then need to check that against an online s
 
 You can do this by looking at a blocknet explorer, such as [the Blockcypher Testnet explorer](https://live.blockcypher.com/btc-testnet/). Does its most recent number match your `getblockcount`? If so, you're up to date.
 
-> :link: **TESTNET vs MAINNET:** Remember that this tutorial generally assumes that you are using testnet. If you're using the mainnet instead, you can retrieve the current block height with: `wget -O - http://blockchain.info/q/getblockcount 2>/dev/null`. Unfortunately, functionality like this for testnet has disappeared over the years.
+If you'd like an alias to look at everything at once, the following currently works for Testnet, but may disappear at some time in the future:
+```
+$ cat >> ~/.bash_profile << EOF
+> alias btcblock="echo \\\`bitcoin-cli getblockcount 2>&1\\\`/\\\`wget -O - https://blockstream.info/testnet/api/blocks/tip/height 2> /dev/null | cut -d : -f2 | rev | cut -c 1- | rev\\\`"
+EOF
+$ source .bash_profile 
+$ btcblock
+1804372/1804372
+```
+
+> :link: **TESTNET vs MAINNET:** Remember that this tutorial generally assumes that you are using testnet. If you're using the mainnet instead, you can retrieve the current block height with: `wget -O - http://blockchain.info/q/getblockcount 2>/dev/null`. You can replace the latter half of the `btblock` alias (after `/`) with that.
 
 If you're not up-to-date, but your `getblockcount` is increasing, no problem. Total download time can take from an hour to several hours, depending on your setup.
 
