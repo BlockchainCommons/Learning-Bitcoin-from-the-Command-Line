@@ -100,6 +100,7 @@ _This tutorial assumes that you have some minimal background of how to use the c
 
 * [Appendix I: Understanding Bitcoin Standup](A1_0_Understanding_Bitcoin_Standup.md)
 * [Appendix II: Compiling Bitcoin from Source](A2_0_Compiling_Bitcoin_from_Source.md)
+* [Appendix III: Using Bitcoin Regtest](A3_0_Using_Bitcoin_Regtest.md)
 
 _This is the end of the polished second-edition course as it currently stands. We are looking for reviews on chapters 0-14 above. Thank you for your help & support!_
 
@@ -145,16 +146,6 @@ _We want to expand this course to also introduce programming with RPC and finall
 * 20.0: Talking to Lightningd with C
 
 > _Some good docs from one of the developers are here: https://diyhpl.us/wiki/transcripts/blockstream-webinars/2019-07-31-rusty-russell-getting-started-with-c-lightning/._
-
-### UNINISHED APPENDICES
-
-**Status:** Unfinished. Requires editing
-
-* [Appendix III: Using Bitcoin Regtest](A3_0_Setting_Up_a_Bitcoin_Regtest.md) — Needs Rewrite + Editing
-   * [A2.1: Starting the Regtest](A3_1_Starting_the_Regtest.md) — Needs Rewrite + Editing
-   * [A2.2: Mining with Regtest](A3_2_Mining_with_Regtest.md) — Needs Rewrite + Editing
-   * [A2.3: Testing with Regtest](A3_3_Testing_with_Regtest.md) — Needs Rewrite + Editing
-   * [why is Regtest important if you're compiling it yourself?]
    
 ## Status - Work in Progress
 
