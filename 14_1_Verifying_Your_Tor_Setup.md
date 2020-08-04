@@ -2,7 +2,7 @@
 
 > :information_source:  **NOTE:** This is a draft in progress, so that I can get some feedback from early reviewers. It is not yet ready for learning.
 
-If you did a standard installation with [Bitcoin Standup](https://github.com/BlockchainCommons/Bitcoin-Standup) then you should have Tor set up as part of your Bitcoin node. This section talks about what it is and what to do with it.
+If you did a standard installation with [Bitcoin Standup](https://github.com/BlockchainCommons/Bitcoin-Standup) then you should have Tor set up as part of your Bitcoin node: Tor is installed and has created hidden services for the Bitcoin RPC ports; while an onion address has also been created for `bitcoind`. This section talks about what all of that is and what to do with it.
 
 > :book: ***What is Tor?*** Tor is a low-latency anonymity and overlay network based on onion routing and path-building design for enabling anonymous communication. It's free and open-source software with the name derived from the acronym for the original software project name: "The Onion Router". 
 
