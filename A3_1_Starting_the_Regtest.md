@@ -1,13 +1,12 @@
-# 15.1: Starting the Regtest
+# A3.1: Starting the Regtest
 
 > **NOTE:** This is a draft in progress, so that I can get some feedback from early reviewers. It is not yet ready for learning.
 
-This document explains how to build a Regtest (Regression Test) by hand to be able to develop new applications without the need to interact with other peers and blocks.
-Bitcoin Core’s regression test mode (regtest mode) lets you instantly create a brand-new private block chain with the same basic rules as testnet—but one major difference: you choose when to create new blocks, so you have complete control over the environment.
+This document explains how to build a Regtest (Regression Test) Bitcoin setup by hand to be able to develop new applications without the need to interact with other peers and blocks. Bitcoin Core’s regression test mode (regtest mode) lets you instantly create a brand-new private block chain with the same basic rules as testnet, but with one major difference: you choose when to create new blocks, so you have complete control over the environment.
 
 ## Starting Bitcoind on Regtest
 
-After [setting up your Bitcoin-Core VPS](02_0_Setting_Up_a_Bitcoin-Core_VPS.md), you are now able to use Regtest. To start Bitcoind (Bitcoin Daemon) on Regtest and create a private Blockchain, you have to use the following command:
+After [setting up your Bitcoin-Core VPS](02_0_Setting_Up_a_Bitcoin-Core_VPS.md) or [compiling from source](A2_0_Compiling_Bitcoin_from_Source.md), you are now able to use Regtest. To start your `bitcoind` on Regtest and create a private Blockchain, use the following command:
 ```
 $ bitcoind -regtest -daemon
 ```
