@@ -136,9 +136,10 @@ _We want to expand this course to also introduce programming with RPC and finall
 
 * 18.0: Understanding Lightning
   * 18.1: Verifying Your Lightning Setup
-  * 18.2: Setting up a Channel
+  * 18.2: Knowing Your Lightning Setup
+  * 18.3: Setting up a Channel
 * 19.0: Using Lightning
-  * 19.1: Creating an Invoice
+  * 19.1: Generating a Payment Request
   * 19.2: Paying an Invoice
   * 19.3: Closing a Channel
 * 20.0: Talking to Lightningd with C
