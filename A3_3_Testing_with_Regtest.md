@@ -1,23 +1,21 @@
-# 15.3: Testing with Regtest
+# A3.3: Testing with Regtest
 
 > **NOTE:** This is a draft in progress, so that I can get some feedback from early reviewers. It is not yet ready for learning.
 
 This document explains how to test transactions and situations using regtest (regression test).
 
-
 ## Verifying balance
 
-After [mining blocks](15_2_Mining_with_Regtest.md) and getting the rewards, you can verify the balance on your wallet:
+After [mining blocks](A3_2_Mining_with_Regtest.md) and getting the rewards, you can verify the balance on your wallet:
 ```
 $ bitcoin-cli -regtest getbalance
 50.00000000
 ```
-This will print the balance in your wallet.
 
 ## Validating the Regtest
-Now you should be able to use this balance for any type of interaction with the private Blockchain, such as sending Bitcoin transactions according to [Chapter 4]((04_0_Sending_Bitcoin_Transactions.md)) in this guide. The only difference is that you need to use the flag `-regtest` when running the `bitcoin-cli` in order for the request to be sent to the Regtest Bitcoin daemon.
+Now you should be able to use this balance for any type of interaction with the private Blockchain, such as sending Bitcoin transactions according to [Chapter 4]((04_0_Sending_Bitcoin_Transactions.md)). The only difference is that you need to use the flag `-regtest` when running the `bitcoin-cli` in order for the request to be sent to the Regtest Bitcoin daemon.
 
-It is important to note that for your transactions to complete, you will have to generate/mine new blocks so that the transactions can be included into them.
+It is important to note that for your transactions to complete, you will have to generate (mine) new blocks, so that the transactions can be included.
 
 For example, to create a transaction and include into a block, you should use the `sendtoaddress` command:
 ```
@@ -63,8 +61,8 @@ $ bitcoin-cli -regtest gettransaction e834a4ac6ef754164c8e3f0be4f34531b74b768199
 }
 ```
 
-After creating a transaction, it has to be confirmed and recorded in the Blockchain, the transaction has to be included in a block.
-Most of the applications require 6 block confirmations to consider the transaction as irreversible. If that is your case, you can mine additional 6 blocks into your Regtest chain:
+After creating a transaction, it has to be confirmed and recorded in a block on the blockchain.
+Most applications require a six-block confirmations to consider the transaction as irreversible. If that is your case, you can mine additional 6 blocks into your Regtest chain:
 ```
 $ bitcoin-cli -regtest generate 6
 [
@@ -78,23 +76,21 @@ $ bitcoin-cli -regtest generate 6
 ```
 
 
-## Testing with Regtest
+## Testing with NodeJS
 
-When you are on regtest, you are able to simulate edge cases and attacks that might happen in the real world, such  as Double Spend.
-We are going to use the package [bitcointest by dgarage](https://github.com/dgarage/bitcointest) to simulate a transaction from one wallet to another, but you can check [their guide](https://www.npmjs.com/package/bitcointest) for more specific attack simulations, such as Double Spend.
+When you are on regtest, you are able to simulate edge cases and attacks that might happen in the real world, such  as double spend.
 
-First of all, you need to install Node.js, and use the NPM (Node Package Manager) to install `bitcointest`:
+As discussed elsewhere in this course, using software libraries might give you more sophisticated access to some RPC commands. In this case, [bitcointest by dgarage](https://github.com/dgarage/bitcointest) for NodeJS can be used to simulate a transaction from one wallet to another; you can check [their guide](https://www.npmjs.com/package/bitcointest) for more specific attack simulations, such as Double Spend.
+
+See [§17.3](17_3_Accessing_Bitcoind_with_NodeJS.md) for the most up-to-date info on install NodeJS, then add `bitcointest`:
 ```
-$ curl -sL https://deb.nodesource.com/setup_8.x | sudo -E bash -
-$ sudo apt-get install -y nodejs
 $ npm install -g bitcointest
 ```
 
-After installing `bitcointest`, you can create the `test.js` file with the following content:
-```
-$ nano test.js
-```
+After installing `bitcointest`, you can create a `test.js` file with the following content:
 ```javascript
+file: test.js
+
 const { BitcoinNet, BitcoinGraph } = require('bitcointest');
 const net = new BitcoinNet('/usr/local/bin', '/tmp/bitcointest/', 22001, 22002);
 const graph = new BitcoinGraph(net);
@@ -129,7 +125,7 @@ try {
 }
 ```
 
-When running `node test.js`, the command outputs:
+As shown, this will generate blocks and a transaction:
 ```
 $ node test.js
 Launching nodes...
