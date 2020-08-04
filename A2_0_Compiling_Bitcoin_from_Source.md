@@ -124,5 +124,5 @@ If you wanted the increased security of installing Bitcoin from source, you shou
 
 If you were in the process of creating a Bitcoin node for use in this course, you should continue on with [Chapter 3: Understanding Your Bitcoin Setup](03_0_Understanding_Your_Bitcoin_Setup.md).
 
-If you are reading through the appendices, continue with [Appendix III: Setting Up a Bitcoin Regtest](3_0_Setting_Up_a_Bitcoin_Regtest.md).
+If you are reading through the appendices, continue with [Appendix III: Using Bitcoin Regtest](3_0_Using_Bitcoin_Regtest.md).
 
