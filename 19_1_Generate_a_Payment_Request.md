@@ -1,5 +1,5 @@
 
-# 13.4: Generate a Payment request.
+# 19.1: Generate a Payment request.
 
 > :information_source: **NOTE:** This is a draft in progress, so that I can get some feedback from early reviewers. It is not yet ready for learning.
 
@@ -26,7 +26,7 @@ A Hashed Time Locked Contract is a conditional payment that use hashlocks and ti
 
 > :book: ***Commitment transaction.
 
-Commitment transactions is a transaction that spends the funding transaction. Each peer holds the other peer's signature meaning that either one can spent his commitment transaction whatever he wants.  After each new commitment transaction is created the old one is revoked.
+Commitment transaction is a transaction that spends the funding transaction. Each peer holds the other peer's signature meaning that either one can spent his commitment transaction whatever he wants.  After each new commitment transaction is created the old one is revoked.
 
 ### Node information
 
@@ -122,7 +122,7 @@ In most cases you need to receive an invoice to use Lightning Network payments. 
 
 ## What's Next?
 
-Continue "Understanding Your Lightning Setup" with [§13.5: Paying_a_Invoice](13_5_Paying_a_Invoice.md).
+Continue "Understanding Your Lightning Setup" with [§19.2: Paying_a_Invoice](19_2_Paying_a_Invoice.md).
 
 
 
