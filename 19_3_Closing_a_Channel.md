@@ -1,4 +1,4 @@
-# 13.6: Closing a Channel
+# 19.3: Closing a Channel
 
 > :information_source: **NOTE:** This is a draft in progress, so that I can get some feedback from early reviewers. It is not yet ready for learning.
 
@@ -126,7 +126,7 @@ c$ echo $NODEIDREMOTE
 0302d48972ba7eef8b40696102ad114090fd4c146e381f18c7932a2a1d73566f84
 c$ 
 ```
-Now we use NODEIDREMOTE to close channel:
+Now we use NODEIDREMOTE variable to close channel:
 
 ```
 c$lightning-cli --network=testnet close $NODEIDREMOTE 0
@@ -236,4 +236,4 @@ When you close a channel you perform an onchain transaction ending your financia
 
 ## What's Next?
 
-Continue "Understanding Your Lightning Setup" with [§13.7: Lightning Network Implementations](13_7_Lightning_Network_Implementations.md).
+Continue "Understanding Your Lightning Setup" with [§19.4: Lightning Network Implementations](19_4_Lightning_Network_Implementations.md).
