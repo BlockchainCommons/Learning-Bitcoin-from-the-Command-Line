@@ -55,7 +55,7 @@ _This tutorial assumes that you have some minimal background of how to use the c
   * [8.1: Sending a Transaction with a Locktime](08_1_Sending_a_Transaction_with_a_Locktime.md)
   * [8.2: Sending a Transaction with Data](08_2_Sending_a_Transaction_with_Data.md)
   
-## PART THREE: BITCOIN SCRIPTING
+### PART THREE: BITCOIN SCRIPTING
 
 **Status:** Finished. Updated for 0.20 and btcdeb.
 
