@@ -19,3 +19,5 @@ c-lightning is a lightweight, highly customizable and standard compliant impleme
 * Hooks are a primitive option that allows plugins to be notified about events in lightningd daemon and modify its behavior or pass custom behaviors.
 
 A plugin may be written in any language, and communicates with lightningd through the plugin’s stdin and stdout. JSON-RPCv2 is used as protocol on top of the two streams, with the plugin acting as server and lightningd acting as client. 
+
+Here is a updated list of [plugins](https://github.com/lightningd/plugins) available.
