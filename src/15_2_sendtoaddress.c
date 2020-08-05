@@ -107,7 +107,7 @@ int main(int argc, char *argv[]) {
 		
     if (!tx_id) {
 
-      printf("Very Sad: You don't have any UTXOs larger than %f",tx_total);
+      printf("Very Sad: You don't have any UTXOs larger than %f\n",tx_total);
       exit(-1);
     }
 
