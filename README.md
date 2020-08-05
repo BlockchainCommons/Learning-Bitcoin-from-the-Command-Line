@@ -101,7 +101,7 @@ _This tutorial assumes that you have some minimal background of how to use the c
 * [15.0: Talking to Bitcoind with C](15_0_Talking_to_Bitcoind.md)
   * [15.1: Accessing Bitcoind in C with RPC Libraries](15_1_Accessing_Bitcoind_with_C.md)
   * [15.2: Programming Bitcoind in C with RPC Libraries](15_2_Programming_Bitcoind_with_C.md)
-  * [15.3: Receiving Notifications in C ZMQ Libraries](15_3_Receiving_Bitcoind_Notifications_with_C.md)
+  * [15.3: Receiving Notifications in C with ZMQ Libraries](15_3_Receiving_Bitcoind_Notifications_with_C.md)
 
 ### APPENDICES
 
