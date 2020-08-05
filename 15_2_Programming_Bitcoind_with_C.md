@@ -333,7 +333,7 @@ $ cc sendtoaddress.c -lbitcoinrpc -ljansson -o sendtoaddress
 You can then use it to send funds to an address:
 
 ```
-$ ./sendtoaddress mwCwTceJvYV27KXBc3NJZys6CjsgsoeHmf .10
-Txid: 23f3faea4e1e933e981fe7ed66008f33c00983a865f6ccce9af0005e9670e916
+./sendtoaddress tb1qynx7f8ulv4sxj3zw5gqpe56wxleh5dp9kts7ns .001
+Txid: b93b19396f8baa37f5f701c7ca59d3128144c943af5294aeb48e3eb4c30fa9d2
 ```
-You can see information on this transaction that we sent [here](https://live.blockcypher.com/btc-testnet/tx/23f3faea4e1e933e981fe7ed66008f33c00983a865f6ccce9af0005e9670e916/). 
+You can see information on this transaction that we sent [here](https://live.blockcypher.com/btc-testnet/tx/b93b19396f8baa37f5f701c7ca59d3128144c943af5294aeb48e3eb4c30fa9d2/). 
