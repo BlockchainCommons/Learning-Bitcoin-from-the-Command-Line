@@ -15,7 +15,7 @@ int main(void) {
 
   bitcoinrpc_global_init();
 
-  rpc_client = bitcoinrpc_cl_init_params ("bitcoinrpc", "73bd45ba60ab8f9ff9846b6404769487", "127.0.0.1", 18443);
+  rpc_client = bitcoinrpc_cl_init_params ("StandUp", "YOUR-RPC-PASSWD", "127.0.0.1", 18332);
 
   if (rpc_client) {
     getmininginfo = bitcoinrpc_method_init(BITCOINRPC_METHOD_GETMININGINFO);
