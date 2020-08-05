@@ -2,7 +2,7 @@
 
 > **NOTE:** This is a draft in progress, so that I can get some feedback from early reviewers. It is not yet ready for learning.
 
-You've already seen one alternative way to access the Bitcoind's RPC ports: `curl`, which was covered in a [Chapter 4 Interlude](04_4__Interlude_Using_Curl.md). Interacting with `bitcoind` through a C API is no different than that, you just need some good software. This section uses a package called `libbitcoinrpc` that that allows you to access JSON-RPC `bitcoind` port.  It uses a curl library for accessing the data and it uses the jansson library for encoding and decoding the JSON.
+You've already seen one alternative way to access the Bitcoind's RPC ports: `curl`, which was covered in a [Chapter 4 Interlude](04_4__Interlude_Using_Curl.md). Interacting with `bitcoind` through a C API is no different than that, you just need some good libraries to help you out. This section uses a package called `libbitcoinrpc` that allows you to access JSON-RPC `bitcoind` port.  It uses a curl library for accessing the data and it uses the jansson library for encoding and decoding the JSON.
 
 ## Setting Up libbitcoinrpc
 
