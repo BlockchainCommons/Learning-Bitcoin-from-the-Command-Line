@@ -60,6 +60,12 @@ In this case both channel participants agree to close the channel and settle the
 In this case when only one participant is online or if the participants disagree on the last state of the channel,  so one peer can perform an unilateral close of the channel without the cooperation of the other node.   It's performed by broadcasting a commitment transaction that commits to a previous channel state which both parts have agreed upon.
 This commitment transaction contains the channel state divided in two parts: the balance of each participant and all the pending payments (HTLCs).
 
+To perform this kind of close you need to specify an argument called unilateraltimeout.  If this value is not zero, the close command will unilaterally close the channel when that number of seconds is reached like this:
+
+```
+
+```
+
 ### Node Information
 
 Now we'll show you how to get information about your channel using `lightning-cli listchannels` command.  The listchannels RPC command returns data on channels that are known to the node. Because channels may be bidirectional, up to 2 objects will be returned for each channel (one for each direction).   To query information about own channels we'll use jq tool showed in previous chapters.
