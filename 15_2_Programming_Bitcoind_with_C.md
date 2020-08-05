@@ -324,7 +324,7 @@ The entire code, with a _little_ more error-checking appears in the Appendix.
 
 ### Testing Your Code
 
-The complete code can be found in the [src directory](15_2_sendtoaddress.c).
+The complete code can be found in the [src directory](src/15_2_sendtoaddress.c).
 
 ```
 Compile this as usual:
