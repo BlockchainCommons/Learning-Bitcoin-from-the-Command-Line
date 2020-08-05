@@ -70,6 +70,12 @@ This commitment transaction contains the channel state divided in two parts: the
 To perform this kind of close you need to specify an argument called unilateraltimeout.  If this value is not zero, the close command will unilaterally close the channel when that number of seconds is reached like this:
 
 ```
+c$ lightning-cli --network=testnet close $NODEIDREMOTE 60
+{
+   "tx": "0200000001a1091f727e6041cc93fead2ea46b8402133f53e6ab89ab106b49638c11f27cba00000000006a40aa8001df85010000000000160014d22818913daf3b4f86e0bcb302a5a812d1ef6b91c6772d20",
+   "txid": "02cc4c647eb3e06f37fcbde39871ebae4333b7581954ea86b27b85ced6a5c4f7",
+   "type": "unilateral"
+}
 
 ```
 
