@@ -21,3 +21,7 @@ c-lightning is a lightweight, highly customizable and standard compliant impleme
 A plugin may be written in any language, and communicates with lightningd through the plugin’s stdin and stdout. JSON-RPCv2 is used as protocol on top of the two streams, with the plugin acting as server and lightningd acting as client. 
 
 Here is a updated list of [plugins](https://github.com/lightningd/plugins) available.
+
+### Backup
+
+As we mentioned on Closing a channel chapter your node needs to be online all the time otherwise your counterparty could send a previous channel status and steals your funds.   However, there is another scenario in which funds can be lost, and that is when a hardware failure occurs that prevents the node from establishing a cooperative closure with the counterparty. This will probably imply that if you do not have an exact copy of the state of the channel before the failure, you will have an invalid state that could cause the other node to assume it as an attempted fraud and use the penalty transaction. In this case all funds will be lost. To avoid this undesirable situation there is a developed a solution based on the high availability of postgresQL database
