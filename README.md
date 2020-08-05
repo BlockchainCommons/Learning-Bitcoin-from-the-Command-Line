@@ -113,8 +113,8 @@ _We want to expand this course to also introduce programming with RPC and finall
 
 **Status:** VERY Unfinished. Requires editing C-chapter; writing Libwally chapter, regularizing other languages chapter; and deciding what to do with Swift
 
-* [15.0: Talking to Bitcoind with C](15_0_Talking_to_Bitcoind.md) — Needs Rewrite + Editing
-  * [15.1: Accessing Bitcoind with C](15_1_Accessing_Bitcoind_with_C.md) — Needs Rewrite
+* [15.0: Talking to Bitcoind with C](15_0_Talking_to_Bitcoind.md)
+  * [15.1: Accessing Bitcoind with C](15_1_Accessing_Bitcoind_with_C.md)
   * [15.2: Programming Bitcoind with C](15_2_Programming_Bitcoind_with_C.md) — Needs Rewrite + Editing
   * [15.3: Receiving Bitcoind Notifications with C](15_3_Receiving_Bitcoind_Notifications_with_C.md) — Pending
 * 16.0: Programming with LibWally
