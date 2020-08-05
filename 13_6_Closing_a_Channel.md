@@ -42,6 +42,13 @@ c$ lightning-cli --network=testnet listfunds
    ]
 }
 ```
+Each channel has an identifier expressed in the short_channel_id field.  Each value in short_channel_id means
+
+"1780768x12x1"
+
+* Created on 1780768 block.
+* transaction index (12). 
+* output index (1).
 
 ## Closing a channel
 
@@ -81,7 +88,7 @@ c$
 Later we'll use select to show only data containing public_key id as source or destination.
 
 ```
-$ lightning-cli listchannels | jq '.channels[] | select(.source == '$NODEID' or .destination == '$NODEID')'
+c$ lightning-cli listchannels | jq '.channels[] | select(.source == '$NODEID' or .destination == '$NODEID')'
 {
   "source": "03fce2a20393a65b9d6cab5425f4cd33ddc621ade458efd69d652917e2b5eaf59c",
   "destination": "0302d48972ba7eef8b40696102ad114090fd4c146e381f18c7932a2a1d73566f84",
@@ -105,8 +112,18 @@ $ lightning-cli listchannels | jq '.channels[] | select(.source == '$NODEID' or 
 
 Finally you should use `lightning-cli close` command to close the channel. The close RPC command attempts to close the channel cooperatively with the peer,  if you want to close it unilaterally set unilateraltimeout argument with number of seconds command will wait.   If you set to 0 and the peer is online command can negotiate a mutual close.   For this example we use an mutual close.
 
+Now we'll get remote node id public key in a variable:
+
 ```
-lightning-cli --network=testnet close 0302d48972ba7eef8b40696102ad114090fd4c146e381f18c7932a2a1d73566f84 0
+c$ $NODEIDREMOTE=lightning-cli listchannels | jq '.channels[] | select(.source == '$NODEID')' | jq .destination
+c$ echo $NODEIDREMOTE
+0302d48972ba7eef8b40696102ad114090fd4c146e381f18c7932a2a1d73566f84
+c$ 
+```
+Now we use NODEIDREMOTE to close channel:
+
+```
+c$lightning-cli --network=testnet close $NODEIDREMOTE 0
 {
    "tx": "0200000001a67ad9b15cb10b74a584a284f059866dd2114e45f2a997b260464af537c043980100000000ffffffff02a08601000000000016001404e34b25e1310c9b90c7a53a6eba88f4eefe8efb69be020000000000160014865353eaccaa94aa4f90d3a0acdf3903c06c12c400000000",
    "txid": "b4c0a1993dd113081eff5369a22d6afe1af9f0d07b29a590e8772ac7f712736a",
@@ -179,7 +196,7 @@ c$ bitcoin-cli -testnet getrawtransaction b4c0a1993dd113081eff5369a22d6afe1af9f0
 Listing funds onchain or offchain we get an output with a value of 179817 that results of 280000 minus 183 per fee in 279817.   We have to substract 100000 paid on the invoice of the previous chapter to finally receives 179817 satoshis.
 
 ```
-lightning-cli --network=testnet listfunds
+c$lightning-cli --network=testnet listfunds
 {
    "outputs": [
       {
