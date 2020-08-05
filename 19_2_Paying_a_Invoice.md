@@ -1,4 +1,4 @@
-# 13.5: Paying a Invoice
+# 19.2: Paying a Invoice
 
 > :information_source: **NOTE:** This is a draft in progress, so that I can get some feedback from early reviewers. It is not yet ready for learning.
 
@@ -148,4 +148,4 @@ We've created an invoice by 100.000 satoshis using a second machine and we've pa
 
 ## What's Next?
 
-Continue "Understanding Your Lightning Setup" with [§13.6: Closing a Channel](13_6_Closing_a_Channel.md).
+Continue "Understanding Your Lightning Setup" with [§19.3: Closing a Channel](19_3_Closing_a_Channel.md).
