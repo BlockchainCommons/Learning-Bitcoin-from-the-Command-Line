@@ -24,6 +24,8 @@ $ sudo apt-get install git
 $ git clone https://github.com/gitmarek/libbitcoinrpc
 ```
 
+> :warning: **WARNING** A change in the "signrawtransaction" RPC caused signing with `libbitcoinrpc` to segfault for Bitcoin 0.17 or higher. A [PR has been submitted](https://github.com/gitmarek/libbitcoinrpc/pull/1/commits) to resolve the problem, but if it hasn't yet been merged, you can just make the one simple change in the source code to `src/bitcoinrpc_method.c` before compiling.
+
 ### Compiling libbitcoinrpc
 
 Before you can compile and install the package, you'll probably need to adjust your `$PATH`, so that you can access `/sbin/ldconfig`:
