@@ -1,8 +1,8 @@
-# 15.1: Accessing Bitcoind with C
+# 15.1: Accessing Bitcoind in C with RPC Libraries
 
 > **NOTE:** This is a draft in progress, so that I can get some feedback from early reviewers. It is not yet ready for learning.
 
-You've already seen one alternative way to access the Bitcoind's RPC ports: `curl`, which was covered in a [Chapter 4 Interlude](04_4__Interlude_Using_Curl.md). Interacting with `bitcoind` through a C API is no different than that, you just need some good libraries to help you out. This section uses a package called `libbitcoinrpc` that allows you to access JSON-RPC `bitcoind` port.  It uses a curl library for accessing the data and it uses the jansson library for encoding and decoding the JSON.
+You've already seen one alternative way to access the Bitcoind's RPC ports: `curl`, which was covered in a [Chapter 4 Interlude](04_4__Interlude_Using_Curl.md). Interacting with `bitcoind` through a RPC library in C is no different than that, you just need some good libraries to help you out. This section introduces a package called `libbitcoinrpc`, which allows you to access JSON-RPC `bitcoind` port.  It uses a `curl` library for accessing the data and it uses the `jansson` library for encoding and decoding the JSON.
 
 ## Setting Up libbitcoinrpc
 
@@ -272,10 +272,10 @@ This section doesn't include a full example of this more complex methodology, bu
 
 ## Summary: Accessing Bitcoind with C
 
-By linking to the `bitcoinrpc` and `jansson` libraries, you can easily access `bitcoind` via RPC calls from a C library. To do so, you create an RPC connection, then make individual RPC calls, some of them with parameters. `jansson` then allows you to decode the JSON responses.
+By linking to the `bitcoinrpc` RPG and `jansson` JSON libraries, you can easily access `bitcoind` via RPC calls from a C library. To do so, you create an RPC connection, then make individual RPC calls, some of them with parameters. `jansson` then allows you to decode the JSON responses. The next section will demonstrate how this can be used for a pragmatic, real-world program.
 
-* :fire: ***What is the power of C?*** C allows you to take the next step beyond shell-scripting, permitting the creation of more comprehensive and robust programs. A few examples appear in the next two sections.
+* :fire: ***What is the power of C?*** C allows you to take the next step beyond shell-scripting, permitting the creation of more comprehensive and robust programs.
 
 ## What's Next?
 
-Learn more about "Talking to Bitcoind with C" in [15.2: Programming Bitcoind with C](15_2_Programming_Bitcoind_with_C.md).
+Learn more about "Talking to Bitcoind with C" in [15.2: Programming Bitcoind in C with RPC Libraries](15_2_Programming_Bitcoind_with_C.md).
