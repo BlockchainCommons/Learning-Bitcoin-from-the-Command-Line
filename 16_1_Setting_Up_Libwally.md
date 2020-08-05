@@ -90,3 +90,70 @@ Finally, you can install:
 $ sudo make install
 ```
 
+## Preparing for Libwally
+
+As usual, you'll need to include appropriate files and link appropriate libraries to use Libwally.
+
+### Including the Files
+
+There are a considerable number of possible include files:
+
+```
+$ ls /usr/include/wally*
+/usr/include/wally_address.h  /usr/include/wally_bip39.h   /usr/include/wally_elements.h  /usr/include/wally_script.h
+/usr/include/wally_bip32.h    /usr/include/wally_core.h    /usr/include/wally.hpp	  /usr/include/wally_symmetric.h
+/usr/include/wally_bip38.h    /usr/include/wally_crypto.h  /usr/include/wally_psbt.h	  /usr/include/wally_transaction.h
+```
+Fortunately, the file names largely match the sections in the [docs](https://wally.readthedocs.io/en/release_0.7.8/), so you should be able to include the correct files based on what you're doing.
+
+### Including the Libraries
+
+You also will need to link appropriate libraries:
+```
+$ ls /usr/lib/libsecp* /usr/lib/libwally*
+/usr/lib/libsecp256k1.a   /usr/lib/libwallycore.la  /usr/lib/libwallycore.so.0
+/usr/lib/libsecp256k1.la  /usr/lib/libwallycore.so  /usr/lib/libwallycore.so.0.0.0
+```
+Mostly, we'll be using `libwallycore`.
+
+## Setting Up a Libwally Program
+
+Compared to some of the previous libraries, Libwally is ridiculously easy to initialize:
+```
+lw_response = wally_init(0);
+```
+And then when you're done, there's a handy function to clean up any allocated memory:
+```
+wally_cleanup(0);
+```
+In both cases, the argument is for flags, but is currently set to `0`.
+
+### Testing a Test Libwally Program
+
+The src directory contains [testwally.c](/src/16_1_testwally.c), which just shows how the initialize and cleanup work.
+
+You can compile it as follows:
+```
+$ cc testwally.c -lwallycore -o testwally
+```
+Afterward you can run it:
+```
+$ ./testwally
+Startup: 0
+```
+The "Startup" value is the return from `wally_init`. The `0` value may look discouraging, but that's what you want to see:
+```
+include/wally_core.h:#define WALLY_OK      0 /** Success */
+```
+
+## Summary: Setting Up Libwally
+
+By installing the Libwally includes and libraries, you can use it to access a number of cryptographic and library functions, which can complement your RPC and ZMG libraries.
+
+So what does it do exactly? That's what the next sections detail.
+
+## What's Next?
+
+Learn more about "Programming Bitcoin with Libwally" in [16.2: Using BIP32 in Libwally](16_2_Using_BIP32_in_Libwally.md).
+
+
