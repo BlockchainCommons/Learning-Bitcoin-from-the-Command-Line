@@ -1,5 +1,5 @@
 
-# 13.1: Verifying Your Lightning Setup
+# 18.1: Verifying Your Lightning Setup
 
 > :information_source: **NOTE:** This is a draft in progress, so that I can get some feedback from early reviewers. It is not yet ready for learning.
 
@@ -370,4 +370,4 @@ Before you start playing with lightning, you should make sure that your aliases 
 
 ## What's Next?
 
-Continue "Understanding Your Lightning Setup" with [§13.2: Knowing Your Lightning Setup](13_2_Knowing_Your_lightning_Setup.md).
+Continue "Understanding Your Lightning Setup" with [§18.2: Knowing Your Lightning Setup](18_2_Knowing_Your_lightning_Setup.md).
