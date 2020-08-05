@@ -94,6 +94,15 @@ _This tutorial assumes that you have some minimal background of how to use the c
   * [14.2: Changing Your Bitcoin Hidden Services](14_2_Changing_Your_Bitcoin_Hidden_Services.md)
   * [14.3: Adding SSH Hidden Services](14_3_Adding_SSH_Hidden_Services.md)
 
+### PART FIVE: PROGRAMMING WITH RPC
+
+**Status:** What's up here is finished, though work progresses on additional chapters, below.
+
+* [15.0: Talking to Bitcoind with C](15_0_Talking_to_Bitcoind.md)
+  * [15.1: Accessing Bitcoind in C with RPC Libraries](15_1_Accessing_Bitcoind_with_C.md)
+  * [15.2: Programming Bitcoind in C with RPC Libraries](15_2_Programming_Bitcoind_with_C.md)
+  * [15.3: Receiving Notifications in C ZMQ Libraries](15_3_Receiving_Bitcoind_Notifications_with_C.md)
+
 ### APPENDICES
 
 **Status:** Finished.
@@ -111,13 +120,9 @@ _We want to expand this course to also introduce programming with RPC and finall
 
 ### PART FIVE: PROGRAMMING WITH RPC
 
-**Status:** VERY Unfinished. Requires editing C-chapter; writing Libwally chapter, regularizing other languages chapter; and deciding what to do with Swift
+**Status:** VERY Unfinished. Writing Libwally chapter, regularizing other languages chapter; and deciding what to do with Swift
 
-* [15.0: Talking to Bitcoind with C](15_0_Talking_to_Bitcoind.md)
-  * [15.1: Accessing Bitcoind with C](15_1_Accessing_Bitcoind_with_C.md)
-  * [15.2: Programming Bitcoind with C](15_2_Programming_Bitcoind_with_C.md) — Needs Rewrite + Editing
-  * [15.3: Receiving Bitcoind Notifications with C](15_3_Receiving_Bitcoind_Notifications_with_C.md) — Pending
-* 16.0: Programming with LibWally
+* 16.0: Programming Bitcoin with Libwally
    * 16.1: Getting ready for LibWally
    * 16.2: Using secp256k1 Functions
    * 16.3: Writing Wallet Functions
