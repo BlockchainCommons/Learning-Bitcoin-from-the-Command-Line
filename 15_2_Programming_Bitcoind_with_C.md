@@ -1,8 +1,8 @@
-# 15.2: Programming Bitcoind with C
+# 15.2: Programming Bitcoind in C with RPC Libraries
 
 > **NOTE:** This is a draft in progress, so that I can get some feedback from early reviewers. It is not yet ready for learning.
 
-[§15.1](15_1_Accessing_Bitcoind_with_C.md) laid out the methodology for creating C programs based on RPC calls to `bitcoind`. We're now going to show the potential of that C programming by laying out a simplistic, first cut of an actual Bitcoin program.
+[§15.1](15_1_Accessing_Bitcoind_with_C.md) laid out the methodology for creating C programs using RPC and JSON libraries. We're now going to show the potential of those C libraries by laying out a simplistic, first cut of an actual Bitcoin program.
 
 ## Planning for Your Code
 
@@ -344,4 +344,4 @@ With access to a C library, you can create much more fully featured programs tha
 
 ## What's Next?
 
-Learn more about "Talking to Bitcoind with C" in [15.3: Receiving Bitcoind Notifications with C](15_3_Receiving_Bitcoind_Notifications_with_C.md).
+Learn more about "Talking to Bitcoind with C" in [15.3: Receiving Notifications in C with ZMQ Libraries](15_3_Receiving_Bitcoind_Notifications_with_C.md).
