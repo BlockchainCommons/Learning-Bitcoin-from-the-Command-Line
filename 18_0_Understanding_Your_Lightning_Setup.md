@@ -1,4 +1,4 @@
-# Chapter Thirteen: Understanding Your Lighting Setup
+# Chapter Eighteen: Understanding Your Lighting Setup
 
 > :information_source: **NOTE:** This is a draft in progress, so that I can get some feedback from early reviewers. It is not yet ready for learning.
 
@@ -26,9 +26,9 @@ Supporting objectives include the ability to:
    
 ## Table of Contents
 
-* [Section One: Verifying Your Lightning Setup](13_1_Verifying_Your_Lightning_Setup.md)
-* [Section Two: Knowing Your Lightning Setup](13_2_Knowing_Your_lightning_Setup.md)
-* [Section Three: Setting Up a channel](13_3_Setting_Up_a_Channel.md)
-* [Section Four: Generate a payment request](13_4_Generate_a_Payment_Request.md)
-* [Section Five: Paying an invoice](13_5_Paying_a_Invoice.md)
-* [Section Five: Closing a Channel](13_6_Closing_a_Channel.md)
+* [Section One: Verifying Your Lightning Setup](18_1_Verifying_Your_Lightning_Setup.md)
+* [Section Two: Knowing Your Lightning Setup](18_2_Knowing_Your_lightning_Setup.md)
+* [Section Three: Setting Up a channel](18_3_Setting_Up_a_Channel.md)
+* [Section Four: Generate a payment request](18_4_Generate_a_Payment_Request.md)
+* [Section Five: Paying an invoice](18_5_Paying_a_Invoice.md)
+* [Section Five: Closing a Channel](18_6_Closing_a_Channel.md)
