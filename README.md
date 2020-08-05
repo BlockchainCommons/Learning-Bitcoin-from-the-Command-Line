@@ -121,8 +121,11 @@ _We want to expand this course to also introduce programming with RPC and finall
 
 **Status:** VERY Unfinished. Writing Libwally chapter, regularizing other languages chapter; and deciding what to do with Swift
 
-* 16.0: Programming Bitcoin with Libwally
-   * 16.1: Getting ready for LibWally
+* [16.0: Programming Bitcoin with Libwally](16_0_Programming_Bitcoin_with_Libwally.md) — Needs edit for final content of chapter
+   * [16.1: Setting Up Libwally](16_1_Setting_Up_Libwally.md) — Needs edit
+   * [16.2: Using BIP32 in Libwally](16_2_Using_BIP32_in_Libwally.md) — Needs writing
+   
+Potential Sections:   
    * 16.2: Using secp256k1 Functions
    * 16.3: Writing Wallet Functions
    * 16.4: Integrating Libwally and Scripts
