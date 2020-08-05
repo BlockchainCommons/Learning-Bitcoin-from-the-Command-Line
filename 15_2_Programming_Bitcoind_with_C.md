@@ -241,7 +241,7 @@ params = json_array();
 json_array_append(params,inputparams);
 json_array_append(params,outputparams);
 ```
-#### 6.4 Make the RPC Call
+#### Step 6.4 Make the RPC Call
 
 Use the normal method to create your RPC call:
 ```
@@ -264,7 +264,7 @@ lu_result = json_object_get(lu_response,"result");
 
 char *tx_rawhex = strdup(json_string_value(lu_result));
 ```
-### 7. Sign the Transaction
+### Step 7. Sign the Transaction
 
 It's a lot easier to assign a simple parameter to a function. You just create a JSON array, then assign the parameter to the array:
 ```
@@ -295,7 +295,7 @@ json_decref(lu_signature);
 
 > :warning: ***WARNING:*** A real-world program would obviously carefully test the response of every RPC command to make sure there were no errors. That's especially true for `signrawtransaction`, because you might end up with a partially signed transaction. Worse, if you don't check the errors in the JSON object, you'll just see the `hex` and not realize that it's either unsigned or partially signed. 
 
-### 8. Send the Transaction
+### Step 8. Send the Transaction
 
 You can now send your transaction, using all of the previous techniques:
 ```
@@ -322,7 +322,7 @@ printf("Txid: %s\n",tx_newid);
 ```
 The entire code, with a _little_ more error-checking appears in the Appendix.
 
-### Testing Your Code
+## Testing Your Code
 
 The complete code can be found in the [src directory](src/15_2_sendtoaddress.c).
 
@@ -337,3 +337,11 @@ You can then use it to send funds to an address:
 Txid: b93b19396f8baa37f5f701c7ca59d3128144c943af5294aeb48e3eb4c30fa9d2
 ```
 You can see information on this transaction that we sent [here](https://live.blockcypher.com/btc-testnet/tx/b93b19396f8baa37f5f701c7ca59d3128144c943af5294aeb48e3eb4c30fa9d2/). 
+
+## Summary: Programming Bitcoind with C
+
+With access to a C library, you can create much more fully featured programs than it was reasonable to do so with shell scripts. But, it can take a lot of work! Even at 316 lines of code, `sendtoaddress.c` doesn't cover nearly all of the intricacies requires to safely and intelligently transact bitcoins.
+
+## What's Next?
+
+Learn more about "Talking to Bitcoind with C" in [15.3: Receiving Bitcoind Notifications with C](15_3_Receiving_Bitcoind_Notifications_with_C.md).
