@@ -32,7 +32,7 @@ int main(int argc, char *argv[]) {
 
   bitcoinrpc_global_init();
 
-  rpc_client = bitcoinrpc_cl_init_params ("bitcoinrpc", "73bd45ba60ab8f9ff9846b6404769487", "127.0.0.1", 18332);
+  rpc_client = bitcoinrpc_cl_init_params ("bitcoinrpc", "YOUR-RPC-PASSWD", "127.0.0.1", 18332);
 
   if (rpc_client) {
 
@@ -93,10 +93,10 @@ int main(int argc, char *argv[]) {
         tx_vout = json_integer_value(lu_vout);
 
         json_decref(lu_value);
-	      json_decref(lu_txid);
-	      json_decref(lu_vout);
-	      json_decref(lu_data);
-	      break;
+	json_decref(lu_txid);
+	json_decref(lu_vout);
+	json_decref(lu_data);
+	break;
 	
      }
       
@@ -262,7 +262,7 @@ int main(int argc, char *argv[]) {
     json_decref(lu_response);
     bitcoinrpc_method_free(rpc_method);
 
-    /* 8. Sign the Transaction */
+    /* 8. Send the Transaction */
 
     params = json_array();
     json_array_append_new(params,json_string(tx_signrawhex));
