@@ -236,4 +236,4 @@ When you close a channel you perform an onchain transaction ending your financia
 
 ## What's Next?
 
-Continue "Understanding Your Lightning Setup" with [§19.4: Lightning Network Implementations](19_4_Lightning_Network_Implementations.md).
+Continue "Understanding Your Lightning Setup" with [§19.4: Lightning Network Review](19_4_Lightning_Network_Review.md).
