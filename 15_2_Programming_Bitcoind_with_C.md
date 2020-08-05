@@ -146,7 +146,7 @@ If you didn't find any large-enough UTXOs, you'll have to report that sad fact t
 ```
 if (!tx_id) {
 
-  printf("Very Sad: You don't have any UTXOs larger than %f",tx_total);
+  printf("Very Sad: You don't have any UTXOs larger than %f\n",tx_total);
   exit(-1);
 }
 ```
