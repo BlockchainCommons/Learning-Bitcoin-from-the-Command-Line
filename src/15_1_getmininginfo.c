@@ -71,29 +71,3 @@ int main(void) {
   bitcoinrpc_global_cleanup();
 
 }
-```
-As usual, you can compile and run as follows:
-```
-$ cc getmininginfo.c -lbitcoinrpc -ljansson -o getmininginfo
-$ ./getmininginfo 
-Full Response: {
-  "result": {
-    "blocks": 1773353,
-    "difficulty": 10178811.406987719,
-    "networkhashps": 129510207940932.2,
-    "pooledtx": 9,
-    "chain": "test",
-    "warnings": "Warning: unknown new rules activated (versionbit 28)"
-  },
-  "error": null,
-  "id": "6e502927-b065-486a-8182-bc1acd843bae"
-}
-
-Just the Result: {
-  "blocks": 1773353,
-  "difficulty": 10178811.406987719,
-  "networkhashps": 129510207940932.2,
-  "pooledtx": 9,
-  "chain": "test",
-  "warnings": "Warning: unknown new rules activated (versionbit 28)"
-}
