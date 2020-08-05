@@ -1,4 +1,4 @@
-# 13.3: Setting Up a Channel
+# 18.3: Setting Up a Channel
 
 > :information_source: **NOTE:** This is a draft in progress, so that I can get some feedback from early reviewers. It is not yet ready for learning.
 
@@ -228,6 +228,6 @@ You need to create a channel with remote nodes to be able to receive and send mo
 
 ## What's Next?
 
-Continue "Understanding Your Lightning Setup" with [§13.4: Generate a Payment request](13_4_Generate_a_Payment_Request.md).
+Continue "Understanding Your Lightning Setup" with [§19.1: Generate a Payment request](19_1_Generate_a_Payment_Request.md).
 
 
