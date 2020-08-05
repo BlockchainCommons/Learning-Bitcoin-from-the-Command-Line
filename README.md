@@ -30,7 +30,6 @@ _This tutorial assumes that you have some minimal background of how to use the c
     * [Interlude: Using Command-Line Variables](03_3__Interlude_Using_Command-Line_Variables.md)
   * [3.4: Receiving a Transaction](03_4_Receiving_a_Transaction.md)
   * [3.5: Understanding the Descriptor](03_5_Understanding_the_Descriptor.md)
-  
 * [4.0: Sending Bitcoin Transactions](04_0_Sending_Bitcoin_Transactions.md)
   * [4.1: Sending Coins the Easy Way](04_1_Sending_Coins_The_Easy_Way.md)
   * [4.2: Creating a Raw Transaction](04_2_Creating_a_Raw_Transaction.md)
