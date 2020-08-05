@@ -273,3 +273,7 @@ This section doesn't include a full example of this more complex methodology, bu
 By linking to the `bitcoinrpc` and `jansson` libraries, you can easily access `bitcoind` via RPC calls from a C library. To do so, you create an RPC connection, then make individual RPC calls, some of them with parameters. `jansson` then allows you to decode the JSON responses.
 
 * :fire: ***What is the power of C?*** C allows you to take the next step beyond shell-scripting, permitting the creation of more comprehensive and robust programs. A few examples appear in the next two sections.
+
+## What's Next?
+
+Learn more about "Talking to Bitcoind with C" in [15.2: Programming Bitcoind with C](15_2_Programming_Bitcoind_with_C.md).
