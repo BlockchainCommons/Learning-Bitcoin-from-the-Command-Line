@@ -156,6 +156,8 @@ $ ./testbitcoin
 Successfully connected to server!
 ```
 
+> :warning: **WARNING:** If you forget to enter your RPC password in this or any other code samples that depend on RPC, you will receive a mysterious `ERROR CODE 5`.
+
 ## Making an RPC Call
 
 In order to use an RPC method using `libbitcoinrpc`, you must initialize a variable of type `bitcoinrpc_method_t`. You do so with the appropriate value for the method you want to use, all of which are listed in the [bitcoinrpc Reference](https://github.com/gitmarek/libbitcoinrpc/blob/master/doc/reference.md).
