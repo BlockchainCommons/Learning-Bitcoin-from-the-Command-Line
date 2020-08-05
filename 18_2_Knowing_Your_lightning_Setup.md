@@ -1,4 +1,4 @@
-# 13.2: Knowing Your Lightning Setup
+# 18.2: Knowing Your Lightning Setup
 
 > :information_source: **NOTE:** This is a draft in progress, so that I can get some feedback from early reviewers. It is not yet ready for learning.
 
@@ -327,4 +327,4 @@ The `~/.lightning` directory contains all of your files, while `lightning-cli he
 
 ## What's Next?
 
-Continue "Understanding Your Lightning Setup" with [§13.3: Setting Up_a_Channel](13_3_Setting_Up_a_Channel.md).
+Continue "Understanding Your Lightning Setup" with [§18.3: Setting Up_a_Channel](18_3_Setting_Up_a_Channel.md).
