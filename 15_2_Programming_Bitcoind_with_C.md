@@ -326,14 +326,12 @@ The entire code, with a _little_ more error-checking appears in the Appendix.
 
 The complete code can be found in the [src directory](src/15_2_sendtoaddress.c).
 
-```
 Compile this as usual:
 ```
 $ cc sendtoaddress.c -lbitcoinrpc -ljansson -o sendtoaddress
 ```
 You can then use it to send funds to an address:
 
-[[IT NO LONGER WORKS!]]
 ```
 $ ./sendtoaddress mwCwTceJvYV27KXBc3NJZys6CjsgsoeHmf .10
 Txid: 23f3faea4e1e933e981fe7ed66008f33c00983a865f6ccce9af0005e9670e916
