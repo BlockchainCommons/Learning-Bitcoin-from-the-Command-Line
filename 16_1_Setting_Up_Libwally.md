@@ -146,6 +146,45 @@ The "Startup" value is the return from `wally_init`. The `0` value may look disc
 include/wally_core.h:#define WALLY_OK      0 /** Success */
 ```
 
+## Installing Libsodium
+
+You should also install Libsodium to get access to a high quality random number generator for testing purposes.
+
+> :warning: **WARNING:** The generation of random numbers can be one of the greatest points of vulnerability in any Bitcoin software. If you do it wrong, you expose your users to attacks because they end up with insecure Bitcoin keys, and this isn't a [theoretical problem](https://github.com/BlockchainCommons/SmartCustodyBook/blob/master/manuscript/03-adversaries.md#adversary-systemic-key-compromise). BlockchainInfo once incorrectly generated 0.0002% of their keys, which resulted in the temporary loss of 250 Bitcoins. Bottom line: make sure you're totally comfortable with your random number generation. It might be Libsodium, or it might be an even more robust TRNG method.
+
+You can download a [Libsodium tarball](https://download.libsodium.org/libsodium/releases/) and then follow the instructions at [Libsodium installation](https://doc.libsodium.org/installation).
+
+First, untar:
+```
+$ tar xzfv /tmp/libsodium-1.0.18-stable.tar.gz 
+```
+Then, adjust the configure file exactly as you have the other libraries to date:
+```
+< ac_default_prefix=/usr
+---
+> ac_default_prefix=/usr/local
+```
+Finally, `make`, `check`, and `install`:
+```
+$ make
+$ make check
+...
+============================================================================
+Testsuite summary for libsodium 1.0.18
+============================================================================
+# TOTAL: 77
+# PASS:  77
+# SKIP:  0
+# XFAIL: 0
+# FAIL:  0
+# XPASS: 0
+# ERROR: 0
+============================================================================
+...
+$ sudo make install
+```
+This course will only use `libsodium` for one small (but crucial!) bit of entropy generation.
+
 ## Summary: Setting Up Libwally
 
 By installing the Libwally includes and libraries, you can use it to access a number of cryptographic and library functions, which can complement your RPC and ZMG libraries.
