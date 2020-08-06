@@ -86,6 +86,7 @@ Add and document the following new concepts:
 
 16. <strike>Edit & Integrate Tor Chapter. </strike> **7/22**
 17. Edit & Integrate all "C" work
+   * <stirke>Edit & Update Chapter 15</strike> **8/5**
    * Write the Libwally section
    * Like the seedtool and keytool, but simpler
 18. Edit & Integrate all "Other Languages" work
@@ -97,4 +98,5 @@ Add and document the following new concepts:
 
 ## 6. Finalize Book
 
+X. Take out warnings for all old chapters
 22. Re-edit everything
