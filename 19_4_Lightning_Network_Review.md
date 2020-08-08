@@ -24,4 +24,13 @@ Here is a updated list of [plugins](https://github.com/lightningd/plugins) avail
 
 ### Backup
 
-As we mentioned on Closing a channel chapter your node needs to be online all the time otherwise your counterparty could send a previous channel status and steals your funds.   However, there is another scenario in which funds can be lost, and that is when a hardware failure occurs that prevents the node from establishing a cooperative closure with the counterparty. This will probably imply that if you do not have an exact copy of the state of the channel before the failure, you will have an invalid state that could cause the other node to assume it as an attempted fraud and use the penalty transaction. In this case all funds will be lost. To avoid this undesirable situation there is a developed a solution based on the high availability of postgresQL database
+As we mentioned on Closing a channel chapter your node needs to be online all the time otherwise your counterparty could send a previous channel status and steals your funds.   However, there is another scenario in which funds can be lost, and that is when a hardware failure occurs that prevents the node from establishing a cooperative closure with the counterparty. This will probably imply that if you do not have an exact copy of the state of the channel before the failure, you will have an invalid state that could cause the other node to assume it as an attempted fraud and use the penalty transaction. In this case all funds will be lost. To avoid this undesirable situation exists a solution based on the high availability of postgresQL database [here](https://github.com/gabridome/docs/blob/master/c-lightning_with_postgresql_reliability.md).    We haven't tested this solution.
+
+### Mobile wallets.
+
+Today we know about two mobile lightning wallets that support c-lightning implementation.   For iOS devices FullyNoded which is an open source iOS Bitcoin wallet that connects via Tor V3 authenticated service to your own full node and SparkWallet that is a minimalistic wallet GUI for c-lightning, accessible over the web or through mobile and desktop apps (for Android, Linux, macOS and Windows). 
+
+*  [FullyNoded](https://github.com/Fonta1n3/FullyNoded/blob/master/Docs/Lightning.md) in TestFlight
+*  [SparkWallet](https://github.com/shesek/spark-wallet)
+
+
