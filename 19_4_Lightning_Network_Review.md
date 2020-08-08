@@ -28,7 +28,9 @@ As we mentioned on Closing a channel chapter your node needs to be online all th
 
 ### Mobile wallets.
 
-Today we know about two mobile lightning wallets that support c-lightning implementation.   For iOS devices FullyNoded which is an open source iOS Bitcoin wallet that connects via Tor V3 authenticated service to your own full node and SparkWallet that is a minimalistic wallet GUI for c-lightning, accessible over the web or through mobile and desktop apps (for Android, Linux, macOS and Windows). 
+Today we know about two mobile lightning wallets that support c-lightning implementation.   For iOS devices FullyNoded which is an open source iOS Bitcoin wallet that connects via Tor V3 authenticated service to your own full node. FullyNoded  functionality is currently under active development and in early beta testing phase.
+
+SparkWallet is a minimalistic wallet GUI for c-lightning, accessible over the web or through mobile and desktop apps for Android. 
 
 *  [FullyNoded](https://github.com/Fonta1n3/FullyNoded/blob/master/Docs/Lightning.md) in TestFlight
 *  [SparkWallet](https://github.com/shesek/spark-wallet)
