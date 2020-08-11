@@ -128,7 +128,7 @@ wally_cleanup(0);
 ```
 In both cases, the argument is for flags, but is currently set to `0`.
 
-### Testing a Test Libwally Program
+## Testing a Test Libwally Program
 
 The src directory contains [testwally.c](src/16_1_testwally.c), which just shows how the initialize and cleanup functions work.
 
