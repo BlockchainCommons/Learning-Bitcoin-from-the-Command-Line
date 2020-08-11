@@ -37,7 +37,7 @@ int main(void) {
   
   printf("Mnemonic: %s\n",mnem);
 
-  /* 4. Validate the Mnemonic */
+  /* 4. Validate a Mnemonic */
 
   lw_response = bip39_mnemonic_validate(NULL,mnem);
   
@@ -54,18 +54,28 @@ int main(void) {
       
   /* 5. Translate into Seed */
 
+  unsigned char seed[BIP39_SEED_LEN_512];
   size_t seed_len;
-  unsigned char *seed;
   
   lw_response = bip39_mnemonic_to_seed(mnem,NULL,seed,BIP39_SEED_LEN_512,&seed_len);
 
-    if (lw_response) {
+  if (lw_response) {
 
     printf("Error: bip39_mnemonic_to_seed failed: %d\n",lw_response);
     exit(-1);
     
   }
 
-  wally_cleanup(0);
+  /* 6. Print the Seed */
+
+  char *seed_hex;
+  wally_hex_from_bytes(seed,sizeof(seed),&seed_hex);
+  printf("Seed: %s\n",seed_hex);
+
+  /* Always cleanup: the docs clearly tell us what to free */
   
+  wally_free_string(mnem);
+  wally_free_string(seed_hex);  
+  wally_cleanup(0);
+    
 } 
