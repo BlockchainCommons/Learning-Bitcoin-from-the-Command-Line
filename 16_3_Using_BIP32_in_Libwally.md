@@ -131,6 +131,8 @@ An HD wallet allows you to generate a vast number of keys from a single seeds. Y
 
 > :fire: ***What is the power of BIP32?*** Keys are the most difficult (and most dangerous) element of most cryptographic operations. If you lose them, you lose whatever the key protected. BIP32 ensures that you just need to know one key, the seed, rather than a huge number of different keys for different addresses.
 
+> :fire: ***What is the power of BIP32 in Libwally?*** Bitcoind already does address creation for you, which means you don't usually have to worry about deriving addresses in this way. However, using the BIP32 functions of Libwally can be very useful if you have an offline machine where you need to derive addresses, possibly based on a seed passed out of `bitcoind` to your offline device.
+
 ## What's Next?
 
 Learn more about "Programming Bitcoin with Libwally" in [16.4: Using PSBTs in Libwally](16_4_Using_PSBTs_in_Libwally.md).
