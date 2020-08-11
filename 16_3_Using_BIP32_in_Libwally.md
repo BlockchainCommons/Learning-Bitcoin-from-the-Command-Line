@@ -4,7 +4,7 @@
 
 In [§16.2](16_2_Using_BIP39_in_Libwally.md), you were able to use entropy to generate a seed and its related mnemonic. As you may recall from [§3.5: Understanding the Descriptor](03_5_Understanding_the_Descriptor.md), a seed is the basis of a Hierchical Deterministic (HD) Wallet, where that single seed can be used to generate many addresses. So how do you get from the seed to actual addresses? That's where [BIP32](https://en.bitcoin.it/wiki/BIP_0032) comes in.
 
-## Creating HD Addresses
+## Creating an HD Root
 
 To create a HD address requires starting with a seed, and then walking down the hierarchy until the point that you create addresses.
 
@@ -42,92 +42,95 @@ Whenever you have a key in hand, you can turn it into xpub or xprv keys for dist
   lw_response = bip32_key_to_base58(key_root, BIP32_FLAG_KEY_PUBLIC, &xpub);
 ```
 
-### Understanding the Hierarchy
+## Understanding the Hierarchy
 
-  /* 5. Generate key for account */
+Before going further, you need to understand how the hierarchy of an HD wallet works. As discussed in [§3.5](03_5_Understanding_the_Descriptor.md), a derivation path describes the tree that you follow to get to a hierarchical key, so `[0/1/0]` is the 0th child of the 1st child of the 0th child of a root key. Sometimes part of that derivation are marked with `'`s to show "hardened derivations, which increase security: `[0'/1'/0']`.
 
-  struct ext_key *key_account;
-  
+However, for HD wallets, each of those levels of the hierachy is used in a very specific way. This was originally defined in [BIP44](https://github.com/bitcoin/bips/blob/master/bip-0044.mediawiki) and was later updated for Segwit in [BIP84].
+
+Altogether, a BIP32 derivation path is defined to have five levels:
+
+1. **Purpose.** This is usually set to `44'` or `84'`, depending on the BIP that is being followed.
+2. **Coin.** For Mainnet bitcoins, this is `0'`, for testnet it's `1'`.
+3. **Account.** A wallet can contain multiple, discrete accounts, starting with `0'`.
+4. **Change.** External addresses (for distribution) are set to `0`, while internal addresses (for change) are set to `1`.
+5. **Index.** The nth address for the hierarchy, starting with `0`.
+
+So on testnet, the zeroth adddress for an external address for the zeroth account for testnet coins using the BIP84 standards is `[m/84'/1'/0'/0/0]`. That's the address you'll be creating momentarily.
+
+> :link: **TESTNET vs MAINNET:** For mainnet, that'd be `[m/84'/0'/0'/0/0]`
+
+## Generating an Address
+
+To generate an address, you thus have to dig down through the whole hierarchy.
+
+### Generating an Account Key
+
+One way to do this is to use the `bip32_key_from_parent_path_alloc` function to drop down several levels of a hierarchy. You embed the levels in an array:
+```
   uint32_t path_account[] = {BIP32_INITIAL_HARDENED_CHILD+84, BIP32_INITIAL_HARDENED_CHILD+1, BIP32_INITIAL_HARDENED_CHILD};
+```
+Here's we'll be looking at the zeroth hardened child (that's the account) or the first hardened child (that's testnet coins) of the 84th hardened child (that's the BIP84 standard): `[m/84'/1'/0']`.
 
+You can then use that path to generate a new key from your old key:
+```
+  struct ext_key *key_account;
   lw_response = bip32_key_from_parent_path_alloc(key_root,path_account,sizeof(path_account),BIP32_FLAG_KEY_PRIVATE,&key_account);
-
-  if (lw_response) {
-
-    printf("Error: bip32_key_from_parent_path_alloc failed: %d\n",lw_response);
-    exit(-1);
-    
-  }
-
-  char *a_xprv;
+```
+Every time you have a new key, you can use that to generate new xprv and xpub keys, if you desire:
+```
   lw_response = bip32_key_to_base58(key_account, BIP32_FLAG_KEY_PRIVATE, &a_xprv);
-
-  if (lw_response) {
-
-    printf("Error: account bip32_key_to_base58 failed: %d\n",lw_response);
-    exit(-1);
-    
-  }
-  
-  printf("Account xprv key: %s\r\n", a_xprv);
-
-  char *a_xpub;  
   lw_response = bip32_key_to_base58(key_account, BIP32_FLAG_KEY_PUBLIC, &a_xpub);
+```
 
-  if (lw_response) {
+### Generating an Address Key
 
-    printf("Error: account bip32_key_to_base58 failed: %d\n",lw_response);
-    exit(-1);
-    
-  }
-
-  printf("Account xpub key: %s\r\n", a_xpub);
-
-  /* 6. Generate External Adress Key */
-
+Alternatively, you can use the `bip32_key_from_parent_alloc` function, which just drops down one level of the hierarchy at a time. The following example drops down to the 0th child of the account key (which is the external address) and then the 0th child of that. This would be useful because then you could continue generating the 1st address, the 2nd address, and so on:
+```
   struct ext_key *key_external;  
-
   lw_response = bip32_key_from_parent_alloc(key_account,0,BIP32_FLAG_KEY_PRIVATE,&key_external);
 
-  if (lw_response) {
-
-    printf("Error: root bip32_key_from_parent_alloc Level #1 failed: %d\n",lw_response);
-    exit(-1);
-    
-  }
-
   struct ext_key *key_address;  
-
   lw_response = bip32_key_from_parent_alloc(key_external,0,BIP32_FLAG_KEY_PRIVATE,&key_address);
+```
+> :warning: **WARNING::** At some point in this hierarchy, you must decide to generate `BIP32_FLAG_KEY_PUBLIC` instead of `BIP32_FLAG_KEY_PRIVATE`. Obviously this decision will be based on your security and your needs, but remember that you only need a public key to generate the actual address.
 
-  if (lw_response) {
+### Generating an Address
 
-    printf("Error: root bip32_key_from_parent_alloc Level #2 failed: %d\n",lw_response);
-    exit(-1);
-    
-  }
-
-  /* 7. Generate Address */
-
+Finally, you're ready to generate an address from your final key. All you do is run `wally_bbip32_to_addr_segwit` with your final key and a description of what sort of address this is.
+```
   char *segwit;
   lw_response = wally_bip32_key_to_addr_segwit(key_address,"tb",0,&segwit);
 
-  printf("[84'/0'/0'/0/0]%s\n",segwit);
-					       
-  /* Cleanup! */
+  printf("[m/84'/0'/0'/0/0]: %s\n",segwit);
+```  
 
-  bip32_key_free(key_address);      
-  bip32_key_free(key_external);    
-  bip32_key_free(key_account);  
-  bip32_key_free(key_root);
+> :link: **TESTNET vs MAINNET:** The `tb` argument defines a testnet address. For mainnet instead use `bc`.
 
-  wally_free_string(xprv);
-  wally_free_string(xpub);  
-  wally_free_string(a_xprv);
-  wally_free_string(a_xpub);
+There is also a `wally_bip32_key_to_address` function, which can be used to generate a legacy address or a nested Segwit address.
 
-  wally_free_string(mnem);
+## Testing HD Code
 
-  wally_cleanup(0);
-    
-} 
+The code for these HD example can, as usual, be found in the [src directory](src/16_3_genhd.c).
+
+You can compile and test it:
+```
+$ cc genhd.c -lwallycore -lsodium -o genhd
+$ ./genhd
+Mnemonic: behind mirror pond finish borrow wood park foam guess mail regular reflect
+Root xprv key: tprv8ZgxMBicQKsPdLFXmZ6VegTxcmeieNpRUq8J2ahXxSaK2aF7CGqAc14ZADLjdHJdCr8oR2Zng9YH1x1A7EBaajQLVGNtxc4YpFejdE3wyj8
+Root xpub key: tpubD6NzVbkrYhZ4WoHKfCm64685BoAeoi1L48j5K6jqNiNhs4VspfeknVgRLLiQJ3RkXiA9VxguUjmEwobtmrXNbhXsPHfm9W5HJR9DKRGaGJ2
+Account xprv key: tprv8yZN7h6SPvJXrhAk56z6cwHQE6qZBRreB9fqqZJ1Xd1nLci3Rw8HTmqNkpFNgf3eZx8hYzhFWafUhHSt3HgF13aHvCE6kveS7gZAyfQwMDi
+Account xpub key: tpubDWFQG78gYHzCkACXxkeh2LwWo8MVLm3YkTGd85LJwtpBB6xp4KwseGTEvxjeZNhnCNPdfZqRcgcZZAka4tD3xGS2J53WKHPMRhG357VKsqT
+[m/84'/0'/0'/0/0]: tb1q0knqq26ek59pfl7nukzqr28m2zl5wn2f0ldvwu
+```
+
+## Summary: Using BIP32 in Libwally
+
+An HD wallet allows you to generate a vast number of keys from a single seeds. You now know how those keys are organized under BIP44 and BIP84 and how to derive them, starting with either a seed or mnemonic words.
+
+> :fire: ***What is the power of BIP32?*** Keys are the most difficult (and most dangerous) element of most cryptographic operations. If you lose them, you lose whatever the key protected. BIP32 ensures that you just need to know one key, the seed, rather than a huge number of different keys for different addresses.
+
+## What's Next?
+
+Learn more about "Programming Bitcoin with Libwally" in [16.4: Using PSBTs in Libwally](16_4_Using_PSBTs_in_Libwally.md).
