@@ -193,6 +193,6 @@ So what does it do exactly? That's what the rest of this chapter is about.
 
 ## What's Next?
 
-Learn more about "Programming Bitcoin with Libwally" in [16.2: Using BIP32 in Libwally](16_2_Using_BIP32_in_Libwally.md).
+Learn more about "Programming Bitcoin with Libwally" in [16.2: Using BIP39 in Libwally](16_2_Using_BIP39_in_Libwally.md).
 
 
