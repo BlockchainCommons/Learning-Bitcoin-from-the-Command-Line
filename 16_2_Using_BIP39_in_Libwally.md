@@ -59,11 +59,24 @@ There are some functions, such as `bip32_key_from_seed` (which we'll meet in the
 
 If you need to generate the Seed from your Mnemonic, you just use the `bip39_mnemonic_to_seed` command:
 ```
-size_t seed_len;
-unsigned char *seed;
-
-lw_response = bip39_mnemonic_to_seed(mnem,NULL,seed,BIP39_SEED_LEN_512,&seed_len);
+  unsigned char seed[BIP39_SEED_LEN_512];
+  size_t seed_len;
+  
+  lw_response = bip39_mnemonic_to_seed(mnem,NULL,seed,BIP39_SEED_LEN_512,&seed_len);
 ```
+
+### Printing Your Seed
+
+If you want to see what your seed looks like in hex, you can use the `wally_hex_from_bytes` function to turn your seed into a readable (but not-great-for-people) hex code:
+```
+  char *seed_hex;
+  wally_hex_from_bytes(seed,sizeof(seed),&seed_hex);
+  printf("Seed: %s\n",seed_hex);
+```
+If you've done everything right, you should get back a 64-byte seed. (That's the `BIP39_SEED_LEN_512` variable you've been throwing around, which defines a default seed length as 512 bits or 64 bytes.)
+
+> :warning: **WARNING:** You definitely should test that your seed length is 64 bytes in some way, because it's easy to mess up, for example by using the wrong variable type when you run `bip39_mnemonic_to_seed`.
+
 ## Testing Mnemonic Code
 
 The full code for generating entropy, generating a BIP39 Mnemonic, validating the Mnemonic, and generating a seed can be found in the [src directory](src/16_2_genmnemonic.c). Download it and compile:
@@ -72,9 +85,9 @@ $ cc genmnemonic.c -lwallycore -lsodium -o genmnemonic
 ```
 Then you can run the test:
 ```
-$ ./genmnemonic 
-Mnemonic: point envelope vital weekend avoid cost rice recipe cradle travel armed rich
+Mnemonic: parent wasp flight sweet miracle inject lemon matter label column canyon trend
 Mnemonic validated!
+Seed: 47b04cfb5d8fd43d371497f8555a27a25ca0a04aafeb6859dd4cbf37f6664b0600c4685c1efac29c082b1df29081f7a46f94a26f618fc6fd38d8bc7b6cd344c7
 ```
 
 ## Summary: Using BIP39 in Libwally
