@@ -2,7 +2,7 @@
 
 > **NOTE:** This is a draft in progress, so that I can get some feedback from early reviewers. It is not yet ready for learning.
 
-This first section will explain how to download Libwally and how to get it working.
+This first section will explain how to download the Libwally C Library and get it working.
 
 > :book: ***What is Libwally?*** Libwally is a library of primitives helpful for the creation of wallets that is cross-platform and cross-language, so that the same functions can be used everywhere. There are [extensive docs](https://wally.readthedocs.io/en/release_0.7.8/). It's made available as part of Blockstream's [Elements Project](https://github.com/ElementsProject).
 
@@ -14,11 +14,11 @@ $ sudo apt-get install git
 $ sudo apt-get install dh-autoreconf
 ```
 
-You can download Libwally from its Git repo:
+You can then download Libwally from its Git repo:
 ```
 $ git clone https://github.com/ElementsProject/libwally-core
 ```
-You can then get things installed:
+Afterward, you can begin the configuration process:
 ```
 $ ./tools/autogen.sh
 ```
@@ -92,7 +92,7 @@ $ sudo make install
 
 ## Preparing for Libwally
 
-As usual, you'll need to include appropriate files and link appropriate libraries to use Libwally.
+So how do you use Libwally in a program? As usual, you'll need to include appropriate files and link appropriate libraries for your code.
 
 ### Including the Files
 
@@ -104,7 +104,7 @@ $ ls /usr/include/wally*
 /usr/include/wally_bip32.h    /usr/include/wally_core.h    /usr/include/wally.hpp	  /usr/include/wally_symmetric.h
 /usr/include/wally_bip38.h    /usr/include/wally_crypto.h  /usr/include/wally_psbt.h	  /usr/include/wally_transaction.h
 ```
-Fortunately, the file names largely match the sections in the [docs](https://wally.readthedocs.io/en/release_0.7.8/), so you should be able to include the correct files based on what you're doing.
+Fortunately, the file names largely match the sections in the [docs](https://wally.readthedocs.io/en/release_0.7.8/), so you should be able to include the correct files based on what you're doing, plus the ubiquitous `wally_core.h`.
 
 ### Including the Libraries
 
@@ -114,7 +114,7 @@ $ ls /usr/lib/libsecp* /usr/lib/libwally*
 /usr/lib/libsecp256k1.a   /usr/lib/libwallycore.la  /usr/lib/libwallycore.so.0
 /usr/lib/libsecp256k1.la  /usr/lib/libwallycore.so  /usr/lib/libwallycore.so.0.0.0
 ```
-Mostly, we'll be using `libwallycore`.
+Mostly, you'll be using `libwallycore`.
 
 ## Setting Up a Libwally Program
 
@@ -130,7 +130,7 @@ In both cases, the argument is for flags, but is currently set to `0`.
 
 ### Testing a Test Libwally Program
 
-The src directory contains [testwally.c](/src/16_1_testwally.c), which just shows how the initialize and cleanup work.
+The src directory contains [testwally.c](src/16_1_testwally.c), which just shows how the initialize and cleanup functions work.
 
 You can compile it as follows:
 ```
@@ -152,13 +152,13 @@ You should also install Libsodium to get access to a high quality random number 
 
 > :warning: **WARNING:** The generation of random numbers can be one of the greatest points of vulnerability in any Bitcoin software. If you do it wrong, you expose your users to attacks because they end up with insecure Bitcoin keys, and this isn't a [theoretical problem](https://github.com/BlockchainCommons/SmartCustodyBook/blob/master/manuscript/03-adversaries.md#adversary-systemic-key-compromise). BlockchainInfo once incorrectly generated 0.0002% of their keys, which resulted in the temporary loss of 250 Bitcoins. Bottom line: make sure you're totally comfortable with your random number generation. It might be Libsodium, or it might be an even more robust TRNG method.
 
-You can download a [Libsodium tarball](https://download.libsodium.org/libsodium/releases/) and then follow the instructions at [Libsodium installation](https://doc.libsodium.org/installation).
+You can download a [Libsodium tarball](https://download.libsodium.org/libsodium/releases/) and then follow the instructions at [Libsodium installation](https://doc.libsodium.org/installation) to install.
 
 First, untar:
 ```
 $ tar xzfv /tmp/libsodium-1.0.18-stable.tar.gz 
 ```
-Then, adjust the configure file exactly as you have the other libraries to date:
+Then, adjust the `configure` file exactly as you have the other libraries to date:
 ```
 < ac_default_prefix=/usr
 ---
@@ -183,13 +183,13 @@ Testsuite summary for libsodium 1.0.18
 ...
 $ sudo make install
 ```
-This course will only use `libsodium` for one small (but crucial!) bit of entropy generation.
+We're not going to show how to use `libsodium` here, because this course will only use `libsodium` for one small (but crucial!) bit of entropy generation, but watch for it in the next section.
 
 ## Summary: Setting Up Libwally
 
-By installing the Libwally includes and libraries, you can use it to access a number of cryptographic and library functions, which can complement your RPC and ZMG libraries.
+By installing the Libwally (and Libsodium) includes and libraries, you access a number of cryptographic and library functions, which can complement your RPC and ZMG libraries.
 
-So what does it do exactly? That's what the next sections detail.
+So what does it do exactly? That's what the rest of this chapter is about.
 
 ## What's Next?
 
