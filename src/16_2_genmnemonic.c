@@ -66,5 +66,6 @@ int main(void) {
     
   }
 
+  wally_cleanup(0);
   
 } 
