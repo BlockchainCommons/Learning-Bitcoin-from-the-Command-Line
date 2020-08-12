@@ -281,13 +281,11 @@ This is a simple use of `wally_tx_init_alloc`, telling it how many inputs and ou
   struct wally_psbt *psbt;
   lw_response = wally_psbt_init_alloc(0,1,1,0,&psbt);
 ```
-But what you have is not yet a legal PSBT, because of the lack of inputs. You can create those by creating a transaction and cloning it:
+But what you have is not yet a legal PSBT, because of the lack of inputs. You can create those by creating a transaction and set it as the global transaction in the PSBT, which updates all the inputs and outputs:
 ```
-  struct wally_tx *wtx;
-  lw_response = wally_tx_init_alloc(0,0,1,1,&wtx);
-  lw_response = wally_tx_clone(wtx, 0, &psbt->tx);
-  psbt->num_inputs = wtx->num_inputs;
-  psbt->num_outputs = wtx->num_outputs;
+  struct wally_tx *gtx;
+  lw_response = wally_tx_init_alloc(0,0,1,1,&gtx);
+  lw_response = wally_psbt_set_global_tx(psbt,gtx);
 ```
 ### Testing Your PSBT Creation
 At this point, you should have an empty, but working PSBT, which you can see by compiling and running [the program](src/16_4_createemptypsbt.c).
@@ -299,8 +297,7 @@ cHNidP8BAAoAAAAAAAAAAAAAAA==
 You can even use `bitcoin-cli` to test the result:
 ```
 $ psbt=$(./createpsbt)
-```
-bitcoin-cli decodepsbt $psbt
+$ bitcoin-cli decodepsbt $psbt
 {
   "tx": {
     "txid": "f702453dd03b0f055e5437d76128141803984fb10acb85fc3b2184fae2f3fa78",
@@ -324,5 +321,55 @@ bitcoin-cli decodepsbt $psbt
   "fee": 0.00000000
 }
 ```
+## Taking the Rest of the Roles
 
+As with PSBT reading, we are introducing the concept of PSBT creation, and then leaving the rest as an exercise for the reader.
 
+Following is a rough listing of functions for every roles; more functions will be needed to create some of the elements that are added to PSBTs.
+
+**Creator:**
+
+* wally_psbt_init_alloc
+* wally_psbt_set_global_tx
+
+**Updater:**
+
+* wally_psbt_input_set_non_witness_utxo
+* wally_psbt_input_set_witness_utxo
+* wally_psbt_input_set_redeem_script
+* wally_psbt_input_set_witness_script
+* wally_psbt_input_set_keypaths
+* wally_psbt_input_set_unknowns
+* wally_psbt_output_set_redeem_script
+* wally_psbt_output_set_witness_script
+* wally_psbt_output_set_keypaths
+* wally_psbt_output_set_unknowns
+
+**Signer:**
+
+* wally_psbt_input_set_partial_sigs
+* wally_psbt_input_set_sighash_type
+* wally_psbt_sign
+
+**Combiner:**
+
+* wally_psbt_combine
+
+**Finalizer:**
+* wally_psbt_finalize
+* wally_psbt_input_set_final_script_sig
+* wally_psbt_input_set_final_witness
+
+**Extracter:**
+
+* wally_psbt_extract
+
+## Summary: Using PSBTs in Libwally
+
+This section could be an entire chapter, as working with PSBTs at a low level is very intensive work that requires much more intensive manipulating of inputs and outputs than was the case in [Chapter 7](07_0_Expanding_Bitcoin_Transactions_PSBTs.md). Instead this section shows the basics: how to extract information from a PSBT, and how to begin creating one. 
+
+> :fire: ***What is the Power of PSBTs in Libwally?*** Obviously, you can already do all of this in `bitcoin-cli`, and it's simpler because a lot of the drudgery is taken care of. The advantage of using Libwally is that it can be run offline, so it could be Libwally that's sitting on the other side of a hardware device that your `bitcoin-cli` is communicating to with HWI. This is, in fact, one of the major points of PSBTs: to be able to manipulate partially signed transactions without needing a full node. Libwally enables it.
+
+## What's Next?
+
+Learn more about "Programming Bitcoin with Libwally" in [16.5: Using Scripts in Libwally](16_5_Using_Scripts_in_Libwally.md).
