@@ -114,7 +114,7 @@ Obviously, there's a lot more you could look at in the PSBTs. In fact, looking i
 
 > :warning: **WARNING:** These reading functions are _very_ rudimentary and will not work properly for extremly normal situations like an input or output that's still empty or that includes a `non_witness_utxo`. They will segfault if they aren't delivered a perfectly expected PSBT. A real reader would need to be considerably more robust, to cover all possible situations, and that's left as an exercise for the reader.
 
-## Testing Your PSBT Reader
+### Testing Your PSBT Reader
 
 Again, the code for this (extremely rudimentary and specific) PSBT reader is in the [src directory](src/16_4_examinepsbt.c). 
 
@@ -268,7 +268,61 @@ So, it's all there for your gathering!
 
 ## Creating a PSBT
 
-As noted at the head of this section, all of the functions to need to create and process PSBTs are available in Libwally. Actually running through the process of doing so is complex enough that it's beyond the scope of this section, but here's a quick run-down of the steps, which are all [fully documented](https://wally.readthedocs.io/en/latest/psbt/).
+As noted at the head of this section, all of the functions to need to create and process PSBTs are available in Libwally. Actually running through the process of doing so is complex enough that it's beyond the scope of this section, but here's a quick run-down of the functions required. Note that the [documents](https://wally.readthedocs.io/en/latest/psbt/) are out of date for PSBTs, so you'll need to consult `/usr/include/wally_psbt.h` for full information.
 
-[COMMANDS]
+As discussed in [§7.1](07_1_Creating_a_Partially_Signed_Bitcoin_Transaction.md) there are several roles involved in creating PSBTs
+
+### Taking the Creator Role
+
+The creator role is tasked with creating a PSBT with at least one input.
+
+This is a simple use of `wally_tx_init_alloc`, telling it how many inputs and outputs you'll have:
+```
+  struct wally_psbt *psbt;
+  lw_response = wally_psbt_init_alloc(0,1,1,0,&psbt);
+```
+But what you have is not yet a legal PSBT, because of the lack of inputs. You can create those by creating a transaction and cloning it:
+```
+  struct wally_tx *wtx;
+  lw_response = wally_tx_init_alloc(0,0,1,1,&wtx);
+  lw_response = wally_tx_clone(wtx, 0, &psbt->tx);
+  psbt->num_inputs = wtx->num_inputs;
+  psbt->num_outputs = wtx->num_outputs;
+```
+### Testing Your PSBT Creation
+At this point, you should have an empty, but working PSBT, which you can see by compiling and running [the program](src/16_4_createemptypsbt.c).
+```
+$ cc createemptypsbt.c -lwallycore -o createemptypsbt
+$ ./createemptypsbt 
+cHNidP8BAAoAAAAAAAAAAAAAAA==
+```
+You can even use `bitcoin-cli` to test the result:
+```
+$ psbt=$(./createpsbt)
+```
+bitcoin-cli decodepsbt $psbt
+{
+  "tx": {
+    "txid": "f702453dd03b0f055e5437d76128141803984fb10acb85fc3b2184fae2f3fa78",
+    "hash": "f702453dd03b0f055e5437d76128141803984fb10acb85fc3b2184fae2f3fa78",
+    "version": 0,
+    "size": 10,
+    "vsize": 10,
+    "weight": 40,
+    "locktime": 0,
+    "vin": [
+    ],
+    "vout": [
+    ]
+  },
+  "unknown": {
+  },
+  "inputs": [
+  ],
+  "outputs": [
+  ],
+  "fee": 0.00000000
+}
+```
+
 
