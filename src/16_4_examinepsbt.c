@@ -4,7 +4,6 @@
 
 int main(int argc, char *argv[]) {
 
-
   /* 1. Request a PSBT */
   
   if (argc != 2) {
@@ -35,6 +34,8 @@ int main(int argc, char *argv[]) {
   int inputs = psbt->num_inputs;
   printf("TOTAL INPUTS: %i\n",inputs);
 
+  /* This will crash if the inputs are not filled in, or if there are non_witness_utxos */
+  
   for (int i = 0 ; i < inputs ; i++) {
     printf("\nINPUT #%i: %i satoshis\n",i, psbt->inputs[i].witness_utxo->satoshi);
 
@@ -49,6 +50,9 @@ int main(int argc, char *argv[]) {
 
   int outputs = psbt->num_outputs;
   printf("\nTOTAL OUTPUTS: %i\n",outputs);
+  
+  /* This will crash if the outputs are not filled in */
+  
   for (int i = 0 ; i < outputs ; i++) {
 
     char *pubkey_hex;
