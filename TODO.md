@@ -88,6 +88,10 @@ Add and document the following new concepts:
 17. Edit & Integrate all "C" work
    * <stirke>Edit & Update Chapter 15</strike> **8/5**
    * Write the Libwally section
+      * <strike>16.1: Intro</strike> **8/5**
+      * <strike>16.2: BIP39</strike> **8/11**
+      * <strike>16.3: BIP32</strike> **8/11**
+      * 16.4: PSBTs
    * Like the seedtool and keytool, but simpler
 18. Edit & Integrate all "Other Languages" work
 19. Edit & Integrate Appendices work
