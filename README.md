@@ -124,8 +124,8 @@ _We want to expand this course to also introduce programming with RPC and finall
 * [16.0: Programming Bitcoin with Libwally](16_0_Programming_with_Libwally.md) — Needs edit for final content of chapter
    * [16.1: Setting Up Libwally](16_1_Setting_Up_Libwally.md) — Needs edit
    * [16.2: Using BIP39 in Libwally](16_2_Using_BIP39_in_Libwally.md) — Needs edit
-   * [16.3: Using BIP32 in Libwally](16_3_Using_BIP32_in_Libwally.md) — Needs writing
-   * [16.4: Using PSBTs in Libwally](16_4_Using_PSBTs_in_Libwally.md) — Needs writing
+   * [16.3: Using BIP32 in Libwally](16_3_Using_BIP32_in_Libwally.md) — Needs edit
+   * [16.4: Using PSBTs in Libwally](16_4_Using_PSBTs_in_Libwally.md) — Needs finishing
    * [16.5: Using Scripts in Libwally](16_5_Using_Scripts_in_Libwally.md) — Needs writing
    * [16.6: Using Other Functions in Libwally](16_6_Using_Other_Functions_in_Libwally.md) — Needs writing
    * [16.7: Integrating Libwally and Scripts](16_7_Integrating_Libwally_and_Scripts.md)  — Needs writing
