@@ -44,5 +44,7 @@ int main(void) {
 
   wally_tx_free(gtx);
   wally_psbt_free(psbt);
+	
+  wally_cleanup(0);	
   
 }
