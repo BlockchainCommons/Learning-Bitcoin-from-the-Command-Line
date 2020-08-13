@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include <string.h>
 #include <assert.h>
 #include "wally_core.h"
 #include "wally_transaction.h"
@@ -19,10 +20,11 @@ int main(int argc, char *argv[]) {
   size_t written;
 
   /* 1. Create the P2SH Script */
-  
-  unsigned char bscript[4];
-  
-  lw_response = wally_hex_to_bytes(script,bscript,4,&written);
+
+  int script_length = strlen(script)/2;
+  unsigned char bscript[script_length];
+    
+  lw_response = wally_hex_to_bytes(script,bscript,script_length,&written);
   assert(lw_response == WALLY_OK);
 
   unsigned char p2sh[WALLY_SCRIPTPUBKEY_P2SH_LEN];
@@ -72,7 +74,8 @@ int main(int argc, char *argv[]) {
   wally_tx_free(tx);
   wally_tx_input_free(tx_input);
   wally_tx_output_free(tx_output);
-
+  wally_tx_free(utxo);
+  
   wally_cleanup(0);  
 
 }
