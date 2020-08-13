@@ -91,7 +91,10 @@ Add and document the following new concepts:
       * <strike>16.1: Intro</strike> **8/5**
       * <strike>16.2: BIP39</strike> **8/11**
       * <strike>16.3: BIP32</strike> **8/11**
-      * 16.4: PSBTs
+      * <strike>16.4: PSBTs</strike> **8/12**
+      * <strike>16.5: Scripts</strike> **8/12**
+      * 16.6: Other Functions
+      * 16.7: Integration
    * Like the seedtool and keytool, but simpler
 18. Edit & Integrate all "Other Languages" work
 19. Edit & Integrate Appendices work
