@@ -10,6 +10,9 @@ Following are other setup methodologies that we are aware of:
 * *[Using Other Bitcoin Standup Scripts](https://github.com/BlockchainCommons/Bitcoin-Standup-Scripts).* Blockchain Commons also offers a version of the Linode script that you used that can be run from the command line on any Debian or Ubuntu machine.
 * *[Setting Up a Bitcoin Node on AWS](https://wolfmcnally.com/115/developer-notes-setting-up-a-bitcoin-node-on-aws/).* @wolfmcnally has written a step-by-step tutorial for setting up Bitcoin-Core with Amazon Web Services (AWS).
 * *[Setting Up a Bitcoin Node on a Raspberry Pi 3](https://medium.com/@meeDamian/bitcoin-full-node-on-rbp3-revised-88bb7c8ef1d1).* Damian Mee explains how to set up a headless full node on a Raspberry Pi 3.
+* *[Compiling Bitcoin From Source](https://jonatack.github.io/articles/how-to-compile-bitcoin-core-and-run-the-tests
+).* Jon Atack explains, step-by-step, how to compile Bitcoin Core from source and how to run the functional and unit tests - TOR not included
+* *[https://launchpad.net/~luke-jr/+archive/ubuntu/bitcoincore](Luke Dash Jr repository for Bitcoin Core for Ubuntu and Debian).* Bitcoin Core can be installed via apt but not from the included repo
 
 ## What's Next?
 
