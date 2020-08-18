@@ -182,8 +182,8 @@ getzmqnotifications
 ```
 You can also type `bitcoin-cli help [command]` to get even more extensive info on that command. For example:
 ```
-getmininginfo
-
+$ bitcoin-cli help getmininginfo
+...
 Returns a json object containing mining-related information.
 Result:
 {                              (json object)
