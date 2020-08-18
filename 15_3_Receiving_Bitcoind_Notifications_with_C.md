@@ -12,7 +12,7 @@ Before you can create a blockchain listener, you will need to configure `bitcoin
 
 ### Configuring `bitcoind` for ZMQ
 
-Bitcoin Core is is ZMQ-ready, but you must specify ZMQ endpoints. ZeroMQ publish-sockets prepend each data item with an arbitrary topic
+Bitcoin Core is ZMQ-ready, but you must specify ZMQ endpoints. ZeroMQ publish-sockets prepend each data item with an arbitrary topic
 prefix that allows subscriber clients to request only those items with a matching prefix. There are currently four topics supported by `bitcoind`:
 ```
 $ bitcoind --help | grep zmq | grep address
