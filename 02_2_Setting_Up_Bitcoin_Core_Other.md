@@ -6,6 +6,7 @@ The previous section, [§2.1: Setting Up a Bitcoin-Core VPS with Bitcoin Standup
 
 Following are other setup methodologies that we are aware of:
 
+* *[Compiling from Source](A2_0_Compiling_Bitcoin_from_Source.md).* If you prefer to compile Bitcoin Core by hand, that's covered in Appendix 2.
 * *[Using GordianNode-macOS](https://github.com/BlockchainCommons/GordianNode-macOS).* If you have a modern Mac, you can use Blockchain Commons' *GordianNode* app, powered by *BitocinStandup*, to install a full node on your Mac.
 * *[Using Other Bitcoin Standup Scripts](https://github.com/BlockchainCommons/Bitcoin-Standup-Scripts).* Blockchain Commons also offers a version of the Linode script that you used that can be run from the command line on any Debian or Ubuntu machine.
 * *[Setting Up a Bitcoin Node on AWS](https://wolfmcnally.com/115/developer-notes-setting-up-a-bitcoin-node-on-aws/).* @wolfmcnally has written a step-by-step tutorial for setting up Bitcoin-Core with Amazon Web Services (AWS).
