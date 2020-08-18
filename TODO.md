@@ -106,4 +106,7 @@ Add and document the following new concepts:
 ## 6. Finalize Book
 
 X. Take out warnings for all old chapters
+X. Add new first chapter, indicating places to start for people of different levels
+   * Know CL? Have a node? Need to read the new stuff? Skip Lightning?
+   * Decide where to place current first chapter in relation to that (before? after? glossary?)
 22. Re-edit everything
