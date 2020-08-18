@@ -10,10 +10,10 @@ This chapter thus describes a prime method for testing Bitcoin Scripts, which we
 
 The Bitcoin Script Debugger (`btcdeb`) by @kallewoof is one of the most reliable methods we've found for debugging Bitcoin Scripts. It does, however, require setting up C++ and a few other accessories on your machine, so we'll also offer a few other options toward the end of this chapter.
 
-First, you need to clone the `btcdeb` GitHub, which will also require installing `git if you don't yet have it.
+First, you need to clone the `btcdeb` GitHub repository, which will also require installing `git` if you don't yet have it.
 ```
 $ sudo apt-get install git
-$ git clone https://github.com/kallewoof/btcdeb.git
+$ git clone https://github.com/bitcoin-core/btcdeb.git
 ```
 Note that when you run `git clone` it will copy `btcdeb` into your current directory. We've chosen to do so in our `~standup` directory.
 ```
@@ -23,6 +23,10 @@ bitcoin-0.20.0-x86_64-linux-gnu.tar.gz  btcdeb  laanwj-releases.asc  SHA256SUMS.
 Afterward, you must install required C++ and other packages.
 ```
 $ sudo apt-get install autoconf libtool g++ pkg-config make
+```
+You should also install readline, as this makes the debugger a lot easier to use by supporting history using up/down arrows, left-right movement, autocompletion using tab, and other good user interfaces. 
+```
+$ sudo apt-get install libreadline-dev
 ```
 You're now ready to compile and install `btcdeb`:
 ```
@@ -36,10 +40,6 @@ After all of that, you should have a copy of `btcdeb`:
 ```
 $ which btcdeb
 /usr/local/bin/btcdeb
-```
-You should also install readline, as this makes the debugger a lot easier to use by supporting history using up/down arrows, left-right movement, autocompletion using tab, and other good user interfaces. 
-```
-$ sudo apt-get install libreadline-dev
 ```
 
 ## Use btcdeb
@@ -188,7 +188,7 @@ Using these commands can make it easier to see what's going on and where you are
 
 There are also a few web simulators that you can use to test scripts online. They can be superior to a command-line tool by offering a more graphical output, but we also find that they tend to have shortcomings.
 
-In the past we've tried to give extensive guidelines on using sites such as the [Script Playground](http://www.crmarsh.com/script-playground/) or the [Bitcoin Online Script Debugger](https://bitcoin-script-debugger.visvirial.com/), but they become out of date and/or disappear to quickly to keep up with them.
+In the past we've tried to give extensive guidelines on using sites such as the [Script Playground](http://www.crmarsh.com/script-playground/) or the [Bitcoin Online Script Debugger](https://bitcoin-script-debugger.visvirial.com/), but they become out of date and/or disappear too quickly to keep up with them.
 
 Assume that these debuggers have the nice advantage of showing things visually and explicitly telling you whether a script succeeds (unlocks) or fails (stays locked). Assume that they have disadvantages with signatures, where many of them either always return `true` for signature tests or else have very cumbersome mechanisms for incorporating them.
 
@@ -196,7 +196,7 @@ Assume that these debuggers have the nice advantage of showing things visually a
 
 Even with a great tool like `btcdeb` or transient resources like the various online script testers, you're not working with the real thing. You can't guarantee that they follow Bitcoin's consensus rules, which means you can't guarantee their results. For example, the Script Playground explicitly says that it ignores a bug that's implicit in Bitcoin multisignatures. This means that any multisig code that you successfully test on the Script Playground will break in the real world.
 
-So the only way to _really_ test Bitcoin Scripts is to try them out on Testnet. 
+So the only way to _really_ test Bitcoin Scripts is to try them out on Testnet.
 
 And how do you do that? As it happens that's the topic of [chapter 10](10_0_Embedding_Bitcoin_Scripts_in_P2SH_Transactions.md), which looks into introducing these abstract scripts to the real world of Bitcoin by embedding them in P2SH transactions. (But even then, you will probably need an API to push your P2SH transaction onto the Bitcoin network, so full testing will still be a ways in the future.)
 
