@@ -63,7 +63,42 @@ The main functions are:
    * `bip38_from_private_key` — Encode a private key using BIP38
    * `bip38_to_private_key` — Decode a private key using BIP38
    
+## Using BIP39 Functions
 
+A few BIP39 mnemonic-word functions were just overviewed in [§16.2: Using BIP39 in Libwally](16_2_Using_BIP39_in_Libwally.md):
+
+   * `bip39_get_languages` — See a list of supported languages
+   * `bit39_get_word` — Retrieve a specific word from a language's word list
+   * `bip39_get_wordlist` — See a list of words for a language
+   
+## Using PSBT Functions
+
+Listings of most PSBT functions can be found in [16.4: Using PSBTs in Libwally](16_4_Using_PSBTs_in_Libwally.md).
+
+## Using Script Functions
+
+[§16.5: Using Scripts in Libwally](16_5_Using_Scripts_in_Libwally.md) just barely touched upon Libwally's Scripts functions.
+
+There's another function that lets you determine the sort of script found in a transaction:
+
+   * `wally_scriptpubkey_get_type` — Determine a transaction's script type.
+
+Then there are a slew of functions that create `scriptPubKey` from bytes, `scriptSig` from signatures, and Witnesses from bytes or signatures.
+
+   * `wally_script_push_from_bytes`
+   * `wally_scriptpubkey_csv_2of2_then_1_from_bytes`
+   * `wally_scriptpubkey_csv_2of3_then_2_from_bytes`
+   * `wally_scriptpubkey_multisig_from_bytes`
+   * `wally_scriptpubkey_op_return_from_bytes`
+   * `wally_scriptpubkey_p2pkh_from_bytes`
+   * `wally_scriptpubkey_p2sh_from_bytes`
+   * `wally_scriptsig_multisig_from_bytes`
+   * `wally_scriptsig_p2pkh_from_der`
+   * `wally_scriptsig_p2pkh_from_sig`
+   * `wally_witness_multisig_from_bytes`
+   * `wally_witness_p2wpkh_from_der`
+   * `wally_witness_p2wpkh_from_sig`
+   * `wally_witness_program_from_bytes`
 
 ## Using Elements Function2
 
