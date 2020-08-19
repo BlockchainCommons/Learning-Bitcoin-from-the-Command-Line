@@ -100,6 +100,28 @@ Then there are a slew of functions that create `scriptPubKey` from bytes, `scrip
    * `wally_witness_p2wpkh_from_sig`
    * `wally_witness_program_from_bytes`
 
-## Using Elements Function2
+## Using Transaction Functions
+
+We also just barely touched upon the functions that can be used to create and convert functions in [§16.5](16_5_Using_Scripts_in_Libwally.md).
+
+There are numerous informational functions, some of the more interesting of which are:
+
+   * `wally_tx_get_length`
+   * `wally_tx_get_total_output_satoshi`
+   * `wally_tx_get_weight`
+   
+There also are functions that affect a `wally_tx`, a `wally_tx_input`, a `wally_tx_output`, or a `wally_tx_witness_stack` and that create signatures.
+
+## Using Elements Functions
 
 Libwally can be compiled to be used with Blockstream's Elements, which includes access to its assets functions.
+
+## Summary: Using Other Functions in Libwally
+
+There is much more that you can do with Libwally, more than can be covered in this chapter or even listed in this section. Notably beyond what was covered in this chapter, you can perform cryptographic functions, encode private keys, build complete transactions, and use Elements. The [Libwally docs](https://wally.readthedocs.io/en/latest/) are the place to go for more information, though as of this writing they are both limited and out-of-date. The Libwally header files are a backup if the docs are incomplete or wrong.
+
+## What's Next?
+
+Finish learning about "Programming Bitcoin with Libwally" in [§16.7: Integrating Libwally and Bitcoin-CLI](16_7_Integrating_Libwally_and_Bitcoin-CLI.md).  
+
+
