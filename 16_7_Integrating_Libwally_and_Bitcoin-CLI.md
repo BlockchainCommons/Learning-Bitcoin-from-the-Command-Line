@@ -35,6 +35,8 @@ $ seed=$(more ~/.bitcoin/seed  | grep "extended" | awk -F': ' '{print $2}')
 Now, you just need to import that into a simple Libwally program.
 
 [write the libwally program]
+   * bip32_key_serialize
+   * bip39_mnemonic_from_bytes
 [write a script that (1) dumps; (2) extracts the key; (3) runs it through libwally; (4) outputs the mnemonic words]
 
 ## Importing Addresses
