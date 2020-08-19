@@ -43,11 +43,28 @@ Some relate to the wallet import format (WIF):
    * `wally_wif_to_bytes` — Convert a WIF to a private key (in bytes)
    * `wally_wif_to_public_key` — Derive a public key (in bytes) from a WIF
    
-Some have to do with the BIP32 HD-wallet format:
+## Using BIP32 Functions
 
-   * `wally_bip32_key_to_address` — Derive a legacy address from a BIP32 key
-   * `wally_bip32_key_to_addr_segwit` — Derive a Segwit address from a BIP32 key
+There are additional BIP32 HD-wallet functions, beyond what was covered in [§16.3: Using BIP32 in Libwally](16_3_Using_BIP32_in_Libwally.md).
+
+   * `bip32_key_get_fingerprint` — Generate a BIP32 fingerprint for an extended key
+   * `bip32_key_serialize` — Transform an extended key into serialized bytes
+   * `bip32_key_strip_private_key` — Convert an extended private key to an extended public key
+   * `bip32_key_unserialize` — Transform serialized bytes into an extended key
+
+There are also numerous various depending on you want to allocate memory of have Libwally doing the `_alloc` for you.
+
+## Using BIP38 Functions
+
+[BIP38](https://github.com/bitcoin/bips/blob/master/bip-0038.mediawiki) allows for the creation of password-protected private key. We do not teach it because we consider inserting this sort of human factor into key management dangerous. See [#SmartCustody](https://www.smartcustody.com/index.html).
+
+The main functions are:
+
+   * `bip38_from_private_key` — Encode a private key using BIP38
+   * `bip38_to_private_key` — Decode a private key using BIP38
    
-## Using Elements Function
+
+
+## Using Elements Function2
 
 Libwally can be compiled to be used with Blockstream's Elements, which includes access to its assets functions.
