@@ -36,6 +36,7 @@ If you looked at the results of `p2sh`, you'd see it was:
 a9143f58b4f7b14847a9083694b9b3b52a4cea2569ed87
 ```
 Which you may recall breaks apart to:
+```
 a9 / 14 / 3f58b4f7b14847a9083694b9b3b52a4cea2569ed / 87
 ```
 That's our old friend `OP_HASH160 3f58b4f7b14847a9083694b9b3b52a4cea2569ed OP_EQUAL`.
