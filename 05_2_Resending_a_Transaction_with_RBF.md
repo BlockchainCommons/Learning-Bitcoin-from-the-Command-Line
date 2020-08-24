@@ -202,7 +202,7 @@ $ bitcoin-cli -named gettransaction txid=75208c5c8cbd83081a0085cd050fc7a4064d87c
 }
 ```
 
-> :warning: **VERSION WARNING:** The `bumpfee` RPC require Bitcoin Core v.0.14.0.
+> :warning: **VERSION WARNING:** The `bumpfee` RPC requires Bitcoin Core v.0.14.0.
 
 ## Summary: Resending a Transaction with RBF
 
