@@ -44,13 +44,17 @@ This list of all [unconfirmed transactions](https://blockchain.info/unconfirmed-
 
 If your transaction is stuck longer than you want, you can typically do one of four things:
 
-**1. Wait Until it Clears.** If you sent your transaction with a low or medium fee, it should eventually go through. As shown at [Bitcoin Fees](https://bitcoinfees.21.co/), transactions with fees of 100 or less satoshis per byte tend to be delayed by 25-100 blocks (up to 16 or 17 hours!), but they eventually appear in blocks.
+**1. Wait Until it Clears.** If you sent your transaction with a medium or high fee, should go through in a timely manner. 1 sat per byte transactions usually have to wait until the mempool clears. What fee amount is considered high? This depends on how full the mempool is. As shown at [Mempool Space](https://mempool.space), the higher the fee (relative to the other fees) the quicker you can expect it to clear. When there are more transactions there is more competition for block space, which increases fees.
 
 **2. Wait Until it Expires.** If you accidentally sent with no transaction fee, or if any number or other conditions are met, then your transaction might never go through. However, your coins aren't lost. As long as you don't have a wallet that purposefully resends unconfirmed transactions, it should clear from the mempool in three days or so, and then you can try again.
 
 **3. Use RBF as the Sender.** If you are the sender of the transaction, and you opted-in to RBF (Replace-By-Fee), then you can try again with a higher fee. See [§5.2: Resending a Transaction with RBF](05_2_Resending_a_Transaction_with_RBF.md).
 
 **4. Use CPFP as the Receiver.** Alternatively, if you are the receiver of the transaction, you can use CPFP (Child-pays-for-parent) to use the unconfirmed transaction as an input to a new transaction. See [§5.3: Funding a Transaction with CPFP](05_3_Funding_a_Transaction_with_CPFP.md).
+
+**5. Use Lightning Network in the first place.** The Lightning Network is an alternative method to send transactions using Bitcoin without compromising its core values. You'll have to establish a payment channel first, which requrires doing a normal Bitcoin transaction. There are some tradeoffs involved but this advanced topic will be covered later in the series.
+
+> :information_source: Sending TXs at a time when there are fewer transactions to compete with is a good strategy - historically the mempool has seen low usage during weekends. 
 
 ## Summary: Watching for Stuck Transactios
 
