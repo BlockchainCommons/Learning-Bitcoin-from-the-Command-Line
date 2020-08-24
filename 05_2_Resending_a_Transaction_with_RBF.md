@@ -13,11 +13,8 @@ RBF is an opt-in Bitcoin feature. Transactions are only eligible for using RBF i
 This is accomplished simply  by adding a `sequence` variable to your UTXO inputs:
 ```
 $ rawtxhex=$(bitcoin-cli -named createrawtransaction inputs='''[ { "txid": "'$utxo_txid'", "vout": '$utxo_vout', "sequence": 1 } ]''' outputs='''{ "'$recipient'": 0.00007658, "'$changeaddress'": 0.00000001 }''')
-```
-You should of course sign and send your transaction as usual:
-```
 $ signedtx=$(bitcoin-cli -named signrawtransactionwithwallet hexstring=$rawtxhex | jq -r '.hex')
-standup@btctest20:~$ bitcoin-cli -named sendrawtransaction hexstring=$signedtx
+$ bitcoin-cli -named sendrawtransaction hexstring=$signedtx
 5b953a0bdfae0d11d20d195ea43ab7c31a5471d2385c258394f3bb9bb3089375
 ```
 Now, when you look at your transaction, you should see something new: the `bip125-replaceable` line, which has always been marked `no` before, is now marked `yes`:
