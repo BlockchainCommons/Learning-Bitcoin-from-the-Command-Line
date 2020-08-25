@@ -84,8 +84,10 @@ Once you've selected a tag branch, execute the following from inside the `bitcoi
 ```
 $ ./autogen.sh
 $ export BDB_PREFIX='<PATH-TO>/db4'
+$ ./configure help # to see commands 
 $ ./configure BDB_LIBS="-L${BDB_PREFIX}/lib -ldb_cxx-4.8" BDB_CFLAGS="-I${BDB_PREFIX}/include"
-$ make  # build bitcoin core
+$ make -j"$(($(nproc)+1))"  # makes bitcoin core with all threads on linux 
+$ make -j"$(($(sysctl -n hw.physicalcpu)+1))" # on macOS
 ```
 
 ### Step 6: Test the Build
