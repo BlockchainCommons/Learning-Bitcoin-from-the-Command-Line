@@ -2,15 +2,17 @@
 
 > **NOTE:** This is a draft in progress, so that I can get some feedback from early reviewers. It is not yet ready for learning.
 
-One of Libwally's greatest powers is that it can lay bare the underlying work of creating addresses. To start with, it supports [BIP39](https://github.com/bitcoin/bips/blob/master/bip-0039.mediawiki), which is the BIP that supports Mnemonic codes for Bitcoin addresses.
+One of Libwally's greatest powers is that it can lay bare the underlying work of generating seeds, private keys, and ultimately addresses. To start with, it supports [BIP39](https://github.com/bitcoin/bips/blob/master/bip-0039.mediawiki), which is the BIP that defines mnemonic codes for Bitcoin — something that's entirely unsupported, to date, by Bitcoin Core.
 
-> :book: ***What is a Mnemonic Code?*** Bitcoin addresses (and their corresponding private keys) are long, untintelligible lists of characters and numbers, which are not only impossible to remember, but also easy to mistype. Mnemonic codes are a solution for this that allow users to record 12 (or 24) words in their language, which is much less prone to mistakes. These codes can then be used to fully restore a BIP32 seed that's the basis of an HD wallet.
+> :book: ***What is a Mnemonic Code?*** Bitcoin addresses (and their corresponding private keys and underlying seeds) are long, unintelligible lists of characters and numbers, which are not only impossible to remember, but also easy to mistype. Mnemonic codes are a solution for this that allow users to record 12 (or 24) words in their language — something that's much less prone to mistakes. These codes can then be used to fully restore a BIP32 seed that's the basis of an HD wallet.
+
+> :book: ***What is a Seed?*** We briefly touched on seeds in [§3.5: Understanding the Descriptor](03_5_Understanding_the_Descriptor.md). It's the random number that's used to generate a whole sequence of private keys (and thus addresses) in an HD wallet. We'll return to seeds in the next section, which is all about HD wallets and Libwally. For now, just know that a BIP39 mnemonic code corresponds to the seed for a BIP32 hierarchical deterministic wallet.
 
 ## Creating Mnemonic Codes
 
-All Bitcoin addresses start with entropy. This first use of Libwally, and its BIP39 addresses, thus shows how to generate entropy and to get a mnemonic code frm that.
+All Bitcoin keys start with entropy. This first use of Libwally, and its BIP39 mnemonics, thus shows how to generate entropy and to get a mnemonic code from that.
 
-> :book: ***What is Entropy?*** It's a fancy way of saying randomness, but it's a carefully measured randomness that's used as the foundation of a true-random-number generated (TRG). That measurement occurs in "bits", with more bits of entropy resulting in more randomness (and thus more protection for what's being generated). For Bitcoin, entropy is the foundation of your seed, which in an HD wallet generates all of your addresses.
+> :book: ***What is Entropy?*** Entropy is a fancy way of saying randomness, but it's a carefully measured randomness that's used as the foundation of a true-random-number generated (TRG). Its measured in "bits", with more bits of entropy resulting in more randomness (and thus more protection for what's being generated). For Bitcoin, entropy is the foundation of your seed, which in an HD wallet generates all of your addresses.
 
 You'll always start work with Libwally by initializing the library and testing the results, as first demonstrated in [§16.1](16_1_Setting_Up_Libwally.md):
 ```
@@ -36,7 +38,7 @@ Using `libsodium`, you can create entropy with the `randombytes_buf` command:
 ```
 This example, which will be the only way we use the `libsodium` library, creates 16 bytes of entropy. Generally, to create a secure mnemonic code, you should use between 128 and 256 bits of entropy, which is 16 to 32 bytes.
 
->:warning: **WARNING:** Again, be very certain that you're very comfortable with your method for entropy generation before you use it for a real-world program.
+>:warning: **WARNING:** Again, be very certain that you're very comfortable with your method for entropy generation before you use it in a real-world program.
 
 ### Translating into a Mnemonic
 
@@ -47,7 +49,7 @@ This example, which will be the only way we use the `libsodium` library, creates
 ```
 Note that you have to pass along the byte size, so if you were to increase the size of your entropy, to generate a longer mnemonic phrase, you'd also need to increase the value in this function.
 
-> :note: **NOTE:** There are mnemonic word lists for different languages! The default is to use the English-language list, which is the `NULL` variable in these various commands, but you can alternatively request a different language!
+> :note: **NOTE:** There are mnemonic word lists for different languages! The default is to use the English-language list, which is the `NULL` variable in these Libwally mnemonic commands, but you can alternatively request a different language!
 
 That's it! You've created a mnemonic phrase!
 
@@ -55,15 +57,16 @@ That's it! You've created a mnemonic phrase!
 
 ### Translating into a Seed
 
-There are some functions, such as `bip32_key_from_seed` (which we'll meet in the next section) that require you to have the Seed rather than the Mnemonic. The two things are functionally identical: if you have the Seed, you can generate the Mnemonic, and vice-versa.
+There are some functions, such as `bip32_key_from_seed` (which we'll meet in the next section) that require you to have theseeddeed rather than the Mnemonic. The two things are functionally identical: if you have the seed, you can generate the mnemonic, and vice-versa.
 
-If you need to generate the Seed from your Mnemonic, you just use the `bip39_mnemonic_to_seed` command:
+If you need to generate the seed from your mnemonic, you just use the `bip39_mnemonic_to_seed` command:
 ```
   unsigned char seed[BIP39_SEED_LEN_512];
   size_t seed_len;
   
   lw_response = bip39_mnemonic_to_seed(mnem,NULL,seed,BIP39_SEED_LEN_512,&seed_len);
 ```
+Note that all BIP39 seeds are current 512 bytes; nonetheless you have to set the size of your variable appropriately, and pass along that size to `bip39_mnemonic_to_seed`.
 
 ### Printing Your Seed
 
@@ -79,7 +82,7 @@ If you've done everything right, you should get back a 64-byte seed. (That's the
 
 ## Testing Mnemonic Code
 
-The full code for generating entropy, generating a BIP39 Mnemonic, validating the Mnemonic, and generating a seed can be found in the [src directory](src/16_2_genmnemonic.c). Download it and compile:
+The full code for generating entropy, generating a BIP39 mnemonic, validating the mnemonic, and generating a seed can be found in the [src directory](src/16_2_genmnemonic.c). Download it and compile:
 ```
 $ cc genmnemonic.c -lwallycore -lsodium -o genmnemonic
 ```
@@ -96,7 +99,7 @@ BIP39 allows you generate a set of 12-24 Mnemonic words from a seed (and the Lib
 
 > :fire: ***What is the power of BIP39?*** Bitcoin seeds and private keys are prone to all sorts of lossage. You mistype a single digit, and your money is gone forever. Mnemonic Words are a much more user-friendly way of representing the same data, but because they're words in the language of the user's choice, they're less prone to mistakes. The power of BIP39 is thus to improve the accessibility, usability, and safety of Bitcoin.
 
-> :fire: **What is the power of BIP32 in Libwally?** Bitcoind doesn't currently support mnemonic words, so using Libwally can allow you to generate mnemonic words in conjunction with addresses held by `bitcoind`.
+> :fire: **What is the power of BIP39 in Libwally?** Bitcoind doesn't currently support mnemonic words, so using Libwally can allow you to generate mnemonic words in conjunction with addresses held by `bitcoind` (though as we'll see in §16.7, it requires a bit of a work-around at present to import your keys into Bitcoin Core).
 
 ## What's Next?
 
