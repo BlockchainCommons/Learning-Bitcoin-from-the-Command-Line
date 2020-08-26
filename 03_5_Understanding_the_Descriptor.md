@@ -112,7 +112,7 @@ You'll note it loops back to the address we started with (as it should).
 
 ## Import a Desciptor
 
-But, the really important thing about a descriptor is that you can take it to another machine and import it. This is done with the `importmulti` RPC using the `desc` option:
+But, the really important thing about a descriptor is that you can take it to another (remote) machine and import it. This is done with the `importmulti` RPC using the `desc` option:
 ```
 remote$ bitcoin-cli importmulti '[{"desc": "pkh([d6043800/0'"'"'/0'"'"'/18'"'"']03efdee34c0009fd175f3b20b5e5a5517fd5d16746f2e635b44617adafeaebc388)#4ahsl9pk", "timestamp": "now", "watchonly": true}]'
 [
