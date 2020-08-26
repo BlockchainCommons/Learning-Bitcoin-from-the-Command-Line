@@ -99,7 +99,7 @@ BIP39 allows you generate a set of 12-24 Mnemonic words from a seed (and the Lib
 
 > :fire: ***What is the power of BIP39?*** Bitcoin seeds and private keys are prone to all sorts of lossage. You mistype a single digit, and your money is gone forever. Mnemonic Words are a much more user-friendly way of representing the same data, but because they're words in the language of the user's choice, they're less prone to mistakes. The power of BIP39 is thus to improve the accessibility, usability, and safety of Bitcoin.
 
-> :fire: **What is the power of BIP39 in Libwally?** Bitcoind doesn't currently support mnemonic words, so using Libwally can allow you to generate mnemonic words in conjunction with addresses held by `bitcoind` (though as we'll see in §16.7, it requires a bit of a work-around at present to import your keys into Bitcoin Core).
+> :fire: ***What is the power of BIP39 in Libwally?*** Bitcoind doesn't currently support mnemonic words, so using Libwally can allow you to generate mnemonic words in conjunction with addresses held by `bitcoind` (though as we'll see in §16.7, it requires a bit of a work-around at present to import your keys into Bitcoin Core).
 
 ## What's Next?
 
