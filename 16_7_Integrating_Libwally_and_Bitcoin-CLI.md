@@ -249,6 +249,7 @@ Here, we import/generate the first ten addresses for the private key.
 
 Examining the new `LibwallyImported` label shows them:
 ```
+$ bitcoin-cli getaddressesbylabel "LibwallyImports"
 {
   "tb1qzeqrrt77xhvazq5g8sc9th0lzjwstknan8gzq7": {
     "purpose": "receive"
@@ -292,34 +293,37 @@ If you now look back at [§7.3](07_3_Integrating_with_Hardware_Wallets.md), you'
 
 ## Importing Addresses
 
-Obviously, if you can import private keys, you can import addresses too. If you want to import watch-only addresses, one way to do so is to use the `importmulti` methodology above, but to use the supplied xpub address (`wpkh([d34db33f/84'/1'/0']tpubDVM8t9XA3h4vxH8Skam3tKRy1KuoRcKUPFPwq3Ht7zqpb3NmCYQ6Bieeg8XptKHSnKTWWb2MGdZD1tYAWwKBH6H1wissCE38WHcWJKSrTzJ/0/*)#mvvxgk0j`) rather than original xprv. That's the best way to import a whole sequence of addresses.
+Obviously, if you can import private keys, you can import addresses too — which usually means importing watch-only addresses _without_ the private keys.
+
+One way to do so is to use the `importmulti` methodology above, but to use the supplied xpub address (`wpkh([d1280779/84'/1'/0']tpubDWepH8HcqF2RmhRYPy5QmFFEAeU1f3SJotu9BMta8Q8dXRDuHFv8poYqUUtEiWftBjtKn1aNhi9Qg2P4NdzF66dShYvB92z78WJbYeHTLTz/0/*)#f8rmqc0z`) rather than original xprv. That's the best way to import a whole sequence of watch-only addresses.
 
 Alternatively, you can import individual addresses. For example, consider the single sample address currently returned by our `genhd-for-import` program:
 ```
 $ ./genhd-for-import 
 {
-  "mnemonic": "potato music actual north glory stumble junior either hurt picnic bronze entry",
-  "account-xprv": "tprv8yipv5ow99kYyUJNSKCjFosPEc3h18HtfXM8kdtK4vzH4TTEDrK9GQ53UTEVxzsvxyoL8typmoykdkxyiZxuHjzyY3v7epQyMQbGLxdmkmU",
-  "address": "tb1qa77al2z930mcxvv450ae04hlvecpp6g3xf69ng",
-  "derivation": "[m/84h/1h/0h/0/0]"
+  "mnemonic": "finish lady crucial walk illegal ride hamster strategy desert file twin nature",
+  "account-xprv": "tprv8xRujYeVN7CwBHxLoTHRdmzwdW7dKUzDfruSo56GqqfRW9QXtnxnaRG8ke7j65uNjxmCVfcagz5uuaMi2vVJ8jpiGZvLwahmNB8F3SHUSyv",
+  "address": "tb1qtvcchgyklp6cyleth85c7pfr4j72z2vyuwuj3d",
+  "derivation": "[6214ecff/84h/1h/0h]"
 }
 ```
 You can import that as a watch-only address with `importaddress`:
 ```
-$ bitcoin-cli -named importaddress address=tb1qa77al2z930mcxvv450ae04hlvecpp6g3xf69ng label=LibwallyPrivate rescan=false
-$ bitcoin-cli getaddressesbylabel "LibwallyPrivate"
+$ bitcoin-cli -named importaddress address=tb1qtvcchgyklp6cyleth85c7pfr4j72z2vyuwuj3d label=LibwallyWO rescan=false
+$ bitcoin-cli getaddressesbylabel "LibwallyWO"
 {
-  "tb1qa77al2z930mcxvv450ae04hlvecpp6g3xf69ng": {
+  "tb1qtvcchgyklp6cyleth85c7pfr4j72z2vyuwuj3d": {
     "purpose": "receive"
   }
+}
 }
 ```
 
 ## Summary: Integrating Libwally and Bitcoin-CLI
 
-With a foundational knowledge of Libwally, you can now link that to all of your previous lessons. Transferring addresses, keys, transactions, and PSBTs are just some of the ways in which you might make have these two powerful Bitcoin programming methods work together. There's lots more potential depth if you want to dig deeper into Libwally's extensive library of functions.
+With a foundational knowledge of Libwally, you can now complement all of the work of your previous lessons. Transferring addresses, keys, transactions, and PSBTs are just some of the ways in which you might make use these two powerful Bitcoin programming methods together. There's also much more potential depth if you want to dig deeper into Libwally's extensive library of functions.
 
-> :fire: ***What is the Power of Integrating Libwally and Bitcoin-CLI?*** One of the biggest advantages of Libwally is that it has lots of functions that can be used offline. In comparison, Bitcoin Core is a networked program. This can help you increase security by having `bitcoin-cli` pass off keys, addresses, transactions, or whatever to an offline source (which would be running Libwally programs). Besides that, Libwally can do things that Bitcoin Core currently can't, such as generating a seed from a BIP39 mnemonic (and even if you can't currently import the seed to Bitcoin Core, you _can_ still import the master key for the account, as shown here).
+> :fire: ***What is the Power of Integrating Libwally and Bitcoin-CLI?*** One of the biggest advantages of Libwally is that it has lots of functions that can be used offline. In comparison, Bitcoin Core is a networked program. This can help you increase security by having `bitcoin-cli` pass off keys, addresses, transactions, or PSBTs to an offline source (which would be running Libwally programs). Besides that, Libwally can do things that Bitcoin Core currently can't, such as generating a seed from a BIP39 mnemonic (and even if you can't currently import the seed to Bitcoin Core, you _can_ still import the master key for the account, as shown here).
 
 ## What's Next?
 
