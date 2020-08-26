@@ -102,7 +102,7 @@ Finally, you're ready to generate an address from your final key. All you do is 
   char *segwit;
   lw_response = wally_bip32_key_to_addr_segwit(key_address,"tb",0,&segwit);
 
-  printf("[m/84'/0'/0'/0/0]: %s\n",segwit);
+  printf("[m/84'/1'/0'/0/0]: %s\n",segwit);
 ```  
 
 > :link: **TESTNET vs MAINNET:** The `tb` argument defines a testnet address. For mainnet instead use `bc`.
@@ -122,7 +122,7 @@ Root xprv key: tprv8ZgxMBicQKsPdLFXmZ6VegTxcmeieNpRUq8J2ahXxSaK2aF7CGqAc14ZADLjd
 Root xpub key: tpubD6NzVbkrYhZ4WoHKfCm64685BoAeoi1L48j5K6jqNiNhs4VspfeknVgRLLiQJ3RkXiA9VxguUjmEwobtmrXNbhXsPHfm9W5HJR9DKRGaGJ2
 Account xprv key: tprv8yZN7h6SPvJXrhAk56z6cwHQE6qZBRreB9fqqZJ1Xd1nLci3Rw8HTmqNkpFNgf3eZx8hYzhFWafUhHSt3HgF13aHvCE6kveS7gZAyfQwMDi
 Account xpub key: tpubDWFQG78gYHzCkACXxkeh2LwWo8MVLm3YkTGd85LJwtpBB6xp4KwseGTEvxjeZNhnCNPdfZqRcgcZZAka4tD3xGS2J53WKHPMRhG357VKsqT
-[m/84'/0'/0'/0/0]: tb1q0knqq26ek59pfl7nukzqr28m2zl5wn2f0ldvwu
+[m/84'/1'/0'/0/0]: tb1q0knqq26ek59pfl7nukzqr28m2zl5wn2f0ldvwu
 ```
 
 ## Summary: Using BIP32 in Libwally
