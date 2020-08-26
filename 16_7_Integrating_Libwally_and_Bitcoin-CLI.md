@@ -184,6 +184,17 @@ Unfortunately, not all interactions go as smoothly. For example, it would be nic
 
 Fortunately, you can do much the same thing by importing a private key generated in Libwally. Take a look at [genhd-for-import.c](src/16_7_genhd_for_import.c), a simplified version of the `genhd` program from [§16.3](16_3_Using_BIP32_in_Libwally.md) that also uses the `jansson` library from [§15.1](15_1_Accessing_Bitcoind_with_C.md).
 
+We also made one change of note, which was requesting a fingerprint from Libwally so that we can properly create a derivation path:
+```
+  char account_fingerprint[BIP32_KEY_FINGERPRINT_LEN];
+  lw_response = bip32_key_get_fingerprint(key_account,account_fingerprint,BIP32_KEY_FINGERPRINT_LEN);
+
+  char *fp_hex;
+  lw_response = wally_hex_from_bytes(account_fingerprint,BIP32_KEY_FINGERPRINT_LEN,&fp_hex);
+```
+
+> :warning: **WARNING:** Remember that the fingerprint in derivation paths is arbitrary. Because Libwally provides one, we're using it, but if you didn't have one, you could add an arbitrary 4-byte hexcode as a fingerprint to a derivation path.
+
 Be sure to compile the new code with the `jansson` library, and installing it per §15.1.
 ```
 $ cc genhd-for-import.c -lwallycore -lsodium -ljansson -o genhd-for-import
@@ -192,85 +203,87 @@ When you run the new program, it'll give you a nicely output list of everything:
 ```
 $ ./genhd-for-import 
 {
-  "mnemonic": "rotate proof kitten age exit master old verb course sea mean address",
-  "account-xprv": "tprv8xf6jjUuuKPG4p6erw6TUumrSJPsGH8ZowoAYXFahj3RkZ7za9aW1E2nW2Sj2GsT6JwmPsXaR4jLBZ1XrbMJvNfN6Ruk3tR9bP3hsABFqWD",
-  "address": "tb1q88sdux8hvt0jf3xhy0c3l3pgyc34m2kq5kylaa",
-  "derivation": "[m/84h/1h/0h/0/0]"
+  "mnemonic": "physical renew say quit enjoy eager topic remind riot concert refuse chair",
+  "account-xprv": "tprv8yxn8iFNgsLktEPkWKQpMqb7bcx5ViFQEbJMtqrGi8LEgvy8es6YeJvyJKrbYEPKMw8JbU3RFhNRQ4F2pataAtTNokS1JXBZVg62xfd5HCn",
+  "address": "tb1q9lhru6k0ymwrtr5w98w35n3lz22upml23h753n",
+  "derivation": "[d1280779/84h/1h/0h]"
 }
 ```
-You have the `mnemonic` that you can recover from, an `account-xprv` that you can import, a `derivation` to use for the import, and a sample `address, that you can use for testing the import.
+You have the `mnemonic` that you can recover from, an `account-xprv` that you can import, a `derivation` to use for the import, and a sample `address`, that you can use for testing the import.
 
 You can now fall back on lessons learned from [§3.5](03_5_Understanding_the_Descriptor.md) on how to turn that xprv into a descriptor and import it.
 
 First, you need to figure out the checksum:
 ```
-$ xprv=tprv8xf6jjUuuKPG4p6erw6TUumrSJPsGH8ZowoAYXFahj3RkZ7za9aW1E2nW2Sj2GsT6JwmPsXaR4jLBZ1XrbMJvNfN6Ruk3tR9bP3hsABFqWD
-$  bitcoin-cli getdescriptorinfo "wpkh([d34db33f/84h/1h/0h]$xprv/0/*)"
+$ xprv=tprv8yxn8iFNgsLktEPkWKQpMqb7bcx5ViFQEbJMtqrGi8LEgvy8es6YeJvyJKrbYEPKMw8JbU3RFhNRQ4F2pataAtTNokS1JXBZVg62xfd5HCn
+$ dp=[d1280779/84h/1h/0h]
+$ bitcoin-cli getdescriptorinfo "wpkh($dp$xprv/0/*)"
 {
-  "descriptor": "wpkh([d34db33f/84'/1'/0']tpubDVM8t9XA3h4vxH8Skam3tKRy1KuoRcKUPFPwq3Ht7zqpb3NmCYQ6Bieeg8XptKHSnKTWWb2MGdZD1tYAWwKBH6H1wissCE38WHcWJKSrTzJ/0/*)#mvvxgk0j",
-  "checksum": "wgknk6u4",
+  "descriptor": "wpkh([d1280779/84'/1'/0']tpubDWepH8HcqF2RmhRYPy5QmFFEAeU1f3SJotu9BMta8Q8dXRDuHFv8poYqUUtEiWftBjtKn1aNhi9Qg2P4NdzF66dShYvB92z78WJbYeHTLTz/0/*)#f8rmqc0z",
+  "checksum": "46c00dk5",
   "isrange": true,
   "issolvable": true,
   "hasprivatekeys": true
 }
 ```
-Two things to note here:
+One thing to note here:
 
-1. We made up a fingerprint (`d34db33f`). You can do that, as long as you're consistent (and as long as the original source doesn't have its own fingerprint).
-2. We are not going to use the returned `descriptor` line, as that's for a `xpub` address. Instead we'll apply the returned `checksum` to the `xprv` that we already have.
-
+* We are not going to use the returned `descriptor` line, as that's for a `xpub` address. Instead we'll apply the returned `checksum` to the `xprv` that we already have.
+```
+$ cs=$(bitcoin-cli getdescriptorinfo "wpkh($dp$xprv/0/*)" | jq -r ' .checksum')
+```
 We then plug that into `importmulti` to import this key into `bitcoin-cli`:
 ```
-$ cs=wgknk6u4
-$ bitcoin-cli importmulti '''[{ "desc": "wpkh([d34db33f/84h/1h/0h]'$xprv'/0/*)#'$cs'", "timestamp": "now", "range": 10, "watchonly": false, "label": "LibwallyImported", "keypool": false, "rescan": false }]'''
+$ bitcoin-cli importmulti '''[{ "desc": "wpkh('$dp''$xprv'/0/*)#'$cs'", "timestamp": "now", "range": 10, "watchonly": false, "label": "LibwallyImports", "keypool": false, "rescan": false }]'''
 [
   {
     "success": true
   }
 ]
+
 ```
 Note here that the descriptor here included the path `/0/*` because we wanted the external addresses for this account. We derived the first ten. If we instead wanted the change addresses, we'd use `/1/*`.
 
 Examining the new `LibwallyImported` label shows ten addresses:
 ```
-$ bitcoin-cli getaddressesbylabel "LibwallyImported"
 {
-  "tb1qpgt0wukrm8wz6gdu7jc9ltmrxzagdtflg4huvt": {
+  "tb1qzeqrrt77xhvazq5g8sc9th0lzjwstknan8gzq7": {
     "purpose": "receive"
   },
-  "tb1qyds9q02a03vveu25gewxxssy2uszm0q2v04hhx": {
+  "tb1q9lhru6k0ymwrtr5w98w35n3lz22upml23h753n": {
     "purpose": "receive"
   },
-  "tb1q88sdux8hvt0jf3xhy0c3l3pgyc34m2kq5kylaa": {
+  "tb1q8fsgxt0z9r9hfl5mst5ylxka2yljjxlxlvaf8j": {
     "purpose": "receive"
   },
-  "tb1qg9a7xnm9lkketnfvzkcc7gfwvc9lt4dcsp0zrh": {
+  "tb1qg6dayhdk4qc6guutxvdweh6pctc9dpguu6awqc": {
     "purpose": "receive"
   },
-  "tb1qfzr0nqcvs73fhkgy7n8zavjzqxvewfzpsn9zkm": {
+  "tb1qdphaj0exvemxhgfpyh4p99wn84e2533u7p96l6": {
     "purpose": "receive"
   },
-  "tb1qdlj7n66kzce5sw67twe6zsylcddnn3q7v85uqn": {
+  "tb1qwv9mdqkpx6trtmvgw3l95npq8gk9pgllucvata": {
     "purpose": "receive"
   },
-  "tb1q39dxeawe4w275tpye8p5tt74g965c534ux0yfc": {
+  "tb1qwh92pkrv6sps62udnmez65vfxe9n5ceuya56xz": {
     "purpose": "receive"
   },
-  "tb1qnq2r00894jxucpnkdl2r72arjvj4th8eeysp7j": {
+  "tb1q4e98ln8xlym64qjzy3k8zyfyt5q60dgcn39d90": {
     "purpose": "receive"
   },
-  "tb1q4h399mcz0m7fjz92nhvk5dyww09fpedusr6n7n": {
+  "tb1qhzje887fyl65j4mulqv9ysmntwn95zpgmgvtqd": {
     "purpose": "receive"
   },
-  "tb1q6squxmxqmca9rqqndp6wz5hng8h6pc6ajpgz8j": {
+  "tb1q62xf9ec8zcfkh2qy5qnq4qcxrx8l0jm27dd8ru": {
     "purpose": "receive"
   },
-  "tb1qu23p72l60tc3jktjfdx0zr6tlqtkjfk9xzkrkl": {
+  "tb1qlw85usfk446ssxejm9dmxsfn40kzsqce77aq20": {
     "purpose": "receive"
   }
 }
+
 ```
-And the third one on our list indeed matches our sample (`tb1q88sdux8hvt0jf3xhy0c3l3pgyc34m2kq5kylaa`). The import of this private key and the derivation of ten addresses was successful.
+And the second one on our list indeed matches our sample (`tb1q9lhru6k0ymwrtr5w98w35n3lz22upml23h753n`). The import of this private key and the derivation of ten addresses was successful.
 
 Now, if you look back at [§7.3](07_3_Integrating_with_Hardware_Wallets.md), you'll see this was the same methodology we used to import addresses from a Hardware Wallet (though this time we also imported the private key as proof of concept). The biggest difference is that before the information was created by a black box (literally, a Ledger device), and this time you created the information yourself using Libwally, showing how you can do this sort of work on airgapped or other more remote devices, then bring it over to `bitcoin-cli`.
 
