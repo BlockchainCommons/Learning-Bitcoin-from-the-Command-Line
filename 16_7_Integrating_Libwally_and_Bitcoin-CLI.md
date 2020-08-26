@@ -1,4 +1,4 @@
-# 16.7: Integrate Libwally and Bitcoin-CLI
+# 16.7: Integrating Libwally and Bitcoin-CLI
 
 > **NOTE:** This is a draft in progress, so that I can get some feedback from early reviewers. It is not yet ready for learning.
 
@@ -180,7 +180,7 @@ Unfortunately, not all interactions go as smoothly. For example, it would be nic
 
 > :book: ***What's the difference between Entropy & Raw Entropy?*** Not all entropy is the same. When you input entropy into a command that creates a mnemonic seed, it has to a specific, well-understand length. Changing raw entropy into entropy requires massaging the raw entropy until it's the right length and format, and at that point you could reuse that (non-raw) entropy to always recreate the same mnemonics (which is why it's effectively the same thing as a seed at that point, but raw entropy isn't).
 
-# Importing Private Keys
+## Importing Private Keys
 
 Fortunately, you can do much the same thing by importing a private key generated in Libwally. Take a look at [genhd-for-import.c](src/16_7_genhd_for_import.c), a simplified version of the `genhd` program from [§16.3](16_3_Using_BIP32_in_Libwally.md) that also uses the `jansson` library from [§15.1](15_1_Accessing_Bitcoind_with_C.md).
 
@@ -276,8 +276,35 @@ Now, if you look back at [§7.3](07_3_Integrating_with_Hardware_Wallets.md), you
 
 ## Importing Addresses
 
-3. Importing & Exporting Private Keys
-   * What It Doesn't Work
-4. Importing an Address
+Obviously, if you can import private keys, you can import addresses too. If you want to import watch-only addresses, one way to do so is to use the `importmulti` methodology above, but to use the supplied xpub address (`wpkh([d34db33f/84'/1'/0']tpubDVM8t9XA3h4vxH8Skam3tKRy1KuoRcKUPFPwq3Ht7zqpb3NmCYQ6Bieeg8XptKHSnKTWWb2MGdZD1tYAWwKBH6H1wissCE38WHcWJKSrTzJ/0/*)#mvvxgk0j`) rather than original xprv. That's the best way to import a whole sequence of addresses.
 
+Alternatively, you can import individual addresses. For example, consider the single sample address currently returned by our `genhd-for-import` program:
+```
+$ ./genhd-for-import 
+{
+  "mnemonic": "potato music actual north glory stumble junior either hurt picnic bronze entry",
+  "account-xprv": "tprv8yipv5ow99kYyUJNSKCjFosPEc3h18HtfXM8kdtK4vzH4TTEDrK9GQ53UTEVxzsvxyoL8typmoykdkxyiZxuHjzyY3v7epQyMQbGLxdmkmU",
+  "address": "tb1qa77al2z930mcxvv450ae04hlvecpp6g3xf69ng",
+  "derivation": "[m/84h/1h/0h/0/0]"
+}
+```
+You can import that as a watch-only address with `importaddress`:
+```
+$ bitcoin-cli -named importaddress address=tb1qa77al2z930mcxvv450ae04hlvecpp6g3xf69ng label=LibwallyPrivate rescan=false
+$ bitcoin-cli getaddressesbylabel "LibwallyPrivate"
+{
+  "tb1qa77al2z930mcxvv450ae04hlvecpp6g3xf69ng": {
+    "purpose": "receive"
+  }
+}
+```
 
+## Summary: Integrating Libwally and Bitcoin-CLI
+
+With a foundational knowledge of Libwally, you can now link that to all of your previous lessons. Transferring addresses, keys, transactions, and PSBTs are just some of the ways in which you might make have these two powerful Bitcoin programming methods work together. There's lots more potential depth if you want to dig deeper into Libwally's extensive library of functions.
+
+> :fire: ***What is the Power of Integrating Libwally and Bitcoin-CLI?*** One of the biggest advantages of Libwally is that it has lots of functions that can be used offline. In comparison, Bitcoin Core is a networked program. This can help you increase security by having `bitcoin-cli` pass off keys, addresses, transactions, or whatever to an offline source (which would be running Libwally programs). Besides that, Libwally can do things that Bitcoin Core currently can't, such as generating a seed from a BIP39 mnemonic (and even if you can't currently import the seed to Bitcoin Core, you _can_ still import the master key for the account, as shown here).
+
+## What's Next?
+
+Learn about other sorts of programming in [Chapter 17: Talking to Bitcoind with Other Languages].
