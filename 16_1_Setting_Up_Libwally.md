@@ -4,7 +4,7 @@
 
 This first section will explain how to download the Libwally C Library and get it working.
 
-> :book: ***What is Libwally?*** Libwally is a library of primitives helpful for the creation of wallets that is cross-platform and cross-language, so that the same functions can be used everywhere. There are [online docs](https://wally.readthedocs.io/en/release_0.7.8/). Libwally is made available as part of Blockstream's [Elements Project](https://github.com/ElementsProject).
+> :book: ***What is Libwally?*** Libwally is a library of primitives helpful for the creation of wallets that is cross-platform and cross-language, so that the same functions can be used everywhere. There are [online docs](https://wally.readthedocs.io/en/latest/). Libwally is made available as part of Blockstream's [Elements Project](https://github.com/ElementsProject).
 
 ## Installing Libwally
 
@@ -103,7 +103,7 @@ $ ls /usr/include/wally*
 /usr/include/wally_bip32.h    /usr/include/wally_core.h    /usr/include/wally.hpp	  /usr/include/wally_symmetric.h
 /usr/include/wally_bip38.h    /usr/include/wally_crypto.h  /usr/include/wally_psbt.h	  /usr/include/wally_transaction.h
 ```
-Fortunately, the file names largely match the sections in the [docs](https://wally.readthedocs.io/en/release_0.7.8/), so you should be able to include the correct files based on what you're doing, after including the ubiquitous `wally_core.h`.
+Fortunately, the file names largely match the sections in the [docs](https://wally.readthedocs.io/en/latest/), so you should be able to include the correct files based on what you're doing, after including the ubiquitous `wally_core.h`.
 
 ### Linking the Libraries
 
