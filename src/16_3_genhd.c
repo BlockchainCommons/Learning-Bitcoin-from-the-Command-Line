@@ -156,7 +156,7 @@ int main(void) {
   char *segwit;
   lw_response = wally_bip32_key_to_addr_segwit(key_address,"tb",0,&segwit);
 
-  printf("[m/84'/0'/0'/0/0]: %s\n",segwit);
+  printf("[m/84'/1'/0'/0/0]: %s\n",segwit);
 					       
   /* Cleanup! */
 
