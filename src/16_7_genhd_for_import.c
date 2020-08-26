@@ -113,7 +113,22 @@ int main(void) {
   char *segwit;
   lw_response = wally_bip32_key_to_addr_segwit(key_address,"tb",0,&segwit);
 
-  /* 6. Output in JSON */
+  /* 6. Generate a Fingerprint */
+
+  char account_fingerprint[BIP32_KEY_FINGERPRINT_LEN];
+  lw_response = bip32_key_get_fingerprint(key_account,account_fingerprint,BIP32_KEY_FINGERPRINT_LEN);
+
+  if (lw_response) {
+
+    printf("Error: root bip32_key_get_fingerprint failed: %d\n",lw_response);
+    exit(-1);
+    
+  }
+
+  char *fp_hex;
+  lw_response = wally_hex_from_bytes(account_fingerprint,BIP32_KEY_FINGERPRINT_LEN,&fp_hex);
+  
+  /* 7. Output in JSON */
 
   json_t *outputparams = NULL;
   outputparams = json_object();
@@ -121,7 +136,12 @@ int main(void) {
   json_object_set(outputparams, "mnemonic", json_string(mnem));    
   json_object_set(outputparams, "account-xprv", json_string(a_xprv));  
   json_object_set(outputparams, "address", json_string(segwit));
-  json_object_set_new(outputparams, "derivation", json_string("[m/84h/1h/0h/0/0]"));
+
+  char derivation[BIP32_KEY_FINGERPRINT_LEN+3+sizeof("84h/1h/0h")];
+  sprintf(derivation,"[%s/%s]",fp_hex,"84h/1h/0h");
+
+  json_object_set(outputparams, "derivation", json_string(derivation));
+
   printf ("%s\n", json_dumps(outputparams, JSON_INDENT(2)));
 
 
@@ -135,9 +155,9 @@ int main(void) {
   bip32_key_free(key_root);
 
   wally_free_string(a_xprv);
-
+  wally_free_string(fp_hex);
   wally_free_string(mnem);
 
   wally_cleanup(0);
     
-} 
+}
