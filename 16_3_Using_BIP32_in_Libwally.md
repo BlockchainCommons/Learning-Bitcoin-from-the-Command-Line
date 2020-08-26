@@ -29,7 +29,7 @@ With a seed in hand, you can then generate a master extended key with the `bip32
 ```
 As you can see, you'll need to tell it what version of the key to return, in this case `BIP32_VER_TEST_PRIVATE`, a private testnet key.
 
-> :link: **TESTNET vs MAINNET:** On mainnet, you'd instead ask for `BIP32_VER_TEST_PRIVATE`.
+> :link: **TESTNET vs MAINNET:** On mainnet, you'd instead ask for `BIP32_VER_MAIN_PRIVATE`.
 
 ### Generating xpub & xprv
 
@@ -44,7 +44,7 @@ Whenever you have a key in hand, you can turn it into xpub or xprv keys for dist
 
 ## Understanding the Hierarchy
 
-Before going further, you need to understand how the hierarchy of an HD wallet works. As discussed in [§3.5](03_5_Understanding_the_Descriptor.md), a derivation path describes the tree that you follow to get to a hierarchical key, so `[0/1/0]` is the 0th child of the 1st child of the 0th child of a root key. Sometimes part of that derivation are marked with `'`s to show "hardened derivations, which increase security: `[0'/1'/0']`.
+Before going further, you need to understand how the hierarchy of an HD wallet works. As discussed in [§3.5](03_5_Understanding_the_Descriptor.md), a derivation path describes the tree that you follow to get to a hierarchical key, so `[0/1/0]` is the 0th child of the 1st child of the 0th child of a root key. Sometimes part of that derivation are marked with `'`s or `h`s to show "hardened derivations, which increase security: `[0'/1'/0']`.
 
 However, for HD wallets, each of those levels of the hierachy is used in a very specific way. This was originally defined in [BIP44](https://github.com/bitcoin/bips/blob/master/bip-0044.mediawiki) and was later updated for Segwit in [BIP84].
 
@@ -60,6 +60,10 @@ So on testnet, the zeroth adddress for an external address for the zeroth accoun
 
 > :link: **TESTNET vs MAINNET:** For mainnet, that'd be `[m/84'/0'/0'/0/0]`
 
+### Understanding the Hierarchary in Bitcoin Core
+
+We'll be using the above hierarchy for all HD keys in Libwally, but note that this standard isn't used by Bitcoin Core's `bitcoin-cli`, which instead uses `[m/0'/0'/0']` for the 0th external address and `[m/0'/1'/0']` for the 0th change address.
+
 ## Generating an Address
 
 To generate an address, you thus have to dig down through the whole hierarchy.
@@ -70,7 +74,7 @@ One way to do this is to use the `bip32_key_from_parent_path_alloc` function to 
 ```
   uint32_t path_account[] = {BIP32_INITIAL_HARDENED_CHILD+84, BIP32_INITIAL_HARDENED_CHILD+1, BIP32_INITIAL_HARDENED_CHILD};
 ```
-Here's we'll be looking at the zeroth hardened child (that's the account) or the first hardened child (that's testnet coins) of the 84th hardened child (that's the BIP84 standard): `[m/84'/1'/0']`.
+Here we'll be looking at the zeroth hardened child (that's the account) or the first hardened child (that's testnet coins) of the 84th hardened child (that's the BIP84 standard): `[m/84'/1'/0']`.
 
 You can then use that path to generate a new key from your old key:
 ```
@@ -85,7 +89,7 @@ Every time you have a new key, you can use that to generate new xprv and xpub ke
 
 ### Generating an Address Key
 
-Alternatively, you can use the `bip32_key_from_parent_alloc` function, which just drops down one level of the hierarchy at a time. The following example drops down to the 0th child of the account key (which is the external address) and then the 0th child of that. This would be useful because then you could continue generating the 1st address, the 2nd address, and so on:
+Alternatively, you can use the `bip32_key_from_parent_alloc` function, which just drops down one level of the hierarchy at a time. The following example drops down to the 0th child of the account key (which is the external address) and then the 0th child of that. This would be useful because then you could continue generating the 1st address, the 2nd address, and so on from that external key:
 ```
   struct ext_key *key_external;  
   lw_response = bip32_key_from_parent_alloc(key_account,0,BIP32_FLAG_KEY_PRIVATE,&key_external);
@@ -93,11 +97,11 @@ Alternatively, you can use the `bip32_key_from_parent_alloc` function, which jus
   struct ext_key *key_address;  
   lw_response = bip32_key_from_parent_alloc(key_external,0,BIP32_FLAG_KEY_PRIVATE,&key_address);
 ```
-> :warning: **WARNING::** At some point in this hierarchy, you must decide to generate `BIP32_FLAG_KEY_PUBLIC` instead of `BIP32_FLAG_KEY_PRIVATE`. Obviously this decision will be based on your security and your needs, but remember that you only need a public key to generate the actual address.
+> :warning: **WARNING::** At some point in this hierarchy, you might decide to generate `BIP32_FLAG_KEY_PUBLIC` instead of `BIP32_FLAG_KEY_PRIVATE`. Obviously this decision will be based on your security and your needs, but remember that you only need a public key to generate the actual address.
 
 ### Generating an Address
 
-Finally, you're ready to generate an address from your final key. All you do is run `wally_bbip32_to_addr_segwit` with your final key and a description of what sort of address this is.
+Finally, you're ready to generate an address from your final key. All you do is run `wally_bip32_to_addr_segwit` using your final key and a description of what sort of address this is.
 ```
   char *segwit;
   lw_response = wally_bip32_key_to_addr_segwit(key_address,"tb",0,&segwit);
@@ -127,11 +131,11 @@ Account xpub key: tpubDWFQG78gYHzCkACXxkeh2LwWo8MVLm3YkTGd85LJwtpBB6xp4KwseGTEvx
 
 ## Summary: Using BIP32 in Libwally
 
-An HD wallet allows you to generate a vast number of keys from a single seeds. You now know how those keys are organized under BIP44 and BIP84 and how to derive them, starting with either a seed or mnemonic words.
+An HD wallet allows you to generate a vast number of keys from a single seed. You now know how those keys are organized under BIP44, BIP84, and Bitcoin Core and how to derive them, starting with either a seed or mnemonic words.
 
 > :fire: ***What is the power of BIP32?*** Keys are the most difficult (and most dangerous) element of most cryptographic operations. If you lose them, you lose whatever the key protected. BIP32 ensures that you just need to know one key, the seed, rather than a huge number of different keys for different addresses.
 
-> :fire: ***What is the power of BIP32 in Libwally?*** Bitcoind already does address creation for you, which means you don't usually have to worry about deriving addresses in this way. However, using the BIP32 functions of Libwally can be very useful if you have an offline machine where you need to derive addresses, possibly based on a seed passed out of `bitcoind` to your offline device.
+> :fire: ***What is the power of BIP32 in Libwally?*** Bitcoind already does HD-based address creation for you, which means you don't usually have to worry about deriving addresses in this way. However, using the BIP32 functions of Libwally can be very useful if you have an offline machine where you need to derive addresses, possibly based on a seed passed out of `bitcoind` to your offline device (or vice-versa).
 
 ## What's Next?
 
