@@ -128,7 +128,7 @@ _We want to expand this course to also introduce programming with RPC and finall
    * [16.4: Using PSBTs in Libwally](16_4_Using_PSBTs_in_Libwally.md) — Needs edit
    * [16.5: Using Scripts in Libwally](16_5_Using_Scripts_in_Libwally.md) — Needs edit
    * [16.6: Using Other Functions in Libwally](16_6_Using_Other_Functions_in_Libwally.md) — Needs edit
-   * [16.7: Integrating Libwally and Scripts](16_7_Integrating_Libwally_and_Scripts.md)  — In process
+   * [16.7: Integrating Libwally and Scripts](16_7_Integrating_Libwally_and_Bitcoin-CLI.md)  — In process
 * 17.0: Talking to Bitcoind with Other Languages
   * [17.1: Accessing Bitcoind with Go](17_1_Accessing_Bitcoind_with_Go.md)
   * [17.2: Accessing Bitcoind with Java](17_2_Accessing_Bitcoind_with_Java.md)
