@@ -17,7 +17,7 @@ $ rawtxhex=$(bitcoin-cli -named createrawtransaction inputs='''[ { "txid": "'$ut
 You should of course sign and send your transaction as usual:
 ```
 $ signedtx=$(bitcoin-cli -named signrawtransactionwithwallet hexstring=$rawtxhex | jq -r '.hex')
-standup@btctest20:~$ bitcoin-cli -named sendrawtransaction hexstring=$signedtx
+$ bitcoin-cli -named sendrawtransaction hexstring=$signedtx
 5b953a0bdfae0d11d20d195ea43ab7c31a5471d2385c258394f3bb9bb3089375
 ```
 Now, when you look at your transaction, you should see something new: the `bip125-replaceable` line, which has always been marked `no` before, is now marked `yes`:
