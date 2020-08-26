@@ -101,6 +101,14 @@ _This tutorial assumes that you have some minimal background of how to use the c
   * [15.1: Accessing Bitcoind in C with RPC Libraries](15_1_Accessing_Bitcoind_with_C.md)
   * [15.2: Programming Bitcoind in C with RPC Libraries](15_2_Programming_Bitcoind_with_C.md)
   * [15.3: Receiving Notifications in C with ZMQ Libraries](15_3_Receiving_Bitcoind_Notifications_with_C.md)
+* [16.0: Programming Bitcoin with Libwally](16_0_Programming_with_Libwally.md)
+   * [16.1: Setting Up Libwally](16_1_Setting_Up_Libwally.md)
+   * [16.2: Using BIP39 in Libwally](16_2_Using_BIP39_in_Libwally.md)
+   * [16.3: Using BIP32 in Libwally](16_3_Using_BIP32_in_Libwally.md) 
+   * [16.4: Using PSBTs in Libwally](16_4_Using_PSBTs_in_Libwally.md)
+   * [16.5: Using Scripts in Libwally](16_5_Using_Scripts_in_Libwally.md)
+   * [16.6: Using Other Functions in Libwally](16_6_Using_Other_Functions_in_Libwally.md)
+   * [16.7: Integrating Libwally and Bitcoin-CLI](16_7_Integrating_Libwally_and_Bitcoin-CLI.md)
 
 ### APPENDICES
 
@@ -119,16 +127,8 @@ _We want to expand this course to also introduce programming with RPC and finall
 
 ### PART FIVE: PROGRAMMING WITH RPC
 
-**Status:** VERY Unfinished. Writing Libwally chapter, regularizing other languages chapter; and deciding what to do with Swift
+**Status:** VERY Unfinished. Rgularizing other languages chapter; and deciding what to do with Swift
 
-* [16.0: Programming Bitcoin with Libwally](16_0_Programming_with_Libwally.md) — Needs edit for final content of chapter
-   * [16.1: Setting Up Libwally](16_1_Setting_Up_Libwally.md) — Needs edit
-   * [16.2: Using BIP39 in Libwally](16_2_Using_BIP39_in_Libwally.md) — Needs edit
-   * [16.3: Using BIP32 in Libwally](16_3_Using_BIP32_in_Libwally.md) — Needs edit
-   * [16.4: Using PSBTs in Libwally](16_4_Using_PSBTs_in_Libwally.md) — Needs edit
-   * [16.5: Using Scripts in Libwally](16_5_Using_Scripts_in_Libwally.md) — Needs edit
-   * [16.6: Using Other Functions in Libwally](16_6_Using_Other_Functions_in_Libwally.md) — Needs edit
-   * [16.7: Integrating Libwally and Bitcoin-CLI](16_7_Integrating_Libwally_and_Bitcoin-CLI.md)  — Needs edit
 * 17.0: Talking to Bitcoind with Other Languages
   * [17.1: Accessing Bitcoind with Go](17_1_Accessing_Bitcoind_with_Go.md)
   * [17.2: Accessing Bitcoind with Java](17_2_Accessing_Bitcoind_with_Java.md)
