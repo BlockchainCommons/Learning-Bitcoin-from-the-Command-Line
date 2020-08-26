@@ -2,7 +2,7 @@
 
 > **NOTE:** This is a draft in progress, so that I can get some feedback from early reviewers. It is not yet ready for learning.
 
-Libwally is an extensive library that provides a considerable amount of wallet-related functionality, much of it not available through `bitcoin-cli`. Following is an overview of some functionality not otherwise covered in this chapter.
+Libwally is an extensive library that provides a considerable amount of wallet-related functionality, much of it not available through `bitcoin-cli`. Following is an overview of some functionality not previously covered in this chapter.
 
 ## Using Cryptographic Functions
 
@@ -39,7 +39,7 @@ Some relate to the wallet import format (WIF):
 
    * `wally_wif_from_bytes` — Convert a private key (in bytes) to a WIF
    * `wally_wif_is_uncompressed` — Determines if a WIF is uncompressed
-   * `wally_wif_to_address` — Derivate a P2PKH address from a WIF
+   * `wally_wif_to_address` — Derive a P2PKH address from a WIF
    * `wally_wif_to_bytes` — Convert a WIF to a private key (in bytes)
    * `wally_wif_to_public_key` — Derive a public key (in bytes) from a WIF
    
@@ -52,7 +52,7 @@ There are additional BIP32 HD-wallet functions, beyond what was covered in [§16
    * `bip32_key_strip_private_key` — Convert an extended private key to an extended public key
    * `bip32_key_unserialize` — Transform serialized bytes into an extended key
 
-There are also numerous various depending on you want to allocate memory of have Libwally doing the `_alloc` for you.
+There are also numerous various depending on whether you want to allocate memory or have Libwally do the `_alloc` for you.
 
 ## Using BIP38 Functions
 
@@ -118,7 +118,7 @@ Libwally can be compiled to be used with Blockstream's Elements, which includes 
 
 ## Summary: Using Other Functions in Libwally
 
-There is much more that you can do with Libwally, more than can be covered in this chapter or even listed in this section. Notably beyond what was covered in this chapter, you can perform cryptographic functions, encode private keys, build complete transactions, and use Elements. The [Libwally docs](https://wally.readthedocs.io/en/latest/) are the place to go for more information, though as of this writing they are both limited and out-of-date. The Libwally header files are a backup if the docs are incomplete or wrong.
+There is much more that you can do with Libwally, more than can be covered in this chapter or even listed in this section. Notably, you can perform cryptographic functions, encode private keys, build complete transactions, and use Elements. The [Libwally docs](https://wally.readthedocs.io/en/latest/) are the place to go for more information, though as of this writing they are both limited and out-of-date. The Libwally header files are a backup if the docs are incomplete or wrong.
 
 ## What's Next?
 
