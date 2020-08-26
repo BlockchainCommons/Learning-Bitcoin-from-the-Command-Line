@@ -110,7 +110,7 @@ $ bitcoin-cli deriveaddresses "pkh([d6043800/0'/0'/18']03efdee34c0009fd175f3b20b
 ```
 You'll note it loops back to the address we started with (as it should).
 
-## Import a Desciptor
+## Import a Descriptor
 
 But, the really important thing about a descriptor is that you can take it to another (remote) machine and import it. This is done with the `importmulti` RPC using the `desc` option:
 ```
