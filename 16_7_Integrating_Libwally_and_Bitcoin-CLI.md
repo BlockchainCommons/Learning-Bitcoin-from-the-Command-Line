@@ -2,15 +2,15 @@
 
 > **NOTE:** This is a draft in progress, so that I can get some feedback from early reviewers. It is not yet ready for learning.
 
-Libwally is limited. It's about creating and accessing wallets, with some additional functions related to transactions and PSBTs that might be useful for services that are not connected to full nodes on the internet. Ultimately, however, you're going to need full node services to take advantage of Libwally.
+Libwally is limited. It's about manipulating seeds, keys, addresses, and other elements of wallets, with some additional functions related to transactions and PSBTs that might be useful for services that are not connected to full nodes on the internet. Ultimately, however, you're going to need full node services to take advantage of Libwally.
 
 This final section will offer some examples of using Libwally programs to complement a `bitcoin-cli` environment. Though these examples imply that these services are all on the same machine, they may become even more powerful if the `bitcoin-cli` service is directly connected to the internet and the Libwally service is not.
 
 ## Sharing a Transaction
 
-[§16.5: Using Scripts in Libwally](16_5_Using_Scripts_in_Libwally.md) detailed how Libwally could be used to rewrite an existing transaction, to do something that `bitcoin-cli` can't: produce a transaction that contains a unique P2SH. Obviously, this is a building block; if you dig further into Libwally you'll want to create entire transactions on your own. But, this abbreviated methodology also has its own usage: it shows how transactions can be passed back and forth between `bitcoin-cli` and Libwally, demonstrating a first example of using them in a complementary fashion.
+[§16.5: Using Scripts in Libwally](16_5_Using_Scripts_in_Libwally.md) detailed how Libwally could be used to rewrite an existing transaction, to do something that `bitcoin-cli` can't: produce a transaction that contains a unique P2SH. Obviously, this is a building block; if you decide to dig further into Libwally you'll create entire transactions on your own. But, this abbreviated methodology also has its own usage: it shows how transactions can be passed back and forth between `bitcoin-cli` and Libwally, demonstrating a first example of using them in a complementary fashion.
 
-We're going to start out with this UTXO:
+To fully demonstrate this methodology, we'll create a transaction with `bitcoin-cli`, using this UTXO:
 ```
   {
     "txid": "c0a110a7a84399b98052c6545018873b13ee3128fa74f7a697779174a36ea33a",
@@ -33,9 +33,9 @@ $ utxo_vout=$(bitcoin-cli listunspent | jq -r '.[0] | .vout')
 $ recipient=tb1qycsmq3jas5wkhf8xrfn8k7438cm5pc8h9ae2k0
 $ rawtxhex=$(bitcoin-cli -named createrawtransaction inputs='''[ { "txid": "'$utxo_txid'", "vout": '$utxo_vout' } ]''' outputs='''{ "'$recipient'": 0.0009 }''')
 ```
-The output doesn't matter, because that's what we're going to be rewriting.
+Though we placed a recipient and an amount in the output, it's irrelevent, because we'll be rewriting those. A fancier bit of code could read the existing `vout` info before rewriting, but we're keeping things very close to our [original code](src/16_5_replacewithscript.c).
 
-We also slightly vary our old `replacewithscript` code to take a satoshi argument. A fancier bit of code could read the existing `vout` info before rewriting, but we're keeping things very close to our [original code](src/16_5_replacewithscript.c).
+Here's the one change necessary, to allow us to specify the satoshi `vout`, without having to hardcode it, as in the original:
 ```
 ...
   int satoshis = atoi(argv[3]);
@@ -170,11 +170,11 @@ $ bitcoin-cli decoderawtransaction $signedtx
 ```
 Voila! That's the power of Libwally with `bitcoin-cli`.
 
-Obviously, you can also pass around a PSBT using the functions described in [§16.4](16_4_Using_PSBTs_in_Libwally.md) and that's a more sustainable methodlogy in the modern-day usage of Bitcoin, but in either example, the methodology of passing transactions from `bitcoin-cli` to Libwally code and back should be similarly.
+Obviously, you can also pass around a PSBT using the functions described in [§16.4](16_4_Using_PSBTs_in_Libwally.md) and that's a more up-to-date methodology for the modern-day usage of Bitcoin, but in either example, the concept of passing transactions from `bitcoin-cli` to Libwally code and back should be similar.
 
 ## Importing & Exporting BIP39 Seeds
 
-Unfortunately, not all interactions go as smoothly. For example, it would be nice if you could either export an HD seed from `bitcoin-cli`, to generate the mnemonic phrase with Libwally, or to generate a seed from a mneomnic phrase on Libwally, and then import it into `bitcoin-cli`. Unfortunately, neither of these is possible at this time. A mneomnic phrase is translated into a seed using HMAC-SHA512, which means the result is 512 bits. However, `bitcoin-cli` exports HD seeds (using `dumpwallet`) and imports HD seeds (using `sethdseed`) with a length of 256 bits. Until that is changed, never the twain shall meet (and when that does change, there will be another notable improvement in the integration between `bitcoin-cli` and Libwally).
+Unfortunately, not all interactions between Libwally and `bitcoin-cli` go as smoothly. For example, it would be nice if you could either export an HD seed from `bitcoin-cli`, to generate the mnemonic phrase with Libwally, or generate a seed from a mneomnic phrase using Libwally, and then import it into `bitcoin-cli`. Unfortunately, neither of these is possible at this time. A mneomnic phrase is translated into a seed using HMAC-SHA512, which means the result is 512 bits. However, `bitcoin-cli` exports HD seeds (using `dumpwallet`) and imports HD seeds (using `sethdseed`) with a length of 256 bits. Until that is changed, never the twain shall meet.
 
 > :book: ***What's the Difference Between Entropy & a Seed?*** Libwally says that it creates its mnemonic phrases from entropy. That's essentially the same thing as a seed: they're both large, randomized numbers. So, if `bitcoin-cli` was compatible with 512-bit mnemonic-phrase seeds, you could use one to generate the mneomnic phrases, and get the results that you'd expect.
 
@@ -182,9 +182,9 @@ Unfortunately, not all interactions go as smoothly. For example, it would be nic
 
 ## Importing Private Keys
 
-Fortunately, you can do much the same thing by importing a private key generated in Libwally. Take a look at [genhd-for-import.c](src/16_7_genhd_for_import.c), a simplified version of the `genhd` program from [§16.3](16_3_Using_BIP32_in_Libwally.md) that also uses the `jansson` library from [§15.1](15_1_Accessing_Bitcoind_with_C.md).
+Fortunately, you can do much the same thing by importing a private key generated in Libwally. Take a look at [genhd-for-import.c](src/16_7_genhd_for_import.c), a simplified version of the `genhd` program from [§16.3](16_3_Using_BIP32_in_Libwally.md) that also uses the `jansson` library from [§15.1](15_1_Accessing_Bitcoind_with_C.md) for regularized output.
 
-We also made one change of note, which was requesting a fingerprint from Libwally so that we can properly create a derivation path:
+The updated code also contains one change of note: it requests a fingerprint from Libwally so that it can properly create a derivation path:
 ```
   char account_fingerprint[BIP32_KEY_FINGERPRINT_LEN];
   lw_response = bip32_key_get_fingerprint(key_account,account_fingerprint,BIP32_KEY_FINGERPRINT_LEN);
@@ -193,9 +193,9 @@ We also made one change of note, which was requesting a fingerprint from Libwall
   lw_response = wally_hex_from_bytes(account_fingerprint,BIP32_KEY_FINGERPRINT_LEN,&fp_hex);
 ```
 
-> :warning: **WARNING:** Remember that the fingerprint in derivation paths is arbitrary. Because Libwally provides one, we're using it, but if you didn't have one, you could add an arbitrary 4-byte hexcode as a fingerprint to a derivation path.
+> :warning: **WARNING:** Remember that the fingerprint in derivation paths is arbitrary. Because Libwally provides one, we're using it, but if you didn't have one, you could add an arbitrary 4-byte hexcode as a fingerprint to your derivation path.
 
-Be sure to compile the new code with the `jansson` library, and installing it per §15.1.
+Be sure to compile the new code with the `jansson` library, after installing it (if necessary) per [§15.1](15_1_Accessing_Bitcoind_with_C.md).
 ```
 $ cc genhd-for-import.c -lwallycore -lsodium -ljansson -o genhd-for-import
 ```
@@ -226,9 +226,12 @@ $ bitcoin-cli getdescriptorinfo "wpkh($dp$xprv/0/*)"
   "hasprivatekeys": true
 }
 ```
-One thing to note here:
 
-* We are not going to use the returned `descriptor` line, as that's for a `xpub` address. Instead we'll apply the returned `checksum` to the `xprv` that we already have.
+There are three things to note here:
+
+1. We use `wpkh` as the function in our derivation path. That's because we want to generate modern Segwit addresses, not legacy addresses. That matches our usage in Libwally of the `wally_bip32_key_to_addr_segwit` function. The most important thing, however, is to have the same expectations with Libwally and `bitcoin-cli` (and your descriptor) of what sort of address you're generating, so that everything matches!
+2. We use the path `/0/*` because we wanted the external addresses for this account. If we instead wanted the change addresses, we'd use `/1/*`.
+3. We are not going to use the returned `descriptor` line, as it's's for a `xpub` address. Instead we'll apply the returned `checksum` to the `xprv` that we already have.
 ```
 $ cs=$(bitcoin-cli getdescriptorinfo "wpkh($dp$xprv/0/*)" | jq -r ' .checksum')
 ```
@@ -242,9 +245,9 @@ $ bitcoin-cli importmulti '''[{ "desc": "wpkh('$dp''$xprv'/0/*)#'$cs'", "timesta
 ]
 
 ```
-Note here that the descriptor here included the path `/0/*` because we wanted the external addresses for this account. We derived the first ten. If we instead wanted the change addresses, we'd use `/1/*`.
+Here, we import/generate the first ten addresses for the private key.
 
-Examining the new `LibwallyImported` label shows ten addresses:
+Examining the new `LibwallyImported` label shows them:
 ```
 {
   "tb1qzeqrrt77xhvazq5g8sc9th0lzjwstknan8gzq7": {
@@ -283,9 +286,9 @@ Examining the new `LibwallyImported` label shows ten addresses:
 }
 
 ```
-And the second one on our list indeed matches our sample (`tb1q9lhru6k0ymwrtr5w98w35n3lz22upml23h753n`). The import of this private key and the derivation of ten addresses was successful.
+The second one on our list indeed matches our sample (`tb1q9lhru6k0ymwrtr5w98w35n3lz22upml23h753n`). The import of this private key and the derivation of ten addresses was successful.
 
-Now, if you look back at [§7.3](07_3_Integrating_with_Hardware_Wallets.md), you'll see this was the same methodology we used to import addresses from a Hardware Wallet (though this time we also imported the private key as proof of concept). The biggest difference is that before the information was created by a black box (literally, a Ledger device), and this time you created the information yourself using Libwally, showing how you can do this sort of work on airgapped or other more remote devices, then bring it over to `bitcoin-cli`.
+If you now look back at [§7.3](07_3_Integrating_with_Hardware_Wallets.md), you'll see this was the same methodology we used to import addresses from a Hardware Wallet (though this time we also imported the private key as proof of concept). The biggest difference is that previously the information was created by a black box (literally: it was a Ledger device), and this time you created the information yourself using Libwally, showing how you can do this sort of work on airgapped or other more remote devices, then bring it over to `bitcoin-cli`.
 
 ## Importing Addresses
 
