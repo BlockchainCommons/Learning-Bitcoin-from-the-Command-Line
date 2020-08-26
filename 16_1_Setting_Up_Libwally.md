@@ -4,7 +4,7 @@
 
 This first section will explain how to download the Libwally C Library and get it working.
 
-> :book: ***What is Libwally?*** Libwally is a library of primitives helpful for the creation of wallets that is cross-platform and cross-language, so that the same functions can be used everywhere. There are [extensive docs](https://wally.readthedocs.io/en/release_0.7.8/). It's made available as part of Blockstream's [Elements Project](https://github.com/ElementsProject).
+> :book: ***What is Libwally?*** Libwally is a library of primitives helpful for the creation of wallets that is cross-platform and cross-language, so that the same functions can be used everywhere. There are [online docs](https://wally.readthedocs.io/en/release_0.7.8/). Libwally is made available as part of Blockstream's [Elements Project](https://github.com/ElementsProject).
 
 ## Installing Libwally
 
@@ -13,7 +13,6 @@ As usual, you'll need some packages on your system:
 $ sudo apt-get install git
 $ sudo apt-get install dh-autoreconf
 ```
-
 You can then download Libwally from its Git repo:
 ```
 $ git clone https://github.com/ElementsProject/libwally-core
@@ -33,7 +32,7 @@ Afterward you can finish your prep:
 $ ./configure
 $ make
 ```
-You can then verify that tests are work:
+You can then verify that tests are working:
 ```
 $ make check
 Making check in src
@@ -104,9 +103,9 @@ $ ls /usr/include/wally*
 /usr/include/wally_bip32.h    /usr/include/wally_core.h    /usr/include/wally.hpp	  /usr/include/wally_symmetric.h
 /usr/include/wally_bip38.h    /usr/include/wally_crypto.h  /usr/include/wally_psbt.h	  /usr/include/wally_transaction.h
 ```
-Fortunately, the file names largely match the sections in the [docs](https://wally.readthedocs.io/en/release_0.7.8/), so you should be able to include the correct files based on what you're doing, plus the ubiquitous `wally_core.h`.
+Fortunately, the file names largely match the sections in the [docs](https://wally.readthedocs.io/en/release_0.7.8/), so you should be able to include the correct files based on what you're doing, after including the ubiquitous `wally_core.h`.
 
-### Including the Libraries
+### Linking the Libraries
 
 You also will need to link appropriate libraries:
 ```
@@ -141,7 +140,7 @@ Afterward you can run it:
 $ ./testwally
 Startup: 0
 ```
-The "Startup" value is the return from `wally_init`. The `0` value may look discouraging, but that's what you want to see:
+The "Startup" value is the return from `wally_init`. The `0` value may initially appear discouraging, but it's's what you want to see:
 ```
 include/wally_core.h:#define WALLY_OK      0 /** Success */
 ```
@@ -183,13 +182,13 @@ Testsuite summary for libsodium 1.0.18
 ...
 $ sudo make install
 ```
-We're not going to show how to use `libsodium` here, because this course will only use `libsodium` for one small (but crucial!) bit of entropy generation, but watch for it in the next section.
+This course will only use `libsodium` for one small (but crucial!) bit of entropy generation, but watch for it in the next section.
 
 ## Summary: Setting Up Libwally
 
-By installing the Libwally (and Libsodium) includes and libraries, you access a number of cryptographic and library functions, which can complement your RPC and ZMG libraries.
+By installing the Libwally (and Libsodium) includes and libraries, you gain access to a number of cryptographic and wallet functions, which can complement your RPC and ZMG libraries (or your command-line `bitcoin-cli`).
 
-So what does it do exactly? That's what the rest of this chapter is about.
+So what precisely can you do now? That's what the rest of this chapter is about.
 
 ## What's Next?
 
