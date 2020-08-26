@@ -103,4 +103,4 @@ BIP39 allows you generate a set of 12-24 Mnemonic words from a seed (and the Lib
 
 ## What's Next?
 
-Learn more about "Programming Bitcoin with Libwally" in [16.3: Using BIP32 in Libwally](16_3_Using_BIP39_in_Libwally.md).
+Learn more about "Programming Bitcoin with Libwally" in [16.3: Using BIP32 in Libwally](16_3_Using_BIP32_in_Libwally.md).
