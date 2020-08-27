@@ -85,7 +85,7 @@ Add and document the following new concepts:
 ## 5. Finish Later Chapters
 
 16. <strike>Edit & Integrate Tor Chapter. </strike> **7/22**
-17. Edit & Integrate all "C" work **8/5** - **8/26)
+17. <strike>Edit & Integrate all "C" work</strike> **8/5** - **8/26**
    * <strike>Edit & Update Chapter 15</strike> **8/5**
    * <strike>Write the Libwally section</strike> **8/5** - **8/26**
       * <strike>16.1: Intro</strike> **8/5**
