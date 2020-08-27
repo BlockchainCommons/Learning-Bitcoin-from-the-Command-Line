@@ -86,8 +86,8 @@ Add and document the following new concepts:
 
 16. <strike>Edit & Integrate Tor Chapter. </strike> **7/22**
 17. Edit & Integrate all "C" work **8/5** - **8/26)
-   * <stirke>Edit & Update Chapter 15</strike> **8/5**
-   * Write the Libwally section **8/5** - **8/26**
+   * <strike>Edit & Update Chapter 15</strike> **8/5**
+   * <strike>Write the Libwally section</strike> **8/5** - **8/26**
       * <strike>16.1: Intro</strike> **8/5**
       * <strike>16.2: BIP39</strike> **8/11**
       * <strike>16.3: BIP32</strike> **8/11**
