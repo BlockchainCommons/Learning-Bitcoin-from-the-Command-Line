@@ -85,28 +85,31 @@ Add and document the following new concepts:
 ## 5. Finish Later Chapters
 
 16. <strike>Edit & Integrate Tor Chapter. </strike> **7/22**
-17. Edit & Integrate all "C" work
+17. Edit & Integrate all "C" work **8/5** - **8/26)
    * <stirke>Edit & Update Chapter 15</strike> **8/5**
-   * Write the Libwally section
+   * Write the Libwally section **8/5** - **8/26**
       * <strike>16.1: Intro</strike> **8/5**
       * <strike>16.2: BIP39</strike> **8/11**
       * <strike>16.3: BIP32</strike> **8/11**
       * <strike>16.4: PSBTs</strike> **8/12**
       * <strike>16.5: Scripts</strike> **8/12**
-      * 16.6: Other Functions
-      * 16.7: Integration
-   * Like the seedtool and keytool, but simpler
+      * <strike>16.6: Other Functions</strike> **8/18**
+      * <strike>16.7: Integration</strike> **8/25**, **8/26**
 18. Edit & Integrate all "Other Languages" work
-19. Edit & Integrate Appendices work
+   * Write Swift Chapter
+      * Setup Swift Environment
+      * Look at Wallets
+      * Create Transaction
+19. <strike>Edit & Integrate Appendices work</strike> **7/27**, **8/4**
    * <strike>Edit & Integrate A2: Compiling</strike> **7/27**
-   * Edit & Integrate A3: RegTest
-20. Edit & Integrate Lightning Chapters.
+   * <strike>Edit & Integrate A3: RegTest</strike> **8/4**
+20. Edit & Integrate Lightning Chapters
 21. Write or request Lightning/C chapter
 
 ## 6. Finalize Book
 
-X. Take out warnings for all old chapters
-X. Add new first chapter, indicating places to start for people of different levels
+22. Take out warnings for all old chapters
+23. Add new first chapter, indicating places to start for people of different levels
    * Know CL? Have a node? Need to read the new stuff? Skip Lightning?
    * Decide where to place current first chapter in relation to that (before? after? glossary?)
-22. Re-edit everything
+24. Re-edit everything
