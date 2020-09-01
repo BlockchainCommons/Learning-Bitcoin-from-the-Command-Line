@@ -67,37 +67,14 @@ You need to add compiler properties to indicate what JDK version will compile th
     <maven.compiler.target>11</maven.compiler.target>
   </properties>                                                                 
 ```
-Finally add source code to java classes and execute
 
+Whenever you add source code to your classes, you'll be able to test it with:
 ```
 $ mvn package
-[INFO] Scanning for projects...
-[INFO]
-[INFO] ------------------< com.blockchaincommons.lbtc:java-project >-------------------
-[INFO] Building java-project 1.0-SNAPSHOT
-[INFO] --------------------------------[ jar ]---------------------------------
-[INFO]
-......
--------------------------------------------------------
- T E S T S
--------------------------------------------------------
-Running com.blockchaincommons.lbtc.AppTest
-Tests run: 2, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.067 sec
-
-Results :
-
-Tests run: 2, Failures: 0, Errors: 0, Skipped: 0
-
-[INFO]
-[INFO] --- maven-jar-plugin:2.4:jar (default-jar) @ java-project ---
-[INFO] Building jar: /home/user/BitcoinRpcClient/java-project/target/java-project-1.0-SNAPSHOT.jar
-[INFO] ------------------------------------------------------------------------
-[INFO] BUILD SUCCESS
-[INFO] ------------------------------------------------------------------------
-[INFO] Total time: 1.956 s
-[INFO] Finished at: 2020-06-1716T12:21:18+31:00
-[INFO] ------------------------------------------------------------------------```
-
+```
+You can also execute with `exec:java`
+```
+$ mvn exec:java -Dexec.mainClass=com.blockchaincommons.lbtc.App
 ```
 
 ### Creating Alternative Projects
@@ -107,16 +84,19 @@ If you use [Gradle]((https://gradle.org/releases/), you can instead run:
 compile 'wf.bitcoin:JavaBitcoindRpcClient:1.1.0'
 ```
 
-If you want a sample project and some instructions on how to run it on the server that you just created, you can refer to the [Bitcoind Java Sample Project](https://github.com/brunocvcunha/bitcoind-java-client-sample/).
+If you want a sample project and some instructions on how to run it on the server that you just created, you can refer to the [Bitcoind Java Sample Project](https://github.com/brunocvcunha/bitcoind-java-client-sample/). You can also browse all souce code for bitcoin-rpc-client (https://github.com/Polve/bitcoin-rpc-client).
 
-## Build Your Connection
+## Building Your Connection
 
-### Make an RPC Call
-
-To use `JavaBitcoindRpcClient`, you need to create a `BitcoindRpcClient` instance. The arguments in the URL are username, password, IP address and port. You should know this information from your work with `curl` . As you'll recall, the IP address 127.0.0.1 and port 18332 should be correct for the standard testnet setup described in this documents, while you can extract the user and password from `~/.bitcoin/bitcoin.conf`.
+To use `JavaBitcoindRpcClient`, you need to create a `BitcoindRpcClient` instance. You do this by creating a URL with arguments of username, password, IP address and port. As you'll recall, the IP address `127.0.0.1` and port `18332` should be correct for the standard testnet setup described in this documents, while you can extract the user and password from `~/.bitcoin/bitcoin.conf`.
 
 ```java
-  BitcoindRpcClient rpcClient = new BitcoinJSONRPCClient("http://bitcoinrpc:d8340efbcd34e312044c8431c59c792c@127.0.0.1:18332");
+       BitcoindRpcClient rpcClient = new BitcoinJSONRPCClient("http://StandUp:6305f1b2dbb3bc5a16cd0f4aac7e1eba@localhost:18332");
+```
+Note that you'll rneed to import the appropriate information:
+```
+import wf.bitcoin.javabitcoindrpcclient.BitcoinJSONRPCClient;
+import wf.bitcoin.javabitcoindrpcclient.BitcoindRpcClient;
 ```
 
 > **MAINNET VS TESTNET:** The port would be 8332 for a mainnet setup.
@@ -128,9 +108,9 @@ Later, when you're all done with your `bitcoind` connection, you should close it
 rpcClient.stop();
 ```
 
-### Making your first RPC Call
+### Making an RPC Call
 
-In order to use an RPC method using `JavaBitcoindRpcClient`, you'll find that the `BitcoindRpcClient` provides most of the functionality that can be accessed through `bitcoin-cli` or `curl`, using the same method names. For more details about the commands that you are able to execute and what to expect back, you should refer to [3.2: Knowing Your Bitcoin Setup](03_2_Knowing_Your_Bitcoin_Setup.md).
+You'll find that the `BitcoindRpcClient` provides most of the functionality that can be accessed through `bitcoin-cli` or other RPC methods, using the same method names. 
 
 For example, to execute the `getmininginfo` command to get the block information and the difficulty on the network, you should use the `getMiningInfo()` method:
 ```java
@@ -147,17 +127,13 @@ The output for this line should be similar to this:
 Mining Information
 ------------------
 Chain......: test
-Blocks.....: 1254920
-Difficulty.: 1.0
-Hash Power.: 6585163152453.466796875
+Blocks.....: 1830905
+Difficulty.: 4194304
+Hash Power.: 40367401348837.41
 ```
 ### Making an RPC Call with Arguments
 
-When you make a RPC call with arguments you need to setup parameters depending method or type of object you use.   
-
-### Look up Address
-
-You can look up addresses on your wallet passing it as an argument.   In this case we use getAddressInfo method to obtain some information about an address.
+You can look up addresses on your wallet by passing the address as an argument to `getAddressInfo`:
 
 ```java
 public AddressInfo getAddressInfo(String address) throws GenericRpcException {
