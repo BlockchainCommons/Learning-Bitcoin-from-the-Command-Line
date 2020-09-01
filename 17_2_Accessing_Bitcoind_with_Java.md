@@ -1,33 +1,31 @@
-# 18.2: Accessing Bitcoind with Java
+# 17.2: Accessing Bitcoind with Java
 
 > **NOTE:** This is a draft in progress, so that I can get some feedback from early reviewers. It is not yet ready for learning.
 
-Interacting with the `bitcoind` directly and using command-line `curl` can get simple if you understand how it works, but there's a project [JavaBitcoindRpcClient](https://github.com/Polve/JavaBitcoindRpcClient) that provides the functionality in a Java-API level, making it even easier to interact with your Bitcoin Server.
+This section explains how to interact with `bitcoind` using the Java programming language and the  [JavaBitcoindRpcClient](https://github.com/Polve/JavaBitcoindRpcClient). 
 
+## Setting Up Java
 
-## Setup Java
-
-To install Java on the VPS Server, you are able to use the `apt-get` command. We will also use [Apache Maven](http://maven.apache.org/) to manage the dependencies, so we will install it together.  In this project we will create a maven project and indicate minimum configuration about Gradle (https://gradle.org/releases/)
-
+You can install Java on your server, using the `apt-get` command. You will also install [Apache Maven](http://maven.apache.org/) to manage the dependencies. 
 ```
-$ apt-get install openjdk-11-jre-headless maven
+$ sudo apt-get install openjdk-11-jre-headless maven
 ```
 
 You can verify your Java installation:
 ```
 $ java -version
-openjdk version "11.0.7" 2020-04-14
-OpenJDK Runtime Environment (build 11.0.7+10-post-Ubuntu-2ubuntu218.04)
-OpenJDK 64-Bit Server VM (build 11.0.7+10-post-Ubuntu-2ubuntu218.04, mixed mode, sharing)
+openjdk version "11.0.8" 2020-07-14
+OpenJDK Runtime Environment (build 11.0.8+10-post-Debian-1deb10u1)
+OpenJDK 64-Bit Server VM (build 11.0.8+10-post-Debian-1deb10u1, mixed mode, sharing)
 ```
 
-## Create maven project
+### Creating a Maven Project
 
+In order to prepare for Bitcoin on java, you will create a Maven project:
 ```
-mvn archetype:generate -DgroupId=com.blockchaincommons.lbtc -DartifactId=java-project -DarchetypeArtifactId=maven-archetype-quickstart -DinteractiveMode=false
+$ mvn archetype:generate -DgroupId=com.blockchaincommons.lbtc -DartifactId=java-project -DarchetypeArtifactId=maven-archetype-quickstart -DinteractiveMode=false
 ```
-It will download some dependencies
-
+This will download some dependencies
 ```
 Downloading: https://repo.maven.apache.org/maven2/org/apache/maven/plugins/maven-clean-plugin/2.5/maven-clean-plugin-2.5.pom
 Downloaded: https://repo.maven.apache.org/maven2/org/apache/maven/plugins/maven-clean-plugin/2.5/maven-clean-plugin-2.5.pom (4 KB at 4.2 KB/sec)
@@ -38,41 +36,41 @@ Downloaded: https://repo.maven.apache.org/maven2/org/apache/maven/maven-parent/2
 Downloading: https://repo.maven.apache.org/maven2/org/apache/apache/10/apache-10.pom
 ..............
 ```
-It will create a configuration file pom.xml
+It will also create a configuration file `pom.xml`:
 
 ```
-user@machine:~/BitcoinRpcClient/java-project$ ll
-total 16
-drwxr-xr-x 3 user user 4096 Jun 17 16:47 ./
-drwxr-xr-x 3 user user 4096 Jun 17 15:02 ../
--rw-r--r-- 1 user user 1175 Jun 17 16:34 pom.xml
-drwxr-xr-x 4 user user 4096 Jun 17 15:02 src/
-user@machine:~/BitcoinRpcClient/java-project$ 
+$ cd java-project
+$ ls -lagh
+total 16K
+drwxr-xr-x  3 sudo 4.0K Sep  1 13:58 .
+drwxr-xr-x 15 sudo 4.0K Sep  1 13:58 ..
+-rw-r--r--  1 sudo  663 Sep  1 13:58 pom.xml
+drwxr-xr-x  4 sudo 4.0K Sep  1 13:58 src
 ```
 
-This project uses JavaBitcoindRpcClient, so you need include the dependency editing pom.xml file
+In order to include `JavaBitcoindRpcClient`, you must add that dependency to `<dependendencies>` in the `pom.xml` file
 
 ```xml
-<dependency>
-  <groupId>wf.bitcoin</groupId>
-  <artifactId>JavaBitcoindRpcClient</artifactId>
-  <version>1.1.0</version>
-</dependency>
+    <dependency>
+      <groupId>wf.bitcoin</groupId>
+      <artifactId>bitcoin-rpc-client</artifactId>
+      <version>1.1.0</version>
+    </dependency>
 ```
 You need to add compiler properties to indicate what JDK version will compile the source code.    
 
 ```
-    <properties>
-	<!-- https://maven.apache.org/general.html#encoding-warning -->
-        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <maven.compiler.source>1.11</maven.compiler.source>
-        <maven.compiler.target>1.11</maven.compiler.target>
-    </properties>
+  <properties>                                                                  
+    <!-- https://maven.apache.org/general.html#encoding-warning -->
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    <maven.compiler.source>11</maven.compiler.source>
+    <maven.compiler.target>11</maven.compiler.target>
+  </properties>                                                                 
 ```
 Finally add source code to java classes and execute
 
 ```
-user@machine:~/BitcoinRpcClient/java-project$ mvn package
+$ mvn package
 [INFO] Scanning for projects...
 [INFO]
 [INFO] ------------------< com.blockchaincommons.lbtc:java-project >-------------------
@@ -101,12 +99,15 @@ Tests run: 2, Failures: 0, Errors: 0, Skipped: 0
 [INFO] ------------------------------------------------------------------------```
 
 ```
-Or if you use Gradle:
+
+### Creating Alternative Projects
+
+If you use [Gradle]((https://gradle.org/releases/), you can instead run:
 ```groovy
 compile 'wf.bitcoin:JavaBitcoindRpcClient:1.1.0'
 ```
 
-If you want a sample project and some instructions on how to run it on the server that we just created, you can refer to the [Bitcoind Java Sample Project](https://github.com/brunocvcunha/bitcoind-java-client-sample/).
+If you want a sample project and some instructions on how to run it on the server that you just created, you can refer to the [Bitcoind Java Sample Project](https://github.com/brunocvcunha/bitcoind-java-client-sample/).
 
 ## Build Your Connection
 
