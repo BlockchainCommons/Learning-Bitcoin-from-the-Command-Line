@@ -2,7 +2,7 @@
 
 > **NOTE:** This is a draft in progress, so that I can get some feedback from early reviewers. It is not yet ready for learning.
 
-This section explains how to interact with `bitcoind` using the Go programming language. Note that it has some quirks and some limitations.
+This section explains how to interact with `bitcoind` using the Go programming language and the [btcd rpcclient](https://github.com/btcsuite/btcd/tree/master/rpcclient). Note that it has some quirks and some limitations.
 
 ## Setting up Go
 
