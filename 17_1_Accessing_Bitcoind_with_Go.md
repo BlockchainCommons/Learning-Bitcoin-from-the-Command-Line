@@ -4,7 +4,7 @@
 
 This section explains how to interact with `bitcoind` using the Go programming language and the [btcd rpcclient](https://github.com/btcsuite/btcd/tree/master/rpcclient). Note that it has some quirks and some limitations.
 
-## Setting up Go
+## Setting Up Go
 
 To prepare for Go usage on your UNIX machine,  first install curl if you haven't already:
 
@@ -53,7 +53,7 @@ $ mkdir $HOME/work
 
 ### Setting Up `btcd` `rpcclient`
 
-We will be using the `rpcclient` that comes with `btcd,` a Bitcoin implementation written in Go. Although `rpcclient` was originally designed to work with the `btcd` Bitcoin full node, it also works with Bitcoin Core. It has some quirks which we will be looking at. 
+You'll be using the `rpcclient` that comes with `btcd,` a Bitcoin implementation written in Go. Although `rpcclient` was originally designed to work with the `btcd` Bitcoin full node, it also works with Bitcoin Core. It has some quirks which we will be looking at. 
 
 You can use ```go get``` to download it:
 
@@ -109,7 +109,7 @@ This ```import``` declaration allows you to import relevant libraries. For every
 
 ## Building Your Connection
 
-With some programming languages, you'll need to do the work of managing RPC calls yourself. And, in Go, you will have to build your RPC connection:
+Every `bitcoind` function in Go begins with creating the RPC connection, using the `ConnConfig` function:
 ```
 	connCfg := &rpcclient.ConnConfig{
 		Host:         "localhost:18332",
@@ -124,11 +124,13 @@ With some programming languages, you'll need to do the work of managing RPC call
 	}
 	defer client.Shutdown()
 ```
- The ```connCfg``` parameters allow you to choose the Bitcoin RPC port, username, password and whether you are on testnet or mainnet. Using ```rpcclient.New(connCfg, nil)``` we configure ```client``` to connect to our Bitcoin node.
- 
+The ```connCfg``` parameters allow you to choose the Bitcoin RPC port, username, password and whether you are on testnet or mainnet. 
+
 > :note: **NOTE:** Again, be sure to substitute the `User` and `Pass` with the one found in your `~/.bitcoin/bitcon.conf`. 
 
- The ```defer client.Shutdown()``` line is for disconnecting from our Bitcoin node, once the ```main()``` function finishes executing. After the ```defer client.Shutdown()``` line is where the exciting stuff is — and it's to use. That's's because `rpcclient` helpfully turns the `bitcoin-cli` commands into functions using PascalCase. For example, ```bitcoin-cli getblockcount``` is ```client.GetBlockCount``` in Go.
+The```rpcclient.New(connCfg, nil)``` function then configures ```client``` to connect to our Bitcoin node. 
+
+The ```defer client.Shutdown()``` line is for disconnecting from your Bitcoin node, once the ```main()``` function finishes executing. After the ```defer client.Shutdown()``` line is where the exciting stuff goes — and it will be pretty easy to use. That's's because `rpcclient` helpfully turns the `bitcoin-cli` commands into functions using PascalCase. For example, ```bitcoin-cli getblockcount``` will be ```client.GetBlockCount``` in Go.
 
 ### Making an RPC Call
 
