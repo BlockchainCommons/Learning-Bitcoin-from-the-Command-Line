@@ -148,7 +148,10 @@ All that's required now is to make an informational call like `GetBlockCount` or
 	fmt.Printf("%d\n", blockCount)
 	fmt.Printf("%s\n", blockHash.String())
 ```
-The `rpcclient` functions can take inputs as well, for example ```client.GetBlockHash(blockCount)``` takes the block count as an input. The ```client.GetBlockHash(blockCount)``` from above would look like this as a ```bitcoin-cli``` command:
+
+### Making an RPC Call with Arguments
+
+The `rpcclient` functions can take inputs as well; for example ```client.GetBlockHash(blockCount)``` takes the block count as an input. The ```client.GetBlockHash(blockCount)``` from above would look like this as a ```bitcoin-cli``` command:
 ```
 $ bitcoin-cli getblockhash 1830868
 00000000000002d53b6b9bba4d4e7dc44a79cebd1024d1bcfb9b3cc07d6cad9c
