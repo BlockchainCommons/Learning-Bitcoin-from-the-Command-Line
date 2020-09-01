@@ -87,7 +87,7 @@ You should see the block count printed:
 2020/09/01 11:41:24 Block count: 1830861
 ```
 
-### Accessing `rpcclient`
+### Creating a `rpcclient` Project
 
 You will typically be creating projects in your `~/work/src/myproject/bitcoin` directory:
 ```
