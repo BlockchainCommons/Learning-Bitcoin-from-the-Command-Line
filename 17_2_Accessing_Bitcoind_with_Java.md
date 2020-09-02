@@ -81,7 +81,7 @@ $ mvn exec:java -Dexec.mainClass=com.blockchaincommons.lbtc.App
 
 If you use [Gradle]((https://gradle.org/releases/), you can instead run:
 ```groovy
-compile 'wf.bitcoin:JavaBitcoindRpcClient:1.1.0'
+compile 'wf.bitcoin:JavaBitcoindRpcClient:1.2.1'
 ```
 
 If you want a sample project and some instructions on how to run it on the server that you just created, you can refer to the [Bitcoind Java Sample Project](https://github.com/brunocvcunha/bitcoind-java-client-sample/). You can also browse all souce code for bitcoin-rpc-client (https://github.com/Polve/bitcoin-rpc-client).
