@@ -11,8 +11,7 @@ public class App
     public static void main( String[] args ) throws Exception
     {
 
-        BitcoindRpcClient rpcClient = new BitcoinJSONRPCClient("http://StandUp:6
-305f1b2dbb3bc5a16cd0f4aac7e1eba@localhost:18332");
+        BitcoindRpcClient rpcClient = new BitcoinJSONRPCClient("http://StandUp:6305f1b2dbb3bc5a16cd0f4aac7e1eba@localhost:18332");
 
 	MiningInfo info = rpcClient.getMiningInfo();
 	System.out.println("Mining Information");
@@ -27,10 +26,11 @@ public class App
 	
 	AddressInfo addr1Info = rpcClient.getAddressInfo(addr1);
 	System.out.println("Address: " + addr1Info.address());
-	System.out.println("MasterFingerPrint: " + addr1Info.hdMasterFingerprint
-());
+	System.out.println("MasterFingerPrint: " + addr1Info.hdMasterFingerprint());
 	System.out.println("HdKeyPath: " + addr1Info.hdKeyPath());
 	System.out.println("PubKey: " + addr1Info.pubKey());
+
+	System.out.println("Balance: " + rpcClient.getBalance());
 
     }
 }
