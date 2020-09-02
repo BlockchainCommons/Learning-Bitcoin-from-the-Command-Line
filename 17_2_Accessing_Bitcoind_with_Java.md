@@ -70,7 +70,7 @@ You need to add compiler properties to indicate what JDK version will compile th
 
 Whenever you add source code to your classes, you'll be able to test it with:
 ```
-$ mvn package
+$ mvn compile
 ```
 You can also execute with `exec:java`
 ```
@@ -120,7 +120,7 @@ System.out.println("------------------");
 System.out.println("Chain......: " + info.chain());
 System.out.println("Blocks.....: " + info.blocks());
 System.out.println("Difficulty.: " + info.difficulty());
-System.out.println("Hash Power.: " + new BigDecimal(info.networkHashps()).toPlainString());
+System.out.println("Hash Power.: " + info.networkHashps());
 ```
 The output for this line should be similar to this:
 ```
@@ -136,27 +136,40 @@ Hash Power.: 40367401348837.41
 You can look up addresses on your wallet by passing the address as an argument to `getAddressInfo`:
 
 ```java
-public AddressInfo getAddressInfo(String address) throws GenericRpcException {
-    return new AddressInfoMapWrapper((Map<String, ?>) query("getaddressinfo", address));
-  }
+	String addr1 = "mvLyH7Rs45c16FG2dfV7uuTKV6pL92kWxo";
+	
+	AddressInfo addr1Info = rpcClient.getAddressInfo(addr1);
+	System.out.println("Address: " + addr1Info.address());
+	System.out.println("MasterFingerPrint: " + addr1Info.hdMasterFingerprint
+());
+	System.out.println("HdKeyPath: " + addr1Info.hdKeyPath());
+	System.out.println("PubKey: " + addr1Info.pubKey());
+```
+The output will look something like this:
+```
+Address: mvLyH7Rs45c16FG2dfV7uuTKV6pL92kWxo
+MasterFingerPrint: ce0c7e14
+HdKeyPath: m/0'/0'/5'
+PubKey: 0368d0fffa651783524f8b934d24d03b32bf8ff2c0808943a556b3d74b2e5c7d65
+```
 
-String addr1 = "bcrt1qs4ylwj2v5v0gq7eqzp9k9vxazdrkexhkghxpyp";   //regtest
-AddressInfo addr1Info = rpcClient.getAddressInfo(addr1);
-System.out.println("Address: " + addr1Info.address());
-System.out.println("HdKeyPath: " + addr1Info.hdKeyPath());
-System.out.println("PubKey: " + addr1Info.pubKey());
-System.out.println("MasterFingerPrint: " + addr1Info.hdMasterFingerprint());
-```
-Output:
-```
-Jun 19, 2020 8:01:56 PM wf.bitcoin.javabitcoindrpcclient.BitcoinJSONRPCClient <clinit>
-WARNING: Currently relying on rpcuser / rpcpassword for authentication. This will soon be deprecated in bitcoind. To use newer auth mechanism based on a temporary password, remove properties rpcuser / rpcpassword from bitcoin.conf
-Address: bcrt1qs4ylwj2v5v0gq7eqzp9k9vxazdrkexhkghxpyp
-HdKeyPath: m/0'/0'/16'
-PubKey: 03cf852403abbcf0431e8c82b414b0c805f5e1b863989cbc9adb3a316510e0d1f5
-MasterFingerPrint: 91cfb0fc
+### Running Your Code
+
+The code for these examples can be found in [the src directory](src/17_2_App-getinfo.java) and should be installed into the standard directory structure created here as `~/java-project/src/main/java/com/blockchaincommons/lbtc/App.java`. It can then be compiled and run. 
 
 ```
+$ mvn compile
+$ mvn exec:java -Dexec.mainClass=com.blockchaincommons.lbtc.App
+Chain......: test
+Blocks.....: 1831079
+Difficulty.: 4194304
+Hash Power.: 38112849943221.16
+Address: mvLyH7Rs45c16FG2dfV7uuTKV6pL92kWxo
+MasterFingerPrint: ce0c7e14
+HdKeyPath: m/0'/0'/5'
+PubKey: 0368d0fffa651783524f8b934d24d03b32bf8ff2c0808943a556b3d74b2e5c7d65
+```
+(You'll also see lots more information about the compilation, of course.)
 
 ### Look up Funds
 
