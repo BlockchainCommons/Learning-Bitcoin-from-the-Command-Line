@@ -51,11 +51,11 @@ drwxr-xr-x  4 sudo 4.0K Sep  1 13:58 src
 In order to include `JavaBitcoindRpcClient`, you must add that dependency to `<dependendencies>` in the `pom.xml` file
 
 ```xml
-    <dependency>
-      <groupId>wf.bitcoin</groupId>
-      <artifactId>bitcoin-rpc-client</artifactId>
-      <version>1.1.0</version>
-    </dependency>
+      <dependency>
+        <groupId>wf.bitcoin</groupId>
+        <artifactId>bitcoin-rpc-client</artifactId>
+        <version>1.2.1</version>
+      </dependency>
 ```
 You need to add compiler properties to indicate what JDK version will compile the source code.    
 
