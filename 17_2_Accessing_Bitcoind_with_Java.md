@@ -171,28 +171,16 @@ PubKey: 0368d0fffa651783524f8b934d24d03b32bf8ff2c0808943a556b3d74b2e5c7d65
 ```
 (You'll also see lots more information about the compilation, of course.)
 
-### Look up Funds
+## Looking up Funds
 
-You can look up your balance.
-
-```java
-public BigDecimal getBalance(String account) throws GenericRpcException {
-    return (BigDecimal) query("getbalance");
-  }
-  String balance = rpcClient.getBalance(account);
-  System.out.println("Balance: " + balance);
-  
+Retrieving the balance for a whole account is equally easy:
 ```
-Output: 
-
-```
-Balance: 14701.56249600
+        System.out.println("Balance: " + rpcClient.getBalance());
 ```
 
-### Creating an Address
+## Creating an Address
 
-You can create a new address on your wallet attaching a specific label to it, as well as dump the private key for a specific address.
-For more information about the wallet setup, you can check [3.3: Setting Up Your Wallet](03_3_Setting_Up_Your_Wallet.md).
+You can create a new address on your wallet, attach a specific label to it, and even dump its private key.
 
 ```java
   String address = rpcClient.getNewAddress("Learning-Bitcoin-from-the-Command-Line");
@@ -207,21 +195,26 @@ New Address: mpsFtZ8qTJPRGZy1gaaUw37fHeUSPLkzzs
 Priv Key: cTy2AnmAALsHokYzJzTdsUBSqBtypmWfmSNYgG6qQH43euUZgqic
 ```
 
-### Create a Transaction
+## Sending a Transaction
 
-You can create a raw transaction using createRawTransaction method passing as arguments two ArrayList objects containing inputs and outputs to be used.  In this example we will create two addresses and we will use generateToAddress method in regtest to mine some bitcoin.
+The JavaBitcoindRpcClient library has some good tools that make it easy to create a transaction from scratch.
 
-```java
-public String create() throws GenericRpcException {
- return bitcoin.createRawTransaction(new ArrayList<>(inputs), outputs);
-}
+### Creating a Transaction
+
+You can create a raw transaction using the `createRawTransaction` method, passing as arguments two ArrayList objects containing inputs and outputs to be used.  
+
+First you set up your new addresses, here an existing address on our system and a new address on our system.
 ```
+        String addr1 = "tb1qdqkc3430rexxlgnma6p7clly33s6jjgay5q8np";
+        System.out.println("Used address addr1: " + addr1);
 
-#### generatetoaddress
+        String addr2 = rpcClient.getNewAddress();
+        System.out.println("Created address addr2: " + addr2);
 
-The generatetoaddress RPC mines blocks immediately to a specified address.  It receives numBlocks param as the number of blocks to generate.  The address to send the newly generated bitcoin to and param maxTries as the maximum number of iterations that are tried to create the requested number of blocks.
-
-We use generateToAddress method to mine some bitcoin and we use listUnspent (https://github.com/Polve/bitcoin-rpc-client/blob/master/src/main/java/wf/bitcoin/javabitcoindrpcclient/BitcoinJSONRPCClient.java#L756) method to load object utxos with coins associated with address object addr1.
+        List<Unspent> utxos = rpcClient.listUnspent(0, Integer.MAX_VALUE, addr1);
+        System.out.println("Found " + utxos.size() + " UTXOs (unspent transaction outputs) belonging to addr1");
+```
+Then, you can use the `listUnspent` RPC to find UTXOs for the existing address.
 
 ```java
 System.out.println("Created address addr1: " + addr1);
@@ -233,124 +226,109 @@ List<Unspent> utxos = rpcClient.listUnspent(0, Integer.MAX_VALUE, addr1);
 System.out.println("Found " + utxos.size() + " UTXOs (unspent transaction outputs) belonging to addr1");
 ```
 
-debug.log
+Transactions are built with `BitcoinRawTxBuilder`:
 ```
-2020-06-19T18:22:30Z [default wallet] AddToWallet 0bed0fc1b6190b85b93bda6fe752c7596234bea8399827d27e347f35ca68d59f  new
-2020-06-19T18:22:30Z CreateNewBlock(): block weight: 892 txs: 0 fees: 0 sigops 400
-2020-06-19T18:22:30Z UpdateTip: new best=6125a1648f84e11d9d8ee1b003056c20142e9f1e54376f5d117554785957aadf height=1100 version=0x20000000 log2_work=11.104599 tx=1103 date='2020-06-19T18:22:48Z' progress=1.000000 cache=0.0MiB(114txo)
-2020-06-19T18:22:30Z [default wallet] AddToWallet a2690eb4c50b1140dfc77f95db9c8065e8d7e88b2cfbd9a75e9b2dd157857afd  new
+        BitcoinRawTxBuilder txb = new BitcoinRawTxBuilder(rpcClient);
 ```
-Output
+First you fill the inputs with the UTXOs you're spending:
 ```
-Created address addr1: bcrt1qs4ylwj2v5v0gq7eqzp9k9vxazdrkexhkghxpyp
-Created address addr2: bcrt1qdp6fut9pmchwacpr28vfszdp5qayza8jkq5t3v
-Generated 110 blocks for addr1
-Found 118 UTXOs (unspent transaction outputs) belonging to addr1
+        TxInput in = utxos.get(0);
+        txb.in(in);
 ```
-Now we have created UXTO's we can create a transaction,  to perform this we will use  three objects,  TxInput, TxOutput and Transactions Builder.    With this code we got inputs and outputs for our transaction.   Object uxto is a list with all UXTO's belonging to addr1.    We will choose uxto in position zero on the list and add it to txb object as input.   Then we add addr2 object as the output and set fee subtracting estimatedFee value.
+
+> :warning: **WARNING:** Obviously in a real program you'd intelligently select a UTXO; here, we just grab the 0th one.
+
+Second, you fill the ouputs each with an amount and an address:
+```
+	BigDecimal estimatedFee = BigDecimal.valueOf(0.00000200);
+      	BigDecimal txToAddr2Amount = utxos.get(0).amount().subtract(estimatedFee);
+	txb.out(addr2, txToAddr2Amount);
+	
+	System.out.println("unsignedRawTx in amount: " + utxos.get(0).amount());
+        System.out.println("unsignedRawTx out amount: " + txToAddr2Amount);
+```
+
+You're now ready to actually create the transaction:
+```
+	String unsignedRawTxHex = txb.create();
+	System.out.println("Created unsignedRawTx from addr1 to addr2: " + unsignedRawTxHex);
+```
+
+### Signing a Transactions
+
+You're now ready to sign transaction with the method `signRawTransactionWithKey`. This method receives as parameters an unsigned raw string transaction, the private key of the sending address, and the TxInput object.
 
 ```java
-BitcoinRawTxBuilder txb = new BitcoinRawTxBuilder(rpcClient);
-BigDecimal estimatedFee = BigDecimal.valueOf(0.00000200);
-TxInput in = utxos.get(0);
-txb.in(in);
-		
-txToAddr2Amount = utxos.get(0).amount().subtract(estimatedFee); 
-txb.out(addr2, txToAddr2Amount);
-		
-System.out.println("unsignedRawTx in amount: " + utxos.get(0).amount());
-System.out.println("unsignedRawTx out amount: " + txToAddr2Amount);
+	SignedRawTransaction srTx = rpcClient.signRawTransactionWithKey(
+					unsignedRawTxHex,
+					Arrays.asList(rpcClient.dumpPrivKey(addr1)), // 
+					Arrays.asList(in),
+					null);
+	System.out.println("signedRawTx hex: " + srTx.hex());
+	System.out.println("signedRawTx complete: " + srTx.complete());
 ```
 
-Output
-```
-unsignedRawTx in amount: 0.78125000
-unsignedRawTx out amount: 0.78124800
-```
+### Sending a Transactiong
 
-### Sending Transactions
-
-Before send a transaction we need to create and sign it.   To create you can use create method of Builder Transaction object.   This method returns a unsigned string transaction in hexadecimal format.
-
-```java
-String unsignedRawTxHex = txb.create();
-System.out.println("Created unsignedRawTx from addr1 to addr2: " + unsignedRawTxHex);
-```
-Output:
-```
-Created unsignedRawTx from addr1 to addr2: 020000000101f08cabf817b8fb076501f04b69df0aae59d61d94edfb40c2c41b1b2bd16a3f0000000000ffffffff010017a8040000000016001468749e2ca1de2eeee02351d89809a1a03a4174f200000000
-```
-Later you should sign transaction with method signRawTransactionWithKey.   This method receives as parameters a unsigned raw string transaction, the private key of address and TxInput object.
-
-```java
-SignedRawTransaction srTx = rpcClient.signRawTransactionWithKey(
-				unsignedRawTxHex,
-				Arrays.asList(rpcClient.dumpPrivKey(addr1)), // 
-				Arrays.asList(in),
-				null);
-System.out.println("signedRawTx hex: " + srTx.hex());
-System.out.println("signedRawTx complete: " + srTx.complete());
-```
-Output
-```
-signedRawTx hex: 0200000000010101f08cabf817b8fb076501f04b69df0aae59d61d94edfb40c2c41b1b2bd16a3f0000000000ffffffff010017a8040000000016001468749e2ca1de2eeee02351d89809a1a03a4174f20247304402204ed1ce8ea7e36cd53ba78beaccaf3ef62b094c29413a451e3abae99548520f7f02206b606c21cd38cc4e61d84c229d42ce69a01cb3a0ed360fced2a6f5b5d8dbe951012103cf852403abbcf0431e8c82b414b0c805f5e1b863989cbc9adb3a316510e0d1f500000000
-signedRawTx complete: true
-```
-
-Finally you can send signed transaction using 
-
+Sending then requires the `sendRawTransaction` command:
 ```java
 String sentRawTransactionID = rpcClient.sendRawTransaction(srTx.hex());
 System.out.println("Sent signedRawTx (txID): " + sentRawTransactionID);```
 ```
-This program will output a transaction id:
+
+### Running Your Code
+
+You can now run [the transaction code](ssrc/17_2_App-sendtx.java) as `~/java-project/src/main/java/com/blockchaincommons/lbtc/App.java`.
 
 ```
-Sent signedRawTx (txID): 03b2327117264837f449a718e5aeedb07f90d435892a33c3c2772d4c3b40111f
+$ mvn compile
+$ mvn exec:java -Dexec.mainClass=com.blockchaincommons.lbtc.App
+Used address addr1: tb1qdqkc3430rexxlgnma6p7clly33s6jjgay5q8np
+Created address addr2: tb1q04q2wzlhfqlrnz95ynfj7gp4t3yynrj0542smv
+Found 1 UTXOs (unspent transaction outputs) belonging to addr1
+unsignedRawTx in amount: 0.00850000
+unsignedRawTx out amount: 0.00849800
+Created unsignedRawTx from addr1 to addr2: 0200000001d2a90fc3b43e8eb4ae9452af43c9448112d359cac701f7f537aa8b6f39193bb90100000000ffffffff0188f70c00000000001600147d40a70bf7483e3988b424d32f20355c48498e4f00000000
+signedRawTx hex: 02000000000101d2a90fc3b43e8eb4ae9452af43c9448112d359cac701f7f537aa8b6f39193bb90100000000ffffffff0188f70c00000000001600147d40a70bf7483e3988b424d32f20355c48498e4f024730440220495fb64d8cf9dee9daa8535b8867709ac8d3763d693fd8c9111ce610645c76c90220286f39a626a940c3d9f8614524d67dd6594d9ee93818927df4698c1c8b8f622d01210333877967ac52c0d0ec96aca446ceb3f51863de906e702584cc4da2780d360aae00000000
+signedRawTx complete: true
+Sent signedRawTx (txID): 82032c07e0ed91780c3369a1943ea8abf49c9e11855ffedd935374ecbc789c45
 ```
-debug.log.
 
-```
-2020-06-19T18:22:31Z [default wallet] AddToWallet 03b2327117264837f449a718e5aeedb07f90d435892a33c3c2772d4c3b40111f  new
-```
+## Listening to Transactions or Blocks
 
-For more information about sending transactions, you can check [4: Sending Bitcoin Transactions](04_0_Sending_Bitcoin_Transactions.md).
+As with [C and its ZMQ libraries](15_3_Receiving_Bitcoind_Notifications_with_C.md), there are easy ways to use Java to listen to the blockchain — and to execute specific code when something happens, such as a transaction that involves an address in your wallet, or even the generation of a new block in the network.
 
-### Listening to Transactions or Blocks
+To do this, use `JavaBitcoindRpcClient`'s `BitcoinAcceptor` class, which allows you to attach listeners in the network.
 
-You may want to write applications that keep listening the Blockchain, and execute a specific code when something happens, such as a transaction that involves an address in your wallet, or even the generation of a new block in the network.
-To do that, `JavaBitcoindRpcClient` provides support to `BitcoinAcceptor`, where you can attach listeners in the network.
-
-Example:
 ```java
-  BitcoinAcceptor acceptor = new BitcoinAcceptor(rpcClient, blockHash, 6, new BitcoinPaymentListener() {
+        String blockHash = rpcClient.getBestBlockHash();
+	BitcoinAcceptor acceptor = new BitcoinAcceptor(rpcClient, blockHash, 6, new BitcoinPaymentListener() {
 
-      @Override
-      public void transaction(Transaction tx) {
-          System.out.println("Transaction: " + tx);
+	      @Override
+	      public void transaction(Transaction tx) {
+	      	System.out.println("Transaction: " + tx);
+	      }
 
-      }
-
-      @Override
-      public void block(String block) {
-          System.out.println("Block: " + block);
-
-      }
-  });
+	      @Override
+	      public void block(String block) {
+	      	System.out.println("Block: " + block);
+	      }
+	});
   acceptor.run();
 ```
 
-Every time some transaction is sent, or a new block is generated, you should see a similar output in your console:
+See [the src directory](src/17_2_App-listen.java) for the complete code. Every time a transaction is sent or a new block is generated, you should see output on your console:
 ```
 Transaction: {account=Tests, address=mhopuJzgmTwhGfpNLCJ9CRknugY691oXp1, category=receive, amount=5.0E-4, label=Tests, vout=1, confirmations=0, trusted=false, txid=361e8fcff243b74ebf396e595a007636654f67c3c7b55fd2860a3d37772155eb, walletconflicts=[], time=1513132887, timereceived=1513132887, bip125-replaceable=unknown}
 
 Block: 000000004564adfee3738314549f7ca35d96c4da0afc6b232183917086b6d971
 ```
 
-### For More Information
-
-In this repository you can browse all souce code for bitcoin-rpc-client (https://github.com/Polve/bitcoin-rpc-client)
-
 ### Summary Accessing Bitcoind with Java
 
-By using javabitcoinrpc library, you can easily access bitcoind via RPC calls from a Java. To do so, you should create a client, an RPC connection, then create objects and classes to interact with individual RPC calls, some of them with parameters. You can easily create address, sign transactions, query balances and others RPC methods.
+By using the javabitcoinrpc library, you can easily access bitcoind via RPC calls from Java. You'll also have access to nice additional features, like the `bitcoinAcceptor` listening service.
+
+## What's Next?
+
+Learn more about "Talking to Bitcoin in Other Languages" in [17.3: Accessing Bitcoin with NodeJS](17_3_Accessing_Bitcoind_with_NodeJS.md).
+
