@@ -1,24 +1,29 @@
-# 18.4: Accessing Bitcoind with Python
+# 17.4: Accessing Bitcoind with Python
 
-> NOTE: This is a draft in progress, so that I can get some feedback from early reviewers. It is not yet ready for learning.
+> :information_source: **NOTE:** This is a draft in progress, so that I can get some feedback from early reviewers. It is not yet ready for learning.
 
-Interacting with the bitcoind directly and using command-line curl can get simple if you understand how it works, but there's a project [Python-BitcoinRPC](https://github.com/jgarzik/python-bitcoinrpc) that provides the functionality in a Python-API level, making it even easier to interact with your Bitcoin Server.
+This section explains how to interact with `bitcoind` using the Python programming language and the [Python-BitcoinRPC](https://github.com/jgarzik/python-bitcoinrpc).
 
-## Setup Python
+## Setting Up Python
 
-We are going to be using python 3 for this chapter. Debian 10 installs python3 and if you have bitcoin-core installed, you should have it installed. Let's check, run:
+If you already have Bitcoin Core installed, you should have Python 3 available as well.
+You can check this by running:
 
 `$ python3 --version`
 
-If it returns the version number then you have python3 installed. If it returns nothing or an error then we will build python from source, do:
+If it returns a version number (e.g., `3.7.3` or `3.8.3`) then you have python3 installed. Continue on to the next header.
 
-#### 1. Install dependencies:
+However, if you somehow do not have Python installed, you'll need build it from source as follows:
+
+### Building Python from Source
+
+#### 1. Install Dependencies
 ```sh
 $ sudo apt-get install build-essential checkinstall
 $ sudo apt-get install libreadline-gplv2-dev libncursesw5-dev libssl-dev libsqlite3-dev tk-dev libgdbm-dev libc6-dev libbz2-dev libffi-dev zlib1g-dev
 ```
 
-#### 2. Download & extract Python:
+#### 2. Download & Extract Python
 ```sh
 $ wget https://www.python.org/ftp/python/3.8.3/Python-3.8.3.tgz
 $ tar -xzf Python-3.8.3.tgz
@@ -39,49 +44,60 @@ After you get the version output, remove the source file:
 $ rm Python-3.8.3.tgz
 ```
 
-## Setup Dependency
+### Setting Up BitcoinRPC
 
-We are going to install the `python-bitcoinrpc` library, like so:
+sudo apt-get install python3-pip
 
-`python3.8 -m pip install python-bitcoinrpc`
+Whether you used an existing Python or built it from source, you're now ready to install  the `python-bitcoinrpc` library:
 
-## Build Your Connection
+```
+$ pip3 install python-bitcoinrpc
+```
+If you don't have `pip` installed, you'll need to run the following:
+```
+$ sudo apt install python3-pip
+```
 
-We are now ready to start interacting with `bitcoind`, but first we need to establish a connection. Create a file called `btcrpc.py` and type the following:
+### Creating a BitcoinRPC Project
 
+You'll generally need to include appropriate declarations from `bitcoinrpc` in your Bitcoin projects in Python:
 ```py
 from bitcoinrpc.authproxy import AuthServiceProxy, JSONRPCException
+```
+You may also find the following useful:
+```py
 from pprint import pprint
 import logging
+```
+`pprint` will pretty print the `json` response from `bitcoind`.
 
+`logging` will print out the call you make to `bitcoind` and `bitcoind`'s respose, which is useful when you make a bunch of calls together. If you don't want the excessive output in the terminal just comment out the `logging` block.
+
+## Building Your Connection
+
+You are now ready to start interacting with `bitcoind` by establishing a connection. Create a file called `btcrpc.py` and type the following:
+
+```py
 logging.basicConfig()
 logging.getLogger("BitcoinRPC").setLevel(logging.DEBUG)
 # rpc_user and rpc_password are set in the bitcoin.conf file
-rpc_user = "<ENTER_THE_RPC_USER_FROM_bitcoin.conf>"
-rpc_pass = "<ENTER_THE_RPC_PASSWORD_FROM_bitcoin.conf>"
+rpc_user = "StandUp"
+rpc_pass = "6305f1b2dbb3bc5a16cd0f4aac7e1eba"
 rpc_host = "127.0.0.1"
 rpc_client = AuthServiceProxy(f"http://{rpc_user}:{rpc_pass}@{rpc_host}:18332", timeout=120)
 ```
 
-`pprint` is a nifty library to pretty print the `json` response from `bitcoind`.
+The arguments in the URL are `<rpc_username>:<rpc_password>@<host_IP_address>:<port>`. As usual, the `user` and `pass` are found in your `~/.bitcoin/bitcoin.conf`, while the `host` is your localhost, and the port is `18332` for testnet. The `timeout` argument is specified since sockets timeout under heavy load on the mainnet. If you get `socket.timeout: timed out` response, be patient and increase the `timeout`.
 
-`logging` will print out the call we make to `bitcoind` and `bitcoind`'s respose, which is useful when we make a bunch of calls together. If you don't want the excessive output in the terminal just comment out the `logging` block.
+> :link: MAINNET VS TESTNET: The port would be 8332 for a mainnet setup.
 
-The arguments in the URL are `<rpc_username>:<rpc_password>@<host_IP_address>:<port>`. We covered the relevant information in our work with `curl` . The IP address `127.0.0.1` and port `18332` should be correct for the standard testnet setup described in these documents, while you can extract the user and password from `~/.bitcoin/bitcoin.conf`. We specify the `timeout` argument since socket timeouts under heavy load on the mainnet. If you get `socket.timeout: timed out` response, be patient and increase the `timeout`.
-
-> MAINNET VS TESTNET: The port would be 8332 for a mainnet setup.
+### Making  an RPC Call
 
 If `rpc_client` is successfully initialized, you'll be able to send off RPC commands to your bitcoin node.
 
-In order to use an RPC method using `python-bitcoinrpc`, you'll find that the `rpc_client` provides most of the functionality that can be accessed through `bitcoin-cli` or `curl`, using the same method names. For more details about the commands that you are able to execute and what to expect back, you should refer to [3.2: Knowing Your Bitcoin Setup](https://github.com/jodobear/Learning-Bitcoin-from-the-Command-Line/blob/master/03_2_Knowing_Your_Bitcoin_Setup.md).
+In order to use an RPC method using `python-bitcoinrpc`, you'll use `rpc_client`, which provides most of the functionality that can be accessed through `bitcoin-cli`, using the same method names.
 
-## Getting Basic Info
-
-Let's start with getting basic information about our node. Enter the following lines under `rpc_client`, save and run it in the terminal as `python3 bitcrpc.py`:
-
-### Get Blockcount
-
-Let's get the blockcount of our node:
+For example, the following will retrieve the blockcount of your node:
 
 ```py
 block_count = rpc_client.getblockcount()
@@ -99,6 +115,72 @@ DEBUG:BitcoinRPC:<-3- 1773020
 Block Count: 1773020
 ---------------------------------------------------------------
 ```
+### Making an RPC Call with Arguments
+
+You can then use that blockcount as an argument to retrieve the blockhash of a block and also to retrieve details of that block:
+```py
+blockhash = rpc_client.getblockhash(block_count)
+block = rpc_client.getblock(blockhash)
+nTx = block['nTx']
+if nTx > 10:
+    it_txs = 10
+    list_tx_heading = "First 10 transactions: "
+else:
+    it_txs = nTx
+    list_tx_heading = f"All the {it_txs} transactions: "
+print("---------------------------------------------------------------")
+print("BLOCK: ", block_count)
+print("-------------")
+print("Block Hash...: ", blockhash)
+print("Merkle Root..: ", block['merkleroot'])
+print("Block Size...: ", block['size'])
+print("Block Weight.: ", block['weight'])
+print("Nonce........: ", block['nonce'])
+print("Difficulty...: ", block['difficulty'])
+print("Number of Tx.: ", nTx)
+print(list_tx_heading)
+print("---------------------")
+i = 0
+while i < it_txs:
+    print(i, ":", block['tx'][i])
+    i += 1
+print("---------------------------------------------------------------\n")
+```
+
+### Running Your Code
+
+You can retrieve [the src doe](src/17_4_getinfo.py) and run it with `python3`:
+```
+$ python3 blockinfo.py
+---------------------------------------------------------------
+Block Count: 1831106
+---------------------------------------------------------------
+---------------------------------------------------------------
+BLOCK:  1831106
+-------------
+Block Hash...:  00000000000003b2ea7c2cdfffd86156ad1f5606ab58e128940a2534d1348b04
+Merkle Root..:  056a547fe59208167eef86fa694263728fb684119254b340c1f86bdd423a8082
+Block Size...:  52079
+Block Weight.:  128594
+Nonce........:  1775583700
+Difficulty...:  4194304
+Number of Tx.:  155
+First 10 transactions: 
+---------------------
+0 : d228d55112e3aa26265b0118cfdc98345c229d20fe074b9afb87107c03ce11b5
+1 : 92822e8e34fafb472b87c99ea3f3e16440452b3f361ed86c6fa62175173fb750
+2 : fa7c67600c14d4aa350a9674688f1429577954f4a6c5e4639d06c8964824f647
+3 : 3a91d1527e308e5603dafde7ab17824f441a73a779d2571d073466dc9e8451b2
+4 : 30fd0e5527b1522e7b26a4818b9edac80fe47c0c39fc34705478a49e684708d0
+5 : 24c5372b38c78cbaf5b0b305925502a491bc0c1b5758f50c0bd335abb6ae85f5
+6 : be70e125a5793efc5e32051fecba0668df971bdf371138c8261201c2a46b2d38
+7 : 41ebf52c847a59ba0aeb4425c74e89a01e91defa86a82785ff53ed4668054561
+8 : dc8211b4ce122f87692e7c203672e3eb1ffc44c0a307eafcc560323fcc5fae78
+9 : 59e2d8e11cad287eacf3207e64a373f65059286b803ef0981510193ae29cbc8c
+---------------------------------------------------------------
+```
+
+---ETH---
 
 ### Get Wallet Info
 
@@ -139,58 +221,7 @@ Wallet Info:
 
 Try out other commands like `getblockchaininfo`, `getnetworkinfo`, `getpeerinfo`, `getblockchaininfo`, etc.
 
-### Exploring a Block
 
-Let's explore a block on the testnet. First we get the blockhash of a block we want so that we ask bitcoind to return the details of that block. Then we print some details of that block along with a few transactions.
-
-```py
-blockhash_630000 = rpc_client.getblockhash(630000)
-block_630000 = rpc_client.getblock(blockhash_630000)
-nTx = block_630000['nTx']
-if nTx > 10:
-    it_txs = 10
-    list_tx_heading = "First 10 transactions: "
-else:
-    it_txs = nTx
-    list_tx_heading = f"All the {it_txs} transactions: "
-print("---------------------------------------------------------------")
-print("BLOCK No. 630000 :")
-print("-------------")
-print("Block Hash...: ", blockhash_630000)
-print("Merkle Root..: ", block_630000['merkleroot'])
-print("Block Size...: ", block_630000['size'])
-print("Block Weight.: ", block_630000['weight'])
-print("Nonce........: ", block_630000['nonce'])
-print("Difficulty...: ", block_630000['difficulty'])
-print("Number of Tx.: ", nTx)
-print(list_tx_heading)
-print("---------------------")
-i = 0
-while i < it_txs:
-    print(i, ":", block_630000['tx'][i])
-    i += 1
-print("---------------------------------------------------------------\n")
-```
-
-You should see the following output:
-
-```sh
----------------------------------------------------------------
-BLOCK No. 630000 :
--------------
-Block Hash...:  0000000000007c21a9190d3eb43517032ba0077229cbff4e6a2a43357011bebb
-Merkle Root..:  a8dc7bf722a4ca6869d99fea465fc65dbf68df07026a4142f4b8213d3749ed7f
-Block Size...:  4519
-Block Weight.:  18076
-Nonce........:  265038597
-Difficulty...:  126320.64
-Number of Tx.:  3
-All the 3 transactions:
----------------------
-0 : b4d2c5442554ebcdfcbf08a71cf2c510d21acac48f93fc2802b8bc52c5cebfeb
-1 : c3f8177522be84bc023e61e53b9bbff674e1f825fc9d68c3f4c2e21a2161d5a9
-2 : 4ab80958fea242285056ffcf88f7d65b65d357f761796104109839ad7da2255f
----------------------------------------------------------------
 ```
 
 ## Exploring an Address
