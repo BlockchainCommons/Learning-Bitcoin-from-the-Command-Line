@@ -96,6 +96,11 @@ Add and document the following new concepts:
       * <strike>16.6: Other Functions</strike> **8/18**
       * <strike>16.7: Integration</strike> **8/25**, **8/26**
 18. Edit & Integrate all "Other Languages" work
+   * <strike>Edit 17.1: Go</strike> **9/1**
+   * <strike>Edit 17.2: Java</strike> **9/2**
+   * <strike>Edit 17.3: NodeJS</strike> **9/2**
+   * Edit 17.4: Python
+   * Edit 17.5: Rust
    * Write Swift Chapter
       * Setup Swift Environment
       * Look at Wallets
