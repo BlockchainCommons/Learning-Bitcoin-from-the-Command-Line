@@ -1,5 +1,6 @@
 const RpcAgent = require('bcrpc');
-agent = new RpcAgent({port: 18332, user: 'StandUp', pass: '6305f1b2dbb3bc5a16cd0f4aac7e1eba'});
+agent = new RpcAgent({port: 18332, user: 'StandUp', pass: '6305f1b2dbb3bc5a16cd0
+f4aac7e1eba'});
 
 agent.getBlockCount(function (err, blockCount) {
   if (err)
@@ -10,6 +11,12 @@ agent.getBlockCount(function (err, blockCount) {
     if (err)
       throw Error(JSON.stringify(err));
     console.log(hash.result);
-  })
+  });
 
+  agent.getWalletInfo(function (err, walletInfo) {
+    if (err)
+      throw Error(JSON.stringify(err));
+    console.log(walletInfo.result);
+  });
+    
 });
