@@ -12,11 +12,5 @@ agent.getBlockCount(function (err, blockCount) {
       throw Error(JSON.stringify(err));
     console.log(hash.result);
   });
-
-  agent.getWalletInfo(function (err, walletInfo) {
-    if (err)
-      throw Error(JSON.stringify(err));
-    console.log(walletInfo.result);
-  });
     
 });
