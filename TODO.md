@@ -117,4 +117,5 @@ Add and document the following new concepts:
 23. Add new first chapter, indicating places to start for people of different levels
    * Know CL? Have a node? Need to read the new stuff? Skip Lightning?
    * Decide where to place current first chapter in relation to that (before? after? glossary?)
-24. Re-edit everything
+24. Move an coding appendices (e.g., JQ interlude) to src code directory 
+25. Re-edit everything
