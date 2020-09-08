@@ -11,11 +11,13 @@ You can check this by running:
 
 `$ python3 --version`
 
-If it returns a version number (e.g., `3.7.3` or `3.8.3`) then you have python3 installed. Continue on to the next header.
+If it returns a version number (e.g., `3.7.3` or `3.8.3`) then you have python3 installed. Continue on to ["Setting Up BitcoinRPC"](17_4_Accessing_Bitcoind_with_Python.md#setting-up-bitcoinrpc).
 
 However, if you somehow do not have Python installed, you'll need build it from source as follows:
 
 ### Building Python from Source
+
+Skip to ["Setting Up BitcoinRPC"](17_4_Accessing_Bitcoind_with_Python.md#setting-up-bitcoinrpc) if you already have Python 3 running. Otherwise:
 
 #### 1. Install Dependencies
 ```sh
@@ -46,8 +48,6 @@ $ rm Python-3.8.3.tgz
 
 ### Setting Up BitcoinRPC
 
-sudo apt-get install python3-pip
-
 Whether you used an existing Python or built it from source, you're now ready to install  the `python-bitcoinrpc` library:
 
 ```
@@ -57,10 +57,11 @@ If you don't have `pip` installed, you'll need to run the following:
 ```
 $ sudo apt install python3-pip
 ```
+(Then repeat the `pip3 install python-bitcoinrpc` instructions.)
 
 ### Creating a BitcoinRPC Project
 
-You'll generally need to include appropriate declarations from `bitcoinrpc` in your Bitcoin projects in Python:
+You'll generally need to include appropriate declarations from `bitcoinrpc` in your Bitcoin projects in Python. The following will give you access to the RPC based commands:
 ```py
 from bitcoinrpc.authproxy import AuthServiceProxy, JSONRPCException
 ```
@@ -95,7 +96,7 @@ The arguments in the URL are `<rpc_username>:<rpc_password>@<host_IP_address>:<p
 
 If `rpc_client` is successfully initialized, you'll be able to send off RPC commands to your bitcoin node.
 
-In order to use an RPC method using `python-bitcoinrpc`, you'll use `rpc_client`, which provides most of the functionality that can be accessed through `bitcoin-cli`, using the same method names.
+In order to use an RPC method from `python-bitcoinrpc`, you'll use `rpc_client` object that you created, which provides most of the functionality that can be accessed through `bitcoin-cli`, using the same method names.
 
 For example, the following will retrieve the blockcount of your node:
 
@@ -117,10 +118,16 @@ Block Count: 1773020
 ```
 ### Making an RPC Call with Arguments
 
-You can then use that blockcount as an argument to retrieve the blockhash of a block and also to retrieve details of that block:
+You can use that blockcount as an argument to retrieve the blockhash of a block and also to retrieve details of that block.
+
+This is done by send your `rpc_client` object commands with an argument:
 ```py
 blockhash = rpc_client.getblockhash(block_count)
 block = rpc_client.getblock(blockhash)
+```
+
+The `getblockhash` will return a single value, while the `getblock` will return an associative array of information about the block, which includes an array under `block['tx']` providing details on each transaction within the block:
+```py
 nTx = block['nTx']
 if nTx > 10:
     it_txs = 10
@@ -149,7 +156,7 @@ print("---------------------------------------------------------------\n")
 
 ### Running Your Code
 
-You can retrieve [the src doe](src/17_4_getinfo.py) and run it with `python3`:
+You can retrieve [the src code](src/17_4_getinfo.py) and run it with `python3`:
 ```
 $ python3 blockinfo.py
 ---------------------------------------------------------------
