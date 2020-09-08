@@ -99,12 +99,15 @@ Add and document the following new concepts:
    * <strike>Edit 17.1: Go</strike> **9/1**
    * <strike>Edit 17.2: Java</strike> **9/2**
    * <strike>Edit 17.3: NodeJS</strike> **9/2**
-   * Edit 17.4: Python
+   * <strike>Edit 17.4: Python</strike> **9/8**
    * Edit 17.5: Rust
-   * Write Swift Chapter
+   * Write 17.6: Swift
       * Setup Swift Environment
       * Look at Wallets
       * Create Transaction
+   * Edit All of 17
+      * Finalize Naming of Src
+      * Full Edit of 17.15-17.6
 19. <strike>Edit & Integrate Appendices work</strike> **7/27**, **8/4**
    * <strike>Edit & Integrate A2: Compiling</strike> **7/27**
    * <strike>Edit & Integrate A3: RegTest</strike> **8/4**
