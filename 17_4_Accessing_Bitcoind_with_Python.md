@@ -15,37 +15,6 @@ If it returns a version number (e.g., `3.7.3` or `3.8.3`) then you have python3 
 
 However, if you somehow do not have Python installed, you'll need build it from source as follows:
 
-### Building Python from Source
-
-Skip to ["Setting Up BitcoinRPC"](17_4_Accessing_Bitcoind_with_Python.md#setting-up-bitcoinrpc) if you already have Python 3 running. Otherwise:
-
-#### 1. Install Dependencies
-```sh
-$ sudo apt-get install build-essential checkinstall
-$ sudo apt-get install libreadline-gplv2-dev libncursesw5-dev libssl-dev libsqlite3-dev tk-dev libgdbm-dev libc6-dev libbz2-dev libffi-dev zlib1g-dev
-```
-
-#### 2. Download & Extract Python
-```sh
-$ wget https://www.python.org/ftp/python/3.8.3/Python-3.8.3.tgz
-$ tar -xzf Python-3.8.3.tgz
-```
-
-#### 3. Compile Python Source & Check Installation:
-```sh
-$ cd Python-3.8.3
-$ sudo ./configure --enable-optimizations
-$ sudo make -j 8  # enter the number of cores of your system you want to use to speed up the build process.
-$ sudo make altinstall
-$ python3.8 --version
-```
-
-After you get the version output, remove the source file:
-
-```sh
-$ rm Python-3.8.3.tgz
-```
-
 ### Setting Up BitcoinRPC
 
 Whether you used an existing Python or built it from source, you're now ready to install  the `python-bitcoinrpc` library:
@@ -422,3 +391,38 @@ In this chapter we learned how to connect to a node, get some basic information 
 Accessing Bitcoind with Python is very easy while using the `python-bitcoinrpc` library. The first thing to always do is to establish connection with your bitcoind instance, then you can basically call all the bitcoin API calls as described in the bitcoin-core documentation. This makes it really easy to create small or large scripts to manage your own node, check balances, or create cool applications on top as you get the full power of `bitcoin-cli`.
 
 All the source code for this chapter is available in the [src](./src/18_4_accessing_bitcoind_with_python.py) directory of the repo.
+
+## What's Next?
+
+[...]
+
+## Synopsis: Building Python from Source
+
+Skip to ["Setting Up BitcoinRPC"](17_4_Accessing_Bitcoind_with_Python.md#setting-up-bitcoinrpc) if you already have Python 3 running. Otherwise:
+
+### 1. Install Dependencies
+```sh
+$ sudo apt-get install build-essential checkinstall
+$ sudo apt-get install libreadline-gplv2-dev libncursesw5-dev libssl-dev libsqlite3-dev tk-dev libgdbm-dev libc6-dev libbz2-dev libffi-dev zlib1g-dev
+```
+
+### 2. Download & Extract Python
+```sh
+$ wget https://www.python.org/ftp/python/3.8.3/Python-3.8.3.tgz
+$ tar -xzf Python-3.8.3.tgz
+```
+
+### 3. Compile Python Source & Check Installation:
+```sh
+$ cd Python-3.8.3
+$ sudo ./configure --enable-optimizations
+$ sudo make -j 8  # enter the number of cores of your system you want to use to speed up the build process.
+$ sudo make altinstall
+$ python3.8 --version
+```
+
+After you get the version output, remove the source file:
+
+```sh
+$ rm Python-3.8.3.tgz
+```
