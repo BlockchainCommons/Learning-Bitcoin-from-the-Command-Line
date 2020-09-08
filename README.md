@@ -129,7 +129,7 @@ _We want to expand this course to also introduce programming with RPC and finall
 
 **Status:** VERY Unfinished. Rgularizing other languages chapter; and deciding what to do with Swift
 
-* 17.0: Talking to Bitcoind with Other Languages
+* [17.0: Talking to Bitcoind with Other Languages](17_0_Talking_to_Bitcoind_Other.md)
   * [17.1: Accessing Bitcoind with Go](17_1_Accessing_Bitcoind_with_Go.md)
   * [17.2: Accessing Bitcoind with Java](17_2_Accessing_Bitcoind_with_Java.md)
   * [17.3: Accessing Bitcoind with Node JS](17_3_Accessing_Bitcoind_with_NodeJS.md)
