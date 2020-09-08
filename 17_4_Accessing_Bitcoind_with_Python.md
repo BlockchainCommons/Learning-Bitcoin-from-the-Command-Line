@@ -11,9 +11,9 @@ You can check this by running:
 
 `$ python3 --version`
 
-If it returns a version number (e.g., `3.7.3` or `3.8.3`) then you have python3 installed. Continue on to ["Setting Up BitcoinRPC"](17_4_Accessing_Bitcoind_with_Python.md#setting-up-bitcoinrpc).
+If it returns a version number (e.g., `3.7.3` or `3.8.3`) then you have python3 installed. 
 
-However, if you somehow do not have Python installed, you'll need build it from source as follows:
+However, if you somehow do not have Python installed, you'll need build it from source as follows. Please see ["Building Python from Source"](17_4_Accessing_Bitcoind_with_Python.md#synopsis-building-python-from-source) before continuing.
 
 ### Setting Up BitcoinRPC
 
@@ -127,7 +127,7 @@ print("---------------------------------------------------------------\n")
 
 You can retrieve [the src code](src/17_4_getinfo.py) and run it with `python3`:
 ```
-$ python3 blockinfo.py
+$ python3 getinfo.py
 ---------------------------------------------------------------
 Block Count: 1831106
 ---------------------------------------------------------------
@@ -156,11 +156,9 @@ First 10 transactions:
 ---------------------------------------------------------------
 ```
 
----ETH---
+## Looking Up Funds
 
-### Get Wallet Info
-
-Let's get details of our wallet:
+You can similarly retrieve your wallet's information with the `getwalletinfo` RP:
 
 ```py
 wallet_info = rpc_client.getwalletinfo()
@@ -192,31 +190,23 @@ Wallet Info:
  'walletname': '',
  'walletversion': 169900}
 ---------------------------------------------------------------
-
 ```
+Other informational commands such as `getblockchaininfo`, `getnetworkinfo`, `getpeerinfo`, and `getblockchaininfo` will work similarly.
 
-Try out other commands like `getblockchaininfo`, `getnetworkinfo`, `getpeerinfo`, `getblockchaininfo`, etc.
+Other commands can give you specific information on select elements within your wallet.
 
+### Retrieving an Array
 
-```
-
-## Exploring an Address
-
-How about getting a list of all the transactions of your address? Type the following and see the transaction history of your address:
+The `listtransactions` RPC allows you to look at the most recent 10 transactions on your system (or some arbitrary set of transactions using the `count` and `skip` arguments). It shows how an RPC command can return an easy-to-manipulate array:
 
 ```py
-track_address = "<your address>"
 tx_list = rpc_client.listtransactions()
-address_tx_list = []
-for tx in tx_list:
-    if tx['address'] == track_address:
-        address_tx_list.append(tx)
-pprint(address_tx_list)
+pprint(tx_list)
 ```
 
-## Exploring a UTXO
+### Exploring a UTXO
 
-To get details of a UTXO, we first need to get its `hex` id, which we can then decode using `decoderawtransaction`.
+You can similarly use `listunspent` to get an array of UTXOs on your system:
 
 ```py
 print("Exploring UTXOs")
@@ -226,18 +216,122 @@ print("Utxos: ")
 print("-----")
 pprint(utxos)
 print("------------------------------------------\n")
+```
+
+In order to manipulate an array like the one returned from `listtransactions` or `listunpsent`, you just grab the appropriate item from the appropriate element of the array:
+```
 ## Select a UTXO - first one selected here
 utxo_txid = utxos[0]['txid']
-## Get UTXO Hex
+```
+
+For `listunspent`, you get a `txid`. You can retrieve information about it with `gettransaction`, then decode that with `decoderawtransaction`:
+
+```
 utxo_hex = rpc_client.gettransaction(utxo_txid)['hex']
-## Get tx Details
+
 utxo_tx_details = rpc_client.decoderawtransaction(utxo_hex)
+
 print("Details of Utxo with txid:", utxo_txid)
 print("---------------------------------------------------------------")
 print("UTXO Details:")
 print("------------")
 pprint(utxo_tx_details)
 print("---------------------------------------------------------------\n")
+```
+
+This code is available at [walletinfo.py](src/17_4_walletinfo.py).
+
+```
+$ python3 walletinfo.py 
+---------------------------------------------------------------
+Wallet Info:
+-----------
+{'avoid_reuse': False,
+ 'balance': Decimal('0.01031734'),
+ 'hdseedid': 'da5a1b058deb9e51ecffef1b0ddc069a5dfb2c5f',
+ 'immature_balance': Decimal('0E-8'),
+ 'keypoololdest': 1596567843,
+ 'keypoolsize': 1000,
+ 'keypoolsize_hd_internal': 999,
+ 'paytxfee': Decimal('0E-8'),
+ 'private_keys_enabled': True,
+ 'scanning': False,
+ 'txcount': 6,
+ 'unconfirmed_balance': Decimal('0E-8'),
+ 'walletname': '',
+ 'walletversion': 169900}
+---------------------------------------------------------------
+
+Utxos: 
+-----
+[{'address': 'mv9cjEnS2o1EygBMdrz99LzhM8KeEMoXDg',
+  'amount': Decimal('0.00001000'),
+  'confirmations': 1180,
+  'desc': "pkh([ce0c7e14/0'/0'/25']02d0541b9211aecd25913f7fdecfc1b469215fa326d52067b1b3f7efbd12316472)#n06pq9q5",
+  'label': '-addresstype',
+  'safe': True,
+  'scriptPubKey': '76a914a080d1a10f5e7a02d0a291f118982ed19e8cfcd788ac',
+  'solvable': True,
+  'spendable': True,
+  'txid': '84207ffec658ae29ad1fdd330d8a13613303c3cf281ce628fadeb7636ffb535e',
+  'vout': 0},
+ {'address': 'tb1qrcf8c29966tvqxhwrtd2se3rj6jeqtll3r46a4',
+  'amount': Decimal('0.01029734'),
+  'confirmations': 1180,
+  'desc': "wpkh([ce0c7e14/0'/1'/26']02c581259ba7e6aef6d7ea23adb08f7c7f10c4c678f2e097a4074639e7685d4805)#j3pctfhf",
+  'safe': True,
+  'scriptPubKey': '00141e127c28a5d696c01aee1adaa8662396a5902fff',
+  'solvable': True,
+  'spendable': True,
+  'txid': '84207ffec658ae29ad1fdd330d8a13613303c3cf281ce628fadeb7636ffb535e',
+  'vout': 1},
+ {'address': 'mzDxbtYY3LBBBJ6HhaBAtnHv6c51BRBTLE',
+  'amount': Decimal('0.00001000'),
+  'confirmations': 1181,
+  'desc': "pkh([ce0c7e14/0'/0'/23']0377bdd176f985b4af2f6bdbb22c2925b6007b6c07ba171f75e65990c002615e98)#3y6ef6vu",
+  'label': '-addresstype',
+  'safe': True,
+  'scriptPubKey': '76a914cd339342b06042bb986a45e73d56db46acc1e01488ac',
+  'solvable': True,
+  'spendable': True,
+  'txid': '1679bee019c61608340b79810377be2798efd4d2ec3ace0f00a1967af70666b9',
+  'vout': 1}]
+------------------------------------------
+
+Details of Utxo with txid: 84207ffec658ae29ad1fdd330d8a13613303c3cf281ce628fadeb7636ffb535e
+---------------------------------------------------------------
+UTXO Details:
+------------
+{'hash': '0c6c27f58f122329bbc53a91f290b35ce23bd2708706b21a04cdc387dc8e2fd9',
+ 'locktime': 1831103,
+ 'size': 225,
+ 'txid': '84207ffec658ae29ad1fdd330d8a13613303c3cf281ce628fadeb7636ffb535e',
+ 'version': 2,
+ 'vin': [{'scriptSig': {'asm': '', 'hex': ''},
+          'sequence': 4294967294,
+          'txid': '1679bee019c61608340b79810377be2798efd4d2ec3ace0f00a1967af70666b9',
+          'txinwitness': ['3044022014b3e2359fb46d8cbc4cd30fa991b455edfa4b419a4c64a53fcdfc79e3ca89db022010cefc3268bc252d55f1982c426328b709b47d02332def9e2efb3b12de2cf0d301',
+                          '0351b470e87b44e8e9607acf09b8d4543c51c93c17dc741176319e60202091f2be'],
+          'vout': 0}],
+ 'vout': [{'n': 0,
+           'scriptPubKey': {'addresses': ['mv9cjEnS2o1EygBMdrz99LzhM8KeEMoXDg'],
+                            'asm': 'OP_DUP OP_HASH160 '
+                                   'a080d1a10f5e7a02d0a291f118982ed19e8cfcd7 '
+                                   'OP_EQUALVERIFY OP_CHECKSIG',
+                            'hex': '76a914a080d1a10f5e7a02d0a291f118982ed19e8cfcd788ac',
+                            'reqSigs': 1,
+                            'type': 'pubkeyhash'},
+           'value': Decimal('0.00001000')},
+          {'n': 1,
+           'scriptPubKey': {'addresses': ['tb1qrcf8c29966tvqxhwrtd2se3rj6jeqtll3r46a4'],
+                            'asm': '0 1e127c28a5d696c01aee1adaa8662396a5902fff',
+                            'hex': '00141e127c28a5d696c01aee1adaa8662396a5902fff',
+                            'reqSigs': 1,
+                            'type': 'witness_v0_keyhash'},
+           'value': Decimal('0.01029734')}],
+ 'vsize': 144,
+ 'weight': 573}
+---------------------------------------------------------------
 ```
 
 ## Sending Transactions
@@ -398,7 +492,7 @@ All the source code for this chapter is available in the [src](./src/18_4_access
 
 ## Synopsis: Building Python from Source
 
-Skip to ["Setting Up BitcoinRPC"](17_4_Accessing_Bitcoind_with_Python.md#setting-up-bitcoinrpc) if you already have Python 3 running. Otherwise:
+If you need to install Python 3 from source, follow these instructions, then continue with ["Creating a BitcoinRPC Project"](17_4_Accessing_Bitcoind_with_Python.md#creating-a-bitcoinrpc-project).
 
 ### 1. Install Dependencies
 ```sh
