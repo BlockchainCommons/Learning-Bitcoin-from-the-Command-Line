@@ -4,7 +4,20 @@
 
 This section explains how to interact with `bitcoind` using the Swift programming language.
 
-## Setting Up Swift
+## Setting Up Swift (Mac)
+
+1. Call up the App Store and Select Xcode
+
+Still on Mojave?
+[may be safer methodology too]
+
+Download the xip for 10.3.1:
+https://developer.apple.com/download/more/
+
+Click on XIP to attract
+Move to Apps
+
+## Setting Up Swift (Debian)
 
 ```
 $ sudo apt-get install clang
