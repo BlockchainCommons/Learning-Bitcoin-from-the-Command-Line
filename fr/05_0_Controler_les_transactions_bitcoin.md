@@ -1,23 +1,23 @@
 # Chapitre 5 : Contrôler les transactions bitcoin
 
-Sending a transaction isn't always the end of the story. Using the RBF (replace-by-fee) and CPFP (child-pays-for-parent) protocols, a developer can continue to control the transaction after it's been sent, to improve efficiency or to recover transactions that get stuck. These methods will begin to spotlight the true power of Bitcoin.
+L'envoi d'une transaction n'est pas toujours la fin de l'histoire. En utilisant les protocoles RBF (replace-by-fee) et CPFP (child-pays-for-parent), un développeur peut continuer à contrôler la transaction après son envoi, pour améliorer l'efficacité ou pour récupérer les transactions qui sont bloquées. Ces méthodes contribuerons à mettre en lumière le véritable pouvoir de Bitcoin.
 
-## Objectives for This Section
+## Objectifs de cette section
 
-After working through this chapter, a developer will be able to:
+Après avoir parcouru ce chapitre, un développeur sera en mesure de faire ceci :
 
-   * Decide Whether RBF or CPFP Might Help a Transaction
-   * Create Replacement Transaction Using RBF
-   * Create New Transactions Using CPFP
+   * Décider si RBF ou CPFP peut aider pour une transaction
+   * Créer une transaction de remplacement à l'aide de RBF
+   * Créer de nouvelles transactions en utilisant le principe CPFP
 
-Supporting objectives include the ability to:
+Les objectifs de ce cours incluent :
 
-   * Understand the Mempool
-   * Understand the Difference Between RBF and CPFP
-   * Plan for the Power of RBF
+   * Comprendre le Mempool
+   * Comprendre la différence entre RBF et CPFP
+   * Planifier le pouvoir de la RBF
 
 ## Table of Contents
 
-   * [Section One: Watching for Stuck Transactions](05_1_Watching_for_Stuck_Transactions.md)
-   * [Section Two: Resending a Transaction with RBF](05_2_Resending_a_Transaction_with_RBF.md)
-   * [Section Three: Funding a Transaction with CPFP](05_3_Funding_a_Transaction_with_CPFP.md)
+   * [Section 1 : Surveiller les transactions bloquées](05_1_Surveiller_les_transactions_bloquees.md)
+   * [Section 2 : Ré-envoyer une transaction avec RBF](05_2_Re_envoyer_une_transaction_avec_RBF.md)
+   * [Section 3 : Financer une transaction avec CPFP](05_3_Financer_une_transaction_avec_CPFP.md)
