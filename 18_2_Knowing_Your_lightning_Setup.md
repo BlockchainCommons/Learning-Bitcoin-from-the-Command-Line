@@ -237,6 +237,13 @@ c$ lightning-cli listtransactions
 c$ lightning-cli listinvoices
 c$ lightning-cli listnodes   
 ```
+* listconfigs:  The listconfigs RPC command to list all configuration options with members reflecting the corresponding lightningd-config.
+* listfunds: The listfunds RPC command displays all funds available, either in unspent outputs (UTXOs) in the internal wallet or funds locked in currently open channels.
+* listtransactions: The listtransactions command returns transactions tracked in the wallet. This includes deposits, withdrawals and transactions related to channels.
+* listinvoices: The listinvoices RPC command gets the status of a specific invoice, if it exists, or the status of all invoices if given no argument.
+* listnodes: The listnodes command returns nodes the node has learned about via gossip messages, or a single one if the node id was specified.
+
+
 For example `lightning-cli listconfigs` gives you a variety of information on your setup:
 ```
 c$ lightning-cli --network=testnet listconfigs
