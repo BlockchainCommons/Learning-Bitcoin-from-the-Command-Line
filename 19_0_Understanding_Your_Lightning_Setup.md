@@ -9,9 +9,9 @@ In this chapter you'll be ready to continue begin working with the `lightning-cl
 Supporting objectives include the ability to:
 
    * Use Basic Informational Commands.
-   * Create lightning channels.
+   * Create and understang Lightning channels.
    * Perform payments on the lightning network.
-   * Pay invoices.
+   * Pay and describe invoices.
    
 ## Table of Contents
 
