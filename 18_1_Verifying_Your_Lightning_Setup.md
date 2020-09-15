@@ -7,11 +7,13 @@
 
 Lightning Network is a decentralized network using smart contract functionality in the bitcoin blockchain to enable instant payments across a network of participants.   Lightning is builded like a layer-2 protocol that interacts with Bitcoin to allow users to exchange their bitcoins "off-chain". 
 
-This tutorial uses the standard-compliant c-lightning implementation as its trusted Lightning server.  Before you start playing with c-lightning, you should ensure that everything is setup correctly.
+> :book: ***What is a layer-2 protocol?*** 
+
+Layer 2 refers to a secondary protocol builded on top of bitcoin blockchain system. The main goal of these protocols is to solve the transaction speed and scaling difficulties that are present on the bitcoin system.   Bitcoin is not able to process thousands of transactions per second (TPS),  so 2 layer protocols are proposed to solve the blockchain scalability problem.   This solutions are known as “off-chain” scaling solutions.
 
 ## C-lightning installation
 
-As we said previous chapter you should have c-lightning installed courtesy BitcoinStandupScript,  if not we describe here options and steps to install it.
+As we said previous chapter you should have c-lightning installed courtesy BitcoinStandupScript,  if not we describe here three options and steps to install it.
 
 ### Ubuntu ppa
 
@@ -37,7 +39,7 @@ c$ sudo apt-get install -y \
 >   libsqlite3-dev python3 python3-mako net-tools zlib1g-dev libsodium-dev \
 >   gettext
 ```
-Output:
+
 ```
 Reading package lists... Done
 Building dependency tree       
@@ -67,7 +69,6 @@ c$ cd lightning
 c$ sudo apt-get install -y valgrind python3-pip libpq-dev
 ```
 
-Output:
 ```
 Reading package lists... Done
 Building dependency tree       
@@ -96,7 +97,6 @@ Get:3 http://es.archive.ubuntu.com/ubuntu xenial-updates/main amd64 libkadm5srv-
 ```
 c$ pip3 install -r requirements.txt
 ```
-Output
 
 ```
 Collecting Flask==1.1.1 (from -r requirements.txt (line 1))
@@ -118,7 +118,6 @@ You are using pip version 8.1.1, however version 20.1.1 is available.
 c$ ./configure
 ```
 
-Output:
 ```
 Compiling ccan/tools/configurator/configurator...done
 checking for python3-mako... found
@@ -150,7 +149,6 @@ It will take some time depending your machine.
 ```
 c$ make
 ```
-Output:
 
 ```
 CC: cc -DBINTOPKGLIBEXECDIR="../libexec/c-lightning" -Wall -Wundef -Wmissing-prototypes -Wmissing-declarations -Wstrict-prototypes -Wold-style-definition -Werror -Wno-maybe-uninitialized -std=gnu11 -g -fstack-protector -Og -I ccan -I external/libwally-core/include/ -I external/libwally-core/src/secp256k1/include/ -I external/jsmn/ -I external/libbacktrace/ -I external/x86_64-linux-gnu/libbacktrace-build -I external/libsodium/src/libsodium/include -I external/libsodium/src/libsodium/include/sodium -I external/x86_64-linux-gnu/libsodium-build/src/libsodium/include -I . -I/usr/local/include    -DSHACHAIN_BITS=48 -DJSMN_PARENT_LINKS  -DCOMPAT_V052=1 -DCOMPAT_V060=1 -DCOMPAT_V061=1 -DCOMPAT_V062=1 -DCOMPAT_V070=1 -DCOMPAT_V072=1 -DCOMPAT_V073=1 -DCOMPAT_V080=1 -DCOMPAT_V081=1 -DCOMPAT_V082=1 -DCOMPAT_V090=1 -DBUILD_ELEMENTS=1 -c -o
@@ -227,8 +225,6 @@ c$
 $ sudo make install
 ```
 
-Output:
-
 ```
 mkdir -p /usr/local/bin
 mkdir -p /usr/local/libexec/c-lightning
@@ -249,12 +245,13 @@ install -m 644 doc/lightningd.8 doc/lightning-hsmtool.8 /usr/local/share/man/man
 install -m 644 README.md doc/INSTALL.md doc/HACKING.md LICENSE /usr/local/share/doc/c-lightning
 ```
 
-You can check your installation using 
+## Check your installation
+
+You can confirm you have installed correclty lightningd using this parameter:
 
 ```
 c$ lightningd --help
 ```
-Output:
 
 ```
 lightningd: WARNING: default network changing in 2020: please set network=testnet in config!
@@ -273,36 +270,16 @@ A bitcoin lightning daemon (default values shown for network: testnet).
 
 ```
 
-
-## Create Your Aliases
-
-We suggest creating some aliases to make it easier to use c-lightning.
-
-You can do so by putting them in your `.bash_profile`.
-```
-cat >> ~/.bash_profile <<EOF
-alias lndir="cd ~/.lightning/" #linux default c-lightning path
-alias lnc="lightning-cli"
-alias lnd="lightningd"
-alias lninfo='lightning-cli getinfo'
-EOF
-```
-After you enter these aliases you can either `source .bash_profile` to input them or just log out and back in.
-
-Note that these aliases includes shortcuts for running `lightning-cli`, for running `lightningd`, and for going to the c-lightning directory. These aliases are mainly meant to make your life easier. We suggest you create other aliases to ease your use of frequent commands (and arguments) and to minimize errors. Aliases of this sort can be even more useful if you have a complex setup where you regularly run commands associated with Mainnet, with Testnet, _and_ with Regtest, as explained further below.
-
-With that said, use of these aliases in _this_ document might accidentally obscure the core lessons being taught about c-lightning, so the only alias directly used here is `lninfo` because it encapsulatea  much longer and more complex command. Otherwise, we show the full commands; adjust for your own use as appropriate.
-
-## Run lightningd
+### Run lightningd
 
 You'll begin your exploration of the Lightning network with the `lightning-cli` command. However, lightningd _must_ be running to use lightning-cli, as lightning-cli sends JSON-RPC commands to the lightningd. If you used our standard setup, lightningd should already be up and running. You can double check by looking at the process table.
 ```
 $ ps auxww | grep lightningd
 standup   7817  1.1  0.2  95280  8964 pts/18   D+   14:13   0:00 lightningd --network=testnet
 ```
-If it's not running, you'll want to run `lightningd --network=testnet` by hand.
+If it's not running, you'll want to run `lightningd --network=testnet` by hand.    If you installed c-lightning using Bitcoin Standup Script you'll have a linux service that will start lightningd daemon each start.
 
-## Verify your node
+### Verify your node
 
 You should have an output like this indicating your node is ready if blockheight  shows a height value that match with your most recent number getblockcount `bitcoin-cli getblockcount`  command output.
 
@@ -348,6 +325,28 @@ If your lightning daemon is not up-to-date, you'll get a message to you `getinfo
 "warning_lightningd_sync": "Still loading latest blocks from bitcoind."
 ```
 
+
+
+
+
+## Create Your Aliases
+
+We suggest creating some aliases to make it easier to use c-lightning.
+
+You can do so by putting them in your `.bash_profile`.
+```
+cat >> ~/.bash_profile <<EOF
+alias lndir="cd ~/.lightning/" #linux default c-lightning path
+alias lnc="lightning-cli"
+alias lnd="lightningd"
+alias lninfo='lightning-cli getinfo'
+EOF
+```
+After you enter these aliases you can either `source .bash_profile` to input them or just log out and back in.
+
+Note that these aliases includes shortcuts for running `lightning-cli`, for running `lightningd`, and for going to the c-lightning directory. These aliases are mainly meant to make your life easier. We suggest you create other aliases to ease your use of frequent commands (and arguments) and to minimize errors. Aliases of this sort can be even more useful if you have a complex setup where you regularly run commands associated with Mainnet, with Testnet, _and_ with Regtest, as explained further below.
+
+With that said, use of these aliases in _this_ document might accidentally obscure the core lessons being taught about c-lightning, so the only alias directly used here is `lninfo` because it encapsulatea  much longer and more complex command. Otherwise, we show the full commands; adjust for your own use as appropriate.
 ## Optional: Know Your Server Types
 
 > **TESTNET vs MAINNET:** When you set up your node, you choose to create it as either a Mainnet, Testnet, or Regtest node. Though this document presumes a testnet setup, it's worth understanding how you might access and use the other setup types — even all on the same machine! But, if you're a first-time user, skip on past this, as it's not necessary for a basic setup.
