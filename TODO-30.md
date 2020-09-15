@@ -1,4 +1,4 @@
-# 3.0 TODO
+# Todo List for v3.0 of Learning Bitcoin
 
 The following TODO items are intended for a 3.0 version of Learning Bitcoin from the Command Line
 
