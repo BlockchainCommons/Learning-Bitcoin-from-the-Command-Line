@@ -7,3 +7,4 @@ The following TODO items are intended for a 3.0 version of Learning Bitcoin from
 3. Miniscript
 4. Schnorr (2021)
 5. Other BCC Command-Line Utilities?
+6. Programming Lightning with C
