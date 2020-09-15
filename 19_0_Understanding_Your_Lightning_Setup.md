@@ -15,6 +15,6 @@ Supporting objectives include the ability to:
    
 ## Table of Contents
 
-* [Section Four: Generate a payment request](19_1_Generate_a_Payment_Request.md)
-* [Section Five: Paying an invoice](19_2_Paying_a_Invoice.md)
-* [Section Five: Closing a Channel](19_3_Closing_a_Channel.md)
+* [Section One: Generate a payment request](19_1_Generate_a_Payment_Request.md)
+* [Section Two: Paying an invoice](19_2_Paying_a_Invoice.md)
+* [Section Three: Closing a Channel](19_3_Closing_a_Channel.md)
