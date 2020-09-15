@@ -10,11 +10,18 @@ For this example we've created a second lightning node using LND implementation 
 
 Almost all payments made on the Lightning Network require an invoice, which is nothing more than a **request for payment** made by the recipient of the money and sent by different means to the user who will pay.  The format for a Lightning invoice uses bech32 encoding, which is already used for Bitcoin Segregated Witness and all payment requests are single use.
 
-An invoice is made up of two parts,  one is human readable and other is 
+An invoice is made up of two parts,  one is human readable and other is data part.
 
 - Human readable part: `ln` + (`lnbc` for Bitcoin mainnet, `lntb` for Bitcoin testnet, and `lnbcrt` for Bitcoin regtest) + data amount
       
 - Data part : UNIX Timestamp + tagged parts include a payment hash, the pubkey of the payee node, an optional description of the payment, an expiration time, and some extra routing information.
+
+1. Destination: The public key of the person receiving the LN payment.
+2. payment_hash: The hash of the preimage that is used to lock the payment. You can only redeem a locked payment with the corresponding preimage to the payment hash. This enables routing on the Lightning Network without trusted third parties creating a conditional payment to be filled.
+3. num_satoshis: The amount of satoshis to be paid.
+4. expiry: Time when your node marks the invoice as invalid. Default is 1 hour or 3600 seconds.
+5. timestamp: Time when the invoice was created.  This is measured in seconds since 1970.
+6. cltv_expiry: Delta to use for time-lock of CLTV extended to the final hop.
 
 > :book: ***Conditional payments.
 
@@ -105,7 +112,20 @@ lnd$ lncli -n testnet getinfo
 
 ### Generate a Payment request.
 
-Now you can create a payment request using `lnd$lncli -n testnet addinvoice` command.    You can use --amt argument to indicate amount to be payed and add a description using --memo argument.
+To create a new invoice on c-lightning you should use invoice `lightning-cli --network=testnet invoice` command.
+It receives amount expresed on milisatoshis and description invoices texts.
+
+```
+c$ lightning-cli --network=testnet invoice 100000 test22 test22
+{
+   "payment_hash": "743487bca87bb39a8f07314864e80d02f7686d97693ada32c69ee3a5e06132f7",
+   "expires_at": 1600684714,
+   "bolt11": "lntb1u1p047jp2pp5ws6g009g0wee4rc8x9yxf6qdqtmksmvhdyad5vkxnm36tcrpxtmsdq2w3jhxapjxgxqyjw5qcqp2sp5s3pyvvknhnaej6ukssvxlwc4sdqpcc2prrwue8jreke587ms68qq9qy9qsqhf5uhxk0mfw3sl87ukx8e5d757pkla6zlyu07p0wc666juzm5unhlaxeqmnl8f7v7vs3wz2thme9szs3f7whzr9uewz0kexqkl9jxgsq5r752l",
+   "warning_offline": "No channel with a peer that is currently connected has sufficient incoming capacity"
+}
+```
+
+For this example we'll create a payment request using `lnd$lncli -n testnet addinvoice` command.    You can use --amt argument to indicate amount to be payed and add a description using --memo argument.
 
 ```
 lnd$ lncli -n testnet addinvoice --amt 100000 --memo "First LN Payment - Learning Bitcoin and Lightning from the Command line."
