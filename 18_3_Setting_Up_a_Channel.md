@@ -164,7 +164,7 @@ The fundchannel RPC command opens a payment channel with a peer by committing a 
 
 * **announce** is an optional flag that triggers whether to announce this channel or not. Defaults to true. If you want to create an unannounced private channel put to false.
 
-* **minconf** specifies the minimum number of confirmations that used outputs should have. Default is 1.
+* **minconf** specifies the minimum number of confirmations that used outputs on the channel opening processe should have. Default is 1.
 
 * **utxos** specifies the utxos to be used to fund the channel, as an array of “txid:vout”.
 
@@ -211,7 +211,7 @@ c$ lightning-cli --network=testnet listfunds
    ]
 }
 ```
-While the channel with 280.000 satoshis (Channel capacity) is confirmed its state will be CHANNELD_AWAITING_LOCKIN and we got an change output with 19238 sats.   
+While the channel with 280.000 satoshis (Channel capacity) is confirmed its state will be CHANNELD_AWAITING_LOCKIN and we got an change output with 19238 sats.   After all 6 confirmations are completed, channel will change to CHANNED_NORMAL state,  that it will be it's permanent state.
 As we're using testnet network these values are used as an example to show the different states that a channel can have. In a channel with real funds, the actual mining circumstances of the mainnet network must be taken into account.
 
 The funding_txid onchain is [9843c037f54a4660b297a9f2454e11d26d8659f084a284a5740bb15cb1d97aa6](https://blockstream.info/testnet/tx/9843c037f54a4660b297a9f2454e11d26d8659f084a284a5740bb15cb1d97aa6)
