@@ -1,6 +1,8 @@
-# TODOs
+# Todo List for v2.0 of Learning Bitcoin
 
 This is a list of potential (or planned) TODO items for "Learning Bitcoin from the Command Line". Many are drawn from issues found at the previous locale of this repo.
+
+Please also see [TODO-30.md](the v3.0 TODO) for the next iteration of the course.
 
 ## 1. Integrate with Bitcoin-Standup
 
@@ -120,3 +122,7 @@ Add and document the following new concepts:
    * Know CL? Have a node? Need to read the new stuff? Skip Lightning?
    * Decide where to place current first chapter in relation to that (before? after? glossary?)
 23. Move an coding appendices (e.g., JQ interlude) to src code directory 
+
+## 7. Additional Support
+
+24. Full edit of book (intern?)
