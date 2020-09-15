@@ -100,25 +100,23 @@ Add and document the following new concepts:
    * <strike>Edit 17.2: Java</strike> **9/2**
    * <strike>Edit 17.3: NodeJS</strike> **9/2**
    * <strike>Edit 17.4: Python</strike> **9/8**
-   * Edit 17.5: Rust
+   * <strike>Edit 17.5: Rust</strike> **9/8**
    * Write 17.6: Swift
       * Setup Swift Environment
       * Look at Wallets
       * Create Transaction
    * Edit All of 17
       * Finalize Naming of Src
-      * Full Edit of 17.15-17.6
+      * Full Edit of 17.1-17.6
 19. <strike>Edit & Integrate Appendices work</strike> **7/27**, **8/4**
    * <strike>Edit & Integrate A2: Compiling</strike> **7/27**
    * <strike>Edit & Integrate A3: RegTest</strike> **8/4**
 20. Edit & Integrate Lightning Chapters
-21. Write or request Lightning/C chapter
 
 ## 6. Finalize Book
 
-22. Take out warnings for all old chapters
-23. Add new first chapter, indicating places to start for people of different levels
+21. Take out warnings for all old chapters
+22. Add new first chapter, indicating places to start for people of different levels
    * Know CL? Have a node? Need to read the new stuff? Skip Lightning?
    * Decide where to place current first chapter in relation to that (before? after? glossary?)
-24. Move an coding appendices (e.g., JQ interlude) to src code directory 
-25. Re-edit everything
+23. Move an coding appendices (e.g., JQ interlude) to src code directory 
