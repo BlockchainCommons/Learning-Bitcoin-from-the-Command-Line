@@ -4,7 +4,11 @@
 
 This section explains how to interact with `bitcoind` using the Swift programming language.
 
-## Setting Up Swift (Mac)
+## Setting Up Swift on Your Mac
+
+To date, we've built all of our alternative programming languages on your Debian virtual node. However, that's not the best platform for Swift. Though there is a version of Swift available for Ubuntu platforms, it's not fully featured, and it works somewhat differently from the Mac-native Swift. A "Variant" at the bototm of this chapter explains how to set it up, but be warned that you'll be in uncharted territory.
+
+As for setting up Swift on your Mac, it's pretty easy. Generally, you'll just call up the App Store and install "Xcode" on your Mac. But, if you prefer
 
 1. Call up the App Store and Select Xcode
 
@@ -14,8 +18,23 @@ Still on Mojave?
 Download the xip for 10.3.1:
 https://developer.apple.com/download/more/
 
-Click on XIP to attract
+Click on XIP to extract
 Move to Apps
+
+2. Install GordianServer
+
+[...]
+
+3. Find GordianServer Info
+
+Click on gear, should show data directory
+
+By default:  Library/Application Support/Bitcoin/
+bitcoin.conf
+
+rpcuser=oIjA53JC2u
+rpcpassword=ebVCeSyyM0LurvgQyi0exWTqm4oU0rZU
+
 
 ## Setting Up Swift (Debian)
 
