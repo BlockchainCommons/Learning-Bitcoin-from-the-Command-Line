@@ -6,7 +6,7 @@ Bitcoin Scripts can go far beyond the relatively simple financial instruments de
 
 ## Lock for the Lightning Network
 
-The [Lightning Network](https://rusty.ozlabs.org/?p=450) is a payment channel that allows users to take funds off-chain and engage in numerous microtransactions before finalizing the payment channel and bringing the funds back into Bitcoin. Benefits include lower fees and faster transaction speeds. It's discussed in more detail, with examples of how to use it from the command line, starting [Chapter 18](18_0_Understanding_Lightning.md).
+The [Lightning Network](https://rusty.ozlabs.org/?p=450) is a payment channel that allows users to take funds off-chain and engage in numerous microtransactions before finalizing the payment channel and bringing the funds back into Bitcoin. Benefits include lower fees and faster transaction speeds. It's discussed in more detail, with examples of how to use it from the command line, starting [Chapter 18](18_0_Understanding_Your_Lightning_Setup.md).
 
 [BIP 112](https://github.com/bitcoin/bips/blob/master/bip-0112.mediawiki) contains a few examples of how these off-chain transactions could be generated, using Bitcoin locking scripts.
 
