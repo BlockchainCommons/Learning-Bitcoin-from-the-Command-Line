@@ -52,32 +52,7 @@ Each channel has an identifier expressed in the short_channel_id field.  Each va
 
 ## Closing a channel
 
-You should use  `lightning-cli close` command to close the channel.  This RPC command attempts to close the channel cooperatively with the peer, or unilaterally after unilateraltimeout expires, and the to-local output will be sent to the address specified in destination.
-
-### Types of Closing Channels.
-
-Each participant of the channel is able to create as many Lightning payments to their counterparty as their funds they have.  Most of the time there will be no disagreements between the participants, so there will only be two onchain transactions, one opening and the other closing the channel.   However, there may be other scenarios in which you are not online, you do not agree with the last state of the channel or someone tries to steal funds from the other party.
-
-#### Cooperative Close
-
-In this case both channel participants agree to close the channel and settle the final state to the blockchain. Both participants must be online and it's performed by broadcasting an unconditional spend of the funding transaction with an output to each peer. 
-
-#### Force Close
-
-In this case when only one participant is online or if the participants disagree on the last state of the channel,  so one peer can perform an unilateral close of the channel without the cooperation of the other node.   It's performed by broadcasting a commitment transaction that commits to a previous channel state which both parts have agreed upon.
-This commitment transaction contains the channel state divided in two parts: the balance of each participant and all the pending payments (HTLCs).
-
-To perform this kind of close you need to specify an argument called unilateraltimeout.  If this value is not zero, the close command will unilaterally close the channel when that number of seconds is reached like this:
-
-```
-c$ lightning-cli --network=testnet close $NODEIDREMOTE 60
-{
-   "tx": "0200000001a1091f727e6041cc93fead2ea46b8402133f53e6ab89ab106b49638c11f27cba00000000006a40aa8001df85010000000000160014d22818913daf3b4f86e0bcb302a5a812d1ef6b91c6772d20",
-   "txid": "02cc4c647eb3e06f37fcbde39871ebae4333b7581954ea86b27b85ced6a5c4f7",
-   "type": "unilateral"
-}
-
-```
+You should use `lightning-cli close` command to close the channel. The close RPC command attempts to close the channel cooperatively with the peer,  if you want to close it unilaterally set unilateraltimeout argument with number of seconds command will wait.   If you set to 0 and the peer is online command can negotiate a mutual close.   For this example we use an mutual close.
 
 ### Node Information
 
@@ -114,9 +89,6 @@ c$ lightning-cli listchannels | jq '.channels[] | select(.source == '$NODEID' or
   "features": ""
 }
 ```
-### Closing a channel
-
-Finally you should use `lightning-cli close` command to close the channel. The close RPC command attempts to close the channel cooperatively with the peer,  if you want to close it unilaterally set unilateraltimeout argument with number of seconds command will wait.   If you set to 0 and the peer is online command can negotiate a mutual close.   For this example we use an mutual close.
 
 Now we'll get remote node id public key in a variable:
 
@@ -138,7 +110,7 @@ c$lightning-cli --network=testnet close $NODEIDREMOTE 0
 ```
 The closing transaction onchain is [b4c0a1993dd113081eff5369a22d6afe1af9f0d07b29a590e8772ac7f712736a](https://blockstream.info/testnet/tx/b4c0a1993dd113081eff5369a22d6afe1af9f0d07b29a590e8772ac7f712736a).
 
-This transaction has two outputs, one for remote node and other for local c-lightning wallet.   Output on index 0 corresponds to remote node with a value of 100000.   Output on index 1 correspond to local node with a value of 179817.
+This transaction has two outputs, one for remote node and other for local c-lightning wallet.   Output on index 0 corresponds to remote node with a value of 100.000.   Output on index 1 correspond to local node with a value of 179.817.
 
 ```
 c$ bitcoin-cli -testnet getrawtransaction b4c0a1993dd113081eff5369a22d6afe1af9f0d07b29a590e8772ac7f712736a 1
@@ -199,7 +171,7 @@ c$ bitcoin-cli -testnet getrawtransaction b4c0a1993dd113081eff5369a22d6afe1af9f0
 }
 ```
 
-Listing funds onchain or offchain we get an output with a value of 179817 that results of 280000 minus 183 per fee in 279817.   We have to substract 100000 paid on the invoice of the previous chapter to finally receives 179817 satoshis.
+Listing funds onchain or offchain we get an output with a value of 179.817 that results of 280.000 minus 183 per fee in 279817.   We have to substract 100.000 paid on the invoice of the previous chapter to finally receives 179.817 satoshis.
 
 ```
 c$lightning-cli --network=testnet listfunds
@@ -230,6 +202,30 @@ c$lightning-cli --network=testnet listfunds
 }
 ```
 
+### Types of Closing Channels.
+
+Each participant of the channel is able to create as many Lightning payments to their counterparty as their funds they have.  Most of the time there will be no disagreements between the participants, so there will only be two onchain transactions, one opening and the other closing the channel.   However, there may be other scenarios in which you are not online, you do not agree with the last state of the channel or someone tries to steal funds from the other party.
+
+#### Cooperative Close
+
+In this case both channel participants agree to close the channel and settle the final state to the blockchain. Both participants must be online and it's performed by broadcasting an unconditional spend of the funding transaction with an output to each peer. 
+
+#### Force Close
+
+In this case when only one participant is online or if the participants disagree on the last state of the channel,  so one peer can perform an unilateral close of the channel without the cooperation of the other node.   It's performed by broadcasting a commitment transaction that commits to a previous channel state which both parts have agreed upon.
+This commitment transaction contains the channel state divided in two parts: the balance of each participant and all the pending payments (HTLCs).
+
+To perform this kind of close you need to specify an argument called unilateraltimeout.  If this value is not zero, the close command will unilaterally close the channel when that number of seconds is reached like this:
+
+```
+c$ lightning-cli --network=testnet close $NODEIDREMOTE 60
+{
+   "tx": "0200000001a1091f727e6041cc93fead2ea46b8402133f53e6ab89ab106b49638c11f27cba00000000006a40aa8001df85010000000000160014d22818913daf3b4f86e0bcb302a5a812d1ef6b91c6772d20",
+   "txid": "02cc4c647eb3e06f37fcbde39871ebae4333b7581954ea86b27b85ced6a5c4f7",
+   "type": "unilateral"
+}
+
+```
 ## Summary: Closing a channel
 
 When you close a channel you perform an onchain transaction ending your financial relationship with remote node.   To close a channel you must take into account its status and the type of closure you want to execute and decide some arguments to do it.
