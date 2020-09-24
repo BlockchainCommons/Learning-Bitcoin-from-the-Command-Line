@@ -8,29 +8,33 @@ This section explains how to interact with `bitcoind` using the Swift programmin
 
 To date, you've built all of your alternative programming language development environments on your Debian virtual node. However, that's not the best platform for Swift. Though there is a version of Swift available for Ubuntu platforms, it's not fully featured, and it works somewhat differently from the Mac-native Swift. A "Variant" at the bottom of this chapter explains how to set it up, but be warned that you'll be in uncharted territory.
 
-As for setting up Swift on your Mac, it's pretty easy. Generally, you'll just call up the App Store and install "Xcode" on your Mac. But, if you prefer
+There are three major steps to setting up Swift on your Mac.
 
-1. Call up the App Store and Select Xcode
+### 1. Install Xcode
 
-Still on Mojave?
-[may be safer methodology too]
+You're going to need `Xcode`, the integrated development enviroment for Swift and Objective-C. That can be easily installed by going to the Mac App Store and `Get`ting Xcode.
 
-Download the xip for 10.3.1:
-https://developer.apple.com/download/more/
+#### Alternative: Install by Hand
 
-Click on XIP to extract
-Move to Apps
+Some people advise against an App Store because it's somewhat all-or-nothing; it also won't work if you're still using Mojave because you want to avoid Catalina's incompatibilities. In that case you can download directly from the [Developer Area](https://developer.apple.com/download/more/) at Apple.
 
-2. Install GordianServer
+If you're using Mojave, you'll need the xip for Xcode 10.3.1. Otherwise, get the newest one.
 
-[...]
+Once it's downloaded, you can click on the XIP to extract it, then move the Xcode app to your Applications folder.
 
-3. Find GordianServer Info
+### 2. Install the Gordian Server
 
-Click on gear, should show data directory
+You're also going to need a Bitcoin node on your Mac, so that you can communicate with it. Technically, you could use a remote node, and access it with the RPC login and password over the net. However, we suggest instead install a full node directly on your Mac, because that's the safest and cleanest setup, ensuring that none of your communications leave your machine.
 
-By default:  Library/Application Support/Bitcoin/
-bitcoin.conf
+We suggest you use Blockchain Commons' [GordianServer for MacOS](https://github.com/BlockchainCommons/GordianServer-macOS). See the [installation instructions](https://github.com/BlockchainCommons/GordianServer-macOS#installation-instructions) in the README, but generally all you have to do is download the current DMG, open it, and install that app in your Applications too.
+
+Afterward, run the GordianServer App, and tell it to `Start` Testnet. 
+
+> :link: **TESTNET vs. MAINNET:** Or Mainnet.
+
+### 3. Find Your GordianServer Info
+
+As usual, you'll need the RPC login and password. That's in `~/Library/Application Support/Bitcoin/bitcoin.conf` by default under Gordian.
 
 rpcuser=oIjA53JC2u
 rpcpassword=ebVCeSyyM0LurvgQyi0exWTqm4oU0rZU
