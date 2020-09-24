@@ -4,11 +4,14 @@
 
 You're now ready to your first lightning network channel. To begin with, you'll need to understand what is and how it's created an c-lightning channel.
 
-> :book: ***What is a channel
+> :book: ***What is a Lighting channel
 
 In simple terms a lightning channel is a money tube that allows fast, cheap and private transfers of money without sending transactions to the blockchain. 
-More technically a channel is a 2-of-2 multisignature bitcoin onchain transaction that establishes a financial relationship between two agents without trust.
-Channels on the Lightning Network always are created between two nodes. Although a Lightning channel only allows payment between two users, channels can be connected together to form a network that allows payments between members that doesn't have a direct channel between them. The channel mantains a local database with bitcoin balance for both parts keeping track of how much money they each have.  The two users can then exchange bitcoins through their Lightning channel without ever writing to the Bitcoin blockchain. Only when they want to close out their channel do they settle their bitcoins, based on the final division of coins.
+More technically a channel is a 2-of-2 multisignature bitcoin onchain transaction that establishes a financial relationship between two agents without trust or a connection between two people.     Channels on the Lightning Network always are created between two nodes. 
+
+Although a Lightning channel only allows payment between two users, channels can be connected together to form a network that allows payments between members that doesn't have a direct channel between them. This creates a connection between multiple people built from linked channels.
+
+The channel mantains a local database with bitcoin balance for both parts keeping track of how much money they each have.  The two users can then exchange bitcoins through their Lightning channel without ever writing to the Bitcoin blockchain. Only when they want to close out their channel do they settle their bitcoins, based on the final division of coins.
 
 In this chapter we will use testnet network and will use c-lightning as **primary node** to show all processes related.
 
@@ -79,7 +82,7 @@ To connect your node to a remote peer you need it's id that represents the targe
 ```       
 c$ lightning-cli --network testnet listnodes
 ```       
-Output
+
 ```       
   {
          "nodeid": "033c2c5eb5cc514b54264a838048b4e7194281e2dcd4ad03bab0198259df2dcbc7",
@@ -158,7 +161,7 @@ The fundchannel RPC command opens a payment channel with a peer by committing a 
 
 * **id** is the peer id obtained from connect.
 
-* **amount** is the amount in satoshis taken from the internal wallet to fund the channel.  The value cannot be less than the dust limit, currently set to 546, nor more than 16777215 satoshi (unless large channels were negotiated with the peer).
+* **amount** is the amount in satoshis taken from the internal wallet to fund the channel.  The value cannot be less than the dust limit, currently set to 546, nor more than 16.777.215 satoshi (unless large channels were negotiated with the peer).
 
 * **feerate** is an optional feerate used for the opening transaction and as initial feerate for commitment and HTLC transactions. 
 
@@ -211,7 +214,7 @@ c$ lightning-cli --network=testnet listfunds
    ]
 }
 ```
-While the channel with 280.000 satoshis (Channel capacity) is confirmed its state will be CHANNELD_AWAITING_LOCKIN and we got an change output with 19238 sats.   After all 6 confirmations are completed, channel will change to CHANNED_NORMAL state,  that it will be it's permanent state.
+While the channel with 280.000 satoshis (Channel capacity) is confirmed its state will be CHANNELD_AWAITING_LOCKIN and we got an change output with 19.238 sats.   After all 6 confirmations are completed, channel will change to CHANNED_NORMAL state,  that it will be it's permanent state.
 As we're using testnet network these values are used as an example to show the different states that a channel can have. In a channel with real funds, the actual mining circumstances of the mainnet network must be taken into account.
 
 The funding_txid onchain is [9843c037f54a4660b297a9f2454e11d26d8659f084a284a5740bb15cb1d97aa6](https://blockstream.info/testnet/tx/9843c037f54a4660b297a9f2454e11d26d8659f084a284a5740bb15cb1d97aa6)
