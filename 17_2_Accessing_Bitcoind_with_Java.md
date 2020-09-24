@@ -278,7 +278,7 @@ System.out.println("Sent signedRawTx (txID): " + sentRawTransactionID);```
 
 ### Running Your Code
 
-You can now run [the transaction code](ssrc/17_2_App-sendtx.java) as `~/java-project/src/main/java/com/blockchaincommons/lbtc/App.java`.
+You can now run [the transaction code](src/17_2_App-sendtx.java) as `~/java-project/src/main/java/com/blockchaincommons/lbtc/App.java`.
 
 ```
 $ mvn compile
