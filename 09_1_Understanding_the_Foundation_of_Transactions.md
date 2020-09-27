@@ -101,7 +101,7 @@ OP_DUP OP_HASH160 06b5c6ba5330cdf738a2ce91152bfd0e71f9ec39 OP_EQUALVERIFY OP_CHE
 ```
 That is the standard method in Bitcoin Script for locking a P2PKH transaction.
 
-[§9.3](07_3_Scripting_a_P2PKH.md) will explain how these two scripts go together, but first you will need to know how Bitcoin Scripts are evaluated.
+[§9.4](09_4_Scripting_a_P2PKH.md) will explain how these two scripts go together, but first you will need to know how Bitcoin Scripts are evaluated.
 
 ## Examine a Different Sort of Transaction
 
