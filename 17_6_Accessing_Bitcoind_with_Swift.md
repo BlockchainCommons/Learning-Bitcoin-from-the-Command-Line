@@ -34,7 +34,16 @@ Afterward, run the GordianServer App, and tell it to `Start` Testnet.
 
 > :link: **TESTNET vs. MAINNET:** Or `Start` Mainnet.
 
-Note that when you want to access the `bitcoin-cli` on your local Mac, you can find it at  `~/.standup/BitcoinCore/bitcoin-VERSION/bin/bitcoin-cli`, for example  `~/.standup/BitcoinCore/bitcoin-0.20.1/bin/bitcoin-cli`. (You may wish to create an alias for that!)
+#### 2.1 Make Your Gordian bitcoin-cli Accessible
+
+Note that when you want to access the `bitcoin-cli` on your local Mac, you can find it at  `~/.standup/BitcoinCore/bitcoin-VERSION/bin/bitcoin-cli`, for example  `~/.standup/BitcoinCore/bitcoin-0.20.1/bin/bitcoin-cli`. 
+
+You may wish to create an alias for that:
+```
+alias bitcoin-cli="~/.standup/BitcoinCore/bitcoin-0.20.1/bin/bitcoin-cli -testnet"
+```
+
+> :link: **TESTNET vs. MAINNET:** Obviously, the `-testnet` parameter is only required if you're running on testnet.
 
 ### 3. Find Your GordianServer Info
 
@@ -74,7 +83,7 @@ An RPC connection to Bitcoin Core is built using a URL of the format "http://\(r
 http://oIjA53JC2u:ebVCeSyyM0LurvgQyi0exWTqm4oU0rZU@127.0.0.1:18332/
 ```
 
-### 2. Create URLRequest
+### 2. Create a URLRequest
 
 With that URL in you hand, you can now create a URLRequest, with the `POST` method and the `text/plain` content type. The HTTP body is then the familiar JSON object that you've been sending whenever you connect directly to Bitcoin Core's RPC ports, as first demonstrated when using Curl in [§4.4](04_4__Interlude_Using_Curl.md).
 ```
@@ -149,7 +158,7 @@ makeCommand(method: method,param: param) { result in
 
 }
 ```
-### Making an RPC Call with an Argument
+### Making an RPC Call with Arguments
 
 You could similarly grab the current block count from that info and use it to get the hash of the current block, by using the `param` parameter:
 ```
@@ -164,7 +173,7 @@ makeCommand(method: method,param: param) { result in
     
     let method = "getblockhash"
     makeCommand(method: method,param: block) { result in
-        print(result!)
+        print("Blockhash for \(block) is \(result!)")
     }
     
 }
@@ -172,6 +181,14 @@ makeCommand(method: method,param: param) { result in
 ### Making an RPC Call with Two Arguments
 
 [pending]
+method = "getnewaddress"
+param = "\"test\", \"legacy\""
+
+makeCommand(method: method,param: param) { result in
+
+    print(result!)
+}
+
 
 ## Variant: Deploying Swift on Ubuntu
 
