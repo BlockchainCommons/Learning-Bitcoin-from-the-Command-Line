@@ -34,6 +34,8 @@ Afterward, run the GordianServer App, and tell it to `Start` Testnet.
 
 > :link: **TESTNET vs. MAINNET:** Or `Start` Mainnet.
 
+Note that when you want to access the `bitcoin-cli` on your local Mac, you can find it at  `~/.standup/BitcoinCore/bitcoin-VERSION/bin/bitcoin-cli`, for example  `~/.standup/BitcoinCore/bitcoin-0.20.1/bin/bitcoin-cli`. (You may wish to create an alias for that!)
+
 ### 3. Find Your GordianServer Info
 
 As usual, you'll need the RPC login and password. That's in `~/Library/Application Support/Bitcoin/bitcoin.conf` by default under Gordian.
@@ -45,6 +47,131 @@ rpcuser=oIjA53JC2u
 rpcpassword=ebVCeSyyM0LurvgQyi0exWTqm4oU0rZU
 ...
 ```
+## Building Your Connection by Hand
+
+At the time of this writing, there isn't a simple and easy Bitcoin RPC Library for Swift, which you can drop in and immediately start using. Thus, we're going to do something we've never done before: build an RPC connection by hand.
+
+It just requires writing a function:
+```
+func makeCommand(method: String, param: Any, completionHandler: @escaping (Any?) -> Void) -> Void {
+```
+
+### 1. Create a URL
+
+Within the funciton, you need to create a URL from your IP, port, `rpcuser`, `rpcpassword`, and wallet:
+```
+    let testnetRpcPort = "18332"
+    let nodeIp = "127.0.0.1:\(testnetRpcPort)"
+    let rpcusername = "oIjA53JC2u"
+    let rpcpassword = "ebVCeSyyM0LurvgQyi0exWTqm4oU0rZU"
+    let walletName = ""
+    let walletUrl = "http://\(rpcusername):\(rpcpassword)@\(nodeIp)/\(walletName)"
+
+    let url = URL(string: walletUrl)
+```
+An RPC connection to Bitcoin Core is built using a URL of the format "http://\(rpcusername):\(rpcpassword)@\(nodeIp)/\(walletName)". This means that your sample variables result in the following URL:
+```
+http://oIjA53JC2u:ebVCeSyyM0LurvgQyi0exWTqm4oU0rZU@127.0.0.1:18332/
+```
+
+### 2. Create URLRequest
+
+With that URL in you hand, you can now create a URLRequest, with the `POST` method and the `text/plain` content type. The HTTP body is then the familiar JSON object that you've been sending whenever you connect directly to Bitcoin Core's RPC ports, as first demonstrated when using Curl in [§4.4](04_4__Interlude_Using_Curl.md).
+```
+    var request = URLRequest(url: url!)
+    request.httpMethod = "POST"
+    request.setValue("text/plain", forHTTPHeaderField: "Content-Type")
+    request.httpBody = "{\"jsonrpc\":\"1.0\",\"id\":\"curltest\",\"method\":\"\(method)\",\"params\":[\(param)]}".data(using: .utf8)
+```
+
+### 3. Create a URLSession
+
+Finally, you're ready to build a URLSession around your URLRequest.
+```
+    let session = URLSession(configuration: .default)
+    let task = session.dataTask(with: request as URLRequest) { data, response, error in
+```
+The completion handler for `dataTask` needs to check for errors:
+```
+        do {
+
+            if error != nil {
+
+                    //Handle the error
+                    
+            } else {
+```
+And then parse the data. Here, you're pulling the JSON results into an `NSDictionary`:
+```
+                if let urlContent = data {
+                        
+                    do {
+                            
+                        let json = try JSONSerialization.jsonObject(with: urlContent, options: JSONSerialization.ReadingOptions.mutableLeaves) as! NSDictionary
+```
+After that, there's more error handling and more error handling and then you can eventually return the JSON `result` using the `completionHandler` that you included for the new `makeCommand` function:
+```
+                        if let errorCheck = json["error"] as? NSDictionary {
+                                                                
+                            if let errorMessage = errorCheck["message"] as? String {
+
+                                print("FAILED")
+                                print(errorMessage)
+
+                            }
+                                
+                        } else {
+                                
+                            let result = json["result"]
+                            completionHandler(result)
+                            
+                        }
+                            
+                    } catch {
+                            
+                            //Handle error here
+                            
+                    }
+```
+And that's "all" there is to doing that RPC interaction by hand using a program language such as Swift.
+
+### Making An RPC Call
+
+Having written the `makeCommand` RPC function, you can send an RPC call by running it. Here's `getblockchaininfo`:
+```
+let method = "getblockchaininfo"
+// Your rpc commands parameters (none needed for getblockchaininfo)
+let param = ""
+
+makeCommand(method: method,param: param) { result in
+    
+    print(result!)
+
+}
+```
+### Making an RPC Call with an Argument
+
+You could similarly grab the current block count from that info and use it to get the hash of the current block, by using the `param` parameter:
+```
+let method = "getblockchaininfo"
+// Your rpc commands parameters (none needed for getblockchaininfo)
+let param = ""
+
+makeCommand(method: method,param: param) { result in
+    
+    let blockinfo = result as! NSDictionary
+    let block = blockinfo["blocks"] as! NSNumber
+    
+    let method = "getblockhash"
+    makeCommand(method: method,param: block) { result in
+        print(result!)
+    }
+    
+}
+```
+### Making an RPC Call with Two Arguments
+
+[pending]
 
 ## Variant: Deploying Swift on Ubuntu
 
