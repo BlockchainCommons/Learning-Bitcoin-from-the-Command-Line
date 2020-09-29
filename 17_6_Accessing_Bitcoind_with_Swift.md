@@ -178,16 +178,131 @@ makeCommand(method: method,param: param) { result in
     
 }
 ```
-### Making an RPC Call with Two Arguments
 
-[pending]
+### Running Your Code
+
+The complete code is available in the [src directory](src/17_6_getinfo.playground). Load it into your Xcode playground and then "Editor -> Run Playground" and you should get results like:
+```
+{
+    bestblockhash = 00000000000000069725608ebc5b59e520572a8088cbc57ffa5ba87b7f300ac7;
+    blocks = 1836745;
+    chain = test;
+    chainwork = 0000000000000000000000000000000000000000000001cc3e9f8e0bc6b71196;
+    difficulty = "16508683.81195478";
+    headers = 1836745;
+    initialblockdownload = 0;
+    mediantime = 1601416765;
+    pruned = 0;
+    "size_on_disk" = 28205538354;
+    softforks =     {
+        bip34 =         {
+            active = 1;
+            height = 21111;
+            type = buried;
+        };
+        bip65 =         {
+            active = 1;
+            height = 581885;
+            type = buried;
+        };
+        bip66 =         {
+            active = 1;
+            height = 330776;
+            type = buried;
+        };
+        csv =         {
+            active = 1;
+            height = 770112;
+            type = buried;
+        };
+        segwit =         {
+            active = 1;
+            height = 834624;
+            type = buried;
+        };
+    };
+    verificationprogress = "0.999999907191804";
+    warnings = "Warning: unknown new rules activated (versionbit 28)";
+}
+Blockhash for 1836745 is 00000000000000069725608ebc5b59e520572a8088cbc57ffa5ba87b7f300ac7
+```
+
+## Looking Up Funds
+
+With your new `makeCommand` for RPC functions, you can equally run a command like `getwalletinfo` or `getbalance`:
+```
+var method = "getwalletinfo"
+var param = ""
+
+makeCommand(method: method,param: param) { result in
+    
+    print(result!)
+    
+}
+
+method = "getbalance"
+makeCommand(method: method,param: param) { result in
+
+    let balance = result as! NSNumber
+    print("Balance is \(balance)")
+
+}
+```
+Which returns:
+```
+Balance is 0.01
+{
+    "avoid_reuse" = 0;
+    balance = "0.01";
+    hdseedid = bf493318f548df8e25c390d6a7f70758fd6b3668;
+    "immature_balance" = 0;
+    keypoololdest = 1599723938;
+    keypoolsize = 999;
+    "keypoolsize_hd_internal" = 1000;
+    paytxfee = 0;
+    "private_keys_enabled" = 1;
+    scanning = 0;
+    txcount = 1;
+    "unconfirmed_balance" = 0;
+    walletname = "";
+    walletversion = 169900;
+}
+```
+## Creating an Address
+
+Creating an address is simple enough, but what about creating a legacy address with a specific label? That requires two parameters in your RPC call.
+
+Since the simplistic `makeCommand` function in this section just passes on its `param`s as the guts of a JSON object, all you have to do is correctly format those guts. Here's one way to do so:
+```
 method = "getnewaddress"
-param = "\"test\", \"legacy\""
+param = "\"learning-bitcoin\", \"legacy\""
 
 makeCommand(method: method,param: param) { result in
 
-    print(result!)
+    let address = result as! String
+    print(address!)
 }
+```
+Running this in the Xcode playground produces a result:
+```
+mt3ZRsmXHVMMqYQPJ8M74QjF78bmqrdHZF
+```
+That result is obviously a Legacy address; its label can then be checked from the command line:
+```
+$ bitcoin-cli getaddressesbylabel "learning-bitcoin"
+{
+  "mt3ZRsmXHVMMqYQPJ8M74QjF78bmqrdHZF": {
+    "purpose": "receive"
+  }
+}
+```
+
+> :information_source: **NOTE:** As we often say in these coding examples, a real program would be much more sophisticated. In particular, you'd want to be able to send an actual JSON object as a parameter, and then have your `makeCommand` program parse it and input it to the URLSession appropriately.
+
+
+
+
+
 
 
 ## Variant: Deploying Swift on Ubuntu
