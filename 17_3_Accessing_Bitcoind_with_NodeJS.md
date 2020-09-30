@@ -72,9 +72,9 @@ $ npm install bcrpc
 
 ## Building Your Connection
 
-In this ```myproject``` directory, create a `.js` file where you JavaScript code will be executed. 
+In your ```myproject``` directory, create a `.js` file where you JavaScript code will be executed. 
 
-You can create an RPC connection by creatin an `RpcAgent`:
+You can initiate an RPC connection by creating an `RpcAgent`:
 ```
 const RpcAgent = require('bcrpc');
 agent = new RpcAgent({port: 18332, user: 'StandUp', pass: 'd8340efbcd34e312044c8431c59c792c'});
@@ -85,7 +85,7 @@ Obviously, your `user` and `pass` should again match what's in your `~/.bitcoin/
 
 Using BCRPC, you can use the same RPC commands you would usually use via ```bitcoin-cli``` with your `RpcAgent`, except they need to be in camelCase. For example, ```getblockhash``` would be ```getBlockHash``` instead.
 
-To print the newest block number along, you just call `getBlockCount` thourgh your `RpcAgent`:
+To print the newest block number, you just call `getBlockCount` thourgh your `RpcAgent`:
 
 ```
 agent.getBlockCount(function (err, blockCount) {
@@ -97,7 +97,7 @@ agent.getBlockCount(function (err, blockCount) {
 
 ### Making an RPC Call with Arguments
 
-The BCRPC functions can accept inputs. For example, ```getBlockHash``` takes ```blockCount.result``` as an input. 
+The BCRPC functions can accept arguments. For example, ```getBlockHash``` takes ```blockCount.result``` as an input. 
 
 ```  
   agent.getBlockHash(blockCount.result, function (err, hash) {
@@ -107,7 +107,7 @@ The BCRPC functions can accept inputs. For example, ```getBlockHash``` takes ```
   })
 ```
 
-The result of the BCRPC functions is a JSON object containing information about any errors and the id of the request. When accessing our result, we add ```.result``` to the end of it to specify that we are interested in the actual result, not information about errors. 
+The result of the BCRPC functions is a JSON object containing information about any errors and the id of the request. When accessing your result, you add ```.result``` to the end of it to specify that you are interested in the actual result, not information about errors. 
 
 ### Running Your Code
 
@@ -117,7 +117,7 @@ $ node getinfo.js
 1831094
 00000000000002bf8b522a830180ad3a93b8eed33121f54b3842d8838580a53c
 ```
-This is what output of the above example would look like if we replaced ```console.log(blockCount.result);``` and ```console.log(hash.result);``` with ```console.log(blockCount);``` and ```console.log(hash);```, respectively:
+This is what output of the above example would look like if you replaced ```console.log(blockCount.result);``` and ```console.log(hash.result);``` with ```console.log(blockCount);``` and ```console.log(hash);```, respectively:
 ```
 { result: 1774686, error: null, id: null }
 {
@@ -129,7 +129,7 @@ This is what output of the above example would look like if we replaced ```conso
 
 ## Looking Up Funds
 
-A useful function when accepting Bitcoin is checking the received Bitcoin for a specific address in your wallet. For example, if you were running an online store accepting Bitcoin, for each payment from a customer, you would generate a new address, show that address to the customer, then check the balance of the address after some time, to make sure the correct amount has been received:
+It's useful when accepting Bitcoin to check the received Bitcoin on a specific address in your wallet. For example, if you were running an online store accepting Bitcoin, for each payment from a customer, you would generate a new address, show that address to the customer, then check the balance of the address after some time, to make sure the correct amount has been received:
 
 ```
 agent.getReceivedByAddress('mpGpCMX6SuUimDZKiVViuhd7EGyVxkNnha', function (err, addressInfo) {
@@ -153,7 +153,7 @@ agent.getReceivedByAddress('mpGpCMX6SuUimDZKiVViuhd7EGyVxkNnha', 6, function (er
 
 ### Looking Up Wallet Information
 
-You can also lookup additional information about your wallet and view your balance, transaction count et cetera:
+You can also look up additional information about your wallet and view your balance, transaction count, et cetera:
 
 ```
 agent.getWalletInfo(function (err, walletInfo) {
@@ -165,7 +165,6 @@ agent.getWalletInfo(function (err, walletInfo) {
 
 The source is available as [walletinfo.js](src/17_3_walletinfo.js).
 ```
-$ node walletinfo.js
 $ node walletinfo.js
 0.008498
 {
@@ -189,7 +188,7 @@ Instead of printing all the details associated with your wallet, you can print s
 
 ## Creating an Address
 
-You can also pass additional arguments to RPC command. For example, the following generates a new legacy address, with the ```-addresstype``` flag.
+You can also pass additional arguments to RPC commands. For example, the following generates a new legacy address, with the ```-addresstype``` flag.
 
 ```
 agent.getNewAddress('-addresstype', 'legacy', function (err, newAddress) {
