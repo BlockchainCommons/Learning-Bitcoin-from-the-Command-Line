@@ -12,7 +12,7 @@ To prepare for Go usage on your UNIX machine,  first install curl if you haven't
 $ sudo apt install curl
 ```
 
-Then, look at the [Go downloads page](https://golang.org/dl/), get the link for the latest download, and download it using curl. For a Debian setup, you will want to use the `linux-amd64` version:
+Then, look at the [Go downloads page](https://golang.org/dl/), get the link for the latest download, and download it using `curl`. For a Debian setup, you will want to use the `linux-amd64` version:
 
 ```
 $ curl -O https://dl.google.com/go/go1.15.1.linux-amd64.tar.gz
@@ -32,7 +32,7 @@ $ sudo chown -R root:root ./go
 $ sudo mv go /usr/local
 ```
 
-Now you need to create a Go path to specify our environment. Open the ```~/.profile``` file with an editor of your choice and add the following to the end of it:
+Now you need to create a Go path to specify your environment. Open the ```~/.profile``` file with an editor of your choice and add the following to the end of it:
 
 ```
 export GOPATH=$HOME/work
@@ -102,9 +102,9 @@ import (
 	"github.com/btcsuite/btcd/rpcclient"
 )
 ```
-This ```import``` declaration allows you to import relevant libraries. For every example here, we will need to import ```"log", "fmt"``` and ```"github.com/btcsuite/btcd/rpcclient"```. We may need to import additional libraries for some examples. 
-   * ```log``` is used for printing out error messages. After each time our Bitcoin node is called, we have an `if` statement checking if there are any errors. If there are errors, ```log``` is used to print them out. 
-   * ```fmt``` is used for printing out our output. 
+This ```import``` declaration allows you to import relevant libraries. For every example here, you will need to import ```"log", "fmt"``` and ```"github.com/btcsuite/btcd/rpcclient"```. You may need to import additional libraries for some examples. 
+   * ```log``` is used for printing out error messages. After each time the Bitcoin node is called, an `if` statement will check if there are any errors. If there are errors, ```log``` is used to print them out. 
+   * ```fmt``` is used for printing out output. 
    * ```rpcclient``` is obviously the `rpcclient` library
 
 ## Building Your Connection
@@ -128,7 +128,7 @@ The ```connCfg``` parameters allow you to choose the Bitcoin RPC port, username,
 
 > :note: **NOTE:** Again, be sure to substitute the `User` and `Pass` with the one found in your `~/.bitcoin/bitcon.conf`. 
 
-The```rpcclient.New(connCfg, nil)``` function then configures ```client``` to connect to our Bitcoin node. 
+The```rpcclient.New(connCfg, nil)``` function then configures ```client``` to connect to your Bitcoin node. 
 
 The ```defer client.Shutdown()``` line is for disconnecting from your Bitcoin node, once the ```main()``` function finishes executing. After the ```defer client.Shutdown()``` line is where the exciting stuff goes — and it will be pretty easy to use. That's's because `rpcclient` helpfully turns the `bitcoin-cli` commands into functions using PascalCase. For example, ```bitcoin-cli getblockcount``` will be ```client.GetBlockCount``` in Go.
 
@@ -183,7 +183,7 @@ Due to limitations of the `btcd` `rpcclient`, you can't make a use of the ```get
 
 	fmt.Println(wallet)
 ```
-```client.GetBalance("*")``` requires the ```"*"``` input, due to a quirk with btcd. The asterisk signifies that you want to get the balance of all of your wallets.
+```client.GetBalance("*")``` requires the ```"*"``` input, due to a quirk with `btcd`. The asterisk signifies that you want to get the balance of all of your wallets.
 
 If you run [the src code](src/17_1_getbalance.go), you should get an output similar to this:
 ```
@@ -197,7 +197,7 @@ You can generate addresses in Go, but you can't specify the address type:
 
 This requires the use of a special `chaincfg` function, to specify which network the addresses are being created for. This specification is only required during address generation, which is why it is only used in this example. You can include this in other examples as well, but it isn't necessary.
 
-ake sure to import ```"github.com/btcsuite/btcd/chaincfg"```:
+Be sure to import ```"github.com/btcsuite/btcd/chaincfg"```:
 ```
 import (
 	"log"
@@ -246,7 +246,7 @@ Creating an address took a look extra work, in specifying the appropiate chain. 
 
 The means that you'll have to import both the ```"github.com/btcsuite/btcutil"``` and ```"github.com/btcsuite/btcd/chaincfg"``` libraries.
    * ```btcutil``` allows for a Bitcoin address to be decoded in a way that the`rpcclient` can understand. This is necessary when working with addresses in `rpcclient`. 
-   * ```chaincfg``` is (again) used to configure our chain as the Testnet chain. This is necessary for address decoding since the addresses used on Mainnet and Testnet are different.
+   * ```chaincfg``` is (again) used to configure your chain as the Testnet chain. This is necessary for address decoding since the addresses used on Mainnet and Testnet are different.
 ```
 import (
 	"log"
@@ -256,9 +256,9 @@ import (
 	"github.com/btcsuite/btcd/chaincfg"
 )
 ```
-The defaultNet variable is now used to specify whether our Bitcoin node is on testnet or on mainnet. That information (and the `btcutil` object) is then used to decode the address.
+The defaultNet variable is now used to specify whether your Bitcoin node is on testnet or on mainnet. That information (and the `btcutil` object) is then used to decode the address.
 
-> **MAINNET VS TESTNET:** ```&chaincfg.TestNet3Params``` should be ```&chaincfg.TestNet3Params``` on mainnet.
+> **MAINNET VS TESTNET:** ```&chaincfg.TestNet3Params``` should be ```&chaincfg.MainNetParams``` on mainnet.
 
 ```
 	defaultNet := &chaincfg.TestNet3Params
@@ -283,16 +283,16 @@ When you run [the code](src/17_1_getamountreceived.go), you should get output si
 ```
 $ go run getamountreceived.go 
 0.0085 BTC
-
 ```
 
 ## Sending a Transaction
 
 You've now got all the puzzle pieces in place to send a transaction. You're going to want to:
 
-1. Import the correct directories, including `chaincfg` to specify a network and `btcutil` to decode an address
-2. Choose an address to send to
-3. Run `sendtoaddress` to send some amount of funds
+1. Import the correct libraries, including `chaincfg` to specify a network and `btcutil` to decode an address.
+2. Choose an address to send to.
+3. Decode that address.
+4. Run `sendtoaddress` to send funds the easy way.
 ```
 package main
 
@@ -340,7 +340,7 @@ $ go run sendtransaction.go
 
 ### Looking Up a Transaction
 
-To lookup a transaction, such as the one you just sent, you'll need to once again do some conversions, this time of txid. ```"github.com/btcsuite/btcd/chaincfg/chainhash"``` is imported in order to allow hashes to be stored in the Go code. ```chainhash.NewHashFromStr("hash")``` converts a hash in a string, to a format that works with rpcclient.
+To lookup a transaction, such as the one you just sent, you'll need to once again do some conversions, this time of txid. ```"github.com/btcsuite/btcd/chaincfg/chainhash"``` is imported in order to allow hashes to be stored in the Go code. ```chainhash.NewHashFromStr("hash")``` converts a hash in a string to a format that works with rpcclient.
 
 ```
 package main
