@@ -97,7 +97,7 @@ Add and document the following new concepts:
       * <strike>16.5: Scripts</strike> **8/12**
       * <strike>16.6: Other Functions</strike> **8/18**
       * <strike>16.7: Integration</strike> **8/25**, **8/26**
-18. Edit & Integrate all "Other Languages" work
+18. <strike>Edit & Integrate all "Other Languages" work</strike> **9/1**-**9/30**
    * <strike>Edit 17.1: Go</strike> **9/1**
    * <strike>Edit 17.2: Java</strike> **9/2**
    * <strike>Edit 17.3: NodeJS</strike> **9/2**
@@ -109,10 +109,10 @@ Add and document the following new concepts:
       * <strike>Do Basic RPC Commands</strike> **9/29**
       * <strike>Look at Wallets</strike> **9/29**
       * <strike>Create Transaction</strike> **9/29**
-      * First edit of Swift
-   * Edit All of 17
-      * Finalize Naming of Src
-      * Full Edit of 17.1-17.6
+      * <strike>First edit of Swift</strike> **9/30**
+   * <strike>Edit All of 17</strike> **9/30**
+      * <strike>Finalize Naming of Src</strike> **9/30**
+      * <strike>Full Edit of 17.1-17.6</strike> **9/30**
 19. <strike>Edit & Integrate Appendices work</strike> **7/27**, **8/4**
    * <strike>Edit & Integrate A2: Compiling</strike> **7/27**
    * <strike>Edit & Integrate A3: RegTest</strike> **8/4**
