@@ -279,8 +279,8 @@ param = "\"learning-bitcoin\", \"legacy\""
 
 makeCommand(method: method,param: param) { result in
 
-    let address = result as! String
-    print(address!)
+    let address = result as! NSString
+    print(address)
 }
 ```
 Running this in the Xcode playground produces a result:
@@ -297,12 +297,99 @@ $ bitcoin-cli getaddressesbylabel "learning-bitcoin"
 }
 ```
 
-> :information_source: **NOTE:** As we often say in these coding examples, a real program would be much more sophisticated. In particular, you'd want to be able to send an actual JSON object as a parameter, and then have your `makeCommand` program parse it and input it to the URLSession appropriately.
+> :information_source: **NOTE:** As we often say in these coding examples, a real program would be much more sophisticated. In particular, you'd want to be able to send an actual JSON object as a parameter, and then have your `makeCommand` program parse it and input it to the URLSession appropriately. What we have here maximizes readability and simplicity without focusing on ease of use.
 
+## Sending a Transaction
 
+As usual, sending a transaction (the hard way) is a multi-step process:
 
+0. Generate or receive a receiving address
+1. Find an unspent UTXO
+2. Create a raw transaction
+3. Sign the raw transaction
+4. Send the raw transaction
 
+You'll use the `address` that you generated in the previous step as your recipient.
 
+### 1. Find an Unspent UTXO
+
+The `listunspent` RPC lets you find your UTXO:
+```
+    method = "listunspent"
+    param = ""
+    
+    makeCommand(method: method,param: param) { result in
+
+        let unspent = result! as! NSArray
+        let utxo = unspent[0] as! NSDictionary
+        
+        let txid = utxo["txid"] as! NSString
+        let vout = utxo["vout"] as! NSInteger
+        let amount = utxo["amount"] as! NSNumber
+        let new_amount = amount.floatValue - 0.0001
+```
+As in other examples, you're going to arbitrarily grab the 0th UTXO, and pull the `txid`, `vout`, and `amount` from it.
+
+> :information_source **NOTE:** As in other example, a real-life program would be much more sophisticated.
+
+### 2. Create a Raw Transaction
+
+Creating a raw transaction is the trickiest thing because you need to get all of your JSON objects, arrays, and quotes right. Here's how to do so in Swift:
+```
+        method = "createrawtransaction"
+        param="[ { \"txid\": \"\(txid)\", \"vout\": \(vout) } ], { \"\(address)\": \(new_amount)}"
+        makeCommand(method: method,param: param) { result in
+
+            let hex = result as! NSString
+```
+### 3. Sign the Raw Transaction
+
+Signing your transaction just requires you to run the `signrawtransactionwithwallet` RPC, using your new `hex`:
+```
+            method = "signrawtransactionwithwallet"
+            param = "\"\(hex)\""
+            
+            makeCommand(method: method,param: param) { result in
+
+                let signedhexinfo = result as! NSDictionary
+                let signedhex = signedhexinfo["hex"] as! NSString
+```
+
+### 4. Send the Raw Transaction
+
+Sending your transaction is equally simple:
+```
+                method = "sendrawtransaction"
+                param = "\"\(signedhex)\""
+
+                makeCommand(method: method,param: param) { result in
+
+                    let new_txid = result as! NSString
+                    print("TXID: \(new_txid)")
+                    
+                }
+            }         
+        }
+    }
+}
+```
+
+The code for this transaction sender can be found in the [src directory](src/17_6_sendtx.playground).
+
+## Using Swift in Other Ways
+
+That covers our usual discussions of programming Bitcoin RPC in a language, but Swift is a particularly important language since it can be deployed on mobile devices, one of the prime venues for wallets. As such, you may wish to consider a few other libraries:
+
+* The Blockchain Commons [ios-Bitcoin framework](https://github.com/BlockchainCommons/iOS-Bitcoin) converts the Libbitcoin library from C++ to Swift
+* [Libwally Swift](https://github.com/blockchain/libwally-swift) is a Swift wrapper for Libwally
+
+## Summary: Accessing Bitcoind with Swift
+
+Swift is a robust modern programming language that unfortunately doesn't yet have any easy-to-use RPC libraries ... which just gave us the opportunity to write an RPC-access function of our own. With that in hand, you can interact with `bitcoind` on a Mac or build companion applications over on an iPhone, which is a perfect combination for airgapped Bitcoin work.
+
+## What's Next?
+
+Learn about Lightning in [Chapter 19: Understanding Your Lightning Setup](19_0_Understanding_Your_Lightning_Setup.md).
 
 
 ## Variant: Deploying Swift on Ubuntu
