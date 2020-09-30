@@ -103,10 +103,13 @@ Add and document the following new concepts:
    * <strike>Edit 17.3: NodeJS</strike> **9/2**
    * <strike>Edit 17.4: Python</strike> **9/8**
    * <strike>Edit 17.5: Rust</strike> **9/8**
-   * Write 17.6: Swift
-      * Setup Swift Environment
-      * Look at Wallets
-      * Create Transaction
+   * <strike>Write 17.6: Swift</strike> **9/29**
+      * <strike>Setup Swift Environment</strike> **9/9**, **9/15**
+      * <strike>Document Swift Environment</strike> **9/23**
+      * <strike>Do Basic RPC Commands</strike> **9/29**
+      * <strike>Look at Wallets</strike> **9/29**
+      * <strike>Create Transaction</strike> **9/29**
+      * First edit of Swift
    * Edit All of 17
       * Finalize Naming of Src
       * Full Edit of 17.1-17.6
