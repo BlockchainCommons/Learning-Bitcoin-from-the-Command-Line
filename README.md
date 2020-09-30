@@ -95,7 +95,7 @@ _This tutorial assumes that you have some minimal background of how to use the c
 
 ### PART FIVE: PROGRAMMING WITH RPC
 
-**Status:** What's up here is finished, though work progresses on additional chapters, below.
+**Status:** Finished.
 
 * [15.0: Talking to Bitcoind with C](15_0_Talking_to_Bitcoind.md)
   * [15.1: Accessing Bitcoind in C with RPC Libraries](15_1_Accessing_Bitcoind_with_C.md)
@@ -109,6 +109,13 @@ _This tutorial assumes that you have some minimal background of how to use the c
    * [16.5: Using Scripts in Libwally](16_5_Using_Scripts_in_Libwally.md)
    * [16.6: Using Other Functions in Libwally](16_6_Using_Other_Functions_in_Libwally.md)
    * [16.7: Integrating Libwally and Bitcoin-CLI](16_7_Integrating_Libwally_and_Bitcoin-CLI.md)
+* [17.0: Talking to Bitcoind with Other Languages](17_0_Talking_to_Bitcoind_Other.md)
+  * [17.1: Accessing Bitcoind with Go](17_1_Accessing_Bitcoind_with_Go.md)
+  * [17.2: Accessing Bitcoind with Java](17_2_Accessing_Bitcoind_with_Java.md)
+  * [17.3: Accessing Bitcoind with Node JS](17_3_Accessing_Bitcoind_with_NodeJS.md)
+  * [17.4: Accessing Bitcoind with Python](17_4_Accessing_Bitcoind_with_Python.md)
+  * [17.5: Accessing Bitcoind with Rust](17_5_Accessing_Bitcoind_with_Rust.md)
+  * [17.6: Accessing Bitcoind with Swift](17_6_Accessing_Bitcoind_with_Rust.md)
 
 ### APPENDICES
 
@@ -123,19 +130,7 @@ _This is the end of the polished second-edition course as it currently stands. W
 
 <hr>
 
-_We want to expand this course to also introduce programming with RPC and finally talk about Lightning. The material below is all in process. We'll move it "above the line" for review and learning when we finish it up._
-
-### PART FIVE: PROGRAMMING WITH RPC
-
-**Status:** VERY Unfinished. Rgularizing other languages chapter; and deciding what to do with Swift
-
-* [17.0: Talking to Bitcoind with Other Languages](17_0_Talking_to_Bitcoind_Other.md)
-  * [17.1: Accessing Bitcoind with Go](17_1_Accessing_Bitcoind_with_Go.md)
-  * [17.2: Accessing Bitcoind with Java](17_2_Accessing_Bitcoind_with_Java.md)
-  * [17.3: Accessing Bitcoind with Node JS](17_3_Accessing_Bitcoind_with_NodeJS.md)
-  * [17.4: Accessing Bitcoind with Python](17_4_Accessing_Bitcoind_with_Python.md)
-  * [17.5: Accessing Bitcoind with Rust](17_5_Accessing_Bitcoind_with_Rust.md)
-  * [17.6: Accessing Bitcoind with Swift]
+_We want to expand ths course to also introduce programming with RPC and finally talk about Lightning. The material below is all in process. We'll move it "above the line" for review and learning when we finish it up._
   
 ### PART SIX: USING LIGHTNING-CLI
 
@@ -151,9 +146,6 @@ _We want to expand this course to also introduce programming with RPC and finall
   * 19.1: Generating a Payment Request
   * 19.2: Paying an Invoice
   * 19.3: Closing a Channel
-* 20.0: Talking to Lightningd with C
-
-> _Some good docs from one of the developers are here: https://diyhpl.us/wiki/transcripts/blockstream-webinars/2019-07-31-rusty-russell-getting-started-with-c-lightning/._
    
 ## Status - Work in Progress
 
