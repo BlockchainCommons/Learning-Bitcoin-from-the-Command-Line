@@ -1,0 +1,137 @@
+import Foundation
+
+func makeCommand(method: String, param: Any, completionHandler: @escaping (Any?) -> Void) -> Void {
+    
+// 1. Build a URL
+    
+    let testnetRpcPort = "18332"
+    let nodeIp = "127.0.0.1:\(testnetRpcPort)"
+    let rpcusername = "oIjA53JC2u"
+    let rpcpassword = "ebVCeSyyM0LurvgQyi0exWTqm4oU0rZU"
+    let walletName = ""
+    let walletUrl = "http://\(rpcusername):\(rpcpassword)@\(nodeIp)/\(walletName)"
+
+    let url = URL(string: walletUrl)
+
+// 2. Build a Request
+    
+    var request = URLRequest(url: url!)
+    request.httpMethod = "POST"
+    request.setValue("text/plain", forHTTPHeaderField: "Content-Type")
+    request.httpBody = "{\"jsonrpc\":\"1.0\",\"id\":\"curltest\",\"method\":\"\(method)\",\"params\":[\(param)]}".data(using: .utf8)
+
+// 3. Build a Session
+    
+    let session = URLSession(configuration: .default)
+    let task = session.dataTask(with: request as URLRequest) { data, response, error in
+
+        do {
+
+
+            if error != nil {
+
+                    //Handle the error
+                    
+            } else {
+                    
+                if let urlContent = data {
+                        
+                    do {
+                            
+                        let json = try JSONSerialization.jsonObject(with: urlContent, options: JSONSerialization.ReadingOptions.mutableLeaves) as! NSDictionary
+                        if let errorCheck = json["error"] as? NSDictionary {
+                                                                
+                            if let errorMessage = errorCheck["message"] as? String {
+
+                                print("FAILED")
+                                print(errorMessage)
+
+                            }
+                                
+                        } else {
+                                
+                            let result = json["result"]
+                            completionHandler(result)
+                            
+                        }
+                            
+                    } catch {
+                            
+                            //Handle error here
+                            
+                    }
+                        
+                }
+                    
+            }
+                
+        }
+            
+    }
+
+//    return response
+    task.resume()
+    
+}
+
+// 0. Generate a Receiving Address
+
+var method = "getnewaddress"
+var param = "\"learning-bitcoin\", \"legacy\""
+
+makeCommand(method: method,param: param) { result in
+
+    let address = result as! NSString
+
+// 1. Find an Unspent UTXO
+
+    method = "listunspent"
+    param = ""
+    
+    makeCommand(method: method,param: param) { result in
+
+        let unspent = result! as! NSArray
+        let utxo = unspent[0] as! NSDictionary
+        
+        let txid = utxo["txid"] as! NSString
+        let vout = utxo["vout"] as! NSInteger
+        let amount = utxo["amount"] as! NSNumber
+        let new_amount = amount.floatValue - 0.0001
+
+// 2. Create a Raw Transaction
+
+        method = "createrawtransaction"
+        param="[ { \"txid\": \"\(txid)\", \"vout\": \(vout) } ], { \"\(address)\": \(new_amount)}"
+        makeCommand(method: method,param: param) { result in
+
+            let hex = result as! NSString
+
+// 3. Sign the Raw Transaction
+
+            method = "signrawtransactionwithwallet"
+            param = "\"\(hex)\""
+            
+            makeCommand(method: method,param: param) { result in
+
+                let signedhexinfo = result as! NSDictionary
+                let signedhex = signedhexinfo["hex"] as! NSString
+                
+// 4. Send the Raw Transaction
+
+                method = "sendrawtransaction"
+                param = "\"\(signedhex)\""
+
+                makeCommand(method: method,param: param) { result in
+
+                    let new_txid = result as! NSString
+                    print("TXID: \(new_txid)")
+                    
+                }
+            }
+        }
+    }
+}
+
+
+
+
