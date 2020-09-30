@@ -2,7 +2,7 @@
 
 > **NOTE:** This is a draft in progress, so that I can get some feedback from early reviewers. It is not yet ready for learning.
 
-This section explains how to interact with `bitcoind` using the Java programming language and the  [JavaBitcoindRpcClient](https://github.com/Polve/JavaBitcoindRpcClient). 
+This section explains how to interact with `bitcoind` using the Java programming language and the [JavaBitcoindRpcClient](https://github.com/Polve/JavaBitcoindRpcClient). 
 
 ## Setting Up Java
 
@@ -21,7 +21,7 @@ OpenJDK 64-Bit Server VM (build 11.0.8+10-post-Debian-1deb10u1, mixed mode, shar
 
 ### Creating a Maven Project
 
-In order to prepare for Bitcoin on java, you will create a Maven project:
+In order to program with Bitcoin using java, you will create a Maven project:
 ```
 $ mvn archetype:generate -DgroupId=com.blockchaincommons.lbtc -DartifactId=java-project -DarchetypeArtifactId=maven-archetype-quickstart -DinteractiveMode=false
 ```
@@ -48,7 +48,7 @@ drwxr-xr-x 15 sudo 4.0K Sep  1 13:58 ..
 drwxr-xr-x  4 sudo 4.0K Sep  1 13:58 src
 ```
 
-In order to include `JavaBitcoindRpcClient`, you must add that dependency to `<dependendencies>` in the `pom.xml` file
+In order to include `JavaBitcoindRpcClient`, you must add its dependency to `<dependendencies>` in the `pom.xml` file
 
 ```xml
       <dependency>
@@ -57,7 +57,7 @@ In order to include `JavaBitcoindRpcClient`, you must add that dependency to `<d
         <version>1.2.1</version>
       </dependency>
 ```
-You need to add compiler properties to indicate what JDK version will compile the source code.    
+You also need to add compiler properties to indicate what JDK version will compile the source code.    
 
 ```
   <properties>                                                                  
@@ -88,12 +88,12 @@ If you want a sample project and some instructions on how to run it on the serve
 
 ## Building Your Connection
 
-To use `JavaBitcoindRpcClient`, you need to create a `BitcoindRpcClient` instance. You do this by creating a URL with arguments of username, password, IP address and port. As you'll recall, the IP address `127.0.0.1` and port `18332` should be correct for the standard testnet setup described in this documents, while you can extract the user and password from `~/.bitcoin/bitcoin.conf`.
+To use `JavaBitcoindRpcClient`, you need to create a `BitcoindRpcClient` instance. You do this by creating a URL with arguments of username, password, IP address and port. As you'll recall, the IP address `127.0.0.1` and port `18332` should be correct for the standard testnet setup described in this course, while you can extract the user and password from `~/.bitcoin/bitcoin.conf`.
 
 ```java
        BitcoindRpcClient rpcClient = new BitcoinJSONRPCClient("http://StandUp:6305f1b2dbb3bc5a16cd0f4aac7e1eba@localhost:18332");
 ```
-Note that you'll rneed to import the appropriate information:
+Note that you'll also need to import the appropriate information:
 ```
 import wf.bitcoin.javabitcoindrpcclient.BitcoinJSONRPCClient;
 import wf.bitcoin.javabitcoindrpcclient.BitcoindRpcClient;
@@ -101,7 +101,7 @@ import wf.bitcoin.javabitcoindrpcclient.BitcoindRpcClient;
 
 > **MAINNET VS TESTNET:** The port would be 8332 for a mainnet setup.
 
-If `rpcClient` is successfully initialized, you'll be able to send off RPC commands.
+If `rpcClient` is successfully initialized, you'll be able to send RPC commands.
 
 Later, when you're all done with your `bitcoind` connection, you should close it:
 ```
@@ -110,7 +110,7 @@ rpcClient.stop();
 
 ### Making an RPC Call
 
-You'll find that the `BitcoindRpcClient` provides most of the functionality that can be accessed through `bitcoin-cli` or other RPC methods, using the same method names. 
+You'll find that the `BitcoindRpcClient` provides most of the functionality that can be accessed through `bitcoin-cli` or other RPC methods, using the same method names, but in camelCase. 
 
 For example, to execute the `getmininginfo` command to get the block information and the difficulty on the network, you should use the `getMiningInfo()` method:
 ```java
@@ -140,8 +140,7 @@ You can look up addresses on your wallet by passing the address as an argument t
 	
 	AddressInfo addr1Info = rpcClient.getAddressInfo(addr1);
 	System.out.println("Address: " + addr1Info.address());
-	System.out.println("MasterFingerPrint: " + addr1Info.hdMasterFingerprint
-());
+	System.out.println("MasterFingerPrint: " + addr1Info.hdMasterFingerprint());
 	System.out.println("HdKeyPath: " + addr1Info.hdKeyPath());
 	System.out.println("PubKey: " + addr1Info.pubKey());
 ```
@@ -203,19 +202,20 @@ The JavaBitcoindRpcClient library has some good tools that make it easy to creat
 
 You can create a raw transaction using the `createRawTransaction` method, passing as arguments two ArrayList objects containing inputs and outputs to be used.  
 
-First you set up your new addresses, here an existing address on our system and a new address on our system.
+First you set up your new addresses, here an existing address on your system and a new address on your system.
 ```
         String addr1 = "tb1qdqkc3430rexxlgnma6p7clly33s6jjgay5q8np";
         System.out.println("Used address addr1: " + addr1);
 
         String addr2 = rpcClient.getNewAddress();
         System.out.println("Created address addr2: " + addr2);
-
+```
+Then, you can use the `listUnspent` RPC to find UTXOs for the existing address.
+```
         List<Unspent> utxos = rpcClient.listUnspent(0, Integer.MAX_VALUE, addr1);
         System.out.println("Found " + utxos.size() + " UTXOs (unspent transaction outputs) belonging to addr1");
 ```
-Then, you can use the `listUnspent` RPC to find UTXOs for the existing address.
-
+Here's an output of all the information:
 ```java
 System.out.println("Created address addr1: " + addr1);
 String addr2 = rpcClient.getNewAddress();
@@ -236,7 +236,7 @@ First you fill the inputs with the UTXOs you're spending:
         txb.in(in);
 ```
 
-> :warning: **WARNING:** Obviously in a real program you'd intelligently select a UTXO; here, we just grab the 0th one.
+> :warning: **WARNING:** Obviously in a real program you'd intelligently select a UTXO; here, we just grab the 0th one, a tactic that we'll use throughout this chapter.
 
 Second, you fill the ouputs each with an amount and an address:
 ```
@@ -256,7 +256,7 @@ You're now ready to actually create the transaction:
 
 ### Signing a Transactions
 
-You're now ready to sign transaction with the method `signRawTransactionWithKey`. This method receives as parameters an unsigned raw string transaction, the private key of the sending address, and the TxInput object.
+You now can sign transaction with the method `signRawTransactionWithKey`. This method receives as parameters an unsigned raw string transaction, the private key of the sending address, and the TxInput object.
 
 ```java
 	SignedRawTransaction srTx = rpcClient.signRawTransactionWithKey(
@@ -270,7 +270,7 @@ You're now ready to sign transaction with the method `signRawTransactionWithKey`
 
 ### Sending a Transactiong
 
-Sending then requires the `sendRawTransaction` command:
+Finally, sending requires the `sendRawTransaction` command:
 ```java
 String sentRawTransactionID = rpcClient.sendRawTransaction(srTx.hex());
 System.out.println("Sent signedRawTx (txID): " + sentRawTransactionID);```
