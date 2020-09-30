@@ -93,7 +93,7 @@ fn main() {
 }
 ```
 
-As usual, make sure to insert your proper user name and password from `~/.bitcoin/bitcoin.conf`. Here, they're placed as the arguments for `Auth::UserPass`.
+As usual, make sure to insert your proper user name and password from `~/.bitcoin/bitcoin.conf`. Here, they're used as the arguments for `Auth::UserPass`.
 
 > :link: **TESTNET vs MAINNET:** And, as usual, use port 8332 for mainnet.
 
@@ -106,19 +106,13 @@ When you're done, you should also close your connection:
 
 ### Making an RPC Call
 
-RPC calls made made using the `rpc` `Client` that you created:
+RPC calls are made using the `rpc` `Client` that you created:
 
 ```rust
 let mining_info = rpc.get_mining_info().unwrap();
 println!("{:#?}", mining_info);
 ```
 Generally, the words in the RPC call are separated by `_`s. A complete list is available at the [crate docs](https://crates.io/crates/bitcoincore-rpc).
-
-If we wanted we could close the connection:
-
-```rust
-    let _ = rpc.stop().unwrap();
-```
 
 ### Making an RPC Call with Arguments
 
@@ -127,7 +121,7 @@ Sending an RPC call with arguments using Rust just requires knowing how the func
 ```rust
 fn get_block(&self, hash: &BlockHash) -> Result<Block>
 ```
-We just need to allow it to borrow a blockhash, which can be retrieved (for example) by `get_best_block_hash` for the newest (and most reliable).
+You just need to allow it to borrow a blockhash, which can be retrieved (for example) by `get_best_block_hash`.
 
 Here's the complete code to retrieve a block hash, turn that into a block, and print it.
 ```
@@ -141,7 +135,7 @@ Here's the complete code to retrieve a block hash, turn that into a block, and p
 
 ### Running Your Code
 
-You can access the [src code](src/17_5_main-getinfo.rs) and run it. Unfortunately, the "Block" info will come out a bit ugly because we don't have a library to prettify it.
+You can access the [src code](src/17_5_main-getinfo.rs) and run it. Unfortunately, the "Block" info will come out a bit ugly because this example doesn't include a library to prettify it.
 ```
 $ cargo run 
    Compiling btc_test v0.1.0 (/home/standup/btc_test)
@@ -231,10 +225,9 @@ use bitcoincore_rpc::bitcoin::{Address, Amount};
 
 Note that you're passing `list_unspent` five variables. The first four (`minconf`, `maxconf`, `addresses`, and `include_unsafe`) aren't used here. The fifth is `query_options`, which we haven't used before, but has some powerful filtering options, including the ability to only look at UTXOs with a certain minimum (or maximum) value.
 
-
 ### 2. Populate Variables
 
-First, you can create the input from the `txid` and the `vout` of the UTXO you selected:
+To begin populating the variables that you'll need to create a new transaction, you create the input from the `txid` and the `vout` of the UTXO that you selected:
 ```rust
 let selected_utxos = json::CreateRawTransactionInput {
     txid: selected_tx.txid,
@@ -242,13 +235,13 @@ let selected_utxos = json::CreateRawTransactionInput {
     sequence: None,
 };
 ```
-Second, you can calculate the amount you're going to spend by subtracting a mining fee from the funds in the UTXO:
+Next, you can calculate the amount you're going to spend by subtracting a mining fee from the funds in the UTXO:
 ```
 // send all bitcoin in the UTXO except a minor value which will be paid to miners
 let unspent_amount = selected_tx.amount;
 let amount = unspent_amount - Amount::from_btc(0.00001).unwrap();
 ```
-Third, you can create a hash map of the address and the amount:
+Finally, you can create a hash map of the address and the amount to form the output:
 ```
 let mut output = HashMap::new();
 output.insert(
@@ -284,7 +277,7 @@ println!("signed tx {:?}", signed_tx.transaction().unwrap());
 
 ### 5. Send Transaction
 
-Finally, you can sign and broadcast the transaction:
+Finally, you can broadcast the transaction:
 
 ```rust
 let txid_sent = rpc
@@ -293,6 +286,8 @@ let txid_sent = rpc
 
 println!("{:?}", txid_sent);
 ```
+
+### Running Your Code
 
 You can now run the complete code from the [src](src/17_5_main-sendtx.rs).
 
