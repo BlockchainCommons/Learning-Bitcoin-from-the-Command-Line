@@ -327,4 +327,4 @@ With a foundational knowledge of Libwally, you can now complement all of the wor
 
 ## What's Next?
 
-Learn about other sorts of programming in [Chapter 17: Talking to Bitcoind with Other Languages].
+Learn about other sorts of programming in [Chapter 17: Talking to Bitcoind with Other Languages](17_0_Talking_to_Bitcoind_Other.md).
