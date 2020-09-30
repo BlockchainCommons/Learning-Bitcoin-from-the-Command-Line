@@ -2,7 +2,7 @@
 
 You should now have a solid foundation for working with Bitcoin in C, not only using RPC, JSON, and ZMQ libraries to directly interact with `bitcoind`, but also utilizing the Libwally libraries to complement that work. And C is a great language for prototyping and abstraction — but it's probably not what you're programming in. This chapter thus takes a whirlwind tour of six other programming languages, demonstrating the barest Bitcoin functionality in each and allowing you to expand the lessons of the command line and C to the programming language of your choice.
 
-Each of the sections contains approximately the same information, focused on: creating an RPC connection; examining the wallet; creating a new address, and creating a transaction. However, there's some variety among the languages, showing off different aspects of Bitcoin's RPC commands in different examples. In particular, some languages use the easy methodology of `sendtoaddress` while others use the hard methodology of creating a raw transaction from scratch
+Each of the sections contains approximately the same information, focused on: creating an RPC connection; examining the wallet; creating a new address, and creating a transaction. However, there's some variety among the languages, showing off different aspects of Bitcoin's RPC commands in different examples. In particular, some languages use the easy methodology of `sendtoaddress` while others use the hard methodology of creating a raw transaction from scratch.
 
 ## Objectives for This Chapter
 
