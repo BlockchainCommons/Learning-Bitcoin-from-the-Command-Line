@@ -69,7 +69,6 @@ func makeCommand(method: String, param: Any, completionHandler: @escaping (Any?)
             
     }
 
-//    return response
     task.resume()
     
 }
