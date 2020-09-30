@@ -115,7 +115,7 @@ _This tutorial assumes that you have some minimal background of how to use the c
   * [17.3: Accessing Bitcoind with Node JS](17_3_Accessing_Bitcoind_with_NodeJS.md)
   * [17.4: Accessing Bitcoind with Python](17_4_Accessing_Bitcoind_with_Python.md)
   * [17.5: Accessing Bitcoind with Rust](17_5_Accessing_Bitcoind_with_Rust.md)
-  * [17.6: Accessing Bitcoind with Swift](17_6_Accessing_Bitcoind_with_Rust.md)
+  * [17.6: Accessing Bitcoind with Swift](17_6_Accessing_Bitcoind_with_Swift.md)
 
 ### APPENDICES
 
