@@ -2,7 +2,7 @@
 
 > :information_source: **NOTE:** This is a draft in progress, so that I can get some feedback from early reviewers. It is not yet ready for learning.
 
-This section explains how to interact with `bitcoind` using the Swift programming language.
+This section explains how to interact with `bitcoind` using the Swift programming language and your own RPC client.
 
 ## Setting Up Swift on Your Mac
 
