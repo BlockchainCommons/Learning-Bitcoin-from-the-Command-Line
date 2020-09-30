@@ -13,7 +13,7 @@ You can check this by running:
 
 If it returns a version number (e.g., `3.7.3` or `3.8.3`) then you have python3 installed. 
 
-However, if you somehow do not have Python installed, you'll need build it from source as follows. Please see ["Building Python from Source"](17_4_Accessing_Bitcoind_with_Python.md#synopsis-building-python-from-source) before continuing.
+However, if you somehow do not have Python installed, you'll need build it from source as follows. Please see the ["Building Python from Source"](17_4_Accessing_Bitcoind_with_Python.md#variant-building-python-from-source) variant before continuing.
 
 ### Setting Up BitcoinRPC
 
@@ -59,7 +59,7 @@ rpc_client = AuthServiceProxy(f"http://{rpc_user}:{rpc_pass}@{rpc_host}:18332", 
 
 The arguments in the URL are `<rpc_username>:<rpc_password>@<host_IP_address>:<port>`. As usual, the `user` and `pass` are found in your `~/.bitcoin/bitcoin.conf`, while the `host` is your localhost, and the port is `18332` for testnet. The `timeout` argument is specified since sockets timeout under heavy load on the mainnet. If you get `socket.timeout: timed out` response, be patient and increase the `timeout`.
 
-> :link: MAINNET VS TESTNET: The port would be 8332 for a mainnet setup.
+> :link: **MAINNET VS TESTNET:** The port would be 8332 for a mainnet setup.
 
 ### Making  an RPC Call
 
@@ -158,7 +158,7 @@ First 10 transactions:
 
 ## Looking Up Funds
 
-You can similarly retrieve your wallet's information with the `getwalletinfo` RP:
+You can similarly retrieve your wallet's information with the `getwalletinfo` RPC:
 
 ```py
 wallet_info = rpc_client.getwalletinfo()
@@ -341,7 +341,7 @@ Creating a new address with Python 3 just requires the use of an RPC like `getne
 new_address = rpc_client.getnewaddress("Learning-Bitcoin-from-the-Command-Line")
 new_change_address = rpc_client.getrawchangeaddress()
 ```
-In this example, we give the `getnewaddress` command an argument: the `Learning-Bitcoin-from-the-Command-Line` label.
+In this example, you give the `getnewaddress` command an argument: the `Learning-Bitcoin-from-the-Command-Line` label.
 
 ## Sending a Transaction
 
@@ -349,10 +349,10 @@ Creating a transaction in Python 3 requires combining some of the previous examp
 
 There are five steps:
 
-0. Create 2 addresses, one that will act as recipient and the other for change.
+0. Create two addresses, one that will act as recipient and the other for change.
 1. Select a UTXO and set transaction details.
 2. Create a raw transaction.
-3. Sign the raw transaction with private key of the UTXO.
+3. Sign the raw transaction with the private key of the UTXO.
 4. Broadcast the transaction on the bitcoin testnet.
 
 ### 1. Select UTXO & Set Transaction Details
@@ -361,13 +361,13 @@ In the folowing code snippet you first select the UTXO which we want to spend. T
 
 ```py
 utxos = rpc_client.listunspent()
-selected_utxo = utxos[0]  # we select the first utxo here
+selected_utxo = utxos[0]  # again, selecting the first utxo here
 utxo_address = selected_utxo['address']
 utxo_txid = selected_utxo['txid']
 utxo_vout = selected_utxo['vout']
 utxo_amt = float(selected_utxo['amount'])
 ```
-Next, you also retrieve the recipient address to which we want to send the bitcoins and the amount of bitcoins you want to send, and you calculate the miner fee and the change amount. Here, the amount is arbitrarily split in two and a miner fee is arbitrarily set.
+Next, you also retrieve the recipient address to which you want to send the bitcoins, calculate the amount of bitcoins you want to send, and calculate the miner fee and the change amount. Here, the amount is arbitrarily split in two and a miner fee is arbitrarily set.
 
 ```py
 recipient_address = new_address
@@ -416,7 +416,7 @@ Finally, you are ready to broadcast the signed transaction on the bitcoin networ
 ```py
 send_tx = rpc_client.sendrawtransaction(signed_tx['hex'])
 ```
-
+### Running Your Code
 The [sample code](src/17_4_sendtx.py) is full of `print` statements to demonstrate all of the data available at every point:
 ```
 $ python3 sendtx.py 
@@ -452,13 +452,13 @@ TXID of sent transaction:  187f8baa222f9f37841d966b6bad59b8131cfacca861cbe9bfc86
 
 ## Summary
 
-Accessing Bitcoind with Python is very easy while using the `python-bitcoinrpc` library. The first thing to always do is to establish connection with your bitcoind instance, then you can call all of the bitcoin API calls as described in the bitcoin-core documentation. This makes it really easy to create small or large scripts to manage your own node, check balances, or create cool applications on top as you access the full power of `bitcoin-cli`.
+Accessing Bitcoind with Python is very easy while using the `python-bitcoinrpc` library. The first thing to always do is to establish a connection with your `bitcoind` instance, then you can call all of the bitcoin API calls as described in the bitcoin-core documentation. This makes it easy to create small or large prorgrams to manage your own node, check balances, or create cool applications on top, as you access the full power of `bitcoin-cli`.
 
 ## What's Next?
 
 Learn more about "Talking to Bitcoin in Other Languages" in [17.5: Accessing Bitcoin with Rust](17_5_Accessing_Bitcoind_with_Rust.md).
 
-## Synopsis: Building Python from Source
+## Variant: Building Python from Source
 
 If you need to install Python 3 from source, follow these instructions, then continue with ["Creating a BitcoinRPC Project"](17_4_Accessing_Bitcoind_with_Python.md#creating-a-bitcoinrpc-project).
 
