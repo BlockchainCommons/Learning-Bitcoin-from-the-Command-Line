@@ -125,7 +125,9 @@ Add and document the following new concepts:
    * Know CL? Have a node? Need to read the new stuff? Skip Lightning?
    * Decide where to place current first chapter in relation to that (before? after? glossary?)
 23. Move an coding appendices (e.g., JQ interlude) to src code directory 
+24. Write letter about new edition
+25. Write tweetstorm
 
 ## 7. Additional Support
 
-24. Full edit of book (intern?)
+26. Full edit of book (intern?)
