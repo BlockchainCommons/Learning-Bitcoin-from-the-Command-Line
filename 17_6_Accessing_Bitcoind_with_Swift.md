@@ -22,13 +22,13 @@ If you're using Mojave, you'll need the `xip` file for Xcode 10.3.1. Otherwise, 
 
 Once it's downloaded, you can click on the `xip` to extract it, then move the Xcode app to your Applications folder.
 
-(EIther way, you should have Xcode installed in your Applications folder at the end of this step.)
+(Either way, you should have Xcode installed in your Applications folder at the end of this step.)
 
 ### 2. Install the Gordian Server
 
-You're also going to need a Bitcoin node on your Mac, so that you can communicate with it. Technically, you could use a remote node, and access it with the RPC login and password over the net. However, we suggest you instead install a full node directly on your Mac, because that's the safest and cleanest setup, ensuring that none of your communications leave your machine.
+You're also going to need a Bitcoin node on your Mac, so that you can communicate with it. Technically, you could use a remote node and access it with the RPC login and password over the net. However, we suggest you instead install a full node directly on your Mac, because that's the safest and cleanest setup, ensuring that none of your communications leave your machine.
 
-To easily install a full node on your Mac, use Blockchain Commons' [GordianServer for MacOS](https://github.com/BlockchainCommons/GordianServer-macOS). See the [installation instructions](https://github.com/BlockchainCommons/GordianServer-macOS#installation-instructions) in the README, but generally all you have to do is download the current `dmg` file, open it, and install that app in your Applications too.
+To easily install a full node on your Mac, use Blockchain Commons' [GordianServer for MacOS](https://github.com/BlockchainCommons/GordianServer-macOS). See the [installation instructions](https://github.com/BlockchainCommons/GordianServer-macOS#installation-instructions) in the README, but generally all you have to do is download the current `dmg` file, open it, and install that app in your Applications directory too.
 
 Afterward, run the GordianServer App, and tell it to `Start` Testnet. 
 
@@ -56,14 +56,14 @@ rpcpassword=ebVCeSyyM0LurvgQyi0exWTqm4oU0rZU
 ```
 ## Building Your Connection by Hand
 
-At the time of this writing, there isn't an up-to-date, simple-to-use Bitcoin RPC Library that's specific for Swift, which you can drop in and immediately start using. Thus, you're're going to do something you're never done before: build an RPC connection by hand.
+At the time of this writing, there isn't an up-to-date, simple-to-use Bitcoin RPC Library that's specific for Swift, something that you can drop in and immediately start using. Thus, you're're going to do something you're never done before: build an RPC connection by hand.
 
-It just requires writing a function that passes RPC commands on to `bitcoind` in the correct format:
+### Writing the RPC Transmitter
+
+This just requires writing a function that passes RPC commands on to `bitcoind` in the correct format:
 ```
 func makeCommand(method: String, param: Any, completionHandler: @escaping (Any?) -> Void) -> Void {
 ```
-
-### Writing the RPC Transmitter
 
 RPC connections to `bitcoind` use the HTML protocol, which means that you need to do three things: create a URL; make a URLRequest; and initiate a URLSession.
 
@@ -87,6 +87,7 @@ This means that your sample variables result in the following URL:
 ```
 http://oIjA53JC2u:ebVCeSyyM0LurvgQyi0exWTqm4oU0rZU@127.0.0.1:18332/
 ```
+Which should look a lot like the URL used in some of the previous sections for RPC connections.
 
 #### 2. Create a URLRequest
 
@@ -123,7 +124,7 @@ And then parse the data that you're receiving. Here, you're pulling the JSON res
                             
                         let json = try JSONSerialization.jsonObject(with: urlContent, options: JSONSerialization.ReadingOptions.mutableLeaves) as! NSDictionary
 ```
-After that, there's more error handling and more error handling and then you can eventually return the dictionary `result` using the `completionHandler` that you included for the new `makeCommand` function:
+After that, there's more error handling and more error handling and then you can eventually return the dictionary `result` using the `completionHandler` that you defined for the new `makeCommand` function:
 ```
                         if let errorCheck = json["error"] as? NSDictionary {
                                                                 
@@ -151,7 +152,7 @@ Of course you eventually have to tell the `task` to start:
 ```
     task.resume()
 ```
-And that's "all" there is to doing that RPC interaction by hand using a program language such as Swift.
+And that's "all" there is to doing that RPC interaction by hand using a programming language such as Swift.
 
 > :pray: **THANKS:** Thanks to @Fonta1n3 who provided the [main code](https://github.com/BlockchainCommons/Learning-Bitcoin-from-the-Command-Line/issues/137) for our RPC Transmitter.
 
@@ -170,7 +171,7 @@ makeCommand(method: method,param: param) { result in
 ```
 ### Making an RPC Call with Arguments
 
-You could similarly grab the current block count from that info and use that to get the hash of the current block, by using the `param` parameter:
+You could similarly grab the current block count from that info and use that to (reduntantly) get the hash of the current block, by using the `param` parameter:
 ```
 let method = "getblockchaininfo"
 let param = ""
@@ -281,7 +282,7 @@ Balance is 0.01
 
 Creating an address is simple enough, but what about creating a legacy address with a specific label? That requires two parameters in your RPC call.
 
-Since the simplistic `makeCommand` function in this section just passes on its `param`s as the guts of a JSON object, all you have to do is correctly format those guts. Here's one way to do so:
+Since the simplistic `makeCommand` function in this section just passes on its `param`s as the guts of a JSON Object, all you have to do is correctly format those guts. Here's one way to do so:
 ```
 method = "getnewaddress"
 param = "\"learning-bitcoin\", \"legacy\""
@@ -307,7 +308,7 @@ $ bitcoin-cli getaddressesbylabel "learning-bitcoin"
 ```
 Success!
 
-> :information_source: **NOTE:** As we often say in these coding examples, a real program would be much more sophisticated. In particular, you'd want to be able to send an actual JSON object as a parameter, and then have your `makeCommand` program parse it and input it to the URLSession appropriately. What we have here maximizes readability and simplicity without focusing on ease of use.
+> :information_source: **NOTE:** As we often say in these coding examples, a real-world program would be much more sophisticated. In particular, you'd want to be able to send an actual JSON Object as a parameter, and then have your `makeCommand` program parse it and input it to the URLSession appropriately. What we have here maximizes readability and simplicity without focusing on ease of use.
 
 ## Sending a Transaction
 
@@ -344,7 +345,7 @@ As in other examples, you're going to arbitrarily grab the 0th UTXO, and pull th
 
 ### 2. Create a Raw Transaction
 
-Creating a raw transaction is the trickiest thing because you need to get all of your JSON objects, arrays, and quotes right. Here's how to do so in Swift, using our very basic `param` formatting:
+Creating a raw transaction is the trickiest thing because you need to get all of your JSON objects, arrays, and quotes right. Here's how to do so in Swift, using the transmitter's very basic `param` formatting:
 ```
         method = "createrawtransaction"
         param="[ { \"txid\": \"\(txid)\", \"vout\": \(vout) } ], { \"\(address)\": \(new_amount)}"
@@ -399,7 +400,7 @@ Swift is a robust modern programming language that unfortunately doesn't yet hav
 
 ## What's Next?
 
-Learn about Lightning in [Chapter 19: Understanding Your Lightning Setup](19_0_Understanding_Your_Lightning_Setup.md).
+Learn about Lightning in [Chapter 18: Understanding Your Lightning Setup](18_0_Understanding_Your_Lightning_Setup.md).
 
 ## Variant: Deploying Swift on Ubuntu
 
