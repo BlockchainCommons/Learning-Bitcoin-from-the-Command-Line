@@ -52,7 +52,7 @@ You're now ready to create a node based on the Stackscript.
    * **Fully Qualified Hostname.** If you're going to include this VPS as part of a network with full DNS records, type in the hostname with its domain. For example, "mybtctest.mydomain.com". Otherwise, just repeat the short hostname and add ".local", for example "mybtctest.local".
 3. Enter the password for the "standup" user.
 4. Choose an Installation Type in the advanced options. 
-   * **Installation Type.** This is likely "Mainnet" or "Pruned Mainnet" if you are setting up a node for usage and "Pruned Testnet" if you're just playing around. See the [Synopsis](#synopsis-bitcoin-installation-types) for more information on these options.
+   * **Installation Type.** This is likely "Mainnet" or "Pruned Mainnet" if you are setting up a node for usage and "Testnet" or "Pruned Testnet" if you're just playing around. See the [Synopsis](#synopsis-bitcoin-installation-types) for more information on these options. Note that if you plan to try out the Lightning chapters, you'll probably want to use an unpruned node, as working with proned nodes on Lightning is iffy.
 5. Fill in any other appropriate advanced options.
    * **X25519 Public Key.** This is a public key to add to Tor's list of authorized clients. If you don't use it, anyone who gets the QR code for your node can access it. You'll get this public key from whichever client you're using to connect to your node. For example, if you use [FullyNoded 2](https://github.com/BlockchainCommons/FullyNoded-2), you can go to its settings and "Export Tor V3 Authentication Public Key" for use here.
   * **SSH Key.** Copy your local computer's SSH key here; this allows you be able to automatically login in via SSH to the standup account. If you haven't setup an SSH key on your local computer yet, there are good instructions for it on [Github](https://help.github.com/articles/generating-a-new-ssh-key-and-adding-it-to-the-ssh-agent/).  You may also want to add your SSH key into your Linode LISH (Linode Interactive Shell) by going to your "Linode Home Page / My Preferences / LISH Settings /  LISH Keys". Using an SSH key will give you a simpler and safer way to log in to your server.
@@ -243,7 +243,7 @@ You have a few options for what's next:
 
 ## Synopsis: Bitcoin Installation Types
 
-**Mainnet.** This will download the entirety of the Bitnet blockchain. That's 280G of data (and getting more every day).
+**Mainnet.** This will download the entirety of the Bitnet blockchain. That's 280G of data (and getting more every day). 
 
 **Pruned Mainnet.** This will cut the blockchain you're storing down to just the last 550 blocks. If you're not mining or running some other Bitcoin service, this should be plenty for validation.
 
