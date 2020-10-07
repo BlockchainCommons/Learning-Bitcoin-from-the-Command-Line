@@ -1,20 +1,20 @@
-# Chapter Eighteen: Understanding Your Lighting Setup
+# Chapter 18: Understanding Your Lighting Setup
 
 > :information_source: **NOTE:** This is a draft in progress, so that I can get some feedback from early reviewers. It is not yet ready for learning.
 
-In this chapter you'll be ready to begin working with the `lightning-cli` command-line interface. But that first requires that you understand your c-lightning setup and its features, which is what will be explained with some examples and basic configuration.
-
-For this and future chapters, we presume that you have a VPS with c-lightning installed, running `lightningd` courtersy of [Bitcoin Standup Scripts](https://github.com/BlockchainCommons/Bitcoin-Standup-Scripts) on Testnet.
+The previous chapter concluded our work with Bitcoin proper, through CLI, scripting, and programming languages. However, there are many other utilities within the Bitcoin ecosystem: this chapter and the cover the largest. Here you'll begin work with the `lightning-cli` command-line interface, first by understanding c-lightning setup and its features — which is what will be explained with some examples and basic configuration.
 
 ## Objectives for This Chapter
 
 After working through this chapter, a developer will be able to:
 
-   * Demonstrate that their c-lightning Node is Installed and Up-to-date
-   * Use basic wallet Commands
-   * Setting up a channel.
-   * Pay an invoice
-   * Generate a payment request.
+   * Assess that a C-lightning Node is Installed and Up-to-date
+   * Perform Casic Lightning Wallet Commands
+   * Create a LIghtning Channel
+   
+Supporting objectives include the ability to:
+
+   * Understand the Basic Lightning Configuration
    
 ## Table of Contents
 
