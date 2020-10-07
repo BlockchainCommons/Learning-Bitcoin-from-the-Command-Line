@@ -15,6 +15,8 @@ Layer 2 refers to a secondary protocol builded on top of bitcoin blockchain syst
 
 As we said previous chapter you should have c-lightning installed courtesy BitcoinStandupScript,  if not we describe here three options and steps to install it.
 
+For this and future chapters, we presume that you have a VPS with c-lightning installed, running `lightningd` courtersy of [Bitcoin Standup Scripts](https://github.com/BlockchainCommons/Bitcoin-Standup-Scripts) on Testnet.
+
 ### Ubuntu ppa
 
 The first and fastest option is to use [Ubuntu ppa](https://launchpad.net/~lightningnetwork/+archive/ubuntu/ppa).
