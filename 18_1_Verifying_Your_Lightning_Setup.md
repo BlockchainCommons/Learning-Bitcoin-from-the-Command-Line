@@ -98,21 +98,34 @@ $ nohup lightningd --testnet &
 ```
 (If you installed c-lightning using a Bitcoin Standup Script you'll already have a linux service that will start the `lightningd` daemon automatically whenever you reboot.)
 
-## Verifying your node
+## Verifying your Node
 
 You should have an output like this indicating your node is ready if blockheight  shows a height value that match with your most recent number getblockcount `bitcoin-cli getblockcount`  command output.
 
 ```
-$ lightning-cli --network=testnet getinfo
+$ bitcoin-cli getblockcount
+1838587
+standup@btclightning1:~/lightning$ lightning-cli getinfo
 {
-   "id": "03fce2a20393a65b9d6cab5425f4cd33ddc621ade458efd69d652917e2b5eaf59c",
-   "alias": "VIOLENTIRON",
-   "color": "03fce2",
+   "id": "03d4592f1244cd6b5a8bb7fba6a55f8a91591d79d3ea29bf8e3c3a405d15db7bf9",
+   "alias": "HOPPINGNET",
+   "color": "03d459",
    "num_peers": 0,
    "num_pending_channels": 0,
    "num_active_channels": 0,
    "num_inactive_channels": 0,
-   "address": [],
+   "address": [
+      {
+         "type": "ipv4",
+         "address": "74.207.240.32",
+         "port": 9735
+      },
+      {
+         "type": "ipv6",
+         "address": "2600:3c01::f03c:92ff:fe48:9ddd",
+         "port": 9735
+      }
+   ],
    "binding": [
       {
          "type": "ipv6",
@@ -125,21 +138,23 @@ $ lightning-cli --network=testnet getinfo
          "port": 9735
       }
    ],
-   "version": "v0.8.2-398-g869fa08",
-   "blockheight": 54959,
+   "version": "v0.9.1-96-g6f870df",
+   "blockheight": 1838587,
    "network": "testnet",
    "msatoshi_fees_collected": 0,
    "fees_collected_msat": "0msat",
-   "lightning-dir": "/home/user/.lightning/testnet"
+   "lightning-dir": "/home/standup/.lightning/testnet"
 }
 ```
+In this case, the `blockheight` is shown as `1838587` by both commends.
 
-If node is still sycing with bitcoin network you should see a message like this.
+You may instead get an error, depending on the precise situation.
 
+If the Bitcoin node is still sycing with bitcoin network you should see a message like this:
 ```
 "warning_bitcoind_sync": "Bitcoind is not up-to-date with network."
 ```
-If your lightning daemon is not up-to-date, you'll get a message to you `getinfo command` like this:
+If your lightning daemon is not up-to-date, you'll get a message like this:
 ```
 "warning_lightningd_sync": "Still loading latest blocks from bitcoind."
 ```
@@ -148,10 +163,7 @@ If you tried to run on a pruned blockchain, you'll get error messages in your lo
 bitcoin-cli -testnet getblock 0000000000000559febee77ab6e0be1b8d0bef0f971c7a4bee9785393ecef451 0 exited with status 1
 ```
 
-
-
-
-## Create Your Aliases
+## Creating Aliases
 
 We suggest creating some aliases to make it easier to use c-lightning.
 
@@ -164,16 +176,19 @@ alias lnd="lightningd"
 alias lninfo='lightning-cli getinfo'
 EOF
 ```
-After you enter these aliases you can either `source .bash_profile` to input them or just log out and back in.
+After you enter these aliases you can either `source ~/.bash_profile` to input them or just log out and back in.
 
 Note that these aliases includes shortcuts for running `lightning-cli`, for running `lightningd`, and for going to the c-lightning directory. These aliases are mainly meant to make your life easier. We suggest you create other aliases to ease your use of frequent commands (and arguments) and to minimize errors. Aliases of this sort can be even more useful if you have a complex setup where you regularly run commands associated with Mainnet, with Testnet, _and_ with Regtest, as explained further below.
 
-With that said, use of these aliases in _this_ document might accidentally obscure the core lessons being taught about c-lightning, so the only alias directly used here is `lninfo` because it encapsulatea  much longer and more complex command. Otherwise, we show the full commands; adjust for your own use as appropriate.
-## Optional: Know Your Server Types
+With that said, use of these aliases in _this_ document might accidentally obscure the core lessons being taught about c-lightning, so we'll continue to show the full commands; adjust for your own use as appropriate.
+
+[[END STILL NEEDS EDITING]]
+
+##  Knowing Your Server Types
 
 > **TESTNET vs MAINNET:** When you set up your node, you choose to create it as either a Mainnet, Testnet, or Regtest node. Though this document presumes a testnet setup, it's worth understanding how you might access and use the other setup types — even all on the same machine! But, if you're a first-time user, skip on past this, as it's not necessary for a basic setup.
 
-When lightningd starts up it usually reads a general configuration file located depending on the network you are using (default: $HOME/.lightning/testnet/config). This can be changed: see –conf and –lightning-dir.
+When lightningd starts up, it usually reads a general configuration file whose location is dependent on the network you are using (default: `$HOME/.lightning/testnet/config`). This can be changed: see –conf and –lightning-dir.
 
 The type of setup is mainly controlled through the ~/.lightning/config file. If you're running testnet, it probably will be located in ~/.lightning/testnet/config.   In next section we will explain how to manage your lightning daemon options or general options.
 
@@ -187,11 +202,13 @@ If you want to run several different sorts of nodes simultaneously, you must lea
 
 ## Summary: Verifying your Lightning setup
 
-Before you start playing with lightning, you should make sure that your aliases are set up, your lightningd is running, and your node is synced. You may also want to set up some access to alternative lightning setups, if you're an advanced user.
+Before you start playing with lightning, you should make sure that your aliases are set up, your  `lightningd` is running, and your node is synced. You may also want to set up some access to alternative lightning setups, if you're an advanced user.
 
 ## What's Next?
 
 Continue "Understanding Your Lightning Setup" with [§18.2: Knowing Your Lightning Setup](18_2_Knowing_Your_lightning_Setup.md).
+
+
 
 ### Variant: Installing from Ubuntu ppa
 
