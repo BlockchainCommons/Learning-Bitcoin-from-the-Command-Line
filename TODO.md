@@ -117,6 +117,7 @@ Add and document the following new concepts:
    * <strike>Edit & Integrate A2: Compiling</strike> **7/27**
    * <strike>Edit & Integrate A3: RegTest</strike> **8/4**
 20. Edit & Integrate Lightning Chapters
+   * Figure out how/if to set up a pruned c-lightning
 
 ## 6. Finalize Book
 
