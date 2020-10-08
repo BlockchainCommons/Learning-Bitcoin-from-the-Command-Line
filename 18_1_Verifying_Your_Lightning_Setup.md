@@ -34,6 +34,10 @@ If not, you'll need to install it by hand. Unfortunately, if you're using Debian
 
 Installing Lightning from source code should actually be pretty simple if you follow these instructions.
 
+You also _probably_ want to do this on an unpruned node, as working with pruned nodes on Lightning may cause issues with installation and usage. If you set up your node way back at the start of this course to be pruned, you may wish to replace it with an unpruned node now. (If you're using testnet, you should be able to use the same size machine as you did for your pruned node.)
+
+With that, you're ready to install Lightning:
+
 First you're going to need to install dependencies, including development requirements.
 ```
 $ sudo apt-get install -y \
@@ -66,7 +70,7 @@ $ sudo make install
 
 ## Checking Your installation
 
-You can confirm you have installed correclty lightningd using the `help` parameter:
+You can confirm you have installed lightningd correctly using the `help` parameter:
 
 ```
 $ lightningd --help
