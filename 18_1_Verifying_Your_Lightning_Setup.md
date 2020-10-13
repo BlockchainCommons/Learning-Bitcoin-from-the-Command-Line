@@ -36,6 +36,8 @@ Installing Lightning from source code should actually be pretty simple if you fo
 
 You also _probably_ want to do this on an unpruned node, as working with pruned nodes on Lightning may cause issues with installation and usage. If you set up your node way back at the start of this course to be pruned, you may wish to replace it with an unpruned node now. (If you're using testnet, you should be able to use the same size machine as you did for your pruned node.)
 
+> :warning: **WARNING:** OK, here's the truth: you can run c-lightning on a pruned node. However, as the [Lightning repo](https://github.com/ElementsProject/lightning#pruning) notes, there may be issues. To make it work you have to ensure that your Lightning node is only ever trying to update info on blocks that your Bitcoin node has not pruned. To do so you must make sure (1) that your Bitcoin node is fully up to date before you start your Lightning node for the first time; and (2) that your Lightning node never falls too far behind your Bitcoin node (for a standard 550-block pruning, it can never be turned off for 4 or more days). So, you can do it, but it does introduce some danger, which isn't a good idea if you're running a production service.
+
 With that, you're ready to install Lightning:
 
 First you're going to need to install dependencies, including development requirements.
@@ -208,7 +210,7 @@ If your lightning daemon is not up-to-date, you'll get a message like this:
 ```
 "warning_lightningd_sync": "Still loading latest blocks from bitcoind."
 ```
-If you tried to run on a pruned blockchain, you'll get error messages in your log like this:
+If you tried to run on a pruned blockchain where the Bitcoin node wasn't up to date when you started the Lightning node, you'll get error messages in your log like this:
 ```
 bitcoin-cli -testnet getblock 0000000000000559febee77ab6e0be1b8d0bef0f971c7a4bee9785393ecef451 0 exited with status 1
 ```
