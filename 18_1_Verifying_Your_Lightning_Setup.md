@@ -5,7 +5,7 @@
 
 In this section, you'll install and verify c-lightning, your utility for accessing the Lightning Network.
 
-> :book: ***What is Lightning Network?*** The Lightning Network is a decentralized network that uses the smart contract functionality of the Bitcoin blockchain to enable instant payments across a network of participants. Lightning is built as a layer-2 protocol that interacts with Bitcoin to allow users to exchange their bitcoins "off-chain". 
+> :book: ***What is the Lightning Network?*** The Lightning Network is a decentralized network that uses the smart contract functionality of the Bitcoin blockchain to enable instant payments across a network of participants. Lightning is built as a layer-2 protocol that interacts with Bitcoin to allow users to exchange their bitcoins "off-chain". 
 
 > :book: ***What is a layer-2 protocol?*** Layer 2 refers to a secondary protocol built on top of the Bitcoin blockchain system. The main goal of these protocols is to solve the transaction speed and scaling difficulties that are present in Bitcoin: Bitcoin is not able to process thousands of transactions per second (TPS), so layer-2 protocols have been created to solve the blockchain scalability problem. These solutions are also known as "off-chain" scaling solutions.
 
@@ -26,9 +26,9 @@ standup  31228  0.0  0.2  23044  8192 pts/0    S    15:38   0:00 /usr/local/libe
 standup  31229  0.0  0.1  22860  7556 pts/0    S    15:38   0:00 /usr/local/libexec/c-lightning/lightning_gossipd
 standup  32072  0.0  0.0   6208   888 pts/0    S+   15:50   0:00 grep -i lightning
 ```
-If not, you'll need to install it by hand. Unfortunately, if you're using Debian the simplest methods don't work, and you'll need to install by hand (which should still be pretty simple if you follow our instructions. If you happen to be on a standard Ubuntu system, instead try [Installing from Ubuntu ppa]() and you can always attempt [Installing Pre-compiled Binaries]().
+If not, you'll need to install it now. Unfortunately, if you're using Debian you'll need to install by hand by compiling the source code — but it should still be pretty simple if you follow these instructions. If you happen to be on a standard Ubuntu system, instead try [Installing from Ubuntu ppa](#variant-installing-from-ubuntu-ppa), and you can always attempt [Installing Pre-compiled Binaries](#variant-installing-pre-compiled-binaries).
 
-> :book: ***What is c-lightning?*** There are three different implementations of Lightning at present: C-Lightning, LND, and Eclair. They should all be functionally compatible, based on the same [BOLT RFCs](https://github.com/lightningnetwork/lightning-rfc/blob/master/00-introduction.md), but their implementation details may be different. We've chosen c-lightning as the basis of our course in large part because it's also part of the same [Elements Project](https://github.com/ElementsProject) that also contains Libwally.
+> :book: ***What is c-lightning?*** There are three different implementations of Lightning at present: C-Lightning, LND, and Eclair. They should all be functionally compatible, based on the same [BOLT RFCs](https://github.com/lightningnetwork/lightning-rfc/blob/master/00-introduction.md), but their implementation details may be different. We've chosen c-lightning as the basis of our course because it's also part of the same [Elements Project](https://github.com/ElementsProject) that also contains Libwally.
 
 ### Compiling the Source Code 
 
@@ -96,16 +96,66 @@ You'll begin your exploration of the Lightning network with the `lightning-cli` 
 ```
 $ nohup lightningd --testnet &
 ```
-(If you installed c-lightning using a Bitcoin Standup Script you'll already have a linux service that will start the `lightningd` daemon automatically whenever you reboot.)
+
+### Running lightningd as a service
+If you prefer, you can install `lightningd` as a service that will run every time you restart your machine. The following will do so, and start it running immediately:
+
+```
+$ cat > ~/lightningd.service << EOF
+# It is not recommended to modify this file in-place, because it will
+# be overwritten during package upgrades. If you want to add further
+# options or overwrite existing ones then use
+# $ systemctl edit bitcoind.service
+# See "man systemd.service" for details.
+# Note that almost all daemon options could be specified in
+# /etc/lightning/config, except for those explicitly specified as arguments
+# in ExecStart=
+[Unit]
+Description=c-lightning daemon
+[Service]
+ExecStart=/usr/local/bin/lightningd --testnet
+# Process management
+####################
+Type=simple
+PIDFile=/run/lightning/lightningd.pid
+Restart=on-failure
+# Directory creation and permissions
+####################################
+# Run as standup
+User=standup
+# /run/lightningd
+RuntimeDirectory=lightningd
+RuntimeDirectoryMode=0710
+# Hardening measures
+####################
+# Provide a private /tmp and /var/tmp.
+PrivateTmp=true
+# Mount /usr, /boot/ and /etc read-only for the process.
+ProtectSystem=full
+# Disallow the process and all of its children to gain
+# new privileges through execve().
+NoNewPrivileges=true
+# Use a new /dev namespace only populated with API pseudo devices
+# such as /dev/null, /dev/zero and /dev/random.
+PrivateDevices=true
+# Deny the creation of writable and executable memory mappings.
+MemoryDenyWriteExecute=true
+[Install]
+WantedBy=multi-user.target
+EOF
+$ sudo cp ~/lightningd.service /etc/systemd/system
+$ sudo systemctl enable lightningd.service
+$ sudo systemctl start lightningd.service
+```
 
 ## Verifying your Node
 
-You should have an output like this indicating your node is ready if blockheight  shows a height value that match with your most recent number getblockcount `bitcoin-cli getblockcount`  command output.
+You can now check if your Lightning node is ready to go by comparing the output of `bitcoin-cli getblockcount` with the `blockheight` result from `lightning-cli getinfo`.
 
 ```
 $ bitcoin-cli getblockcount
 1838587
-standup@btclightning1:~/lightning$ lightning-cli getinfo
+$ lightning-cli getinfo
 {
    "id": "03d4592f1244cd6b5a8bb7fba6a55f8a91591d79d3ea29bf8e3c3a405d15db7bf9",
    "alias": "HOPPINGNET",
@@ -178,27 +228,21 @@ EOF
 ```
 After you enter these aliases you can either `source ~/.bash_profile` to input them or just log out and back in.
 
-Note that these aliases includes shortcuts for running `lightning-cli`, for running `lightningd`, and for going to the c-lightning directory. These aliases are mainly meant to make your life easier. We suggest you create other aliases to ease your use of frequent commands (and arguments) and to minimize errors. Aliases of this sort can be even more useful if you have a complex setup where you regularly run commands associated with Mainnet, with Testnet, _and_ with Regtest, as explained further below.
+Note that these aliases include shortcuts for running `lightning-cli`, for running `lightningd`, and for going to the c-lightning directory. These aliases are mainly meant to make your life easier. We suggest you create other aliases to ease your use of frequent commands (and arguments) and to minimize errors. Aliases of this sort can be even more useful if you have a complex setup where you regularly run commands associated with Mainnet, with Testnet, _and_ with Regtest, as explained further below.
 
 With that said, use of these aliases in _this_ document might accidentally obscure the core lessons being taught about c-lightning, so we'll continue to show the full commands; adjust for your own use as appropriate.
 
-[[END STILL NEEDS EDITING]]
+##  Modifying Your Server Types
 
-##  Knowing Your Server Types
+> :link: **TESTNET vs MAINNET:** When you set up your node, you choose to create it as either a Mainnet, Testnet, or Regtest node. Though this document presumes a testnet setup, it's worth understanding how you might access and use the other setup types — even all on the same machine! But, if you're a first-time user, skip on past this, as it's not necessary for a basic setup.
 
-> **TESTNET vs MAINNET:** When you set up your node, you choose to create it as either a Mainnet, Testnet, or Regtest node. Though this document presumes a testnet setup, it's worth understanding how you might access and use the other setup types — even all on the same machine! But, if you're a first-time user, skip on past this, as it's not necessary for a basic setup.
-
-When lightningd starts up, it usually reads a general configuration file whose location is dependent on the network you are using (default: `$HOME/.lightning/testnet/config`). This can be changed: see –conf and –lightning-dir.
-
-The type of setup is mainly controlled through the ~/.lightning/config file. If you're running testnet, it probably will be located in ~/.lightning/testnet/config.   In next section we will explain how to manage your lightning daemon options or general options.
+When lightningd starts up, it usually reads a configuration file whose location is dependent on the network you are using (default: `~/.lightning/testnet/config`). This can be changed with the `–conf` and `–lightning-dir` flags.
 
 ```
 ~/.lightning/testnet$ ls -la config
 -rw-rw-r-- 1 user user 267 jul 12 17:08 config
-:~/.lightning/testnet$ 
-
 ```
-If you want to run several different sorts of nodes simultaneously, you must leave the testnet (or regtest) flag out of your configuration file. You should then choose whether you're using the mainnet, the testnet, or your regtest every time you run lightningd or lightning-cli.
+There is also a general configuration file (default: `~/.lightning/config`). If you want to run several different sorts of nodes simultaneously, you must leave the testnet (or regtest) flag out of this configuration file. You should then choose whether you're using the mainnet, the testnet, or your regtest every time you run `lightningd` or `lightning-cli`.
 
 ## Summary: Verifying your Lightning setup
 
@@ -207,8 +251,6 @@ Before you start playing with lightning, you should make sure that your aliases 
 ## What's Next?
 
 Continue "Understanding Your Lightning Setup" with [§18.2: Knowing Your Lightning Setup](18_2_Knowing_Your_lightning_Setup.md).
-
-
 
 ### Variant: Installing from Ubuntu ppa
 
@@ -222,16 +264,13 @@ $ sudo apt-get install lightningd
 
 ### Variant: Installing Pre-compiled Binaries
 
-Currently, the easiest way to install c-lightning on Debian is to use the precompiled binaries on the [Github repo](https://github.com/ElementsProject/lightning/releases). Choose the newest tarball, such as `clightning-v0.9.1-Ubuntu-20.04.tar.xz`.
-
-$ sudo apt-get install libpq5
-sudo apt-get install libsodium23
+Another method for installing Lightning is to use the precompiled binaries on the [Github repo](https://github.com/ElementsProject/lightning/releases). Choose the newest tarball, such as `clightning-v0.9.1-Ubuntu-20.04.tar.xz`.
 
 After downloading it, you need to move to root directory and unpackage it:
 ```
 $ cd /
 $ sudo tar xf ~/clightning-v0.9.1-Ubuntu-20.04.tar.xz 
 ```
-
+Warning: this will require you to have the precise same libraries as were used to create the binary. It's often easier to just recompile.
 
 
