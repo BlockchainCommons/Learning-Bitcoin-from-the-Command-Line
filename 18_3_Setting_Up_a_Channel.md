@@ -2,54 +2,52 @@
 
 > :information_source: **NOTE:** This is a draft in progress, so that I can get some feedback from early reviewers. It is not yet ready for learning.
 
-You're now ready to your first lightning network channel. To begin with, you'll need to understand what is and how it's created an c-lightning channel.
+You're now ready to your first Lightning Network channel. To begin with, you'll need to understand what is, and how it's created using c-lightning.
 
-> :book: ***What is a Lighting channel
+> :book: ***What is a Lighting Channel?*** Simply, a lightning channel is a money tube that allows fast, cheap and private transfers of money without sending transactions to the blockchain.  More technically a channel is a 2-of-2 multisignature on-chain Bitcoin transaction that establishes a financial relationship between two people or two agents without requiring trust. The channel mantains a local database with bitcoin balance for both parties, keeping track of how much money they each have.  The two users can then exchange bitcoins through their Lightning channel without ever writing to the Bitcoin blockchain. Only when they want to close out their channel do they settle their bitcoins, based on the final division of coins.
 
-In simple terms a lightning channel is a money tube that allows fast, cheap and private transfers of money without sending transactions to the blockchain. 
-More technically a channel is a 2-of-2 multisignature bitcoin onchain transaction that establishes a financial relationship between two agents without trust or a connection between two people.     Channels on the Lightning Network always are created between two nodes. 
+> :book: ***What is the Lightning Network (Take Two)?*** Although a Lightning channel only allows payment between two users, channels can be connected together to form a network that allows payments between members that doesn't have a direct channel between them. This creates a network among multiple people built from pairwise channels.
 
-Although a Lightning channel only allows payment between two users, channels can be connected together to form a network that allows payments between members that doesn't have a direct channel between them. This creates a connection between multiple people built from linked channels.
+In this section, we will continue using our c-lightning setup as our primary node.
 
-The channel mantains a local database with bitcoin balance for both parts keeping track of how much money they each have.  The two users can then exchange bitcoins through their Lightning channel without ever writing to the Bitcoin blockchain. Only when they want to close out their channel do they settle their bitcoins, based on the final division of coins.
+## Creating a Channel
 
-In this chapter we will use testnet network and will use c-lightning as **primary node** to show all processes related.
-
-### Steps to create a channel
+Creating a Lightning channel requires the following steps:
 
 * Fund your c-lightning wallet with some satoshis.
-* Connect to remote node as a peer.
-* Open channel.
+* Connect to a remote node as a peer.
+* Open a channel.
 
-#### Fund you c-lightning wallet.
+### Funding Your c-lightning Wallet
 
-> :book: ***What is a c-lightning wallet?*** 
+In order to move funds to a Lightning channel first requires funding your c-lightning wallet.
 
-C-lightning standard implementation comes with a integrated bitcoin wallet that allows you send and receive bitcoin onchain transactions.  This wallet will be used to create new channels.   The first thing you need to do is send some satoshis to your c-lightning wallet.  You can create a new address using  `lightning-cli newaddr` command to use it later. The newaddr RPC command generates a new address which can subsequently be used to fund channels managed by the c-lightning node.  This last transaction is called the [funding transaction](https://github.com/lightningnetwork/lightning-rfc/blob/master/03-transactions.md#funding-transaction-output) and it needs to be confirmed before funds can be used.  You can specify the type of address wanted,  if not specified the address generated will be a bech32.
+> :book: ***What is a c-lightning wallet?*** C-lightning's standard implementation comes with a integrated bitcoin wallet that allows you send and receive on-chain bitcoin transactions. This wallet will be used to create new channels.
+
+The first thing you need to do is send some satoshis to your c-lightning wallet. You can create a new address using  `lightning-cli newaddr` command. This generates a new address that can subsequently be used to fund channels managed by the c-lightning node. You can specify the type of address wanted; if not specified the address generated will be a bech32.
 
 ```
-c$ lightning-cli --network=testnet newaddr
+$ lightning-cli --testnet newaddr
 {
    "address": "tb1qefule33u7ukfuzkmxpz02kwejl8j8dt5jpgtu6",
    "bech32": "tb1qefule33u7ukfuzkmxpz02kwejl8j8dt5jpgtu6"
 }
 ```       
-We send some sats to this address in this transaction [11094bb9ac29ce5af9f1e5a0e4aac2066ae132f25b72bff90fcddf64bf2feb02](https://blockstream.info/testnet/tx/11094bb9ac29ce5af9f1e5a0e4aac2066ae132f25b72bff90fcddf64bf2feb02)
+You can then send funds to this address using `bitcoin-cli sendtoaddress` (or any other methodlogy you prefer). For this example, we have done so in the transaction [11094bb9ac29ce5af9f1e5a0e4aac2066ae132f25b72bff90fcddf64bf2feb02](https://blockstream.info/testnet/tx/11094bb9ac29ce5af9f1e5a0e4aac2066ae132f25b72bff90fcddf64bf2feb02) This transaction is called the [funding transaction](https://github.com/lightningnetwork/lightning-rfc/blob/master/03-transactions.md#funding-transaction-output), and it needs to be confirmed before funds can be used.  
 
 To check you local balance you should use `lightning-cli listfunds` command:
 
 ```       
-c$ lightning-cli --network=testnet listfunds
+c$ lightning-cli --testnet listfunds
 {
    "outputs": [],
    "channels": []
 }
 ```       
 
-Since we still do not have 6 confirmations we do not have balance available,  after 6 confirmations we should see balance:
-
+Since the funds do not yet have 6 confirmations, there is no balance available. After six confirmations you should see a balance:
 ```       
-c$ lightning-cli --network=testnet listfunds
+c$ lightning-cli --testnet listfunds
 {
    "outputs": [
       {
@@ -69,7 +67,7 @@ c$ lightning-cli --network=testnet listfunds
 
 ```       
 
-Now that we have funded our c-lightning wallet we will get information about remote node to start creating channel process. 
+Now that you have funded our c-lightning wallet you will need information about a remote node to start creating channel process. 
 
 #### Connect to remote node
 
