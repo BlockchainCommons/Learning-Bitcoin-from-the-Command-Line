@@ -232,11 +232,11 @@ run `lightning-cli help <command>` for more information on a specific command
 
 A variety of `lightning-cli` commands can give you additional information on your lightning node. The most general ones are:
 ```
-$ lightning-cli listconfigs
-$ lightning-cli listfunds
-$ lightning-cli listtransactions
-$ lightning-cli listinvoices
-$ lightning-cli listnodes   
+$ lightning-cli --testnet listconfigs
+$ lightning-cli --testnet listfunds
+$ lightning-cli --testnet listtransactions
+$ lightning-cli --testnet listinvoices
+$ lightning-cli --testnet listnodes   
 ```
 * listconfigs:  The `listconfigs` RPC command lists all configuration options.
 * listfunds: The `listfunds` RPC command displays all funds available, either in unspent outputs (UTXOs) in the internal wallet or funds locked in currently open channels.
@@ -246,7 +246,7 @@ $ lightning-cli listnodes
 
 For example `lightning-cli listconfigs` gives you a variety of information on your setup:
 ```
-c$ lightning-cli --network=testnet listconfigs
+c$ lightning-cli --testnet listconfigs
 {
    "# version": "v0.8.2-398-g869fa08",
    "lightning-dir": "/home/standup/.lightning",
