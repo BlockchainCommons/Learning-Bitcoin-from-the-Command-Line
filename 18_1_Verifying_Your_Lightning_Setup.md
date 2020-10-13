@@ -30,7 +30,7 @@ If not, you'll need to install it now. Unfortunately, if you're using Debian you
 
 > :book: ***What is c-lightning?*** There are three different implementations of Lightning at present: C-Lightning, LND, and Eclair. They should all be functionally compatible, based on the same [BOLT RFCs](https://github.com/lightningnetwork/lightning-rfc/blob/master/00-introduction.md), but their implementation details may be different. We've chosen c-lightning as the basis of our course because it's also part of the same [Elements Project](https://github.com/ElementsProject) that also contains Libwally.
 
-### Compiling the Source Code 
+### Compiling the c-lightning Source Code 
 
 Installing Lightning from source code should actually be pretty simple if you follow these instructions.
 
