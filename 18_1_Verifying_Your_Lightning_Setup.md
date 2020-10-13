@@ -252,7 +252,7 @@ Before you start playing with lightning, you should make sure that your aliases 
 
 Continue "Understanding Your Lightning Setup" with [§18.2: Knowing Your Lightning Setup](18_2_Knowing_Your_lightning_Setup.md).
 
-### Variant: Installing from Ubuntu ppa
+## Variant: Installing from Ubuntu ppa
 
 If you are using a Ubuntu version other than Debian, you can install c-lightning using [Ubuntu ppa](https://launchpad.net/~lightningnetwork/+archive/ubuntu/ppa):
 
@@ -262,7 +262,7 @@ $ sudo add-apt-repository -u ppa:lightningnetwork/ppa
 $ sudo apt-get install lightningd
 ```
 
-### Variant: Installing Pre-compiled Binaries
+## Variant: Installing Pre-compiled Binaries
 
 Another method for installing Lightning is to use the precompiled binaries on the [Github repo](https://github.com/ElementsProject/lightning/releases). Choose the newest tarball, such as `clightning-v0.9.1-Ubuntu-20.04.tar.xz`.
 
