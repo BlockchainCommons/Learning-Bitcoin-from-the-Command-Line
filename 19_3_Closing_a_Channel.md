@@ -2,9 +2,9 @@
 
 > :information_source: **NOTE:** This is a draft in progress, so that I can get some feedback from early reviewers. It is not yet ready for learning.
 
-In this chapter you'll learn how to close a channel using `lightning-cli close` command-line interface. Closing a channel means you and your counterparty will send their agreed-upon channel balance to the blockchain, whereby you must pay transaction fees and must wait for the transaction to be mined. It can be cooperative or non-cooperative, but it works either way.
+In this chapter you'll learn how to close a channel using `lightning-cli close` command-line interface. Closing a channel means you and your counterparty will send their agreed-upon channel balance to the blockchain, whereby you must pay transaction fees and wait for the transaction to be mined. A closure can be cooperative or non-cooperative, but it works either way.
 
-In order to close a channel, you first need to node the ID of the remote node, you can retrieve it in one of two ways. 
+In order to close a channel, you first need to know the ID of the remote node; you can retrieve it in one of two ways. 
 
 ## Finding your Channels by Funds
 
@@ -62,7 +62,9 @@ c$ nodeidremote=$(lightning-cli --testnet listfunds | jq '.channels[0] | .peer_i
 
 ## Finding your Channels with JQ
 
-The other way to find channels to close is to the use the `listchannels` command. It returns data on channels that are known to the node. Because channels may be bidirectional, up to two nodes will be returned for each channel (one for each direction). However, Lightning's gossip network is very effective, and so in a short time you will come to know about thousands of channels. That's great for sending payments across the Lightning Network, but less useful for discovering your own channels. To do so requires a bit of `jq` work.
+The other way to find channels to close is to the use the `listchannels` command. It returns data on channels that are known to the node. Because channels may be bidirectional, up to two nodes will be returned for each channel (one for each direction). 
+
+However, Lightning's gossip network is very effective, and so in a short time you will come to know about thousands of channels. That's great for sending payments across the Lightning Network, but less useful for discovering your own channels. To do so requires a bit of `jq` work.
 
 First, you need to know your own node ID, which can be retrieved with `getinfo`:
 ```
@@ -71,7 +73,7 @@ c$ echo $nodeid
 "03240a4878a9a64aea6c3921a434e573845267b86e89ab19003b0c910a86d17687"
 c$
 ```
-You can then use that to look through `listchannels` for any channels where your Node is either the source or the destination:
+You can then use that to look through `listchannels` for any channels where your node is either the source or the destination:
 ```
 c$ lightning-cli --testnet listchannels | jq '.channels[] | select(.source == '$nodeid' or .destination == '$nodeid')'
 {
@@ -102,7 +104,7 @@ c$ nodeidremote=$(lightning-cli --testnet listchannels | jq '.channels[] | selec
 
 ## Closing a Channel
 
-Now that you have a remote node ID, you're ready to use the `lightning-cli close` command to close a channel. It will attempt to close the channel cooperatively with the peer;  if you want to close it unilaterally set the `unilateraltimeout` argument with the number of seconds to wait. (If you set it to 0 and the peer is online, a mutual close is still attempted.) For this example you will use an mutual close.
+Now that you have a remote node ID, you're ready to use the `lightning-cli close` command to close a channel. By default, it will attempt to close the channel cooperatively with the peer;  if you want to close it unilaterally set the `unilateraltimeout` argument with the number of seconds to wait. (If you set it to 0 and the peer is online, a mutual close is still attempted.) For this example, you will use an mutual close.
 
 ```
 c$ lightning-cli --testnet close $nodeidremote 0
@@ -114,7 +116,7 @@ c$ lightning-cli --testnet close $nodeidremote 0
 ```
 The closing transaction onchain is [f68de52d80a1076e36c677ef640539c50e3d03f77f9f9db4f13048519489593f](https://blockstream.info/testnet/tx/f68de52d80a1076e36c677ef640539c50e3d03f77f9f9db4f13048519489593f).
 
-It's the closing transaction that actually disburses the funds that were traded back and forth through Lightning transactions. This can be seen by examining it:
+It's this closing transaction that actually disburses the funds that were traded back and forth through Lightning transactions. This can be seen by examining the transaction:
 ```
 $ bitcoin-cli --named getrawtransaction txid=f68de52d80a1076e36c677ef640539c50e3d03f77f9f9db4f13048519489593f verbose=1
 {
@@ -227,9 +229,9 @@ $ lightning-cli --network=testnet listfunds
 
 ### Understanding the Types of Closing Channels.
 
-The `close` RPC command attempts to close a channel cooperatively with its peer, or unilaterally after the `unilateraltimeout` argument expires. This bears some additional discussion, and goes to the heart of Lightning's trustless design:
+The `close` RPC command attempts to close a channel cooperatively with its peer or unilaterally after the `unilateraltimeout` argument expires. This bears some additional discussion, and goes to the heart of Lightning's trustless design:
 
-Each participant of a channel is able to create as many Lightning payments to their counterparty as their funds allow.  Most of the time there will be no disagreements between the participants, so there will only be two onchain transactions, one opening and the other closing the channel. However, there may be scenarios in which one peer is not online or does not agree with the final state of the channel or where someone tries to steal funds from the other party. This is why there are both cooperative and forced closes.
+Each participant of a channel is able to create as many Lightning payments to their counterparty as their funds allow.  Most of the time there will be no disagreements between the participants, so there will only be two on-chain transactions, one opening and the other closing the channel. However, there may be scenarios in which one peer is not online or does not agree with the final state of the channel or where someone tries to steal funds from the other party. This is why there are both cooperative and forced closes.
 
 #### Cooperative Close
 
@@ -237,11 +239,11 @@ In the case of a cooperative close, both channel participants agree to close the
 
 #### Force Close
 
-In this case of a force close, only one participant is online or the participants disagree on the final state of the channel. In this situation, one peer can perform an unilateral close of the channel without the cooperation of the other node.  It's performed by broadcasting a commitment transaction that commits to a previous channel state that both parties have agreed upon. This commitment transaction contains the channel state divided in two parts: the balance for each participant and all the pending payments (HTLCs).
+In the case of a force close, only one participant is online or the participants disagree on the final state of the channel. In this situation, one peer can perform an unilateral close of the channel without the cooperation of the other node.  It's performed by broadcasting a commitment transaction that commits to a previous channel state that both parties have agreed upon. This commitment transaction contains the channel state divided in two parts: the balance for each participant and all the pending payments (HTLCs).
 
-To perform this kind of close you must specify an `unilateraltimeout` argument.  If this value is not zero, the close command will unilaterally close the channel when that number of seconds is reached:
+To perform this kind of close, you must specify an `unilateraltimeout` argument. If this value is not zero, the close command will unilaterally close the channel when that number of seconds is reached:
 ```
-c$ lightning-cli --network=testnet close $NODEIDREMOTE 60
+c$ lightning-cli --network=testnet close $newidremote 60
 {
    "tx": "0200000001a1091f727e6041cc93fead2ea46b8402133f53e6ab89ab106b49638c11f27cba00000000006a40aa8001df85010000000000160014d22818913daf3b4f86e0bcb302a5a812d1ef6b91c6772d20",
    "txid": "02cc4c647eb3e06f37fcbde39871ebae4333b7581954ea86b27b85ced6a5c4f7",
