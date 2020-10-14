@@ -37,6 +37,8 @@ You can then send funds to this address using `bitcoin-cli sendtoaddress` (or an
 
 This transaction is called the [funding transaction](https://github.com/lightningnetwork/lightning-rfc/blob/master/03-transactions.md#funding-transaction-output), and it needs to be confirmed before funds can be used.  
 
+> :book: ***What is a Funding Transaction?*** A funding transaction is a Bitcoin transaction that places money into a Lightning channel. It may be single-funded (by one participant) or dual-funded (by both). From there on, Lightning transactions are all about reallocating the ownership of the funding transaction.
+
 To check you local balance you should use `lightning-cli listfunds` command:
 
 ```       
