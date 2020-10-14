@@ -138,10 +138,11 @@ _We want to expand ths course to also introduce programming with RPC and finally
 
 (At this point, I'm assuming that Lightning will be integrated into Standup, at which point we just need to tech how to use it at a pretty basic level.)
 
-* 18.0: Understanding Lightning
-  * 18.1: Verifying Your Lightning Setup
-  * 18.2: Knowing Your Lightning Setup
-  * 18.3: Setting up a Channel
+* [18.0: Understanding Your Lightning Setup](18_0_Understanding_Your_Lightning_Setup.md)
+  * [18.1: Verifying Your Lightning Setup](18_1_Verifying_Your_Lightning_Setup.md)
+  * [18.2: Knowing Your Lightning Setup](18_2_Knowing_Your_lightning_Setup.md)
+     * [Interlude: Accessing a Second Lightning Node](18_2__Interlude_Accessing_a_Second_Lightning_Node.md)
+  * [18.3: Creating a Channel](18_3_Setting_Up_a_Channel.md)
 * 19.0: Using Lightning
   * 19.1: Generating a Payment Request
   * 19.2: Paying an Invoice
