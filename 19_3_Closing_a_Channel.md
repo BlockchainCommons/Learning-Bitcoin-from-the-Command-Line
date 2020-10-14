@@ -251,7 +251,7 @@ c$ lightning-cli --network=testnet close $newidremote 60
 }
 
 ```
-## Summary: Closing a channel
+## Summary: Closing a Channel
 
 When you close a channel you perform an on-chain transaction ending your financial relationship with the remote node  To close a channel, you must take into account its status and the type of closure you want to execute.
 
