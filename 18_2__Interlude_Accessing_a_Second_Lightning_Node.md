@@ -12,14 +12,41 @@ If they are are running c-lightning, they just need to use the `getinfo` command
 ```
 $ lightning-cli getinfo
 lightning-cli: WARNING: default network changing in 2020: please set network=testnet in config!
-{
-   "id": "02f3d74746934494fa378235e5bc44cfdbb5b8779d839263fb7f9218be032f6f61",
-   "alias": "GREENSOURCE",
-   "color": "02f3d7",
-   ...
+   "id": "03240a4878a9a64aea6c3921a434e573845267b86e89ab19003b0c910a86d17687",
+   "alias": "VIOLETGLEE",
+   "color": "03240a",
+   "num_peers": 0,
+   "num_pending_channels": 0,
+   "num_active_channels": 0,
+   "num_inactive_channels": 0,
+   "address": [
+      {
+         "type": "ipv4",
+         "address": "74.207.240.32",
+         "port": 9735
+      }
+   ],
+   "binding": [
+      {
+         "type": "ipv6",
+         "address": "::",
+         "port": 9735
+      },
+      {
+         "type": "ipv4",
+         "address": "0.0.0.0",
+         "port": 9735
+      }
+   ],
+   "version": "v0.9.1-96-g6f870df",
+   "blockheight": 1862854,
+   "network": "testnet",
+   "msatoshi_fees_collected": 0,
+   "fees_collected_msat": "0msat",
+   "lightning-dir": "/home/standup/.lightning/testnet"
 }
 ```
-They can then tell you their `id` (`02f3d74746934494fa378235e5bc44cfdbb5b8779d839263fb7f9218be032f6f61`).
+They can then tell you their `id` (`03240a4878a9a64aea6c3921a434e573845267b86e89ab19003b0c910a86d17687`). They will also need to tell you their IP address (`74.207.240.32`) and port (`9735`).
 
 ## Creating a New c-lightning Node
 
@@ -251,7 +278,7 @@ $ lncli --network=testnet getinfo
     }
 }
 ```
-This node's ID is `032a7572dc013b6382cde391d79f292ced27305aa4162ec3906279fc4334602543`.
+This node's ID is `032a7572dc013b6382cde391d79f292ced27305aa4162ec3906279fc4334602543`. Although this command doesn't show you the IP address and port, they should be the IP address for your machine and port `9735`. 
 
 ## Summary: Accessing a Second Lightning Node
 
