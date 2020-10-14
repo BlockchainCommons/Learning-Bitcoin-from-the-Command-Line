@@ -26,21 +26,21 @@ standup  31228  0.0  0.2  23044  8192 pts/0    S    15:38   0:00 /usr/local/libe
 standup  31229  0.0  0.1  22860  7556 pts/0    S    15:38   0:00 /usr/local/libexec/c-lightning/lightning_gossipd
 standup  32072  0.0  0.0   6208   888 pts/0    S+   15:50   0:00 grep -i lightning
 ```
-If not, you'll need to install it now. Unfortunately, if you're using Debian you'll need to install by hand by compiling the source code — but it should still be pretty simple if you follow these instructions. If you happen to be on a standard Ubuntu system, instead try [Installing from Ubuntu ppa](#variant-installing-from-ubuntu-ppa), and you can always attempt [Installing Pre-compiled Binaries](#variant-installing-pre-compiled-binaries).
+If not, you'll need to install it now. Unfortunately, if you're using Debian you'll need to install it by hand, by compiling the source code — but it should still be pretty simple if you follow these instructions. If you happen to be on a standard Ubuntu system, instead try [Installing from Ubuntu ppa](#variant-installing-from-ubuntu-ppa), and you can always attempt [Installing Pre-compiled Binaries](#variant-installing-pre-compiled-binaries).
 
-> :book: ***What is c-lightning?*** There are three different implementations of Lightning at present: C-Lightning, LND, and Eclair. They should all be functionally compatible, based on the same [BOLT RFCs](https://github.com/lightningnetwork/lightning-rfc/blob/master/00-introduction.md), but their implementation details may be different. We've chosen c-lightning as the basis of our course because it's also part of the same [Elements Project](https://github.com/ElementsProject) that also contains Libwally.
+> :book: ***What is c-lightning?*** There are three different implementations of Lightning at present: c-lightning, LND, and Eclair. They should all be functionally compatible, based on the same [BOLT RFCs](https://github.com/lightningnetwork/lightning-rfc/blob/master/00-introduction.md), but their implementation details may be different. We've chosen c-lightning as the basis of our course because it's also part of the same [Elements Project](https://github.com/ElementsProject) that also contains Libwally.
 
 ### Compiling the c-lightning Source Code 
 
 Installing Lightning from source code should actually be pretty simple if you follow these instructions.
 
-You also _probably_ want to do this on an unpruned node, as working with pruned nodes on Lightning may cause issues with installation and usage. If you set up your node way back at the start of this course to be pruned, you may wish to replace it with an unpruned node now. (If you're using testnet, you should be able to use the same size machine as you did for your pruned node.)
+You _probably_ want to do this on an unpruned node, as working with pruned nodes on Lightning may cause issues with installation and usage. If you set up your node way back at the start of this course to be pruned, you may wish to replace it with an unpruned node now. (If you're using testnet, you should be able to use the same type of machine as you did for your pruned node.)
 
-> :warning: **WARNING:** OK, here's the truth: you can run c-lightning on a pruned node. However, as the [Lightning repo](https://github.com/ElementsProject/lightning#pruning) notes, there may be issues. To make it work you have to ensure that your Lightning node is only ever trying to update info on blocks that your Bitcoin node has not pruned. To do so you must make sure (1) that your Bitcoin node is fully up to date before you start your Lightning node for the first time; and (2) that your Lightning node never falls too far behind your Bitcoin node (for a standard 550-block pruning, it can never be turned off for 4 or more days). So, you can do it, but it does introduce some danger, which isn't a good idea if you're running a production service.
+> :warning: **WARNING:** You actually can run c-lightning on a pruned node. However, as the [Lightning repo](https://github.com/ElementsProject/lightning#pruning) notes, there may be issues. To make it work you have to ensure that your Lightning node is only ever trying to update info on blocks that your Bitcoin node has not pruned. To do so you must make sure (1) that your Bitcoin node is fully up to date before you start your Lightning node for the first time; and (2) that your Lightning node never falls too far behind your Bitcoin node (for a standard 550-block pruning, it can never be turned off for 4 or more days). So, you can do it, but it does introduce some danger, which isn't a good idea if you're running a production service.
 
 With that, you're ready to install Lightning:
 
-First you're going to need to install dependencies, including development requirements.
+First, install dependencies, including development requirements.
 ```
 $ sudo apt-get install -y \
    autoconf automake build-essential git libtool libgmp-dev \
@@ -61,7 +61,7 @@ You can now use the `pip3` you installed to install additional requirements for 
 $ pip3 install -r requirements.txt
 $ ./configure
 ```
-You can now compile. This may also take some time depending your machine.
+Now, compile. This may also take some time depending your machine.
 ```
 $ make
 ```
@@ -94,12 +94,15 @@ A bitcoin lightning daemon (default values shown for network: testnet).
 
 ## Running lightningd
 
-You'll begin your exploration of the Lightning network with the `lightning-cli` command. However,`lightningd` _must_ be running to use `lightning-cli`, as `lightning-cli` sends JSON-RPC commands to the lightningd (all just as with `bitcoin-cli` and `bitcoind`). If you installed `c-lightning by hand, you'll now need to start it:
+You'll begin your exploration of the Lightning network with the `lightning-cli` command. However,`lightningd` _must_ be running to use `lightning-cli`, as `lightning-cli` sends JSON-RPC commands to the `lightningd` (all just as with `bitcoin-cli` and `bitcoind`). 
+
+If you installed `c-lightning` by hand, you'll now need to start it:
 ```
 $ nohup lightningd --testnet &
 ```
 
 ### Running lightningd as a service
+
 If you prefer, you can install `lightningd` as a service that will run every time you restart your machine. The following will do so, and start it running immediately:
 
 ```
@@ -152,7 +155,7 @@ $ sudo systemctl start lightningd.service
 
 ## Verifying your Node
 
-You can now check if your Lightning node is ready to go by comparing the output of `bitcoin-cli getblockcount` with the `blockheight` result from `lightning-cli getinfo`.
+You can check if your Lightning node is ready to go by comparing the output of `bitcoin-cli getblockcount` with the `blockheight` result from `lightning-cli getinfo`.
 
 ```
 $ bitcoin-cli getblockcount
@@ -234,7 +237,7 @@ Note that these aliases include shortcuts for running `lightning-cli`, for runni
 
 With that said, use of these aliases in _this_ document might accidentally obscure the core lessons being taught about c-lightning, so we'll continue to show the full commands; adjust for your own use as appropriate.
 
-##  Modifying Your Server Types
+##  Optional: Modifying Your Server Types
 
 > :link: **TESTNET vs MAINNET:** When you set up your node, you choose to create it as either a Mainnet, Testnet, or Regtest node. Though this document presumes a testnet setup, it's worth understanding how you might access and use the other setup types — even all on the same machine! But, if you're a first-time user, skip on past this, as it's not necessary for a basic setup.
 
@@ -246,9 +249,11 @@ When lightningd starts up, it usually reads a configuration file whose location 
 ```
 There is also a general configuration file (default: `~/.lightning/config`). If you want to run several different sorts of nodes simultaneously, you must leave the testnet (or regtest) flag out of this configuration file. You should then choose whether you're using the mainnet, the testnet, or your regtest every time you run `lightningd` or `lightning-cli`.
 
+Your setup may not actually have any config files: c-lightning will run with a good default setup without them.
+
 ## Summary: Verifying your Lightning setup
 
-Before you start playing with lightning, you should make sure that your aliases are set up, your  `lightningd` is running, and your node is synced. You may also want to set up some access to alternative lightning setups, if you're an advanced user.
+Before you start playing with lightning, you should make sure that your aliases are set up, your  `lightningd` is running, and your node is synced. You may also want to set up some access to alternative lightning setups, on other networks.
 
 ## What's Next?
 
