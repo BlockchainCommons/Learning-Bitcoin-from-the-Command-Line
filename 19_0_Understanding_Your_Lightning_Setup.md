@@ -2,7 +2,7 @@
 
 > :information_source: **NOTE:** This is a draft in progress, so that I can get some feedback from early reviewers. It is not yet ready for learning.
 
-In this chapter you'll be ready to continue work with the `lightning-cli` command-line interface. You'll create invoices, perform payments, and close channels — all of the major activities for using Lightning
+In this chapter you'll continue work with the `lightning-cli` command-line interface. You'll create invoices, perform payments, and close channels — all of the major activities for using Lightning.
 
 ## Objectives for This Chapter
 
