@@ -9,7 +9,7 @@ In this chapter you will learn how to pay an invoice using `lightning-cli pay ` 
 Obviously, the first thing you need to do is make sure that you have enough funds to pay an invoice. In this case, the channel set up previously with `032a7572dc013b6382cde391d79f292ced27305aa4162ec3906279fc4334602543` contains 100,000 satoshis. This will be the channel used to pay the invoice.
 
 ```
-c$ lightning-cli --network=testnet listfunds
+c$ lightning-cli --testnet listfunds
 {
    "outputs": [
       {
@@ -46,7 +46,7 @@ If you didn't have enough funds, you'd need to create a new channel.
 
 You use `lightning-cli pay ` command to pay an invoice. It will attempt to find a route to the given destination and send the funds requested. Here that's very simple because there's a direct channel between the payer and the recipient:
 ```
-c$ lightning-cli --network=testnet pay lntb100u1p0cwnqtpp5djkdahy4hz0wc909y39ap9tm3rq2kk9320hw2jtntwv4x39uz6asdr5ge5hyum5ypxyugzsv9uk6etwwssz6gzvv4shymnfdenjqsnfw33k76twypskuepqf35kw6r5de5kueeqveex7mfqw35x2gzrdakk6ctwvssxc6twv5hqcqzpgsp5a9ryqw7t23myn9psd36ra5alzvp6lzhxua58609teslwqmdljpxs9qy9qsq9ee7h500jazef6c306psr0ncru469zgyr2m2h32c6ser28vrvh5j4q23c073xsvmjwgv9wtk2q7j6pj09fn53v2vkrdkgsjv7njh9aqqtjn3vd
+c$ lightning-cli --testnet pay lntb100u1p0cwnqtpp5djkdahy4hz0wc909y39ap9tm3rq2kk9320hw2jtntwv4x39uz6asdr5ge5hyum5ypxyugzsv9uk6etwwssz6gzvv4shymnfdenjqsnfw33k76twypskuepqf35kw6r5de5kueeqveex7mfqw35x2gzrdakk6ctwvssxc6twv5hqcqzpgsp5a9ryqw7t23myn9psd36ra5alzvp6lzhxua58609teslwqmdljpxs9qy9qsq9ee7h500jazef6c306psr0ncru469zgyr2m2h32c6ser28vrvh5j4q23c073xsvmjwgv9wtk2q7j6pj09fn53v2vkrdkgsjv7njh9aqqtjn3vd
 {
    "destination": "032a7572dc013b6382cde391d79f292ced27305aa4162ec3906279fc4334602543",
    "payment_hash": "6cacdedc95b89eec15e5244bd0957b88c0ab58b153eee549735b995344bc16bb",
@@ -68,7 +68,7 @@ Note that you do _not_ need to have a channel with a node in order to pay them. 
 
 Imagine that you received this teeny payment request for 11,111 msat:
 ```
-c$ lightning-cli --network=testnet decodepay lntb111110p1p0cw43ppp5u0ngjytlw6ywec3x784jale4xd7h058g9u4mthcaf9rl2f7g8zxsdp2t9hh2gr0wajjqmt9ypnx7u3qv35kumn9wgs8gmm0yyxqyjw5qcqp2sp5kj4xhrthmfgcgyl84zaqpl9vvdjwm5x368kr09fu5nym74setw4s9qy9qsq8hxjr73ee77vat0ay603e4w9aa8ag9sa2n55xznk5lsfrjffxxdj2k0wznvcfa98l4a57s80j7dhg0cc03vwqdwehkujlzxgm0xyynqqslwhvl
+c$ lightning-cli --testnet decodepay lntb111110p1p0cw43ppp5u0ngjytlw6ywec3x784jale4xd7h058g9u4mthcaf9rl2f7g8zxsdp2t9hh2gr0wajjqmt9ypnx7u3qv35kumn9wgs8gmm0yyxqyjw5qcqp2sp5kj4xhrthmfgcgyl84zaqpl9vvdjwm5x368kr09fu5nym74setw4s9qy9qsq8hxjr73ee77vat0ay603e4w9aa8ag9sa2n55xznk5lsfrjffxxdj2k0wznvcfa98l4a57s80j7dhg0cc03vwqdwehkujlzxgm0xyynqqslwhvl
 {
    "currency": "tb",
    "created_at": 1602704929,
@@ -86,7 +86,7 @@ c$ lightning-cli --network=testnet decodepay lntb111110p1p0cw43ppp5u0ngjytlw6ywe
 ```
 If you tried to pay it, and you didn't have a route to the recipient through the Lightning Network, you could expect an error like this:
 ```
-c$ lightning-cli --network=testnet pay lntb111110p1p0cw43ppp5u0ngjytlw6ywec3x784jale4xd7h058g9u4mthcaf9rl2f7g8zxsdp2t9hh2gr0wajjqmt9ypnx7u3qv35kumn9wgs8gmm0yyxqyjw5qcqp2sp5kj4xhrthmfgcgyl84zaqpl9vvdjwm5x368kr09fu5nym74setw4s9qy9qsq8hxjr73ee77vat0ay603e4w9aa8ag9sa2n55xznk5lsfrjffxxdj2k0wznvcfa98l4a57s80j7dhg0cc03vwqdwehkujlzxgm0xyynqqslwhvl
+c$ lightning-cli --testnet pay lntb111110p1p0cw43ppp5u0ngjytlw6ywec3x784jale4xd7h058g9u4mthcaf9rl2f7g8zxsdp2t9hh2gr0wajjqmt9ypnx7u3qv35kumn9wgs8gmm0yyxqyjw5qcqp2sp5kj4xhrthmfgcgyl84zaqpl9vvdjwm5x368kr09fu5nym74setw4s9qy9qsq8hxjr73ee77vat0ay603e4w9aa8ag9sa2n55xznk5lsfrjffxxdj2k0wznvcfa98l4a57s80j7dhg0cc03vwqdwehkujlzxgm0xyynqqslwhvl
 {
    "code": 210,
    "message": "Ran out of routes to try after 11 attempts: see `paystatus`",
@@ -103,7 +103,7 @@ But what if a host that you had a channel with (say, `032a7572dc013b6382cde391d7
 
 In that case, when you go to pay the invoice, it will _automatically work_!
 ```
-c$ lightning-cli --network=testnet pay lntb111110p1p0cw43ppp5u0ngjytlw6ywec3x784jale4xd7h058g9u4mthcaf9rl2f7g8zxsdp2t9hh2gr0wajjqmt9ypnx7u3qv35kumn9wgs8gmm0yyxqyjw5qcqp2sp5kj4xhrthmfgcgyl84zaqpl9vvdjwm5x368kr09fu5nym74setw4s9qy9qsq8hxjr73ee77vat0ay603e4w9aa8ag9sa2n55xznk5lsfrjffxxdj2k0wznvcfa98l4a57s80j7dhg0cc03vwqdwehkujlzxgm0xyynqqslwhvl
+c$ lightning-cli --testnet pay lntb111110p1p0cw43ppp5u0ngjytlw6ywec3x784jale4xd7h058g9u4mthcaf9rl2f7g8zxsdp2t9hh2gr0wajjqmt9ypnx7u3qv35kumn9wgs8gmm0yyxqyjw5qcqp2sp5kj4xhrthmfgcgyl84zaqpl9vvdjwm5x368kr09fu5nym74setw4s9qy9qsq8hxjr73ee77vat0ay603e4w9aa8ag9sa2n55xznk5lsfrjffxxdj2k0wznvcfa98l4a57s80j7dhg0cc03vwqdwehkujlzxgm0xyynqqslwhvl
 {
    "destination": "02f3d74746934494fa378235e5bc44cfdbb5b8779d839263fb7f9218be032f6f61",
    "payment_hash": "e3e689117f7688ece226f1eb2eff35337d77d0e82f2bb5df1d4947f527c8388d",
@@ -129,7 +129,7 @@ Having successfully made a payment, you should see that your funds have changed 
 
 Here's what funds looked like for the paying node following the initial payment of 10,000 satoshis:
 ```
-c$ lightning-cli --network=testnet listfunds
+c$ lightning-cli --testnet listfunds
 {
    "outputs": [
       {
@@ -164,7 +164,7 @@ Note that the channel capacity remains at 100,000 satoshis (it never changes!), 
 
 After paying the second invoice, for 11,111 msat, the funds change again accordingly:
 ```
-$ lightning-cli --network=testnet listfunds
+$ lightning-cli --testnet listfunds
 {
    "outputs": [
       {
