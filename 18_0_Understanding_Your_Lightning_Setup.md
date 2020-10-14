@@ -14,11 +14,13 @@ After working through this chapter, a developer will be able to:
    
 Supporting objectives include the ability to:
 
-   * Understand the Steps for Installing Lightning
    * Understand the Basic Lightning Configuration
-   
+   * Understand the Interaction of Lightning Peers
+   * Understand How to Lightning
+
 ## Table of Contents
 
 * [Section One: Verifying Your Lightning Setup](18_1_Verifying_Your_Lightning_Setup.md)
 * [Section Two: Knowing Your Lightning Setup](18_2_Knowing_Your_lightning_Setup.md)
+   * [Interlude: Accessing a Second Lightning Node](18_2__Interlude_Accessing_a_Second_Lightning_Node.md)
 * [Section Three: Setting Up a channel](18_3_Setting_Up_a_Channel.md)
