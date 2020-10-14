@@ -6,15 +6,15 @@ Before you begin accessing the Lightning Network, you should come to a better un
 
 ## Knowing Your c-lightning Directory
 
-Everything is kept in the `~/.lightning` directory.
+When using c-lightning, everything is kept in the `~/.lightning` directory.
 
-The main directory just contains directories for whichever networks are configured,  in this case testnet:
+The main directory just contains directories for whichever networks are configured, in this case testnet:
 ```
 $ ls ~/.lightning
 testnet
 ```
 
-The `~/.lightning/testnet directory` will then contains all of the guts of your setup:
+The `~/.lightning/testnet directory` will then contains the guts of your setup:
 ```
 $ ls ~/.lightning/testnet3
 config  gossip_store  hsm_secret  lightningd.sqlite3  lightningd.sqlite3-journal  lightning-rpc
@@ -240,8 +240,8 @@ $ lightning-cli --testnet listnodes
 ```
 * listconfigs:  The `listconfigs` RPC command lists all configuration options.
 * listfunds: The `listfunds` RPC command displays all funds available, either in unspent outputs (UTXOs) in the internal wallet or funds locked in currently open channels.
-* listtransactions: The `listtransactions` RPC command returns transactions tracked in the wallet. This includes deposits, withdrawals and transactions related to channels.
-* listinvoices: The `listinvoices` RPC command retrievers the status of a specific invoice, if it exists, or the status of all invoices if given no argument.
+* listtransactions: The `listtransactions` RPC command returns transactions tracked in the wallet. This includes deposits, withdrawals, and transactions related to channels.
+* listinvoices: The `listinvoices` RPC command retrieves the status of a specific invoice, if it exists, or the status of all invoices if given no argument.
 * listnodes: The `listnodes` RPC command returns nodes that your server has learned about via gossip messages, or a single one if the node id was specified.
 
 For example `lightning-cli listconfigs` gives you a variety of information on your setup:
