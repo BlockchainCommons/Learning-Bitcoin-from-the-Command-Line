@@ -1,4 +1,4 @@
-# 18.3: Setting Up a Channel
+# 18.3: Creating a Channel
 
 > :information_source: **NOTE:** This is a draft in progress, so that I can get some feedback from early reviewers. It is not yet ready for learning.
 
