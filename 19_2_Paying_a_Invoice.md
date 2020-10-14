@@ -2,7 +2,7 @@
 
 > :information_source: **NOTE:** This is a draft in progress, so that I can get some feedback from early reviewers. It is not yet ready for learning.
 
-In this chapter you will learn how to pay an invoice using `lightning-cli pay ` command. 
+In this chapter you will learn how to pay an invoice using `lightning-cli pay` command. It assumes that you've already looked over the invoice, per [§19.1](19_1_Generate_a_Payment_Request.md) and determined it was valid.
 
 ## Checking your Balance
 
@@ -44,7 +44,7 @@ If you didn't have enough funds, you'd need to create a new channel.
 
 ## Paying Your Invoice
 
-You use `lightning-cli pay ` command to pay an invoice. It will attempt to find a route to the given destination and send the funds requested. Here that's very simple because there's a direct channel between the payer and the recipient:
+You use `lightning-cli pay` command to pay an invoice. It will attempt to find a route to the given destination and send the funds requested. Here that's very simple because there's a direct channel between the payer and the recipient:
 ```
 c$ lightning-cli --testnet pay lntb100u1p0cwnqtpp5djkdahy4hz0wc909y39ap9tm3rq2kk9320hw2jtntwv4x39uz6asdr5ge5hyum5ypxyugzsv9uk6etwwssz6gzvv4shymnfdenjqsnfw33k76twypskuepqf35kw6r5de5kueeqveex7mfqw35x2gzrdakk6ctwvssxc6twv5hqcqzpgsp5a9ryqw7t23myn9psd36ra5alzvp6lzhxua58609teslwqmdljpxs9qy9qsq9ee7h500jazef6c306psr0ncru469zgyr2m2h32c6ser28vrvh5j4q23c073xsvmjwgv9wtk2q7j6pj09fn53v2vkrdkgsjv7njh9aqqtjn3vd
 {
@@ -64,7 +64,7 @@ Note that here all the amounts are in `msats`, not `sats`!
 
 ### Paying Your Invoice Across the Network
 
-Note that you do _not_ need to have a channel with a node in order to pay them. There just needs to be a reasonable route across the Lightning Network.
+However, you do _not_ need to have a channel with a node in order to pay them. There just needs to be a reasonable route across the Lightning Network.
 
 Imagine that you received this teeny payment request for 11,111 msat:
 ```
@@ -99,7 +99,7 @@ c$ lightning-cli --testnet pay lntb111110p1p0cw43ppp5u0ngjytlw6ywec3x784jale4xd7
       },
 ...
 ```
-But what if a host that you had a channel with (say, `032a7572dc013b6382cde391d79f292ced27305aa4162ec3906279fc4334602543`) opened a channel with the intended recipient?
+But what if a host that you had a channel with opened a channel with the intended recipient?
 
 In that case, when you go to pay the invoice, it will _automatically work_!
 ```
@@ -119,11 +119,11 @@ c$ lightning-cli --testnet pay lntb111110p1p0cw43ppp5u0ngjytlw6ywec3x784jale4xd7
 ```
 That's the true beauty of the Lightning Network there: with no effort from the peer-to-peer participants, their individual channels become a network!
 
-> :book: ***How Do Payments Work Across the Network?*** Say that node A (`03240a4878a9a64aea6c3921a434e573845267b86e89ab19003b0c910a86d17687`) has a channel open with node B (`0302d48972ba7eef8b40696102ad114090fd4c146e381f18c7932a2a1d73566f84`), node B has a channel open with node C (`02f3d74746934494fa378235e5bc44cfdbb5b8779d839263fb7f9218be032f6f61`) and node A receives an invoice from node C for 11,111 msat. Node A pay node B the 11,111 msat, plus a small fee, and then node B passes it on to node C. Easy enough. Except remember that all channels actually are just records of who owns how much of the Funding Transaction. So what really happens is 11,111 msat of the Funding Transaction on channel A-B shifts from A to B, and then 11,111 msat of the Funding Transaction on channel B-C shifts from B to C. This means that two things are required for this payment to work: first, each channel must have sufficient capacity for the payment; and second, the payer on each channel must own enough of the capacity to make the payment.  
+> :book: ***How Do Payments Work Across the Network?*** Say that node A has a channel open with node B, node B has a channel open with node C, and node A receives an invoice from node C for 11,111 msat. Node A pays node B the 11,111 msat, plus a small fee, and then node B pays the 11,111 msat to node C. Easy enough. Except remember that all channels actually are just records of who owns how much of the Funding Transaction. So what really happens is 11,111 msat of the Funding Transaction on channel A-B shifts from A to B, and then 11,111 msat of the Funding Transaction on channel B-C shifts from B to C. This means that two things are required for this payment to work: first, each channel must have sufficient capacity for the payment; and second, the payer on each channel must own enough of the capacity to make the payment.  
 
 Note that in this example, 12,111 msat were sent to pay an invoice of 11,111 msat: the extra being a very small, flat fee (not a percentage) that was paid to the intermediary.
 
-### Check your balance
+## Checking your balance
 
 Having successfully made a payment, you should see that your funds have changed accordingly.
 
