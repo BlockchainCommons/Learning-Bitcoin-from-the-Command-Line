@@ -153,6 +153,15 @@ $ sudo systemctl enable lightningd.service
 $ sudo systemctl start lightningd.service
 ```
 
+### Enabling Remote Connections
+
+If you have some sort of firewall, you'll need to open up port 9735, to allow other Lightning nodes to talk to you.
+
+If you use `ufw` from Bitcoin Standup, this is done as follows:
+```
+$ sudo ufw allow 9735
+```
+
 ## Verifying your Node
 
 You can check if your Lightning node is ready to go by comparing the output of `bitcoin-cli getblockcount` with the `blockheight` result from `lightning-cli getinfo`.
