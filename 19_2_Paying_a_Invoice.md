@@ -1,4 +1,4 @@
-# 19.2: Paying a Invoice
+# 19.2: Paying an Invoice
 
 > :information_source: **NOTE:** This is a draft in progress, so that I can get some feedback from early reviewers. It is not yet ready for learning.
 
@@ -6,7 +6,7 @@ In this chapter you will learn how to pay an invoice using `lightning-cli pay ` 
 
 ## Checking your Balance
 
-Obviously, the first thing you need to do is make sure that you have enough funds to pay the invoice. In this case, we have the channel that we set up previously with `032a7572dc013b6382cde391d79f292ced27305aa4162ec3906279fc4334602543`, which contains 100,000 sats. This will be channel used to pay the invoice.
+Obviously, the first thing you need to do is make sure that you have enough funds to pay an invoice. In this case, the channel set up previously with `032a7572dc013b6382cde391d79f292ced27305aa4162ec3906279fc4334602543` contains 100,000 satoshis. This will be the channel used to pay the invoice.
 
 ```
 c$ lightning-cli --network=testnet listfunds
@@ -44,8 +44,7 @@ If you didn't have enough funds, you'd need to create a new channel.
 
 ## Paying Your Invoice
 
-You use `lightning-cli pay ` command to pay an invoice. It will attempt to find a route to the given destination and send the funds asked in amount value.
-
+You use `lightning-cli pay ` command to pay an invoice. It will attempt to find a route to the given destination and send the funds requested. Here that's very simple because there's a direct channel between the payer and the recipient:
 ```
 c$ lightning-cli --network=testnet pay lntb100u1p0cwnqtpp5djkdahy4hz0wc909y39ap9tm3rq2kk9320hw2jtntwv4x39uz6asdr5ge5hyum5ypxyugzsv9uk6etwwssz6gzvv4shymnfdenjqsnfw33k76twypskuepqf35kw6r5de5kueeqveex7mfqw35x2gzrdakk6ctwvssxc6twv5hqcqzpgsp5a9ryqw7t23myn9psd36ra5alzvp6lzhxua58609teslwqmdljpxs9qy9qsq9ee7h500jazef6c306psr0ncru469zgyr2m2h32c6ser28vrvh5j4q23c073xsvmjwgv9wtk2q7j6pj09fn53v2vkrdkgsjv7njh9aqqtjn3vd
 {
@@ -65,9 +64,9 @@ Note that here all the amounts are in `msats`, not `sats`!
 
 ### Paying Your Invoice Across the Network
 
-Note that you do _not_ need to have a channel with a node in order to pay them. There just needs to be a reasonable route across the Lightning Network that you're connected too.
+Note that you do _not_ need to have a channel with a node in order to pay them. There just needs to be a reasonable route across the Lightning Network.
 
-Imagine that you received this payment request:
+Imagine that you received this teeny payment request for 11,111 msat:
 ```
 c$ lightning-cli --network=testnet decodepay lntb111110p1p0cw43ppp5u0ngjytlw6ywec3x784jale4xd7h058g9u4mthcaf9rl2f7g8zxsdp2t9hh2gr0wajjqmt9ypnx7u3qv35kumn9wgs8gmm0yyxqyjw5qcqp2sp5kj4xhrthmfgcgyl84zaqpl9vvdjwm5x368kr09fu5nym74setw4s9qy9qsq8hxjr73ee77vat0ay603e4w9aa8ag9sa2n55xznk5lsfrjffxxdj2k0wznvcfa98l4a57s80j7dhg0cc03vwqdwehkujlzxgm0xyynqqslwhvl
 {
@@ -85,7 +84,7 @@ c$ lightning-cli --network=testnet decodepay lntb111110p1p0cw43ppp5u0ngjytlw6ywe
    "signature": "304402203dcd21fa39cfbcceadfd269f1cd5c5ef4fd4161d54e9430a76a7e091c929319b02202559ee14d984f4a7fd7b4f40ef979b743f187c58e035d9bdb92f88c8dbcc424c"
 }
 ```
-If you tried to pay it, and you didn't have a connection through the Lightning Network to the recipient, you could expect an error like this:
+If you tried to pay it, and you didn't have a route to the recipient through the Lightning Network, you could expect an error like this:
 ```
 c$ lightning-cli --network=testnet pay lntb111110p1p0cw43ppp5u0ngjytlw6ywec3x784jale4xd7h058g9u4mthcaf9rl2f7g8zxsdp2t9hh2gr0wajjqmt9ypnx7u3qv35kumn9wgs8gmm0yyxqyjw5qcqp2sp5kj4xhrthmfgcgyl84zaqpl9vvdjwm5x368kr09fu5nym74setw4s9qy9qsq8hxjr73ee77vat0ay603e4w9aa8ag9sa2n55xznk5lsfrjffxxdj2k0wznvcfa98l4a57s80j7dhg0cc03vwqdwehkujlzxgm0xyynqqslwhvl
 {
@@ -120,7 +119,9 @@ c$ lightning-cli --network=testnet pay lntb111110p1p0cw43ppp5u0ngjytlw6ywec3x784
 ```
 That's the true beauty of the Lightning Network there: with no effort from the peer-to-peer participants, their individual channels become a network!
 
-> :book: ***How Do Payments Work Across the Network?*** Say that node A (`03240a4878a9a64aea6c3921a434e573845267b86e89ab19003b0c910a86d17687`) has a channel open with node B (`0302d48972ba7eef8b40696102ad114090fd4c146e381f18c7932a2a1d73566f84`), node B has a channel open with node C (`02f3d74746934494fa378235e5bc44cfdbb5b8779d839263fb7f9218be032f6f61`) and node A receives an invoice from node C for 11,111 msat. Node A pay node B the 11,111 msat, plus a small fee, and then node B passes it on to node C. Easy enough. Except remember that all channels actually are just records of who owns how much of the Funding Transaction. So what really happens is 11,111 msat of the Funding Transaction on channel A-B shifts from A to B, and then 11,111 msat of the Funding Transaction on channel B-C shifts from B to C. This means that two things are required for this payment to work: first, each channel must have sufficient capacity for the payment; and second, the payer for each channel must own enough of the capacity to make the payment.  
+> :book: ***How Do Payments Work Across the Network?*** Say that node A (`03240a4878a9a64aea6c3921a434e573845267b86e89ab19003b0c910a86d17687`) has a channel open with node B (`0302d48972ba7eef8b40696102ad114090fd4c146e381f18c7932a2a1d73566f84`), node B has a channel open with node C (`02f3d74746934494fa378235e5bc44cfdbb5b8779d839263fb7f9218be032f6f61`) and node A receives an invoice from node C for 11,111 msat. Node A pay node B the 11,111 msat, plus a small fee, and then node B passes it on to node C. Easy enough. Except remember that all channels actually are just records of who owns how much of the Funding Transaction. So what really happens is 11,111 msat of the Funding Transaction on channel A-B shifts from A to B, and then 11,111 msat of the Funding Transaction on channel B-C shifts from B to C. This means that two things are required for this payment to work: first, each channel must have sufficient capacity for the payment; and second, the payer on each channel must own enough of the capacity to make the payment.  
+
+Note that in this example, 12,111 msat were sent to pay an invoice of 11,111 msat: the extra being a very small, flat fee (not a percentage) that was paid to the intermediary.
 
 ### Check your balance
 
@@ -194,7 +195,7 @@ $ lightning-cli --network=testnet listfunds
    ]
 }
 ```
-Note here that an additional 1,889msat was lost, which is 2 satoshis, or less than a cent currently. That was the fee for sending the intermediary node sending the 11,111 msat transaction on to its final destination. Fees are cheap on Lightning, which is one of its compelling features!
+`our_amount` is now just 89,987 satoshis, having paid 11,111 msat plus a 1,000 msat fee.
 
 ## Summary: Paying a Invoice
 
