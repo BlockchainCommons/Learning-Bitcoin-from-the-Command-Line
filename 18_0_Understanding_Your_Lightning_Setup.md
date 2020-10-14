@@ -23,4 +23,4 @@ Supporting objectives include the ability to:
 * [Section One: Verifying Your Lightning Setup](18_1_Verifying_Your_Lightning_Setup.md)
 * [Section Two: Knowing Your Lightning Setup](18_2_Knowing_Your_lightning_Setup.md)
    * [Interlude: Accessing a Second Lightning Node](18_2__Interlude_Accessing_a_Second_Lightning_Node.md)
-* [Section Three: Setting Up a channel](18_3_Setting_Up_a_Channel.md)
+* [Section Three: Creating a Channel](18_3_Setting_Up_a_Channel.md)
