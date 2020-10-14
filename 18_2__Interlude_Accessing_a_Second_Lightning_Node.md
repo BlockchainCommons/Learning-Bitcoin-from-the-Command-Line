@@ -204,6 +204,13 @@ $ sudo systemctl start lnd
 ```
 (Expect this to take a minute the first time.)
 
+### Enabling Remote Connections
+
+Just as with c-lightning, you're going to need to make LND accessible to other nodes. Here's how to do so if you use `ufw`, as per the Bitcoin Standup setups:
+```
+$ sudo ufw allow 9735
+```
+
 ### Creating a Wallet
 
 The first time you run LND, you must create a wallet:
