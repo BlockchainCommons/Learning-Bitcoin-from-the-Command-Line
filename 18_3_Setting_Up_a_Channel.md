@@ -76,7 +76,7 @@ Note that the value is listed in satoshis or microsatoshis, not Bitcoin!
 
 Now that you have funded your c-lightning wallet you will need information about a remote node to start creating channel process. 
 
-### Connecting to remote node
+### Connecting to a Remote Node
 
 The next thing you need to do is connect your node to a peer. This is done with the `lightning-cli connect` command. Remember that if you want more information on this command, you should type `lightning-cli help connect`.
 
@@ -92,7 +92,7 @@ $ lightning-cli --network=testnet connect 032a7572dc013b6382cde391d79f292ced2730
 }
 ```     
 
-### Opening a channel
+### Opening a Channel
 
 The fundchannel RPC command opens a payment channel with a peer by committing a funding transaction to the blockchain.  You should use `lightning-cli fundchannel` command to do so, with the following parameters:
 
