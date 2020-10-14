@@ -1,20 +1,25 @@
-# Chapter Nineteen: Understanding Your Lighting Setup
+# Chapter Nineteen: Using Lightning
 
 > :information_source: **NOTE:** This is a draft in progress, so that I can get some feedback from early reviewers. It is not yet ready for learning.
 
-In this chapter you'll be ready to continue begin working with the `lightning-cli` command-line interface. You'll create invoices,  permorm payments and close channels.
+In this chapter you'll be ready to continue work with the `lightning-cli` command-line interface. You'll create invoices, perform payments, and close channels — all of the major activities for using Lightning
 
 ## Objectives for This Chapter
 
+After working through this chapter, a developer will be able to:
+
+   * Perform payments on the Lightning Network.
+   * Apply closure to a Lightning channel.
+   
 Supporting objectives include the ability to:
 
-   * Use Basic Informational Commands.
-   * Create and understang Lightning channels.
-   * Perform payments on the lightning network.
-   * Pay and describe invoices.
+   * Understand the format of invoices.
+   * Understand the life cycle of Lightning Network payments.
+   * Know how to expand the Lightning Network.
    
 ## Table of Contents
 
-* [Section One: Generate a payment request](19_1_Generate_a_Payment_Request.md)
-* [Section Two: Paying an invoice](19_2_Paying_a_Invoice.md)
-* [Section Three: Closing a Channel](19_3_Closing_a_Channel.md)
+* [Section One: Generating a Payment Request](19_1_Generate_a_Payment_Request.md)
+* [Section Two: Paying an Invoice](19_2_Paying_a_Invoice.md)
+* [Section Three: Closing a Lightning Channel](19_3_Closing_a_Channel.md)
+* [Section Four: Expanding the Lightning Network](19_4_Lightning_Network_Review.md)
