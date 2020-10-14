@@ -8,7 +8,7 @@ The previous chapter concluded our work with Bitcoin proper, through CLI, script
 
 After working through this chapter, a developer will be able to:
 
-   * Assess that a C-lightning Node is Installed and Up-to-date
+   * Assess that a c-lightning Node is Installed and Up-to-date
    * Perform Basic Lightning Wallet Commands
    * Create a LIghtning Channel
    
@@ -20,7 +20,7 @@ Supporting objectives include the ability to:
 
 ## Table of Contents
 
-* [Section One: Verifying Your Lightning Setup](18_1_Verifying_Your_Lightning_Setup.md)
-* [Section Two: Knowing Your Lightning Setup](18_2_Knowing_Your_lightning_Setup.md)
+* [Section One: Verifying Your c-lightning Setup](18_1_Verifying_Your_Lightning_Setup.md)
+* [Section Two: Knowing Your c-lightning Setup](18_2_Knowing_Your_lightning_Setup.md)
    * [Interlude: Accessing a Second Lightning Node](18_2__Interlude_Accessing_a_Second_Lightning_Node.md)
-* [Section Three: Creating a Channel](18_3_Setting_Up_a_Channel.md)
+* [Section Three: Creating a Lightning Channel](18_3_Setting_Up_a_Channel.md)
