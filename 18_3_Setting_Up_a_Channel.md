@@ -158,9 +158,21 @@ c$ lightning-cli --testnet listfunds
 }
 
 ```
-While this new channel with 100,000 satoshis is unconfirmed, its state will be `CHANNELD_AWAITING_LOCKIN`. Note that unconfirmed change of `99847` satoshis is also showing as a new transaction in the wallet. After all six confirmations are completed, the channel will change to `CHANNED_NORMAL` state,  which will be its permanent state.
+While this new channel with 100,000 satoshis is unconfirmed, its state will be `CHANNELD_AWAITING_LOCKIN`. Note that unconfirmed change of `99847` satoshis is also showing as a new transaction in the wallet. After all six confirmations are completed, the channel will change to `CHANNELD_NORMAL` state,  which will be its permanent state. At this time, a `short_channel_id` will also appear, such as:
+```
+         "short_channel_id": "1862856x29x0",
+```
+These values denote where the funding transaction can be found on the blockchain. It appears in the form `block x txid x vout`.
 
-Meanwhile, the funding transaction can be found onchain at [66694d23ca15efe379e5f4a71d9be1a2d65e383b89ee3abe126ee36a12f23c1d](https://blockstream.info/testnet/tx/66694d23ca15efe379e5f4a71d9be1a2d65e383b89ee3abe126ee36a12f23c1d)
+In this case, `1862856x29x0` means:
+
+* Created on the 1862856th block;
+* with a `txid` of 29; and
+* an `vout` of 0.
+
+You may need to use this `short_channel_id` for certain commands in Lightning.
+
+This funding transaction can also be found onchain at [66694d23ca15efe379e5f4a71d9be1a2d65e383b89ee3abe126ee36a12f23c1d](https://blockstream.info/testnet/tx/66694d23ca15efe379e5f4a71d9be1a2d65e383b89ee3abe126ee36a12f23c1d)
 
 > :book: ***What is Channel Capacity?*** In a Lightning Channel, both sides of the channel own a portion of its capacity. The amount on your side of the channel is called *local balance* and the amount on your peer’s side is called *remote balance*. Both balances can be updated many times without closing the channel (when the final balance is sent to the blockchain), but the channel capacity cannot change without closing or splicing it. The total capacity of a channel is the sum of the balance held by each participant in the channel.
 
