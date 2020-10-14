@@ -3,7 +3,7 @@
 
 > :information_source: **NOTE:** This is a draft in progress, so that I can get some feedback from early reviewers. It is not yet ready for learning.
 
-This section describes how payments work on the Lightning Network, how to create a payment request, or _invoice_, and finally how to make sense of it. Issuing invoices depends on your having a second Lightning node, as described in [Accessing a Second Lightning Node](18_2__Interlude_Accessing_a_Second_Lightning_Node.md). These examples will use an LND node as its secondary node, to further demonstrate the possibilities of the Lightning Network. To differentiate between the nodes in these examples, the prompts will be shown as `c$` for the c-lightning node and `lnd$` as the LND node. If you want to reproduce this steps, you should [install your own secondary LND node](18_2__Interlude_Accessing_a_Second_Lightning_Node.md#creating-a-new-lnd-node). 
+This section describes how payments work on the Lightning Network, how to create a payment request (or _invoice_), and finally how to make sense of it. Issuing invoices depends on your having a second Lightning node, as described in [Accessing a Second Lightning Node](18_2__Interlude_Accessing_a_Second_Lightning_Node.md). These examples will use an LND node as their secondary node, to further demonstrate the possibilities of the Lightning Network. To differentiate between the nodes in these examples, the prompts will be shown as `c$` for the c-lightning node and `lnd$` as the LND node. If you want to reproduce this steps, you should [install your own secondary LND node](18_2__Interlude_Accessing_a_Second_Lightning_Node.md#creating-a-new-lnd-node). 
 
 > :book: ***What is an Invoice?** Almost all payments made on the Lightning Network require an invoice, which is nothing more than a **request for payment** made by the recipient of the money and sent by variety of means to the paying user.  All payment requests are single use. Lightning invoices use bech32 encoding, which is already used by Segregated Witness for Bitcoin.
 
@@ -22,7 +22,7 @@ c$ lightning-cli --testnet invoice 100000 joe-payment "The money you owe me for 
    "warning_mpp_capacity": "The total incoming capacity is still insufficient even if the payer had MPP capability."
 }
 ```
-However, for this example we're going to instead generate an invoice on an LND node, and then pay it on the c-lightning node. This requires LND's slightly different `addinvoice` commend.  You can use `--amt` argument to indicate amount to be paid and add a description using the `--memo` argument.
+However, for this example we're going to instead generate an invoice on an LND node, and then pay it on the c-lightning node. This requires LND's slightly different `addinvoice` command.  You can use `--amt` argument to indicate amount to be paid (in millisatoshis) and add a description using the `--memo` argument.
 
 ```
 lnd$ lncli -n testnet addinvoice --amt 10000 --memo "First LN Payment - Learning Bitcoin and Lightning from the Command line."
@@ -32,7 +32,7 @@ lnd$ lncli -n testnet addinvoice --amt 10000 --memo "First LN Payment - Learning
     "add_index": "1"
 }
 ```
-Note that these invoices don't directly reference the channel you create: that's necessary for paying, but not for requesting payment. (In fact, you'd often create a channel following the receipt of an invoice, because as you'll see, it contains the node ID.)
+Note that these invoices don't directly reference the channel you created: that's necessary for payment, but not for requesting payment.
 
 ## Understanding an Invoice
 
@@ -42,18 +42,18 @@ The `bolt11` `payment_request` that you created is made up of two parts: one is 
 
 ### Reading the Human-Readable Invoice Part
 
-The human readable part of your invoices starts with an `ln`. It is `lnbc` for Bitcoin mainnet, `lntb` for Bitcoin testnet, or `lnbcrt` for Bitcoin regtest).
+The human readable part of your invoices starts with an `ln`. It is `lnbc` for Bitcoin mainnet, `lntb` for Bitcoin testnet, or `lnbcrt` for Bitcoin regtest.
 It then lists the funds requested in the invoice.
 
-For example, look at your invoice from LND:
+For example, look at your invoice from your LND node:
 ```
 lntb100u1p0cwnqtpp5djkdahy4hz0wc909y39ap9tm3rq2kk9320hw2jtntwv4x39uz6asdr5ge5hyum5ypxyugzsv9uk6etwwssz6gzvv4shymnfdenjqsnfw33k76twypskuepqf35kw6r5de5kueeqveex7mfqw35x2gzrdakk6ctwvssxc6twv5hqcqzpgsp5a9ryqw7t23myn9psd36ra5alzvp6lzhxua58609teslwqmdljpxs9qy9qsq9ee7h500jazef6c306psr0ncru469zgyr2m2h32c6ser28vrvh5j4q23c073xsvmjwgv9wtk2q7j6pj09fn53v2vkrdkgsjv7njh9aqqtjn3vd
 ```
-The human readable part is `ln+tb+100u`.
+The human readable part is `ln` + `tb` + `100u`.
 
 `lntb` says that this is a Lightning Network invoice for Testnet bitcoins.
 
-`1m` says that it is for 100 bitcoin times the microsatoshi multiplier. There are four (optional) funds multipliers:
+`100u` says that it is for 100 bitcoins times the microsatoshi multiplier. There are four (optional) funds multipliers:
 
 * `m` (milli): multiply by 0.001
 * `u` (micro): multiply by 0.000001
@@ -65,7 +65,6 @@ The human readable part is `ln+tb+100u`.
 ### Reading the Data Invoice Part
 
 The rest of the invoice (`1p0cwnqtpp5djkdahy4hz0wc909y39ap9tm3rq2kk9320hw2jtntwv4x39uz6asdr5ge5hyum5ypxyugzsv9uk6etwwssz6gzvv4shymnfdenjqsnfw33k76twypskuepqf35kw6r5de5kueeqveex7mfqw35x2gzrdakk6ctwvssxc6twv5hqcqzpgsp5a9ryqw7t23myn9psd36ra5alzvp6lzhxua58609teslwqmdljpxs9qy9qsq9ee7h500jazef6c306psr0ncru469zgyr2m2h32c6ser28vrvh5j4q23c073xsvmjwgv9wtk2q7j6pj09fn53v2vkrdkgsjv7njh9aqqtjn3vd`) contains a timestamp, specifically tagged data, and a signature. You obviously can't read it yourself, but you can ask c-lightning's `lightning-cli` to do so with the `decodepay` command:
-
 ```
 c$ lightning-cli --testnet decodepay lntb100u1p0cwnqtpp5djkdahy4hz0wc909y39ap9tm3rq2kk9320hw2jtntwv4x39uz6asdr5ge5hyum5ypxyugzsv9uk6etwwssz6gzvv4shymnfdenjqsnfw33k76twypskuepqf35kw6r5de5kueeqveex7mfqw35x2gzrdakk6ctwvssxc6twv5hqcqzpgsp5a9ryqw7t23myn9psd36ra5alzvp6lzhxua58609teslwqmdljpxs9qy9qsq9ee7h500jazef6c306psr0ncru469zgyr2m2h32c6ser28vrvh5j4q23c073xsvmjwgv9wtk2q7j6pj09fn53v2vkrdkgsjv7njh9aqqtjn3vd
 {
@@ -84,7 +83,7 @@ c$ lightning-cli --testnet decodepay lntb100u1p0cwnqtpp5djkdahy4hz0wc909y39ap9tm
 }
 
 ```
-Here's what most of those elements mean:
+Here's what the most relevent elements mean:
 
 1. `currency`: The currency being paid.
 1. `created_at`: Time when the invoice was created.  This is measured in UNIX time, which is seconds since 1970.
@@ -92,14 +91,14 @@ Here's what most of those elements mean:
 1. `payee`: The public key of the person (node) receiving the Lightning Network payment.
 1. `msatoshi` and `amount_msat`: The amount of satoshis to be paid.
 1. `description`: The user-input description.
-1. `payment_hash`: The hash of the preimage that is used to lock the payment. You can only redeem a locked payment with the corresponding preimage to the payment hash. This enables routing on the Lightning Network without trusteing third parties by creating a **Conditional Payment** to be filled.
+1. `payment_hash`: The hash of the preimage that is used to lock the payment. You can only redeem a locked payment with the corresponding preimage to the payment hash. This enables routing on the Lightning Network without trusting third parties, by creating a **Conditional Payment** to be filled.
 1. `signature`: The DER-encoded signature.
 
 > :book: ****What are Conditional Payments?*** Although Lightning Channels are created between two participants, multiple channels can be connected together, forming a payment network that allows payments between all the network participants, even those without a direct channel between them. This is done using an smart contract called a **Hashed Time Locked Contract**.
 
 > :book: ***What is a Hashed Time Locked Contract (HTLC)?*** A Hashed Time Locked Contract is a conditional payment that use hashlocks and timelocks to ensure payment security. The receiver must present a payment preimage or generate a cryptographic proof of payment before a given time, otherwise the payer can cancel the contract by spending it. These contracts are created as outputs from the **Commitment Transaction**.
 
-> :book: ***What is a Commitment Transaction?*** A Commitment Transaction is a transaction that spends the original funding transaction. Each peer holds the other peer's signature, meaning that either one can spent his commitment transaction whatever he wants.  After each new commitment transaction is created the old one is revoked.
+> :book: ***What is a Commitment Transaction?*** A Commitment Transaction is a transaction that spends the original funding transaction. Each peer holds the other peer's signature, meaning that either one can spent his commitment transaction whatever he wants. After each new commitment transaction is created the old one is revoked. The commitment transaction is one way that the funding transaction can be unlocked on the blockchain, as discussed in [§19.3](19_3_Closing_a_Channel.md).
 
 ### Checking Your Invoice
 
@@ -184,7 +183,3 @@ In most cases you need to receive an invoice to use Lightning Network payments. 
 ## What's Next?
 
 Continue "Using Lightning" with [§19.2: Paying_a_Invoice](19_2_Paying_a_Invoice.md).
-
-
-
-
