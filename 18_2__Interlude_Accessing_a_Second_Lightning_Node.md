@@ -2,7 +2,7 @@
 
 When you played with Bitcoin you were accessing an existing network, and that made it relatively easy to work with: you just turned on `bitcoind` and you were immediately interacting with the network. That's now how Lightning works: it's fundamentally a peer-to-peer network, built up from the connections between any two individual nodes. In other words, to interact with the Lightning Network, you'll need to first find a node to connect to.
 
-There are three ways to do so:
+There are four ways to do so (the first three of which are possible for your first connection):
 
 ## Asking for Information on a Node
 
@@ -286,6 +286,27 @@ $ lncli --network=testnet getinfo
 }
 ```
 This node's ID is `032a7572dc013b6382cde391d79f292ced27305aa4162ec3906279fc4334602543`. Although this command doesn't show you the IP address and port, they should be the IP address for your machine and port `9735`. 
+
+## Listening to Gossip
+
+If you were already connected to the Lightning Network, and were "gossipping" with peers, you might also be able to find information on peers automatically, through the `listpeers` command:
+```       
+c$ lightning-cli --network=testnet listpeers
+{
+   "peers": [
+      {
+         "id": "0302d48972ba7eef8b40696102ad114090fd4c146e381f18c7932a2a1d73566f84",
+         "connected": true,
+         "netaddr": [
+            "127.0.0.1:9736"
+         ],
+         "features": "02a2a1",
+         "channels": []
+      }
+   ]
+}
+```       
+However, that definitely won't be the case for your first interaction with the Lightning Network.
 
 ## Summary: Accessing a Second Lightning Node
 
