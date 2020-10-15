@@ -257,4 +257,4 @@ When you close a channel you perform an on-chain transaction ending your financi
 
 ## What's Next?
 
-Continue "Using Lightning" with [§19.4: Lightning Network Review](19_4_Lightning_Network_Review.md).
+Continue "Using Lightning" with [§19.4: Expanding the Lightning Network](19_4_Lightning_Network_Review.md).
