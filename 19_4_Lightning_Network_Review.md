@@ -13,7 +13,7 @@ c-lightning is a lightweight, highly customizable, and standard compliant implem
 * Event stream subscriptions provide plugins with a push-based notification mechanism for `lightnind`.
 * Hooks are a primitive option that allows plugins to be notified about events in the `lightningd` daemon and modify its behavior or pass on custom behaviors.
 
-A plugin may be written in any language and can communicates with `lightningd` through the plugin's stdin and stdout. JSON-RPCv2 is used as protocol on top of the two streams, with the plugin acting as server and `lightningd` acting as client. 
+A plugin may be written in any language and can communicate with `lightningd` through the plugin's stdin and stdout. JSON-RPCv2 is used as protocol on top of the two streams, with the plugin acting as server and `lightningd` acting as client. 
 
 The `lightningd` GitHub repo maintains a updated list of [plugins](https://github.com/lightningd/plugins) available.
 
@@ -31,7 +31,7 @@ SparkWallet is a minimalistic wallet GUI for c-lightning, accessible over the we
 
 ## Using Different Lightning Implementations
 
-c-lightning isn't your only option. Today there are three widely used implementations of the Lightning Network. All of them follow the [Basis of Lightning Technology (BOLT) documents](https://github.com/lightningnetwork/lightning-rfc), which describe a layer-2 protocol for off-chain bitcoin transfers. The specifications are currently a work-in-progress that is now being drafted.
+c-lightning isn't your only option. Today there are three widely used implementations of the Lightning Network. All of them follow the [Basis of Lightning Technology (BOLT) documents](https://github.com/lightningnetwork/lightning-rfc), which describe a layer-2 protocol for off-chain bitcoin transfers. The specifications are currently a work-in-progress that is still being drafted.
 
 | Name  | Description | BitcoinStandup | Language | Repository |
 | ------------- | ------------- | :---: | ------------- | ------------- |
@@ -55,7 +55,7 @@ You've completed Learning Bitcoin from the Command Line, though if you never vis
 
 Otherwise, we encourage you to join developer communities, to program, and to put your new knowledge to work.
 
-You can also help us here at Blockchain Commons with Issues or PRs for Learning Bitcoin or for any of our other repos, or you can even become a [Sponsor](https://github.com/sponsors/BlockchainCommons). You can also help out by spreading the word: let people know on social media about the course and what you learned from it!
+You can also help us here at Blockchain Commons with Issues or PRs for Learning Bitcoin or for any of our other repos, or you can even become a [Sponsor](https://github.com/sponsors/BlockchainCommons). You can also help out by spreading the word: let people on social media know about the course and what you learned from it!
 
 Now get out there and make the Blockchain community a better place!
 
