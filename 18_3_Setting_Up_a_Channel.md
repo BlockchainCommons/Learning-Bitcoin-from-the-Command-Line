@@ -182,5 +182,5 @@ You need to create a channel with a remote node to be able to receive and send m
 
 ## What's Next?
 
-You're ready to go! Move on to [Chapter Nineteen: Using Lightning](19_0_Understanding_Your_Lightning_Setup.md).
+You're ready to go! Move on to [Chapter Nineteen: Using Lightning](19_0_Using_Lightning.md).
 
