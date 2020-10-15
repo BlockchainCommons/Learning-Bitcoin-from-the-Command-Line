@@ -4,7 +4,7 @@
 
 You now understand the basics of your Lightning setup, and hopefully have either created or been given info on a second Lightning node. You're ready to create your first Lightning Network channel. Of course, you'll need to understand what is, and how it's created using c-lightning.
 
-> :book: ***What is a Lighting Channel?*** Simply, a lightning channel is a money tube that allows fast, cheap and private transfers of money without sending transactions to the blockchain.  More technically a channel is a 2-of-2 multisignature on-chain Bitcoin transaction that establishes a financial relationship between two people or two agents without requiring trust. The channel mantains a local database with bitcoin balance for both parties, keeping track of how much money they each have.  The two users can then exchange bitcoins through their Lightning channel without ever writing to the Bitcoin blockchain. Only when they want to close out their channel do they settle their bitcoins, based on the final division of coins.
+> :book: ***What is a Lighting Channel?*** Simply, a lightning channel is a money tube that allows fast, cheap and private transfers of money without sending transactions to the blockchain.  More technically a channel is a 2-of-2 multisignature on-chain Bitcoin transaction that establishes a trustless financial relationship between two people or two agents. A certain amount of money is deposited into the channel, when then mantains a local database with bitcoin balance for both parties, keeping track of how much money they each have from the initial amount. The two users can then exchange bitcoins through their Lightning channel without ever writing to the Bitcoin blockchain. Only when they want to close out their channel do they settle their bitcoins to the blockchain, based on the final division of coins.
 
 > :book: ***How do Lightning Channels Create a Lightning Network?*** Although a Lightning channel only allows payment between two users, channels can be connected together to form a network that allows payments between members that doesn't have a direct channel between them. This creates a network among multiple people built from pairwise connections.
 
@@ -37,7 +37,7 @@ You can then send funds to this address using `bitcoin-cli sendtoaddress` (or an
 
 This transaction is called the [funding transaction](https://github.com/lightningnetwork/lightning-rfc/blob/master/03-transactions.md#funding-transaction-output), and it needs to be confirmed before funds can be used.  
 
-> :book: ***What is a Funding Transaction?*** A funding transaction is a Bitcoin transaction that places money into a Lightning channel. It may be single-funded (by one participant) or dual-funded (by both). From there on, Lightning transactions are all about reallocating the ownership of the funding transaction.
+> :book: ***What is a Funding Transaction?*** A funding transaction is a Bitcoin transaction that places money into a Lightning channel. It may be single-funded (by one participant) or dual-funded (by both). From there on, Lightning transactions are all about reallocating the ownership of the funding transaction, but they only settle to the blockchain when the channel is closed.
 
 To check you local balance you should use `lightning-cli listfunds` command:
 
