@@ -1,7 +1,5 @@
 # 10.3: Running a Bitcoin Script with P2SH
 
-> :information_source: **NOTE:** This is a draft in progress, so that I can get some feedback from early reviewers. It is not yet ready for learning.
-
 Now that you know the theory and practice behind P2SH addresses, you're ready to turn a non-standard Bitcoin Script into an actual transaction. We'll be reusing the simple locking script from [§9.2: Running a Bitcoin Script](09_2_Running_a_Bitcoin_Script.md), `OP_ADD 99 OP_EQUAL`.
 
 ## Create a P2SH Transaction
