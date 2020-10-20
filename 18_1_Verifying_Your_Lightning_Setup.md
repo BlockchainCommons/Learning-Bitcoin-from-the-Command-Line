@@ -1,7 +1,7 @@
 
 # 18.1: Creating a c-lightning Setup
 
-> :information_source: **NOTE:** This is a draft in progress, so that I can get some feedback from early reviewers. It is not yet ready for learning.
+> :information_source: **NOTE:** This section has been recently added to the course and is an early draft that may still be awaiting review. Caveat reader.
 
 In this section, you'll install and verify c-lightning, your utility for accessing the Lightning Network.
 
@@ -9,7 +9,7 @@ In this section, you'll install and verify c-lightning, your utility for accessi
 
 > :book: ***What is a layer-2 protocol?*** Layer 2 refers to a secondary protocol built on top of the Bitcoin blockchain system. The main goal of these protocols is to solve the transaction speed and scaling difficulties that are present in Bitcoin: Bitcoin is not able to process thousands of transactions per second (TPS), so layer-2 protocols have been created to solve the blockchain scalability problem. These solutions are also known as "off-chain" scaling solutions.
 
-## Installing C-Lightning
+## Install C-Lightning
 
 If you used the [Bitcoin Standup Scripts](https://github.com/BlockchainCommons/Bitcoin-Standup-Scripts), you may have already installed Lightning at the beginning of this course. You can test this by seeing if `lightningd` is running:
 ```
@@ -26,11 +26,11 @@ standup  31228  0.0  0.2  23044  8192 pts/0    S    15:38   0:00 /usr/local/libe
 standup  31229  0.0  0.1  22860  7556 pts/0    S    15:38   0:00 /usr/local/libexec/c-lightning/lightning_gossipd
 standup  32072  0.0  0.0   6208   888 pts/0    S+   15:50   0:00 grep -i lightning
 ```
-If not, you'll need to install it now. Unfortunately, if you're using Debian you'll need to install it by hand, by compiling the source code — but it should still be pretty simple if you follow these instructions. If you happen to be on a standard Ubuntu system, instead try [Installing from Ubuntu ppa](#variant-installing-from-ubuntu-ppa), and you can always attempt [Installing Pre-compiled Binaries](#variant-installing-pre-compiled-binaries).
+If not, you'll need to install it now. Unfortunately, if you're using Debian you'll need to install it by hand, by compiling the source code — but it should still be pretty simple if you follow these instructions. If you happen to be on a standard Ubuntu system, instead try [Installing from Ubuntu ppa](#variant-install-from-ubuntu-ppa), and you can always attempt [Installing Pre-compiled Binaries](#variant-install-pre-compiled-binaries).
 
 > :book: ***What is c-lightning?*** There are three different implementations of Lightning at present: c-lightning, LND, and Eclair. They should all be functionally compatible, based on the same [BOLT RFCs](https://github.com/lightningnetwork/lightning-rfc/blob/master/00-introduction.md), but their implementation details may be different. We've chosen c-lightning as the basis of our course because it's also part of the same [Elements Project](https://github.com/ElementsProject) that also contains Libwally.
 
-### Compiling the c-lightning Source Code 
+### Compile the c-lightning Source Code 
 
 Installing Lightning from source code should actually be pretty simple if you follow these instructions.
 
@@ -70,7 +70,7 @@ Afterward, all you need to do is install:
 $ sudo make install
 ```
 
-## Checking Your installation
+## Check Your installation
 
 You can confirm you have installed lightningd correctly using the `help` parameter:
 
@@ -92,7 +92,7 @@ A bitcoin lightning daemon (default values shown for network: testnet).
 
 ```
 
-## Running lightningd
+## Run lightningd
 
 You'll begin your exploration of the Lightning network with the `lightning-cli` command. However,`lightningd` _must_ be running to use `lightning-cli`, as `lightning-cli` sends JSON-RPC commands to the `lightningd` (all just as with `bitcoin-cli` and `bitcoind`). 
 
@@ -101,7 +101,7 @@ If you installed `c-lightning` by hand, you'll now need to start it:
 $ nohup lightningd --testnet &
 ```
 
-### Running lightningd as a service
+### Run lightningd as a service
 
 If you prefer, you can install `lightningd` as a service that will run every time you restart your machine. The following will do so, and start it running immediately:
 
@@ -153,7 +153,7 @@ $ sudo systemctl enable lightningd.service
 $ sudo systemctl start lightningd.service
 ```
 
-### Enabling Remote Connections
+### Enable Remote Connections
 
 If you have some sort of firewall, you'll need to open up port 9735, to allow other Lightning nodes to talk to you.
 
@@ -162,7 +162,7 @@ If you use `ufw` from Bitcoin Standup, this is done as follows:
 $ sudo ufw allow 9735
 ```
 
-## Verifying your Node
+## Verify your Node
 
 You can check if your Lightning node is ready to go by comparing the output of `bitcoin-cli getblockcount` with the `blockheight` result from `lightning-cli getinfo`.
 
@@ -227,7 +227,7 @@ If you tried to run on a pruned blockchain where the Bitcoin node wasn't up to d
 bitcoin-cli -testnet getblock 0000000000000559febee77ab6e0be1b8d0bef0f971c7a4bee9785393ecef451 0 exited with status 1
 ```
 
-## Creating Aliases
+## Create Aliases
 
 We suggest creating some aliases to make it easier to use c-lightning.
 
@@ -246,7 +246,7 @@ Note that these aliases include shortcuts for running `lightning-cli`, for runni
 
 With that said, use of these aliases in _this_ document might accidentally obscure the core lessons being taught about c-lightning, so we'll continue to show the full commands; adjust for your own use as appropriate.
 
-##  Optional: Modifying Your Server Types
+##  Optional: Modify Your Server Types
 
 > :link: **TESTNET vs MAINNET:** When you set up your node, you choose to create it as either a Mainnet, Testnet, or Regtest node. Though this document presumes a testnet setup, it's worth understanding how you might access and use the other setup types — even all on the same machine! But, if you're a first-time user, skip on past this, as it's not necessary for a basic setup.
 
@@ -268,7 +268,7 @@ Before you start playing with lightning, you should make sure that your aliases 
 
 Continue "Understanding Your Lightning Setup" with [§18.2: Knowing Your Lightning Setup](18_2_Knowing_Your_lightning_Setup.md).
 
-## Variant: Installing from Ubuntu ppa
+## Variant: Install from Ubuntu ppa
 
 If you are using a Ubuntu version other than Debian, you can install c-lightning using [Ubuntu ppa](https://launchpad.net/~lightningnetwork/+archive/ubuntu/ppa):
 
@@ -278,7 +278,7 @@ $ sudo add-apt-repository -u ppa:lightningnetwork/ppa
 $ sudo apt-get install lightningd
 ```
 
-## Variant: Installing Pre-compiled Binaries
+## Variant: Install Pre-compiled Binaries
 
 Another method for installing Lightning is to use the precompiled binaries on the [Github repo](https://github.com/ElementsProject/lightning/releases). Choose the newest tarball, such as `clightning-v0.9.1-Ubuntu-20.04.tar.xz`.
 
