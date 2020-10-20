@@ -61,11 +61,34 @@ $ neglehex=$(printf '%x\n' $((0x$lehex | 0x80)))
 $ echo $neglehex
 9f7b2adc
 ```
-(There's a script at the end to automate all of this.)
-
 ### Transform the Hex to Binary
 
 To complete your serialization, you translate the hexcode into binary. On the command line, this just requires a simple invocation of `xxd -r -p`. However, you probably want to do that as part of a a single pipe that will also hash the script ...
+
+## Run The Integer Conversion Script
+
+A complete script for changing an integer between -2147483647 and 2147483647 to a little-endian signed-magnitude representation in hex can be found in th e[src code directory](src/10_2_integer2lehex.sh). You can download it as `integeer2lehex.sh`.
+
+> :warning: **WARNING:** This script has not been robustly checked. If you are going to use it to create real locking scripts you should make sure to double-check and test your results.
+
+Be sure the permissions on the script are right:
+```
+$ chmod 755 integer2lehex.sh
+```
+You can then run the script as follows:
+```
+$ ./integer2lehex.sh 1546288031
+Integer: 1546288031
+LE Hex: 9f7b2a5c
+Length: 4 bytes
+Hexcode: 049f7b2a5c
+
+$ ./integer2lehex.sh -1546288031
+Integer: -1546288031
+LE Hex: 9f7b2adc
+Length: 4 bytes
+Hexcode: 049f7b2adc
+```
 
 ## Analyze a P2SH Multisig
 
@@ -155,72 +178,3 @@ Actually creating the P2SH locking script dives further into the guts of Bitcoin
 ## What's Next?
 
 Continue "Embedding Bitcoin Scripts" with [§10.3: Running a Bitcoin Script with P2SH](10_3_Running_a_Bitcoin_Script_with_P2SH.md).
-
-## Appendix: The Integer Conversion Script
-
-The following script collects the complete methodology for changing an integer between -2147483647 and 2147483647 to a little-endian signed-magnitude representation in hex:
-
-> :warning: **WARNING:** This script has not been robustly checked. If you are going to use it to create real locking scripts you should make sure to double-check and test your results.
-```
-file: integer2lehex.sh
-#!/bin/bash
-
-if [ -z $1 ];
-then
-    echo "You must include an integer as an argument.";
-    exit;
-fi
-
-if (( $1 > "2147483647" )) || (( $1 < "-2147483647" ));
-then
-    echo "Your number ($1) must be between -2147483647 and 2147483647";
-    exit;
-fi
-
-if [ $1 -lt 0 ];
-then
-    integer=$(echo $((-$1)));
-    negative=1;
-else
-    integer=$1;
-    negative=0;
-fi
-
-hex=$(printf '%08x\n' $integer | sed 's/^\(00\)*//');
-
-hexfirst=$(echo $hex | cut -c1)
-[[ 0x$hexfirst -gt 0x7 ]] && hex="00"$hex
-
-lehex=$(echo $hex | tac -rs .. | echo "$(tr -d '\n')");
-
-if [ "$negative" -eq "1" ];
-then
-   lehex=$(printf '%x\n' $((0x$lehex | 0x80)))
-fi
-
-size=$(echo -n $lehex | wc -c | awk '{print $1/2}');
-hexcodeprefix=$(printf '%02x\n' $size);
-
-echo "Integer: $1";
-echo "LE Hex: $lehex";
-echo "Length: $size bytes";
-echo "Hexcode: $hexcodeprefix$lehex";
-```
-Be sure the permissions on the script are right:
-```
-$ chmod 755 integer2lehex.sh
-```
-You can then run the script as follows:
-```
-$ ./integer2lehex.sh 1546288031
-Integer: 1546288031
-LE Hex: 9f7b2a5c
-Length: 4 bytes
-Hexcode: 049f7b2a5c
-
-$ ./integer2lehex.sh -1546288031
-Integer: -1546288031
-LE Hex: 9f7b2adc
-Length: 4 bytes
-Hexcode: 049f7b2adc
-```
