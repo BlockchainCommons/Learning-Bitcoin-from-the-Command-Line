@@ -8,7 +8,7 @@ This has the following benefits:
 2. You won't need to depend on pre-compiled Bitcoin Core binaries. This requires less trust. Even though the maintainers of Bitcoin Core do a great job of maintaining the integrity of the code, a pre-compiled binary is a few steps removed from source code. When you compile from the source code, the code can be inspected before compilation.
 3. You can customize the build, doing things such as disabling the wallet or the GUI.
 
-## Preparing your Environment
+## Prepare your Environment
 
 This tutorial uses Debian 10.4.kv0 OS on an amd64 architecture(64-bit computers), but you can use this tutorial on any Debian based system (e.g. Ubuntu, Mint, etc.). For other Linux systems, you can adapt the following steps with the package manager for that system.
 
@@ -24,7 +24,7 @@ $ su root
 # reboot
 ```
 
-## Installing Bitcoin
+## Install Bitcoin
 
 ### Step 1: Update Your System
 
@@ -106,17 +106,17 @@ To just run Bitcoin Core:
 `$ src/qt/bitcoin-qt` to launch the GUI.
 `$ src/bitcoind` to run bitcoin on the command line.
 
-### Installing Bitcoin Core
+### Install Bitcoin Core
 
 To install:
 
 `$ sudo make install` will install bitcoin core globally. Once installed you can then run bitcoin from anywhere in the command line, just as any other software like so: `$ bitcoin-qt` for the GUI or `bitcoind` and then `bitcoin-cli` for command line.
 
-## Finalizing Your System
+## Finalize Your System
 
 By compiling Bitcoin from source, you've increased the trustlessness of your setup. However, you're far short of all the additional security provided by a Bitcoin Standup setup. To resolve this, you may want to walk through the entire [Linode Stackscript](https://github.com/BlockchainCommons/Bitcoin-Standup-Scripts/blob/master/Scripts/LinodeStandUp.sh) and step-by-step run all the commands. The only place you need to be careful is in Step 6, which installs Bitcoin. Skip just past where you've verified your binaries, and continue from there.
 
-## Conclusion — Compiling Bitcoin from Source
+## Summary: Compiling Bitcoin from Source
 
 If you wanted the increased security of installing Bitcoin from source, you should now have that. Hopefully, you've also gone through the Linode Stackscript to set up a more secure server.
 
