@@ -23,5 +23,4 @@ Supporting objectives include the ability to:
 * [Section Three: Running a Bitcoin Script with P2SH](10_3_Running_a_Bitcoin_Script_with_P2SH.md)
 * [Section Four: Scripting a Multisig](10_4_Scripting_a_Multisig.md)
 * [Section Five: Scripting a Segwit Script](10_5_Scripting_a_Segwit_Script.md)
-* [Section Six: Spending a P2SH Transaction](10_6_Spending_a_P2SH_Transaction.md) — Awaiting API Work
-
+* [Section Six: Spending a P2SH Transaction](10_6_Spending_a_P2SH_Transaction.md)
