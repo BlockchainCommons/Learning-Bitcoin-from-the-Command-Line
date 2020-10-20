@@ -1,7 +1,5 @@
 # 11.1: Understanding Timelock Options
 
-> :information_source:  **NOTE:** This is a draft in progress, so that I can get some feedback from early reviewers. It is not yet ready for learning.
-
 In [§8.1: Sending a Transaction with a Locktime](08_1_Sending_a_Transaction_with_a_Locktime.md), `nLocktime` offered a great first option for locking transactions so that they couldn't be spent until some point in the future — based either on time or blockheight. But, that's not the only way to put a timelock on a transaction.
 
 ## Understand the Limitations of nLockTime
