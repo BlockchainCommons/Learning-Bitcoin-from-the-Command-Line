@@ -1,20 +1,6 @@
-# Chapter One: Introducing Bitcoin
+# Interlude: Introducing Bitcoin
 
-Before you can get started programming Bitcoin (and Lightning), you should have a basic understanding of what they are and how they work. This chapter provides that overview. Many more definitions will appear within the document itself; this is only intended to lay the foundation.
-
-## Objectives for this Chapter
-
-After working through this chapter, a developer will be able to:
-
-   * Assess the Parts of the Bitcoin System
-   * Decide When Blockchain is Useful
-
-Supporting objectives include the ability to:
-
-   * Understand What Bitcoin Is
-   * Understand What Blockchain Transactions Are
-   * Understand What Blockchain Is
-   * Understand What Lightning Is
+Before you can get started programming Bitcoin (and Lightning), you should have a basic understanding of what they are and how they work. This section provides that overview. Many more definitions will appear within the document itself; this is only intended to lay the foundation.
 
 ## About Bitcoin
 
