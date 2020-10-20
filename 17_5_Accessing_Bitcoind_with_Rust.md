@@ -1,10 +1,10 @@
 # 17.5: Accessing Bitcoind with Rust
 
-> :information_source: **NOTE:** This is a draft in progress, so that I can get some feedback from early reviewers. It is not yet ready for learning.
+> :information_source: **NOTE:** This section has been recently added to the course and is an early draft that may still be awaiting review. Caveat reader.
 
 This section explains how to interact with `bitcoind` using the Rust programming language and the [`bitcoincore-rpc` crate](https://github.com/rust-bitcoin/rust-bitcoincore-rpc).
 
-## Setting Up Rust
+## Set Up Rust
 
 You need to install both Rust and Cargo.
 
@@ -21,11 +21,11 @@ You'll then need to either logout and back in, or else add Cargo's binary direct
 $ source $HOME/.cargo/env
 ```
 
-### Setting Up `bitcoincore-rpc`
+### Set Up `bitcoincore-rpc`
 
 For most programming languages, you need to install a Bitcoin RPC library before you create your first project, but here you'll do it as part of your project creation.
 
-### Creating a `bitcoincore-rpc` Project
+### Create a `bitcoincore-rpc` Project
 
 You can create a new project using `cargo new btc_test`:
 
@@ -77,7 +77,7 @@ When you are using `bitcoin-rpc`, you will typically need to include the followi
 use bitcoincore_rpc::{Auth, Client, RpcApi};
 ```
 
-## Building Your Connection
+## Build Your Connection
 
 To create a Bitcoin `RPC client`, modify the `src/main.rs`:
 
@@ -104,7 +104,7 @@ When you're done, you should also close your connection:
 
 `cargo run` should successfully compile and run the example with one warning  `warning: unused variable: rpc`
 
-### Making an RPC Call
+### Make an RPC Call
 
 RPC calls are made using the `rpc` `Client` that you created:
 
@@ -114,7 +114,7 @@ println!("{:#?}", mining_info);
 ```
 Generally, the words in the RPC call are separated by `_`s. A complete list is available at the [crate docs](https://crates.io/crates/bitcoincore-rpc).
 
-### Making an RPC Call with Arguments
+### Make an RPC Call with Arguments
 
 Sending an RPC call with arguments using Rust just requires knowing how the function is laid out. For example, the `get_block` function is defined as follows in the [docs](https://docs.rs/bitcoincore-rpc/0.11.0/bitcoincore_rpc/trait.RpcApi.html#method.get_block):
 
@@ -133,7 +133,7 @@ Here's the complete code to retrieve a block hash, turn that into a block, and p
 
 > :note: **NOTE:** Another possible call that we considered for this section was `get_address_info`, but unfortunately as of this writing, the `bitcoincore-rpc` function doesn't work with recent versions of Bitcoin Core due to the crate not addressing the latest API changes in Bitcoin Core. We expect this will be solved in the next crate's release, but in the meantime, _caveat programmer_.
 
-### Running Your Code
+### Run Your Code
 
 You can access the [src code](src/17_5_main-getinfo.rs) and run it. Unfortunately, the "Block" info will come out a bit ugly because this example doesn't include a library to prettify it.
 ```
@@ -154,7 +154,7 @@ GetMiningInfoResult {
 Block { header: BlockHeader { version: 541065216, prev_blockhash: 000000000000027715981d5a3047daf6819ea3b8390b73832587594a2074cbf5, merkle_root: 4b2e2c2754b6ed9cf5c857a66ed4c8642b6f6b33b42a4859423e4c3dca462d0c, time: 1599602277, bits: 436469756, nonce: 218614401 }, txdata: [Transaction { version: 1, lock_time: 0, input: [TxIn { previous_output: OutPoint { txid: 0000000000000000000000000000000000000000000000000000000000000000, vout: 4294967295 }, script_sig: Script(OP_PUSHBYTES_3 8ff51b OP_PUSHBYTES_22 315448617368263538434f494e1d00010320a48db852 OP_PUSHBYTES_32 <push past end>), sequence: 4294967295, witness: [[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]] }], output: [TxOut { value: 19721777, script_pubkey: Script(OP_HASH160 OP_PUSHBYTES_20 011beb6fb8499e075a57027fb0a58384f2d3f784 OP_EQUAL) }, TxOut { value: 0, script_pubkey: Script(OP_RETURN OP_PUSHBYTES_36 aa21a9ed63363f3620ab5e38b8860a50c84050e5ec31af3636bbd73f01ba9f14103100ee) }] }, Transaction { version: 2, lock_time: 1832282, input: [TxIn { previous_output: OutPoint { txid: cbf880f73d421baf0aa4f0d28e63ba00e5bc6bd934b91eb0641354ce5ca42f7e, vout: 0 }, script_sig: Script(OP_PUSHBYTES_22 00146b8dbd32e5deb90d22934e1513bae6e70156cd50), sequence: 4294967294, witness: [[48, 68, 2, 32, 13, 89, 205, 30, 67, 24, 196, 83, 65, 224, 44, 138, 98, 58, 81, 135, 132, 209, 23, 166, 23, 44, 3, 228, 95, 102, 166, 214, 62, 38, 155, 147, 2, 32, 119, 2, 34, 246, 148, 255, 166, 10, 90, 52, 242, 32, 74, 241, 123, 148, 89, 199, 197, 3, 152, 134, 242, 215, 109, 61, 241, 241, 13, 70, 86, 207, 1], [2, 192, 145, 170, 206, 55, 4, 36, 138, 145, 217, 50, 19, 73, 130, 136, 245, 131, 184, 142, 239, 75, 13, 67, 17, 177, 57, 86, 151, 139, 89, 35, 109]] }], output: [TxOut { value: 1667908, script_pubkey: Script(OP_HASH160 OP_PUSHBYTES_20 908ca2b8b49ccf53efa2226afa85f6cc58dfd7e7 OP_EQUAL) }, TxOut { value: 9093, script_pubkey: Script(OP_DUP OP_HASH160 OP_PUSHBYTES_20 42ee67664ce16edefc68ad0e4c5b7ce2fc2ccc18 OP_EQUALVERIFY OP_CHECKSIG) }] },  ...] }
 ```
 
-## Looking Up Funds
+## Look Up Funds
 
 You can look up funds without optional arguments using the `get_balance` function:
 
@@ -167,7 +167,7 @@ As shown, the `as_btc()` function helps to output the balance in a readable form
 Balance: 3433.71692741 BTC
 ```
 
-## Creating an Address
+## Create an Address
 
 Creating an address demonstrates how to make an RPC call with multiple optional arguments specified (e.g., a label and an address type).
 
@@ -183,7 +183,7 @@ This will also require you to bring the `json` definition into scope:
 use bitcoincore_rpc::{json, Auth, Client, RpcApi};
 ```
 
-## Sending a Transaction
+## Send a Transaction
 
 You now have everything you need to create a transaction, which will be done in five parts:
 
@@ -287,7 +287,7 @@ let txid_sent = rpc
 println!("{:?}", txid_sent);
 ```
 
-### Running Your Code
+### Run Your Code
 
 You can now run the complete code from the [src](src/17_5_main-sendtx.rs).
 
@@ -352,7 +352,7 @@ signed tx Transaction { version: 2, lock_time: 0, input: [TxIn { previous_output
 b0eda3517e6fac69e58ae315d7fe7a1981e3a858996cc1e3135618cac9b79d1a
 ```
 
-## Summary
+## Summary: Accessing Bitcoind with Rust
 
 `bitcoincore-rpc` is a simple and robust crate that will allow you to interact with Bitcoin RPC using Rust. However, as of this writing it has fallen behind Bitcoin Core, which might cause some issues with usage.
 
