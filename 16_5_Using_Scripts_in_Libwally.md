@@ -1,10 +1,10 @@
 # 16.5: Using Scripts in Libwally
 
-> **NOTE:** This is a draft in progress, so that I can get some feedback from early reviewers. It is not yet ready for learning.
+> :information_source: **NOTE:** This section has been recently added to the course and is an early draft that may still be awaiting review. Caveat reader.
 
 Way back in Part 3, while introducing Scripts, we said that you were likely to actually create transactions using scripts with an API, and marked it as a topic for the future. Well, the future has now arrived.
 
-## Creating the Script
+## Create the Script
 
 Creating the script is the _easiest_ thing to do in Libwally. Take the following example, a simple [Puzzle Script](/13_1_Writing_Puzzle_Scripts.md) that we've returned to from time to time:
 ```
@@ -50,7 +50,7 @@ $ echo -n $redeemScript | xxd -r -p | openssl dgst -sha256 -binary | openssl dgs
 (stdin)= 3f58b4f7b14847a9083694b9b3b52a4cea2569ed
 ```
 
-## Creating a Transaction
+## Create a Transaction
 
 In order to make use of that `pubScriptKey` that you just created, you need to create a transaction and embed the `pubScriptKey` within (and this is the big change from `bitcoin-cli`: you can actually hand create a transaction with a P2SH script).
 
@@ -64,7 +64,7 @@ Creating a transaction itself is easy enough: you just need to tell `wally_tx_in
 
 Filling in those inputs and outputs is where things get tricky!
 
-### Creating a Transaction Output
+### Create a Transaction Output
 
 To create an output, you tell `wally_tx_output_init_alloc` how many satoshis you're spending and you hand it the locking script:
 ```
@@ -78,7 +78,7 @@ One more command adds it to your transaction:
   lw_response = wally_tx_add_output(tx,tx_output);
 ```
 
-### Creating a Transaction Input
+### Create a Transaction Input
 
 Creating the input is much harder because you have to pile information into the creation routines, not all of which is intuitively accessible when you're using Libwally. So, rather than going that deep into the weeds, here's where we take our shortcut. We write our code so that it's passed the hex code for a transaction that's already been created, and then we just reuse the input.
 
@@ -100,7 +100,7 @@ As you might expect, you then add that input to your transaction:
 
 > :note: **NOTE** Obviously, you'll want to be able to create your own inputs if you're using Libwally for real applications, but this is intended as a first step. And, it can actually be useful for integrating with `bitcoin-cli`, as we'll see in [§16.7](16_7_Integrating_Libwally_and_Bitcoin-CLI.md).
 
-### Printing a Transaction
+### Print a Transaction
 
 You theoretically could sign and send this transaction from your C program built on Libwally, but in keeping with the idea that we're just using a simple C program to substitute in a P2SH, we're going to print out the new hex. This is done with the help of `wally_tx_to_hex`:
 ```
@@ -111,7 +111,7 @@ You theoretically could sign and send this transaction from your C program built
 ```
 We'll show how to make use of that in §16.7.
 
-## Testing Your Replacement Script
+## Test Your Replacement Script
 
 You can grab the test code from the [src directory](src/16_5_replacewithscript.c) and compile it:
 ```
