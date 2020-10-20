@@ -1,6 +1,6 @@
 # 14.1: Verifying Your Tor Setup
 
-> :information_source:  **NOTE:** This is a draft in progress, so that I can get some feedback from early reviewers. It is not yet ready for learning.
+> :information_source: **NOTE:** This section has been recently added to the course and is an early draft that may still be awaiting review. Caveat reader.
 
 If you did a standard installation with [Bitcoin Standup](https://github.com/BlockchainCommons/Bitcoin-Standup) then you should have Tor set up as part of your Bitcoin node: Tor is installed and has created hidden services for the Bitcoin RPC ports; while an onion address has also been created for `bitcoind`. This section talks about what all of that is and what to do with it.
 
