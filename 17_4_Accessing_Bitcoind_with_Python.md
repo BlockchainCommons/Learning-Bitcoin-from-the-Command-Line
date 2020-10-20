@@ -1,10 +1,10 @@
 # 17.4: Accessing Bitcoind with Python
 
-> :information_source: **NOTE:** This is a draft in progress, so that I can get some feedback from early reviewers. It is not yet ready for learning.
+> :information_source: **NOTE:** This section has been recently added to the course and is an early draft that may still be awaiting review. Caveat reader.
 
 This section explains how to interact with `bitcoind` using the Python programming language and the [Python-BitcoinRPC](https://github.com/jgarzik/python-bitcoinrpc).
 
-## Setting Up Python
+## Set Up Python
 
 If you already have Bitcoin Core installed, you should have Python 3 available as well.
 You can check this by running:
@@ -13,9 +13,9 @@ You can check this by running:
 
 If it returns a version number (e.g., `3.7.3` or `3.8.3`) then you have python3 installed. 
 
-However, if you somehow do not have Python installed, you'll need build it from source as follows. Please see the ["Building Python from Source"](17_4_Accessing_Bitcoind_with_Python.md#variant-building-python-from-source) variant before continuing.
+However, if you somehow do not have Python installed, you'll need build it from source as follows. Please see the ["Building Python from Source"](17_4_Accessing_Bitcoind_with_Python.md#variant-build-python-from-source) variant before continuing.
 
-### Setting Up BitcoinRPC
+### Set Up BitcoinRPC
 
 Whether you used an existing Python or built it from source, you're now ready to install  the `python-bitcoinrpc` library:
 
@@ -28,7 +28,7 @@ $ sudo apt install python3-pip
 ```
 (Then repeat the `pip3 install python-bitcoinrpc` instructions.)
 
-### Creating a BitcoinRPC Project
+### Create a BitcoinRPC Project
 
 You'll generally need to include appropriate declarations from `bitcoinrpc` in your Bitcoin projects in Python. The following will give you access to the RPC based commands:
 ```py
@@ -43,7 +43,7 @@ import logging
 
 `logging` will print out the call you make to `bitcoind` and `bitcoind`'s respose, which is useful when you make a bunch of calls together. If you don't want the excessive output in the terminal just comment out the `logging` block.
 
-## Building Your Connection
+## Build Your Connection
 
 You are now ready to start interacting with `bitcoind` by establishing a connection. Create a file called `btcrpc.py` and type the following:
 
@@ -61,7 +61,7 @@ The arguments in the URL are `<rpc_username>:<rpc_password>@<host_IP_address>:<p
 
 > :link: **MAINNET VS TESTNET:** The port would be 8332 for a mainnet setup.
 
-### Making  an RPC Call
+### Make an RPC Call
 
 If `rpc_client` is successfully initialized, you'll be able to send off RPC commands to your bitcoin node.
 
@@ -85,7 +85,7 @@ DEBUG:BitcoinRPC:<-3- 1773020
 Block Count: 1773020
 ---------------------------------------------------------------
 ```
-### Making an RPC Call with Arguments
+### Make an RPC Call with Arguments
 
 You can use that blockcount as an argument to retrieve the blockhash of a block and also to retrieve details of that block.
 
@@ -123,7 +123,7 @@ while i < it_txs:
 print("---------------------------------------------------------------\n")
 ```
 
-### Running Your Code
+### Run Your Code
 
 You can retrieve [the src code](src/17_4_getinfo.py) and run it with `python3`:
 ```
@@ -156,7 +156,7 @@ First 10 transactions:
 ---------------------------------------------------------------
 ```
 
-## Looking Up Funds
+## Look Up Funds
 
 You can similarly retrieve your wallet's information with the `getwalletinfo` RPC:
 
@@ -195,7 +195,7 @@ Other informational commands such as `getblockchaininfo`, `getnetworkinfo`, `get
 
 Other commands can give you specific information on select elements within your wallet.
 
-### Retrieving an Array
+### Retrieve an Array
 
 The `listtransactions` RPC allows you to look at the most recent 10 transactions on your system (or some arbitrary set of transactions using the `count` and `skip` arguments). It shows how an RPC command can return an easy-to-manipulate array:
 
@@ -204,7 +204,7 @@ tx_list = rpc_client.listtransactions()
 pprint(tx_list)
 ```
 
-### Exploring a UTXO
+### Explore a UTXO
 
 You can similarly use `listunspent` to get an array of UTXOs on your system:
 
@@ -334,7 +334,7 @@ UTXO Details:
 ---------------------------------------------------------------
 ```
 
-## Creating an Address
+## Create an Address
 
 Creating a new address with Python 3 just requires the use of an RPC like `getnewaddress` or `getrawchangeaddress`.
 ```
@@ -343,7 +343,7 @@ new_change_address = rpc_client.getrawchangeaddress()
 ```
 In this example, you give the `getnewaddress` command an argument: the `Learning-Bitcoin-from-the-Command-Line` label.
 
-## Sending a Transaction
+## Send a Transaction
 
 Creating a transaction in Python 3 requires combining some of the previous examples (of creating addresses and retrieving UTXOs) with some new RPC commands for creating, signing, and sending a transaction — much as you've done previously from the command line.
 
@@ -416,7 +416,8 @@ Finally, you are ready to broadcast the signed transaction on the bitcoin networ
 ```py
 send_tx = rpc_client.sendrawtransaction(signed_tx['hex'])
 ```
-### Running Your Code
+### Run Your Code
+
 The [sample code](src/17_4_sendtx.py) is full of `print` statements to demonstrate all of the data available at every point:
 ```
 $ python3 sendtx.py 
@@ -450,7 +451,7 @@ Signed Transaction:
 TXID of sent transaction:  187f8baa222f9f37841d966b6bad59b8131cfacca861cbe9bfc8656bd16a44cc
 ```
 
-## Summary
+## Summary: Accessing  Bitcoind with Python
 
 Accessing Bitcoind with Python is very easy while using the `python-bitcoinrpc` library. The first thing to always do is to establish a connection with your `bitcoind` instance, then you can call all of the bitcoin API calls as described in the bitcoin-core documentation. This makes it easy to create small or large prorgrams to manage your own node, check balances, or create cool applications on top, as you access the full power of `bitcoin-cli`.
 
@@ -458,7 +459,7 @@ Accessing Bitcoind with Python is very easy while using the `python-bitcoinrpc` 
 
 Learn more about "Talking to Bitcoin in Other Languages" in [17.5: Accessing Bitcoin with Rust](17_5_Accessing_Bitcoind_with_Rust.md).
 
-## Variant: Building Python from Source
+## Variant: Build Python from Source
 
 If you need to install Python 3 from source, follow these instructions, then continue with ["Creating a BitcoinRPC Project"](17_4_Accessing_Bitcoind_with_Python.md#creating-a-bitcoinrpc-project).
 
