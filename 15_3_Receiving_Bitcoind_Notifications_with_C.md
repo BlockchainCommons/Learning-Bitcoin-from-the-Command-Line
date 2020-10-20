@@ -151,7 +151,7 @@ By using the ZMQ framework, you can easily receive notifications by subscribing 
 
 ## What's Next?
 
-Learn more about "Programming with RPC" in [Chapter 16: Programming bitcoin with Libwally](16_0_Programming_with_Libwally.md).
+Learn more about "Programming with RPC" in [Chapter 16: Programming Bitcoin with Libwally](16_0_Programming_with_Libwally.md).
 
 
 
