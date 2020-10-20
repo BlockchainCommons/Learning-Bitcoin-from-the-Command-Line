@@ -1,7 +1,5 @@
 # 10.6: Spending a P2SH Transaction
 
-> :information_source: **NOTE:** This is a draft in progress, so that I can get some feedback from early reviewers. It is not yet ready for learning.
-
 Before we close out this overview of P2SH transactions, we're going to touch upon how to spend them. This section is mainly an overview, referring back to a previous section where we _already_ spent a P2SH transaction.
 
 ## Use the Redeem Script
