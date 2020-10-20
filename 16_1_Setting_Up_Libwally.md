@@ -1,12 +1,12 @@
 # 16.1: Setting Up Libwally
 
-> **NOTE:** This is a draft in progress, so that I can get some feedback from early reviewers. It is not yet ready for learning.
+> :information_source: **NOTE:** This section has been recently added to the course and is an early draft that may still be awaiting review. Caveat reader.
 
 This first section will explain how to download the Libwally C Library and get it working.
 
 > :book: ***What is Libwally?*** Libwally is a library of primitives helpful for the creation of wallets that is cross-platform and cross-language, so that the same functions can be used everywhere. There are [online docs](https://wally.readthedocs.io/en/latest/). Libwally is made available as part of Blockstream's [Elements Project](https://github.com/ElementsProject).
 
-## Installing Libwally
+## Install Libwally
 
 As usual, you'll need some packages on your system:
 ```
@@ -89,11 +89,11 @@ Finally, you can install:
 $ sudo make install
 ```
 
-## Preparing for Libwally
+## Prepare for Libwally
 
 So how do you use Libwally in a program? As usual, you'll need to include appropriate files and link appropriate libraries for your code.
 
-### Including the Files
+### Include the Files
 
 There are a considerable number of possible include files:
 
@@ -105,7 +105,7 @@ $ ls /usr/include/wally*
 ```
 Fortunately, the file names largely match the sections in the [docs](https://wally.readthedocs.io/en/latest/), so you should be able to include the correct files based on what you're doing, after including the ubiquitous `wally_core.h`.
 
-### Linking the Libraries
+### Link the Libraries
 
 You also will need to link appropriate libraries:
 ```
@@ -115,7 +115,7 @@ $ ls /usr/lib/libsecp* /usr/lib/libwally*
 ```
 Mostly, you'll be using `libwallycore`.
 
-## Setting Up a Libwally Program
+## Set Up a Libwally Program
 
 Compared to some of the previous libraries, Libwally is ridiculously easy to initialize:
 ```
@@ -127,7 +127,7 @@ wally_cleanup(0);
 ```
 In both cases, the argument is for flags, but is currently set to `0`.
 
-## Testing a Test Libwally Program
+## Test a Test Libwally Program
 
 The src directory contains [testwally.c](src/16_1_testwally.c), which just shows how the initialize and cleanup functions work.
 
@@ -145,7 +145,7 @@ The "Startup" value is the return from `wally_init`. The `0` value may initially
 include/wally_core.h:#define WALLY_OK      0 /** Success */
 ```
 
-## Installing Libsodium
+## Install Libsodium
 
 You should also install Libsodium to get access to a high quality random number generator for testing purposes.
 
