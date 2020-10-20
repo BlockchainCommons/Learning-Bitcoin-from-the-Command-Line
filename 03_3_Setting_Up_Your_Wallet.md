@@ -1,7 +1,5 @@
 # 3.3: Setting Up Your Wallet
 
-> :information_source: **NOTE:** This is a draft in progress, so that I can get some feedback from early reviewers. It is not yet ready for learning.
-
 You're now ready to start working with Bitcoin. To begin with, you'll need to create an address for receiving funds.
 
 ## Create an Address
