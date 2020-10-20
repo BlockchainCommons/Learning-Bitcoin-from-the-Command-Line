@@ -126,7 +126,7 @@ Add and document the following new concepts:
    * Know CL? Have a node? Need to read the new stuff? Skip Lightning?
    * Decide where to place current first chapter in relation to that (before? after? glossary?)
 23. Add other Bitcoin standup options to Ch. 2
-24. Move an coding appendices (e.g., JQ interlude) to src code directory 
+24. <strike>Move an coding appendices (e.g., JQ interlude) to src code directory </strike> **10/20**
 25. Write letter about new edition
 26. Write tweetstorm
 
