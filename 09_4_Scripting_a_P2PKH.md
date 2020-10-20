@@ -1,7 +1,5 @@
 # 9.4: Scripting a P2PKH
 
-> :information_source: **NOTE:** This is a draft in progress, so that I can get some feedback from early reviewers. It is not yet ready for learning.
-
 P2PKH addresses are quickly fading in popularity due to the advent of SegWit, but nonetheless they remain a great building block for understanding Bitcoin, and especially for understanding Bitcoin scripts. (We'll take a quick look at how Segwit-native P2WPKH scripts work differently in the next section.)
 
 ## Understand the Unlocking Script
