@@ -1,7 +1,5 @@
 # 5.2: Resending a Transaction with RBF
 
-> :information_source: **NOTE:** This is a draft in progress, so that I can get some feedback from early reviewers. It is not yet ready for learning.
-
 If your Bitcoin transaction is stuck, and you're sender, you can resend it using RBF (replace-by-fee). However, that's not all that RBF can do: it's generally a powerful and multipurpose feature that allows Bitcoin senders to recreate transactions for a variety of reasons.
 
 > :warning: **VERSION WARNING:** This is an innovation from Bitcoin Core v 0.12.0,that reached full maturity in the Bitcoin Core wallet with Bitcoin Core v 0.14.0. Obviously, most people should be using it by now.
