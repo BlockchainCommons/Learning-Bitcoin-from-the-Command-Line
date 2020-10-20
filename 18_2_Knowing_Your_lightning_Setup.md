@@ -1,10 +1,10 @@
 # 18.2: Knowing Your c-lightning Setup
 
-> :information_source: **NOTE:** This is a draft in progress, so that I can get some feedback from early reviewers. It is not yet ready for learning.
+> :information_source: **NOTE:** This section has been recently added to the course and is an early draft that may still be awaiting review. Caveat reader.
 
 Before you begin accessing the Lightning Network, you should come to a better understanding of your setup.
 
-## Knowing Your c-lightning Directory
+## Know Your c-lightning Directory
 
 When using c-lightning, everything is kept in the `~/.lightning` directory.
 
@@ -22,7 +22,7 @@ config  gossip_store  hsm_secret  lightningd.sqlite3  lightningd.sqlite3-journal
 
 > :link: **TESTNET vs MAINNET:** If you're using mainnet, then _everything_ will instead be placed in the main `~/.lightning/bitcoin` directory. These various setups _do_ elegantly stack, so if you are using mainnet, testnet, and regtest, you'll find that `~/.lightning/bitcoin` contains your config file and your mainnet data, the `~/.lightning/testnet` directory contains your testnet data, and the `~/.lightning/regtest` directory contains your regtest data.
 
-## Knowing Your lightning-cli Commands
+## Know Your lightning-cli Commands
 
 Most of your early work will be done with the `lightning-cli` command, which offers an easy interface to `lightningd`, just like `bitcoin-cli` does.
 
@@ -228,7 +228,7 @@ dev-rescan-outputs
 run `lightning-cli help <command>` for more information on a specific command
 ```
 
-## Knowing your Lightning Info
+## Know your Lightning Info
 
 A variety of `lightning-cli` commands can give you additional information on your lightning node. The most general ones are:
 ```
