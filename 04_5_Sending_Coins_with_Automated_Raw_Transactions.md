@@ -1,7 +1,5 @@
 # 4.5: Sending Coins with Automated Raw Transactions
 
-> :information_source: **NOTE:** This is a draft in progress, so that I can get some feedback from early reviewers. It is not yet ready for learning.
-
 This chapter lays out three ways to send funds via Bitcoin's cli interface. [§4.1](04_1_Sending_Coins_The_Easy_Way.md) described how to do so with a simple command, and [§4.4](04_4_Sending_Coins_with_a_Raw_Transaction.md) detailed how to use a more dangerous raw transaction. This final section splits the difference by showing how to make raw transactions simpler and safer. 
 
 ## Let Bitcoin Calculate For You
