@@ -1,10 +1,10 @@
 # 15.2: Programming Bitcoind in C with RPC Libraries
 
-> **NOTE:** This is a draft in progress, so that I can get some feedback from early reviewers. It is not yet ready for learning.
+> :information_source: **NOTE:** This section has been recently added to the course and is an early draft that may still be awaiting review. Caveat reader.
 
 [§15.1](15_1_Accessing_Bitcoind_with_C.md) laid out the methodology for creating C programs using RPC and JSON libraries. We're now going to show the potential of those C libraries by laying out a simplistic, first cut of an actual Bitcoin program.
 
-## Planning for Your Code
+## Plan for Your Code
 
 This section will create a simplistic first cut version of `sendtoaddress`, which will allow a user to send money to an address as long as he has a big enough UTXO. Here's what we need to do:
 
@@ -17,7 +17,7 @@ This section will create a simplistic first cut version of `sendtoaddress`, whic
   7. Sign the transaction
   8. Send the transaction
   
-### Planning for Your Future
+### Plan for Your Future
 
 Since this is your first functional C program, we're going to try and keep it simple (KISS). If we were producing an actual production program, we'd at least want to do the following:
 
@@ -30,7 +30,7 @@ Since this is your first functional C program, we're going to try and keep it si
    
 If you want to continue to expand this example, addressing the inadequacies of this example program would be a great place to start.
 
-## Writing Your Transaction Software
+## Write Your Transaction Software
 
 Your now ready to undertake that plan step by step
 
@@ -322,7 +322,7 @@ printf("Txid: %s\n",tx_newid);
 ```
 The entire code, with a _little_ more error-checking appears in the Appendix.
 
-## Testing Your Code
+## Test Your Code
 
 The complete code can be found in the [src directory](src/15_2_sendtoaddress.c).
 
