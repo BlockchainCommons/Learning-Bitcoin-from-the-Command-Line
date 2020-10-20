@@ -1,6 +1,6 @@
 # 10.5: Scripting a Segwit Script
 
-> :information_source: **NOTE:** This is a draft in progress, so that I can get some feedback from early reviewers. It is not yet ready for learning.
+> :information_source: **NOTE:** This section has been recently added to the course and is an early draft that may still be awaiting review. Caveat reader.
 
 Segwit introduced a number of new options for address (and thus scripting) types. [§9.5: Scripting a P2WPKH](09_5_Scripting_a_P2WPKH.md) explained how the new Bech32 address type varied the standard scripts found in most traditional transactions. This chapter looks at the three other sorts of scripts introduced by the Segwit upgrade: the P2SH-Segwit (which was the transitional "nested Segwit" address, as Segwit came into usage), the P2WSH (which is the Segwit equivalent of the P2SH address, just like P2WPKH is the Segwit equivalent of the P2PKH address), and the nested P2WSH address.
 
@@ -10,7 +10,7 @@ This is another situation where you won't really have to worry about these nuanc
 
 The P2SH-Segwit address is a dying breed. It was basically a stopgap measure while Bitcoin was transitioning to Segwit that allowed a user to create a Segwit address and then have someone with a non-Segwit-enabled exchange or wallet fund that address. 
 
-But if you ever need to use one, there's an option to create a P2SH-Segwit address using `getnewaddress`:
+If you ever need to use one, there's an option to create a P2SH-Segwit address using `getnewaddress`:
 ```
 $ bitcoin-cli getnewaddress -addresstype p2sh-segwit
 2NEzBvokxh4ME4ahdT18NuSSoYvvhS7EnMU
@@ -36,7 +36,7 @@ $ bitcoin-cli listunspent
     "safe": true
   }
 ```
-More importantly, there's a `redeemScript`, which decodes to `OP_0 OP_PUSHDATA (20 bytes) 3ab2a09a1a5f2feb6c799b5ab345069a96e1a0a`. The should look familiar, because it's an `OP_0` followed by 20-byte hexcode of a public key hash. In other words, a P2SH-SegWit is precisely a SegWit `scriptPubKey` jammed into a script. That's all there is to it. It precisely matches how modern multisigs are a multsig jammed into a P2SH, as discussed in [§10.4: Scripting a Multisig](10_4_Scripting_a_Multisig.md).
+More importantly, there's a `redeemScript`, which decodes to `OP_0 OP_PUSHDATA (20 bytes) 3ab2a09a1a5f2feb6c799b5ab345069a96e1a0a`. The should look familiar, because it's an `OP_0` followed by 20-byte hexcode of a public key hash. In other words, a P2SH-SegWit is just a SegWit `scriptPubKey` jammed into a script. That's all there is to it. It precisely matches how modern multisigs are a multsig jammed into a P2SH, as discussed in [§10.4: Scripting a Multisig](10_4_Scripting_a_Multisig.md).
 
 The raw transaction reveals a bit more when you look at the `vout` `1`:
 ```
