@@ -1,7 +1,5 @@
 # 9.2: Running a Bitcoin Script
 
-> :information_source: **NOTE:** This is a draft in progress, so that I can get some feedback from early reviewers. It is not yet ready for learning.
-
 Bitcoin Scripts may not initially seem that intuitive, but their execution is quite simple, using reverse Polish notation and a stack.
 
 ## Understand the Scripting Language
