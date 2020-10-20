@@ -1,10 +1,10 @@
 # 15.1: Accessing Bitcoind in C with RPC Libraries
 
-> **NOTE:** This is a draft in progress, so that I can get some feedback from early reviewers. It is not yet ready for learning.
+> :information_source: **NOTE:** This section has been recently added to the course and is an early draft that may still be awaiting review. Caveat reader.
 
 You've already seen one alternative way to access the Bitcoind's RPC ports: `curl`, which was covered in a [Chapter 4 Interlude](04_4__Interlude_Using_Curl.md). Interacting with `bitcoind` through a RPC library in C is no different than that, you just need some good libraries to help you out. This section introduces a package called `libbitcoinrpc`, which allows you to access JSON-RPC `bitcoind` port.  It uses a `curl` library for accessing the data and it uses the `jansson` library for encoding and decoding the JSON.
 
-## Setting Up libbitcoinrpc
+## Set Up libbitcoinrpc
 
 To use `libbitcoinrpc`, you need to install a basic C setup and the dependent packages `libcurl`, `libjansson`, and `libuuid`. The following will do so on your Bitcoin Standup server (or any other Ubuntu server).
 ```
@@ -84,7 +84,7 @@ Installing man pages
 install -m 644 doc/man3/bitcoinrpc*.gz /usr/local/man/man3
 ```
 
-## Preparing Your Code
+## Prepare Your Code
 
 `libbitcoinrpc` has well-structured and simple methods for connecting to your `bitcoind`, executing RPC calls, and decoding the response.
 
@@ -98,7 +98,7 @@ You'll also need to link in the appropriate libraries whenever you compile:
 $ cc yourcode.c -lbitcoinrpc -ljansson -o yourcode
 ```
 
-## Building Your Connection
+## Build Your Connection
 
 Building the connection to your `bitcoind` server takes a few simple steps.
 
@@ -145,7 +145,7 @@ Later, when you're all done with your `bitcoind` connection, you should close it
 bitcoinrpc_global_cleanup();
 ```
 
-### Testing the Test Code
+### Test the Test Code
 
 Test code can be found at [15_1_testbitcoin.c in the src directory](src/15_1_testbitcoin.c). Download it to your testnet machine, then insert the correct RPC password (and change the RPC user if you didn't create your server with StandUp).
 
@@ -158,7 +158,7 @@ Successfully connected to server!
 
 > :warning: **WARNING:** If you forget to enter your RPC password in this or any other code samples that depend on RPC, you will receive a mysterious `ERROR CODE 5`.
 
-## Making an RPC Call
+## Make an RPC Call
 
 In order to use an RPC method using `libbitcoinrpc`, you must initialize a variable of type `bitcoinrpc_method_t`. You do so with the appropriate value for the method you want to use, all of which are listed in the [bitcoinrpc Reference](https://github.com/gitmarek/libbitcoinrpc/blob/master/doc/reference.md).
 ```
@@ -178,7 +178,7 @@ You use the `rpc_client` variable that you already learned about in the previous
 ```
 bitcoinrpc_call(rpc_client, getmininginfo, btcresponse, &btcerror);
 ```
-### Outputting Your Response
+### Output Your Response
 
 You'll want to know what the RPC call returned. To do so, retrieve the output of your call as a JSON object with `bitcoinrpc_resp_get` and save it into a standard `jansson` object, of type `json_t`:
 ```
@@ -211,9 +211,7 @@ printf("Block Count: %d\n",blocks);
 
 > :warning: **WARNING:** It's extremely easy to segfault your C code when working with `jansson` objects if you get confused with what type of object you're retrieving. Make careful use of `bitcoin-cli help` to know what you should expect, and if you experience a segmentation fault, first look at your JSON retrieval functions.
 
-Appendix II has an example of this complete code for accessing mining information.
-
-### Testing the Info Code
+### Test the Info Code
 
 Retrieve the test code from [the src directory](15_1_getmininginfo.c).
 ```
@@ -243,11 +241,11 @@ Just the Result: {
 
 Block Count: 1804406
 ```
-## Making an RPC Call with Arguments
+## Make an RPC Call with Arguments
 
 But what if your RPC call _did_ have arguments? 
 
-### Creating a JSON Array
+### Create a JSON Array
 
 To send parameters to your RPC call using `libbitcoinrpc` you have to wrap them in a JSON array. Since an array is just a simple listing of values, all you have to do is encode the parameters as ordered elements in the array. 
 
@@ -264,7 +262,7 @@ Note that there are two variants to the append command: `json_array_append_new`,
 
 This simple `json_array_append_new` methodology will serve for the majority of RPC commands with parameters, but some RPC commands require more complex inputs. In these cases you may need to create subsidiary JSON objects or JSON arrays, which you will then append to the parameters array as usual. The next section contains an example of doing so using `createrawtransaction`, which contains a JSON array of JSON objects for the inputs, a JSON object for the outputs, and the `locktime` parameter. 
 
-### Assigning the Parameters
+### Assign the Parameters
 
 When you've created your parameters JSON array, you simply assign it after you've initialized your RPC method, as follows:
 ```
