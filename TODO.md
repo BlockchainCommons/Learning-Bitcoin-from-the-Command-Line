@@ -121,7 +121,7 @@ Add and document the following new concepts:
 
 ## 6. Finalize Book
 
-21. Take out warnings for all old chapters
+21. <strike>Take out warnings for all old chapters</strike> **10/20**
 22. Add new first chapter, indicating places to start for people of different levels
    * Know CL? Have a node? Need to read the new stuff? Skip Lightning?
    * Decide where to place current first chapter in relation to that (before? after? glossary?)
