@@ -1,10 +1,10 @@
 # 17.1: Accessing Bitcoind with Go
 
-> **NOTE:** This is a draft in progress, so that I can get some feedback from early reviewers. It is not yet ready for learning.
+> :information_source: **NOTE:** This section has been recently added to the course and is an early draft that may still be awaiting review. Caveat reader.
 
 This section explains how to interact with `bitcoind` using the Go programming language and the [btcd rpcclient](https://github.com/btcsuite/btcd/tree/master/rpcclient). Note that it has some quirks and some limitations.
 
-## Setting Up Go
+## Set Up Go
 
 To prepare for Go usage on your UNIX machine,  first install curl if you haven't already:
 
@@ -51,7 +51,7 @@ Lastly, create the directory for your Go workspace:
 $ mkdir $HOME/work
 ```
 
-### Setting Up `btcd` `rpcclient`
+### Set Up `btcd` `rpcclient`
 
 You'll be using the `rpcclient` that comes with `btcd,` a Bitcoin implementation written in Go. Although `rpcclient` was originally designed to work with the `btcd` Bitcoin full node, it also works with Bitcoin Core. It has some quirks which we will be looking at. 
 
@@ -87,7 +87,7 @@ You should see the block count printed:
 2020/09/01 11:41:24 Block count: 1830861
 ```
 
-### Creating a `rpcclient` Project
+### Create a `rpcclient` Project
 
 You will typically be creating projects in your `~/work/src/myproject/bitcoin` directory:
 ```
@@ -107,7 +107,7 @@ This ```import``` declaration allows you to import relevant libraries. For every
    * ```fmt``` is used for printing out output. 
    * ```rpcclient``` is obviously the `rpcclient` library
 
-## Building Your Connection
+## Build Your Connection
 
 Every `bitcoind` function in Go begins with creating the RPC connection, using the `ConnConfig` function:
 ```
@@ -132,7 +132,7 @@ The```rpcclient.New(connCfg, nil)``` function then configures ```client``` to co
 
 The ```defer client.Shutdown()``` line is for disconnecting from your Bitcoin node, once the ```main()``` function finishes executing. After the ```defer client.Shutdown()``` line is where the exciting stuff goes — and it will be pretty easy to use. That's's because `rpcclient` helpfully turns the `bitcoin-cli` commands into functions using PascalCase. For example, ```bitcoin-cli getblockcount``` will be ```client.GetBlockCount``` in Go.
 
-### Making an RPC Call
+### Make an RPC Call
 
 All that's required now is to make an informational call like `GetBlockCount` or `GetBlockHash` using your `client`:
 ```
@@ -149,7 +149,7 @@ All that's required now is to make an informational call like `GetBlockCount` or
 	fmt.Printf("%s\n", blockHash.String())
 ```
 
-### Making an RPC Call with Arguments
+### Make an RPC Call with Arguments
 
 The `rpcclient` functions can take inputs as well; for example ```client.GetBlockHash(blockCount)``` takes the block count as an input. The ```client.GetBlockHash(blockCount)``` from above would look like this as a ```bitcoin-cli``` command:
 ```
@@ -158,7 +158,7 @@ $ bitcoin-cli getblockhash 1830868
 ```
 However, a quirk with hashes in `rpcclient` is that they will typically print in a different encoding if you were to print then normally with ```blockHash```. In order to print them as a string, you need to use ```blockHash.String()```.
 
-### Running Your Code
+### Run Your Code
 
 You can download the complete code from the [src directory](src/17_1_blockinfo.go).
 
@@ -171,7 +171,7 @@ $ go run blockinfo.go
 
 The latest block number along with its hash should be printed out.
 
-## Looking up Funds
+## Look up Funds
 
 Due to limitations of the `btcd` `rpcclient`, you can't make a use of the ```getwalletinfo``` function. However, you can make use of the `getbalance` RPC:
 
@@ -191,7 +191,7 @@ $ go run getbalance.go
 0.000689 BTC
 ```
 
-## Creating an Address
+## Create an Address
 
 You can generate addresses in Go, but you can't specify the address type:
 
@@ -240,7 +240,7 @@ $ go run getaddress.go
 tb1qutkcj34pw0aq7n9wgp3ktmz780szlycwddfmza
 ```
 
-### Decoding an Address
+### Decode an Address
 
 Creating an address took a look extra work, in specifying the appropiate chain. Using an address also will because you'll have to decode it prior to use. 
 
@@ -285,7 +285,7 @@ $ go run getamountreceived.go
 0.0085 BTC
 ```
 
-## Sending a Transaction
+## Send a Transaction
 
 You've now got all the puzzle pieces in place to send a transaction. You're going to want to:
 
@@ -338,7 +338,7 @@ $ go run sendtransaction.go
 9aa4cd6559e0d69059eae142c35bfe78b71a8084e1fcc2c74e2a9675e9e7489d
 ```
 
-### Looking Up a Transaction
+### Look Up a Transaction
 
 To lookup a transaction, such as the one you just sent, you'll need to once again do some conversions, this time of txid. ```"github.com/btcsuite/btcd/chaincfg/chainhash"``` is imported in order to allow hashes to be stored in the Go code. ```chainhash.NewHashFromStr("hash")``` converts a hash in a string to a format that works with rpcclient.
 
