@@ -1,10 +1,10 @@
 # 17.6: Accessing Bitcoind with Swift
 
-> :information_source: **NOTE:** This is a draft in progress, so that I can get some feedback from early reviewers. It is not yet ready for learning.
+> :information_source: **NOTE:** This section has been recently added to the course and is an early draft that may still be awaiting review. Caveat reader.
 
 This section explains how to interact with `bitcoind` using the Swift programming language and your own RPC client.
 
-## Setting Up Swift on Your Mac
+## Set Up Swift on Your Mac
 
 To date, you've built all of your alternative-programming-language development environments on your Debian virtual node. However, that's not the best platform for Swift. Though there is a version of Swift available for Ubuntu platforms, it's not fully featured, and it works somewhat differently from the Mac-native Swift. A "variant" at the bottom of this section explains how to set it up, but be warned that you'll be in uncharted territory.
 
@@ -54,11 +54,11 @@ rpcuser=oIjA53JC2u
 rpcpassword=ebVCeSyyM0LurvgQyi0exWTqm4oU0rZU
 ...
 ```
-## Building Your Connection by Hand
+## Build Your Connection by Hand
 
 At the time of this writing, there isn't an up-to-date, simple-to-use Bitcoin RPC Library that's specific for Swift, something that you can drop in and immediately start using. Thus, you're're going to do something you're never done before: build an RPC connection by hand.
 
-### Writing the RPC Transmitter
+### Write the RPC Transmitter
 
 This just requires writing a function that passes RPC commands on to `bitcoind` in the correct format:
 ```
@@ -156,7 +156,7 @@ And that's "all" there is to doing that RPC interaction by hand using a programm
 
 > :pray: **THANKS:** Thanks to @Fonta1n3 who provided the [main code](https://github.com/BlockchainCommons/Learning-Bitcoin-from-the-Command-Line/issues/137) for our RPC Transmitter.
 
-### Making An RPC Call
+### Make An RPC Call
 
 Having written the `makeCommand` RPC function, you can send an RPC call by running it. Here's `getblockchaininfo`:
 ```
@@ -169,7 +169,7 @@ makeCommand(method: method,param: param) { result in
 
 }
 ```
-### Making an RPC Call with Arguments
+### Make an RPC Call with Arguments
 
 You could similarly grab the current block count from that info and use that to (reduntantly) get the hash of the current block, by using the `param` parameter:
 ```
@@ -189,7 +189,7 @@ makeCommand(method: method,param: param) { result in
 }
 ```
 
-### Running Your Code
+### Run Your Code
 
 The complete code is available in the [src directory](src/17_6_getinfo.playground). Load it into your Xcode playground and then "Editor -> Run Playground" and you should get results like:
 ```
@@ -237,7 +237,7 @@ The complete code is available in the [src directory](src/17_6_getinfo.playgroun
 Blockhash for 1836745 is 00000000000000069725608ebc5b59e520572a8088cbc57ffa5ba87b7f300ac7
 ```
 
-## Looking Up Funds
+## Look Up Funds
 
 With your new `makeCommand` for RPC functions, you can similarly run a command like `getwalletinfo` or `getbalance`:
 ```
@@ -278,7 +278,7 @@ Balance is 0.01
     walletversion = 169900;
 }
 ```
-## Creating an Address
+## Create an Address
 
 Creating an address is simple enough, but what about creating a legacy address with a specific label? That requires two parameters in your RPC call.
 
@@ -310,7 +310,7 @@ Success!
 
 > :information_source: **NOTE:** As we often say in these coding examples, a real-world program would be much more sophisticated. In particular, you'd want to be able to send an actual JSON Object as a parameter, and then have your `makeCommand` program parse it and input it to the URLSession appropriately. What we have here maximizes readability and simplicity without focusing on ease of use.
 
-## Sending a Transaction
+## Send a Transaction
 
 As usual, sending a transaction (the hard way) is a multi-step process:
 
@@ -387,7 +387,7 @@ Sending your transaction is equally simple:
 
 The code for this transaction sender can be found in the [src directory](src/17_6_sendtx.playground).
 
-## Using Swift in Other Ways
+## Use Swift in Other Ways
 
 That covers our usual discussions of programming Bitcoin RPC in a language, but Swift is a particularly important language since it can be deployed on mobile devices, one of the prime venues for wallets. As such, you may wish to consider a few other libraries:
 
@@ -402,7 +402,7 @@ Swift is a robust modern programming language that unfortunately doesn't yet hav
 
 Learn about Lightning in [Chapter 18: Understanding Your Lightning Setup](18_0_Understanding_Your_Lightning_Setup.md).
 
-## Variant: Deploying Swift on Ubuntu
+## Variant: Deploy Swift on Ubuntu
 
 If you prefer to deploy Swift on Ubuntu, you can do so, though the functionality isn't the same. Some of the code in this chapter will likely generate errors that you'll need to resolve, and you'll also need to do more work to link in C libraries.
 
@@ -433,7 +433,7 @@ Swift version 5.1.3 (swift-5.1.3-RELEASE)
 Target: x86_64-unknown-linux-gnu
 ```
 
-### Creating a Project
+### Create a Project
 Once you've installed Swift on your Ubuntu machine, you can create projects with the `package init` command:
 ```
 $ mkdir swift-project
