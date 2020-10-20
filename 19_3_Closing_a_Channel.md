@@ -1,12 +1,12 @@
 # 19.3: Closing a Channel
 
-> :information_source: **NOTE:** This is a draft in progress, so that I can get some feedback from early reviewers. It is not yet ready for learning.
+> :information_source: **NOTE:** This section has been recently added to the course and is an early draft that may still be awaiting review. Caveat reader.
 
 In this chapter you'll learn how to close a channel using `lightning-cli close` command-line interface. Closing a channel means you and your counterparty will send their agreed-upon channel balance to the blockchain, whereby you must pay blockchain transaction fees and wait for the transaction to be mined. A closure can be cooperative or non-cooperative, but it works either way.
 
 In order to close a channel, you first need to know the ID of the remote node; you can retrieve it in one of two ways. 
 
-## Finding your Channels by Funds
+## Find your Channels by Funds
 
 You can use the `lightning-cli listfunds` command to see your channels.  This RPC command displays all funds available, either in unspent `outputs` (UTXOs) in the internal wallet or locked up in currently open `channels`.
 ```
@@ -60,7 +60,7 @@ You could retrieve the ID of the 0th channel into a variable like this:
 c$ nodeidremote=$(lightning-cli --testnet listfunds | jq '.channels[0] | .peer_id')
 ```
 
-## Finding your Channels with JQ
+## Find your Channels with JQ
 
 The other way to find channels to close is to the use the `listchannels` command. It returns data on channels that are known to the node. Because channels may be bidirectional, up to two nodes will be returned for each channel (one for each direction). 
 
@@ -102,7 +102,7 @@ Once you know what you've got, you can store it in a variable:
 c$ nodeidremote=$(lightning-cli --testnet listchannels | jq '.channels[] | select(.source == '$nodeid' or .destination == '$nodeid') | .destination')
 ```
 
-## Closing a Channel
+## Close a Channel
 
 Now that you have a remote node ID, you're ready to use the `lightning-cli close` command to close a channel. By default, it will attempt to close the channel cooperatively with the peer;  if you want to close it unilaterally set the `unilateraltimeout` argument with the number of seconds to wait. (If you set it to 0 and the peer is online, a mutual close is still attempted.) For this example, you will attempt a mutual close.
 
@@ -227,7 +227,7 @@ $ lightning-cli --network=testnet listfunds
 
 ```
 
-### Understanding the Types of Closing Channels.
+### Understand the Types of Closing Channels.
 
 The `close` RPC command attempts to close a channel cooperatively with its peer or unilaterally after the `unilateraltimeout` argument expires. This bears some additional discussion, as it goes to the heart of Lightning's trustless design:
 
