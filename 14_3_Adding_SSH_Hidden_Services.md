@@ -1,6 +1,6 @@
 # Chapter 14.3: Adding SSH Hidden Services
 
-> :information_source:  **NOTE:** This is a draft in progress, so that I can get some feedback from early reviewers. It is not yet ready for learning.
+> :information_source: **NOTE:** This section has been recently added to the course and is an early draft that may still be awaiting review. Caveat reader.
 
 To date, you've used Tor with your Bitcoin services, but you can also use it to protect other services on your machine, improving their security and privacy. This section demonstrates how by introducing an `ssh` hidden service to login remotely using Tor. 
 
