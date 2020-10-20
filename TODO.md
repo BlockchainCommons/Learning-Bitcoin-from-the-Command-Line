@@ -77,12 +77,12 @@ Add and document the following new concepts:
 14. <strike>Consider HWI.</strike> **7/14**
   * <strike>Write 7.3: Using HWI</strike> **7/14**
   * <strike>Edit All of Chapter 6-8</strike> **7/14**
-15. Consider splitting up Chapter 6 (definitely if we get an HWI chapter)
+15. <strike>Consider splitting up Chapter 6 (definitely if we get an HWI chapter)</strike>
    * <strike>Break apart Chapter 6</strike> **7/2**
    * <strike>Rewrite all section links in early chapters (1-5, 6, 8)</strike> **7/7**
    * <strike>Update Script Chapters</strike> **7/15**
    * <strike>Update Tor Chapter</strike> **7/22**
-   * Update Programming Chapters
+   * <strike>Update Programming Chapters</strike>
    
 ## 5. Finish Later Chapters
 
