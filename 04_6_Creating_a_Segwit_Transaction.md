@@ -1,6 +1,6 @@
 # 4.6: Creating a SegWit Transaction
 
-> :information_source: **NOTE:** This is a draft in progress, so that I can get some feedback from early reviewers. It is not yet ready for learning.
+> :information_source: **NOTE:** This section has been recently added to the course and is an early draft that may still be awaiting review. Caveat reader.
 
 Once upon a time, the Bitcoin heavens shook with the blocksize wars. Fees were skyrocketing, and users were worried about scaling. The Bitcoin Core developers were reluctant to simply increase the blocksize, but they came upon a compromise: SegWit, the Segregated Witness. Segregated Witness is a fancy way of saying "Separated Signature". It creates new sorts of transactions that remove signatures to the end of the transaction. By combining this with increased block sizes that only are visible to upgraded nodes, SegWit resolved the scaling problems for Bitcoin at the time (and also resolved a nasty malleability bug that had previously made even better scaling with layer-2 protocols like Lightning impractical). 
 
