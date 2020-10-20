@@ -1,10 +1,12 @@
 # Interlude: Accessing a Second Lightning Node
 
+> :information_source: **NOTE:** This section has been recently added to the course and is an early draft that may still be awaiting review. Caveat reader.
+
 When you played with Bitcoin you were accessing an existing network, and that made it relatively easy to work with: you just turned on `bitcoind` and you were immediately interacting with the network. That's now how Lightning works: it's fundamentally a peer-to-peer network, built up from the connections between any two individual nodes. In other words, to interact with the Lightning Network, you'll need to first find a node to connect to.
 
 There are four ways to do so (the first three of which are possible for your first connection):
 
-## Asking for Information on a Node
+## Ask for Information on a Node
 
 If someone else already has a Lightning node on the network of your choice, just ask them for their ID. 
 
@@ -48,13 +50,13 @@ lightning-cli: WARNING: default network changing in 2020: please set network=tes
 ```
 They can then tell you their `id` (`03240a4878a9a64aea6c3921a434e573845267b86e89ab19003b0c910a86d17687`). They will also need to tell you their IP address (`74.207.240.32`) and port (`9735`).
 
-## Creating a New c-lightning Node
+## Create a New c-lightning Node
 
 However, for testing purposes, you probably want to have a second node under you own control. The easiest way to do so is to create a second c-lightning node on a new machine, using either Bitcoin Standup, per [§2.1](02_1_Setting_Up_a_Bitcoin-Core_VPS_with_StackScript.md) or compiling it by hand, per [§18.1](18_1_Verifying_Your_Lightning_Setup.md).
 
 Once you have your node running, you can run `getinfo` to retrieve your information, as shown above.
 
-## Creating a New LND Node
+## Create a New LND Node
 
 However, for our examples in the next chapter, we're instead going to create an LND node. This will allow us to demonstrate a bit of the depth of the Lightning ecosystem by showing how similar commands work on the two different platforms.
 
@@ -62,7 +64,7 @@ One way to create an LND node is to run the Bitcoin Standup Scripts again on a n
 
 Another is to compile LND from source code on a machine where you'rea already running a Bitcoin node, as follows.
 
-### Compiling the LND Source Code 
+### Compile the LND Source Code 
 
 First, you need to download and install Go:
 ```
@@ -105,7 +107,7 @@ You should move it to global directories:
 $ sudo cp $GOPATH/bin/lnd $GOPATH/bin/lncli /usr/bin
 ```
 
-### Creating an LND Config File
+### Create an LND Config File
 
 Unlike with c-lightning, you will need to create a default config file for LND.
 
@@ -164,7 +166,7 @@ bitcoind.zmqpubrawtx=tcp://127.0.0.1:28333
 EOF
 ```
 
-### Creating an LND Service
+### Create an LND Service
 
 Finally, you can create an LND service to automatically run `lnd`:
 ```
@@ -204,14 +206,14 @@ $ sudo systemctl start lnd
 ```
 (Expect this to take a minute the first time.)
 
-### Enabling Remote Connections
+### Enable Remote Connections
 
 Just as with c-lightning, you're going to need to make LND accessible to other nodes. Here's how to do so if you use `ufw`, as per the Bitcoin Standup setups:
 ```
 $ sudo ufw allow 9735
 ```
 
-### Creating a Wallet
+### Create a Wallet
 
 The first time you run LND, you must create a wallet:
 ```
@@ -287,7 +289,7 @@ $ lncli --network=testnet getinfo
 ```
 This node's ID is `032a7572dc013b6382cde391d79f292ced27305aa4162ec3906279fc4334602543`. Although this command doesn't show you the IP address and port, they should be the IP address for your machine and port `9735`. 
 
-## Listening to Gossip
+## Listen to Gossip
 
 If you were already connected to the Lightning Network, and were "gossipping" with peers, you might also be able to find information on peers automatically, through the `listpeers` command:
 ```       
