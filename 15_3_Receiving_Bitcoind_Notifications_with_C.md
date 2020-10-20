@@ -1,16 +1,16 @@
 # 15.3 Receiving Notifications in C with ZMQ  Libraries
 
-> **NOTE:** This is a draft in progress, so that I can get some feedback from early reviewers. It is not yet ready for learning.
+> :information_source: **NOTE:** This section has been recently added to the course and is an early draft that may still be awaiting review. Caveat reader.
 
 [§15.1](15_1_Accessing_Bitcoind_with_C.md) and [§15.2](15_2_Programming_Bitcoind_with_C.md) introduced RPC and JSON libraries for C, and in doing so showed one of the advantages of accessing Bitcoin's RPC commands through a programming language: the ability to reasonably create much more complex programs. This chapter introduces a third library, for [ZMQ](http://zeromq.org/), and in doing so reveals another advantage: the ability to monitor for notifications. It will use that for coding a blockchain listener.
 
 > :book: ***What is ZMQ?*** ZeroMQ (ZMQ)is a high-performance asynchronous messaging library that provides a message queue.  ZeroMQ supports common messaging patterns (pub/sub, request/reply, client/server, and others) over a variety of transports (TCP, in-process, inter-process, multicast, WebSocket, and more), making inter-process messaging as simple as inter-thread messaging. You can find more details about ZMQ notifications and others kind of messages in [this repo](https://github.com/Actinium-project/ChainTools/blob/master/docs/chainlistener.md).
 
-## Setting Up ZMQ
+## Set Up ZMQ
 
 Before you can create a blockchain listener, you will need to configure `bitcoind` to allow ZMQ notifications, and then you'll need to install a ZMQ library to take advantage of those notifications.
 
-### Configuring `bitcoind` for ZMQ
+### Configure `bitcoind` for ZMQ
 
 Bitcoin Core is ZMQ-ready, but you must specify ZMQ endpoints. ZeroMQ publish-sockets prepend each data item with an arbitrary topic
 prefix that allows subscriber clients to request only those items with a matching prefix. There are currently four topics supported by `bitcoind`:
@@ -46,7 +46,7 @@ $ bitcoin-cli getzmqnotifications
 ```
 Your `bitcoind` will now issue ZMQ notifications
 
-### Installing ZMQ
+### Install ZMQ
 
 To take advantage of those notifications, you need a ZMQ library to go with C; we'll thus be using a new ZMQ library instead of the `libbitcoinrpc` library in this section, but when you're experimenting in the future, you'll of course be able to combine them. 
 
@@ -57,7 +57,7 @@ $ sudo apt-get install libczmq-dev
 ```
 You're now ready to code!
 
-## Writing Your Notification Program
+## Write Your Notification Program
 
 The following C program is a simple client that subscribes to a ZMQ connection point served by `bitcoind` and reads incoming messages.  
 
@@ -119,7 +119,7 @@ Of course when you're done, you should clean up:
 }
 ```
 
-### Testing the Notification Code
+### Test the Notification Code
 
 The source code is in the [src directory](src/15_3_chainlistener.c) as usual. You should compile it:
 ```
