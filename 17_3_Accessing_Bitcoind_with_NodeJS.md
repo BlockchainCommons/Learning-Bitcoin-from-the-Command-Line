@@ -1,10 +1,10 @@
 # 17.3: Accessing Bitcoind with NodeJS
 
-> **NOTE:** This is a draft in progress, so that I can get some feedback from early reviewers. It is not yet ready for learning.
+> :information_source: **NOTE:** This section has been recently added to the course and is an early draft that may still be awaiting review. Caveat reader.
 
 This section explains how to interact with `bitcoind` using the NodeJS programming language and the [BCRPC package](https://github.com/dgarage/bcrpc).
 
-## Setting Up Node.js
+## Set Up Node.js
 
 BCRPC is built on node.js. Thus, you'll first need to install the `node.js` and `npm` (the node package manager) packages for your system. 
 
@@ -16,7 +16,7 @@ $ sudo apt-get install -y nodejs
 $ sudo npm install mocha -g
 ```
 
-### Setting Up BCRPC
+### Set Up BCRPC
 
 You can now clone the BCRPC package from GitHub and install its dependencies.
 
@@ -57,7 +57,7 @@ $ npm test
 
 Congratulations, you now have a Bitcoin-ready RPC wrapper for Node.js that is working with your Bitcoin setup.
 
-### Creating a BCRPC Project
+### Create a BCRPC Project
 
 You can now create a new Node.js project and install BCRPC via npm.
 
@@ -70,7 +70,7 @@ $ npm init
 $ npm install bcrpc
 ```
 
-## Building Your Connection
+## Build Your Connection
 
 In your ```myproject``` directory, create a `.js` file where you JavaScript code will be executed. 
 
@@ -81,7 +81,7 @@ agent = new RpcAgent({port: 18332, user: 'StandUp', pass: 'd8340efbcd34e312044c8
 ```
 Obviously, your `user` and `pass` should again match what's in your `~/.bitcoin/bitcoin.conf`, and you use `port 18332` if you're on testnet.
 
-### Making an RPC Call
+### Make an RPC Call
 
 Using BCRPC, you can use the same RPC commands you would usually use via ```bitcoin-cli``` with your `RpcAgent`, except they need to be in camelCase. For example, ```getblockhash``` would be ```getBlockHash``` instead.
 
@@ -95,7 +95,7 @@ agent.getBlockCount(function (err, blockCount) {
 });
 ```
 
-### Making an RPC Call with Arguments
+### Make an RPC Call with Arguments
 
 The BCRPC functions can accept arguments. For example, ```getBlockHash``` takes ```blockCount.result``` as an input. 
 
@@ -109,7 +109,7 @@ The BCRPC functions can accept arguments. For example, ```getBlockHash``` takes 
 
 The result of the BCRPC functions is a JSON object containing information about any errors and the id of the request. When accessing your result, you add ```.result``` to the end of it to specify that you are interested in the actual result, not information about errors. 
 
-### Running Your Code
+### Run Your Code
 
 You can find the `getinfo` code in [the src directory](src/17_3_getinfo.js).
 ```
@@ -127,7 +127,7 @@ This is what output of the above example would look like if you replaced ```cons
 }
 ```
 
-## Looking Up Funds
+## Look Up Funds
 
 It's useful when accepting Bitcoin to check the received Bitcoin on a specific address in your wallet. For example, if you were running an online store accepting Bitcoin, for each payment from a customer, you would generate a new address, show that address to the customer, then check the balance of the address after some time, to make sure the correct amount has been received:
 
@@ -151,7 +151,7 @@ agent.getReceivedByAddress('mpGpCMX6SuUimDZKiVViuhd7EGyVxkNnha', 6, function (er
 });
 ```
 
-### Looking Up Wallet Information
+### Look Up Wallet Information
 
 You can also look up additional information about your wallet and view your balance, transaction count, et cetera:
 
@@ -186,7 +186,7 @@ $ node walletinfo.js
 ```
 Instead of printing all the details associated with your wallet, you can print specific information, such as your balance. Since a JSON object is being accessed, this can be done by changing the line ```console.log(walletInfo.result);``` to ```console.log(walletInfo.result.balance);```:
 
-## Creating an Address
+## Create an Address
 
 You can also pass additional arguments to RPC commands. For example, the following generates a new legacy address, with the ```-addresstype``` flag.
 
@@ -205,7 +205,7 @@ mtGPcBvRPZFEHo2YX8un9qqPBydhG82uuZ
 
 In BCRPC, you can generally use the same flags as in ```bitcoin-cli``` in BCRPC. Though you use camelCase (```getNewAddress```) for the methods, the flags, which are normally separated by spaces on the command line, are instead placed in strings and separated by commas.
 
-## Sending a Transaction
+## Send a Transaction
 
 You can send coins to an address most easily using the ```sendToAddress``` function:
 
@@ -223,7 +223,7 @@ This should print the txid of the transaction:
 1679bee019c61608340b79810377be2798efd4d2ec3ace0f00a1967af70666b9
 ```
 
-### Looking Up a Transaction
+### Look Up a Transaction
 
 You may now wish to view a transaction, such as the one you just sent.
 ```
