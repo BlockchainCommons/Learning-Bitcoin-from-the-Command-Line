@@ -1,7 +1,5 @@
 # Interlude: Using Curl
 
-> **NOTE:** This is a draft in progress, so that I can get some feedback from early reviewers. It is not yet ready for learning.
-
 `bitcoin-cli` is ultimately just a wrapper. It's a way to interface with `bitcoind` from the command line, providing simplified access to its many RPC commands. But RPC can, of course, be accessed directly. That's what this interlude is about: directly connecting to RPC with the `curl` command.
 
 It won't be used much in the future chapters, but it's an important building block that you can see as an alternative access to `bitcoind` is you so prefer.
