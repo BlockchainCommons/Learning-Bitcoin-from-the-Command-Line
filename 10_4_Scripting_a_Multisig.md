@@ -146,4 +146,4 @@ Multisigs are a standard transaction type, but they're a bit cumbersome to use, 
 
 ## What's Next?
 
-Continue "Embedding Bitcoin Scripts" with [§10.5: Spending a P2SH Transaction](10_5_Scripting_a_Segwit_Script.md)
+Continue "Embedding Bitcoin Scripts" with [§10.5: Scripting a Segwit Script](10_5_Scripting_a_Segwit_Script.md)
