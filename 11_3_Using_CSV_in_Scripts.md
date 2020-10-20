@@ -1,7 +1,5 @@
 # 11.3: Using CSV in Scripts
 
-> :information_source: **NOTE:** This is a draft in progress, so that I can get some feedback from early reviewers. It is not yet ready for learning.
-
 `nLockTime` and `OP_CHECKLOCKTIMEVERIFY` (or CLTV) are just one side of the timelock equation. On the other side are `nSequence` and `OP_CHECKSEQUENCEVERIFY`, which can be used to check against relative times rather than absolute times.
 
 > :warning: **VERSION WARNING:** CSV became available with Bitcoin Core 0.12.1, in spring 2016.
