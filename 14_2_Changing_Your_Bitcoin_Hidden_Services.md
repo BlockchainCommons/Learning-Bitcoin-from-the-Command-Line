@@ -1,6 +1,6 @@
 # Chapter 14.2: Changing Your Bitcoin Hidden Services
 
-> :information_source:  **NOTE:** This is a draft in progress, so that I can get some feedback from early reviewers. It is not yet ready for learning.
+> :information_source: **NOTE:** This section has been recently added to the course and is an early draft that may still be awaiting review. Caveat reader.
 
 You've got a working Tor service, but over time you may wish to reset or otherwise adjust it.
 
