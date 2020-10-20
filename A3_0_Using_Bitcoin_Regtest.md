@@ -1,17 +1,17 @@
 # Appendix III: Using Bitcoin Regtest 
 
-> **NOTE:** This is a draft in progress, so that I can get some feedback from early reviewers. It is not yet ready for learning.
+> :information_source: **NOTE:** This section has been recently added to the course and is an early draft that may still be awaiting review. Caveat reader.
 
 The majority of this course presumes that you will either use the Mainnet or Testnet. However, those aren't the only choices. While developing Bitcoin applications, you might want to keep your applications isolated from these public blockchains. To do so, you can create a blockchain from scratch using the Regtest, which has one other major advantage over Testnet: you choose when to create new blocks, so you have complete control over the environment.
 
-## Starting Bitcoind on Regtest
+## Start Bitcoind on Regtest
 
 After [setting up your Bitcoin-Core VPS](02_0_Setting_Up_a_Bitcoin-Core_VPS.md) or [compiling from source](A2_0_Compiling_Bitcoin_from_Source.md), you are now able to use regtest. To start your `bitcoind` on regtest and create a private Blockchain, use the following command:
 ```
 $ bitcoind -regtest -daemon
 ```
 
-### Resetting the Regtest Blockchain
+### Reset the Regtest Blockchain
 
 If you wish, you can later restart your Regtest with a new blockchain. 
 
@@ -26,7 +26,7 @@ To start a brand new Blockchain using regtest, all you have to do is delete the 
 $ rm -rf regtest
 ```
 
-## Generating Blocks
+## Generate Blocks
 
 You can generate (mine) new blocks on a regtest chain using the RPC method `generate` with an argument for how many blocks to generate. It only makes sense to use this method on regtest; due to the high difficulty it's very unlikely that it will yield to new blocks on the mainnet or testnet:
 ```
@@ -48,7 +48,7 @@ The output is the block hash of every block generated.
 
 > :book: ***What is a coinbase transaction?*** A coinbase is the inputless transaction created when a new block is mined and given to the miner. It's how new bitcoins enter the ecosystem. The value of coinbase transactions decay over time. On the mainnet, it halves every 210,000 transactions and ends entirely with the 6,929,999th block, which is currently predicted for the 22nd century. As of May 2020, the coinbase reward is 6.25 BTC.
 
-### Verifying Your Balance
+### Verify Your Balance
 
 After mining blocks and getting the rewards, you can verify the balance on your wallet:
 ```
@@ -56,7 +56,7 @@ $ bitcoin-cli -regtest getbalance
 50.00000000
 ```
 
-## Using the Regtest
+## Use the Regtest
 
 Now you should be able to use this balance for any type of interaction on your private Blockchain, such as sending Bitcoin transactions according to [Chapter 4]((04_0_Sending_Bitcoin_Transactions.md)).
 
@@ -121,7 +121,7 @@ $ bitcoin-cli -regtest generate 6
 ```
 
 
-## Testing with NodeJS
+## Test with NodeJS
 
 When you are on regtest, you are able to simulate edge cases and attacks that might happen in the real world, such  as double spend.
 
@@ -182,7 +182,7 @@ n2.after (before) = 100
 
 ```
 
-## Conclusion — Using Bitcoin Regtest
+## Summary: Using Bitcoin Regtest
 
 A regtest environment for Bitcoin works just like any testnet environment, except for the fact that you have the ability to easily and quickly generate blocks.
 
