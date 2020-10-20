@@ -1,6 +1,6 @@
 # 16.2: Using BIP39 in Libwally
 
-> **NOTE:** This is a draft in progress, so that I can get some feedback from early reviewers. It is not yet ready for learning.
+> :information_source: **NOTE:** This section has been recently added to the course and is an early draft that may still be awaiting review. Caveat reader.
 
 One of Libwally's greatest powers is that it can lay bare the underlying work of generating seeds, private keys, and ultimately addresses. To start with, it supports [BIP39](https://github.com/bitcoin/bips/blob/master/bip-0039.mediawiki), which is the BIP that defines mnemonic codes for Bitcoin — something that's entirely unsupported, to date, by Bitcoin Core.
 
@@ -8,7 +8,7 @@ One of Libwally's greatest powers is that it can lay bare the underlying work of
 
 > :book: ***What is a Seed?*** We briefly touched on seeds in [§3.5: Understanding the Descriptor](03_5_Understanding_the_Descriptor.md). It's the random number that's used to generate a whole sequence of private keys (and thus addresses) in an HD wallet. We'll return to seeds in the next section, which is all about HD wallets and Libwally. For now, just know that a BIP39 mnemonic code corresponds to the seed for a BIP32 hierarchical deterministic wallet.
 
-## Creating Mnemonic Codes
+## Create Mnemonic Codes
 
 All Bitcoin keys start with entropy. This first use of Libwally, and its BIP39 mnemonics, thus shows how to generate entropy and to get a mnemonic code from that.
 
@@ -29,7 +29,7 @@ You'll always start work with Libwally by initializing the library and testing t
 ```
 Now you're ready to entropize.
 
-### Creating Entropy
+### Create Entropy
 
 Using `libsodium`, you can create entropy with the `randombytes_buf` command:
 ```
@@ -40,7 +40,7 @@ This example, which will be the only way we use the `libsodium` library, creates
 
 >:warning: **WARNING:** Again, be very certain that you're very comfortable with your method for entropy generation before you use it in a real-world program.
 
-### Translating into a Mnemonic
+### Translate into a Mnemonic
 
 16 bytes of entropy is sufficient to create a 12-character Mnemonic code, which is done with Libwally's `bip39_mnemonic_from_bytes` function:
 ```
@@ -55,7 +55,7 @@ That's it! You've created a mnemonic phrase!
 
 >:book: ***How is the Mnemonic Phrase Created?*** You can learn about that in [BIP39](https://github.com/bitcoin/bips/blob/master/bip-0039.mediawiki), but if you prefer, Greg Walker has an [excellent example](https://learnmeabitcoin.com/technical/mnemonic): basically, you add a checksum, then you covert each set of 11 bits into a word from the word list. You can do this with the commands `bip39_get_wordlist` and `bip39_get_word` if you don't trust the `bip39_mnemonic_from_bytes` command.
 
-### Translating into a Seed
+### Translate into a Seed
 
 There are some functions, such as `bip32_key_from_seed` (which we'll meet in the next section) that require you to have theseeddeed rather than the Mnemonic. The two things are functionally identical: if you have the seed, you can generate the mnemonic, and vice-versa.
 
@@ -68,7 +68,7 @@ If you need to generate the seed from your mnemonic, you just use the `bip39_mne
 ```
 Note that all BIP39 seeds are current 512 bytes; nonetheless you have to set the size of your variable appropriately, and pass along that size to `bip39_mnemonic_to_seed`.
 
-### Printing Your Seed
+### Print Your Seed
 
 If you want to see what your seed looks like in hex, you can use the `wally_hex_from_bytes` function to turn your seed into a readable (but not-great-for-people) hex code:
 ```
@@ -80,7 +80,7 @@ If you've done everything right, you should get back a 64-byte seed. (That's the
 
 > :warning: **WARNING:** You definitely should test that your seed length is 64 bytes in some way, because it's easy to mess up, for example by using the wrong variable type when you run `bip39_mnemonic_to_seed`.
 
-## Testing Mnemonic Code
+## Test Mnemonic Code
 
 The full code for generating entropy, generating a BIP39 mnemonic, validating the mnemonic, and generating a seed can be found in the [src directory](src/16_2_genmnemonic.c). Download it and compile:
 ```
