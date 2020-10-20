@@ -1,12 +1,12 @@
 # 16.4: Using PSBTs in Libwally
 
-> **NOTE:** This is a draft in progress, so that I can get some feedback from early reviewers. It is not yet ready for learning.
+> :information_source: **NOTE:** This section has been recently added to the course and is an early draft that may still be awaiting review. Caveat reader.
 
 You learned all about Partially Signed Bitcoin Transactions (PSBTs) in [§7.1](07_1_Creating_a_Partially_Signed_Bitcoin_Transaction.md) and [§7.2](07_2_Using_a_Partially_Signed_Bitcoin_Transaction.md), and as you saw in [§7.3: Integrating with Hardware Wallets](https://github.com/BlockchainCommons/Learning-Bitcoin-from-the-Command-Line/blob/master/07_3_Integrating_with_Hardware_Wallets.md), one of their prime advantages is being able to integrate with offline nodes, such as Hardware Wallets. HWI allowed you to pass commands to a Hardware Wallet, but what does the wallet itself use to manage the PSBTs? As it happens, it can use something like Libwally, as this section demonstrates.
 
 Basically, Libwally has all of the PSBT functionality, so if there's something you could do with `bitcoind`, you could also do it using Libwally, even if your device is offline. What follows is the barest introduction to what's a very complex topic.
 
-## Converting a PSBT
+## Convert a PSBT
 
 Converting a PSBT into Libwally's internal structure is incredibly easy, you just run `wally_psbt_from_base64` with a base64 PSBT — which are the outputs produced by `bitcoin-cli`, such as:
 
@@ -76,7 +76,7 @@ struct wally_tx_output {
 ```
 There's a lot there! Though much of this should be familiar from pervious chapters, it's a bit overwhelming to see it all laid out in C structures.
 
-## Reading a Converted PSBT
+## Read a Converted PSBT
 
 Obviously, you can read anything out of a PSBT structure by calling up the individual elements from the various substructures. The following is a brief overview showing how to grab a few of the elements. 
 
@@ -114,7 +114,7 @@ Obviously, there's a lot more you could look at in the PSBTs. In fact, looking i
 
 > :warning: **WARNING:** These reading functions are _very_ rudimentary and will not work properly for extremly normal situations like an input or output that's still empty or that includes a `non_witness_utxo`. They will segfault if they aren't delivered a precisely expected PSBT. A real reader would need to be considerably more robust, to cover all possible situations, but that's left as an exercise for the reader.
 
-### Testing Your PSBT Reader
+### Test Your PSBT Reader
 
 Again, the code for this (extremely rudimentary and specific) PSBT reader is in the [src directory](src/16_4_examinepsbt.c). 
 
@@ -266,13 +266,13 @@ You can see the input satoshis and `scriptPubKey` clearly listed in the `inputs`
 
 So, it's all there for your gathering!
 
-## Creating a PSBT
+## Create a PSBT
 
 As noted at the head of this section, all of the functions needed to create and process PSBTs are available in Libwally. Actually running through the process of doing so is complex enough that it's beyond the scope of this section, but here's a quick run-down of the functions required. Note that the [documents](https://wally.readthedocs.io/en/latest/psbt/) are out of date for PSBTs, so you'll need to consult `/usr/include/wally_psbt.h` for full information.
 
 As discussed in [§7.1](07_1_Creating_a_Partially_Signed_Bitcoin_Transaction.md) there are several roles involved in creating PSBTs
 
-### Taking the Creator Role
+### Take the Creator Role
 
 The creator role is tasked with creating a PSBT with at least one input.
 
@@ -287,7 +287,7 @@ But what you have is not yet a legal PSBT, because of the lack of inputs. You ca
   lw_response = wally_tx_init_alloc(0,0,1,1,&gtx);
   lw_response = wally_psbt_set_global_tx(psbt,gtx);
 ```
-### Testing Your PSBT Creation
+### Test Your PSBT Creation
 
 At this point, you should have an empty, but working PSBT, which you can see by compiling and running [the program](src/16_4_createemptypsbt.c).
 ```
@@ -322,7 +322,7 @@ $ bitcoin-cli decodepsbt $psbt
   "fee": 0.00000000
 }
 ```
-## Taking the Rest of the Roles
+## Take the Rest of the Roles
 
 As with PSBT reading, we are introducing the concept of PSBT creation, and then leaving the rest as an exercise for the reader.
 
