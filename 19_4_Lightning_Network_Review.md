@@ -1,10 +1,10 @@
 # 19.4: Expanding the Lightning Network
 
-> :information_source: **NOTE:** This is a draft in progress, so that I can get some feedback from early reviewers. It is not yet ready for learning.
+> :information_source: **NOTE:** This section has been recently added to the course and is an early draft that may still be awaiting review. Caveat reader.
 
 These two chapters have covered just a few of the most important activities with Lightning. There's lots more that can be done, and lots of variety possible. What follows are some pointers forward.
 
-## Using c-lightning Plugins
+## Use c-lightning Plugins
 
 c-lightning is a lightweight, highly customizable, and standard compliant implementation of the Lightning Network protocol. It extends it functionality using Plugins.  Mainly, these are subprocesses that are initiated by the `lightningd` daemon and can interact with `lightningd` in a variety of ways:
 
@@ -17,7 +17,7 @@ A plugin may be written in any language and can communicate with `lightningd` th
 
 The `lightningd` GitHub repo maintains a updated list of [plugins](https://github.com/lightningd/plugins) available.
 
-## Using Mobile Wallets
+## Use Mobile Wallets
 
 We currently know of two mobile lightning wallets that support the c-lightning implementation.
 
@@ -29,7 +29,7 @@ SparkWallet is a minimalistic wallet GUI for c-lightning, accessible over the we
 
 *  [SparkWallet](https://github.com/shesek/spark-wallet)
 
-## Using Different Lightning Implementations
+## Use Different Lightning Implementations
 
 c-lightning isn't your only option. Today there are three widely used implementations of the Lightning Network. All of them follow the [Basis of Lightning Technology (BOLT) documents](https://github.com/lightningnetwork/lightning-rfc), which describe a layer-2 protocol for off-chain bitcoin transfers. The specifications are currently a work-in-progress that is still being drafted.
 
@@ -39,7 +39,7 @@ c-lightning isn't your only option. Today there are three widely used implementa
 | LND  | Lightning Labs  | X | Go | [Download](https://github.com/lightningnetwork/lnd) |
 | Eclair  | ACINQ  | - | Scala | [Download](https://github.com/ACINQ/eclair) |
 
-## Maintaining Backups
+## Maintain Backups
 
 Your Lightning node needs to be online all the time, otherwise your counterparty could send a previous channel status and steal your funds.  However, there is another scenario in which funds can be lost, and that is when a hardware failure occurs that prevents the node from establishing a cooperative closure with the counterparty. This will probably mean that if you do not have an exact copy of the state of the channel before the failure, you will have an invalid state that could cause the other node to assume it as an attempted fraud and use the penalty transaction. In this case, all funds will be lost. To avoid this undesirable situation a solution based on the high availability of postgresQL database [exists](https://github.com/gabridome/docs/blob/master/c-lightning_with_postgresql_reliability.md).
 
