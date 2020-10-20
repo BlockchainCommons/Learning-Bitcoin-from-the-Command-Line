@@ -1,10 +1,8 @@
 # 12.1: Using Script Conditionals
 
-> :information_source: **NOTE:** This is a draft in progress, so that I can get some feedback from early reviewers. It is not yet ready for learning.
-
 There's one final aspect of Bitcoin Scripting that's crucial to unlocking its true power: conditionals allow you create various paths of execution.
 
-## Understand Verify
+## Understanding Verify
 
 You've already seen one conditional in scripts: `OP_VERIFY` (0x69). It pops the top item on the stack and sees if it's true; if not _it ends execution of the script_. 
 
@@ -14,13 +12,13 @@ So how is `OP_VERIFY` a conditional? It's the most powerful sort of conditional.
 
 You may notice there's no `OP_VERIFY` at the end of this (or most any) script, despite the final condition being required as well. That's because Bitcoin effectively does an `OP_VERIFY` at the very end of each Script, to ensure that the final stack result is true. You don't _want_ to do an `OP_VERIFY` before the end of the script, because you need to leave something on the stack to be tested!
 
-## Understand If/Then
+## Understanding If/Then
 
 The other major conditional in Bitcoin Script is the classic `OP_IF` (0x63) / `OP_ELSE` (0x67) / `OP_ENDIF` (0x68). This is typical flow control: if `OP_IF` detects a true statement, it executes the block under it; otherwise, if there's an `OP_ELSE`, it executes that; and `OP_ENDIF` marks the end of the final block.
 
 > :warning: **WARNING:** These conditionals are technically opcodes too, but as with small numbers, we're going to leave the `OP_` prefix off for brevity and clarity. Thus we'll write `IF`, `ELSE`, and `ENDIF` instead of `OP_IF`, `OP_ELSE`, and `OP_ENDIF`.
 
-### Understand If/Then Ordering
+### Understanding If/Then Ordering
 
 There are two big catches to conditionals. They make it harder to read and assess scripts if you're not careful.
 
@@ -75,7 +73,7 @@ The statement that will evaluate to `True` or `False` is placed on the stack _pr
 
 This particular example code is intended as a poor man's 1-of-2 multisignature. The owner of `<privKeyA>` would put `<signatureA> <pubKeyA> True` in his unlocking script, while the owner of `<privKeyB>` would put `<signatureB> <pubKeyB> False` in her unlocking script. That trailing `True` or `False` is what's checked by the `IF`/`ELSE` statement.  It tells the script which public-key hash to check against, then the `OP_EQUALVERIFY` and the `OP_CHECKSIG` at the end do the real work. 
 
-### Run an If/Then Multisig
+### Running an If/Then Multisig
 
 With a core understanding of Bitcoin conditionals in hand, we're now ready to run through a script. We're going to do so by creating a slight variant of our poor man's 1-of-2 multisignature where our users don't have to remember if they're `True` or `False`. Instead, if need be, the script checks both public-key hashes, just requiring one success:
 ```
@@ -93,7 +91,7 @@ ENDIF
 ```
 Remember your reverse Polish notation! That `IF` statement if referring to the `OP_EQUAL` before it, not the `OP_CHECKSIG` after it!
 
-#### Run the True Branch
+#### Running the True Branch
 
 Here's how it actally runs if unlocked with `<signatureA> <pubKeyA>`:
 ```
@@ -136,7 +134,7 @@ Script:
 Running: <signatureA> <pubKeyA> OP_CHECKSIG
 Stack: [ True ]
 ```
-#### Run the False Branch
+#### Running the False Branch
 
 Here's how it actally runs if unlocked with `<signatureB> <pubKeyB>`:
 ```
@@ -196,7 +194,7 @@ Stack: [ True ]
 ```
 This probably isn't nearly as efficient as a true Bitcoin multisig, but it's a good example of how results pushed onto the stack by previous tests can be used to feed future conditionals. In this case, it's the failure of the first signature which tells the conditional that it should go check the second one. 
 
-## Understand Other Conditionals
+## Understanding Other Conditionals
 
 There are a few other conditionals of note. The big one is `OP_NOTIF` (0x64), which is the opposite of `OP_IF`: it executes the following block if the top item is `False`. An `ELSE` can be placed with it, which as usual is executed if the first block is not executed. You still end with `OP_ENDIF`.
 
