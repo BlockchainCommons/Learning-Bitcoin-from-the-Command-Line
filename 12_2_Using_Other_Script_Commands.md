@@ -1,7 +1,5 @@
 # 12.2: Using Other Script Commands
 
-> :information_source: **NOTE:** This is a draft in progress, so that I can get some feedback from early reviewers. It is not yet ready for learning.
-
 You may already have in hand most of the Bitcoin Script opcodes that you'll be using in most scripts. However, Bitcoin Script offers a lot more options, which might be exactly what you need to create the financial instrument of your dreams.
 
 You should consult the [Bitcoin Script page](https://en.bitcoin.it/wiki/Script) for a more thorough look at all of these and many other commands. This section only highlights the most notable opcodes.
