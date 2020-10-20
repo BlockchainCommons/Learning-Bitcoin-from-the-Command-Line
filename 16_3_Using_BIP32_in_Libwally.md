@@ -1,10 +1,10 @@
 # 16.3: Using BIP32 in Libwally
 
-> **NOTE:** This is a draft in progress, so that I can get some feedback from early reviewers. It is not yet ready for learning.
+> :information_source: **NOTE:** This section has been recently added to the course and is an early draft that may still be awaiting review. Caveat reader.
 
 In [§16.2](16_2_Using_BIP39_in_Libwally.md), you were able to use entropy to generate a seed and its related mnemonic. As you may recall from [§3.5: Understanding the Descriptor](03_5_Understanding_the_Descriptor.md), a seed is the basis of a Hierchical Deterministic (HD) Wallet, where that single seed can be used to generate many addresses. So how do you get from the seed to actual addresses? That's where [BIP32](https://en.bitcoin.it/wiki/BIP_0032) comes in.
 
-## Creating an HD Root
+## Create an HD Root
 
 To create a HD address requires starting with a seed, and then walking down the hierarchy until the point that you create addresses.
 
@@ -20,7 +20,7 @@ That starts off easily enough, you just generate a seed, which you already did i
   size_t seed_len;  
   lw_response = bip39_mnemonic_to_seed(mnem,NULL,seed,BIP39_SEED_LEN_512,&seed_len);
 ```
-### Generating a Root Key
+### Generate a Root Key
 
 With a seed in hand, you can then generate a master extended key with the `bip32_key_from_seed_alloc` function (or alternatively the `bip32_key_from_seed`, which doesn't do the `alloc`):
 ```
@@ -31,7 +31,7 @@ As you can see, you'll need to tell it what version of the key to return, in thi
 
 > :link: **TESTNET vs MAINNET:** On mainnet, you'd instead ask for `BIP32_VER_MAIN_PRIVATE`.
 
-### Generating xpub & xprv
+### Generate xpub & xprv
 
 Whenever you have a key in hand, you can turn it into xpub or xprv keys for distribution with the `bip32_key_to_base58` command. You just tell it whether you want a `PRIVATE` (xprv) or `PUBLIC` (xpub) key:
 ```
@@ -42,7 +42,7 @@ Whenever you have a key in hand, you can turn it into xpub or xprv keys for dist
   lw_response = bip32_key_to_base58(key_root, BIP32_FLAG_KEY_PUBLIC, &xpub);
 ```
 
-## Understanding the Hierarchy
+## Understand the Hierarchy
 
 Before going further, you need to understand how the hierarchy of an HD wallet works. As discussed in [§3.5](03_5_Understanding_the_Descriptor.md), a derivation path describes the tree that you follow to get to a hierarchical key, so `[0/1/0]` is the 0th child of the 1st child of the 0th child of a root key. Sometimes part of that derivation are marked with `'`s or `h`s to show "hardened derivations, which increase security: `[0'/1'/0']`.
 
@@ -60,15 +60,15 @@ So on testnet, the zeroth adddress for an external address for the zeroth accoun
 
 > :link: **TESTNET vs MAINNET:** For mainnet, that'd be `[m/84'/0'/0'/0/0]`
 
-### Understanding the Hierarchary in Bitcoin Core
+### Understand the Hierarchary in Bitcoin Core
 
 We'll be using the above hierarchy for all HD keys in Libwally, but note that this standard isn't used by Bitcoin Core's `bitcoin-cli`, which instead uses `[m/0'/0'/0']` for the 0th external address and `[m/0'/1'/0']` for the 0th change address.
 
-## Generating an Address
+## Generate an Address
 
 To generate an address, you thus have to dig down through the whole hierarchy.
 
-### Generating an Account Key
+### Generate an Account Key
 
 One way to do this is to use the `bip32_key_from_parent_path_alloc` function to drop down several levels of a hierarchy. You embed the levels in an array:
 ```
@@ -87,7 +87,7 @@ Every time you have a new key, you can use that to generate new xprv and xpub ke
   lw_response = bip32_key_to_base58(key_account, BIP32_FLAG_KEY_PUBLIC, &a_xpub);
 ```
 
-### Generating an Address Key
+### Generate an Address Key
 
 Alternatively, you can use the `bip32_key_from_parent_alloc` function, which just drops down one level of the hierarchy at a time. The following example drops down to the 0th child of the account key (which is the external address) and then the 0th child of that. This would be useful because then you could continue generating the 1st address, the 2nd address, and so on from that external key:
 ```
@@ -99,7 +99,7 @@ Alternatively, you can use the `bip32_key_from_parent_alloc` function, which jus
 ```
 > :warning: **WARNING::** At some point in this hierarchy, you might decide to generate `BIP32_FLAG_KEY_PUBLIC` instead of `BIP32_FLAG_KEY_PRIVATE`. Obviously this decision will be based on your security and your needs, but remember that you only need a public key to generate the actual address.
 
-### Generating an Address
+### Generate an Address
 
 Finally, you're ready to generate an address from your final key. All you do is run `wally_bip32_to_addr_segwit` using your final key and a description of what sort of address this is.
 ```
@@ -113,7 +113,7 @@ Finally, you're ready to generate an address from your final key. All you do is 
 
 There is also a `wally_bip32_key_to_address` function, which can be used to generate a legacy address or a nested Segwit address.
 
-## Testing HD Code
+## Test HD Code
 
 The code for these HD example can, as usual, be found in the [src directory](src/16_3_genhd.c).
 
