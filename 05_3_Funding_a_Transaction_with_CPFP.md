@@ -1,7 +1,5 @@
 # 5.3: Funding a Transaction with CPFP
 
-> :information_source: **NOTE:** This is a draft in progress, so that I can get some feedback from early reviewers. It is not yet ready for learning.
-
 If your Bitcoin transaction is stuck, and you're the _recipient_, you can clear it using CPFP (child-pays-for-parent). This is alternative to the _sender's_ ability to do so with RBF.
 
 > :warning: **VERSION WARNING:** This is an innovation from Bitcoin Core v 0.13.0, which again means that most people should be using it by now.
