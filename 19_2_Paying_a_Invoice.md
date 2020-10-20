@@ -1,10 +1,10 @@
 # 19.2: Paying an Invoice
 
-> :information_source: **NOTE:** This is a draft in progress, so that I can get some feedback from early reviewers. It is not yet ready for learning.
+> :information_source: **NOTE:** This section has been recently added to the course and is an early draft that may still be awaiting review. Caveat reader.
 
 In this chapter you will learn how to pay an invoice using `lightning-cli pay` command. It assumes that you've already looked over the invoice, per [§19.1](19_1_Generate_a_Payment_Request.md) and determined it was valid.
 
-## Checking your Balance
+## Check your Balance
 
 Obviously, the first thing you need to do is make sure that you have enough funds to pay an invoice. In this case, the channel set up previously with `032a7572dc013b6382cde391d79f292ced27305aa4162ec3906279fc4334602543` contains 100,000 satoshis. This will be the channel used to pay the invoice.
 
@@ -42,7 +42,7 @@ c$ lightning-cli --testnet listfunds
 ```
 If you didn't have enough funds, you'd need to create a new channel.
 
-## Paying Your Invoice
+## Pay Your Invoice
 
 You use `lightning-cli pay` command to pay an invoice. It will attempt to find a route to the given destination and send the funds requested. Here that's very simple because there's a direct channel between the payer and the recipient:
 ```
@@ -62,7 +62,7 @@ c$ lightning-cli --testnet pay lntb100u1p0cwnqtpp5djkdahy4hz0wc909y39ap9tm3rq2kk
 ```
 Note that here all the amounts are in `msats`, not `sats`!
 
-### Paying Your Invoice Across the Network
+### Pay Your Invoice Across the Network
 
 However, you do _not_ need to have a channel with a node in order to pay them. There just needs to be a reasonable route across the Lightning Network.
 
@@ -123,7 +123,7 @@ That's the true beauty of the Lightning Network there: with no effort from the p
 
 Note that in this example, 12,111 msat were sent to pay an invoice of 11,111 msat: the extra being a very small, flat fee (not a percentage) that was paid to the intermediary.
 
-## Checking your balance
+## Check your Balance
 
 Having successfully made a payment, you should see that your funds have changed accordingly.
 
