@@ -1,13 +1,13 @@
 
 # 19.1: Generating a Payment Request
 
-> :information_source: **NOTE:** This is a draft in progress, so that I can get some feedback from early reviewers. It is not yet ready for learning.
+> :information_source: **NOTE:** This section has been recently added to the course and is an early draft that may still be awaiting review. Caveat reader.
 
 This section describes how payments work on the Lightning Network, how to create a payment request (or _invoice_), and finally how to make sense of it. Issuing invoices depends on your having a second Lightning node, as described in [Accessing a Second Lightning Node](18_2__Interlude_Accessing_a_Second_Lightning_Node.md). These examples will use an LND node as their secondary node, to further demonstrate the possibilities of the Lightning Network. To differentiate between the nodes in these examples, the prompts will be shown as `c$` for the c-lightning node and `lnd$` as the LND node. If you want to reproduce this steps, you should [install your own secondary LND node](18_2__Interlude_Accessing_a_Second_Lightning_Node.md#creating-a-new-lnd-node). 
 
 > :book: ***What is an Invoice?** Almost all payments made on the Lightning Network require an invoice, which is nothing more than a **request for payment** made by the recipient of the money and sent by variety of means to the paying user.  All payment requests are single use. Lightning invoices use bech32 encoding, which is already used by Segregated Witness for Bitcoin.
 
-## Creating an Invoice
+## Create an Invoice
 
 To create a new invoice on c-lightning you would use the `lightning-cli --testnet invoice` command.
 
@@ -34,13 +34,13 @@ lnd$ lncli -n testnet addinvoice --amt 10000 --memo "First LN Payment - Learning
 ```
 Note that these invoices don't directly reference the channel you created: that's necessary for payment, but not for requesting payment.
 
-## Understanding an Invoice
+## Understand an Invoice
 
 The `bolt11` `payment_request` that you created is made up of two parts: one is human readable and the other is data.
 
 > :book: **What is a BOLT?** The BOLTs are the individual [specifications for the Lightning Network](https://github.com/lightningnetwork/lightning-rfc).
 
-### Reading the Human-Readable Invoice Part
+### Read the Human-Readable Invoice Part
 
 The human readable part of your invoices starts with an `ln`. It is `lnbc` for Bitcoin mainnet, `lntb` for Bitcoin testnet, or `lnbcrt` for Bitcoin regtest.
 It then lists the funds requested in the invoice.
@@ -62,7 +62,7 @@ The human readable part is `ln` + `tb` + `100u`.
 
 100 BTC * .000001 = .0001 BTC, which is the same as 10,000 satoshis.
 
-### Reading the Data Invoice Part
+### Read the Data Invoice Part
 
 The rest of the invoice (`1p0cwnqtpp5djkdahy4hz0wc909y39ap9tm3rq2kk9320hw2jtntwv4x39uz6asdr5ge5hyum5ypxyugzsv9uk6etwwssz6gzvv4shymnfdenjqsnfw33k76twypskuepqf35kw6r5de5kueeqveex7mfqw35x2gzrdakk6ctwvssxc6twv5hqcqzpgsp5a9ryqw7t23myn9psd36ra5alzvp6lzhxua58609teslwqmdljpxs9qy9qsq9ee7h500jazef6c306psr0ncru469zgyr2m2h32c6ser28vrvh5j4q23c073xsvmjwgv9wtk2q7j6pj09fn53v2vkrdkgsjv7njh9aqqtjn3vd`) contains a timestamp, specifically tagged data, and a signature. You obviously can't read it yourself, but you can ask c-lightning's `lightning-cli` to do so with the `decodepay` command:
 ```
@@ -100,7 +100,7 @@ Here's what the most relevent elements mean:
 
 > :book: ***What is a Commitment Transaction?*** A Commitment Transaction is a transaction that spends the original funding transaction. Each peer holds the other peer's signature, meaning that either one can spent his commitment transaction whatever he wants. After each new commitment transaction is created the old one is revoked. The commitment transaction is one way that the funding transaction can be unlocked on the blockchain, as discussed in [§19.3](19_3_Closing_a_Channel.md).
 
-### Checking Your Invoice
+### Check Your Invoice
 
 There are two crucial elements to check in the invoice. The first, obviously, is the payment amount, which you've already examined in the human-readable part. The second is the `payee` value, which is the pubkey of the recipient (node):
 ```
