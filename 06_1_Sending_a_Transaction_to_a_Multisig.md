@@ -1,7 +1,5 @@
 # 6.1: Sending a Transaction with a Multisig
 
-> :information_source: **NOTE:** This is a draft in progress, so that I can get some feedback from early reviewers. It is not yet ready for learning.
-
 The first way to vary how you send a basic transaction is to use a multisig. This gives you the ability to require that multiple people (or at least multiple private keys) authorize the use of funds.
 
 ## Understand How Multisigs Work
