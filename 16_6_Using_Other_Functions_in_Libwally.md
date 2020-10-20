@@ -1,10 +1,10 @@
 # 16.6: Using Other Functions in Libwally
 
-> **NOTE:** This is a draft in progress, so that I can get some feedback from early reviewers. It is not yet ready for learning.
+> :information_source: **NOTE:** This section has been recently added to the course and is an early draft that may still be awaiting review. Caveat reader.
 
 Libwally is an extensive library that provides a considerable amount of wallet-related functionality, much of it not available through `bitcoin-cli`. Following is an overview of some functionality not previously covered in this chapter.
 
-## Using Cryptographic Functions
+## Use Cryptographic Functions
 
 A number of cryptographic functions can be directly accessed from Libwally:
 
@@ -24,7 +24,7 @@ There are also HMAC functions for the two SHA hashes, which are used generate me
    
 Additional functions cover PBKDF2 key derivation and elliptic-curve math.
 
-## Using Address Functions
+## Use Address Functions
 
 Libwally contains a number of functions that can be used to import, export, and translate Bitcoin addresses.
 
@@ -43,7 +43,7 @@ Some relate to the wallet import format (WIF):
    * `wally_wif_to_bytes` — Convert a WIF to a private key (in bytes)
    * `wally_wif_to_public_key` — Derive a public key (in bytes) from a WIF
    
-## Using BIP32 Functions
+## Use BIP32 Functions
 
 There are additional BIP32 HD-wallet functions, beyond what was covered in [§16.3: Using BIP32 in Libwally](16_3_Using_BIP32_in_Libwally.md).
 
@@ -54,7 +54,7 @@ There are additional BIP32 HD-wallet functions, beyond what was covered in [§16
 
 There are also numerous various depending on whether you want to allocate memory or have Libwally do the `_alloc` for you.
 
-## Using BIP38 Functions
+## Use BIP38 Functions
 
 [BIP38](https://github.com/bitcoin/bips/blob/master/bip-0038.mediawiki) allows for the creation of password-protected private key. We do not teach it because we consider inserting this sort of human factor into key management dangerous. See [#SmartCustody](https://www.smartcustody.com/index.html).
 
@@ -63,7 +63,7 @@ The main functions are:
    * `bip38_from_private_key` — Encode a private key using BIP38
    * `bip38_to_private_key` — Decode a private key using BIP38
    
-## Using BIP39 Functions
+## Use BIP39 Functions
 
 A few BIP39 mnemonic-word functions were just overviewed in [§16.2: Using BIP39 in Libwally](16_2_Using_BIP39_in_Libwally.md):
 
@@ -71,11 +71,11 @@ A few BIP39 mnemonic-word functions were just overviewed in [§16.2: Using BIP39
    * `bit39_get_word` — Retrieve a specific word from a language's word list
    * `bip39_get_wordlist` — See a list of words for a language
    
-## Using PSBT Functions
+## Use PSBT Functions
 
 Listings of most PSBT functions can be found in [16.4: Using PSBTs in Libwally](16_4_Using_PSBTs_in_Libwally.md).
 
-## Using Script Functions
+## Use Script Functions
 
 [§16.5: Using Scripts in Libwally](16_5_Using_Scripts_in_Libwally.md) just barely touched upon Libwally's Scripts functions.
 
@@ -100,7 +100,7 @@ Then there are a slew of functions that create `scriptPubKey` from bytes, `scrip
    * `wally_witness_p2wpkh_from_sig`
    * `wally_witness_program_from_bytes`
 
-## Using Transaction Functions
+## Use Transaction Functions
 
 We also just barely touched upon the functions that can be used to create and convert functions in [§16.5](16_5_Using_Scripts_in_Libwally.md).
 
@@ -112,7 +112,7 @@ There are numerous informational functions, some of the more interesting of whic
    
 There also are functions that affect a `wally_tx`, a `wally_tx_input`, a `wally_tx_output`, or a `wally_tx_witness_stack` and that create signatures.
 
-## Using Elements Functions
+## Use Elements Functions
 
 Libwally can be compiled to be used with Blockstream's Elements, which includes access to its assets functions.
 
