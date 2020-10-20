@@ -1,7 +1,5 @@
 # 3.2: Knowing Your Bitcoin Setup
 
-> :information_source: **NOTE:** This is a draft in progress, so that I can get some feedback from early reviewers. It is not yet ready for learning.
-
 Before you start playing with Bitcoin, you may always want to come to a better understanding of your setup.
 
 ## Know Your Bitcoin Directory
