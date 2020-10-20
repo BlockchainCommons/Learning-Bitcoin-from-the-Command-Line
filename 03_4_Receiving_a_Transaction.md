@@ -1,7 +1,5 @@
 # 3.4: Receiving a Transaction
 
-> :information_source: **NOTE:** This is a draft in progress, so that I can get some feedback from early reviewers. It is not yet ready for learning.
-
 You're now ready to receive some money at the new address you set up.
 
 ## Get Some Money
