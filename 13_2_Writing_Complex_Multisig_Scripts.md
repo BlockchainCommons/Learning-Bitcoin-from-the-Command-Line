@@ -1,7 +1,5 @@
 # 13.2: Writing Complex Multisig Scripts
 
-> :information_source: **NOTE:** This is a draft in progress, so that I can get some feedback from early reviewers. It is not yet ready for learning.
-
 To date, the multisigs described in these documents have been entirely simple, of the m-of-n or n-of-n form. However, you might desire more complex multisigs, where cosigners vary or where different options might become available over time. 
 
 ## Write a Variable Multisig
