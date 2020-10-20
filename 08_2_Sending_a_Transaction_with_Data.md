@@ -1,7 +1,5 @@
 # 8.2: Sending a Transaction with Data
 
-> :information_source: **NOTE:** This is a draft in progress, so that I can get some feedback from early reviewers. It is not yet ready for learning.
-
 The final way to vary how you send a basic transaction is to use the transaction to send data instead of funds (or really, in addition to funds). This gives you the ability to embed information in the blockchain. It is done through a special `OP_RETURN` command.
 
 The catch? You can only store 80 bytes at a time!
