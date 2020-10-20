@@ -1,6 +1,6 @@
 # 9.5: Scripting a P2WPKH
 
-> :information_source: **NOTE:** This is a draft in progress, so that I can get some feedback from early reviewers. It is not yet ready for learning.
+> :information_source: **NOTE:** This section has been recently added to the course and is an early draft that may still be awaiting review. Caveat reader.
 
 P2PKHs are fine for explaining the fundamental way that Bitcoin Scripts work, but what about native Segwit P2WPKH scripts, which are increasingly becoming the majority of Bitcoin transactions? As it turns out, P2WPKH addresses don't use Bitcoin Scripts like traditional Bitcoin addresses do, and so this section is really a digression from the scripting of this chapter — but an important one, because it outlines the _other_ major way in which Bitcoins can be transacted. 
 
@@ -96,13 +96,13 @@ script                                   |                                   sta
 ```
 Bitcoin Scripts are considered successful if there's something in the Stack, and it's non-zero, so SegWit scripts automatically succeed on old nodes as long as the `scriptPubKey` is correctly created with a non-zero pub-key hash. This is called an "anyone-can-spend" transaction, because old nodes verified them as correct without any need for signatures.
 
-> :book: ***What can't old nodes steal SegWit UTXOs?*** SegWit was enabled on the Bitcoin network when 95% of miners signalled that they were ready to start using it. That means that only 5% of nodes at that point might have validated anyone-can-spend SegWit transactions as valid without going through the proper work of checking the `txinwitness`. If they incorrectly incorporated an invalid anyone-can-spend UTXO into a block, the other 95% of nodes would refuse to validate that block, and so it would quickly be orphaned rather than being added to the "main" blockchain. (Certainly, 51% of nodes could choose to stop interpreting SegWit transactions correctly, but 51% of nodes can do anything on a consensus network like a blockchain.)
+> :book: ***What can't old nodes steal SegWit UTXOs?*** SegWit was enabled on the Bitcoin network when 95% of miners signalled that they were ready to start using it. That means that only 5% of nodes at that point might have registered anyone-can-spend SegWit transactions as valid without going through the proper work of checking the `txinwitness`. If they incorrectly incorporated an invalid anyone-can-spend UTXO into a block, the other 95% of nodes would refuse to validate that block, and so it would quickly be orphaned rather than being added to the "main" blockchain. (Certainly, 51% of nodes could choose to stop interpreting SegWit transactions correctly, but 51% of nodes can do anything on a consensus network like a blockchain.)
 
 Because old nodes always see SegWit scripts as correct, they will always verify them, even without understanding their content.
 
 ### Read a SegWit Script on a New Machine
 
-A machine that understands how SegWit work does the exact same things that it would with an old P2PKH script, but it doesn't use a script per se: it just knows that it needs to hash the public key in the `txinwitness`, check that against the hashed key after the version number in the `scriptPubKey` and then runs `OP_CHECKSIG` on the signature and public key in the `txinwitness`.
+A machine that understands how SegWit work does the exact same things that it would with an old P2PKH script, but it doesn't use a script per se: it just knows that it needs to hash the public key in the `txinwitness`, check that against the hashed key after the version number in the `scriptPubKey` and then run `OP_CHECKSIG` on the signature and public key in the `txinwitness`.
 
 So, it's another way of doing the same thing, but without having the scripts built into the transactions. (The process is built into the node software instead.)
 
