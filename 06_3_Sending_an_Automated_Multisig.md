@@ -1,7 +1,5 @@
  # 6.3: Sending & Spending an Automated Multisig
 
-> :information_source: **NOTE:** This is a draft in progress, so that I can get some feedback from early reviewers. It is not yet ready for learning.
-
 The standard technique for creating multisignature addresses and for spending their funds is complex, but it's a worthwhile exercise for understanding a bit more about how they work, and how you can manipulate them at a relatively low level. However, Bitcoin Core has made multisigs a little bit easier in new releases. 
 
 > :warning: **VERSION WARNING:** The `addmultisigaddress` command is available in Bitcoin Core v 0.10 or higher.
