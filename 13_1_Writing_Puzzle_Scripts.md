@@ -1,7 +1,5 @@
  # 13.1: Writing Puzzle Scripts
 
-> :information_source: **NOTE:** This is a draft in progress, so that I can get some feedback from early reviewers. It is not yet ready for learning.
-
 Bitcoin Scripts _don't_ actually have to depend on the knowledge of a secret key. They can instead be puzzles of any sort. 
 
 ## Write Simple Algebra Scripts
