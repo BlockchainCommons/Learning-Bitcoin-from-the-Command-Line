@@ -1,7 +1,5 @@
 # 9.1: Understanding the Foundation of Transactions
 
-> :information_source: **NOTE:** This is a draft in progress, so that I can get some feedback from early reviewers. It is not yet ready for learning.
-
 The foundation of Bitcoin is the ability to protect transactions, something that's done with a simple scripting language.
 
 ## Know the Parts of the Cryptographic Puzzle
