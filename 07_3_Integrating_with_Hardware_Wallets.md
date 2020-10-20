@@ -1,6 +1,6 @@
 # 7.3: Integrating with Hardware Wallets
 
-> :information_source: **NOTE:** This is a draft in progress, so that I can get some feedback from early reviewers. It is not yet ready for learning.
+> :information_source: **NOTE:** This section has been recently added to the course and is an early draft that may still be awaiting review. Caveat reader.
 
 One of the greatest powers of PSBTs is the ability to hand transactions off to hardware wallets. This will be a great development tool for you if you continue to program with Bitcoin. However, you can't test it out now if you're using one of the configurations we suggest for this course — a VM on Linode per [§2.1](https://github.com/BlockchainCommons/Learning-Bitcoin-from-the-Command-Line/blob/master/02_1_Setting_Up_a_Bitcoin-Core_VPS_with_StackScript.md) or an even more farflung option such an AWS per [§2.2](https://github.com/BlockchainCommons/Learning-Bitcoin-from-the-Command-Line/blob/master/02_2_Setting_Up_Bitcoin_Core_Other.md) — because obviously you won't have any way to hook a hardware wallet up to your remote, virtual machine.
 
