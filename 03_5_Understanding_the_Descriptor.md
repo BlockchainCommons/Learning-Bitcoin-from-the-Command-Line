@@ -1,6 +1,6 @@
 # 3.5: Understanding the Descriptor
 
-> :information_source: **NOTE:** This is a draft in progress, so that I can get some feedback from early reviewers. It is not yet ready for learning.
+> :information_source: **NOTE:** This section has been recently added to the course and is an early draft that may still be awaiting review. Caveat reader.
 
 You may have noticed a weird `desc:` field in the `listunspent` command of the previous section. Here's what's all about (and how it can be used to transfer addresses).
 
