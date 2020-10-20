@@ -1,7 +1,5 @@
 # 8.1: Sending a Transaction with a Locktime
 
-> :information_source: **NOTE:** This is a draft in progress, so that I can get some feedback from early reviewers. It is not yet ready for learning.
-
 The previous chapters showed two different ways to send funds from multiple machines and to multiple recipients. But there are two other ways to fundamentally change basic transactions. The first of these is to vary time by choosing a locktime. This gives you the ability to send raw transactions at some time in the future.
 
 ## Understand How Locktime Works
