@@ -1,6 +1,6 @@
 # 18.3: Creating a Lightning Channel
 
-> :information_source: **NOTE:** This is a draft in progress, so that I can get some feedback from early reviewers. It is not yet ready for learning.
+> :information_source: **NOTE:** This section has been recently added to the course and is an early draft that may still be awaiting review. Caveat reader.
 
 You now understand the basics of your Lightning setup, and hopefully have either created or been given info on a second Lightning node. You're ready to create your first Lightning Network channel. Of course, you'll need to understand what is, and how it's created using c-lightning.
 
@@ -10,7 +10,7 @@ You now understand the basics of your Lightning setup, and hopefully have either
 
 In this section, we will continue using our c-lightning setup as our primary node.
 
-## Creating a Channel
+## Create a Channel
 
 Creating a Lightning channel requires the following steps:
 
@@ -18,7 +18,7 @@ Creating a Lightning channel requires the following steps:
 * Connect to a remote node as a peer.
 * Open a channel.
 
-### Funding Your c-lightning Wallet
+### Fund Your c-lightning Wallet
 
 In order to move funds to a Lightning channel first requires funding your c-lightning wallet.
 
@@ -76,7 +76,7 @@ Note that the value is listed in satoshis or microsatoshis, not Bitcoin!
 
 Now that you have funded your c-lightning wallet you will need information about a remote node to start creating channel process. 
 
-### Connecting to a Remote Node
+### Connect to a Remote Node
 
 The next thing you need to do is connect your node to a peer. This is done with the `lightning-cli connect` command. Remember that if you want more information on this command, you should type `lightning-cli help connect`.
 
@@ -92,7 +92,7 @@ $ lightning-cli --network=testnet connect 032a7572dc013b6382cde391d79f292ced2730
 }
 ```     
 
-### Opening a Channel
+### Open a Channel
 
 The fundchannel RPC command opens a payment channel with a peer by committing a funding transaction to the blockchain.  You should use `lightning-cli fundchannel` command to do so, with the following parameters:
 
