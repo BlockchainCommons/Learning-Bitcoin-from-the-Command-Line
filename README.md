@@ -8,13 +8,12 @@ _This tutorial assumes that you have some minimal background of how to use the c
 
 ## Table of Contents
 
-* [0.0: Introduction to Programming with Bitcoin Core and Lightning](00_0_Introduction.md)
-
 ### PART ONE: PREPARING FOR BITCOIN
 
 **Status:** Finished. Updated for 0.20.
 
-* [1.0: Introducing Bitcoin](01_0_Introducing_Bitcoin.md)
+* [1.0: Introduction to Programming with Bitcoin Core and Lightning](01_0_Introduction.md)
+    * [Interlude: Introducing Bitcoin](01_1_Introducing_Bitcoin.md)
 * [2.0: Setting Up a Bitcoin-Core VPS](02_0_Setting_Up_a_Bitcoin-Core_VPS.md)
   * [2.1: Setting Up a Bitcoin-Core VPS with Bitcoin Standup](02_1_Setting_Up_a_Bitcoin-Core_VPS_with_StackScript.md)
   * [2.2: Setting Up a Bitcoin-Core Machine via Other Means](02_2_Setting_Up_Bitcoin_Core_Other.md)
