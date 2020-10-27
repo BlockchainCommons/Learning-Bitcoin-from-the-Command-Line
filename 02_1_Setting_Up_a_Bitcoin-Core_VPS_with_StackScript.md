@@ -63,6 +63,10 @@ You're now ready to create a node based on the Stackscript.
 
 Finally, you'll need to fill in a root password, which will be the password used for the root account.
 
+### Choose Other Standup Options
+
+Blockchain Commons is currently in the process of expandings its Bitcoin Standup Scripts with options to install Lightning and other Bitcoin apps of note. Take a look at any extra options, and see if they're things that you'd like to play with. In particular, if Lightning is an option, we suggest installing it, because it will make [Chapter 18](18_0_Understanding_Your_Lightning_Setup.md) and [Chapter 19](19_0_Using_Lightning.md) much easier. 
+
 ### Choose a Linode Plan
 
 You'll next to choose a Linode plan.
