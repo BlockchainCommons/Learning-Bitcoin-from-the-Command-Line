@@ -2,6 +2,10 @@
 
 This is a list of potential (or planned) TODO items for "Learning Bitcoin from the Command Line". Many are drawn from issues found at the previous locale of this repo.
 
+**Updating Work Begun:** 6/10
+**Updating Work Done:** 10/27
+**Pending Issues:** Third-party edit of whole course
+
 Please also see [TODO-30.md](the v3.0 TODO) for the next iteration of the course.
 
 ## 1. Integrate with Bitcoin-Standup
@@ -123,10 +127,10 @@ Add and document the following new concepts:
 
 21. <strike>Take out warnings for all old chapters</strike> **10/20**
 22. <strike>Add new first chapter, indicating places to start for people of different levels</strike> **10/20**
-23. Add other Bitcoin standup options to Ch. 2
+23. <strike>Add other Bitcoin standup options to Ch. 2</strike> **10/27**
 24. <strike>Move an coding appendices (e.g., JQ interlude) to src code directory </strike> **10/20**
-25. Write letter about new edition
-26. Write tweetstorm
+25. <strike>Write letter about new edition</strike> **10/27**
+26. <strike>Write tweetstorm</strike> **10/27**
 
 ## 7. Additional Support
 
