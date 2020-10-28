@@ -28,8 +28,8 @@ This book is broadly divided into the following sections:
 | **Part Two: Using Bitcoin-CLI** | Using the Bitcoin-CLI for creating transactions. | Command Line |
 | **Part Three: Bitcoin Scripting** | Expanding your Bitcoin work with scripts. | Programming Concepts |
 | **Part Four: Using Tor** | Improving your node security with Tor | Command Line |
-| **Part Five: Programming with RPC** - Accessing RPC from C and other languages. | Programming in C |
-| **Part Six: Using Lightning-CLI** - Using the Lightning-CLI for creating transactions. | Command Line |
+| **Part Five: Programming with RPC** | Accessing RPC from C and other languages. | Programming in C |
+| **Part Six: Using Lightning-CLI** | Using the Lightning-CLI for creating transactions. | Command Line |
 | **Appendices** | Utilizing less common Bitcoin setups. | Command Line |
 
 ## How To Use This Course
