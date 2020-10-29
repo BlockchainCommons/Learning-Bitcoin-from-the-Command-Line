@@ -8,6 +8,8 @@ _This tutorial assumes that you have some minimal background of how to use the c
 
 ## Table of Contents
 
+![](https://www.blockchaincommons.com/images/projects/lbtc-screen.png)
+
 ### PART ONE: PREPARING FOR BITCOIN
 
 **Status:** Finished. Updated for 0.20.
