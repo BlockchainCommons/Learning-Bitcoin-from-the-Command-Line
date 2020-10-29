@@ -1,4 +1,6 @@
-# Learning Bitcoin (and Lightning) from the Command Line
+# Learning Bitcoin from the Command Line
+
+![](https://www.blockchaincommons.com/images/projects/lbtc-screen.png)
 
 Learning Bitcoin from the Command Line is a tutorial for working with Bitcoin (and Lightning) that teaches direct interaction with the servers themselves, as the most robust and secure way to begin cryptocurrency work.
 
@@ -7,8 +9,6 @@ Learning Bitcoin from the Command Line is a tutorial for working with Bitcoin (a
 _This tutorial assumes that you have some minimal background of how to use the command line interface. If not, there are many tutorials available, and I have one for Mac users at https://github.com/ChristopherA/intro-mac-command-line._
 
 ## Table of Contents
-
-![](https://www.blockchaincommons.com/images/projects/lbtc-screen.png)
 
 ### PART ONE: PREPARING FOR BITCOIN
 
