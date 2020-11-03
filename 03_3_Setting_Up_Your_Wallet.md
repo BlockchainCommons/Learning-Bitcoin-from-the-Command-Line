@@ -76,17 +76,19 @@ Invalid address
 
 ## Optional: Dump Your Wallet
 
-It might seem dangerous having all of your irreplaceable private keys in a single file. That's what `bitcoin-cli backupwallet` is for. It lets you make a copy of your wallet.dat:
+It might seem dangerous having all of your irreplaceable private keys in a single file. That's what `bitcoin-cli dumpwallet` is for. It lets you make a copy of your wallet.dat:
 ```
-$ bitcoin-cli backupwallet ~/backup.dat
+$ bitcoin-cli dumpwallet ~/mywallet.txt
 ```
+The `mywallet.txt` file in your home directory will have a long list of private keys, addresses, and other information. Mind you, you'd never want to put this data out in a plain text file on a Bitcoin setup with real funds!
+
 You can then recover it with `bitcoin-cli importwallet`.
 ```
-$ bitcoin-cli importwallet backup.dat
+$ bitcoin-cli importwallet ~/mywallet.txt
 ```
 But note this requires an unpruned node!
 ```
-$ bitcoin-cli importwallet ~/backup.dat
+$ bitcoin-cli importwallet ~/mywallet.txt
 error code: -4
 error message:
 Importing wallets is disabled when blocks are pruned
@@ -94,17 +96,13 @@ Importing wallets is disabled when blocks are pruned
 
 ## Optional: View Your Private Keys
 
-Sometimes, you might want to actually look at the private keys associated with your Bitcoin addresses. Perhaps you want to be able to sign a message or spend bitcoins from a different machine. Perhaps you just want to back up certain important private keys.
-
-To look at _all_ the keys in your wallet, type `bitcoin-cli dumpwallet ~/mywallet.txt`.
+Sometimes, you might want to actually look at the private keys associated with your Bitcoin addresses. Perhaps you want to be able to sign a message or spend bitcoins from a different machine. Perhaps you just want to back up certain important private keys. You can also do this with your dump file, since it's human readable.
 ```
 $ bitcoin-cli dumpwallet ~/mywallet.txt
 {
   "filename": "/home/standup/mywallet.txt"
 }
 ```
-This will create a `mywallet.txt` file in your home directory with a long list of private keys, addresses, and other information. Mind you, you'd never want to put this data out in a plain text file on a Bitcoin setup with real funds!
-
 More likely, you just want to look at the private key associated with a specific address. This can be done with the `bitcoin-cli dumpprivkey` command.
 ```
 $ bitcoin-cli dumpprivkey "moKVV6XEhfrBCE3QCYq6ppT7AaMF8KsZ1B"
@@ -112,7 +110,7 @@ cTv75T4B3NsG92tdSxSfzhuaGrzrmc1rJjLKscoQZXqNRs5tpYhH
 ```
 You can then save that key somewhere safe, preferably somewhere not connected to the internet.
 
-You can import any private key, from a wallet dump or an individual key dump, as follows:
+You can also import any private key, from a wallet dump or an individual key dump, as follows:
 ```
 $ bitcoin-cli importprivkey cW4s4MdW7BkUmqiKgYzSJdmvnzq8QDrf6gszPMC7eLmfcdoRHtHh
 ```
