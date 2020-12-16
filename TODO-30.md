@@ -8,6 +8,9 @@ The following TODO items are intended for a 3.0 version of Learning Bitcoin from
 3. Miniscript
 4. Schnorr (2021)
 5. Other BCC Command-Line Utilities?
+   * seedtool
+   * keytool
+   * bytewords-cli
 6. Programming Lightning with C
    * _Some good docs from one of the developers are here: https://diyhpl.us/wiki/transcripts/blockstream-webinars/2019-07-31-rusty-russell-getting-started-with-c-lightning/._
 
