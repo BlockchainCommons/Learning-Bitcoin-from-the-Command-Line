@@ -143,13 +143,11 @@ _This tutorial assumes that you have some minimal background of how to use the c
   * [Appendix II: Compiling Bitcoin from Source](A2_0_Compiling_Bitcoin_from_Source.md)
   * [Appendix III: Using Bitcoin Regtest](A3_0_Using_Bitcoin_Regtest.md)
   
-## Status - Work in Progress
+## Status - Beta
 
-Learning Bitcoin from the Command Line  is currently under active development and its writing in progress. Current chapters are functional, but need to be updated to more modern versions of Bitcoin-Core. Additional chapters also need to be written to fill out our intended scope.
+v2.0 of **Learning Bitcoin from the Command Line** is feature complete. It may still be undergoing third-party review or editing, but it can be used for learning.
 
-The empty chapters above show some of our current plans for future work. Other plans, mainly drawn from old issues, can be found in [TODO.md](TODO.md)
-
-Obviously, this work in progress should not be used for production tasks until it is completed and has had further testing and auditing.
+We are also tentatively considering what we could include in a [v3.0](TODO-30.md) of the course. If you'd like to support work of that sort, become a [GitHub Sponsor](https://github.com/sponsors/BlockchainCommons) or support us at our [BTCPay Server](https://btcpay.blockchaincommons.com/), and let us know that **Learning Bitcoin** was the reason why.
 
 ## Origin, Authors, Copyright & Licenses
 
