@@ -2,7 +2,7 @@
 
 This document explains how to set up a VPS (Virtual Private Sever) to run a Bitcoin node on Linode.com, installed using an automated StackScript from the [Bitcoin Standup project](https://github.com/BlockchainCommons/Bitcoin-Standup-Scripts). You just need to enter a few commands and boot your VPS. Almost immediately after you boot, you'll find your new Bitcoin node happily downloading blocks.
 
-> :warning: **WARNING:** Don’t use a VPS for a bitcoin wallet with significant real funds; see http://blog.thestateofme.com/2012/03/03/lessons-to-be-learned-from-the-linode-bitcoin-incident/ . It is  very nice to be able experiment with real bitcoin transactions on a live node without tying up a self-hosted server on a local network. It's also useful to be able to use an iPhone or iPad to communicate via SSH to your VPS to do some simple bitcoin tasks. But a higher level of safety is required for significant funds.
+> :warning: **WARNING:** Don’t use a VPS for a bitcoin wallet with significant real funds; see http://blog.thestateofme.com/2012/03/03/lessons-to-be-learned-from-the-linode-bitcoin-incident/ . It is very nice to be able experiment with real bitcoin transactions on a live node without tying up a self-hosted server on a local network. It's also useful to be able to use an iPhone or iPad to communicate via SSH to your VPS to do some simple bitcoin tasks. But a higher level of safety is required for significant funds.
 
 * If you want to understand what this setup does, read [Appendix I: Understanding Bitcoin Standup](A1_0_Understanding_Bitcoin_Standup.md) as you install.
 * If you want to instead setup on a machine other than a Linode VPS, such as an AWS machine or a Mac, goto [§2.2: Setting Up a Bitcoin-Core via Other Means](02_2_Setting_Up_Bitcoin_Core_Other.md)
@@ -65,7 +65,7 @@ Finally, you'll need to fill in a root password, which will be the password used
 
 ### Choose Other Standup Options
 
-Blockchain Commons is currently in the process of expandings its Bitcoin Standup Scripts with options to install Lightning and other Bitcoin apps of note. Take a look at any extra options, and see if they're things that you'd like to play with. In particular, if Lightning is an option, we suggest installing it, because it will make [Chapter 18](18_0_Understanding_Your_Lightning_Setup.md) and [Chapter 19](19_0_Using_Lightning.md) much easier. 
+Blockchain Commons is currently in the process of expanding its Bitcoin Standup Scripts with options to install Lightning and other Bitcoin apps of note. Take a look at any extra options, and see if they're things that you'd like to play with. In particular, if Lightning is an option, we suggest installing it, because it will make [Chapter 18](18_0_Understanding_Your_Lightning_Setup.md) and [Chapter 19](19_0_Using_Lightning.md) much easier. 
 
 ### Choose a Linode Plan
 
@@ -224,7 +224,7 @@ But wait, your Bitcoin daemon is probably still downloading blocks. The `bitcoin
 $ bitcoin-cli getblockcount
 1771352
 ```
-If it's different every time you type the command, you need to wait before working with Bitcoin. This  takes 1-6 hours currently for a  pruned setup, depending on your precise machine. 
+If it's different every time you type the command, you need to wait before working with Bitcoin. This takes 1-6 hours currently for a  pruned setup, depending on your precise machine. 
 
 But, once it settles at a number, you're ready to continue!
 
