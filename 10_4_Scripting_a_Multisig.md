@@ -142,7 +142,7 @@ Now you know how the multisig transaction in [§6.1](06_1_Sending_a_Transaction_
 
 ## Summary: Creating Multisig Scripts
 
-Multisigs are a standard transaction type, but they're a bit cumbersome to use, so they're regularly incorporated in P2SH transactions, as was the case in [§6.1](6_1_Sending_a_Transaction_to_a_Multisig.md) when we created our first multisigs. The result is cleaner, smaller, and more standardized — but more importantly, it's a great real-world example of how P2SH scripts really work.
+Multisigs are a standard transaction type, but they're a bit cumbersome to use, so they're regularly incorporated in P2SH transactions, as was the case in [§6.1](06_1_Sending_a_Transaction_to_a_Multisig.md) when we created our first multisigs. The result is cleaner, smaller, and more standardized — but more importantly, it's a great real-world example of how P2SH scripts really work.
 
 ## What's Next?
 
