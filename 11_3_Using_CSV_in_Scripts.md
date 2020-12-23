@@ -57,7 +57,7 @@ If you convert that back you'll see that 4224679 = 10000000111011010100111. The 
 
 ## Create a Transaction with a Relative Timelock
 
-So you want to create a simple transaction with a relative timelock? All you have to do is issue a tranaction where the `nSequence` in an input is set as shown above: with the `nSequence` for that input set such that the first two bytes define the timelock, the 23rd bit defines the type of timelock, and the 32nd bit is set to false. 
+So you want to create a simple transaction with a relative timelock? All you have to do is issue a transaction where the `nSequence` in an input is set as shown above: with the `nSequence` for that input set such that the first two bytes define the timelock, the 23rd bit defines the type of timelock, and the 32nd bit is set to false. 
 
 Issue the transaction and you'll see that it can't legally be mined until enough blocks or enough time has passed beyond the time that the UTXO was mined.
 
