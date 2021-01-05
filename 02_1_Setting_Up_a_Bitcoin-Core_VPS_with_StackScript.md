@@ -38,7 +38,7 @@ Your server security won't be complete if people can break into your Linode acco
 
 ### Load the StackScript
 
-Download the [Linode Standup Script](https://github.com/BlockchainCommons/Bitcoin-Standup-Scripts/blob/master/Scripts/LinodeStandUp.sh) from the [Bitcoin Standup Scripts repo](https://github.com/BlockchainCommons/Bitcoin-Standup-Scripts). This script basically automates the Bitcoin VPS setup instructions from [§2.1](02_1_Setting_Up_a_Bitcoin-Core_VPS_by_Hand.md). If you want to be particulary prudent, read it over carefully. If you are satisfied, you can copy that StackScript into your own account by going to the [Stackscripts page](https://cloud.linode.com/stackscripts?type=account) on your Linode account and selecting to [Create New Stackscript](https://cloud.linode.com/stackscripts/create). Give it a good name (we use `Bitcoin Standup`), then copy and paste the script. Choose Debian 10 for your target image and "Save" it.
+Download the [Linode Standup Script](https://github.com/BlockchainCommons/Bitcoin-Standup-Scripts/blob/master/Scripts/LinodeStandUp.sh) from the [Bitcoin Standup Scripts repo](https://github.com/BlockchainCommons/Bitcoin-Standup-Scripts). This script basically automates all Bitcoin VPS setup instructions. If you want to be particulary prudent, read it over carefully. If you are satisfied, you can copy that StackScript into your own account by going to the [Stackscripts page](https://cloud.linode.com/stackscripts?type=account) on your Linode account and selecting to [Create New Stackscript](https://cloud.linode.com/stackscripts/create). Give it a good name (we use `Bitcoin Standup`), then copy and paste the script. Choose Debian 10 for your target image and "Save" it.
 
 ### Do the Initial Setup
 
