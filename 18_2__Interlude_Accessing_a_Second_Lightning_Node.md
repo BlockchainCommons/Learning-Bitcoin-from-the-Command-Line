@@ -111,15 +111,7 @@ $ sudo cp $GOPATH/bin/lnd $GOPATH/bin/lncli /usr/bin
 
 Unlike with c-lightning, you will need to create a default config file for LND.
 
-First, you need to retrieve your rpcuser and rpcpassword. Here's an automated way to do so:
-```
-$ BITCOINRPC_USER=$(cat ~standup/.bitcoin/bitcoin.conf | grep rpcuser | awk -F = '{print $2}')
-$ BITCOINRPC_PASS=$(cat ~standup/.bitcoin/bitcoin.conf | grep rpcpassword | awk -F = '{print $2}')
-```
-
-> :warning: **WARNING:** Obviously, never store your RPC password in a shell variable in a production environment.
-
-Second, you need to enable ZMQ on your Bitcoind, if you didn't already in [§15.3](15_3_Receiving_Bitcoind_Notifications_with_C.md).
+However first, you need to enable ZMQ on your Bitcoind, if you didn't already in [§15.3](15_3_Receiving_Bitcoind_Notifications_with_C.md).
 
 This requires adding the following to your `~/.bitcoin/bitcoin.conf` file if it's not already there:
 ```
@@ -144,7 +136,17 @@ $ bitcoin-cli getzmqnotifications
   }
 ]
 ```
-Now you're ready to create a config file:
+Now you're ready to create a config file.
+
+First, you need to retrieve your rpcuser and rpcpassword. Here's an automated way to do so:
+```
+$ BITCOINRPC_USER=$(cat ~standup/.bitcoin/bitcoin.conf | grep rpcuser | awk -F = '{print $2}')
+$ BITCOINRPC_PASS=$(cat ~standup/.bitcoin/bitcoin.conf | grep rpcpassword | awk -F = '{print $2}')
+```
+
+> :warning: **WARNING:** Obviously, never store your RPC password in a shell variable in a production environment.
+
+Then, you can write the file:
 ```
 $ mkdir ~/.lnd
 $ cat > ~/.lnd/lnd.conf << EOF
