@@ -130,7 +130,7 @@ If you're using a Bitcoin config file from Standup or some other specialized `co
 
 You must then restart bitcoin (or just reboot your machine). You can test that it's working as follows:
 ```
-bitcoin-cli getzmqnotifications
+$ bitcoin-cli getzmqnotifications
 [
   {
     "type": "pubrawblock",
