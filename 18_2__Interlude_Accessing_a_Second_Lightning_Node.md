@@ -123,10 +123,11 @@ Second, you need to enable ZMQ on your Bitcoind, if you didn't already in [§15.
 
 This requires adding the following to your `~/.bitcoin/bitcoin.conf` file if it's not already there:
 ```
-$ cat >> ~/.bitcoin/bitcoin.conf
 zmqpubrawblock=tcp://127.0.0.1:28332
 zmqpubrawtx=tcp://127.0.0.1:28333
 ```
+If you're using a Bitcoin config file from Standup or some other specialized `conf`, be sure you're putting your new commands in the correct section. Ideally, they should go near the top of the file, otherwise in the `[test]` section (assuming, as usual, that you're testing on testnet).
+
 You must then restart bitcoin (or just reboot your machine). You can test that it's working as follows:
 ```
 bitcoin-cli getzmqnotifications
