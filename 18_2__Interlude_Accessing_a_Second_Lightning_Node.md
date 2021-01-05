@@ -127,7 +127,7 @@ $ cat >> ~/.bitcoin/bitcoin.conf
 zmqpubrawblock=tcp://127.0.0.1:28332
 zmqpubrawtx=tcp://127.0.0.1:28333
 ```
-You must then restart bitcoin. You can test that it's working as follows:
+You must then restart bitcoin (or just reboot your machine). You can test that it's working as follows:
 ```
 bitcoin-cli getzmqnotifications
 [
