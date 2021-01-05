@@ -121,8 +121,9 @@ $ BITCOINRPC_PASS=$(cat ~standup/.bitcoin/bitcoin.conf | grep rpcpassword | awk 
 
 Second, you need to enable ZMQ on your Bitcoind, if you didn't already in [§15.3](15_3_Receiving_Bitcoind_Notifications_with_C.md).
 
-This requires adding the following to your `~/.bitcoin/bitcoin.conf` file:
+This requires adding the following to your `~/.bitcoin/bitcoin.conf` file if it's not already there:
 ```
+$ cat >> ~/.bitcoin/bitcoin.conf
 zmqpubrawblock=tcp://127.0.0.1:28332
 zmqpubrawtx=tcp://127.0.0.1:28333
 ```
