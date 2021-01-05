@@ -87,7 +87,7 @@ go version go1.14.4 linux/amd64
 You'll also need `git` and `make`:
 ```
 $ sudo apt-get install git
-$ apt-get install build-essential
+$ sudo apt-get install build-essential
 ```
 You're now ready to retrieve LND. Be sure to get the current verison (currently `v0.11.0-beta.rc4`).
 ```
