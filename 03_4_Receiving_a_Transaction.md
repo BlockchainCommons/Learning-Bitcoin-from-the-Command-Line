@@ -21,7 +21,7 @@ $ bitcoin-cli getbalance
 ```
 But wait, there's no balance yet!?
 
-Welcome to the world of Bitcoin latency.The problem is that your transaction hasn't yet been recorded in a block!
+Welcome to the world of Bitcoin latency. The problem is that your transaction hasn't yet been recorded in a block!
 
 > :book: ***What is a block?*** Transactions are transmitted across the network and gathered into blocks by miners. These blocks are secured with a mathematical proof-of-work, which proves that computing power has been expended as part of the block creation. It's that proof-of-work (multiplied over many blocks, each built atop the last) that ultimately keeps Bitcoin secure.
 
@@ -187,7 +187,7 @@ $ bitcoin-cli gettransaction "8e2ab10cabe9ec04ed438086a80b1ac72558cc05bb206e48fc
   "hex": "0200000000010114d04977d1b0137adbf51dd5d79944b9465a2619f3fa7287eb69a779977bf5800100000017160014e85ba02862dbadabd6d204fcc8bb5d54658c7d4ffeffffff02df690f000000000017a9145c3bfb36b03f279967977ca9d1e35185e39917788740420f00000000001976a9141b72503639a13f190bf79acf6d76255d772360b788ac0247304402201e74bdfc330fc2e093a8eabe95b6c5633c8d6767249fa25baf62541a129359c202204d462bd932ee5c15c7f082ad7a6b5a41c68addc473786a0a9a232093fde8e1330121022897dfbf085ecc6ad7e22fc91593414a845659429a7bbb44e2e536258d2cbc0c270b1b00"
 }
 ```
-The `gettransaction` command will detail transanctions that are in your wallet, such as this one, that was sent to us.
+The `gettransaction` command will detail transactions that are in your wallet, such as this one, that was sent to us.
 
 Note that `gettransaction` has two optional arguments:
 ```
