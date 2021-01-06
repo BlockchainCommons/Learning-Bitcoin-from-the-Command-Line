@@ -13,6 +13,9 @@ The following TODO items are intended for a 3.0 version of Learning Bitcoin from
    * seedtool
    * keytool
    * bytewords-cli
+1. Interlude on QR production
+   * QuickConnect QR
+   * UR/Animated QR
 1. Programming Lightning with C
    * _Some good docs from one of the developers are here: https://diyhpl.us/wiki/transcripts/blockstream-webinars/2019-07-31-rusty-russell-getting-started-with-c-lightning/._
 
