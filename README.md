@@ -1,4 +1,4 @@
-# Learning Bitcoin from the Command Line
+# Learning Bitcoin from the Command Line 2.0.1
 ### _by Christopher Allen and Shannon Appelcline_
 
 ![](https://www.blockchaincommons.com/images/projects/lbtc-screen.png)
@@ -145,7 +145,7 @@ _This tutorial assumes that you have some minimal background of how to use the c
   
 ## Status - Beta
 
-v2.0 of **Learning Bitcoin from the Command Line** is feature complete. It may still be undergoing third-party review or editing, but it can be used for learning.
+v2.0.1 of **Learning Bitcoin from the Command Line** is feature complete. It may still be undergoing third-party review or editing, but it can be used for learning.
 
 We are also tentatively considering what we could include in a [v3.0](TODO-30.md) of the course. If you'd like to support work of that sort, become a [GitHub Sponsor](https://github.com/sponsors/BlockchainCommons) or support us at our [BTCPay Server](https://btcpay.blockchaincommons.com/), and let us know that **Learning Bitcoin** was the reason why.
 
