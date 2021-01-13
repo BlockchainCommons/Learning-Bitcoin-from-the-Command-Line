@@ -70,7 +70,7 @@ So, txid+vout=UTXO. This will be the foundation of any raw transaction.
 
 You're now ready to write a simple, example raw transaction that shows how to send the entirety of a UTXO to another party. As noted, this is not necessarily a very realistic real-world case.
 
-> :warning: **WARNING:** It is very easy to lose money with a raw transaction. Consider all instructions on sending bitcoins via raw transactions to be _very_, _very_ dangerous. Whenever you're actually sending real money to other people, you should instead use one of the other methods explained in this chapter. Creating raw transactions is extremely useful if you're writing bitcoin programs, but _only_ when you're writing bitcoin programs. (For example: in writing this example for one version of this tutorial, we accidently spend the wrong transaction, even though it had about 10x as much value. Almost all of that was lost to the miners.)
+> :warning: **WARNING:** It is very easy to lose money with a raw transaction. Consider all instructions on sending bitcoins via raw transactions to be _very_, _very_ dangerous. Whenever you're actually sending real money to other people, you should instead use one of the other methods explained in this chapter. Creating raw transactions is extremely useful if you're writing bitcoin programs, but _only_ when you're writing bitcoin programs. (For example: in writing this example for one version of this tutorial, we accidentally spent the wrong transaction, even though it had about 10x as much value. Almost all of that was lost to the miners.)
 
 ### Prepare the Raw Transaction
 
@@ -109,7 +109,7 @@ Currently Bitcoin Fees suggests a transaction fee of about 10,000 satoshis, whic
 
 In this case, that means taking the .0005 BTC in the UTXO we're selected, reducing it by .0001 BTC for the transaction fee, and sending the remaining .0004 BTC. (And this is an example of why micropayments don't work on the Bitcoin network, because a $1 or so transaction fee is pretty expensive when you're sending $4, let alone if you were trying to make a micropayment of $0.50. But that's always why we have Lightning.)
 
-> :warning: **WARNING:** The lower that you set your transaction fee, the longer before your transaction is built into a block. The Bitcoin Fees sites lists expected times, from an expected 0 blocks, to 22. Since blocks are built on average every 10 minutes, that's the difference between a few minutes and a few hours! So, choose a transaction fee that's appropriate for what you're sending. Note that you should never drop below the minimum relay fee, which is .0001 BTC.
+> :warning: **WARNING:** The lower that you set your transaction fee, the longer before your transaction is built into a block. The Bitcoin Fees site lists expected times, from an expected 0 blocks, to 22. Since blocks are built on average every 10 minutes, that's the difference between a few minutes and a few hours! So, choose a transaction fee that's appropriate for what you're sending. Note that you should never drop below the minimum relay fee, which is .0001 BTC.
 
 ### Write the Raw Transaction
 
@@ -260,7 +260,7 @@ Soon `listtransactions` should show a confirmed transaction of category 'send".
     "abandoned": false
   }
 ```
-You can see that it matches the `txid` and the `recipien` address. Not only does it show the `amount` sent, but it also shows the transaction `fee`. And, it's already received a confirmation, because we offered a fee that would get it swept up into a block quickly.
+You can see that it matches the `txid` and the `recipient` address. Not only does it show the `amount` sent, but it also shows the transaction `fee`. And, it's already received a confirmation, because we offered a fee that would get it swept up into a block quickly.
 
 Congratulations! You're now a few satoshis poorer!
 
