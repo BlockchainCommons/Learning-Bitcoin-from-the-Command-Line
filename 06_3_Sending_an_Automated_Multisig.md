@@ -56,7 +56,7 @@ machine2$ bitcoin-cli -named importaddress address=2Mzw7WBvh9RAQ4ssKqxyNyP7L9NAo
 
 ## Respend with an Automated Transaction
 
-Afterward, you will be able to receive funds on the multisiganture address as normal. The use of `addmultisigaddress` is simply a bureaucratic issue on the part of the recipients: a bit of bookkeeping to make life easier for them when they want to spend their funds.
+Afterward, you will be able to receive funds on the multisignature address as normal. The use of `addmultisigaddress` is simply a bureaucratic issue on the part of the recipients: a bit of bookkeeping to make life easier for them when they want to spend their funds.
 
 But, it makes life a lot easier. Because information was saved into the wallet, the signers will be able to respend the funds sent to the multisignature address exactly the same as any other address ... other than the need to sign on multiple machines.
 

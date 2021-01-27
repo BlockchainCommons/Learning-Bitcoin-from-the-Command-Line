@@ -1,6 +1,6 @@
 # 5.2: Resending a Transaction with RBF
 
-If your Bitcoin transaction is stuck, and you're sender, you can resend it using RBF (replace-by-fee). However, that's not all that RBF can do: it's generally a powerful and multipurpose feature that allows Bitcoin senders to recreate transactions for a variety of reasons.
+If your Bitcoin transaction is stuck, and you're the sender, you can resend it using RBF (replace-by-fee). However, that's not all that RBF can do: it's generally a powerful and multipurpose feature that allows Bitcoin senders to recreate transactions for a variety of reasons.
 
 > :warning: **VERSION WARNING:** This is an innovation from Bitcoin Core v 0.12.0,that reached full maturity in the Bitcoin Core wallet with Bitcoin Core v 0.14.0. Obviously, most people should be using it by now.
 
@@ -38,7 +38,7 @@ $ bitcoin-cli -named gettransaction txid=5b953a0bdfae0d11d20d195ea43ab7c31a5471d
   "hex": "02000000000101fa364ad3cbdb08dd0b83aac009a42a9ed00594acd6883d2a466699996cd69d8b01000000000100000002ea1d000000000000160014d591091b8074a2375ed9985a9c4b18efecfd416501000000000000001600146c45d3afa8762086c4bd76d8a71ac7c976e1919602473044022077007dff4df9ce75430e3065c82321dca9f6bdcfd5812f8dc0daeb957d3dfd1602203a624d4e9720a06def613eeea67fbf13ce1fb6188d3b7e780ce6e40e859f275d0121038a2702938e548eaec28feb92c7e4722042cfd1ea16bec9fc274640dc5be05ec500000000"
 }
 ```
-The `bip125-replaceable` flag will stay `yes` until the transaction receives confirmations. At that point, it is no longer replacable.
+The `bip125-replaceable` flag will stay `yes` until the transaction receives confirmations. At that point, it is no longer replaceable.
 
 > :book: ***Should I trust transactions with no confirmations?*** No, never. This was true before RBF and it was true after RBF. Transactions must receive confirmations before they are trustworthy. This is especially true if a transaction is marked as `bip125-replaceable`, because then it can be ... replaced.
 

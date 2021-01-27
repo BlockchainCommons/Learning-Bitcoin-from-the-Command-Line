@@ -7,7 +7,7 @@ Basic bitcoin transactions: (1) send funds; (2) to a single P2PKH or SegWit reci
 After working through this chapter, a developer will be able to:
 
    * Create Multisignature Bitcoin Addresses Using Bitcoin Fundamentals
-   * Create Multisignature Bitcoin Addresses Using Easiser Mechanisms
+   * Create Multisignature Bitcoin Addresses Using Easier Mechanisms
    
 Supporting objectives include the ability to:
 
