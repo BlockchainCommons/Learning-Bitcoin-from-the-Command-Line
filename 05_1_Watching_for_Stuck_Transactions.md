@@ -42,7 +42,7 @@ This list of all [unconfirmed transactions](https://blockchain.info/unconfirmed-
 
 If your transaction is stuck longer than you want, you can typically do one of four things:
 
-**1. Wait Until it Clears.** If you sent your transaction with a low or medium fee, it should eventually go through. As shown at [Mempool Space](https://mempool.space), those with lower fees _will_ get delayed. (Take a look at the leftmost transation, and see how long it's been waiting and how much it paid for its fee.)
+**1. Wait Until it Clears.** If you sent your transaction with a low or medium fee, it should eventually go through. As shown at [Mempool Space](https://mempool.space), those with lower fees _will_ get delayed. (Take a look at the leftmost transaction, and see how long it's been waiting and how much it paid for its fee.)
 
 **2. Wait Until it Expires.** If you accidentally sent with no transaction fee, or if any number or other conditions are met, then your transaction might never go through. However, your coins aren't lost. As long as you don't have a wallet that purposefully resends unconfirmed transactions, it should clear from the mempool in three days or so, and then you can try again.
 

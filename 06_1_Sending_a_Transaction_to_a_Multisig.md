@@ -4,11 +4,11 @@ The first way to vary how you send a basic transaction is to use a multisig. Thi
 
 ## Understand How Multisigs Work
 
-In a typical P2PKH or SegWit transaction, bitcoins are sent to an address based on your public key, which in turn means that the related private key is required to unlock the transaction, solving the cryptographic puzzle and allowing you to reuse the funds. But what if you could instead lock a transaction with _multiple_ private keys. This would effectively allow funds to be sent to a group of people, where those people all have to agree to reuse the funds. 
+In a typical P2PKH or SegWit transaction, bitcoins are sent to an address based on your public key, which in turn means that the related private key is required to unlock the transaction, solving the cryptographic puzzle and allowing you to reuse the funds. But what if you could instead lock a transaction with _multiple_ private keys? This would effectively allow funds to be sent to a group of people, where those people all have to agree to reuse the funds.
 
 > :book: ***What is a multisignature?*** A multisignature is a methodology that allows more than one person to jointly create a digital signature. It's a general technique for the cryptographic use of keys that goes far beyond Bitcoin.
 
-Technically, a multisignature cryptographic puzzle is created by Bitcoin using the OP_CHECKMULTISIG command, and typically that's encapsulated in a P2SH address. [§10.4: Scripting a Multisig](10_4_Scripting_a_Multisig.md) will detail how that works more precisely. For now, all you need to know is that you can use `bitcoin-cli` command to create multisignature addresses; funds can be mailed to these addresses just like any normal P2PKH or Segwit address, but multiple private keys will be required for the redemption of the funds.
+Technically, a multisignature cryptographic puzzle is created by Bitcoin using the OP_CHECKMULTISIG command, and typically that's encapsulated in a P2SH address. [§10.4: Scripting a Multisig](10_4_Scripting_a_Multisig.md) will detail how that works more precisely. For now, all you need to know is that you can use `bitcoin-cli` command to create multisignature addresses; funds can be sent to these addresses just like any normal P2PKH or Segwit address, but multiple private keys will be required for the redemption of the funds.
 
 > :book: ***What is a multisignature transaction?*** A multisignature transaction is a Bitcoin transaction that has been sent to a multisignature address, thus requiring the signatures of certain people from the multisignature group to reuse the funds.
 
@@ -65,7 +65,7 @@ machine2$ bitcoin-cli -named getaddressinfo address=$address2
 ```
 The `pubkey` address (`02bfde48be4aa8f4bf76c570e98a8d287f9be5638412ab38dede8e78df82f33fa3`) is what's required. Copy it over to your local machine by whatever means you find most efficient and _least error prone_.
 
-This process needs to be undertaken for _every_ address from a machine other than the one where the multisig is being built. Obviously, if some third-party is creating the address, then you'll to do this for every address.
+This process needs to be undertaken for _every_ address from a machine other than the one where the multisig is being built. Obviously, if some third-party is creating the address, then you'll need to do this for every address.
 
 > :warning: **WARNING:** Bitcoin's use of public-key hashes as addresses, instead of public keys, actually represents an additional layer of security. Thus, sending a public key slightly increases the vulnerability of the associated address, for some far-future possibility of a compromise of the elliptic curve. You shouldn't worry about having to occasionally send out a public key for a usage such as this, but you should be aware that the public-key hashes represent security, and so the actual public keys should not be sent around willy nilly.
 
@@ -103,7 +103,7 @@ The _descriptor_ is the standardized description for an address that we met in [
 
 > :book: ***What is a P2SH address?*** P2SH stands for Pay-to-script-hash. It's a different type of recipient than a standard P2PKH address or even a Bech32, used for funds whose redemption are based on more complex Bitcoin Scripts. `bitcoin-cli` uses P2SH encapsulation to help standardize and simplify its multisigs as "P2SH multisigs", just like P2SH-SegWit was using P2SH to standardize its SegWit addresses and make them fully backward compatible.
 
-> :warning: **WARNING:** P2SH multisig addresses, like the ones created by `bitcoin-cli`, have a limit for "m" and "n" in multisigs based on the maximum size of the redeem script, which is currently 520 bytes. Pratically, you won't hit this unless you're doing something excessive.
+> :warning: **WARNING:** P2SH multisig addresses, like the ones created by `bitcoin-cli`, have a limit for "m" and "n" in multisigs based on the maximum size of the redeem script, which is currently 520 bytes. Practically, you won't hit this unless you're doing something excessive.
 
 ### Save Your Work
 

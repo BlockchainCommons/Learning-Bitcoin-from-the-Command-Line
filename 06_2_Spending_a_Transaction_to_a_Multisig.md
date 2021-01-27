@@ -177,7 +177,7 @@ That produces scary errors and says that it's `failing`. This is all fine. You c
 
 ### Repeat for Other Signers
 
-You can now pass the transaction on, to be signed again by anyone else required for the mutisig. They do this by running the same signing command that you did but: (1) with the longer `hex` that you output from (`bitcoin-cli -named signrawtransactionwithkey hexstring=$rawtxhex prevtxs='''[ { "txid": "'$utxo_txid'", "vout": '$utxo_vout', "scriptPubKey": "'$utxo_spk'", "redeemScript": "'$redeem_script'" } ]''' privkeys='["cMgb3KM8hPATCtgMKarKMiFesLft6eEw3DY6BB8d97fkeXeqQagw"]' | jq -r '. | .hex'`); and (2) with their own private key.
+You can now pass the transaction on, to be signed again by anyone else required for the multisig. They do this by running the same signing command that you did but: (1) with the longer `hex` that you output from (`bitcoin-cli -named signrawtransactionwithkey hexstring=$rawtxhex prevtxs='''[ { "txid": "'$utxo_txid'", "vout": '$utxo_vout', "scriptPubKey": "'$utxo_spk'", "redeemScript": "'$redeem_script'" } ]''' privkeys='["cMgb3KM8hPATCtgMKarKMiFesLft6eEw3DY6BB8d97fkeXeqQagw"]' | jq -r '. | .hex'`); and (2) with their own private key.
 
 > :information_source: **NOTE — M-OF-N VS N-OF-N:** Obviously, if you have an n-of-n signature (like the 2-of-2 multisignature in this example), then everyone has to sign, but if you hae a m-of-n multisignature where "m < n", then the signature will be complete when only some ("m") of the signers have signed.
 
@@ -215,7 +215,7 @@ This redemption methodology shows a standard way to sign and reuse P2SH transact
 
 1. Include the `scriptPubKey`, which explains the P2SH cryptographic puzzle.
 2. Include the `redeemScript`, which solves the P2SH cryptographic puzzle, and introduces a new puzzle of its own.
-3. Be run on each machine holding required signatures.
+3. Be run on each machine holding required private keys.
 4. Include the relevant signatures, which solve the redeemScript puzzle.
 
 Here, we saw this methodology used  to redeem multisig funds. In the future you can also use it to redeem funds that were locked with other, more complex P2SH scripts, as explained starting in Chapter 9.
