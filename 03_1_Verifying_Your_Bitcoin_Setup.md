@@ -6,7 +6,7 @@ Before you start playing with Bitcoin, you should ensure that everything is setu
 
 We suggest creating some aliases to make it easier to use Bitcoin.
 
-You can do so by putting them in your `.bash_profile`.
+You can do so by putting them in your `.bash_profile`, `.bashrc` or `.profile`.
 ```
 cat >> ~/.bash_profile <<EOF
 alias btcdir="cd ~/.bitcoin/" #linux default bitcoind path
