@@ -8,8 +8,12 @@ The majority of this course presumes that you will either use the Mainnet or Tes
 
 After [setting up your Bitcoin-Core VPS](02_0_Setting_Up_a_Bitcoin-Core_VPS.md) or [compiling from source](A2_0_Compiling_Bitcoin_from_Source.md), you are now able to use regtest. To start your `bitcoind` on regtest and create a private Blockchain, use the following command:
 ```
-$ bitcoind -regtest -daemon
+$ bitcoind -regtest -daemon -fallbackfee=1.0 -maxtxfee=1.1
 ```
+
+The argments `-fallbackfee=1.0 -maxtxfee=1.1` will prevent the `Fee estimation failed. Fallbackfee is disabled` error. 
+
+On regtest, usually there are not enough transactions so bitcoind cannot give a reliable estimate and, without it, the wallet will not create transactions unless it is explicitly set the fee.
 
 ### Reset the Regtest Blockchain
 
@@ -25,12 +29,20 @@ To start a brand new Blockchain using regtest, all you have to do is delete the 
 ```
 $ rm -rf regtest
 ```
+## Generate Regtest Wallet
+
+Before generating blocks, it is necessary to load a wallet using `loadwallet` or create a new one with `createwallet`. Since version 0.21, Bitcoin Core does not automatically create new wallets on startup.
+
+The argument `descriptors=true` creates a native descriptor wallet, that stores scriptPubKey information using output descriptors. If it is `false`, it will create a legacy wallet, where keys are used to implicitly generate scriptPubKeys and addresses.
+```
+$ bitcoin-cli -regtest -named createwallet wallet_name="regtest_desc_wallet" descriptors=true
+```
 
 ## Generate Blocks
 
 You can generate (mine) new blocks on a regtest chain using the RPC method `generate` with an argument for how many blocks to generate. It only makes sense to use this method on regtest; due to the high difficulty it's very unlikely that it will yield to new blocks on the mainnet or testnet:
 ```
-$ bitcoin-cli -regtest generate 101
+$ bitcoin-cli -regtest -generate 101
 [
   "57f17afccf28b9296048b6370312678b6d8e48dc3a7b4ef7681d18ed3d91c122",
   "631ff7b8135ce633c774828be3b8505726459eb65c339aab981b10363befe5a7",
@@ -109,7 +121,7 @@ $ bitcoin-cli -regtest gettransaction e834a4ac6ef754164c8e3f0be4f34531b74b768199
 However, you must now finalize it by creating blocks on the blockchain.
 Most applications require a six-block confirmations to consider the transaction as irreversible. If that is your case, you can mine additional six blocks into your regtest chain:
 ```
-$ bitcoin-cli -regtest generate 6
+$ bitcoin-cli -regtest -generate 6
 [
   "33549b2aa249f0a814db4a2ba102194881c14a2ac041c23dcc463b9e4e128e9f",
   "2cc5c2012e2cacf118f9db4cdd79582735257f0ec564418867d6821edb55715e",
