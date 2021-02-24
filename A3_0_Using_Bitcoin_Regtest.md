@@ -54,7 +54,7 @@ $ bitcoin-cli -regtest -generate 101
 
 > :warning: WARNING. Note that you must add the `-regtest` argument after each `bitcoin-cli` command to correctly access your Regtest environment. If you prefer, you can include a `regtest=1` command in your `~/.bitcoin/bitcoin.conf` file.
 
-Because a block must have 100 confirmations before that reward can be spent, you generate 101 blocks, providing access to the coinbase transaction from block #1. Because this is a new blockchain using Bitcoin’s default rules, the first blocks pays a block reward of 50 bitcoins. Unlike mainnet, in regtest mode only the first 150 blocks pay a reward of 50 bitcoins. The reward halves after 150 blocks, so it pays 25, 12.5, and so on...
+Because a block must have 100 confirmations before that reward can be spent, you generate 101 blocks, providing access to the coinbase transaction from block #1. Because this is a new blockchain using Bitcoin’s default rules, the first blocks pay a block reward of 50 bitcoins. Unlike mainnet, in regtest mode only the first 150 blocks pay a reward of 50 bitcoins. The reward halves after 150 blocks, so it pays 25, 12.5, and so on...
 
 The output is the block hash of every block generated.
 
@@ -74,7 +74,7 @@ Now you should be able to use this balance for any type of interaction on your p
 
 It is important to note that for any transactions to complete, you will have to generate (mine) new blocks, so that the transactions can be included.
 
-For example, to create a transaction and include it in a block, you should ufirst se the `sendtoaddress` command:
+For example, to create a transaction and include it in a block, you should first use the `sendtoaddress` command:
 ```
 $ bitcoin-cli -regtest sendtoaddress [address] 15.1
 e834a4ac6ef754164c8e3f0be4f34531b74b768199ffb244ab9f6cb1bbc7465a
@@ -119,7 +119,7 @@ $ bitcoin-cli -regtest gettransaction e834a4ac6ef754164c8e3f0be4f34531b74b768199
 ```
 
 However, you must now finalize it by creating blocks on the blockchain.
-Most applications require a six-block confirmations to consider the transaction as irreversible. If that is your case, you can mine additional six blocks into your regtest chain:
+Most applications require six block confirmations to consider the transaction as irreversible. If that is your case, you can mine additional six blocks into your regtest chain:
 ```
 $ bitcoin-cli -regtest -generate 6
 [
