@@ -36,7 +36,7 @@ Classic Bitcoin transactions created P2PKH addresses that added an additional cr
 
 > :book: ***What is a Legacy (P2PKH) address?*** This is a Legacy address of the sort used by the early Bitcoin network. We'll be using it in examples for the next few sections. It's called a Pay to PubKey Hash (or P2PKH) address because the address is a 160-bit hash of a public key. Using a hash of your public key as your address creates a two-step process where to spend funds you need to reveal both the private key and the public key, and it increases future security accordingly. This sort of address remains important for receiving funds from people with out-of-date wallet software.
 
-As described more fully in [§4.6: Creating a Segwit Transaction](04_6_Creating_a_Segwit_Transaction.md), the Block Size Wars of the late '10s resulted in a new sort of address: SegWit. This is the preferred sort address currently, and should be fully integrated into Bitcoin-Core at this point, but nonetheless we're saving it for §4.6.
+As described more fully in [§4.6: Creating a Segwit Transaction](04_6_Creating_a_Segwit_Transaction.md), the Block Size Wars of the late '10s resulted in a new sort of address: SegWit. This is the preferred sort of address currently, and should be fully integrated into Bitcoin-Core at this point, but nonetheless we're saving it for §4.6.
 
 SegWit simply means "segregated witness" and it's a way of separating the transaction signatures out from the rest of the transaction to reduce transaction size. Some SegWit addresses will sneak into some of our examples prior to §4.6 as change addresses, which you'll see as addresses that begin with "tb". This is fine because the `bitcoin-cli` entirely supports their usage. But we won't use them otherwise
 
