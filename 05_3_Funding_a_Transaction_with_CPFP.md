@@ -87,7 +87,7 @@ $ utxo_vout=0
 $ recipient2=$(bitcoin-cli getrawchangeaddress)
 ```
 
-   2. Create a raw transaction using your unconfirmed transaction an input.
+   2. Create a raw transaction using your unconfirmed transaction as an input.
    3. Double the transaction fees (or more).
    
 When you take these steps, everything should look totally normal, despite the fact that you're working with an unconfirmed transaction. To verify that all was well, we even looked at the results of our signature before we saved off the information to a variable:
