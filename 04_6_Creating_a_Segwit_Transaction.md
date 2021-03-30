@@ -111,7 +111,7 @@ $ bitcoin-cli listaddressgroupings
 
 ## Send a SegWit Transaction The Easy Way
 
-So how do you send a Bitcoin transaction? Exactly like any other transaction. It doesn't matter if the UTXO is SegWit, the address is SegWit, or some combination thereof. You can expect `bitcoin-cli` to do the right thing. Though you can tell the differences via the addresses, they don't matter for interacting with things at the `bitcoin-cli` or RPC level. (And this is one of the advantages of using the command line and the RPC interface, as suggested in this tutorial: experts have already done the hard work for you, including things like how to send to both legacy and Bech32 addresses. You just get to use that functionality to your own advantage.)
+So how do you send a Segwit transaction? Exactly like any other transaction. It doesn't matter if the UTXO is SegWit, the address is SegWit, or some combination thereof. You can expect `bitcoin-cli` to do the right thing. Though you can tell the differences via the addresses, they don't matter for interacting with things at the `bitcoin-cli` or RPC level. (And this is one of the advantages of using the command line and the RPC interface, as suggested in this tutorial: experts have already done the hard work for you, including things like how to send to both legacy and Bech32 addresses. You just get to use that functionality to your own advantage.)
 
 Here's an example of sending to a SegWit address, the easy way:
 ```
