@@ -98,7 +98,7 @@ $ bitcoin-cli -named decoderawtransaction hexstring=$rawtxhex3
   ]
 }
 ```
-One thing of interest here is the change address, with is the second `vout`. Note that it's a `tb1` address, which means that it's Bech32; when we gave Bitcoin Core the total ability to manage our change, it did so using its default address type, Bech32, and it worked fine. That's why our change to SegWit addresses in [§4.6](04_6_Creating_a_Segwit_Transaction.md) really isn't that big of a deal, but there are some gotchas for wider usage, which we'll talk about there.
+One thing of interest here is the change address, which is the second `vout`. Note that it's a `tb1` address, which means that it's Bech32; when we gave Bitcoin Core the total ability to manage our change, it did so using its default address type, Bech32, and it worked fine. That's why our change to SegWit addresses in [§4.6](04_6_Creating_a_Segwit_Transaction.md) really isn't that big of a deal, but there are some gotchas for wider usage, which we'll talk about there.
 
 Though we saw the fee in the `fundrawtransaction` output, it's not visible here. However, you can verify it with the `txfee-calc.sh` JQ script created in the [JQ Interlude](https://github.com/BlockchainCommons/Learning-Bitcoin-from-the-Command-Line/blob/master/04_2__Interlude_Using_JQ.md):
 ```
@@ -162,7 +162,7 @@ $ bitcoin-cli listunspent
 
 If you must send funds with raw transactions then `fundrawtransaction` gives you a nice alternative where fees, inputs, and outputs are calculated for you, so you don't accidentally lose a bunch of money.
 
-> :fire: ***What the power of sending coins with automated raw transactions?***
+> :fire: ***What is the power of sending coins with automated raw transactions?***
 
 > _The advantages._ It provides a nice balance. If you're sending funds by hand and `sendtoaddress` doesn't offer enough control for whatever reason, you can get some of the advantages of raw transactions without the dangers. This methodology should be used whenever possible if you're sending raw transactions by hand.
 
