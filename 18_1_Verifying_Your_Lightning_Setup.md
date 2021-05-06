@@ -167,9 +167,9 @@ $ sudo ufw allow 9735
 You can check if your Lightning node is ready to go by comparing the output of `bitcoin-cli getblockcount` with the `blockheight` result from `lightning-cli getinfo`.
 
 ```
-$ bitcoin-cli getblockcount
+$ bitcoin-cli -testnet getblockcount
 1838587
-$ lightning-cli getinfo
+$ lightning-cli --testnet getinfo
 {
    "id": "03d4592f1244cd6b5a8bb7fba6a55f8a91591d79d3ea29bf8e3c3a405d15db7bf9",
    "alias": "HOPPINGNET",
