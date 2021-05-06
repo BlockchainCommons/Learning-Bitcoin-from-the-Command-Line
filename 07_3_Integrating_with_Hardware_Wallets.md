@@ -4,7 +4,7 @@
 
 One of the greatest powers of PSBTs is the ability to hand transactions off to hardware wallets. This will be a great development tool for you if you continue to program with Bitcoin. However, you can't test it out now if you're using one of the configurations we suggest for this course — a VM on Linode per [§2.1](https://github.com/BlockchainCommons/Learning-Bitcoin-from-the-Command-Line/blob/master/02_1_Setting_Up_a_Bitcoin-Core_VPS_with_StackScript.md) or an even more farflung option such an AWS per [§2.2](https://github.com/BlockchainCommons/Learning-Bitcoin-from-the-Command-Line/blob/master/02_2_Setting_Up_Bitcoin_Core_Other.md) — because obviously you won't have any way to hook a hardware wallet up to your remote, virtual machine.
 
->: ***What is a Hardware Wallet?*** A hardware wallet is an electronic device that improves the security of cryptocurrency by maintaing all the private keys on the device, rather than ever putting them on a computer directly connected to the internet. Hardware wallets have specific protocols for providing online interactions, usually managed by a program talking to the device through a USB port. In this chapter, we'll be managing a hardware wallet with `bitcoin-cli` and the `hwy.py` program.
+> :book: ***What is a Hardware Wallet?*** A hardware wallet is an electronic device that improves the security of cryptocurrency by maintaing all the private keys on the device, rather than ever putting them on a computer directly connected to the internet. Hardware wallets have specific protocols for providing online interactions, usually managed by a program talking to the device through a USB port. In this chapter, we'll be managing a hardware wallet with `bitcoin-cli` and the `hwy.py` program.
 
 You have three options for moving through this chapter on hardware wallets: (1) read along without testing the code; (2) install Bitcoin on a local machine to fully test these commands; or (3) skip straight ahead to [Chapter 8: Expanding Bitcoin Transactions in Other Ways](08_0_Expanding_Bitcoin_Transactions_Other.md). We suggest option #1, but if you really want to get your hands dirty we'll also give some support for #2 by talking about using a Macintosh (a hardware-platform supported by [Bitcoin Standup](https://github.com/BlockchainCommons/Bitcoin-Standup)) for testing.
 
@@ -12,7 +12,7 @@ You have three options for moving through this chapter on hardware wallets: (1) 
 
 The methodology described in this chapter for integrating with a hardware wallet depends on the [Bitcoin Hardware Wallet Interface](https://github.com/bitcoin-core/HWI) released through Bitcoin Core and builds on the [installation](https://github.com/bitcoin-core/HWI/blob/master/README.md) and [usage](https://github.com/bitcoin-core/HWI/blob/master/docs/bitcoin-core-usage.md) instructions found there.
 
-> :warning **FRESHNESS WARNING:** The HWI interface is very new and raw around the edges as of Bitcoin Core v 0.20.0. It may be hard to install correctly, and it may have unintuive errors. What follows is a description of a working setup, but it took several tries to get it right, and your setup may vary.
+> :warning: **FRESHNESS WARNING:** The HWI interface is very new and raw around the edges as of Bitcoin Core v 0.20.0. It may be hard to install correctly, and it may have unintuive errors. What follows is a description of a working setup, but it took several tries to get it right, and your setup may vary.
 
 ## Install Bitcoin Core on a Local Machine
 
@@ -246,7 +246,7 @@ $ bitcoin-cli -rpcwallet=ledger listunspent
 ```
 ## Create a Transaction with PSBT
 
-Watching and receiving payments is just half the battle. You may also want to make payments using accounts held by your hardware wallet. This is a the fourth real-life example for using PSBTs, per the process outlined in [§7.1: Creating a Partially Signed Bitcoin Transaction](7_1_Creating_a_Partially_Signed_Bitcoin_Transaction.md). 
+Watching and receiving payments is just half the battle. You may also want to make payments using accounts held by your hardware wallet. This is the fourth real-life example for using PSBTs, per the process outlined in [§7.1: Creating a Partially Signed Bitcoin Transaction](7_1_Creating_a_Partially_Signed_Bitcoin_Transaction.md). 
 
 The commands work exactly the same. In this case, use `walletcreatefundedpsbt` to form your PSBT because this is a situation where you don't care what UTXOs are used:
 ```

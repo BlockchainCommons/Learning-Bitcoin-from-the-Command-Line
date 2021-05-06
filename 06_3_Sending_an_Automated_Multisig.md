@@ -113,7 +113,7 @@ As with the shortcut discussed in [§4.5: Sending Coins with Automated Raw Trans
 
 ## Summary: Sending & Spending an Automated Multisig
 
-There's an easier way to resepend funds sent to multisig addresses that simply requires use of the `addmultisigaddress` command when you create your address. It doesn't demonstrate the intricacies of P2SH respending, and it doesn't give you expansive control, but if you just want to get your money, this is the way to go.
+There's an easier way to respend funds sent to multisig addresses that simply requires use of the `addmultisigaddress` command when you create your address. It doesn't demonstrate the intricacies of P2SH respending, and it doesn't give you expansive control, but if you just want to get your money, this is the way to go.
 
 ## What's Next?
 
