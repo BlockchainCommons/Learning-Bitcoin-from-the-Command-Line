@@ -21,3 +21,5 @@ The following TODO items are intended for a 3.0 version of Learning Bitcoin from
 12. Programming Lightning with C
    * _Some good docs from one of the developers are here: https://diyhpl.us/wiki/transcripts/blockstream-webinars/2019-07-31-rusty-russell-getting-started-with-c-lightning/._
    * _Other potential docs: https://twitter.com/roasbeef/status/1389649064753471488_
+13. Consider TIme Lock Discussion Improvements
+   * Especially look at chart in https://prestwi.ch/bitcoin-time-locks/
