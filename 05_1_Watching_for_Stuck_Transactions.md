@@ -50,7 +50,7 @@ If your transaction is stuck longer than you want, you can typically do one of f
 
 **4. Use CPFP as the Receiver.** Alternatively, if you are the receiver of the transaction, you can use CPFP (Child-pays-for-parent) to use the unconfirmed transaction as an input to a new transaction. See [§5.3: Funding a Transaction with CPFP](05_3_Funding_a_Transaction_with_CPFP.md).
 
-## Summary: Watching for Stuck Transactios
+## Summary: Watching for Stuck Transactions
 
 This is an introduction to the power of Bitcoin transactions. If you know that a transaction is stuck, then you can decide to free it up with features like RBF or CPFP.
 
