@@ -30,7 +30,7 @@ The integers are the most troublesome part of a locking-script translation.
 
 First, you should verify that your number falls between -2147483647 and 2147483647, the range of four-byte integers when the most significant byte is used for signing.
 
-Second, you need to translate the decimal value into hexidecimal and pad it out to an even number of digits. This can be done with the `printf` command:
+Second, you need to translate the decimal value into hexadecimal and pad it out to an even number of digits. This can be done with the `printf` command:
 ```
 $ integer=1546288031
 $ hex=$(printf '%08x\n' $integer | sed 's/^\(00\)*//')
@@ -48,7 +48,7 @@ $ lehex=$(echo $hex | tac -rs .. | echo "$(tr -d '\n')")
 $ echo $lehex
 9f7b2a5c
 ```
-In addition, you always need to know the size of any data that you put on the stack, so that you can precede it with the proper opcode. You can just remember that every two hexidecimal characters is one byte. Or, you can use `echo -n` piped to `wc -c`, and divide that in half:
+In addition, you always need to know the size of any data that you put on the stack, so that you can precede it with the proper opcode. You can just remember that every two hexadecimal characters is one byte. Or, you can use `echo -n` piped to `wc -c`, and divide that in half:
 ```
 $ echo -n $lehex | wc -c | awk '{print $1/2}'
 4
@@ -165,7 +165,7 @@ $ echo -n $redeemScript | xxd -r -p | openssl dgst -sha256 -binary | openssl dgs
 ```
 ## Create a P2SH Transaction
 
-Creating your 20-bit hash just gives you the hash at the center of a P2SH locking script. You still need to put it together with the other opcodes that create a standard P2SH transaction: `OP_HASH160 a5d106eb8ee51b23cf60d8bd98bc285695f233f3 OP_EQUAL`.
+Creating your 20-byte hash just gives you the hash at the center of a P2SH locking script. You still need to put it together with the other opcodes that create a standard P2SH transaction: `OP_HASH160 a5d106eb8ee51b23cf60d8bd98bc285695f233f3 OP_EQUAL`.
 
 Depending on your API, you might be able to enter this as an `asm`-style `scriptPubKey` for your transaction, or you might have to translate it to `hex` code as well. If you have to translate, use the same methods described above for "Creating the Hex Code" (or use `btcc`), resulting in `a914a5d106eb8ee51b23cf60d8bd98bc285695f233f387`.
 
