@@ -19,7 +19,7 @@ In general, PSBTs provide a number of functional elements that improve this use 
 1. They provide a _standard_ for collaboratively creating transactions, whereas previous methodologies (including the multi-sig one from the previous chapter) were implementation dependent.
 2. They support a _wider variety of use cases_, including simple joint funding.
 3. They support _hardware wallets_ and other cases where a node may not have full transaction history.
-4. They optional allow for the combination of _non-serialized transactions_, not requiring an ever-bigger hex code to be passed from user to user.
+4. They optionally allow for the combination of _non-serialized transactions_, not requiring an ever-bigger hex code to be passed from user to user.
 
 PSBTs do their work by supplementing normal transaction information with a set of inputs and outputs, each of which defines everything you need to know about those UTXOs, so that even an airgapped wallet can make an informed decision about signatures. Thus, an input lists out the amount of money in a UTXO and what needs to be done to spend it, while an output does the same for the UTXOs it's creating.
 
