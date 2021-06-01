@@ -16,13 +16,13 @@ The methodology described in this chapter for integrating with a hardware wallet
 
 ## Install Bitcoin Core on a Local Machine
 
-_If you just plan to read over this section and not test out these commands until some future date when you have a local development environment, you can skip this subsection, which is about creating a Bitcoin Core installation on a local machine such as a Mac or UNIX machine._
+_If you just plan to read over this section and not test out these commands until some future date when you have a local development environment, you can skip this subsection, which is about creating a Bitcoin Core installation on a local machine such as a Mac or Linux machine._
 
-There are alternate versions of the Bitcoin Standup script that you used to create your VM that will install on a MacOS or on a non-Linode UNIX machine.
+There are alternate versions of the Bitcoin Standup script that you used to create your VM that will install on a MacOS or on a non-Linode Linux machine.
 
 If you have MacOS, you can install [Bitcoin Standup MacOS](https://github.com/BlockchainCommons/Bitcoin-Standup-MacOS/blob/master/README.md).
 
-If you have a local UNIX machine, you can install [Bitcoin Standup Linux Scripts](https://github.com/BlockchainCommons/Bitcoin-Standup-MacOS/blob/master/README.md).
+If you have a local Linux machine, you can install [Bitcoin Standup Linux Scripts](https://github.com/BlockchainCommons/Bitcoin-Standup-MacOS/blob/master/README.md).
 
 Once you've gotten Bitcoin Standup running on your local machine, you'll want to sync the "Testnet" blockchain, assuming that you're continuing to follow the standard methodlogy of this course.
 
