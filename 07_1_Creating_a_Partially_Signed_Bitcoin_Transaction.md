@@ -28,7 +28,7 @@ This first section will outline the standard PSBT process of: Creator, Updater, 
 ## Create a PSBT the Old-Fashioned Way
 #### PSBT Role: Creator
 
-The easiest way to create a PSBT is to take an existing transaction and use `converttopsbt` to turn it into a PSBT. This is certainly not the _best_ way since it requires you to make a transaction for one format (a raw transaction) then convert it to another (PSBT), but if you've got old software that can only generate raw transaction, you may need to use it.
+The easiest way to create a PSBT is to take an existing transaction and use `converttopsbt` to turn it into a PSBT. This is certainly not the _best_ way since it requires you to make a transaction for one format (a raw transaction) then convert it to another (PSBT), but if you've got old software that can only generate a raw transaction, you may need to use it.
 
 You just create your raw transaction normally:
 
