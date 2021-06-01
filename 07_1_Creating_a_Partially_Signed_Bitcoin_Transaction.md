@@ -8,7 +8,7 @@ Partially Signed Bitcoin Transactions (PSBTs) are the newest way to vary the cre
 
 ## Understand How PSBTs Work
 
-Multisignatures were great for the very specific case of jointly holding funds and setting rules for who among the joint signers could authenticate the use of those funds. There are many use cases, such as: a spousal joint bank account (a 1-of-2 signature); a fiduciary requirement for dual control (a 2-of-2 signature); and an escrow (a 2-of-3 signature). 
+Multisignatures were great for the very specific case of jointly holding funds and setting rules for whom among the joint signers could authenticate the use of those funds. There are many use cases, such as: a spousal joint bank account (a 1-of-2 signature); a fiduciary requirement for dual control (a 2-of-2 signature); and an escrow (a 2-of-3 signature). 
 
 > :book: ***What is a PSBT?*** As the name suggests, a PSBT is a transaction that has not been fully signed. That's important, because once a transaction is signed, its content is locked in. [BIP174](https://github.com/bitcoin/bips/blob/master/bip-0174.mediawiki) defined an abstracted methodology for putting PSBTs together that describes and standardizes roles in their collaborative creation. A *Creator* proposes a transaction; one or more *Updaters* supplement it; and one or more *Signers* authenticate it; before a *Finalizer* completes it; and an *Extracter* turn it into a transaction for the Bitcoin network. There may also be a *Combiner* who merges parallel PSBTs from different users. 
 
