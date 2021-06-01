@@ -425,7 +425,7 @@ Second, it's a lot more scalable. Consider a 3-of-5 multisig. Under the old meth
 
 Multisigs like the one used in the previous example are often used to receive payments for collaborative work, whether it be royalties for a book or payments made to a company. In that situation, the above example works great: the two participants receive their money which they then split up. But what about the converse case, where two (or more) participants want to set up a joint venture, and they need to seed it with money? 
 
-The traditional answer is to create a multisig, then to have the participants individually send their funds to it. The problem is that the first payer has to depend on the good faith of the second, and that doesn't built on the strength of Bitcoin, which is its _trustlessness_. Fortunately, with the advent of PSBTs, we can now make trustless payments that pool funds.
+The traditional answer is to create a multisig, then to have the participants individually send their funds to it. The problem is that the first payer has to depend on the good faith of the second, and that doesn't build on the strength of Bitcoin, which is its _trustlessness_. Fortunately, with the advent of PSBTs, we can now make trustless payments that pool funds.
 
 > :book: ***What does trustless mean?*** Trustless means that no participant has to trust any other participant. They instead expect the software protocols to ensure that everything is enacted fairly in an expected manner. Bitcoin is a trustless protocol because you don't need anyone else to act in good faith; the system manages it. Similarly, PSBTs allow for the trustless creation of transactions that pool or split funds.
 
