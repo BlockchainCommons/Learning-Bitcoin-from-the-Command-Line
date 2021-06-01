@@ -12,7 +12,7 @@ You have three options for moving through this chapter on hardware wallets: (1) 
 
 The methodology described in this chapter for integrating with a hardware wallet depends on the [Bitcoin Hardware Wallet Interface](https://github.com/bitcoin-core/HWI) released through Bitcoin Core and builds on the [installation](https://github.com/bitcoin-core/HWI/blob/master/README.md) and [usage](https://github.com/bitcoin-core/HWI/blob/master/docs/bitcoin-core-usage.md) instructions found there.
 
-> :warning: **FRESHNESS WARNING:** The HWI interface is very new and raw around the edges as of Bitcoin Core v 0.20.0. It may be hard to install correctly, and it may have unintuive errors. What follows is a description of a working setup, but it took several tries to get it right, and your setup may vary.
+> :warning: **FRESHNESS WARNING:** The HWI interface is very new and raw around the edges as of Bitcoin Core v 0.20.0. It may be hard to install correctly, and it may have unintuitive errors. What follows is a description of a working setup, but it took several tries to get it right, and your setup may vary.
 
 ## Install Bitcoin Core on a Local Machine
 
