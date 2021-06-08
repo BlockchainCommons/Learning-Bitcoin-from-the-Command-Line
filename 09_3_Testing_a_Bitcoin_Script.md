@@ -98,7 +98,7 @@ script  |  stack
 ```
 And that's where our script ends, with nothing more to execute and a `03` sitting on top of our stack as the result of the Script.
 
-> :note: **NOTE:** `btcdeb` allows you to repeat the previous command by hitting enter. We will be doing this in subsequent examples, so don't be surprised about `btcdeb>` prompts with nothing as input. It is simply repeating the previous (often `step`) command.
+> **NOTE:** `btcdeb` allows you to repeat the previous command by hitting enter. We will be doing this in subsequent examples, so don't be surprised about `btcdeb>` prompts with nothing as input. It is simply repeating the previous (often `step`) command.
 
 ### Use btcdeb for a Subtraction Example
 

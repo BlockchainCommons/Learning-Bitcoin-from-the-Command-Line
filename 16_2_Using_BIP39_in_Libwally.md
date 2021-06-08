@@ -49,7 +49,7 @@ This example, which will be the only way we use the `libsodium` library, creates
 ```
 Note that you have to pass along the byte size, so if you were to increase the size of your entropy, to generate a longer mnemonic phrase, you'd also need to increase the value in this function.
 
-> :note: **NOTE:** There are mnemonic word lists for different languages! The default is to use the English-language list, which is the `NULL` variable in these Libwally mnemonic commands, but you can alternatively request a different language!
+> **NOTE:** There are mnemonic word lists for different languages! The default is to use the English-language list, which is the `NULL` variable in these Libwally mnemonic commands, but you can alternatively request a different language!
 
 That's it! You've created a mnemonic phrase!
 

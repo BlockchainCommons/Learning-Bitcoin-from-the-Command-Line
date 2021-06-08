@@ -131,7 +131,7 @@ Here's the complete code to retrieve a block hash, turn that into a block, and p
     println!("{:?}", block);
 ```
 
-> :note: **NOTE:** Another possible call that we considered for this section was `get_address_info`, but unfortunately as of this writing, the `bitcoincore-rpc` function doesn't work with recent versions of Bitcoin Core due to the crate not addressing the latest API changes in Bitcoin Core. We expect this will be solved in the next crate's release, but in the meantime, _caveat programmer_.
+> **NOTE:** Another possible call that we considered for this section was `get_address_info`, but unfortunately as of this writing, the `bitcoincore-rpc` function doesn't work with recent versions of Bitcoin Core due to the crate not addressing the latest API changes in Bitcoin Core. We expect this will be solved in the next crate's release, but in the meantime, _caveat programmer_.
 
 ### Run Your Code
 
