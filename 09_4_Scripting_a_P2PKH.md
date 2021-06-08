@@ -346,7 +346,7 @@ error: Signature is found in scriptCode
 ```
 (Unfortunately this checking may or may not be working at any point due to vagaries of the Bitcoin Core and `btcdeb` code.)
 
-As is shown, a P2PKH is quite simple: its protection comes about those the strength of its cryptography.
+As is shown, a P2PKH is quite simple: its protection comes about through the strength of its cryptography.
 
 ### How to Look Up a Pub Key & Signature by Hand
 
