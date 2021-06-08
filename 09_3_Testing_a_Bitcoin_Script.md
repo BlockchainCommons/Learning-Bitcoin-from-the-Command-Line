@@ -2,7 +2,7 @@
 
 Bitcoin Scripting allows for considerable additional control over Bitcoin transactions, but it's also somewhat dangerous. As we'll describe in [§10.1](10_1_Understanding_the_Foundation_of_P2SH.md), the actual Scripts are somewhat isolated from the Bitcoin network, which means that it's possible to write a script and have it accepted by the network even if it's impossible to redeem from that script! So, you need to thoroughly test your Scripts before you put your money into them.
 
-This chapter thus describes a prime method for testing Bitcoin Scripts, which we'll also be using for occasional examples throughout the rest of this Part.
+This chapter thus describes a prime method for testing Bitcoin Scripts, which we'll also be using for occasional examples throughout the rest of this section.
 
 ## Install btcdeb
 
