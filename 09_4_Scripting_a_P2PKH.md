@@ -45,7 +45,7 @@ $ bitcoin-cli -named decoderawtransaction hexstring=$signedtx
   ]
 }
 ```
-You can see that its `scriptSig` unlocking script has two values. That's a `<signature>` (and an `[all]`) and a `<pubKey>`:
+You can see that its `scriptSig` unlocking script has two values. That's a `<signature>` (and an `[ALL]`) and a `<pubKey>`:
 ```
 304402201cc39005b076cb06534cd084fcc522e7bf937c4c9654c1c9dfba68b92cbab7d1022066f273178febc7a37568e2e9f4dec980a2e9a95441abe838c7ef64c39d85849c[ALL] 0315a0aeb37634a71ede72d903acae4c6efa77f3423dcbcd6de3e13d9fd989438b
 ```
