@@ -2,7 +2,7 @@
 
 > :information_source: **NOTE:** This section has been recently added to the course and is an early draft that may still be awaiting review. Caveat reader.
 
-P2PKHs are fine for explaining the fundamental way that Bitcoin Scripts work, but what about native Segwit P2WPKH scripts, which are increasingly becoming the majority of Bitcoin transactions? As it turns out, P2WPKH addresses don't use Bitcoin Scripts like traditional Bitcoin addresses do, and so this section is really a digression from the scripting of this chapter — but an important one, because it outlines the _other_ major way in which Bitcoins can be transacted. 
+P2PKHs are fine for explaining the fundamental way that Bitcoin Scripts work, but what about native SegWit P2WPKH scripts, which are increasingly becoming the majority of Bitcoin transactions? As it turns out, P2WPKH addresses don't use Bitcoin Scripts like traditional Bitcoin addresses do, and so this section is really a digression from the scripting of this chapter — but an important one, because it outlines the _other_ major way in which Bitcoins can be transacted.
 
 ## View a P2WPKH Script
 

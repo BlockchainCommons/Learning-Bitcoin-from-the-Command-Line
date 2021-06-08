@@ -2,7 +2,7 @@
 
 Bitcoin Scripting allows for considerable additional control over Bitcoin transactions, but it's also somewhat dangerous. As we'll describe in [§10.1](10_1_Understanding_the_Foundation_of_P2SH.md), the actual Scripts are somewhat isolated from the Bitcoin network, which means that it's possible to write a script and have it accepted by the network even if it's impossible to redeem from that script! So, you need to thoroughly test your Scripts before you put your money into them.
 
-This chapter thus describes a prime method for testing Bitcoin Scripts, which we'll also be using for occasional examples throughout the rest of this Part.
+This chapter thus describes a prime method for testing Bitcoin Scripts, which we'll also be using for occasional examples throughout the rest of this section.
 
 ## Install btcdeb
 
@@ -96,9 +96,9 @@ script  |  stack
 --------+--------
         | 03
 ```
-And that's where our script ends, with nothing more to execute and an `03` sitting on top of our stack as the result of the Script.
+And that's where our script ends, with nothing more to execute and a `03` sitting on top of our stack as the result of the Script.
 
-> :note: **NOTE:** `btcdeb` allows you to repeat the previous command by hitting enter. We will be doing this in subsequent examples, so don't be surprised about `btcdeb>` prompts with nothing as input. It is simply repeating the previous (often `step`) command.
+> **NOTE:** `btcdeb` allows you to repeat the previous command by hitting enter. We will be doing this in subsequent examples, so don't be surprised about `btcdeb>` prompts with nothing as input. It is simply repeating the previous (often `step`) command.
 
 ### Use btcdeb for a Subtraction Example
 
@@ -186,7 +186,7 @@ Using these commands can make it easier to see what's going on and where you are
 
 There are also a few web simulators that you can use to test scripts online. They can be superior to a command-line tool by offering a more graphical output, but we also find that they tend to have shortcomings.
 
-In the past we've tried to give extensive guidelines on using sites such as the [Script Playground](http://www.crmarsh.com/script-playground/) or the [Bitcoin Online Script Debugger](https://bitcoin-script-debugger.visvirial.com/), but they become out of date and/or disappear too quickly to keep up with them.
+In the past we've tried to give extensive guidelines on using sites such as the [Script Playground](http://www.crmarsh.com/script-playground/) or the [Bitcoin Online Script Debugger](https://bitcoin-script-debugger.visvirial.com/), but they become out of date and/or disappeared too quickly to keep up with them.
 
 Assume that these debuggers have the nice advantage of showing things visually and explicitly telling you whether a script succeeds (unlocks) or fails (stays locked). Assume that they have disadvantages with signatures, where many of them either always return `true` for signature tests or else have very cumbersome mechanisms for incorporating them.
 

@@ -4,13 +4,13 @@
 
 Partially Signed Bitcoin Transactions (PSBTs) are the newest way to vary the creation of basic Bitcoin transactions. They do so by introducing collaboration into every step of the process, allowing people (or programs) to not just authenticate transactions together (as with multisigs), but also to easily create, fund, and broadcast collaboratively. 
 
-> :warning: **VERSION WARNING:** This is an innovation from Bitcoin Core v 0.17.0. Earlier versions of Bitcoin Core will not be able to work with the PSBT while it is in process (though they will still be able to recognize the final transaction). Some updates and upgrades for PSBTs have continued through 0.20.0.
+> :warning: **VERSION WARNING:** This is an innovation from Bitcoin Core v 0.17.0. Earlier versions of Bitcoin Core will not be able to work with the PSBT while it is in progress (though they will still be able to recognize the final transaction). Some updates and upgrades for PSBTs have continued through 0.20.0.
 
 ## Understand How PSBTs Work
 
-Multisignatures were great for the very specific case of jointly holding funds and setting rules for who among the joint signers could authenticate the use of those funds. There are many use cases, such as: a spousal joint bank account (a 1-of-2 signature); a fiduciary requirement for dual control (a 2-of-2 signature); and an escrow (a 2-of-3 signature). 
+Multisignatures were great for the very specific case of jointly holding funds and setting rules for whom among the joint signers could authenticate the use of those funds. There are many use cases, such as: a spousal joint bank account (a 1-of-2 signature); a fiduciary requirement for dual control (a 2-of-2 signature); and an escrow (a 2-of-3 signature). 
 
-> :book: ***What is a PSBT?*** As the name suggests, a PSBT is a transaction that has not been fully signed. That's important, because once a transaction is signed, its content is locked in. [BIP174](https://github.com/bitcoin/bips/blob/master/bip-0174.mediawiki) defined an abstracted methodology for putting PSBTs together that describes and standardizes roles in their collaborative creation. A *Creator* proposes a transaction; one or more *Updaters* supplement it; and one or more *Signers* authenticate it; before a *Finalizer* completes it; and an *Extracter* turn it into a transaction for the Bitcoin network. There may also be a *Combiner* who merges parallel PSBTs from different users. 
+> :book: ***What is a PSBT?*** As the name suggests, a PSBT is a transaction that has not been fully signed. That's important, because once a transaction is signed, its content is locked in. [BIP174](https://github.com/bitcoin/bips/blob/master/bip-0174.mediawiki) defined an abstracted methodology for putting PSBTs together that describes and standardizes roles in their collaborative creation. A *Creator* proposes a transaction; one or more *Updaters* supplement it; and one or more *Signers* authenticate it; before a *Finalizer* completes it; and an *Extracter* turns it into a transaction for the Bitcoin network. There may also be a *Combiner* who merges parallel PSBTs from different users. 
 
 PSBTs may initially look sort of the same as multi-sigs because they have a single overlapping bit of functionality: the ability to jointly sign a transaction. However, they were created for a totally different use case. PSBTs recognize the need for multiple programs to jointly create a transaction for a number of different reasons, and they provide a regularized format for doing so. They're especially useful for use cases involving hardware wallets (for which, see [§7.3](https://github.com/BlockchainCommons/Learning-Bitcoin-from-the-Command-Line/blob/master/07_3_Integrating_with_Hardware_Wallets.md)), which are protected from full access to the internet and tend to have minimal transaction history.
 
@@ -19,7 +19,7 @@ In general, PSBTs provide a number of functional elements that improve this use 
 1. They provide a _standard_ for collaboratively creating transactions, whereas previous methodologies (including the multi-sig one from the previous chapter) were implementation dependent.
 2. They support a _wider variety of use cases_, including simple joint funding.
 3. They support _hardware wallets_ and other cases where a node may not have full transaction history.
-4. They optional allow for the combination of _non-serialized transactions_, not requiring an ever-bigger hex code to be passed from user to user.
+4. They optionally allow for the combination of _non-serialized transactions_, not requiring an ever-bigger hex code to be passed from user to user.
 
 PSBTs do their work by supplementing normal transaction information with a set of inputs and outputs, each of which defines everything you need to know about those UTXOs, so that even an airgapped wallet can make an informed decision about signatures. Thus, an input lists out the amount of money in a UTXO and what needs to be done to spend it, while an output does the same for the UTXOs it's creating.
 
@@ -28,7 +28,7 @@ This first section will outline the standard PSBT process of: Creator, Updater, 
 ## Create a PSBT the Old-Fashioned Way
 #### PSBT Role: Creator
 
-The easiest way to create a PSBT is to take an existing transaction and use `converttopsbt` to turn it into a PSBT. This is certainly not the _best_ way since it requires you to make a transaction for one format (a raw transaction) then convert it to another (PSBT), but if you've got old software that can only generate raw transaction, you may need to use it.
+The easiest way to create a PSBT is to take an existing transaction and use `converttopsbt` to turn it into a PSBT. This is certainly not the _best_ way since it requires you to make a transaction for one format (a raw transaction) then convert it to another (PSBT), but if you've got old software that can only generate a raw transaction, you may need to use it.
 
 You just create your raw transaction normally:
 

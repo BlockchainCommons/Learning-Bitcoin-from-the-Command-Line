@@ -98,7 +98,7 @@ As you might expect, you then add that input to your transaction:
   lw_response = wally_tx_add_input(tx,tx_input);
 ```
 
-> :note: **NOTE** Obviously, you'll want to be able to create your own inputs if you're using Libwally for real applications, but this is intended as a first step. And, it can actually be useful for integrating with `bitcoin-cli`, as we'll see in [§16.7](16_7_Integrating_Libwally_and_Bitcoin-CLI.md).
+> **NOTE** Obviously, you'll want to be able to create your own inputs if you're using Libwally for real applications, but this is intended as a first step. And, it can actually be useful for integrating with `bitcoin-cli`, as we'll see in [§16.7](16_7_Integrating_Libwally_and_Bitcoin-CLI.md).
 
 ### Print a Transaction
 

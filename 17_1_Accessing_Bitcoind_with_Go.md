@@ -126,7 +126,7 @@ Every `bitcoind` function in Go begins with creating the RPC connection, using t
 ```
 The ```connCfg``` parameters allow you to choose the Bitcoin RPC port, username, password and whether you are on testnet or mainnet. 
 
-> :note: **NOTE:** Again, be sure to substitute the `User` and `Pass` with the one found in your `~/.bitcoin/bitcon.conf`. 
+> **NOTE:** Again, be sure to substitute the `User` and `Pass` with the one found in your `~/.bitcoin/bitcon.conf`. 
 
 The```rpcclient.New(connCfg, nil)``` function then configures ```client``` to connect to your Bitcoin node. 
 
@@ -268,7 +268,7 @@ The defaultNet variable is now used to specify whether your Bitcoin node is on t
 	}
 ```
 
-> :note: **NOTE:** Change the address (`mpGpCMX6SuUimDZKiVViuhd7EGyVxkNnha`) for one actually your wallet; you can use `bitcoin-cli listunspent` to find some addresses with funds for this test. If you want to be really fancy, modify the Go code to take an argument, then write a script that runs `listunspent`, saves the info to a variable, and runs the Go code on that.
+> **NOTE:** Change the address (`mpGpCMX6SuUimDZKiVViuhd7EGyVxkNnha`) for one actually your wallet; you can use `bitcoin-cli listunspent` to find some addresses with funds for this test. If you want to be really fancy, modify the Go code to take an argument, then write a script that runs `listunspent`, saves the info to a variable, and runs the Go code on that.
 
 Only afterward do you use the `getreceivedbyaddress` RPC, on your decoded address:
 ```
@@ -378,7 +378,7 @@ func main() {
 	fmt.Println(transactions)
 }
 ```
-> :note: **NOTE:** Again, you'll want to change out the txid for one actually recognized by your system.
+> **NOTE:** Again, you'll want to change out the txid for one actually recognized by your system.
 
 When you run [the code](17_1_lookuptransaction.go) it will print out the details associated with a transaction, such as its amount and how many times it has been confirmed:
 
