@@ -26,11 +26,8 @@ In order to get through this tutorial, we're willing to spend 100,00 satoshis pe
 
 After you've edited your bitcoin.conf file, you'll want to kill and restart bitcoind.
 ```
-$ ps auxww | grep -i bitcoind
-standup    455  1.3 38.4 3387012 1555520 ?     SLsl Jun16  60:01 /usr/local/bin/bitcoind -conf=/home/standup/.bitcoin/bitcoin.conf
-standup  21073  0.0  0.0   6076   876 pts/0    R+   15:00   0:00 grep -i bitcoind
-$ kill 455
-$ /usr/local/bin/bitcoind -conf=/home/standup/.bitcoin/bitcoin.conf &
+$ bitcoin-cli stop
+$ bitcoind -daemon
 ```
 
 ## Get an Address
