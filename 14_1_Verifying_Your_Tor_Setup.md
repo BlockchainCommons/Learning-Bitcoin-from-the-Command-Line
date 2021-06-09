@@ -4,7 +4,7 @@
 
 If you did a standard installation with [Bitcoin Standup](https://github.com/BlockchainCommons/Bitcoin-Standup) then you should have Tor set up as part of your Bitcoin node: Tor is installed and has created hidden services for the Bitcoin RPC ports; while an onion address has also been created for `bitcoind`. This section talks about what all of that is and what to do with it.
 
-> :book: ***What is Tor?*** Tor is a low-latency anonymity and overlay network based on onion routing and path-building design for enabling anonymous communication. It's free and open-source software with the name derived from the acronym for the original software project name: "The Onion Router". 
+> :book: ***What is Tor?*** Tor is a low-latency anonymity and overlay network based on onion routing and path-building design for enabling anonymous communication. It's free and open-source software with the name derived from the acronym for the original software project name: "The Onion Router".
 
 > :book: ***Why Use Tor for Bitcoin?*** The Bitcoin network is a peer-to-peer network that listens for transactions and propagates them using a public IP address.  When connecting to the network not using Tor, you would share your IP address, which could expose your location, your uptime, and others details to third parties — which is an undesirable privacy practice. To protect yourself online you should use tools like Tor to hide your connection details. Tor allows improve your privacy online as your data is cryptographically encoded and goes through different nodes, each one decoding a single layer (hence the onion metaphor).
 
@@ -94,7 +94,7 @@ mgcym6je63k44b3i5uachhsndayzx7xi4ldmwrm7in7yvc766rykz6yd.onion
 
 When you have all of that information you can issue a `bitcoin-cli` command using `torify` and specifying the `-rpcconnect` as your onion address, the `-rpcport` as your hidden service port, and the `-rpcpassword` as your password:
 ```
-$ torify bitcoin-cli -rpcconnect=mgcym6je63k44b3i5uachhsndayzx7xi4ldmwrm7in7yvc766rykz6yd.onion -rpcport=1309 -rpcpassword=685316cc239c24ba71fd0969fa55634f getblockcount
+$ torify bitcoin-cli -rpcconnect=mgcym6je63k44b3i5uachhsndayzx7xi4ldmwrm7in7yvc766rykz6yd.onion -rpcport=1309 -rpcuser=StandUp -rpcpassword=685316cc239c24ba71fd0969fa55634f getblockcount
 ```
 
 ### Verify Your Tor Setup for Bitcoind
@@ -103,11 +103,13 @@ Bitcoin Standup also ensures that your `bitcoind` is set up to optionally commun
 
 You can verify the initial setup of Tor for `bitcoind` by grepping for "tor" in the `debug.log` in your data directory:
 ```
-$ grep "tor:" ~/.bitcoin/testnet3/debug.log 
-2020-07-15T17:56:34Z tor: ADD_ONION successful
-2020-07-15T17:56:34Z tor: Got service ID zbyqk2tmq4c4vzeo, advertising service zbyqk2tmq4c4vzeo.onion:18333
-2020-07-15T17:56:34Z tor: Cached service private key to /home/standup/.bitcoin/testnet3/onion_private_key
+$ grep "tor:" ~/.bitcoin/testnet3/debug.log
+2021-06-09T14:07:04Z tor: ADD_ONION successful
+2021-06-09T14:07:04Z tor: Got service ID vazr3k6bgnfafmdpcmbegoe5ju5kqyz4tk7hhntgaqscam2qupdtk2yd, advertising service vazr3k6bgnfafmdpcmbegoe5ju5kqyz4tk7hhntgaqscam2qupdtk2yd.onion:18333
+2021-06-09T14:07:04Z tor: Cached service private key to /home/standup/.bitcoin/testnet3/onion_v3_private_key
 ```
+> :information_source: **NOTE:** Bitcoin Core does not support v2 addresses anymore. Tor v2 support was removed in [#22050](https://github.com/bitcoin/bitcoin/pull/22050)
+
 > **TESTNET vs MAINNET:** Mainnet `bitcoind` responds on port 8333, testnet on port 18333.
 
 You can verify that a Tor hidden service has been created for Bitcoin with the `getnetworkinfo` RPC call:
@@ -127,14 +129,14 @@ $ bitcoin-cli getnetworkinfo
       "score": 1
     },
     {
-      "address": "zbyqk2tmq4c4vzeo.onion",
+      "address": "vazr3k6bgnfafmdpcmbegoe5ju5kqyz4tk7hhntgaqscam2qupdtk2yd.onion",
       "port": 18333,
       "score": 4
     }
   ],
 ...
 ```
-This shows three addresses to access your Bitcoin server, an IPv4 address (`173.255.245.83`), an IPv6 address (`2600:3c01::f03c:92ff:fe86:f26`), and a Tor address (`zbyqk2tmq4c4vzeo.onion`).
+This shows three addresses to access your Bitcoin server, an IPv4 address (`173.255.245.83`), an IPv6 address (`2600:3c01::f03c:92ff:fe86:f26`), and a Tor address (`vazr3k6bgnfafmdpcmbegoe5ju5kqyz4tk7hhntgaqscam2qupdtk2yd.onion`).
 
 > :warning: **WARNING:** Obviously: never reveal your Tor address in a way that's associated with your name or other PII!
 
@@ -191,12 +193,12 @@ You can see similar information with `getnetworkinfo`.
       "score": 1
     },
     {
-      "address": "zbyqk2tmq4c4vzeo.onion",
+      "address": "vazr3k6bgnfafmdpcmbegoe5ju5kqyz4tk7hhntgaqscam2qupdtk2yd.onion",
       "port": 18333,
       "score": 4
     }
   ],
-  "warnings": "Warning: unknown new rules activated (versionbit 28)"
+  "warnings": ""
 }
 ```
 This hidden service will allow anonymous connections to your `bitcoind` over the Bitcoin Network.
