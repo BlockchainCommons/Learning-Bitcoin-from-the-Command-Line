@@ -67,7 +67,7 @@ To complete your serialization, you translate the hexcode into binary. On the co
 
 ## Run The Integer Conversion Script
 
-A complete script for changing an integer between -2147483647 and 2147483647 to a little-endian signed-magnitude representation in hex can be found in the [src code directory](src/10_2_integer2lehex.sh). You can download it as `integeer2lehex.sh`.
+A complete script for changing an integer between -2147483647 and 2147483647 to a little-endian signed-magnitude representation in hex can be found in the [src code directory](src/10_2_integer2lehex.sh). You can download it as `integer2lehex.sh`.
 
 > :warning: **WARNING:** This script has not been robustly checked. If you are going to use it to create real locking scripts you should make sure to double-check and test your results.
 
