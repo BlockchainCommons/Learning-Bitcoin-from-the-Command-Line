@@ -1,7 +1,5 @@
 # 4.4: Sending Coins with Raw Transactions
 
-> :information_source: **NOTE:** This is a draft in progress, so that I can get some feedback from early reviewers. It is not yet ready for learning.
-
 As noted at the start of this chapter, the `bitcoin-cli` interface offers three major ways to send coins. [§4.1](04_1_Sending_Coins_The_Easy_Way.md) talked about sending them the first way, using the `sendtoaddress` command. Since then, we've been building details on how to send coins a second way, with raw transactions. [§4.2](04_2_Creating_a_Raw_Transaction.md) taught how to create a raw transaction, an [Interlude](04_2__Interlude_Using_JQ.md) explained JQ, and [§4.3](04_3_Creating_a_Raw_Transaction_with_Named_Arguments.md) demonstrated named arguments.
 
 We can now put those together and actually send funds using a raw transaction.
@@ -16,7 +14,7 @@ $ changeaddress=$(bitcoin-cli getrawchangeaddress legacy)
 $ echo $changeaddress
 mk9ry5VVy8mrA8SygxSQQUDNSSXyGFot6h
 ```
-Note that this uses a new function: `getrawchangeaddress`. It's largely the same as `getnewaddress` but is optimized for use as a change address in a raw transaction, so it doesn't do things like make entries in your address book.
+Note that this uses a new function: `getrawchangeaddress`. It's largely the same as `getnewaddress` but is optimized for use as a change address in a raw transaction, so it doesn't do things like make entries in your address book. We again selected the `legacy` address, instead of going with the default of `bech32`, simply for consistency. This is a situation where it would have been entirely safe to generate a default Bech32 address, just by using `bitcoin-cli getrawchangeaddress`, because it would being sent and received by you on your Bitcoin Core node which fully supports this. But, hobgoblins; we'll shift this over to Bech32 as well in [§4.6](04_6_Creating_a_Segwit_Transaction.md).
 
 You now have an additional address inside your wallet, so that you can receive change from a UTXO! In order to use it, you'll need to create a raw transaction with two outputs.
 
@@ -100,9 +98,9 @@ Writing the actual raw transaction is surprisingly simple. All you need to do is
 
 Here's the example. Note the multiple inputs after the `inputs` arg and the multiple outputs after the `outputs` arg.
 ```
-$ $ rawtxhex2=$(bitcoin-cli -named createrawtransaction inputs='''[ { "txid": "'$utxo_txid_1'", "vout": '$utxo_vout_1' }, { "txid": "'$utxo_txid_2'", "vout": '$utxo_vout_2' } ]''' outputs='''{ "'$recipient'": 0.009, "'$changeaddress'": 0.0009 }''')
+$ rawtxhex2=$(bitcoin-cli -named createrawtransaction inputs='''[ { "txid": "'$utxo_txid_1'", "vout": '$utxo_vout_1' }, { "txid": "'$utxo_txid_2'", "vout": '$utxo_vout_2' } ]''' outputs='''{ "'$recipient'": 0.009, "'$changeaddress'": 0.0009 }''')
 ```
-We were _very_ careful figuring out our money math. These two UTXOs contain 5.85 BTC. After sending 0.009 BTC, we'll have .00099999 BTC left. We chose .00009999 BTC the transaction fee. To accommodate that fee, we set our change to .0009 BTC. If we'd messed up our math and instead set our change to .00009 BTC, that additional BTC would be lost to the miners! If we'd forgot to make change at all, then the whole excess would have disappeared. So, again, _be careful_. 
+We were _very_ careful figuring out our money math. These two UTXOs contain 0.00999999 BTC. After sending 0.009 BTC, we'll have .00099999 BTC left. We chose .00009999 BTC the transaction fee. To accommodate that fee, we set our change to .0009 BTC. If we'd messed up our math and instead set our change to .00009 BTC, that additional BTC would be lost to the miners! If we'd forgot to make change at all, then the whole excess would have disappeared. So, again, _be careful_. 
 
 Fortunately, we can triple-check with the `btctxfee` alias from the JQ Interlude:
 ```

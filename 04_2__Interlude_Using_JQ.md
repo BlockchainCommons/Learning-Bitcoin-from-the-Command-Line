@@ -1,7 +1,5 @@
 # Interlude: Using JQ
 
-> :information_source: **NOTE:** This is a draft in progress, so that I can get some feedback from early reviewers. It is not yet ready for learning.
-
 Creating a raw transaction revealed how more complex bitcoin-cli results can't easily be saved into command-line variables. The answer is JQ, which allows you to filter out individual elements from more complex JSON data.
 
 ## Install JQ
@@ -385,36 +383,13 @@ Any time you're looking through a large mass of information in a JSON object out
 ```
 alias btcunspent="bitcoin-cli listunspent | jq -r '.[] | { txid: .txid, vout: .vout, amount: .amount }'"
 ```
-## Summary: Using JQ
 
-JQ makes it easy to extract information from JSON arrays and objects. It can also be used in shell scripts for fairly complex calculations that will make your life easier.
+## Run The Transaction Fee Script
 
-## What's Next?
-
-Continue "Sending Bitcoin Transactions" with [§4.3 Creating a Raw Transaction with Named Arguments](04_3_Creating_a_Raw_Transaction_with_Named_Arguments.md).
-
-## Appendix: The Transaction Fee Script
-
-The following script runs the "Fee Calculation" from the above example.
+The [Fee Calculation Script](src/04_2_i_txfee-calc.sh) is available in src-code directory. You can download it and save it as `txfee-calc.sh`.
 
 > :warning: **WARNING:** This script has not been robustly checked. If you are going to use it to verify real transaction fees you should only do it as a triple-check after you've already done all the math yourself.
 
-```
-file: txfee-calc.sh
-#!/bin/bash
-
-if [ -z $1 ];
-then
-    echo "You must include the raw transaction hex as an argument.";
-    exit;
-fi
-
-usedtxid=($(bitcoin-cli decoderawtransaction $1 | jq -r '.vin | .[] | .txid'))
-usedvout=($(bitcoin-cli decoderawtransaction $1 | jq -r '.vin | .[] | .vout'))
-btcin=$(for ((i=0; i<${#usedtxid[*]}; i++)); do txid=${usedtxid[i]}; vout=${usedvout[i]}; bitcoin-cli listunspent | jq -r '.[] | select (.txid | contains("'${txid}'")) | select(.vout | contains('$vout')) | .amount'; done | awk '{s+=$1} END {print s}')
-btcout=$(bitcoin-cli decoderawtransaction $1 | jq -r '.vout  [] | .value' | awk '{s+=$1} END {print s}')
-echo "$btcin-$btcout"| /usr/bin/bc
-```
 Be sure the permissions on the script are right:
 ```
 $ chmod 755 txfee-calc.sh
@@ -428,3 +403,12 @@ You may also want to create an alias:
 ```
 alias btctxfee="~/txfee-calc.sh"
 ```
+
+## Summary: Using JQ
+
+JQ makes it easy to extract information from JSON arrays and objects. It can also be used in shell scripts for fairly complex calculations that will make your life easier.
+
+## What's Next?
+
+Continue "Sending Bitcoin Transactions" with [§4.3 Creating a Raw Transaction with Named Arguments](04_3_Creating_a_Raw_Transaction_with_Named_Arguments.md).
+

@@ -1,4 +1,7 @@
-# Learning Bitcoin (and Lightning) from the Command Line
+# Learning Bitcoin from the Command Line 2.0.1
+### _by Christopher Allen and Shannon Appelcline_
+
+![](https://www.blockchaincommons.com/images/projects/lbtc-screen.png)
 
 Learning Bitcoin from the Command Line is a tutorial for working with Bitcoin (and Lightning) that teaches direct interaction with the servers themselves, as the most robust and secure way to begin cryptocurrency work.
 
@@ -8,21 +11,19 @@ _This tutorial assumes that you have some minimal background of how to use the c
 
 ## Table of Contents
 
-* [0.0: Introduction to Programming with Bitcoin Core and Lightning](00_0_Introduction.md)
-
 ### PART ONE: PREPARING FOR BITCOIN
 
-**Status:** Undergoing light editing. Needs to have concepts brought up to 0.20.
+**Status:** Finished. Updated for 0.20.
 
-* [1.0: Introducing Bitcoin](01_0_Introducing_Bitcoin.md)
+* [1.0: Introduction to Programming with Bitcoin Core and Lightning](01_0_Introduction.md)
+    * [Interlude: Introducing Bitcoin](01_1_Introducing_Bitcoin.md)
 * [2.0: Setting Up a Bitcoin-Core VPS](02_0_Setting_Up_a_Bitcoin-Core_VPS.md)
-  * [2.1: Setting Up a Bitcoin-Core VPS by Hand](02_1_Setting_Up_a_Bitcoin-Core_VPS_by_Hand.md)
-  * [2.2: Setting Up a Bitcoin-Core VPS with Bitcoin Standup](02_2_Setting_Up_a_Bitcoin-Core_VPS_with_StackScript.md)
-  * [2.3: Setting Up a Bitcoin-Core Machine via Other Means](02_3_Setting_Up_Bitcoin_Core_Other.md)
+  * [2.1: Setting Up a Bitcoin-Core VPS with Bitcoin Standup](02_1_Setting_Up_a_Bitcoin-Core_VPS_with_StackScript.md)
+  * [2.2: Setting Up a Bitcoin-Core Machine via Other Means](02_2_Setting_Up_Bitcoin_Core_Other.md)
 
 ### PART TWO: USING BITCOIN-CLI
 
-**Status:** Requires editing; requires check that it works in 0.20; requires concepts brought up to 0.20.
+**Status:** Finished. Updated for 0.20.
 
 * [3.0: Understanding Your Bitcoin Setup](03_0_Understanding_Your_Bitcoin_Setup.md)
   * [3.1: Verifying Your Bitcoin Setup](03_1_Verifying_Your_Bitcoin_Setup.md)
@@ -30,111 +31,123 @@ _This tutorial assumes that you have some minimal background of how to use the c
   * [3.3: Setting Up Your Wallet](03_3_Setting_Up_Your_Wallet.md)
     * [Interlude: Using Command-Line Variables](03_3__Interlude_Using_Command-Line_Variables.md)
   * [3.4: Receiving a Transaction](03_4_Receiving_a_Transaction.md)
+  * [3.5: Understanding the Descriptor](03_5_Understanding_the_Descriptor.md)
 * [4.0: Sending Bitcoin Transactions](04_0_Sending_Bitcoin_Transactions.md)
   * [4.1: Sending Coins the Easy Way](04_1_Sending_Coins_The_Easy_Way.md)
   * [4.2: Creating a Raw Transaction](04_2_Creating_a_Raw_Transaction.md)
      * [Interlude: Using JQ](04_2__Interlude_Using_JQ.md)
   * [4.3: Creating a Raw Transaction with Named Arguments](04_3_Creating_a_Raw_Transaction_with_Named_Arguments.md)
   * [4.4: Sending Coins with Raw Transactions](04_4_Sending_Coins_with_a_Raw_Transaction.md)
-     * [Interlude: Using Curl](04_4__Interlude_Using_Curl.md) — Needs Rewrite for New Section
+     * [Interlude: Using Curl](04_4__Interlude_Using_Curl.md)
   * [4.5: Sending Coins with Automated Raw Transactions](04_5_Sending_Coins_with_Automated_Raw_Transactions.md)
-  * [4.6: Creating a Segwit Transaction](04_6_Creating_a_Segwit_Transaction) — Awaiting Better Integration of Segwit into CLI
+  * [4.6: Creating a Segwit Transaction](04_6_Creating_a_Segwit_Transaction.md)
 * [5.0: Controlling Bitcoin Transactions](05_0_Controlling_Bitcoin_Transactions.md)
   * [5.1 Watching for Stuck Transactions](05_1_Watching_for_Stuck_Transactions.md)
   * [5.2: Resending a Transaction with RBF](05_2_Resending_a_Transaction_with_RBF.md)
   * [5.3: Funding a Transaction with CPFP](05_3_Funding_a_Transaction_with_CPFP.md)
-* [6.0: Expanding Bitcoin Transactions](06_0_Expanding_Bitcoin_Transactions.md)
+* [6.0: Expanding Bitcoin Transactions with Multisigs](06_0_Expanding_Bitcoin_Transactions_Multisigs.md)
   * [6.1: Sending a Transaction with a Multsig](06_1_Sending_a_Transaction_to_a_Multisig.md)
   * [6.2: Spending a Transaction with a Multsig](06_2_Spending_a_Transaction_to_a_Multisig.md)
   * [6.3: Sending & Spending an Automated Multisig](06_3_Sending_an_Automated_Multisig.md)
-  * [6.4: Sending a Transaction with a Locktime](06_4_Sending_a_Transaction_with_a_Locktime.md)
-  * [6.5: Sending a Transaction with Data](06_5_Sending_a_Transaction_with_Data.md)
+* [7.0: Expanding Bitcoin Transactions with PSBTs](07_0_Expanding_Bitcoin_Transactions_PSBTs.md)
+  * [7.1: Creating a Partially Signed Bitcoin Transaction](07_1_Creating_a_Partially_Signed_Bitcoin_Transaction.md)
+  * [7.2: Using a Partially Signed Bitcoin Transaction](07_2_Using_a_Partially_Signed_Bitcoin_Transaction.md)
+  * [7.3: Integrating with Hardware Wallets](07_3_Integrating_with_Hardware_Wallets.md)
+* [8.0: Expanding Bitcoin Transactions in Other Ways](08_0_Expanding_Bitcoin_Transactions_Other.md)  
+  * [8.1: Sending a Transaction with a Locktime](08_1_Sending_a_Transaction_with_a_Locktime.md)
+  * [8.2: Sending a Transaction with Data](08_2_Sending_a_Transaction_with_Data.md)
+  
+### PART THREE: BITCOIN SCRIPTING
 
-## PART THREE: BITCOIN SCRIPTING
+**Status:** Finished. Updated for 0.20 and btcdeb.
 
-**Status:** Requires editing; requires check that it works in 0.20; requires concepts brought up to 0.20.
-
-* [7.0: Introducing Bitcoin Scripts](07_0_Introducing_Bitcoin_Scripts.md)
-  * [7.1: Understanding the Foundation of Transactions](07_1_Understanding_the_Foundation_of_Transactions.md)
-  * [7.2: Running a Bitcoin Script](07_2_Running_a_Bitcoin_Script.md)
-  * [7.3: Scripting a P2PKH](07_3_Scripting_a_P2PKH.md)
-  * [7.4: Testing a Bitcoin Script](07_4_Testing_a_Bitcoin_Script.md)
-* [8.0: Embedding Bitcoin Scripts in P2SH Transactions](08_0_Embedding_Bitcoin_Scripts_in_P2SH_Transactions.md)
-  * [8.1: Understanding the Foundation of P2SH](08_1_Understanding_the_Foundation_of_P2SH.md)
-  * [8.2: Building the Structure of P2SH](08_2_Building_the_Structure_of_P2SH.md)
-  * [8.3: Running a Bitcoin Script with P2SH](08_3_Running_a_Bitcoin_Script_with_P2SH.md)
-  * [8.4: Scripting a Multisig](08_4_Scripting_a_Multisig.md)
-  * [8.5: Spending a P2SH Transaction](08_5_Spending_a_P2SH_Transaction.md) — Awaiting API Work
-* [9.0: Empowering Timelock with Bitcoin Scripts](09_0_Empowering_Timelock_with_Bitcoin_Scripts.md)
-  * [9.1: Understanding Timelock Options](09_1_Understanding_Timelock_Options.md)
-  * [9.2: Using CLTV in Scripts](09_2_Using_CLTV_in_Scripts.md)
-  * [9.3: Using CSV in Scripts](09_3_Using_CSV_in_Scripts.md)
-* [10.0: Expanding Bitcoin Scripts](10_0_Expanding_Bitcoin_Scripts.md)
-  * [10.1: Using Script Conditionals](10_1_Using_Script_Conditionals.md)
-  * [10.2: Using Other Script Commands](10_2_Using_Other_Script_Commands.md)
-* [11.0: Designing Real Bitcoin Scripts](11_0_Designing_Real_Bitcoin_Scripts.md)
-  * [11.1: Writing Puzzles Scripts](11_1_Writing_Puzzle_Scripts.md)
-  * [11.2: Writing Complex Multisig Scripts](11_2_Writing_Complex_Multisig_Scripts.md)
-  * [11.3: Empowering Bitcoin with Scripts](11_3_Empowering_Bitcoin_with_Scripts.md)
+* [9.0: Introducing Bitcoin Scripts](09_0_Introducing_Bitcoin_Scripts.md)
+  * [9.1: Understanding the Foundation of Transactions](09_1_Understanding_the_Foundation_of_Transactions.md)
+  * [9.2: Running a Bitcoin Script](09_2_Running_a_Bitcoin_Script.md)
+  * [9.3: Testing a Bitcoin Script](09_3_Testing_a_Bitcoin_Script.md)
+  * [9.4: Scripting a P2PKH](09_4_Scripting_a_P2PKH.md)
+  * [9.5: Scripting a P2WPKH](09_5_Scripting_a_P2WPKH.md)
+* [10.0: Embedding Bitcoin Scripts in P2SH Transactions](10_0_Embedding_Bitcoin_Scripts_in_P2SH_Transactions.md)
+  * [10.1: Understanding the Foundation of P2SH](10_1_Understanding_the_Foundation_of_P2SH.md)
+  * [10.2: Building the Structure of P2SH](10_2_Building_the_Structure_of_P2SH.md)
+  * [10.3: Running a Bitcoin Script with P2SH](10_3_Running_a_Bitcoin_Script_with_P2SH.md)
+  * [10.4: Scripting a Multisig](10_4_Scripting_a_Multisig.md)
+  * [10.5: Scripting a Segwit Script](10_5_Scripting_a_Segwit_Script.md)
+  * [10.6: Spending a P2SH Transaction](10_6_Spending_a_P2SH_Transaction.md)
+* [11.0: Empowering Timelock with Bitcoin Scripts](11_0_Empowering_Timelock_with_Bitcoin_Scripts.md)
+  * [11.1: Understanding Timelock Options](11_1_Understanding_Timelock_Options.md)
+  * [11.2: Using CLTV in Scripts](11_2_Using_CLTV_in_Scripts.md)
+  * [11.3: Using CSV in Scripts](11_3_Using_CSV_in_Scripts.md)
+* [12.0: Expanding Bitcoin Scripts](12_0_Expanding_Bitcoin_Scripts.md)
+  * [12.1: Using Script Conditionals](12_1_Using_Script_Conditionals.md)
+  * [12.2: Using Other Script Commands](12_2_Using_Other_Script_Commands.md)
+* [13.0: Designing Real Bitcoin Scripts](13_0_Designing_Real_Bitcoin_Scripts.md)
+  * [13.1: Writing Puzzles Scripts](13_1_Writing_Puzzle_Scripts.md)
+  * [13.2: Writing Complex Multisig Scripts](13_2_Writing_Complex_Multisig_Scripts.md)
+  * [13.3: Empowering Bitcoin with Scripts](13_3_Empowering_Bitcoin_with_Scripts.md)
 
 ### PART FOUR: USING TOR
 
-**Status:** Unwritten.
+**Status:** Finished.
 
-* [12.0: Using Tor](12_0_Using_Tor.md)
-  * 12.1: Verifying Your Tor Setup
-  * 12.2: Changing Your Bitcoin Hidden Services
-  * 12.3: Adding SSH Hiddne Services
-  
-### PART FIVE: USING LIGHTNING-CLI
+* [14.0: Using Tor](14_0_Using_Tor.md)
+  * [14.1: Verifying Your Tor Setup](14_1_Verifying_Your_Tor_Setup.md)
+  * [14.2: Changing Your Bitcoin Hidden Services](14_2_Changing_Your_Bitcoin_Hidden_Services.md)
+  * [14.3: Adding SSH Hidden Services](14_3_Adding_SSH_Hidden_Services.md)
 
-**Status:** Unwritten. Chapter 14 may expand into multiple chapters.
+### PART FIVE: PROGRAMMING WITH RPC
 
-* 13.0: Setting Up Lightning
-* 14.0: Using Lightning
+**Status:** Finished.
 
-> _Some good docs from one of the developers are here: https://diyhpl.us/wiki/transcripts/blockstream-webinars/2019-07-31-rusty-russell-getting-started-with-c-lightning/._
+* [15.0: Talking to Bitcoind with C](15_0_Talking_to_Bitcoind.md)
+  * [15.1: Accessing Bitcoind in C with RPC Libraries](15_1_Accessing_Bitcoind_with_C.md)
+  * [15.2: Programming Bitcoind in C with RPC Libraries](15_2_Programming_Bitcoind_with_C.md)
+  * [15.3: Receiving Notifications in C with ZMQ Libraries](15_3_Receiving_Bitcoind_Notifications_with_C.md)
+* [16.0: Programming Bitcoin with Libwally](16_0_Programming_with_Libwally.md)
+   * [16.1: Setting Up Libwally](16_1_Setting_Up_Libwally.md)
+   * [16.2: Using BIP39 in Libwally](16_2_Using_BIP39_in_Libwally.md)
+   * [16.3: Using BIP32 in Libwally](16_3_Using_BIP32_in_Libwally.md) 
+   * [16.4: Using PSBTs in Libwally](16_4_Using_PSBTs_in_Libwally.md)
+   * [16.5: Using Scripts in Libwally](16_5_Using_Scripts_in_Libwally.md)
+   * [16.6: Using Other Functions in Libwally](16_6_Using_Other_Functions_in_Libwally.md)
+   * [16.7: Integrating Libwally and Bitcoin-CLI](16_7_Integrating_Libwally_and_Bitcoin-CLI.md)
+* [17.0: Talking to Bitcoind with Other Languages](17_0_Talking_to_Bitcoind_Other.md)
+  * [17.1: Accessing Bitcoind with Go](17_1_Accessing_Bitcoind_with_Go.md)
+  * [17.2: Accessing Bitcoind with Java](17_2_Accessing_Bitcoind_with_Java.md)
+  * [17.3: Accessing Bitcoind with Node JS](17_3_Accessing_Bitcoind_with_NodeJS.md)
+  * [17.4: Accessing Bitcoind with Python](17_4_Accessing_Bitcoind_with_Python.md)
+  * [17.5: Accessing Bitcoind with Rust](17_5_Accessing_Bitcoind_with_Rust.md)
+  * [17.6: Accessing Bitcoind with Swift](17_6_Accessing_Bitcoind_with_Swift.md)
 
-### PART SIX: PROGRAMMING WITH RPC
+### PART SIX: USING LIGHTNING-CLI
 
-**Status:** This section is currently a messy set of older writings which are being reorganized as listed below. We're not going to work through this section until we've got chapters 1-11 updated per our current notes, then 12-14 written. But, if you'd like to see what we have to date on programming in correlation with Bitcoin Core, please feel free.
+**Status:** Finished.
 
-* [15.0: Talking to Bitcoind with C](15_0_Talking_to_Bitcoind.md) — Needs Rewrite + Editing
-  * [15.1: Accessing Bitcoind with C](15_1_Accessing_Bitcoind_with_C.md) — Needs Rewrite
-  * [15.2: Programming Bitcoind with C](15_2_Programming_Bitcoind_with_C.md) — Needs Rewrite + Editing
-  * [15.3: Receiving Bitcoind Notifications with C](15_3_Receiving_Bitcoind_Notifications_with_C.md) — Pending
-* 16.0: Programming with LibWally
-   * 17.1: Getting ready for LibWally
-   * 17.2: Using secp256k1 Functions
-   * 17.3: Writing Wallet Functions
-   * 17.4: Integrating Libwally and Scripts
-* 17.0: Talking to Lightningd with C
-* 18.0: Talking to Bitcoind with Other Languages
-  * [18.1: Accessing Bitcoind with Go]
-  * [18.2: Accessing Bitcoind with Java](18_2_Accessing_Bitcoind_with_Java.md) — Needs Rewrite + Editing
-  * [18.3: Accessing Bitcoind with_Node_JS](18_3_Accessing_Bitcoind_with_NodeJS.md)  — Needs Rewrite + Editing
-  * [18.4: Accessing Bitcoind with Python]
-  * [18.5: Accessing Bitcoind with Rust]
-  * [18.6: Accessing Bitcoind with Swift]
-  
+* [18.0: Understanding Your Lightning Setup](18_0_Understanding_Your_Lightning_Setup.md)
+  * [18.1: Verifying Your c-lightning Setup](18_1_Verifying_Your_Lightning_Setup.md)
+  * [18.2: Knowing Your c-lightning Setup](18_2_Knowing_Your_lightning_Setup.md)
+     * [Interlude: Accessing a Second Lightning Node](18_2__Interlude_Accessing_a_Second_Lightning_Node.md)
+  * [18.3: Creating a Lightning Channel](18_3_Setting_Up_a_Channel.md)
+* [19.0: Using Lightning](19_0_Using_Lightning.md)
+  * [19.1: Generating a Payment Request](19_1_Generate_a_Payment_Request.md)
+  * [19.2: Paying an Invoice](19_2_Paying_a_Invoice.md)
+  * [19.3: Closing a Lighnting Channel]((19_3_Closing_a_Channel.md))
+  * [19.4: Expanding the Lightning Network](19_4_Lightning_Network_Review.md)
+   
 ### APPENDICES
 
-**Status:** Varied. Appendix I is recent that just needs editing for style; Appendix II needs a rewrite.
+**Status:** Finished.
 
-* [Appendix I: Compiling Bitcoin from Source](A1_0_Compiling_Bitcoin_from_Source.md)
-* [Appendix II: Using Bitcoin Regtest](A2_0_Setting_Up_a_Bitcoin_Regtest.md) — Needs Rewrite + Editing
-   * [A2.1: Starting the Regtest](A2_1_Starting_the_Regtest.md) — Needs Rewrite + Editing
-   * [A2.2: Mining with Regtest](A2_2_Mining_with_Regtest.md) — Needs Rewrite + Editing
-   * [A2.3: Testing with Regtest](A2_3_Testing_with_Regtest.md) — Needs Rewrite + Editing
-   * [why is Regtest important if you're compiling it yourself?]
-   
-## Status - Work in Progress
+* [Appendices](A0_Appendices.md)
+  * [Appendix I: Understanding Bitcoin Standup](A1_0_Understanding_Bitcoin_Standup.md)
+  * [Appendix II: Compiling Bitcoin from Source](A2_0_Compiling_Bitcoin_from_Source.md)
+  * [Appendix III: Using Bitcoin Regtest](A3_0_Using_Bitcoin_Regtest.md)
+  
+## Status - Beta
 
-Learning Bitcoin from the Command Line  is currently under active development and its writing in progress. Current chapters are functional, but need to be updated to more modern versions of Bitcoin-Core. Additional chapters also need to be written to fill out our intended scope.
+v2.0.1 of **Learning Bitcoin from the Command Line** is feature complete. It may still be undergoing third-party review or editing, but it can be used for learning.
 
-The empty chapters above show some of our current plans for future work. Other plans, mainly drawn from old issues, can be found in [TODO.md](TODO.md)
-
-Obviously, this work in progress should not be used for production tasks until it is completed and has had further testing and auditing.
+We are also tentatively considering what we could include in a [v3.0](TODO-30.md) of the course. If you'd like to support work of that sort, become a [GitHub Sponsor](https://github.com/sponsors/BlockchainCommons) or support us at our [BTCPay Server](https://btcpay.blockchaincommons.com/), and let us know that **Learning Bitcoin** was the reason why.
 
 ## Origin, Authors, Copyright & Licenses
 
@@ -150,9 +163,15 @@ To financially support further development of `$projectname` and other projects,
 
 We encourage public contributions through issues and pull requests! Please review [CONTRIBUTING.md](./CONTRIBUTING.md) for details on our development process. All contributions to this repository require a GPG signed [Contributor License Agreement](./CLA.md).
 
-### Questions & Support
+### Discussions
 
-As an open-source, open-development community, Blockchain Commons does not have the resources to provide direct support of our projects. If you have questions or problems, please use this repository's [issues](./issues) feature. Unfortunately, we can not make any promises on response time.
+The best place to talk about Blockchain Commons and its projects is in our GitHub Discussions areas.
+
+[**Blockchain Commons Discussions**](https://github.com/BlockchainCommons/Community/discussions). For developers, interns, and patrons of Blockchain Commons, please use the discussions area of the [Community repo](https://github.com/BlockchainCommons/Community) to talk about general Blockchain Commons issues, the intern program, or topics other than the [Gordian System](https://github.com/BlockchainCommons/Gordian/discussions) or the [wallet standards](https://github.com/BlockchainCommons/AirgappedSigning/discussions), each of which have their own discussion areas.
+
+### Other Questions & Problems
+
+As an open-source, open-development community, Blockchain Commons does not have the resources to provide direct support of our projects. Please consider the discussions area as a locale where you might get answers to questions. Alternatively, please use this repository's [issues](./issues) feature. Unfortunately, we can not make any promises on response time.
 
 If your company requires support to use our projects, please feel free to contact us directly about options. We may be able to offer you a contract for support from one of our contributors, or we might be able to point you to another entity who can offer the contractual support that you need.
 
@@ -171,7 +190,7 @@ Additional contributions are listed below:
 
 | Role                | Names                                    |
 | ------------------- | ---------------------------------------- |
-| ***Contributors:*** | [jodobear](https://github.com/jodobear) (Appendix I)                                   |
+| ***Contributors:*** | [gg2001](https://github.com/gg2001) (Go, Node.js sections), [gorazdko](https://github.com/gorazdko) (Rust section), [Javier Vargas](https://github.com/javiervargas) (C, Java, Lightning, Tor sections), [jodobear](https://github.com/jodobear) (Appendix: Compiling Bitcoin, Python section)                                   |
 | ***Reviewers:***    | Glen Willem [@gwillem](https://github.com/gwillem) |
 | ***Sponsors:***     | Blockstream Corporation                  |
 
@@ -193,4 +212,3 @@ The following keys may be used to communicate sensitive information to developer
 | Christopher Allen | FDFE 14A5 4ECB 30FC 5D22  74EF F8D3 6C91 3574 05ED |
 
 You can import a key by running the following command with that individual’s fingerprint: `gpg --recv-keys "<fingerprint>"` Ensure that you put quotes around fingerprints that contain spaces.
-

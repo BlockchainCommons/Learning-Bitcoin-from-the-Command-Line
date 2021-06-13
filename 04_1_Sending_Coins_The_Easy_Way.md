@@ -1,7 +1,5 @@
 # 4.1: Sending Coins the Easy Way
 
-> :information_source: **NOTE:** This is a draft in progress, so that I can get some feedback from early reviewers. It is not yet ready for learning.
-
 The `bitcoin-cli` offers three major ways to send coins: as a simple command; as a raw transaction; and as a raw transaction with calculation. Each has their own advantages and disadvantages. This first method for sending coins is also the simplest.
 
 ## Set Your Transaction Fee
@@ -28,11 +26,8 @@ In order to get through this tutorial, we're willing to spend 100,00 satoshis pe
 
 After you've edited your bitcoin.conf file, you'll want to kill and restart bitcoind.
 ```
-$ ps auxww | grep -i bitcoind
-standup    455  1.3 38.4 3387012 1555520 ?     SLsl Jun16  60:01 /usr/local/bin/bitcoind -conf=/home/standup/.bitcoin/bitcoin.conf
-standup  21073  0.0  0.0   6076   876 pts/0    R+   15:00   0:00 grep -i bitcoind
-$ kill 455
-$ /usr/local/bin/bitcoind -conf=/home/standup/.bitcoin/bitcoin.conf &
+$ bitcoin-cli stop
+$ bitcoind -daemon
 ```
 
 ## Get an Address
@@ -54,6 +49,8 @@ Make sure the address you write in is where you want the money to go. Make _doub
 You'll receive a txid back when you issue this command.
 
 > :warning: **WARNING:** The `bitcoin-cli` command actually generates JSON-RPC commands when it's talking to the bitcoind. They can be really picky. This is an example: if you list the bitcoin amount without the leading zero (i.e. ".1" instead of "0.1"), then bitcoin-cli will fail with a mysterious message.
+
+> :warning: **WARNING:** Even if you're careful with your inputs, you could see "Fee estimation failed. Fallbackfee is disabled." Fundamentally, this means that your local `bitcoind` doesn't have enough information to estimate fees. You should really never see it if you've waited for your blockchain to sync and set up your system with Bitcoin Standup. But if you're not entirely synced, you may see this. It also could be that you're not using a standard `bitcoin.conf`: the entry `blocksonly=1` will cause your `bitcoind` to be unable to estimate fees.
 
 ## Examine Your Transaction
 

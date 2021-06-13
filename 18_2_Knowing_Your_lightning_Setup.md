@@ -1,23 +1,22 @@
-# 18.2: Knowing Your Lightning Setup
+# 18.2: Knowing Your c-lightning Setup
 
-> :information_source: **NOTE:** This is a draft in progress, so that I can get some feedback from early reviewers. It is not yet ready for learning.
+> :information_source: **NOTE:** This section has been recently added to the course and is an early draft that may still be awaiting review. Caveat reader.
 
-Before you start playing with Lightning Network, you may always want to come to a better understanding of your setup.
+Before you begin accessing the Lightning Network, you should come to a better understanding of your setup.
 
 ## Know Your c-lightning Directory
 
-To start with, you should understand where everything is kept: the `~/.lightning` directory.
+When using c-lightning, everything is kept in the `~/.lightning` directory.
 
-The main directory just contains as many networks as configured,  in this case we have testnet directory.
-
+The main directory just contains directories for whichever networks are configured, in this case testnet:
 ```
-c$ ls ~/.lightning
+$ ls ~/.lightning
 testnet
 ```
 
-In your ~/.lightning/testnet directory, you'll find that contains all of the guts:
+The `~/.lightning/testnet directory` will then contains the guts of your setup:
 ```
-c$ ls ~/.lightning/testnet3
+$ ls ~/.lightning/testnet3
 config  gossip_store  hsm_secret  lightningd.sqlite3  lightningd.sqlite3-journal  lightning-rpc
 ```
 
@@ -25,9 +24,11 @@ config  gossip_store  hsm_secret  lightningd.sqlite3  lightningd.sqlite3-journal
 
 ## Know Your lightning-cli Commands
 
-Most of your early work will be done with the `lightning-cli` command, which offers an easy interface to `lightningd`. 
+Most of your early work will be done with the `lightning-cli` command, which offers an easy interface to `lightningd`, just like `bitcoin-cli` does.
+
+You've already seen that the `help` command will gives you a list of other commands:
 ```
-c$ lightning-cli help
+$ lightning-cli help
 lightning-cli: WARNING: default network changing in 2020: please set network=testnet in config!
 === bitcoin ===
 
@@ -227,22 +228,28 @@ dev-rescan-outputs
 run `lightning-cli help <command>` for more information on a specific command
 ```
 
-## Optional: Know your lightning lnfo
+## Know your Lightning Info
 
-A variety of lightning-cli commands can give you additional information on your lightning node. The most general ones are:
+A variety of `lightning-cli` commands can give you additional information on your lightning node. The most general ones are:
 ```
-c$ lightning-cli listconfigs
-c$ lightning-cli listfunds
-c$ lightning-cli listtransactions
-c$ lightning-cli listinvoices
-c$ lightning-cli listnodes   
+$ lightning-cli --testnet listconfigs
+$ lightning-cli --testnet listfunds
+$ lightning-cli --testnet listtransactions
+$ lightning-cli --testnet listinvoices
+$ lightning-cli --testnet listnodes   
 ```
+* listconfigs:  The `listconfigs` RPC command lists all configuration options.
+* listfunds: The `listfunds` RPC command displays all funds available, either in unspent outputs (UTXOs) in the internal wallet or funds locked in currently open channels.
+* listtransactions: The `listtransactions` RPC command returns transactions tracked in the wallet. This includes deposits, withdrawals, and transactions related to channels.
+* listinvoices: The `listinvoices` RPC command retrieves the status of a specific invoice, if it exists, or the status of all invoices if given no argument.
+* listnodes: The `listnodes` RPC command returns nodes that your server has learned about via gossip messages, or a single one if the node id was specified.
+
 For example `lightning-cli listconfigs` gives you a variety of information on your setup:
 ```
-c$ lightning-cli --network=testnet listconfigs
+c$ lightning-cli --testnet listconfigs
 {
    "# version": "v0.8.2-398-g869fa08",
-   "lightning-dir": "/home/user/.lightning",
+   "lightning-dir": "/home/standup/.lightning",
    "network": "testnet",
    "allow-deprecated-apis": true,
    "rpc-file": "lightning-rpc",
@@ -327,4 +334,6 @@ The `~/.lightning` directory contains all of your files, while `lightning-cli he
 
 ## What's Next?
 
-Continue "Understanding Your Lightning Setup" with [§18.3: Setting Up_a_Channel](18_3_Setting_Up_a_Channel.md).
+You're going to need to have a second Linode node to test out the actual payment of invoices. If you need support in setting one up, read [Interlude: Accessing a Second Lightning Node](18_2__Interlude_Accessing_a_Second_Lightning_Node.md).
+
+Otherwise, continue "Understanding Your Lightning Setup" with [§18.3: Setting Up_a_Channel](18_3_Setting_Up_a_Channel.md).

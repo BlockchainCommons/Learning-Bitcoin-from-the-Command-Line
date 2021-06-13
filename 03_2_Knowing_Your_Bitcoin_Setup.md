@@ -1,7 +1,5 @@
 # 3.2: Knowing Your Bitcoin Setup
 
-> :information_source: **NOTE:** This is a draft in progress, so that I can get some feedback from early reviewers. It is not yet ready for learning.
-
 Before you start playing with Bitcoin, you may always want to come to a better understanding of your setup.
 
 ## Know Your Bitcoin Directory
@@ -182,8 +180,8 @@ getzmqnotifications
 ```
 You can also type `bitcoin-cli help [command]` to get even more extensive info on that command. For example:
 ```
-getmininginfo
-
+$ bitcoin-cli help getmininginfo
+...
 Returns a json object containing mining-related information.
 Result:
 {                              (json object)
@@ -198,7 +196,7 @@ Result:
 }
 
 Examples:
-> bitcoin-cli getmininginfo 
+> bitcoin-cli getmininginfo
 > curl --user myusername --data-binary '{"jsonrpc": "1.0", "id": "curltest", "method": "getmininginfo", "params": []}' -H 'content-type: text/plain;' http://127.0.0.1:8332/
 ```
 > :book: ***What is RPC?*** `bitcoin-cli` is just a handy interface that lets you send commands to the `bitcoind`. More specifically, it's an interface that lets you send RPC (or Remote Procedure Protocol) commands to the `bitcoind`. Often, the `bitcoin-cli` command and the RPC command have identical names and interfaces, but some `bitcoin-cli` commands instead provide shortcuts for more complex RPC requests. Generally, the `bitcoin-cli` interface is much cleaner and simpler than trying to send RPC commands by hand, using `curl` or some other method. However, it also has limitations as to what you can ultimately do.
@@ -206,6 +204,37 @@ Examples:
 ## Optional: Know Your Bitcoin Info
 
 A variety of bitcoin-cli commands can give you additional information on your bitcoin data. The most general ones are:
+
+`bitcoin-cli -getinfo` returns information from different RPCs (user-friendly)
+
+```diff
+$ bitcoin-cli -getinfo
+
+! Chain: test
+Blocks: 1977694
+Headers: 1977694
+Verification progress: 0.9999993275374796
+Difficulty: 1
+
++ Network: in 0, out 8, total 8
+Version: 219900
+Time offset (s): 0
+Proxy: N/A
+Min tx relay fee rate (BTC/kvB): 0.00001000
+
+@@ Wallet: ""@@
+Keypool size: 1000
+Unlocked until: 0
+Transaction fee rate (-paytxfee) (BTC/kvB): 0.00000000
+
+# Balance: 0.02853102
+
+- Warnings: unknown new rules activated (versionbit 28)
+
+```
+
+Other commands to get information about blockchain, mining, network, wallet etc.
+
 ```
 $ bitcoin-cli getblockchaininfo
 $ bitcoin-cli getmininginfo
