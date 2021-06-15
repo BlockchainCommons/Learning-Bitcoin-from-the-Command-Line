@@ -10,7 +10,7 @@ You have three options for moving through this chapter on hardware wallets: (1) 
 
 > :warning: **VERSION WARNING:** PSBTs are an innovation from Bitcoin Core v 0.17.0. Earlier versions of Bitcoin Core will not be able to work with the PSBT while it is in progress (though they will still be able to recognize the final transaction). The HWI interface appeared in Bitcoin Core v 0.18.0, but as long as you are using our suggested setup with Bitcoin Standup, it should work.
 
-The methodology described in this chapter for integrating with a hardware wallet depends on the [Bitcoin Hardware Wallet Interface](https://github.com/bitcoin-core/HWI) released through Bitcoin Core and builds on the [installation](https://github.com/bitcoin-core/HWI/blob/master/README.md) and [usage](https://github.com/bitcoin-core/HWI/blob/master/docs/bitcoin-core-usage.md) instructions found there.
+The methodology described in this chapter for integrating with a hardware wallet depends on the [Bitcoin Hardware Wallet Interface](https://github.com/bitcoin-core/HWI) released through Bitcoin Core and builds on the [installation](https://github.com/bitcoin-core/HWI/blob/master/README.md) and [usage](https://hwi.readthedocs.io) instructions found there.
 
 > :warning: **FRESHNESS WARNING:** The HWI interface is very new and raw around the edges as of Bitcoin Core v 0.20.0. It may be hard to install correctly, and it may have unintuitive errors. What follows is a description of a working setup, but it took several tries to get it right, and your setup may vary.
 
