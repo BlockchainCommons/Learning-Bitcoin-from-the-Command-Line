@@ -7,6 +7,7 @@ Thank you for your interest in translating Learning Bitcoin from the Command Lin
    * Fill out a [Contributor License Agreement](https://github.com/BlockchainCommons/Learning-Bitcoin-from-the-Command-Line/blob/master/CLA.md) and submit it as a PR.
 1. **Choose a Release.**  
    * Choose a [Release](https://github.com/BlockchainCommons/Learning-Bitcoin-from-the-Command-Line/releases) as the basis of your translation. We generally suggest the latest release. This will ensure the consistency of all the files in your translation, will insulate you from any changes we make, and will make it easy to see what has changed when we create a new release. 
+   * If it looks like there hasn't been a new Release in a while, file an Issue saying you're interested in starting a new translation, and asking if it would make sense for there to be a new Release milestone before you do so. If there's been anything notable, and we're not in the middle of things, we'll likely create a new patch or minor version. If we're in the middle of things, we'll just suggest you use the previous Release.
    * Label your table of contents and each chapter or section with the release used.
 1. **Create a Branch.**
    * All work should be done in a branch, with work being submitted to the `master` branch as PRs.
