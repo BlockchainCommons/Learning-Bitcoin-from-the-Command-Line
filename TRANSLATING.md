@@ -23,7 +23,7 @@ Thank you for your interest in translating Learning Bitcoin from the Command Lin
    * Once a chapter or section has been approved by a native speaker, request approval from someone on the Blockchain Commons team: currently [@shannona](https://github.com/shannona).
 1. **Continue!**
    * Continue through the process, no more than one chapter at a time, until you have a full book.
-   * Be aware of the scope of the overall project. As of v2.01, Learning Bitcoin from the Command Line is 120,000 words in length. As a book, that'd be 250-400 pages, depending on the format and layout. You want to make sure you have the time for that level of commitment before getting started.
+   * Be aware of the scope of the overall project. As of v2.01, Learning Bitcoin from the Command Line is 120,000 words in length. As a book, that'd be 250-400 pages, depending on the format and layout. (About 80,000 words of that is text to translate, with the remainder being code.) You want to make sure you have the time for that level of commitment before getting started.
 1. **Update Your Translation with New Releases**
    * It is our hope that translations will stay up to day with new releases, particularly major and minor releases, which are likely to include new content and updates. Currently, these only occur ever few years
    * If you have decided to stop updating a translation, please let us know in an Issue, so that we can let the community know that we are looking for a new translator to continue updating a translation.
