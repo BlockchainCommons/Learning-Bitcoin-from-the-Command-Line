@@ -183,7 +183,7 @@ If all look good, congratulations, you have a functioning Bitcoin node using Lin
 
 ## What We Have Wrought
 
-Although the default Debian 10 image that we are using for your VPS has been modified by Linode to be relatively secure, your Bitcoin node as installed through the Linode StackScript is set up with an even high level of security. You may find this limiting, or be unable to do things that you expect. Here are a few notes on that:
+Although the default Debian 10 image that we are using for your VPS has been modified by Linode to be relatively secure, your Bitcoin node as installed through the Linode StackScript is set up with an even higher level of security. You may find this limiting, or be unable to do things that you expect. Here are a few notes on that:
 
 ### Protected Services
 
