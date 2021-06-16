@@ -1,7 +1,5 @@
 # 3.4: Receiving a Transaction
 
-> :information_source: **NOTE:** This is a draft in progress, so that I can get some feedback from early reviewers. It is not yet ready for learning.
-
 You're now ready to receive some money at the new address you set up.
 
 ## Get Some Money
@@ -23,7 +21,7 @@ $ bitcoin-cli getbalance
 ```
 But wait, there's no balance yet!?
 
-Welcome to the world of Bitcoin latency.The problem is that your transaction hasn't yet been recorded in a block!
+Welcome to the world of Bitcoin latency. The problem is that your transaction hasn't yet been recorded in a block!
 
 > :book: ***What is a block?*** Transactions are transmitted across the network and gathered into blocks by miners. These blocks are secured with a mathematical proof-of-work, which proves that computing power has been expended as part of the block creation. It's that proof-of-work (multiplied over many blocks, each built atop the last) that ultimately keeps Bitcoin secure.
 
@@ -40,7 +38,7 @@ If that's still showing a zero too, you're probably moving through this tutorial
 
 You can use `bitcoin-cli getbalance "*" [n]`, where you replace `[n]` with an integer, to see if a confirmed balance is 'n' blocks deep.
 
-> :book: ***What is block depth?*** After a block is built and confirmed, another block is built on top of it, and another ... Because this is a stochastic process, there's some chance for reversal when a block is still new. Thus, a block has to be buried several blocks deep in a chain before you can feel totally confident in your funds. Each of those blocks tends to be built in an average of 10 minutes ... so it usually takes about an hour for a confirmed transaction to receive six blooks deep, which is the measure for full confidence in Bitcoin.
+> :book: ***What is block depth?*** After a block is built and confirmed, another block is built on top of it, and another ... Because this is a stochastic process, there's some chance for reversal when a block is still new. Thus, a block has to be buried several blocks deep in a chain before you can feel totally confident in your funds. Each of those blocks tends to be built in an average of 10 minutes ... so it usually takes about an hour for a confirmed transaction to receive six blocks deep, which is the measure for full confidence in Bitcoin.
 
 The following shows that our transactions have been confirmed one time, but not twice:
 ```
@@ -121,7 +119,7 @@ $ bitcoin-cli listtransactions
 ]
 
 ```
-This shows two transactions (`8e2ab10cabe9ec04ed438086a80b1ac72558cc05bb206e48fc9a18b01b9282e9`) and (`ca4898d8f950df03d6bfaa00578bd0305d041d24788b630d0c4a32debcac9f36`) for a specific amount (`0.01000000` and `0.00010000`), which were both received (`receive`) by the same address in our wallet (`mi25UrzHnvn3bpEfFCNqJhPWJn5b77a5NE`). That's bad key hygeine, by the by: you should use a new address for every single Bitcoin you ever receive. In this case, we got impatient because the first faucet didn't seem to be working.
+This shows two transactions (`8e2ab10cabe9ec04ed438086a80b1ac72558cc05bb206e48fc9a18b01b9282e9`) and (`ca4898d8f950df03d6bfaa00578bd0305d041d24788b630d0c4a32debcac9f36`) for a specific amount (`0.01000000` and `0.00010000`), which were both received (`receive`) by the same address in our wallet (`mi25UrzHnvn3bpEfFCNqJhPWJn5b77a5NE`). That's bad key hygeine, by the way: you should use a new address for every single Bitcoin you ever receive. In this case, we got impatient because the first faucet didn't seem to be working.
 
 You can access similar information with the `bitcoin-cli listunspent` command, but it only shows the transactions for the money that you haven't spent. These are called UTXOs, and will be vitally important when you're sending money back out into the Bitcoin world:
 ```
@@ -189,7 +187,7 @@ $ bitcoin-cli gettransaction "8e2ab10cabe9ec04ed438086a80b1ac72558cc05bb206e48fc
   "hex": "0200000000010114d04977d1b0137adbf51dd5d79944b9465a2619f3fa7287eb69a779977bf5800100000017160014e85ba02862dbadabd6d204fcc8bb5d54658c7d4ffeffffff02df690f000000000017a9145c3bfb36b03f279967977ca9d1e35185e39917788740420f00000000001976a9141b72503639a13f190bf79acf6d76255d772360b788ac0247304402201e74bdfc330fc2e093a8eabe95b6c5633c8d6767249fa25baf62541a129359c202204d462bd932ee5c15c7f082ad7a6b5a41c68addc473786a0a9a232093fde8e1330121022897dfbf085ecc6ad7e22fc91593414a845659429a7bbb44e2e536258d2cbc0c270b1b00"
 }
 ```
-The `gettransaction` command will detail transanctions that are in your wallet, such as this one, that was sent to us.
+The `gettransaction` command will detail transactions that are in your wallet, such as this one, that was sent to us.
 
 Note that `gettransaction` has two optional arguments:
 ```
@@ -311,4 +309,7 @@ Faucets will give you money on the testnet. They come in as raw transactions, wh
 
 ## What's Next?
 
-Advance through "bitcoin-cli" with [Chapter Four: Sending Bitcoin Transactions](04_0_Sending_Bitcoin_Transactions.md).
+For a deep dive into how addresses are described, so that they can be transferred or made into parts of a multi-signature, see [§3.5: Understanding the Descriptor](03_5_Understanding_the_Descriptor.md).
+
+But if that's too in-depth, continue on to [Chapter Four: Sending Bitcoin Transactions](04_0_Sending_Bitcoin_Transactions.md).
+

@@ -1,107 +1,46 @@
 # 19.3: Closing a Channel
 
-> :information_source: **NOTE:** This is a draft in progress, so that I can get some feedback from early reviewers. It is not yet ready for learning.
+> :information_source: **NOTE:** This section has been recently added to the course and is an early draft that may still be awaiting review. Caveat reader.
 
-In this chapter you'll be able to close a channel and learn what it means and how to do it using `lightning-cli close` command-line interface.   The close RPC command attempts to close the channel cooperatively with the peer, or unilaterally after unilateraltimeout argument expires measured in seconds and the output will be sent to the address controlled by your c-lightning wallet if you don't specify one.
+In this chapter you'll learn how to close a channel using `lightning-cli close` command-line interface. Closing a channel means you and your counterparty will send their agreed-upon channel balance to the blockchain, whereby you must pay blockchain transaction fees and wait for the transaction to be mined. A closure can be cooperative or non-cooperative, but it works either way.
 
-Close a channel means you and your counterparty will send their agreed-upon channel balance to the blockchain whereby you must pay transaction fees and must wait for the transaction to be mined.
+In order to close a channel, you first need to know the ID of the remote node; you can retrieve it in one of two ways. 
 
-### Listing your channels.
+## Find your Channels by Funds
 
-You can use the `lightning-cli listfunds` command to see your channels.  This RPC command displays all funds available, either in unspent outputs (UTXOs) in the internal wallet or funds locked in currently open channels.
-
+You can use the `lightning-cli listfunds` command to see your channels.  This RPC command displays all funds available, either in unspent `outputs` (UTXOs) in the internal wallet or locked up in currently open `channels`.
 ```
-c$ lightning-cli --network=testnet listfunds
+c$ lightning-cli --testnet listfunds
 {
    "outputs": [
       {
-         "txid": "9843c037f54a4660b297a9f2454e11d26d8659f084a284a5740bb15cb1d97aa6",
-         "output": 0,
-         "value": 19238,
-         "amount_msat": "19238000msat",
-         "scriptpubkey": "0014aa572371f29310cd677d039cdcd054156c1a9545",
-         "address": "tb1q4ftjxu0jjvgv6emaqwwde5z5z4kp49299gmdpd",
+         "txid": "66694d23ca15efe379e5f4a71d9be1a2d65e383b89ee3abe126ee36a12f23c1d",
+         "output": 1,
+         "value": 99847,
+         "amount_msat": "99847000msat",
+         "scriptpubkey": "00142fe02e5be9283e8c5bcb93ae61421baf8cb64f9c",
+         "address": "tb1q9lszuklf9qlgck7tjwhxzssm47xtvnuu4jslf8",
          "status": "confirmed",
-         "blockheight": 1780768,
+         "blockheight": 1862856,
          "reserved": false
       }
    ],
    "channels": [
       {
-         "peer_id": "0302d48972ba7eef8b40696102ad114090fd4c146e381f18c7932a2a1d73566f84",
-         "connected": false,
+         "peer_id": "032a7572dc013b6382cde391d79f292ced27305aa4162ec3906279fc4334602543",
+         "connected": true,
          "state": "CHANNELD_NORMAL",
-         "short_channel_id": "1780768x12x1",
-         "channel_sat": 180000,
-         "our_amount_msat": "180000000msat",
-         "channel_total_sat": 280000,
-         "amount_msat": "280000000msat",
-         "funding_txid": "9843c037f54a4660b297a9f2454e11d26d8659f084a284a5740bb15cb1d97aa6",
-         "funding_output": 1
+         "short_channel_id": "1862856x29x0",
+         "channel_sat": 89987,
+         "our_amount_msat": "89987000msat",
+         "channel_total_sat": 100000,
+         "amount_msat": "100000000msat",
+         "funding_txid": "66694d23ca15efe379e5f4a71d9be1a2d65e383b89ee3abe126ee36a12f23c1d",
+         "funding_output": 0
       }
    ]
 }
-```
-Each channel has an identifier expressed in the short_channel_id field.  Each value in short_channel_id means
 
-"1780768x12x1"
-
-* Created on 1780768 block.
-* transaction index (12). 
-* output index (1).
-
-## Closing a channel
-
-You should use  `lightning-cli close` command to close the channel.  This RPC command attempts to close the channel cooperatively with the peer, or unilaterally after unilateraltimeout expires, and the to-local output will be sent to the address specified in destination.
-
-### Types of Closing Channels.
-
-Each participant of the channel is able to create as many Lightning payments to their counterparty as their funds they have.  Most of the time there will be no disagreements between the participants, so there will only be two onchain transactions, one opening and the other closing the channel.   However, there may be other scenarios in which you are not online, you do not agree with the last state of the channel or someone tries to steal funds from the other party.
-
-#### Cooperative Close
-
-In this case both channel participants agree to close the channel and settle the final state to the blockchain. Both participants must be online and it's performed by broadcasting an unconditional spend of the funding transaction with an output to each peer. 
-
-#### Force Close
-
-In this case when only one participant is online or if the participants disagree on the last state of the channel,  so one peer can perform an unilateral close of the channel without the cooperation of the other node.   It's performed by broadcasting a commitment transaction that commits to a previous channel state which both parts have agreed upon.
-This commitment transaction contains the channel state divided in two parts: the balance of each participant and all the pending payments (HTLCs).
-
-To perform this kind of close you need to specify an argument called unilateraltimeout.  If this value is not zero, the close command will unilaterally close the channel when that number of seconds is reached like this:
-
-```
-c$ lightning-cli --network=testnet close $NODEIDREMOTE 60
-{
-   "tx": "0200000001a1091f727e6041cc93fead2ea46b8402133f53e6ab89ab106b49638c11f27cba00000000006a40aa8001df85010000000000160014d22818913daf3b4f86e0bcb302a5a812d1ef6b91c6772d20",
-   "txid": "02cc4c647eb3e06f37fcbde39871ebae4333b7581954ea86b27b85ced6a5c4f7",
-   "type": "unilateral"
-}
-
-```
-
-### Node Information
-
-Now we'll show you how to get information about your channel using `lightning-cli listchannels` command.  The listchannels RPC command returns data on channels that are known to the node. Because channels may be bidirectional, up to 2 objects will be returned for each channel (one for each direction).   To query information about own channels we'll use jq tool showed in previous chapters.
-
-First we'll get our own node id public_key in NODEID variable.
-
-```
-c$ NODEID=$(lightning-cli --network=testnet getinfo | jq .id)
-c$ echo $NODEID
-"03fce2a20393a65b9d6cab5425f4cd33ddc621ade458efd69d652917e2b5eaf59c"
-c$
-```
-Later we'll use select to show only data containing public_key id as source or destination.
-
-```
-c$ lightning-cli listchannels | jq '.channels[] | select(.source == '$NODEID' or .destination == '$NODEID')'
-{
-  "source": "03fce2a20393a65b9d6cab5425f4cd33ddc621ade458efd69d652917e2b5eaf59c",
-  "destination": "0302d48972ba7eef8b40696102ad114090fd4c146e381f18c7932a2a1d73566f84",
-  "short_channel_id": "1780768x12x1",
-  "public": true,
-  "satoshis": 280000,
-  "amount_msat": "280000000msat",
   "message_flags": 1,
   "channel_flags": 2,
   "active": true,
@@ -114,37 +53,75 @@ c$ lightning-cli listchannels | jq '.channels[] | select(.source == '$NODEID' or
   "features": ""
 }
 ```
-### Closing a channel
 
-Finally you should use `lightning-cli close` command to close the channel. The close RPC command attempts to close the channel cooperatively with the peer,  if you want to close it unilaterally set unilateraltimeout argument with number of seconds command will wait.   If you set to 0 and the peer is online command can negotiate a mutual close.   For this example we use an mutual close.
 
-Now we'll get remote node id public key in a variable:
-
+You could retrieve the ID of the 0th channel into a variable like this:
 ```
-c$ $NODEIDREMOTE=lightning-cli listchannels | jq '.channels[] | select(.source == '$NODEID')' | jq .destination
-c$ echo $NODEIDREMOTE
-0302d48972ba7eef8b40696102ad114090fd4c146e381f18c7932a2a1d73566f84
-c$ 
+c$ nodeidremote=$(lightning-cli --testnet listfunds | jq '.channels[0] | .peer_id')
 ```
-Now we use NODEIDREMOTE variable to close channel:
 
+## Find your Channels with JQ
+
+The other way to find channels to close is to the use the `listchannels` command. It returns data on channels that are known to the node. Because channels may be bidirectional, up to two nodes will be returned for each channel (one for each direction). 
+
+However, Lightning's gossip network is very effective, and so in a short time you will come to know about thousands of channels. That's great for sending payments across the Lightning Network, but less useful for discovering your own channels. To do so requires a bit of `jq` work.
+
+First, you need to know your own node ID, which can be retrieved with `getinfo`:
 ```
-c$lightning-cli --network=testnet close $NODEIDREMOTE 0
+c$ nodeid=$(lightning-cli --testnet getinfo | jq .id)
+c$ echo $nodeid
+"03240a4878a9a64aea6c3921a434e573845267b86e89ab19003b0c910a86d17687"
+c$
+```
+You can then use that to look through `listchannels` for any channels where your node is either the source or the destination:
+```
+c$ lightning-cli --testnet listchannels | jq '.channels[] | select(.source == '$nodeid' or .destination == '$nodeid')'
 {
-   "tx": "0200000001a67ad9b15cb10b74a584a284f059866dd2114e45f2a997b260464af537c043980100000000ffffffff02a08601000000000016001404e34b25e1310c9b90c7a53a6eba88f4eefe8efb69be020000000000160014865353eaccaa94aa4f90d3a0acdf3903c06c12c400000000",
-   "txid": "b4c0a1993dd113081eff5369a22d6afe1af9f0d07b29a590e8772ac7f712736a",
+  "source": "03240a4878a9a64aea6c3921a434e573845267b86e89ab19003b0c910a86d17687",
+  "destination": "032a7572dc013b6382cde391d79f292ced27305aa4162ec3906279fc4334602543",
+  "short_channel_id": "1862856x29x0",
+  "public": true,
+  "satoshis": 100000,
+  "amount_msat": "100000000msat",
+  "message_flags": 1,
+  "channel_flags": 0,
+  "active": true,
+  "last_update": 1602639570,
+  "base_fee_millisatoshi": 1,
+  "fee_per_millionth": 10,
+  "delay": 6,
+  "htlc_minimum_msat": "1msat",
+  "htlc_maximum_msat": "99000000msat",
+  "features": ""
+}
+```
+There's our old favorite `032a7572dc013b6382cde391d79f292ced27305aa4162ec3906279fc4334602543` again, as the destination.
+
+Once you know what you've got, you can store it in a variable:
+```
+c$ nodeidremote=$(lightning-cli --testnet listchannels | jq '.channels[] | select(.source == '$nodeid' or .destination == '$nodeid') | .destination')
+```
+
+## Close a Channel
+
+Now that you have a remote node ID, you're ready to use the `lightning-cli close` command to close a channel. By default, it will attempt to close the channel cooperatively with the peer;  if you want to close it unilaterally set the `unilateraltimeout` argument with the number of seconds to wait. (If you set it to 0 and the peer is online, a mutual close is still attempted.) For this example, you will attempt a mutual close.
+
+```
+c$ lightning-cli --testnet close $nodeidremote 0
+{
+   "tx": "02000000011d3cf2126ae36e12be3aee893b385ed6a2e19b1da7f4e579e3ef15ca234d69660000000000ffffffff021c27000000000000160014d39feb57a663803da116402d6cb0ac050bf051d9cc5e01000000000016001451c88b44420940c52a384bd8a03888e3676c150900000000",
+   "txid": "f68de52d80a1076e36c677ef640539c50e3d03f77f9f9db4f13048519489593f",
    "type": "mutual"
 }
 ```
-The closing transaction onchain is [b4c0a1993dd113081eff5369a22d6afe1af9f0d07b29a590e8772ac7f712736a](https://blockstream.info/testnet/tx/b4c0a1993dd113081eff5369a22d6afe1af9f0d07b29a590e8772ac7f712736a).
+The closing transaction on-chain is [f68de52d80a1076e36c677ef640539c50e3d03f77f9f9db4f13048519489593f](https://blockstream.info/testnet/tx/f68de52d80a1076e36c677ef640539c50e3d03f77f9f9db4f13048519489593f).
 
-This transaction has two outputs, one for remote node and other for local c-lightning wallet.   Output on index 0 corresponds to remote node with a value of 100000.   Output on index 1 correspond to local node with a value of 179817.
-
+It's this closing transaction that actually disburses the funds that were traded back and forth through Lightning transactions. This can be seen by examining the transaction:
 ```
-c$ bitcoin-cli -testnet getrawtransaction b4c0a1993dd113081eff5369a22d6afe1af9f0d07b29a590e8772ac7f712736a 1
+$ bitcoin-cli --named getrawtransaction txid=f68de52d80a1076e36c677ef640539c50e3d03f77f9f9db4f13048519489593f verbose=1
 {
-  "txid": "b4c0a1993dd113081eff5369a22d6afe1af9f0d07b29a590e8772ac7f712736a",
-  "hash": "9433409227ca3d7a6999cdcc2856272314aef96f0e869a04711eda4969bbd21f",
+  "txid": "f68de52d80a1076e36c677ef640539c50e3d03f77f9f9db4f13048519489593f",
+  "hash": "3a6b3994932ae781bab80e159314bad06fc55d3d33453a1d663f9f9415c9719c",
   "version": 2,
   "size": 334,
   "vsize": 169,
@@ -152,88 +129,132 @@ c$ bitcoin-cli -testnet getrawtransaction b4c0a1993dd113081eff5369a22d6afe1af9f0
   "locktime": 0,
   "vin": [
     {
-      "txid": "9843c037f54a4660b297a9f2454e11d26d8659f084a284a5740bb15cb1d97aa6",
-      "vout": 1,
+      "txid": "66694d23ca15efe379e5f4a71d9be1a2d65e383b89ee3abe126ee36a12f23c1d",
+      "vout": 0,
       "scriptSig": {
         "asm": "",
         "hex": ""
       },
       "txinwitness": [
         "",
-        "3045022100ef40a71fc4d4d0e197cd3d503961da90b71cedab25f6f30740b3640664efb617022061f68aaffccf739824668d07519c8cb59ec30117d87beff2ef217e31cb5e628801",
-        "304402201a28274f64ec78fecba74ebc2b13582564ab155f83593c65ca1667bb92c42de10220489e7c3adc5be8bac2c5771482e5571abd3f602cb40ece2cfea3b768eb5341ea01",
-        "52210364d9b2e600d837aad224702c5f30c0ab73ac499cb67f43899cbf83f6358d422c21036695eadb796fe140434aad02c7da76395a44f62747770bf381fa4a3c52ff279452ae"
+        "304402207f8048e29192ec86019bc83be8b4cac5d1fc682374538bed0707f58192d41c390220512ebcde122d53747feedd70c09153a40c56d09a5fec02e47642afdbb20aa2ac01",
+        "3045022100d686a16084b60800fa0f6b14c25dca1c13d10a55c5fb7c6a3eb1c5f4a2fb20360220555f5b6e672cf9ef82941f7d46ee03dd52e0e848b9f094a41ff299deb8207cab01",
+        "522102f7589fd8366252cdbb37827dff65e3304abd5d17bbab57460eff71a9e32bc00b210343b980dff4f2723e0db99ac72d0841aad934b51cbe556ce3a1b257b34059a17052ae"
       ],
       "sequence": 4294967295
     }
   ],
   "vout": [
     {
-      "value": 0.00100000,
+      "value": 0.00010012,
       "n": 0,
       "scriptPubKey": {
-        "asm": "0 04e34b25e1310c9b90c7a53a6eba88f4eefe8efb",
-        "hex": "001404e34b25e1310c9b90c7a53a6eba88f4eefe8efb",
+        "asm": "0 d39feb57a663803da116402d6cb0ac050bf051d9",
+        "hex": "0014d39feb57a663803da116402d6cb0ac050bf051d9",
         "reqSigs": 1,
         "type": "witness_v0_keyhash",
         "addresses": [
-          "tb1qqn35kf0pxyxfhyx855axaw5g7nh0arhmxyv3zk"
+          "tb1q6w07k4axvwqrmggkgqkkev9vq59lq5we5fcrzn"
         ]
       }
     },
     {
-      "value": 0.00179817,
+      "value": 0.00089804,
       "n": 1,
       "scriptPubKey": {
-        "asm": "0 865353eaccaa94aa4f90d3a0acdf3903c06c12c4",
-        "hex": "0014865353eaccaa94aa4f90d3a0acdf3903c06c12c4",
+        "asm": "0 51c88b44420940c52a384bd8a03888e3676c1509",
+        "hex": "001451c88b44420940c52a384bd8a03888e3676c1509",
         "reqSigs": 1,
         "type": "witness_v0_keyhash",
         "addresses": [
-          "tb1qsef486kv42225nus6ws2eheeq0qxcykycqsymn"
+          "tb1q28ygk3zzp9qv223cf0v2qwygudnkc9gfp30ud4"
         ]
       }
     }
   ],
-  "hex": "02000000000101a67ad9b15cb10b74a584a284f059866dd2114e45f2a997b260464af537c043980100000000ffffffff02a08601000000000016001404e34b25e1310c9b90c7a53a6eba88f4eefe8efb69be020000000000160014865353eaccaa94aa4f90d3a0acdf3903c06c12c40400483045022100ef40a71fc4d4d0e197cd3d503961da90b71cedab25f6f30740b3640664efb617022061f68aaffccf739824668d07519c8cb59ec30117d87beff2ef217e31cb5e62880147304402201a28274f64ec78fecba74ebc2b13582564ab155f83593c65ca1667bb92c42de10220489e7c3adc5be8bac2c5771482e5571abd3f602cb40ece2cfea3b768eb5341ea014752210364d9b2e600d837aad224702c5f30c0ab73ac499cb67f43899cbf83f6358d422c21036695eadb796fe140434aad02c7da76395a44f62747770bf381fa4a3c52ff279452ae00000000"
+  "hex": "020000000001011d3cf2126ae36e12be3aee893b385ed6a2e19b1da7f4e579e3ef15ca234d69660000000000ffffffff021c27000000000000160014d39feb57a663803da116402d6cb0ac050bf051d9cc5e01000000000016001451c88b44420940c52a384bd8a03888e3676c1509040047304402207f8048e29192ec86019bc83be8b4cac5d1fc682374538bed0707f58192d41c390220512ebcde122d53747feedd70c09153a40c56d09a5fec02e47642afdbb20aa2ac01483045022100d686a16084b60800fa0f6b14c25dca1c13d10a55c5fb7c6a3eb1c5f4a2fb20360220555f5b6e672cf9ef82941f7d46ee03dd52e0e848b9f094a41ff299deb8207cab0147522102f7589fd8366252cdbb37827dff65e3304abd5d17bbab57460eff71a9e32bc00b210343b980dff4f2723e0db99ac72d0841aad934b51cbe556ce3a1b257b34059a17052ae00000000",
+  "blockhash": "000000000000002a214b1ffc3a67c64deda838dd24d12154c15d3a6f1137e94d",
+  "confirmations": 1,
+  "time": 1602713519,
+  "blocktime": 1602713519
 }
 ```
+The input of the transaction is `66694d23ca15efe379e5f4a71d9be1a2d65e383b89ee3abe126ee36a12f23c1d`, which was the funding transaction in [§18.3](18_3_Setting_Up_a_Channel.md). The transaction then has two outputs, one for the remote node and the other for the local c-lightning wallet. The output on index 0 corresponds to the remote node with a value of 0.00010012 BTC; and the output on index 1 corresponds to the local node with a value of 0.00089804 BTC.
 
-Listing funds onchain or offchain we get an output with a value of 179817 that results of 280000 minus 183 per fee in 279817.   We have to substract 100000 paid on the invoice of the previous chapter to finally receives 179817 satoshis.
-
+Lightning will similarly show 89804 satoshis returned as a new UTXO in its wallet:
 ```
-c$lightning-cli --network=testnet listfunds
+$ lightning-cli --network=testnet listfunds
 {
    "outputs": [
       {
-         "txid": "9843c037f54a4660b297a9f2454e11d26d8659f084a284a5740bb15cb1d97aa6",
-         "output": 0,
-         "value": 19238,
-         "amount_msat": "19238000msat",
-         "scriptpubkey": "0014aa572371f29310cd677d039cdcd054156c1a9545",
-         "address": "tb1q4ftjxu0jjvgv6emaqwwde5z5z4kp49299gmdpd",
+         "txid": "66694d23ca15efe379e5f4a71d9be1a2d65e383b89ee3abe126ee36a12f23c1d",
+         "output": 1,
+         "value": 99847,
+         "amount_msat": "99847000msat",
+         "scriptpubkey": "00142fe02e5be9283e8c5bcb93ae61421baf8cb64f9c",
+         "address": "tb1q9lszuklf9qlgck7tjwhxzssm47xtvnuu4jslf8",
          "status": "confirmed",
-         "blockheight": 1780768,
+         "blockheight": 1862856,
          "reserved": false
       },
       {
-         "txid": "b4c0a1993dd113081eff5369a22d6afe1af9f0d07b29a590e8772ac7f712736a",
+         "txid": "f68de52d80a1076e36c677ef640539c50e3d03f77f9f9db4f13048519489593f",
          "output": 1,
-         "value": 179817,
-         "amount_msat": "179817000msat",
-         "scriptpubkey": "0014865353eaccaa94aa4f90d3a0acdf3903c06c12c4",
-         "address": "tb1qsef486kv42225nus6ws2eheeq0qxcykycqsymn",
+         "value": 89804,
+         "amount_msat": "89804000msat",
+         "scriptpubkey": "001451c88b44420940c52a384bd8a03888e3676c1509",
+         "address": "tb1q28ygk3zzp9qv223cf0v2qwygudnkc9gfp30ud4",
          "status": "confirmed",
-         "blockheight": 1781830,
+         "blockheight": 1863006,
          "reserved": false
       }
+   ],
+   "channels": [
+      {
+         "peer_id": "032a7572dc013b6382cde391d79f292ced27305aa4162ec3906279fc4334602543",
+         "connected": false,
+         "state": "ONCHAIN",
+         "short_channel_id": "1862856x29x0",
+         "channel_sat": 89987,
+         "our_amount_msat": "89987000msat",
+         "channel_total_sat": 100000,
+         "amount_msat": "100000000msat",
+         "funding_txid": "66694d23ca15efe379e5f4a71d9be1a2d65e383b89ee3abe126ee36a12f23c1d",
+         "funding_output": 0
+      }
+   ]
 }
+
 ```
 
-## Summary: Closing a channel
+### Understand the Types of Closing Channels.
 
-When you close a channel you perform an onchain transaction ending your financial relationship with remote node.   To close a channel you must take into account its status and the type of closure you want to execute and decide some arguments to do it.
+The `close` RPC command attempts to close a channel cooperatively with its peer or unilaterally after the `unilateraltimeout` argument expires. This bears some additional discussion, as it goes to the heart of Lightning's trustless design:
+
+Each participant of a channel is able to create as many Lightning payments to their counterparty as their funds allow.  Most of the time there will be no disagreements between the participants, so there will only be two on-chain transactions, one opening and the other closing the channel. However, there may be scenarios in which one peer is not online or does not agree with the final state of the channel or where someone tries to steal funds from the other party. This is why there are both cooperative and forced closes.
+
+#### Cooperative Close
+
+In the case of a cooperative close, both channel participants agree to close the channel and settle the final state to the blockchain. Both participants must be online; the close is performed by broadcasting an unconditional spend of the funding transaction with an output to each peer. 
+
+#### Force Close
+
+In the case of a force close, only one participant is online or the participants disagree on the final state of the channel. In this situation, one peer can perform an unilateral close of the channel without the cooperation of the other node.  It's performed by broadcasting a commitment transaction that commits to a previous channel state that both parties have agreed upon. This commitment transaction contains the channel state divided in two parts: the balance for each participant and all the pending payments (HTLCs).
+
+To perform this kind of close, you must specify an `unilateraltimeout` argument. If this value is not zero, the close command will unilaterally close the channel when that number of seconds is reached:
+```
+c$ lightning-cli --network=testnet close $newidremote 60
+{
+   "tx": "0200000001a1091f727e6041cc93fead2ea46b8402133f53e6ab89ab106b49638c11f27cba00000000006a40aa8001df85010000000000160014d22818913daf3b4f86e0bcb302a5a812d1ef6b91c6772d20",
+   "txid": "02cc4c647eb3e06f37fcbde39871ebae4333b7581954ea86b27b85ced6a5c4f7",
+   "type": "unilateral"
+}
+
+```
+## Summary: Closing a Channel
+
+When you close a channel you perform an on-chain transaction ending your financial relationship with the remote node  To close a channel, you must take into account its status and the type of closure you want to execute.
 
 ## What's Next?
 
-Continue "Understanding Your Lightning Setup" with [§19.4: Lightning Network Review](19_4_Lightning_Network_Review.md).
+Continue "Using Lightning" with [§19.4: Expanding the Lightning Network](19_4_Lightning_Network_Review.md).

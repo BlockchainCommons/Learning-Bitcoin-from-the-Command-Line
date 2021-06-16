@@ -1,7 +1,5 @@
 # 4.1: Sending Coins the Easy Way
 
-> :information_source: **NOTE:** This is a draft in progress, so that I can get some feedback from early reviewers. It is not yet ready for learning.
-
 The `bitcoin-cli` offers three major ways to send coins: as a simple command; as a raw transaction; and as a raw transaction with calculation. Each has their own advantages and disadvantages. This first method for sending coins is also the simplest.
 
 ## Set Your Transaction Fee
@@ -28,11 +26,8 @@ In order to get through this tutorial, we're willing to spend 100,00 satoshis pe
 
 After you've edited your bitcoin.conf file, you'll want to kill and restart bitcoind.
 ```
-$ ps auxww | grep -i bitcoind
-standup    455  1.3 38.4 3387012 1555520 ?     SLsl Jun16  60:01 /usr/local/bin/bitcoind -conf=/home/standup/.bitcoin/bitcoin.conf
-standup  21073  0.0  0.0   6076   876 pts/0    R+   15:00   0:00 grep -i bitcoind
-$ kill 455
-$ /usr/local/bin/bitcoind -conf=/home/standup/.bitcoin/bitcoin.conf &
+$ bitcoin-cli stop
+$ bitcoind -daemon
 ```
 
 ## Get an Address
@@ -45,15 +40,22 @@ You need somewhere to send your coins to. Usually, someone would send you an add
 
 You're now ready to send some coins. This is actually quite simple via the command line. You just use `bitcoin-cli sendtoaddress [address] [amount]`. So, to send a little coinage to the address `n2eMqTT929pb1RDNuqEnxdaLau1rxy3efi` just requires:
 ```
-$ txid=$(bitcoin-cli sendtoaddress n2eMqTT929pb1RDNuqEnxdaLau1rxy3efi 0.1)
+$ txid=$(bitcoin-cli sendtoaddress n2eMqTT929pb1RDNuqEnxdaLau1rxy3efi 0.001)
 $ echo $txid
 93250d0cacb0361b8e21030ac65bc4c2159a53de1075425d800b2d7a8ab13ba8
 ```
+
+> 🙏 To help keep testnet faucets alive, try to use the return address of the same faucet you used in the previous chapter on receiving transactions. 
+
 Make sure the address you write in is where you want the money to go. Make _double_ sure. If you make mistakes in Bitcoin, there's no going back.
 
 You'll receive a txid back when you issue this command.
 
+> ❕ You may end up with an error code if you don't have enough funds in your wallet to send the transaction. Depending on your current balance `bitcoin-cli getbalance` you may need to adjust the amount to be sent to account for the amount being sent along with the transaction fee. If your current balance is 0.001, then you could try sending 0.0001. Alternatively, it would be better to instead subtract the expected fee given in the error message from your current balance. This is good practice as many wallets expect you to calculate your own amount + fees when withdrawing, even among popular exchanges. 
+
 > :warning: **WARNING:** The `bitcoin-cli` command actually generates JSON-RPC commands when it's talking to the bitcoind. They can be really picky. This is an example: if you list the bitcoin amount without the leading zero (i.e. ".1" instead of "0.1"), then bitcoin-cli will fail with a mysterious message.
+
+> :warning: **WARNING:** Even if you're careful with your inputs, you could see "Fee estimation failed. Fallbackfee is disabled." Fundamentally, this means that your local `bitcoind` doesn't have enough information to estimate fees. You should really never see it if you've waited for your blockchain to sync and set up your system with Bitcoin Standup. But if you're not entirely synced, you may see this. It also could be that you're not using a standard `bitcoin.conf`: the entry `blocksonly=1` will cause your `bitcoind` to be unable to estimate fees.
 
 ## Examine Your Transaction
 

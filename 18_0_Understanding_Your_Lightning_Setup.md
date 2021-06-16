@@ -1,34 +1,26 @@
-# Chapter Eighteen: Understanding Your Lighting Setup
+# Chapter 18: Understanding Your Lighting Setup
 
 > :information_source: **NOTE:** This is a draft in progress, so that I can get some feedback from early reviewers. It is not yet ready for learning.
 
-In this chapter you'll be ready to begin working with the `lightning-cli` command-line interface. But that first requires that you understand your c-lightning setup and its features, which is what will be explained with some examples and basic configuration.
-
-For this and future chapters, we presume that you have a VPS with c-lightning installed, running `lightningd` courtersy of [Bitcoin Standup Scripts](https://github.com/BlockchainCommons/Bitcoin-Standup-Scripts).
-We also presume that you are connected to testnet, allowing for access to bitcoins without using real funds. You can either do this by hand, per [§2.1: Setting up a Bitcoin-Core VPS by Hand](02_1_Setting_Up_a_Bitcoin-Core_VPS_by_Hand.md), with Bitcoin Standup at Linode.com, per [§2.2: Setting up a Bitcoin-Core VPS with Bitcoin Standup](02_2_Setting_Up_a_Bitcoin-Core_VPS_with_StackScript.md), or via other means, per [§2.3: Setting up a Bitcoin-Core Machine via Other Means](02_3_Setting_Up_Bitcoin_Core_Other.md).
+The previous chapter concluded our work with Bitcoin proper, through CLI, scripting, and programming languages. However, there are many other utilities within the Bitcoin ecosystem: this chapter and the next cover what may be the biggest and most important: the Lightning Network. Here you'll begin work with the `lightning-cli` command-line interface, understanding a c-lightning setup and its features, including some examples and basic configuration.
 
 ## Objectives for This Chapter
 
 After working through this chapter, a developer will be able to:
 
-   * Demonstrate that their c-lightning Node is Installed and Up-to-date
-   * Use basic wallet Commands
-   * Setting up a channel.
-   * Pay an invoice
-   * Generate a payment request.
+   * Assess that a c-lightning Node is Installed and Up-to-date
+   * Perform Basic Lightning Wallet Commands
+   * Create a LIghtning Channel
    
 Supporting objectives include the ability to:
 
-   * Use Basic Informational Commands.
-   * Understand what a lightning channel is.
-   * Understand what a invoice is.
-   * Understand how to pay an invoice.
-   
+   * Understand the Basic Lightning Configuration
+   * Understand the Interaction of Lightning Peers
+   * Understand How to Lightning
+
 ## Table of Contents
 
-* [Section One: Verifying Your Lightning Setup](18_1_Verifying_Your_Lightning_Setup.md)
-* [Section Two: Knowing Your Lightning Setup](18_2_Knowing_Your_lightning_Setup.md)
-* [Section Three: Setting Up a channel](18_3_Setting_Up_a_Channel.md)
-* [Section Four: Generate a payment request](19_1_Generate_a_Payment_Request.md)
-* [Section Five: Paying an invoice](19_2_Paying_a_Invoice.md)
-* [Section Five: Closing a Channel](19_3_Closing_a_Channel.md)
+* [Section One: Verifying Your c-lightning Setup](18_1_Verifying_Your_Lightning_Setup.md)
+* [Section Two: Knowing Your c-lightning Setup](18_2_Knowing_Your_lightning_Setup.md)
+   * [Interlude: Accessing a Second Lightning Node](18_2__Interlude_Accessing_a_Second_Lightning_Node.md)
+* [Section Three: Creating a Lightning Channel](18_3_Setting_Up_a_Channel.md)

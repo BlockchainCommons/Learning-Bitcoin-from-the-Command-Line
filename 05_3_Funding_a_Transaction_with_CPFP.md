@@ -1,7 +1,5 @@
 # 5.3: Funding a Transaction with CPFP
 
-> :information_source: **NOTE:** This is a draft in progress, so that I can get some feedback from early reviewers. It is not yet ready for learning.
-
 If your Bitcoin transaction is stuck, and you're the _recipient_, you can clear it using CPFP (child-pays-for-parent). This is alternative to the _sender's_ ability to do so with RBF.
 
 > :warning: **VERSION WARNING:** This is an innovation from Bitcoin Core v 0.13.0, which again means that most people should be using it by now.
@@ -24,59 +22,77 @@ Funding a transaction with CPFP is a very simple process using the methods you'r
    ```
 $ bitcoin-cli getrawmempool
 [
-  "ed7f68d9e363f710379c83baca1b71360b3a2ceaf62f8414a26b6680f77e132b"
+  "95d51e813daeb9a861b2dcdddf1da8c198d06452bbbecfd827447881ff79e061"
 ]
 
-$ bitcoin-cli getrawtransaction ed7f68d9e363f710379c83baca1b71360b3a2ceaf62f8414a26b6680f77e132b 1
+$ bitcoin-cli getrawtransaction 95d51e813daeb9a861b2dcdddf1da8c198d06452bbbecfd827447881ff79e061 true
 {
-  "hex": "02000000010d5151273464ac8fa74c1b57ff8e4650b8e190c488b1cfadae6561ac3988e83c000000006a473044022059c402379c8e7d5bf60840fc75497ee67694e6dfc9b0391c59b4b202edf4194b0220686c5a27bee1a9214e410cbce3d11e47ca57736d7546ba208adcc068a3f826f5012103fb14f31f5f143463198a3e79c7529cae529a32857ada29bec26f7ea9d8ea67f3ffffffff0130e1be07000000001976a914cbecb861750ee3b00ea845f5c1efa72d1c541cec88ac00000000",
-  "txid": "ed7f68d9e363f710379c83baca1b71360b3a2ceaf62f8414a26b6680f77e132b",
-  "hash": "ed7f68d9e363f710379c83baca1b71360b3a2ceaf62f8414a26b6680f77e132b",
-  "size": 191,
-  "vsize": 191,
+  "txid": "95d51e813daeb9a861b2dcdddf1da8c198d06452bbbecfd827447881ff79e061",
+  "hash": "9729e47b8aee776112a82cec46df7638d112ca51856c53e238a9b1f7af3be4ce",
   "version": 2,
-  "locktime": 0,
+  "size": 247,
+  "vsize": 166,
+  "weight": 661,
+  "locktime": 1773277,
   "vin": [
     {
-      "txid": "3ce88839ac6165aeadcfb188c490e1b850468eff571b4ca78fac64342751510d",
+      "txid": "7a0178472300247d423ac4a04ff9165fa5b944104f6d6f9ebc557c6d207e7524",
       "vout": 0,
       "scriptSig": {
-        "asm": "3044022059c402379c8e7d5bf60840fc75497ee67694e6dfc9b0391c59b4b202edf4194b0220686c5a27bee1a9214e410cbce3d11e47ca57736d7546ba208adcc068a3f826f5[ALL] 03fb14f31f5f143463198a3e79c7529cae529a32857ada29bec26f7ea9d8ea67f3",
-        "hex": "473044022059c402379c8e7d5bf60840fc75497ee67694e6dfc9b0391c59b4b202edf4194b0220686c5a27bee1a9214e410cbce3d11e47ca57736d7546ba208adcc068a3f826f5012103fb14f31f5f143463198a3e79c7529cae529a32857ada29bec26f7ea9d8ea67f3"
+        "asm": "0014334f3a112df0f22e743ad97eec8195a00faa59a0",
+        "hex": "160014334f3a112df0f22e743ad97eec8195a00faa59a0"
       },
-      "sequence": 4294967295
+      "txinwitness": [
+        "304402207966aa87db340841d76d3c3596d8b4858e02aed1c02d87098dcedbc60721d8940220218aac9d728c9a485820b074804a8c5936fa3145ce68e24dcf477024b19e88ae01",
+        "03574b1328a5dc2d648498fc12523cdf708efd091c28722a422d122f8a0db8daa9"
+      ],
+      "sequence": 4294967294
     }
   ],
   "vout": [
     {
-      "value": 1.29950000,
+      "value": 0.01000000,
       "n": 0,
       "scriptPubKey": {
-        "asm": "OP_DUP OP_HASH160 cbecb861750ee3b00ea845f5c1efa72d1c541cec OP_EQUALVERIFY OP_CHECKSIG",
-        "hex": "76a914cbecb861750ee3b00ea845f5c1efa72d1c541cec88ac",
+        "asm": "OP_HASH160 f079f77f2ef0ef1187093379d128ec28d0b4bf76 OP_EQUAL",
+        "hex": "a914f079f77f2ef0ef1187093379d128ec28d0b4bf7687",
         "reqSigs": 1,
-        "type": "pubkeyhash",
+        "type": "scripthash",
         "addresses": [
-          "mz7D3c6tMtNXV6CTsEwDBJ2vhSVTo9bSMN"
+          "2NFAkGiwnp8wvCodRBx3smJwxncuG3hndn5"
+        ]
+      }
+    },
+    {
+      "value": 0.02598722,
+      "n": 1,
+      "scriptPubKey": {
+        "asm": "OP_HASH160 8799be12fb9eae6644659d95b9602ddfbb4b2aff OP_EQUAL",
+        "hex": "a9148799be12fb9eae6644659d95b9602ddfbb4b2aff87",
+        "reqSigs": 1,
+        "type": "scripthash",
+        "addresses": [
+          "2N5cDPPuCTtYq13oXw8RfpY9dHJW8sL64U2"
         ]
       }
     }
-  ]
+  ],
+  "hex": "0200000000010124757e206d7c55bc9e6f6d4f1044b9a55f16f94fa0c43a427d2400234778017a0000000017160014334f3a112df0f22e743ad97eec8195a00faa59a0feffffff0240420f000000000017a914f079f77f2ef0ef1187093379d128ec28d0b4bf768742a727000000000017a9148799be12fb9eae6644659d95b9602ddfbb4b2aff870247304402207966aa87db340841d76d3c3596d8b4858e02aed1c02d87098dcedbc60721d8940220218aac9d728c9a485820b074804a8c5936fa3145ce68e24dcf477024b19e88ae012103574b1328a5dc2d648498fc12523cdf708efd091c28722a422d122f8a0db8daa9dd0e1b00"
 }
 ```
 Look through the `vout` array. Find the object that matches your address. (Here, it's the only one.) The `n` value is your `vout`. You now have everything you need to create a new CPFP transaction.
 ```
-$ utxo_txid=ed7f68d9e363f710379c83baca1b71360b3a2ceaf62f8414a26b6680f77e132b
+$ utxo_txid=2NFAkGiwnp8wvCodRBx3smJwxncuG3hndn5
 $ utxo_vout=0
 $ recipient2=$(bitcoin-cli getrawchangeaddress)
 ```
 
-   2. Create a raw transaction using your unconfirmed transaction an input.
+   2. Create a raw transaction using your unconfirmed transaction as an input.
    3. Double the transaction fees (or more).
    
 When you take these steps, everything should look totally normal, despite the fact that you're working with an unconfirmed transaction. To verify that all was well, we even looked at the results of our signature before we saved off the information to a variable:
 ```
-$ rawtxhex=$(bitcoin-cli -named createrawtransaction inputs='''[ { "txid": "'$utxo_txid'", "vout": '$utxo_vout' } ]''' outputs='''{ "'$recipient2'": 1.2985 }''')
+$ rawtxhex=$(bitcoin-cli -named createrawtransaction inputs='''[ { "txid": "'$utxo_txid'", "vout": '$utxo_vout' } ]''' outputs='''{ "'$recipient2'": 0.03597 }''')
 
 $ bitcoin-cli -named signrawtransaction hexstring=$rawtxhex | jq -r '.hex'
 02000000012b137ef780666ba214842ff6ea2c3a0b36711bcaba839c3710f763e3d9687fed000000006a473044022003ca1f6797d781ef121ba7c2d1d41d763a815e9dad52aa8bc5ea61e4d521f68e022036b992e8e6bf2c44748219ca6e0056a88e8250f6fd0794dc69f79a2e8993671601210317b163ab8c8862e09c71767112b828abd3852e315441893fa0f535de4fa39b8dffffffff01905abd07000000001976a91450b1d90a130c4f3f1e5fbfa7320fd36b7265db0488ac00000000
@@ -104,8 +120,8 @@ A _recipient_ could use CPFP even if he wasn't planning on immediately spending 
 
 You can take advantage of the CPFP incentives to free up funds that have been sent to you but have not been confirmed. Just use the unconfirmed transaction as UTXO and pay a higher-than-average transaction fee.
 
-_What is the power of CPFP?_ Mostly, CPFP is just useful to get funds unstuck when you're the recipient and the sender isn't being helpful for whatever reason. It doesn't have the more powerful possibilities of RBF, but is an alternatve way to exert control over a transaction after it's been placed in the mempool, but before it's confirmed in a block.
+> :fire: ***What is the power of CPFP?*** Mostly, CPFP is just useful to get funds unstuck when you're the recipient and the sender isn't being helpful for whatever reason. It doesn't have the more powerful possibilities of RBF, but is an alternatve way to exert control over a transaction after it's been placed in the mempool, but before it's confirmed in a block.
 
 ## What's Next?
 
-Advance through "bitcoin-cli" with [Chapter Six: Expanding Bitcoin Transactions](06_0_Expanding_Bitcoin_Transactions.md).
+Advance through "bitcoin-cli" with [Chapter Six: Expanding Bitcoin Transactions with Multisigs](06_0_Expanding_Bitcoin_Transactions_Multisigs.md).
