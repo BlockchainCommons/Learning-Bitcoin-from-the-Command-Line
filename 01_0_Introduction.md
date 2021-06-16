@@ -1,63 +1,64 @@
-# Chapter One: Introduction to Learning Bitcoin Core (& Lightning) from the Command Line
 
-## Introduction
+# CAPÍTULO 1: Introdução à Aprendizagem do Bitcoin Core (& Lightning Network) na linha de comando
 
-The ways that we make payments for goods and services has been changing dramatically over the last several decades. Where once all transactions were conducted through cash or checks, now various electronic payment methods are the norm. However, most of these electronic payments still occur through centralized systems, where credit card companies, banks, or even internet-based financial institutions like Paypal keep long, individually correlated lists of transactions and have the power to censor transactions that they don't like.
+## Introdução
 
-These centralization risks were some of the prime catalysts behind the creation of cryptocurrencies, the first and most successful of which is Bitcoin. Bitcoin offers pseudonymity; it makes it difficult to correlate transactions; and it makes censorship by individual entities all but impossible. These advantages have made it one of the quickest growing currencies in the world. That growth in turn has made Bitcoin into a going concern among entrepreneurs and developers, eager to create new services for the Bitcoin community.
+Os modos como fazemos pagamentos por bens e serviços têm mudado drasticamente nas últimas décadas. Antigamente todas as transações eram realizadas utilizando dinheiro ou cheques, e atualmente os diversos métodos de pagamento eletrônico são à regra. Porém, a maioria dos pagamentos eletrônicos ainda ocorre utilizando sistemas centralizados, onde empresas de cartão de crédito, bancos ou até instituições financeiras baseadas apenas na Internet, como o PayPal, mantêm listas de transações longas e correlacionadas individualmente, tendo o poder de censurar as transações que não gostarem.
 
-If you're one of those entrepreneurs or developers, then this course is for you, because it's all about learning to program Bitcoin. It's an introductory course that explains all the nuances and features of Bitcoin as it goes. It also takes a very specific tack, by offering lessons in how to work _directly_ with Bitcoin Core and with the c-lightning server using their RPC interfaces.
+Esses riscos de centralização foram alguns dos catalisadores primordiais para a criação de criptomoedas, sendo a primeira e mais bem sucedida, o Bitcoin. O Bitcoin oferece pseudonímia; torna difícil correlacionar as transações; e torna a censura por entidades individuais, algo próximo do impossível. Essas vantagens fizeram dele uma das moedas mais rápidas do mundo. Esse crescimento, por sua vez, despertou o interesse dos empresários e desenvolvedores, ansiosos para criar novos serviços para a comunidade do Bitcoin.
 
-Why not use some of the more fully featured libraries found in various programming languages? Why not create your own from scratch? It's because working with cryptocurrency is dangerous. There are no safety nets. If you accidentally overpay your fees or lose a signing key or create an invalid transaction or make any number of potential mistakes, then your cryptocurrency will be gone forever. Much of that responsibility will, of course, lie with you as a cryptocurrency programmer, but it can be minimized by working with the most robust, secure, and safe cryptocurrency interfaces around, the ones created by the cryptocurrency programming teams themselves: ``bitcoind`` and ``lightningd``.
+Se você é um desses empreendedores ou desenvolvedores, então este curso é para você, porque ele tem tudo o que necessita para aprender a programar no Bitcoin. É um curso introdutório que explica todas as nuances e características do Bitcoin e de tudo o que vem com ele. O curso também oferece algumas coisas mais específicas, como  aulas de como utilizar _diretamente_ o Bitcoin Core com o servidor C-Lightning usando suas interfaces RPC.
 
-Much of this book thus discusses how to script Bitcoin (and Lightning) directly from the command line. Some later chapters deal with more sophisticated programming languages, but again they continue to interact directly with the ``bitcoind`` and ``lightningd`` daemons by using RPC or by interacting with the files they create. This allows you to stand on the shoulders of giants and use their trusted technology to learn how to create your own trusted systems.
+Por que não utilizar algumas das bibliotecas mais detalhadas encontradas em várias linguagens de programação? Por que não criar a sua própria do zero? Porque trabalhar com criptomoedas é perigoso. Não há redes de segurança. Se você acidentalmente pagar taxas muito altas ou perder uma chave de assinatura ou criar uma transação inválida ou fazer qualquer outros milhares de erros potenciais, você dará adeus a suas moedas para sempre. Muito dessa responsabilidade, é claro, fica com você como sendo um programador de criptomoedas, mas também pode ser minimizado, trabalhando com as interfaces de criptomoedas mais robustas e seguras que estão disponíveis, as que foram criadas pelas próprias equipes de programação dessas criptomoedas: A ``Bitcoind`` e a ``Lightningd``.
 
-## Required Skill Level
+Grande parte deste livro discute como fazer um script em bitcoin (e na Lightning Network) diretamente na linha de comando. Alguns capítulos adiantes lidam com linguagens de programação mais sofisticadas, mas novamente continuam a interagir diretamente com o `` Bitcoind`` e a  ``Lightningd``, usando o RPC ou interagindo com os arquivos que são criados por eles. Isso permite que você se mantenha no mesmo nível dos gigantes e use a tecnologia confiável para aprender como criar seus próprios sistemas confiáveis.
 
-You do not need to be particularly technical for the majority of this course. All you need is the confidence to run basic commands on the UNIX command line. If you're familiar with things like `ssh`, `cd`, and `ls`, the course will supply you with the rest.
+## Nível de Habilidade Necessária
 
-A minority of this course requires programming knowledge, and you should skip over those sections if needed, as discussed in the next section. 
+Você não precisa ser particularmente uma pessoa da área técnica para boa parte deste curso. Tudo o que precisará é a confiança para executar comandos básicos na linha de comando do UNIX. Se você está familiarizado com coisas como ``ssh``, ``cd``, e ``ls``, o curso irá te fornecer o resto.
 
-## Overview of Topics
+Uma minoria deste curso requer conhecimento de programação, e você deve pular essas seções, se necessário, conforme iremos discutir na próxima seção.
 
-This book is broadly divided into the following sections:
+## Resumo dos tópicos
 
-| Part | Description | Skills |
+Este livro é dividido nas seguintes seções:
+
+| Parte | Descrição | Habilidades |
 |-------|---------|---------|
-| **Part One: Preparing for Bitcoin** | Understanding the basics of Bitcoin and setting up a server for use. | Command Line | 
-| **Part Two: Using Bitcoin-CLI** | Using the Bitcoin-CLI for creating transactions. | Command Line |
-| **Part Three: Bitcoin Scripting** | Expanding your Bitcoin work with scripts. | Programming Concepts |
-| **Part Four: Using Tor** | Improving your node security with Tor | Command Line |
-| **Part Five: Programming with RPC** | Accessing RPC from C and other languages. | Programming in C |
-| **Part Six: Using Lightning-CLI** | Using the Lightning-CLI for creating transactions. | Command Line |
-| **Appendices** | Utilizing less common Bitcoin setups. | Command Line |
+| **Parte 1: Se preparando para o Bitcoin** | Entendendo os fundamentos do Bitcoin e configurando um servidor para uso. | Linha de Comando | 
+| **Parte 2: Usando o bitcoin-cli** | Usando o Bitcoin-cli para criar transações. | Linha de Comando |
+| **Parte 3: Fazendo scripts com Bitcoin** | Expandindo seu trabalho no bitcoin com scripts. | Conceitos de Programação |
+| **Parte 4: Usando o Tor** | Melhorando a segurança do _node_ com tor | Linha de Comando |
+| **Parte 5: Programando com RPC** | Acessando o RPC com C e outras linguagens. | Programando em C |
+| **Parte 6: Usando a lightning-cli** | Usando a Lightning-CLI para criar transações. | Linha de Comando |
+| **Apêndices.** | Utilizando configurações incomuns no Bitcoin. | Linha de Comando |
 
-## How To Use This Course
+## Como Usar Este Curso
 
-So where do you start? This book is primarily intended to be read sequentially. Just follow the "What's Next?" Links at the end of each section and/or click through the individual section links on each chapter page. You'll achieve the best understanding from this course if you actually build yourself a Bitcoin server (per Chapter 2) and then run through all the examples over the course of the book: trying out examples is an excellent learning methodology.
+Então, por onde você começa? Este livro é destinado principalmente para ser lido em sequência. Basta seguir o "O que vem depois?" que estarão no final de cada seção e/ou clicar nos links individuais de cada seção em cada página do capítulo. Você conseguirá o melhor entendimento deste curso se realmente se construir um servidor Bitcoin (no capítulo 2) e, em seguida, passar por todos os exemplos que estarão disponíveis ao longo do livro: Testar os exemplos é uma excelente metodologia de aprendizado.
 
-If you have different levels of skill or want to learn different things, you might skip to different parts of the book:
+Se você tem diferentes níveis de habilidade ou se quiser aprender coisas diferentes, poderá pular para algumas partes diferentes do livro:
 
-* If you've already got a Bitcoin environment ready to be used, jump to [Chapter Three: Understanding Your Bitcoin Setup](03_0_Understanding_Your_Bitcoin_Setup.md).
-* If you only care about Bitcoin scripting, jump to [Chapter Nine: Introducing Bitcoin Scripts](09_0_Introducing_Bitcoin_Scripts.md).
-* If you just want to read about using programming languages, jump to [Chapter Fifteen: Talking to Bitcoin](15_0_Talking_to_Bitcoind.md).
-* If you conversely don't want to do any programming, definitely skip chapters 15-17 while you're reading, and perhaps skip chapters 9-13. The rest of the course should still make sense without them.
-* If you are only interested in Lightning, zap over to [Chapter Eighteen: Understanding Your Lightning Setup](18_0_Understanding_Your_Lightning_Setup.md).
-* If you want to read the major new content added for v2 of the course (2020), following on v1 (2017), read [§3.5: Understanding the Descriptor](03_5_Understanding_the_Descriptor.md), [§4.6: Creating a SegWit Transaction](04_6_Creating_a_Segwit_Transaction.md), [Chapter 7: Expanding Bitcoin with PSBTs](07_0_Expanding_Bitcoin_Transactions_PSBTs.md), [§9.5: Scripting a P2WPKH](09_5_Scripting_a_P2WPKH.md), [§10.5: Scripting a SegWit Script](10_5_Scripting_a_Segwit_Script.md), [Chapter 14: Using Tor](14_0_Using_Tor.md), [Chapter 15: Talking to Bitcoind with C](15_0_Talking_to_Bitcoind.md), [Chapter 16: Programming with Libwally](16_0_Programming_with_Libwally.md), [Chapter Seventeen: Talking to Bitcoind with Other Languages](17_0_Talking_to_Bitcoind_Other.md), [Chapter Eighteen: Understanding ](18_0_Understanding_Your_Lightning_Setup.md), and [Chapter Nineteen: Using Lightning](19_0_Using_Lightning.md).
+* Se você já tem um ambiente pronto do Bitcoin para ser utilizado, vá para o [Capítulo 3: Entendendo sua configuração do Bitcoin](03_0_Understanding_Your_Bitcoin_Setup.md).
+* Se você só se importa com os Scriptos em Bitcoin, pule para o [Capítulo 9: Apresentando os Scripts no Bitcoin](09_0_Introducing_Bitcoin_Scripts.md).
+* Se você quiser apenas ler sobre o uso das linguagens de programação, pule para o [Capítulo 15: Falando com o Bitcoin](15_0_Talking_to_Bitcoind.md).
+* Se não quer programar nada, definitivamente ignore os capítulos 15 ao 17 enquanto estiver lendo, e talvez seja melhor pular os capítulos 9 ao 13. O resto do curso ainda deve fazer sentido sem eles.
+* Se estiver interessado apenas na Lightning Network, corra para o [Capítulo 18: Entendendo sua configuração da Lightning Network](18_0_Understanding_Your_Lightning_Setup.md).
+* Se quiser ler o conteúdo novo adicionado na versão 2 do curso (2020), seguido da versão 1 (2017), leia [§3.5: Entendendo o descritor](03_5_Understanding_the_Descriptor.md), [§4.6: Criando uma transação SegWit](04_6_Creating_a_Segwit_Transaction.md), [Capítulo 7: Expandindo o Bitcoin com PSBTs](07_0_Expanding_Bitcoin_Transactions_PSBTs.md), [§9.5: Criando um script P2WPKH](09_5_Scripting_a_P2WPKH.md), [§10.5: Criando um script SegWit](10_5_Scripting_a_Segwit_Script.md), [Capítulo 14: Usando o Tor](14_0_Using_Tor.md), [Capítulo 15: Conversando com o Bitcoin com C](15_0_Talking_to_Bitcoind.md), [Capítulo 16: Programando com Libwally](16_0_Programming_with_Libwally.md), [Capítulo 17: Conversando com o Bitcoind usando outras linguagens](17_0_Talking_to_Bitcoind_Other.md), [Capítulo 18: Entendendo sua configuração da Lightning ](18_0_Understanding_Your_Lightning_Setup.md), e [Capítulo 19: Usando a Lightning](19_0_Using_Lightning.md).
 
-## Why to Use this Course
+## Por Que Utilizar Este Curso
 
-Obviously, you're working through this course because you're interested in Bitcoin. Besides imparting basic knowledge, it's also helped readers to join (or create) open-source projects and to get entry-level jobs in Bitcoin programming. A number of Blockchain Commons' interns learned about Bitcoin from this course, as have some members of our programming team.
+Obviamente, você está querendo fazer este curso porque está interessado no Bitcoin. Além de transmitir o conhecimento básico, também ajudará os leitores a participar (ou criar) projetos open source e obter empregos de cargos júnior na área de programação envolvendo o Bitcoin. Um número de estagiários na Blockchain Commons aprendeu sobre o Bitcoin através deste curso, e muitos dos membros da nossa equipe de programação também.
 
-## How to Support this Course
+## Como Ajudar Este Curso
 
-* Please use [Issues](https://github.com/BlockchainCommons/Learning-Bitcoin-from-the-Command-Line/issues) for any questions. Blockchain Commons does not have an active support team, and so we can't address individual problems or queries, but we will look over them in time, and use them to improve future iterations of the course.
-* Please use [PRs](https://github.com/BlockchainCommons/Learning-Bitcoin-from-the-Command-Line/pulls) for any fixes of typos or incorrect (or changed) commands. For command-line or technical changes, it's very helpful if you also use the PR comments to explain why you did what you did, so that we don't have to research it.
-* Please Use Our [Community discussions area](https://github.com/BlockchainCommons/Community/discussions) for talking about careers and skills. Blockchain Commons occasionally offers internships, as discussed in our Community repo.
-* Please [become a patron](https://github.com/sponsors/BlockchainCommons) if you find this course helpful or if you want to help educate the next generation of blockchain programmers.
+* Por favor, use a área de [Issues](https://github.com/BlockchainCommons/Learning-Bitcoin-from-the-Command-Line/issues) para quaisquer dúvidas. A Blockchain Commons não tem uma equipe ativa de suporte, e não podemos abordar problemas ou perguntas individuais, mas olharemos iremos tratá-los com o tempo e os usaremos para melhorar nossas futuras iterações no curso.
+* Por favor, use os [PRs](https://github.com/BlockchainCommons/Learning-Bitcoin-from-the-Command-Line/pulls) para quaisquer correções de erros de digitação ou comandos incorretos (ou que foram alterados). Para alterações técnicas ou de linha de comando, é muito útil se você usar também os comentários para explicar por que fez o que você fez, para que não precisemos gastar tempo pesquisando o motivo.
+* Por favor, use nossa [Área de Discussão da Comunidade](https://github.com/BlockchainCommons/Community/discussions) para falar sobre carreiras e habilidades. A Blockchain Commons ocasionalmente oferece estágios, como falado em nosso repo da comunidade.
+* Por favor, [torne-se um patrono](https://github.com/sponsors/BlockchainCommons) se achar este curso útil ou se quiser ajudar a educar a próxima geração de programadores da blockchain.
 
-## What's Next?
+## O Que Vem Depois?
 
-If you'd like a basic introduction to Bitcoin, public-key cryptography, ECC, blockchains, and Lightning, read the [Introducing Bitcoin](01_1_Introducing_Bitcoin.md) interlude. 
+Se você quiser uma introdução básica ao Bitcoin, criptografia de chave pública, ECC, blockchains e Lightning Network, leia o prefácio [Introdução ao Bitcoin](01_1_Introducing_Bitcoin.md). 
 
-Otherwise, if you're ready to dive into the course, go to [Setting Up a Bitcoin-Core VPS](02_0_Setting_Up_a_Bitcoin-Core_VPS.md).
+Caso contrário, se já estiver pronto para mergulhar de cabeça no curso, vá para [Configurando um Bitcoin-Core  no VPS](02_0_Setting_Up_a_Bitcoin-Core_VPS.md).
