@@ -122,8 +122,6 @@ In most cases you need to receive an invoice to use Lightning Network payments. 
 
 ## What's Next?
 
-:fire:
-
 Continue "Understanding Your Lightning Setup" with [§19.2: Paying_a_Invoice](19_2_Paying_a_Invoice.md).
 
 
