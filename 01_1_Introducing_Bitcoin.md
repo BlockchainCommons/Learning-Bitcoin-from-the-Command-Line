@@ -123,7 +123,7 @@ Observe que ainda pode haver soluções para algumas dessas situações dentro d
 
 A lightning é um protocolo de segunda camada que interage com o Bitcoin para permitir que os usuários troquem seus bitcoins "offchain" (fora da blockchain). Possui vantagens e desvantagens em relação ao uso da camada principal do Bitcoin.
 
-A lightning também é um dos focos deste tutorial. Embora o ponto principal seja sobre a interação direta com o Bitcoin (e o `bitcoind`), vamos falar um pouco sobre a lightning e o porque é uma tecnologia que está prestes a se tornar uma alternativa popular ao Bitcoin, em um futuro próximo. Este livro tem a mesma abordagem para a lightning e para o Bitcoin: Ele ensina como interagir diretamente com a Lightning de maneira confiável a partir da linha de comando.
+A lightning também é um dos focos deste tutorial. Embora o ponto principal seja sobre a interação direta com o Bitcoin (e o `bitcoind`), vamos falar um pouco sobre a lightning e o porque é uma tecnologia que está prestes a se tornar uma alternativa popular ao Bitcoin, em um futuro próximo. Este livro tem a mesma abordagem para a lightning e para o Bitcoin: Ele ensina como interagir diretamente com a Lightning de maneira confiável à partir da linha de comando.
 
 Ao contrário do Bitcoin, existem várias variantes da lightning. Este tutorial usa a implementação compatível do padrão [C-lightning](https://github.com/ElementsProject/lightning) como sendo seu servidor lightning confiável.
 

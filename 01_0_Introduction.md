@@ -1,5 +1,5 @@
 
-# CAPÍTULO 1: Introdução à Aprendizagem do Bitcoin Core (& Lightning Network) na linha de comando
+# CAPÍTULO 1: Introdução à Aprendizagem do Bitcoin Core (& Lightning Network) pela linha de comando
 
 ## Introdução
 
@@ -11,11 +11,11 @@ Se você é um desses empreendedores ou desenvolvedores, então este curso é pa
 
 Por que não utilizar algumas das bibliotecas mais detalhadas encontradas em várias linguagens de programação? Por que não criar a sua própria do zero? Porque trabalhar com criptomoedas é perigoso. Não há redes de segurança. Se você acidentalmente pagar taxas muito altas ou perder uma chave de assinatura ou criar uma transação inválida ou fazer qualquer outros milhares de erros potenciais, você dará adeus a suas moedas para sempre. Muito dessa responsabilidade, é claro, fica com você como sendo um programador de criptomoedas, mas também pode ser minimizado, trabalhando com as interfaces de criptomoedas mais robustas e seguras que estão disponíveis, as que foram criadas pelas próprias equipes de programação dessas criptomoedas: A ``Bitcoind`` e a ``Lightningd``.
 
-Grande parte deste livro discute como fazer um script em bitcoin (e na Lightning Network) diretamente na linha de comando. Alguns capítulos adiantes lidam com linguagens de programação mais sofisticadas, mas novamente continuam a interagir diretamente com o `` Bitcoind`` e a  ``Lightningd``, usando o RPC ou interagindo com os arquivos que são criados por eles. Isso permite que você se mantenha no mesmo nível dos gigantes e use a tecnologia confiável para aprender como criar seus próprios sistemas confiáveis.
+Grande parte deste livro discute como fazer um script em bitcoin (e na Lightning Network) diretamente pela linha de comando. Alguns capítulos adiantes lidam com linguagens de programação mais sofisticadas, mas novamente continuam a interagir diretamente com o `` Bitcoind`` e a  ``Lightningd``, usando o RPC ou interagindo com os arquivos que são criados por eles. Isso permite que você se mantenha no mesmo nível dos gigantes e use a tecnologia confiável para aprender como criar seus próprios sistemas confiáveis.
 
 ## Nível de Habilidade Necessária
 
-Você não precisa ser particularmente uma pessoa da área técnica para boa parte deste curso. Tudo o que precisará é a confiança para executar comandos básicos na linha de comando do UNIX. Se você está familiarizado com coisas como ``ssh``, ``cd``, e ``ls``, o curso irá te fornecer o resto.
+Você não precisa ser particularmente uma pessoa da área técnica para boa parte deste curso. Tudo o que precisará é a confiança para executar comandos básicos pela linha de comando do UNIX. Se você está familiarizado com coisas como ``ssh``, ``cd``, e ``ls``, o curso irá te fornecer o resto.
 
 Uma minoria deste curso requer conhecimento de programação, e você deve pular essas seções, se necessário, conforme iremos discutir na próxima seção.
 
