@@ -17,3 +17,30 @@ Por lo tanto, gran parte de este libro analiza cómo crear un script de Bitcoin 
 No es necesario ser técnico para avanzar en la mayor parte de este curso. Todo lo que necesita es la confianza para ejecutar comandos básicos en la línea de comandos de UNIX. Si está familiarizado con cosas como ssh, cd y ls, el curso le proporcionará el resto.
 
 Una parte menor de este curso requiere conocimientos de programación, y debe omitir esas secciones si es necesario como se explica en la siguiente sección.
+
+## Resumen de temas
+
+Este libro se divide a grandes rasgos en las siguientes secciones:
+
+| Parte | Descripción | Habilidades |
+|-------|---------|---------|
+| **Primera parte: Primera parte: prepararse para Bitcoin** | Comprender los conceptos básicos de Bitcoin y configurar un servidor para su uso. | Línea de comandos | 
+| **Segunda parte: Uso de Bitcoin-CLI** | Usando el Bitcoin-CLI para crear transacciones. | Línea de comandos |
+| **Tercera parte: Secuencias de comandos de Bitcoin** | Ampliando su trabajo de Bitcoin con scripts | Conceptos de programación |
+| **Parte Cuatro: Uso de Tor** | Mejorando la seguridad de su nodo con Tor | Línea de comandos |
+| **Parte Cinco: Programación con RPC** | Accediendo a RPC desde C y otros lenguajes | Programación en lenguaje C |
+| **Parte Seis: Uso de Lightning-CLI** | Uso de Lightning-CLI para crear transacciones. | Línea de comandos |
+| **Apendices** | Utilizando configuraciones de Bitcoin menos comunes | Linea de comandos |
+
+# Cómo utilizar este curso
+
+Así que ¿Por dónde empiezas? Este libro está destinado principalmente para leerse de forma secuencial. Simplemente se debe seguir el enlace llamado "¿Qué sigue?"  al final de cada sección y / o hacer clic en los enlaces de las secciones individuales en cada página de capítulo. Obtendrá una mejor comprensión de este curso si realmente configura un servidor Bitcoin (siguiendo el Capítulo 2) y luego repasa todos los ejemplos a lo largo del libro: probar ejemplos es una excelente metodología de aprendizaje.
+
+Si tiene diferentes niveles de habilidad o desea aprender cosas diferentes, puede pasar directamente a diferentes partes del libro:
+
+* Si ya tiene un entorno de Bitcoin listo para ser utilizado, vaya al Capítulo Tres: Comprensión de la configuración de Bitcoin.
+* Si solo le interesan las secuencias de comandos de Bitcoin, vaya al Capítulo nueve: Introducción a las secuencias de comandos de Bitcoin.
+* Si solo desea leer sobre el uso de lenguajes de programación, vaya al Capítulo quince: Comunicarse con el servidor Bitcoin.
+* Si, por el contrario, no quiere hacer nada relativo a programación, definitivamente omita los capítulos 15-17 mientras lee, y tal vez omita los capítulos 9-13. El resto del curso aún debería tener sentido sin ellos.
+* Si solo está interesado en Lightning, pase al Capítulo Dieciocho: Comprensión de la configuración de Lightning .
+* Si desea leer el contenido nuevo más importante agregado para la versión 2 del curso (2020), a continuación de la versión 1 (2017), lea §3.5: Comprensión de los descriptores , §4.6: Creación de una transacción SegWit , Capítulo 7: Expansión de Bitcoin con PSBT , §9.5: Scripting con P2WPKH , §10.5: Scripting con SegWit Script , Capítulo 14: Usando Tor , Capítulo 15: Interactuando con Bitcoind con C , Capítulo 16: Programando con Libwally , Capítulo Diecisiete: Interactuando con Bitcoind con otros lenguajes , Capítulo dieciocho: Comprensión y Capítulo Diecinueve: Uso de Lightning .
