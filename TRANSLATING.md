@@ -13,10 +13,10 @@ Thank you for your interest in translating Learning Bitcoin from the Command Lin
    * File an [Issue](https://github.com/BlockchainCommons/Learning-Bitcoin-from-the-Command-Line/issues) requesting a new branch for your translation
    * This will be the master place for us to collect work on the translation over time.
    * We will create a top-level directory for your complete translation using the [ISO 639-1 language code](https://en.wikipedia.org/wiki/List_of_ISO_639-1_codes), for example `es` (Spanish), `fr` (French), or `pt` (Portuguese). Work should be done in that directory.
-1. **Branch the Branch.**
-   * Once we've created a translation branch, you'll then want to branch that into your own GitHub account.
+1. **Fork the Branch.**
+   * Once we've created a translation branch, you'll then want to fork that into your own GitHub account.
 1. **Submit PRs a Chapter at a Time.**
-   * Submit your PRs for the translation from your working branch to our translation branch in batches of no more than a single chapter at a time.
+   * Submit your PRs for the translation from your working fork to our translation branch in batches of no more than a single chapter at a time.
    * Submit in smaller batches if it makes sense, for example because different people are writing different sections.
 1. **Request Approval from a Native Speaker.**
    * No one can ever do a great edit of their own work, so we require each section to be approved by someone other than the original translator.
