@@ -40,13 +40,18 @@ You need somewhere to send your coins to. Usually, someone would send you an add
 
 You're now ready to send some coins. This is actually quite simple via the command line. You just use `bitcoin-cli sendtoaddress [address] [amount]`. So, to send a little coinage to the address `n2eMqTT929pb1RDNuqEnxdaLau1rxy3efi` just requires:
 ```
-$ txid=$(bitcoin-cli sendtoaddress n2eMqTT929pb1RDNuqEnxdaLau1rxy3efi 0.1)
+$ txid=$(bitcoin-cli sendtoaddress n2eMqTT929pb1RDNuqEnxdaLau1rxy3efi 0.001)
 $ echo $txid
 93250d0cacb0361b8e21030ac65bc4c2159a53de1075425d800b2d7a8ab13ba8
 ```
+
+> 🙏 To help keep testnet faucets alive, try to use the return address of the same faucet you used in the previous chapter on receiving transactions. 
+
 Make sure the address you write in is where you want the money to go. Make _double_ sure. If you make mistakes in Bitcoin, there's no going back.
 
 You'll receive a txid back when you issue this command.
+
+> ❕ You may end up with an error code if you don't have enough funds in your wallet to send the transaction. Depending on your current balance `bitcoin-cli getbalance` you may need to adjust the amount to be sent to account for the amount being sent along with the transaction fee. If your current balance is 0.001, then you could try sending 0.0001. Alternatively, it would be better to instead subtract the expected fee given in the error message from your current balance. This is good practice as many wallets expect you to calculate your own amount + fees when withdrawing, even among popular exchanges. 
 
 > :warning: **WARNING:** The `bitcoin-cli` command actually generates JSON-RPC commands when it's talking to the bitcoind. They can be really picky. This is an example: if you list the bitcoin amount without the leading zero (i.e. ".1" instead of "0.1"), then bitcoin-cli will fail with a mysterious message.
 

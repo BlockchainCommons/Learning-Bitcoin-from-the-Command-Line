@@ -50,7 +50,7 @@ You're now ready to create a node based on the Stackscript.
    * **Fully Qualified Hostname.** If you're going to include this VPS as part of a network with full DNS records, type in the hostname with its domain. For example, "mybtctest.mydomain.com". Otherwise, just repeat the short hostname and add ".local", for example "mybtctest.local".
 3. Enter the password for the "standup" user.
 4. Choose an Installation Type in the advanced options. 
-   * **Installation Type.** This is likely "Mainnet" or "Pruned Mainnet" if you are setting up a node for usage and "Testnet" or "Pruned Testnet" if you're just playing around. See the [Synopsis](#synopsis-bitcoin-installation-types) for more information on these options. (Note that if you plan to try out the Lightning chapters, you'll probably want to use an Unpruned node, as working with Pruned nodes on Lightning is iffy. See [§18.1](18_1_Verifying_Your_Lightning_Setup.md#compiling-the-source-code) for the specifics.)
+   * **Installation Type.** This is likely "Mainnet" or "Pruned Mainnet" if you are setting up a node for usage and "Testnet" or "Pruned Testnet" if you're just playing around. The bulk of this tutorial will assume you chose "Pruned Testnet", but you should still be able to follow along with other types. See the [Synopsis](#synopsis-bitcoin-installation-types) for more information on these options. (Note that if you plan to try out the Lightning chapters, you'll probably want to use an Unpruned node, as working with Pruned nodes on Lightning is iffy. See [§18.1](18_1_Verifying_Your_Lightning_Setup.md#compiling-the-source-code) for the specifics.)
 5. Fill in any other appropriate advanced options.
    * **X25519 Public Key.** This is a public key to add to Tor's list of authorized clients. If you don't use it, anyone who gets the QR code for your node can access it. You'll get this public key from whichever client you're using to connect to your node. For example, if you use [FullyNoded 2](https://github.com/BlockchainCommons/FullyNoded-2), you can go to its settings and "Export Tor V3 Authentication Public Key" for use here.
   * **SSH Key.** Copy your local computer's SSH key here; this allows you be able to automatically login in via SSH to the standup account. If you haven't setup an SSH key on your local computer yet, there are good instructions for it on [Github](https://help.github.com/articles/generating-a-new-ssh-key-and-adding-it-to-the-ssh-agent/).  You may also want to add your SSH key into your Linode LISH (Linode Interactive Shell) by going to your "Linode Home Page / My Preferences / LISH Settings /  LISH Keys". Using an SSH key will give you a simpler and safer way to log in to your server.
@@ -183,7 +183,7 @@ If all look good, congratulations, you have a functioning Bitcoin node using Lin
 
 ## What We Have Wrought
 
-Although the default Debian 10 image that we are using for your VPS has been modified by Linode to be relatively secure, your Bitcoin node as installed through the Linode StackScript is set up with an even high level of security. You may find this limiting, or be unable to do things that you expect. Here are a few notes on that:
+Although the default Debian 10 image that we are using for your VPS has been modified by Linode to be relatively secure, your Bitcoin node as installed through the Linode StackScript is set up with an even higher level of security. You may find this limiting, or be unable to do things that you expect. Here are a few notes on that:
 
 ### Protected Services
 

@@ -163,6 +163,8 @@ To financially support further development of `$projectname` and other projects,
 
 We encourage public contributions through issues and pull requests! Please review [CONTRIBUTING.md](./CONTRIBUTING.md) for details on our development process. All contributions to this repository require a GPG signed [Contributor License Agreement](./CLA.md).
 
+if you would like to provide a translation of Learning Bitcoin into another language, please additionally see [TRANSLATING.md](./TRANSLATING.md).
+
 ### Discussions
 
 The best place to talk about Blockchain Commons and its projects is in our GitHub Discussions areas.

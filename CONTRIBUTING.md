@@ -11,9 +11,9 @@ We love your input! We want to make contributing to this project as easy and tra
 ## We Develop with Github
 We use GitHub to host code, to track issues and feature requests, and to accept Pull Requests.
 
-## Report Bugs using Github's [issues](https://github.com/briandk/transcriptase-atom/issues)
+## Report Bugs using Github's [issues](https://github.com/BlockchainCommons/Learning-Bitcoin-from-the-Command-Line/issues)
 
-If you find bugs, mistakes, or inconsistencies in this project's code or documents, please let us know by [opening a new issue](./issues), but consider searching through existing issues first to check and see if the problem has already been reported. If it has, it never hurts to add a quick "+1" or "I have this problem too". This helps prioritize the most common problems and requests.
+If you find bugs, mistakes, or inconsistencies in this project's code or documents, please let us know by [opening a new issue](https://github.com/BlockchainCommons/Learning-Bitcoin-from-the-Command-Line/issues/new), but consider searching through existing issues first to check and see if the problem has already been reported. If it has, it never hurts to add a quick "+1" or "I have this problem too". This helps prioritize the most common problems and requests.
 
 ### Write Bug Reports with Detail, Background, and Sample Code
 
