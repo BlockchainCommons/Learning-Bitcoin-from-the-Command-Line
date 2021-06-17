@@ -1,6 +1,6 @@
 # 2.2: Configurando um node Bitcoin Core por outros métodos
 
-Este documento explica como configurar um VPS (Virtual Private Server) para executar um node Bitcoin em linode.com, instalado usando um StackScript automatizado do [Bitcoin Standup project](https://github.com/BlockchainCommons/Bitcoin-Standup -Scripts). Você só precisa inserir alguns comandos e inicializar seu VPS. Quase imediatamente após inicializar, você encontrará seu novo node Bitcoin baixando blocos alegremente.
+Este documento explica como configurar um VPS (Virtual Private Server) para executar um node Bitcoin em linode.com, instalado usando um StackScript automatizado do [Bitcoin Standup project](https://github.com/BlockchainCommons/Bitcoin-Standup-Scripts). Você só precisa inserir alguns comandos e inicializar seu VPS. Quase imediatamente após inicializar, você encontrará seu novo node Bitcoin baixando blocos alegremente.
 
 A seguir estão outras metodologias de configuração que conhecemos:
 
