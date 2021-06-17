@@ -5,7 +5,7 @@ Antes de começar a programar em Bitcoin (e Lightning), você deve ter uma compr
 
 ## Sobre o Bitcoin
 
-O Bitcoin é um sistema programável que permite a transferência da moeda bitcoin. Tem como base um sistema descentralizado _peer-to-peer_ (de ponta à ponta) de nodes, que inclui full nodes, carteiras e mineradores. Trabalhando juntos, eles garantem que as transações do bitcoin sejam rápidas e irreversíveis. Graças à natureza descentralizada do sistema, essas transações também são resistentes à censura e podem fornecer outras vantagens, como pseudonimato, caso sejam bem utilizadas.
+O Bitcoin é um sistema programável que permite a transferência da moeda bitcoin. Tem como base um sistema descentralizado _peer-to-peer_ (de ponta à ponta) de nodes, que inclui full nodes, carteiras e mineradores. Trabalhando juntos, eles garantem que as transações do bitcoin sejam rápidas e irreversíveis. Graças à natureza descentralizada do sistema, essas transações também são resistentes à censura e podem fornecer outras vantagens, como pseudo-anonimato, caso sejam bem utilizadas.
 
 Obviamente, Bitcoin é o coração deste livro, mas também é o originador de muitos outros sistemas, incluindo a blockchain e Lightning, que são detalhados neste tutorial, e muitas outras criptomoedas, como Ethereum e Litecoin, que não são.
 
@@ -33,7 +33,7 @@ Uma maneira de pensar no Bitcoin é como _uma sequência de transações atômic
 
 A criptografia de chave pública é um sistema matemático para proteção de dados e comprovação de propriedade por meio de um par assimétrico de chaves que estão vinculadas entre si: a chave pública e a chave privada.
 
-É importante para o Bitcoin (e para a maioria dos sistemas que utilizam a blockchain) porque é a base de grande parte da criptografia que protege os fundos das criptomoedas. Uma transação de Bitcoin é normalmente enviada para um endereço que é um hash da chave pública . O destinatário pode então recuperar o dinheiro utilizando a chave pública e a chave privada.
+É importante para o Bitcoin (e para a maioria dos sistemas que utilizam a blockchain) porque é a base de grande parte da criptografia que protege os fundos das criptomoedas. Uma transação de Bitcoin é normalmente enviada para um endereço que é um hash da chave pública. O destinatário pode então recuperar o dinheiro utilizando a chave pública e a chave privada.
 
 **_O que é uma chave pública?_** Uma chave pública é a chave fornecida as demais pessoas. Em um sistema de chave pública comum, um usuário gera uma chave pública e uma chave privada e, em seguida, dá a chave pública para as pessoas. Esses destinatários podem criptografar informações com a chave pública, mas não podem ser descriptografadas com a mesma chave devido à assimetria do par de chaves.
 
@@ -47,7 +47,7 @@ O Bitcoin aproveita a capacidade do hash de disfarçar os dados originais, o que
 
 ### Resumindo a criptografia de chave pública
 
-Uma maneira de pensar na criptografia de chave pública é: _uma jeito de qualquer pessoa proteger os dados de forma que apenas uma pessoa autorizada possa acessá-los e também possa provar que tem esse acesso._
+Uma maneira de pensar na criptografia de chave pública é: _um jeito de qualquer pessoa proteger os dados de forma que apenas uma pessoa autorizada possa acessá-los e também possa provar que tem esse acesso._
 
 ## Sobre CCE
 
@@ -59,7 +59,7 @@ O CCE não terá tanta atenção neste tutorial. Isso porque falaremos mais sobr
 
 Qualquer linha que cruze uma curva elíptica o fará em 1 ou 3 pontos... e essa é a base da criptografia de curva elíptica.
 
-**_O que são campos finitos?_** Um campo finito é um conjunto finito de números, onde todas as adições, subtrações, multiplicações e divisões são definidas de forma que resultem em outros números que também estarão no mesmo campo finito. Uma maneira simples de criar um campo finito é por meio do uso de uma função módulo.
+**_O que são campos finitos?_** Um campo finito é um conjunto finito de números, onde todas as adições, subtrações, multiplicações e divisões são definidas de forma que resultem em outros números que também estarão no mesmo campo finito. Uma maneira simples de criar um campo finito é por meio do uso da aritmética modular.
 
 **_Como uma curva elíptica é definida sobre um campo finito?_** Uma curva elíptica definida sobre um campo finito tem todos os pontos em sua curva desenhados a partir de um campo finito específico. Ele assume a forma: ``y``<sup>``2``</sup>``% tamanho-do-campo = (x``<sup>``3``</sup>`` + ax + b) % tamanho-do-campo``. O campo finito usado para secp256k1 é ``2``<sup>``256``</sup>``-2``<sup>``32``</sup>``-2``<sup>``9``</sup>``-2``<sup>``8``</sup>``-2``<sup>``7``</sup>``-2``<sup>``6``</sup>``-2``<sup>``4``</sup>``-1``.
 
@@ -67,7 +67,7 @@ Qualquer linha que cruze uma curva elíptica o fará em 1 ou 3 pontos... e essa 
 
 Essa metodologia específica também explica por que os campos finitos são usados ​​em curvas elípticas: Ela garante que a chave privada não ficará muito grande. Observe que o campo finito para secp256k1 é ligeiramente menor que 256 bits, o que significa que todas as chaves públicas terão 256 bits, assim como as chaves privadas.
 
-**_Quais são as vantagens do CCE?_** A principal vantagem do ECC é que ele permite a mesma segurança da criptografia de chave pública clássica com uma chave muito menor. Uma chave pública de curva elíptica de 256 bits corresponde a uma chave pública tradicional (RSA) de 3072 bits.
+**_Quais são as vantagens do CCE?_** A principal vantagem do CCE é que ele permite a mesma segurança da criptografia de chave pública clássica com uma chave muito menor. Uma chave pública de curva elíptica de 256 bits corresponde a uma chave pública tradicional (RSA) de 3072 bits.
 
 ### Resumindo o CCE
 
