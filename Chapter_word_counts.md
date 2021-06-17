@@ -1,6 +1,6 @@
 ## Translatable word counts by chapter
 
-Ignores code blocks and other non-translateable characters
+Ignores code blocks and other non-translatable characters
 
 Chapter|Word Count
 ---|---
