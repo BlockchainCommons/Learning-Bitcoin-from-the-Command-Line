@@ -1,4 +1,7 @@
 ## Translatable word counts by chapter
+
+Ignores code blocks and other non-translateable characters
+
 Chapter|Word Count
 ---|---
 01_0_Introduction.md|1144
