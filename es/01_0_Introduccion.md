@@ -12,3 +12,8 @@ Si eres uno de esos emprendedores o desarrolladores, este curso es para ti, porq
 
 Por lo tanto, gran parte de este libro analiza cómo crear un script de Bitcoin (y Lightning) directamente desde la línea de comandos. Algunos capítulos posteriores tratan sobre lenguajes de programación más sofisticados, pero nuevamente continúan interactuando directamente con los demonios bitcoind y lightningd usando RPC o interactuando con los archivos que crean. Esto le permite pararse sobre los hombros de gigantes y utilizar la tecnología de forma confiable para aprender a crear sus propios sistemas confiables.
 
+# Nivel de habilidad requerido
+
+No es necesario ser técnico para avanzar en la mayor parte de este curso. Todo lo que necesita es la confianza para ejecutar comandos básicos en la línea de comandos de UNIX. Si está familiarizado con cosas como ssh, cd y ls, el curso le proporcionará el resto.
+
+Una parte menor de este curso requiere conocimientos de programación, y debe omitir esas secciones si es necesario como se explica en la siguiente sección.
