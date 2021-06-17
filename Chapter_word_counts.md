@@ -1,3 +1,4 @@
+## Translatable word counts by chapter
 Chapter|Word Count
 ---|---
 01_0_Introduction.md|1144
@@ -102,3 +103,4 @@ CONTRIBUTING.md|529
 LICENSE-CC-BY-4.0.md|2716
 README.md|1705
 TRANSLATING.md|686
+TOTAL|89069
