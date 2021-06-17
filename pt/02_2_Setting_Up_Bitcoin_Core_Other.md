@@ -14,4 +14,4 @@ A seguir estão outras metodologias de configuração que conhecemos:
 
 A menos que você queira retornar a uma das outras metodologias para criar um seu node Bitcoin, você deve:
 
-   * Mova-se para "bitcoin-cli" [Capitulo três: Compreendendo a configuração do seu node Bitcoin](03_0_Understanding_Your_Bitcoin_Setup.md).
+   * Mova-se para "bitcoin-cli" [Capítulo três: Compreendendo a configuração do seu node Bitcoin](03_0_Understanding_Your_Bitcoin_Setup.md).
