@@ -2,20 +2,20 @@
 
 Transacciones Básicas bitcoin: (1) enviar fondos; (2) a un destinatario P2PKH simple o SegWit; (3) desde una máquina; (4) inmediatamente. Sin embargo, estas cuatro partes de esta definición pueden expandirse usando transacciones Bitcoin más complejas. Este primer capítulo de "Expansión" muestra cómo variar puntos (2) y (3) enviando dinero a una dirección que representa a múltiples destinatarios (o al menos, múltiples firmantes).
 
-## Objectives for This Section
+## Objectivos para Esta Sección
 
-After working through this chapter, a developer will be able to:
+Luego de trabajar a lo largo de este capítulo, un desarrollador será capaz de:
 
-   * Create Multisignature Bitcoin Addresses Using Bitcoin Fundamentals
-   * Create Multisignature Bitcoin Addresses Using Easier Mechanisms
+   * Crear Direcciones Bitcoin Multifirma Usando los Fundamentos de Bitcoin
+   * Crear Direcciones Bitcoin Multifirma Usando Mecanismos más Sencillos
    
-Supporting objectives include the ability to:
+Los objetivos propuestos incluyen la habilidad de:
 
-   * Understand How to Spend Funds Sent to a Multisignature
-   * Plan for the Power of Multisignatures
+   * Comprender Cómo Gastar Fondos Enviados a una Multifirma
+   * Planificar el Poder de las Multifirmas
    
-## Table of Contents
+## Tabla de Contenidos
 
-   * [Section One: Sending a Transaction with a Multsig](06_1_Sending_a_Transaction_to_a_Multisig.md)
-   * [Section Two: Spending a Transaction with a Multsig](06_2_Spending_a_Transaction_to_a_Multisig.md)
-   * [Section Three: Sending & Spending an Automated Multisig](06_3_Sending_an_Automated_Multisig.md)
+   * [Sección Uno: Enviando una Transacción con una Multifirma](06_1_Sending_a_Transaction_to_a_Multisig.md)
+   * [Sección Dos: Gastando una Transacción con una Multifirma](06_2_Spending_a_Transaction_to_a_Multisig.md)
+   * [Sección Tres: Enviando y Gastando una Multifirma Automática](06_3_Sending_an_Automated_Multisig.md)
