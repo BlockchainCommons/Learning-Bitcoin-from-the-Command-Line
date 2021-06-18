@@ -1,4 +1,4 @@
-# 6.1: Sending a Transaction with a Multisig
+# 6.1: Enviando una Transacción con una Multifirma
 
 The first way to vary how you send a basic transaction is to use a multisig. This gives you the ability to require that multiple people (or at least multiple private keys) authorize the use of funds.
 
