@@ -1,6 +1,6 @@
-# Chapter Six: Expanding Bitcoin Transactions with Multisigs
+# Capítulo Seis: Expandiendo Transacciones Bitcoin con Multifirmas
 
-Basic bitcoin transactions: (1) send funds; (2) to a single P2PKH or SegWit recipient; (3) from a single machine; (4) immediately. However, all four parts of this definition can be expanded using more complex Bitcoin transactions. This first chapter on "Expansion" shows how to vary points (2) and (3) by sending money to an address that represents multiple recipients (or at least, multiple signers).
+Transacciones Básicas bitcoin: (1) enviar fondos; (2) a un destinatario P2PKH simple o SegWit; (3) desde una máquina; (4) inmediatamente. Sin embargo, estas cuatro partes de esta definición pueden expandirse usando transacciones Bitcoin más complejas. Este primer capítulo de "Expansión" muestra cómo variar puntos (2) y (3) enviando dinero a una dirección que representa a múltiples destinatarios (o al menos, múltiples firmantes).
 
 ## Objectives for This Section
 
