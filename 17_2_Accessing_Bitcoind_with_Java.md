@@ -273,7 +273,7 @@ You now can sign transaction with the method `signRawTransactionWithKey`. This m
 Finally, sending requires the `sendRawTransaction` command:
 ```java
 String sentRawTransactionID = rpcClient.sendRawTransaction(srTx.hex());
-System.out.println("Sent signedRawTx (txID): " + sentRawTransactionID);```
+System.out.println("Sent signedRawTx (txID): " + sentRawTransactionID);
 ```
 
 ### Run Your Code
