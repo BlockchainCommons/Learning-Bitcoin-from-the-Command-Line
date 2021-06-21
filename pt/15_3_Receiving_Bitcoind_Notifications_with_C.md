@@ -71,7 +71,7 @@ int main(int argc, char ** argv) {
   char *zmqserver;
   char *topic;
 
-  if (argc < 3) {
+  if(argc < 3) {
     printf("\nUSAGE:\nchainlistener <tcp://localhost:port> <topic>\n\n");
     return 0;
   } else {
@@ -114,7 +114,7 @@ Enquanto esperamos, observamos as mensagens no soquete ZMQ. Sempre que recebermo
 É isso!
 
 Claro, quando terminar o processo, precisamos limpar tudo:
-```
+``` c
   zsock_destroy(&socket);
   return 0;
 }

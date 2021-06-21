@@ -7,7 +7,7 @@ Você já viu uma maneira alternativa de acessar as portas RPC do Bitcoind: Usan
 
 ## Configurando o libbitcoinrpc
 
-Para usar o ``libbitcoinrpc``,  precisemos instalar uma configuração básica C e os pacotes dependentes, que são ``libcurl``, ``libjansson``, e ``libuuid``. Depois faremos isso no seu servidor Standup Bitcoin (ou em qualquer outro servidor Ubuntu).
+Para usar o ``libbitcoinrpc``,  precisaremos instalar uma configuração básica C e os pacotes dependentes, que são ``libcurl``, ``libjansson``, e ``libuuid``. Depois faremos isso no seu servidor Standup Bitcoin (ou em qualquer outro servidor Ubuntu).
 
 ```
 $ sudo apt-get install make gcc libcurl4-openssl-dev libjansson-dev uuid-dev
@@ -20,7 +20,6 @@ Need to get 358 kB of archives.
 After this operation, 1.696 kB of additional disk space will be used.
 Do you want to continue? [Y/n] y
 ```
-You can then download [libbitcoinrpc from Github](https://github.com/gitmarek/libbitcoinrpc/blob/master/README.md). Clone it or grab a zip file, as you prefer.
 Agora, podemos baixar o [libbitcoinrpc no github](https://github.com/gitmarek/libbitcoinrpc/blob/master/readme.md). Vamos clonar ou pegar um arquivo zip, do jeito que preferir.
 
 ```
@@ -74,7 +73,7 @@ ldconfig -v -n .lib
   libbitcoinrpc.so.0 -> libbitcoinrpc.so.0.2 (changed)
 ln -fs libbitcoinrpc.so.0 .lib/libbitcoinrpc.so
 ```
-If that works, you can install the package:
+Se tudo correr bem, podemos instalar o pacote:
 ```
 $ sudo make install
 Installing to 
@@ -97,7 +96,7 @@ install -m 644 doc/man3/bitcoinrpc*.gz /usr/local/man/man3
 ``libbitcoinrpc`` tem métodos simples e bem estruturados para conectar-se ao nosso `bitcoind`, executando chamadas RPC e decodificando a resposta.
 
 Para usar o ``libbitcoinrpc``, é importante certificar de que nossos arquivos do código incluam os cabeçalhos apropriados:
-```
+``` c
 #include <jansson.h>
 #include <bitcoinrpc.h>
 ```
@@ -141,7 +140,7 @@ rpcbind=127.0.0.1
 rpcport=18443
 ```
 Com essas informações, vamos colocá-las no ``bitcoinrpc_cl_init_params``:
-```
+``` c
 bitcoinrpc_cl_t *rpc_client;
 rpc_client = bitcoinrpc_cl_init_params("StandUp", "6305f1b2dbb3bc5a16cd0f4aac7e1eba", "127.0.0.1", 18332);
 ```
@@ -151,7 +150,7 @@ rpc_client = bitcoinrpc_cl_init_params("StandUp", "6305f1b2dbb3bc5a16cd0f4aac7e1
 Se o ``rpc_client`` for inicializado com sucesso, poderemos enviar os comandos do RPC.
 
 Mais tarde, quando tivermos feito com a conexão de ``bitcoind``, poderemos fechar da seguinte maneira:
-```
+``` c
 bitcoinrpc_global_cleanup();
 ```
 
@@ -171,49 +170,48 @@ Successfully connected to server!
 ## Fazendo uma chamada ao RPC
 
 Para usarmos um método RPC usando ``libbitcoinrpc``, devemos inicializar uma variável do tipo ``bitcoinrpc_method_t``. Podemos fazer com o valor apropriado para o método que desejamos utilizar, que estão todos listados na [Referências do BitcoinRPC](https://github.com/gitmarek/libbitcoinrpc/blob/master/doc/reference.md).
-```
+``` c
 bitcoinrpc_method_t *getmininginfo  = NULL;
 getmininginfo = bitcoinrpc_method_init(BITCOINRPC_METHOD_GETMININGINFO);
 ```
 Normalmente definiríamos os parâmetros em seguida, mas o ``GetMiningInfo`` não requer parâmetros, por isso podemos pular essa parte.
 
 Também devemos criar outros dois objetos, um "objeto de resposta" e um "objeto de erro". Eles podem ser inicializados da seguinte forma:
-```
+``` c
 bitcoinrpc_resp_t *btcresponse  = NULL;
 btcresponse = bitcoinrpc_resp_init();
 
 bitcoinrpc_err_t btcerror;
 ```
-You use the `rpc_client` variable that you already learned about in the previous test, and add on your `getmininginfo` method and the two other objects:
-Vamos usar a variável ``rpc_client`` que aprendemos no teste anterior e vamos adicionar nosso método ``GetMiningInfo`` e os outros dois objetos:
-```
+Vamos usar a variável ``rpc_client`` que aprendemos no teste anterior e vamos adicionar nosso método ``getmininginfo`` e os outros dois objetos:
+``` c
 bitcoinrpc_call(rpc_client, getmininginfo, btcresponse, &btcerror);
 ```
 
 ### Mostrando o retorno da chamada
 
 Com certeza iremos querer saber o que a RPC retornou. Para fazermos isso, vamos recuperar a saída da nossa chamada como sendo um objeto JSON com ``bitcoinrpc_resp_get`` e vamos salvá-la em um objeto padrão ``jansson``, do tipo ``json_t``:
-```
+``` c
 json_t *jsonresponse = NULL;
 jsonresponse = bitcoinrpc_resp_get(btcresponse);
 ```
 Se quisermos gerar os resultados completos da chamada RPC no JSON, podemos fazer com uma simples invocação do ``json_dumps``, da biblioteca ``jansson``:
-```
-printf ("%s\n", json_dumps(j, JSON_INDENT(2)));
+``` c
+printf("%s\n", json_dumps(j, JSON_INDENT(2)));
 ```
 No entanto, como agora estamos escrevendo programas completos, provavelmente iremos querer fazer um trabalho mais sutil, como retirar valores individuais do JSON para algum uso específico. A [Referência do Jansson](https6//jansson.readthedocs.Io/en/2.10/apiref.html) traz detalhes de como fazer.
 
-Assim como quando estávamos usando o [curl](04_4__interlude_using_curl.md), descobrimos que o RPC retorna um objeto JSON contendo um ``ID``, um ``error`` e, mais importante, um objeto JSON do tipo ``result``.
+Assim como estávamos usando o [curl](04_4__interlude_using_curl.md), descobrimos que o RPC retorna um objeto JSON contendo um ``ID``, um ``error`` e, mais importante, um objeto JSON do tipo ``result``.
 
 A função ``json_object_get`` permite recuperar um valor (como o ``result``) de um objeto JSON usando chaves:
-```
+``` c
 json_t *jsonresult = NULL;
 jsonresult = json_object_get(jsonresponse,"result");
-printf ("%s\n", json_dumps (jsonresult, JSON_INDENT(2)));
+printf("%s\n", json_dumps(jsonresult, JSON_INDENT(2)));
 ```
 
 No entanto, provavelmente iremos querer analisar informações ainda mais profundas, para obter uma variável específica. Depois de recuperar o valor apropriado, precisaremos convertê-lo em um objeto C padrão usando a função ``JSON_*_value``. Por exemplo, para acessar um integer usamos o ``json_integer_value``:
-```
+``` c
 json_t *jsonblocks = NULL;
 jsonblocks = json_object_get(jsonresult,"blocks");
 
@@ -264,23 +262,23 @@ Mas e se a sua chamada RPC tiver argumentos?
 Para enviar parâmetros para a nossa chamada RPC usando ``libbitcoinrpc`` teremos que envolvê-los em uma matriz json. Como uma matriz é apenas uma simples listagem de valores, tudo o que precisamos fazer é codificar os parâmetros como elementos ordenados na matriz.
 
 Vamos criar a matriz JSON usando a função ``json_array do``  do ``jansson``:
-```
+``` c
 json_t *params = NULL;
 params = json_array();
 ```
 Vamos fazer o processo inverso que fizemos para acessar valores do JSON: Vamos converter objetos no C para objetos no JSON usando as funções ``JSON_*``. Depois, vamos anexar tudo à matriz:
-```
+``` c
 json_array_append_new(params,json_string(tx_rawhex));
 ```
 
 Observe que existem duas variantes para o comando de anexação: ``json_array_apend_new``, que acrescenta uma variável recém-criada, e ``json_array_apend``, que anexa uma variável existente.
 
-Esta metodologia simples ``json_array_apend_new`` servirá para a maioria dos comandos RPC com parâmetros, mas alguns dos comandos RPC exigem entradas mais complexas. Nesses casos, precisemos criar objetos JSON ou arrays em JSON, que anexaremos ao parâmetros de array como de costume. A próxima seção contém um exemplo de como fazer isso usando o ``CrayAwTransaction``, que contém uma matriz JSON de objetos JSON para as entradas, um objeto JSON para as saídas e o parâmetro ``locktime``.
+Esta metodologia simples ``json_array_apend_new`` servirá para a maioria dos comandos RPC com parâmetros, mas alguns dos comandos RPC exigem entradas mais complexas. Nesses casos, precisaremos criar objetos JSON ou arrays em JSON, que anexaremos ao parâmetros de array como de costume. A próxima seção contém um exemplo de como fazer isso usando o ``CrayAwTransaction``, que contém uma matriz JSON de objetos JSON para as entradas, um objeto JSON para as saídas e o parâmetro ``locktime``.
 
 ### Atribuindo os parâmetros
 
 Quando criamos o parâmetro array no JSON, simplesmente o atribuímos depois de inicializar o método RPC, da seguinte maneira:
-```
+``` c
 bitcoinrpc_method_set_params(rpc_method, params)
 ```
 Esta seção não inclui uma amostra abrangente dessa metodologia mais complexa, mas vamos vê-la em ação várias vezes no nosso primeiro programa C mais abrangente usando o RPC, na próxima seção.

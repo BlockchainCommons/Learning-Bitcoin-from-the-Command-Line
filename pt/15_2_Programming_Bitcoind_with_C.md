@@ -1,7 +1,6 @@
 
 # 15.2: Programando o Bitcoind usando C com bibliotecas RPC
 
-> :information_source: **NOTE:** This section has been recently added to the course and is an early draft that may still be awaiting review. Caveat reader.
 > :information_source: **NOTA:** Esta seção foi adicionada recentemente ao curso e é um rascunho que pode estar aguardando revisão. Portanto, leitor, tenha cuidado.
 
 A sessão [§15.1](15_1_Accessing_Bitcoind_with_C.md) apresentou a metodologia para a criação de programas C usando bibliotecas RPC e JSON. Agora vamos mostrar o potencial dessas bibliotecas C fazendo algumas coisas um pouco mais avançadas usando o programa real do Bitcoin.
@@ -39,8 +38,8 @@ Agora estamos prontos para realizar o passo a passo do nosso plano
 ### Etapa 1: Solicitando um endereço e uma quantia
 
 Inserir as informações é bem simples se usarmos os argumentos na linha de comando:
-```
-if (argc != 3) {
+``` c
+if(argc != 3) {
 
   printf("ERROR: Only %i arguments! Correct usage is '%s [recipient] [amount]'\n",argc-1,argv[0]);
   exit(-1);
@@ -59,7 +58,7 @@ printf("Sending %4.8f BTC to %s\n",tx_amount,tx_recipient);
 
 Este exemplo colocamos uma taxa arbitrária de 0.0005 BTC para garantir que as transações do teste sejam processadas rapidamente:
 
-```
+``` c
 float tx_fee = 0.0005;
 float tx_total = tx_amount + tx_fee;
 ```
@@ -69,16 +68,16 @@ float tx_total = tx_amount + tx_fee;
 ### Etapa 3: Preparando nosso RPC
 
 Obviamente, precisaremos preparar todas as nossas variáveis novamente, conforme discutido na sessão [§15.1: Acessando o Bitcoind usando C](15_1_Accessing_Bitcoind_with_C.md). Também precisaremos inicializar a nossa biblioteca, conectar o cliente RPC e preparar nosso objeto de resposta:
-```
+``` c
 bitcoinrpc_global_init();
-rpc_client = bitcoinrpc_cl_init_params ("bitcoinrpc", "YOUR-RPC-PASSWD", "127.0.0.1", 18332);
+rpc_client = bitcoinrpc_cl_init_params("bitcoinrpc", "YOUR-RPC-PASSWD", "127.0.0.1", 18332);
 btcresponse = bitcoinrpc_resp_init();
 ```
 
 ### Etapa 4: Encontrando um UTXO
 
 Para encontrar um UTXO, precisaremos chamar a função RPC ``listunspent``:
-```
+``` c
 rpc_method = bitcoinrpc_method_init(BITCOINRPC_METHOD_LISTUNSPENT);
 bitcoinrpc_call(rpc_client, rpc_method, btcresponse, &btcerror);
 ```
@@ -86,25 +85,25 @@ bitcoinrpc_call(rpc_client, rpc_method, btcresponse, &btcerror);
 No entanto, o verdadeiro trabalho consiste em decodificar a resposta. Na seção anterior vimos que a biblioteca ``jansson`` era "um tanto quanto desajeitada" e esta é a razão: Precisamos criar (e limpar) um conjunto muito grande de objetos ``json_t`` para descobrir o que queremos.
 
 Primeiro, precisamos nos recuperar o campo ``result`` do JSON:
-```
+``` c
 json_t *lu_response = NULL;
 json_t *lu_result = NULL;
 
-lu_response = bitcoinrpc_resp_get (btcresponse);
+lu_response = bitcoinrpc_resp_get(btcresponse);
 lu_result = json_object_get(lu_response,"result");
 ```
 
 > :warning: **ATENÇÃO:** Só obteremos um resultado se não houver nenhum erro. Aqui temos um momento para melhorar nossa verificação de erros no código que iremos colocar em produção.
 
 Em seguida, vamos fazer um laço, examinando cada transação que não foi gasta, que aparece como um elemento em sua matriz do resultado JSON:
-```
+``` c
 int i;
 
 const char *tx_id = 0;
 int tx_vout = 0;
 double tx_value = 0.0;
 
-for (i = 0 ; i < json_array_size(lu_result) ; i++) {
+for(i = 0 ; i < json_array_size(lu_result) ; i++) {
 
   json_t *lu_data = NULL;
   lu_data = json_array_get(lu_result, i);
@@ -118,8 +117,8 @@ O UTXO é grande o suficiente para pagar sua transação? Se sim, pegue-o!
 
 > :warning: **ATENÇÃO:** Um programa em produção pensaria com mais cuidado sobre qual UTXO utilizar, com base no tamanho e em outros fatores. Provavelmente não pegaria apenas o primeiro mais simples e pronto.
 
-```
-  if (tx_value > tx_total) {
+``` c
+  if(tx_value > tx_total) {
 
     json_t *lu_txid = NULL;
     lu_txid = json_object_get(lu_data,"txid");
@@ -138,7 +137,7 @@ O UTXO é grande o suficiente para pagar sua transação? Se sim, pegue-o!
   } 
 ```
 Você também deve limpar os principais elementos do JSON:
-```
+``` c
 }
 
 json_decref(lu_result);
@@ -148,8 +147,8 @@ json_decref(lu_response);
 > :warning: **ATENÇÃO:** Um programa em produção também se certificaria de que os UTXOs são passíveis de serem `gastos`.
 
 Se não encontramos nenhum UTXOs grande o suficiente, teremos que relatar este infortúnio ao usuário... E talvez, sugerir que ele deva usar um programa melhor, que irá mesclar os UTXOs de maneira correta.
-```
-if (!tx_id) {
+``` c
+if(!tx_id) {
 
   printf("Very Sad: You don't have any UTXOs larger than %f\n",tx_total);
   exit(-1);
@@ -161,10 +160,10 @@ if (!tx_id) {
 ### Etapa 5: Criando uma alteração de endereço
 
 Repita a metodologia padrão de pesquisa RPC para obter uma alteração de endereço:
-```
+``` c
 rpc_method = bitcoinrpc_method_init(BITCOINRPC_METHOD_GETRAWCHANGEADDRESS);
 
-if (!rpc_method) {
+if(!rpc_method) {
 
   printf("ERROR: Unable to initialize listunspent method!\n");
   exit(-1);
@@ -173,7 +172,7 @@ if (!rpc_method) {
 
 bitcoinrpc_call(rpc_client, rpc_method, btcresponse, &btcerror);
 
-if (btcerror.code != BITCOINRPCE_OK) {
+if(btcerror.code != BITCOINRPCE_OK) {
 
 printf("Error: listunspent error code %d [%s]\n", btcerror.code,btcerror.msg);
 
@@ -181,7 +180,7 @@ printf("Error: listunspent error code %d [%s]\n", btcerror.code,btcerror.msg);
 
 }
 
-lu_response = bitcoinrpc_resp_get (btcresponse);
+lu_response = bitcoinrpc_resp_get(btcresponse);
 lu_result = json_object_get(lu_response,"result");
 char *changeaddress = strdup(json_string_value(lu_result));
 ```
@@ -204,7 +203,7 @@ Para relembrar, as entradas serão uma matriz JSON contendo um objeto JSON para 
 #### Etapa 6.1: Criando os parâmetros de entrada
 
 Para criar o objeto de entrada para nosso UTXO, vamos usar o ``json_object`` e preencher com os valores-chave usando ``json_object_set_new`` (para referências recém-criadas) ou ``json_object_set`` (para referências já existentes):
-```
+``` c
 json_t *inputtxid = NULL;
 inputtxid = json_object();
 
@@ -215,7 +214,7 @@ json_object_set_new(inputtxid,"vout",json_integer(tx_vout));
 Pode-se notar que teremos que traduzir novamente cada tipo de variável C em um tipo de variável JSON usando a função apropriada, como ``json_string`` ou ``json_integer``.
 
 Para criar o array de entrada para todos os UTXOs, vamos usar o ``json_array`` e, em seguida, preenchê-lo com os objetos usando o ``json_array_append``:
-```
+``` c
 json_t *inputparams = NULL;
 inputparams = json_array();
 json_array_append(inputparams,inputtxid);
@@ -224,7 +223,7 @@ json_array_append(inputparams,inputtxid);
 #### Etapa 6.2: Criando os parâmetros de saída
 
 Para criar a matriz de saída para a transação, vamos seguir o mesmo processo, criando um objeto JSON com ``json_object`` e, em seguida, vamos preenchê-lo com o ``json_object_set``:
-```
+``` c
 json_t *outputparams = NULL;
 outputparams = json_object();
 
@@ -242,7 +241,7 @@ json_object_set(outputparams, changeaddress, json_string(tx_change_string));
 #### Etapa 6.3: Criando a Matriz de Parâmetros
 
 Para terminarmos de criar os parâmetros, só precisaremos agrupá-los em uma matriz JSON:
-```
+``` c
 json_t *params = NULL;
 params = json_array();
 json_array_append(params,inputparams);
@@ -252,19 +251,19 @@ json_array_append(params,outputparams);
 #### Etapa 6.4: Fazendo a chamada ao RPC
 
 Vamos usar o método normal para criar da chamada ao RPC:
-```
+``` c
 rpc_method = bitcoinrpc_method_init(BITCOINRPC_METHOD_CREATERAWTRANSACTION);
 ```
 Agora, porém, devemos adicionar os nossos parâmetros. Isso pode ser feito facilmente com a função ``bitcoinrpc_method_set_params``:
-```
-if (bitcoinrpc_method_set_params(rpc_method, params) != BITCOINRPCE_OK) {
+``` c
+if(bitcoinrpc_method_set_params(rpc_method, params) != BITCOINRPCE_OK) {
 
-  fprintf (stderr, "Error: Could not set params for createrawtransaction");
+  fprintf(stderr, "Error: Could not set params for createrawtransaction");
 
 }
 ```
 Depois, é só executar o RPC e obter os resultados:
-```
+``` c
 bitcoinrpc_call(rpc_client, rpc_method, btcresponse, &btcerror);
 
 lu_response = bitcoinrpc_resp_get(btcresponse);
@@ -275,16 +274,16 @@ char *tx_rawhex = strdup(json_string_value(lu_result));
 ### Etapa 7. Assinando a transação
 
 É muito mais fácil atribuir um parâmetro simples a uma função. Basta criar uma matriz JSON e, em seguida, atribuir o parâmetro à matriz:
-```
+``` c
 params = json_array();
 json_array_append_new(params,json_string(tx_rawhex));
 ```
 Por fim, vamos assinar a transação seguindo o rigamarole típico para criar uma chamada RPC:
-```
+``` c
 rpc_method = bitcoinrpc_method_init(BITCOINRPC_METHOD_SIGNRAWTRANSACTION);
-if (bitcoinrpc_method_set_params(rpc_method, params) != BITCOINRPCE_OK) {
+if(bitcoinrpc_method_set_params(rpc_method, params) != BITCOINRPCE_OK) {
 
-  fprintf (stderr, "Error: Could not set params for signrawtransaction");
+  fprintf(stderr, "Error: Could not set params for signrawtransaction");
 
 }
 
@@ -294,7 +293,7 @@ bitcoinrpc_call(rpc_client, rpc_method, btcresponse, &btcerror);
 lu_response = bitcoinrpc_resp_get(btcresponse);
 ```
 Novamente, usar a função ``jansson`` para acessar a saída pode ser complicado. Devemos lembrar que ``hex`` é parte de um objeto JSON, não um resultado independente, como era quando criamos a transação bruta. Claro,  sempre podemos acessar essas informações a partir da ajuda da linha de comando: ``bitcoin-cli help signrawtransaction``
-```
+``` c
 lu_result = json_object_get(lu_response,"result");
 json_t *lu_signature = json_object_get(lu_result,"hex");
 char *tx_signrawhex = strdup(json_string_value(lu_signature));
@@ -305,15 +304,15 @@ json_decref(lu_signature);
 ### Etapa 8. Enviando a transação
 
 Agora podemos enviar a transação, usando todas as técnicas aprendidas anteriormente:
-```
+``` c
 params = json_array();
 json_array_append_new(params,json_string(tx_signrawhex));
 
 rpc_method = bitcoinrpc_method_init(BITCOINRPC_METHOD_SENDRAWTRANSACTION);
 
-if (bitcoinrpc_method_set_params(rpc_method, params) != BITCOINRPCE_OK) {
+if(bitcoinrpc_method_set_params(rpc_method, params) != BITCOINRPCE_OK) {
 
-  fprintf (stderr, "Error: Could not set params for sendrawtransaction");
+  fprintf(stderr, "Error: Could not set params for sendrawtransaction");
 
 }
 
