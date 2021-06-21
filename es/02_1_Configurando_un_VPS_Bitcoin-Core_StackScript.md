@@ -119,7 +119,7 @@ ssh standup@192.168.33.11
 Si configuró su VPS para usar una clave SSH, el inicio de sesión debe ser automático (posiblemente requiera su contraseña SSH para desbloquear su clave). Si no configuró una clave SSH, deberá ingresar la contraseña de user.
 
 
-### Wait a Few Minutes
+### Espere unos minutos
 
 Aquí hay un pequeño truco: _su StackScript se está ejecutando en este momento_. El script BASH se ejecuta la primera vez que se inicia el VPS. Eso significa que su VPS aún no está listo.
 
