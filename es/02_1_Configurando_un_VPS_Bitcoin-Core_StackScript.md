@@ -88,3 +88,180 @@ El siguiente cuadro muestra los requisitos mínimos
 Tenga en cuenta que puede haber formas de reducir ambos costos.
 
 * Para las máquinas que sugerimos como **Linode 4GB**, es posible que pueda reducirlo a un Linode 2GB. Algunas versiones de Bitcoin Core han funcionado bien con ese tamaño, algunas ocasionalmente se han quedado sin memoria y luego se han recuperado, y algunas se han quedado sin memoria continuamente. Recuerde aumentar ese espacio de intercambio para maximizar las probabilidades de que esto funcione. Úselo bajo su propio riesgo.
+* Para la red Mainnet sin podar, que sugerimos como **Linode 16GB**, probablemente pueda arreglárselas con un Linode 4GB, pero agregue [Block Storage](https://cloud.linode.com/volumes) suficiente para almacenar la cadena de bloques. Esta es sin duda una mejor solución a largo plazo, ya que los requisitos de almacenamiento de la cadena de bloques de Bitcoin aumentan continuamente si no se poda, mientras que los requisitos de la CPU no lo hacen (o no en el mismo grado). Un almacenamiento de 320 GibiByte costaría $ 32 al mes, que combinado con un Linode 4GB cuesta $ 52 al mes, en lugar de $ 80, y lo que es más importante, puede seguir creciendo. No documentamos completamente esta configuración por dos razones (1) no sugerimos la configuración de la red principal sin podar, por lo que sospechamos que es una configuración mucho menos común y (2) no hemos probado cómo se comparan los volúmenes de Linodes con sus SSD intrínsecos en cuanto a rendimiento y uso. Pero hay documentación completa en la página de almacenamiento de bloques. Debería configurar el nodo Linode, ejecutar su stackscript, pero luego interrumpirlo para mover el almacenamiento de la cadena de bloques en exceso a un volumen recién añadido antes de continuar.
+
+### Hacer la configuración final
+
+Lo último que debe hacer es ingresar una contraseña de root. (¡Si te perdiste algo, te lo dirán ahora!)
+
+Haga clic en "Implementar" para inicializar sus discos y preparar su VPS. Toda la cola debería ejecutarse en menos de un minuto. Cuando haya terminado, debería ver en la "Cola de trabajos del host", y unos botones verdes de "Éxito" que indican "Crear disco desde StackScript - Configuración de contraseña para root" y "Crear sistema de archivos - Imagen de intercambio de 256 MB" que se ha terminado.
+
+Es posible que ahora desee cambiar el nombre de su VPS Linode del predeterminado `linodexxxxxxxx`. Vaya a la pestaña Configuración y cambie la etiqueta para que sea más útil, como el nombre de host corto de su VPS. Por ejemplo, puede llamarlo `bitcoin-testnet-pruned` para diferenciarlo de otros VPS en su cuenta.
+
+### Inicie sesión en su VPS
+
+Si observa su panel de control Linode, debería ver que la nueva computadora gira. Cuando el trabajo haya alcanzado el 100%, podrá iniciar sesión.
+
+Primero, necesitará la dirección IP. Haga clic en la pestaña "Linodes" y debería ver una lista de sus VPS, el hecho de que se está ejecutando, su "plan", su dirección IP y alguna otra información.
+
+Vaya a su consola local e inicie sesión en la cuenta `standup` usando esa dirección:
+
+```
+ssh standup@[IP-ADDRESS]
+```
+
+Por ejemplo:
+
+```
+ssh standup@192.168.33.11
+```
+
+Si configuró su VPS para usar una clave SSH, el inicio de sesión debe ser automático (posiblemente requiera su contraseña SSH para desbloquear su clave). Si no configuró una clave SSH, deberá ingresar la contraseña de user.
+
+
+### Wait a Few Minutes
+
+Aquí hay un pequeño truco: _su StackScript se está ejecutando en este momento_. El script BASH se ejecuta la primera vez que se inicia el VPS. Eso significa que su VPS aún no está listo.
+
+El tiempo total de ejecución es de unos 10 minutos. Por lo tanto, tome un descanso, tome un espresso o relájese durante unos minutos. Hay dos partes del script que toman un tiempo: la actualización de todos los paquetes Debian; y la descarga del código Bitcoin. No deberían tomar más de 5 minutos cada uno, lo que significa que si regresa en 10 minutos, probablemente estará listo para comenzar.
+
+Si está impaciente, puede saltar y `sudo tail -f ~ root / standup.log`, que mostrará el progreso actual de la instalación, como se describe en la siguiente sección.
+
+## Verifique su instalación
+
+Sabrá que stackscrpit está listo cuando la salida del comando `tail` del` standup.log` muestre algo como lo siguiente:
+
+`/root/StackScript - Bitcoin is setup as a service and will automatically start if your VPS reboots and so is Tor
+/root/StackScript - You can manually stop Bitcoin with: sudo systemctl stop bitcoind.service
+/root/StackScript - You can manually start Bitcoin with: sudo systemctl start bitcoind.service`
+
+En ese momento, su directorio de inicio debería verse así:
+
+```
+$ ls
+bitcoin-0.20.0-x86_64-linux-gnu.tar.gz  laanwj-releases.asc  SHA256SUMS.asc
+```
+
+Estos son los diversos archivos que se utilizaron para instalar Bitcoin en su VPS. Ninguno es necesario. Los dejamos en caso de que desee realizar una verificación adicional. De lo contrario, puede eliminarlos:
+
+```
+$ rm *
+```
+
+### Verificar la configuración de Bitcoin
+
+Para garantizar que la versión de Bitcoin descargada sea válida, StackScript verifica tanto la firma como la suma de comprobación SHA. Debe verificar que ambas pruebas hayan salido bien:
+
+```
+$ sudo grep VERIFICATION ~root/standup.log
+```
+
+Si ve algo como lo siguiente, todo debería estar bien:
+
+```
+/root/StackScript - VERIFICATION SUCCESS / SIG: gpg: Good signature from "Wladimir J. van der Laan (Bitcoin Core binary release signing key) <laanwj@gmail.com>" [unknown]
+/root/StackScript - VERIFICATION SUCCESS / SHA: 35ec10f87b6bc1e44fd9cd1157e5dfa4```
+```
+
+Sin embargo, si en alguna de esas dos comprobaciones se lee "ERROR DE VERIFICACIÓN", entonces hay un problema. Dado que todo esto está programado, es posible que solo haya habido un cambio menor que haya causado que las comprobaciones del script no funcionen correctamente. (Esto ha sucedido varias veces debido a la existencia del script que se convirtió en Standup). Pero también es posible que alguien esté tratando de persuadirlo a ejecutar una copia falsa del demonio de Bitcoin. Entonces, _¡asegúrese de saber lo que sucedió antes de usar Bitcoin!_
+
+### Leer los registros
+
+También es posible que desee leer todos los archivos de registro de instalación para asegurarse de que no haya ocurrido nada inesperado durante la instalación.
+
+Es mejor revisar el archivo de registro estándar de StackScript, que tiene todos los resultados, incluidos los errores:
+
+`$ sudo more ~root/standup.log`
+
+Tenga en cuenta que es totalmente normal ver _algunos_ errores, particularmente cuando se ejecuta el ruidoso software pgp y cuando varias cosas intentan acceder al dispositivo inexistente `/dev/tty`.
+
+Si, en cambio desea ver un conjunto de información más pequeño, todos los errores deben estar en:
+
+`$ sudo more ~root/standup.err`
+
+Todavía tiene una buena cantidad de información que no son errores, pero es una lectura más rápida.
+
+Si todo se ve bien, felicitaciones, ¡tiene un nodo Bitcoin en funcionamiento usando Linode!
+
+## Lo que hemos hecho
+
+Aunque la imagen predeterminada de Debian 10 que estamos usando para su VPS ha sido modificada por Linode para que sea relativamente segura, su nodo Bitcoin instalado a través de Linode StackScript está configurado con un nivel de seguridad aún mayor. Es posible que encuentre esto limitante o que no pueda hacer las cosas que espera. Aquí hay algunas notas al respecto:
+
+### Servicios protegidos
+
+Su instalación de Bitcoin VPS es mínima y casi no permite ninguna comunicación. Esto se hace a través del sencillo firewall (`ufw`), que bloquea todo excepto las conexiones SSH. También es posible una seguridad adicional para sus puertos RPC, gracias a los servicios ocultos instalados por Tor.
+
+** Ajustando UFW. ** ¡Probablemente debería dejar UFW en su etapa superprotegida! No debería utilizar una máquina Bitcoin para otros servicios, ¡porque todos aumentan su vulnerabilidad! Si decide lo contrario, hay varias [guías de UFW] (https://www.digitalocean.com/community/tutorials/ufw-essentials-common-firewall-rules-and-commands) que le permitirán agregar servicios. Como se anuncia, no es complicado. Por ejemplo, agregar servicios de correo solo requeriría abrir el puerto de correo: `sudo ufw allow 25`. Pero en general no debería eso.
+
+** Ajuste de Tor. ** Es posible que desee proteger mejor servicios tales como SSH. Consulte el [Capítulo 12: Uso de Tor] (https://github.com/BlockchainCommons/Learning-Bitcoin-from-the-Command-Line/blob/master/12_0_Using_Tor.md) para obtener más información sobre Tor.
+
+### Consolas de comando protegidas
+
+Si definió "IP permitidas por SSH", el acceso SSH (y SCP) al servidor está severamente restringido. `/etc/hosts.deny` no permite que nadie inicie sesión. _No sugerimos cambiar esto_. `/etc/hosts.allow` entonces permite direcciones IP específicas. Simplemente agregue más direcciones IP en una lista separada por comas si necesita ofrecer más acceso.
+
+Por ejemplo:
+
+```
+sshd: 127.0.0.1, 192.128.23.1
+```
+
+### Actualizaciones automatizadas
+
+Debian también está configurado para actualizarse automáticamente, para asegurarse de estar al día con los parches de seguridad más recientes.
+
+
+Si por alguna razón quisiera cambiar esto (_no lo sugerimos_), puede hacer esto:
+
+```
+echo "unattended-upgrades unattended-upgrades/enable_auto_updates boolean false" | debconf-set-selections
+```
+
+_Si desea saber más sobre lo que hace el stackscript de Bitcoin Standup, consulte el [Appendix I: Comprensión de Bitcoin Standup] (A1_0_Understanding_Bitcoin_Standup.md) ._
+
+## Jugando con Bitcoin
+
+¡Así que ahora probablemente quiera jugar con Bitcoin!
+
+Pero espere, su demonio de Bitcoin probablemente todavía esté descargando bloques. El comando `bitcoin-cli getblockcount` le dirá cómo se encuentra actualmente:
+
+```
+$ bitcoin-cli getblockcount
+1771352
+```
+
+Si es diferente cada vez que escribe el comando, debe esperar antes de trabajar con Bitcoin. Esto toma de 1 a 6 horas actualmente para una configuración podada, dependiendo de su máquina.
+
+Pero, una vez que se establezca en un número, ¡estará listo para continuar!
+
+Aún así, podría ser hora de algunos expresos más. Pero muy pronto, su sistema estará listo para funcionar y estará leyendo para empezar a experimentar.
+
+## Resumen: Configuración de un VPS de Bitcoin-Core a mano
+
+La creación de un VPS de Bitcoin-Core con los scripts Standup hizo que todo el proceso fuera rápido, simple y (con suerte) sin contratiempos.
+
+
+## ¿Que sigue?
+
+Tiene algunas opciones para lo que sigue:
+
+ *Lea [StackScript] (https://github.com/BlockchainCommons/Bitcoin-Standup-Scripts/blob/master/Scripts/LinodeStandUp.sh) para comprender su configuración.
+
+* Lea lo que hace StackScript en el [Appendix I] (A1_0_Understanding_Bitcoin_Standup.md).
+
+* Elija una metodología completamente alternativa en [§2.2: Configuración de una máquina Bitcoin-Core a través de otros medios] (02_2_Setting_Up_Bitcoin_Core_Other.md).
+
+* Pase a "bitcoin-cli" con el [Capítulo tres: Comprensión de la configuración de Bitcoin] (03_0_Understanding_Your_Bitcoin_Setup.md).
+
+
+## Sinopsis: Tipos de instalación de Bitcoin
+
+** Mainnet. ** Esto descargará la totalidad de la cadena de bloques de Bitcoin. Esto es alrededor de 380G de datos (y cada día se aumenta más).
+
+** Mainnet podado. ** Esto reducirá la cadena de bloques que está almacenando a solo los últimos 550 bloques. Si no está minando o ejecutando algún otro servicio de Bitcoin, esto debería ser suficiente para la validación.
+
+** Testnet. ** Esto le da acceso a una cadena de bloques de Bitcoin alternativa donde los Bitcoins en realidad no tienen valor. Está destinado a la experimentación y las pruebas.
+
+** Testnet podado. ** Estos son solo los últimos 550 bloques de Testnet ... porque la cadena de bloques de Testnet también es bastante grande ahora.
+
+** Private Regtest. ** Este es el modo de prueba de regresión, que le permite ejecutar un servidor Bitcoin totalmente local. Permite pruebas aún más profundas. No es necesario podar aquí, porque comenzará desde cero. Esta es una configuración muy diferente, por lo que se trata en el [Appendix 3] (A3_0_Using_Bitcoin_Regtest.md).
+
