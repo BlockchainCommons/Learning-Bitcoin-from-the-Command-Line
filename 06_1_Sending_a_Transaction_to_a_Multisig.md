@@ -1,12 +1,12 @@
 # 6.1: Enviando una Transacción con una Multifirma
 
-The first way to vary how you send a basic transaction is to use a multisig. This gives you the ability to require that multiple people (or at least multiple private keys) authorize the use of funds.
+La primer forma de variar cómo envías una transacción básica es utilizar multifirma. Esto da la habilidad de requerir múltiples personas (o al menos múltiples claves privadas) autoricen el uso de los fondos.
 
-## Understand How Multisigs Work
+## Entender Cómo Funciona una Multifirma
 
-In a typical P2PKH or SegWit transaction, bitcoins are sent to an address based on your public key, which in turn means that the related private key is required to unlock the transaction, solving the cryptographic puzzle and allowing you to reuse the funds. But what if you could instead lock a transaction with _multiple_ private keys? This would effectively allow funds to be sent to a group of people, where those people all have to agree to reuse the funds.
+En una transacción típica P2PKH o SegWit, los bitcoins son enviados a una dirección basada en tu clave pública, lo que significa que se requiere la clave privada relacionada para desbloquear la transacción, resolver el rompecabezas criptográfico y permitir la reutilización de los fondos. Pero, ¿qué pasaría si pudieras bloquear una transacción con _múltiples_ claves privadas? Esto haría que efectivamente los fondos puedan ser enviados a un grupo de personas, en la que todas esas personas tengan que acordar la reutilización de los fondos.
 
-> :book: ***What is a multisignature?*** A multisignature is a methodology that allows more than one person to jointly create a digital signature. It's a general technique for the cryptographic use of keys that goes far beyond Bitcoin.
+> :book: ***¿Qué es una multifirma?*** Una multifirma es una metodología que permite a más de una persona la creación conjunta de una firma digital. Es una técnica general para el uso criptográfico de claves que va más allá de Bitcoin.
 
 Technically, a multisignature cryptographic puzzle is created by Bitcoin using the OP_CHECKMULTISIG command, and typically that's encapsulated in a P2SH address. [§10.4: Scripting a Multisig](10_4_Scripting_a_Multisig.md) will detail how that works more precisely. For now, all you need to know is that you can use `bitcoin-cli` command to create multisignature addresses; funds can be sent to these addresses just like any normal P2PKH or Segwit address, but multiple private keys will be required for the redemption of the funds.
 
