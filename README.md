@@ -9,6 +9,13 @@ Learning Bitcoin from the Command Line is a tutorial for working with Bitcoin (a
 
 _This tutorial assumes that you have some minimal background of how to use the command line interface. If not, there are many tutorials available, and I have one for Mac users at https://github.com/ChristopherA/intro-mac-command-line._
 
+## Translations
+
+* [Portuguese](https://github.com/BlockchainCommons/Learning-Bitcoin-from-the-Command-Line/tree/portuguese-translation/pt) — in process
+* [Spanish](https://github.com/BlockchainCommons/Learning-Bitcoin-from-the-Command-Line/tree/spanish-translation/es) - in process
+
+If you'd like to make your own translation, please see [Contributing](https://github.com/BlockchainCommons/Learning-Bitcoin-from-the-Command-Line/tree/master#contributing), below.
+
 ## Table of Contents
 
 ### PART ONE: PREPARING FOR BITCOIN
