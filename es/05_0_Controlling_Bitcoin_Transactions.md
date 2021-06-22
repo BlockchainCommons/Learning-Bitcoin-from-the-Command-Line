@@ -1,6 +1,6 @@
 # Capitulo Cinco: Controlar Las Transacciones de Bitcoin 
 
-Enviar una transacción no siempre es el final de la historia. Al usar los protocolos RBF (reemplazo por tarifa) y CPFP (el niño paga por el padre), un desarrollador puede continuar controlando la transacción después de que se haya enviado, para mejorar la eficiencia o recuperar transacciones que se atascan. Estos métodos comenzarán a destacar el cerdadero poder de Bitcoin.
+Enviar una transacción no siempre es el final de la historia. Al usar los protocolos RBF (reemplazo por tarifa) y CPFP (el niño paga por el padre), un desarrollador puede continuar controlando la transacción después de que se haya enviado, para mejorar la eficiencia o recuperar transacciones que se atascan. Estos métodos comenzarán a destacar el verdadero poder de Bitcoin.
 
 ## Objetivos de Esta Sección:
 
