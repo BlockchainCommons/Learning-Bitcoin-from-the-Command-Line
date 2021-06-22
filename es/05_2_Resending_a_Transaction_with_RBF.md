@@ -18,7 +18,7 @@ $ signedtx=$(bitcoin-cli -named signrawtransactionwithwallet hexstring=$rawtxhex
 $ bitcoin-cli -named sendrawtransaction hexstring=$signedtx
 5b953a0bdfae0d11d20d195ea43ab7c31a5471d2385c258394f3bb9bb3089375
 ```
-Ahora, cuando mire a su transacción, deberías ver algo nuevo: la línea `bip125-replaceable`, que siempre ha sido marcada como `no` antes, ahora está marcada como `yes` (sí):
+Ahora, cuando mire a su transacción, debería ver algo nuevo: la línea `bip125-replaceable`, que siempre ha sido marcada como `no` antes, ahora está marcada como `yes` (sí):
 ```
 $ bitcoin-cli -named gettransaction txid=5b953a0bdfae0d11d20d195ea43ab7c31a5471d2385c258394f3bb9bb3089375                                                                     
       
@@ -40,13 +40,13 @@ $ bitcoin-cli -named gettransaction txid=5b953a0bdfae0d11d20d195ea43ab7c31a5471d
 ```
 La bandera `bip125-replaceable` permanecerá `yes` hasta que la transacción reciba confirmaciones. En ese momento, ya no es reemplazable.
 
-> :book: ***¿Debo confiar en transacciones sin confirmaciones?*** No, nunca. Esto era cierto antes de RBF y fue cierto después de RBF. Las transacciones deben reibir confirmaciones antes de que sean confiables. Esto es especialmente cierto si una transacción está marcada como `bip125-replaceable`, porque entonces puede ser ... reemplazada.
+> :book: ***¿Debo confiar en transacciones sin confirmaciones?*** No, nunca. Esto era cierto antes de RBF y fue cierto después de RBF. Las transacciones deben recibir confirmaciones antes de que sean confiables. Esto es especialmente cierto si una transacción está marcada como `bip125-replaceable`, porque entonces puede ser ... reemplazada.
 
-> :information_source: **NOTA — SECUENCIA:** Este es el primer uso del valor `nSequence` en Bitcoin. Puede configurarlo entre 1 y 0xffffffff-2 (4294967293) y habilitar RBF, pero si no tiene cuidado, puede enfrentarse al uso paralelo de `nSequence` para bloqueos temporales relativos. :t Sugerimos configurarlo siempre en "1", que es lo que hace Bitcoin Core, pero la otra opción es configurarlo en un valor entre 0xf0000000 (4026531840) y 0xffffffff-2 (4294967293). Establecerlo en "1" efectivamente hace que los bloqueos temporales relativos sean irrelevantes y estableerlo en 0xf0000000 o superior los desactiva. Todo esto se explica con más detalle en [§11.3: Using CSV in Scripts](11_3_Using_CSV_in_Scripts.md). Por ahora, simplemente elija uno de los valores no conflictivos para `nSequence`.
+> :information_source: **NOTA — SECUENCIA:** Este es el primer uso del valor `nSequence` en Bitcoin. Puede configurarlo entre 1 y 0xffffffff-2 (4294967293) y habilitar RBF, pero si no tiene cuidado, puede enfrentarse al uso paralelo de `nSequence` para bloqueos temporales relativos. :t Sugerimos configurarlo siempre en "1", que es lo que hace Bitcoin Core, pero la otra opción es configurarlo en un valor entre 0xf0000000 (4026531840) y 0xffffffff-2 (4294967293). Establecerlo en "1" efectivamente hace que los bloqueos temporales relativos sean irrelevantes y establecerlo en 0xf0000000 o superior los desactiva. Todo esto se explica con más detalle en [§11.3: Using CSV in Scripts](11_3_Using_CSV_in_Scripts.md). Por ahora, simplemente elija uno de los valores no conflictivos para `nSequence`.
 
 ### Opcional: Optar Siempre por RBF
 
-Si lo prefiere, puede _siepmre_ optar por RBF. Hágalo ejecutando su `bitcoind` con el comando `-walletrbf`. Cuando ya hecho esto (y reiniciado su `bitcoind`), todos los UTXOs deberían tener un número de secuencia más bajo y la transacción debería estar marcada como `bip125-replaceable`.
+Si lo prefiere, puede _siempre_ optar por RBF. Hágalo ejecutando su `bitcoind` con el comando `-walletrbf`. Cuando ya hecho esto (y reiniciado su `bitcoind`), todos los UTXOs deberían tener un número de secuencia más bajo y la transacción debería estar marcada como `bip125-replaceable`.
 
 > :warning: **ADVERTENCIA DE VERSIÓN:** La bandera walletrbf requiere Bitcoin Core v.0.14.0.
 
@@ -69,7 +69,7 @@ La otra cosa que hay que entender sobre RBF es que para usarlo, debe gastar dos 
 
 Ante este conflicto, los mineros sabrán usar el que tenga la tarifa más alta, y estarán incentivados a hacerlo por esa tarifa más alta.
 
-> :book: ***¿Qué es un doble-gasto?*** Un doble-gasto ocurre cuando alguien envía los mismos fondos electrónicos a dos personas diferentes (o, a la misma persona dos veces, en dos transacciones diferentes). Este es un problema central para cualquier sistema de efectivo electrónico. Se resuelvev en Bitcoin por el libro mayor inmutable: una vez que una transacción está suficientemente confirmada, ningún minero verificará transacciones que reutilicen el mismo UTXO. Sin embargo, es posible gastar dos veces _antes_ de que se confirme una transacción, por lo que siempre desea una o más confirmaciones antes de finalizar una transacción. En el caso de RBF, usted gasta el doble a propósito porque una transacción inicial se ha estancado y los mineros aceptan su doble gasto si cumple con los criterios específicos establecidos por BIP 125.
+> :book: ***¿Qué es un doble-gasto?*** Un doble-gasto ocurre cuando alguien envía los mismos fondos electrónicos a dos personas diferentes (o, a la misma persona dos veces, en dos transacciones diferentes). Este es un problema central para cualquier sistema de efectivo electrónico. Se resuelve en Bitcoin por el libro mayor inmutable: una vez que una transacción está suficientemente confirmada, ningún minero verificará transacciones que reutilicen el mismo UTXO. Sin embargo, es posible gastar dos veces _antes_ de que se confirme una transacción, por lo que siempre desea una o más confirmaciones antes de finalizar una transacción. En el caso de RBF, usted gasta el doble a propósito porque una transacción inicial se ha estancado y los mineros aceptan su doble gasto si cumple con los criterios específicos establecidos por BIP 125.
 
 > :warning: **ADVERTENCIA:** Algunas discusiones tempranas de esta política sugirieron que el número de `nSequence` también se incrementara. De hecho, este fue el uso previsto de `nSequence` en su forma original. Esto _no_ forma parte de la política publicada en BIP 125. De hecho, aumentar su número de secuencia puede bloquear accidentalmente su transacción con un bloqueo temporal relativo, a menos que use números de secuencia en el rango de  0xf0000000 (4026531840) a 0xffffffff-2 (4294967293).
 
@@ -152,7 +152,7 @@ $ bitcoin-cli -named gettransaction txid=5b953a0bdfae0d11d20d195ea43ab7c31a5471d
   "hex": "02000000000101fa364ad3cbdb08dd0b83aac009a42a9ed00594acd6883d2a466699996cd69d8b01000000000100000002ea1d000000000000160014d591091b8074a2375ed9985a9c4b18efecfd416501000000000000001600146c45d3afa8762086c4bd76d8a71ac7c976e1919602473044022077007dff4df9ce75430e3065c82321dca9f6bdcfd5812f8dc0daeb957d3dfd1602203a624d4e9720a06def613eeea67fbf13ce1fb6188d3b7e780ce6e40e859f275d0121038a2702938e548eaec28feb92c7e4722042cfd1ea16bec9fc274640dc5be05ec500000000"
 }
 ```
-Nuestros destinatarios tienen su dinero, y la transacción fallida original eventualmente se sald´ra del mempool.
+Nuestros destinatarios tienen su dinero, y la transacción fallida original eventualmente se saldrá del mempool.
 
 ## Reemplazar una Transacción de la Manera Mas Fácil: Por bumpfee
 
@@ -200,15 +200,15 @@ $ bitcoin-cli -named gettransaction txid=75208c5c8cbd83081a0085cd050fc7a4064d87c
 }
 ```
 
-> :warning: **ADVERTENCIA DE VERSIÓN:** El `bumpfee` que RPC requiere Bitcoin Core v.0.14.0.
+> :warning: **ADVERTENCIA DE VERSIÓN:** El `bumpfee` por RPC requiere Bitcoin Core v.0.14.0.
 
 ## Resumen: Reenvío de una Transacción con RBF
 
-Si una transacción está atascada y no desea esperar a que caduque por completo, si optó por RBF, puede gastar el doble con RBF para crear una transacción de reemplazo (o simplemente usar `bumpfee`).
+Si una transacción está atascada y no desea esperar a que caduque por completo, si optó por RBF, puede gastarla dos veces con RBF para crear una transacción de reemplazo (o simplemente usar `bumpfee`).
 
 > :fire: ***Cual es el poder de RBF?*** Obviamente, RBF es muy útil si creó una transacción con una tarifa demasiado baja y necesita pasar esos fondos. Sin embargo, la capacidad de reemplazar generalmente las transacciones no confirmadas con las actualizadas tiene más poder que solo eso (y es por eso que es posible que desee continuar usando RBF con transacciones sin procesar, incluso después de la llegada de `bumpfee`). 
 
-> Por ejemplo, puede enviar una transacción y luego, antes de que se confirme, combinarla con una segunda transacción. Esto le permite comrpimir múltiples transacciones en una sola, disminuyendo las tarifas generales. También podría ofrecer beneficios a la privacidad. También hay otras razones para usar RBF, para contratos inteligentes o transacciones de corte, como se describe en el [Opt-in RBF FAQ](https://bitcoincore.org/en/faq/optin_rbf/).
+> Por ejemplo, puede enviar una transacción y luego, antes de que se confirme, combinarla con una segunda transacción. Esto le permite comprimir múltiples transacciones en una sola, disminuyendo las tarifas generales. También podría ofrecer beneficios a la privacidad. También hay otras razones para usar RBF, para contratos inteligentes o transacciones de corte, como se describe en el [Opt-in RBF FAQ](https://bitcoincore.org/en/faq/optin_rbf/).
 
 ## Que Sigue?
 
