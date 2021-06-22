@@ -6,7 +6,7 @@ Si su transacción de Bitocin está atascada y usted es el _receptor_, puede bor
 
 ## Comprenda Cómo Funciona CPFP
 
-RBF se trataba del remitente. Se equivocó y necestiaba aumentar la tarifa, o quería ser inteligente y combinar transacciones por una variedad de razones. Era una potente función orientada al remitente. De alguna manera, CPFP es lo opuesto a RBF, porque le da poder al destinatario que sabe que su dinero aún no ha llegado y quiere acelerarlo. Sin embargo, también es una característica mucho más simple, con una aplicabilidad menos amplia.
+RBF se trataba del remitente. Se equivocó y necesitaba aumentar la tarifa, o quería ser inteligente y combinar transacciones por una variedad de razones. Era una potente función orientada al remitente. De alguna manera, CPFP es lo opuesto a RBF, porque le da poder al destinatario que sabe que su dinero aún no ha llegado y quiere acelerarlo. Sin embargo, también es una característica mucho más simple, con una aplicabilidad menos amplia.
 
 Básicamente, la idea de CPFP es que un destinatario tiene una transacción que no ha sido confirmada en un bloque que quiere gastar. Entonces, incluye esa transacción no confirmada en una nueva transacción y paga una tarifa lo suficientemente alta como para alentar a un minero a incluir tanto la transacción original (principal) como la nueva transacción (secundaria) en un bloque. Como resultado, las transacciones principales y secundarias se borran simultáneamnete.
 
@@ -17,7 +17,7 @@ Financiar una transacción con CPFP es un proceso muy simple que utiliza los mé
 
    1. Busque el `txid` y `vout` de la transacción no confirmada. Esta puede ser la parte más complicada, ya que `bitcoin-cli` generalmente intenta protegerlo de transaciones no confirmadas. Es posible que el remitente pueda enviarle esta información; incluso con solo el `txid`, debería poder averigular el `vout` en un explorador de blockchain.
    
-   Tienes otra opción: use `bitcoin-cli getrawmempool`, que se puede usar para enumerar el contenido de su mempool completo, donde se encontrarán las transacciones no confirmadas. Es posible que tenga que buscar en varios se el mempool está particularmente ocupado. A continuación, puede obtener más información sobre una transacción especifica con `bitcoin-cli getrawtransaction` con el indicador detallado en `true`:
+   Tiene otra opción: use `bitcoin-cli getrawmempool`, que se puede usar para enumerar el contenido de su mempool completo, donde se encontrarán las transacciones no confirmadas. Es posible que tenga que buscar en varios se el mempool está particularmente ocupado. A continuación, puede obtener más información sobre una transacción especifica con `bitcoin-cli getrawtransaction` con el indicador detallado en `true`:
    ```
 $ bitcoin-cli getrawmempool
 [
@@ -79,7 +79,7 @@ $ bitcoin-cli getrawtransaction 95d51e813daeb9a861b2dcdddf1da8c198d06452bbbecfd8
   "hex": "0200000000010124757e206d7c55bc9e6f6d4f1044b9a55f16f94fa0c43a427d2400234778017a0000000017160014334f3a112df0f22e743ad97eec8195a00faa59a0feffffff0240420f000000000017a914f079f77f2ef0ef1187093379d128ec28d0b4bf768742a727000000000017a9148799be12fb9eae6644659d95b9602ddfbb4b2aff870247304402207966aa87db340841d76d3c3596d8b4858e02aed1c02d87098dcedbc60721d8940220218aac9d728c9a485820b074804a8c5936fa3145ce68e24dcf477024b19e88ae012103574b1328a5dc2d648498fc12523cdf708efd091c28722a422d122f8a0db8daa9dd0e1b00"
 }
 ```
-Mira a través de la matriz `vout`. Encuentra el objeto que coincida con tu dirección. (Aqui, es el único.) El `n` valor es su `vout`. Ahora tiene todo lo que necesita para crear una nueva transacción de CPFP.
+Busque a través de la matriz `vout`. Encuentra el objecto que coincida con su dirección. (Aqui, es el único.) El `n` valor es su `vout`. Ahora tiene todo lo que necesita para crear una nueva transacción de CPFP.
 ```
 $ utxo_txid=2NFAkGiwnp8wvCodRBx3smJwxncuG3hndn5
 $ utxo_vout=0
@@ -111,7 +111,7 @@ Eso es realmente todo lo que hay que hacer.
 
 Aunque CPFP generalmente se describe como un destinatario que usa una nueva transacción para pagar una anterior que no ha sido confirmada, esto tiene sus matices.
 
-Un _remitente_ podría usar CPFP para liberar una transacción si recibiera un cambio. Simplemente usaría ese cambio como su entrada, y el uso resultante de CPFP liberaría toda la transacción. Eso sí, sería mejor que usara RBF siempre que estuviera habilitado, ya que las trarifas totales serían más bajas.
+Un _remitente_ podría usar CPFP para liberar una transacción si recibiera un cambio. Simplemente usaría ese cambio como su entrada, y el uso resultante de CPFP liberaría toda la transacción. Eso sí, sería mejor que usara RBF siempre que estuviera habilitado, ya que las tarifas totales serían más bajas.
 
 Un _receptor_ podría usar CPFP uncluso si no planeaba gastar el dinero de inmediato, por ejemplo, si le preocupa que los fondos no se reenvíen si la transacción expira. En este caso, simplemente crea una transacción secundaria que envía todo el dinero (menos una tarifa de transacción) a una dirección de cambio. Eso es lo que hicimos en nuestro ejemplo arriba.
 
@@ -119,8 +119,8 @@ Un _receptor_ podría usar CPFP uncluso si no planeaba gastar el dinero de inmed
 
 Puede aprovechar los incentivos de CPFP para liberar fondos que le han sido enviados pero que no han sido confirmados. Simplemente use la transacción no confirmada como UTXO y pague una tarifa de transacción superior al promedio.
 
-> :fire: ***¿Cuál es el Poder de CPFP?*** Principalmente, CPFP es útil para que los fondos se despeguen cuando usted es el destinatario y el remitente no está siendo útil por cualquier motivo. No tiene las posibilidades más poderosas de RBF, pero us una forma alternativa de ejercer control sobre una transacción después de que se haya colocado en el mempool, pero antes de que se confirme en un bloque.
+> :fire: ***¿Cuál es el Poder de CPFP?*** Principalmente, CPFP es útil para que los fondos se despeguen cuando usted es el destinatario y el remitente no está siendo útil por cualquier motivo. No tiene las posibilidades más poderosas de RBF, pero es una forma alternativa de ejercer control sobre una transacción después de que se haya colocado en el mempool, pero antes de que se confirme en un bloque.
 
 ## Que Sigue?
 
-Avanza a través de "bitcoin-cli" con [Chapter Six: Expanding Bitcoin Transactions with Multisigs](06_0_Expanding_Bitcoin_Transactions_Multisigs.md).
+Avance a través de "bitcoin-cli" con [Chapter Six: Expanding Bitcoin Transactions with Multisigs](06_0_Expanding_Bitcoin_Transactions_Multisigs.md).
