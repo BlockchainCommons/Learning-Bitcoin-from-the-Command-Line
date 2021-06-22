@@ -8,13 +8,13 @@ En una transacción típica P2PKH o SegWit, los bitcoins son enviados a una dire
 
 > :book: ***¿Qué es una multifirma?*** Una multifirma es una metodología que permite a más de una persona la creación conjunta de una firma digital. Es una técnica general para el uso criptográfico de claves que va más allá de Bitcoin.
 
-Technically, a multisignature cryptographic puzzle is created by Bitcoin using the OP_CHECKMULTISIG command, and typically that's encapsulated in a P2SH address. [§10.4: Scripting a Multisig](10_4_Scripting_a_Multisig.md) will detail how that works more precisely. For now, all you need to know is that you can use `bitcoin-cli` command to create multisignature addresses; funds can be sent to these addresses just like any normal P2PKH or Segwit address, but multiple private keys will be required for the redemption of the funds.
+Técnicamente, un rompecabezas criptográfico multifirma es creado por Bitcoin usando el comando OP_CHECKMULTISIG, y normalmente está encapsulado en una dirección P2SH. [§10.4: Scripting a Multisig](10_4_Scripting_a_Multisig.md) detallará con más precisión cómo funciona. Por ahora, todo lo que debes saber es que puedes usar el comando `bitcoin-cli` para crear direcciones multifirma; los fondos pueden ser enviados a estas direcciones como a cualquier otra dirección P2PKH o Segwit, pero serán requeridas múltiples claves privadas para la redención de los fondos.
 
-> :book: ***What is a multisignature transaction?*** A multisignature transaction is a Bitcoin transaction that has been sent to a multisignature address, thus requiring the signatures of certain people from the multisignature group to reuse the funds.
+> :book: ***¿Qué es una transacción multiforma?*** Una transacción mutifirma es una transacción de Bitcoin que ha sido enviada a una dirección multifirma, requiriendo así la firma de ciertas personas del grupo multifirma para reutilizar los fondos.
 
-Simple multisignatures require everyone in the group to sign the UTXO when it's spent. However, there's more complexity possible. Multisignatures are generally described as being "m of n". That means that the transaction is locked with a group of "n" keys, but only "m" of them are required to unlock the transaction. 
+Multifirmas simples requieren que todos en el grupo firmen el UTXO cuando sea gastado. Sin embargo, es posible una mayor complejidad. Las multifirmas son descriptas generalmente como "m de n". Esto significa que la transacción está bloqueada con un grupo de "n" claves, pero sólo "m" de ellas son requeridas para desbloquear la transacción. 
 
-> :book: ***What is a m-of-n multisignature?*** In a multisignature, "m" signatures out of a group of "n" are required to form the signature, where "m ≤ n".
+> :book: ***¿Qué es una multifirma m-de-n?*** En una multifirma, "m" firmas de un grupo de "n" son requeridas para formar la firma, donde "m ≤ n".
 
 ## Create a Multisig Address
 
