@@ -15,9 +15,11 @@ Thank you for your interest in translating Learning Bitcoin from the Command Lin
    * We will create a top-level directory for your complete translation using the [ISO 639-1 language code](https://en.wikipedia.org/wiki/List_of_ISO_639-1_codes), for example `es` (Spanish), `fr` (French), or `pt` (Portuguese). Work should be done in that directory.
 1. **Fork the Branch.**
    * Once we've created a translation branch, you'll then want to fork that into your own GitHub account.
+   * Generally, we suggest that you create one working fork for each separate chapter. This will allow you to work through the process of write/review/revise for each individual chapter without it getting tangled up with your new content for future chapters, and will allow us to merge the chapters as they're completed, which is our preference, and will help everyone to keep track of where things our.
 1. **Submit PRs a Chapter at a Time.**
    * Submit your PRs for the translation from your working fork to our translation branch in batches of no more than a single chapter at a time.
    * Submit in smaller batches if it makes sense, for example because different people are writing different sections.
+   * Again, we suggest that there be a fork for each chapter, so when you submit your PR for one chapter, you'll usually then create a fork for the next chapter.
 1. **Request Approval from a Native Speaker.**
    * No one can ever do a great edit of their own work, so we require each section to be approved by someone other than the original translator.
    * This fundamentally means that any translation team _should_ contain at least two members, either one translator and one editor or else two people who trade off roles of translator and editor. If your team doesn't have a second member, we can put out a call for an editor/approver when you submit a PR, but it's possible that we won't be able to find one, and your hard work will languish, so it's s better to have one up front.
@@ -25,7 +27,7 @@ Thank you for your interest in translating Learning Bitcoin from the Command Lin
    * Once a chapter or section has been approved by a native speaker, request approval from someone on the Blockchain Commons team: currently [@shannona](https://github.com/shannona).
 1. **Continue!**
    * Continue through the process, no more than one chapter at a time, until you have a full book.
-   * Be aware of the scope of the overall project. As of v2.01, Learning Bitcoin from the Command Line is 120,000 words in length. As a book, that'd be 250-400 pages, depending on the format and layout. (About 80,000 words of that is text to translate, with the remainder being code.) You want to make sure you have the time for that level of commitment before getting started.
+   * Be aware of the scope of the overall project. As of v2.01, Learning Bitcoin from the Command Line is 120,000 words in length. As a book, that'd be 250-400 pages, depending on the format and layout. (About 90,000 words of that is text to translate, with the remainder being code.) You want to make sure you have the time for that level of commitment before getting started.
 1. **Let Us Know When You're Done.**
    * When you've completed your translation, file an issue to let us know that the translation branch is ready to be merged into the master.
    * This will also let us know to announce the completed translation and link it into the master README
