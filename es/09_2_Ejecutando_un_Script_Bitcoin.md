@@ -8,7 +8,7 @@ Un script de Bitcoin tiene tres partes: tiene una línea de entrada; tiene una p
 
 ### Entender el orden
 
-Los scripts de Bitcoin se ejecutan de izquierda a derecha. Eso suena bastante fácil, porque es la misma forma en que lee. Sin embargo, en realidad podría ser el elemento menos intuitivo de Bitcoin Script, porque significa que las funciones no se ven como usted esperaría. En cambio, _los operandos van antes que el _operador_.
+Los scripts de Bitcoin se ejecutan de izquierda a derecha. Eso suena bastante fácil, porque es la misma forma en que lee. Sin embargo, en realidad podría ser el elemento menos intuitivo de Bitcoin Script, porque significa que las funciones no se ven como usted esperaría. En cambio, _los operandos van antes que el operador_.
 
 Por ejemplo, si estuviera sumando "1" y "2", su script de Bitcoin para eso sería `1 2 OP_ADD`, no "1 + 2". Como sabemos que el operador OP_ADD toma dos entradas, sabemos que las dos entradas anteriores son sus operandos.
 
