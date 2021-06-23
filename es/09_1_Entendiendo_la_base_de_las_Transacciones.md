@@ -106,4 +106,4 @@ Cada transacción de Bitcoin incluye al menos un script de desbloqueo (`scriptSi
 
 ## ¿Qué sigue?
 
-Continúe "Introducción a los scripts de Bitcoin" con [§9.2: Ejecución de un script de Bitcoin](09_2_Running_a_Bitcoin_Script.md).
+Continúe "Introducción a los scripts de Bitcoin" con [§9.2: Ejecución de un script de Bitcoin](09_2_Ejecutando_un_Script_Bitcoin.md).
