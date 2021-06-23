@@ -16,21 +16,21 @@ Multifirmas simples requieren que todos en el grupo firmen el UTXO cuando sea ga
 
 > :book: ***¿Qué es una multifirma m-de-n?*** En una multifirma, "m" firmas de un grupo de "n" son requeridas para formar la firma, donde "m ≤ n".
 
-## Create a Multisig Address
+## Crear una Dirección Multifirma
 
-In order to lock a UTXO with multiple private keys, you must first create a multisignature address. The examples used here show the creation (and usage) of a 2-of-2 multisignature.
+A fin de bloquear una UTXO con múltiples claves privadas, debes crear primero una dirección multifirma. Los ejemplos utilizados aquí muestran la creación (y el uso) de una multifirma 2-de-2.
 
-### Create the Addresses
+### Crear las Direcciones
 
-To create a multisignature address, you must first ready the addresses that the multisig will combine. Best practice suggests that you always create new addresses. This means that the participants will each run the `getnewaddress` command on their own machine:
+Para crear una dirección multifirma, primero debes preparar las direcciones que combinará la multifirma. Las mejores prácticas sugieren que siempre crees nuevas direcciones. Esto significa que cada uno de los participantes correrá el comando `getnewaddress` en su propia máquina:
 ```
 machine1$ address1=$(bitcoin-cli getnewaddress)
 ```
-And:
+Y:
 ```
 machine2$ address2=$(bitcoin-cli getnewaddress)
 ```
-Afterwards, one of the recipients (or perhaps some third party) will need to combine the addresses. 
+Luego, uno de los destinatarios (o quizás algún tercero) necesitará combinar las direcciones. 
 
 #### Collect Public Keys
 
