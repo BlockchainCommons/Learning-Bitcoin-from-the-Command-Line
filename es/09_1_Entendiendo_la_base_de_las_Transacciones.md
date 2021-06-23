@@ -4,7 +4,7 @@ La base de Bitcoin es la capacidad de proteger las transacciones, algo que se ha
 
 ## Conozca las partes del rompecabezas criptográfico
 
-Como se describe en el [Capítulo 1](01_0_Introducing_Bitcoin.md), los fondos en cada transacción de Bitcoin están bloqueados con un rompecabezas criptográfico. Para ser precisos, dijimos que Bitcoin se compone de "una secuencia de transacciones atómicas". Observamos que: "Cada transacción es autenticada por un remitente con la solución a un rompecabezas criptográfico anterior que se almacenó como un script. La nueva transacción está bloqueada para el destinatario con un nuevo rompecabezas criptográfico que también se almacena como un script". Esos scripts, que bloquean y desbloquean transacciones, están escritos en Bitcoin Script.
+Como se describe en el [Capítulo 1](01_1_Introduciendo_Bitcoin.md), los fondos en cada transacción de Bitcoin están bloqueados con un rompecabezas criptográfico. Para ser precisos, dijimos que Bitcoin se compone de "una secuencia de transacciones atómicas". Observamos que: "Cada transacción es autenticada por un remitente con la solución a un rompecabezas criptográfico anterior que se almacenó como un script. La nueva transacción está bloqueada para el destinatario con un nuevo rompecabezas criptográfico que también se almacena como un script". Esos scripts, que bloquean y desbloquean transacciones, están escritos en Bitcoin Script.
 
 >:book:*** ¿Qué es Bitcoin Script? *** Bitcoin Script es un lenguaje similar a Forth basado en pilas que evita los bucles a propósito y, por lo tanto, no es Turing completo. Se compone de códigos de operación individuales. Cada transacción en Bitcoin está bloqueada con un script de Bitcoin; cuando la transacción de bloqueo para un UTXO se ejecuta con las entradas correctas, ese UTXO se puede gastar.
 
@@ -16,7 +16,7 @@ El hecho de que las transacciones estén bloqueadas con scripts significa que pu
 
 * OP_CHECKLOCKTIMEVERIFY y OP_SEQUENCEVERIFY forman la base de bloqueos de tiempo más complejos, como se detallará completamente en [§11.2: Uso de CLTV en scripts](11_2_Using_CLTV_in_Scripts) y [§11.3: Uso de CSV en scripts](11_3_Using_CSV_in_Scripts).
 
-* OP_RETURN es la marca de una transacción no prescindible, por lo que se utiliza para transportar datos, como se mencionó en [§8.2: Envío de una transacción con datos](08_2_Sending_a_Transaction_with_Data.md).
+* OP_RETURN es la marca de una transacción no prescindible, por lo que se utiliza para transportar datos, como se mencionó en [§8.2: Envío de una transacción con datos](08_2_Enviando_una_Transaccion_con_Datos.md).
 
 ## Acceda a los scripts en sus transacciones
 
