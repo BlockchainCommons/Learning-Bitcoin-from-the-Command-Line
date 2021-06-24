@@ -203,7 +203,7 @@ _Independientemente_ de los otros métodos de prueba que haya utilizado, probar 
 
 ## Resumen: prueba de un script de Bitcoin
 
-Debe instalarlo `btcdeb` como una herramienta de línea de comandos para probar sus scripts de Bitcoin. En el momento de escribir este artículo, produce resultados precisos que pueden recorrer todo el proceso de creación de scripts. También puede buscar en algunos sitios en línea para obtener una representación más visual. Cuando haya terminado, deberá ir a testnet para asegurarse de que todo funciona correctamente, antes de implementarlo de manera más general.
+Debería instalar `btcdeb` como una herramienta de línea de comandos para probar sus scripts de Bitcoin. En el momento de escribir este artículo, produce resultados precisos que pueden recorrer todo el proceso de creación de scripts. También puede buscar en algunos sitios en línea para obtener una representación más visual. Cuando haya terminado, deberá ir a testnet para asegurarse de que todo funciona correctamente, antes de implementarlo de manera más general.
 
 ## Que sigue?
 
