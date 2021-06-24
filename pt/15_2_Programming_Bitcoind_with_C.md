@@ -157,9 +157,9 @@ if(!tx_id) {
 
 > **ATENÇÃO** Um programa em produção usaria sub-rotinas para este tipo de pesquisa, de forma que pudéssemos chamar vários RPCs de uma biblioteca de funções C. Vamos apenas colocar tudo em um `main` como parte da nossa filosofia KISS.
 
-### Etapa 5: Criando uma alteração de endereço
+### Etapa 5: Criando um endereço de troco
 
-Repita a metodologia padrão de pesquisa RPC para obter uma alteração de endereço:
+Repita a metodologia padrão de pesquisa RPC para obter um endereço de troco:
 ``` c
 rpc_method = bitcoinrpc_method_init(BITCOINRPC_METHOD_GETRAWCHANGEADDRESS);
 
@@ -192,7 +192,7 @@ A única diferença é quais informações específicas são extraídas do objet
 
 Criar a transação bruta real é outra parte complicada da programação da substituição do ``sendtoaddress``. Isso porque requer a criação de um objeto JSON complexo como parâmetro.
 
-Para criarmos esses parâmetros corretamente, precisaremos revisar o que o RPC ``createrawtransaction`` espera que passemos de informação. Felizmente, isso é fácil de determinar usando a funcionalidade ``bitcoin-cli help``:
+Para criarmos esses parâmetros corretamente, precisaremos revisar o que o RPC ``createrawtransaction`` espera que passemos como argumento. Felizmente, isso é fácil de determinar usando a funcionalidade ``bitcoin-cli help``:
 ```
 $ bitcoin-cli help createrawtransaction
 createrawtransaction [{"txid":"id","vout":n},...] {"address":amount,"data":"hex",...} ( locktime )
@@ -250,7 +250,7 @@ json_array_append(params,outputparams);
 
 #### Etapa 6.4: Fazendo a chamada ao RPC
 
-Vamos usar o método normal para criar da chamada ao RPC:
+Vamos usar o método normal para criar uma chamada ao RPC:
 ``` c
 rpc_method = bitcoinrpc_method_init(BITCOINRPC_METHOD_CREATERAWTRANSACTION);
 ```
