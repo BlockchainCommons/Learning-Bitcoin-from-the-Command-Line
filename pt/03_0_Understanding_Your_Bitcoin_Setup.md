@@ -1,4 +1,4 @@
-# Capítulo três: Compreendendo a configuração do seu node Bitcoin
+# Capítulo 3: Compreendendo a configuração do node Bitcoin
 
 Agora que você está pronto para começar a trabalhar com a interface de linha de comando `bitcoin-cli`. Mas isso requer primeiro que você entenda a configuração do Bitcoin e os recursos da carteira, que é o que será explicado neste capítulo.
 
