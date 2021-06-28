@@ -197,3 +197,194 @@ Script:
 Running: <signature> <pubKey> OP_CHECKSIG
 Stack: [ True ]
 ```
+El script ahora finaliza y, si tuvo éxito, la transacción puede volver a pasar el UTXO en cuestión.
+
+### Usando btcdeb para un ejemplo P2PKH
+
+Probar transacciones reales de Bitcoin con `btcdeb` es un poco más complicado, porque necesita conocer la clave pública y la firma para que todo funcione, y generar esta última es algo difícil. Sin embargo, una forma de probar las cosas es dejar que Bitcoin haga el trabajo por usted generando una transacción que _desbloquearía_ un UTXO. Eso es lo que ha hecho anteriormente: generar la transacción para gastar el UTXO hizo que `bitcoin-cli` calcule la` <firma> `y la` <pubKey> `. Luego, mira la información de transacción sin procesar del UTXO para aprender el script de bloqueo, incluido el `<pubKeyHash>`
+
+Usted puede poner juntos el script de bloqueo, la firma y la clave pública usando `btcdeb`, mostrando lo simple que es un script P2PKH.
+
+```
+$ btcdeb '[304402201cc39005b076cb06534cd084fcc522e7bf937c4c9654c1c9dfba68b92cbab7d1022066f273178febc7a37568e2e9f4dec980a2e9a95441abe838c7ef64c39d85849c 0315a0aeb37634a71ede72d903acae4c6efa77f3423dcbcd6de3e13d9fd989438b OP_DUP OP_HASH160 41d83eaffbf80f82dee4c152de59a38ffd0b6021 OP_EQUALVERIFY OP_CHECKSIG]'
+btcdeb 0.2.19 -- type `btcdeb -h` for start up options
+unknown key ID 41d83eaffbf80f82dee4c152de59a38ffd0b6021: returning fake key
+valid script
+7 op script loaded. type `help` for usage information
+script                                                             |                                                             stack 
+-------------------------------------------------------------------+-------------------------------------------------------------------
+304402201cc39005b076cb06534cd084fcc522e7bf937c4c9654c1c9dfba68b... | 
+0315a0aeb37634a71ede72d903acae4c6efa77f3423dcbcd6de3e13d9fd989438b | 
+OP_DUP                                                             |
+OP_HASH160                                                         |
+41d83eaffbf80f82dee4c152de59a38ffd0b6021                           | 
+OP_EQUALVERIFY                                                     | 
+OP_CHECKSIG                                                        | 
+                                                                   | 
+                                                                   | 
+#0000 304402201cc39005b076cb06534cd084fcc522e7bf937c4c9654c1c9dfba68b92cbab7d1022066f273178febc7a37568e2e9f4dec980a2e9a95441abe838c7ef64c39d85849c
+```
+Ahora empuje la `<firma>` y la `<pubKey>` en la pila:
+
+```
+btcdeb> step
+		<> PUSH stack 304402201cc39005b076cb06534cd084fcc522e7bf937c4c9654c1c9dfba68b92cbab7d1022066f273178febc7a37568e2e9f4dec980a2e9a95441abe838c7ef64c39d85849c
+script                                                             |                                                             stack 
+-------------------------------------------------------------------+-------------------------------------------------------------------
+0315a0aeb37634a71ede72d903acae4c6efa77f3423dcbcd6de3e13d9fd989438b | 304402201cc39005b076cb06534cd084fcc522e7bf937c4c9654c1c9dfba68b...
+OP_DUP                                                             | 
+OP_HASH160                                                         | 
+41d83eaffbf80f82dee4c152de59a38ffd0b6021                           |  
+OP_EQUALVERIFY                                                     |  
+OP_CHECKSIG                                                        |     
+                                                                   |   
+                                                                   | 
+                                                                   | 
+                                                                   | 
+                                                                   | 
+#0001 0315a0aeb37634a71ede72d903acae4c6efa77f3423dcbcd6de3e13d9fd989438b
+btcdeb> step
+		<> PUSH stack 0315a0aeb37634a71ede72d903acae4c6efa77f3423dcbcd6de3e13d9fd989438b
+script                                                             |                                                             stack 
+-------------------------------------------------------------------+-------------------------------------------------------------------
+OP_DUP                                                             | 0315a0aeb37634a71ede72d903acae4c6efa77f3423dcbcd6de3e13d9fd989438b
+OP_HASH160                                                         | 304402201cc39005b076cb06534cd084fcc522e7bf937c4c9654c1c9dfba68b...
+41d83eaffbf80f82dee4c152de59a38ffd0b6021                           | 
+OP_EQUALVERIFY                                                     |
+OP_CHECKSIG                                                        |  
+                                                                   |   
+                                                                   |    
+                                                                   | 
+                                                                   |
+                                                                   | 
+                                                                   | 
+                                                               | 
+```
+Ahora ejecute un `OP_DUP` y un `OP_HASH` a la `<pubKey>`:
+
+```
+#0002 OP_DUP
+btcdeb> step
+		<> PUSH stack 0315a0aeb37634a71ede72d903acae4c6efa77f3423dcbcd6de3e13d9fd989438b
+script                                                             |                                                             stack 
+-------------------------------------------------------------------+-------------------------------------------------------------------
+OP_HASH160                                                         | 0315a0aeb37634a71ede72d903acae4c6efa77f3423dcbcd6de3e13d9fd989438b
+41d83eaffbf80f82dee4c152de59a38ffd0b6021                           | 0315a0aeb37634a71ede72d903acae4c6efa77f3423dcbcd6de3e13d9fd989438b
+OP_EQUALVERIFY                                                     | 304402201cc39005b076cb06534cd084fcc522e7bf937c4c9654c1c9dfba68b...
+OP_CHECKSIG                                                        | 
+                                                                   | 
+                                                                   |   
+                                                                   |  
+                                                                   |   
+                                                                   |   
+                                                                   | 
+                                                                   | 
+                                                                   |
+                                                                   | 
+#0003 OP_HASH160
+btcdeb> step
+		<> POP  stack
+		<> PUSH stack 41d83eaffbf80f82dee4c152de59a38ffd0b6021
+script                                                             |                                                             stack 
+-------------------------------------------------------------------+-------------------------------------------------------------------
+41d83eaffbf80f82dee4c152de59a38ffd0b6021                           |                           41d83eaffbf80f82dee4c152de59a38ffd0b6021
+OP_EQUALVERIFY                                                     | 0315a0aeb37634a71ede72d903acae4c6efa77f3423dcbcd6de3e13d9fd989438b
+OP_CHECKSIG                                                        | 304402201cc39005b076cb06534cd084fcc522e7bf937c4c9654c1c9dfba68b...
+                                                                   | 
+                                                                   | 
+                                                                   |   
+                                                                   |    
+                                                                   |    
+                                                                   |     
+                                                                   | 
+                                                                   | 
+                                                                   | 
+                                                                   | 
+```
+Empuje el `<pubKeyHash>` del script de bloqueo en la pila y lo verifica:
+```
+#0004 41d83eaffbf80f82dee4c152de59a38ffd0b6021
+btcdeb> step
+		<> PUSH stack 41d83eaffbf80f82dee4c152de59a38ffd0b6021
+script                                                             |                                                             stack 
+-------------------------------------------------------------------+-------------------------------------------------------------------
+OP_EQUALVERIFY                                                     |                           41d83eaffbf80f82dee4c152de59a38ffd0b6021
+OP_CHECKSIG                                                        |                           41d83eaffbf80f82dee4c152de59a38ffd0b6021
+                                                                   | 0315a0aeb37634a71ede72d903acae4c6efa77f3423dcbcd6de3e13d9fd989438b
+                                                                   | 304402201cc39005b076cb06534cd084fcc522e7bf937c4c9654c1c9dfba68b...
+                                                                   | 
+                                                                   | 
+                                                                   |  
+                                                                   |  
+                                                                   |  
+                                                                   |       
+                                                                   |   
+                                                                   | 
+                                                                   |
+                                                                   | 
+#0005 OP_EQUALVERIFY
+btcdeb> step
+		<> POP  stack
+		<> POP  stack
+		<> PUSH stack 01
+		<> POP  stack
+script                                                             |                                                             stack 
+-------------------------------------------------------------------+-------------------------------------------------------------------
+OP_CHECKSIG                                                        | 0315a0aeb37634a71ede72d903acae4c6efa77f3423dcbcd6de3e13d9fd989438b
+                                                                   | 304402201cc39005b076cb06534cd084fcc522e7bf937c4c9654c1c9dfba68b...
+                                                                   | 
+                                                                   | and_v(
+                                                                   |     sig(304402201cc39005b076cb06534cd084fcc522e7bf937c4c9654c1c...
+                                                                   |     and_v(
+                                                                   |         pk(0315a0aeb37634a71ede72d903acae4c6efa77f3423dcbcd6de3...
+                                                                   |         c:pk_h(030500000000000000000000000000000000000000000000...
+                                                                   |     )
+                                                                   | 
+                                                                   | )
+                                                                   | 
+			
+```
+En este punto, todo lo que se requiere es el `OP_CHECKSIG`:
+```
+#0006 OP_CHECKSIG
+btcdeb> step
+error: Signature is found in scriptCode
+```
+### Cómo buscar una clave de pub y una firma a mano
+
+¿Qué pasaría si quisiera generar la información necesaria de la `<signature>` y `<PubKey>` para desbloquear un UTXO usted mismo, sin tener que apoyarse en `bitcoin-cli` para crear una transacción?
+
+Resulta que es bastante fácil obtener una `<pubKey>`. Solo necesita usar `getaddressinfo` para examinar la dirección donde se encuentra actualmente el UTXO:
+
+```
+$ bitcoin-cli getaddressinfo mmX7GUoXq2wVcbnrnFJrGKsGR14fXiGbD9
+{
+  "address": "mmX7GUoXq2wVcbnrnFJrGKsGR14fXiGbD9",
+  "scriptPubKey": "76a91441d83eaffbf80f82dee4c152de59a38ffd0b602188ac",
+  "ismine": true,
+  "solvable": true,
+  "desc": "pkh([f004311c/0'/0'/2']0315a0aeb37634a71ede72d903acae4c6efa77f3423dcbcd6de3e13d9fd989438b)#t3g5mjk9",
+  "iswatchonly": false,
+  "isscript": false,
+  "iswitness": false,
+  "pubkey": "0315a0aeb37634a71ede72d903acae4c6efa77f3423dcbcd6de3e13d9fd989438b",
+  "iscompressed": true,
+  "ischange": false,
+  "timestamp": 1594835792,
+  "hdkeypath": "m/0'/0'/2'",
+  "hdseedid": "f058372260f71fea37f7ecab9e4c5dc25dc11eac",
+  "hdmasterfingerprint": "f004311c",
+  "labels": [
+    ""
+  ]
+}
+```
+Sin embargo, descubrir esa firma requiere comprender realmente los detalles de cómo se crean las transacciones de Bitcoin. Así que dejamos eso como un estudio avanzado para el lector: crear una transacción `bitcoin-cli` para" resolver "un UTXO es la mejor solución para eso por el momento.
+
+## Resumen: creación de un script de pago a clave pública hash
+
+Enviar a una dirección P2PKH era relativamente fácil cuando solo usaba `bitcoin-cli`. Al examinar el script de Bitcoin subyacente, se ponen al descubierto las funciones criptográficas que estaban implícitas en la financiación de esa transacción: cómo se desbloqueó el UTXO con una firma y una clave pública.
+
+## ¿Que sigue?
+
+Continúe con "Introducción a los scripts de Bitcoin" con [§9.5: Scripting a P2WPKH](09_5_Scripting_a_P2WPKH.md).
