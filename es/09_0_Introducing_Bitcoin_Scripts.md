@@ -2,7 +2,7 @@
 
 Hasta la fecha, hemos estado interactuando con Bitcoin a un nivel relativamente alto de abstracción. El programa `bitcoin-cli` ofrece acceso a una variedad de comandos RPC que respaldan la creación y el control de transacciones de Bitcoin sin procesar que incluyen fondos, datos, temporizadores y multifirmas.
 
-Sin embargo, Bitcoin ofrece mucha más complejidad que eso. Incluye un lenguaje de programación simple que se puede utilizar para crear condiciones de canje aún más complejas. Si las multifirmas y los bloqueos temporales proporcionaron las bases de los contratos inteligentes, entonces Bitcoin Script construye alta en esa base.
+Sin embargo, Bitcoin ofrece mucha más complejidad que eso. Incluye un lenguaje de programación simple que se puede utilizar para crear condiciones de canje aún más complejas. Si las multifirmas y los bloqueos temporales proporcionaron las bases de los contratos inteligentes, entonces Bitcoin Script construye encima de esa base. Es el siguiente paso para empoderar a Bitcoin.
 
 ## Objetivos de Este Capítulo
 
