@@ -29,7 +29,7 @@ $ recipient=$(bitcoin-cli -named getrawchangeaddress address_type=legacy)
 $ rawtxhex=$(bitcoin-cli -named createrawtransaction inputs='''[ { "txid": "'$utxo_txid'", "vout": '$utxo_vout' } ]''' outputs='''{ "'$recipient'": 0.0009 }''')
 $ signedtx=$(bitcoin-cli -named signrawtransactionwithwallet hexstring=$rawtxhex | jq -r '.hex')
 ```
-En realidad, no es necesario que lo envíes: el objetivo es simplemente producir una transacción completa que pueda examinar.
+En realidad, no es necesario que lo envíe: el objetivo es simplemente producir una transacción completa que pueda examinar.
 
 > **NOTA:** Por que direcciones heredadas? Porque sus guiones son más significativos. Sin embargo, también ofreceremos un ejemplo de un SegWit P2WPKH nativo en [§9.5](09_5_Scripting_a_P2WPKH.md).
 
@@ -77,7 +77,7 @@ $ bitcoin-cli -named decoderawtransaction hexstring=$signedtx
 ```
 Los dos scripts se encuentran en las dos partes diferentes de la transacción.
 
-El `scriptSig` se encuentra en el `vin`. Este es el script de _desbloqueo_. Es lo que se ejecuta para acceder al UTXO que se utiliza para financiar esta transacción. Habrá uno `scriptSig` por UTXO en una transacción.
+El `scriptSig` se encuentra en el `vin`. Este es el script de _desbloqueo_. Es lo que se ejecuta para acceder al UTXO que se utiliza para financiar esta transacción. Habrá un `scriptSig` por UTXO en una transacción.
 
 El `scriptPubKey` se encuentra en el `vout`. Este es el script de _bloqueo_. Es lo que bloquea la nueva salida de la transacción. Habrá un `scriptPubKey` por salida en una transacción.
 
