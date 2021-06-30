@@ -12,11 +12,11 @@ Los scripts de Bitcoin se ejecutan de izquierda a derecha. Eso suena bastante f�
 
 Por ejemplo, si estuviera sumando "1" y "2", su Bitcoin Script para eso sería `1 2 OP_ADD`, _no_ "1 + 2". Como sabemos que el operador OP_ADD toma dos entradas, sabemos que las dos entradas anteriores son sus operandos.
 
-> :warning: **ADVERTENCIA:** Técnicamente, todo en Bitcoin Script es un código de operación, por lo que sería más apropiado registrar el ejemplo anterior como `OP_1 OP_2 OP_ADD`. En nuestros ejemplos, no nos preocupamos por cómo se evaluarán las constantes, ya que ese es un tema de traducción, como se explica en [§8.2: Building the Structure of P2SH](08_2_Building_the_Structure_of_P2SH.md). Algunos escritores prefieren dejar el prefijo "OP" también fuera de todos los operadores, pero hemos optado por no.
+> :warning: **ADVERTENCIA:** Técnicamente, todo en Bitcoin Script es un código de operación, por lo que sería más apropiado registrar el ejemplo anterior como `OP_1 OP_2 OP_ADD`. En nuestros ejemplos, no nos preocupamos por cómo se evaluarán las constantes, ya que ese es un tema de traducción, como se explica en [§8.2: Building the Structure of P2SH](08_2_Building_the_Structure_of_P2SH.md). Algunos escritores prefieren dejar el prefijo "OP" también fuera de todos los operadores, nosotros hemos optado por no hacerlo.
 
 ### Entender la Pila
 
-En realidad, no es del todo correcto decir que un operador aplica a las entradas enfrente que lo. Realmente, un operador aplica a las entradas principales en la pila de Bitcoin.
+En realidad, no es del todo correcto decir que un operador aplica a las entradas enfrente que lo. En realidad, no es del todo correcto decir que un operador se aplica a las entradas anteriores.
 
 > :book: ***Que es un pila?*** Una pila es una estructura de datos LIFO (last-in-first-out o último en entrar, primero en salir). Tiene dos funciones de accesso: push y pop. Push coloca un nuevo objeto en la parte superior de la pila, empujando hacia abajo todo lo que está debajo. Pop elimina el objeto superior de la pila.
 
@@ -118,7 +118,7 @@ En el ejemplo anterior, la transacción se realizaría correctamente porque la p
 
 ## Resumen: Ejecución de un Bitcoin Script
 
-Para procesar un script de Bitcoin, se ejecuta un `scriptSig` seguido de la `scriptPubKey` que está desbloqueando. Estos comandos se ejecutan en orden, de izquierda a derecha, con constantes que se insertan en una pila y los operadores extraen elementos de esa pila y luego devuelven los resultados a ella. Se el script no se detiene en el medio y si el elemento en la parte superior de la pila al final no es cero, entonces el UTXO está desbloqueado.
+Para procesar un script de Bitcoin, se ejecuta un `scriptSig` seguido de la `scriptPubKey` que está desbloqueando. Estos comandos se ejecutan en orden, de izquierda a derecha, con constantes que se insertan en una pila y los operadores extraen elementos de esa pila y luego devuelven los resultados a ella. Si el script no se detiene en el medio y si el elemento en la parte superior de la pila al final no es cero, entonces el UTXO está desbloqueado.
 
 ## Que Sigue?
 
