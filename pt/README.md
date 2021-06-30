@@ -3,11 +3,11 @@
 
 ![](https://www.blockchaincommons.com/images/projects/lbtc-screen.png)
 
-Aprendendo Bitcoin pela Linha de Comando é a versão em português de [Learning Bitcoin from the Command Line](https://github.com/BlockchainCommons/Learning-Bitcoin-from-the-Command-Line), um tutorial para trabalhar com Bitcoin (e Lightning) que ensina interação direta com os servidores como a maneira mais robusta e segura de começar a trabalhar com criptomoedas.
+"Aprendendo Bitcoin pela Linha de Comando", esta é a versão em português de [Learning Bitcoin from the Command Line](https://github.com/BlockchainCommons/Learning-Bitcoin-from-the-Command-Line), um tutorial para trabalhar com Bitcoin (e Lightning) que ensina a interação direta com os servidores da maneira mais robusta e segura, para começar a trabalhar com criptomoedas.
 
 > NOTA: Este é um rascunho em progresso, para que eu possa receber algum feedback de revisores iniciais. Ainda não está pronto para uso.
 
-_Este tutorial assume que você tenha um mínimo background em como utilizar a linha de comando. Caso contrário, vários tutoriais estão disponíveis, e eu tenho um para usuários de Mac em https://github.com/ChristopherA/intro-mac-command-line._
+_Este tutorial assume que você tenha um mínimo de background em como utilizar a linha de comando. Caso contrário, a vários tutoriais que estão disponíveis na internet, e eu possui um curso para usuários de Mac em: https://github.com/ChristopherA/intro-mac-command-line._
 
 ## Traduções
 
@@ -17,7 +17,7 @@ Se você gostaria de fazer a sua própria tradução, por favor veja [Contribuin
 
 ## Índice
 
-### PARTE UM: PREPARANDO PARA O BITCOIN
+### PARTE UM: SE PREPARANDO PARA O BITCOIN
 
 **Estado**: Finalizado. Atualizado para 0.20.
 
@@ -191,7 +191,7 @@ As pessoas a seguir contribuíram diretamente para este repositório. Você pode
 | Nome              | Função                | Github                                            | Email                                 | GPG Fingerprint                                    |
 | ----------------- | ------------------- | ------------------------------------------------- | ------------------------------------- | -------------------------------------------------- |
 | Christopher Allen | Autor Líder | [@ChristopherA](https://github.com/ChristopherA) | \<ChristopherA@LifeWithAlacrity.com\> | FDFE 14A5 4ECB 30FC 5D22  74EF F8D3 6C91 3574 05ED |
-| Shannon Appelcline |  Autor Líder | [@shannona](https://github.com/shannona) | \<shannon.appelcline@gmail.com\> | 7EC6 B928 606F 27AD | 
+| Shannon Appelcline |  Autor Líder | [@shannona](https://github.com/shannona) | \<shannon.appelcline@gmail.com\> | 7EC6 B928 606F 27AD |
 
 
 Contribuições adicionais estão listadas abaixo:
