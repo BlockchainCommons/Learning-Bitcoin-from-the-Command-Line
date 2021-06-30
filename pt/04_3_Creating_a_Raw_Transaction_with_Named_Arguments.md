@@ -1,10 +1,10 @@
-# 4.3 Criando uma transação bruta com argumentos nomeados
+# 4.3 Criando uma Transação Bruta com Argumentos Nomeados
 
-Às vezes, pode ser assustador descobrir a ordem correta dos argumentos para um comando ```bitcoin-cli```. Felizmente, podemos usar _ argumentos nomeados_ como alternativa.
+Às vezes, pode ser assustador descobrir a ordem correta dos argumentos para um comando ```bitcoin-cli```. Felizmente, podemos usar _argumentos nomeados_ como alternativa.
 
 > :warning: **AVISO DE VERSÃO:** Esta é uma inovação do Bitcoin Core v0.14.0. Se usarmos os scripts de configuração do tutorial, o que é importante fazer, precisamos verificar novamente a versão se tiver algum problema. Há também um bug no uso do comando ```createrawtransaction``` usando argumentos nomeados que presumivelmente serão corrigidos na versão 0.14.1.
 
-## Criando um alias do argumento nomeado
+## Criando um Alias de Argumento Nomeado
 
 Para usar um argumento nomeado, devemos executar o ```bitcoin-cli``` com o argumento ```-named```. Se planejamos fazer isso regularmente, provavelmente precisaremos criar um alias:
 ```
@@ -12,7 +12,7 @@ alias bitcoin-cli="bitcoin-cli -named"
 ```
 Como de costume, isso é apenas para facilitar o uso, mas continuaremos usando todos os comandos para manter a clareza.
 
-## Testando um argumento nomeado
+## Testando um Argumento Nomeado
 
 Para saber quais são os nomes dos argumentos de um comando, precisamos consultar o ```bitcoin-cli help```. Ele listará os argumentos com a ordem adequada, mas agora também fornecerá nomes para cada um deles.
 
@@ -32,7 +32,7 @@ Com argumentos nomeados, podemos esclarecer o que estamos fazendo, o que também
 $ bitcoin-cli -named getbalance minconf=1
 ```
 
-## Testando uma transação bruta
+## Testando uma Transação Bruta
 
 Veja como seriam os comandos para enviar uma transação bruta com argumentos nomeados:
 ```
@@ -82,16 +82,16 @@ $ signedtx=$(bitcoin-cli -named signrawtransactionwithwallet hexstring=$rawtxhex
 $ bitcoin-cli -named sendrawtransaction hexstring=$signedtx
 e70dd2aa13422d12c222481c17ca21a57071f92ff86bdcffd7eaca71772ba172
 ```
-Pronto! Enviamos outra transação bruta, mas desta vez usando argumentos nomeados para ter maior clareza e redução de erros.
+Pronto! Enviamos outra transação bruta, mas desta vez usando argumentos nomeados para maior clareza e redução de erros.
 
-> :warning: **AVISO DE VERSÃO:** É aqui que o bug no Bitcoin Core 0.14 aparece: O argumento ```inputs``` no ```createrawtransaction``` tem o nome ```transactions``` incorreto. Portanto, se estivermos no Bitcoin Core 0.14.0, substitua o argumento nomeado ```inputs``` por ```transactions``` para este e também para os exemplos futuros. No entanto, a partir do Bitcoin Core 0.14.1, esse código deve funcionar normalmente.
+> :warning: **AVISO DE VERSÃO:** É aqui que o bug no Bitcoin Core 0.14 aparece: O argumento ```inputs``` no ```createrawtransaction``` tem o nome ```transactions``` incorreto. Portanto, se estiver no Bitcoin Core 0.14.0, substitua o argumento nomeado ```inputs``` por ```transactions``` para este e também para os exemplos futuros. No entanto, a partir do Bitcoin Core 0.14.1, este código deve funcionar normalmente.
 
-## Resumo do Criando uma transação bruta com argumentos nomeados
+## Resumo: Criando uma Transação Bruta com Argumentos Nomeados
 
-Executando o ```bitcoin-cli``` com o argumento ```-named```, podemos usar argumentos nomeados ao invés de depender de argumentos ordenados. O comando ```bitcoin-cli help``` sempre mostrará o nome correto para cada argumento. Isso pode resultar em um código mais robusto, mais fácil de ler e menos sujeito a erros.
+Executando o ```bitcoin-cli``` com o argumento ```-named``` podemos usar argumentos nomeados ao invés de depender de argumentos ordenados. O comando ```bitcoin-cli help``` sempre mostrará o nome correto para cada argumento. Isso pode resultar em um código mais robusto, mais fácil de ler e menos sujeito a erros.
 
-_À partir de agora, usaremos argumentos nomeados para todos os exemplos futuros, para maior clareza e para estabelecer as melhores práticas. No entanto, também mostraremos todos os argumentos na ordem correta. Portanto, se preferir não usar os argumentos nomeados, apenas retire o argumento ```-named``` e todos os ```name =``` que os exemplos devem continuar funcionando corretamente._
+_À partir de agora, usaremos argumentos nomeados para todos os exemplos futuros, para maior clareza e para estabelecer as melhores práticas. No entanto, também mostraremos todos os argumentos na ordem correta. Portanto, se preferir não usar os argumentos nomeados, apenas retire o argumento ```-named``` e todos os ```name=``` que os exemplos devem continuar funcionando corretamente._
 
-## O que vem depois?
+## O Que Vem Depois?
 
-Continue "Enviando Transações de Bitcoin" na sessão [§4.4: Enviando bitcoins usando transações brutas](04_4_Sending_Coins_with_a_Raw_Transaction.md).
+Continue "Enviando Transações no Bitcoin" na seção [§4.4: Enviando Moedas com Transações Brutas](04_4_Sending_Coins_with_a_Raw_Transaction.md).
