@@ -2,11 +2,11 @@
 
 > :information_source: **NOTE:** This section has been recently added to the course and is an early draft that may still be awaiting review. Caveat reader.
 
-This section explains how to interact with `bitcoind` using the Java programming language and the [JavaBitcoindRpcClient](https://github.com/Polve/JavaBitcoindRpcClient). 
+This section explains how to interact with `bitcoind` using the Java programming language and the [JavaBitcoindRpcClient](https://github.com/Polve/JavaBitcoindRpcClient).
 
 ## Set Up Java
 
-You can install Java on your server, using the `apt-get` command. You will also install [Apache Maven](http://maven.apache.org/) to manage the dependencies. 
+You can install Java on your server, using the `apt-get` command. You will also install [Apache Maven](http://maven.apache.org/) to manage the dependencies.
 ```
 $ sudo apt-get install openjdk-11-jre-headless maven
 ```
@@ -57,15 +57,15 @@ In order to include `JavaBitcoindRpcClient`, you must add its dependency to `<de
         <version>1.2.1</version>
       </dependency>
 ```
-You also need to add compiler properties to indicate what JDK version will compile the source code.    
+You also need to add compiler properties to indicate what JDK version will compile the source code.
 
 ```
-  <properties>                                                                  
+  <properties>
     <!-- https://maven.apache.org/general.html#encoding-warning -->
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <maven.compiler.source>11</maven.compiler.source>
     <maven.compiler.target>11</maven.compiler.target>
-  </properties>                                                                 
+  </properties>
 ```
 
 Whenever you add source code to your classes, you'll be able to test it with:
@@ -110,7 +110,7 @@ rpcClient.stop();
 
 ### Make an RPC Call
 
-You'll find that the `BitcoindRpcClient` provides most of the functionality that can be accessed through `bitcoin-cli` or other RPC methods, using the same method names, but in camelCase. 
+You'll find that the `BitcoindRpcClient` provides most of the functionality that can be accessed through `bitcoin-cli` or other RPC methods, using the same method names, but in camelCase.
 
 For example, to execute the `getmininginfo` command to get the block information and the difficulty on the network, you should use the `getMiningInfo()` method:
 ```java
@@ -137,7 +137,7 @@ You can look up addresses on your wallet by passing the address as an argument t
 
 ```java
 	String addr1 = "mvLyH7Rs45c16FG2dfV7uuTKV6pL92kWxo";
-	
+
 	AddressInfo addr1Info = rpcClient.getAddressInfo(addr1);
 	System.out.println("Address: " + addr1Info.address());
 	System.out.println("MasterFingerPrint: " + addr1Info.hdMasterFingerprint());
@@ -154,7 +154,7 @@ PubKey: 0368d0fffa651783524f8b934d24d03b32bf8ff2c0808943a556b3d74b2e5c7d65
 
 ### Run Your Code
 
-The code for these examples can be found in [the src directory](src/17_2_App-getinfo.java) and should be installed into the standard directory structure created here as `~/java-project/src/main/java/com/blockchaincommons/lbtc/App.java`. It can then be compiled and run. 
+The code for these examples can be found in [the src directory](src/17_2_App-getinfo.java) and should be installed into the standard directory structure created here as `~/java-project/src/main/java/com/blockchaincommons/lbtc/App.java`. It can then be compiled and run.
 
 ```
 $ mvn compile
@@ -200,7 +200,7 @@ The JavaBitcoindRpcClient library has some good tools that make it easy to creat
 
 ### Create a Transaction
 
-You can create a raw transaction using the `createRawTransaction` method, passing as arguments two ArrayList objects containing inputs and outputs to be used.  
+You can create a raw transaction using the `createRawTransaction` method, passing as arguments two ArrayList objects containing inputs and outputs to be used.
 
 First you set up your new addresses, here an existing address on your system and a new address on your system.
 ```
@@ -243,7 +243,7 @@ Second, you fill the ouputs each with an amount and an address:
 	BigDecimal estimatedFee = BigDecimal.valueOf(0.00000200);
       	BigDecimal txToAddr2Amount = utxos.get(0).amount().subtract(estimatedFee);
 	txb.out(addr2, txToAddr2Amount);
-	
+
 	System.out.println("unsignedRawTx in amount: " + utxos.get(0).amount());
         System.out.println("unsignedRawTx out amount: " + txToAddr2Amount);
 ```
@@ -261,7 +261,7 @@ You now can sign transaction with the method `signRawTransactionWithKey`. This m
 ```java
 	SignedRawTransaction srTx = rpcClient.signRawTransactionWithKey(
 					unsignedRawTxHex,
-					Arrays.asList(rpcClient.dumpPrivKey(addr1)), // 
+					Arrays.asList(rpcClient.dumpPrivKey(addr1)), //
 					Arrays.asList(in),
 					null);
 	System.out.println("signedRawTx hex: " + srTx.hex());
