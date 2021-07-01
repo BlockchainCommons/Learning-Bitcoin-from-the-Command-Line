@@ -51,7 +51,7 @@ $ bitcoin-cli sendrawtransaction $signedtx
 
 Grabbing data out of a JSON object is easy, but what if that JSON object is in a JSON array? The `listunspent` command offers a great example, because it'll usually contain a number of different transactions. What if you want to capture specific information from _one_ of them?
 
-When working with a JSON array, the first thing you need to do is tell JQ which index to access. For example, you might have looked through your transactions in `listunspent` and decided that you wanted to work with the second of them. You use `'.[1]'` to access that first element. The `[]` says that we're referencing a JSON array and the `0` says we want the 0th index.
+When working with a JSON array, the first thing you need to do is tell JQ which index to access. For example, you might have looked through your transactions in `listunspent` and decided that you wanted to work with the second of them. You use `'.[1]'` to access that second element. The `[]` says that we're referencing a JSON array and the `1` says we want the 1st index.
 ```
 $ bitcoin-cli listunspent | jq -r '.[1]'
 {
@@ -68,7 +68,7 @@ $ bitcoin-cli listunspent | jq -r '.[1]'
   "safe": true
 }
 ```
-You can then capture an individual value from that selected array by (1) using a pipe _within_ the JQ arguments; and then (2) requesting the specific value afterward, as in the previous example. The following would capture the `txid` from the 0th JSON object in the JSON array produced by `listunspent`:
+You can then capture an individual value from that selected array by (1) using a pipe _within_ the JQ arguments; and then (2) requesting the specific value afterward, as in the previous example. The following would capture the `txid` from the 1st JSON object in the JSON array produced by `listunspent`:
 ```
 $ bitcoin-cli listunspent | jq -r '.[1] | .txid'
 91261eafae15ea53dedbea7c1db748c52bbc04a85859ffd0d839bda1421fda4c
