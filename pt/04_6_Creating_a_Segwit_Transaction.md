@@ -1,22 +1,22 @@
-# 4.6: Criando uma transação do tipo SegWit
+# 4.6: Criando uma Transação SegWit
 
 > :information_source: **NOTA:** Esta seção foi adicionada recentemente ao curso e é um esboço que ainda pode estar aguardando revisão. Portanto, leitor, tenha cuidado.
 
-Era uma vez, nos céus do Bitcoin, uma guerra entre os tamanhos de blocos eclodiu. As taxas disparavam e os usuários estavam preocupados se o Bitcoin podia realmente escalar. Os desenvolvedores do Bitcoin Core relutaram em simplesmente aumentar o tamanho do bloco, mas chegaram a um acordo: Fizeram o SegWit, que significa Segregated Witness. A Segregated Witness é uma maneira elegante de dizer "Assinatura Separada". Ele cria novos tipos de transações que removem assinaturas no final da transação. Ao combinar isso com o aumento dos tamanhos de bloco que são visíveis apenas para nós atualizados, o SegWit resolveu os problemas de dimensionamento do Bitcoin na época e também resolveu um bug de maleabilidade desagradável, tornando o dimensionamento ainda melhor para protocolos de segunda camada, como a Lightning Network.
+Era uma vez, nos céus do Bitcoin, uma guerra entre os tamanhos de blocos. As taxas disparavam e os usuários estavam preocupados se o Bitcoin podia realmente escalar. Os desenvolvedores do Bitcoin Core relutaram em simplesmente aumentar o tamanho do bloco, mas chegaram a um acordo: fizeram o SegWit, que significa Segregated Witness. Segregated Witness é uma maneira elegante de dizer "Assinatura Separada". Ele cria novos tipos de transações que removem assinaturas no final da transação. Ao combinar isso com o aumento dos tamanhos de bloco que são visíveis apenas para nodes atualizados, o SegWit resolveu os problemas de dimensionamento do Bitcoin na época e também resolveu um bug de maleabilidade desagradável, tornando o dimensionamento ainda melhor para protocolos de segunda camada, como a Lightning Network.
 
-A sacada? O SegWit usa endereços diferentes, alguns dos quais são compatíveis com nodes mais antigos e outros não.
+A sacada? O SegWit usa endereços diferentes, alguns dos quais são compatíveis com nodes mais antigos, ao passo que outros não.
 
 > :warning: **AVISO DE VERSÃO:** O SegWit foi introduzido no BitCoin 0.16.0, que foi descrito na época como tendo "suporte total". Dito isso, havia algumas falhas na integração com o ```bitcoin-cli``` na época, que impediam a assinatura de funcionar corretamente em novos endereços P2SH-SegWit. O endereço Bech32, não compatível com versões anteriores, também foi introduzido no Bitcoin 0.16.0 e se tornou o tipo de endereço padrão no Bitcoin 0.19.0. Toda essa funcionalidade deve estar totalmente funcional em relação às funções ```bitcoin-cli``` (e, portanto, devem funcionar completamente neste tutorial).
 
-> O problema está em interagir com o mundo. Todos devem ser capazes de enviar para um endereço P2SH-SegWit porque foi construído propositadamente para suportar compatibilidade com as versões anteriores, envolvendo a funcionalidade SegWit em um Script Bitcoin. O mesmo não é verdade para endereços Bech32: Se alguém nos disser que não pode enviar para o nosso endereço Bech32 precisaremos gerar um endereço ```legado``` ou P2SH-SegWit para fazer a transação. (Muitos sites, principalmente as exchanges, também não podem gerar ou receber em endereços SegWit, particularmente endereços Bech32, mas isso é um problema totalmente diferente e não afeta o uso delas).
+> O problema está em interagir com o mundo. Todos devem ser capazes de enviar para um endereço P2SH-SegWit porque foi construído propositadamente para suportar compatibilidade com as versões anteriores, envolvendo a funcionalidade SegWit em um Script Bitcoin. O mesmo não é verdade para endereços Bech32: Se alguém nos disser que não pode enviar para o nosso endereço Bech32 precisaremos gerar um endereço ```legacy``` ou P2SH-SegWit para fazer a transação. (Muitos sites, principalmente as corretoras, também não podem gerar ou receber em endereços SegWit, particularmente endereços Bech32, mas isso é um problema totalmente diferente e não afeta o uso delas).
 
-## Compreendendo uma transação SegWit
+## Compreendendo uma Transação SegWit
 
-Em transações clássicas, as informações de assinatura (witness) eram armazenadas no meio da transação, enquanto nas transações SegWit, elas ficavam na parte inferior. Isso anda de mãos dadas com os aumentos de tamanho do bloco que foram introduzidos na atualização do SegWit. O tamanho do bloco foi aumentado de 1 mega para um valor variável com base em quantas transações SegWit estão em um bloco, começando em 1 mega (sem transações SegWit) e podendo chegar a 4 megas (caso todas as transações sejam SegWit). Este tamanho variável foi criado para acomodar os nodes legados, de forma que tudo permaneça compatível com as versões anteriores. Se um node clássico vê uma transação SegWit, ele joga fora as informações da witness (resultando em um bloco de tamanho menor, abaixo do antigo limite de 1 mega), enquanto se um novo node vê uma transação SegWit, ele mantém as informações da witness (resultando em um maior tamanho de bloco, até o novo limite de 4 megas).
+Em transações clássicas, as informações de assinatura (witness) eram armazenadas no meio da transação, enquanto nas transações SegWit, elas ficam na parte inferior. Isso anda de mãos dadas com os aumentos de tamanho do bloco que foram introduzidos na atualização do SegWit. O tamanho do bloco foi aumentado de 1 mega para um valor variável com base em quantas transações SegWit estão em um bloco, começando em 1 mega (sem transações SegWit) e podendo chegar a 4 megas (caso todas as transações sejam SegWit). Este tamanho variável foi criado para acomodar os nodes clássicos, de forma que tudo permaneça compatível com as versões anteriores. Se um node clássico vê uma transação SegWit, ele joga fora as informações da witness (resultando em um bloco de tamanho menor, abaixo do antigo limite de 1 mega), enquanto se um novo node vê uma transação SegWit, ele mantém as informações da witness (resultando em um maior tamanho de bloco, até o novo limite de 4 megas).
 
-Portanto, acabamos de responder o quê são e como funcionam as transações SegWit. Não que precisemos saber disso para usá-las. A maioria das transações na rede Bitcoin são SegWit. Elas são aquilo que iremos utilizar nativamente para as transações e recebimentos de bitcoins. Os detalhes não são mais relevantes à partir deste ponto, tanto quanto não são mais relevantes como o Bitcoin funciona.
+Portanto, acabamos de responder o quê são e como funcionam as transações SegWit. Não que precisemos saber disso para usá-las. A maioria das transações na rede Bitcoin são SegWit. Elas são aquilo que iremos utilizar nativamente para as transações e recebimentos de bitcoins. A este ponto, os detalhes não são mais relevantes do que os detalhes de como grande parte do Bitcoin funciona.
 
-## Criando um endereço SegWit
+## Criando um Endereço SegWit
 
 Criamos um endereço SegWit da mesma maneira que qualquer outro endereço, com os comandos ```getnewaddress``` e ```getrawchangeaddress```.
 
@@ -27,14 +27,14 @@ $ bitcoin-cli -named getnewaddress address_type=p2sh-segwit
 ```
 Se conseguirmos ver um endereço com o prefixo "2" significa que fizemos tudo certo.
 
-> :link: **TESTNET vs MAINNET:** "3" no caso da mainnet.
+> :link: **TESTNET vs MAINNET:** "3" para a Mainnet.
 
 No entanto, se a pessoa com quem estamos interagindo tem um node com uma versão mais nova, ela poderá enviar para um endereço Bech32, que criamos usando os comandos da maneira padrão:
 ```
 $ bitcoin-cli getnewaddress
 tb1q5gnwrh7ss5mmqt0qfan85jdagmumnatcscwpk6
 ```
-Como já vimos, os endereços de troco gerados a partir do ```bitcoin-cli``` interagem bem com os endereços Bech32, então não há motivo nenhum usar o sinalizador ```legacy``` lá também:
+Como já vimos, os endereços de troco gerados a partir do ```bitcoin-cli``` interagem bem com os endereços Bech32, então não há motivo nenhum para usar o sinalizador ```legacy``` lá também:
 ```
 $ bitcoin-cli getrawchangeaddress
 tb1q05wx5tyadm8qe83exdqdyqvqqzjt3m38vfu8ff
@@ -42,9 +42,9 @@ tb1q05wx5tyadm8qe83exdqdyqvqqzjt3m38vfu8ff
 
 Aqui, podemos observar que o prefixo "tb1" exclusivo denota que o endereço é um Bech32.
 
-> :link: ** TESTNET vs MAINNET: ** "bc1" no caso da mainnet.
+> :link: **TESTNET vs MAINNET:** "bc1" para a mainnet.
 
-O Bitcoin-cli não se importa com o tipo de endereço que estamos utilizando. Podemos executar um comando como ```listaddressgroupings``` que ele irá misturar os endereços livremente não importando os tipos:
+O bitcoin-cli não se importa com o tipo de endereço que estamos utilizando. Podemos executar um comando como ```listaddressgroupings``` que ele irá misturar os endereços livremente, não importando os tipos:
 ```
 $ bitcoin-cli listaddressgroupings
 [
@@ -109,11 +109,11 @@ $ bitcoin-cli listaddressgroupings
 ]
 ```
 
-## Enviando uma transação SegWit no modo easy
+## Enviando uma Transação SegWit da Maneira Fácil
 
-Então, como enviamos uma transação Segwit? Exatamente como qualquer outra transação. Não importa se o UTXO é SegWit, o endereço é SegWit ou alguma combinação dos dois. Podemos ter a certeza que o ```bitcoin-cli``` irá fazer a coisa certa. Embora possamos perceber algumas diferenças nos endereços, eles não importam para interagir com as coisas no nível do ```bitcoin-cli``` ou do RPC. (E esta é uma das vantagens de usar a linha de comando e a interface do RPC, conforme sugerido neste tutorial: Os especialistas já fizeram o trabalho duro para nós, incluindo coisas como enviar para endereços legados e Bech32. Acabamos usando essa funcionalidade para nosso próprio benefício).
+Então, como enviamos uma transação Segwit? Exatamente como qualquer outra transação. Não importa se o UTXO é SegWit, o endereço é SegWit ou alguma combinação dos dois. Podemos ter a certeza que o ```bitcoin-cli``` irá fazer a coisa certa. Embora possamos perceber algumas diferenças nos endereços, eles não importam para interagir com as coisas no nível do ```bitcoin-cli``` ou do RPC. (E esta é uma das vantagens de usar a linha de comando e a interface do RPC, conforme sugerido neste tutorial: os especialistas já fizeram o trabalho duro para nós, incluindo coisas como enviar para endereços legacy e Bech32. Acabamos usando essa funcionalidade para nosso próprio benefício).
 
-Aqui está um exemplo de um envio para um endereço SegWit, no modo easy:
+Aqui está um exemplo de um envio para um endereço SegWit, da maneira fácil:
 ```
 $ bitcoin-cli sendtoaddress tb1qw508d6qejxtdg4y5r3zarvary0c5xw7kxpjzsx 0.005
 854a833b667049ac811b4cf1cad40fa7f8dce8b0f4c1018a58b84559b6e05f42
@@ -202,9 +202,9 @@ $ bitcoin-cli gettransaction txid="854a833b667049ac811b4cf1cad40fa7f8dce8b0f4c10
   }
 }
 ```
-Na verdade, ambos os ```vouts``` usam endereços Bech32: O nosso destinatário e o endereço de troco gerado automaticamente.
+Na verdade, ambos ```vouts``` usam endereços Bech32: o nosso destinatário e o endereço de troco gerado automaticamente.
 
-Mas quando retrocedemos nosso ```vin```, descobrimos que veio de um endereço legado. Isso porque não importa:
+Mas quando retrocedemos nosso ```vin```, descobrimos que veio de um endereço legacy. Porque isso não importa:
 ```
 $ bitcoin-cli -named gettransaction txid="33173618421804343e8f6cc21316d97a24f7439137510249af39f01ee82113a7"
 {
@@ -233,7 +233,7 @@ $ bitcoin-cli -named gettransaction txid="33173618421804343e8f6cc21316d97a24f743
 }
 ```
 
-## Enviando uma transação SegWit o modo hard
+## Enviando uma Transação SegWit da Maneira Difícil
 
 Da mesma forma, podemos financiar uma transação com um endereço Bech32, sem nenhuma diferença em relação às técnicas que aprendemos até agora. Aqui está uma maneira exata de fazer isso com uma transação bruta completa:
 ```
@@ -269,20 +269,20 @@ e02568b706b21bcb56fcf9c4bb7ba63fdbdec1cf2866168c4f50bc0ad693f26c
 ```
 Tudo funciona exatamente da mesma forma que outros tipos de transações!
 
-### Reconhecendo o novo descritor
+### Reconhecendo o Novo Descritor
 
-Se olharmos o campo ```desc```, notaremos que o endereço SegWit tem um descritor de estilo diferente daqueles encontrados na sessão [§3.5: Entendendo o descritor](03_5_Understanding_the_Descriptor.md). Um descritor legado descrito nessa sessão se parecia com algo assim: `pkh ([d6043800 / 0 '/ 0' / 18 '] 03efdee34c0009fd175f3b20b5e5a5517fd5d16746f2e635b44617adafeaebc388) # 4ahsl9pk`. Nosso novo descritor SegWit se parece mais com isso: `wpkh ([d6043800 / 0 '/ 0' / 5 '] 0327dbe2d58d9ed2dbeca28cd26e18f48aa94c127fa6fb4b60e4188f6360317640) # hd66hknp" `.
+Se olharmos o campo ```desc```, notaremos que o endereço SegWit tem um descritor de estilo diferente daqueles encontrados na seção [§3.5: Compreendendo o Descritor](03_5_Understanding_the_Descriptor.md). Um descritor legacy descrito nessa seção se parecia com algo assim: `pkh ([d6043800 / 0 '/ 0' / 18 '] 03efdee34c0009fd175f3b20b5e5a5517fd5d16746f2e635b44617adafeaebc388) # 4ahsl9pk`. Nosso novo descritor SegWit se parece mais com isso: `wpkh ([d6043800 / 0 '/ 0' / 5 '] 0327dbe2d58d9ed2dbeca28cd26e18f48aa94c127fa6fb4b60e4188f6360317640) # hd66hknp" `.
 
-A grande diferença que precisamos notar é que a função mudou. Anteriormente, era ```pkh```, que é um endereço padrão de chave pública com hash P2PKH. Ao invés disso, o endereço SegWit é ```wpkh```, o que significa que é um endereço SegWit P2WPKH nativo. Isso dá destaque ao :fire: ***poder dos descritores***. Eles descrevem como criar um endereço a partir de uma chave ou outra informação, com as funções definindo de forma inequívoca como fazer o endereço com base no tipo de cada endereço.
+A grande diferença que precisamos notar é que a função mudou. Anteriormente, era ```pkh```, que é um endereço padrão de chave pública com hash P2PKH. Ao invés disso, o endereço SegWit é ```wpkh```, o que significa que é um endereço SegWit P2WPKH nativo. Isto destaca o :fire: ***poder dos descritores***. Eles descrevem como criar um endereço a partir de uma chave ou outra informação, com as funções definindo de forma inequívoca como fazer o endereço com base em seu tipo.
 
-## Resumo do Criando uma transação do tipo SegWit
+## Resumo: Criando uma Transação SegWit
 
-Realmente não há complexidade para criar transações SegWit. Internamente, elas são estruturadas de forma diferente das transações legadas, mas na linha de comando não existe diferença: Apesar usamos um endereço com um prefixo diferente. A única coisa a ser observada é que algumas pessoas podem não conseguir enviar para um endereço Bech32 se estiverem usando um software obsoleto.
+Realmente não há complexidade para criar transações SegWit. Internamente, elas são estruturadas de forma diferente das transações legacy, mas na linha de comando não existe diferença: apenas usamos um endereço com um prefixo diferente. A única coisa a ser observada é que algumas pessoas podem não conseguir enviar para um endereço Bech32 se estiverem usando um software obsoleto.
 
-> :fire: ***Qual é o poder de criar transações usando o SegWit?***
-> _As vantagens._ As transações do SegWit são menores e, portanto, serão mais baratas de serem enviadas do que as transações legadas devido às taxas mais baixas. O Bech32 diminui essa vantagem e também cria endereços que são mais difíceis de errar durante a transcrição, e isso é muito importante, visto que o erro do usuário é uma das maneiras mais prováveis de terem seus bitcoins perdidos.
-> _As desvantagens._ Os endereços SegWit não tem suporte em nodes do Bitcoin obsoleto. Em particular, as pessoas podem não conseguir enviar para o nosso endereço Bech32.
+> :fire: ***Qual é o poder de enviar transações com SegWit?***
+> _As vantagens._ As transações SegWit são menores e, portanto, serão mais baratas de serem enviadas do que as transações legacy devido às taxas mais baixas. O Bech32 diminui essa vantagem e também cria endereços que são mais difíceis de errar durante a transcrição, e isso é muito importante, visto que o erro do usuário é uma das maneiras mais prováveis de perderem seus bitcoins.
+> _As desvantagens._ Os endereços SegWit não tem suporte em nodes Bitcoin obsoletos. Em particular, as pessoas podem não conseguir enviar para o nosso endereço Bech32.
 
-## O que vem depois?
+## O Que Vem Depois?
 
-Vamos avançar mais um pouco no "bitcoin-cli" com o [Capítulo 5: Controlando as transações do Bitcoin](05_0_Controlling_Bitcoin_Transactions.md).
+Vamos avançar mais um pouco no "bitcoin-cli" com o [Capítulo 5: Controlando Transações no Bitcoin](05_0_Controlling_Bitcoin_Transactions.md).

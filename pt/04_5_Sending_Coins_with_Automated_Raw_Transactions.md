@@ -1,25 +1,25 @@
-# 4.5: Enviando bitcoins usando transações brutas automatizadas
+# 4.5: Enviando Moedas com Transações Brutas Automatizadas
 
-Este capítulo apresenta três maneiras de enviar fundos por meio da interface cli do Bitcoin. A sessão [§4.1](04_1_Sending_Coins_The_Easy_Way.md) descreveu como fazer isso com um comando simples, a sessão [§4.4](04_4_Sending_Coins_with_a_Raw_Transaction.md) detalhou como usar uma transação bruta mais perigosa. Esta seção fica no meio termo de ambas, mostrando como tornar as transações brutas mais simples e seguras.
+Este capítulo apresenta três maneiras de enviar fundos por meio da interface cli do Bitcoin. A seção [§4.1](04_1_Sending_Coins_The_Easy_Way.md) descreveu como fazer isso com um comando simples e a seção [§4.4](04_4_Sending_Coins_with_a_Raw_Transaction.md) detalhou como usar uma transação bruta mais perigosa. Esta seção fica no meio termo de ambas, mostrando como tornar as transações brutas mais simples e seguras.
 
-## Deixando o Bitcoin fazer os cálculos para nós
+## Deixando o Bitcoin Fazer os Cálculos Para Nós
 
-A metodologia para transações brutas automatizadas é simples: Criamos uma transação bruta, mas usamos o comando ```fundrawtransaction``` para pedir ao bitcoind para executar os cálculos para nós.
+A metodologia para transações brutas automatizadas é simples: criamos uma transação bruta, mas usamos o comando ```fundrawtransaction``` para pedir ao bitcoind para executar os cálculos para nós.
 
-Para usar este comando, precisaremos garantir que nosso arquivo ```~/.bitcoin/bitcoin.conf``` contenha as variáveis racionais para calcular as taxas de transação. Podemos consultar a sessão [§4.1: Enviando bitcoins no modo easy](04_1_Sending_Coins_The_Easy_Way.md) para obter mais informações sobre isso.
+Para usar este comando, precisaremos garantir que nosso arquivo ```~/.bitcoin/bitcoin.conf``` contenha as variáveis racionais para calcular as taxas de transação. Podemos consultar a seção [§4.1: Enviando Moedas da Maneira Fácil](04_1_Sending_Coins_The_Easy_Way.md) para obter mais informações sobre isso.
 
 Vamos usar números conservadores, por isso sugerimos adicionar o seguinte ao `bitcoin.conf`:
 ```
 mintxfee=0.0001
 txconfirmtarget=6
 ```
-Para manter o tutorial em constante movimento (em outras palavras, para movimentarmos nosso dinheiro rápido sem ficar esperando muito), sugerimos o seguinte:
+Para manter o tutorial em movimento (e para movimentarmos nosso dinheiro rapidamente), sugerimos o seguinte:
 ```
 mintxfee=0.001
 txconfirmtarget=1
 ```
 
-## Criando uma transação bruta
+## Criando uma Transação Bruta
 
 Para usar o ```fundrawtransaction``` primeiro precisamos criar uma transação bruta básica que liste _nenhuma_ entrada e _nenhuma_ mudança de endereço. Apenas listaremos o nosso destinatário e quanto desejamos enviar, neste caso ```$recipient``` e ```0,0002``` BTC.
 ```
@@ -27,7 +27,7 @@ $ recipient=n2eMqTT929pb1RDNuqEnxdaLau1rxy3efi
 $ unfinishedtx=$(bitcoin-cli -named createrawtransaction inputs='''[]''' outputs='''{ "'$recipient'": 0.0002 }''')
 ```
 
-## Financiando nossa transação bruta
+## Financiando Nossa Transação Bruta
 
 Dizemos ao ```bitcoin-cli``` para financiar essa transação básica:
 ```
@@ -42,11 +42,11 @@ Isso fornece muitas informações úteis, mas uma vez que tenhamos certeza de co
 ```
 $ rawtxhex3=$(bitcoin-cli -named fundrawtransaction hexstring=$unfinishedtx | jq -r '.hex')
 ```
-## Verificando nossa transação financiada
+## Verificando Nossa Transação Financiada
 
 Parece mágica, então nas primeiras vezes que usarmos o ```fundrawtransaction```, provavelmente vamos querer verificá-la.
 
-Vamos executar o comando ```decoderawtransaction``` para mostrar que a transação bruta agora está disposta corretamente, usando um ou mais dos nossos UTXOs e enviando fundos excedentes de volta para um endereço de alteração:
+Vamos executar o comando ```decoderawtransaction``` para mostrar que a transação bruta agora está disposta corretamente, usando um ou mais dos nossos UTXOs e enviando fundos excedentes de volta para um endereço de troco:
 ```
 $ bitcoin-cli -named decoderawtransaction hexstring=$rawtxhex3
 {
@@ -98,14 +98,14 @@ $ bitcoin-cli -named decoderawtransaction hexstring=$rawtxhex3
   ]
 }
 ```
-Uma coisa de interesse aqui é o endereço de troco, que é o segundo ```vout```. Observe que é um endereço ```tb1```, o que significa que é do tipo Bech32. Quando demos ao Bitcoin Core a capacidade total de gerenciar as alterações, ele o fez usando o tipo de endereço padrão, Bech32, e funcionou bem. É por isso que nossa mudança para endereços SegWit na sessão [§4.6](04_6_Creating_a_Segwit_Transaction.md) realmente não é um grande negócio, mas existem algumas dicas para uso mais amplo, sobre as quais falaremos lá.
+Uma coisa de interesse aqui é o endereço de troco, que é o segundo ```vout```. Observe que é um endereço ```tb1```, o que significa que é do tipo Bech32. Quando demos ao Bitcoin Core a capacidade total de gerenciar as alterações, ele o fez usando o tipo de endereço padrão, Bech32, e funcionou bem. É por isso que nossa mudança para endereços SegWit na seção [§4.6](04_6_Creating_a_Segwit_Transaction.md) realmente não é um grande negócio, mas existem algumas dicas para uso mais amplo, sobre as quais falaremos lá.
 
-Embora tenhamos visto a taxa na saída no ```fundrawtransaction```, ela não pode ser visível aqui. No entanto, podemos verificar isso com o script JQ ```txfee-calc.sh``` criado na sessão [Prefácio: Usando o JQ](https://github.com/BlockchainCommons/Learning-Bitcoin-from-the-Command-Line/blob/master /04_2__Interlude_Using_JQ.md):
+Embora tenhamos visto a taxa na saída de ```fundrawtransaction```, ela não pode ser visível aqui. No entanto, podemos verificar isso com o script JQ ```txfee-calc.sh``` criado na seção [Prefácio: Usando JQ](https://github.com/BlockchainCommons/Learning-Bitcoin-from-the-Command-Line/blob/master/04_2__Interlude_Using_JQ.md):
 ```
 $ ~/txfee-calc.sh $rawtxhex3
 .000222
 ```
-Finalmente, podemos usar o ```getaddressinfo``` para ver se o endereço de alteração gerado realmente nos pertence:
+Finalmente, podemos usar o ```getaddressinfo``` para ver se o endereço de troco gerado realmente nos pertence:
 ```
 $ bitcoin-cli -named getaddressinfo address=tb1q57p0f3hpuad9kf8n6e6adugmt6lnkg2zzr592r
 {
@@ -129,9 +129,9 @@ $ bitcoin-cli -named getaddressinfo address=tb1q57p0f3hpuad9kf8n6e6adugmt6lnkg2z
   ]
 }
 ```
-Observe os conteúdo do `ismine`.
+Observe o conteúdo do `ismine`.
 
-## Enviando a transação financiada
+## Enviando a Transação Financiada
 
 Neste ponto, podemos assinar e enviar a transação normalmente.
 ```
@@ -158,14 +158,14 @@ $ bitcoin-cli listunspent
 ]
 ```
 
-## Resumo do Enviando bitcoins usando transações brutas automatizadas
+## Resumo: Enviando Moedas com Transações Brutas Automatizadas
 
 Se formos enviar fundos usando transações brutas, então o ```fundrawtransaction``` oferece uma boa alternativa onde taxas, entradas e saídas são calculadas para nós, para que não percamos acidentalmente muito dinheiro.
 
 > :fire: ***Qual é o poder de enviar moedas com transações brutas automatizadas?***
-> _As vantagens._ Proporciona um bom meio de campo. Se estamos enviando fundos manualmente e o ```sendtoaddress``` não oferece controle suficiente por qualquer motivo, podemos obter algumas das vantagens das transações brutas sem os perigos dela. Essa metodologia deve ser usada sempre que possível se estivermos enviando transações brutas manualmente.
-> _As desvantagens._ É uma meio termo. Embora existam algumas opções adicionais no ```fundrawtransaction``` que não foram mencionadas aqui, nosso controle ainda é limitado. Provavelmente, nunca desejaríamos usar esse método se formos escrever um programa cujo objetivo é saber exatamente o que está acontecendo.
+> _As vantagens._ Proporciona um bom meio termo. Se estamos enviando fundos manualmente e o ```sendtoaddress``` não oferece controle suficiente por qualquer motivo, podemos obter algumas das vantagens das transações brutas sem os perigos dela. Essa metodologia deve ser usada sempre que possível se estivermos enviando transações brutas manualmente.
+> _As desvantagens._ É uma mistura. Embora existam algumas opções adicionais no ```fundrawtransaction``` que não foram mencionadas aqui, nosso controle ainda é limitado. Provavelmente, nunca desejaríamos usar esse método se formos escrever um programa cujo objetivo é saber exatamente o que está acontecendo.
 
-## O que vem depois?
+## O Que Vem Depois?
 
-Vamos concluir o capítulo "Enviando transações no Bitcoin" com a sessão [§4.6: Criando uma transação do tipo SegWit](04_6_Creating_a_Segwit_Transaction.md).
+Vamos concluir o capítulo "Enviando Transações no Bitcoin" com a seção [§4.6: Criando uma Transação SegWit](04_6_Creating_a_Segwit_Transaction.md).
