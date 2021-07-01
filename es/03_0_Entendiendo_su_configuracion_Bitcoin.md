@@ -23,7 +23,7 @@ Los objetivos de apoyo incluyen la capacidad de:
    
 ## Tabla de contenidos
 
-* [Sección uno: Verificación de la configuración de Bitcoin](03_1_Verifying_Your_Bitcoin_Setup.md)
+* [Sección uno: Verificación de la configuración de Bitcoin](03_1_Verifcando_su_Configuracion_Bitcoin.md)
 * [Sección dos: Conocer la configuración de Bitcoin](03_2_Knowing_Your_Bitcoin_Setup.md)
 * [Sección tres: Configuración de su billetera](03_3_Setting_Up_Your_Wallet.md)
    * [Interludio: uso de variables de la línea de comandos](03_3__Interlude_Using_Command-Line_Variables.md)
