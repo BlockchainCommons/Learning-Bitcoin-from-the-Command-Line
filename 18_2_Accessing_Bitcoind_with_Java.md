@@ -1,4 +1,4 @@
-# 17.2: Accessing Bitcoind with Java
+# 18.2: Accessing Bitcoind with Java
 
 > :information_source: **NOTE:** This section has been recently added to the course and is an early draft that may still be awaiting review. Caveat reader.
 
@@ -330,5 +330,5 @@ By using the javabitcoinrpc library, you can easily access bitcoind via RPC call
 
 ## What's Next?
 
-Learn more about "Talking to Bitcoin in Other Languages" in [17.3: Accessing Bitcoin with NodeJS](17_3_Accessing_Bitcoind_with_NodeJS.md).
+Learn more about "Talking to Bitcoin in Other Languages" in [18.3: Accessing Bitcoin with NodeJS](18_3_Accessing_Bitcoind_with_NodeJS.md).
 

@@ -1,5 +1,4 @@
-
-# 18.1: Creating a c-lightning Setup
+# 19.1: Creating a c-lightning Setup
 
 > :information_source: **NOTE:** This section has been recently added to the course and is an early draft that may still be awaiting review. Caveat reader.
 
@@ -288,5 +287,3 @@ $ cd /
 $ sudo tar xf ~/clightning-v0.9.1-Ubuntu-20.04.tar.xz 
 ```
 Warning: this will require you to have the precise same libraries as were used to create the binary. It's often easier to just recompile.
-
-

@@ -1,4 +1,4 @@
-# 16.5: Using Scripts in Libwally
+# 17.5: Using Scripts in Libwally
 
 > :information_source: **NOTE:** This section has been recently added to the course and is an early draft that may still be awaiting review. Caveat reader.
 
@@ -177,4 +177,4 @@ Creating transactions in Libwally is another topic that could take up a whole ch
 
 ## What's Next?
 
-Learn more about "Programming Bitcoin with Libwally" in [§16.6: Using Other Functions in Libwally](16_6_Using_Other_Functions_in_Libwally.md).  
+Learn more about "Programming Bitcoin with Libwally" in [§17.6: Using Other Functions in Libwally](17_6_Using_Other_Functions_in_Libwally.md).

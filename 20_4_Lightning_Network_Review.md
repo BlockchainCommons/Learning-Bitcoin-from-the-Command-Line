@@ -1,4 +1,4 @@
-# 19.4: Expanding the Lightning Network
+# 20.4: Expanding the Lightning Network
 
 > :information_source: **NOTE:** This section has been recently added to the course and is an early draft that may still be awaiting review. Caveat reader.
 

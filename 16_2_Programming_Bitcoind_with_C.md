@@ -1,4 +1,4 @@
-# 15.2: Programming Bitcoind in C with RPC Libraries
+# 16.2: Programming Bitcoind in C with RPC Libraries
 
 > :information_source: **NOTE:** This section has been recently added to the course and is an early draft that may still be awaiting review. Caveat reader.
 
@@ -344,4 +344,4 @@ With access to a C library, you can create much more fully featured programs tha
 
 ## What's Next?
 
-Learn more about "Talking to Bitcoind with C" in [15.3: Receiving Notifications in C with ZMQ Libraries](15_3_Receiving_Bitcoind_Notifications_with_C.md).
+Learn more about "Talking to Bitcoind with C" in [16.3: Receiving Notifications in C with ZMQ Libraries](15_3_Receiving_Bitcoind_Notifications_with_C.md).

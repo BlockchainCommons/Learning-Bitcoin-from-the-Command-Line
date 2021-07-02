@@ -1,4 +1,4 @@
-# 18.2: Knowing Your c-lightning Setup
+# 19.2: Knowing Your c-lightning Setup
 
 > :information_source: **NOTE:** This section has been recently added to the course and is an early draft that may still be awaiting review. Caveat reader.
 
@@ -336,4 +336,4 @@ The `~/.lightning` directory contains all of your files, while `lightning-cli he
 
 You're going to need to have a second Linode node to test out the actual payment of invoices. If you need support in setting one up, read [Interlude: Accessing a Second Lightning Node](18_2__Interlude_Accessing_a_Second_Lightning_Node.md).
 
-Otherwise, continue "Understanding Your Lightning Setup" with [§18.3: Setting Up_a_Channel](18_3_Setting_Up_a_Channel.md).
+Otherwise, continue "Understanding Your Lightning Setup" with [§19.3: Setting Up_a_Channel](19_3_Setting_Up_a_Channel.md).

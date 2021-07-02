@@ -1,4 +1,4 @@
-# 17.1: Accessing Bitcoind with Go
+# 18.1: Accessing Bitcoind with Go
 
 > :information_source: **NOTE:** This section has been recently added to the course and is an early draft that may still be awaiting review. Caveat reader.
 
@@ -415,4 +415,4 @@ Although the `btcd` `rpcclient` has some limits, you can still perform the main 
 
 ## What's Next?
 
-Learn more about "Talking to Bitcoin in Other Languages" in [17.2: Accessing Bitcoin with Java](17_2_Accessing_Bitcoind_with_Java.md).
+Learn more about "Talking to Bitcoin in Other Languages" in [18.2: Accessing Bitcoin with Java](18_2_Accessing_Bitcoind_with_Java.md).

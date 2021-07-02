@@ -1,4 +1,4 @@
-# 15.1: Accessing Bitcoind in C with RPC Libraries
+# 16.1: Accessing Bitcoind in C with RPC Libraries
 
 > :information_source: **NOTE:** This section has been recently added to the course and is an early draft that may still be awaiting review. Caveat reader.
 
@@ -278,4 +278,4 @@ By linking to the `bitcoinrpc` RPC and `jansson` JSON libraries, you can easily 
 
 ## What's Next?
 
-Learn more about "Talking to Bitcoind with C" in [15.2: Programming Bitcoind in C with RPC Libraries](15_2_Programming_Bitcoind_with_C.md).
+Learn more about "Talking to Bitcoind with C" in [16.2: Programming Bitcoind in C with RPC Libraries](15_2_Programming_Bitcoind_with_C.md).

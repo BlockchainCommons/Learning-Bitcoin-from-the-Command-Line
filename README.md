@@ -109,9 +109,9 @@ If you'd like to make your own translation, please see [Contributing](https://gi
 
 **Status:** Finished.
 
-* [16.0: Talking to Bitcoind with C](15_0_Talking_to_Bitcoind.md)
-  * [16.1: Accessing Bitcoind in C with RPC Libraries](15_1_Accessing_Bitcoind_with_C.md)
-  * [16.2: Programming Bitcoind in C with RPC Libraries](15_2_Programming_Bitcoind_with_C.md)
+* [16.0: Talking to Bitcoind with C](16_0_Talking_to_Bitcoind.md)
+  * [16.1: Accessing Bitcoind in C with RPC Libraries](16_1_Accessing_Bitcoind_with_C.md)
+  * [16.2: Programming Bitcoind in C with RPC Libraries](16_2_Programming_Bitcoind_with_C.md)
   * [16.3: Receiving Notifications in C with ZMQ Libraries](16_3_Receiving_Bitcoind_Notifications_with_C.md)
 * [17.0: Programming Bitcoin with Libwally](17_0_Programming_with_Libwally.md)
    * [17.1: Setting Up Libwally](17_1_Setting_Up_Libwally.md)

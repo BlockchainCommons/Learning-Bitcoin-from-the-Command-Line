@@ -322,4 +322,4 @@ You always need two Lightning nodes to form a channel. If you don't have someone
 
 Though you've possibly created an LND, c-lightning will remain the heart of our examples until we need to start using both of them, in [Chapter 19](19_0_Understanding_Your_Lightning_Setup.md).
 
-Continue "Understanding Your Lightning Setup" with [§18.3: Setting Up_a_Channel](18_3_Setting_Up_a_Channel.md).
+Continue "Understanding Your Lightning Setup" with [§19.3: Setting Up_a_Channel](19_3_Setting_Up_a_Channel.md).

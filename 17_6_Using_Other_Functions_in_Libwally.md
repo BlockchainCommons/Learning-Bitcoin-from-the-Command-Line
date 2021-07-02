@@ -1,4 +1,4 @@
-# 16.6: Using Other Functions in Libwally
+# 17.6: Using Other Functions in Libwally
 
 > :information_source: **NOTE:** This section has been recently added to the course and is an early draft that may still be awaiting review. Caveat reader.
 
@@ -122,6 +122,6 @@ There is much more that you can do with Libwally, more than can be covered in th
 
 ## What's Next?
 
-Finish learning about "Programming Bitcoin with Libwally" in [§16.7: Integrating Libwally and Bitcoin-CLI](16_7_Integrating_Libwally_and_Bitcoin-CLI.md).  
+Finish learning about "Programming Bitcoin with Libwally" in [§17.7: Integrating Libwally and Bitcoin-CLI](17_7_Integrating_Libwally_and_Bitcoin-CLI.md).  
 
 
