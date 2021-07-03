@@ -6,7 +6,7 @@ In the previous section we overviewed the theory of how to create P2SH transacti
 
 Any P2SH transaction starts with a locking script. This is the subject of chapters 9 and 11-12. You can use any of the Bitcoin Script methods described therein to create any sort of locking script, as long as the resulting serialized `redeemScript` is 520 bytes or less. 
 
-> :book: ***Why are P2SH scripts limited to 520 bytes?*** As with many things in Bitcoin, the answer is backward compatibility: new functionality has to constantly be built within the old constraints of the system. Is this case, 520 bytes is the maximum that can be pushed onto the stack at once. Since the whole redeemScript is pushed onto the stack as part of the redemption process, it hits that limit.
+> :book: ***Why are P2SH scripts limited to 520 bytes?*** As with many things in Bitcoin, the answer is backward compatibility: new functionality has to constantly be built within the old constraints of the system. In this case, 520 bytes is the maximum that can be pushed onto the stack at once. Since the whole redeemScript is pushed onto the stack as part of the redemption process, it hits that limit.
 
 ## Serialize a Locking Script the Hard Way
 
