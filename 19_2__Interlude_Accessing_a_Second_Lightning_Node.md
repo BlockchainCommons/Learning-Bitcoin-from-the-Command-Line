@@ -52,7 +52,7 @@ They can then tell you their `id` (`03240a4878a9a64aea6c3921a434e573845267b86e89
 
 ## Create a New c-lightning Node
 
-However, for testing purposes, you probably want to have a second node under you own control. The easiest way to do so is to create a second c-lightning node on a new machine, using either Bitcoin Standup, per [§2.1](02_1_Setting_Up_a_Bitcoin-Core_VPS_with_StackScript.md) or compiling it by hand, per [§18.1](18_1_Verifying_Your_Lightning_Setup.md).
+However, for testing purposes, you probably want to have a second node under you own control. The easiest way to do so is to create a second c-lightning node on a new machine, using either Bitcoin Standup, per [§2.1](02_1_Setting_Up_a_Bitcoin-Core_VPS_with_StackScript.md) or compiling it by hand, per [§19.1](19_1_Verifying_Your_Lightning_Setup.md).
 
 Once you have your node running, you can run `getinfo` to retrieve your information, as shown above.
 
@@ -111,7 +111,7 @@ $ sudo cp $GOPATH/bin/lnd $GOPATH/bin/lncli /usr/bin
 
 Unlike with c-lightning, you will need to create a default config file for LND.
 
-However first, you need to enable ZMQ on your Bitcoind, if you didn't already in [§15.3](15_3_Receiving_Bitcoind_Notifications_with_C.md).
+However first, you need to enable ZMQ on your Bitcoind, if you didn't already in [§16.3](16_3_Receiving_Bitcoind_Notifications_with_C.md).
 
 This requires adding the following to your `~/.bitcoin/bitcoin.conf` file if it's not already there:
 ```

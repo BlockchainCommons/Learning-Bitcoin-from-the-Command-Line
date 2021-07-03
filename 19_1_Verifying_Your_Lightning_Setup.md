@@ -265,7 +265,7 @@ Before you start playing with lightning, you should make sure that your aliases 
 
 ## What's Next?
 
-Continue "Understanding Your Lightning Setup" with [§18.2: Knowing Your Lightning Setup](18_2_Knowing_Your_lightning_Setup.md).
+Continue "Understanding Your Lightning Setup" with [§19.2: Knowing Your Lightning Setup](19_2_Knowing_Your_lightning_Setup.md).
 
 ## Variant: Install from Ubuntu ppa
 
