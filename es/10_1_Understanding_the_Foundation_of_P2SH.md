@@ -8,7 +8,7 @@ Aquí está la trampa para usar los scripts de Bitcoin: por razones de seguridad
 
 * __Pagar a Clave Pública (Pay to Public Key, P2PK)__ — Una transacción antigua y obsoleta (`<pubKey> OP_CHECKSIG`) que ha sido reemplazada por la mejor seguridad de P2PKH.
 * __Pagar al Hash de Clave Pública (Pay to Public Key Hash, P2PKH)__ — Una transacción (`OP_DUP OP_HASH160 <pubKeyHash> OP_EQUALVERIFY OP_CHECKSIG`) que paga el hash de una clave pública.
-* __Pagar Para Ser Testigo de Hash de Clave Pública (Pay to Witness Public Key Hash, P2WPKH)__ — El tipo más nuevo de transacción de clave pública. Es solo (`OP_0 <pubKeyHash`) porque depende del consenso del minero para funcionar, como se dscribe en [§9.5](09_5_Scripting_a_P2WPKH.md).
+* __Pagar Para Ser Testigo de Hash de Clave Pública (Pay to Witness Public Key Hash, P2WPKH)__ — El tipo más nuevo de transacción de clave pública. Es solo (`OP_0 <pubKeyHash`) porque depende del consenso del minero para funcionar, como se describe en [§9.5](09_5_Scripting_a_P2WPKH.md).
 * __Multifirma (Multisig)__ — Una transacción para un grupo de claves, como se explica con más detalle en [§8.4](08_4_Scripting_a_Multisig.md).
 * __Datos Nulos (Null Data)__ — Una transacción invencible (`OP_RETURN Data`).
 * __Pagar a Script Hash (Pay to Script Hash, P2SH)__ — Una transacción que paga a un script específico, como se explica con más detalle aqui.
@@ -56,7 +56,7 @@ En general, se requieren cuatro pasos:
 
 Cada uno de esos pasos, por supuesto, requiere algo de trabajo por sí solo, y algunos de ellos pueden ser bastante intrincados. La buena noticia es que realmente no tiene que preocuparse por por ellos, porque son lo sucifientemente complejos como para que normalmente tenga una API que se encargue de todo por usted. 
 
-Entonces, por ahora, solo le proporcionaremos una descripción general, para que comprenda la metodología general. Enn [§10.2: Construyendo la Estructura de P2SH](10_2_Building_the_Structure_of_P2SH.md) proporcionaremos una mirada más profunda a la creación de scripts, en caso de que alguna vez quiera comprender las entrañas de este proceso.
+Entonces, por ahora, solo le proporcionaremos una descripción general, para que comprenda la metodología general. En [§10.2: Construyendo la Estructura de P2SH](10_2_Building_the_Structure_of_P2SH.md) proporcionaremos una mirada más profunda a la creación de scripts, en caso de que alguna vez quiera comprender las entrañas de este proceso.
 
 ## Comprender Cómo Enviar una Transacción de Script P2SH
 
@@ -96,4 +96,4 @@ Los scripts arbitrarios de Bitcoin no son estándar en Bitcoin. Sin embargo, pue
 
 ## Que Sigue?
 
-Contunúe "Incrustrando Bitcoin Scripts" con [§10.2: Contruyendo la Estructura de P2SH](10_2_Building_the_Structure_of_P2SH.md).
+Continúe "Incrustando Bitcoin Scripts" con [§10.2: Contruyendo la Estructura de P2SH](10_2_Building_the_Structure_of_P2SH.md).
