@@ -1,6 +1,6 @@
 # Capitulo 11: Potenciando Bloqueos de Tiempo con Bitcoin Scripts
 
-La mejora que introdujo `nLockTime` en [§8.1](08_1_Enviando_una_Transaccion_con_Bloqueo_de_Tiempo.md) fue solo el comienzo del principio de los bloqueos de tiempo. Cuando comienzas a escribir Bitcoin Scripts, dispones de dos opcodes de bloqueo de tiempo.
+La mejora que introdujo `nLockTime` en [§8.1](08_1_Enviando_una_Transaccion_con_Bloqueo_de_Tiempo.md) fue solo el comienzo del principio de los bloqueos de tiempo. Cuando comienza a escribir Bitcoin Scripts, dispone de dos opcodes de bloqueo de tiempo.
 
 ## Objetivos para este Capitulo
 
