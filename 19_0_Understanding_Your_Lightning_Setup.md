@@ -1,4 +1,4 @@
-# Chapter 18: Understanding Your Lighting Setup
+# Chapter 19: Understanding Your Lighting Setup
 
 > :information_source: **NOTE:** This is a draft in progress, so that I can get some feedback from early reviewers. It is not yet ready for learning.
 
@@ -20,7 +20,7 @@ Supporting objectives include the ability to:
 
 ## Table of Contents
 
-* [Section One: Verifying Your c-lightning Setup](18_1_Verifying_Your_Lightning_Setup.md)
-* [Section Two: Knowing Your c-lightning Setup](18_2_Knowing_Your_lightning_Setup.md)
-   * [Interlude: Accessing a Second Lightning Node](18_2__Interlude_Accessing_a_Second_Lightning_Node.md)
-* [Section Three: Creating a Lightning Channel](18_3_Setting_Up_a_Channel.md)
+* [Section One: Verifying Your c-lightning Setup](19_1_Verifying_Your_Lightning_Setup.md)
+* [Section Two: Knowing Your c-lightning Setup](19_2_Knowing_Your_lightning_Setup.md)
+   * [Interlude: Accessing a Second Lightning Node](19_2__Interlude_Accessing_a_Second_Lightning_Node.md)
+* [Section Three: Creating a Lightning Channel](19_3_Setting_Up_a_Channel.md)

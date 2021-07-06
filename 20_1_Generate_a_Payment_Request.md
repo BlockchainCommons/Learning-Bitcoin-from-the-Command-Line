@@ -1,9 +1,8 @@
-
-# 19.1: Generating a Payment Request
+# 20.1: Generating a Payment Request
 
 > :information_source: **NOTE:** This section has been recently added to the course and is an early draft that may still be awaiting review. Caveat reader.
 
-This section describes how payments work on the Lightning Network, how to create a payment request (or _invoice_), and finally how to make sense of it. Issuing invoices depends on your having a second Lightning node, as described in [Accessing a Second Lightning Node](18_2__Interlude_Accessing_a_Second_Lightning_Node.md). These examples will use an LND node as their secondary node, to further demonstrate the possibilities of the Lightning Network. To differentiate between the nodes in these examples, the prompts will be shown as `c$` for the c-lightning node and `lnd$` as the LND node. If you want to reproduce this steps, you should [install your own secondary LND node](18_2__Interlude_Accessing_a_Second_Lightning_Node.md#creating-a-new-lnd-node). 
+This section describes how payments work on the Lightning Network, how to create a payment request (or _invoice_), and finally how to make sense of it. Issuing invoices depends on your having a second Lightning node, as described in [Accessing a Second Lightning Node](19_2__Interlude_Accessing_a_Second_Lightning_Node.md). These examples will use an LND node as their secondary node, to further demonstrate the possibilities of the Lightning Network. To differentiate between the nodes in these examples, the prompts will be shown as `c$` for the c-lightning node and `lnd$` as the LND node. If you want to reproduce this steps, you should [install your own secondary LND node](19_2__Interlude_Accessing_a_Second_Lightning_Node.md#creating-a-new-lnd-node).
 
 > :book: ***What is an Invoice?** Almost all payments made on the Lightning Network require an invoice, which is nothing more than a **request for payment** made by the recipient of the money and sent by variety of means to the paying user.  All payment requests are single use. Lightning invoices use bech32 encoding, which is already used by Segregated Witness for Bitcoin.
 
@@ -108,7 +107,7 @@ There are two crucial elements to check in the invoice. The first, obviously, is
 ```
 You need to check that's the expected recipient.
 
-Looking back at [§18.3](18_3_Setting_Up_a_Channel.md#opening-a-channel), you can see that's indeed the peer ID that you used when you created your channel. You could also verify it on the opposite node with the `getinfo` command.
+Looking back at [§19.3](19_3_Setting_Up_a_Channel.md#opening-a-channel), you can see that's indeed the peer ID that you used when you created your channel. You could also verify it on the opposite node with the `getinfo` command.
 ```
 lnd$ lncli -n testnet getinfo
 {
@@ -182,4 +181,4 @@ In most cases you need to receive an invoice to use Lightning Network payments. 
 
 ## What's Next?
 
-Continue "Using Lightning" with [§19.2: Paying_a_Invoice](19_2_Paying_a_Invoice.md).
+Continue "Using Lightning" with [§20.2: Paying_a_Invoice](20_2_Paying_a_Invoice.md).

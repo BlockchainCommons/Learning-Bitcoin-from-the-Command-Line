@@ -1,8 +1,8 @@
-# 19.2: Paying an Invoice
+# 20.2: Paying an Invoice
 
 > :information_source: **NOTE:** This section has been recently added to the course and is an early draft that may still be awaiting review. Caveat reader.
 
-In this chapter you will learn how to pay an invoice using `lightning-cli pay` command. It assumes that you've already looked over the invoice, per [§19.1](19_1_Generate_a_Payment_Request.md) and determined it was valid.
+In this chapter you will learn how to pay an invoice using `lightning-cli pay` command. It assumes that you've already looked over the invoice, per [§20.1](20_1_Generate_a_Payment_Request.md) and determined it was valid.
 
 ## Check your Balance
 
@@ -203,4 +203,4 @@ Once you've got an invoice, it's easy enough to pay with a single command in Lig
 
 ## What's Next?
 
-Continue "Using Lighting" with [§19.3: Closing a Channel](19_3_Closing_a_Channel.md).
+Continue "Using Lighting" with [§20.3: Closing a Channel](20_3_Closing_a_Channel.md).

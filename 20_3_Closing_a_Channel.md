@@ -1,4 +1,4 @@
-# 19.3: Closing a Channel
+# 20.3: Closing a Channel
 
 > :information_source: **NOTE:** This section has been recently added to the course and is an early draft that may still be awaiting review. Caveat reader.
 
@@ -257,4 +257,4 @@ When you close a channel you perform an on-chain transaction ending your financi
 
 ## What's Next?
 
-Continue "Using Lightning" with [§19.4: Expanding the Lightning Network](19_4_Lightning_Network_Review.md).
+Continue "Using Lightning" with [§20.4: Expanding the Lightning Network](20_4_Lightning_Network_Review.md).

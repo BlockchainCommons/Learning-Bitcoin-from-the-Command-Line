@@ -1,5 +1,4 @@
-
-# 18.1: Creating a c-lightning Setup
+# 19.1: Creating a c-lightning Setup
 
 > :information_source: **NOTE:** This section has been recently added to the course and is an early draft that may still be awaiting review. Caveat reader.
 
@@ -266,7 +265,7 @@ Before you start playing with lightning, you should make sure that your aliases 
 
 ## What's Next?
 
-Continue "Understanding Your Lightning Setup" with [§18.2: Knowing Your Lightning Setup](18_2_Knowing_Your_lightning_Setup.md).
+Continue "Understanding Your Lightning Setup" with [§19.2: Knowing Your Lightning Setup](19_2_Knowing_Your_lightning_Setup.md).
 
 ## Variant: Install from Ubuntu ppa
 
@@ -288,5 +287,3 @@ $ cd /
 $ sudo tar xf ~/clightning-v0.9.1-Ubuntu-20.04.tar.xz 
 ```
 Warning: this will require you to have the precise same libraries as were used to create the binary. It's often easier to just recompile.
-
-

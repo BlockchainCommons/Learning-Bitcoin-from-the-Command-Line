@@ -1,4 +1,4 @@
-# 17.5: Accessing Bitcoind with Rust
+# 18.5: Accessing Bitcoind with Rust
 
 > :information_source: **NOTE:** This section has been recently added to the course and is an early draft that may still be awaiting review. Caveat reader.
 
@@ -358,5 +358,5 @@ b0eda3517e6fac69e58ae315d7fe7a1981e3a858996cc1e3135618cac9b79d1a
 
 ## What's Next?
 
-Learn more about "Talking to Bitcoin in Other Languages" in [17.6: Accessing Bitcoin with Swift](17_6_Accessing_Bitcoind_with_Swift.md).
+Learn more about "Talking to Bitcoin in Other Languages" in [18.6: Accessing Bitcoin with Swift](18_6_Accessing_Bitcoind_with_Swift.md).
 

@@ -1,4 +1,4 @@
-# 17.3: Accessing Bitcoind with NodeJS
+# 18.3: Accessing Bitcoind with NodeJS
 
 > :information_source: **NOTE:** This section has been recently added to the course and is an early draft that may still be awaiting review. Caveat reader.
 
@@ -271,4 +271,4 @@ Based on these examples you should be able to incorporate Bitcoin in a Node.js p
 
 ## What's Next?
 
-Learn more about "Talking to Bitcoin in Other Languages" in [17.4: Accessing Bitcoin with Python](17_4_Accessing_Bitcoind_with_Python.md).
+Learn more about "Talking to Bitcoin in Other Languages" in [18.4: Accessing Bitcoin with Python](18_4_Accessing_Bitcoind_with_Python.md).

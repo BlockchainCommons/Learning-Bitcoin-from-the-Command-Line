@@ -1,4 +1,4 @@
-# 16.7: Integrating Libwally and Bitcoin-CLI
+# 17.7: Integrating Libwally and Bitcoin-CLI
 
 > :information_source: **NOTE:** This section has been recently added to the course and is an early draft that may still be awaiting review. Caveat reader.
 
@@ -327,4 +327,4 @@ With a foundational knowledge of Libwally, you can now complement all of the wor
 
 ## What's Next?
 
-Learn about other sorts of programming in [Chapter 17: Talking to Bitcoind with Other Languages](17_0_Talking_to_Bitcoind_Other.md).
+Learn about other sorts of programming in [Chapter 18: Talking to Bitcoind with Other Languages](18_0_Talking_to_Bitcoind_Other.md).

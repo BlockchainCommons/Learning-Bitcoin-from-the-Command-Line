@@ -1,4 +1,4 @@
-# Chapter 17: Talking to Bitcoind with Other Languages
+# Chapter 18: Talking to Bitcoind with Other Languages
 
 You should now have a solid foundation for working with Bitcoin in C, not only using RPC, JSON, and ZMQ libraries to directly interact with `bitcoind`, but also utilizing the Libwally libraries to complement that work. And C is a great language for prototyping and abstraction — but it's probably not what you're programming in. This chapter thus takes a whirlwind tour of six other programming languages, demonstrating the barest Bitcoin functionality in each and allowing you to expand the lessons of the command line and C to the programming language of your choice.
 
@@ -18,9 +18,9 @@ Supporting objectives include the ability to:
    
 ## Table of Contents
 
-  * [Section One: Accessing Bitcoind with Go](17_1_Accessing_Bitcoind_with_Go.md)
-  * [Section Two: Accessing Bitcoind with Java](17_2_Accessing_Bitcoind_with_Java.md)
-  * [Section Three: Accessing Bitcoind with NodeJS](17_3_Accessing_Bitcoind_with_NodeJS.md)
-  * [Section Four: Accessing Bitcoind with Python](17_4_Accessing_Bitcoind_with_Python.md)
-  * [Section Five: Accessing Bitcoind with Rust](17_5_Accessing_Bitcoind_with_Rust.md)
-  * [Section Six: Accessing Bitcoind with Swift](17_6_Accessing_Bitcoind_with_Swift.md)
+  * [Section One: Accessing Bitcoind with Go](18_1_Accessing_Bitcoind_with_Go.md)
+  * [Section Two: Accessing Bitcoind with Java](18_2_Accessing_Bitcoind_with_Java.md)
+  * [Section Three: Accessing Bitcoind with NodeJS](18_3_Accessing_Bitcoind_with_NodeJS.md)
+  * [Section Four: Accessing Bitcoind with Python](18_4_Accessing_Bitcoind_with_Python.md)
+  * [Section Five: Accessing Bitcoind with Rust](18_5_Accessing_Bitcoind_with_Rust.md)
+  * [Section Six: Accessing Bitcoind with Swift](18_6_Accessing_Bitcoind_with_Swift.md)

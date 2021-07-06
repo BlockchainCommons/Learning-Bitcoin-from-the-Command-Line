@@ -1,4 +1,4 @@
-# 16.1: Setting Up Libwally
+# 17.1: Setting Up Libwally
 
 > :information_source: **NOTE:** This section has been recently added to the course and is an early draft that may still be awaiting review. Caveat reader.
 
@@ -192,6 +192,6 @@ So what precisely can you do now? That's what the rest of this chapter is about.
 
 ## What's Next?
 
-Learn more about "Programming Bitcoin with Libwally" in [16.2: Using BIP39 in Libwally](16_2_Using_BIP39_in_Libwally.md).
+Learn more about "Programming Bitcoin with Libwally" in [17.2: Using BIP39 in Libwally](17_2_Using_BIP39_in_Libwally.md).
 
 

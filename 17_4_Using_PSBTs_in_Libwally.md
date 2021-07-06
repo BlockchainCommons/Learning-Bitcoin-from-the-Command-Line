@@ -1,4 +1,4 @@
-# 16.4: Using PSBTs in Libwally
+# 17.4: Using PSBTs in Libwally
 
 > :information_source: **NOTE:** This section has been recently added to the course and is an early draft that may still be awaiting review. Caveat reader.
 
@@ -373,4 +373,4 @@ This section could be an entire chapter, as working with PSBTs at a low level is
 
 ## What's Next?
 
-Learn more about "Programming Bitcoin with Libwally" in [16.5: Using Scripts in Libwally](16_5_Using_Scripts_in_Libwally.md).
+Learn more about "Programming Bitcoin with Libwally" in [17.5: Using Scripts in Libwally](17_5_Using_Scripts_in_Libwally.md).

@@ -1,4 +1,4 @@
-# Chapter 16: Programming with Libwally
+# Chapter 17: Programming with Libwally
 
 The previous chapter presented three C Libraries, for RPC, JSON, and ZMQ, all of which are intended to interact directly with `bitcoind`, just like you've been doing since the start. But, sometimes you might want to code without direct access to a `bitcoind`. This might be due to an offline client, or just because you want to keep some functionality internal to your C program. You also might want to get into deeper wallet functionality, like mnemonic word creation or address derivation. That's where Libwally comes in: it's a wallet library for C, C++, Java, NodeJS, or Python, with wrappers also available for other languages, such as Swift.
 
@@ -20,10 +20,10 @@ Supporting objectives include the ability to:
    
 ## Table of Contents
 
-  * [Section One: Setting Up Libwally](16_1_Setting_Up_Libwally.md)
-  * [Section Two: Using BIP39 in Libwally](16_2_Using_BIP39_in_Libwally.md)
-  * [Section Three: Using BIP32 in Libwally](16_3_Using_BIP32_in_Libwally.md)
-  * [Section Four: Using PSBTs in Libwally](16_4_Using_PSBTs_in_Libwally.md) 
-  * [Section Five: Using Scripts in Libwally](16_5_Using_Scripts_in_Libwally.md)
-  * [Section Six: Using Other Functions in Libwally](16_6_Using_Other_Functions_in_Libwally.md)
-  * [Section Seven: Integrating Libwally and Bitcoin-CLI](16_7_Integrating_Libwally_and_Bitcoin-CLI.md)
+  * [Section One: Setting Up Libwally](17_1_Setting_Up_Libwally.md)
+  * [Section Two: Using BIP39 in Libwally](17_2_Using_BIP39_in_Libwally.md)
+  * [Section Three: Using BIP32 in Libwally](17_3_Using_BIP32_in_Libwally.md)
+  * [Section Four: Using PSBTs in Libwally](17_4_Using_PSBTs_in_Libwally.md) 
+  * [Section Five: Using Scripts in Libwally](17_5_Using_Scripts_in_Libwally.md)
+  * [Section Six: Using Other Functions in Libwally](17_6_Using_Other_Functions_in_Libwally.md)
+  * [Section Seven: Integrating Libwally and Bitcoin-CLI](17_7_Integrating_Libwally_and_Bitcoin-CLI.md)

@@ -1,4 +1,4 @@
-# Chapter Nineteen: Using Lightning
+# Chapter 20: Using Lightning
 
 > :information_source: **NOTE:** This is a draft in progress, so that I can get some feedback from early reviewers. It is not yet ready for learning.
 
@@ -19,7 +19,7 @@ Supporting objectives include the ability to:
    
 ## Table of Contents
 
-* [Section One: Generating a Payment Request](19_1_Generate_a_Payment_Request.md)
-* [Section Two: Paying an Invoice](19_2_Paying_a_Invoice.md)
-* [Section Three: Closing a Lightning Channel](19_3_Closing_a_Channel.md)
-* [Section Four: Expanding the Lightning Network](19_4_Lightning_Network_Review.md)
+* [Section One: Generating a Payment Request](20_1_Generate_a_Payment_Request.md)
+* [Section Two: Paying an Invoice](20_2_Paying_a_Invoice.md)
+* [Section Three: Closing a Lightning Channel](20_3_Closing_a_Channel.md)
+* [Section Four: Expanding the Lightning Network](20_4_Lightning_Network_Review.md)

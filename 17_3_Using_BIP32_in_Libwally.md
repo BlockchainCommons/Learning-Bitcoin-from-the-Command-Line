@@ -1,8 +1,8 @@
-# 16.3: Using BIP32 in Libwally
+# 17.3: Using BIP32 in Libwally
 
 > :information_source: **NOTE:** This section has been recently added to the course and is an early draft that may still be awaiting review. Caveat reader.
 
-In [§16.2](16_2_Using_BIP39_in_Libwally.md), you were able to use entropy to generate a seed and its related mnemonic. As you may recall from [§3.5: Understanding the Descriptor](03_5_Understanding_the_Descriptor.md), a seed is the basis of a Hierchical Deterministic (HD) Wallet, where that single seed can be used to generate many addresses. So how do you get from the seed to actual addresses? That's where [BIP32](https://en.bitcoin.it/wiki/BIP_0032) comes in.
+In [§17.2](17_2_Using_BIP39_in_Libwally.md), you were able to use entropy to generate a seed and its related mnemonic. As you may recall from [§3.5: Understanding the Descriptor](03_5_Understanding_the_Descriptor.md), a seed is the basis of a Hierchical Deterministic (HD) Wallet, where that single seed can be used to generate many addresses. So how do you get from the seed to actual addresses? That's where [BIP32](https://en.bitcoin.it/wiki/BIP_0032) comes in.
 
 ## Create an HD Root
 
@@ -139,4 +139,4 @@ An HD wallet allows you to generate a vast number of keys from a single seed. Yo
 
 ## What's Next?
 
-Learn more about "Programming Bitcoin with Libwally" in [16.4: Using PSBTs in Libwally](16_4_Using_PSBTs_in_Libwally.md).
+Learn more about "Programming Bitcoin with Libwally" in [17.4: Using PSBTs in Libwally](17_4_Using_PSBTs_in_Libwally.md).

@@ -1,4 +1,4 @@
-# 18.3: Creating a Lightning Channel
+# 19.3: Creating a Lightning Channel
 
 > :information_source: **NOTE:** This section has been recently added to the course and is an early draft that may still be awaiting review. Caveat reader.
 
@@ -182,5 +182,4 @@ You need to create a channel with a remote node to be able to receive and send m
 
 ## What's Next?
 
-You're ready to go! Move on to [Chapter Nineteen: Using Lightning](19_0_Using_Lightning.md).
-
+You're ready to go! Move on to [Chapter 20: Using Lightning](20_0_Using_Lightning.md).
