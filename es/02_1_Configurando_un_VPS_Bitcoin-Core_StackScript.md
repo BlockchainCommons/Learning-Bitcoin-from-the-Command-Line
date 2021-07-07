@@ -250,7 +250,7 @@ Tiene algunas opciones para lo que sigue:
 
 * Elija una metodología completamente alternativa en [§2.2: Configuración de una máquina Bitcoin-Core a través de otros medios] (02_2_Setting_Up_Bitcoin_Core_Other.md).
 
-* Pase a "bitcoin-cli" con el [Capítulo tres: Comprensión de la configuración de Bitcoin] (03_0_Understanding_Your_Bitcoin_Setup.md).
+* Pase a "bitcoin-cli" con el [Capítulo tres: Entendiendo la configuración de Bitcoin] (03_0_Entendiendo_su_configuracion_Bitcoin.md).
 
 
 ## Sinopsis: Tipos de instalación de Bitcoin
