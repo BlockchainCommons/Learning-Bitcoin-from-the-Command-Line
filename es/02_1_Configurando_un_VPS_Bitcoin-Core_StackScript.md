@@ -5,8 +5,8 @@ Este documento explica cómo configurar un VPS (Virtual Private Sever) para ejec
 > :warning: **ADVERTENCIA:** : No use un VPS para una billetera bitcoin con fondos reales significativos; ver [http://blog.thestateofme.com/2012/03/03/lessons-to-be-learned-from-the-linode-bitcoin-incident](http://blog.thestateofme.com/2012/03/03/lessons-to-be-learned-from-the-linode-bitcoin-incident). Es genial poder experimentar con transacciones reales de bitcoins en un nodo en vivo sin tener que conectar un servidor autohospedado en una red local. También es útil poder usar un iPhone o iPad para comunicarse a través de SSH con su VPS para realizar algunas tareas simples de bitcoin. Pero se requiere un mayor nivel de seguridad para fondos importantes.
 
 * Si desea comprender lo que hace esta configuración, lea el [Appendix I: Understanding Bitcoin Standup](A1_0_Understanding_Bitcoin_Standup.md) mientras realiza la instalación.
-* Si, en cambio, desea configurar en una máquina que no sea un VPS Linode, como una máquina AWS o una Mac, puede ir a [§2.2: Setting Up a Bitcoin-Core via Other Means](02_2_Setting_Up_Bitcoin_Core_Other.md)
-* Si ya tiene un nodo de Bitcoin en ejecución, vaya al [Chapter Three: Understanding Your Bitcoin Setup](03_0_Understanding_Your_Bitcoin_Setup.md).
+* Si, en cambio, desea configurar en una máquina que no sea un VPS Linode, como una máquina AWS o una Mac, puede ir a [2.2: Configuración de una máquina Bitcoin-Core a través de otros medios](02_2_Configurando_Bitcoin_Core_Otros.md)
+* Si ya tiene un nodo de Bitcoin en ejecución, vaya al [Capítulo tres: Entendiendo la configuración de Bitcoin](03_0_Entendiendo_su_configuracion_Bitcoin.md).
 
 ## Introducción a Linode
 
