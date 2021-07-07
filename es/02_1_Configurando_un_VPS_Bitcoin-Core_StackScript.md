@@ -248,9 +248,9 @@ Tiene algunas opciones para lo que sigue:
 
 * Lea lo que hace StackScript en el [Appendix I] (A1_0_Understanding_Bitcoin_Standup.md).
 
-* Elija una metodología completamente alternativa en [§2.2: Configuración de una máquina Bitcoin-Core a través de otros medios] (02_2_Setting_Up_Bitcoin_Core_Other.md).
+* Elija una metodología completamente alternativa en [§2.2: Configuración de una máquina Bitcoin-Core a través de otros medios](02_2_Setting_Up_Bitcoin_Core_Other.md).
 
-* Pase a "bitcoin-cli" con el [Capítulo tres: Entendiendo la configuración de Bitcoin] (03_0_Entendiendo_su_configuracion_Bitcoin.md).
+* Pase a "bitcoin-cli" con el [Capítulo tres: Entendiendo la configuración de Bitcoin](03_0_Entendiendo_su_configuracion_Bitcoin.md).
 
 
 ## Sinopsis: Tipos de instalación de Bitcoin
