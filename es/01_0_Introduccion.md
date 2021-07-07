@@ -38,12 +38,12 @@ Así que ¿Por dónde empiezas? Este libro está destinado principalmente para l
 
 Si tiene diferentes niveles de habilidad o desea aprender cosas diferentes, puede pasar directamente a diferentes partes del libro:
 
-* Si ya tiene un entorno de Bitcoin listo para ser utilizado, vaya al Capítulo Tres: Comprensión de la configuración de Bitcoin.
-* Si solo le interesan las secuencias de comandos de Bitcoin, vaya al Capítulo nueve: Introducción a las secuencias de comandos de Bitcoin.
-* Si solo desea leer sobre el uso de lenguajes de programación, vaya al Capítulo quince: Comunicarse con el servidor Bitcoin.
+* Si ya tiene un entorno de Bitcoin listo para ser utilizado, vaya al [Capítulo Tres: Comprensión de la configuración de Bitcoin.](03_2_Conociendo_su_Configuracion_Bitcoin.md)
+* Si solo le interesan las secuencias de comandos de Bitcoin, vaya al [Capítulo nueve: Introducción a las secuencias de comandos de Bitcoin.](09_0_Introducing_Bitcoin_Scripts.md)
+* Si solo desea leer sobre el uso de lenguajes de programación, vaya al Capítulo dieciséis: Comunicarse con el servidor Bitcoin.
 * Si, por el contrario, no quiere hacer nada relativo a programación, definitivamente omita los capítulos 15-17 mientras lee, y tal vez omita los capítulos 9-13. El resto del curso aún debería tener sentido sin ellos.
 * Si solo está interesado en Lightning, pase al Capítulo Dieciocho: Comprensión de la configuración de Lightning .
-* Si desea leer el contenido nuevo más importante agregado para la versión 2 del curso (2020), a continuación de la versión 1 (2017), lea §3.5: Comprensión de los descriptores , §4.6: Creación de una transacción SegWit , Capítulo 7: Expansión de Bitcoin con PSBT , §9.5: Scripting con P2WPKH , §10.5: Scripting con SegWit Script , Capítulo 14: Usando Tor , Capítulo 15: Interactuando con Bitcoind con C , Capítulo 16: Programando con Libwally , Capítulo Diecisiete: Interactuando con Bitcoind con otros lenguajes , Capítulo dieciocho: Comprensión y Capítulo Diecinueve: Uso de Lightning.
+* Si desea leer el contenido nuevo más importante agregado para la versión 2 del curso (2020), a continuación de la versión 1 (2017), lea [§3.5: Comprensión de los descriptores](03_5_Entendiendo_El_Descriptor.md) , §4.6: Creación de una transacción SegWit , Capítulo 7: Expansión de Bitcoin con PSBT , [§9.5: Scripting con P2WPKH](09_5_Codificando_una_P2WPKH.md) , §10.5: Scripting con SegWit Script , Capítulo 14: Usando Tor , Capítulo 15: Interactuando con Bitcoind con C , Capítulo 16: Programando con Libwally , Capítulo Diecisiete: Interactuando con Bitcoind con otros lenguajes , Capítulo dieciocho: Comprensión y Capítulo Diecinueve: Uso de Lightning.
 
 # Por qué utilizar este curso
 
@@ -51,13 +51,13 @@ Obviamente está trabajando en este curso porque está interesado en Bitcoin. Ad
 
 # Cómo apoyar este curso
 
-* Utilice la sección de Problemas para cualquier pregunta. Blockchain Commons no tiene un equipo de soporte activo, por lo que no podemos abordar problemas o consultas individuales, pero los revisaremos a tiempo y los usaremos para mejorar las iteraciones futuras del curso.
-* Utilice la sección de PR's para corregir errores tipográficos o comandos incorrectos (o modificados). Para cambios técnicos o de línea de comandos, es muy útil si también usa los comentarios en los PR's para explicar las razones por las cuales hizo sus cambios y facilitar o evitar la investigación.
-* Utilice el área de discusión de Nuestra comunidad para hablar sobre carreras y habilidades. Blockchain Commons ocasionalmente ofrece pasantías, como se explica en nuestro repositorio de la comunidad.
-* Conviértase en un patrocinador si encuentra útil este curso o si desea ayudar a educar a la próxima generación de programadores de blockchain.
+* Utilice la sección de [Problemas](https://github.com/BlockchainCommons/Learning-Bitcoin-from-the-Command-Line/issues) para cualquier pregunta. Blockchain Commons no tiene un equipo de soporte activo, por lo que no podemos abordar problemas o consultas individuales, pero los revisaremos a tiempo y los usaremos para mejorar las iteraciones futuras del curso.
+* Utilice la sección de [PR's](https://github.com/BlockchainCommons/Learning-Bitcoin-from-the-Command-Line/pulls) para corregir errores tipográficos o comandos incorrectos (o modificados). Para cambios técnicos o de línea de comandos, es muy útil si también usa los comentarios en los PR's para explicar las razones por las cuales hizo sus cambios y facilitar o evitar la investigación.
+* Utilice el [área de discusión](https://github.com/BlockchainCommons/Community/discussions) de nuestra comunidad para hablar sobre carreras y habilidades. Blockchain Commons ocasionalmente ofrece pasantías, como se explica en nuestro repositorio de la comunidad.
+* Conviértase en un [patrocinador](https://github.com/sponsors/BlockchainCommons) si encuentra útil este curso o si desea ayudar a educar a la próxima generación de programadores de blockchain.
 
 # ¿Que Sigue?
 
-Si desea una introducción básica a Bitcoin, criptografía de clave pública, ECC, blockchains y Lightning, lea el interludio Introduciendo Bitcoin.
+Si desea una introducción básica a Bitcoin, criptografía de clave pública, ECC, blockchains y Lightning, lea el interludio [Introduciendo Bitcoin.](01_1_Introduciendo_Bitcoin.md)
 
-De lo contrario, si está listo para sumergirse en el curso, vaya a Configuración de un Servidor privado Virtual de Bitcoin-Core.
+De lo contrario, si está listo para sumergirse en el curso, vaya a [Configuración de un Servidor privado Virtual de Bitcoin-Core.](02_0_Configurando_un_VPS_Bitcoin-Core.md)
