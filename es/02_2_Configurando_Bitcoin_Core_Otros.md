@@ -21,4 +21,4 @@ cómo configurar una Nodo completo de forma sencilla en una Raspberry Pi 3.
 
 A menos que desee volver a una de las otras metodologías para crear un nodo Bitcoin-Core, debe:
 
-* Continúe con "bitcoin-cli" con el [Capítulo tres: Comprensión de la configuración de Bitcoin](03_0_Understanding_Your_Bitcoin_Setup.md).
+* Continúe con "bitcoin-cli" con el [Capítulo tres: Entendiendo la configuración de Bitcoin](03_0_Entendiendo_su_configuracion_Bitcoin.md).
