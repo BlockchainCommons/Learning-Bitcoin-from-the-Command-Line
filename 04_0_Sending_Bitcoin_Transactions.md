@@ -1,29 +1,30 @@
-# Chapter Four: Sending Bitcoin Transactions
+# Capítulo Cuatro: Enviando Transacciones en Bitcoin
 
-This chapter describes three different methods for sending bitcoins to normal P2PKH addresses from the command line, using only the bitcoin-cli interface.
+Este capítulo describe tres metodos diferentes para enviar bitcoins a direcciones tipicas P2PKH desde lineas de comandos, usando unicamente la interfaz de bitcoin-cli.
 
-## Objectives for This Chapter
+## Objetivos de este Capítulo
 
-After working through this chapter, a developer will be able to:
+Después de trabajar en este capítulo, un desarrollador podrá:
 
-   * Decide How to Send Money Through Bitcoin
-   * Create a Raw Transaction
-   * Use Arithmetic to Calculate Fees
+   * Decidir cómo enviar dinero a través de Bitcoin
+   * Crear una transacción en crudo
+   * Utilizar la aritmética para calcular las tarifas
+
+Con los objetivos complementarios se tendrá la habilidad de: 
+
+   * Entender las transacciones y sus comisiones
+   * Entender las transacciones de tipo Legacy & SegWit
+   * Usar métodos básicos para enviar dinero 
+   * Usar métodos automaticos para calcular comisiones para enviar dinero
+   * Entender el peligro de las transacciones sin procesar
    
-Supporting objectives include the ability to:
-
-   * Understand Transactions & Transaction Fees
-   * Understand Legacy & SegWit Transactions
-   * Use Basic Methods to Send Money
-   * Use Auto Fee Calculation Methods to Send Money
-   * Understand the Dangers of Raw Transactions
-   
-## Table of Contents
+## Tabla de contenido
   
-  * [Section One: Sending Coins the Easy Way](04_1_Sending_Coins_The_Easy_Way.md)
-  * [Section Two: Creating a Raw Transaction](04_2_Creating_a_Raw_Transaction.md)
-     * [Interlude: Using JQ](04_2__Interlude_Using_JQ.md)
-  * [Section Three: Creating a Raw Transaction with Named Arguments](04_3_Creating_a_Raw_Transaction_with_Named_Arguments.md)
-  * [Section Four: Sending Coins with Raw Transactions](04_4_Sending_Coins_with_a_Raw_Transaction.md)
-  * [Section Five: Sending Coins with Automated Raw Transactions](04_5_Sending_Coins_with_Automated_Raw_Transactions.md)
-  * [Section Six: Creating a SegWit Transaction](04_6_Creating_a_Segwit_Transaction.md)
+  * [Sección Uno: Enviando Monedas de Forma Sencilla](04_1_Sending_Coins_The_Easy_Way.md)
+  * [Sección Dos: Creando una Transacción en Crudo](04_2_Creating_a_Raw_Transaction.md)
+     * [Interludio: Usando JQ](04_2__Interlude_Using_JQ.md)
+  * [Sección Tres: Creando Transacciones en Crudo Usando Argumentos con Nombre](04_3_Creating_a_Raw_Transaction_with_Named_Arguments.md)
+  * [Sección Cuatro: Enviando Monedas con Transacciones en Crudo](04_4_Sending_Coins_with_a_Raw_Transaction.md)
+  * [Sección Cinco: Enviando Monedas con Transacciones Automatizadas en Crudo](04_5_Sending_Coins_with_Automated_Raw_Transactions.md)
+  * [Sección Seis: Creando Transacciones SegWit](04_6_Creating_a_Segwit_Transaction.md)
+
