@@ -161,9 +161,9 @@ Para apoyar financieramente el futuro desarrollo de `Aprendiendo Bitcoin desde l
 
 ## Contribuyendo
 
-Animamos las contribuciones publicas a través de issues y pull requests! Por favor, revise [CONTRIBUIR.md](./CONTRIBUIR.md) para mas detalles sobre nuestro proceso de desarrollo. Todas las contribuciones a este repositorio requieren un [Acuerdo de Licencia de Colaborador](./CLA.md) firmado mediante GPG.
+Animamos las contribuciones publicas a través de issues y pull requests! Por favor, revise [CONTRIBUYENDO.md](./CONTRIBUYENDO.md) para mas detalles sobre nuestro proceso de desarrollo. Todas las contribuciones a este repositorio requieren un [Acuerdo de Licencia de Colaborador](./CLA.md) firmado mediante GPG.
 
-Si te gustaría proveer una traducción de Aprendiendo Bitcoin desde la Línea de Comandos, por favor, vea también [TRADUCIR.md](./TRADUCIR.md).
+Si le gustaría proveer una traducción de Aprendiendo Bitcoin desde la Línea de Comandos, por favor, vea también [TRADUCIENDO.md](./TRADUCIENDO.md).
 
 ### Debates
 
@@ -179,7 +179,7 @@ Si su compañía requiere soporte para usar nuestros proyectos, por favor, sién
 
 ### Créditos
 
-Las siguientes personas contribuyeron directamente a este repositorio. Usted puede agregar su nombre involucrándose. El primer paso es aprender a contribuir desde nuestra documentación [CONTRIBUIR.md](./CONTRIBUIR.md).
+Las siguientes personas contribuyeron directamente a este repositorio. Usted puede agregar su nombre involucrándose. El primer paso es aprender a contribuir desde nuestra documentación [CONTRIBUYENDO.md](./CONTRIBUYENDO.md).
 
 
 | Nombre              | Rol                | Github                                            | Correo Electrónico                                 | GPG Huella Digital                                    |
