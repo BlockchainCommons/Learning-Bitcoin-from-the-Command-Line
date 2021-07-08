@@ -192,13 +192,7 @@ Contribuciones adicionales listadas abajo:
 
 | Rol                   | Nombre                                             |
 | --------------------- | -------------------------------------------------- |
-| ***Contribuyentes:*** | <ul>
-                            <li>[gg2001](https://github.com/gg2001) (Go, Node.js sections)</li>
-                            <li>[gorazdko](https://github.com/gorazdko) (Rust section)</li>
-                            <li>[Javier Vargas](https://github.com/javiervargas) (C, Java, Lightning, Tor sections)</li>
-                            <li>[jodobear](https://github.com/jodobear) (Appendix: Compiling Bitcoin, Python section)</li>
-                            </ul>                                   
-                                                                             |
+| ***Contribuyentes:*** | <ul><li>[gg2001](https://github.com/gg2001) (Go, Node.js sections)</li><li>[gorazdko](https://github.com/gorazdko) (Rust section)</li><li>[Javier Vargas](https://github.com/javiervargas) (C, Java, Lightning, Tor sections)</li><li>[jodobear](https://github.com/jodobear) (Appendix: Compiling Bitcoin, Python section)</li></ul> |
 | ***Revisores:***      | Glen Willem [@gwillem](https://github.com/gwillem) |
 | ***Patrocinadores:*** | Blockstream Corporation                            |
 
