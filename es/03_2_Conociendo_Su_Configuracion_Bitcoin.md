@@ -1,4 +1,4 @@
-# 3.2: Comprendiendo la configuración de Bitcoin
+# 3.2: Conociendo la confeniguración de Bitcoin
 
 Antes de comenzar a jugar con Bitcoin, siempre desearía tener una mejor compresión de su configuración.
 
