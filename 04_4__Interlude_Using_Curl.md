@@ -228,7 +228,6 @@ $ curl --user StandUp:8eaf562eaf45c33c3328bc66008f2dd1 --data-binary '{"jsonrpc"
 
 > **WARNING:** The parameters order is important when you are sending RPC commands using curl. For example here, if we had sent `"params": ["legacy"]` instead of `"params": ["", "legacy"]`, we would get a `bech32` address with a label of `"legacy"` instead of a `legacy` address, so pay attention to the order.
 
-```
 At this point, we can even revert to our standard practice of saving results to variables with additional help from `jq`:
 ```
 $ changeaddress=$(curl --user StandUp:8eaf562eaf45c33c3328bc66008f2dd1 --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "getrawchangeaddress", "params": ["", "legacy"] }' -H 'content-type: text/plain;' http://127.0.0.1:18332/ | jq -r '.result')
