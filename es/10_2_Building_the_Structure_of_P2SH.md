@@ -10,7 +10,7 @@ Cualquier transacción P2SH comienza con un script de bloqueo. Este es el tema d
 
 ## Serializar un Script de Bloqueo de la Manera Difícil
 
-Después de crear un script de bloqueo, debe serializarlo antes de que pueda ingresarse en Bitcoin. Este es un proceso de dos partes. Primero, debe conertirlo en código hexadecimal, luego debe transformar ese hexadecimal en binario.
+Después de crear un script de bloqueo, debe serializarlo antes de que pueda ingresarse en Bitcoin. Este es un proceso de dos partes. Primero, debe convertirlo en código hexadecimal, luego debe transformar ese hexadecimal en binario.
 
 ### Crea el Código Hex
 
@@ -42,7 +42,7 @@ En tercer lugar, debe agregar un byte inicial adicional de `00` si el dígito su
 $ hexfirst=$(echo $hex | cut -c1)
 $ [[ 0x$hexfirst -gt 0x7 ]] && hex="00"$hex
 ```
-En cuatro lugar, debe traducir el hex de big-endian (el byte menos significativo al final) a little-endian (el byte menos significativo). Puede hacer esto con el comando `tac`:
+En cuatro lugar, debe traducir el hex de big-endian (el byte menos significativo al final) a little-endian (el byte menos significativo primero). Puede hacer esto con el comando `tac`:
 ```
 $ lehex=$(echo $hex | tac -rs .. | echo "$(tr -d '\n')")
 $ echo $lehex
@@ -55,7 +55,7 @@ $ echo -n $lehex | wc -c | awk '{print $1/2}'
 ```
 Con todo ese procidimiento complejo, sabría que podría traducir el entero 1546288031 en un opcode `04` (para insertar cuatro bytes en la pila) seguido de `9f7b2a5c` (la representación hex little-endian de 1546288031).
 
-Se, en cambio, tuviera un número negativo necesitaría (1) hacer sus cáclulos en el valor absoluto del número, luego (2) bitwise-or 0x80 para su resultado final de little-endian result. Por ejemplo, `9f7b2a5c`, que es 1546288031, se convertiría en `9f7b2adc`, que es -1546288031:
+Si en cambio tuviera un número negativo, necesitaría (1) hacer sus cáclulos en el valor absoluto del número, luego (2) bit a bit o 0x80 para su resultado final de little-endian result. Por ejemplo, `9f7b2a5c`, que es 1546288031, se convertiría en `9f7b2adc`, que es -1546288031:
 ```
 $ neglehex=$(printf '%x\n' $((0x$lehex | 0x80)))
 $ echo $neglehex
@@ -151,11 +151,11 @@ warning: ambiguous input 2 is interpreted as a numeric value; use OP_2 to force 
 ```
 Eso es mucho más fácil que averiguarlo a mano!
 
-También considere el Python [Compilador de Script de Transacciones](https://github.com/Kefkius/txsc), que se traduce de un lado a otro.
+También considere el Python [Compilador de Script de Transacciones](https://github.com/Kefkius/txsc), que traduce de ida y vuelta.
 
 ## Hash un Script Serializado
 
-Después de haber creado un script de bloqueo y serializado, el tercer paso para crear una transacción P2SH es aplicar un hash al script de bloqueo. Como se señalo anteriormente, un hash OP_HASH160 de 20 bytes se crea mediante una combinación de un hash SHA-256 y un hash RIPEMD-160. El hash de un script serializado requiere dos comandos: `openssl dgst -sha256 -binary` hace el hash SHA-256 y genera un binario que se enviará a través de la tuberia, luego `openssl dgst -rmd160` toma ese flujo binario, hace un hash RIPEMD-160, y finalmente genera un código hexadecimal legible por humanos.
+Después de haber creado un script de bloqueo y de serializarlo, el tercer paso para crear una transacción P2SH es aplicar un hash al script de bloqueo. Como se señalo anteriormente, un hash OP_HASH160 de 20 bytes se crea mediante una combinación de un hash SHA-256 y un hash RIPEMD-160. El hash de un script serializado requiere dos comandos: `openssl dgst -sha256 -binary` hace el hash SHA-256 y genera un binario que se enviará a través de la tuberia, luego `openssl dgst -rmd160` toma ese flujo binario, hace un hash RIPEMD-160, y finalmente genera un código hexadecimal legible por humanos.
 
 Aquí está la tubería completa, incluida la transformación anterior del script serializado hexadecimal en binario:
 ```
@@ -167,13 +167,13 @@ $ echo -n $redeemScript | xxd -r -p | openssl dgst -sha256 -binary | openssl dgs
 
 La creación de su hash de 20 bytes solo le brinda el hash en el centro de un script de bloqueo P2SH. Aún debe juntarlo con los otros códigos de operación que crean una transacción P2SH estándar: `OP_HASH160 a5d106eb8ee51b23cf60d8bd98bc285695f233f3 OP_EQUAL`.
 
-Dependiendo de su API, es posible que pueda ingresar esto como un `scriptPubKey` de estilo `asm` para su transacción, o puede que tenga que traducirlo también al código `hex`. Si tiene que traducir, usa los mismos métodos descritos anteriormente para "Crear el Código Hex" (o usa `btcc`), lo que da resultado `a914a5d106eb8ee51b23cf60d8bd98bc285695f233f387`.
+Dependiendo de su API, es posible que pueda ingresar esto como un `scriptPubKey` de estilo `asm` para su transacción, o puede que tenga que traducirlo también al código `hex`. Si tiene que traducir, use los mismos métodos descritos anteriormente para "Crear el Código Hex" (o use `btcc`), lo que da resultado `a914a5d106eb8ee51b23cf60d8bd98bc285695f233f387`.
 
  Tenga en cuenta que la `hex scriptPubKey` para la transacción P2SH Script _siempre_ comenzará con un `a914`, que es el `OP_HASH160` seguido de un `OP_PUSHDATA` de 20 bytes (hex: `0x14`); y _siempre_ terminará con un `87`, que es un `OP_EQUAL`. Entonces, todo lo que tiene que hacer es colocar su script de canje con hash entre esos números.
 
 ## Resumen: Comprensión de la Base de P2SH
 
-En realidad, la creación del script de bloqueo P2SH se sumerge más en las entrañas de Bitcoin que nunca. Aunque es útil saber cómo funciona todo esto a un nivel muy bajo, lo más probable es que tenga una API que se encargue de todo el trabajo pesado por usted. Su tarea será simplemente crear el script de Bitcoin para hacer el bloqueo ... que es el tema principal de los capítulos 9 y 11-12.
+En realidad, la creación del script de bloqueo P2SH se sumerge en las entrañas de Bitcoin más que nunca. Aunque es útil saber cómo funciona todo esto a un nivel muy bajo, lo más probable es que tenga una API que se encargue de todo el trabajo pesado por usted. Su tarea será simplemente crear el script de Bitcoin para hacer el bloqueo ... que es el tema principal de los capítulos 9 y 11-12.
 
 ## ¿Que Sigue?
 
