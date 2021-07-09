@@ -69,9 +69,9 @@ Entonces, ¿cómo envía realmente su transacción P2SH? Nuevamente, la teoría 
 
 Desafortunadamente, este es otro lugar donde necesitará recurrir a las API, en gran parte porque `bitcoin-cli` no proporciona ningún soporte para la creación de transacciones P2SH. (Puede redimirlos muy bien.)
 
-## Comprender Cómo Desbloquear una Transacción de Script P2SH
+## Entender Cómo Desbloquear una Transacción de Script P2SH
 
-El truco para canjear una transacción P2SH es que el destinatario debe haber guardado el script de bloqueo serializado secreto que se aplicó hash para crear la dirección P2SH. Esto se llama `redeemScript` porque es lo que el destinatario necesita para canjear sus fondos. 
+El truco para canjear una transacción P2SH es que el destinatario debe haber guardado el script de bloqueo serializado secreto que fue codificado para crear la dirección P2SH. Esto se llama `redeemScript` porque es lo que el destinatario necesita para canjear sus fondos. 
 
 Un `scriptSig` de desbloqueo para una transacción P2SH se forma como: `... data ... <redeemScript>`. Los `datos` deben ser _solo_ datos que se insertan en la pila, no operadores. ([BIP 16](https://github.com/bitcoin/bips/blob/master/bip-0016.mediawiki) los llama firmas, pero eso no es un requisito real.)
 
@@ -79,7 +79,7 @@ Un `scriptSig` de desbloqueo para una transacción P2SH se forma como: `... data
 
 Cuando se canjea un UTXO, se ejecuta en dos rondas de verificación:
 
-1. Primero, el `redeemScript` en el `scriptSig` es hash y se compara con el script hash en el `scriptPubKey`. 
+1. Primero, el `redeemScript` en el `scriptSig` es codificado y se compara con el script codificado en el `scriptPubKey`. 
 2. Si coinciden, comienza una segunda ronda de verificación.
 3. En segundo lugar, el `redeemScript` se ejecuta utilizando los datos anteriores que se insertaron en la pila. 
 4. Si esa segunda ronda de verificación _también_ tiene éxito, el UTXO se desbloquea.
