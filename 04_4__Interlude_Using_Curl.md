@@ -224,6 +224,7 @@ $ curl --user StandUp:8eaf562eaf45c33c3328bc66008f2dd1 --data-binary '{"jsonrpc"
   "error": null,
   "id": "curltest"
 }
+```
 
 > **WARNING:** The parameters order is important when you are sending RPC commands using curl. For example here, if we had sent `"params": ["legacy"]` instead of `"params": ["", "legacy"]`, we would get a `bech32` address with a label of `"legacy"` instead of a `legacy` address, so pay attention to the order.
 
