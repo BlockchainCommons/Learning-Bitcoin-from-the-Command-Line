@@ -80,7 +80,7 @@ $ bitcoin-cli getrawtransaction 95d51e813daeb9a861b2dcdddf1da8c198d06452bbbecfd8
   "hex": "0200000000010124757e206d7c55bc9e6f6d4f1044b9a55f16f94fa0c43a427d2400234778017a0000000017160014334f3a112df0f22e743ad97eec8195a00faa59a0feffffff0240420f000000000017a914f079f77f2ef0ef1187093379d128ec28d0b4bf768742a727000000000017a9148799be12fb9eae6644659d95b9602ddfbb4b2aff870247304402207966aa87db340841d76d3c3596d8b4858e02aed1c02d87098dcedbc60721d8940220218aac9d728c9a485820b074804a8c5936fa3145ce68e24dcf477024b19e88ae012103574b1328a5dc2d648498fc12523cdf708efd091c28722a422d122f8a0db8daa9dd0e1b00"
 }
 ```
-Vamos observar o array ```vout```. Assim, encontramos o objeto que corresponde ao nosso endereço. No nosso exemplo ele é o único. O valor ```n``` é o nosso ```vout```. Agora temos tudo que precisamos para criar uma nova transação CPFP.
+Vamos observar o vetor ```vout```. Assim, encontramos o objeto que corresponde ao nosso endereço. No nosso exemplo ele é o único. O valor ```n``` é o nosso ```vout```. Agora temos tudo que precisamos para criar uma nova transação CPFP.
 ```
 $ utxo_txid=2NFAkGiwnp8wvCodRBx3smJwxncuG3hndn5
 $ utxo_vout=0
@@ -89,7 +89,7 @@ $ recipient2=$(bitcoin-cli getrawchangeaddress)
 
    2. Criar uma transação bruta usando a transação não confirmada como entrada;
    3. Dobrar as taxas de transação (ou colocar mais do que isso);
-   
+
 Ao seguir essas etapas, tudo deve parecer igual ao que já fizemos, apesar de estarmos trabalhando com uma transação não confirmada. Para verificar se tudo está bem, podemos até olhar os resultados de nossa assinatura antes de salvarmos as informações em uma variável:
 ```
 $ rawtxhex=$(bitcoin-cli -named createrawtransaction inputs='''[ { "txid": "'$utxo_txid'", "vout": '$utxo_vout' } ]''' outputs='''{ "'$recipient2'": 0.03597 }''')
@@ -103,7 +103,7 @@ $ bitcoin-cli -named sendrawtransaction hexstring=$signedtx
 ```
 
    4. Cruzar os dedos não é necessário. Verificamos que nossos dados estão corretos. Deste ponto em diante, as coisas estão fora de nosso controle.
-   
+
 Nossas transações podem ser processadas rapidamente, ou não. Tudo depende se os mineradores que estão gerando aleatoriamente os blocos possuem o patch CPFP ou não. Apesar disso, fizemos tudo o que pudemos.
 
 E isso realmente é tudo o que podemos fazer.
@@ -120,8 +120,7 @@ A parte que está _recebendo_ pode usar o CPFP mesmo se não estiver planejando 
 
 Podemos aproveitar os incentivos do CPFP para liberar fundos que nos foram enviados, mas que não foram confirmados. Basta usar a transação não confirmada como sendo um UTXO e pagar uma taxa de transação acima da média.
 
-> :fire: ***What is the power of CPFP?*** Mostly, CPFP is just useful to get funds unstuck when you're the recipient and the sender isn't being helpful for whatever reason. It doesn't have the more powerful possibilities of RBF, but is an alternatve way to exert control over a transaction after it's been placed in the mempool, but before it's confirmed in a block.
-> :fire: ***Qual é o poder do CPFP?*** O seu uso é apenas para liberar fundos quando formos os recebedores dos fundos e o remetente não quer ajudar por qualquer que seja o motivo. Ele não tem as mesmas habilidades que o  RBF, mas é uma maneira alternativa de exercer controle sobre uma transação depois que ela foi colocada na mempool, mas antes de ser confirmada em um bloco.
+> :fire: ***Qual é o poder do CPFP?*** O seu uso é apenas para liberar fundos quando formos os recebedores dos fundos e o remetente não quer ajudar por qualquer que seja o motivo. Ele não tem as mesmas habilidades que o RBF, mas é uma maneira alternativa de exercer controle sobre uma transação depois que ela foi colocada na mempool, mas antes de ser confirmada em um bloco.
 
 ## O que vem depois?
 
