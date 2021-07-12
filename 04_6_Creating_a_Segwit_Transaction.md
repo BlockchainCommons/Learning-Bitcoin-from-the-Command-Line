@@ -120,7 +120,7 @@ $ bitcoin-cli sendtoaddress tb1qw508d6qejxtdg4y5r3zarvary0c5xw7kxpjzsx 0.005
 ```
 If you look at your transaction, you can see the use of the Bech32 address:
 ```
-$ bitcoin-cli gettransaction txid="854a833b667049ac811b4cf1cad40fa7f8dce8b0f4c1018a58b84559b6e05f42" verbose=true
+$ bitcoin-cli -named gettransaction txid="854a833b667049ac811b4cf1cad40fa7f8dce8b0f4c1018a58b84559b6e05f42" verbose=true
 {
   "amount": -0.00500000,
   "fee": -0.00036600,
