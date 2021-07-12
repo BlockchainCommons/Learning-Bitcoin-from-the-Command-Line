@@ -29,7 +29,7 @@ Este tutorial asume que usted tiene algunos conocimientos previos mínimos sobre
   * [3.1: Verificando Su Configuración Bitcoin](03_1_Verificando_Su_Configuracion_Bitcoin.md)
   * [3.2: Conociendo Su Configuración Bitcoin](03_2_Conociendo_Su_Configuracion_Bitcoin.md)
   * [3.3: Configurando Su Billetera](03_3_Configurando_Su_Billetera.md)
-    * [Interludio: Usando Variables de la Interfaz de Linea de Comandos](03_3_Interludio_Usando_Variables_Linea_Comando.md)
+    * [Interludio: Usando Variables de la Linea de Comandos](03_3_Interludio_Usando_Variables_Linea_Comando.md)
   * [3.4: Recibiendo una Transacción](03_4_Recibiendo_una_Transaccion.md)
   * [3.5: Entendiendo El Descriptor](03_5_Entendiendo_El_Descriptor.md)
 * [4.0: Enviando Transacciones Bitcoin](04_0_Enviando_Transacciones_Bitcoin.md)
