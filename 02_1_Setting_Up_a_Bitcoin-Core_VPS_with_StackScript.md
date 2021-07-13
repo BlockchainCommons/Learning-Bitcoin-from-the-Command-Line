@@ -23,7 +23,7 @@ https://www.linode.com
 If you prefer, the following referral code will give you two months worth of free usage (up to $100), great for learning Bitcoin:
 
 ```
-https://www.linode.com/?r=23211828bc517e2cb36e0ca81b91cc8c0e1b2d96
+[https://www.linode.com/?r=3c7fa15a78407c9a3d4aefb027539db2557b3765](https://www.linode.com/?r=3c7fa15a78407c9a3d4aefb027539db2557b3765)
 ```
 
 You'll need to provide an email address and later preload money from a credit card or PayPal for future costs.
