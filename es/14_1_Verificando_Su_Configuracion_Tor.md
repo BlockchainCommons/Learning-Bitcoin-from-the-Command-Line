@@ -369,4 +369,4 @@ Tor es un paquete de software instalado como parte de Bitcoin Standup que le per
 
 ## Que sigue?
 
-Continue "Entendiendo Tor" con [§14.2: Cambiando sus servicios ocultos Bitcoin](14_2_Changing_Your_Bitcoin_Hidden_Services.md).
+Continue "Entendiendo Tor" con [§14.2: Cambiando sus servicios ocultos Bitcoin](14_2_Cambiando_Sus_Servicios_Bitcoin_Ocultos.md).
