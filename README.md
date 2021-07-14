@@ -9,6 +9,13 @@ Learning Bitcoin from the Command Line is a tutorial for working with Bitcoin (a
 
 _This tutorial assumes that you have some minimal background of how to use the command line interface. If not, there are many tutorials available, and I have one for Mac users at https://github.com/ChristopherA/intro-mac-command-line._
 
+## Translations
+
+* [Portuguese](https://github.com/BlockchainCommons/Learning-Bitcoin-from-the-Command-Line/tree/portuguese-translation/pt) — in process
+* [Spanish](https://github.com/BlockchainCommons/Learning-Bitcoin-from-the-Command-Line/tree/spanish-translation/es) - in process
+
+If you'd like to make your own translation, please see [Contributing](https://github.com/BlockchainCommons/Learning-Bitcoin-from-the-Command-Line/tree/master#contributing), below.
+
 ## Table of Contents
 
 ### PART ONE: PREPARING FOR BITCOIN
@@ -53,10 +60,10 @@ _This tutorial assumes that you have some minimal background of how to use the c
   * [7.1: Creating a Partially Signed Bitcoin Transaction](07_1_Creating_a_Partially_Signed_Bitcoin_Transaction.md)
   * [7.2: Using a Partially Signed Bitcoin Transaction](07_2_Using_a_Partially_Signed_Bitcoin_Transaction.md)
   * [7.3: Integrating with Hardware Wallets](07_3_Integrating_with_Hardware_Wallets.md)
-* [8.0: Expanding Bitcoin Transactions in Other Ways](08_0_Expanding_Bitcoin_Transactions_Other.md)  
+* [8.0: Expanding Bitcoin Transactions in Other Ways](08_0_Expanding_Bitcoin_Transactions_Other.md)
   * [8.1: Sending a Transaction with a Locktime](08_1_Sending_a_Transaction_with_a_Locktime.md)
   * [8.2: Sending a Transaction with Data](08_2_Sending_a_Transaction_with_Data.md)
-  
+
 ### PART THREE: BITCOIN SCRIPTING
 
 **Status:** Finished. Updated for 0.20 and btcdeb.
@@ -86,7 +93,7 @@ _This tutorial assumes that you have some minimal background of how to use the c
   * [13.2: Writing Complex Multisig Scripts](13_2_Writing_Complex_Multisig_Scripts.md)
   * [13.3: Empowering Bitcoin with Scripts](13_3_Empowering_Bitcoin_with_Scripts.md)
 
-### PART FOUR: USING TOR
+### PART FOUR: PRIVACY
 
 **Status:** Finished.
 
@@ -95,45 +102,48 @@ _This tutorial assumes that you have some minimal background of how to use the c
   * [14.2: Changing Your Bitcoin Hidden Services](14_2_Changing_Your_Bitcoin_Hidden_Services.md)
   * [14.3: Adding SSH Hidden Services](14_3_Adding_SSH_Hidden_Services.md)
 
+* [15.0: Using i2p](15_0_Using_i2p.md)
+  * [15.1: Bitcoin Core as an I2P (Invisible Internet Project) service](15_1_i2p_service.md)
+
 ### PART FIVE: PROGRAMMING WITH RPC
 
 **Status:** Finished.
 
-* [15.0: Talking to Bitcoind with C](15_0_Talking_to_Bitcoind.md)
-  * [15.1: Accessing Bitcoind in C with RPC Libraries](15_1_Accessing_Bitcoind_with_C.md)
-  * [15.2: Programming Bitcoind in C with RPC Libraries](15_2_Programming_Bitcoind_with_C.md)
-  * [15.3: Receiving Notifications in C with ZMQ Libraries](15_3_Receiving_Bitcoind_Notifications_with_C.md)
-* [16.0: Programming Bitcoin with Libwally](16_0_Programming_with_Libwally.md)
-   * [16.1: Setting Up Libwally](16_1_Setting_Up_Libwally.md)
-   * [16.2: Using BIP39 in Libwally](16_2_Using_BIP39_in_Libwally.md)
-   * [16.3: Using BIP32 in Libwally](16_3_Using_BIP32_in_Libwally.md) 
-   * [16.4: Using PSBTs in Libwally](16_4_Using_PSBTs_in_Libwally.md)
-   * [16.5: Using Scripts in Libwally](16_5_Using_Scripts_in_Libwally.md)
-   * [16.6: Using Other Functions in Libwally](16_6_Using_Other_Functions_in_Libwally.md)
-   * [16.7: Integrating Libwally and Bitcoin-CLI](16_7_Integrating_Libwally_and_Bitcoin-CLI.md)
-* [17.0: Talking to Bitcoind with Other Languages](17_0_Talking_to_Bitcoind_Other.md)
-  * [17.1: Accessing Bitcoind with Go](17_1_Accessing_Bitcoind_with_Go.md)
-  * [17.2: Accessing Bitcoind with Java](17_2_Accessing_Bitcoind_with_Java.md)
-  * [17.3: Accessing Bitcoind with Node JS](17_3_Accessing_Bitcoind_with_NodeJS.md)
-  * [17.4: Accessing Bitcoind with Python](17_4_Accessing_Bitcoind_with_Python.md)
-  * [17.5: Accessing Bitcoind with Rust](17_5_Accessing_Bitcoind_with_Rust.md)
-  * [17.6: Accessing Bitcoind with Swift](17_6_Accessing_Bitcoind_with_Swift.md)
+* [16.0: Talking to Bitcoind with C](16_0_Talking_to_Bitcoind.md)
+  * [16.1: Accessing Bitcoind in C with RPC Libraries](16_1_Accessing_Bitcoind_with_C.md)
+  * [16.2: Programming Bitcoind in C with RPC Libraries](16_2_Programming_Bitcoind_with_C.md)
+  * [16.3: Receiving Notifications in C with ZMQ Libraries](16_3_Receiving_Bitcoind_Notifications_with_C.md)
+* [17.0: Programming Bitcoin with Libwally](17_0_Programming_with_Libwally.md)
+   * [17.1: Setting Up Libwally](17_1_Setting_Up_Libwally.md)
+   * [17.2: Using BIP39 in Libwally](17_2_Using_BIP39_in_Libwally.md)
+   * [17.3: Using BIP32 in Libwally](17_3_Using_BIP32_in_Libwally.md)
+   * [17.4: Using PSBTs in Libwally](17_4_Using_PSBTs_in_Libwally.md)
+   * [17.5: Using Scripts in Libwally](17_5_Using_Scripts_in_Libwally.md)
+   * [17.6: Using Other Functions in Libwally](17_6_Using_Other_Functions_in_Libwally.md)
+   * [17.7: Integrating Libwally and Bitcoin-CLI](17_7_Integrating_Libwally_and_Bitcoin-CLI.md)
+* [18.0: Talking to Bitcoind with Other Languages](18_0_Talking_to_Bitcoind_Other.md)
+  * [18.1: Accessing Bitcoind with Go](18_1_Accessing_Bitcoind_with_Go.md)
+  * [18.2: Accessing Bitcoind with Java](18_2_Accessing_Bitcoind_with_Java.md)
+  * [18.3: Accessing Bitcoind with Node JS](18_3_Accessing_Bitcoind_with_NodeJS.md)
+  * [18.4: Accessing Bitcoind with Python](18_4_Accessing_Bitcoind_with_Python.md)
+  * [18.5: Accessing Bitcoind with Rust](18_5_Accessing_Bitcoind_with_Rust.md)
+  * [18.6: Accessing Bitcoind with Swift](18_6_Accessing_Bitcoind_with_Swift.md)
 
 ### PART SIX: USING LIGHTNING-CLI
 
 **Status:** Finished.
 
-* [18.0: Understanding Your Lightning Setup](18_0_Understanding_Your_Lightning_Setup.md)
-  * [18.1: Verifying Your c-lightning Setup](18_1_Verifying_Your_Lightning_Setup.md)
-  * [18.2: Knowing Your c-lightning Setup](18_2_Knowing_Your_lightning_Setup.md)
-     * [Interlude: Accessing a Second Lightning Node](18_2__Interlude_Accessing_a_Second_Lightning_Node.md)
-  * [18.3: Creating a Lightning Channel](18_3_Setting_Up_a_Channel.md)
-* [19.0: Using Lightning](19_0_Using_Lightning.md)
-  * [19.1: Generating a Payment Request](19_1_Generate_a_Payment_Request.md)
-  * [19.2: Paying an Invoice](19_2_Paying_a_Invoice.md)
-  * [19.3: Closing a Lighnting Channel]((19_3_Closing_a_Channel.md))
-  * [19.4: Expanding the Lightning Network](19_4_Lightning_Network_Review.md)
-   
+* [19.0: Understanding Your Lightning Setup](19_0_Understanding_Your_Lightning_Setup.md)
+  * [19.1: Verifying Your c-lightning Setup](19_1_Verifying_Your_Lightning_Setup.md)
+  * [19.2: Knowing Your c-lightning Setup](19_2_Knowing_Your_lightning_Setup.md)
+     * [Interlude: Accessing a Second Lightning Node](19_2__Interlude_Accessing_a_Second_Lightning_Node.md)
+  * [19.3: Creating a Lightning Channel](19_3_Setting_Up_a_Channel.md)
+* [20.0: Using Lightning](20_0_Using_Lightning.md)
+  * [20.1: Generating a Payment Request](20_1_Generate_a_Payment_Request.md)
+  * [20.2: Paying an Invoice](20_2_Paying_a_Invoice.md)
+  * [20.3: Closing a Lighnting Channel]((20_3_Closing_a_Channel.md))
+  * [20.4: Expanding the Lightning Network](20_4_Lightning_Network_Review.md)
+
 ### APPENDICES
 
 **Status:** Finished.
@@ -142,7 +152,7 @@ _This tutorial assumes that you have some minimal background of how to use the c
   * [Appendix I: Understanding Bitcoin Standup](A1_0_Understanding_Bitcoin_Standup.md)
   * [Appendix II: Compiling Bitcoin from Source](A2_0_Compiling_Bitcoin_from_Source.md)
   * [Appendix III: Using Bitcoin Regtest](A3_0_Using_Bitcoin_Regtest.md)
-  
+
 ## Status - Beta
 
 v2.0.1 of **Learning Bitcoin from the Command Line** is feature complete. It may still be undergoing third-party review or editing, but it can be used for learning.
@@ -185,7 +195,7 @@ The following people directly contributed to this repository. You can add your n
 | Name              | Role                | Github                                            | Email                                 | GPG Fingerprint                                    |
 | ----------------- | ------------------- | ------------------------------------------------- | ------------------------------------- | -------------------------------------------------- |
 | Christopher Allen | Lead Author | [@ChristopherA](https://github.com/ChristopherA) | \<ChristopherA@LifeWithAlacrity.com\> | FDFE 14A5 4ECB 30FC 5D22  74EF F8D3 6C91 3574 05ED |
-| Shannon Appelcline |  Lead Author | [@shannona](https://github.com/shannona) | \<shannon.appelcline@gmail.com\> | 7EC6 B928 606F 27AD | 
+| Shannon Appelcline |  Lead Author | [@shannona](https://github.com/shannona) | \<shannon.appelcline@gmail.com\> | 7EC6 B928 606F 27AD |
 
 
 Additional contributions are listed below:
