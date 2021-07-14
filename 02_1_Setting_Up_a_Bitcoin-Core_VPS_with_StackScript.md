@@ -122,7 +122,7 @@ Here's a little catch: _your StackScript is running right now_. The BASH script 
 
 The total run time is about 10 minutes. So, go take a break, get an espresso, or otherwise relax for a few minutes. There are two parts of the script that take a while: the updating of all the Debian packages; and the downloading of the Bitcoin code. They shouldn't take more than 5 minutes each, which means if you come back in 10 minutes, you'll probably be ready to go.
 
-If you're impatient you can jump ahead and `sudo tail -f ~root/standup.log` which will display the current progress of installation, as described in the next section.
+If you're impatient you can jump ahead and `sudo tail -f /standup.log` which will display the current progress of installation, as described in the next section.
 
 ## Verify Your Installation
 
@@ -150,7 +150,7 @@ $ rm *
 In order to ensure that the downloaded Bitcoin release is valid, the StackScript checks both the signature and the SHA checksum. You should verify that both of those tests came back right:
 
 ```
-$ sudo grep VERIFICATION ~root/standup.log
+$ sudo grep VERIFICATION /standup.log
 ```
 
 If you see something like the following, all should be well:
@@ -167,13 +167,13 @@ You may also want to read through all of the setup log files, to make sure that 
 
 It's best to look through the standard StackScript log file, which has all of the output, including errors:
 
-`$ sudo more ~root/standup.log`
+`$ sudo more /standup.log`
 
 Note that it is totally normal to see _some_ errors, particularly when running the very noisy gpg software and when various things try to access the non-existant `/dev/tty` device.
 
 If you want instead to look at a smaller set of info, all of the errors should be in:
 
-`$ sudo more ~root/standup.err`
+`$ sudo more /standup.err`
 
 It still has a fair amount of information that isn't errors, but it's a quicker read.
 
