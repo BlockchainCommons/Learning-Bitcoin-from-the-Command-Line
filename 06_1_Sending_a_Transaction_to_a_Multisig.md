@@ -76,7 +76,7 @@ machine1$ pubkey1=$(bitcoin-cli -named getaddressinfo address=$address1 | jq -r 
 
 ### Crear la dirección
 
-A multisig can now be created with the `createmultisig` command:
+Una multifirma puede crearse ahora con el comando `createmultisig`:
 ```
 machine1$ bitcoin-cli -named createmultisig nrequired=2 keys='''["'$pubkey1'","02bfde48be4aa8f4bf76c570e98a8d287f9be5638412ab38dede8e78df82f33fa3"]'''
 {
@@ -85,9 +85,9 @@ machine1$ bitcoin-cli -named createmultisig nrequired=2 keys='''["'$pubkey1'","0
   "descriptor": "sh(multi(2,02da2f10746e9778dd57bd0276a4f84101c4e0a711f9cfd9f09cde55acbdd2d191,02bfde48be4aa8f4bf76c570e98a8d287f9be5638412ab38dede8e78df82f33fa3))#0pazcr4y"
 }
 ```
-> :warning: **VERSION WARNING:** Some versions of `createmultisig` have allowed entry of public keys or addresses, some have required public keys only. Currently, either one seems to be allowed.
+> :warning: **AVISO DE VERSION:** Algunas versiones de `createmultisig` han permitido el ingreso de claves públicas o direcciones, algunas han requerido sólo claves públicas. Actualmente, cualquiera de las dos parece estar permitida.
 
-When creating the multisignature address, you list how many signatures are required with the `nrequired` argument (that's "m" in a "m-of-n" multisignature), then you list the total set of possible signatures with the `keys` argument (that's "n"). Note that the the `keys` entries likely came from different places. In this case, we included `$pubkey1` from the local machine and `02bfde48be4aa8f4bf76c570e98a8d287f9be5638412ab38dede8e78df82f33fa3` from a remote machine. 
+Al crear la dirección multifirma, enumeras cuántas firmas se requieren con el argumento `nrequired` (esto es "m" en una multifirma "m-de-n"), luego enumeras el conjunto total de posibles firmas con el argumento `keys` (que es "n"). Ten en cuenta que las entradas de las `keys` probablemente provienen de diferentes lugares. En este caso, incluimos `$pubkey1` de la máquina local y `02bfde48be4aa8f4bf76c570e98a8d287f9be5638412ab38dede8e78df82f33fa3` de una máquina remota. 
 
 > :information_source: **NOTE — M-OF-N VS N-OF-N:** This example shows the creation of a simple 2-of-2 multisig. If you instead want to create an m-of-n signature where "m < n", you adjust the `nrequired` field and/or the number of signatures in the `keys` JSON object. For a 1-of-2 multisig, you'd set `nrequired=1` and also list two keys, while for a 2-of-3 multisig, you'd leave `nrequired=2`, but add one more public key to the `keys` listing.
 
