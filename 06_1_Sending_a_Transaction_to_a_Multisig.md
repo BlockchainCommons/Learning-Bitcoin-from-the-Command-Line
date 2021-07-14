@@ -32,13 +32,13 @@ machine2$ address2=$(bitcoin-cli getnewaddress)
 ```
 Luego, uno de los destinatarios (o quizás algún tercero) necesitará combinar las direcciones. 
 
-#### Collect Public Keys
+#### Recoger las Claves Públicas
 
-However, you can't create a multi-sig with the addresses, as those are the hashes of public keys: you instead need the public keys themselves.
+Sin embargo, no puedes crear una multifirma con las direcciones, pues son los hashes de las claves públicas: en su lugar necesitas las clves públicas en sí.
 
-This information is readily available with the `getaddressinfo` command.
+Esta información está ya disponible con el comando `getaddressinfo`.
 
-Over on the remote machine, which we assume here is `machine2`, you can get the information out of the listing. 
+En la máquina remota, que asumimos que aquí es `machine2`, puedes sacar la información del listado. 
 ```
 machine2$ bitcoin-cli -named getaddressinfo address=$address2
 {
@@ -63,18 +63,18 @@ machine2$ bitcoin-cli -named getaddressinfo address=$address2
   ]
 }
 ```
-The `pubkey` address (`02bfde48be4aa8f4bf76c570e98a8d287f9be5638412ab38dede8e78df82f33fa3`) is what's required. Copy it over to your local machine by whatever means you find most efficient and _least error prone_.
+La dirección `pubkey` (`02bfde48be4aa8f4bf76c570e98a8d287f9be5638412ab38dede8e78df82f33fa3`) es lo que se requiere. Cópialo en tu máquina local por cualquier medio que te resulte más eficiente y _menos propenso a errores_.
 
-This process needs to be undertaken for _every_ address from a machine other than the one where the multisig is being built. Obviously, if some third-party is creating the address, then you'll need to do this for every address.
+Este proceso necesita ser emprendido para _cada_ dirección desde una máquina diferente de la que se está construyendo la multifirma. Obviamente, si algún tercero está creando la dirección, deberás hacer esto para cada dirección.
 
-> :warning: **WARNING:** Bitcoin's use of public-key hashes as addresses, instead of public keys, actually represents an additional layer of security. Thus, sending a public key slightly increases the vulnerability of the associated address, for some far-future possibility of a compromise of the elliptic curve. You shouldn't worry about having to occasionally send out a public key for a usage such as this, but you should be aware that the public-key hashes represent security, and so the actual public keys should not be sent around willy nilly.
+> :warning: **AVISO:** El uso en Bitcoin de los hashes de las claves-públicas como direcciones, en lugar de las claves públicas, en realidad representa una capa adicional de seguridad. Por lo tanto, enviar una clave pública aumenta ligeramente la vulnerabilidad de la dirección asociada, por alguna posibilidad en el futuro lejano de un compromiso de la curva elíptica. No debes preocuparte por tener que enviar ocasionalmente una clave pública para un uso como este, pero debes tener en cuenta que los hashes de las claves públicas representan seguridad y, por lo tanto, las claves públicas reales no deben enviarse a la ligera.
 
-If one of the addresses was created on your local machine, which we assume here is `machine1`, you can just dump the `pubkey` address into a new variable.
+Si una de las direcciones se creó en tu máquina local, que asumimos que aquí es `machine1`, puedes simplemente volcar la dirección `pubkey` a una nueva variable.
 ```
 machine1$ pubkey1=$(bitcoin-cli -named getaddressinfo address=$address1 | jq -r '.pubkey')
 ```
 
-### Create the Address
+### Crear la dirección
 
 A multisig can now be created with the `createmultisig` command:
 ```
