@@ -27,7 +27,7 @@ machine2$ bitcoin-cli -named getaddressinfo address=$address4 | jq -r '. | .pubk
 
 ### Criando o endereço Multisig em qualquer lugar
 
-Em seguida, vamos criar o multisig em _cada máquina que contribuiu com as assinaturas_ usando um novo comando, ```addmultisigaddress```, ao invés de ```createmultisig```. Este novo comando salva algumas das informações da nossa carteira, tornando muito mais fácil gastar o dinheiro no futuro.
+Em seguida, vamos criar o multisig em _cada máquina que contribuiu com as assinaturas_ usando um novo comando, ```addmultisigaddress```, ao invés de ```createmultisig```. Este novo comando guarda algumas das informações da nossa carteira, tornando muito mais fácil gastar o dinheiro no futuro.
 ```
 machine1$ bitcoin-cli -named addmultisigaddress nrequired=2 keys='''["'$address3'","02a0d96e16458ff0c90db4826f86408f2cfa0e960514c0db547ff152d3e567738f"]'''
 {
@@ -104,7 +104,7 @@ A etapa final é exportar o ```hex``` parcialmente assinado para a outra máquin
 ```
 machine2$ signedtx=$(bitcoin-cli -named signrawtransactionwithwallet hexstring=02000000014ecda61c45f488e35c613a7c4ae26335a8d7bfd0a942f026d0fb1050e744a67d000000009100473044022025decef887fe2e3eb1c4b3edaa155e5755102d1570716f1467bb0b518b777ddf022017e97f8853af8acab4853ccf502213b7ff4cc3bd9502941369905371545de28d0147522102e7356952f4bb1daf475c04b95a2f7e0d9a12cf5b5c48a25b2303783d91849ba421030186d2b55de166389aefe209f508ce1fbd79966d9ac417adef74b7c1b5e0777652aeffffffff0130e1be07000000001976a9148dfbf103e48df7d1993448aa387dc31a2ebd522d88ac00000000 | jq -r '.hex')
 ```
-Quando todos os os assinantes confirmaram a assinatura, estaremos prontos para enviar a transação para a rede:
+Quando todos os assinantes confirmaram a assinatura, estaremos prontos para enviar a transação para a rede:
 ```
 machine2$ bitcoin-cli -named sendrawtransaction hexstring=$signedtx
 3ce88839ac6165aeadcfb188c490e1b850468eff571b4ca78fac64342751510d

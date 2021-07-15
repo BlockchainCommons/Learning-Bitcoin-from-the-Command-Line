@@ -97,7 +97,7 @@ $ bitcoin-cli -named gettransaction txid=b164388854f9701051809eed166d9f6cedba923
 
 Quando estivermos prontos para gastar os fundos recebidos por um endereço multisig, precisaremos coletar _muitos_ dados: Muito mais do que precisamos quando fazemos uma transação usando um UTXO de um P2PKH normal ou SegWit. Isso ocorre em parte porque as informações sobre o endereço multisig não estão em nossa posse e em parte porque estamos gastando dinheiro que foi enviado para um endereço P2SH (Pay-To-Script-Hash) e isso é muito mais exigente.
 
-No total, precisaremos coletar três coisas: Informações estendidas sobre o UTXO; O redemScript e; Todas as chaves privadas envolvidas. Obviamente, também iremos precisar de um novo endereço de destinatário. As chaves privadas precisam aguardar a etapa de assinatura, mas tudo pode ser feito agora.
+No total, precisaremos coletar três coisas: Informações estendidas sobre o UTXO; O redemScript; e todas as chaves privadas envolvidas. Obviamente, também iremos precisar de um novo endereço de destinatário. As chaves privadas precisam aguardar a etapa de assinatura, mas tudo pode ser feito agora.
 
 ### Acessando as informações do UTXO
 
@@ -145,7 +145,7 @@ Como essa transação não está fazendo uso total da nossa carteira, precisarem
 machine1$ bitcoin-cli -named dumpprivkey address=$address1
 cNPhhGjatADfhLD5gLfrR2JZKDE99Mn26NCbERsvnr24B3PcSbtR
 ```
-> :warning: **Atenção:** Acessar diretamente as chaves privadas do shell é um comportamento muito perigoso e deve ser feito com extremo cuidado se estivermos em um ambiente produtivo. No mínimo, é importante não salvar as informações em uma variável que possa ser acessada pela nossa máquina. Remover o histórico do  shell é outro grande passo. No máximo, podemos evitar de fazer isso.
+> :warning: **Atenção:** Acessar diretamente as chaves privadas do shell é um comportamento muito perigoso e deve ser feito com extremo cuidado se estivermos em um ambiente produtivo. No mínimo, é importante não salvar as informações em uma variável que possa ser acessada pela nossa máquina. Remover o histórico do shell é outro grande passo. No máximo, podemos evitar de fazer isso.
 
 ### Fazendo a nossa primeira assinatura
 
@@ -179,7 +179,7 @@ Isso produz erros assustadores e mostra um status de ```failing```. Tudo bem. Po
 
 Agora podemos passar a transação adiante, para ser assinada novamente por nós, que temos a outra parte da multisig. Eles fazem isso executando o mesmo comando de assinatura que fizemos, porém: (1) com o ```hex``` maior que produzimos anteriormente (```bitcoin-cli -named signrawtransactionwithkey hexstring = $ rawtxhex prevtxs = '' '[{"txid": " '$ utxo_txid'", "vout": '$ utxo_vout', "scriptPubKey": " '$ utxo_spk'", "redeemScript": " '$ redeem_script'"}] '' 'privkeys =' [ "cMgb3KM8hPATCtgMKarKMiFesLft6eEw3DY6BB8d97fkeXeqQagw"] '| jq -r'. | .hex'```) e; (2) com nossa própria chave privada.
 
-> :information_source: **NOTA - M de N vs N de N:** Obviamente, se tivermos uma assinatura N de N (como a multisig 2 de 2 do exemplo), todas as partes precisarão assinar, mas se tiviermos uma multisignatura M de N onde "M <N", a assinatura estará completa quando apenas alguns ("M") tiverem assinado.
+> :information_source: **NOTA - M de N vs N de N:** Obviamente, se tivermos uma assinatura N de N (como a multisig 2 de 2 do exemplo), todas as partes precisarão assinar, mas se tivermos uma multisig M de N onde "M <N", a assinatura estará completa quando apenas alguns ("M") tiverem assinado.
 
 Para fazer isso, primeiro acessamos as chaves privadas:
 ```

@@ -2,17 +2,17 @@
 
 A primeira maneira de variar a forma como enviamos uma transação básica é usando uma multisig. Isso nos dá a capacidade de exigir que várias pessoas (ou, ao menos, várias chaves privadas) autorizem o uso dos fundos.
 
-## Entendendo como Funcionam as Multisigs
+## Entendendo como funcionam as Multisigs
 
 Em uma transação P2PKH ou SegWit padrão, os bitcoins são enviados para um endereço baseado na chave pública, o que significa que a chave privada relacionada é necessária para desbloquear a transação, resolvendo o quebra-cabeça criptográfico e permitindo que reutilizemos o saldo. Mas e se pudéssemos bloquear uma transação com _múltiplas_ chaves privadas? Isso efetivamente permitiria que os fundos fossem enviados a um grupo de pessoas, onde todas teriam que concordar em reutilizar o saldo.
 
 > :book: ***O que é uma multisignature ou multisig?*** Uma _multisignature_ é uma metodologia que permite que mais de uma pessoa crie uma assinatura digital em conjunto. É uma técnica para o uso criptográfico de chaves que vai muito além do Bitcoin.
 
-Tecnicamente, um quebra-cabeça criptográfico com várias assinaturas é criado pelo Bitcoin usando o comando OP_CHECKMULTISIG e, normalmente, é encapsulado em um endereço P2SH. A seção [§10.4: Fazendo um scripto multisig](10_4_Scripting_a_Multisig.md) irá detalhar como isso funciona com mais precisão. Por enquanto, tudo que precisamos saber é que podemos usar o comando ```bitcoin-cli``` para criar endereços multi assinados. Os fundos podem ser enviados para esses endereços como qualquer endereço P2PKH ou Segwit normal, mas várias chaves privadas serão necessárias para que o saldo seja enviado.
+Tecnicamente, um quebra-cabeça criptográfico com várias assinaturas é criado pelo Bitcoin usando o comando OP_CHECKMULTISIG e, normalmente, é encapsulado em um endereço P2SH. A seção [§10.4: Fazendo um scripto multisig](10_4_Scripting_a_Multisig.md) irá detalhar como isso funciona com mais precisão. Por enquanto, tudo que precisamos saber é que podemos usar o comando ```bitcoin-cli``` para criar endereços multi assinados. Os fundos podem ser enviados para esses endereços como qualquer endereço P2PKH ou Segwit normal, mas várias chaves privadas serão necessárias para que o saldo seja retirado.
 
 > :book: ***O que é uma transação multisig?*** Uma transação com várias assinaturas é uma transação Bitcoin enviada para um endereço com várias assinaturas, exigindo assim que as pessoas de um grupo com várias assinaturas precisem assinar a transação para poder ter acesso ao saldo.
 
-As multisigs simples exigem que todos no grupo assinem o UTXO quando estiver gasto. No entanto, há mais complexidade possível. As assinaturas múltiplas são geralmente descritas como sendo "M de N". Isso significa que a transação está presa com um grupo de chaves "N", mas apenas "M" delas são necessárias para desbloquear a transação.
+As multisigs simples exigem que todos no grupo assinem o UTXO quando for usá-lo. No entanto, há mais complexidade possível. As assinaturas múltiplas são geralmente descritas como sendo "M de N". Isso significa que a transação está presa com um grupo de "N" chaves, mas apenas "M" delas são necessárias para desbloquear a transação.
 
 > :book: ***O que é uma multisg M-de-N? *** Em uma multisig, as assinaturas "M" de um grupo de "N" são necessárias para formar a assinatura, onde "M ≤ N".
 
@@ -22,7 +22,7 @@ Para bloquear um UTXO com várias chaves privadas, devemos primeiro criar um end
 
 ### Criando os Endereços
 
-Para criar um endereço multisig, devemos primeiro preparar os endereços que o multisig irá combinar. A prática recomendada sugere que sempre criemos novos endereços. Isso significa que cada participante irá executar o comando ```getnewaddress``` em sua própria máquina:
+Para criar um endereço multisig, devemos primeiro preparar os endereços que o multisig irá combinar. A prática recomendada sugere que sempre criemos endereços novos. Isso significa que cada participante irá executar o comando ```getnewaddress``` em sua própria máquina:
 ```
 machine1$ address1=$(bitcoin-cli getnewaddress)
 ```
@@ -30,7 +30,7 @@ E:
 ```
 machine2$ address2=$(bitcoin-cli getnewaddress)
 ```
-Posteriormente, um dos destinatários (ou talvez algum terceiro) precisará combinar ambos endereços.
+Posteriormente, um dos destinatários (ou talvez algum terceiro) precisará combinar ambos os endereços.
 
 #### Coletando as Chaves Públicas
 
@@ -89,7 +89,7 @@ machine1$ bitcoin-cli -named createmultisig nrequired=2 keys='''["'$pubkey1'","0
 
 Ao criar o endereço multisig, listamos quantas assinaturas são necessárias com o argumento ```nrequired``` (que é o "M" quando falamos _uma multisig "M de N"_), então listamos o conjunto total de assinaturas possíveis com a argumento ```keys``` (que é o "N"). Observe que as entradas ```keys``` provavelmente vieram de lugares diferentes. Nesse caso, incluímos ```$pubkey1``` da máquina local e ```02bfde48be4aa8f4bf76c570e98a8d287f9be5638412ab38dede8e78df82f33fa3``` de uma máquina remota.
 
-> :information_source: **NOTA - M de N vs N de N:** Este exemplo mostra a criação de um multisig simples 2 de 2 . Se quisermos criar uma assinatura M de N onde "M<N", precisamos apenas ajustar o campo ```nrequired``` e/ou o número de assinaturas ```keys``` no objeto JSON. Para um multisig 1 de 2, seria definido como ```nrequired = 1``` e também listaria duas chaves, enquanto para um multisig 2 de 3, seria necessário um ```nrequired = 2```, mas adicionaria mais uma chave pública à lista de ```keys```.
+> :information_source: **NOTA - M de N vs N de N:** Este exemplo mostra a criação de um multisig simples 2 de 2. Se quisermos criar uma assinatura M de N onde "M<N", precisamos apenas ajustar o campo ```nrequired``` e/ou o número de assinaturas ```keys``` no objeto JSON. Para um multisig 1 de 2, seria definido como ```nrequired = 1``` e também listaria duas chaves, enquanto para um multisig 2 de 3, seria necessário um ```nrequired = 2```, mas adicionaria mais uma chave pública à lista de ```keys```.
 
 Quando usado corretamente, o ```createmultisig``` retorna três resultados, todos criticamente importantes.
 
@@ -99,7 +99,7 @@ O _endereço_ é o que iremos distribuir para as pessoas que desejam enviar os f
 
 O _redeemScript_ é o que precisaremos para resgatar os fundos (junto com as chaves privadas de "M" dos "N" endereços). Este script é outro recurso especial dos endereços P2SH e será explicado com mais detalhes na seção [§8.1: Construindo um Script Bitcoin com P2SH](08_1_Building_a_Bitcoin_Script_with_P2SH.md). Por enquanto, precisamos apenas saber que alguns dados são necessários para podemos gastar nosso dinheiro.
 
-O _descritor_ é a descrição padronizada para um endereço que encontramos na seção [§3.5: Compreendendo o descriptor](03_5_Understanding_the_Descriptor.md). Ele fornece uma maneira de importar esse endereço de volta para a outra máquina, usando o RPC ```importmulti```.
+O _descritor_ é a descrição padronizada para um endereço que encontramos na seção [§3.5: Compreendendo o descritor](03_5_Understanding_the_Descriptor.md). Ele fornece uma maneira de importar esse endereço de volta para a outra máquina, usando o RPC ```importmulti```.
 
 > :book: ***O que é um endereço P2SH?*** O P2SH significa Pay-To-Script-Hash. É um tipo de destinatário diferente de um endereço P2PKH padrão ou mesmo de um Bech32, usado para fundos cujo resgate é baseado em scripts de Bitcoin mais complexos. O ```bitcoin-cli``` usa o encapsulamento P2SH para ajudar a padronizar e simplificar os multisigs como "multisigs P2SH ", assim como P2SH-SegWit estava usando o P2SH para padronizar os endereços SegWit e torná-los totalmente compatíveis com as versões legadas.
 
@@ -197,9 +197,9 @@ Como podemos ver, não houve nada de incomum na criação da transação e ela p
 
 ## Resumo: Enviando uma Transação Multsig
 
-Os endereços do Multisig trancam os fundos usando várias chaves privadas, possivelmente exigindo todas essas chaves privadas para resgate e, possivelmente, exigindo apenas algumas do conjunto. Eles são fáceis de serem criadas com o ```bitcoin-cli``` e são simples para serem enviadas. Essa facilidade se deve em grande parte ao uso invisível de endereços P2SH (Pay-To-Script-Hash), um tópico extenso que já falamos duas vezes, com endereços P2SH-SegWit e agora com as multisig, e um outro que receberá mais atenção no futuro.
+Os endereços Multisig bloqueiam os fundos usando várias chaves privadas, possivelmente exigindo todas essas chaves privadas para resgate e, possivelmente, exigindo apenas algumas do conjunto. Eles são fáceis de serem criadas com o ```bitcoin-cli``` e são simples para serem enviadas. Essa facilidade se deve em grande parte ao uso invisível de endereços P2SH (Pay-To-Script-Hash), um tópico extenso que já falamos duas vezes, agora com endereços P2SH-SegWit e multisig, e um outro que receberá mais atenção no futuro.
 
-> :fire: ***Qual é o poder das multisig?*** As multisig permitem a modelagem de uma variedade de arranjos financeiros, como corporações, parcerias, comitês e outros grupos. Uma multisig 1 de 2 pode ser a conta bancária conjunta de um casal, enquanto uma multisig 2 de 2 pode ser usado para grandes despesas por uma parceria de responsabilidade limitada. As multisigs também constituem uma das bases dos Smart Contracts. Por exemplo, um negócio imobiliário pode ser fechado com um multisig 2 de 3, onde as assinaturas são enviadas pelo comprador, pelo vendedor e por um agente de custódia. Depois que o agente de custódia concorda que todas as condições foram atendidas, ele libera os fundos para o vendedor, ou, alternativamente, o comprador e o vendedor podem liberar os fundos em conjunto.
+> :fire: ***Qual é o poder das multisigs?*** As multisigs permitem a modelagem de uma variedade de arranjos financeiros, como corporações, parcerias, comitês e outros grupos. Uma multisig 1 de 2 pode ser a conta bancária conjunta de um casal, enquanto uma multisig 2 de 2 pode ser usado para grandes despesas por uma parceria de responsabilidade limitada. As multisigs também constituem uma das bases dos Smart Contracts. Por exemplo, um negócio imobiliário pode ser fechado com um multisig 2 de 3, onde as assinaturas são enviadas pelo comprador, pelo vendedor e por um agente de custódia. Depois que o agente de custódia concorda que todas as condições foram atendidas, ele libera os fundos para o vendedor, ou, alternativamente, o comprador e o vendedor podem liberar os fundos em conjunto.
 
 ## O Que Vem Depois?
 
