@@ -15,13 +15,13 @@ You start off creating P2PKH addresses and retrieving public keys, as usual, for
 machine1$ address3=$(bitcoin-cli getnewaddress)
 machine1$ echo $address3
 tb1q4ep2vmakpkkj6mflu94x5f94q662m0u5ad0t4w
-machine1$ bitcoin-cli -named getaddressinfo address=$address3 | jq -r '. | .pubkey'
+machine1$ bitcoin-cli -named getaddressinfo address=$address3 | jq -r '.pubkey'
 0297e681bff16cd4600138449e2527db4b2f83955c691a1b84254ecffddb9bfbfc
 
 machine2$ address4=$(bitcoin-cli getnewaddress)
 machine2$ echo $address4
 tb1qa9v5h6zkhq8wh0etnv3ae9cdurkh085xufl3de
-machine2$ bitcoin-cli -named getaddressinfo address=$address4 | jq -r '. | .pubkey'
+machine2$ bitcoin-cli -named getaddressinfo address=$address4 | jq -r '.pubkey'
 02a0d96e16458ff0c90db4826f86408f2cfa0e960514c0db547ff152d3e567738f
 ```
 
