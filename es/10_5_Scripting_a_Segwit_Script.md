@@ -15,11 +15,11 @@ Si alguna vez necesita usar uno, hay una opción para crear una dirección P2SH-
 $ bitcoin-cli getnewaddress -addresstype p2sh-segwit
 2NEzBvokxh4ME4ahdT18NuSSoYvvhS7EnMU
 ```
-The address starts with a `2` (or a `3`) revealing it as a script
+La dirección comienza con un `2` (o un `3`) que la revela como un guión.
 
-> :book: ***Why can't old nodes send to native Segwit addresses?*** [§10.1](10_1_Understanding_the_Foundation_of_P2SH.md) noted that there were a set number of "standard" Bitcoin transactions. You can't actually lock a transaction with a script that isn't one of those standard types. Segwit is now recognized as one of those standards, but an old node won't know that, and so it will refuse to send on such a transaction for the protection of the sender. Wrapping a Segwit address inside a standard script hash resolves the problem.
+> :book: ***¿Por qué los nodos antiguos no pueden enviar a direcciones nativas de Segwit?*** [§10.1](10_1_Understanding_the_Foundation_of_P2SH.md) señaló que había un número determinado de transacciones de Bitcoin "estándar". En realidad, no puede bloquear una transacción con un script que no sea uno de esos tipos estándar. Segwit ahora se reconoce como uno de esos estándares, pero un nodo antiguo no lo sabrá, por lo que se negará a enviar una transacción de este tipo para la protección del remitente. Envolver una dirección Segwit dentro de un hash de script estándar resuelve el problema.
 
-When you look at a UTXO sent to that address, you can see the `desc` is different, revealing a WPKH address wrapped in a script:
+Cuando mira un UTXO enviado a esa dirección, puede ver que el `desc` es diferente, revelando una dirección WPKH envuelta en un script:
 ```
 $ bitcoin-cli listunspent
   {
@@ -36,9 +36,9 @@ $ bitcoin-cli listunspent
     "safe": true
   }
 ```
-More importantly, there's a `redeemScript`, which decodes to `OP_0 OP_PUSHDATA (20 bytes) 3ab2a09a1a5f2feb6c799b5ab345069a96e1a0a`. The should look familiar, because it's an `OP_0` followed by 20-byte hexcode of a public key hash. In other words, a P2SH-SegWit is just a SegWit `scriptPubKey` jammed into a script. That's all there is to it. It precisely matches how modern multisigs are a multsig jammed into a P2SH, as discussed in [§10.4: Scripting a Multisig](10_4_Scripting_a_Multisig.md).
+Más importante aún, hay un `redeemScript`, que decodifica a `OP_0 OP_PUSHDATA (20 bytes) 3ab2a09a1a5f2feb6c799b5ab345069a96e1a0a`. Deberia parecer familiar, porque es un `OP_0` seguido de un código hexadecimal de 20 bytes de un hash de clave pública. En otras palabras, un P2SH-SegWit es solo un SegWit `scriptPubKey` atascado en un script. Eso es todo al respecto. Coincide precisamente con la forma en que las multifirmas modernas son un multifirma atascado en un P2SH, como se explica en [§10.4: Scripting a Multisig](10_4_Scripting_a_Multisig.md).
 
-The raw transaction reveals a bit more when you look at the `vout` `1`:
+La transacción sin procesar revela un poco más cuando mira el `vout` `1`:
 ```
 $ hex=$(bitcoin-cli gettransaction "bb4362dec15e67d366088f5493c789f22fb4a604e767dae1f6a631687e2784aa" | jq -r '.hex')
 $ bitcoin-cli decoderawtransaction $hex
@@ -95,33 +95,32 @@ $ bitcoin-cli decoderawtransaction $hex
   ]
 }
 ```
-This confirms that this is just a normal P2SH, locked by `"OP_DUP OP_HASH160 41d83eaffbf80f82dee4c152de59a38ffd0b6021 OP_EQUALVERIFY OP_CHECKSIG"`. It's when the redeem script is run that the magic occurs. Just as with a P2WPKH, an old node wil see `OP_0 OP_PUSHDATA (20 bytes) 3ab2a09a1a5f2feb6c799b5ab345069a96e1a0a` and verify it automatically, while a new node will see that, know it's a P2WPKH, and so go out to the `witnesses`. See [§9.5: Scripting a P2WPKH](09_5_Scripting_a_P2WPKH.md).
+Esto confirma que esto es solo un P2SH normal, bloqueado por `"OP_DUP OP_HASH160 41d83eaffbf80f82dee4c152de59a38ffd0b6021 OP_EQUALVERIFY OP_CHECKSIG"`. Es cuando se ejecuta el script de canje que ocurre la magia. Al igual que con un P2WPKH, un nodo antiguo verá `OP_0 OP_PUSHDATA (20 bytes) 3ab2a09a1a5f2feb6c799b5ab345069a96e1a0a` y lo verificará automáticamente, mientras que un nuevo nodo lo verá, sabrá que es un P2WPKH, y así saldrá con los `testigos`. See [§9.5: Scripting a P2WPKH](09_5_Scripting_a_P2WPKH.md).
 
-> :book: ***What are the disadvantages of nested Segwit transactions?*** They're bigger than native Segwit transactions, so you get some of advantages of Segwit, but not all of them.
+> :book: ***¿Cuáles son las desventajas de las transacciones segwit anidadas?*** Son más grandes que las transacciones nativas de Segwit, por lo que obtiene algunas de las ventajas de Segwit, pero no todas.
 
-## Understand a P2WSH Script
+## Entender un Guion P2WSH
 
-Contrariwise, the P2WSH transactions should be ever-increasing in usage, since they're the native Segwit replacement for P2SH, offering all the same advantages of blocksize that were created with native Segwit P2WPKH transactions.
+Por el contrario, las transacciones P2WSH deberían tener un uso cada vez mayor, ya que son el reemplazo nativo de Segwit para P2SH, ofreciendo las mismas ventajas de tamaño de bloque que se crearon con transacciones nativas Segwit P2WPKH.
 
-This is example of P2WSH address:
+Este es un ejemplo de dirección P2WSH:
 [https://blockstream.info/testnet/address/tb1qrp33g0q5c5txsp9arysrx4k6zdkfs4nce4xj0gdcccefvpysxf3q0sl5k7](https://blockstream.info/testnet/address/tb1qrp33g0q5c5txsp9arysrx4k6zdkfs4nce4xj0gdcccefvpysxf3q0sl5k7)
 
-The details show that a UTXO sent to this address is locked with a `scriptPubKey` like this:
+Los detalles muestran que un UTXO enviado a esta dirección está bloqueado con una `scriptPubKey` como esta:
 ```
 OP_0 OP_PUSHDATA (32 bytes) 1863143c14c5166804bd19203356da136c985678cd4d27a1b8c6329604903262
 ```
-This works just like a P2WPKH address, the only difference being that instead of a 20-byte public-key-hash, the UTXO includes a 32-byte script-hash. Just as with a P2WPKH, old nodes just verify this, while new nodes recognize this is a P2WSH and so internally verify the script as described in previous sections, but using the `witness` data, which now includes the redeem script.
+Esto funciona como una dirección P2WPKH, la única diferencia es que un lugar de un hash de clave pública de 20 bytes, el UTXO incluye un hash de script de 32 bytes. Al igual que con un P2WPKH, los nodos antiguos solo verifican esto, mientras que los nuevos nodos reconocen que se trata de un P2WSH y, por lo tanto, verifican internamente el script como se describe en las secciones anteriores, pero utilizando los datos del `testigo`, que ahora incluye el script de canje.
+También hay una variante más, un script P2WSH incrustado en un script P2SH, que funciona de manera muy similar al P2SH-Segwit descrito anterioremente, pero para scripts P2WSH anidados. (Whew!)
 
-There is also one more variant, a P2WSH script embedded in a P2SH script, which works much like the P2SH-Segwit described above, but for nested P2WSH scripts. (Whew!)
+## Resumen: Programación de un Hash de Clave Pública de Pagar Para Precenciar
 
-## Summary: Scripting a Pay to Witness Public Key Hash
+Hay dos tipos de scripts P2SH que se relacionan con Segwit. 
 
-There are two sorts of P2SH scripts that relate to Segwit. 
+La dirección P2SH-Segwit es una dirección Segwit anidada que incrusta el simple `scriptPubkey` de Segwit dentro de un script, al igual que las multifirmas están incrustadas en los scripts hoy en día: la clave de estilo Segwit se desenrolla y luego se analiza como de costumbre en una máquina que entiende Segwit. El propósito es la compatibilidad con versiones anteriores de nodos antiguos que, de otro modo, no podrían enviarse a direcciones nativas de Segwit.
 
-The P2SH-Segwit address is a nested Segwit address that embed the simple Segwit `scriptPubkey` inside a Script, just like multisigs are embedded in scripts nowadays: the Segwit-style key is unwound, and then parsed like normal on a machine that understands Segwit. The purpose is backward compatibility to old nodes that might not otherwise be able to send to native Segwit addresses.
+La dirección P2WSH es una variante Segwit de P2SH, al igual que P2WPKH es una variante Segwit de P2WSH. Funciona con la misma lógica y se identifica por tener un hash de 32 bytes en lugar de un hash de 20 bytes. El propósito es extender las ventajas de Segwit a otros tipos de scripts.
 
-The P2WSH address is a Segwit variant of P2SH, just as P2WPKH is a Segwit variant of P2WSH. It works with the same logic, and is identified by having a 32-byte hash instead of a 20-byte hash. The purpose is to extend the advantages of Segwit to other sorts of scripts.
+## Que Sigue?
 
-## What's Next?
-
-Continue "Embedding Bitcoin Scripts" with [§10.6: Spending a P2SH Transaction](10_6_Spending_a_P2SH_Transaction.md).
+Continúe "Incrustando Bitcoin Scripts" con [§10.6: Spending a P2SH Transaction](10_6_Spending_a_P2SH_Transaction.md).
