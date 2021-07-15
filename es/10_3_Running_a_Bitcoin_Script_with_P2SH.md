@@ -7,10 +7,10 @@ Ahora que concoce la teoría y la práctica detrás de las direcciones P2SH, est
 Para bloquear una transacción con este script, haga lo siguiente:
 
 1. Serializar `OP_ADD 99 OP_EQUAL`:
-   1. OP_ADD = 0x93 — una traducción simple de opcode
+   1. OP_ADD = 0x93 — una traducción simple de un opcode
    2. 99 = 0x01, 0x63 — este opcode empuja un byte a la pila, 99 (hex: 0x63)
       * No se preocupe por la conversión endian porque es solo un byte
-   3. OP_EQUAL = 0x87 — una tradducion simple de opcode translation
+   3. OP_EQUAL = 0x87 — una tradducion simple de un opcode
    4. `<serialized99Equal>` = "93016387" 
    
 ```
