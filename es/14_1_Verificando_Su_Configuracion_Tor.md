@@ -353,9 +353,6 @@ Es posible que algunos no, como ésta conexión IPv6:
   }
 ...
 ```
-Having a Tor address for your `bitcoind` is probably somewhat less useful than having a Tor address for your RPC connections. That's in part because it's not recommended to try and send all your Bitcoin connections via Tor, and in part because protecting your RPC commands is really what's important: you're much more likely to be doing that remotely, from a software wallet like The Gordian Wallet, while your server itself is more likely to be sitting in your office, basement, or bunker.
-
-Nonetheless, there are ways to make `bitcoind` use Tor more, as discussed in the next section.
 
 Tener una dirección Tor para su `bitcoind` probablemente sea algo menos útil que tener una dirección Tor para sus conexiones RPC. Eso es en parte porque no se recomienda intentar enviar todas sus conexiones de Bitcoin a través de Tor, y en parte porque proteger sus comandos RPC es realmente lo importante: es mucho más probable que lo haga de forma remota, desde una billetera de software como The Gordian. Wallet, mientras que es más probable que su servidor esté en su oficina, sótano o búnker.
 
