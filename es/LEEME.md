@@ -9,6 +9,13 @@ Aprender Bitcoin desde la línea de comandos es un tutorial para trabajar con Bi
 
 Este tutorial asume que usted tiene algunos conocimientos previos mínimos sobre cómo usar la interfaz de línea de comandos. Si no es así, hay muchos tutoriales disponibles y tengo uno para usuarios de Mac en [https://github.com/ChristopherA/intro-mac-command-line.](https://github.com/ChristopherA/intro-mac-command-line)
 
+## Traducciones
+
+* [Inglés](https://github.com/BlockchainCommons/Learning-Bitcoin-from-the-Command-Line) - versión original
+* [Portugués](https://github.com/BlockchainCommons/Learning-Bitcoin-from-the-Command-Line/tree/portuguese-translation/pt) - en proceso
+
+Si le gustaría hacer su propia traducción, por favor, vea [Contribuyendo](#contribuyendo), abajo.
+
 ## Tabla de Contenidos
 
 ### PARTE UNO: PREPARÁNDOSE PARA BITCOIN
@@ -86,7 +93,7 @@ Este tutorial asume que usted tiene algunos conocimientos previos mínimos sobre
   * [13.2: Escribiendo Scripts Multifirma Complejos](13_2_Escribiendo_Scripts_Multifirma_Complejos.md)
   * [13.3: Potenciando Bitcoin con Scripts](13_3_Potenciando_Bitcoin_con_Scripts.md)
 
-### PARTE CUATRO: USANDO TOR
+### PARTE CUATRO: PRIVACIDAD
 
 **Estado:** Finalizado.
 
@@ -95,44 +102,47 @@ Este tutorial asume que usted tiene algunos conocimientos previos mínimos sobre
   * [14.2: Cambiando Sus Servicios Bitcoin Ocultos](14_2_Cambiando_Sus_Servicios_Bitcoin_Ocultos.md)
   * [14.3: Agregando Servicios SSH Ocultos](14_3_Agregando_Servicios_SSH_Ocultos.md)
 
+* [15.0: Usando i2p](15_0_Usando_i2p.md)
+    * [15.1: Bitcoin Core como un servicio I2P (Proyecto Internet Invisible)](15_1_i2p_service.md)
+
 ### PARTE CINCO: PROGRAMANDO CON RPC
 
 **Estado:** Finalizado.
 
-* [15.0: Hablando a Bitcoind con C](15_0_Hablando_a_Bitcoind_con_C.md)
-  * [15.1: Accediendo a Bitcoind en C con las Bibliotecas RPC](15_1_Accediendo_a_Bitcoind_en_C_con_las_Bibliotecas_RPC.md)
-  * [15.2: Programando Bitcoind en C con las Bibliotecas RPC](15_2_Programando_Bitcoind_en_C_con_las_Bibliotecas_RPC.md)
-  * [15.3: Recibiendo Notificaciones de Bitcoind en C con las Bibliotecas ZMQ](15_3_Recibiendo_Notificaciones_de_Bitcoind_en_C_con_las_Bibliotecas_ZMQ.md)
-* [16.0: Programando Bitcoin con Libwally](16_0_Programando_Bitcoin_con_Libwally.md)
-   * [16.1: Configurando Libwally](16_1_Configurando_Libwally.md)
-   * [16.2: Usando BIP39 en Libwally](16_2_Usando_BIP39_en_Libwally.md)
-   * [16.3: Usando BIP32 en Libwally](16_3_Usando_BIP32_en_Libwally.md) 
-   * [16.4: Usando PSBTs en Libwally](16_4_Usando_PSBTs_en_Libwally.md)
-   * [16.5: Usando Scripts en Libwally](16_5_Usando_Scripts_en_Libwally.md)
-   * [16.6: Usando Otras Funciones en Libwally](16_6_Usando_Otras_Funciones_en_Libwally.md)
-   * [16.7: Integrando Libwally y Bitcoin-CLI](16_7_Integrando_Libwally_y_Bitcoin-CLI.md)
-* [17.0: Hablando a Bitcoind con Otros Lenguajes](17_0_Hablando_a_Bitcoind_con_Otros_Lenguajes.md)
-  * [17.1: Accediendo a Bitcoind con Go](17_1_Accediendo_a_Bitcoind_con_Go.md)
-  * [17.2: Accediendo a Bitcoind con Java](17_2_Accediendo_a_Bitcoind_con_Java.md)
-  * [17.3: Accediendo a Bitcoind con Node JS](17_3_Accediendo_a_Bitcoind_con_NodeJS.md)
-  * [17.4: Accediendo a Bitcoind con Python](17_4_Accediendo_a_Bitcoind_con_Python.md)
-  * [17.5: Accediendo a Bitcoind con Rust](17_5_Accediendo_a_Bitcoind_con_Rust.md)
-  * [17.6: Accediendo a Bitcoind con Swift](17_6_Accediendo_a_Bitcoind_con_Swift.md)
+* [16.0: Hablando a Bitcoind con C](16_0_Hablando_a_Bitcoind_con_C.md)
+  * [16.1: Accediendo a Bitcoind en C con las Bibliotecas RPC](16_1_Accediendo_a_Bitcoind_en_C_con_las_Bibliotecas_RPC.md)
+  * [16.2: Programando Bitcoind en C con las Bibliotecas RPC](16_2_Programando_Bitcoind_en_C_con_las_Bibliotecas_RPC.md)
+  * [16.3: Recibiendo Notificaciones de Bitcoind en C con las Bibliotecas ZMQ](16_3_Recibiendo_Notificaciones_de_Bitcoind_en_C_con_las_Bibliotecas_ZMQ.md)
+* [17.0: Programando Bitcoin con Libwally](17_0_Programando_Bitcoin_con_Libwally.md)
+   * [17.1: Configurando Libwally](17_1_Configurando_Libwally.md)
+   * [17.2: Usando BIP39 en Libwally](17_2_Usando_BIP39_en_Libwally.md)
+   * [17.3: Usando BIP32 en Libwally](17_3_Usando_BIP32_en_Libwally.md)
+   * [17.4: Usando PSBTs en Libwally](17_4_Usando_PSBTs_en_Libwally.md)
+   * [17.5: Usando Scripts en Libwally](17_5_Usando_Scripts_en_Libwally.md)
+   * [17.6: Usando Otras Funciones en Libwally](17_6_Usando_Otras_Funciones_en_Libwally.md)
+   * [17.7: Integrando Libwally y Bitcoin-CLI](17_7_Integrando_Libwally_y_Bitcoin-CLI.md)
+* [18.0: Hablando a Bitcoind con Otros Lenguajes](18_0_Hablando_a_Bitcoind_con_Otros_Lenguajes.md)
+  * [18.1: Accediendo a Bitcoind con Go](18_1_Accediendo_a_Bitcoind_con_Go.md)
+  * [18.2: Accediendo a Bitcoind con Java](18_2_Accediendo_a_Bitcoind_con_Java.md)
+  * [18.3: Accediendo a Bitcoind con Node JS](18_3_Accediendo_a_Bitcoind_con_NodeJS.md)
+  * [18.4: Accediendo a Bitcoind con Python](18_4_Accediendo_a_Bitcoind_con_Python.md)
+  * [18.5: Accediendo a Bitcoind con Rust](18_5_Accediendo_a_Bitcoind_con_Rust.md)
+  * [18.6: Accediendo a Bitcoind con Swift](18_6_Accediendo_a_Bitcoind_con_Swift.md)
 
 ### PARTE SEIS: USANDO LIGHTNING-CLI
 
 **Estado:** Finalizado.
 
-* [18.0: Entendiendo Su Configuración Lightning](18_0_Entendiendo_Su_Configuracion_Lightning.md)
-  * [18.1: Verificando Su Configuración c-lightning](18_1_Verificando_Su_Configuracion_Lightning.md)
-  * [18.2: Conociendo Su Configuración c-lightning](18_2_Conociendo_Su_Configuracion_Lightning.md)
-     * [Interludio: Accediendo a un Segundo Nodo Lightning](18_2__Interludio_Accediendo_a_un_Segundo_Nodo_Lightning.md)
-  * [18.3: Creando un Canal en Lightning](18_3_Creando_un_Canal_en_Lightning.md)
-* [19.0: Usando Lightning](19_0_Usando_Lightning.md)
-  * [19.1: Generando una Solicitud de Pago](19_1_Generando_una_Solicitud_de_Pago.md)
-  * [19.2: Pagando una Factura](19_2_Pagando_una_Factura.md)
-  * [19.3: Cerrando un Canal Lightning]((19_3_Cerrando_un_Canal_Lightning.md))
-  * [19.4: Expandiendo la Red Lightning](19_4_Expandiendo_la_Red_Lightning.md)
+* [19.0: Entendiendo Su Configuración Lightning](19_0_Entendiendo_Su_Configuracion_Lightning.md)
+  * [19.1: Verificando Su Configuración c-lightning](19_1_Verificando_Su_Configuracion_Lightning.md)
+  * [19.2: Conociendo Su Configuración c-lightning](19_2_Conociendo_Su_Configuracion_Lightning.md)
+     * [Interludio: Accediendo a un Segundo Nodo Lightning](19_2__Interludio_Accediendo_a_un_Segundo_Nodo_Lightning.md)
+  * [19.3: Creando un Canal en Lightning](19_3_Creando_un_Canal_en_Lightning.md)
+* [20.0: Usando Lightning](20_0_Usando_Lightning.md)
+  * [20.1: Generando una Solicitud de Pago](20_1_Generando_una_Solicitud_de_Pago.md)
+  * [20.2: Pagando una Factura](20_2_Pagando_una_Factura.md)
+  * [20.3: Cerrando un Canal Lightning]((20_3_Cerrando_un_Canal_Lightning.md)
+  * [20.4: Expandiendo la Red Lightning](20_4_Expandiendo_la_Red_Lightning.md)
    
 ### APÉNDICES
 
@@ -157,9 +167,9 @@ A menos que sea señalado de otra manera (ya sea en este [LEEME.md](./LEEME.md) 
 
 *Aprendiendo Bitcoin desde la Línea de Comandos* es un proyecto de [Blockchain Commons](https://www.blockchaincommons.com/). Somos orgullosamente una corporación para beneficio social sin fines de lucro comprometida con el código abierto y el desarrollo abierto. Nuestro trabajo es financiado enteramente por donaciones y camaradería colaborativa con gente como usted. Toda contribución va a ser destinada a construir herramientas abiertas, tecnologías y técnicas que sostengan una avanzada cadena de bloques, una infraestructura de internet segura y promuevan la web abierta.
 
-Para apoyar financieramente el futuro desarrollo de `Aprendiendo Bitcoin desde la Línea de Comandos` y otros proyectos, por favor, considere convertirse en un patrocinador de Blockchain Commons a través de un patrocinio mensual continuo como [GitHub Sponsor](https://github.com/sponsors/BlockchainCommons). También puede apoyar Blockchain Commons con bitcoins en nuestro [BTCPay Server](https://btcpay.blockchaincommons.com/).
+Para apoyar financieramente el futuro desarrollo de *Aprendiendo Bitcoin desde la Línea de Comandos* y otros proyectos, por favor, considere convertirse en un patrocinador de Blockchain Commons a través de un patrocinio mensual continuo como [GitHub Sponsor](https://github.com/sponsors/BlockchainCommons). También puede apoyar Blockchain Commons con bitcoins en nuestro [BTCPay Server](https://btcpay.blockchaincommons.com/).
 
-## Contribuyendo
+## Contribuyendo <a name="contribuyendo"></a>
 
 Animamos las contribuciones publicas a través de issues y pull requests! Por favor, revise [CONTRIBUYENDO.md](./CONTRIBUYENDO.md) para mas detalles sobre nuestro proceso de desarrollo. Todas las contribuciones a este repositorio requieren un [Acuerdo de Licencia de Colaborador](./CLA.md) firmado mediante GPG.
 
