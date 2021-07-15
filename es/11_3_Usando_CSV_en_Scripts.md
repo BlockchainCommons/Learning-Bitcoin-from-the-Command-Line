@@ -6,7 +6,7 @@
 
 ## Entienda nSequence
 
-Todo input dentro de una transacción tiene un valor `nSequence` (o si usted prefiere `sequence`). Este a sido una herramienta primaria en la expansión de Bitcoin, como fue discutido previamente en [5.2: Reenviando una Transacción con RBF](05_2_Reenviando_a_Transaccion_con_RBF.md) y [8.1: Enviando una Transacción con un Bloqueo de Tiempo](08_1_Enviando_una_Transaccion_con_un_Bloqueo_de_Tiempo.md), donde fue usado para señalar RBF y `nLockTime`, respectivamente, Sin embargo, hay un uso mas para `nSequence`, descripto por [BIP 68](https://github.com/bitcoin/bips/blob/master/bip-0068.mediawiki): usted puede usarlo para crear un bloqueo de tiempo relativo en una transacción.
+Todo input dentro de una transacción tiene un valor `nSequence` (o si usted prefiere `sequence`). Este a sido una herramienta primaria en la expansión de Bitcoin, como fue discutido previamente en [5.2: Reenviando una Transacción con RBF](05_2_Reenviando_a_Transaccion_con_RBF.md) y [8.1: Enviando una Transacción con un Bloqueo de Tiempo](08_1_Enviando_una_Transaccion_con_un_Bloqueo_de_Tiempo.md), donde fue usado para señalar RBF y `nLockTime`, respectivamente. Sin embargo, hay un uso mas para `nSequence`, descrito por [BIP 68](https://github.com/bitcoin/bips/blob/master/bip-0068.mediawiki): usted puede usarlo para crear un bloqueo de tiempo relativo en una transacción.
 
 Un bloqueo de tiempo relativo es un bloqueo de tiempo sobre un input especifico de una transacción y es calculado en relación a la fecha de minado del UTXO siendo usado como input. Por ejemplo, si un UTXO fue minado en el bloque #468260 y una transacción fue creada donde al input para este UTXO se le dio un `nSequence` de 100, entonces la nueva transacción no va a poder ser minada hasta el bloque #468360.
 
@@ -43,7 +43,7 @@ Para configurar un tiempo de 6 meses en el futuro, debe primero calcularlo como 
 $ segundos=$((6*30*24*60*60))
 $ nvalor=$(($segundos/512))
 ```
-Luego, conviértelo a hexadecimal:
+Luego, conviértalo a hexadecimal:
 ```
 $ valorhexadecimal=$(printf '%x\n' $nvalor)
 ```
@@ -61,7 +61,7 @@ Si usted convierte el valor a binario vera que 4224679 = 10000000111011010100111
 
 Emita la transacción y usted vera que no puede ser minada legalmente hasta que suficientes bloques o suficiente tiempo haya pasado mas allá del tiempo en el que esa UTXO fue minada.
 
-Prácticamente nadie hace eso. En el [BIP 68](https://github.com/bitcoin/bips/blob/master/bip-0068.mediawiki) definiciones para `nSequence` fueron incorporadas dentro de Bitcoin Core al mismo tiempo que [BIP 112](https://github.com/bitcoin/bips/blob/master/bip-0112.mediawiki), el cual describe el opcode CSV, el equivalente al `nSequence` para el opcode CLTV. Al igual que CLTV, CSV ofrece mejoradas capacidades. Entonces, casi todo el uso de bloqueos de tiempo relativo han sido con el opcode CSV, no con el valor crudo `nSequence` por si mismo.
+Prácticamente nadie hace eso. En el [BIP 68](https://github.com/bitcoin/bips/blob/master/bip-0068.mediawiki) definiciones para `nSequence` fueron incorporadas dentro de Bitcoin Core al mismo tiempo que [BIP 112](https://github.com/bitcoin/bips/blob/master/bip-0112.mediawiki), el cual describe el opcode CSV, el equivalente al `nSequence` para el opcode CLTV. Al igual que CLTV, CSV ofrece capacidades mejoradas. Entonces, casi todo el uso de bloqueos de tiempo relativo han sido con el opcode CSV, no con el valor crudo `nSequence` por si mismo.
 
 |                         | Bloqueos de Tiempo Absolutos | Bloqueos de Tiempo Absolutos |
 |:-----------------------:|------------------------------|------------------------------|
@@ -87,7 +87,7 @@ En este caso usaremos una abreviatura:
 
 > :warning: **ADVERTENCIA:** Recuerde que un bloqueo de tiempo relativo es un lapso de tiempo desde el minado de el UTXO usado como input. _No_ es un lapso de tiempo después de que la transacción es creada. Si usa un UTXO que ya ha sido confirmado una centena de veces, y usted configura un bloqueo de tiempo de 100 bloques sobre este, sera elegible para minarse inmediatamente. Los bloqueos de tiempo relativos tienen usos bien específicos, pero probablemente no apliquen si su único objetivo es determinar algún tiempo fijado en el futuro. 
 
-### Entienda Como CSV Realmente Funciona
+### Entienda Como Funciona Realmente CSV
 
 CSV tiene muchas de las sutilezas en su uso como CLTV:
 
@@ -135,13 +135,13 @@ Hexcode: 03a77640
 
 ## Gaste una UTXO CSV
 
-Para gastar un UTXO bloqueado con un script CSV, debe configurar el valor `nSequence` de ese input a un valor mas grande que el requerido en el script, pero menor que el tiempo entre el UTXO y el bloque actual. Sí, esto significa que usted necesita saber exactamente el requerimiento en el script bloqueante... pero tiene una copia de `redeemScript`, entonces, si no conoce los requerimientos, deserializa la copia y luego configura el valor `nSequence` al numero que se muestra en en esta.
+Para gastar un UTXO bloqueado con un script CSV, debe configurar el valor `nSequence` de ese input a un valor mas grande que el requerido en el script, pero menor que el tiempo entre el UTXO y el bloque actual. Sí, esto significa que usted necesita saber exactamente el requerimiento en el script bloqueante... pero tiene una copia de `redeemScript`, entonces, si no conoce los requerimientos, deserializa la copia y luego configura el valor `nSequence` al numero que se muestra en esta.
 
 ## Resumen: Usando CSV en Scripts
 
 `nSequence` y CSV ofrecen una alternativa a `nLockTime` y CLTV donde usted bloquea una transacción basada en un tiempo relativo desde que el input fue minado, en lugar de basar el bloqueo en un tiempo fijado en el futuro. Estos funcionan casi de la misma manera, mas allá del hecho que el valor de `nSequence` es codificado levemente distinto que el valor de `nLockTime`, con bits específicos significando cosas especificas.
 
-> :fire: ***¿Cual es el poder de CSV?*** CSV no es solo una forma perezosa de bloquear, cuando usted no quiere calcular un tiempo en el futuro. En su lugar, es un paradigma totalmente diferente, un bloqueo que utilizarías si fuera importante crear una duración mínima especifica cuando una transacción es minada y cuando sus fondos pueden ser re-gastados. El uso mas obvio es (una vez mas) para deposito, cuando usted quiere un tiempo preciso entre el input de los fondos y su output. Sin embargo, tiene posibilidades mucho mas poderosas en transacciones fuera de la cadena, incluyendo canales de pago. Esas aplicaciones son por definición construidas sobre transacciones que no han sido puestas en la cadena de bloques, lo cual significa que si son introducidas en la cadena un lapso de tiempo forzado podría ser muy útil. [Contratos por Bloqueos de Tiempo Hasheados](https://en.bitcoin.it/wiki/Hashed_Timelock_Contracts) ha sido una de estas implementaciones, potenciando la red de pagos Lightning. Estos son debatidos en [§13.3: Potenciando Bitcoin con Scripts](13_3_Potenciando_Bitcoin_con_Scripts.md).
+> :fire: ***¿Cual es el poder de CSV?*** CSV no es solo una forma perezosa de bloquear, cuando usted no quiere calcular un tiempo en el futuro. En su lugar, es un paradigma totalmente diferente, un bloqueo que utilizaría si fuera importante crear una duración mínima especifica cuando una transacción es minada y cuando sus fondos pueden ser re-gastados. El uso mas obvio es (una vez mas) para deposito, cuando usted quiere un tiempo preciso entre el input de los fondos y su output. Sin embargo, tiene posibilidades mucho mas poderosas en transacciones fuera de la cadena, incluyendo canales de pago. Esas aplicaciones son por definición construidas sobre transacciones que no han sido puestas en la cadena de bloques, lo cual significa que si son introducidas en la cadena un lapso de tiempo forzado podría ser muy útil. [Contratos por Bloqueos de Tiempo Hasheados](https://en.bitcoin.it/wiki/Hashed_Timelock_Contracts) ha sido una de estas implementaciones, potenciando la red de pagos Lightning. Estos son debatidos en [§13.3: Potenciando Bitcoin con Scripts](13_3_Potenciando_Bitcoin_con_Scripts.md).
 
 ## ¿Que sigue?
 
