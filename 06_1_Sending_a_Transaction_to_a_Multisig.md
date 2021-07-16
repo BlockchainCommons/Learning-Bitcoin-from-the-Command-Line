@@ -87,9 +87,9 @@ machine1$ bitcoin-cli -named createmultisig nrequired=2 keys='''["'$pubkey1'","0
 ```
 > :warning: **AVISO DE VERSION:** Algunas versiones de `createmultisig` han permitido el ingreso de claves públicas o direcciones, algunas han requerido sólo claves públicas. Actualmente, cualquiera de las dos parece estar permitida.
 
-Al crear la dirección multifirma, enumeras cuántas firmas se requieren con el argumento `nrequired` (esto es "m" en una multifirma "m-de-n"), luego enumeras el conjunto total de posibles firmas con el argumento `keys` (que es "n"). Ten en cuenta que las entradas de las `keys` probablemente provienen de diferentes lugares. En este caso, incluimos `$pubkey1` de la máquina local y `02bfde48be4aa8f4bf76c570e98a8d287f9be5638412ab38dede8e78df82f33fa3` de una máquina remota. 
+Al crear la dirección multifirma, listas cuántas firmas se requieren con el argumento `nrequired` (esto es "m" en una multifirma "m-de-n"), luego listas el conjunto total de posibles firmas con el argumento `keys` (que es "n"). Ten en cuenta que las entradas de las `keys` probablemente provienen de diferentes lugares. En este caso, incluimos `$pubkey1` de la máquina local y `02bfde48be4aa8f4bf76c570e98a8d287f9be5638412ab38dede8e78df82f33fa3` de una máquina remota. 
 
-> :information_source: **NOTE — M-OF-N VS N-OF-N:** This example shows the creation of a simple 2-of-2 multisig. If you instead want to create an m-of-n signature where "m < n", you adjust the `nrequired` field and/or the number of signatures in the `keys` JSON object. For a 1-of-2 multisig, you'd set `nrequired=1` and also list two keys, while for a 2-of-3 multisig, you'd leave `nrequired=2`, but add one more public key to the `keys` listing.
+> :information_source: **NOTA — M-DE-N VS N-DE-N:** Este ejemplo muestra la creación de una simple multifirma 2-de-2. Si en cambio quieres crear una firma m-de-n donde "m < n", ajustas el campo `nrequired` y/o el número de firmas en el objeto JSON `keys`. Para una multifirma 1-de-2, deberías configurar `nrequired=1` y también listar dos claves, mientras que para una multifirma 2-de-3, deberías dejar `nrequired=2`, pero agregar una clave pública más a la lista `keys`.
 
 When used correctly, `createmultisig` returns three results, all of which are critically important.
 
