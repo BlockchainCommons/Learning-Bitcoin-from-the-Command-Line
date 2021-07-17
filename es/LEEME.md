@@ -103,7 +103,7 @@ Si le gustaría hacer su propia traducción, por favor, vea [Contribuyendo](#con
   * [14.3: Agregando Servicios SSH Ocultos](14_3_Agregando_Servicios_SSH_Ocultos.md)
 
 * [15.0: Usando i2p](15_0_Usando_i2p.md)
-    * [15.1: Bitcoin Core como un servicio I2P (Proyecto Internet Invisible)](15_1_i2p_service.md)
+    * [15.1: Bitcoin Core como un Servicio I2P (Proyecto Internet Invisible)](15_1_Servicio_i2p.md)
 
 ### PARTE CINCO: PROGRAMANDO CON RPC
 
