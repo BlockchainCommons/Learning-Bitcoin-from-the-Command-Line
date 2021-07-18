@@ -8,7 +8,7 @@ Esta es otra situación en la que realmente no tendrá que preocuparse por estos
 
 ## Entender un Script de P2SH-Segwit
 
-La dirección P2SH-Segwit es una raza en extinción. Básicamente, fue una medidia provisional mientras Bitcoin estaba en transición a Segwit que permitía a un usuario crear una dirección de Segwit y luego tener a alguien con un intercambio o fondo de biletera no habilitado para Segwit que se dirigiera. 
+La dirección P2SH-Segwit es una raza en extinción. Básicamente, fue una medida provisional mientras Bitcoin estaba en transición a Segwit que permitía a un usuario crear una dirección de Segwit y luego tener a alguien con un intercambio o fondo de biletera no habilitado para Segwit que se dirigiera. 
 
 Si alguna vez necesita usar uno, hay una opción para crear una dirección P2SH-Segwit usando `getnewaddress`:
 ```
@@ -113,7 +113,7 @@ OP_0 OP_PUSHDATA (32 bytes) 1863143c14c5166804bd19203356da136c985678cd4d27a1b8c6
 Esto funciona como una dirección P2WPKH, la única diferencia es que un lugar de un hash de clave pública de 20 bytes, el UTXO incluye un hash de script de 32 bytes. Al igual que con un P2WPKH, los nodos antiguos solo verifican esto, mientras que los nuevos nodos reconocen que se trata de un P2WSH y, por lo tanto, verifican internamente el script como se describe en las secciones anteriores, pero utilizando los datos del `testigo`, que ahora incluye el script de canje.
 También hay una variante más, un script P2WSH incrustado en un script P2SH, que funciona de manera muy similar al P2SH-Segwit descrito anterioremente, pero para scripts P2WSH anidados. (Whew!)
 
-## Resumen: Programación de un Hash de Clave Pública de Pagar Para Precenciar
+## Resumen: Programando un Pago al Testigo de una Clave Publicada Codificado
 
 Hay dos tipos de scripts P2SH que se relacionan con Segwit. 
 
