@@ -91,32 +91,32 @@ Al crear la dirección multifirma, listas cuántas firmas se requieren con el ar
 
 > :information_source: **NOTA — M-DE-N VS N-DE-N:** Este ejemplo muestra la creación de una simple multifirma 2-de-2. Si en cambio quieres crear una firma m-de-n donde "m < n", ajustas el campo `nrequired` y/o el número de firmas en el objeto JSON `keys`. Para una multifirma 1-de-2, deberías configurar `nrequired=1` y también listar dos claves, mientras que para una multifirma 2-de-3, deberías dejar `nrequired=2`, pero agregar una clave pública más a la lista `keys`.
 
-When used correctly, `createmultisig` returns three results, all of which are critically important.
+Cuando es usado correctamente, `createmultisig` devuelve tres resultados, siendo todos de importancia crítica.
 
-The _address_ is what you'll give out to people who want to send funds. You'll notice that it has a new prefix of `2`, exactly like those P2SH-SegWit addresses. That's because, like them, `createmultisig` is actually creating a totally new type of address called a P2SH address. It works exactly like a standard P2PKH address for sending funds, but since this one has been built to require multiple addresses, you'll need to do a little more work to spend them. 
+_address_ es lo que darás a la gente que desee enviar fondos. Verás que tiene un nuevo prefijo de `2`, exactamente como aquellas direcciones P2SH-SegWit. Eso es porque, como aquellas, `createmultisig` está creando un tipo totalmente nuevo de dirección llamada P2SH. Funciona exactamente igual que una direcciópn P2PKH estándar para enviar fondos, pero como esta se desarrolló para requerir direcciones múltiples, necesitarás hacer algunas tareas más para gastarlas. 
 
-> :link: **TESTNET vs MAINNET:** On testnet, the prefix for P2SH addresses is `2`, while on mainnet, it's `3`.
+> :link: **TESTNET vs MAINNET:** En testnet, el prefijo para direcciones P2SH es `2`, mientras que en mainnet, es `3`.
 
-The _redeemScript_ is what you need to redeem the funds (along with the private keys for "m" of the "n" addresses). This script is another special feature of P2SH addresses and will be fully explained in [§8.1: Building a Bitcoin Script with P2SH](08_1_Building_a_Bitcoin_Script_with_P2SH.md). For now, just be aware that it's a bit of data that's required to get your money.
+_redeemScript_ es lo que necesitas para redimir los fondos (junto a las claves privadas para "m" de the "n" direcciones). Este script es otra característica especial de las direcciones P2SH y será explicada completamente en [§8.1: Building a Bitcoin Script with P2SH](08_1_Building_a_Bitcoin_Script_with_P2SH.md). Por ahora, sólo debes saber que es algo más de data lo que se requiere para obtener tu dinero.
 
-The _descriptor_ is the standardized description for an address that we met in [§3.5: Understanding the Descriptor](03_5_Understanding_the_Descriptor.md). It provides one way that you could import this address back to the other machine, using the `importmulti` RPC.
+_descriptor_ es la descripción estandarizada de una dirección que conocimos en [§3.5: Understanding the Descriptor](03_5_Understanding_the_Descriptor.md). Provee una forma en la que podrías importar esta dirección nuevamente a la otra máquina, usando el RPC `importmulti`.
 
-> :book: ***What is a P2SH address?*** P2SH stands for Pay-to-script-hash. It's a different type of recipient than a standard P2PKH address or even a Bech32, used for funds whose redemption are based on more complex Bitcoin Scripts. `bitcoin-cli` uses P2SH encapsulation to help standardize and simplify its multisigs as "P2SH multisigs", just like P2SH-SegWit was using P2SH to standardize its SegWit addresses and make them fully backward compatible.
+> :book: ***¿Qué es una dirección P2SH?*** P2SH significa Pay-to-script-hash. Es un tipo diferente de destinatario que una dirección P2PKH estándar o incluso una Bech32, se usa para fondos cuya redención está basada en Scripts de Bitcoin más complejos. `bitcoin-cli` usa encapsulamiento P2SH para ayudar a estandarizar y simplificar sus multifirmas como "P2SH multisigs", igual que P2SH-SegWit usaba P2SH para estandarizar sus direcciones SegWit y hacerlas totalmente compatibles con versiones anteriores.
 
-> :warning: **WARNING:** P2SH multisig addresses, like the ones created by `bitcoin-cli`, have a limit for "m" and "n" in multisigs based on the maximum size of the redeem script, which is currently 520 bytes. Practically, you won't hit this unless you're doing something excessive.
+> :warning: **AVISO:** las direcciones multifirma P2SH, como las creadas por `bitcoin-cli`, tienen un límite de "m" y "n" en multifirmas basadas en el tamaño máximo del script de redención, que actualmente es de 520 bytes. Prácticamente, no llegarás a menos que hagas algo excesivo.
 
-### Save Your Work
+### Guarda tu trabajo
 
-Here's an important caveat: nothing about your multisig is saved into your wallet using these basic techniques. In order to later redeem money sent to this multisignature address, you're going to need to retain two crucial bits of information:
+Aquí hay una advertencia importante: nada acerca de tu multifirma se guarda en tu billetera usando estas técnicas básicas. A fin de redimir dinero luego enviado a esta dirección multifirma, necesitarás retener dos piezas cruciales de información:
 
-   * A list of the Bitcoin addresses used in the multisig.
-   * The `redeemScript` output by `createmultsig`.
+   * Una lista de las direcciones de Bitcoin usadas en la multifirma.
+   * La salida `redeemScript` del `createmultsig`.
    
-Technically, the `redeemScript` can be recreated by rerunning `createmultisig` with the complete list of public keys _in the same order_ and with the right m-of-n count. But, it's better to hold onto it and save yourself stress and grief.
+Técnicamente, el `redeemScript` puede ser recreado corriendo nuevamente `createmultisig` con la lista completa de claves públicas _en el mismo orden_ y con la cuenta correcta de m-de-n. Pero, es mejor guardar tu trabajo y evitar estrés y penas luego.
 
-### Watch the Order
+### Observa el Orden
 
-Here's one thing to be very wary of: _order matters_. The order of keys used to create a multi-sig creates a unique hash, which is to say if you put the keys in a different order, they'll produce a different address, as shown:
+Aquí hay una cosa de la que debes tener mucho cuidado: _el orden es importante_. El orden de las claves utilizadas para crear una multi-firma crea un hash único, es decir, si colocas las claves en un orden diferente, producirán una dirección diferente, como se muestra:
 ```
 $ bitcoin-cli -named createmultisig nrequired=2 keys='''["'$pubkey1'","'$pubkey2'"]'''
 {
@@ -131,9 +131,9 @@ standup@btctest20:~$ bitcoin-cli -named createmultisig nrequired=2 keys='''["'$p
   "descriptor": "sh(multi(2,039cd6842869c1bfec13cfdbb7d8285bc4c501d413e6633e3ff75d9f13424d99b3,0342b306e410283065ffed38c3139a9bb8805b9f9fa6c16386e7ea96b1ba54da03))#audl88kg"
 }
 ```
-More notably, each ordering creates a different _redeemScript_. That means that if you used these basic techniques and failed to save the redeemScript as you were instructed, you'll have to walk through an ever-increasing number of variations to find the right one when you try and spend your funds!
+Más notablemente, cada ordenamiento crea un diferente _redeemScript_. Esto significa que si utilizaste estas técnicas básicas y no guardaste el redeemScript como se indicó, tendrás que recorrer un número cada vez mayor de variaciones para encontrar la correcta cuando intentes gastar tus fondos!
 
-[BIP67](https://github.com/bitcoin/bips/blob/master/bip-0067.mediawiki) suggests a way to lexicographically order keys, so that they always generate the same multisignatures. ColdCard and Electrum are among the wallets that already support this. Of course, this can cause troubles on its own if you don't know if a multisig address was created with sorted or unsorted keys. Once more, [descriptors](03_5_Understanding_the_Descriptor.md) come to the rescue. If a multisig is unsorted, it's built with the function `multi` and if it's sorted it's built with the function `sortedmulti`.
+[BIP67](https://github.com/bitcoin/bips/blob/master/bip-0067.mediawiki) sugiere una forma de ordenar claves lexicográficamente, de manera que siempre generen las mismas multifirmas. ColdCard y Electrum están entre las billeteras que ya soportan esto. Por supuesto, esto puede causar problemas por sí solo si no sabes si una dirección multifirma se creó con claves ordenadas o no ordenadas. Una vez más, [descriptors](03_5_Understanding_the_Descriptor.md) vienen al rescate. Si una multifirma es no ordenada, está construída con la función `multi` y si es ordenada está construída con la función `sortedmulti`.
 
 If you look at the `desc`riptor for the multisig that you created above, you'll see that Bitcoin Core doesn't currently sort its multisigs:
 ```
