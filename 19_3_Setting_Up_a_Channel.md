@@ -80,7 +80,7 @@ Now that you have funded your c-lightning wallet you will need information about
 
 The next thing you need to do is connect your node to a peer. This is done with the `lightning-cli connect` command. Remember that if you want more information on this command, you should type `lightning-cli help connect`.
 
-To connect your node to a remote peer you need its id, which represents the target node’s public key. As a convenience, `id` may be of the form `id@host` or `id@host:port`.  You may have retrieved this with `lightning-cli getinfo` (on c-lightning) or `lncli --network=testnet getinfo` (on LND) as discussed in the [previous interlude](18_2__Interlude_Accessing_a_Second_Lightning_Node.md). 
+To connect your node to a remote peer you need its id, which represents the target node’s public key. As a convenience, `id` may be of the form `id@host` or `id@host:port`.  You may have retrieved this with `lightning-cli getinfo` (on c-lightning) or `lncli --network=testnet getinfo` (on LND) as discussed in the [previous interlude](19_2__Interlude_Accessing_a_Second_Lightning_Node.md). 
 
 We've selected the LND node, `032a7572dc013b6382cde391d79f292ced27305aa4162ec3906279fc4334602543`, which is located at IP address `45.33.35.151`, which we're going to connect to from our c-lightning node:
 
