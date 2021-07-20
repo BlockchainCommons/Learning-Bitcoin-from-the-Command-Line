@@ -467,7 +467,7 @@ $ bitcoin-cli analyzepsbt $psbt_new_f
   "next": "extractor"
 }
 ```
-Now would you realy want to use `walletcreatefundedpsbt` if you were creating a `bitcoin-cli` program? Probably not. But it's the same analysis as whether to use `fundrawtransaction`. Do you let Bitcoin Core do the analysis and calculation and decisions, or do you take that on yourself?
+Now would you really want to use `walletcreatefundedpsbt` if you were creating a `bitcoin-cli` program? Probably not. But it's the same analysis as whether to use `fundrawtransaction`. Do you let Bitcoin Core do the analysis and calculation and decisions, or do you take that on yourself?
 
 ## Send a PSBT
 #### PSBT Role: Extractor
