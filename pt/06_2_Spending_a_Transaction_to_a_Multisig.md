@@ -1,8 +1,8 @@
-# 6.2: Gastando uma Transação Multsig
+# 6.2: Gastando uma Transação com Multsig
 
 A maneira clássica e complexa de gastar fundos enviados para um endereço com várias assinaturas usando o ```bitcoin-cli``` requer que suemos bastante a camisa.
 
-## Encontrando os fundos
+## Encontrando os Fundos
 
 Para começar, precisamos encontrar nossos fundos. Nosso computador não sabe procurá-los, porque não estão associados a nenhum endereço da nossa carteira. Podemos alertar o ```bitcoind``` para fazer isso usando o comando ```importaddress```:
 ```
@@ -93,25 +93,25 @@ $ bitcoin-cli -named gettransaction txid=b164388854f9701051809eed166d9f6cedba923
 }
 ```
 
-## Configurando as nossas variáveis
+## Configurando as Nossas Variáveis
 
-Quando estivermos prontos para gastar os fundos recebidos por um endereço multisig, precisaremos coletar _muitos_ dados: Muito mais do que precisamos quando fazemos uma transação usando um UTXO de um P2PKH normal ou SegWit. Isso ocorre em parte porque as informações sobre o endereço multisig não estão em nossa posse e em parte porque estamos gastando dinheiro que foi enviado para um endereço P2SH (Pay-To-Script-Hash) e isso é muito mais exigente.
+Quando estivermos prontos para gastar os fundos recebidos por um endereço multisig, precisaremos coletar _muitos_ dados: muito mais do que precisamos quando fazemos uma transação usando um UTXO de um P2PKH normal ou SegWit. Isso ocorre em parte porque as informações sobre o endereço multisig não estão em nossa posse e em parte porque estamos gastando dinheiro que foi enviado para um endereço P2SH (Pay-To-Script-Hash) e isso é muito mais exigente.
 
-No total, precisaremos coletar três coisas: Informações estendidas sobre o UTXO; O redemScript; e todas as chaves privadas envolvidas. Obviamente, também iremos precisar de um novo endereço de destinatário. As chaves privadas precisam aguardar a etapa de assinatura, mas tudo pode ser feito agora.
+No total, precisaremos coletar três coisas: informações estendidas sobre o UTXO; o redemScript e; todas as chaves privadas envolvidas. Obviamente, também iremos precisar de um novo endereço de destinatário. As chaves privadas precisam aguardar a etapa de assinatura, mas tudo pode ser feito agora.
 
-### Acessando as informações do UTXO
+### Acessando as Informações do UTXO
 
 Para começar, vamos pegar o ```txid``` e o ```vout``` para a transação que desejamos gastar, como de costume. Nesse caso, os dados foram recuperados das informações ```gettransaction``` acima:
 ```
 $ utxo_txid=b164388854f9701051809eed166d9f6cedba92327e4296bf8a265a5da94f6521
 $ utxo_vout=0
 ```
-No entanto, precisamos também acessar um terceiro bit de informação sobre o UTXO, nosso ```scriptPubKey```/```hex```, que é o script que travamos a transação. Novamente, podemos fazer isso observando os detalhes da transação:
+No entanto, precisamos também acessar um terceiro pedaço de informação sobre o UTXO, nosso ```scriptPubKey```/```hex```, que é o script que travou a transação. Novamente, podemos fazer isso observando os detalhes da transação:
 ```
 $ utxo_spk=a914a5d106eb8ee51b23cf60d8bd98bc285695f233f387
 ```
 
-### Gravando o script de resgate
+### Gravando o Script de Resgate
 
 Felizmente, salvamos nosso ```redeemScript```. Agora devemos registrá-lo em uma variável.
 
@@ -119,13 +119,13 @@ O valor foi extraído da criação de endereço na seção anterior.
 ```
 redeem_script="522102da2f10746e9778dd57bd0276a4f84101c4e0a711f9cfd9f09cde55acbdd2d1912102bfde48be4aa8f4bf76c570e98a8d287f9be5638412ab38dede8e78df82f33fa352ae"
 ```
-### Decidindo o destinatário
+### Decidindo o Destinatário
 
 Vamos apenas enviar o dinheiro de volta para nós mesmos. Isso é útil porque libera os fundos do multisig, convertendo-os em uma transação P2PKH normal que pode ser posteriormente confirmada por uma única chave privada:
 ```
 $ recipient=$(bitcoin-cli getrawchangeaddress)
 ```
-## Criando nossa transação
+## Criando Nossa Transação
 
 Agora podemos criar nossa transação. Essa parte é parecida com as transações normais.
 ```
@@ -134,22 +134,22 @@ $ echo $rawtxhex
 020000000121654fa95d5a268abf96427e3292baed6c9f6d16ed9e80511070f954883864b10000000000ffffffff0188130000000000001600142c48d3401f6abed74f52df3f795c644b4398844600000000
 ```
 
-## Assinando a nossa transação
+## Assinando Nossa Transação
 
 Agora estamos prontos para assinar a transação. Este é um processo de várias etapas porque precisaremos fazer em várias máquinas, cada uma das quais contribuirá com suas próprias chaves privadas.
 
-### Carregando a primeira chave privada
+### Carregando a Primeira Chave Privada
 
 Como essa transação não está fazendo uso total da nossa carteira, precisaremos acessar diretamente as chaves privadas. Começando com a ```máquina1```, onde devemos recuperar qualquer uma das chaves privadas do usuário que estavam envolvidas no multisig:
 ```
 machine1$ bitcoin-cli -named dumpprivkey address=$address1
 cNPhhGjatADfhLD5gLfrR2JZKDE99Mn26NCbERsvnr24B3PcSbtR
 ```
-> :warning: **Atenção:** Acessar diretamente as chaves privadas do shell é um comportamento muito perigoso e deve ser feito com extremo cuidado se estivermos em um ambiente produtivo. No mínimo, é importante não salvar as informações em uma variável que possa ser acessada pela nossa máquina. Remover o histórico do shell é outro grande passo. No máximo, podemos evitar de fazer isso.
+> :warning: **ATENÇÃO:** Acessar diretamente as chaves privadas do shell é um comportamento muito perigoso e deve ser feito com extremo cuidado se estivermos usando dinheiro de verdade. No mínimo, é importante não salvar as informações em uma variável que possa ser acessada pela nossa máquina. Remover o histórico do  shell é outro grande passo. No máximo, podemos evitar de fazer isso.
 
-### Fazendo a nossa primeira assinatura
+### Fazendo Nossa Primeira Assinatura
 
-Agora podemos fazer nossa primeira assinatura com o comando ```signrawtransactionwithkey```. É aqui que as coisas ficam diferentes das normais: Precisaremos treinar o comando sobre como assinar. Podemos fazer isso adicionando as seguintes informações novas:
+Agora podemos fazer nossa primeira assinatura com o comando ```signrawtransactionwithkey```. É aqui que as coisas ficam diferentes: precisaremos treinar o comando sobre como assinar. Podemos fazer isso adicionando as seguintes informações novas:
 
 * Incluir um argumento ```prevtxs``` que tenha o ```txid```, o ```vout```, o ```scriptPubKey``` e o ```redeemScript``` que gravamos, cada um deles um par individual do valor-chave no objeto JSON.
 * Incluir um argumento ```privkeys``` que lista as chaves privadas que pegamos nesta máquina.
@@ -175,18 +175,18 @@ machine1$ bitcoin-cli -named signrawtransactionwithkey hexstring=$rawtxhex prevt
 ```
 Isso produz erros assustadores e mostra um status de ```failing```. Tudo bem. Podemos ver que a assinatura foi parcialmente bem-sucedida porque o ```hex``` ficou mais longo. Embora a transação tenha sido parcialmente assinada, ela não foi concluída porque precisa de mais assinaturas.
 
-### Repetindo para os outros assinantes
+### Repetindo para os Outros Assinantes
 
-Agora podemos passar a transação adiante, para ser assinada novamente por nós, que temos a outra parte da multisig. Eles fazem isso executando o mesmo comando de assinatura que fizemos, porém: (1) com o ```hex``` maior que produzimos anteriormente (```bitcoin-cli -named signrawtransactionwithkey hexstring = $ rawtxhex prevtxs = '' '[{"txid": " '$ utxo_txid'", "vout": '$ utxo_vout', "scriptPubKey": " '$ utxo_spk'", "redeemScript": " '$ redeem_script'"}] '' 'privkeys =' [ "cMgb3KM8hPATCtgMKarKMiFesLft6eEw3DY6BB8d97fkeXeqQagw"] '| jq -r'. | .hex'```) e; (2) com nossa própria chave privada.
+Agora podemos passar a transação adiante, para ser assinada novamente por outros exigidos pelo multisig. Eles fazem isso executando o mesmo comando de assinatura que fizemos, porém: (1) com o ```hex``` maior que produzimos anteriormente (```bitcoin-cli -named signrawtransactionwithkey hexstring = $ rawtxhex prevtxs = '' '[{"txid": " '$ utxo_txid'", "vout": '$ utxo_vout', "scriptPubKey": " '$ utxo_spk'", "redeemScript": " '$ redeem_script'"}] '' 'privkeys =' [ "cMgb3KM8hPATCtgMKarKMiFesLft6eEw3DY6BB8d97fkeXeqQagw"] '| jq -r'. | .hex'```) e; (2) com sua própria chave privada.
 
-> :information_source: **NOTA - M de N vs N de N:** Obviamente, se tivermos uma assinatura N de N (como a multisig 2 de 2 do exemplo), todas as partes precisarão assinar, mas se tivermos uma multisig M de N onde "M <N", a assinatura estará completa quando apenas alguns ("M") tiverem assinado.
+> :information_source: **NOTA - M-DE-N VS N-DE-N:** Obviamente, se tivermos uma assinatura N de N (como a multisig 2-de-2 do exemplo), todas as partes precisarão assinar, mas se tivermos uma multi-assinatura m-de-n onde "m < n", a assinatura estará completa quando apenas alguns ("m") tiverem assinado.
 
-Para fazer isso, primeiro acessamos as chaves privadas:
+Para fazer isso, primeiro eles acessam suas chaves privadas:
 ```
 machine2$ bitcoin-cli -named dumpprivkey address=$address2
 cVhqpKhx2jgfLUWmyR22JnichoctJCHPtPERm11a2yxnVFKWEKyz
 ```
-Depois, assinamos o novo ```hex``` usando os mesmos valores ```prevtxs```:
+Depois, assinam o novo ```hex``` usando os mesmos valores ```prevtxs```:
 ```
 machine1$  bitcoin-cli -named signrawtransactionwithkey hexstring=020000000121654fa95d5a268abf96427e3292baed6c9f6d16ed9e80511070f954883864b100000000920047304402201c97b48215f261055e41b765ab025e77a849b349698ed742b305f2c845c69b3f022013a5142ef61db1ff425fbdcdeb3ea370aaff5265eee0956cff9aa97ad9a357e3010047522102da2f10746e9778dd57bd0276a4f84101c4e0a711f9cfd9f09cde55acbdd2d1912102bfde48be4aa8f4bf76c570e98a8d287f9be5638412ab38dede8e78df82f33fa352aeffffffff0188130000000000001600142c48d3401f6abed74f52df3f795c644b4398844600000000 prevtxs='''[ { "txid": "'$utxo_txid'", "vout": '$utxo_vout', "scriptPubKey": "'$utxo_spk'", "redeemScript": "'$redeem_script'" } ]''' privkeys='["cVhqpKhx2jgfLUWmyR22JnichoctJCHPtPERm11a2yxnVFKWEKyz"]'
 {
@@ -194,11 +194,11 @@ machine1$  bitcoin-cli -named signrawtransactionwithkey hexstring=02000000012165
   "complete": true
 }
 ```
-Por fim, podemos precisar enviar uma ```hexstring``` ainda mais longa que produzem para assinaturas adicionais.
+Por fim, podem precisar enviar uma ```hexstring``` ainda mais longa que eles tenham produzido para assinantes adicionais.
 
 Mas, neste caso, podemos ver que a assinatura está `complete`!
 
-## Enviando nossa transação
+## Enviando Nossa Transação
 
 Quando terminarmos, devemos recorrer à metodologia ```JQ``` padrão para salvar nossa ```hexstring``` e, em seguida, enviá-la:
 ```
@@ -207,9 +207,9 @@ $ bitcoin-cli -named sendrawtransaction hexstring=$signedtx
 99d2b5717fed8875a1ed3b2827dd60ae3089f9caa7c7c23d47635f6f5b397c04
 ```
 
-## Compreendendo a importância desta metodologia de assinatura expandida
+## Compreendendo a Importância Desta Metodologia de Assinatura Expandida
 
-Isso deu um belo trabalho e, como logo iremos aprender, existe uma tolice ao utilizar as chaves privadas, o redeem script e com a scriptpubkey pois eles não são realmente necessários para resgatar os endereços de multisg usando versões mais recentes do Bitcoin Core. Então qual era a questão?
+Isto deu um belo trabalho e, como logo iremos aprender, existe uma tolice ao utilizar as chaves privadas, o redeem script e com a scriptpubkey pois eles não são realmente necessários para resgatar os endereços de multisg usando versões mais recentes do Bitcoin Core. Então, qual foi o ponto?
 
 Esta metodologia de resgate mostra uma maneira padrão de assinar e reutilizar transações P2SH. Em suma, para resgatar fundos P2SH, uma ```signrawtransactionwithkey``` precisa:
 
@@ -220,10 +220,10 @@ Esta metodologia de resgate mostra uma maneira padrão de assinar e reutilizar t
 
 Aqui, vimos essa metodologia usada para resgatar os fundos multisig. No futuro, também podemos usá-la para resgatar os fundos que foram trancados com outros scripts P2SH mais complexos, conforme explicado no Capítulo 9.
 
-## Resumo: Gastando uma Transação Multsig
+## Resumo: Gastando uma Transação com Multisig
 
 Acontece que gastar dinheiro enviado para um endereço multisig pode dar um pouco de trabalho. Mas, contanto que tenhamos os endereços originais e nosso redemScript, podemos fazer isso assinando uma transação bruta com cada endereço diferente e fornecendo mais algumas informações ao longo do caminho.
 
 ## O Que Vem Depois?
 
-Vamos continuar "Expandindo as transações de Bitcoin com multisigs" na seção [§6.3: Enviando e Gastando uma Transação Multisig de Maneira Automatizada](06_3_Sending_an_Automated_Multisig.md).
+Vamos continuar "Expandindo Transações no Bitcoin com Multisigs" na seção [§6.3: Enviando & Gastando um Multisig Automatizado](06_3_Sending_an_Automated_Multisig.md).
