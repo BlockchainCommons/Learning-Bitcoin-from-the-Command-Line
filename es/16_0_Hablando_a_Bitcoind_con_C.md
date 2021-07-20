@@ -20,7 +20,7 @@ Los objetivos de apoyo incluyen la capacidad de:
    
 ## Tabla de contenido
 
-  * [Sección uno: Acceso a Bitcoind en C con bibliotecas RPC](16_1_Accessing_Bitcoind_with_C.md)
+  * [Sección uno: Acceso a Bitcoind en C con bibliotecas RPC](16_1_Accediendo_a_Bitcoind_en_C_con_las_Bibliotecas_RPC.md)
   * [Sección dos: Programación de Bitcoind en C con bibliotecas RPC](16_2_Programming_Bitcoind_with_C.md)
   * [Sección tres: Recibir notificaciones en C con bibliotecas ZMQ](16_3_Receiving_Bitcoind_Notifications_with_C.md)
 
