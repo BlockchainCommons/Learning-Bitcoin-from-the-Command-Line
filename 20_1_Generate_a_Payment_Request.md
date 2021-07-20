@@ -97,7 +97,7 @@ Here's what the most relevent elements mean:
 
 > :book: ***What is a Hashed Time Locked Contract (HTLC)?*** A Hashed Time Locked Contract is a conditional payment that use hashlocks and timelocks to ensure payment security. The receiver must present a payment preimage or generate a cryptographic proof of payment before a given time, otherwise the payer can cancel the contract by spending it. These contracts are created as outputs from the **Commitment Transaction**.
 
-> :book: ***What is a Commitment Transaction?*** A Commitment Transaction is a transaction that spends the original funding transaction. Each peer holds the other peer's signature, meaning that either one can spent his commitment transaction whatever he wants. After each new commitment transaction is created the old one is revoked. The commitment transaction is one way that the funding transaction can be unlocked on the blockchain, as discussed in [§19.3](19_3_Closing_a_Channel.md).
+> :book: ***What is a Commitment Transaction?*** A Commitment Transaction is a transaction that spends the original funding transaction. Each peer holds the other peer's signature, meaning that either one can spent his commitment transaction whatever he wants. After each new commitment transaction is created the old one is revoked. The commitment transaction is one way that the funding transaction can be unlocked on the blockchain, as discussed in [§20.3](20_3_Closing_a_Channel.md).
 
 ### Check Your Invoice
 
@@ -107,7 +107,7 @@ There are two crucial elements to check in the invoice. The first, obviously, is
 ```
 You need to check that's the expected recipient.
 
-Looking back at [§19.3](19_3_Setting_Up_a_Channel.md#opening-a-channel), you can see that's indeed the peer ID that you used when you created your channel. You could also verify it on the opposite node with the `getinfo` command.
+Looking back at [§20.3](20_3_Closing_a_Channel.md), you can see that's indeed the peer ID that you used when you created your channel. You could also verify it on the opposite node with the `getinfo` command.
 ```
 lnd$ lncli -n testnet getinfo
 {
