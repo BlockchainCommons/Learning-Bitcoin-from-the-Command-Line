@@ -2,7 +2,7 @@
 
 > :information_source: **NOTE:** This section has been recently added to the course and is an early draft that may still be awaiting review. Caveat reader.
 
-One of the greatest powers of PSBTs is the ability to hand transactions off to hardware wallets. This will be a great development tool for you if you continue to program with Bitcoin. However, you can't test it out now if you're using one of the configurations we suggest for this course — a VM on Linode per [§2.1](https://github.com/BlockchainCommons/Learning-Bitcoin-from-the-Command-Line/blob/master/02_1_Setting_Up_a_Bitcoin-Core_VPS_with_StackScript.md) or an even more farflung option such an AWS per [§2.2](https://github.com/BlockchainCommons/Learning-Bitcoin-from-the-Command-Line/blob/master/02_2_Setting_Up_Bitcoin_Core_Other.md) — because obviously you won't have any way to hook a hardware wallet up to your remote, virtual machine.
+One of the greatest powers of PSBTs is the ability to hand transactions off to hardware wallets. This will be a great development tool for you if you continue to program with Bitcoin. However, you can't test it out now if you're using one of the configurations we suggest for this course — a VM on Linode per [§2.1](https://github.com/BlockchainCommons/Learning-Bitcoin-from-the-Command-Line/blob/master/02_1_Setting_Up_a_Bitcoin-Core_VPS_with_StackScript.md) or an even more farflung option such as AWS per [§2.2](https://github.com/BlockchainCommons/Learning-Bitcoin-from-the-Command-Line/blob/master/02_2_Setting_Up_Bitcoin_Core_Other.md) — because obviously you won't have any way to hook a hardware wallet up to your remote, virtual machine.
 
 > :book: ***What is a Hardware Wallet?*** A hardware wallet is an electronic device that improves the security of a cryptocurrency by maintaining all the private keys on the device, rather than ever putting them on a computer directly connected to the internet. Hardware wallets have specific protocols for providing online interactions, usually managed by a program talking to the device through a USB port. In this chapter, we'll be managing a hardware wallet with `bitcoin-cli` and the `hwy.py` program.
 
@@ -22,7 +22,7 @@ There are alternate versions of the Bitcoin Standup script that you used to crea
 
 If you have MacOS, you can install [Bitcoin Standup MacOS](https://github.com/BlockchainCommons/Bitcoin-Standup-MacOS/blob/master/README.md).
 
-If you have a local Linux machine, you can install [Bitcoin Standup Linux Scripts](https://github.com/BlockchainCommons/Bitcoin-Standup-MacOS/blob/master/README.md).
+If you have a local Linux machine, you can install [Bitcoin Standup Linux Scripts](https://github.com/BlockchainCommons/Bitcoin-Standup-Scripts/blob/master/README.md).
 
 Once you've gotten Bitcoin Standup running on your local machine, you'll want to sync the "Testnet" blockchain, assuming that you're continuing to follow the standard methodlogy of this course.
 
