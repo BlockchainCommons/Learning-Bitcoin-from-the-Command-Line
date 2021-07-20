@@ -65,7 +65,7 @@ float tx_total = tx_amount + tx_fee;
 
 ### Step 3: Prepare Your RPC 
 
-Obviously, you're going to need to get all of your variables ready again, as discussed in [§15.1: Accessing Bitcoind with C](15_1_Accessing_Bitcoind_with_C.md). You also need to initialize your library, connect your RPC client, and prepare your response object:
+Obviously, you're going to need to get all of your variables ready again, as discussed in [§16.1: Accessing Bitcoind with C](16_1_Accessing_Bitcoind_with_C.md). You also need to initialize your library, connect your RPC client, and prepare your response object:
 ```
 bitcoinrpc_global_init();
 rpc_client = bitcoinrpc_cl_init_params ("bitcoinrpc", "YOUR-RPC-PASSWD", "127.0.0.1", 18332);
@@ -344,4 +344,4 @@ With access to a C library, you can create much more fully featured programs tha
 
 ## What's Next?
 
-Learn more about "Talking to Bitcoind with C" in [16.3: Receiving Notifications in C with ZMQ Libraries](15_3_Receiving_Bitcoind_Notifications_with_C.md).
+Learn more about "Talking to Bitcoind with C" in [16.3: Receiving Notifications in C with ZMQ Libraries](16_3_Receiving_Bitcoind_Notifications_with_C.md).
