@@ -19,7 +19,7 @@ Los objetivos de apoyo incluyen la capacidad de:
    
 ## Tabla de Contenido
 
-* [Sección Uno: Generating a Payment Request](19_1_Generate_a_Payment_Request.md)
+* [Sección Uno: Generación de una Solicitud de Pago](19_1_Generate_a_Payment_Request.md)
 * [Sección Dos: Pagar una Factura](19_2_Paying_a_Invoice.md)
 * [Sección Tres: Cerrar un Canal Lightning](19_3_Closing_a_Channel.md)
 * [Sección Cuatro: Expandiendo la Red Lightning](19_4_Lightning_Network_Review.md)
