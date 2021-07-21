@@ -3,7 +3,7 @@
 
 > :information_source: **NOTA:** Esta sección se ha agregado recientemente al curso y es un borrador inicial que aún puede estar pendiente de revisión. Lector de advertencias.
 
-Esta sección describe cómo funcionan los pagos en Lightning Network, cómo crear una solicitud de pago (o _factura_), y, finalmente, cómo entenderla. Le emisión de facturas depende de que tenga un segundo nodo Lightning, como se describe en [Acceso a un Segundo Nodo Lightning](18_2__Interlude_Accessing_a_Second_Lightning_Node.md). These examples will use an LND node as their secondary node, to further demonstrate the possibilities of the Lightning Network. To differentiate between the nodes in these examples, the prompts will be shown as `c$` for the c-lightning node and `lnd$` as the LND node. If you want to reproduce this steps, you should [install your own secondary LND node](18_2__Interlude_Accessing_a_Second_Lightning_Node.md#creating-a-new-lnd-node). 
+Esta sección describe cómo funcionan los pagos en Lightning Network, cómo crear una solicitud de pago (o _factura_), y, finalmente, cómo entenderla. Le emisión de facturas depende de que tenga un segundo nodo Lightning, como se describe en [Acceso a un Segundo Nodo Lightning](18_2__Interlude_Accessing_a_Second_Lightning_Node.md). Estos ejemplos usarán un nodo LND como su nodo secundario, para demostrar aún más las posibilidades de Lightning Network. Para diferenciar entre los nodos en estos ejemplos, las solicitudes se mostrarán como `c$` para el nodo c-lightning y `lnd$` como el nodo LND. Si desea reproducir estos pasos, debe [instalar su propio nodo LND secundario](18_2__Interlude_Accessing_a_Second_Lightning_Node.md#creating-a-new-lnd-node). 
 
 > :book: ***¿Qué es una Factura?** Casi todos los pagos realizados en Lightning Network requieren una factura, que no es más que una **solicitud de pago** realizada por el destinatario del dinero y enviada por una variedad de medios al usario que paga. Todas las solicitudes de pago son de un solo uso. Las facturas Lightning utilizan la codificación bech32, que ya utiliza Segregated Witness para Bitcoin.
 
@@ -22,7 +22,7 @@ c$ lightning-cli --testnet invoice 100000 joe-payment "The money you owe me for 
    "warning_mpp_capacity": "The total incoming capacity is still insufficient even if the payer had MPP capability."
 }
 ```
-However, for this example we're going to instead generate an invoice on an LND node, and then pay it on the c-lightning node. This requires LND's slightly different `addinvoice` command.  You can use `--amt` argument to indicate amount to be paid (in millisatoshis) and add a description using the `--memo` argument.
+Sin embargo, para este ejemplo, vamos a generar una factura en un nodo LND y luego pagarla en el nodo c-lightning. Esto requiere el comando `addinvoice` ligeramente diferente de LND.  Puede usar el argumento `--amt` para indicar la cantidad a pagar (en millisatoshis) y agregar una descripción usando el argumento `--memo`.
 
 ```
 lnd$ lncli -n testnet addinvoice --amt 10000 --memo "First LN Payment - Learning Bitcoin and Lightning from the Command line."
@@ -32,39 +32,39 @@ lnd$ lncli -n testnet addinvoice --amt 10000 --memo "First LN Payment - Learning
     "add_index": "1"
 }
 ```
-Note that these invoices don't directly reference the channel you created: that's necessary for payment, but not for requesting payment.
+Tenga en cuenta que estas facturas no hacen referencia directamente al canal que creó: es necesario para el pago, pero no para solicitar el pago.
 
-## Understand an Invoice
+## Entender una Factura
 
-The `bolt11` `payment_request` that you created is made up of two parts: one is human readable and the other is data.
+El `bolt11` `payment_request` que ha creado se compone de dos partes: una es legible por humanos y la otra son datos.
 
-> :book: **What is a BOLT?** The BOLTs are the individual [specifications for the Lightning Network](https://github.com/lightningnetwork/lightning-rfc).
+> :book: **Que es un BOLT?** Los BOLTs son las individuales [especificaciones de Lightning Network](https://github.com/lightningnetwork/lightning-rfc).
 
-### Read the Human-Readable Invoice Part
+### Lea la Parte de la Factura Legible por Humanos
 
-The human readable part of your invoices starts with an `ln`. It is `lnbc` for Bitcoin mainnet, `lntb` for Bitcoin testnet, or `lnbcrt` for Bitcoin regtest.
-It then lists the funds requested in the invoice.
+La parte legible por humanos de sus facturas comienza con un `ln`. Es `lnbc` para Bitcoin mainnet, `lntb` para Bitcoin testnet, o `lnbcrt` para Bitcoin regtest.
+Luego enumera los fondos solicitados en la factura.
 
-For example, look at your invoice from your LND node:
+Por ejemplo, mire su factura desde su nodo LND:
 ```
 lntb100u1p0cwnqtpp5djkdahy4hz0wc909y39ap9tm3rq2kk9320hw2jtntwv4x39uz6asdr5ge5hyum5ypxyugzsv9uk6etwwssz6gzvv4shymnfdenjqsnfw33k76twypskuepqf35kw6r5de5kueeqveex7mfqw35x2gzrdakk6ctwvssxc6twv5hqcqzpgsp5a9ryqw7t23myn9psd36ra5alzvp6lzhxua58609teslwqmdljpxs9qy9qsq9ee7h500jazef6c306psr0ncru469zgyr2m2h32c6ser28vrvh5j4q23c073xsvmjwgv9wtk2q7j6pj09fn53v2vkrdkgsjv7njh9aqqtjn3vd
 ```
-The human readable part is `ln` + `tb` + `100u`.
+La parte legible por humanos `ln` + `tb` + `100u`.
 
-`lntb` says that this is a Lightning Network invoice for Testnet bitcoins.
+`lntb` dice que esta es una factura de Lightning Network para los bitcoins de Testnet.
 
-`100u` says that it is for 100 bitcoins times the microsatoshi multiplier. There are four (optional) funds multipliers:
+`100u` dice que es por 100 bitcoins multiplicado por el multiplicador de microsatoshi. Hay cuatro multiplicadores de fondos (opcionales):
 
-* `m` (milli): multiply by 0.001
-* `u` (micro): multiply by 0.000001
-* `n` (nano): multiply by 0.000000001
-* `p` (pico): multiply by 0.000000000001
+* `m` (milli): multiplicar por 0.001
+* `u` (micro): multiplicar por 0.000001
+* `n` (nano): multiplicar por 0.000000001
+* `p` (pico): multiplicar por 0.000000000001
 
-100 BTC * .000001 = .0001 BTC, which is the same as 10,000 satoshis.
+100 BTC * .000001 = .0001 BTC, que es lo mismo que 10,000 satoshis.
 
-### Read the Data Invoice Part
+### Leer la Parte de la Factura de Datos
 
-The rest of the invoice (`1p0cwnqtpp5djkdahy4hz0wc909y39ap9tm3rq2kk9320hw2jtntwv4x39uz6asdr5ge5hyum5ypxyugzsv9uk6etwwssz6gzvv4shymnfdenjqsnfw33k76twypskuepqf35kw6r5de5kueeqveex7mfqw35x2gzrdakk6ctwvssxc6twv5hqcqzpgsp5a9ryqw7t23myn9psd36ra5alzvp6lzhxua58609teslwqmdljpxs9qy9qsq9ee7h500jazef6c306psr0ncru469zgyr2m2h32c6ser28vrvh5j4q23c073xsvmjwgv9wtk2q7j6pj09fn53v2vkrdkgsjv7njh9aqqtjn3vd`) contains a timestamp, specifically tagged data, and a signature. You obviously can't read it yourself, but you can ask c-lightning's `lightning-cli` to do so with the `decodepay` command:
+El resto de la factura (`1p0cwnqtpp5djkdahy4hz0wc909y39ap9tm3rq2kk9320hw2jtntwv4x39uz6asdr5ge5hyum5ypxyugzsv9uk6etwwssz6gzvv4shymnfdenjqsnfw33k76twypskuepqf35kw6r5de5kueeqveex7mfqw35x2gzrdakk6ctwvssxc6twv5hqcqzpgsp5a9ryqw7t23myn9psd36ra5alzvp6lzhxua58609teslwqmdljpxs9qy9qsq9ee7h500jazef6c306psr0ncru469zgyr2m2h32c6ser28vrvh5j4q23c073xsvmjwgv9wtk2q7j6pj09fn53v2vkrdkgsjv7njh9aqqtjn3vd`) contiene una marca de tiempo, datos etiquetados específicamente y una firma. Obviamente, no puede leerlo usted mismo, pero puede pedirle a `lightning-cli` de c-lightning que lo haga con el comando `decodepay`:
 ```
 c$ lightning-cli --testnet decodepay lntb100u1p0cwnqtpp5djkdahy4hz0wc909y39ap9tm3rq2kk9320hw2jtntwv4x39uz6asdr5ge5hyum5ypxyugzsv9uk6etwwssz6gzvv4shymnfdenjqsnfw33k76twypskuepqf35kw6r5de5kueeqveex7mfqw35x2gzrdakk6ctwvssxc6twv5hqcqzpgsp5a9ryqw7t23myn9psd36ra5alzvp6lzhxua58609teslwqmdljpxs9qy9qsq9ee7h500jazef6c306psr0ncru469zgyr2m2h32c6ser28vrvh5j4q23c073xsvmjwgv9wtk2q7j6pj09fn53v2vkrdkgsjv7njh9aqqtjn3vd
 {
@@ -83,32 +83,32 @@ c$ lightning-cli --testnet decodepay lntb100u1p0cwnqtpp5djkdahy4hz0wc909y39ap9tm
 }
 
 ```
-Here's what the most relevent elements mean:
+Esto es lo que significan los elementos más relevantes:
 
-1. `currency`: The currency being paid.
-1. `created_at`: Time when the invoice was created.  This is measured in UNIX time, which is seconds since 1970.
-1. `expiry`: The time when your node marks the invoice as invalid. Default is 1 hour or 3600 seconds.
-1. `payee`: The public key of the person (node) receiving the Lightning Network payment.
-1. `msatoshi` and `amount_msat`: The amount of satoshis to be paid.
-1. `description`: The user-input description.
-1. `payment_hash`: The hash of the preimage that is used to lock the payment. You can only redeem a locked payment with the corresponding preimage to the payment hash. This enables routing on the Lightning Network without trusting third parties, by creating a **Conditional Payment** to be filled.
-1. `signature`: The DER-encoded signature.
+1. `currency`: La moneda que se paga.
+2. `created_at`: Hora en que se creó la factura. Esto se mide en tiempo UNIX, que son segundos desde 1970.
+3. `expiry`: El momento en que su nodo marca la factura como inválida. El valor predeterminado es 1 hora o 3600 segundos.
+4. `payee`: La clave pública de la persona (nodo) que recibe el pago de Lightning Network.
+5. `msatoshi` y `amount_msat`: la cantidad de satoshis a pagar.
+6. `description`: La descripción de entrada del usuario.
+7. `payment_hash`: El hash de la preimagen que se usa para bloquear el pago. Solo puede canjear un pago bloqueado con la preimagen correspondiente al hash de pago. Esto permite el enrutamiento en Lightning Network, sin confiar en terceros, al crear un **Pago Condicional** para completar.
+8. `signature`: La firma codificada en DER.
 
-> :book: ****What are Conditional Payments?*** Although Lightning Channels are created between two participants, multiple channels can be connected together, forming a payment network that allows payments between all the network participants, even those without a direct channel between them. This is done using an smart contract called a **Hashed Time Locked Contract**.
+> :book: ****¿Qué son los Pagos Condicionales?*** Aunque los Canales Lightning se crean entre dos participantes, se pueden conectar múltiples canales entre sí, formando una red de pago que permite pagos entre todos los participantes de la red, incluso aquellos sin un canal directo entre ellos. Esto se hace mediante un contrato intelligente llamado **Hashed Time Locked Contract** o contrato bloqueado por tiempo codificado.
 
-> :book: ***What is a Hashed Time Locked Contract (HTLC)?*** A Hashed Time Locked Contract is a conditional payment that use hashlocks and timelocks to ensure payment security. The receiver must present a payment preimage or generate a cryptographic proof of payment before a given time, otherwise the payer can cancel the contract by spending it. These contracts are created as outputs from the **Commitment Transaction**.
+> :book: ***¿Qué es un Contrato Bloqueado por Tiempo Codificado / Hashed Time Locked Contract (HTLC)?*** Un HTLC es un pago condicional que utiliza bloqueos de codificado y bloqueos de tiempo para garantizar la seguridad del pago. El receptor debe presentar una preimagen de pago o generar un comprobante de pago criptográfico antes de un tiempo determinado, de lo contrario el pagador puede cancelar el contrato gastándolo. Estos contratos se crean como resultados de la **Transacción de Compromiso**.
 
-> :book: ***What is a Commitment Transaction?*** A Commitment Transaction is a transaction that spends the original funding transaction. Each peer holds the other peer's signature, meaning that either one can spent his commitment transaction whatever he wants. After each new commitment transaction is created the old one is revoked. The commitment transaction is one way that the funding transaction can be unlocked on the blockchain, as discussed in [§19.3](19_3_Closing_a_Channel.md).
+> :book: ***¿Qué es una Transacción de Compromiso?*** Una transacción de compromiso es una transacción que gasta la transacción de financiacción original. Cada par tiene la firma del otro par, lo que significa que cualquiera puede gastar su transacción de compromiso lo que quiera. Después de que se crea cada nueva transacción de compromiso, se revoca la anterior. La transacción de compromiso es una forma en que la transacción de financiación se puede desbloquear en la cadena de bloques, como se analiza en [§19.3](19_3_Closing_a_Channel.md).
 
-### Check Your Invoice
+### Verifique su Factura
 
-There are two crucial elements to check in the invoice. The first, obviously, is the payment amount, which you've already examined in the human-readable part. The second is the `payee` value, which is the pubkey of the recipient (node):
+Hay dos elementos cruciales para verificar la factura. El primero, obviamente, es el monto del pago, que ya examinó en la parte legible por humanos. El segundo es el valor `payee` (beneficiario) que es la clave pública del destinatario (nodo):
 ```
    "payee": "032a7572dc013b6382cde391d79f292ced27305aa4162ec3906279fc4334602543",
 ```
-You need to check that's the expected recipient.
+Debe comprobar que ese es el destinatario esperado.
 
-Looking back at [§18.3](18_3_Setting_Up_a_Channel.md#opening-a-channel), you can see that's indeed the peer ID that you used when you created your channel. You could also verify it on the opposite node with the `getinfo` command.
+Mirando hacia atrás en [§18.3](18_3_Setting_Up_a_Channel.md#opening-a-channel), puede ver que ese es efectivamente el ID de par que usó cuando creó su canal. También puede verificarlo en el nodo opuesto con el comando `getinfo`.
 ```
 lnd$ lncli -n testnet getinfo
 {
@@ -174,12 +174,12 @@ lnd$ lncli -n testnet getinfo
     }
 }
 ```
-However, the `payee` may also be someone brand new, in which case you'll likely need to check with the web site or person who issued the invoice to ensure that it's correct.
+Sin embargo, el `payee` (beneficario) también puede ser alguien nuevo, en cuyo caso probablemente deberá consultar con el sitio web o la persona que emitió la factura para asegurarse de que sea correcta.
 
-## Summary: Generating a Payment Request
+## Resumen: Generación de una Solicitud de Pago
 
-In most cases you need to receive an invoice to use Lightning Network payments. In this example we've created one manually, but if you had a production environment, you'd likely have systems automatically doing this whenever someone purchases products or services. Of course, once you've received an invoice, you need to understand how to read it!
+En la mayoría de los casos, debe recibir una factura para utilizar los pagos de Lightning Network. En este ejemplo, creamos uno manualmente, pero si tuviera un entorno de producción, es probable que los sistemas lo hagas automáticamente cada vez que alguien compra productos o servicios. Por supuesto, una vez que haya recibido una factura, debe comprender cómo leerla!
 
-## What's Next?
+## Que Sigue?
 
-Continue "Using Lightning" with [§19.2: Paying_a_Invoice](19_2_Paying_a_Invoice.md).
+Continúe "Usando Lightning" con [§19.2: Pagar una Factura](19_2_Paying_a_Invoice.md).
