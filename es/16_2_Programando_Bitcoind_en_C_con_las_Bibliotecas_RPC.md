@@ -1,8 +1,8 @@
-# 15.2: Programación de Bitcoind en C con bibliotecas RPC 
+# 16.2: Programación de Bitcoind en C con bibliotecas RPC 
 
 > :information_source: **NOTA:** Esta sección se agregó recientemente al curso y es un borrador inicial que aún puede estar pendiente de revisión. Lector de advertencias.
 
-[§15.1](15_1_Accessing_Bitcoind_with_C.md) presentó la metodología para crear programas en C utilizando bibliotecas RPC y JSON. Ahora vamos a mostrar el potencial de esas bibliotecas C presentando un primer corte simplista de un programa Bitcoin real.
+[§16.1](15_1_Accessing_Bitcoind_with_C.md) presentó la metodología para crear programas en C utilizando bibliotecas RPC y JSON. Ahora vamos a mostrar el potencial de esas bibliotecas C presentando un primer corte simplista de un programa Bitcoin real.
 
 ## Planifique su código
 
@@ -387,4 +387,4 @@ Con acceso a una biblioteca C, puede crear programas con muchas más funciones d
 
 ## ¿Que sigue?
 
-Obtenga más información sobre "Hablar con Bitcoind con C" en [15.3: Recibir notificaciones en C con bibliotecas ZMQ](15_3_Receiving_Bitcoind_Notifications_with_C.md).
+Obtenga más información sobre "Hablar con Bitcoind con C" en [16.3: Recibir notificaciones en C con bibliotecas ZMQ](16_3_Receiving_Bitcoind_Notifications_with_C.md).
