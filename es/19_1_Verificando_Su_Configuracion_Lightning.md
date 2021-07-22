@@ -239,7 +239,7 @@ Antes de comenzar a jugar con Lightning, debes asegurarte de que tus alias esté
 
 ## ¿Que sigue?
 
-Continúe "Comprender su configuración Lightning" con [§18.2: Conocer su configuración Lightning](18_2_Knowing_Your_lightning_Setup.md).
+Continúe "Comprender su configuración Lightning" con [§19.2: Conocer su configuración Lightning](19_2_Conociendo_Su_Configuracion_Lightning.md).
 
 ## Variante: instalar desde Ubuntu ppa
 
