@@ -228,9 +228,9 @@ dev-rescan-outputs
 run `lightning-cli help <command>` for more information on a specific command
 ```
 
-## Know your Lightning Info
+## Conozca la información de lightning
 
-A variety of `lightning-cli` commands can give you additional information on your lightning node. The most general ones are:
+Una variedad de comandos `lightning-cli` pueden brindarle información adicional sobre su nodo Lightning. Los más generales son:
 ```
 $ lightning-cli --testnet listconfigs
 $ lightning-cli --testnet listfunds
@@ -238,13 +238,13 @@ $ lightning-cli --testnet listtransactions
 $ lightning-cli --testnet listinvoices
 $ lightning-cli --testnet listnodes   
 ```
-* listconfigs:  The `listconfigs` RPC command lists all configuration options.
-* listfunds: The `listfunds` RPC command displays all funds available, either in unspent outputs (UTXOs) in the internal wallet or funds locked in currently open channels.
-* listtransactions: The `listtransactions` RPC command returns transactions tracked in the wallet. This includes deposits, withdrawals, and transactions related to channels.
-* listinvoices: The `listinvoices` RPC command retrieves the status of a specific invoice, if it exists, or the status of all invoices if given no argument.
-* listnodes: The `listnodes` RPC command returns nodes that your server has learned about via gossip messages, or a single one if the node id was specified.
+* listconfigs:  El comando RPC `listconfigs` enumera todas las opciones de configuración.
+* listfunds: El comando RPC `listfunds` muestra todos los fondos disponibles, ya sea en salidas no gastadas (UTXO) en la billetera interna o fondos bloqueados en los canales abiertos actualmente.
+* listtransactions: El comando RPC `listtransactions` devuelve transacciones rastreadas en la billetera. Esto incluye depósitos, retiros y transacciones relacionadas con los canales.
+* listinvoices: El comando RPC `listinvoices` recupera el estado de una factura específica, si existe, o el estado de todas las facturas si no se proporciona ningún argumento.
+* listnodes: El comando RPC `listnodes` devuelve los nodos que su servidor ha aprendido a través de mensajes de chismes, o uno solo si se especificó el ID de nodo.
 
-For example `lightning-cli listconfigs` gives you a variety of information on your setup:
+Por ejemplo `lightning-cli listconfigs` le brinda una variedad de información sobre su configuración:
 ```
 c$ lightning-cli --testnet listconfigs
 {
@@ -328,12 +328,12 @@ c$ lightning-cli --testnet listconfigs
 }
 ```
 
-## Summary: Knowing Your lightning Setup
+## Resumen: Conozca la configuración de su nodo lightning
 
-The `~/.lightning` directory contains all of your files, while `lightning-cli help` and a variety of info commands can be used to get more information on how your setup and Lightning Network work.
+El directorio `~/.lightning` contiene todos sus archivos, mientras que el comando `lightning-cli help` se puede usar con una variedad de comandos de ayuda para obtener más información sobre cómo funcionan su configuración y Lightning Network.
 
-## What's Next?
+## Que sigue?
 
-You're going to need to have a second Linode node to test out the actual payment of invoices. If you need support in setting one up, read [Interlude: Accessing a Second Lightning Node](19_2__Interlude_Accessing_a_Second_Lightning_Node.md).
+Necesitará tener un segundo nodo Linode para probar el pago real de facturas. Si necesita ayuda para configurar uno, lea  [Interludio: Acceso a un segundo nodo Lightning .](19_2__Interludio_Accediendo_a_un_Segundo_Nodo_Lightning.md).
 
-Otherwise, continue "Understanding Your Lightning Setup" with [§19.3: Setting Up_a_Channel](19_3_Setting_Up_a_Channel.md).
+De lo contrario, continúe "Comprensión de la configuración de Lightning" con [§19.3: Configurando un Canal](19_3_Creando_un_Canal_en_Lightning.md).
