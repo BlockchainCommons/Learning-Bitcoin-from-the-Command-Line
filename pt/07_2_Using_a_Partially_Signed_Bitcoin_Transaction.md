@@ -1,14 +1,14 @@
-# 7.2: Usando uma transação Bitcoin parcialmente assinada
+# 7.2: Usando uma Transação Bitcoin Parcialmente Assinada
 
 > :information_source: **NOTA:** Esta seção foi adicionada recentemente ao curso e é um rascunho inicial que ainda pode estar aguardando revisão.
 
-Agora que aprendemos o fluxo de trabalho básico para gerar um PSBT, provavelmente desejamos fazer algo com ele. O que os PSBTs podem fazer que os multisigs (e as transações brutas normais) não podem? Para começar, temos a facilidade de usar um formato padronizado, o que significa que podemos usar nossas transações do ```bitcoin-cli``` e combiná-las com transações geradas por pessoas (ou programas) em outras plataformas. Além disso, podemos fazer algumas coisas que simplesmente não eram fáceis usando outros mecanismos.
+Agora que aprendemos o fluxo de trabalho básico para gerar uma PSBT, provavelmente desejamos fazer algo com ela. O que as PSBTs podem fazer que os multisigs (e as transações brutas normais) não podem? Para começar, temos a facilidade de usar um formato padronizado, o que significa que podemos usar nossas transações do ```bitcoin-cli``` e combiná-las com transações geradas por pessoas (ou programas) em outras plataformas. Além disso, podemos fazer algumas coisas que simplesmente não eram fáceis usando outros mecanismos.
 
-A seguir estão três exemplos do uso dos PSBTs para: Multisigs, financiamentos e CoinJoins.
+A seguir estão três exemplos do uso das PSBTs para: multisigs, financiamentos e CoinJoins.
 
-> :aviso: **AVISO DE VERSÃO:** Esta é uma inovação do Bitcoin Core v0.17.0. As versões anteriores do Bitcoin Core não funcionarão com o PSBT enquanto ele estiver em andamento (embora ainda consigam reconhecer a transação final).
+> :aviso: **AVISO DE VERSÃO:** Esta é uma inovação do Bitcoin Core v0.17.0. As versões anteriores do Bitcoin Core não funcionarão com a PSBT enquanto estiver em andamento (embora ainda consigam reconhecer a transação final).
 
-## Usando um PSBT para gastar fundos MultiSig
+## Usando uma PSBT para Gastar Fundos MultiSig
 
 Suponha que tenhamos criado um endereço multisig, assim como fizemos na seção [§6.3](06_3_Sending_an_Automated_Multisig.md).
 ```
@@ -48,16 +48,16 @@ $ bitcoin-cli listunspent
   }
 ]
 ```
-Nós _poderíamos_ gastá-las usando os mecanismos no [Capítulo 6](06_0_Expanding_Bitcoin_Transactions_Multisigs.md), onde assinamos serialmente uma transação, mas ao invés disso, vamos mostrar a vantagem do PSBTs para o uso das multisigs. Podemos gerar um único PSBT, permitir que todos o assinem em paralelo e depois podemos combinar todos resultados! Não há mais como passar o arquivo hexadecimal em constante expansão de pessoa para pessoa, o que acelera as coisas e reduz as chances de erros.
+Nós _poderíamos_ gastá-las usando os mecanismos do [Capítulo 6](06_0_Expanding_Bitcoin_Transactions_Multisigs.md), onde assinamos serialmente uma transação, mas ao invés disso, vamos mostrar a vantagem das PSBTs para o uso dos multisigs. Podemos gerar uma única PSBT, permitir que todos a assinem em paralelo e depois podemos combinar todos resultados! Não há mais a necessidade de passar o arquivo hexadecimal em constante expansão de pessoa para pessoa, o que acelera as coisas e reduz as chances de erros.
 
-Para demonstrar essa metodologia, vamos extrair aquele BTC 0,02 do multisig e dividi-lo entre os dois assinantes, cada um deles gerando um novo endereço com esse propósito:
+Para demonstrar essa metodologia, vamos extrair aquele 0,02 BTC do multisig e dividi-lo entre os dois assinantes, cada um deles gerando um novo endereço com esse propósito:
 ```
 machine1$ bitcoin-cli getnewaddress
 tb1qem5l3q5g5h6fsqv352xh4cy07kzq2rd8gphqma
 machine2$ bitcoin-cli getnewaddress
 tb1q3krplahg4ncu523m8h2eephjazs2hf6ur8r6zp
 ```
-A primeira coisa que fazemos é criar um PSBT em uma máquina. Não importa onde. Precisamos usar o ```createpsbt``` da seção [§7.1](07_1_Creating_a_Partially_Signed_Bitcoin_Transaction.md) para isso, não iremos usar o método mais simples que é o comando ```walletcreatefundedpsbt```, porque precisamos do controle extra de selecionar o dinheiro protegido pelo multisig. Esse será o caso para todos os três exemplos nesta seção, o que demonstra porque geralmente precisemos usar o ```createpsbt``` para coisas mais complexas.
+A primeira coisa que fazemos é criar uma PSBT em uma máquina. (Não importa qual). Precisamos usar o ```createpsbt``` da seção [§7.1](07_1_Creating_a_Partially_Signed_Bitcoin_Transaction.md) para isso, e não o comando mais simples ```walletcreatefundedpsbt```, porque precisamos do controle extra de selecionar o dinheiro protegido pelo multisig. (Este será o caso para todos os três exemplos nesta seção, o que demonstra por quê geralmente precisamos usar o ```createpsbt``` para coisas mais complexas.
 ```
 machine1$ utxo_txid=53ec62c5c2fe8b16ee2164e9699d16c7b8ac30ec53a696e55f09b79704b539b5
 machine1$ utxo_vout=0
@@ -65,14 +65,14 @@ machine1$ split1=tb1qem5l3q5g5h6fsqv352xh4cy07kzq2rd8gphqma
 machine1$ split2=tb1q3krplahg4ncu523m8h2eephjazs2hf6ur8r6zp
 machine1$ psbt=$(bitcoin-cli -named createpsbt inputs='''[ { "txid": "'$utxo_txid'", "vout": '$utxo_vout' } ]''' outputs='''{ "'$split1'": 0.009998,"'$split2'": 0.009998 }''')
 ```
-Em seguida, precisamos enviar esse $psbt a todas as partes do multisig para que assinem:
+Em seguida, precisamos enviar essa $psbt a todo mundo para que assinem:
 ```
 machine1$ echo $psbt
 cHNidP8BAHECAAAAAbU5tQSXtwlf5ZamU+wwrLjHFp1p6WQh7haL/sLFYuxTAAAAAAD/////AnhBDwAAAAAAFgAUzun4goil9JgBkaKNeuCP9YQFDad4QQ8AAAAAABYAFI2GH/borPHKKjs91ZyG8uigq6dcAAAAAAAAAAA=
 ```
 Mas você só precisa enviar uma vez! E você faz isso simultaneamente.
 
-Aqui está o resultado da primeira máquina, onde geramos o PSBT:
+Aqui está o resultado da primeira máquina, onde geramos a PSBT:
 ```
 machine1$ psbt_p1=$(bitcoin-cli walletprocesspsbt $psbt | jq -r '.psbt')
 machine1$ bitcoin-cli decodepsbt $psbt_p1
@@ -280,9 +280,9 @@ machine2$ psbt_p2=$(bitcoin-cli walletprocesspsbt $psbt | jq -r '.psbt')
 machine3$ echo $psbt_p2
 cHNidP8BAHECAAAAAbU5tQSXtwlf5ZamU+wwrLjHFp1p6WQh7haL/sLFYuxTAAAAAAD/////AnhBDwAAAAAAFgAUzun4goil9JgBkaKNeuCP9YQFDad4QQ8AAAAAABYAFI2GH/borPHKKjs91ZyG8uigq6dcAAAAAAABASu4gx4AAAAAACIAICJMtQOn94NXmbnCLuDDx9k9CQNW4w5wAVw+u/pRWjB0IgIDeJ9UNCNnDhaWZ/9+Hy2iqX3xsJEicuFC1YJFGs69BjZHMEQCIDJ71isvR2We6ym1QByLV5SQ+XEJD0SAP76fe1JU5PZ/AiB3V7ejl2H+9LLS6ubqYr/bSKfRfEqrp2FCMISjrWGZ6QEBBUdSIQONc63yx+oz+dw0t3titZr0M8HenHYzMtp56D4VX5YDDiEDeJ9UNCNnDhaWZ/9+Hy2iqX3xsJEicuFC1YJFGs69BjZSriIGA3ifVDQjZw4Wlmf/fh8toql98bCRInLhQtWCRRrOvQY2ENPtiCUAAACAAAAAgAYAAIAiBgONc63yx+oz+dw0t3titZr0M8HenHYzMtp56D4VX5YDDgRZu4lPAAAiAgNJzEMyT3rZS7QHqb8SvFCv2ee0MKRyVy8bY8tVUDT1KhDT7YglAAAAgAAAAIADAACAAA==
 ```
-Observe novamente que gerenciamos a assinatura deste multisig gerando um PSBT totalmente sem assinatura com o UTXO correto, permitindo que cada um dos usuários processe esse PSBT por conta própria, adicionando entradas e assinaturas. Como resultado, temos dois PSBTs, cada um contendo apenas uma assinatura. Isso não funcionaria no cenário multisig clássico, porque todas as assinaturas devem ser serializadas. Porém, podemos assinar em paralelo neste momento, e em seguida, usar a função Combinador para juntá-los.
+Observe novamente que gerenciamos a assinatura deste multisig gerando uma PSBT totalmente sem assinatura com o UTXO correto, permitindo que cada um dos usuários processe essa PSBT por conta própria, adicionando entradas e assinaturas. Como resultado, temos duas PSBTs, cada uma contendo apenas uma assinatura. Isso não funcionaria no cenário multisig clássico, porque todas as assinaturas devem ser serializadas. Porém, podemos assinar em paralelo neste momento, e em seguida, usar a função Combinador para juntá-las.
 
-Vamos novamente em qualquer máquina e vamos nos certificar de que temos os dois PSBTs nas variáveis e, em seguida, vamos combiná-los:
+Vamos novamente a qualquer uma das máquinas e vamos nos certificar de que temos as duas PSBTs nas variáveis e, em seguida, vamos combiná-las:
 ```
 machine1$ psbt_p2="cHNidP8BAHECAAAAAbU5tQSXtwlf5ZamU+wwrLjHFp1p6WQh7haL/sLFYuxTAAAAAAD/////AnhBDwAAAAAAFgAUzun4goil9JgBkaKNeuCP9YQFDad4QQ8AAAAAABYAFI2GH/borPHKKjs91ZyG8uigq6dcAAAAAAABAIcCAAAAAtu5pTheUzdsTaMCEPj3XKboMAyYzABmIIeOWMhbhTYlAAAAAAD//////uSTLbibcqSd/Z9ieSBWJ2psv+9qvoGrzWEa60rCx9cAAAAAAP////8BuIMeAAAAAAAiACAiTLUDp/eDV5m5wi7gw8fZPQkDVuMOcAFcPrv6UVowdAAAAAAAACICA0nMQzJPetlLtAepvxK8UK/Z57QwpHJXLxtjy1VQNPUqENPtiCUAAACAAAAAgAMAAIAA"
 machine2$ psbt_c=$(bitcoin-cli combinepsbt '''["'$psbt_p1'", "'$psbt_p2'"]''')
@@ -415,21 +415,21 @@ machine2$ psbt_c_hex=$(bitcoin-cli finalizepsbt $psbt_c | jq -r '.hex')
 standup@btctest2:~$ bitcoin-cli -named sendrawtransaction hexstring=$psbt_c_hex
 ee82d3e0d225e0fb919130d68c5052b6e3c362c866acc54d89af975330bb4d16
 ```
-Obviamente, não houve uma grande melhoria no uso deste método em relação à assinatura em série de uma transação para um multisig 2 de 2 quando todos estavam usando o ```bitcoin-cli```: Poderíamos ter passado uma transação bruta com assinaturas parciais de um usuário para o outro tão facilmente quanto enviar o PSBT. Mas, este foi o caso mais simples. À medida que nos aprofundamos em multisigs mais complexas, essa metodologia se torna cada vez melhor, mas já podemos destacar alguns pontos importantes:
+Obviamente, não houve uma grande melhoria no uso deste método em relação à assinatura em série de uma transação para um multisig 2-de-2 quando todos estavam usando o ```bitcoin-cli```: poderíamos ter passado uma transação bruta com assinaturas parciais de um usuário para o outro tão facilmente quanto enviar a PSBT. Mas, este foi o caso mais simples. À medida que nos aprofundamos em multisigs mais complexos, essa metodologia se torna cada vez melhor, mas já podemos destacar alguns pontos importantes:
 
 Em primeiro lugar, é independente de plataforma. Enquanto todos estiverem usando um serviço compatível com o Bitcoin Core 0.17, todos poderão assinar essa transação, o que não é verdade quando os multisigs clássicos estão sendo repassados ​​entre diferentes plataformas.
 
-Em segundo lugar, é muito mais escalável. Considere um multisig 3 de 5. De acordo com a metodologia antiga, isso teria que ser transmitido de pessoa para pessoa, aumentando enormemente os problemas se alguém o corrompesse. Aqui, outros usuários precisam apenas enviar os PSBTs de volta ao Criador e, assim que tiver a quantidade suficiente, poderá gerar a transação final.
+Em segundo lugar, é muito mais escalável. Considere um multisig 3-de-5. De acordo com a metodologia antiga, isso teria que ser transmitido de pessoa para pessoa, aumentando enormemente os problemas se alguém o corrompesse. Aqui, outros usuários precisam apenas enviar as PSBTs de volta ao Criador e, assim que tiver a quantidade suficiente, poderá gerar a transação final.
 
-## Usando um PSBT para financiamentos
+## Usando uma PSBT Para Financiamentos
 
-Os Multisigs como o usado no exemplo anterior são frequentemente usados ​​para receber pagamentos por trabalho colaborativo, seja royalties de um livro ou pagamentos feitos a uma empresa. Nessa situação, o exemplo acima funciona muito bem: Os dois participantes recebem seu dinheiro, que depois é dividido. Mas e quanto ao caso inverso, em que dois (ou mais) participantes desejam criar uma joint venture e precisam dividir o dinheiro?
+Os Multisigs como o usado no exemplo anterior são frequentemente usados ​​para receber pagamentos por trabalho colaborativo, seja royalties de um livro ou pagamentos feitos a uma empresa. Nessa situação, o exemplo acima funciona muito bem: os dois participantes recebem seu dinheiro, que depois é dividido. Mas e quanto ao caso inverso, em que dois (ou mais) participantes desejam criar uma _joint venture_ e precisam dividir o dinheiro?
 
-A resposta tradicional é criar um multisig e depois fazer com que os participantes enviem individualmente os fundos para lá. O problema é que o primeiro pagador depende da boa fé do segundo, e isso não é a base do Bitcoin, que diz que _não devemos confiar_. Felizmente, com o advento dos PSBTs, agora podemos fazer pagamentos sem confiança para podemos enviar fundos.
+A resposta tradicional é criar um multisig e depois fazer com que os participantes enviem individualmente os fundos para lá. O problema é que o primeiro pagador depende da boa fé do segundo, e isso não é a base do Bitcoin, que diz que _não devemos confiar_. Felizmente, com o advento das PSBTs, agora podemos fazer pagamentos sem confiança para podemos enviar fundos.
 
-> :book: ***O que significa a ideia de não podermos confiar?*** Quando dizemos, não devemos confiar, significa que nenhum participante precisa confiar em nenhum outro participante. Ao invés disso, eles esperam que os protocolos de software garantam que tudo seja executado de maneira justa, de maneira esperada. O Bitcoin é um protocolo que não depende de confiança porque não precisamos de ninguém para agir de boa fé. O sistema faz o gerenciamento. Da mesma forma, os PSBTs permitem a criação de transações que agrupam ou dividem fundos sem a necessidade de nenhuma parte confiar na outra.
+> :book: ***O que significa a ideia de não podermos confiar?*** Quando dizemos que não devemos confiar, significa que nenhum participante precisa confiar em nenhum outro participante. Ao invés disso, eles esperam que os protocolos de software garantam que tudo seja executado de maneira justa e esperada. O Bitcoin é um protocolo que não depende de confiança porque não precisamos que ninguém mais aja de boa fé. O sistema faz o gerenciamento. Da mesma forma, as PSBTs permitem a criação de transações que agrupam ou dividem fundos sem a necessidade de nenhuma parte confiar na outra.
 
-O exemplo a seguir mostra dois usuários que possuem 0,010 BTC e que desejam agrupar no endereço multisig `tb1qyfxt2qa877p40xdecghwps78my7sjq6kuv88qq2u86al5526xp6qfqjud0`, criado acima.
+O exemplo a seguir mostra dois usuários que possuem 0,010 BTC e que desejam agrupar no endereço multisig `tb1qyfxt2qa877p40xdecghwps78my7sjq6kuv88qq2u86al5526xp6qfqjud0` criado acima.
 ```
 machine1$ bitcoin-cli listunspent
 [
@@ -473,7 +473,7 @@ machine1$ utxo_vout_2=0
 machine1$ multisig=tb1qyfxt2qa877p40xdecghwps78my7sjq6kuv88qq2u86al5526xp6qfqjud0
 
 ```
-E criam um PSBT:
+E criam uma PSBT:
 ```
 machine1$ psbt=$(bitcoin-cli -named createpsbt inputs='''[ { "txid": "'$utxo_txid_1'", "vout": '$utxo_vout_1' }, { "txid": "'$utxo_txid_2'", "vout": '$utxo_vout_2' } ]''' outputs='''{ "'$multisig'": 0.019998 }''')
 ```
@@ -539,9 +539,9 @@ machine1$ bitcoin-cli decodepsbt $psbt
   ]
 }
 ```
-Não importa se as transações sejam de propriedade de duas pessoas diferentes ou que as informações completas apareçam em duas máquinas diferentes. Este PSBT de financiamento funcionará exatamente da mesma forma que o PSBT multisig. Uma vez que todos os controladores tenham assinado, a transação pode ser finalizada.
+Não importa se as transações sejam de propriedade de duas pessoas diferentes ou que as informações completas apareçam em duas máquinas diferentes. Esta PSBT de financiamento funcionará exatamente da mesma forma que a PSBT multisig. Uma vez que todos os controladores tenham assinado, a transação pode ser finalizada.
 
-Aqui está o processo, desta vez passando o PSBT parcialmente assinado de um usuário para outro, ao invés de ter que combinar as coisas no final.
+Aqui está o processo, desta vez passando a PSBT parcialmente assinada de um usuário para outro, ao invés de ter que combinar as coisas no final.
 ```
 machine1$ bitcoin-cli walletprocesspsbt $psbt
 {
@@ -574,11 +574,11 @@ machine2$ psbt_hex=$(bitcoin-cli finalizepsbt $psbt_f | jq -r '.hex')
 machine2$ bitcoin-cli -named sendrawtransaction hexstring=$psbt_hex
 53ec62c5c2fe8b16ee2164e9699d16c7b8ac30ec53a696e55f09b79704b539b5
 ```
-Usamos um PSBT para reunir o dinheiro usando um multisig sem precisar de confiança!
+Usamos uma PSBT para reunir o dinheiro usando um multisig sem precisar de confiança!
 
-## Useando um PSBT para CoinJoin
+## Usando uma PSBT para CoinJoin
 
-O CoinJoin é outro aplicativo Bitcoin que não requer confiança. Aqui, temos uma variedade de entes que não se conhecem juntando dinheiro e recebendo de volta.
+O CoinJoin é outra aplicação no Bitcoin que não requer confiança. Aqui, temos uma variedade de entes que não se conhecem juntando dinheiro e recebendo de volta.
 
 A metodologia para gerenciá-lo com PSBTs é exatamente a mesma que vimos nos exemplos acima, como o seguinte pseudocódigo demonstra:
 ```
@@ -586,17 +586,16 @@ $ psbt=$(bitcoin-cli -named createpsbt inputs='''[ { "txid": "'$utxo_txid_1'", "
 ```
 Cada usuário coloca o próprio UTXO e cada um recebe uma saída correspondente.
 
-A melhor maneira de gerenciar um CoinJoin é enviar o PSBT básico para todas as partes (que podem ser inúmeras) e, em seguida, fazer com que cada uma assine o PSBT e envie de volta para uma única parte que irá combinar, finalizar e enviar.
+A melhor maneira de gerenciar um CoinJoin é enviar a PSBT básica para todas as partes (que podem ser inúmeras) e, em seguida, fazer com que cada uma assine a PSBT e envie de volta para uma única parte que irá combinar, finalizar e enviar.
 
-## Resumo: Usando uma transação Bitcoin parcialmente assinada
+## Resumo: Usando uma Transação Bitcoin Parcialmente Assinada
 
-Agora vimos o processo PSBT que aprendemos na seção [§7.1](07_1_Creating_a_Partially_Signed_Bitcoin_Transaction.md) em uso em três exemplos da vida real: Criando um multisig, um financiamento e fazendo o CoinJoin. Tudo isso era teoricamente possível no Bitcoin por ter várias pessoas assinando transações cuidadosamente construídas, mas os PSBTs tornam isso padronizado e simples.
+Agora vimos o processo PSBT que aprendemos na seção [§7.1](07_1_Creating_a_Partially_Signed_Bitcoin_Transaction.md) em uso em três exemplos da vida real: criando um multisig, um financiamento e fazendo CoinJoin. Tudo isso era teoricamente possível no Bitcoin com várias pessoas assinando transações cuidadosamente construídas, mas as PSBTs tornam isso padronizado e simples.
 
-> :fire: ***Qual é o poder de um PSBT?*** Um PSBT permite a criação de transações sem necessidade de confiança entre várias partes e várias máquinas. Se mais de uma parte precisar financiar uma transação, se mais de uma parte precisar assinar uma transação, ou se uma transação precisar ser criada em uma máquina e assinada em outra, um PSBT torna isso simples, sem depender do mecanismos de assinatura parcial não padronizados que existiam antes do PSBT.
+> :fire: ***Qual é o poder de uma PSBT?*** Uma PSBT permite a criação de transações sem necessidade de confiança entre várias partes e várias máquinas. Se mais de uma parte precisar financiar uma transação, se mais de uma parte precisar assinar uma transação, ou se uma transação precisar ser criada em uma máquina e assinada em outra, uma PSBT torna isso simples, sem depender do mecanismos de assinatura parcial não padronizados que existiam antes da PSBT.
 
-Esse último ponto, ao criar uma transação em uma máquina e assinar em outra, é um elemento dos PSBTs que ainda não chegamos. Ele está no centro das carteiras de hardware, onde geralmente desejamos criar uma transação em um full node e, em seguida, passá-la para uma hardware wallet quando uma assinatura for necessária. Esse é o tópico da nossa última seção (e do nosso quarto exemplo da vida real) deste capítulo sobre PSBTs.
+Esse último ponto, sobre criar uma transação em uma máquina e assinar em outra, é um elemento das PSBTs ao qual ainda não chegamos. Ele está no centro das carteiras de hardware, onde geralmente desejamos criar uma transação em um full node e, em seguida, passá-la para uma hardware wallet quando uma assinatura for necessária. Esse é o tópico da nossa última seção (e do nosso quarto exemplo da vida real) deste capítulo sobre PSBTs.
 
 ## O Que Vem Depois?
 
-Continue "Expanding Bitcoin Transactions with PSBTs" with [§7.3: Inegrating with Hardware Wallets](07_3_Integrating_with_Hardware_Wallets.md).
-Vamos continuar "Expandindo as Transações de Bitcoin com PSBTs" na seção [§7.3: Integração com hardware wallets](07_3_Integrating_with_Hardware_Wallets.md).
+Vamos continuar "Expandindo Transações no Bitcoin com PSBTs" na seção [§7.3: Integrando com Hardware Wallets](07_3_Integrating_with_Hardware_Wallets.md).
