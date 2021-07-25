@@ -312,4 +312,4 @@ Al utilizar la biblioteca javabitcoinrpc, puede acceder fácilmente a bitcoind a
 
 ## ¿Qué es lo siguiente?
 
-Obtén más información sobre "Cómo hablar con Bitcoin en otros lenguajes" en [18.3: Cómo acceder a Bitcoin con NodeJS](18_3_Accediendo_a_Bitcoind_con_NodeJS.md).
+Obtenga más información sobre "Cómo hablar con Bitcoin en otros lenguajes" en [18.3: Cómo acceder a Bitcoin con NodeJS](18_3_Accediendo_a_Bitcoind_con_NodeJS.md).
