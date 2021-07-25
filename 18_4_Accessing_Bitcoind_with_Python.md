@@ -453,11 +453,11 @@ TXID of sent transaction:  187f8baa222f9f37841d966b6bad59b8131cfacca861cbe9bfc86
 
 ## Summary: Accessing  Bitcoind with Python
 
-Accessing Bitcoind with Python is very easy while using the `python-bitcoinrpc` library. The first thing to always do is to establish a connection with your `bitcoind` instance, then you can call all of the bitcoin API calls as described in the bitcoin-core documentation. This makes it easy to create small or large prorgrams to manage your own node, check balances, or create cool applications on top, as you access the full power of `bitcoin-cli`.
+Accessing Bitcoind with Python is very easy while using the `python-bitcoinrpc` library. The first thing to always do is to establish a connection with your `bitcoind` instance, then you can call all of the bitcoin API calls as described in the bitcoin-core documentation. This makes it easy to create small or large programs to manage your own node, check balances, or create cool applications on top, as you access the full power of `bitcoin-cli`.
 
 ## What's Next?
 
-Learn more about "Talking to Bitcoin in Other Languages" in [17.5: Accessing Bitcoin with Rust](17_5_Accessing_Bitcoind_with_Rust.md).
+Learn more about "Talking to Bitcoin in Other Languages" in [18.5: Accessing Bitcoin with Rust](18_5_Accessing_Bitcoind_with_Rust.md).
 
 ## Variant: Build Python from Source
 
