@@ -239,4 +239,4 @@ En base a estos ejemplos debería ser capaz de incorporar Bitcoin en un proyecto
 
 ## ¿Qué es lo siguiente?
 
-Obtén más información sobre "Cómo hablar con Bitcoin en otros lenguajes" en [18.4: Cómo acceder a Bitcoin con Python](18_4_Accediendo_a_Bitcoind_con_Python.md).
+Obtenga más información sobre "Cómo hablar con Bitcoin en otros lenguajes" en [18.4: Cómo acceder a Bitcoin con Python](18_4_Accediendo_a_Bitcoind_con_Python.md).
