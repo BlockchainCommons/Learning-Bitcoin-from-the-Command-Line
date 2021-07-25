@@ -44,7 +44,7 @@ Whenever you have a key in hand, you can turn it into xpub or xprv keys for dist
 
 ## Understand the Hierarchy
 
-Before going further, you need to understand how the hierarchy of an HD wallet works. As discussed in [§3.5](03_5_Understanding_the_Descriptor.md), a derivation path describes the tree that you follow to get to a hierarchical key, so `[0/1/0]` is the 0th child of the 1st child of the 0th child of a root key. Sometimes part of that derivation are marked with `'`s or `h`s to show "hardened derivations, which increase security: `[0'/1'/0']`.
+Before going further, you need to understand how the hierarchy of an HD wallet works. As discussed in [§3.5](03_5_Understanding_the_Descriptor.md), a derivation path describes the tree that you follow to get to a hierarchical key, so `[0/1/0]` is the 0th child of the 1st child of the 0th child of a root key. Sometimes part of that derivation are marked with `'`s or `h`s to show hardened derivations, which increase security: `[0'/1'/0']`.
 
 However, for HD wallets, each of those levels of the hierachy is used in a very specific way. This was originally defined in [BIP44](https://github.com/bitcoin/bips/blob/master/bip-0044.mediawiki) and was later updated for Segwit in [BIP84].
 
