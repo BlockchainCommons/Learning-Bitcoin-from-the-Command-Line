@@ -400,7 +400,7 @@ Swift is a robust modern programming language that unfortunately doesn't yet hav
 
 ## What's Next?
 
-Learn about Lightning in [Chapter 18: Understanding Your Lightning Setup](18_0_Understanding_Your_Lightning_Setup.md).
+Learn about Lightning in [Chapter 19: Understanding Your Lightning Setup](19_0_Understanding_Your_Lightning_Setup.md).
 
 ## Variant: Deploy Swift on Ubuntu
 
