@@ -98,7 +98,7 @@ Esto es lo que significan los elementos más relevantes:
 
 > :book: ***¿Qué es un Contrato Bloqueado por Tiempo Codificado / Hashed Time Locked Contract (HTLC)?*** Un HTLC es un pago condicional que utiliza bloqueos de codificado y bloqueos de tiempo para garantizar la seguridad del pago. El receptor debe presentar una preimagen de pago o generar un comprobante de pago criptográfico antes de un tiempo determinado, de lo contrario el pagador puede cancelar el contrato gastándolo. Estos contratos se crean como resultados de la **Transacción de Compromiso**.
 
-> :book: ***¿Qué es una Transacción de Compromiso?*** Una transacción de compromiso es una transacción que gasta la transacción de financiacción original. Cada par tiene la firma del otro par, lo que significa que cualquiera puede gastar su transacción de compromiso lo que quiera. Después de que se crea cada nueva transacción de compromiso, se revoca la anterior. La transacción de compromiso es una forma en que la transacción de financiación se puede desbloquear en la cadena de bloques, como se analiza en [§19.3](19_3_Closing_a_Channel.md).
+> :book: ***¿Qué es una Transacción de Compromiso?*** Una transacción de compromiso es una transacción que gasta la transacción de financiacción original. Cada par tiene la firma del otro par, lo que significa que cualquiera puede gastar su transacción de compromiso cuando quiera. Después de que se crea cada nueva transacción de compromiso, se revoca la anterior. La transacción de compromiso es una forma en que la transacción de financiación se puede desbloquear en la cadena de bloques, como se analiza en [§19.3](19_3_Closing_a_Channel.md).
 
 ### Verifique su Factura
 
@@ -178,7 +178,7 @@ Sin embargo, el `payee` (beneficario) también puede ser alguien nuevo, en cuyo 
 
 ## Resumen: Generación de una Solicitud de Pago
 
-En la mayoría de los casos, debe recibir una factura para utilizar los pagos de Lightning Network. En este ejemplo, creamos uno manualmente, pero si tuviera un entorno de producción, es probable que los sistemas lo hagas automáticamente cada vez que alguien compra productos o servicios. Por supuesto, una vez que haya recibido una factura, debe comprender cómo leerla!
+En la mayoría de los casos, debe recibir una factura para utilizar los pagos de Lightning Network. En este ejemplo, creamos uno manualmente, pero si tuviera un entorno de producción, es probable que los sistemas lo hagan automáticamente cada vez que alguien compra productos o servicios. Por supuesto, una vez que haya recibido una factura, debe comprender cómo leerla!
 
 ## Que Sigue?
 
