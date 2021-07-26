@@ -2,7 +2,7 @@
 
 > :information_source: **NOTA:** Esta sección se ha agregado recientemente al curso y es un borrador inicial que aún puede estar pendiente de revisión. Lector de advertencias.
 
-En este capítulo aprenderá a cerrar un canal usando la interfaz de línea de comandos `lightning-cli close`. Cerrar un canal significa que usted y su contraparte enviarán el saldo del canal acordado a la blockchain, por lo que debe pagar las tarifas de transacción de la blockchain y esperar a que se extraiga la transacción. Un cierre puede ser cooperativo o no cooperativo, pero funciona de cualquier manera.
+En este capítulo aprenderá a cerrar un canal usando la interfaz de línea de comandos `lightning-cli close`. Cerrar un canal significa que usted y su contraparte enviarán el saldo del canal acordado a la blockchain, por lo que debe pagar las tarifas de transacción de la blockchain y esperar a que se mine la transacción. Un cierre puede ser cooperativo o no cooperativo, pero funciona de cualquier manera.
 
 Para cerrar un canal, primero debe conocer el ID del nodo remoto; puede recuperarlo de dos formas.
 
@@ -232,7 +232,7 @@ El comando `close` RPC intenta cerrar un canal de manera cooperativa con su par 
 
 Cada participante de un canal puede crear tantos pagos Lightning a su contraparte como lo permitan sus fondos. La mayoría de las veces no habrá desacuerdos entre los participantes, por lo que solo habrá dos transacciones en cadena, una abriendo y la otra cerrando el canal. Sin embargo, puede haber escenarios en los que un par no esté en línea o no esté de acuerdo con el estado final del canal o cuando alguien intente robar fondos de la otra parte. Es por eso que existen cierres tanto cooperativos como forzosos.
 
-#### Cooperativa Cerrar
+#### Cierre Cooperativo
 
 En el caso de un cierre cooperativo, ambos participantes del canal acuerdan cerrar el canal y establecer el estado final de la blockchain. Ambos participantes deben estar en línea; El cierre se realiza mediante la transmisíon de un gasto incondicional de la transacción de financiación con una salida a cada par. 
 
