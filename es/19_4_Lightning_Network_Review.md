@@ -13,7 +13,7 @@ c-lightning es una implementación ligera, altamente pseronalizable y compatible
 * Las suscripciones de flujo de eventos proporcionan complementos con un mecanismo de notificación basado en push para `lightnind`.
 * Los hooks son una opción primitiva que permite que los complementos sean notificados sobre eventos en el demonio `lightningd` y modifiquen su comportamiento o transmitan comportamientos personalizados.
 
-Un complementos puede estar escrito en cualquier idioma y puede comunicarse con `lightningd` a través de stdin y stdout del complemento. JSON-RPCv2 se utiliza como protocolo en la parte superior de los dos flujos, con el complemento actuando como servidor y `lightningd` actuando como cliente. 
+Un complementos puede estar escrito en cualquier lenguaje y puede comunicarse con `lightningd` a través de stdin y stdout del complemento. JSON-RPCv2 se utiliza como protocolo en la parte superior de los dos flujos, con el complemento actuando como servidor y `lightningd` actuando como cliente. 
 
 El repositorio de GitHub `lightningd` mantiene una lista actualizada de [complementos](https://github.com/lightningd/plugins) disponibles.
 
@@ -41,7 +41,7 @@ c-lightning no es su única opción. Hoy en día existen tres implementaciones a
 
 ## Mantener Copias de Seguridad
 
-Su nodo Lightning debe estar en línea todo el tiempo; de lo contrario, su contraparte podría enviar en estado de canal anterior y robar sus fondos. Sin embargo, existe otro escenario en el que se pueden perder fondos, y es cuando ocurre una falla de hardware que impide que el nodo establezca un cierre cooperativo con la contraparte. Esto probablemente significará que si no tiene una copia exacta del estado del canal antes de la falla, tendrá un estado no válido que podría hacer que el otro nodo lo asuma como un intento de fraude y use la transacción de penalización. En este caso, se perderán todos los fondos. Para evitar esta situación indeseable existe una solución basada en la alta disponibilidad de [la base de postgresQL](https://github.com/gabridome/docs/blob/master/c-lightning_with_postgresql_reliability.md).
+Su nodo Lightning debe estar en línea todo el tiempo; de lo contrario, su contraparte podría enviar un estado de canal anterior y robar sus fondos. Sin embargo, existe otro escenario en el que se pueden perder fondos, y es cuando ocurre una falla de hardware que impide que el nodo establezca un cierre cooperativo con la contraparte. Esto probablemente significará que si no tiene una copia exacta del estado del canal antes de la falla, tendrá un estado no válido que podría hacer que el otro nodo lo asuma como un intento de fraude y use la transacción de penalización. En este caso, se perderán todos los fondos. Para evitar esta situación indeseable existe una solución basada en la alta disponibilidad de [la base de postgresQL](https://github.com/gabridome/docs/blob/master/c-lightning_with_postgresql_reliability.md).
 
 No hemos probado esta solución.
 
@@ -57,5 +57,5 @@ De lo contrario, le recomendamos que se una a las comunidades de desarrolladores
 
 También puede ayudarnos aquí en Blockchain Commons con problemas o relaciones públicas para aprender Bitcoin o para cualquiera de nuestros otros repositorios, o inlcuso puede convertirse en [Patrocinador](https://github.com/sponsors/BlockchainCommons). También puede ayudar haciendo correr la voz: informe a las personas en las redes sociales sobre el curso y lo que aprendió de él!
 
-Ahora sal y haz de la comunidad Blockchain un lugar mejor!
+Ahora salga y haga de la comunidad Blockchain un lugar mejor!
 
