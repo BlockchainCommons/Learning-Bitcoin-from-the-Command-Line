@@ -66,7 +66,7 @@ c$ lightning-cli --testnet pay lntb100u1p0cwnqtpp5djkdahy4hz0wc909y39ap9tm3rq2kk
 
 Sin embargo, _no_ necesita tener un canal con un nodo para poder pagarles. Solo debe haber una ruta razonable a través de Lightning Network.
 
-Imagina que recibiste esta pequeña solicitud de pago por 11,111 msat:
+Imagina que recibió esta pequeña solicitud de pago por 11,111 msat:
 ```
 c$ lightning-cli --testnet decodepay lntb111110p1p0cw43ppp5u0ngjytlw6ywec3x784jale4xd7h058g9u4mthcaf9rl2f7g8zxsdp2t9hh2gr0wajjqmt9ypnx7u3qv35kumn9wgs8gmm0yyxqyjw5qcqp2sp5kj4xhrthmfgcgyl84zaqpl9vvdjwm5x368kr09fu5nym74setw4s9qy9qsq8hxjr73ee77vat0ay603e4w9aa8ag9sa2n55xznk5lsfrjffxxdj2k0wznvcfa98l4a57s80j7dhg0cc03vwqdwehkujlzxgm0xyynqqslwhvl
 {
@@ -119,7 +119,7 @@ c$ lightning-cli --testnet pay lntb111110p1p0cw43ppp5u0ngjytlw6ywec3x784jale4xd7
 ```
 Esa es la verdadera belleza de Lightning Network allí: sin esfuerzo de los participantes igual a igual, sus canales individuales se convierten en una red!
 
-> :book: ***¿Cómo Funcionan los Pagos en la Red?*** Digamos que el nodo A tiene un canal abierto con el nodo B, el nodo B tiene un canal abierto con el nodo C y el nodo A recibe una factura del nodo C por 11,111 msat. El nodo A paga al nodo B ls 11,111 msat, más una pequeña tarifa, y luego el nodo B paga los 11,111 msat al nodo C. Suficientemente fácil. Excepto que recuerde que todos los canales en realidad son solo registros de quién es el propietario de la cantidad de la Transacción de pago. Entonces, lo que realmente sucede es 11,111 msat de la Transacción de pago en el canal A-B cambia de A a B, y luego 11,111 msat de la Transacción de pago en el canal B-C cambia de B a C. Esto significa que se requieren dos cosas para que este pago funcione: primero, cada canal debe tener suficiente capacidad para el pago; y segundo, el pagador en cada canal debe poseer suficiente capacidad para realizar el pago.  
+> :book: ***¿Cómo Funcionan los Pagos en la Red?*** Digamos que el nodo A tiene un canal abierto con el nodo B, el nodo B tiene un canal abierto con el nodo C y el nodo A recibe una factura del nodo C por 11,111 msat. El nodo A paga al nodo B los 11,111 msat, más una pequeña tarifa, y luego el nodo B paga los 11,111 msat al nodo C. Suficientemente fácil. Excepto que recuerde que todos los canales en realidad son solo registros de quién es el propietario de la cantidad de la Transacción de pago. Entonces, lo que realmente sucede es 11,111 msat de la Transacción de pago en el canal A-B cambia de A a B, y luego 11,111 msat de la Transacción de pago en el canal B-C cambia de B a C. Esto significa que se requieren dos cosas para que este pago funcione: primero, cada canal debe tener suficiente capacidad para el pago; y segundo, el pagador en cada canal debe poseer suficiente capacidad para realizar el pago.  
 
 Tenga en cuenta que en este ejemplo, se enviaron 12,111 msat para pagar una factura de 11,111 msat: el extra es una tarifa plana muy pequeña (no un porcentaje) que se pagó al intermediario.
 
