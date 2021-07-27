@@ -1,10 +1,10 @@
-# 9.4: Criando um script P2PKH
+# 9.4: Programando um P2PKH
 
 Os endereços P2PKH estão desaparecendo rapidamente devido ao advento do Segwit, porém, são importantes para entender o Bitcoin, e especialmente para entender os scripts do Bitcoin. Vamos dar uma olhada rápida como os scripts nativos do Segwit (P2WPKH) funcionam na próxima seção.
 
-## Entendendo o script de desbloqueio
+## Entendendo o Script de Desbloqueio
 
-Dissemos que quando os fundos são enviados para um endereço de bitcoin, eles estão bloqueados juntamente com a chave privada associada a esse endereço. Isso é gerenciado através do ```scriptpubkey``` de uma transação P2PKH, que é projetado de forma que requer que o destinatário tenha a chave privada associada ao endereço bitcoin do tipo P2PKH. Para ser preciso, o destinatário deve fornecer tanto a chave pública ligada à chave privada quanto uma assinatura gerada pela chave privada.
+Dissemos que quando os fundos são enviados para um endereço de bitcoin, eles estão bloqueados juntamente com a chave privada associada a esse endereço. Isso é gerenciado através do ```scriptPubKey``` de uma transação P2PKH, que é projetado de forma que requer que o destinatário tenha a chave privada associada ao endereço bitcoin do tipo P2PKH. Para ser preciso, o destinatário deve fornecer tanto a chave pública ligada à chave privada quanto uma assinatura gerada pela chave privada.
 
 Vamos dar uma olhada novamente na transação que criamos na seção [§9.1](09_1_Understanding_the_Foundation_of_Transactions.md):
 ```
@@ -45,13 +45,13 @@ $ bitcoin-cli -named decoderawtransaction hexstring=$signedtx
   ]
 }
 ```
-Podemos ver que o script de desbloqueio do ```scriptSig``` tem dois valores, uma ```<signature>``` (e um ```[ALL]```) e um ```<pubkey>```:
+Podemos ver que o script de desbloqueio do ```scriptSig``` tem dois valores, uma ```<signature>``` (e um ```[ALL]```) e uma ```<pubkey>```:
 ```
 304402201cc39005b076cb06534cd084fcc522e7bf937c4c9654c1c9dfba68b92cbab7d1022066f273178febc7a37568e2e9f4dec980a2e9a95441abe838c7ef64c39d85849c[ALL] 0315a0aeb37634a71ede72d903acae4c6efa77f3423dcbcd6de3e13d9fd989438b
 ```
 Isso é tudo que um script de desbloqueio é! (No caso de um endereço P2PKH).
 
-## Entendendo o script de bloqueio
+## Entendendo o Script de Bloqueio
 
 Lembre-se de que cada script de desbloqueio desbloqueia um UTXO anterior. No exemplo acima, o ```vin``` revela que é realmente desbloqueado o vout ```0``` da txid ```bb4362dec15e67d366088f5493c789f22fbb4a6049f22fb4a604e767dae1f6a631687E2784aa```.
 
@@ -83,8 +83,8 @@ $ bitcoin-cli gettransaction "bb4362dec15e67d366088f5493c789f22fb4a604e767dae1f6
   "hex": "020000000001011efcc3bf9950ac2ea08c53b43a0f8cc21e4b5564e205f996f7cadb7d13bb79470000000017160014c4ea10874ae77d957e170bd43f2ee828a8e3bc71feffffff0218730100000000001976a91441d83eaffbf80f82dee4c152de59a38ffd0b602188ac713b10000000000017a914b780fc2e945bea71b9ee2d8d2901f00914a25fbd8702473044022025ee4fd38e6865125f7c315406c0b3a8139d482e3be333727d38868baa656d3d02204b35d9b5812cb85894541da611d5cec14c374ae7a7b8ba14bb44495747b571530121033cae26cb3fa063c95e2c55a94bd04ab9cf173104555efe448b1bfc3a68c8f873342c1b00"
 }
 ```
-Mas como podemos observar, não recebemos o ```scriptPubKey``` com o ```gettransaction```. Precisamos ter um passo adicional para recuperar essa informação, examinando as informações da transação bruta (que é o ```hex```) com o ```DecoderAwTransaction```:
-```
+Mas como podemos observar, não recebemos o ```scriptPubKey``` com o ```gettransaction```. Precisamos dar um passo adicional para recuperar essa informação, examinando as informações da transação bruta (que é o ```hex```) com o ```Decoderawtransaction```:
+```bash
 $ hex=$(bitcoin-cli gettransaction "bb4362dec15e67d366088f5493c789f22fb4a604e767dae1f6a631687e2784aa" | jq -r '.hex')
 $ bitcoin-cli decoderawtransaction $hex
 {
@@ -142,11 +142,11 @@ $ bitcoin-cli decoderawtransaction $hex
 ```
 Podemos olhar agora para o ```vout``` ```0``` e ver que ele foi bloqueado com o ```scriptPubKey``` no ```OP_DUP OP_HASH160 41d83eaffbf80f82dee4c152de59a38ffd0b6021 OP_EQUALVERIFY OP_CHECKSIG```. Essa é a metodologia de bloqueio padrão usada para um endereço P2PKH mais antigo com o `<pubKeyHash>` preso no meio.
 
-Executando vamos demonstrar seu funcionamento.
+Executando-o demonstrará seu funcionamento.
 
-## Executando um script P2PKH 
+## Executando um Script P2PKH 
 
-Quando desbloqueamos um UTXO do tipo P2PKH, efetivamente concatenamos os scripts de desbloqueio e de bloqueio. Para um endereço P2PKH, como o exemplo que usamos neste capítulo, que produz o seguinte:
+Quando desbloqueamos um UTXO do tipo P2PKH, efetivamente concatenamos os scripts de desbloqueio e de bloqueio. Para um endereço P2PKH, como o exemplo que usamos neste capítulo, isso produz o seguinte:
 ```
 Script: <signature> <pubKey> OP_DUP OP_HASH160 <pubKeyHash> OP_EQUALVERIFY OP_CHECKSIG
 ```
@@ -169,7 +169,7 @@ Stack: [ <signature> <pubKey> <pubKey> ]
 ```
 Por que duplicar? Porque é necessário verificar os dois elementos de desbloqueio, a chave pública e a assinatura.
 
-Em seguida, o ```OP_HASH160``` retira o ```<pubKey>``` fora da pilha, cria um hash e coloca o resultado de volta na nela.
+Em seguida, o ```OP_HASH160``` retira o ```<pubKey>``` fora da pilha, cria um hash e coloca o resultado de volta nela.
 ```
 Script: <pubKeyHash> OP_EQUALVERIFY OP_CHECKSIG
 Running: <pubKey> OP_HASH160
@@ -180,27 +180,28 @@ Então, colocamos o ```<pubKeyHash>``` que estava no script de bloqueio na pilha
 Script: OP_EQUALVERIFY OP_CHECKSIG
 Stack: [ <signature> <pubKey> <pubKeyHash> <pubKeyHash> ]
 ```
-O ```OP_EQUALVERIFY``` é efetivamente dois opcodes: O ```OP_EQUAL```, que retira dois itens da pilha e coloca `True` ou `False` baseado na comparação de ambos elementos; e o ```OP_VERIFY``` que retira o resultado e imediatamente marca a transação como inválida se for ```False```. No capítulo 12 falaremos mais sobre o uso de ```OP_VERIFY``` como condicional.
+O ```OP_EQUALVERIFY``` é efetivamente dois opcodes: ```OP_EQUAL```, que retira dois itens da pilha e coloca `True` ou `False` de volta baseado na comparação de ambos elementos; e o ```OP_VERIFY``` que retira o resultado e imediatamente marca a transação como inválida se for ```False```. (No capítulo 12 falaremos mais sobre o uso de ```OP_VERIFY``` como condicional.)
 
-Assumindo que os dois ```<pubKeyHash>``` estão iguais, teremos o seguinte resultado:
+Assumindo que os dois ```<pubKeyHash>``` são iguais, teremos o seguinte resultado:
 ```
 Script: OP_CHECKSIG
 Running: <pubKeyHash> <pubKeyHash> OP_EQUALVERIFY
 Stack: [ <signature> <pubKey> ]
 ```
-Neste momento, provamos os ```<pubKey>``` fornecido nos hashes ```scriptSig``` para o endereço Bitcoin em questão, para que saibamos que o dono conhecia a chave pública. Mas, eles também precisam provar o conhecimento da chave privada, o que é feito com os ```OP_CHECKSIG```, que confirma que a assinatura do script de desbloqueio corresponde a essa chave pública.
+Neste momento, provamos que a `<pubkey>` fornecida no `scriptSig` leva ao endereço Bitcoin em questão, então sabemos que o redentor conhecia a chave púbica. Mas, ele também precisa provar o conhecimento da chave privada, o que é feito com os ```OP_CHECKSIG```, que confirmam que a assinatura do script de desbloqueio corresponde a essa chave pública.
+
 ```
 Script:
 Running: <signature> <pubKey> OP_CHECKSIG
 Stack: [ True ]
 ```
-O script agora termina e se foi bem sucedido, a transação é permitida para gastar novamente o UTXO em questão.
+O script agora termina e, se foi bem sucedido, a transação é permitida para gastar o UTXO em questão novamente.
 
-### Usando o btcdeb em um exemplo P2PKH
+### Usando o btcdeb em um Exemplo P2PKH
 
-Testando transações de bitcoin reais com o ```btcdeb``` é um pouco mais complicado, porque precisamos conhecer a chave pública e uma assinatura para fazer todo o trabalho, e gerar o último é um pouco difícil. No entanto, uma maneira de testar as coisas é, deixar o Bitcoin fazer o trabalho para nós, gerando uma transação que _possa_ desbloquear um UTXO. Isso é o que fizemos acima, geramos a transação para gastar o UTXO criado pelo ```bitcoin-cli``` para calcular a ```<signature>``` e o ```<pubKey>```. Podemos analisar as informações da transação bruta do UTXO para conhecer o script de bloqueio, incluindo o ```<pubKeyHash>```. 
+Testando transações de bitcoin reais com o ```btcdeb``` é um pouco mais complicado, porque precisamos conhecer a chave pública e uma assinatura para fazer todo o trabalho, e gerar o último é um pouco difícil. No entanto, uma maneira de testar as coisas é deixar o Bitcoin fazer o trabalho para nós, gerando uma transação que _possa_ desbloquear um UTXO. Isso é o que fizemos acima, geramos a transação para gastar o UTXO criado pelo ```bitcoin-cli``` para calcular a ```<signature>``` e a ```<pubKey>```. Podemos analisar as informações da transação bruta do UTXO para conhecer o script de bloqueio, incluindo o ```<pubKeyHash>```. 
 
-Podemos montar o script de bloqueio, a assinatura e o pubkey usando o `btcdeb`, mostrando como pode ser simples um script P2PKH .
+Podemos montar o script de bloqueio, a assinatura e a pubkey usando o `btcdeb`, mostrando como pode ser simples um script P2PKH .
 ```
 $ btcdeb '[304402201cc39005b076cb06534cd084fcc522e7bf937c4c9654c1c9dfba68b92cbab7d1022066f273178febc7a37568e2e9f4dec980a2e9a95441abe838c7ef64c39d85849c 0315a0aeb37634a71ede72d903acae4c6efa77f3423dcbcd6de3e13d9fd989438b OP_DUP OP_HASH160 41d83eaffbf80f82dee4c152de59a38ffd0b6021 OP_EQUALVERIFY OP_CHECKSIG]'
 btcdeb 0.2.19 -- type `btcdeb -h` for start up options
@@ -220,7 +221,7 @@ OP_CHECKSIG                                                        |
                                                                    | 
 #0000 304402201cc39005b076cb06534cd084fcc522e7bf937c4c9654c1c9dfba68b92cbab7d1022066f273178febc7a37568e2e9f4dec980a2e9a95441abe838c7ef64c39d85849c
 ```
-Colocamos a ```<signature>``` e o ```<pubKey>``` dentro da pilha:
+Colocamos a ```<signature>``` e a ```<pubKey>``` dentro da pilha:
 ```
 btcdeb> step
     <> PUSH stack 304402201cc39005b076cb06534cd084fcc522e7bf937c4c9654c1c9dfba68b92cbab7d1022066f273178febc7a37568e2e9f4dec980a2e9a95441abe838c7ef64c39d85849c
@@ -347,12 +348,12 @@ error: Signature is found in scriptCode
 ```
 Infelizmente, esta verificação pode ou não estar funcionando no momento do teste devido a caprichos do Bitcoin Core e do `btcdeb`.
 
-Como mostramos, um P2PKH  é bastante simples. Nossa proteção vem através da força da criptografia.
+Como mostramos, um P2PKH  é bastante simples. Nossa proteção vem através da força de sua criptografia.
 
-### Como procurar uma Pub Key e uma Signature manualmente
+### Como Procurar uma Pub Key e uma Assinatura Manualmente
 
-E se quiséssemos gerar a ```<signature>``` e o ```<PubKey>```, informações necessárias para desbloquear um UTXO, sem usar o ```bitcoin-cli``` para criar uma transação?
-  
+E se quiséssemos gerar a ```<signature>``` e a ```<PubKey>```, informações necessárias para desbloquear um UTXO, sem usar o ```bitcoin-cli``` para criar uma transação?
+
 Acontece que é muito fácil obtermos uma ````<pubKey>````. Nós precisamos usar o ```getaddressinfo``` para examinar o endereço onde o UTXO está:
 ```
 $ bitcoin-cli getaddressinfo mmX7GUoXq2wVcbnrnFJrGKsGR14fXiGbD9
@@ -377,12 +378,12 @@ $ bitcoin-cli getaddressinfo mmX7GUoXq2wVcbnrnFJrGKsGR14fXiGbD9
   ]
 }
 ```
-Descobrir essa assinatura, no entanto, requer que entendamos os meandros de como as transações do Bitcoin são criadas. Portanto, vamos deixar isso como sendo um estudo avançado para você leitor: criando uma transação de ```bitcoin-cli``` para "resolver" a UTXO é a melhor solução neste momento para conseguir essa informação.
+Descobrir essa assinatura, no entanto, requer que entendamos os meandros de como as transações do Bitcoin são criadas. Portanto, vamos deixar isso como sendo um estudo avançado para você leitor: criando uma transação de ```bitcoin-cli``` para "resolver" o UTXO é a melhor solução para isso neste momento.
 
-## Resumo: Criando um script P2PKH
+## Resumo: Programando um P2PKH
 
-O envio para um endereço P2PKH foi relativamente fácil quando estávamos usando o ````bitcoin-cli````. Examinando o script do Bitcoin, pudemos ver que ele estabelece as funções criptográficas que estavam implícitas no financiamento da transação, ou seja, como o UTXO é desbloqueado com uma assinatura e uma chave pública.
+Enviar para um endereço P2PKH foi relativamente fácil quando estávamos usando o ````bitcoin-cli````. Examinando o script do Bitcoin subjacente nos revela as funções criptográficas que estavam implícitas no financiamento da transação: como o UTXO foi desbloqueado com uma assinatura e uma chave pública.
 
-## O que vem depois?
+## O Que Vem Depois?
 
-Vamos continuar "Apresentando os Scripts no Bitcoin" na seção [§9.4: Criando um script P2WPKH](09_4_Scripting_a_P2PKH.md).
+Vamos continuar "Apresentando Scripts no Bitcoin" na seção [§9.4: Programando um P2WPKH](09_4_Scripting_a_P2WPKH.md).
