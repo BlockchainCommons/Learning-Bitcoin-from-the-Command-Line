@@ -112,7 +112,7 @@ Podemos observar um aviso sobre os dados estarem em um "protocolo desconhecido".
 
 Podemos usar o ```OP_RETURN``` para armazenar até 80 bytes de dados na blockchain. Fazemos isso com a palavra-código ```data``` em um ```vout```. Ainda precisaremos enviar alguns satoshinhos, mas basta enviá-lo de volta para um endereço de troco, retirando a taxa de transação.
 
-> :fire: _Qual é o poder do OP_RETURN?_ O OP_RETURN abre novas possibilidades para o blockchain, porque podemos inserir dados que provam que certas coisas aconteceram em determinados momentos. Várias organizações estão pensando em usar os OP_RETURNs como prova de existência, para direitos autorais, para moedas coloridas e [para outros fins](https://en.bitcoin.it/wiki/OP_RETURN). Embora 80 bytes possa não parecer muito, pode ser bastante eficaz se os OP_RETURNs forem usados ​​para armazenar hashes dos dados reais. Então, podemos provar a existência dos nossos dados digitais demonstrando que o hash deles corresponde ao hash na blockchain.
+> :fire: _Qual é o poder do OP_RETURN?_ O OP_RETURN abre novas possibilidades para o blockchain, porque podemos inserir dados que provam que certas coisas aconteceram em determinados momentos. Várias organizações estão pensando em usar os OP_RETURNs como prova de existência, para direitos autorais, para moedas coloridas e [para outros fins](https://en.bitcoin.it/wiki/OP_RETURN). Embora 80 bytes possam não parecer muito, pode ser bastante eficaz se os OP_RETURNs forem usados ​​para armazenar hashes dos dados reais. Então, podemos provar a existência dos nossos dados digitais demonstrando que o hash deles corresponde ao hash na blockchain.
 
 Observe que há alguma controvérsia sobre o uso da blockchain do Bitcoin usando-a para este fim.
 

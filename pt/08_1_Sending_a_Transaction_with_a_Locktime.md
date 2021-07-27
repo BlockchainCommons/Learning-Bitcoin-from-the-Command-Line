@@ -1,6 +1,6 @@
 # 8.1: Enviando uma transação com Locktime
 
-Os capítulos anteriores mostraram duas maneiras diferentes de enviar fundos de várias máquinas e também para vários destinatários. Mas, existem duas outras maneiras de alterar fundamentalmente as transações básicas. A primeira delas é variar o tempo escolhendo um tempo de bloqueio ou mais conhecido pela expressão em inglês locktime. Isso nos dá a capacidade de enviar transações brutas em algum momento no futuro.
+Os capítulos anteriores mostraram duas maneiras diferentes de enviar fundos de várias máquinas e para vários destinatários. Mas, existem duas outras maneiras de alterar fundamentalmente as transações básicas. A primeira delas é variar o tempo, escolhendo um tempo de bloqueio ou mais conhecido pela expressão em inglês locktime. Isso nos dá a capacidade de enviar transações brutas em algum momento no futuro.
 
 ## Entendendo como o Locktime funciona
 
@@ -24,7 +24,7 @@ Para criar uma transação com locktime, precisamos primeiro determinar como def
 
 Provavelmente, iremos definir com muito mais frequência o nosso tempo de bloqueio usando um carimbo de data/hora do tipo UNIX que representa uma data e hora específica. Podemos calcular um carimbo de data/hora UNIX usando sites que fazem essa conversão, como o [UNIX Time Stamp](http://www.unixtimestamp.com/) ou o [Epoch Convertor](https://www.epochconverter.com/). No entanto, seria melhor [escrevermos nosso próprio script](https://www.epochconverter.com/#code) em nossa máquina local, para que saibamos que o carimbo de data/hora UNIX que recebemos está correto (lembre-se, não confie, verifique). Se não fizermos isso, pelo menos seria interessante verificar em dois sites diferentes para ter a certeza que tudo está correto.
 
-> :book: _Por que iríamos usar um carimbo de data/hora do UNIX?_ O uso de um carimbo de data/hora do UNIX facilita a vinculação definitiva de uma transação a um horário específico, sem se preocupar se a velocidade de criação do bloco mudar drasticamente até lá. Principalmente se estivermos criando um locktime em um futuro distante, é a coisa mais segura a ser feita. Entretanto, utilizar esse método é mais intuitivo, criando uma correlação direta entre alguma data do calendário e a hora em que a transação pode ser colocado na blockchain do Bitcoin.
+> :book: _Por que iríamos usar um carimbo de data/hora do UNIX?_ O uso de um carimbo de data/hora do UNIX facilita a vinculação definitiva de uma transação a um horário específico, sem se preocupar se a velocidade de criação do bloco mudara drasticamente até lá. Principalmente se estivermos criando um locktime em um futuro distante, é a coisa mais segura a ser feita. Entretanto, utilizar esse método é mais intuitivo, criando uma correlação direta entre alguma data do calendário e a hora em que a transação pode ser colocada na blockchain do Bitcoin.
 
 > :warning: **AVISO:** O Locktime com carimbos de data/hora tem menos flexibilidade, pois a liberação de blocos não é regular e os tempos de bloqueio podem ser duas horas antes do tempo real, então um locktime significa "mais ou menos nesta data e nesta hora".
 
@@ -34,7 +34,7 @@ Como alternativa, podemos definir o locktime usando um número menor, que repres
 
 Depois de descobrir a altura atual, podemos decidir até que ponto no futuro iremos configurar o locktime. É importante lembrar que, em média, um novo bloco será criado a cada 10 minutos. Então, por exemplo, se quisermos definir o tempo de bloqueio para uma semana no futuro, devemos escolher uma altura de bloco que é _6 x 24 x 7 = 1.008 blocos_ depois do atual.
 
-> :book: _Por que eu usaria a altura do bloco?_ Ao contrário dos carimbos de data/hora, não existe confusão nas alturas de bloco. Se definirmos uma altura de bloco de 120.000 para o nosso locktime, não haverá absolutamente nenhuma maneira dele entrar no bloco 119.999. Isso pode tornar o controlar no código mais fácil ao manipular nossa transação com locktime. A desvantagem é que não podemos ter certeza de quando exatamente será o locktime.
+> :book: _Por que eu usaria a altura do bloco?_ Ao contrário dos carimbos de data/hora, não existe confusão nas alturas de bloco. Se definirmos uma altura de bloco de 120.000 para o nosso locktime, não haverá absolutamente nenhuma maneira dele entrar no bloco 119.999. Isso pode tornar o controle no código mais fácil ao manipular nossa transação com locktime. A desvantagem é que não podemos ter certeza de quando exatamente será o locktime.
 
 > :warning: **AVISO:** Se desejamos definir um locktime usando a altura do bloco, devemos definir o tempo de bloqueio para menos de 500 milhões. Se definirmos como sendo 500 milhões ou mais, nosso número será interpretado como um carimbo de data/hora. Como o carimbo de data/hora usando o padrão UNIX com valor de 500 milhões era dia 5 de novembro de 1985, provavelmente significa que nossa transação será permitida a qualquer momento a entrar na blockchain.
 
