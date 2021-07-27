@@ -1,12 +1,12 @@
-# 9.3: Testando um script do Bitcoin
+# 9.3: Testando um Script no Bitcoin
 
-O script do Bitcoin permite um controle adicional considerável sobre as transações do bitcoin, mas também é um tanto quanto perigoso. Como descreveremos na seção [§10.1](10_1_Understanding_the_Foundation_of_P2SH.md), os scripts reais são um tanto isolados da rede Bitcoin, o que significa que é possível escrever um script e a rede aceitá-lo, mesmo que seja impossível resgatar o script! Portanto, precisamos testar exaustivamente nossos scripts antes de colocarmos nosso saldo neles.
+Programar no Bitcoin nos permite um controle adicional considerável sobre as transações no Bitcoin, mas também é um tanto quanto perigoso. Como descreveremos na seção [§10.1](10_1_Understanding_the_Foundation_of_P2SH.md), os scripts reais são um tanto isolados da rede Bitcoin, o que significa que é possível escrever um script e a rede aceitá-lo, mesmo que seja impossível resgatar daquele script! Portanto, precisamos testar exaustivamente nossos scripts antes de colocarmos nosso dinheiro neles.
 
 Este capítulo, portanto, descreve um método primário para testar os scripts do Bitcoin, que também usaremos para os exemplos ocasionais que ocorrerem durante esta seção.
 
 ## Instalando o btcdeb
 
-O Bitcoin Script Debugger (```btcdeb```) criado por @kallewoof é um dos métodos mais confiáveis ​​que encontramos para depurar os scripts do Bitcoin. No entanto, ele requer a configuração do C++ e algumas coisas mais em nossa máquina, portanto, também ofereceremos algumas outras opções no final do capítulo.
+O Bitcoin Script Debugger (```btcdeb```) criado por @kallewoof é um dos métodos mais confiáveis ​​que encontramos para depurar os scripts no Bitcoin. No entanto, ele requer a configuração de C++ e algumas coisas a mais em nossa máquina, portanto, também ofereceremos algumas outras opções no final do capítulo.
 
 Primeiro, precisamos clonar o repositório do ```btcdeb``` do GitHub, que também exigirá a instalação do ```git``` caso ainda não o tenhamos em nossa máquina.
 ```
@@ -44,9 +44,9 @@ $ which btcdeb
 
 O ```btcdeb``` funciona como um depurador padrão. Ele pega um script (bem como qualquer número de entradas da pilha) como um argumento de inicialização. Em seguida, podemos percorrer o script usando o ```step```.
 
-Se ao invés disso nós querermos inicializá-lo sem argumentos, iremos obter simplesmente um interpretador onde podemos emitir comandos ```exec [opcode]``` para realizar ações diretas.
+Se ao invés disso nós quisermos inicializá-lo sem argumentos, iremos obter simplesmente um interpretador onde podemos emitir comandos ```exec [opcode]``` para realizar ações diretas.
 
-### Usando o btcdeb para um exemplo de adição
+### Usando o btcdeb para um Exemplo de Adição
 
 O exemplo a seguir mostra o uso do ```btcdeb``` usando como exemplo a adição da seção anterior, ```1 2 OP_ADD```
 ```
@@ -98,11 +98,11 @@ script  |  stack
 ```
 E é aí que nosso script termina, sem mais nada para executar e com um ```03``` no topo da pilha como resultado do script.
 
-> **NOTA:** O ```btcdeb``` permite que possamos repetir o comando anterior pressionando apenas a tecla enter. Faremos isso em exemplos subsequentes, então não fiquemos assustados com os prompts ```btcdeb>``` se não houver nenhum comando. Isso significa que apenas repetimos o comando anterior (geralmente usando o ```step```).
+> **NOTA:** O ```btcdeb``` nos permite repetir o comando anterior pressionando apenas a tecla enter. Faremos isso em exemplos subsequentes, então não fique assustado com os prompts ```btcdeb>``` se não houver nenhum comando. Isto está apenas repetindo o comando anterior (geralmente o ```step```).
 
-### Usando o btcdeb com um exemplo de subtração
+### Usando o btcdeb com um Exemplo de Subtração
 
-A seção anterior também incluiu um exemplo de subtração um pouco mais complexa na criação do script: ```3 2 OP_ADD 4 OP_SUB```. Isso é o resultado:
+A seção anterior também incluiu um exemplo de subtração um pouco mais complexo na criação do script: ```3 2 OP_ADD 4 OP_SUB```. Isso é o resultado:
 
 ```
 $ btcdeb '[3 2 OP_ADD 4 OP_SUB]'
@@ -164,7 +164,7 @@ script  |  stack
 ```
 Voltaremos ao ```btcdeb``` de tempos em tempos, e ele continuará sendo uma excelente ferramenta para testarmos nossos scripts.
 
-### Usando todo o poder do btcdeb
+### Usando o Poder do btcdeb
 
 O ```btcdeb``` também tem algumas funções mais poderosas, como ```print``` e ```stack```, que mostram o script e a pilha a qualquer momento da execução.
 
@@ -180,30 +180,30 @@ btcdeb> stack
 <01>	02	(top)
 <02>	03
 ```
-Usar esses comandos tornará mais fácil observarmos o que está acontecendo e onde estamos no processo.
+Usar esses comandos pode tornar mais fácil observarmos o que está acontecendo e onde estamos no processo.
 
-## Testando um script online
+## Testando um Script Online
 
-Existem também alguns simuladores web que podemos usar para testar os scripts online. Eles podem ser superiores a uma ferramenta de linha de comando, oferecendo uma saída gráfica melhor, mas também descobrimos que eles tendem a ter certas deficiências.
+Existem também alguns simuladores na web que podemos usar para testar os scripts online. Eles podem ser superiores a uma ferramenta de linha de comando, oferecendo uma saída gráfica melhor, mas também descobrimos que eles tendem a ter certas deficiências.
 
 No passado, tentamos fornecer diretrizes abrangentes sobre o uso de sites como o [Script Playground](http://www.crmarsh.com/script-playground/) ou o [Bitcoin Online Script Debugger](https: // bitcoin-script-debugger.visvirial.com/), mas eles estão desatualizados e/ou sumiram e não podemos mais acompanhá-los.
 
 O que podemos garantir é que esses depuradores possuem a vantagem de mostrar coisas visualmente e explicitamente informando se um script foi bem-sucedido (desbloqueado) ou que houve falha (permanece bloqueado). Porém eles possuem algumas desvantagens relacionadas as assinaturas, onde muitos deles sempre retornam ```true``` para testes de assinatura ou então possuem mecanismos muito complicados para incorporá-las.
 
-## Testando um script com Bitcoin
+## Testando um Script com Bitcoin
 
-Mesmo com uma ótima ferramenta como o ```btcdeb``` ou recursos transitórios como os diversos testadores de script online, não estamos trabalhando com a coisa real. Não podemos garantir que elas sigam as regras de consenso do Bitcoin, o que significa que não podemos garantir os resultados. Por exemplo, o Script Playground diz explicitamente que ignora um bug que está implícito quando usando o multisig do Bitcoin. Isso significa que qualquer código multisig que testarmos com sucesso no Script Playground irá dar erro no mundo real.
+Mesmo com uma ótima ferramenta como o ```btcdeb``` ou recursos transitórios como os diversos testadores de script online, não estamos trabalhando com a coisa real. Não podemos garantir que elas seguem as regras de consenso do Bitcoin, o que significa que não podemos garantir os resultados. Por exemplo, o Script Playground diz explicitamente que ignora um bug que está implícito quando usando o multisig no Bitcoin. Isso significa que qualquer código multisig que testarmos com sucesso no Script Playground dará erro no mundo real.
 
 Portanto, a única maneira de _realmente_ testar os scripts do Bitcoin é testá-los usando a Testnet.
 
-E como podemos faz isso? Acontece que esse é o tópico do [capítulo 10](10_0_Embedding_Bitcoin_Scripts_in_P2SH_Transactions.md), que examina a introdução desses scripts abstratos no mundo real do Bitcoin incorporando-os em transações P2SH. (Mas, mesmo assim, provavelmente, precisaremos de uma API para enviar nossa transação P2SH para a rede Bitcoin, então os testes que avaliam o processo completo ainda serão produzidos no futuro).
+E como podemos faz isso? Acontece que esse é o tópico do [capítulo 10](10_0_Embedding_Bitcoin_Scripts_in_P2SH_Transactions.md), que examina a introdução desses scripts abstratos no mundo real do Bitcoin incorporando-os em transações P2SH. (Mas, mesmo assim, provavelmente precisaremos de uma API para enviar nossa transação P2SH para a rede Bitcoin, então os testes completos ainda serão produzidos no futuro).
 
-_ Quaisquer que sejam_ os outros métodos de teste que usamos, testar um script na Testnet deve ser nosso teste final _antes_ de colocar nosso script em Mainnet. Não podemos confiar que nosso código está correto. Não podemos fazer isso apenas olhando para ele. Nem mesmo podemos confiar em quaisquer simuladores ou depuradores que estivermos utilizando. Fazer isso é outra ótima maneira de perder seu saldo no Bitcoin.
+_Quaisquer que sejam_ os outros métodos de teste que usamos, testar um script na Testnet deve ser nosso teste final _antes_ de colocar nosso script em Mainnet. Não podemos confiar que nosso código está correto. Não podemos fazer isso apenas olhando para ele. Nem mesmo podemos confiar em quaisquer simuladores ou depuradores que estivermos utilizando. Fazer isso é outra ótima maneira de perder seu saldo no Bitcoin.
 
-## Resumo: Testando um script do Bitcoin
+## Resumo: Testando um Script no Bitcoin
 
 Você deve instalar o ```btcdeb``` como uma ferramenta de linha de comando para testar os scripts do Bitcoin. No momento em que este livro foi escrito, produzimos resultados precisos que podem percorrer todo o processo do script. Também podemos procurar em alguns sites online uma representação mais visual. Quando estivermos com tudo pronto, vamos precisar usar a testnet para ter certeza de que as coisas estão funcionando com precisão, antes de implantarmos na Mainnet.
 
-## O que vem depois?
+## O Que Vem Depois?
 
-Vamos continuar "Apresentando os Scripts no Bitcoin" com nosso primeiro exemplo real na seção [§9.4: Criando um script P2PKH](09_4_Scripting_a_P2PKH.md).
+Vamos continuar "Apresentando Scripts no Bitcoin" com nosso primeiro exemplo real na seção [§9.4: Programando um P2PKH](09_4_Scripting_a_P2PKH.md).
