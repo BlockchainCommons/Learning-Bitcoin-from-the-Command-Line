@@ -193,14 +193,14 @@ $ signedtx=$(bitcoin-cli -named signrawtransactionwithwallet hexstring=$rawtxhex
 $ bitcoin-cli -named sendrawtransaction hexstring=$signedtx
 b164388854f9701051809eed166d9f6cedba92327e4296bf8a265a5da94f6521
 ```
-Como puedes ver, no hubo nada inusual en la creación de la transacción, y se veía completamente normal, aunque con una dirección con un prefijo diferente al normalthere was nothing unusual in the creation of the transaction, and it looked entirely normal, albeit with an address with a different prefix than normal (`2N8MytPW2ih27LctLjn6LfLFZZb1PFSsqBr`). No surprise, as we similarly saw no difference when we sent to Bech32 addresses for the first time in [§4.6](04_6_Creating_a_Segwit_Transaction.md).
+Como puedes ver, no hubo nada inusual en la creación de la transacción, y se veía completamente normal, aunque con una dirección con un prefijo diferente al normal (`2N8MytPW2ih27LctLjn6LfLFZZb1PFSsqBr`). Sin sorpresas, como vimos de la misma forma en que enviamos a direcciones Bech32 por primera vez en [§4.6](04_6_Creating_a_Segwit_Transaction.md).
 
-## Summary: Sending a Transaction with a Multisig
+## Resumen: Enviando una Transacción con una Multifirma
 
-Multisig addresses lock funds to multiple private keys — possibly requiring all of those private keys for redemption, and possibly requiring just some from the set. They're easy enough to create with `bitcoin-cli` and they're entirely normal to send to. This ease is due in large part to the invisible use of P2SH (pay-to-script-hash) addresses, a large topic that we've touched upon twice now, with P2SH-SegWit and multisig addresses, and one that will get more coverage in the future.
+Las direcciones Multifirma bloquean fondos en varias claves privadas - requiriendo posiblemente todas esas claves privadas para la redención, y requiriendo posiblemente sólo algunas del conjunto. Son bastante fáciles de crear con `bitcoin-cli` y son enteramente normales para enviar. Esta facilidad es debido en gran parte al uso invisible de direcciones P2SH (pay-to-script-hash), un gran tema que ya hemos abordado dos veces, con direcciones P2SH-SegWit y multifirma, y que tendrá más cobertura en el futuro.
 
-> :fire: ***What is the power of multisignatures?*** Multisignatures allow the modeling of a variety of financial arrangements such as corporations, partnerships, committees, and other groups. A 1-of-2 multisig might be a married couple's joint bank account, while a 2-of-2 multisig might be used for large expenditures by a Limited Liability Partnership. Multisignatures also form one of the bases of Smart Contracts. For example, a real estate deal could be closed with a 2-of-3 multisig, where the signatures are submitted by the buyer, the seller, and an escrow agent. Once the escrow agent agrees that all of the conditions have been met, he frees up the funds for the seller; or alternatively, the buyer and seller can jointly free the funds.
+> :fire: ***¿Cuál es el poder de las multifirmas?*** Las multifirmas permiten el modelado de una variedad de acuerdos financieros, como corporaciones, sociedades, comites, y otros grupos. Una multifirma 1-de-2 puede ser una cuenta conjunta de una pareja casada, mientras que una Sociedad de Responsabilidad Limitada podría utilizar una multifirma 2 de 2 para grandes gastos. Las multifirmas también forman una de las bases de los Contratos Inteligentes. Por ejemplo, un acuerdo de bienes raíces podría cerrarse con una multifirma 2 de 3, donde las firmas son enviadas por el comprador, el vendedor y un agente de custodia. Una vez que el agente de custodia acepta que se han cumplido todas las condiciones, libera los fondos para el vendedor; o alternativamente, el comprador y el vendedor pueden liberar conjuntamente los fondos.
 
-## What's Next?
+## ¿Qué sigue?
 
-Continue "Expanding Bitcoin Transactions" with [§6.2: Spending a Transaction with a Multisig](06_2_Spending_a_Transaction_to_a_Multisig.md).
+Continuar "Expandiendo Transacciones Bitcoin" con [§6.2: Spending a Transaction with a Multisig](06_2_Spending_a_Transaction_to_a_Multisig.md).
