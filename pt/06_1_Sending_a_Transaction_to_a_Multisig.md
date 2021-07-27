@@ -38,6 +38,7 @@ No entanto, não podemos criar um multisig com os endereços, pois esses são os
 
 Esta informação está disponível facilmente com o comando ```getaddressinfo```.
 
+
 Na máquina remota, que assumimos aqui que é ```machine2```, podemos obter as informações em uma lista.
 ```
 machine2$ bitcoin-cli -named getaddressinfo address=$address2
