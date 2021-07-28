@@ -1,4 +1,4 @@
-# 6.2: Spending a Transaction with a Multisig
+# 6.2: Gastando una Transacción con una Multifirma
 
 The classic, and complex, way of spending funds sent to a multisignature address using `bitcoin-cli` requires that you do a lot of foot work.
 
