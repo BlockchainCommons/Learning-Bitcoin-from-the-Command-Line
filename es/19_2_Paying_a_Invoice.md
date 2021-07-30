@@ -66,7 +66,7 @@ c$ lightning-cli --testnet pay lntb100u1p0cwnqtpp5djkdahy4hz0wc909y39ap9tm3rq2kk
 
 Sin embargo, _no_ necesita tener un canal con un nodo para poder pagarles. Solo debe haber una ruta razonable a través de Lightning Network.
 
-Imagina que recibió esta pequeña solicitud de pago por 11,111 msat:
+Imagine que recibió esta pequeña solicitud de pago por 11,111 msat:
 ```
 c$ lightning-cli --testnet decodepay lntb111110p1p0cw43ppp5u0ngjytlw6ywec3x784jale4xd7h058g9u4mthcaf9rl2f7g8zxsdp2t9hh2gr0wajjqmt9ypnx7u3qv35kumn9wgs8gmm0yyxqyjw5qcqp2sp5kj4xhrthmfgcgyl84zaqpl9vvdjwm5x368kr09fu5nym74setw4s9qy9qsq8hxjr73ee77vat0ay603e4w9aa8ag9sa2n55xznk5lsfrjffxxdj2k0wznvcfa98l4a57s80j7dhg0cc03vwqdwehkujlzxgm0xyynqqslwhvl
 {
