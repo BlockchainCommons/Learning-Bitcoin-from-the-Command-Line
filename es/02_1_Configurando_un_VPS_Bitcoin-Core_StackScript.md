@@ -1,10 +1,10 @@
 # 2.1: Configuración de un VPS Bitcoin-Core con Bitcoin Standup
 
-Este documento explica cómo configurar un VPS (Virtual Private Sever) para ejecutar un nodo Bitcoin en Linode.com, instalado usando un StackScript automatizado del [proyecto Bitcoin Standup](https://github.com/BlockchainCommons/Bitcoin-Standup-Scripts) . Solo necesita ingresar algunos comandos e iniciar su VPS. Casi inmediatamente después de arrancar, encontrará su nuevo nodo Bitcoin descargando bloques felizmente.
+Este documento explica cómo configurar un VPS (Virtual Private Sever) para ejecutar un nodo Bitcoin en Linode.com, instalado usando un StackScript automatizado del [proyecto Bitcoin Standup](https://github.com/BlockchainCommons/Bitcoin-Standup-Scripts). Solo necesita ingresar algunos comandos e iniciar su VPS. Casi inmediatamente después de arrancar, encontrará su nuevo nodo Bitcoin descargando bloques felizmente.
 
 > :warning: **ADVERTENCIA:** : No use un VPS para una billetera bitcoin con fondos reales significativos; ver [http://blog.thestateofme.com/2012/03/03/lessons-to-be-learned-from-the-linode-bitcoin-incident](http://blog.thestateofme.com/2012/03/03/lessons-to-be-learned-from-the-linode-bitcoin-incident). Es genial poder experimentar con transacciones reales de bitcoins en un nodo en vivo sin tener que conectar un servidor autohospedado en una red local. También es útil poder usar un iPhone o iPad para comunicarse a través de SSH con su VPS para realizar algunas tareas simples de bitcoin. Pero se requiere un mayor nivel de seguridad para fondos importantes.
 
-* Si desea comprender lo que hace esta configuración, lea el [Appendix I: Understanding Bitcoin Standup](A1_0_Understanding_Bitcoin_Standup.md) mientras realiza la instalación.
+* Si desea comprender lo que hace esta configuración, lea el [Apéndice I: Entendiendo Bitcoin Standup](A1_0_Entendiendo_la_Configuracion_Inicial_de_Bitcoin.md) mientras realiza la instalación.
 * Si, en cambio, desea configurar en una máquina que no sea un VPS Linode, como una máquina AWS o una Mac, puede ir a [2.2: Configuración de una máquina Bitcoin-Core a través de otros medios](02_2_Configurando_Bitcoin_Core_Otros.md)
 * Si ya tiene un nodo de Bitcoin en ejecución, vaya al [Capítulo tres: Entendiendo la configuración de Bitcoin](03_0_Entendiendo_su_configuracion_Bitcoin.md).
 
@@ -92,7 +92,7 @@ Tenga en cuenta que puede haber formas de reducir ambos costos.
 
 ### Hacer la configuración final
 
-Lo último que debe hacer es ingresar una contraseña de root. (¡Si te perdiste algo, te lo dirán ahora!)
+Lo último que debe hacer es ingresar una contraseña de root. (¡Si se perdiste algo, se lo dirán ahora!)
 
 Haga clic en "Implementar" para inicializar sus discos y preparar su VPS. Toda la cola debería ejecutarse en menos de un minuto. Cuando haya terminado, debería ver en la "Cola de trabajos del host", y unos botones verdes de "Éxito" que indican "Crear disco desde StackScript - Configuración de contraseña para root" y "Crear sistema de archivos - Imagen de intercambio de 256 MB" que se ha terminado.
 
@@ -125,7 +125,7 @@ Aquí hay un pequeño truco: _su StackScript se está ejecutando en este momento
 
 El tiempo total de ejecución es de unos 10 minutos. Por lo tanto, tome un descanso, tome un espresso o relájese durante unos minutos. Hay dos partes del script que toman un tiempo: la actualización de todos los paquetes Debian; y la descarga del código Bitcoin. No deberían tomar más de 5 minutos cada uno, lo que significa que si regresa en 10 minutos, probablemente estará listo para comenzar.
 
-Si está impaciente, puede saltar y `sudo tail -f ~ root / standup.log`, que mostrará el progreso actual de la instalación, como se describe en la siguiente sección.
+Si está impaciente, puede saltar y `sudo tail -f /standup.log`, que mostrará el progreso actual de la instalación, como se describe en la siguiente sección.
 
 ## Verifique su instalación
 
@@ -153,7 +153,7 @@ $ rm *
 Para garantizar que la versión de Bitcoin descargada sea válida, StackScript verifica tanto la firma como la suma de comprobación SHA. Debe verificar que ambas pruebas hayan salido bien:
 
 ```
-$ sudo grep VERIFICATION ~root/standup.log
+$ sudo grep VERIFICATION /standup.log
 ```
 
 Si ve algo como lo siguiente, todo debería estar bien:
@@ -177,7 +177,7 @@ Tenga en cuenta que es totalmente normal ver _algunos_ errores, particularmente 
 
 Si, en cambio desea ver un conjunto de información más pequeño, todos los errores deben estar en:
 
-`$ sudo more ~root/standup.err`
+`$ sudo more /standup.err`
 
 Todavía tiene una buena cantidad de información que no son errores, pero es una lectura más rápida.
 
@@ -216,7 +216,7 @@ Si por alguna razón quisiera cambiar esto (_no lo sugerimos_), puede hacer esto
 echo "unattended-upgrades unattended-upgrades/enable_auto_updates boolean false" | debconf-set-selections
 ```
 
-_Si desea saber más sobre lo que hace el stackscript de Bitcoin Standup, consulte el [Appendix I: Comprensión de Bitcoin Standup] (A1_0_Understanding_Bitcoin_Standup.md) ._
+_Si desea saber más sobre lo que hace el stackscript de Bitcoin Standup, consulte el [Apéndice I: Entendiendo Bitcoin Standup] (A1_0_Entendiendo_la_Configuracion_Inicial_de_Bitcoin.md) ._
 
 ## Jugando con Bitcoin
 
@@ -246,7 +246,7 @@ Tiene algunas opciones para lo que sigue:
 
  *Lea [StackScript] (https://github.com/BlockchainCommons/Bitcoin-Standup-Scripts/blob/master/Scripts/LinodeStandUp.sh) para comprender su configuración.
 
-* Lea lo que hace StackScript en el [Appendix I] (A1_0_Understanding_Bitcoin_Standup.md).
+* Lea lo que hace StackScript en el [Apéndice I] (A1_0_Entendiendo_la_Configuracion_Inicial_de_Bitcoin.md).
 
 * Elija una metodología completamente alternativa en [§2.2: Configuración de una máquina Bitcoin-Core a través de otros medios](02_2_Configurando_Bitcoin_Core_Otros.md).
 
@@ -263,4 +263,4 @@ Tiene algunas opciones para lo que sigue:
 
 ** Testnet podado. ** Estos son solo los últimos 550 bloques de Testnet ... porque la cadena de bloques de Testnet también es bastante grande ahora.
 
-** Private Regtest. ** Este es el modo de prueba de regresión, que le permite ejecutar un servidor Bitcoin totalmente local. Permite pruebas aún más profundas. No es necesario podar aquí, porque comenzará desde cero. Esta es una configuración muy diferente, por lo que se trata en el [Appendix 3] (A3_0_Using_Bitcoin_Regtest.md).
+** Private Regtest. ** Este es el modo de prueba de regresión, que le permite ejecutar un servidor Bitcoin totalmente local. Permite pruebas aún más profundas. No es necesario podar aquí, porque comenzará desde cero. Esta es una configuración muy diferente, por lo que se trata en el [Apéndice 3] (A3_0_Usando_Bitcoin_Regtest.md).
