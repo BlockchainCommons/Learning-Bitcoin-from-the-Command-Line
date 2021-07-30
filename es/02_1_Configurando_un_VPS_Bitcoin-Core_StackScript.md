@@ -171,7 +171,7 @@ También es posible que desee leer todos los archivos de registro de instalació
 
 Es mejor revisar el archivo de registro estándar de StackScript, que tiene todos los resultados, incluidos los errores:
 
-`$ sudo more ~root/standup.log`
+`$ sudo more /standup.log`
 
 Tenga en cuenta que es totalmente normal ver _algunos_ errores, particularmente cuando se ejecuta el ruidoso software pgp y cuando varias cosas intentan acceder al dispositivo inexistente `/dev/tty`.
 
