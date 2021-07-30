@@ -10,7 +10,7 @@ Obviamente, Bitcoin es el corazón de este libro, pero también es el creador de
 
 **_Cómo se transfieren las monedas?_** La moneda Bitcoin no son monedas físicas. En cambio, son una serie interminable de reasignaciones de propiedad. Cuando una persona envía monedas a otra, esa transferencia se almacena como una transacción. Es la transacción la que realmente registra la propiedad del dinero y no un token local en la billetera del propietario o en su máquina.
 
-**_A quién puedes enviar monedas?_** La gran mayoría de las transacciones de bitcoin implican el envío de monedas a personas individuales (o al menos a direcciones de bitcoin individuales). Sin embargo, se pueden utilizar metodologías más complejas para enviar monedas a grupos de personas o scripts. Estas diversas metodologías tienen nombres como P2PKH, multisig y P2SH.
+**_A quién puede enviarle monedas?_** La gran mayoría de las transacciones de bitcoin implican el envío de monedas a personas individuales (o al menos a direcciones de bitcoin individuales). Sin embargo, se pueden utilizar metodologías más complejas para enviar monedas a grupos de personas o scripts. Estas diversas metodologías tienen nombres como P2PKH, multisig y P2SH.
 
 **_Cómo se almacenan las transacciones?_** Las transacciones se combinan en bloques de datos más grandes, que luego se escriben en el libro mayor de la cadena de bloques. Un bloque se construye de tal manera que no se puede reemplazar o reescribir una vez que se han construido varios bloques sobre él (después). Esto es lo que hace que la moneda bitcoin sean irreprochable: el libro de contabilidad global descentralizado donde todo se registra es efectivamente una base de datos permanente e inmutable.
 
@@ -52,7 +52,7 @@ Una forma de entender la criptografía de clave pública es: una forma para que 
 
 ECC significa Criptografía de Curva Elíptica. Es una rama específica de la criptografía de clave pública que depende de cálculos matemáticos realizados utilizando curvas elípticas definidas sobre campos finitos. Es más complejo y más difícil de explicar que la criptografía de clave pública clásica (que utiliza números primos), pero tiene algunas ventajas interesantes.
 
-ECC no recibe mucha atención en este tutorial. Esto se debe a que este tutorial trata sobre la integración con los servidores Bitcoin Core y Lightning, que ya se han ocupado de la criptografía por el lector. De hecho, la intención de este tutorial es que no tengas que preocuparte en absoluto por la criptografía, porque eso es algo de lo que realmente quieres que se ocupen los expertos.
+ECC no recibe mucha atención en este tutorial. Esto se debe a que este tutorial trata sobre la integración con los servidores Bitcoin Core y Lightning, que ya se han ocupado de la criptografía por el lector. De hecho, la intención de este tutorial es que no tenga que preocuparse en absoluto por la criptografía, porque eso es algo de lo que realmente quiere que se ocupen los expertos.
 
 **_Qué es una curva elíptica?_** Una curva elíptica es una curva geométrica que toma la forma `y`<sup>`2`</sup> = `x`<sup>`3`</sup>` + ax + b`. Se elige una curva elíptica específica seleccionando valores específicos de `a` y `b`. Luego, la curva debe examinarse cuidadosamente para determinar si funciona bien para la criptografía. Por ejemplo, la curva secp256k1 utilizada por Bitcoin se define como `a=0` y `b=7`.
 
@@ -145,4 +145,4 @@ Bitcoin es un sistema peer-to-peer que permite la transferencia de fondos a trav
 
 ## Que Sigue?
 
-Continue a través de la "Preparación para Bitcoin" con el [Capítulo dos: Configuración de un VPS Bitcoin-Core](02_0_Configurando_un_VPS_Bitcoin-Core.md)
+Continúe a través de la "Preparación para Bitcoin" con el [Capítulo dos: Configuración de un VPS Bitcoin-Core](02_0_Configurando_un_VPS_Bitcoin-Core.md)
