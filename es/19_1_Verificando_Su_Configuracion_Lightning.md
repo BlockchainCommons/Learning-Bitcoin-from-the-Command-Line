@@ -6,7 +6,7 @@ En esta sección, instalará y verificará c-lightning, su utilidad para acceder
 
 > :libro: ***¿Qué es Lightning Network?*** Lightning Network es una red descentralizada que utiliza la funcionalidad de contrato inteligente de la cadena de bloques de Bitcoin para permitir pagos instantáneos a través de una red de participantes. Lightning está construido como un protocolo de capa 2 que interactúa con Bitcoin para permitir a los usuarios intercambiar sus bitcoins "fuera de la cadena".
 
->: libro: *** ¿Qué es un protocolo de capa 2? *** La capa 2 se refiere a un protocolo secundario construido sobre el sistema de cadena de bloques de Bitcoin. El objetivo principal de estos protocolos es resolver la velocidad de transacción y las dificultades de escalado que están presentes en Bitcoin: Bitcoin no es capaz de procesar miles de transacciones por segundo (TPS), por lo que se han creado protocolos de capa 2 para resolver el problema de escalabilidad de blockchain. . Estas soluciones también se conocen como soluciones de escalado "fuera de la cadena".
+>: libro: *** ¿Qué es un protocolo de capa 2? *** La capa 2 se refiere a un protocolo secundario construido sobre el sistema de cadena de bloques de Bitcoin. El objetivo principal de estos protocolos es resolver la velocidad de transacción y las dificultades de escalado que están presentes en Bitcoin: Bitcoin no es capaz de procesar miles de transacciones por segundo (TPS), por lo que se han creado protocolos de capa 2 para resolver el problema de escalabilidad de blockchain. Estas soluciones también se conocen como soluciones de escalado "fuera de la cadena".
 
 ## Instalar C-Lightning
 
@@ -27,7 +27,7 @@ standup  31229  0.0  0.1  22860  7556 pts/0    S    15:38   0:00 /usr/local/libe
 standup  32072  0.0  0.0   6208   888 pts/0    S+   15:50   0:00 grep -i lightning
 ```
 
-Si no es así, deberá instalarlo ahora. Desafortunadamente, si está utilizando Debian, deberá instalarlo a mano, compilando el código fuente, pero aún así debería ser bastante simple si sigue estas instrucciones. Si se encuentra en un sistema Ubuntu estándar, intente [Instalar desde Ubuntu ppa] (# variant-install-from-ubuntu-ppa), y siempre puede intentar [Instalar binarios precompilados] (# variant-install- binarios precompilados).
+Si no es así, deberá instalarlo ahora. Desafortunadamente, si está utilizando Debian, deberá instalarlo a mano, compilando el código fuente, pero aún así debería ser bastante simple si sigue estas instrucciones. Si se encuentra en un sistema Ubuntu estándar, intente [Instalar desde Ubuntu ppa](#variant-install-from-ubuntu-ppa), y siempre puede intentar [Instalar binarios precompilados](#variant-install-binarios precompilados).
 
 > :book: ***¿Qué es c-lightning?*** Hay tres implementaciones diferentes de Lightning en la actualidad: c-lightning, LND y Eclair. Todos deben ser funcionalmente compatibles, basados ​​en las mismas [RFC de BOLT](https://github.com/lightningnetwork/lightning-rfc/blob/master/00-introduction.md), pero sus detalles de implementación pueden ser diferentes. Hemos elegido c-lightning como base de nuestro curso porque también es parte del mismo [Elements Project](https://github.com/ElementsProject) que también contiene Libwally.
 
@@ -125,7 +125,7 @@ Si usa `ufw` de Bitcoin Standup, esto se hace de la siguiente manera:
 $ sudo ufw allow 9735
 ```
 
-## Verifica tu nodo
+## Verificar su nodo
 
 Puede comprobar si su nodo Lightning está listo para funcionar comparando la salida de `bitcoin-cli getblockcount` con el resultado de` blockheight` de `lightning-cli getinfo`.
 
@@ -235,7 +235,7 @@ Es posible que su configuración no tenga ningún archivo de configuración: c-l
 
 ## Resumen: Verificación de su configuración Lightning
 
-Antes de comenzar a jugar con Lightning, debes asegurarte de que tus alias estén configurados, tu `lightningd` se esté ejecutando y tu nodo esté sincronizado. Es posible que también desee configurar algún acceso a configuraciones alternativas de iluminación en otras redes.
+Antes de comenzar a jugar con Lightning, debe asegurarse de que sus alias estén configurados, su `lightningd` se esté ejecutando y su nodo esté sincronizado. Es posible que también desee configurar algún acceso a configuraciones alternativas de iluminación en otras redes.
 
 ## ¿Que sigue?
 
