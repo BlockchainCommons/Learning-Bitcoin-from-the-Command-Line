@@ -13,7 +13,7 @@ c-lightning es una implementación ligera, altamente pseronalizable y compatible
 * Las suscripciones de flujo de eventos proporcionan complementos con un mecanismo de notificación basado en push para `lightnind`.
 * Los hooks son una opción primitiva que permite que los complementos sean notificados sobre eventos en el demonio `lightningd` y modifiquen su comportamiento o transmitan comportamientos personalizados.
 
-Un complementos puede estar escrito en cualquier lenguaje y puede comunicarse con `lightningd` a través de stdin y stdout del complemento. JSON-RPCv2 se utiliza como protocolo en la parte superior de los dos flujos, con el complemento actuando como servidor y `lightningd` actuando como cliente. 
+Un complemento puede estar escrito en cualquier lenguaje y puede comunicarse con `lightningd` a través de stdin y stdout del complemento. JSON-RPCv2 se utiliza como protocolo en la parte superior de los dos flujos, con el complemento actuando como servidor y `lightningd` actuando como cliente. 
 
 El repositorio de GitHub `lightningd` mantiene una lista actualizada de [complementos](https://github.com/lightningd/plugins) disponibles.
 
