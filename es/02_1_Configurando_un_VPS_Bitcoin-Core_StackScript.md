@@ -1,6 +1,6 @@
 # 2.1: Configuración de un VPS Bitcoin-Core con Bitcoin Standup
 
-Este documento explica cómo configurar un VPS (Virtual Private Sever) para ejecutar un nodo Bitcoin en Linode.com, instalado usando un StackScript automatizado del [proyecto Bitcoin Standup](https://github.com/BlockchainCommons/Bitcoin-Standup-Scripts). Solo necesita ingresar algunos comandos e iniciar su VPS. Casi inmediatamente después de arrancar, encontrará su nuevo nodo Bitcoin descargando bloques felizmente.
+Este documento explica cómo configurar un VPS (Virtual Private Sever) para ejecutar un nodo Bitcoin en Linode.com, instalado usando un StackScript automatizado del [proyecto Bitcoin Standup.](https://github.com/BlockchainCommons/Bitcoin-Standup-Scripts). Solo necesita ingresar algunos comandos e iniciar su VPS. Casi inmediatamente después de arrancar, encontrará su nuevo nodo Bitcoin descargando bloques felizmente.
 
 > :warning: **ADVERTENCIA:** : No use un VPS para una billetera bitcoin con fondos reales significativos; ver [http://blog.thestateofme.com/2012/03/03/lessons-to-be-learned-from-the-linode-bitcoin-incident](http://blog.thestateofme.com/2012/03/03/lessons-to-be-learned-from-the-linode-bitcoin-incident). Es genial poder experimentar con transacciones reales de bitcoins en un nodo en vivo sin tener que conectar un servidor autohospedado en una red local. También es útil poder usar un iPhone o iPad para comunicarse a través de SSH con su VPS para realizar algunas tareas simples de bitcoin. Pero se requiere un mayor nivel de seguridad para fondos importantes.
 
@@ -77,7 +77,7 @@ Si, en cambio, desea tener una Mainnet no podada en un VPS, deberá instalar un 
 
 El siguiente cuadro muestra los requisitos mínimos
 
-| Configuración | Memoria | Almacenamiento | Linnode |
+| Configuración | Memoria | Almacenamiento | Linode |
 |-------|--------|---------|---------|
 | Mainnet | 2G | 280G | Linode 16GB |
 | Mainnet podada | 2G | ~5G | Linode 4GB |
