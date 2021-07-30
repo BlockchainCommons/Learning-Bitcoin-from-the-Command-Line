@@ -20,11 +20,11 @@ $ ls ~/.lightning/testnet3
 config  gossip_store  hsm_secret  lightningd.sqlite3  lightningd.sqlite3-journal  lightning-rpc
 ```
 
-> :link: **TESTNET vs MAINNET:** Si está utilizando mainnet, entonces _todo_ se colocará en el directorio`~/.lightning/bitcoin`. Estas diversas configuraciones se hacen elegantemente, por lo que si usted está usando MainNet, testnet y Regtest, usted encontrará que `~/.lightning/bitcoin` contiene el archivo de configuración y sus datos MainNet, el directorio `~/.lightning/testnet` contiene los datos Testnet, y el directorio `~/.lightning/regtest` contiene sus datos regtest.
+> :link: **TESTNET vs MAINNET:** Si está utilizando mainnet, entonces _todo_ se colocará en el directorio `~/.lightning/bitcoin`. Estas diversas configuraciones se hacen elegantemente, por lo que si usted está usando MainNet, testnet y Regtest, usted encontrará que `~/.lightning/bitcoin` contiene el archivo de configuración y sus datos MainNet, el directorio `~/.lightning/testnet` contiene los datos Testnet, y el directorio `~/.lightning/regtest` contiene sus datos regtest.
 
 ## Conozca sus comandos lightning-cli
 
-La mayor parte de su trabajo inicial se realizará con el comando `lightning-cli`, ue ofrece una interfaz fácil contra `lightningd`, tal como lo hace `bitcoin-cli`.
+La mayor parte de su trabajo inicial se realizará con el comando `lightning-cli`, que ofrece una interfaz fácil contra `lightningd`, tal como lo hace `bitcoin-cli`.
 
 Ya ha visto que el `help` comando le dará una lista de otros comandos:
 ```
