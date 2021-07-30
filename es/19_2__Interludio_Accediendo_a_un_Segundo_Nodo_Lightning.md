@@ -2,7 +2,7 @@
 
 > :information_source: **NOTA:** Esta sección se ha añadido recientemente al curso y es un borrador temprano que todavía puede estar pendiente de revisión. Lectura con advertencias.
 
-Cuando jugaba con Bitcoin estaba accediendo a una red existente, y eso hizo que fuera relativamente fácil trabajar con ello: solo fue arrancar  `bitcoind` e inmediatamente interactuaba con la red. Así funciona ahora Lightning: es fundamentalmente una red de igual a igual, construida a partir de las conexiones entre dos nodos individuales. En otras palabras, para interactuar con la red Lightning, primero tendrá que encontrar un nodo al que conectarte.
+Cuando jugaba con Bitcoin estaba accediendo a una red existente, y eso hizo que fuera relativamente fácil trabajar con ello: solo fue arrancar  `bitcoind` e inmediatamente interactuaba con la red. Así funciona ahora Lightning: es fundamentalmente una red de igual a igual, construida a partir de las conexiones entre dos nodos individuales. En otras palabras, para interactuar con la red Lightning, primero tendrá que encontrar un nodo al cual conectarse.
 
 Hay cuatro maneras de hacerlo (las tres primeras son posibles para su primera conexión):
 
