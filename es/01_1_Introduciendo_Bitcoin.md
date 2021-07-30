@@ -127,7 +127,7 @@ A diferencia de Bitcoin, en realidad existen varias variantes de Lightning. Este
 
 **_Qué es un protocolo de capa 2?_** Un protocolo de Bitcoin de capa 2 funciona sobre Bitcoin. En este caso, Lightning funciona sobre Bitcoin, interactuando con este a través de contratos inteligentes.
 
-**_Qué es un canal Lightning?_** Un canal Lightning es una conexión entre dos usuarios de Lightning. Cada uno de los usuarios bloquea una cierta cantidad de bitcoins en la cadena de bloques de Bitcoin utilizando una transacción multi-sig firmada por ambos. Los dos usuarios pueden intercambiar bitcoins a través de su canal Lightning sin tener que escribir en la cadena de bloques de Bitcoin. Solo cuando quieren cerrar su canal liquidan sus bitcoins, según la división final de monedas.
+**_Qué es un canal Lightning?_** Un canal Lightning es una conexión entre dos usuarios de Lightning. Cada uno de los usuarios bloquea una cierta cantidad de bitcoins en la cadena de bloques de Bitcoin utilizando una transacción multi-firma por ambos. Los dos usuarios pueden intercambiar bitcoins a través de su canal Lightning sin tener que escribir en la cadena de bloques de Bitcoin. Solo cuando quieren cerrar su canal liquidan sus bitcoins, según la división final de monedas.
 
 **_Qué es la red Lightning?_** Al juntar varios canales se crea la red Lightning. Esto permite que dos usuarios que no han creado un canal entre ellos intercambien bitcoins usando Lightning: el protocolo forma una cadena de Canales entre los dos usuarios, luego intercambia las monedas a través de la cadena mediante transacciones de tiempo bloqueado.
 
