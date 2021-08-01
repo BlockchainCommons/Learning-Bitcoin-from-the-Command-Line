@@ -106,7 +106,7 @@ The result of the final `OP_CHECKMULTISIG` that was run will be left on the top 
 
 We've talked a lot about escrows. Complex multisigs combined with timelocks offer an automated way to create them in a robust manner.
 
-Imagine home buyer Alice and home seller Bob who are working with an escrow agent The easy way to script this would be as a multisig where any two of the three parties could release the money: either the seller and buyer agree or the escrow agent takes over and agrees with one of the parties: `2 <pubKeyA> <pubKeyB> <pubKeyEscrow> 3 OP_CHECKMULTISG`.
+Imagine home buyer Alice and home seller Bob who are working with an escrow agent. The easy way to script this would be as a multisig where any two of the three parties could release the money: either the seller and buyer agree or the escrow agent takes over and agrees with one of the parties: `2 <pubKeyA> <pubKeyB> <pubKeyEscrow> 3 OP_CHECKMULTISG`.
 
 However, this weakens the power of the escrow agent and allows the seller and buyer to accidentally make a bad decision between themselves — which is one of the things an escrow system is designed to avoid. So it could be that what we really want is the system that we just laid out, where the escrow agent is a required party in the 2-of-3 multisig: `OP_3DUP 2 <pubKeyEscrow> <pubKeyA> 2  OP_CHECKMULTISIG NOTIF 2 <pubKeyEscrow> <pubKeyB> 2  OP_CHECKMULTISIG ENDIF`.
 
