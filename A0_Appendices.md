@@ -1,6 +1,6 @@
 # Appendices
 
-The main body of this course suggests a fairly standard setup for Bitcoin testing. What follows is these appendices are a better explanation of that setup and some options for alternatives.
+The main body of this course suggests a fairly standard setup for Bitcoin testing. What follows in these appendices are a better explanation of that setup and some options for alternatives.
 
 ## Objectives for This Section
 
