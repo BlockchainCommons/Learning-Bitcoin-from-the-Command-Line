@@ -38,7 +38,7 @@ standup    455  1.3 34.4 3387536 1392904 ?     SLsl Jun16  59:30 /usr/local/bin/
 ```
 Si no se está ejecutando, querrá ejecutarlo `/usr/local/bin/bitcoind -daemon` manualmente y también colocarlo en su crontab.
 
-## Verificando sus bloques
+## Verifique sus bloques
 
 Debería tener toda la cadena de bloques descargada antes de comenzar a jugar. Simplemente ejecute el alias `bitcoin-cli getblockcount`  para ver si está todo cargado.
 
@@ -46,12 +46,11 @@ Debería tener toda la cadena de bloques descargada antes de comenzar a jugar. S
 $ bitcoin-cli getblockcount
 1772384
 ```
-That tells you what's loaded; you'll then need to check that against an online service that tells you the current block height.
 Eso le indica lo que está descargado; luego deberá verificarlo con un servicio en línea que le indique la altura actual del bloque.
 
 > :book: ***Qué es la altura del bloque?*** La altura del bloque es la distancia a la que se retira un bloque particular del bloque génesis. La altura del bloque actual es la altura del bloque más nuevo agregado a una cadena de bloques.
 
-Puede hacer esto mirando un explorador de blocknet, como el explorador de [Blockcypher Testnet explorer](https://live.blockcypher.com/btc-testnet/). Su número más reciente coincide con la salida del `getblockcount`? Si es así, está actualizado.
+Puede hacer esto mirando un explorador de blocknet, tal como [Blockcypher Testnet explorer](https://live.blockcypher.com/btc-testnet/). Su número más reciente coincide con la salida del `getblockcount`? Si es así, está actualizado.
 
 Si desea un alias para ver todo a la vez, lo siguiente funciona actualmente para Testnet, pero puede desaparecer en algún momento en el futuro:
 
@@ -64,7 +63,7 @@ $ btcblock
 1804372/1804372
 ```
 
-> :link: **TESTNET vs MAINNET:** Recuerde que este tutorial generalmente asume que está usando testnet. Si en cambio está utilizando la red MainNet, se puede recuperar la altura del bloque actual con: wget -O - http://blockchain.info/q/getblockcount 2>/dev/null. Puede reemplazar la segunda mitad del alias `btblock` (después de `/`) con eso.
+> :link: **TESTNET vs MAINNET:** Recuerde que este tutorial generalmente asume que está usando testnet. Si en cambio está utilizando la red mainnet, se puede recuperar la altura del bloque actual con: `wget -O - http://blockchain.info/q/getblockcount 2>/dev/null`. Puede reemplazar la segunda mitad del alias `btblock` (después de `/`) con eso.
 
 Si no está actualizado, pero la salida de su `getblockcount` está aumentando, no hay problema. El tiempo total de descarga puede llevar desde una hora hasta varias horas, según su configuración.
 
@@ -83,7 +82,7 @@ regtest=1
 
 Sin embargo, si desea ejecutar varios tipos diferentes de nodos simultáneamente, debe dejar la marca testnet (o regtest) fuera de su archivo de configuración. Luego puede elegir si está utilizando la red principal, la red de prueba o su registro cada vez que ejecuta bitcoind o bitcoin-cli.
 
-Aquí hay un conjunto de alias que lo facilitarían al crear un alias específico para iniciar y detener el bitcoind, para ir al directorio de bitcoin y para ejecutar bitcoin-cli, para cada una de las redes principales (que no tiene indicadores adicionales), el testnet (que es -testnet), o su regtest (que es -regtest).
+Aquí hay un conjunto de alias que lo facilitarían al crear un alias específico para iniciar y detener el bitcoind, para ir al directorio de bitcoin y para ejecutar bitcoin-cli, para cada una de las redes principales; mainnet (que no tiene indicadores adicionales), testnet (que es -testnet), o regtest (que es -regtest).
 
 ```
 cat >> ~/.bash_profile <<EOF
@@ -113,4 +112,4 @@ Antes de comenzar a jugar con bitcoin, debe asegurarse de que sus alias estén c
 
 ## Que sigue?
 
-Continue con "Entendiendo su Configuración Bitcoin" en [§3.2: Entendiendo su configuración Bitcoin](03_2_Conociendo_Su_Configuracion_Bitcoin.md).
+Continue "Conociendo su configuración Bitcoin" en [§3.2: Entendiendo su configuración Bitcoin](03_2_Conociendo_Su_Configuracion_Bitcoin.md).
