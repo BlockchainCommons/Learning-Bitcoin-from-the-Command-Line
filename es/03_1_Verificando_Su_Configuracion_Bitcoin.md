@@ -1,4 +1,4 @@
-# 3.1: Verificación de la configuración de Bitcoin
+# 3.1: Verificando su configuración Bitcoin
 
 Antes de comenzar a jugar con Bitcoin, debe asegurarse de que todo esté configurado correctamente.
 
