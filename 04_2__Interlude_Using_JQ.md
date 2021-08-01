@@ -1,23 +1,23 @@
-# Interlude: Using JQ
+# Interludio: Usando JQ
 
-Creating a raw transaction revealed how more complex bitcoin-cli results can't easily be saved into command-line variables. The answer is JQ, which allows you to filter out individual elements from more complex JSON data.
+La creación de una transacción en crudo reveló cómo los resultados más complejos de bitcoin-cli no pueden guardarse fácilmente en variables de línea de comandos. La respuesta es JQ, que permite extraer elementos individuales de JSON más complejos.
 
-## Install JQ
+## Instalación de JQ
 
-JQ is available from a [Github repository](https://stedolan.github.io/jq/). Just download for Linux, OS X, or Windows, as appropriate.
+JQ esta disponible en [Github repository](https://stedolan.github.io/jq/). Descargar para Linux, OS X, or Windows, según corresponda.
 
-Once you've downloaded the binary, you can install it on your system. If you're working on a Debian VPS as we suggest, your installation will look like this:
+Una vez que haya descargado el binario, puede instalarlo en su sistema. Si está trabajando en un VPS Debian como sugerimos, tu instalación se verá así:
 ```
 $ mv jq-linux64 jq
 $ sudo /usr/bin/install -m 0755 -o root -g root -t /usr/local/bin jq
 ```
-> :book: ***What is JQ?*** The repository explains it best, saying "jq is like sed for JSON data - you can use it to slice and filter and map and transform structured data with the same ease that sed, awk, grep and friends let you play with text."
+> :libro: ***¿Qué es JQ?*** JQ es para datos JSON - puedes usarlo para cortar, filtrar,  mapear y transformar datos estructurados con la misma facilidad que , , y sus amigos te permiten jugar con el texto."
 
-## Use JQ to Access a JSON Object Value by Key
+## Utilizar JQ para acceder al valor de un objeto JSON por clave
 
-**Usage Example:** _Capture the hex from a signed raw transaction._
+**Ejemplo de uso:** _Capturar el hex de una transacción cruda firmada._
 
-In the previous section, the use of `signrawtransaction` offered an example of not being able to easily capture data into variables due to the use of JSON output:
+En la sección anterior, el uso de `signrawtransaction` ofreció un ejemplo de no poder capturar fácilmente los datos en las variables debido al uso de JSON como salida:
 ```
 $ bitcoin-cli signrawtransactionwithwallet $rawtxhex
 {
@@ -25,33 +25,33 @@ $ bitcoin-cli signrawtransactionwithwallet $rawtxhex
   "complete": true
 }
 ```
-Fortunately, JQ can easily capture data of that sort!
+Afortunadamente, JQ puede capturar fácilmente este tipo de datos.
 
-To use JQ, run `jq` at the backend of a pipe, and always use the standard invocation of `jq -r '.'`. The `-r` tells JQ to produce raw output, which will work for command-line variables, while the `.` tells jq to output. We protect that argument in `' '` because we'll need that protection later as our `jq` invocations get more complex.
+Para utilizar JQ, ejecute `jq` en el extremo posterior de una tubería, y utilice siempre la invocación estándar de `jq -r '.'`. El `-r` le dice a JQ que produzca una salida cruda, que funcionará para las variables de la línea de comandos, mientras que el `.` le dice a jq que salga. Protegemos ese argumento en `' ` porque necesitaremos esa protección más adelante cuando nuestras invocaciones de `jq` se vuelvan más complejas.
 
-To capture a specific value from a JSON object, you just list the key after the `.`:
+Para capturar un valor específico de un objeto JSON, basta con enumerar la clave después del `.`:
 ```
 $ bitcoin-cli signrawtransactionwithwallet $rawtxhex | jq -r '.hex'
 02000000013a6e4279b799791049e1826602e84d2e36797e2005887b98c3ecf16b01b7f361010000006a4730440220335d15a2a2ca3ce6a302ce041686739d4a38eb0599a5ea08305de71965268d05022015f77a33cf7d613015b2aba5beb03088033625505ad5d4d0624defdbea22262b01210278608b54b8fb0d8379d3823d31f03a7c6ab0adffb07dd3811819fdfc34f8c132ffffffff01409c0000000000001976a914e7c1345fc8f87c68170b3aa798a956c2fe6a9eff88ac00000000
 ```
-With that tool in hand, you can capture information from JSON objects to command-line variables:
+Con esa herramienta en la mano, puede capturar información de objetos JSON en variables de línea de comandos:
 ```
 $ signedtx=$(bitcoin-cli signrawtransactionwithwallet $rawtxhex | jq -r '.hex')
 $ echo $signedtx
 02000000013a6e4279b799791049e1826602e84d2e36797e2005887b98c3ecf16b01b7f361010000006a4730440220335d15a2a2ca3ce6a302ce041686739d4a38eb0599a5ea08305de71965268d05022015f77a33cf7d613015b2aba5beb03088033625505ad5d4d0624defdbea22262b01210278608b54b8fb0d8379d3823d31f03a7c6ab0adffb07dd3811819fdfc34f8c132ffffffff01409c0000000000001976a914e7c1345fc8f87c68170b3aa798a956c2fe6a9eff88ac00000000
 ```
-You can then use those variables easily and without error:
+Así podrá utilizar esas variables fácilmente y sin errores:
 ```
 $ bitcoin-cli sendrawtransaction $signedtx
 3f9ccb6e16663e66dc119de1866610cc4f7a83079bfec2abf0598ed3adf10a78
 ```
-## Use JQ to Access Single JSON Object Values in an Array by Key
+## Utilizar JQ para acceder a los valores de un objeto JSON en una Arreglo por clave
 
-**Usage Example:** _Capture the txid and vout for a selected UTXO._
+**Ejemplo de uso:** _Capturar el txid y vout para un UTXO seleccionado._
 
-Grabbing data out of a JSON object is easy, but what if that JSON object is in a JSON array? The `listunspent` command offers a great example, because it'll usually contain a number of different transactions. What if you want to capture specific information from _one_ of them?
+Sacar datos de un objeto JSON es fácil, pero ¿Qué pasa si ese objeto JSON está en un arreglo JSON? El comando `listunspent` ofrece un gran ejemplo, porque normalmente contendrá un número de transacciones diferentes. ¿Y si quieres capturar información específica de _una_ de ellas?
 
-When working with a JSON array, the first thing you need to do is tell JQ which index to access. For example, you might have looked through your transactions in `listunspent` and decided that you wanted to work with the second of them. You use `'.[1]'` to access that first element. The `[]` says that we're referencing a JSON array and the `0` says we want the 0th index.
+Cuando se trabaja con un array JSON, lo primero que hay que hacer es decirle a JQ a qué índice debe acceder. Por ejemplo, puede que hayas mirado tus transacciones en `listunspent` y hayas decidido que quieres trabajar con la segunda de ellas. Usas `'.[1]'` para acceder a ese primer elemento. El `[]` dice que estamos haciendo referencia a un arreglo JSON y el `0` dice que queremos el índice 0.
 ```
 $ bitcoin-cli listunspent | jq -r '.[1]'
 {
@@ -68,14 +68,14 @@ $ bitcoin-cli listunspent | jq -r '.[1]'
   "safe": true
 }
 ```
-You can then capture an individual value from that selected array by (1) using a pipe _within_ the JQ arguments; and then (2) requesting the specific value afterward, as in the previous example. The following would capture the `txid` from the 0th JSON object in the JSON array produced by `listunspent`:
+A continuación, puede capturar un valor individual de esa arreglo seleccionada (1) utilizando una tubería _dentro_ de los argumentos JQ; y luego (2) solicitando el valor específico después, como en el ejemplo anterior. Lo siguiente capturaría el `txid` del objeto JSON número 0 del arreglo JSON producido por `listunspent`:
 ```
 $ bitcoin-cli listunspent | jq -r '.[1] | .txid'
 91261eafae15ea53dedbea7c1db748c52bbc04a85859ffd0d839bda1421fda4c
 ```
-Carefully note how the `' 's` go around the whole JQ expression _including_ the pipe.
+Observe cuidadosamente cómo las `' 's` van alrededor de toda la expresión JQ _incluyendo_ la tubería.
 
-This method can be used to fill in variables for a UTXO that you want to use:
+Este método se puede utilizar para rellenar las variables de un UTXO que se quiera utilizar:
 ```
 $ newtxid=$(bitcoin-cli listunspent | jq -r '.[1] | .txid')
 $ newvout=$(bitcoin-cli listunspent | jq -r '.[1] | .vout')
@@ -84,24 +84,24 @@ $ echo $newtxid
 $ echo $newvout
 0
 ```
-Voila! We could now create a new raw transaction using our 1st UTXO as an input, without having to type in any of the UTXO info by hand!
+¡Voila! Ahora podemos crear una nueva transacción en crudo utilizando nuestro primer UTXO como entrada, ¡Sin tener que teclear ninguna información del UTXO a mano!
 
-## Use JQ to Access Matching JSON Object Values in an Array by Key
+## Utilizar JQ para acceder a valores de objetos JSON coincidentes con un arreglo por clave
 
-**Usage Example:** _List the value of all unspent UTXOs._
+**Ejemplo de uso:** _Lista el valor de todos los UTXOs no gastados._
 
-Instead of accessing a single, specific value in a specific JSON object, you could instead access all of a specific value across all the JSON objects. This is done with `.[]`, where no index is specified. For example, this would list all unspent funds:
+En lugar de acceder a un único valor específico en un objeto JSON específico, se puede acceder a todo un valor específico en todos los objetos JSON. Esto se hace con `.[]`, donde no se especifica ningún índice. Por ejemplo, esto listaría todos los fondos no gastados:
 ```
 $ bitcoin-cli listunspent | jq -r '.[] | .amount'
 0.0001
 0.00022
 ```
 
-## Use JQ for Simple Calculations by Key
+## Utilizar JQ para cálculos sencillos por clave
 
-**Usage Example:** _Sum the value of all unspent UTXOs._
+**Ejemplo de uso:** _Sumar el valor de todos los UTXOs no gastados._
 
-At this point, you can start using JQ output for simple math. For example, adding up the values of those unspent transactions with a simple `awk` script would give you the equivalent of `getbalance`:
+En este punto, puede empezar a usar la salida de JQ para hacer cálculos sencillos. Por ejemplo, sumando los valores de esas transacciones no gastadas con un simple script `awk` te dara el equivalente a `getbalance`:
 ```
 $ bitcoin-cli listunspent | jq -r '.[] | .amount' | awk '{s+=$1} END {print s}'
 0.00032
@@ -109,13 +109,13 @@ $ bitcoin-cli getbalance
 0.00032000
 ```
 
-## Use JQ to Display Multiple JSON Object Values in an Array by Multiple Keys
+## Usar JQ para mostrar múltiples valores de objetos JSON en un arreglo de claves múltiples
 
-**Usage Example:** _List usage information for all UTXOs._
+**Ejemplo de uso:** _Lista de información de uso para todos los UTXOs._
 
-JQ can easily capture individual elements from JSON objects and arrays and place those elements into variables. That will be its prime use in future sections. However, it can also be used to cut down huge amounts of information output by `bitcoin-cli` into reasonable amounts of information.
+JQ puede capturar fácilmente elementos individuales de objetos JSON y arreglos y colocar esos elementos en variables. Ese será su principal uso en futuras secciones. Sin embargo, también se puede utilizar para reducir las enormes cantidades de información emitidas por `bitcoin-cli` en cantidades razonables de información.
 
-For example, you might want to see a listing of all your UTXOs (`.[]`) and get a listing of all of their most important information (`.txid, .vout, .amount`):
+Por ejemplo, puede querer ver un listado de todos sus UTXOs (`.[]`) y obtener un listado de toda su información más importante (`.txid, .vout, .amount`):
 ```
 $ bitcoin-cli listunspent | jq -r '.[] | .txid, .vout, .amount'
 ca4898d8f950df03d6bfaa00578bd0305d041d24788b630d0c4a32debcac9f36
@@ -125,11 +125,11 @@ ca4898d8f950df03d6bfaa00578bd0305d041d24788b630d0c4a32debcac9f36
 0
 0.00022
 ```
-This makes it easy to decide which UTXOs to spend in a raw transaction, but it's not very pretty.
+Esto hace que sea fácil decidir qué UTXOs gastar en una transacción en crudo, pero no es muy bonito.
 
-Fortunately, JQ also lets you be fancy. You can use `{}`s to create new JSON objects (either for additional parsing or for pretty output). You also get to define the name of the new key for each of your values. The resulting output should be much more intuitive and less prone to error (though obviously, less useful for dumping info straight into variables).
+Afortunadamente, JQ también te permite ser elegante. Puedes usar `{}`s para crear nuevos objetos JSON (ya sea para un análisis adicional o para una salida bonita). También puede definir el nombre de la nueva clave para cada uno de sus valores. La salida resultante debería ser mucho más intuitiva y menos propensa a errores (aunque, obviamente, menos útil para volcar información directamente en las variables).
 
-The following example shows the exact same parsing of `listunspent`, but with the each old JSON object rebuilt as a new, abridged JSON object, with all of the new values named with their old keys:
+El siguiente ejemplo muestra exactamente el mismo análisis de `listunspent`, pero con cada objeto JSON antiguo reconstruido como un nuevo objeto JSON abreviado, con todos los nuevos valores nombrados con sus antiguas claves:
 ```
 $ bitcoin-cli listunspent | jq -r '.[] | { txid: .txid, vout: .vout, amount: .amount }'
 {
@@ -157,13 +157,13 @@ $ bitcoin-cli listunspent | jq -r '.[] | { tx: .txid, output: .vout, bitcoins: .
   "bitcoins": 0.00022
 }
 ```
-## Use JQ to Access JSON Objects by Looked-Up Value
+## Utilizar JQ para acceder a objetos JSON por valor de búsqueda
 
-**Usage Example:** _Automatically look up UTXOs being used in a transaction._
+**Ejemplo de uso:** _Buscar automáticamente los UTXOs que se utilizan en una transacción._
 
-The JQ lookups so far have been fairly simple: you use a key to look up one or more values in a JSON object or array. But what if you instead want to look up a value in a JSON object ... by another value? This sort of indirect lookup has real applicability when you're working with transactions built on existing UTXOs. For example, it can allow you to calculate the sum value of the UTXOs being used in a transaction, something that is vitally important.
+Hasta ahora, las búsquedas en JQ han sido bastante sencillas: se utiliza una clave para buscar uno o más valores en un objeto o arreglo JSON. ¿Pero qué pasa si quieres buscar un valor en un objeto JSON... por otro valor? Este tipo de búsqueda indirecta tiene una aplicación real cuando se trabaja con transacciones construidas sobre UTXOs existentes. Por ejemplo, puede permitirte calcular el valor de la suma de los UTXOs que se utilizan en una transacción, algo que es de vital importancia.
 
-This example uses the following raw transaction. Note that this is a more complex raw transaction with two inputs and two outputs. We'll learn about making those in a few sections; for now, it's necessary to be able to offer robust examples. Note that unlike our previous examples, this one has two objects in its `vin` array and two in its `vout` array.
+Este ejemplo utiliza la siguiente transacción en crudo. Tenga en cuenta que esta es una transacción cruda más compleja con dos entradas y dos salidas. Aprenderemos a hacerlas en próximas secciones; por ahora, es necesario para poder ofrecer ejemplos robustos. Observa que, a diferencia de nuestros ejemplos anteriores, éste tiene dos objetos en su matriz `vin` y dos en su matriz `vout`.
 ```
 $ bitcoin-cli decoderawtransaction $rawtxhex
 {
@@ -224,9 +224,9 @@ $ bitcoin-cli decoderawtransaction $rawtxhex
 }
 ```
 
-### Retrieve the Value(s)
+### Recuperar el(los) valor(es)
 
-Assume that we know exactly how this transaction is constructed: we know that it uses two UTXOs as input. To retrieve the txid for the two UTXOs, we could use `jq` to look up the transaction's .vin value, then reference the .vin's 0th array, then that array's .txid value. Afterward, we could do the same with the 1st array, then the same with the .vin's two .vout values. Easy:
+Supongamos que sabemos exactamente cómo se construye esta transacción: sabemos que utiliza dos UTXOs como entrada. Para recuperar el txid de los dos UTXOs, podríamos usar `jq` para buscar el valor .vin de la transacción, luego referenciar el arreglo 0 del .vin, y luego el valor .txid de ese arreglo. Después, podríamos hacer lo mismo con el 1er arreglo, y luego lo mismo con los dos valores .vout del .vin. Fácil:
 ```
 $ usedtxid1=$(bitcoin-cli decoderawtransaction $rawtxhex | jq -r '.vin | .[0] | .txid')
 $ echo $usedtxid1
@@ -242,9 +242,9 @@ $ usedvout2=$(bitcoin-cli decoderawtransaction $rawtxhex | jq -r '.vin | .[1] | 
 $ echo $usedvout2
 1
 ```
-However, it would be better to have a general case that _automatically_ saved all the txids of our UTXOs.
+Sin embargo, sería mejor tener un caso general que _automáticamente_ guardara todos los txids de nuestros UTXOs.
 
-We already know that we can access all of the `.txid`s by using an `.[]` array value. We can use that to build a general .txid lookup:
+Ya sabemos que podemos acceder a todos los `.txid`s utilizando un valor de matriz `.[]`. Podemos usar eso para construir una búsqueda general de .txid:
 ```
 $ usedtxid=($(bitcoin-cli decoderawtransaction $rawtxhex | jq -r '.vin | .[] | .txid'))
 $ echo ${usedtxid[0]}
@@ -258,17 +258,17 @@ $ echo ${usedvout[0]}
 $ echo ${usedvout[1]}
 1
 ```
-The only real trick here is how we saved the information using the bash shell. Rather than saving to a variable with `$(command)`, we instead saved to an array with `($(command))`. We were then able to access the individual bash array elements with a `${variable[n]}` construction. We could instead access the whole array with `${variable[@]}`. (Yeah, no one ever said bash was pretty.)
+El único truco real aquí es cómo guardamos la información usando el shell bash. En lugar de guardar en una variable con `$(comando)`, guardamos en una matriz con `($(comando))`. Entonces pudimos acceder a los elementos individuales de la matriz bash con una construcción `${variable[n]}`. En cambio, podíamos acceder a todo el arreglo con `${variable[@]}`. (Sí, nadie dijo nunca que bash fuera bonito).
 
-> :warning: **WARNING:** Always remember that a UTXO is a transaction _plus_ a vout. We missed the vout the first time we wrote this JQ example, and it stopped working when we ended up with a situation where we'd been sent two `vouts` from the same transaction.
+> :advertencia: **ADVERTENCIA:** Recuerde siempre que un UTXO es una transacción _más_ un vout. La primera vez que escribimos este ejemplo de JQ se nos escapó el vout, y dejó de funcionar cuando acabamos con una situación en la que nos habían enviado dos `vouts` de la misma transacción.
 
-### Retrieve the Related Object(s)
+### Recuperar los objetos relacionados
 
-You can now use your saved `txid` and `vout` information to reference UTXOs in `listunspent`. To find the information on the UTXOs being used by the raw transaction, you need to look through the entire JSON array (`[]`) of unspent transactions. You can then choose (`select`) individual JSON objects that include (`contains`) the txids. You _then_ select (`select`) the transactions among those that _also_ contains (`contain`) the correct vout.
+Ahora puede utilizar la información guardada de `txid` y `vout` para referenciar UTXOs en `listunspent`. Para encontrar la información sobre los UTXOs que están siendo utilizados por la transacción en crudo, es necesario buscar en todo el arreglo JSON (`[]`) de las transacciones no gastadas. A continuación, puede seleccionar (`select`) objetos JSON individuales que incluyan (`contains`) los txids. A continuación, seleccione (`select`) las transacciones que también contengan (`contain`) la salida correcta vout.
 
-The use of another level of pipe is the standard methodology of JQ: you grab a set of data, then you whittle it down to all the relevant transactions, then you whittle it down to the vouts that were actually used from those transactions. However, the `select` and `contains` arguments are something new. They show off some of the complexity of JSON that goes beyond the scope of this tutorial; for now just know that this particular invocation will work to grab matching objects.
+El uso de otro nivel de tuberías es la metodología estándar de JQ: se toma un conjunto de datos, luego se reduce a todas las transacciones relevantes, luego se reduce a los vouts que realmente se usaron de esas transacciones. Sin embargo, los argumentos `select` y `contains` son algo nuevo. Muestran algo de la complejidad de JSON que va más allá del alcance de este tutorial; por ahora, solo hay que saber que esta invocación particular funcionará para agarrar objetos que coincidan.
 
-To start simply, this picks out the two UTXOs one at a time:
+Para empezar de forma sencilla, esto escoge los dos UTXO de uno en uno:
 ```
 $ bitcoin-cli listunspent | jq -r '.[] | select (.txid | contains("'${usedtxid[0]}'")) | select(.vout | contains('${usedvout[0]}'))'
 {
@@ -293,7 +293,7 @@ $ bitcoin-cli listunspent | jq -r '.[] | select (.txid | contains("'${usedtxid[1
   "solvable": true
 }
 ```
-A simple bash for-loop could instead give you _all_ of your UTXOs:
+Un simple bucle for-loop de bash podría, en cambio, traer _todos_ sus UTXOs:
 ```
 $ for ((i=0; i<${#usedtxid[*]}; i++)); do txid=${usedtxid[i]}; vout=${usedvout[i]}; bitcoin-cli listunspent | jq -r '.[] | select (.txid | contains("'${txid}'")) | select(.vout | contains('$vout'))'; done;
 {
@@ -318,49 +318,49 @@ $ for ((i=0; i<${#usedtxid[*]}; i++)); do txid=${usedtxid[i]}; vout=${usedvout[i
 }
 
 ```
-Note that we used yet another bit of array ugliness `${#usedtxid[*]}` to determine the size of the array, then accessed each value in the `usedtxid` array and each value in the parallel `usedvout` array, putting them into simpler variables for less-ugly access.
+Obsérvese que hemos utilizado otra parte de la fealdad de la arreglo `${#usedtxid[*]}` para determinar el tamaño de la arreglo, y luego hemos accedido a cada valor en el arreglo `usedtxid` y a cada valor en el arreglo paralelo `usedvout`, colocándolos en variables más simples para un acceso menos feo.
 
-## Use JSON for Simple Calculation by Value
+## Utilizar JSON para el cálculo simple por valor
 
-**Usage Example:** _Automatically calculate the value of the UTXOs used in a transaction._
+**Ejemplo de uso:** _Calcular automáticamente el valor de los UTXOs utilizados en una transacción._
 
-You can now go one step further, and request the .amount (or any other JSON key-value) from the UTXOs you're retrieving.
+Ahora puedes ir un paso más allá, y solicitar el .amount (o cualquier otro valor-clave JSON) de los UTXOs que estás recuperando.
 
-This example repeats the usage the `$usedtxid` and `$usedvout` arrays that were set as follows:
+Este ejemplo repite el uso de las arreglos `$usedtxid` y `$usedvout` que fueron establecidas de la siguiente manera:
 ```
 $ usedtxid=($(bitcoin-cli decoderawtransaction $rawtxhex | jq -r '.vin | .[] | .txid'))
 $ usedvout=($(bitcoin-cli decoderawtransaction $rawtxhex | jq -r '.vin | .[] | .vout'))
 ```
-The same `for` script can be used to step through those arrays, but with an added pipe in the JQ that outputs the `amount` value for each of the UTXOs selected.
+El mismo script `for` se puede utilizar para recorrer esos arreglos, pero con una tubería añadida en el JQ da salida al valor `amount` para cada uno de los UTXOs seleccionados.
 ```
 $ for ((i=0; i<${#usedtxid[*]}; i++)); do txid=${usedtxid[i]}; vout=${usedvout[i]}; bitcoin-cli listunspent | jq -r '.[] | select (.txid | contains("'${txid}'")) | select(.vout | contains('$vout')) | .amount'; done;
 0.9
 0.4
 ```
-At this point, you can also sum up the .amounts with an `awk` script, to really see how much money is in the UTXOs that the transaction is spending:
+En este punto, también se pueden sumar las .cantidades con un script `awk`, para ver realmente cuánto dinero hay en los UTXOs que la transacción está gastando:
 ```
 $ for ((i=0; i<${#usedtxid[*]}; i++)); do txid=${usedtxid[i]}; vout=${usedvout[i]}; bitcoin-cli listunspent | jq -r '.[] | select (.txid | contains("'${txid}'")) | select(.vout | contains('$vout')) | .amount'; done | awk '{s+=$1} END {print s}'
 1.3
 ```
-Whew!
+¡Uf!
 
-## Use JQ for Complex Calculations
+## Utilizar JQ para cálculos complejos
 
-**Usage Example:** _Calculate the fee for a transaction._
+**Ejemplo de uso:** _Calcular la tasa de una transacción._
 
-Figuring out the complete transaction fee at this point just requires one more bit of math: determining how much money is going through the .vout. That's a simple use of JQ where you just use `awk` to sum up the `value` of all the `vout` information:
+Para calcular la tarifa completa de la transacción en este punto sólo hace falta un poco más de matemáticas: determinar cuánto dinero pasa por el .vout. Este es un uso sencillo de JQ en el que simplemente se utiliza `awk` para sumar el `valor` de toda la información de `vout`:
 ```
 $ bitcoin-cli decoderawtransaction $rawtxhex | jq -r '.vout  [] | .value' | awk '{s+=$1} END {print s}'
 1.045
 ```
-To complete the transaction fee calculation, you subtract the .vout .amount (1.045) from the .vin .amount (1.3).
+Para completar el cálculo de la tasa de transacción, se resta el importe de .vout (1,045) del importe de .vin (1,3).
 
-To do this, you'll need to install `bc`:
+Para ello, tendrá que instalar `bc`:
 ```
 $ sudo apt-get intall bc
 ```
 
-Putting it all together creates a complete calculator in just five lines of script:
+Al juntar todo esto se crea una calculadora completa en sólo cinco líneas de script:
 ```
 $ usedtxid=($(bitcoin-cli decoderawtransaction $rawtxhex | jq -r '.vin | .[] | .txid'))
 $ usedvout=($(bitcoin-cli decoderawtransaction $rawtxhex | jq -r '.vin | .[] | .vout'))
@@ -369,46 +369,45 @@ $ btcout=$(bitcoin-cli decoderawtransaction $rawtxhex | jq -r '.vout  [] | .valu
 $ echo "$btcin-$btcout"| /usr/bin/bc
 .255
 ```
-And that's also a good example of why you double-check your fees: we'd intended to send a transaction fee of 5,000 satoshis, but sent 255,000 satoshis instead. Whoops!
+Y este es también un buen ejemplo de por qué hay que comprobar dos veces las tarifas: teníamos la intención de enviar una tarifa de transacción de 5.000 satoshis, pero enviamos 255.000 satoshis en su lugar. ¡Ups!
 
-> :warning: **WARNING:** The first time we wrote up this lesson, we genuinely miscalculated our fee and didn't see it until we ran our fee calculator. It's *that* easy, then your money is gone. (The example above is actually from our second iteration of the calculator, and that time we made the mistake on purpose.)
+> :advertencia: **ADVERTENCIA:** La primera vez que escribimos esta lección, realmente calculamos mal nuestra tarifa y no lo vimos hasta que ejecutamos nuestra calculadora de tarifas. Es *así de fácil*, luego su dinero se esfuma. (El ejemplo de arriba es en realidad de nuestra segunda iteración de la calculadora, y esa vez cometimos el error a propósito).
 
-For more JSON magic (and if any of this isn't clear), please read the [JSON Manual](https://stedolan.github.io/jq/manual/) and the [JSON Cookbook](https://github.com/stedolan/jq/wiki/Cookbook). We'll be regularly using JQ in future examples.
+Para más magia de JSON (y si algo de esto no está claro), por favor lee el [Manual de JSON](https://stedolan.github.io/jq/manual/) y el [JSON Cookbook](https://github.com/stedolan/jq/wiki/Cookbook). Usaremos regularmente JQ en futuros ejemplos.
 
-## Make Some New Aliases
+## Crear nuevos alias
 
-JQ code can be a little unwieldy, so you should consider adding some longer and more interesting invocations to your ~/.bash_profile. 
+El código JQ puede ser un poco difícil de manejar, así que deberías considerar añadir algunas invocaciones más largas e interesantes a tu ~/.bash_profile.
 
-Any time you're looking through a large mass of information in a JSON object output by a `bitcoin-cli` command, consider writing an alias to strip it down to just what you want to see.
+Cada vez que busques una gran cantidad de información en un objeto JSON emitido por un comando `bitcoin-cli`, considera escribir un alias para reducirlo a lo que quieres ver.
 ```
 alias btcunspent="bitcoin-cli listunspent | jq -r '.[] | { txid: .txid, vout: .vout, amount: .amount }'"
 ```
 
-## Run The Transaction Fee Script
+## Ejecutar el script comisión por transacción
 
-The [Fee Calculation Script](src/04_2_i_txfee-calc.sh) is available in src-code directory. You can download it and save it as `txfee-calc.sh`.
+El [Fee Calculation Script](src/04_2_i_txfee-calc.sh) está disponible en el directorio src-code. Puede descargarlo y guardarlo como `txfee-calc.sh`.
 
-> :warning: **WARNING:** This script has not been robustly checked. If you are going to use it to verify real transaction fees you should only do it as a triple-check after you've already done all the math yourself.
+> :advertencia: **ADVERTENCIA:** Este script no ha sido verificado de forma robusta. Si va a utilizarlo para verificar las comisiones de las transacciones reales, sólo deberá hacerlo como triple comprobación después de haber hecho todos los cálculos usted mismo.
 
-Be sure the permissions on the script are right:
+Asegúrese de que los permisos del script son correctos:
 ```
 $ chmod 755 txfee-calc.sh
 ```
-You can then run the script as follows:
+A continuación, puede ejecutar el script de la siguiente manera:
 ```
 $ ./txfee-calc.sh $rawtxhex
 .255
 ```
-You may also want to create an alias:
+También puedes crear un alias:
 ```
 alias btctxfee="~/txfee-calc.sh"
 ```
 
-## Summary: Using JQ
+## Resumen: Usando JQ
 
-JQ makes it easy to extract information from JSON arrays and objects. It can also be used in shell scripts for fairly complex calculations that will make your life easier.
+JQ facilita la extracción de información de arreglos y objetos JSON. También se puede utilizar en scripts de shell para realizar cálculos bastante complejos que le harán la vida más fácil.
 
-## What's Next?
+## ¿Qué sigue?
 
-Continue "Sending Bitcoin Transactions" with [§4.3 Creating a Raw Transaction with Named Arguments](04_3_Creating_a_Raw_Transaction_with_Named_Arguments.md).
-
+Continua "Enviando Transacciones en Bitcoin" con [§4.3 Creando Transacciones en Crudo Usando Argumentos con Nombre](04_3_Creating_a_Raw_Transaction_with_Named_Arguments.md).
