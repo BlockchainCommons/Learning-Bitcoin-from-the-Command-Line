@@ -25,7 +25,7 @@ Si le gustaría hacer su propia traducción, por favor, vea [Contribuyendo](#con
 * [1.0: Introducción a la programación con Bitcoin Core y Lightning](01_0_Introduccion.md)
     * [Interludio: Introduciendo Bitcoin](01_1_Introduciendo_Bitcoin.md)
 * [2.0: Configurando un VPS Bitcoin-Core](02_0_Configurando_un_Bitcoin-Core_VPS.md)
-  * [2.1: Configurando un VPS Bitcoin-Core con Bitcoin-Standup](02_1_Configurando_un_Bitcoin-Core_VPS_con_StackScript.md)
+  * [2.1: Configurando un VPS Bitcoin-Core con Bitcoin Standup](02_1_Configurando_un_Bitcoin-Core_VPS_con_StackScript.md)
   * [2.2: Configurando una máquina Bitcoin-Core por otros medios](02_2_Configurando_Bitcoin_Core_Otros.md)
 
 ### PARTE DOS: USANDO BITCOIN-CLI
