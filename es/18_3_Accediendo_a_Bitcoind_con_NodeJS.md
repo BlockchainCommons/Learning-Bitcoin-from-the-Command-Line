@@ -73,7 +73,7 @@ Puede iniciar una conexión RPC creando un `RpcAgent`:
 const RpcAgent = require('bcrpc');
 agent = new RpcAgent({port: 18332, user: 'StandUp', pass: 'd8340efbcd34e312044c8431c59c792c'});
 ```
-Obviamente, su usuario `` y `pass` deberían coincidir de nuevo con lo que está en su `~/. bitcoin/bitcoin.conf`, y usar `port 18332` si está en testnet.
+Obviamente, su usuario `user` y `pass` deberían coincidir de nuevo con lo que está en su `~/. bitcoin/bitcoin.conf`, y usar `port 18332` si está en testnet.
 
 ### Hacer una llamada RPC
 
@@ -97,7 +97,7 @@ $ node getinfo.js
 1831094
 00000000000002bf8b522a830180ad3a93b8eed33121f54b3842d8838580a53c
 ```
-Esto es lo que la salida del ejemplo anterior se vería si se reemplaza `consola.log(blockCount.result);` `consola.log(hash.result);` consola.log(blockCount);` y `consola.log(hash);`, respectivamente:
+Esto es lo que la salida del ejemplo anterior se vería si se reemplaza `console.log(blockCount.result);` `console.log(hash.result);` `console.log(blockCount);` y `console.log(hash);`, respectivamente:
 ```
 { result: 1774686, error: null, id: null }
 {
