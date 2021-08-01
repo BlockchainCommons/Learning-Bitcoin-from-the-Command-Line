@@ -18,7 +18,7 @@ Los objetivos de apoyo incluyen la capacidad de:
 ## Tabla de contenidos
   * [Sección Uno: Acceso a Bitcoind con Go](18_1_Accediendo_a_Bitcoind_con_Go.md)
   * [Sección Dos: Acceso a Bitcoind con Java](18_2_Accediendo_a_Bitcoind_con_Java.md)
-  * [Sección tres: Acceso a Bitcoind con NodeJS](18_3_Accediendo_a_Bitcoind_con_NodeJS.md)
+  * [Sección Tres: Acceso a Bitcoind con NodeJS](18_3_Accediendo_a_Bitcoind_con_NodeJS.md)
   * [Sección Cuatro: Acceder a Bitcoind con Python](18_4_Accediendo_a_Bitcoind_con_Python.md)
   * [Sección Cinco: Acceso a Bitcoind con Rust](18_5_Accediendo_a_Bitcoind_con_Rust.md)
-  * [Sección seis: Acceso a Bitcoind con Swift](18_6_Accediendo_a_Bitcoind_con_Swift.md)
+  * [Sección Seis: Acceso a Bitcoind con Swift](18_6_Accediendo_a_Bitcoind_con_Swift.md)
