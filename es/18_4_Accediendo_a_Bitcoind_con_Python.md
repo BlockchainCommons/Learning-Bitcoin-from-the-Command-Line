@@ -58,7 +58,7 @@ rpc_host = "127.0.0.1"
 rpc_client = AuthServiceProxy(f"http://{rpc_user}:{rpc_pass}@{rpc_host}:18332", timeout=120)
 ```
 
-Los argumentos en la URL son `rpc_username>:rpc_password>@host_IP_address>:port>`. Como de costumbre, el usuario `` y `pass` se encuentran en su `~/. bitcoin/bitcoin.conf`, mientras que el `host` es su maquina local, y el puerto es `18332` para testnet. El argumento `timeout` se especifica desde _sockets timeout_ bajo carga pesada en la red principal. Si obtiene `socket.timeout: timed out` response, sea paciente y aumente el `timeout`.
+Los argumentos en la URL son `rpc_username>:rpc_password>@host_IP_address>:port>`. Como de costumbre, el usuario `user` y `pass` se encuentran en su `~/. bitcoin/bitcoin.conf`, mientras que el `host` es su maquina local, y el puerto es `18332` para testnet. El argumento `timeout` se especifica desde _sockets timeout_ bajo carga pesada en la red principal. Si obtiene `socket.timeout: timed out` response, sea paciente y aumente el `timeout`.
 
 > :link: **MAINNET VS TESTNET:** El puerto sería 8332 para una configuración de mainnet.
 
@@ -368,6 +368,7 @@ addresses_amts = {f"{recipient_address}": recipient_amt, f"{change_address}": ch
 unsigned_tx_hex = rpc_client.createrawtransaction(txids_vouts, addresses_amts)
 ```
 Recuerde que el formato del comando `createrawtransaction` es:
+
 `$ bitcoin-cli createrawtransaction '[{"txid": <utxo_txid>, "vout": <vector_id>}]' '{"<address>": <amount>}'`
 
 El `txids_vouts` es así una lista y el `addresses_amts` es un diccionario de python, para que coincida con el formato de `createrawtransaction`.
