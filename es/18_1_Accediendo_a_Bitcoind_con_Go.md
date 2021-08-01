@@ -70,7 +70,7 @@ Deberia ver impreso el conteo de bloques:
 ```
 ### Crear un proyecto `rpcclient` 
 
-Normalmente estara creando proyectos en su directorio `~/work/src/myproject/bitcoin` :
+Normalmente estará creando proyectos en su directorio `~/work/src/myproject/bitcoin` :
 
 ```
 $ mkdir -p ~/work/src/myproject/bitcoin
@@ -236,7 +236,7 @@ tb1qutkcj34pw0aq7n9wgp3ktmz780szlycwddfmza
 ### Decodificar una dirección
 
 La creación de una dirección tomó un trabajo adicional, en especificar la cadena apropiada. 
-Usar una dirección también lo hará porque tendrás que decodificarla antes de usarla. 
+Usar una dirección también lo hará porque tendrá que decodificarla antes de usarla. 
 
 Los medios que usted tendrá que importar tanto las librerías `"github.com/btcsuite/btcutil"` como `"github.com/btcsuite/btcd/chaincfg"`.
    * `btcutil` permite que una dirección de Bitcoin sea decodificada de una manera que el cliente `rpcclient` pueda entender. Esto es necesario cuando se trabaja con direcciones en `rpcclient`. 
