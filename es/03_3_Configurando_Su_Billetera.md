@@ -1,4 +1,4 @@
-# 3.3: Configuración de su billetera
+# 3.3: Configurando su billetera
 
 Ahora está listo para comenzar a trabajar con Bitcoin. Para empezar, deberá crear una dirección para recibir fondos.
 
@@ -11,7 +11,7 @@ Si no especifica lo contrario, obtendrá el valor predeterminado, que es actualm
 
 Sin embargo, en las próximas secciones usaremos direcciones `legacy`, tanto porque `bitcoin-cli` tuvó algunos problemas iniciales con sus primeras versiones 
 de direcciones SegWit como porque otras personas podrían no ser capaces de enviar a direcciones `bech32`. Es poco probable que todo esto sea un problema para 
-usted ahora, pero por el momento queremos comenzar con ejemplos de transacciones que están (en su mayoría) garantizados para funcionar.
+usted ahora, pero por el momento queremos comenzar con ejemplos de transacciones que está (en su mayoría) garantizado que funcionan.
 
 Puede solicitar la dirección `legacy` con el segundo argumento a `getnewaddress` o con el argumento nombrado `addresstype`.
 ```
@@ -73,7 +73,7 @@ true
 ```
 Si todos coinciden, entonces la otra persona sabe que puede transferir fondos de manera segura a la persona que firmó el mensaje enviándolo a la dirección.
 
-Si algún "sombrero negro" estuviera inventando firmas, esto produciría un resultado negativo:
+Si algún hacker "sombrero negro" estuviera inventando firmas, esto produciría un resultado negativo:
 ```
 $ bitcoin-cli verifymessage "FAKEV6XEhfrBCE3QCYq6ppT7AaMF8KsZ1B" "HyIP0nzdcH12aNbQ2s2rUxLwzG832HxiO1vt8S/jw+W4Ia29lw6hyyaqYOsliYdxne70C6SZ5Utma6QY/trHZBI=" "Hello, World"
 error code: -3
@@ -123,7 +123,7 @@ $ bitcoin-cli importprivkey cW4s4MdW7BkUmqiKgYzSJdmvnzq8QDrf6gszPMC7eLmfcdoRHtHh
 ```
 Nuevamente, espere que esto requiera un nodo sin podar. Espere que esto tome un tiempo, ya que `bitcoind` debe volver a leer todas las transacciones pasadas, para ver si hay algunas nuevas a las que debería prestar atención.
 
-> :information_source: **NOTA:** Muchas carteras modernas prefieren [códigos mnemotécnicos](https://github.com/bitcoin/bips/blob/master/bip-0039.mediawiki) para generar las semillas necesarias para crear las claves privadas. Esta metodología no se utiliza en `bitcoin-cli`, por lo que no podrá generar listas de palabras útiles para recordar sus claves privadas.
+> :information_source: **NOTA:** Muchas carteras modernas prefieren [códigos mnemónicos](https://github.com/bitcoin/bips/blob/master/bip-0039.mediawiki) para generar las semillas necesarias para crear las claves privadas. Esta metodología no se utiliza en `bitcoin-cli`, por lo que no podrá generar listas de palabras útiles para recordar sus claves privadas.
 
 _Ha estado escribiendo esa dirección Bitcoin que generó muchas veces, mientras estaba firmando mensajes y ahora exportando llaves. Si cree que es una molestia, estamos de acuerdo. También es propenso a errores, un tema que abordaremos en la siguiente sección._
 
@@ -133,4 +133,4 @@ Necesita crear una dirección para recibir fondos. Su dirección se almacena en 
 
 ## Que sigue?
 
-Aléjese de "Comprensión de la configuración de Bitcoin" con [Interludio: uso de variables de línea de comandos](03_3__Interlude_Using_Command-Line_Variables.md)
+Aléjese de "Comprendiendo la configuración de Bitcoin" con [Interludio: Usando variables de la linea de comandos](03_3_Interludio_Usando_Variables_Linea_Comando.md
