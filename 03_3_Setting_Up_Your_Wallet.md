@@ -15,7 +15,7 @@ moKVV6XEhfrBCE3QCYq6ppT7AaMF8KsZ1B
 ```
 Note that this address begins with an "m" (or sometimes an "n") to signify a testnet Legacy address. It would be a "2" for a P2SH address or a "tb1" for a Bech32 address.
 
-> :link: **TESTNET vs MAINNET:** The equivalent mainnet address would start with a "1" (for Legacy), "3" (for P2SH), or "bc1" (for Bech320.
+> :link: **TESTNET vs MAINNET:** The equivalent mainnet address would start with a "1" (for Legacy), "3" (for P2SH), or "bc1" (for Bech32).
 
 
 Take careful note of the address. You'll need to give it to whomever will be sending you funds.
