@@ -19,16 +19,16 @@ If your user is not in the sudoers list then do the following:
 ```
 $ su root
 <enter root passwd>
-# apt-get install sudo
-# usermod -aG sudo <username>
-# reboot
+$ apt-get install sudo
+$ usermod -aG sudo <username>
+$ reboot
 ```
 
 ## Install Bitcoin
 
 ### Step 1: Update Your System
 
-Fir, update the system using:
+First, update the system using:
 ```
 $ sudo apt-get update
 ```
