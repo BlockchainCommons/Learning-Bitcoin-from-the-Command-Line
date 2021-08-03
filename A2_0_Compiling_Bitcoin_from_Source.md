@@ -28,7 +28,7 @@ $ su root
 
 ### Step 1: Update Your System
 
-Fir, update the system using:
+First, update the system using:
 ```
 $ sudo apt-get update
 ```
