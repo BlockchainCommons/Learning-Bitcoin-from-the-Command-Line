@@ -186,7 +186,7 @@ This course will only use `libsodium` for one small (but crucial!) bit of entrop
 
 ## Summary: Setting Up Libwally
 
-By installing the Libwally (and Libsodium) includes and libraries, you gain access to a number of cryptographic and wallet functions, which can complement your RPC and ZMG libraries (or your command-line `bitcoin-cli`).
+By installing the Libwally (and Libsodium) includes and libraries, you gain access to a number of cryptographic and wallet functions, which can complement your RPC and ZMQ libraries (or your command-line `bitcoin-cli`).
 
 So what precisely can you do now? That's what the rest of this chapter is about.
 
