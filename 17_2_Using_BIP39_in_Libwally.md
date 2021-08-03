@@ -57,7 +57,7 @@ That's it! You've created a mnemonic phrase!
 
 ### Translate into a Seed
 
-There are some functions, such as `bip32_key_from_seed` (which we'll meet in the next section) that require you to have theseeddeed rather than the Mnemonic. The two things are functionally identical: if you have the seed, you can generate the mnemonic, and vice-versa.
+There are some functions, such as `bip32_key_from_seed` (which we'll meet in the next section) that require you to have the seed rather than the Mnemonic. The two things are functionally identical: if you have the seed, you can generate the mnemonic, and vice-versa.
 
 If you need to generate the seed from your mnemonic, you just use the `bip39_mnemonic_to_seed` command:
 ```
