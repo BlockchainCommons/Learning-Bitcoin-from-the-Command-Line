@@ -26,7 +26,7 @@ Si le gustaría hacer su propia traducción, por favor, vea [Contribuyendo](#con
     * [Interludio: Introduciendo Bitcoin](01_1_Introduciendo_Bitcoin.md)
 * [2.0: Configuración de un Servidor Privado Virtual](02_0_Configurando_un_Bitcoin-Core_VPS.md)
   * [2.1: Configuración de un Servidor Privado Virtual de Bitcoin-Core con Bitcoin Standup](02_1_Configurando_un_Bitcoin-Core_VPS_con_StackScript.md)
-  * [2.2: Configuración de una maquina Bitcoin-Core por otros medios](02_2_Configurando_Bitcoin_Core_Otros.md)
+  * [2.2: Configuración de una Maquina Bitcoin-Core por Otros Medios](02_2_Configurando_Bitcoin_Core_Otros.md)
 
 ### PARTE DOS: USANDO BITCOIN-CLI
 
@@ -42,10 +42,10 @@ Si le gustaría hacer su propia traducción, por favor, vea [Contribuyendo](#con
 * [4.0: Enviando Transacciones Bitcoin](04_0_Enviando_Transacciones_Bitcoin.md)
   * [4.1: Enviando Monedas de la Forma Fácil](04_1_Enviando_Monedas_de_la_Forma_Facil.md)
   * [4.2: Creando una Transacción Cruda](04_2_Creando_una_Transaccion_Cruda.md)
-     * [Interludio: Usando JQ](04_2__Interludio_Usando_JQ.md)
+     * [Interludio: Usando JQ](04_2_Interludio_Usando_JQ.md)
   * [4.3: Creando una Transacción Cruda con Argumentos Ingresados con Nombre](04_3_Creando_una_Transaccion_Cruda_con_Argumentos_Ingresados_con_Nombre.md)
   * [4.4: Enviando Monedas con una Transacción Cruda](04_4_Enviando_Monedas_con_una_Transaccion_Cruda.md)
-     * [Interludio: Usando Curl](04_4__Interludio_Usando_Curl.md)
+     * [Interludio: Usando Curl](04_4_Interludio_Usando_Curl.md)
   * [4.5: Enviando Monedas con Transacciones Crudas Automatizadas](04_5_Enviando_Monedas_con_Transacciones_Crudas_Automatizadas.md)
   * [4.6: Creando una Transacción Segwit](04_6_Creando_una_Transaccion_Segwit.md)
 * [5.0: Controlando Transacciones Bitcoin](05_0_Controlando_Transacciones_Bitcoin.md)
@@ -136,12 +136,12 @@ Si le gustaría hacer su propia traducción, por favor, vea [Contribuyendo](#con
 * [19.0: Entendiendo Su Configuración Lightning](19_0_Entendiendo_Su_Configuracion_Lightning.md)
   * [19.1: Verificando Su Configuración c-lightning](19_1_Verificando_Su_Configuracion_Lightning.md)
   * [19.2: Conociendo Su Configuración c-lightning](19_2_Conociendo_Su_Configuracion_Lightning.md)
-     * [Interludio: Accediendo a un Segundo Nodo Lightning](19_2__Interludio_Accediendo_a_un_Segundo_Nodo_Lightning.md)
+     * [Interludio: Accediendo a un Segundo Nodo Lightning](19_2_Interludio_Accediendo_a_un_Segundo_Nodo_Lightning.md)
   * [19.3: Creando un Canal en Lightning](19_3_Creando_un_Canal_en_Lightning.md)
 * [20.0: Usando Lightning](20_0_Usando_Lightning.md)
   * [20.1: Generando una Solicitud de Pago](20_1_Generando_una_Solicitud_de_Pago.md)
   * [20.2: Pagando una Factura](20_2_Pagando_una_Factura.md)
-  * [20.3: Cerrando un Canal Lightning]((20_3_Cerrando_un_Canal_Lightning.md)
+  * [20.3: Cerrando un Canal Lightning](20_3_Cerrando_un_Canal_Lightning.md)
   * [20.4: Expandiendo la Red Lightning](20_4_Expandiendo_la_Red_Lightning.md)
    
 ### APÉNDICES
@@ -149,7 +149,7 @@ Si le gustaría hacer su propia traducción, por favor, vea [Contribuyendo](#con
 **Estado:** Finalizado.
 
 * [Apéndices](A0_Apendices.md)
-  * [Apéndice I: Entendiendo la Configuración Inicial de Bitcoin](A1_0_Entendiendo_la_Configuracion_Inicial_de_Bitcoin.md)
+  * [Apéndice I: Entendiendo Bitcoin Standup](A1_0_Entendiendo_Bitcoin_Standup.md)
   * [Apéndice II: Compilando Bitcoin desde la Fuente](A2_0_Compilando_Bitcoin_desde_la_Fuente.md)
   * [Apéndice III: Usando Bitcoin Regtest](A3_0_Usando_Bitcoin_Regtest.md)
   
