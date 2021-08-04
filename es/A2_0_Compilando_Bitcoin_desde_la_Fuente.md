@@ -19,9 +19,9 @@ Si usted no esta en la lista de superusuario entonces haga lo siguiente:
 ```
 $ su root
 <enter root passwd>
-$ apt-get install sudo
-$ usermod -aG sudo <username>
-$ reboot
+# apt-get install sudo
+# usermod -aG sudo <username>
+# reboot
 ```
 
 ## Instale Bitcoin
