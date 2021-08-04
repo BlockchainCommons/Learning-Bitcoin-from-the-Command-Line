@@ -86,7 +86,7 @@ $ ls bitcoin
 ````
 Debería ser aproximadamente similar al siguiente contenido:
 
-![clonando el repo](./public/LBftCLI-compiling_bitcoin-git.png)
+![clonando el repo](../public/LBftCLI-compiling_bitcoin-git.png)
 
 ### Paso 4: Instale la base de datos Berkley v4.8
 
@@ -96,7 +96,7 @@ Debería ser aproximadamente similar al siguiente contenido:
 Una vez que ha sido descargado usted vera la siguiente salida. Tome nota de la
 salida, usted lo usara para configurar bitcoin mientras compila:
 
-![db4](./public/LBftCLI-compiling_bitcoin-db4.png)
+![db4](../public/LBftCLI-compiling_bitcoin-db4.png)
 
 ### Paso 5: Compile Bitcoin Core
 
