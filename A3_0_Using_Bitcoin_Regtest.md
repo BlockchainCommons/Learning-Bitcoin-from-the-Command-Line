@@ -11,7 +11,7 @@ After [setting up your Bitcoin-Core VPS](02_0_Setting_Up_a_Bitcoin-Core_VPS.md) 
 $ bitcoind -regtest -daemon -fallbackfee=1.0 -maxtxfee=1.1
 ```
 
-The argments `-fallbackfee=1.0 -maxtxfee=1.1` will prevent the `Fee estimation failed. Fallbackfee is disabled` error. 
+The arguments `-fallbackfee=1.0 -maxtxfee=1.1` will prevent the `Fee estimation failed. Fallbackfee is disabled` error. 
 
 On regtest, usually there are not enough transactions so bitcoind cannot give a reliable estimate and, without it, the wallet will not create transactions unless it is explicitly set the fee.
 
@@ -135,7 +135,7 @@ $ bitcoin-cli -regtest -generate 6
 
 ## Test with NodeJS
 
-When you are on regtest, you are able to simulate edge cases and attacks that might happen in the real world, such  as double spend.
+When you are on regtest, you are able to simulate edge cases and attacks that might happen in the real world, such as double spend.
 
 As discussed elsewhere in this course, using software libraries might give you more sophisticated access to some RPC commands. In this case, [bitcointest by dgarage](https://github.com/dgarage/bitcointest) for NodeJS can be used to simulate a transaction from one wallet to another; you can check [their guide](https://www.npmjs.com/package/bitcointest) for more specific attack simulations, such as double spend.
 
