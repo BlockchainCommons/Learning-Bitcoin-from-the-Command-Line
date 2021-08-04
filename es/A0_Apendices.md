@@ -1,6 +1,8 @@
 # Apéndices
 
-El cuerpo principal de este curso sugiere una configuración bastante estándar para hacer pruebas con Bitcoin. Lo que sigue en estos apéndices es una mejor explicación de la configuración y otras opciones de alternativas.
+El cuerpo principal de este curso sugiere una configuración bastante estándar
+para hacer pruebas con Bitcoin. Lo que sigue en estos apéndices es una mejor
+explicación de la configuración y otras opciones de alternativas.
 
 ## Objetivos para esta sección
 
