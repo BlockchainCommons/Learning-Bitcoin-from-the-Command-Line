@@ -14,7 +14,7 @@ To use a faucet, you'll usually need to go to a URL and copy and paste in your a
 
 ## Verify Your Money
 
-After you've requested your money, you should be able to verify it with the 'bitcoin-cli getbalance' command:
+After you've requested your money, you should be able to verify it with the `bitcoin-cli getbalance` command:
 ```
 $ bitcoin-cli getbalance
 0.00000000
