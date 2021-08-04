@@ -93,8 +93,8 @@ Debería ser aproximadamente similar al siguiente contenido:
 1. Ingrese al directorio `contrib`: `$ cd bitcoin/contrib/`
 2. Ejecute el siguiente comando: ```$ ./install_db4.sh `pwd` ```
 
-Una vez que ha sido descargado usted vera el siguiente output. Tome nota del
-output, usted lo usara para configurar bitcoin mientras compila:
+Una vez que ha sido descargado usted vera la siguiente salida. Tome nota de la
+salida, usted lo usara para configurar bitcoin mientras compila:
 
 ![db4](./public/LBftCLI-compiling_bitcoin-db4.png)
 
