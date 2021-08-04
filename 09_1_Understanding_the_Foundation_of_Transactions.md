@@ -17,7 +17,7 @@ The fact that transactions are locked with scripts means that they can be locked
 
 ## Access Scripts In Your Transactions
 
-You may not realize it, but you've already seen these locking and unlocking scripts as part of the raw transactins you've been working with. The best way to look into these scripts in more depth is thus to create a raw transaction, then examine it.
+You may not realize it, but you've already seen these locking and unlocking scripts as part of the raw transactions you've been working with. The best way to look into these scripts in more depth is thus to create a raw transaction, then examine it.
 
 ### Create a Test Transaction
 
