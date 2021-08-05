@@ -213,7 +213,7 @@ printf("Block Count: %d\n",blocks);
 
 ### Test the Info Code
 
-Retrieve the test code from [the src directory](15_1_getmininginfo.c).
+Retrieve the test code from [the src directory](src/15_1_getmininginfo.c).
 ```
 $ cc getmininginfo.c -lbitcoinrpc -ljansson -o getmininginfo
 $ ./getmininginfo 
