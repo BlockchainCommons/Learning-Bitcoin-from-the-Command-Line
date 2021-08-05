@@ -55,7 +55,7 @@ printf("Sending %4.8f BTC to %s\n",tx_amount,tx_recipient);
 
 ### Step 2: Set an Arbitrary Fee
 
-This example just an arbitrary0.0005 BTC fee to ensure that the test transactions goes through quickly:
+This example just an arbitrary 0.0005 BTC fee to ensure that the test transactions goes through quickly:
 ```
 float tx_fee = 0.0005;
 float tx_total = tx_amount + tx_fee;
