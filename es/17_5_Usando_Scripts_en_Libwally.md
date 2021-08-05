@@ -110,7 +110,7 @@ Vamos a mostrar cómo hacer uso de eso en §17.7.
 
 ## Pruebe su script de reemplazo
 
-Puede tomar el código de prueba del [directorio src](src/16_5_replacewithscript.c) y compilarlo:
+Puede tomar el código de prueba del [directorio src](../src/16_5_replacewithscript.c) y compilarlo:
 ```
 $  cc replacewithscript.c -lwallycore -o replacewithscript
 ```
@@ -170,7 +170,7 @@ El `vin` debe coincidir con la entrada que sustituyó en, pero es el `vout` lo q
 
 Crear transacciones en Libwally es otro tema que podría ocupar todo un capítulo, pero lo bueno es que una vez que da este salto, puede introducir un script P2SH `PubKey`, y esa parte por sí sola es bastante fácil. Aunque la metodología detallada en este capítulo requiere que tenga una cadena hexadecimal de la transacción ya en la mano (probablemente creado con `bitcoin-cli`) si profundiza en Libwally, puede hacerlo todo usted mismo.
 
-> :fire: ***Cuál es el poder de los guiones en Libwally?*** Simplemente, puedes hacer algo que no podías hacer antes: crear una transacción bloqueada con un P2SH arbitrario.
+> :fire: ***Cuál es el poder de los guiones en Libwally?*** Simplemente, puede hacer algo que no podía hacer antes: crear una transacción bloqueada con un P2SH arbitrario.
 
 ## ¿Qué es lo siguiente?
 
