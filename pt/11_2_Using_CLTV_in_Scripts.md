@@ -1,6 +1,6 @@
 # 11.2: Usando o CLTV nos Scripts
 
-O ```OP_CHECKLOCKTIMEVERIFY``` (ou CLTV) é o complemento natural para o ```nLockTime```. Ele muda a ideia de bloquear transações por um tempo absoluto ou altura de bloco para o reino dos opcodes, permitindo o bloqueio de UTXOs individuais.
+O ```OP_CHECKLOCKTIMEVERIFY``` (ou CLTV) é o complemento natural para o ```nLockTime```. Ele muda a ideia de bloquear transações por um tempo absoluto ou altura de bloco para o âmbito dos opcodes, permitindo o bloqueio das UTXOs individuais.
 
 > :warning: **AVISO DE VERSÃO:** O CLTV ficou disponível no Bitcoin Core 0.11.2, mas deve ser amplamente implementado neste momento.
 
@@ -13,7 +13,7 @@ Conforme detalhado na seção [§8.1:Enviando uma transação com Locktime](08_1
 * Se o ```nLockTime``` for inferior a 500 milhões, será interpretado como uma altura de bloco;
 * Se o ```nLockTime``` for 500 milhões ou mais, será interpretado como um carimbo de data/hora UNIX.
 
-Uma transação com ```nLockTime``` definida não pode ser gasta (ou mesmo colocada na blockchain) até que a altura do bloco ou a data/hora sejam alcançados. Nesse ínterim, a transação pode ser cancelada gastando-se qualquer um dos UTXOs que constituem a transação.
+Uma transação com ```nLockTime``` definida não pode ser gasta (ou mesmo colocada na blockchain) até que a altura do bloco ou a data/hora sejam alcançados. Neste meio tempo, a transação pode ser cancelada, ao se utilizar qualquer uma das UTXOs que constituem a transação.
 
 ## Compreendendo o Opcode CLTV
 
@@ -51,14 +51,14 @@ Mas geralmente vamos abstrair assim:
 
 A explicação acima é suficiente para usar e entender o CLTV. No entanto, o [BIP 65](https://github.com/bitcoin/bips/blob/master/bip-0065.mediawiki) apresenta todos os seguintes detalhes.
 
-Um script de bloqueio só permitirá que uma transação reenvie um UTXO bloqueado com um CLTV se o ```OP_CHECKLOCKTIMEVALUE``` verificar todas as seguintes condições:
+Um script de bloqueio só permitirá que uma transação reenvie uma UTXO bloqueado com um CLTV se o ```OP_CHECKLOCKTIMEVALUE``` verificar todas as seguintes condições:
 
 * O campo ```nSequence``` deve ser definido como sendo menor do que 0xffffffff, geralmente 0xffffffff-1 para evitar conflitos com os timelocks relativos;
 * CLTV deve retirar um operando da pilha e deve ser 0 ou maior.
 * Tanto o operando da pilha quanto o ```nLockTime``` devem estar acima ou abaixo de 500 milhões, para representar o mesmo tipo de locktime absoluto;
 * O valor ```nLockTime``` deve ser maior ou igual ao operando da pilha.
 
-Portanto, a primeira coisa a se notar aqui é que o ```nLockTime``` ainda é utilizado com o CLTV. Para ser mais preciso, ele é necessário na transação que tenta _gastar novamente_ um UTXO com o temporizador CLTV. Isso significa que não faz parte dos requisitos do script. É apenas o cronômetro que é usado para liberar os fundos, _como definido no script_.
+Portanto, a primeira coisa a se notar aqui é que o ```nLockTime``` ainda é utilizado com o CLTV. Para ser mais preciso, ele é necessário na transação que tenta _gastar novamente_ uma UTXO com o temporizador CLTV. Isso significa que não faz parte dos requisitos do script. É apenas o cronômetro que é usado para liberar os fundos, _como definido no script_.
 
 Isso é gerenciado por meio de um entendimento inteligente de como o ```nLockTime``` funciona: Um valor para o ```nLockTime``` deve sempre ser escolhido sendo menor ou igual ao tempo presente (ou altura do bloco), de modo que a transação de gasto possa ser colocada na blockchain. Porém, devido aos requisitos do CLTV, também deve ser escolhido um valor maior ou igual ao operando do CLTV. A união desses dois conjuntos é ```NULL``` até que o tempo presente corresponda ao operando CLTV. Posteriormente, qualquer valor pode ser escolhido entre o operando do CLTV e o tempo atual. Normalmente, apenas iríamos configurar para a hora atual (ou para o bloco atual).
 
@@ -109,9 +109,8 @@ O RPC ```decodescript``` pode verificar se acertamos a decodificação:
 
 Não vamos mostrar continuamente como todos os Scripts do Bitcoin são codificados em transações P2SH, ao invés disso, ofereceremos estes atalhos: Quando descrevemos um script, ele será um ```redeemScript```, que normalmente seria serializado e codificado em um script de bloqueio e serializado no script de desbloqueio. Quando mostramos um procedimento de desbloqueio, será a segunda rodada de validação, seguindo a confirmação do hash do script de bloqueio.
 
-## Gastando um UTXO do CLTV
+## Gastando uma UTXO do CLTV
 
-In the case of the above example, the following unlocking script would suffice, provided that `nLockTime` was set to somewhere in advance of the `<NextYear>` date, and provided it was indeed at least `<NextYear>`:
 No caso do exemplo acima, o script de desbloqueio abaixo seria suficiente, desde que o ```nLockTime``` fosse definido em algum lugar antes da data ```<NextYear>```, e desde que o momento atual fosse, de fato, pelo menos ```<NextYear>```:
 ```
 <signature> <pubKey>
@@ -145,9 +144,9 @@ Finalmente, o restante do script é executado, que é uma verificação normal d
 
 ## Resumo: Usando o CLTV nos Scripts
 
-O ```OP-CHECKLOCKTIMEVERIFY``` é um opcode simples que olha para um único argumento, o interpreta como uma altura de bloco ou timestamp UNIX, e só permite que o UTXO seja desbloqueado se aquela altura de bloco ou timestamp UNIX estiver no passado. Definir o ```nLockTime``` na transação de gastos é o que permite ao Bitcoin fazer este cálculo.
+O ```OP-CHECKLOCKTIMEVERIFY``` é um opcode simples que olha para um único argumento, o interpreta como uma altura de bloco ou timestamp UNIX, e só permite que a UTXO seja desbloqueada se àquela altura de bloco ou timestamp UNIX estiver no passado. Definir o ```nLockTime``` na transação de gastos é o que permite ao Bitcoin fazer este cálculo.
 
-> :fire: ***Qual é o poder do CLTV?*** Já vimos que os tempos de bloqueio simples eram uma das bases dos Contratos Inteligentes. O CLTV dá o próximo passo. Agora podemos garantir que um UTXO não pode ser gasto antes de um certo tempo _e_ podemos garantir que ele também não será gasto. Em sua forma mais simples, isso poderia ser usado para criar um fundo que alguém só poderia ter acesso aos 18 anos ou um fundo de aposentadoria que só poderia ser acessado quando fizesse 50 anos. No entanto, o verdadeiro poder vem quando combinado com condicionais, onde apenas o CLTV apenas é ativado em certas situações.
+> :fire: ***Qual é o poder do CLTV?*** Já vimos que os tempos de bloqueio simples eram uma das bases dos Contratos Inteligentes. O CLTV dá o próximo passo. Agora podemos garantir que uma UTXO não possa ser gasta antes de um certo tempo _e_ podemos garantir que ela também não será gasta. Em sua forma mais simples, isso poderia ser usado para criar um fundo que alguém só poderia ter acesso aos 18 anos ou um fundo de aposentadoria que só poderia ser acessado quando fizesse 50 anos. No entanto, o verdadeiro poder vem quando combinado com condicionais, onde apenas o CLTV apenas é ativado em certas situações.
 
 ## O Que Vem Depois?
 
