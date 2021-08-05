@@ -1,6 +1,6 @@
-# 10.3: Executando um script Bitcoin com P2SH
+# 10.3: Executando um Script no Bitcoin com P2SH
 
-Agora que conhecemos a teoria e a prática por trás dos endereços P2SH, estamos prontos para transformar um script de Bitcoin não padrão em uma transação real. Vamos utilizar o script de bloqueio simples da seção [§9.2: Executando um Script no Bitcoin](09_2_Running_a_Bitcoin_Script.md), `OP_ADD 99 OP_EQUAL`.
+Agora que conhecemos a teoria e a prática por trás dos endereços P2SH, estamos prontos para transformar um script de Bitcoin não-padrão em uma transação real. Vamos utilizar o script de bloqueio simples da seção [§9.2: Executando um Script no Bitcoin](09_2_Running_a_Bitcoin_Script.md), `OP_ADD 99 OP_EQUAL`.
 
 ## Criando uma transação P2SH
 
@@ -12,7 +12,7 @@ Para bloquear uma transação com este script, precisamos fazer o seguinte:
       * Não se preocupe com a conversão porque é apenas um byte.
    3. OP_EQUAL = 0x87 - uma tradução simples do opcode;
    4. ```<serialized99Equal>``` = "93016387".
-   
+
 ```
 $ btcc OP_ADD 99 OP_EQUAL
 93016387
@@ -26,11 +26,11 @@ $ btcc OP_ADD 99 OP_EQUAL
 
 Podemos então criar uma transação usando o ```scriptPubKey```, provavelmente através de uma API.
 
-## Desbloqueando a transação P2SH
+## Desbloqueando a Transação P2SH
 
 Para desbloquear essa transação, é necessário que o destinatário produza um ```scriptSig``` que acrescente duas constantes, totalizando noventa e nove, ao script serializado:```1 98 <serialized99Equal>```.
 
-### Executando a primeira rodada de validação
+### Executando a Primeira Rodada de Validação
 
 O processo de desbloqueio da transação P2SH começa com uma primeira rodada de validação, que nada mais é que a verificação se o script de resgate corresponde ao valor hash no script de bloqueio.
 
@@ -59,13 +59,13 @@ Script:
 Running: <hashed99Equal> <hashed99Equal> OP_EQUAL
 Stack: [ 1 98 True ]
 ```
-O script termina com um ```True``` no topo da pilha e, portanto, foi bem-sucedido... Embora haja outro fragmento abaixo dele.
+O script termina com um ```True``` no topo da pilha e, portanto, foi bem-sucedido... embora haja outro fragmento abaixo dele.
 
 Porém, por se tratar de um script P2SH, a execução não está concluída.
 
-### Executando a segunda rodada de validação
+### Executando a Segunda Rodada de Validação
 
-Para a segunda rodada de validação, vamos verificar se os valores no script de desbloqueio satisfazem o ```redeemScript```: Desserializando o ```redeemScript``` ("93016387" = "OP_ADD 99 OP_EQUAL") e executando-o usando os itens no ```scriptSig``` anterior para o script serializado:
+Para a segunda rodada de validação, vamos verificar se os valores no script de desbloqueio satisfazem o ```redeemScript```: desserializando o ```redeemScript``` ("93016387" = "OP_ADD 99 OP_EQUAL") e executando-o usando os itens no ```scriptSig``` anterior para o script serializado:
 
 ```
 Script: 1 98 OP_ADD 99 OP_EQUAL
@@ -90,10 +90,10 @@ Stack: [ True ]
 ```
 Com essa segunda validação _também_ verdadeira, o UTXO agora pode ser gasto!
 
-## Resumo: Executando um script Bitcoin com P2SH
+## Resumo: Executando um Script no Bitcoin com P2SH
 
 Depois de conhecer a técnica de construção dos P2SH, qualquer script pode ser embutido em uma transação Bitcoin, e depois de entender a técnica de validação do P2SH, é fácil executar os scripts em duas fases.
 
-## O que vem depois?
+## O Que Vem Depois?
 
-Vamos continuar "Incorporando Scripts em Transações P2SH no Bitcoin" na seção [§10.4: Criando scripts multisig](10_4_Scripting_a_Multisig.md).
+Vamos continuar "Incorporando Scripts em Transações P2SH no Bitcoin" na seção [§10.4: Programando um Multisig](10_4_Scripting_a_Multisig.md).
