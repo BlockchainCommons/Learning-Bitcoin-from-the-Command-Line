@@ -1,4 +1,4 @@
-# Interludio: uso de variables de la línea de comandos
+# Interludio: Usando variables de la línea de comandos
 
 La sección anterior demostró una serie de comandos de línea de comandos que se utilizan sin ofuscación ni interferencia. 
 Sin embargo, a menudo esa no es la mejor manera de ejecutar Bitcoin desde la línea de comandos. 
@@ -35,12 +35,12 @@ IPYIzgj+Rg4bxDwCyoPiFiNNcxWHYxgVcklhmN8aB2XRRJqV731Xu9XkfZ6oxj+QGCRmTe80X81EpXtm
 El resto de este tutorial utilizará este estilo de guardar información en variables cuando sea práctico.
 
 
-> :book: ***Cuándo no es práctico utilizar variables de línea de comandos?*** Las variables de la línea de comandos no son prácticas si necesita usar la información en otro lugar que no sea la línea de comandos. Por ejemplo, es posible que guardar su firma no sea realmente útil si solo va a tener que enviársela a otra persona en un correo electrónico. Además, algunos comandos futuros generarán objetos JSON en lugar de información simple, y las variables no se pueden usar para capturar esa información ... al menos no sin un poco más de trabajo
+> :book: ***¿Cuándo no es práctico utilizar variables de línea de comandos?*** Las variables de la línea de comandos no son prácticas si necesita usar la información en otro lugar que no sea la línea de comandos. Por ejemplo, es posible que guardar su firma no sea realmente útil si solo va a tener que enviársela a otra persona en un correo electrónico. Además, algunos comandos futuros generarán objetos JSON en lugar de información simple, y las variables no se pueden usar para capturar esa información ... al menos no sin un poco más de trabajo
 
-## Resumen: uso de variables de la línea de comandos
+## Resumen: Usando variables de la línea de comandos
 
-Las variables de shell se pueden usar para contener cadenas largas de Bitcoin, lo que minimiza las posibilidades de errores.
+Las variables de la línea de comandos se pueden usar para contener cadenas largas de Bitcoin, lo que minimiza las posibilidades de errores.
 
-## Que sigue?
+## ¿Que sigue?
 
-Continúe con "Comprensión de la configuración de Bitcoin" en [§3.4: Recibiendo una transacción](03_4_Recibiendo_una_Transaccion.md).
+Continúe "Comprendiendo la configuración de Bitcoin" en [§3.4: Recibiendo una transacción](03_4_Recibiendo_una_Transaccion.md).
