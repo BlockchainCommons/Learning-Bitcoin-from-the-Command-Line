@@ -8,7 +8,7 @@ As we saw in [§6.2: Spending a Transaction with a Multisig](06_2_Spending_a_Tra
 
 ### Collect Your Variables
 
-Because P2SH addresses other than the special multisig and nested Segwit addresses aren't integrated into `bitcoin-cli` there will be no short-cuts for P2SH spending like you saw in [§6.3: Sending an Automated Multisig](6_3_Sending_an_Automated_Multisig.md). You're going to need to collect all the more complex variables on your own!
+Because P2SH addresses other than the special multisig and nested Segwit addresses aren't integrated into `bitcoin-cli` there will be no short-cuts for P2SH spending like you saw in [§6.3: Sending & Spending an Automated Multisig](6_3_Sending_an_Automated_Multisig.md). You're going to need to collect all the more complex variables on your own!
 
 This means that you need to collect:
 
