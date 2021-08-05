@@ -31,7 +31,7 @@ Libwally contiene una serie de funciones que se pueden utilizar para importar, e
 Algunos convierten de ida y vuelta entre direcciones y bytes `scriptPubKey`:
 
    * `wally_addr_segwit_from_bytes` - Convertir un programa testigo (en bytes) en una dirección Segwit
-   * `wally_addr_segwit_to_bytes` - Convertir una dirección Segwit en un scriptPubKey` (en bytes)
+   * `wally_addr_segwit_to_bytes` - Convertir una dirección Segwit en un `scriptPubKey` (en bytes)
    * `wally_address_to_scriptpubkey` - Convertir una dirección heredada en un `scriptPubKey`(en bytes)
    * `wally_scriptpubkey_to_address` - Convertir un scriptPubKey` (en bytes) en una dirección heredada
 
