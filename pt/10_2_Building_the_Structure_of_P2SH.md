@@ -1,4 +1,4 @@
-# 10.2: Construindo a Estrutura de P2SH
+# 10.2: Construindo a Estrutura do P2SH
 
 Na seção anterior, apresentamos uma visão geral da teoria de como criar as transações P2SH para armazenar os scripts de Bitcoin. Na prática, fazer isso é _muito mais difícil_, mas por uma questão de integridade, vamos examinar minuciosamente todos os pontos. Provavelmente, isso não é algo que faríamos sem uma API, então, se ficar muito complicado, esteja ciente de que retornaremos aos scripts originais de alto nível mais pra frente.
 
@@ -6,17 +6,17 @@ Na seção anterior, apresentamos uma visão geral da teoria de como criar as tr
 
 Qualquer transação P2SH começa com um script de bloqueio. Esse é o assunto dos capítulos 9, 11 e 12. Podemos usar qualquer um dos métodos de script do Bitcoin descritos nestes capítulos para criar qualquer tipo de script de bloqueio, desde que o ```redeemScript``` serializado resultante tenha 520 bytes ou menos.
 
-> :book: ***Por que os scripts P2SH são limitados a 520 bytes?*** Como muitas coisas no Bitcoin, a resposta é a compatibilidade com as versões anteriores: Novas funcionalidades devem ser constantemente criadas dentro das antigas restrições do sistema. Nesse caso, 520 bytes é o máximo que pode ser colocado na pilha de uma vez. Como todo o redemScript é colocado na pilha como parte do processo de resgate, ele está limitado a essa quantidade.
+> :book: ***Por que os scripts P2SH são limitados a 520 bytes?*** Como muitas coisas no Bitcoin, a resposta é a compatibilidade com as versões anteriores: novas funcionalidades devem ser constantemente criadas dentro das antigas restrições do sistema. Nesse caso, 520 bytes é o máximo que pode ser colocado na pilha de uma vez. Como todo o redeemScript é colocado na pilha como parte do processo de resgate, ele está limitado à essa quantidade.
 
-## Serializando um script de bloqueio da maneira mais difícil
+## Serializando um Script de Bloqueio da Maneira Difícil
 
-Depois de criar um script de bloqueio, precisamos serializá-lo antes que possamos ser inseridos no Bitcoin. Este é um processo de duas partes. Primeiro, devemos transformá-lo em um hexcode, para então transformar esse hex em binário.
+Depois de criar um script de bloqueio, precisamos serializá-lo antes que possam ser inseridos no Bitcoin. Este é um processo de duas partes. Primeiro, devemos transformá-lo em um hexcode, para então transformar esse hex em binário.
 
-### Criando o código hexadecimal
+### Criando o Código Hexadecimal
 
 Criar o hexcode necessário para serializar um script é uma simples tradução, mas ao mesmo tempo, algo complexo o suficiente para ir além de qualquer script shell que provavelmente escreveremos. Esta etapa é um dos principais motivos pelos quais precisamos de uma API para criar as transações P2SH.
 
-Podemos criar um hexcode percorrendo nosso script de bloqueio e transformando cada elemento em um comando hexadecimal de um byte, possivelmente seguido por dados adicionais. De acordo com o guia da [página Bitcoin Wiki Script](https://en.bitcoin.it/wiki/ Roteiro):
+Podemos criar um hexcode percorrendo nosso script de bloqueio e transformando cada elemento em um comando hexadecimal de um byte, possivelmente seguido por dados adicionais. De acordo com o guia da [página Wiki do Bitcoin Script](https://en.bitcoin.it/wiki/Script):
 
 * Os operadores são traduzidos para o byte correspondente para esse opcode;
 * As constantes 1-16 são convertidas para opcodes 0x51 a 0x61 (OP_1 a OP_16);
@@ -24,7 +24,7 @@ Podemos criar um hexcode percorrendo nosso script de bloqueio e transformando ca
 * Outras constantes são precedidas por opcodes 0x01 a 0x4e (OP_PUSHDATA, com o número especificando de quantos bytes adicionar);
    * Os inteiros são traduzidos em hexadecimal usando a notação de magnitude com sinal _little-endian_.
 
-### Traduzindo os tipos inteiros
+### Traduzindo os Números Inteiros
 
 Os inteiros são a parte mais problemática de uma tradução de script de bloqueio.
 
@@ -48,7 +48,7 @@ $ lehex=$(echo $hex | tac -rs .. | echo "$(tr -d '\n')")
 $ echo $lehex
 9f7b2a5c
 ```
-Além disso, sempre precisaremos saber o tamanho dos dados que colocamos na pilha, para que possa precedê-los com o opcode adequado. Podemos apenas lembrar que cada dois caracteres hexadecimais é um byte. Ou podemos usar o comando ```echo -n``` com o pipe para ```wc -c``` e dividi-lo ao meio:
+Além disso, sempre precisaremos saber o tamanho dos dados que colocamos na pilha, para que possamos precedê-los com o opcode adequado. Podemos apenas lembrar que cada dois caracteres hexadecimais é um byte. Ou podemos usar o comando ```echo -n``` com o pipe para ```wc -c``` e dividi-lo ao meio:
 ```
 $ echo -n $lehex | wc -c | awk '{print $1/2}'
 4
@@ -66,7 +66,7 @@ $ echo $neglehex
 
 Para completar nossa serialização, traduzimos o código hexadecimal em binário. Na linha de comando, isso requer apenas uma invocação simples do ```xxd -r -p```. No entanto, provavelmente desejamos fazer isso tudo junto, para também fazer o hash do script...
 
-## Executando o script de conversão de tipos inteiros
+## Executando o Script de Conversão de Inteiros
 
 Um script completo para alterar um número inteiro entre -2147483647 e 2147483647 para uma representação de magnitude assinada do tipo _little-endian_ em hexadecimal pode ser encontrado no [diretório de código src](src/10_2_integer2lehex.sh). Podemos baixar o ```integeer2lehex.sh```.
 
@@ -91,19 +91,19 @@ Length: 4 bytes
 Hexcode: 049f7b2adc
 ```
 
-## Analisando um P2SH Multisig
+## Analisando um Multisig P2SH
 
 Para entender melhor o processo, faremos a engenharia reversa do multisig P2SH que criamos na seção [§6.1: Enviando uma Transação com Multisig](06_1_Sending_a_Transaction_to_a_Multisig.md). Dê uma olhada no ```redeemScript``` que usamos, que agora sabemos que é a versão hexadecimal do script de bloqueio:
 ```
 522102da2f10746e9778dd57bd0276a4f84101c4e0a711f9cfd9f09cde55acbdd2d1912102bfde48be4aa8f4bf76c570e98a8d287f9be5638412ab38dede8e78df82f33fa352ae
 ```
-Podemos traduzir isso de volta para o script manualmente usando a [página do Bitcoin Wiki Script](https://en.bitcoin.it/wiki/Script) como uma referência. Basta olhar para um byte (dois caracteres hexadecimais) de dados por vez, a menos que nos seja dito para olhar pra mais bytes usando OP_PUSHDATA (um opcode no intervalo de 0x01 a 0x4e).
+Podemos traduzir isso de volta para o script manualmente usando a [página Wiki do Bitcoin Script](https://en.bitcoin.it/wiki/Script) como uma referência. Basta olhar para um byte (dois caracteres hexadecimais) de dados por vez, a menos que nos seja dito para olhar pra mais bytes usando OP_PUSHDATA (um opcode no intervalo de 0x01 a 0x4e).
 
 Todo o Script será dividido da seguinte forma:
 ```
 52 / 21 / 02da2f10746e9778dd57bd0276a4f84101c4e0a711f9cfd9f09cde55acbdd2d191 / 21 / 02bfde48be4aa8f4bf76c570e98a8d287f9be5638412ab38dede8e78df82f33fa3 / 52 / ae
 ```
-Aqui está o que as partes individuais significam:
+Aqui está o que cada parte individual significa:
 
 * 0x52 = OP_2
 * 0x21 = OP_PUSHDATA 33 bytes (hex: 0x21)
@@ -113,7 +113,7 @@ Aqui está o que as partes individuais significam:
 * 0x52 = OP_2
 * 0xae = OP_CHECKMULTISIG
 
-Em outras palavras, esse ```redeemScript``` era uma tradução de ```2 02da2f10746e9778dd57bd0276a4f84101c4e0a711f9cfd9f09cde55acbdd2d191 02bfde48be4aa8f4bf76c570e98a8d287f9be5638412ab38dede8e78df82f33fa3 2 OP_CHECKMULTISIG``` Voltaremos a este script na seção [§10.4: Criando scripts multisig](10_4_Scripting_a_Multisig.md) quando detalharmos exatamente como os multisigs funcionam dentro do paradigma P2SH.
+Em outras palavras, esse ```redeemScript``` era uma tradução de ```2 02da2f10746e9778dd57bd0276a4f84101c4e0a711f9cfd9f09cde55acbdd2d191 02bfde48be4aa8f4bf76c570e98a8d287f9be5638412ab38dede8e78df82f33fa3 2 OP_CHECKMULTISIG```. Voltaremos a este script na seção [§10.4: Programando um Multisig](10_4_Scripting_a_Multisig.md) quando detalharmos exatamente como os multisigs funcionam dentro do paradigma P2SH.
 
 Se gostarmos de fazer o trabalho manual com esse tipo de tradução no futuro, podemos usar o ```decodescript bitcoin-cli```:
 ```
@@ -141,7 +141,7 @@ $ bitcoin-cli -named decodescript hexstring=522102da2f10746e9778dd57bd0276a4f841
 ```
 É especialmente útil para verificar nosso trabalho durante a serialização.
 
-## Serializando um script de bloqueio da maneira mais fácil
+## Serializando um Script de Bloqueio da Maneira Fácil
 
 Quando instalamos o ```btcdeb``` na seção [§9.3](09_3_Testing_a_Bitcoin_Script.md) também instalamos o ```btcc``` que pode ser usado para serializar scripts do Bitcoin:
 ```
@@ -154,7 +154,7 @@ Isso é muito mais fácil do que fazer tudo na mão!
 
 Considere também o compilador em Python, [Transaction Script Compiler](https://github.com/Kefkius/txsc), que traduz de trás pra frente também.
 
-## Fazendo o hash de um script serializado
+## Fazendo o Hash de um Script Serializado
 
 Depois de criar um script de bloqueio e serializá-lo, a terceira etapa na criação de uma transação P2SH é fazer o hash do script de bloqueio. Conforme observado anteriormente, um hash OP_HASH160 de 20 bytes é criado por meio de uma combinação de um hash SHA-256 e um hash RIPEMD-160. O hash de um script serializado, portanto, requer dois comandos: ```openssl dgst -sha256 -binary``` que faz o hash SHA-256 e produz um binário a ser enviado no pipe, então o ```openssl dgst -rmd160``` pega o fluxo do binário, faz um RIPEMD- 160 hash e, finalmente, gera um código hexadecimal legível.
 
@@ -165,7 +165,7 @@ $ echo -n $redeemScript | xxd -r -p | openssl dgst -sha256 -binary | openssl dgs
 (stdin)= a5d106eb8ee51b23cf60d8bd98bc285695f233f3
 ```
 
-## Criando uma transação P2SH
+## Criando uma Transação P2SH
 
 Criar o hash de 20 bytes apenas fornece o hash no centro de um script de bloqueio P2SH. Ainda precisamos colocá-lo junto com os outros opcodes que criam uma transação P2SH padrão: ```OP_HASH160 a5d106eb8ee51b23cf60d8bd98bc285695f233f3 OP_EQUAL```.
 
@@ -175,8 +175,8 @@ Podemos observar que o ```hex scriptPubKey``` para a transação P2SH Script ir�
 
 ## Resumo: Construindo a Estrutura de P2SH
 
-Na verdade, a criação do script de bloqueio P2SH entra ainda mais nas entranhas do Bitcoin. Embora seja útil saber como tudo isso funciona em um nível muito baixo, é mais provável que tenhamos uma API cuidando de todo o trabalho pesado para nós. Nossa tarefa será simplesmente criar o Script Bitcoin para fazer o bloqueio... Que é o tópico principal dos capítulos 9, 11 e 12.
+Na verdade, a criação do script de bloqueio P2SH entra ainda mais nas entranhas do Bitcoin. Embora seja útil saber como tudo isso funciona em um nível muito baixo, é mais provável que tenhamos uma API cuidando de todo o trabalho pesado para nós. Nossa tarefa será simplesmente criar o Script Bitcoin para fazer o bloqueio... que é o tópico principal dos capítulos 9, 11 e 12.
 
-## O que vem depois?
+## O Que Vem Depois?
 
-Vamos continuar "Incorporando Scripts em Transações P2SH no Bitcoin" na seção [§10.3: Executando um script Bitcoin com P2SH](10_3_Running_a_Bitcoin_Script_with_P2SH.md).
+Vamos continuar "Incorporando Scripts em Transações P2SH no Bitcoin" na seção [§10.3: Executando um Script no Bitcoin com P2SH](10_3_Running_a_Bitcoin_Script_with_P2SH.md).
