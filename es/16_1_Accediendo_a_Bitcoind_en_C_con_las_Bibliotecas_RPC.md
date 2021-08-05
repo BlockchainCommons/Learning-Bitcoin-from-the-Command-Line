@@ -39,7 +39,7 @@ $ emacs ~/libbitcoinrpc/Makefile
 ...
 INSTALL_LIBPATH    := $(INSTALL_PREFIX)/usr/lib
 ```
-(Si prefiere mancillar su `/usr/lib`, la alternativa es cambiar su `etc/ld.so.conf` o sus archivos dependientes de manera apropiada  ... pero para una configuración de prueba en una máquina de prueba, esto probablemente esté bien)
+(Si prefiere no mancillar su `/usr/lib`, la alternativa es cambiar su `etc/ld.so.conf` o sus archivos dependientes de manera apropiada  ... pero para una configuración de prueba en una máquina de prueba, esto probablemente esté bien)
 
 Del mismo modo, también querrá ajustar el `INSTALL_HEADERPATH` en el `libbitcoinrpc` `Makefile` para instalar en `/usr/include` en lugar de `/usr/local/include`:
 ```
@@ -148,7 +148,7 @@ bitcoinrpc_global_cleanup();
 
 ### Pruebe el código de prueba
 
-El código de prueba se puede encontrar en el directorio src [15_1_testbitcoin.c ](src/15_1_testbitcoin.c). Descárguelo en su máquina de testnet, luego inserte la contraseña de RPC correcta (y cambie el usuario de RPC si no creó su servidor con StandUp).
+El código de prueba se puede encontrar en el directorio src [15_1_testbitcoin.c](../src/15_1_testbitcoin.c). Descárguelo en su máquina de testnet, luego inserte la contraseña de RPC correcta (y cambie el usuario de RPC si no creó su servidor con StandUp).
 
 Puede compilar y ejecutar esto de la siguiente manera:
 ```
@@ -214,7 +214,7 @@ printf("Block Count: %d\n",blocks);
 
 ### Prueba el código de información
 
-Recupere el código de prueba del [directorio src](15_1_getmininginfo.c).
+Recupere el código de prueba del [directorio src](../15_1_getmininginfo.c).
 ```
 $ cc getmininginfo.c -lbitcoinrpc -ljansson -o getmininginfo
 $ ./getmininginfo 
