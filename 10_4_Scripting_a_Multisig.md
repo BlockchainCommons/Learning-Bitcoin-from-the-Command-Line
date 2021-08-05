@@ -30,7 +30,7 @@ As as `OP_CHECKMULTISIG` locking script requires the "m" (`2`), the addresses, a
 ```
 2 $address1 $address2 2 OP_CHECKMULTISIG
 ```
-If this looks familiar, that's because it's the multisig that you deserialized in [§8.2: Building the Structure of P2SH](08_2_Building_the_Structure_of_P2SH.md).
+If this looks familiar, that's because it's the multisig that you deserialized in [§10.2: Building the Structure of P2SH](10_2_Building_the_Structure_of_P2SH.md).
 ```
 2 02da2f10746e9778dd57bd0276a4f84101c4e0a711f9cfd9f09cde55acbdd2d191 02bfde48be4aa8f4bf76c570e98a8d287f9be5638412ab38dede8e78df82f33fa3 2 OP_CHECKMULTISIG
 ```
