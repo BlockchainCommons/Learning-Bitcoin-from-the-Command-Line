@@ -23,12 +23,12 @@ $ bitcoind --help | grep zmq | grep address
   -zmqpubrawtx=<address>
 ```
 
-Puede ejecutar `bitcoind` con argumentos de línea de comandos para puntos finales ZMQ, como se muestra arriba, pero también puede hacer que un punto final sea accesible agregando líneas apropiadas a su archivo` ~ / .bitcoin / bitcoin.conf` y reiniciando su demonio.
+Puede ejecutar `bitcoind` con argumentos de línea de comandos para puntos finales ZMQ, como se muestra arriba, pero también puede hacer que un punto final sea accesible agregando líneas apropiadas a su archivo `~/.bitcoin/bitcoin.conf` y reiniciando su demonio.
 
-''
+```
 zmqpubrawblock = tcp: //127.0.0.1: 28332
 zmqpubrawtx = tcp: //127.0.0.1: 28333
-''
+```
 
 Luego puede probar que sus puntos finales están funcionando usando el RPC `getzmqnotifications`:
 
@@ -67,7 +67,7 @@ Ahora esta listo para codificar!
 
 El siguiente programa en C es un cliente simple que se suscribe a un punto de conexión ZMQ servido por `bitcoind` y lee los mensajes entrantes.
 
-El programa requiere dos parámetros: el primer parámetro es el "servidor", que es el punto de conexión TCP expuesto por `bitcoind`; y el segundo es el "tema", que actualmente es `zmqpubhashblock`,` zmqpubhashtx`, `zmqpubrawblock` o` zmqpubrawtx`. El tema debe estar respaldado a través de `bitcoin.conf` y la dirección IP y el puerto del servidor deben coincidir con lo que se define allí.
+El programa requiere dos parámetros: el primer parámetro es el "servidor", que es el punto de conexión TCP expuesto por `bitcoind`; y el segundo es el "tema", que actualmente es `zmqpubhashblock`,` zmqpubhashtx`, `zmqpubrawblock` o `zmqpubrawtx`. El tema debe estar respaldado a través de `bitcoin.conf` y la dirección IP y el puerto del servidor deben coincidir con lo que se define allí.
 
 ``` c
 #include <czmq.h>
@@ -133,7 +133,7 @@ Por supuesto, cuando termine, debe limpiar:
 
 ### Pruebe el código de notificación
 
-El código fuente está en el [directorio src](src/15_3_chainlistener.c) como de costumbre. Debería compilarlo:
+El código fuente está en el [directorio src](../src/15_3_chainlistener.c) como de costumbre. Debería compilarlo:
 
 ```
 $ cc -o chainlistener chainlistener.c -I/usr/local/include -L/usr/local/lib -lzmq -lczmq
