@@ -18,7 +18,7 @@ Vas a necesitar `Xcode`, el entorno de desarrollo integrado para Swift y Objecti
 
 Algunas personas aconsejan no instalar desde el App Store porque es algo como todo o nada; tampoco funcionará si sigue usando Mojave porque quiere evitar las incompatibilidades de Catalina. En ese caso, puede descargar directamente desde el [area de Developer](https://developer.apple.com/download/more/) en Apple.
 
-Si usted esta usando Mojave, necesitara el archivo `xip` para Xcode 10.3.1. De lo contrario, obtenga el más reciente.
+Si usted esta usando Mojave, necesitará el archivo `xip` para Xcode 10.3.1. De lo contrario, obtenga el más reciente.
 
 Una vez descargado, puede hacer clic en el `xip` para extraerlo, y luego mover la aplicación Xcode a la carpeta Aplicaciones.
 
@@ -26,9 +26,9 @@ Una vez descargado, puede hacer clic en el `xip` para extraerlo, y luego mover l
 
 ### 2. Instale el servidor Gordian
 
-También va a necesitar un nodo Bitcoin en su Mac, para que pueda comunicarte con él. Técnicamente, se puede utilizar un nodo remoto y acceder a él con el inicio de sesión RPC y contraseña a través de la red. Sin embargo, le sugerimos que instale un nodo completo directamente en su Mac, porque es la configuración más segura y limpia, asegurando que ninguna de sus comunicaciones salga de su máquina.
+También va a necesitar un nodo Bitcoin en su Mac, para que pueda comunicarse con él. Técnicamente, se puede utilizar un nodo remoto y acceder a él con el inicio de sesión RPC y contraseña a través de la red. Sin embargo, le sugerimos que instale un nodo completo directamente en su Mac, porque es la configuración más segura y limpia, asegurando que ninguna de sus comunicaciones salga de su máquina.
 
-Para instalar fácilmente un nodo completo en su Mac, utilice el servidor de Blockchain Commons [GordianServer for MacOS](https://github.com/BlockchainCommons/GordianServer-macOS). Vea las [instrucciones de instalación](https://github.com/BlockchainCommons/GordianServer-macOS#installation-instructions) en el README, pero generalmente todo lo que tiene que hacer es descargar el archivo actual `dmg` , abrirlo e instalar esa aplicación en su directorio de Aplicaciones también.
+Para instalar fácilmente un nodo completo en su Mac, utilice el servidor de Blockchain Commons [GordianServer for MacOS](https://github.com/BlockchainCommons/GordianServer-macOS). Vea las [instrucciones de instalación](https://github.com/BlockchainCommons/GordianServer-macOS#installation-instructions) en el README, pero generalmente todo lo que tiene que hacer es descargar el archivo actual `dmg`, abrirlo e instalar esa aplicación en su directorio de Aplicaciones también.
 
 Después, ejecute la aplicación GordianServer y decirle que inicie `Start` Testnet. 
 
@@ -336,7 +336,7 @@ El RPC `listunspent` le permite encontrar su UTXO:
         let amount = utxo["amount"] as! NSNumber
         let new_amount = amount.floatValue - 0.0001
 ```
-Como en otros ejemplos, usted va a tomar arbitrariamente el 0º UTXO, y usara las `txid`, `vout`, y `amount` de ella.
+Como en otros ejemplos, usted va a tomar arbitrariamente el 0º UTXO, y usará las `txid`, `vout`, y `amount` de ella.
 
 > :information_source **NOTA:** Una vez más, un programa de la vida real sería mucho más sofisticado.
 
@@ -352,7 +352,7 @@ Crear una transacción en bruto es la cosa más complicada porque necesita obten
 ```
 ### 3. Firme la transacción cruda
 
-La firma de su transacción sólo requiere que ejecute la transacción `signrawctionwithwallet`RPC, usando su nuevo `hex`:
+La firma de su transacción sólo requiere que ejecute la transacción `signrawctionwithwallet` RPC, usando su nuevo `hex`:
 ```
             method = "signrawtransactionwithwallet"
             param = "\"\(hex)\""
