@@ -84,7 +84,7 @@ rpc_method = bitcoinrpc_method_init(BITCOINRPC_METHOD_LISTUNSPENT);
 bitcoinrpc_call(rpc_client, rpc_method, btcresponse, &btcerror);
 ```
 
-Sin embargo, el verdadero trabajo consiste en decodificar la respuesta. La sección anterior señalaba que la biblioteca `jansson` era "algo torpe" y por eso: tiene que crear (y borrar) un conjunto muy grande de objetos` json_t` para buscar lo que quiere.
+Sin embargo, el verdadero trabajo consiste en decodificar la respuesta. La sección anterior señalaba que la biblioteca `jansson` era "algo torpe" y por eso: tiene que crear (y borrar) un conjunto muy grande de objetos `json_t` para buscar lo que quiere.
 
 Primero, debe recuperar el campo `result` de JSON:
 
@@ -204,7 +204,7 @@ La única diferencia es qué información particular se extrae del objeto JSON.
 
 La creación de la transacción sin procesar real es la otra parte complicada de la programación de su reemplazo de `sendtoaddress`. Eso es porque requiere la creación de un objeto JSON complejo como parámetro.
 
-Para crear correctamente estos parámetros, deberá revisar lo que espera el RPC `createrawtransaction`. Afortunadamente, esto es fácil de determinar usando la funcionalidad bitcoin-cli help`:
+Para crear correctamente estos parámetros, deberá revisar lo que espera el RPC `createrawtransaction`. Afortunadamente, esto es fácil de determinar usando la funcionalidad `bitcoin-cli help`:
 
 ```
 $ bitcoin-cli help createrawtransaction
@@ -216,7 +216,7 @@ Para revisar, sus entradas serán una matriz JSON que contiene un objeto JSON pa
 #### Paso 6.1: Crear los parámetros de entrada
 
 
-Para crear el objeto de entrada para su UTXO, use `json_object`, luego rellénelo con valores-clave usando` json_object_set_new` (para referencias recién creadas) o `json_object_set` (para referencias existentes):
+Para crear el objeto de entrada para su UTXO, use `json_object`, luego rellénelo con valores-clave usando `json_object_set_new` (para referencias recién creadas) o `json_object_set` (para referencias existentes):
 
 ```
 json_t *inputtxid = NULL;
@@ -226,9 +226,9 @@ json_object_set_new(inputtxid,"txid",json_string(tx_id));
 json_object_set_new(inputtxid,"vout",json_integer(tx_vout));
 ```
 
-Notará que nuevamente tiene que traducir cada tipo de variable C en un tipo de variable JSON usando la función apropiada, como `json_string` o` json_integer`.
+Notará que nuevamente tiene que traducir cada tipo de variable C en un tipo de variable JSON usando la función apropiada, como `json_string` o `json_integer`.
 
-Para crear la matriz de entrada general para todos sus UTXO, use `json_array`, luego llénelo con objetos usando` json_array_append`:
+Para crear la matriz de entrada general para todos sus UTXO, use `json_array`, luego llénelo con objetos usando  `json_array_append`:
 
 ```
 json_t *inputparams = NULL;
@@ -238,7 +238,7 @@ json_array_append(inputparams,inputtxid);
 
 #### Paso 6.2: Crear los parámetros de salida
 
-Para crear la matriz de salida para su transacción, siga el mismo formato, cree un objeto JSON con `json_object`, luego llénelo con` json_object_set`:
+Para crear la matriz de salida para su transacción, siga el mismo formato, cree un objeto JSON con `json_object`, luego llénelo con `json_object_set`:
 
 ```
 json_t *outputparams = NULL;
@@ -364,7 +364,7 @@ El código completo, con un poco más de comprobación de errores, aparece en el
 ## Pruebe su código
 
 
-El código completo se puede encontrar en el [directorio src](src/15_2_sendtoaddress.c).
+El código completo se puede encontrar en el [directorio src](../src/15_2_sendtoaddress.c).
 
 Compile esto como de costumbre:
 
