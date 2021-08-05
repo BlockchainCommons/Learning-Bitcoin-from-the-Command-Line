@@ -1,4 +1,4 @@
-# 16.1: Configuración de Libwally
+# 17.1: Configuración de Libwally
 
 > :information_source: **NOTE:** En esta sección se ha añadido recientemente al curso y es un borrador temprano que todavía puede estar pendiente de revisión. Lectura con advertencias.
 
@@ -19,7 +19,7 @@ $ git clone https://github.com/ElementsProject/libwally-core
 ```
 Posteriormente, usted puede comenzar el proceso de configuración:
 ```
-$ . /herramientas/autogen.sh
+$ ./tools/autogen.sh
 ```
 Al igual que con `libbitcoinrpc`, es posible que desee instalar esto en `/usr/include` y `/usr/lib` para facilitar su uso. Simplemente modifique la línea apropiada en el programa `configure` :
 ```
@@ -29,7 +29,7 @@ Al igual que con `libbitcoinrpc`, es posible que desee instalar esto en `/usr/in
 ```
 Después puede terminar su preparación:
 ```
-$ . /configure
+$ ./configure
 $ make
 ```
 Luego, puede verificar que las pruebas están funcionando:
@@ -91,7 +91,7 @@ $ sudo make install
 
 ## Preparación para Libwally
 
-Entonces, ¿cómo usar Libwally en un programa? Como de costumbre,usted necesitara incluir archivos apropiados y enlazar bibliotecas apropiadas para su código.
+Entonces, ¿cómo usar Libwally en un programa? Como de costumbre, usted necesitara incluir archivos apropiados y enlazar bibliotecas apropiadas para su código.
 
 ### Incluir los archivos
 
@@ -102,7 +102,7 @@ $ ls /usr/include/wally*
 /usr/include/wally_bip32.h    /usr/include/wally_core.h    /usr/include/wally.hpp	  /usr/include/wally_symmetric.h
 /usr/include/wally_bip38.h    /usr/include/wally_crypto.h  /usr/include/wally_psbt.h	  /usr/include/wally_transaction.h
 ```
-Afortunadamente, los nombres de archivo coinciden en gran medida con las secciones de [docs](https://wally.readthedocs.io/en/latest/), por lo que debería ser capaz de incluir los archivos correctos en función de lo que está haciendo, después de incluir el ubicuo `wally_core. h`.
+Afortunadamente, los nombres de archivo coinciden en gran medida con las secciones de [docs](https://wally.readthedocs.io/en/latest/), por lo que debería ser capaz de incluir los archivos correctos en función de lo que está haciendo, después de incluir el ubicuo `wally_core.h`.
 
 ### Enlazar las bibliotecas
 
@@ -128,7 +128,7 @@ En ambos casos, el argumento es para flags, pero actualmente tiene el valor `0`.
 
 ## Prueba un programa de prueba de Libwally
 
-El directorio src contiene [testwally. c](src/16_1_testwally.c), que sólo muestra cómo funcionan las funciones de inicialización y limpieza.
+El directorio src contiene [testwally.c](../src/16_1_testwally.c), que sólo muestra cómo funcionan las funciones de inicialización y limpieza.
 
 Puede compilarlo de la siguiente manera:
 ```
@@ -188,4 +188,4 @@ Entonces, ¿qué puede hacer ahora?   De eso es lo que se trata en el siguiente 
 
 ## ¿Qué es lo siguiente?
 
-Más información sobre "Programar Bitcoin con Libwally" en [16.2: Usar BIP39 en Libwally](16_2_Using_BIP39_in_Libwally.md).
+Más información sobre "Programar Bitcoin con Libwally" en [17.2: Usar BIP39 en Libwally](17_2_Using_BIP39_in_Libwally.md).
