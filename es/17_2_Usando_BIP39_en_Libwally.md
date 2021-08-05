@@ -34,7 +34,7 @@ Usando `libsodium`, puede crear entropía con el comando `randombytes_buf` :
   unsigned char entropy[16];  
   randombytes_buf(entropy, 16);
 ```
-Este ejemplo, que será la única forma de usar la biblioteca `libsodium` , crea 16 bytes de entropía. En general, para crear un código mnemónico seguro, debe utilizar entre 128 y 256 bits de entropía, que es de 16 a 32 bytes.
+Este ejemplo, que será la única forma de usar la biblioteca `libsodium`, crea 16 bytes de entropía. En general, para crear un código mnemónico seguro, debe utilizar entre 128 y 256 bits de entropía, que es de 16 a 32 bytes.
 
 >:warning: **ADVERTENCIA:** De nuevo, tenga la certeza de que usted esta muy cómodo con tu método de generación de entropía antes de usarlo en un programa del mundo real.
 
@@ -55,7 +55,7 @@ Tenga en cuenta que tiene que pasar a lo largo del tamaño del byte, por lo que 
 
 ### Traducir en una semilla
 
-Hay algunas funciones, tales como `bip32_key_from_seed` (que veremos en la siguiente sección) que requieren que usted tenga theseeddeed en lugar de la Mnemonic. Las dos cosas son funcionalmente idénticas: si tiene la semilla, puede generar la mnemónica, y viceversa.
+Hay algunas funciones, tales como `bip32_key_from_seed` (que veremos en la siguiente sección) que requieren que usted tenga la semilla en lugar de la mnemónica. Las dos cosas son funcionalmente idénticas: si tiene la semilla, puede generar la mnemónica, y viceversa.
 
 Si necesita generar la semilla a partir de su mnemónico, sólo tiene que utilizar el comando `bip39_mnemonic_to_seed`:
 
@@ -82,7 +82,7 @@ Si ha hecho todo bien, debería recuperar una semilla de 64 bytes. (Esa es la va
 
 ## Prueba de código mnemónico
 
-El código completo para generar entropía, generar un mnemónico BIP39, validar el mnemónico y generar una semilla se puede encontrar en el directorio [src](src/16_2_genmnemonic.c). Descargar y compilar:
+El código completo para generar entropía, generar un mnemónico BIP39, validar el mnemónico y generar una semilla se puede encontrar en el directorio [src](../src/16_2_genmnemonic.c). Descargar y compilar:
 ```
 $ cc genmnemonic.c -lwallycore -lsodium -o genmnemonic
 ```
