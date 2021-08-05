@@ -24,4 +24,4 @@ Los objetivos de apoyo incluyen la capacidad de:
   * [Sección Cuatro: Uso de PSBTs en Libwally](17_4_Usando_PSBTs_en_Libwally.md) 
   * [Sección Cinco: Usar scripts en Libwally](17_5_Usando_Scripts_en_Libwally.md)
   * [Sección Seis: Usar otras funciones en Libwally](17_6_Usando_Otras_Funciones_en_Libwally.md)
-  * [Sección siete: Integración de Libwally y Bitcoin-CLI](17_7_Integrando_Libwally_y_Bitcoin-CLI.md)
+  * [Sección Siete: Integración de Libwally y Bitcoin-CLI](17_7_Integrando_Libwally_y_Bitcoin-CLI.md)
