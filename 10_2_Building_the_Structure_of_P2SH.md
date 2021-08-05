@@ -171,7 +171,7 @@ Depending on your API, you might be able to enter this as an `asm`-style `script
 
 Note that the `hex scriptPubKey` for P2SH Script transaction will _always_ start with an `a914`, which is the `OP_HASH160` followed by an `OP_PUSHDATA` of 20 bytes (hex: `0x14`); and it will _always_ end with a `87`, which is an `OP_EQUAL`. So all you have to do is put your hashed redeem script in between those numbers.
 
-## Summary: Understanding the Foundation of P2SH
+## Summary: Building the Structure of P2SH
 
 Actually creating the P2SH locking script dives further into the guts of Bitcoin than you've ever gone before. Though it's helpful to know how all of this works at a very low level, it's most likely that you'll have an API taking care of all of the heavy-lifting for you. Your task will simply be to create the Bitcoin Script to do the locking ... which is the main topic of chapters 9 and 11-12.
 
