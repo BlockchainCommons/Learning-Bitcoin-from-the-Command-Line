@@ -1,18 +1,18 @@
 # 6.2: Gastando una Transacción con una Multifirma
 
-The classic, and complex, way of spending funds sent to a multisignature address using `bitcoin-cli` requires that you do a lot of foot work.
+La clásica, y compleja, forma de gastar fondos enviados a una dirección multifirma usando `bitcoin-cli` requiere mucho trabajo.
 
-## Find Your Funds
+## Encuentra Tus Fondos
 
-To start with, you need to find your funds; your computer doesn't know to look for them, because they're not associated with any addresses in your wallet. You can alert `bitcoind` to do so using the `importaddress` command:
+Para empezar, necesitas encontrar tus fondos; tu computadora no sabe buscarlos, porque no están asociados con ninguna dirección en tu billetera. Puedes alertar a `bitcoind` para hacerlo usando el comando `importaddress`:
 ```
 $ bitcoin-cli -named importaddress address=2NAGfA4nW6nrZkD5je8tSiAcYB9xL2xYMCz
 ```
-If you've got a pruned node (and you probably do), you'll instead need to tell it no to rescan:
+Si tienes un nodo podado (y probablemente lo tengas), tendrás que decirle que no vuelva a escanear:
 ```
 $ bitcoin-cli -named importaddress address=2NAGfA4nW6nrZkD5je8tSiAcYB9xL2xYMCz rescan="false"
 ```
-If you prefer, you can import the address using its descriptor (and this is generally the better, more standardized answer):
+Si prefieres, puedes importar la dirección usando su descriptor (y esta es generalmente la mejor, más estandarizada respuesta):
 ```
 $ bitcoin-cli importmulti '[{"desc": "sh(multi(2,02da2f10746e9778dd57bd0276a4f84101c4e0a711f9cfd9f09cde55acbdd2d191,02bfde48be4aa8f4bf76c570e98a8d287f9be5638412ab38dede8e78df82f33fa3))#0pazcr4y", "timestamp": "now", "watchonly": true}]'
 [
@@ -21,7 +21,7 @@ $ bitcoin-cli importmulti '[{"desc": "sh(multi(2,02da2f10746e9778dd57bd0276a4f84
   }
 ]
 ```
-Afterward the funds should show up when you `listunspent` ... but they still aren't easily spendable. (In fact, your wallet may claim they're not `spendable` at all!)
+Posteriormente, los fondos deberían aparecer cuando hagas `listunspent` ... pero aún así no son fáciles de gastar. (De hecho, tu billetera puede afirmar que no se pueden gastar `spendable` en absoluto!)
 
 If for some reason you're not able to incorporate the address into your wallet, you can use `gettransaction` to get info instead (or look at a block explorer).
 ```
