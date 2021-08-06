@@ -76,7 +76,7 @@ Follow the below steps to run Bitcoin Core i2p service:
 
 ## Summary: Bitcoin Core as an I2P (Invisible Internet Project) service
 
-It is always good to have alternatives for privacy and not depend only on Tor to run Bitcoin Core as hidden service. Since i2p was recently added in Bitcoin Core, less people use it, experiment with it and report bugs if you find any issues.
+It is always good to have alternatives for privacy and not depend only on Tor to run Bitcoin Core as hidden service. Since i2p was recently added in Bitcoin Core, not many people use it. Experiment with it and report bugs if you find any issues.
 
 > :information_source: **NOTE:** _i2pd_ (C++) is different from _i2prouter_ (Java), you will need `i2pd` for Bitcoin Core.
 
