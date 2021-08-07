@@ -8,7 +8,7 @@ Here's the gotcha for using Bitcoin Scripts: for security reasons, most Bitcoin 
 
 * __Pay to Public Key (P2PK)__ — An older, deprecated transaction (`<pubKey> OP_CHECKSIG`) that has been replaced by the better security of P2PKH.
 * __Pay to Public Key Hash (P2PKH)__ — A standard transaction (`OP_DUP OP_HASH160 <pubKeyHash> OP_EQUALVERIFY OP_CHECKSIG`) that pays to the hash of a public key.
-* __Pay to Witness Public Key hash (P2WPKH)__ — The newest sort of public-key transaction. It's just (`OP_0 <pubKeyHash`) because it depends on miner consensus to work, as described in [§9.5](09_5_Scripting_a_P2WPKH.md).
+* __Pay to Witness Public Key hash (P2WPKH)__ — The newest sort of public-key transaction. It's just (`OP_0 <pubKeyHash>`) because it depends on miner consensus to work, as described in [§9.5](09_5_Scripting_a_P2WPKH.md).
 * __Multisig__ — A transaction for a group of keys, as explained more fully in [§10.4](10_4_Scripting_a_Multisig.md).
 * __Null Data__ — An unspendable transaction (`OP_RETURN Data`).
 * __Pay to Script Hash (P2SH)__ — A transaction that pays out to a specific script, as explained more fully here.
