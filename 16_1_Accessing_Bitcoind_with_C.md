@@ -106,7 +106,7 @@ First, initialize the library:
 ```
 bitcoinrpc_global_init();
 ```
-Then connect to your `bitcoind` with `bitcoinrpc_cl_init_params`. The four arguments for `bitcoinrpc_cl_init_params` are username, password, IP address, and port. You should already know all of this information from your work with [Curl](04_4__Interlude_Using_Curl.md). As you'll recall, the IP address 127.0.0.1 and port 18332 should be correct for the standard testnet setup described in this documents, while you can extract the user and password from `~/.bitcoin/bitcoin.conf`.
+Then connect to your `bitcoind` with `bitcoinrpc_cl_init_params`. The four arguments for `bitcoinrpc_cl_init_params` are username, password, IP address, and port. You should already know all of this information from your work with [Curl](04_4__Interlude_Using_Curl.md). As you'll recall, the IP address 127.0.0.1 and port 18332 should be correct for the standard testnet setup described in these documents, while you can extract the user and password from `~/.bitcoin/bitcoin.conf`.
 ```
 $ cat bitcoin.conf 
 server=1
