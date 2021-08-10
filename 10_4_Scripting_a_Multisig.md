@@ -10,7 +10,7 @@ Multisig transactions are created in Bitcoin using the `OP_CHECKMULTISIG` code. 
 2. Pop "n" values from the stack as Bitcoin addresses (hashed public keys).
 3. Pop the next value from the stack (`<m>`).
 4. Pop "m" values from the stack as potential signatures.
-5. Pop an `0` from the stack due to a mistake in the original coding.
+5. Pop a `0` from the stack due to a mistake in the original coding.
 6. Compare the signatures to the Bitcoin adddresses.
 7. Push a `True` or `False` depending on the result.
 
@@ -26,7 +26,7 @@ As discussed in [§10.1: Building a Bitcoin Script with P2SH](10_1_Building_a_Bi
 
 As an example, we will revisit the multisig created in [§8.1](08_1_Sending_a_Transaction_to_a_Multisig.md) one final time and build a new locking script for it using this methodology. As you may recall, that was a 2-of-2 multisig built from `$address1` and `$address2`. 
 
-As as `OP_CHECKMULTISIG` locking script requires the "m" (`2`), the addresses, and the "n" (`2`), you could write the following `scriptPubKey`:
+As `OP_CHECKMULTISIG` locking script requires the "m" (`2`), the addresses, and the "n" (`2`), you could write the following `scriptPubKey`:
 ```
 2 $address1 $address2 2 OP_CHECKMULTISIG
 ```
