@@ -80,7 +80,7 @@ HiddenServicePort 1309 127.0.0.1:8332
 
 > :information_source: **NOTA:** El directorio `HiddenServiceDires` es donde todos los archivos se mantienen para este servicio en particular. Si necesita buscar su dirección de cebolla, claves de acceso o agregar clientes autorizados, ¡aquí es donde debe hacerlo!
 
-La forma más sencilla de probar su servicio oculto de RPC es utilizar la API [QuickConnect](https://github.com/BlockchainCommons/Bitcoin-Standup/blob/master/Docs/Quick-Connect-API.md) integrada en Bitcoin Standup. Simplemente descargue el código QR que se encuentra en /qrcode.pngy escanéelo con una billetera o un nodo que admita QuickConnect, como [The Gordian Wallet](https://github.com/BlockchainCommons/FullyNoded-2). Cuando escanee el QR, debería ver que la billetera se sincroniza con su nodo; lo hace utilizando los servicios ocultos de RPC.
+La forma más sencilla de probar su servicio oculto de RPC es utilizar la API [QuickConnect](https://github.com/BlockchainCommons/Bitcoin-Standup/blob/master/Docs/Quick-Connect-API.md) integrada en Bitcoin Standup. Simplemente descargue el código QR que se encuentra en `/qrcode.png` y escanéelo con una billetera o un nodo que admita QuickConnect, como [The Gordian Wallet](https://github.com/BlockchainCommons/FullyNoded-2). Cuando escanee el QR, debería ver que la billetera se sincroniza con su nodo; lo hace utilizando los servicios ocultos de RPC.
 
 La forma más difícil de probar su servicio oculto RPC es enviar un comando a `bitcoin-cli` con torify, lo que le permite traducir un comando normal de UNIX a un comando protegido por Tor. Es difícil porque necesita obtener tres datos.
 
