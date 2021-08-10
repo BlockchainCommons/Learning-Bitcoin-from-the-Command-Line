@@ -114,7 +114,7 @@ This works just like a P2WPKH address, the only difference being that instead of
 
 There is also one more variant, a P2WSH script embedded in a P2SH script, which works much like the P2SH-Segwit described above, but for nested P2WSH scripts. (Whew!)
 
-## Summary: Scripting a Pay to Witness Public Key Hash
+## Summary: Scripting a Segwit Script
 
 There are two sorts of P2SH scripts that relate to Segwit. 
 
