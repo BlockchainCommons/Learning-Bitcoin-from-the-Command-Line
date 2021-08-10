@@ -72,6 +72,6 @@ También puede ver un retraso. Y esta configuración puede darle una falsa sensa
 
 Probablemente no necesitará engañar con sus servicios de Onion una vez que los haya verificado, pero en caso de que lo haga, aquí le mostramos cómo restablecer una dirección de Tor que se ha visto comprometida o pasar al uso exclusivo de Tor para su `bitcoind`.
 
-## Que sigue??
+## Que sigue?
 
 Continue "Entendiendo Tor" con [14.3: Agregando Servicios SSH Ocultos](14_3_Agregando_Servicios_SSH_Ocultos.md).
