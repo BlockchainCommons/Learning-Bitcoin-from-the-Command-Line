@@ -2,7 +2,7 @@
 
 Ainda há um pouco mais sobre os Scripts do Bitcoin que precisamos saber. As condicionais fornecem acesso total ao controle de fluxo, enquanto uma variedade de outros opcodes podem expandir nossas possibilidades.
 
-## Objetivos deste capítulo
+## Objetivos Deste Capítulo
 
 Depois de trabalhar neste capítulo, um desenvolvedor será capaz de:
 
@@ -11,10 +11,10 @@ Depois de trabalhar neste capítulo, um desenvolvedor será capaz de:
    
 Os objetivos secundários do capítulo incluem a capacidade de:
 
- * Compreender toda a gama de possibilidades do script;
+ * Compreender toda a gama de possibilidades de programação;
  * Identificar como aprender mais sobre os opcodes.
 
-## Tabela de conteúdo
+## Tabela de Conteúdo
 
-* [Seção 1: Usando condicionais no script](12_1_Using_Script_Conditionals.md)
-* [Seção 2: Usando outros comandos no script](12_2_Using_Other_Script_Commands.md)
+* [Seção 1: Usando Condicionais no Script](12_1_Using_Script_Conditionals.md)
+* [Seção 2: Usando Outros Comandos no Script](12_2_Using_Other_Script_Commands.md)
