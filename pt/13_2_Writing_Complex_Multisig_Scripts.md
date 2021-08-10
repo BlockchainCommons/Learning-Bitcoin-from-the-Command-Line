@@ -108,7 +108,7 @@ Imagine a compradora de imóveis Alice e o vendedor de imóveis Bob que estão t
 
 No entanto, isso enfraquece o poder do agente de garantia e permite que o vendedor e o comprador acidentalmente tomem uma decisão errada entre eles. O que é uma das coisas que um sistema de garantia deve evitar. Portanto, pode ser que o que realmente desejamos seja o sistema que acabamos de criar, onde o agente de custódia é uma parte necessária no multisig 2 de 3: ```OP_3DUP 2 <pubKeyEscrow> <pubKeyA> 2 OP_CHECKMULTISIG NOTIF 2 <pubKeyEscrow > <pubKeyB> 2 OP_CHECKMULTISIG ENDIF```.
 
-No entanto, isso não passa no teste de entrar na frente de um ônibus. Se o agente de custódia morre ou foge para as Bahamas durante o processo, o comprador e o vendedor ficam sem o dinheiro. É aqui que entra o timelock. Podemos criar um teste adicional que só será executado se tivermos passado o final do nosso período de garantia. Nessa situação, permitimos que o comprador e o vendedor assinem juntos:
+No entanto, isso não nos reguarda contra imprevistos. Se o agente de custódia morre ou foge para as Bahamas durante o processo, o comprador e o vendedor ficam sem o dinheiro. É aqui que entra o timelock. Podemos criar um teste adicional que só será executado se tivermos passado o final do nosso período de garantia. Nessa situação, permitimos que o comprador e o vendedor assinem juntos:
 ```
 OP_3DUP
 2 <pubKeyEscrow> <pubKeyA> 2 OP_CHECKMULTISIG
@@ -148,4 +148,4 @@ Os multisigs mais complexos podem ser normalmente criados combinando assinaturas
 
 ## O Que Vem Depois?
 
-Vamos continuar "Projetando Scripts Reais no Bitcoin" na seção [§13.3: Capacitando o Bitcoin com Scripts] (13_3_Empowering_Bitcoin_with_Scripts.md).
+Vamos continuar "Projetando Scripts Reais no Bitcoin" na seção [§13.3: Capacitando o Bitcoin com Scripts](13_3_Empowering_Bitcoin_with_Scripts.md).
