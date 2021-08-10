@@ -155,7 +155,7 @@ Si le gustaría hacer su propia traducción, por favor, vea [Contribuyendo](#con
   
 ## Estado - Beta
 
-v2.0.1 de **Aprendiendo Bitcoin desde la Línea de Comandos** esta completa. Puede haber aun reviciones o ediciones de terceros, pero puede ser usada para aprender.
+v2.0.1 de **Aprendiendo Bitcoin desde la Línea de Comandos** esta completa. Puede haber aun revisiones o ediciones de terceros, pero puede ser usada para aprender.
 
 Estamos considerando tentativamente aquello que podríamos incluir en una [v3.0](TODO-30.md) del curso. Si le gustaría apoyar un trabajo de este estilo, conviértase en un [GitHub Sponsor](https://github.com/sponsors/BlockchainCommons) o apoyenos en nuestro [BTCPay Server](https://btcpay.blockchaincommons.com/), y háganos saber que fue debido a **Aprendiendo Bitcoin**.
 
