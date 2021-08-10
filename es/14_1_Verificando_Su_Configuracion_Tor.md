@@ -85,7 +85,7 @@ La forma más sencilla de probar su servicio oculto de RPC es utilizar la API [Q
 La forma más difícil de probar su servicio oculto RPC es enviar un comando a `bitcoin-cli` con torify, lo que le permite traducir un comando normal de UNIX a un comando protegido por Tor. Es difícil porque necesita obtener tres datos.
 
 1. **Su puerto de servicio oculto.** Esto viene de `/etc/tor/torrc/`. De forma predeterminada, es el puerto 1309.
-2. **Su dirección Tor.** Esto está en el archivo `hostname` en el `HiddenServiceDir` directorio definido en `/etc/tor/torrc`. Por defecto el archivo es  asi `/var/lib/tor/standup/hostname`. Está protegido, por lo que deberá usar `sudo` para acceder a este.:
+2. **Su dirección Tor.** Esto está en el archivo `hostname` en el `HiddenServiceDir` directorio definido en `/etc/tor/torrc`. Por defecto el archivo es asi `/var/lib/tor/standup/hostname`. Está protegido, por lo que deberá usar `sudo` para acceder a este.:
 ```
 $ sudo more /var/lib/tor/standup/hostname
 mgcym6je63k44b3i5uachhsndayzx7xi4ldmwrm7in7yvc766rykz6yd.onion
