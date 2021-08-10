@@ -23,7 +23,7 @@ $ bitcoin-cli importmulti '[{"desc": "sh(multi(2,02da2f10746e9778dd57bd0276a4f84
 ```
 Posteriormente, los fondos deberían aparecer cuando hagas `listunspent` ... pero aún así no son fáciles de gastar. (De hecho, tu billetera puede afirmar que no se pueden gastar `spendable` en absoluto!)
 
-If for some reason you're not able to incorporate the address into your wallet, you can use `gettransaction` to get info instead (or look at a block explorer).
+Si por alguna razón no te es posible incorporar la dirección a tu billetera, puedes usar `gettransaction` para obtener la info (o mira en un explorador de bloques).
 ```
 $ bitcoin-cli -named gettransaction txid=b164388854f9701051809eed166d9f6cedba92327e4296bf8a265a5da94f6521 verbose=true
 {
@@ -93,13 +93,13 @@ $ bitcoin-cli -named gettransaction txid=b164388854f9701051809eed166d9f6cedba923
 }
 ```
 
-## Set Up Your Variables
+## Configura Tus Variables
 
-When you're ready to spend the funds received by a multisignature address, you're going need to collect a _lot_ of data: much more than you need when you spend a normal P2PKH or SegWit UTXO. That's in part because the info on the multisig address isn't in your wallet, and in part because you're spending money that was sent to a P2SH (pay-to-script-hash) address, and that's a lot more demanding.
+Cuando estés listo para gastar los fondos recibidos por una dirección de multifirma, necesitarás recopilar _muchos_ datos: mucho más de lo que necesitas cuando gastas un P2PKH normal o un UTXO SegWit. Esto se debe en parte a que la información de la dirección multifirma no está en tu billetera, y en parte a que estás gastando dinero que se envió a una dirección P2SH (pago a script-hash), y eso es mucho más exigente.
 
-In total, you're going to need to collect three things: extended information about the UTXO; the redeemScript; and all the private keys involved. You'll of course need a new recipient address too. The private keys need to wait for the signing step, but everything else can be done now.
+En total, necesitarás recopilar tres cosas: información ampliada sobre el UTXO; el redeemScript; y todas las claves privadas involucradas. Por supuesto, también necesitarás una nueva dirección de destinatario. Las claves privadas deben esperar el paso de firma, pero todo lo demás se puede hacer ahora.
 
-### Access the UTXO information
+### Accede a la información del UTXO
 
 To start with, grab the `txid` and the `vout` for the transaction that you want to spend, as usual. In this case, it was retrieved from the `gettransaction` info, above:
 ```
