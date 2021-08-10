@@ -78,7 +78,7 @@ Follow the below steps to run Bitcoin Core i2p service:
 
 It is always good to have alternatives for privacy and not depend only on Tor to run Bitcoin Core as hidden service. Since i2p was recently added in Bitcoin Core, less people use it, experiment with it and report bugs if you find any issues.
 
-> :information_source: **NOTE:** _i2pd_ (C++) is different from _i2prouter_ (Java), you will need `i2pd` for Bitcoin Core.
+> :information_source: **NOTE:** For the official i2prouter implementation in Java, visit [download](https://geti2p.net/en/download) page and follow the instructions for your Operating System. Once installed, open a terminal window and type `i2prouter start`. Then visit `127.0.0.1:7657` in your browser to enable SAM. To do so, select: "Configure Homepage", then "Clients", and finally select the "Play Button" next to SAM application Bridge. On the left side of the page, there should be a green light next to "Shared Clients".
 
 Move on to "Programming with RPC" with [Chapter Sixteen: Talking to Bitcoind with C](16_0_Talking_to_Bitcoind.md).
 
