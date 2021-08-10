@@ -92,7 +92,7 @@ mgcym6je63k44b3i5uachhsndayzx7xi4ldmwrm7in7yvc766rykz6yd.onion
 ```
 3. **Su contraseña RPC.** Esto está en `~/.bitcoin/bitcoin.conf`
 
-Cuando tenga toda esa información, puede emitir un comando `bitcoin-cli` usando `torifyy` especificando `-rpcconnect` como su dirección de cebolla, `-rpcport` como su puerto de servicio oculto y `-rpcpassword` como su contraseña:
+Cuando tenga toda esa información, puede emitir un comando `bitcoin-cli` usando `torify` especificando `-rpcconnect` como su dirección de cebolla, `-rpcport` como su puerto de servicio oculto y `-rpcpassword` como su contraseña:
 
 ```
 $ torify bitcoin-cli -rpcconnect=mgcym6je63k44b3i5uachhsndayzx7xi4ldmwrm7in7yvc766rykz6yd.onion -rpcport=1309 -rpcuser=StandUp -rpcpassword=685316cc239c24ba71fd0969fa55634f getblockcount
@@ -102,7 +102,7 @@ $ torify bitcoin-cli -rpcconnect=mgcym6je63k44b3i5uachhsndayzx7xi4ldmwrm7in7yvc7
 
 Bitcoin Standup también garantiza que `bitcoind` esté configurado para comunicarse opcionalmente en una dirección de cebolla.
 
-Puede verificar la configuración inicial de Tor para `bitcoind` haciendo grepping para "tor" `debug.log` en su directorio de datos:
+Puede verificar la configuración inicial de Tor para `bitcoind` haciendo grepping para "tor" en el fichero `debug.log` en su directorio de datos:
 ```
 $ grep "tor:" ~/.bitcoin/testnet3/debug.log
 2021-06-09T14:07:04Z tor: ADD_ONION successful
