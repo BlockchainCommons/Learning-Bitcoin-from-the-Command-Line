@@ -1,32 +1,32 @@
-# 4.4: Sending Coins with Raw Transactions
+# 4.4: Envío de monedas con transacciones en crudo
 
-As noted at the start of this chapter, the `bitcoin-cli` interface offers three major ways to send coins. [§4.1](04_1_Sending_Coins_The_Easy_Way.md) talked about sending them the first way, using the `sendtoaddress` command. Since then, we've been building details on how to send coins a second way, with raw transactions. [§4.2](04_2_Creating_a_Raw_Transaction.md) taught how to create a raw transaction, an [Interlude](04_2__Interlude_Using_JQ.md) explained JQ, and [§4.3](04_3_Creating_a_Raw_Transaction_with_Named_Arguments.md) demonstrated named arguments.
+Como se indicó al principio de este capítulo, la interfaz `bitcoin-cli` ofrece tres formas principales de enviar monedas. En [§4.1](04_1_Sending_Coins_The_Easy_Way.md) hablamos de enviarlas de la primera manera, usando el comando `sendtoaddress`. Desde entonces, hemos estado construyendo detalles sobre cómo enviar monedas de una segunda manera, con transacciones en crudo. El [§4.2](04_2_Creating_a_Raw_Transaction.md) enseñó cómo crear una transacción sin procesar, un [Interlude](04_2__Interlude_Using_JQ.md) explicó JQ, y el [§4.3](04_3_Creating_a_Raw_Transaction_with_Named_Arguments.md) demostró los argumentos con nombre.
 
-We can now put those together and actually send funds using a raw transaction.
+Ahora podemos juntar todo esto y enviar fondos usando una transacción en crudo.
 
-## Create a Change Address
+## Crear una dirección de cambio
 
-Our sample raw transaction in section §4.2 was very simplistic: we sent the entirety of a UTXO to a new address. More frequently, you'll want to send someone an amount of money that doesn't match a UTXO. But, you'll recall that the excess money from a UTXO that's not sent to your recipient just becomes a transaction fee. So, how do you send someone just part of a UTXO, while keeping the rest for yourself?
+Nuestro ejemplo de transacción cruda en la sección §4.2 era muy simplista: enviamos la totalidad de un UTXO a una nueva dirección. Más frecuentemente, querrá enviar a alguien una cantidad de dinero que no coincide con un UTXO. Pero, recordarás que el exceso de dinero de un UTXO que no se envía a tu destinatario se convierte en una comisión de transacción. Entonces, ¿Cómo se puede enviar a alguien sólo una parte de un UTXO y quedarse con el resto?
 
-The solution is to _send_ the rest of the funds to a second address, a change address that you've created in your wallet specifically to receive them:
+La solución es _enviar_ el resto de los fondos a una segunda dirección, una dirección de cambio que has creado en su cartera específicamente para recibirlos:
 ```
 $ changeaddress=$(bitcoin-cli getrawchangeaddress legacy)
 $ echo $changeaddress
 mk9ry5VVy8mrA8SygxSQQUDNSSXyGFot6h
 ```
-Note that this uses a new function: `getrawchangeaddress`. It's largely the same as `getnewaddress` but is optimized for use as a change address in a raw transaction, so it doesn't do things like make entries in your address book. We again selected the `legacy` address, instead of going with the default of `bech32`, simply for consistency. This is a situation where it would have been entirely safe to generate a default Bech32 address, just by using `bitcoin-cli getrawchangeaddress`, because it would being sent and received by you on your Bitcoin Core node which fully supports this. But, hobgoblins; we'll shift this over to Bech32 as well in [§4.6](04_6_Creating_a_Segwit_Transaction.md).
+Tenga en cuenta que esto utiliza una nueva función: `getrawchangeaddress`. Es en gran medida la misma que `getnewaddress` pero está optimizada para su uso como una dirección de cambio en una transacción cruda, por lo que no hace cosas como hacer entradas en su libreta de direcciones. De nuevo seleccionamos la dirección `legacy`, en lugar de ir con el valor por defecto de `bech32`, simplemente por consistencia. Esta es una situación en la que habría sido totalmente seguro generar una dirección Bech32 por defecto, simplemente usando `bitcoin-cli getrawchangeaddress`, porque sería enviada y recibida por usted en su nodo Bitcoin Core que lo soporta completamente. Pero, hobgoblins; cambiaremos esto a Bech32 también en [§4.6](04_6_Creating_a_Segwit_Transaction.md).
 
-You now have an additional address inside your wallet, so that you can receive change from a UTXO! In order to use it, you'll need to create a raw transaction with two outputs.
+Ahora tiene una dirección adicional dentro de tu monedero, ¡Para que puedas recibir cambio de un UTXO! Para usarlo, tendrá que crear una transacción en crudo con dos salidas.
 
-## Pick Sufficient UTXOs
+## Escoger suficientes UTXOs
 
-Our sample raw transaction was simple in another way: it assumed that there was enough money in a single UTXO to cover the transaction. Often this will be the case, but sometimes you'll want to create transactions that spends more money than you have in a single UTXO. To do so, you must create a raw transaction with two (or more) inputs.
+Nuestro ejemplo de transacción en crudo era simple en otro sentido: asumía que había suficiente dinero en un solo UTXO para cubrir la transacción. A menudo este será el caso, pero a veces querrá crear transacciones que gasten más dinero del que tiene en un solo UTXO. Para ello, debe crear una transacción cruda con dos (o más) entradas.
 
-## Write a Real Raw Transaction
+## Escribir una transacción en crudo real
 
-To summarize: creating a real raw transaction to send coins will sometimes require multiple inputs and will almost always require multiple outputs, one of which is a change address. We'll be creating that sort of more realistic transaction here, in a new example that shows a real-life example of sending funds via Bitcoin's second methodology, raw transactions.
+Para resumir: crear una transacción real en crudo para enviar monedas a veces requerirá múltiples entradas y casi siempre requerirá múltiples salidas, una de las cuales es una dirección de cambio. Vamos a crear ese tipo de transacción más realista aquí, en un nuevo ejemplo que muestra un ejemplo real de envío de fondos a través de la segunda metodología de Bitcoin, las transacciones en bruto.
 
-We're going to use our 0th and 2nd UTXOs:
+Vamos a utilizar nuestros UTXOs 0 y 2:
 ```
 $ bitcoin-cli listunspent
 [
@@ -73,18 +73,18 @@ $ bitcoin-cli listunspent
 ]
 
 ```
-In our example, we're going to send .009 BTC, which is (barely) larger than either of our UTXOs. This requires combining them, then using our change address to retrieve the unspent funds.
+En nuestro ejemplo, vamos a enviar 0,009 BTC, que es (apenas) mayor que cualquiera de nuestros UTXOs. Esto requiere combinarlos, y luego usar nuestra dirección de cambio para recuperar los fondos no gastados.
 
-### Set Up Your Variables
+### Configurar las variables
 
-We already have `$changeaddress` and `$recipient` variables from previous examples:
+Ya tenemos las variables `$changeaddress` y `$recipient` de los ejemplos anteriores:
 ```
 $ echo $changeaddress
 mk9ry5VVy8mrA8SygxSQQUDNSSXyGFot6h
 $ echo $recipient
 n2eMqTT929pb1RDNuqEnxdaLau1rxy3efi
 ```
-We also need to record the txid and vout for each of our two UTXOs. Having identified the UTXOs that we want to spend, we can use our JQ techniques to make sure accessing them is error free:
+También necesitamos registrar el txid y el vout para cada uno de nuestros dos UTXOs. Una vez identificados los UTXOs que queremos gastar, podemos utilizar nuestras técnicas JQ para asegurarnos de que el acceso a ellos está libre de errores:
 ```
 $ utxo_txid_1=$(bitcoin-cli listunspent | jq -r '.[0] | .txid')
 $ utxo_vout_1=$(bitcoin-cli listunspent | jq -r '.[0] | .vout')
@@ -92,36 +92,36 @@ $ utxo_txid_2=$(bitcoin-cli listunspent | jq -r '.[2] | .txid')
 $ utxo_vout_2=$(bitcoin-cli listunspent | jq -r '.[2] | .vout')
 ```
 
-### Write the Transaction
+### Escribir la transacción
 
-Writing the actual raw transaction is surprisingly simple. All you need to do is include an additional, comma-separated JSON object in the JSON array of inputs and an additional, comma-separated key-value pair in the JSON object of outputs.
+Escribir la transacción en crudo es sorprendentemente sencillo. Todo lo que tiene que hacer es incluir un objeto JSON adicional, separado por comas, en la arreglo JSON de entradas y un par clave-valor adicional, separado por comas, en el objeto JSON de salidas.
 
-Here's the example. Note the multiple inputs after the `inputs` arg and the multiple outputs after the `outputs` arg.
+Este es el ejemplo. Fíjese en las múltiples entradas después del argumento `inputs` y en las múltiples salidas después del argumento `outputs`.
 ```
 $ rawtxhex2=$(bitcoin-cli -named createrawtransaction inputs='''[ { "txid": "'$utxo_txid_1'", "vout": '$utxo_vout_1' }, { "txid": "'$utxo_txid_2'", "vout": '$utxo_vout_2' } ]''' outputs='''{ "'$recipient'": 0.009, "'$changeaddress'": 0.0009 }''')
 ```
-We were _very_ careful figuring out our money math. These two UTXOs contain 0.00999999 BTC. After sending 0.009 BTC, we'll have .00099999 BTC left. We chose .00009999 BTC the transaction fee. To accommodate that fee, we set our change to .0009 BTC. If we'd messed up our math and instead set our change to .00009 BTC, that additional BTC would be lost to the miners! If we'd forgot to make change at all, then the whole excess would have disappeared. So, again, _be careful_. 
+Fuimos _muy_ cuidadosos al calcular nuestro dinero. Estos dos UTXOs contienen 0.00999999 BTC. Después de enviar 0,009 BTC, nos quedarán .00099999 BTC. Elegimos .00009999 BTC como comisión de la transacción. Para acomodar esa tarifa, fijamos nuestro cambio en .0009 BTC. Si nos hubiéramos equivocado en las matemáticas y hubiéramos puesto el cambio a 0,00009 BTC, ¡Ese BTC adicional se perdería para los mineros! Si nos hubiéramos olvidado de hacer el cambio, todo el exceso habría desaparecido. Así que, de nuevo, _tenga cuidado_. 
 
-Fortunately, we can triple-check with the `btctxfee` alias from the JQ Interlude:
+Afortunadamente, podemos hacer una triple comprobación con el alias `btctxfee` del Interludio JQ:
 ```
 $ ./txfee-calc.sh $rawtxhex2
 .00009999
 ```
 
-### Finish It Up
+### Finalizar
 
-You can now sign, seal, and deliver your transaction, and it's yours (and the faucet's):
+Ya puede firmar, sellar y entregar su transacción, y es suya (y del grifo):
 ```
 $ signedtx2=$(bitcoin-cli -named signrawtransactionwithwallet hexstring=$rawtxhex2 | jq -r '.hex')
 $ bitcoin-cli -named sendrawtransaction hexstring=$signedtx2
 e7071092dee0b2ae584bf6c1ee3c22164304e3a17feea7a32c22db5603cd6a0d
 ```
 
-### Wait
+### Espera
 
-As usual, your money will be in flux for a while: the change will be unavailable until the transaction actually gets confirmed and a new UTXO is given to you.
+Como es habitual, su dinero estará en el aire durante un tiempo: el cambio no estará disponible hasta que se confirme la transacción y se te entregue un nuevo UTXO.
 
-But, in 10 minutes or less (probably), you'll have your remaining money back and fully spendable again. For now, we're still waiting:
+Pero, en 10 minutos o menos (probablemente), tendrás su dinero restante de vuelta y totalmente gastable de nuevo. Por ahora, seguimos esperando:
 ```
 $ bitcoin-cli listunspent
 [
@@ -140,7 +140,7 @@ $ bitcoin-cli listunspent
   }
 ]
 ```
-And the change will eventuall arrive:
+Y el cambio llegará:
 ```
 [
   {
@@ -171,21 +171,21 @@ And the change will eventuall arrive:
 ]
 ```
 
-This also might be a good time to revisit a blockchain explorer, so that you can see more intuitively how the inputs, outputs, and transaction fee are all laid out: [e7071092dee0b2ae584bf6c1ee3c22164304e3a17feea7a32c22db5603cd6a0d](https://live.blockcypher.com/btc-testnet/tx/e7071092dee0b2ae584bf6c1ee3c22164304e3a17feea7a32c22db5603cd6a0d/).
+Este también podría ser un buen momento para volver a ver un explorador de blockchain, para que pueda ver de forma más intuitiva cómo están dispuestas las entradas, salidas y la tasa de transacción: [e7071092dee0b2ae584bf6c1ee3c22164304e3a17feea7a32c22db5603cd6a0d](https://live.blockcypher.com/btc-testnet/tx/e7071092dee0b2ae584bf6c1ee3c22164304e3a17feea7a32c22db5603cd6a0d/).
 
-## Summary: Sending Coins with Raw Transactions
+## Resumen: Envío de monedas con transacciones crudas
 
-To send coins with raw transactions, you need to create a raw transaction with one or more inputs (to have sufficient funds) and one or more outputs (to retrieve change). Then, you can follow your normal procedure of using `createrawtransaction` with named arguments and JQ, as laid out in previous sections.
+Para enviar monedas con transacciones en crudo, necesita crear una transacción en crudo con una o más entradas (para tener fondos suficientes) y una o más salidas (para recuperar el cambio). Entonces, puede seguir el procedimiento normal de usar `createrawtransaction` con argumentos nombrados y JQ, como se ha expuesto en las secciones anteriores.
 
-> :fire: ***What is the power of sending coins with raw transactions?***
+> :fire: > ¿Cuál es el poder de enviar monedas con transacciones en crudo?
 
-> _The advantages._ It gives you the best control. If your goal is to write a more intricate Bitcoin script or program, you'll probably use raw transactions so that you know exactly what's going on. This is also the _safest_ situation to use raw transactions, because you can programmatically ensure that you don't make mistakes.
+> Las ventajas._ Le otorga el mejor control. Si su objetivo es escribir un script o programa de Bitcoin más complejo, probablemente utilizará transacciones en crudo para saber exactamente lo que está pasando. Esta es también la situación _más segura_ para usar transacciones en crudo, porque puede asegurarse programáticamente de no cometer errores.
 
-> _The disadvantages._ It's easy to lose money. There are no warnings, no safeguards, and no programmatic backstops unless you write them. It's also arcane. The formatting is obnoxious, even using the easy-to-use `bitcoin-cli` interface, and you have to do a lot of lookup and calculation by hand.
+> _Las desventajas._ Es fácil perder dinero. No hay advertencias, no hay salvaguardias, y no hay respaldos programáticos a menos que usted los escriba. También es arcaico. El formato es odioso, incluso usando la interfaz `bitcoin-cli`, que es muy fácil de usar, y tiene que hacer muchas búsquedas y cálculos a mano.
 
-## What's Next?
+## ¿Qué sigue?
 
-See another alternative way to input commands with [Interlude: Using Curl](04_4__Interlude_Using_Curl.md).
+Vea otra forma alternativa de introducir comandos con [Interlude: Using Curl](04_4__Interlude_Using_Curl.md).
 
-Or, you prefer to skip what's frankly a digression, learn one more way to "Send Bitcoin Transactions" with [§4.5 Sending Coins with Automated Raw Transactions](04_5_Sending_Coins_with_Automated_Raw_Transactions.md).
+O, si prefieres saltarte lo que es francamente una paréntesis, aprende una forma más de "Enviar Transacciones Bitcoin" con [§4.5 Sending Coins with Automated Raw Transactions](04_5_Sending_Coins_with_Automated_Raw_Transactions.md).
 
