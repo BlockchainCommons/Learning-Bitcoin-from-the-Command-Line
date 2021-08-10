@@ -214,7 +214,7 @@ printf("Block Count: %d\n",blocks);
 
 ### Prueba el código de información
 
-Recupere el código de prueba del [directorio src](../15_1_getmininginfo.c).
+Recupere el código de prueba del [directorio src](../src/15_1_getmininginfo.c).
 ```
 $ cc getmininginfo.c -lbitcoinrpc -ljansson -o getmininginfo
 $ ./getmininginfo 
