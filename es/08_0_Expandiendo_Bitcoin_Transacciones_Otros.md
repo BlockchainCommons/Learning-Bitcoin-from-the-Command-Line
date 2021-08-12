@@ -12,10 +12,10 @@ Después de trabajar en este capítulo, un desarrollador podrá:
 Los objetivos de apoyo incluyen la capacidad de:
 
    * Comprender los diferentes tipos de bloqueos de tiempo
-   * Plan para el poder de Locktime
-   * Plan para el poder de OP_RETURN
+   * Planificar para el poder del bloqueo de tiempo
+   * Planificar para el poder de OP_RETURN
 
 ## Tabla de contenido
 
-   * [Sección uno: Envío de una transacción con un tiempo de bloqueo](08_1_Enviando_una_Transaccion_con_BloqueodeTiempo.md)
-   * [Sección dos: Envío de una transacción con datos](08_2_Enviando_una_Transaccion_con_Datos.md)
+   * [Sección uno: Enviando una transacción con bloqueo de tiempo](08_1_Enviando_una_Transaccion_con_Bloqueo_de_Tiempo.md)
+   * [Sección dos: Enviando una transacción con datos](08_2_Enviando_una_Transaccion_con_Datos.md)
