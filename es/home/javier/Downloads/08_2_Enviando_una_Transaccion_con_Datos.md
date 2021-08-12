@@ -6,7 +6,7 @@ El truco? Solo puede almacenar 80 bytes a la vez!
 
 ## Cree sus datos.
 
-Lo primero que debe hacer es crear los 80 bytes (o menos) de datos que grabará en su `OP_RETURN`. Esto puede ser tan simple como preparar un mensaje o puede estar usando datos existentes. Por ejemplo, `sha256sum` produce 256 bits de datos, que son 32 bytes, muy por debajo de los límites:
+Lo primero que debe hacer es crear los 80 bytes (o menos) de datos que grabará en su `OP_RETURN`. Esto puede ser tan simple como preparar un mensaje o puede estar usando el "hash" de datos existentes. Por ejemplo, `sha256sum` produce 256 bits de datos, que son 32 bytes, muy por debajo de los límites:
 
 ```
 $ sha256sum contract.jpg
