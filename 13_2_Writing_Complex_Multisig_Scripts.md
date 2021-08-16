@@ -78,7 +78,7 @@ Script:
 Running: 0 <sigVPA> <sigVPB> 2 <pubKeyVPA> <pubKeyVPB> <pubKeyVPC> 3 OP_CHECKMULTISIG
 Stack: [ ]
 ```
-You might notice that the President's signature just uses a simple `OP_CHECKSIGNATURE` rather than the more complex code ususally required for a P2PKH. We can get away with including the public key in the locking script, obviating the usual rigamarole, because it's hashed and won't be revealed (through the `redeemScript`) until the transaction is unlocked. This also allows for all of the possible signers to sign using the same methodology.
+You might notice that the President's signature just uses a simple `OP_CHECKSIGNATURE` rather than the more complex code usually required for a P2PKH. We can get away with including the public key in the locking script, obviating the usual rigamarole, because it's hashed and won't be revealed (through the `redeemScript`) until the transaction is unlocked. This also allows for all of the possible signers to sign using the same methodology.
 
 The only possible problem is if the President is absent-minded and accidentally signs a transaction with one of his VPs, because he remembers this being a 2-of-3 multisig. One option is to decide that's an acceptable failure condition, because the President is using the multsig incorrectly. Another option is to turn the 2-of-3 multisig into a 2-of-4 multisig, just in case the President doesn't tolerate failure: `OP_DEPTH 1 OP_EQUAL IF <pubKeyPres> OP_CHECKSIGNATURE ELSE 2 <pubKeyVPA> <pubKeyVPB> <pubKeyVPC> <pubKeyPres> 4 OP_CHECKMULTISIG ENDIF`. This would allow the President to mistakenly sign with any Vice President, but wouldn't impact things if two Vice Presidents wanted to (correctly) sign.
 
