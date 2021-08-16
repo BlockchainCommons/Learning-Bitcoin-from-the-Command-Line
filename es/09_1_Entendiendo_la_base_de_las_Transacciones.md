@@ -1,4 +1,4 @@
-# 9.1: Comprensión de la base de las transacciones
+# 9.1: Entendiendo la base de las transacciones
 
 La base de Bitcoin es la capacidad de proteger las transacciones, algo que se hace con un lenguaje de programación simple.
 
@@ -12,9 +12,9 @@ El hecho de que las transacciones estén bloqueadas con scripts significa que pu
 
 * OP_CHECKSIG, que compara una clave pública con una firma, es la base de la dirección P2PKH clásica, como se detallará completamente en [§9.3: Probando un script P2PKH](09_3_Probando_un_Script_Bitcoin.md).
 
-* OP_CHECKMULTISIG verifica de manera similar a multisig, como se detallará completamente en [§10.4: Codificando una Multifirma](10_4_Codificando_una_Multifirma.md).
+* OP_CHECKMULTISIG verifica de manera similar las multifirma, como se detallará completamente en [§10.4: Codificando una Multifirma](10_4_Codificando_una_Multifirma.md).
 
-* OP_CHECKLOCKTIMEVERIFY y OP_SEQUENCEVERIFY forman la base de bloqueos de tiempo más complejos, como se detallará completamente en [§11.2: Uso de CLTV en scripts](11_2_Usando_CLTV_en_Scripts.md) y [§11.3: Uso de CSV en scripts](11_3_Usando_CSV_en_Scripts.md).
+* OP_CHECKLOCKTIMEVERIFY y OP_SEQUENCEVERIFY forman la base de bloqueos de tiempo más complejos, como se detallará completamente en [§11.2: Usando CLTV en Scripts](11_2_Usando_CLTV_en_Scripts.md) y [§11.3: Usando CSV en Scripts](11_3_Usando_CSV_en_Scripts.md).
 
 * OP_RETURN es la marca de una transacción no prescindible, por lo que se utiliza para transportar datos, como se mencionó en [§8.2: Envío de una transacción con datos](08_2_Enviando_una_Transaccion_con_Datos.md).
 
@@ -34,9 +34,53 @@ $ rawtxhex=$(bitcoin-cli -named createrawtransaction inputs='''[ { "txid": "'$ut
 $ signedtx=$(bitcoin-cli -named signrawtransactionwithwallet hexstring=$rawtxhex | jq -r '.hex')
 ```
 
-En realidad, no es necesario que lo envíe: el objetivo es simplemente producir una transacción completa que pueda examinar.
+En realidad, no es necesario que la envíe: el objetivo es simplemente producir una transacción completa que pueda examinar.
 
->** NOTE:** ¿Por qué las direcciones heredadas (legacy)? Porque sus guiones son más significativos. Sin embargo, también ofreceremos un ejemplo de un SegWit P2WPKH nativo en [§9.5](09_5_Scripting_a_P2WPKH.md).
+>** NOTE:** ¿Por qué las direcciones heredadas (legacy)? Porque sus scripts son más significativos. Sin embargo, también ofreceremos un ejemplo de un SegWit P2WPKH nativo en [§9.5](09_5_Scripting_a_P2WPKH.md).
+
+### Examine su transacción de prueba
+
+Ahora puede examinar su transacción a profundidad mediante el uso de `decoderawtransaction` sobre el `$signedtx`:
+```
+$ bitcoin-cli -named decoderawtransaction hexstring=$signedtx
+{
+  "txid": "34151dac704d94a269cd33f80be34c122152edc9bfbb9323852966bf0ce937ed",
+  "hash": "34151dac704d94a269cd33f80be34c122152edc9bfbb9323852966bf0ce937ed",
+  "version": 2,
+  "size": 191,
+  "vsize": 191,
+  "weight": 764,
+  "locktime": 0,
+  "vin": [
+    {
+      "txid": "bb4362dec15e67d366088f5493c789f22fb4a604e767dae1f6a631687e2784aa",
+      "vout": 0,
+      "scriptSig": {
+        "asm": "304402201cc39005b076cb06534cd084fcc522e7bf937c4c9654c1c9dfba68b92cbab7d1022066f273178febc7a37568e2e9f4dec980a2e9a95441abe838c7ef64c39d85849c[ALL] 0315a0aeb37634a71ede72d903acae4c6efa77f3423dcbcd6de3e13d9fd989438b",
+        "hex": "47304402201cc39005b076cb06534cd084fcc522e7bf937c4c9654c1c9dfba68b92cbab7d1022066f273178febc7a37568e2e9f4dec980a2e9a95441abe838c7ef64c39d85849c01210315a0aeb37634a71ede72d903acae4c6efa77f3423dcbcd6de3e13d9fd989438b"
+      },
+      "sequence": 4294967295
+    }
+  ],
+  "vout": [
+    {
+      "value": 0.00090000,
+      "n": 0,
+      "scriptPubKey": {
+        "asm": "OP_DUP OP_HASH160 06b5c6ba5330cdf738a2ce91152bfd0e71f9ec39 OP_EQUALVERIFY OP_CHECKSIG",
+        "hex": "76a91406b5c6ba5330cdf738a2ce91152bfd0e71f9ec3988ac",
+        "reqSigs": 1,
+        "type": "pubkeyhash",
+        "addresses": [
+          "mg8S7F1gY3ivV9M9GrWwe6ziWvK2MFquCf"
+        ]
+      }
+    }
+  ]
+}
+
+``` 
+Los dos scripts se encuentran en diferentes partes de la transación.
 
 El `scriptSig` se encuentra en el` vin`. Este es el script _unlocking_. Es lo que se ejecuta para acceder al UTXO que se utiliza para financiar esta transacción. Habrá un `scriptSig` por UTXO en una transacción.
 
@@ -68,7 +112,7 @@ Ese es el método estándar en Bitcoin Script para bloquear una transacción P2P
 
 ## Examine un tipo diferente de transacción
 
-Antes de dejar atrás esta base, veremos un tipo diferente de secuencia de comandos de bloqueo. Aquí está el `scriptPubKey` de la transacción multisig que creó en [§6.1: Envío de una transacción con un multisig](06_1_Sending_a_Transaction_to_a_Multisig.md).
+Antes de dejar atrás esta base, veremos un tipo diferente de secuencia de comandos de bloqueo. Aquí está el `scriptPubKey` de la transacción multisig que creó en [§6.1: Enviando una Transacción a una Dirección Multifirma](06_1_Sending_a_Transaction_to_a_Multisig.md).
 
 ```
       "scriptPubKey": {
@@ -95,9 +139,9 @@ Compare eso con el `scriptPubKey` de su nueva transacción P2PKH:
         ]
       }
 ```
-Estas dos transacciones están _definitivamente_ bloqueadas de diferentes formas. Bitcoin reconoce el primero como `scripthash` (P2SH) y el segundo como` pubkeyhash` (P2PKH), pero también debería poder ver la diferencia en el código diferente `asm`:`OP_HASH160 a5d106eb8ee51b23cf60d8bd_98bc285695f233f3 OP_EbDAL605c285695f233f3 OP_EbDAL602c02_9ddf30` frente a `OP7387DFDF30 OP_EQUALVERIFY OP_CHECKSIG`.  Este es el poder de las secuencias de comandos: puede producir de manera muy simple algunos de los tipos de transacciones dramáticamente diferentes de los que aprendió en los capítulos anteriores.
+Estas dos transacciones están _definitivamente_ bloqueadas de diferentes formas. Bitcoin reconoce el primero como `scripthash` (P2SH) y el segundo como` pubkeyhash` (P2PKH), pero también debería poder ver la diferencia en los distintos códigos `asm`:`OOP_HASH160 a5d106eb8ee51b23cf60d8bd98bc285695f233f3 OP_EQUAL` frente a `OP_DUP OP_HASH160 06b5c6ba5330cdf738a2ce91152bfd0e71f9ec39 OP_EQUALVERIFY OP_CHECKSIG`.  Este es el poder de las secuencias de comandos: puede producir de manera muy simple algunos de los tipos de transacciones dramáticamente diferentes de los que aprendió en los capítulos anteriores.
 
-## Resumen: comprensión de la base de las transacciones
+## Resumen: Entendiendo la base de las transacciones
 
 Cada transacción de Bitcoin incluye al menos un script de desbloqueo (`scriptSig`), que resuelve un rompecabezas criptográfico anterior, y al menos un script de bloqueo (` scriptPubKey`), que crea un nuevo rompecabezas criptográfico. Hay un "scriptSig" por entrada y un "scriptPubKey" por salida. Cada uno de estos scripts está escrito en Bitcoin Script, un lenguaje similar a Forth que potencia aún más a Bitcoin.
 
@@ -106,4 +150,4 @@ Cada transacción de Bitcoin incluye al menos un script de desbloqueo (`scriptSi
 
 ## ¿Qué sigue?
 
-Continúe "Introducción a los scripts de Bitcoin" con [§9.2: Ejecución de un script de Bitcoin](09_2_Ejecutando_un_Script_Bitcoin.md).
+Continúe "Introduciendo los scripts de Bitcoin" con [§9.2: Ejecutando un Script Bitcoin](09_2_Ejecutando_un_Script_Bitcoin.md).
