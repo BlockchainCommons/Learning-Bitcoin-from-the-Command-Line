@@ -8,7 +8,7 @@ Cuando crea una transacción de tiempo de bloqueo, la bloquea con un número que
 
 >:book: _¿Que es la altura de bloque?_ Es el recuento total de bloques en la cadena, remontandose al bloque génesis de Bitcoin.
 
-Cuando una transacción con tiempo de bloqueo está esperando para entrar en un bloque, se puede cancelar. Esto significa que esta lejos, lejos de estar finalizada. De hecho, la capacidad de cancelar es el objetivo principal de una transacción con tiempo de bloqueo
+Cuando una transacción con tiempo de bloqueo está esperando para entrar en un bloque, se puede cancelar. Esto significa que está lejos, lejos de estar finalizada. De hecho, la capacidad de cancelar es el objetivo principal de una transacción con tiempo de bloqueo.
 
 >:book: _¿Qué es un bloqueo de tiempo?_ Es lo mismo que un tiempo de bloqueo. Más específicamente, es lo que se denomina tiempo de bloqueo interno al código fuente de Bitcoin Core.
 
