@@ -6,7 +6,7 @@ Por lo tanto, este capítulo describe un método principal para probar los scrip
 
 ## Instalar btcdeb
 
-Bitcoin Script Debugger (`btcdeb`) de @kallewoof es uno de los métodos más confiables que hemos encontrado para depurar Bitcoin Scripts. Sin embargo, requiere configurar C ++ y algunos otros accesorios en su máquina, por lo que también ofreceremos algunas otras opciones hacia el final de este capítulo.
+Bitcoin Script Debugger (`btcdeb`) de @kallewoof es uno de los métodos más confiables que hemos encontrado para depurar Bitcoin Scripts. Sin embargo, requiere configurar C++ y algunos otros accesorios en su máquina, por lo que también ofreceremos algunas otras opciones hacia el final de este capítulo.
 
 Primero, debe clonar el repositorio `btcdeb` de GitHub, que también requerirá la instalación `git` si aún no lo tiene.
 
@@ -99,7 +99,7 @@ script  |  stack
 ```
 Y ahí es donde termina nuestra secuencia de comandos, sin nada más que ejecutar y un `03` posicionado en la parte superior de nuestra pila como resultado de la secuencia de comandos.
 
-> **NOTE:** `btcdeb` permite repetir el comando anterior presionando enter. Haremos esto en los siguientes ejemplos, así que no se sorprenda de las indicaciones `btcdeb` sin nada como entrada. Está simplemente repitiendo el comando previo (a menudo `step`).
+> **NOTA:** `btcdeb` permite repetir el comando anterior presionando enter. Haremos esto en los siguientes ejemplos, así que no se sorprenda de las indicaciones `btcdeb` sin nada como entrada. Está simplemente repitiendo el comando previo (a menudo `step`).
 
 ### Utilice btcdeb para un ejemplo de resta
 
@@ -201,10 +201,10 @@ Y como se hace eso? Da la casualidad que es el tema del [capítulo 10](10_0_Embe
 
 _Independientemente_ de los otros métodos de prueba que haya utilizado, probar un script en Testnet debería ser su prueba final antes de poner su script en Mainnet. No confíe en que su código sea correcto; no se limite a mirarlo. Ni siquiera confíe en los simuladores o depuradores que ha estado usando. Hacerlo es otra excelente manera de perder fondos en Bitcoin.
 
-## Resumen: prueba de un script de Bitcoin
+## Resumen: probando un script de Bitcoin
 
 Debería instalar `btcdeb` como una herramienta de línea de comandos para probar sus scripts de Bitcoin. En el momento de escribir este artículo, produce resultados precisos que pueden recorrer todo el proceso de creación de scripts. También puede buscar en algunos sitios en línea para obtener una representación más visual. Cuando haya terminado, deberá ir a testnet para asegurarse de que todo funciona correctamente, antes de implementarlo de manera más general.
 
-## Que sigue?
+## ¿Que sigue?
 
-Continue con "Introducción a los Scripts de Bitcoin" con nuestro primer ejemplo de la vida real: [§9.4: Codificando una P2PKH](09_4_Codificando_una_P2PKH.md).
+Continue con "Introduciendo Bitcoin Scripts" con nuestro primer ejemplo de la vida real: [§9.4: Codificando una P2PKH](09_4_Codificando_una_P2PKH.md).
