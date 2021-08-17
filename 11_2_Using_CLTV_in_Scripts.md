@@ -38,7 +38,7 @@ Or this:
 
 ### Understand a CLTV Absolute Block Height
 
-This is how `OPCHECKLOCKTIMEVERIFY` would check against a blockheight that was reached on May 24, 2017:
+This is how `OP_CHECKLOCKTIMEVERIFY` would check against a blockheight that was reached on May 24, 2017:
 ```
 467951 OP_CHECKLOCKTIMEVERIFY
 ```
@@ -146,7 +146,7 @@ Finally, the remainder of the script runs, which is a normal check of a signatur
 
 ## Summary: Using CLTV in Scripts
 
-`OP-CHECKLOCKTIMEVERIFY` is a simple opcode that looks at a single argument, interprets it as a blockheight or UNIX timestamp, and only allows its UTXO to be unlocked if that blockheight or UNIX timestamp is in the past. Setting `nLockTime` on the spending transaction is what allows Bitcoin to make this calculation.
+`OP_CHECKLOCKTIMEVERIFY` is a simple opcode that looks at a single argument, interprets it as a blockheight or UNIX timestamp, and only allows its UTXO to be unlocked if that blockheight or UNIX timestamp is in the past. Setting `nLockTime` on the spending transaction is what allows Bitcoin to make this calculation.
 
 > :fire: ***What is the Power of CLTV?*** You've already seem that simple locktimes were one of the bases of Smart Contracts. CLTV takes the next step. Now you can both guarantee that a UTXO can't be spent before a certain time _and_ guarantee that it won't be spent either. In its simplest form, this could be used to create a trust that someone could only access when they reached 18 or a retirement fund that they could only access when they turned 50. However its true power comes when combined with conditionals, where the CLTV only activates in certain situations.
 
