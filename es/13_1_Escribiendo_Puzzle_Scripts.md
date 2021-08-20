@@ -1,16 +1,16 @@
-# 13.1: Escribir guiones de rompecabezas
+# 13.1: Escribir scripts rompecabezas
 
 Los scripts de Bitcoin realmente _no_ tienen que depender del conocimiento de una clave secreta. En cambio, pueden ser rompecabezas de cualquier tipo.
 
-## Escribir guiones de álgebra simples
+## Escribir scripts de álgebra simples
 
-Nuestro primer script real, de [§9.2: Ejecución de un script de Bitcoin](09_2_Ejecutando_un_Script_Bitcoin.md) fue un acertijo alegbraico. Ese script de Bitcoin, `OP_ADD 99 OP_EQUAL`, podría haberse descrito alternativamente como` x + y = 99`.
+Nuestro primer script real, de [§9.2: Ejecutando un script de Bitcoin](09_2_Ejecutando_un_Script_Bitcoin.md) fue un acertijo algebraico. Ese script de Bitcoin, `OP_ADD 99 OP_EQUAL`, podría haberse descrito alternativamente como` x + y = 99`.
 
 Este tipo de script no tiene mucha aplicabilidad en el mundo real, ya que es demasiado fácil reclamar los fondos. Pero, un concurso de resolución de acertijos que distribuya polvo de Bitcoin podría ofrecerlo como un entretenimiento divertido.
 
 Más notablemente, la creación de acertijos alegebraicos le brinda una buena comprensión de cómo funcionan las funciones aritméticas en Bitcoin Script.
 
-### Escribe un script multiplicador
+### Escriba un script multiplicador
 
 Bitcoin Script tiene varios códigos de operación que se desactivaron para mantener la seguridad del sistema. Uno de ellos es `OP_MUL`, que habría permitido la multiplicación ... pero está deshabilitado.
 
@@ -176,11 +176,11 @@ script   |  stack
          | 01
 ```
 
-### Escribe un sistema de ecuaciones
+### Escriba un sistema de ecuaciones
 
 ¿Qué pasaría si quisiera escribir un sistema de ecuaciones, como `x + y = 3`,` y + z = 5` y `x + z = 4`? Un poco de álgebra te dice que las respuestas son `x = 1`,` y = 2` y `z = 3`. Pero, ¿cómo lo escribe?
 
-Lo más obvio es que después de que el redentor ingrese los tres números, necesitará dos copias de cada número, ya que cada número entra en dos ecuaciones diferentes. `OP_3DUP` se encarga de eso y da como resultado que`x y z x y z` esté en la pila. Sacar dos elementos a la vez le dará `y z`,` z x` y `x y`. ¡Voila! Estas son las tres ecuaciones, ¡así que solo necesita sumarlas y probarlas en el orden correcto! Aquí está el script completo: `OP_3DUP OP_ADD 5 OP_EQUALVERIFY OP_ADD 4 OP_EQUALVERIFY OP_ADD 3 OP_EQUAL`.
+Lo más obvio es que después de que el redentor de los fondos ingrese los tres números, necesitará dos copias de cada número, ya que cada número entra en dos ecuaciones diferentes. `OP_3DUP` se encarga de eso y da como resultado que`x y z x y z` esté en la pila. Sacar dos elementos a la vez le dará `y z`,` z x` y `x y`. ¡Voila! Estas son las tres ecuaciones, ¡así que solo necesita sumarlas y probarlas en el orden correcto! Aquí está el script completo: `OP_3DUP OP_ADD 5 OP_EQUALVERIFY OP_ADD 4 OP_EQUALVERIFY OP_ADD 3 OP_EQUAL`.
 
 Así es como se ejecuta con el script de desbloqueo correcto de `1 2 3`:
 
@@ -495,7 +495,7 @@ Este es un buen script porque muestra un uso cuidadoso de la lógica (con `OP_NO
 `btcdeb` se puede ejecutar para probar la colisión (y el script):
 
 ```
-btcdeb $ btcdeb '[255044462d312e330a25e2e3cfd30a0a0a312030206f626a0a3c3c2f57696474682032203020522f4865696768742033203020522f547970652034203020522f537562747970652035203020522f46696c7465722036203020522f436f6c6f7253706163652037203020522f4c656e6774682038203020522f42697473506572436f6d706f6e656e7420383e3e0a73747265616d0affd8fffe00245348412d3120697320646561642121212121852fec092339759c39b1a1c63c4c97e1fffe017f46dc93a6b67e013b029aaa1db2560b45ca67d688c7f84b8c4c791fe02b3df614f86db1690901c56b45c1530afedfb76038e972722fe7ad728f0e4904e046c230570fe9d41398abe12ef5bc942be33542a4802d98b5d70f2a332ec37fac3514e74ddc0f2cc1a874cd0c78305a21566461309789606bd0bf3f98cda8044629a1 255044462d312e330a25e2e3cfd30a0a0a312030206f626a0a3c3c2f57696474682032203020522f4865696768742033203020522f547970652034203020522f537562747970652035203020522f46696c7465722036203020522f436f6c6f7253706163652037203020522f4c656e6774682038203020522f42697473506572436f6d706f6e656e7420383e3e0a73747265616d0affd8fffe00245348412d3120697320646561642121212121852fec092339759c39b1a1c63c4c97e1fffe017346dc9166b67e118f029ab621b2560ff9ca67cca8c7f85ba84c79030c2b3de218f86db3a90901d5df45c14f26fedfb3dc38e96ac22fe7bd728f0e45bce046d23c570feb141398bb552ef5a0a82be331fea48037b8b5d71f0e332edf93ac3500eb4ddc0decc1a864790c782c76215660dd309791d06bd0af3f98cda4bc4629b1 OP_2DUP OP_EQUAL OP_NOT OP_VERIFY OP_SHA1 OP_SWAP OP_SHA1 OP_EQUAL']
+$ btcdeb '[255044462d312e330a25e2e3cfd30a0a0a312030206f626a0a3c3c2f57696474682032203020522f4865696768742033203020522f547970652034203020522f537562747970652035203020522f46696c7465722036203020522f436f6c6f7253706163652037203020522f4c656e6774682038203020522f42697473506572436f6d706f6e656e7420383e3e0a73747265616d0affd8fffe00245348412d3120697320646561642121212121852fec092339759c39b1a1c63c4c97e1fffe017f46dc93a6b67e013b029aaa1db2560b45ca67d688c7f84b8c4c791fe02b3df614f86db1690901c56b45c1530afedfb76038e972722fe7ad728f0e4904e046c230570fe9d41398abe12ef5bc942be33542a4802d98b5d70f2a332ec37fac3514e74ddc0f2cc1a874cd0c78305a21566461309789606bd0bf3f98cda8044629a1 255044462d312e330a25e2e3cfd30a0a0a312030206f626a0a3c3c2f57696474682032203020522f4865696768742033203020522f547970652034203020522f537562747970652035203020522f46696c7465722036203020522f436f6c6f7253706163652037203020522f4c656e6774682038203020522f42697473506572436f6d706f6e656e7420383e3e0a73747265616d0affd8fffe00245348412d3120697320646561642121212121852fec092339759c39b1a1c63c4c97e1fffe017346dc9166b67e118f029ab621b2560ff9ca67cca8c7f85ba84c79030c2b3de218f86db3a90901d5df45c14f26fedfb3dc38e96ac22fe7bd728f0e45bce046d23c570feb141398bb552ef5a0a82be331fea48037b8b5d71f0e332edf93ac3500eb4ddc0decc1a864790c782c76215660dd309791d06bd0af3f98cda4bc4629b1 OP_2DUP OP_EQUAL OP_NOT OP_VERIFY OP_SHA1 OP_SWAP OP_SHA1 OP_EQUAL']
 ```
 
 Las otras [recompensas] de Peter Todd (https://bitcointalk.org/index.php?topic=293382.0) permanecen sin reclamar en el momento de escribir este artículo. Todos están escritos de la misma manera que en el ejemplo SHA-1 anterior.
@@ -508,15 +508,15 @@ Aquí es donde cae la seguridad:
 
 Primero, cualquiera puede redimirlos sin saber mucho de un secreto. Tienen que tener el `redeemScript`, que ofrece cierta protección, pero una vez que lo hacen, ese es probablemente el único secreto que es necesario, a menos que su rompecabezas sea _realmente_ difícil, como un rompecabezas computacional.
 
-En segundo lugar, la redención real no es segura. Normalmente, una transacción de Bitcoin está protegida por la firma. Debido a que la firma cubre la transacción, nadie en la red puede reescribir esa transacción para enviarla a su dirección sin invalidar la firma (y por lo tanto la transacción). Eso no es cierto con transacciones cuyas entradas son solo números. Cualquiera podría tomar la transacción y reescribirla para permitirles robar los fondos. Si pueden hacer su transacción en un bloque antes que la suya, ganan y usted no obtiene el dinero del rompecabezas. Hay soluciones para esto, pero implican extraer el bloque usted mismo o hacer que un grupo de confianza lo extraiga, y ninguna de esas opciones es racional para un usuario promedio de Bitcoin.
+En segundo lugar, la redención real no es segura. Normalmente, una transacción de Bitcoin está protegida por la firma. Debido a que la firma cubre la transacción, nadie en la red puede reescribir esa transacción para enviarla a su dirección sin invalidar la firma (y por lo tanto la transacción). Eso no es cierto con transacciones cuyas entradas son solo números. Cualquiera podría tomar la transacción y reescribirla para permitirles robar los fondos. Si pueden introducir su transacción en un bloque antes que la suya, ganan y usted no obtiene el dinero del rompecabezas. Hay soluciones para esto, pero implican minar el bloque usted mismo o hacer que un grupo de confianza lo mine, y ninguna de esas opciones es racional para un usuario promedio de Bitcoin.
 
 Sin embargo, las recompensas criptográficas de Peter Todd demuestran que los scripts de rompecabezas tienen alguna aplicación en el mundo real.
 
-## Resumen: escritura de guiones de rompecabezas
+## Resumen: Escribiendo script rompecabezas
 
 Los scripts de rompecabezas son una gran introducción a los scripts de Bitcoin más realistas y complejos. Demuestran el poder de las funciones matemáticas y de pila en Bitcoin Script y cómo se pueden combinar cuidadosamente para crear preguntas que requieren respuestas muy específicas. Sin embargo, su uso en el mundo real también está limitado por los problemas de seguridad inherentes a las transacciones de Bitcoin no firmadas.
 
-> :fire: ***¿Cuál es el poder del guión de rompecabezas?*** A pesar de sus limitaciones, los guiones de rompecabezas se han utilizado en el mundo real como premios por recompensas computacionales. Cualquiera que pueda resolver un rompecabezas complejo, cuya solución presumiblemente tenga algún impacto en el mundo real, puede ganar la recompensa. Si pueden conservarlo es otra cuestión.
+> :fire: ***¿Cuál es el poder de los scripts rompecabezas?*** A pesar de sus limitaciones, los guiones de rompecabezas se han utilizado en el mundo real como premios por recompensas computacionales. Cualquiera que pueda resolver un rompecabezas complejo, cuya solución presumiblemente tenga algún impacto en el mundo real, puede ganar la recompensa. Si pueden conservarlo es otra cuestión.
 
 ## ¿Que sigue?
 
