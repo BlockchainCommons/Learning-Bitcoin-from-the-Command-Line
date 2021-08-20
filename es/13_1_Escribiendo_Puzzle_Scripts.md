@@ -520,4 +520,4 @@ Los scripts de rompecabezas son una gran introducción a los scripts de Bitcoin 
 
 ## ¿Que sigue?
 
-Continúe "Diseñando scripts de Bitcoin reales" con [§13.2: Escritura de scripts complejos de varias firmas](13_2_Escribiendo_Scripts_Multifirma_Complejos.md)
+Continúe "Diseñando scripts de Bitcoin reales" con [§13.2: Escribiendo scripts multifirma complejos](13_2_Escribiendo_Scripts_Multifirma_Complejos.md)
