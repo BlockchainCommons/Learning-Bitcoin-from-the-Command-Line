@@ -101,6 +101,9 @@ Se você gostaria de fazer a sua própria tradução, por favor veja [Contribuin
   * [14.2: Mudando Seus Serviços Ocultos do Bitcoin](14_2_Changing_Your_Bitcoin_Hidden_Services.md)
   * [14.3: Adicionando SSH aos Seus Serviços Ocultos](14_3_Adding_SSH_Hidden_Services.md)
 
+* [15.0: Usando i2p](15_0_Using_i2p.md)
+  * [15.1: Bitcoin Core como um Serviço I2P (Invisible Internet Project)](15_1_i2p_service.md)
+
 ### PARTE CINCO: PROGRAMANDO COM RPC
 
 **Estado:** Finalizado.
