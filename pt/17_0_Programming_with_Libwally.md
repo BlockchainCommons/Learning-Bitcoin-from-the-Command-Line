@@ -20,10 +20,10 @@ Os objetivos secundários do capítulo incluem a capacidade de:
    
 ## Tabela de Conteúdo
 
-  * [Seção 1: Configurando o Libwally](17_1_Setting_Up_Libwally.md)
-  * [Seção 2: Usando o BIP39 no Libwally](17_2_Using_BIP39_in_Libwally.md)
-  * [Seção 3: Usando o BIP32 no Libwally](17_3_Using_BIP32_in_Libwally.md)
-  * [Seção 4: Usando os PSBTs no Libwally](17_4_Using_PSBTs_in_Libwally.md)
-  * [Seção 5: Usando Scripts no Libwally](17_5_Using_Scripts_in_Libwally.md)
-  * [Seção 6: Usando Outras Funções no Libwally](17_6_Using_Other_Functions_in_Libwally.md)
-  * [Seção 7: Integrando o Libwally ao Bitcoin-CLI](17_7_Integrating_Libwally_and_Bitcoin-CLI.md)
+  * [Seção 1: Configurando a Libwally](17_1_Setting_Up_Libwally.md)
+  * [Seção 2: Usando BIP39 na Libwally](17_2_Using_BIP39_in_Libwally.md)
+  * [Seção 3: Usando BIP32 na Libwally](17_3_Using_BIP32_in_Libwally.md)
+  * [Seção 4: Usando PSBTs na Libwally](17_4_Using_PSBTs_in_Libwally.md)
+  * [Seção 5: Usando Scripts na Libwally](17_5_Using_Scripts_in_Libwally.md)
+  * [Seção 6: Usando Outras Funções na Libwally](17_6_Using_Other_Functions_in_Libwally.md)
+  * [Seção 7: Integrando Libwally e Bitcoin-CLI](17_7_Integrating_Libwally_and_Bitcoin-CLI.md)
