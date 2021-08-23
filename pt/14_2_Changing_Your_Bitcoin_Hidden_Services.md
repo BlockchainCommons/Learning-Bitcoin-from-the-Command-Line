@@ -1,12 +1,12 @@
-# 14.2: Mudando os Serviços Ocultos do Bitcoin
+# 14.2: Mudando Nossos Serviços Ocultos do Bitcoin
 
 > :information_source: **NOTA:** Esta seção foi adicionada recentemente ao curso e é um rascunho inicial que ainda pode estar aguardando revisão.
 
 Temos um serviço Tor funcionando, mas com o tempo talvez queiramos reiniciá-lo ou ajustá-lo de outra forma.
 
-## Protejendo nossos serviços ocultos
+## Protejendo Nossos Serviços Ocultos
 
-O Tor permite que limitemos quais clientes conversam com nossos serviços ocultos. Se ainda não autorizamos nosso cliente durante a configuração do servidor, na primeira oportunidade, devemos fazer o seguinte:
+O Tor permite que limitemos quais clientes conversam com nossos serviços ocultos. Se ainda não autorizamos nosso cliente durante a configuração do servidor, na primeira oportunidade devemos fazer o seguinte:
 
 1. Solicitar uma chave pública de autenticação Tor V3 do nosso cliente. (Na [GordianWallet](https://github.com/BlockchainCommons/GordianWallet-iOS), está disponível no menu de configurações).
 2. Vamos para o subdiretório apropriado para nosso serviço oculto do Bitcoin. Se usamos o Bitcoin Standup é ```/var/lib/tor/standup/```.
@@ -16,7 +16,7 @@ O Tor permite que limitemos quais clientes conversam com nossos serviços oculto
 
 Depois de adicionar um arquivo ```.auth``` ao subdiretório ```authorized_client```, somente os clientes autorizados serão capazes de se comunicar com esse serviço oculto. Podemos adicionar mais ou menos 330 chaves públicas diferentes para habilitar clientes diferentes.
 
-## Redefinindo nosso endereço Onion do ```bitcoind```
+## Redefinindo Nosso Endereço Onion do ```bitcoind```
 
 Se quisermos redefinir nosso endereço onion para o ```bitcoind```, podemos apenas remover o ```onion_private_key``` do nosso diretório de dados, no `~/.bitcoin/testnet`:
 ```
@@ -39,7 +39,7 @@ $ sudo /etc/init.d/tor restart
 
 > :warning: **AVISO:** Redefinir o endereço onion do RPC desconectará quaisquer carteiras mobile ou outros serviços que contamos usando a API Quicklink. Por isso, temos que tomar bastante cuidado.
 
-## Forçar o ```bitcoind``` a usar o Tor
+## Forçando o ```bitcoind``` a Usar o Tor
 
 Finalmente, podemos forçar o ```bitcoind``` a usar o onion adicionando o seguinte ao nosso arquivo ```bitcoin.conf```:
 ```
@@ -61,14 +61,14 @@ addnode=address.onion
 ```
 Depois, basta reiniciar o ```tor``` e o ```bitcoind```.
 
-Agora devemos estar nos comunicando exclusivamente com o Tor. Mas, a menos que estejamos em um local hostil, esse nível de anonimato provavelmente não é necessário. Também não é particularmente recomendado, pois podemos diminuir muito o número potenciais peers, criando problemas de censura ou mesmo de correlação. Também podemos começar a sofrer com alta latência. E essa configuração pode nos dar uma falsa sensação de anonimato que realmente não existe na rede Bitcoin.
+Agora devemos estar nos comunicando exclusivamente com o Tor. Mas, a menos que estejamos em um local hostil, esse nível de anonimato provavelmente não é necessário. Também não é particularmente recomendado, pois podemos diminuir muito o número de potenciais peers, criando problemas de censura ou mesmo de correlação. Também podemos começar a sofrer com alta latência. E essa configuração pode nos dar uma falsa sensação de anonimato que realmente não existe na rede Bitcoin.
 
 > :warning: **AVISO:** Esta configuração não foi testada! Use por sua conta e risco!
 
-## Resumo: Mudando os Serviços Ocultos do Bitcoin
+## Resumo: Mudando Nossos Serviços Ocultos do Bitcoin
 
-Provavelmente nós não iremos precisará brincar com os nossos serviços onion depois de verificá-los, mas caso precisemos, veja como redefinir um endereço Tor que foi comprometido ou passar a usar exclusivamente o Tor com nosso ```bitcoind``` .
+Provavelmente nós não precisaremos brincar com os nossos serviços onion depois de verificá-los, mas caso precisemos, aqui está como redefinir um endereço Tor que foi comprometido ou passar a usar exclusivamente o Tor com nosso ```bitcoind``` .
 
 ## O Que Vem Depois?
 
-Vamos continuar "Usando o Tor" na seção [14.3: Adicionando SSH e Hidden Services](14_3_Adding_SSH_Hidden_Services.md).
+Vamos continuar "Usando o Tor" na seção [14.3: Adicionando Serviços SSH Ocultos](14_3_Adding_SSH_Hidden_Services.md).
