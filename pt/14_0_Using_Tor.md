@@ -7,15 +7,15 @@ O Tor é um dos programas padrão instalados pelo [Bitcoin Standup](https://gith
 Depois de trabalhar neste capítulo, um desenvolvedor será capaz de:
 
    * Usar uma configuração Tor;
-   * Executar a manutenção do Tor.
+   * Fazer a manutenção do Tor.
   
 Os objetivos secundários incluem a capacidade de:
 
    * Compreender a rede Tor;
-   * Entender as várias portas do Bitcoin.
+   * Compreender as várias portas do Bitcoin.
   
 ## Tabela de Conteúdo
 
-* [Seção 1: Verificando a Configuração do Tor](14_1_Verifying_Your_Tor_Setup.md)
-* [Seção 2: Mudando os Serviços Ocultos do Bitcoin](14_2_Changing_Your_Bitcoin_Hidden_Services.md)
+* [Seção 1: Verificando a Sua Configuração do Tor](14_1_Verifying_Your_Tor_Setup.md)
+* [Seção 2: Mudando os Seus Serviços Ocultos do Bitcoin](14_2_Changing_Your_Bitcoin_Hidden_Services.md)
 * [Seção 3: Adicionando um Serviço SSH Oculto](14_3_Adding_SSH_Hidden_Services.md)
