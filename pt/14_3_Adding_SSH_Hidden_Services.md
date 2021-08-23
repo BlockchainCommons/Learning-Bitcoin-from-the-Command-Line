@@ -18,7 +18,7 @@ EOF
 Eis o que cada coisa significa:
 
 * HiddenServiceDir: Indica que temos um diretório de serviço oculto com a configuração necessária para este caminho.
-* HiddenServicePort: Indica a porta Tor a ser usada, no caso do SSH, geralmente é a 22.
+* HiddenServicePort: Indica a porta Tor a ser usada; no caso do SSH, geralmente é a 22.
 
 Depois de adicionar as linhas apropriadas ao nosso arquivo ```torrc```, precisaremos reiniciar o Tor:
 ```
@@ -54,6 +54,6 @@ Agora que instalamos o Tor e sabemos como usá-lo, podemos adicionar outros serv
 
 > :fire: ***Qual é o poder de utilizar outros serviços ocultos?*** Cada vez que acessamos um serviço em nosso servidor remotamente, deixamos pegadas na rede. Mesmo que os dados sejam criptografados usando SSH (ou TLS), os vigias da rede podem ver de onde estamos nos conectando, para onde estamos conectando e qual serviço estamos usando. Isso realmente importa pra nós? Esta é a pergunta que devemos fazer. Mas se a resposta for "Sim", podemos proteger a conexão com um serviço oculto.
 
-Vamos seguir "Programando com o RPC" no [Capítulo Quinze: Conversando com Bitcoind usando C](15_0_Talking_to_Bitcoind.md).
+Vamos seguir "Programando com o RPC" no [Capítulo Dezesseis: Conversando com o Bitcoind usando C](16_0_Talking_to_Bitcoind.md).
 
-Ou, se não formos programadores, podemos pular para o [Capítulo Dezoito: Entendendo Nossa Configuração da Lightning](18_0_Understanding_Your_Lightning_Setup.md) para aumentar nosso conhecimento sobre a Lightning Network usando a linha de comando.
+Ou, se você não for um programador, pode pular para o [Capítulo Dezenove: Entendendo Nossa Configuração da Lightning](19_0_Understanding_Your_Lightning_Setup.md) para aumentar nosso conhecimento sobre a Lightning Network usando a linha de comando.
