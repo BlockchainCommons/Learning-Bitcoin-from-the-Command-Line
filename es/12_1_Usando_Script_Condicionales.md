@@ -88,7 +88,7 @@ La declaración que se evaluará como "Verdadero" o "Falso" se coloca en la _pil
 
 Este código de ejemplo en particular está destinado a ser una firma múltiple 1 de 2 de un pobre hombre. 
 El propietario de `<privKeyA>` pondría `<signatureA> <pubKeyA> True` en su script de desbloqueo, mientras que el propietario de` <privKeyB> `pondría` <signatureB> <pubKeyB> False` en su script de desbloqueo. 
-Ese final de "Verdadero" o "Falso" es lo que marca la declaración "IF" / "ELSE". Le dice al script con qué hash de clave pública se debe verificar, luego el `OP_EQUALVERIFY` y el` OP_CHECKSIG` al final hacen el trabajo real.
+Ese final de "Verdadero" o "Falso" es lo que marca la declaración `IF` / `ELSE`. Le dice al script con qué hash de clave pública se debe verificar, luego el `OP_EQUALVERIFY` y el `OP_CHECKSIG` al final hacen el trabajo real.
 
 ### Ejecute un If / Then multifirma
 
