@@ -4,9 +4,9 @@
 
 Esta primeira seção explicará como fazer o download da Biblioteca Libwally C e como colocá-la em funcionamento.
 
-> :book: ***O que é a Libwally?*** A Libwally é uma biblioteca de primitivas útil para a criação de carteiras que é totalmente multiplataforma, de modo que as mesmas funções possam ser usadas em qualquer lugar. Existem [documentação online](https://wally.readthedocs.io/en/latest/), caso esteja interessado. A Libwally está disponível como parte do [Elements Project](https://github.com/ElementsProject) da Blockstream.
+> :book: ***O que é a Libwally?*** A Libwally é uma biblioteca de primitivas útil para a criação de carteiras que é totalmente multiplataforma, de modo que as mesmas funções possam ser usadas em qualquer lugar. Há uma [documentação online](https://wally.readthedocs.io/en/latest/), caso esteja interessado. A Libwally está disponível como parte do [Elements Project](https://github.com/ElementsProject) da Blockstream.
 
-## Instalando o Libwally
+## Instalando a Libwally
 
 Como de costume, precisaremos de alguns pacotes no nosso sistema:
 ```
@@ -17,7 +17,6 @@ Podemos então fazer o download do Libwally com base no seu repositório Git:
 ```
 $ git clone https://github.com/ElementsProject/libwally-core
 ```
-Afterward, you can begin the configuration process:
 Depois, podemos começar com o processo de configuração.
 ```
 $ ./tools/autogen.sh
@@ -90,11 +89,11 @@ Finalmente, podemos instalar:
 $ sudo make install
 ```
 
-## Nos preparando para a Libwally
+## Nos Preparando Para a Libwally
 
-Então, como usamos a Libwally em nosso programa que estamos construindo? Como de costume, precisaremos incluir os arquivos e vincular as bibliotecas apropriadas em nosso código.
+Então, como usamos a Libwally em um programa? Como de costume, precisaremos incluir os arquivos e vincular as bibliotecas apropriadas em nosso código.
 
-### Incluindo os arquivos
+### Incluindo os Arquivos
 
 Há um número considerável de arquivos que podemos incluir:
 
@@ -106,7 +105,7 @@ $ ls /usr/include/wally*
 ```
 Felizmente, os nomes dos arquivos correspondem amplamente às seções da [documentação](https://wally.readthedocs.io/en/latest/), então devemos ser capazes de incluir os arquivos corretos com base no que estamos fazendo, depois de incluir o onipresente `wally_core.h`.
 
-### Vinculando as bibliotecas
+### Vinculando as Bibliotecas
 
 Também precisaremos vincular as bibliotecas apropriadas:
 ```
@@ -116,7 +115,7 @@ $ ls /usr/lib/libsecp* /usr/lib/libwally*
 ```
 Usaremos principalmente a `libwallycore`.
 
-## Configurando um programa Libwally
+## Configurando um Programa Libwally
 
 Comparado com algumas das bibliotecas anteriores, a Libwally é ridiculamente fácil de ser inicializada:
 ```
@@ -128,7 +127,7 @@ wally_cleanup(0);
 ```
 Em ambos os casos, o argumento é para flags, mas atualmente está definido como `0`.
 
-## Testando um programa de teste da Libwally
+## Testando um Programa de Teste da Libwally
 
 O diretório src contém o arquivo [testwally.c](src / 16_1_testwally.c), que apenas mostra como funcionam as funções de inicialização e de limpeza.
 
@@ -150,7 +149,7 @@ include/wally_core.h:#define WALLY_OK      0 /** Success */
 
 Também precisamos instalar o Libsodium para obter acesso a um gerador de números aleatórios de alta qualidade para fins de teste.
 
-> :warning: **AVISO:** A geração de números aleatórios pode ser um dos maiores pontos de vulnerabilidade em qualquer software do Bitcoin. Se fizermos isso de maneira errada, podemos export nossos usuários a ataques porque eles acabam tendo chaves privadas do Bitcoin inseguras, e isso não é um [problema teórico](https://github.com/BlockchainCommons/SmartCustodyBook/blob/master/manuscript/ 03-adversaries.md # adversary-systemic-key-compromise). A BlockchainInfo gerou incorretamente 0,0002% das suas chaves, o que resultou na perda temporária de 250 Bitcoins. Resumindo: Precisamos nos certificar de estar totalmente confortável com a geração de números aleatórios. Podemos usar o Libsodium ou qualquer outro método TRNG ainda mais robusto.
+> :warning: **AVISO:** A geração de números aleatórios pode ser um dos maiores pontos de vulnerabilidade em qualquer software do Bitcoin. Se fizermos isso de maneira errada, podemos expor nossos usuários a ataques porque eles acabam tendo chaves privadas do Bitcoin inseguras, e isso não é um [problema teórico](https://github.com/BlockchainCommons/SmartCustodyBook/blob/master/manuscript/03-adversaries.md#adversary-systemic-key-compromise). A BlockchainInfo gerou incorretamente 0,0002% das suas chaves, o que resultou na perda temporária de 250 Bitcoins. Resumindo: precisamos nos certificar de estar totalmente confortável com a geração de números aleatórios. Podemos usar o Libsodium ou qualquer outro método TRNG ainda mais robusto.
 
 Podemos baixar um [Libsodium tarball](https://download.libsodium.org/libsodium/releases/) e seguir as instruções em [instalação do Libsodium](https://doc.libsodium.org/installation) para deixarmos tudo pronto em nosso computador.
 
@@ -193,4 +192,4 @@ Então, o que exatamente podemos fazer agora? É para dar essa resposta que temo
 
 ## O Que Vem Depois?
 
-Vamos aprender mais sobre "Programando o Bitcoind usando o Libwally" na seção [§16.2: Usando o BIP39 no Libwally](16_2_Using_BIP39_in_Libwally.md).
+Vamos aprender mais sobre "Programando Bitcoin com Libwally" na seção [§16.2: Usando BIP39 na Libwally](16_2_Using_BIP39_in_Libwally.md).
