@@ -13,7 +13,7 @@ Los objetivos de apoyo incluyen la capacidad de:
 
  * Comprender los scripts de Bitcoin existentes
  * Comprender la importancia de las firmas
-
+ 
 ## Tabla de contenido
 
 * [Sección uno: Escribiendo scripts rompecabezas](13_1_Escribiendo_Puzzle_Scripts.md)
