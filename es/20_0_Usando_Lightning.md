@@ -1,4 +1,4 @@
-# Capítulo Diecinueve: Usando Lightning
+# Capítulo Veinte: Usando Lightning
 
 > :information_source: **NOTA:** Este es un borrador en progreso, por lo que puedo obtener algunos comentarios de los primeros revisores. Todavía no está listo para aprender.
 
