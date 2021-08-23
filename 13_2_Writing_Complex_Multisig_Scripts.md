@@ -130,7 +130,7 @@ First, you test a signature for the buyer and the escrow agent, then a signature
 
 ### Write a Buyer-Centric Escrow Multisig
 
-[BIP 112](https://github.com/bitcoin/bips/blob/master/bip-0112.mediawiki#Escrow_with_Timeout) offers an different example of this sort of escrow that doesn't have the extra protections to prevent going around the escrow agent, but which does give Alice total control if the escrow fails.
+[BIP 112](https://github.com/bitcoin/bips/blob/master/bip-0112.mediawiki#Escrow_with_Timeout) offers a different example of this sort of escrow that doesn't have the extra protections to prevent going around the escrow agent, but which does give Alice total control if the escrow fails.
 ```
 IF
 
