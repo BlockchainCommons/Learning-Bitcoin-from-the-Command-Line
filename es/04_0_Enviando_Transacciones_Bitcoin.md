@@ -20,11 +20,12 @@ Con los objetivos complementarios se tendrá la habilidad de:
    
 ## Tabla de contenido
   
-  * [Sección Uno: Enviando Monedas de Forma Sencilla](04_1_Sending_Coins_The_Easy_Way.md)
-  * [Sección Dos: Creando una Transacción en Crudo](04_2_Creating_a_Raw_Transaction.md)
-     * [Interludio: Usando JQ](04_2__Interlude_Using_JQ.md)
-  * [Sección Tres: Creando Transacciones en Crudo Usando Argumentos con Nombre](04_3_Creating_a_Raw_Transaction_with_Named_Arguments.md)
-  * [Sección Cuatro: Enviando Monedas con Transacciones en Crudo](04_4_Sending_Coins_with_a_Raw_Transaction.md)
-  * [Sección Cinco: Enviando Monedas con Transacciones Automatizadas en Crudo](04_5_Sending_Coins_with_Automated_Raw_Transactions.md)
-  * [Sección Seis: Creando Transacciones SegWit](04_6_Creating_a_Segwit_Transaction.md)
+  * [Sección Uno: Enviando Monedas de la Forma Fácil](04_0_Enviando_Transacciones_Bitcoin.md)
+  * [Sección Dos: Creando una Transacción Cruda](04_2_Creando_una_Transaccion_Cruda.md)
+     * [Interludio: Usando JQ](04_2__Interludio_Usando_JQ.md)
+  * [Sección Tres: Creando una Transacción Cruda con Argumentos Ingresados con Nombre](04_3_Creando_una_Transaccion_Cruda_con_Argumentos_Ingresados_con_Nombre.md)
+  * [Sección Cuatro: Enviando Monedas con una Transacción Cruda](04_4_Enviando_Monedas_con_una_Transaccion_Cruda.md)
+     * [Interludio: Usando Curl](04_4__Interludio_Usando_Curl.md)
+  * [Sección Cinco: Enviando Monedas con Transacciones Crudas Automatizadas](04_5_Enviando_Monedas_con_Transacciones_Crudas_Automatizadas.md)
+  * [Sección Seis: Creando una Transacción Segwit](04_6_Creando_una_Transaccion_Segwit.md)
 
