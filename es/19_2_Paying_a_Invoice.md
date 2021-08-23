@@ -1,8 +1,8 @@
-# 19.2: Pagando una Factura
+# 20.2: Pagando una Factura
 
 > :information_source: **NOTA:** Esta sección se ha agregado recientemente al curso y es un borrador inicial que aún puede estar pendiente de revisión. Lector de advertencias.
 
-En este capitulo aprenderá cómo pagar una factura usando el comando `lightning-cli pay`. Se asume que ya revisó la factura, según [§19.1](19_1_Generate_a_Payment_Request.md) y determinó que era válida.
+En este capitulo aprenderá cómo pagar una factura usando el comando `lightning-cli pay`. Se asume que ya revisó la factura, según [§20.1]((20_1_Generando_una_Solicitud_de_Pago.md) y determinó que era válida.
 
 ## Consulta su Saldo
 
@@ -203,4 +203,4 @@ Una vez que tenga una factura, es bastante fácil pagar con un solo comando en L
 
 ## ¿Que Sigue?
 
-Continúe "Usando Lighting" con [§19.3: Cerrando un Canal Lightning](19_3_Closing_a_Channel.md).
+Continúe "Usando Lighting" con [§20.3: Cerrando un Canal Lightning](20_3_Cerrando_un_Canal_Lightning.md).
