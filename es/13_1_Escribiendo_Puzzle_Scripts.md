@@ -6,7 +6,7 @@ Los scripts de Bitcoin realmente _no_ tienen que depender del conocimiento de un
 
 Nuestro primer script real, de [§9.2: Ejecutando un script de Bitcoin](09_2_Ejecutando_un_Script_Bitcoin.md) fue un acertijo algebraico. Ese script de Bitcoin, `OP_ADD 99 OP_EQUAL`, podría haberse descrito alternativamente como` x + y = 99`.
 
-Este tipo de script no tiene mucha aplicabilidad en el mundo real, ya que es demasiado fácil reclamar los fondos. Pero, un concurso de resolución de acertijos que distribuya polvo de Bitcoin podría ofrecerlo como un entretenimiento divertido.
+Este tipo de script no tiene mucha aplicabilidad en el mundo real, ya que es demasiado fácil reclamar los fondos. Pero, un concurso de resolución de acertijos que distribuya pequeñas cantidades de satoshis podría ofrecerlo como un entretenimiento divertido.
 
 Más notablemente, la creación de acertijos alegebraicos le brinda una buena comprensión de cómo funcionan las funciones aritméticas en Bitcoin Script.
 
