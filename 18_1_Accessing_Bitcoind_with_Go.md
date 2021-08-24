@@ -160,7 +160,7 @@ However, a quirk with hashes in `rpcclient` is that they will typically print in
 
 ### Run Your Code
 
-You can download the complete code from the [src directory](src/17_1_blockinfo.go).
+You can download the complete code from the [src directory](src/18_1_blockinfo.go).
 
 You can then run:
 ```
@@ -185,7 +185,7 @@ Due to limitations of the `btcd` `rpcclient`, you can't make a use of the ```get
 ```
 ```client.GetBalance("*")``` requires the ```"*"``` input, due to a quirk with `btcd`. The asterisk signifies that you want to get the balance of all of your wallets.
 
-If you run [the src code](src/17_1_getbalance.go), you should get an output similar to this:
+If you run [the src code](src/18_1_getbalance.go), you should get an output similar to this:
 ```
 $ go run getbalance.go 
 0.000689 BTC
@@ -279,7 +279,7 @@ Only afterward do you use the `getreceivedbyaddress` RPC, on your decoded addres
 
 	fmt.Println(wallet)
 ```
-When you run [the code](src/17_1_getamountreceived.go), you should get output similar to:
+When you run [the code](src/18_1_getamountreceived.go), you should get output similar to:
 ```
 $ go run getamountreceived.go 
 0.0085 BTC
@@ -331,7 +331,7 @@ func main() {
 	fmt.Println(sent)
 }
 ```
-When you run [the code](src/17_1_sendtransaction.go), the txid of the transaction is outputted: 
+When you run [the code](src/18_1_sendtransaction.go), the txid of the transaction is outputted: 
 
 ```
 $ go run sendtransaction.go
