@@ -1,4 +1,4 @@
-# 17.4: Acessando o Bitcoind com Python
+# 18.4: Acessando o Bitcoind com Python
 
 > :information_source: **NOTA:** Esta seção foi adicionada recentemente ao curso e é um rascunho inicial que ainda pode estar aguardando revisão.
 
@@ -13,7 +13,7 @@ Podemos verificar isso executando:
 
 Se ele retornar um número de versão (por exemplo, `3.7.3` ou `3.8.3`), então temos o python3 instalado.
 
-No entanto, se não tivermos o Python instalado, precisaremos compilá-lo a partir do código-fonte. Podemos consultar como fazer isso, como mostrado no ["Construindo Python a partir da fonte"](17_4_Accessing_Bitcoind_with_Python.md # variant-build-python-from-source) antes de continuarmos.
+No entanto, se não tivermos o Python instalado, precisaremos compilá-lo a partir do código-fonte. Devemos consultar como fazer isso em ["Construindo Python da Fonte"](18_4_Accessing_Bitcoind_with_Python.md#variant-build-python-from-source) antes de continuarmos.
 
 ### Configurando o BitcoinRPC
 
@@ -22,13 +22,13 @@ Quer tenhamos usado um Python existente ou compilado a partir da fonte, agora es
 ```
 $ pip3 install python-bitcoinrpc
 ```
-Se você não instalamos o `pip`, precisaremos executar o seguinte:
+Se não instalamos o `pip`, precisaremos executar o seguinte:
 ```
 $ sudo apt install python3-pip
 ```
 Em seguida, vamos repetir o comando `pip3 install python-bitcoinrpc`.
 
-### Criar um projeto BitcoinRPC
+### Criando um Projeto BitcoinRPC
 
 Geralmente, precisaremos incluir declarações apropriadas do `bitcoinrpc` em nosso projetos Bitcoin usando o Python. O seguinte fornecerá acesso aos comandos baseados em RPC:
 ```py
@@ -43,14 +43,14 @@ O `pprint` irá imprimir a resposta `json` do `bitcoind`.
 
 O `logging` irá imprimir a chamada que fizemos para o respose do `bitcoind` e o próprio `bitcoind`, o que é útil quando fazemos um monte de chamadas juntas. Se não quisermos um retorno muito grande no terminal, podemos comentar o bloco `logging`.
 
-## Construindo a nossa conexão
+## Construindo a Nossa Conexão
 
 Agora estamos prontos para começar a interagir com o `bitcoind` estabelecendo uma conexão. Vamos criar um arquivo chamado `btcrpc.py` e digitar o seguinte:
 
 ```py
 logging.basicConfig()
 logging.getLogger("BitcoinRPC").setLevel(logging.DEBUG)
-# rpc_user and rpc_password are set in the bitcoin.conf file
+# rpc_user e rpc_password estão configurados no arquivo bitcoin.conf
 rpc_user = "StandUp"
 rpc_pass = "6305f1b2dbb3bc5a16cd0f4aac7e1eba"
 rpc_host = "127.0.0.1"
@@ -59,9 +59,9 @@ rpc_client = AuthServiceProxy(f"http://{rpc_user}:{rpc_pass}@{rpc_host}:18332", 
 
 Os argumentos na URL são `<rpc_username>:<rpc_password>@<host_IP_address>:<port>`. Como de costume, o `user` e o `pass` são encontrados no arquivo `~/.bitcoin/bitcoin.conf`, enquanto o `host` é o nosso localhost, e a porta é `18332` para Testnet. O argumento `timeout` é especificado desde o tempo limite dos sockets sob grande demanda na rede principal. Se obtivermos a resposta `socket.timeout: timed out`, precisamos ser pacientes e aumentar o` timeout`.
 
-> :link: ** MAINNET VS TESTNET: ** A porta seria 8332 para uma configuração na Mainnet.
+> :link: **MAINNET VS TESTNET:** A porta seria 8332 para uma configuração na Mainnet.
 
-### Fazendo uma chamada RPC
+### Fazendo uma Chamada RPC
 
 Se o `rpc_client` for inicializado com sucesso, seremos capazes de enviar comandos RPC para o nosso node do Bitcoin.
 
@@ -87,7 +87,7 @@ Block Count: 1773020
 ---------------------------------------------------------------
 ```
 
-### Fazendo uma chamada RPC enviando argumentos
+### Fazendo uma Chamada RPC com Argumentos
 
 Podemos usar esse blockcount como um argumento para recuperar o blockhash de um bloco e também para recuperar os detalhes do bloco.
 
@@ -128,7 +128,7 @@ print("---------------------------------------------------------------\n")
 
 ### Executando nosso código
 
-Podemos usar [o código que está no src/](src/17_4_getinfo.py) e executá-lo com `python3`:
+Podemos usar [o código que está no src/](src/18_4_getinfo.py) e executá-lo com `python3`:
 
 ```
 $ python3 getinfo.py
@@ -160,7 +160,7 @@ First 10 transactions:
 ---------------------------------------------------------------
 ```
 
-## Pesquisando fundos
+## Pesquisando Fundos
 
 Da mesma forma, podemos recuperar as informações da nossa carteira com o RPC `getwalletinfo`:
 
@@ -244,7 +244,7 @@ pprint(utxo_tx_details)
 print("---------------------------------------------------------------\n")
 ```
 
-Este código está disponível no arquivo [walletinfo.py](src/17_4_walletinfo.py).
+Este código está disponível no arquivo [walletinfo.py](src/18_4_walletinfo.py).
 ```
 $ python3 walletinfo.py 
 ---------------------------------------------------------------
@@ -338,16 +338,16 @@ UTXO Details:
 ---------------------------------------------------------------
 ```
 
-## Crindo um endereço
+## Crindo um Endereço
 
 Criar um novo endereço com Python 3 requer apenas o uso de um RPC como `getnewaddress` ou `getrawchangeaddress`.
 ```
 new_address = rpc_client.getnewaddress("Learning-Bitcoin-from-the-Command-Line")
 new_change_address = rpc_client.getrawchangeaddress()
 ```
-Neste exemplo, usamos comando `getnewaddress` junto com um argumento: o rótulo `Learning-Bitcoin-from-the-Command-Line`.
+Neste exemplo, usamos o comando `getnewaddress` junto com um argumento: o rótulo `Learning-Bitcoin-from-the-Command-Line`.
 
-## Enviando uma transação
+## Enviando uma Transação
 
 A criação de uma transação no Python 3 requer a combinação de alguns dos exemplos anteriores, de criação de endereços e de recuperação de UTXOs, com alguns comandos novos do RPC para criar, assinar e enviar uma transação, da mesma forma que fizemos anteriormente na linha de comando.
 
@@ -359,13 +359,13 @@ Existem cinco etapas:
 3. Assinar a transação bruta com a chave privada do UTXO;
 4. Transmitir a transação na Testnet do bitcoin.
 
-### 1. Selecionando o UTXO e definindo os detalhes da transação
+### 1. Selecionando o UTXO e Definindo os Detalhes da Transação
 
 No trecho de código a seguir, primeiro selecionaremos o UTXO que gostaríamos de gastar. Em seguida, iremos obter o endereço, id da transação e o índice vetorial da saída.
 
 ```py
 utxos = rpc_client.listunspent()
-selected_utxo = utxos[0]  # again, selecting the first utxo here
+selected_utxo = utxos[0]  # novamente, selecionando o primeiro utxo aqui
 utxo_address = selected_utxo['address']
 utxo_txid = selected_utxo['txid']
 utxo_vout = selected_utxo['vout']
@@ -375,17 +375,17 @@ Em seguida, também recuperamos o endereço do destinatário para o qual desejam
 
 ```py
 recipient_address = new_address
-recipient_amt = utxo_amt / 2  # sending half coins to recipient
-miner_fee = 0.00000300        # choose appropriate fee based on your tx size
+recipient_amt = utxo_amt / 2  # enviando metade das moedas para o recebedor
+miner_fee = 0.00000300        # escolha uma taxa apropriada baseada no tamanho da sua transação
 change_address = new_change_address
 change_amt = float('%.8f'%((utxo_amt - recipient_amt) - miner_fee))
 ```
 
-> :warning: **AVISO:** Obviamente, um programa real faria escolhas mais sofisticadas sobre qual UTXO usar, o que fazer com os fundos e que taxa de mineração pagar.
+> :warning: **AVISO:** Obviamente, um programa real faria escolhas mais sofisticadas sobre qual UTXO usar, o que fazer com os fundos e qual taxa de mineração pagar.
 
-### 2. Criando uma transação bruta
+### 2. Criando uma Transação Bruta
 
-Agora temos todas as informações para enviar uma transação, mas antes de enviá-la, devemos criar uma transação.
+Agora temos todas as informações para enviar uma transação, mas antes de enviá-la, devemos criá-la.
 
 ```py
 txids_vouts = [{"txid": utxo_txid, "vout": utxo_vout}]
@@ -396,13 +396,13 @@ Lembre-se de que o formato do comando `createrawtransaction` é:
 
 ```$ bitcoin-cli createrawtransaction '[{"txid": <utxo_txid>, "vout": <vector_id>}]' '{"<address>": <amount>}'```
 
-O `txids_vouts` é, portanto, uma lista e o `address_amts` é um dicionário python, para combinar com o formato de `createrawtransaction`.
+O `txids_vouts` é, portanto, uma lista, e o `address_amts` é um dicionário python, para combinar com o formato de `createrawtransaction`.
 
 Se quisermos ver mais sobre os detalhes da transação que criamos, podemos usar `decoderawtransaction`, tanto no Python 3 quanto com `bitcoin-cli`.
 
-### 3. Assinar transação bruta
+### 3. Assinar Transação Bruta
 
-Assinar uma transação geralmente é a parte mais complicada do envio de uma transação, quando olhamos a parte de programação. Aqui recuperamos uma chave privada de um endereço com `dumpprivkey` e a coloca em uma matriz:
+Assinar uma transação geralmente é a parte mais complicada do envio de uma transação, quando olhamos a parte de programação. Aqui recuperamos uma chave privada de um endereço com `dumpprivkey` e a colocamos em uma matriz:
 ```py
 address_priv_key = []  # list of priv keys of each utxo
 address_priv_key.append(rpc_client.dumpprivkey(utxo_address))
@@ -411,7 +411,7 @@ Depois, usamos esse array, que deve conter as chaves privadas de cada UTXO que e
 ```py
 signed_tx = rpc_client.signrawtransactionwithkey(unsigned_tx_hex, address_priv_key)
 ```
-Isso retornará um objeto JSON com o hex da transação assinada e, se foi assinado completamente ou não:
+Isso retornará um objeto JSON com o hex da transação assinada e se foi assinado completamente ou não:
 
 ### 4. Transmitindo a Transação
 
@@ -420,9 +420,9 @@ Finalmente, estamos prontos para transmitir a transação assinada na rede Bitco
 ```py
 send_tx = rpc_client.sendrawtransaction(signed_tx['hex'])
 ```
-### Executando nosso código
+### Executando Nosso Código
 
-[Este código](src/17_4_sendtx.py) está cheio de instruções com `print` para demonstrar todos os dados disponíveis em cada momento:
+[Este código](src/18_4_sendtx.py) está cheio de instruções com `print` para demonstrar todos os dados disponíveis a cada momento:
 ```
 $ python3 sendtx.py 
 Creating a Transaction
@@ -457,34 +457,34 @@ TXID of sent transaction:  187f8baa222f9f37841d966b6bad59b8131cfacca861cbe9bfc86
 
 ## Resumo: Acessando o Bitcoind com Python
 
-Acessar Bitcoind com Python é muito fácil usando uma biblioteca `python-bitcoinrpc`. A primeira coisa a se fazer, é estabelecer uma conexão com nossa instância `bitcoind`, então podemos fazer todas as chamadas API bitcoin conforme descrito nos documentos do Bitcoin Core. Isso torna mais fácil criar programas pequenos ou grandes para gerenciar nosso próprio node, verificando saldos ou criando aplicações interessantes, conforme acessamos todo o poder do `bitcoin-cli`.
+Acessar Bitcoind com Python é muito fácil usando a biblioteca `python-bitcoinrpc`. A primeira coisa a se fazer é estabelecer uma conexão com nossa instância `bitcoind`, então podemos fazer todas as chamadas da API do Bitcoin conforme descrito nos documentos do Bitcoin Core. Isso torna mais fácil criar programas pequenos ou grandes para gerenciar nosso próprio node, verificando saldos ou criando aplicações interessantes, conforme acessamos todo o poder do `bitcoin-cli`.
 
 ## O Que Vem Depois?
 
-Vamos aprender mais sobre "Conversando com o Bitcoind com Outras Linguagens" na seção [§17.5: Acessando o Bitcoind com Rust](17_5_Accessing_Bitcoind_with_Rust.md).
+Vamos aprender mais sobre "Conversando com o Bitcoind com Outras Linguagens" na seção [§18.5: Acessando o Bitcoind com Rust](18_5_Accessing_Bitcoind_with_Rust.md).
 
-## Variante: Construindo o Python a partir do código-fonte
+## Variante: Construindo Python da Fonte
 
-Se precisarmos instalar o Python 3 a partir do código-fonte, precisaremos seguir estas instruções e continuar da parte ["Criando um projeto BitcoinRPC"](17_4_Accessing_Bitcoind_with_Python.md#Creating-a-bitcoinrpc-project).
+Se precisarmos instalar o Python 3 a partir do código-fonte, precisaremos seguir estas instruções, e então continuar com ["Criando um projeto BitcoinRPC"](18_4_Accessing_Bitcoind_with_Python.md#creating-a-bitcoinrpc-project).
 
-### 1. Instalando as dependências
+### 1. Instalando as Dependências
 ```sh
 $ sudo apt-get install build-essential checkinstall
 $ sudo apt-get install libreadline-gplv2-dev libncursesw5-dev libssl-dev libsqlite3-dev tk-dev libgdbm-dev libc6-dev libbz2-dev libffi-dev zlib1g-dev
 ```
 
-### 2. Baixando e extraindo o Python
+### 2. Baixando e Extraindo o Python
 ```sh
 $ wget https://www.python.org/ftp/python/3.8.3/Python-3.8.3.tgz
 $ tar -xzf Python-3.8.3.tgz
 ```
 
-### 3. Compilando o código-fonte Python e verificando a instalação:
+### 3. Compilando o Código-Fonte Python e Verificando a Instalação:
 
 ```sh
 $ cd Python-3.8.3
 $ sudo ./configure --enable-optimizations
-$ sudo make -j 8  # enter the number of cores of your system you want to use to speed up the build process.
+$ sudo make -j 8  # coloque o número de núcleos que você quer usar do seu sistema para acelerar o processo
 $ sudo make altinstall
 $ python3.8 --version
 ```
