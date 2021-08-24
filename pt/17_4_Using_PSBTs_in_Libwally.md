@@ -1,10 +1,10 @@
-# 16.4: Usando o PSBTs na Libwally
+# 17.4: Usando PSBTs na Libwally
 
 > :information_source: **NOTA:** Esta seção foi adicionada recentemente ao curso e é um rascunho inicial que ainda pode estar aguardando revisão.
 
-Nós aprendemos tudo sobre as transações do Bitcoin parcialmente assinadas (PSBTs) na seção [§7.1](07_1_Creating_a_Partially_Signed_Bitcoin_Transaction.md) e na [§7.2](07_2_Using_a_Partially_Signed_Bitcoin_Transaction.md), e como vimos na [§7.3: Integrando com Hardware Wallets](/github.com/BlockchainCommons/Learning-Bitcoin-from-the-Command-Line/blob/master/07_3_Integrating_with_Hardware_Wallets.md), uma das nossas principais vantagens é a capacidade de integração com nodes offline, como Hardware Wallets. O HWI permitiu que passassemos comandos para uma carteira de hardware, mas o que a própria carteira usa para gerenciar os PSBTs? Por acaso, podemos usar algo na Libwally, como esta seção irá demonstrar.
+Nós aprendemos tudo sobre as transações parcialmente assinadas no Bitcoin (PSBTs) na seção [§7.1](07_1_Creating_a_Partially_Signed_Bitcoin_Transaction.md) e na [§7.2](07_2_Using_a_Partially_Signed_Bitcoin_Transaction.md), e como vimos na [§7.3: Integrando com Hardware Wallets](/github.com/BlockchainCommons/Learning-Bitcoin-from-the-Command-Line/blob/master/07_3_Integrating_with_Hardware_Wallets.md), uma das nossas principais vantagens é a capacidade de integração com nodes offline, como Hardware Wallets. O HWI permitiu que passássemos comandos para uma carteira de hardware, mas o que a própria carteira usa para gerenciar os PSBTs? Por acaso, podemos usar algo na Libwally, como esta seção irá demonstrar.
 
-Basicamente, a Libwally tem todas as funcionalidades PSBT, então se há algo que podemos fazer com o `bitcoind`, também podemos fazer usando a Libwally, mesmo se nosso dispositivo estiver offline. O que se iremos fazer agora, é a introdução a um tópico bem complexo.
+Basicamente, a Libwally tem todas as funcionalidades PSBT, então se há algo que podemos fazer com o `bitcoind`, também podemos fazer usando a Libwally, mesmo se nosso dispositivo estiver offline. O que segue é uma introdução básica a um tópico bem complexo.
 
 ## Convertendo um PSBT
 
@@ -14,7 +14,6 @@ Converter um PSBT na estrutura interna da Libwally é incrivelmente fácil, bast
 
 No entanto, é um pouco mais difícil de lidar com o resultado, porque a Libwally o converte em uma estrutura `wally_psbt` muito complexa.
 
-Here's how it's defined in `/usr/include/wally_psbt.h`:
 Veja como é definido no arquivo `/usr/include/wally_psbt.h`:
 ```
 struct wally_psbt {
@@ -77,9 +76,9 @@ struct wally_tx_output {
 ```
 Tem muita coisa aí! Embora muito disso deva ser familiar dos capítulos anteriores, é um pouco intimidador ver tudo disposto em estruturas C.
 
-## Lendo um PSBT convertido
+## Lendo um PSBT Convertido
 
-Obviamente, podemos ler qualquer coisa de uma estrutura PSBT chamando os elementos individuais das várias subestruturas. A seguir, uma breve visão geral que mostra como captar alguns dos elementos.
+Obviamente, podemos ler qualquer coisa de uma estrutura PSBT chamando os elementos individuais das várias subestruturas. A seguir, veja uma breve visão geral que mostra como captar alguns dos elementos.
 
 Aqui está um exemplo de recuperação dos valores e os `scriptPubKeys` das entradas:
 ```
@@ -111,13 +110,13 @@ Aqui está um exemplo semelhante para as saídas:
     wally_free_string(pubkey_hex);    
   }
 ```
-Obviamente, há muito mais coisas que poderemos observar nos PSBTs. Na verdade, olhar é o ponto principal de um PSBT: Podemos verificar entradas e saídas de um computador offline.
+Obviamente, há muito mais coisas que poderemos observar nos PSBTs. Na verdade, olhar é o ponto principal de um PSBT: podemos verificar entradas e saídas de um computador offline.
 
-> :warning: **AVISO:** Estas funções de leitura são _muito_ rudimentares e não funcionarão corretamente para situações extremamente normais como uma entrada ou saída que ainda está vazia ou que inclui um `non_witness_utxo`. Eles darão um segfault se não forem entregues um PSBT precisamente esperado. Um verdadeiro leitor precisaria ser consideravelmente mais robusto, para cobrir todas as situações possíveis, mas vamos deixar isso para o leitor.
+> :warning: **AVISO:** Estas funções de leitura são _muito_ rudimentares e não funcionarão corretamente para situações extremamente normais como uma entrada ou saída que ainda está vazia ou que inclui um `non_witness_utxo`. Elas darão um segfault se não forem entregues um PSBT precisamente esperado. Um leitor de verdade precisaria ser consideravelmente mais robusto, para cobrir todas as situações possíveis, mas vamos deixar isso como um exercício para o leitor.
 
-### Testando nosso leitor PSBT
+### Testando Nosso Leitor PSBT
  
-Novamente, o código para este leitor PSBT (extremamente rudimentar e específico) está no [diretório src/](src/16_4_examinepsbt.c).
+Novamente, o código para este leitor PSBT (extremamente rudimentar e específico) está no [diretório src/](src/17_4_examinepsbt.c).
 
 Podemos compilá-lo normalmente:
 ```
@@ -146,8 +145,7 @@ scriptPubKey: 0014c772d6f95542e11ef11e8efc7c7a69830ad38a05
 INPUT #1
 scriptPubKey: 0014f4e8dde5db370898b57c84566e3f76098850817d
 ```
-And of course, you can check this with the `decodepsbt` RPC command for `bitcoin-cli`:
-E, claro, você pode verificar isso com o comando RPC `decodepsbt` para` bitcoin-cli`:
+E, claro, você pode verificar tudo isso com o comando RPC `decodepsbt` para` bitcoin-cli`:
 ```
 $ bitcoin-cli decodepsbt $psbt
 {
@@ -264,17 +262,17 @@ $ bitcoin-cli decodepsbt $psbt
   "fee": 0.00000209
 }
 ```
-Podemos ver a entrada de satoshis e o `scriptPubKey` claramente listadas nos `inputs` e a nova `scriptPubKey` no `vout` do `tx`.
+Podemos ver a entrada de satoshis e o `scriptPubKey` claramente listadOs nos `inputs` e a nova `scriptPubKey` no `vout` do `tx`.
 
 Então, está tudo lá para utilizarmos!
 
 ## Criando um PSBT
 
-Conforme observado no início desta seção, todas as funções necessárias para criar e processar os PSBTs estão disponíveis em Libwally. Na verdade, percorrer todo o processo para fazer isso é complexo o suficiente para estar além do escopo desta seção, mas aqui está um resumo rápido das funções necessárias. Observe que a [documentação](https://wally.readthedocs.io/en/latest/psbt/) está desatualizada para os PSBTs, portanto, precisaremos consultar o `/usr/include/wally_psbt.h` para obter as informações completas.
+Conforme observado no início desta seção, todas as funções necessárias para criar e processar os PSBTs estão disponíveis na Libwally. Na verdade, percorrer todo o processo para fazer isso é tão complexo que foge do escopo desta seção, mas aqui está um resumo rápido das funções necessárias. Observe que a [documentação](https://wally.readthedocs.io/en/latest/psbt/) está desatualizada para os PSBTs, portanto, precisaremos consultar o `/usr/include/wally_psbt.h` para obter as informações completas.
 
-Conforme discutido na seção [§7.1](07_1_Creating_a_Partially_Signed_Bitcoin_Transaction.md), existem várias funções envolvidas na criação dos PSBTs.
+Conforme discutido na seção [§7.1](07_1_Creating_a_Partially_Signed_Bitcoin_Transaction.md), existem várias funções envolvidas na criação de PSBTs.
 
-### Assumindo o papel de criador
+### Assumindo o Papel de Criador
 
 A função de criador tem a tarefa de criar um PSBT com pelo menos uma entrada.
 
@@ -289,9 +287,9 @@ Mas o que temos ainda não é um PSBT legal, por falta de entradas. Podemos cri�
   lw_response = wally_tx_init_alloc(0,0,1,1,&gtx);
   lw_response = wally_psbt_set_global_tx(psbt,gtx);
 ```
-### Testando nosso PSBT criado
+### Testando nosso PSBT Criado
 
-Neste ponto, devemos ter um PSBT vazio, mas funcionando, que pode ser visto compilando e executando [o programa](src/16_4_createemptypsbt.c).
+Neste ponto, devemos ter um PSBT vazio, mas funcionando, que pode ser visto compilando e executando [o programa](src/17_4_createemptypsbt.c).
 ```
 $ cc createemptypsbt.c -lwallycore -o createemptypsbt
 $ ./createemptypsbt 
@@ -324,7 +322,7 @@ $ bitcoin-cli decodepsbt $psbt
   "fee": 0.00000000
 }
 ```
-## Assumindo as demais das funções
+## Assumindo as Demais Funções
 
 Assim como na leitura de PSBT, estamos introduzindo o conceito de criação do PSBT e, em seguida, deixando o resto como um exercício para o leitor.
 
@@ -367,12 +365,12 @@ A seguir está uma lista aproximada de funções para cada papel. Mais funções
 
 * wally_psbt_extract
 
-## Resumo: Usando o PSBTs na Libwally
+## Resumo: Usando PSBTs na Libwally
 
 Esta seção poderia ser um capítulo inteiro, já que trabalhar com os PSBTs em um nível baixo é um trabalho muito intenso que requer uma manipulação muito mais intensiva de entradas e saídas como foi o caso do [Capítulo 7](07_0_Expanding_Bitcoin_Transactions_PSBTs.md). Ao invés disso, esta seção mostra o básico: como extrair informações de um PSBT e como começar a criar um.
 
-> :fire: ***Qual é o poder dos PSBTs na Libwally?*** Obviamente, já podemos fazer tudo isso nos `bitcoin-cli`, e é mais simples porque o Bitcoin Core gerencia muito do penoso trabalho. A vantagem de usar o Libwally é que ele pode ser executado offline, então pode ser a Libwally que está do outro lado de um dispositivo de hardware com o qual nosso `bitcoin-cli` está se comunicando com o HWI. Este é, de fato, um dos principais pontos dos PSBTs: ser capaz de manipular transações parcialmente assinadas sem a necessidade de um node completo. A Libwally permite isso.
+> :fire: ***Qual é o poder dos PSBTs na Libwally?*** Obviamente, já podemos fazer tudo isso nos `bitcoin-cli`, e é mais simples porque o Bitcoin Core gerencia muito do trabalho penoso. A vantagem de usar a Libwally é que ela pode ser executada offline, então pode ser a Libwally que está do outro lado de um dispositivo de hardware com o qual nosso `bitcoin-cli` está se comunicando com o HWI. Este é, de fato, um dos principais pontos dos PSBTs: ser capaz de manipular transações parcialmente assinadas sem a necessidade de um node completo. A Libwally permite isso.
 
 ## O Que Vem Depois?
 
-Vamos aprender mais sobre "Programando o Bitcoind usando o Libwally" na seção [§16.5: Usando Scripts no Libwally](16_5_Using_Scripts_in_Libwally.md).
+Vamos aprender mais sobre "Programando Bitcoin com Libwally" na seção [§17.5: Usando Scripts na Libwally](17_5_Using_Scripts_in_Libwally.md).
