@@ -34,7 +34,7 @@ $ export BITCOIND_PASS=d8340efbcd34e312044c8431c59c792c
 $ export BITCOIND_PORT=18332
 ```
 
-> :warning: **WARNING:** Obviously, you'd never put set your password in an environmental variable in a production environment.
+> :warning: **WARNING:** Obviously, you'd never put your password in an environmental variable in a production environment.
 
 > :link: **MAINNET VS TESTNET:** The port would be 8332 for a mainnet setup.
 
