@@ -1,14 +1,14 @@
-# 16.7: Integrando o Libwally ao Bitcoin-CLI
+# 17.7: Integranda Libwally e Bitcoin-CLI
 
 > :information_source: **NOTA:** Esta seção foi adicionada recentemente ao curso e é um rascunho inicial que ainda pode estar aguardando revisão.
 
-A Libwally é limitado. Trata-se de manipular seeds, chaves, endereços e outros elementos de carteiras, com algumas funções adicionais relacionadas a transações e PSBTs que podem ser úteis para serviços que não estão conectados a nodes completos na Internet. No final das contas, no entanto, precisaremos de serviços de nodes completos para aproveitar as vantagens da Libwally.
+A Libwally é limitada. Trata-se de manipular seeds, chaves, endereços e outros elementos de carteiras, com algumas funções adicionais relacionadas a transações e PSBTs que podem ser úteis para serviços que não estão conectados a nodes completos na Internet. No final das contas, no entanto, precisaremos de serviços de nodes completos para aproveitar as vantagens da Libwally.
 
-Esta última seção oferecerá alguns exemplos de uso de programas Libwally para complementar um ambiente `bitcoin-cli`. Embora esses exemplos impliquem que esses serviços estão todos na mesma máquina, eles podem se tornar ainda mais poderosos se o serviço `bitcoin-cli` estiver diretamente conectado à internet e o serviço Libwally não.
+Esta última seção oferecerá alguns exemplos de uso de programas Libwally para complementar um ambiente `bitcoin-cli`. Embora esses exemplos impliquem que esses serviços estão todos na mesma máquina, eles podem se tornar ainda mais poderosos se o serviço `bitcoin-cli` estiver diretamente conectado à internet e o serviça Libwally não.
 
-## Compartilhando uma transação
+## Compartilhando uma Transação
 
-Na seção [§16.5: Usando Scripts no Libwally](16_5_Using_Scripts_in_Libwally.md) detalhamos como a Libwally poderia ser usada para reescrever uma transação existente, para fazer algo que o `bitcoin-cli` não pode, ou seja, produzir uma transação que contém um P2SH único. Obviamente, este é um bloco de construção, se decidirmos nos aprofundar no Libwally, criaremos transações inteiras por conta própria. Mas, esta metodologia abreviada também tem seu próprio uso, mostrar como as transações podem ser passadas de um lado para outro entre `bitcoin-cli` e Libwally, demonstrando um primeiro exemplo de como usá-los de forma complementar.
+Na seção [§17.5: Usando Scripts na Libwally](17_5_Using_Scripts_in_Libwally.md) detalhamos como a Libwally poderia ser usada para reescrever uma transação existente, para fazer algo que o `bitcoin-cli` não pode, ou seja, produzir uma transação que contém um P2SH único. Obviamente, esta é uma parte essencial, mas não o todo; se você decidir se aprofundar na Libwally, poderá criar transações inteiras por conta própria. Mas esta metodologia abreviada também tem seu próprio uso, mostrar como as transações podem ser passadas de um lado para outro entre `bitcoin-cli` e Libwally, demonstrando um primeiro exemplo de como usá-los de forma complementar.
 
 Para demonstrar totalmente essa metodologia, criaremos uma transação com o `bitcoin-cli`, usando este UTXO:
 ```
@@ -33,7 +33,7 @@ $ utxo_vout=$(bitcoin-cli listunspent | jq -r '.[0] | .vout')
 $ recipient=tb1qycsmq3jas5wkhf8xrfn8k7438cm5pc8h9ae2k0
 $ rawtxhex=$(bitcoin-cli -named createrawtransaction inputs='''[ { "txid": "'$utxo_txid'", "vout": '$utxo_vout' } ]''' outputs='''{ "'$recipient'": 0.0009 }''')
 ```
-Embora tenhamos colocado um destinatário e uma quantia na saída, é irrelevante, porque nós o reescreveremos. Um código mais elaborado poderia ler as informações `vout` existentes antes de reescrever, mas estamos mantendo as coisas muito próximas do nosso [código original](src/16_5_replacewithscript.c).
+Embora tenhamos colocado um destinatário e uma quantia na saída, isto é irrelevante, porque nós o reescreveremos. Um código mais elaborado poderia ler as informações `vout` existentes antes de reescrever, mas estamos mantendo as coisas muito próximas do nosso [código original](src/17_5_replacewithscript.c).
 
 Aqui está a única alteração necessária, para permitir que especifiquemos os satoshis no `vout`, sem ter que codificá-lo, como no original:
 ```
@@ -129,7 +129,7 @@ Depois, podemos assiná-la normalmente com o `bitcoin-cli`:
 ```
 $ signedtx=$(bitcoin-cli signrawtransactionwithwallet $newtxhex | jq -r '.hex')
 ```
-E como podemos ver, o resultado é uma transação legítima pronta para ir para a rede Bitcoin:
+E, como podemos ver, o resultado é uma transação legítima pronta para ir para a rede Bitcoin:
 ```
 $ bitcoin-cli decoderawtransaction $signedtx
 {
@@ -170,21 +170,21 @@ $ bitcoin-cli decoderawtransaction $signedtx
 ```
 Pronto! Esse é o poder da Libwally com o `bitcoin-cli`.
 
-Obviamente, também pode passar um PSBT usando as funções descritas na seção [§16.4](16_4_Using_PSBTs_in_Libwally.md) e essa é uma metodologia mais atualizada para o uso moderno do Bitcoin, mas em qualquer um dos exemplos, o conceito de passar transações do `bitcoin-cli` para código Libwally e vice-versa deve ser semelhante.
+Obviamente, também podemos passar um PSBT usando as funções descritas na seção [§17.4](17_4_Using_PSBTs_in_Libwally.md) e esta é uma metodologia mais atualizada para o uso moderno do Bitcoin; mas em qualquer um dos exemplos, o conceito de passar transações do `bitcoin-cli` para códiga Libwally e vice-versa deve ser semelhante.
 
-## Importando e exportando seeds BIP39
+## Importando e Exportando Seeds BIP39
 
-Infelizmente, nem todas as interações entre a Libwally e o `bitcoin-cli` são fáceis. Por exemplo, seria bom se pudessemos exportar uma seed HD do `bitcoin-cli`, para gerar a frase mnemônica com a Libwally, ou gerar uma seed de uma frase mnemônica usando a Libwally e depois importá-la para o `bitcoin-cli `. Infelizmente, nada disso é possível neste momento. Uma frase mneômica é traduzida em uma seed usando HMAC-SHA512, o que significa que o resultado é 512 bits. No entanto, o `bitcoin-cli` exporta seeds HD (usando `dumpwallet`) e importa sementes HD (usando `sethdseed`) com um comprimento de 256 bits. Até que isso seja mudado, não podemos fazer nada sobre isso.
+Infelizmente, nem todas as interações entre a Libwally e o `bitcoin-cli` são fáceis. Por exemplo, seria bom se pudéssemos exportar uma seed HD do `bitcoin-cli` para gerar a frase mnemônica com a Libwally, ou gerar uma seed de uma frase mnemônica usando a Libwally e depois importá-la para o `bitcoin-cli `. Infelizmente, nada disso é possível neste momento. Uma frase mneômica é traduzida em uma seed usando HMAC-SHA512, o que significa que o resultado é 512 bits. No entanto, o `bitcoin-cli` exporta seeds HD (usando `dumpwallet`) e importa seeds HD (usando `sethdseed`) com um comprimento de 256 bits. Até que isso seja mudado, não há nada que possamos fazer.
 
-> :book: ***Qual é a diferença entre entropia e uma seed?*** A Libwally diz que criamos nossas frases mnemônicas a partir da entropia. Isso é essencialmente a mesma coisa que uma seed, pois ambos são números grandes e aleatórios. Portanto, se o `bitcoin-cli` fosse compatível com as sementes de frase mnemônica de 512 bits, poderíamos usar uma para gerar as frases mnemônicas e obter os resultados esperados.
+> :book: ***Qual é a diferença entre entropia e uma seed?*** A Libwally diz que criamos nossas frases mnemônicas a partir de entropia. Isso é essencialmente a mesma coisa que uma seed, pois ambos são números grandes e aleatórios. Portanto, se o `bitcoin-cli` fosse compatível com as seeds de frase mnemônica de 512 bits, poderíamos usar uma para gerar as frases mnemônicas e obter os resultados esperados.
 
-> :book: ***Qual é a diferença entre entropia e entropia bruta?*** Nem toda entropia é a mesma. Quando inserimos entropia em um comando que cria uma seed mnemônica, ela tem um comprimento específico e bem conhecido. Mudar a entropia bruta em uma entropia requer alterar a entropia bruta até que tenha o comprimento e o formato corretos, e nesse ponto podemos reutilizar essa entropia (não bruta) para sempre recriar os mesmos mnemônicos (razão pela qual a entropia é efetivamente a mesma coisa que um seed naquele ponto, mas a entropia bruta não).
+> :book: ***Qual é a diferença entre entropia e entropia bruta?*** Nem toda entropia é a mesma. Quando inserimos entropia em um comando que cria uma seed mnemônica, ela tem um comprimento específico e bem conhecido. Mudar de entropia bruta para entropia requer alterar a entropia bruta até que se tenha o comprimento e o formato corretos, e nesse ponto podemos reutilizar essa entropia (não bruta) para sempre recriar os mesmos mnemônicos (razão pela qual a entropia é efetivamente a mesma coisa que uma seed naquele ponto, mas a entropia bruta não).
 
-## Importando chaves privadas
+## Importando Chaves Privadas
 
-Felizmente, podemos fazer quase a mesma coisa importando uma chave privada gerada na Libwally. Dê uma olhada no [genhd-for-import.c](src/16_7_genhd_for_import.c), uma versão simplificada do programa `genhd` da seção [§16.3](16_3_Using_BIP32_in_Libwally.md) que também usa a biblioteca `jansson` da seção [ §15.1](15_1_Accessing_Bitcoind_with_C.md) para saída regularizada.
+Felizmente, podemos fazer quase a mesma coisa importando uma chave privada gerada na Libwally. Dê uma olhada no [genhd-for-import.c](src/17_7_genhd_for_import.c), uma versão simplificada do programa `genhd` da seção [§17.3](17_3_Using_BIP32_in_Libwally.md) que também usa a biblioteca `jansson` da seção [§16.1](16_1_Accessing_Bitcoind_with_C.md) para saída regularizada.
 
-O código atualizado também contém uma alteração importante, pois ele solicita uma impressão digital da Libwally para que possa criar um caminho de derivação de maneira adequada:
+O código atualizado também contém uma alteração importante, pois ele solicita uma impressão digital da Libwally para que se possa criar um caminho de derivação de maneira adequada:
 ```
   char account_fingerprint[BIP32_KEY_FINGERPRINT_LEN];
   lw_response = bip32_key_get_fingerprint(key_account,account_fingerprint,BIP32_KEY_FINGERPRINT_LEN);
@@ -193,13 +193,13 @@ O código atualizado também contém uma alteração importante, pois ele solici
   lw_response = wally_hex_from_bytes(account_fingerprint,BIP32_KEY_FINGERPRINT_LEN,&fp_hex);
 ```
 
-> :aviso: **AVISO:** Lembre-se de que a impressão digital nos caminhos de derivação é arbitrária. Como o Libwally fornece um, nós o estamos usando, mas se não tivermos um, poderemos adicionar um código hexadecimal arbitrário de 4 bytes como uma impressão digital em nosso caminho de derivação.
+> :aviso: **AVISO:** Lembre-se de que a impressão digital nos caminhos de derivação é arbitrária. Como a Libwally fornece um, nós o estamos usando, mas se não tivéssemos um, poderíamos adicionar um código hexadecimal arbitrário de 4 bytes como uma impressão digital em nosso caminho de derivação.
 
-Certifique-se de compilar o novo código com a biblioteca `jansson`, após instalá-lo (se necessário) de acordo com a seção [§15.1](15_1_Accessing_Bitcoind_with_C.md).
+Certifique-se de compilar o novo código com a biblioteca `jansson`, após instalá-lo (se necessário) de acordo com a seção [§16.1](16_1_Accessing_Bitcoind_with_C.md).
 ```
 $ cc genhd-for-import.c -lwallycore -lsodium -ljansson -o genhd-for-import
 ```
-Quando executamos o novo programa, ele nos dará uma lista de saída com todas as informações:
+Quando executarmos o novo programa, ele nos dará uma lista de saída com todas as informações:
 ```
 $ ./genhd-for-import 
 {
@@ -209,11 +209,11 @@ $ ./genhd-for-import
   "derivation": "[d1280779/84h/1h/0h]"
 }
 ```
-Temos o `mnemônico` que podemos recuperar, um `account-xprv` que podemos importar, uma `derivação` para usar para a importação e um `address` de amostra, que podemos usar para testar a importação.
+Temos o `mnemonic` que podemos recuperar, um `account-xprv` que podemos importar, uma `derivation` para usar para a importação e um `address` de amostra, que podemos usar para testar a importação.
 
 Agora podemos recorrer às lições aprendidas na seção [§3.5](03_5_Understanding_the_Descriptor.md) sobre como transformar esse xprv em um descritor e importá-lo.
 
-Primeiro, precisamos descobrir a soma de verificação:
+Primeiro, precisamos descobrir o checksum:
 ```
 $ xprv=tprv8yxn8iFNgsLktEPkWKQpMqb7bcx5ViFQEbJMtqrGi8LEgvy8es6YeJvyJKrbYEPKMw8JbU3RFhNRQ4F2pataAtTNokS1JXBZVg62xfd5HCn
 $ dp=[d1280779/84h/1h/0h]
@@ -229,7 +229,7 @@ $ bitcoin-cli getdescriptorinfo "wpkh($dp$xprv/0/*)"
 
 Há três coisas a serem observadas aqui:
 
-1. Usamos o `wpkh` como a função em nosso caminho de derivação. Isso porque queremos gerar endereços Segwit modernos, não endereços legados. Isso corresponde ao uso na Libwally da função `wally_bip32_key_to_addr_segwit`. A coisa mais importante, entretanto, é ter as mesmas expectativas com a Libwally e o `bitcoin-cli` (e nosso descritor) de que tipo de endereço estamos gerando, para que tudo sê certo;
+1. Usamos o `wpkh` como a função em nosso caminho de derivação. Isso porque queremos gerar endereços Segwit modernos, não endereços legados. Isso corresponde ao uso na Libwally da função `wally_bip32_key_to_addr_segwit`. A coisa mais importante, entretanto, é ter as mesmas expectativas com a Libwally e o `bitcoin-cli` (e nosso descritor) de que tipo de endereço estamos gerando, para que tudo dê certo;
 2. Usamos o caminho `/0/*` porque queríamos os endereços externos para esta conta. Se, em vez disso, quiséssemos alterar os endereços, usaríamos `/1/*`;
 3. Não vamos usar a linha `descriptor` que foi retornada, pois é para um endereço `xpub`. Ao invés disso, aplicaremos o `checksum` retornado ao `xprv` que já temos.
 ```
@@ -247,7 +247,7 @@ $ bitcoin-cli importmulti '''[{ "desc": "wpkh('$dp''$xprv'/0/*)#'$cs'", "timesta
 ```
 Aqui, importamos/geramos os primeiros dez endereços para a chave privada.
 
-Vamos examinar o novo rótulo `LibwallyImported`:
+Vamos examinar o novo rótulo `LibwallyImports`:
 ```
 $ bitcoin-cli getaddressesbylabel "LibwallyImports"
 {
@@ -289,15 +289,15 @@ $ bitcoin-cli getaddressesbylabel "LibwallyImports"
 ```
 O segundo em nossa lista realmente corresponde ao que temos de amostra (`tb1q9lhru6k0ymwrtr5w98w35n3lz22upml23h753n`). A importação desta chave privada e a derivação de dez endereços foram bem-sucedidas.
 
-Se olharmos agora para trás na seção [§7.3](07_3_Integrating_with_Hardware_Wallets.md), veremos que esta era a mesma metodologia que usamos para importar endereços de uma carteira física (embora desta vez também importamos a chave privada como prova de conceito). A maior diferença é que anteriormente a informação era criada por uma caixa preta (literalmente, pois era um dispositivo Ledger), e desta vez nós mesmos criamos a informação usando a Libwally, mostrando como podemos fazer esse tipo de trabalho de maneira airgaped ou em outro dispositivo remoto e, em seguida, levá-lo ao `bitcoin-cli`.
+Se olharmos agora para trás na seção [§7.3](07_3_Integrating_with_Hardware_Wallets.md), veremos que esta era a mesma metodologia que usamos para importar endereços de uma hardware wallet (embora desta vez também importamos a chave privada como prova de conceito). A maior diferença é que anteriormente a informação era criada por uma caixa preta (literalmente: era um dispositivo Ledger), e desta vez nós mesmos criamos a informação usando a Libwally, mostrando como podemos fazer esse tipo de trabalho de maneira airgaped ou em outro dispositivo remoto e, em seguida, levá-lo ao `bitcoin-cli`.
 
-## Importando endereços
+## Importando Endereços
 
 Obviamente, se podemos importar chaves privadas, também podemos importar endereços, o que geralmente significa importar endereços somente para observação _sem_ as chaves privadas.
 
-Uma maneira do fazer isso é utilizar a metodologia `importmulti` acima, mas neste caso, usamos o endereço fornecido XPUB (`wpkh([d1280779/84'/1'/0']tpubDWepH8HcqF2RmhRYPy5QmFFEAeU1f3SJotu9BMta8Q8dXRDuHFv8poYqUUtEiWftBjtKn1aNhi9Qg2P4NdzF66dShYvB92z78WJbYeHTLTz/0/*)#f8rmqc0z`) ao invés do xprv original. Essa é a melhor maneira de importar uma sequência inteira de endereços somente para observação.
+Uma maneira de fazer isso é utilizar a metodologia `importmulti` acima, mas neste caso, usamos o endereço xpub fornecido (`wpkh([d1280779/84'/1'/0']tpubDWepH8HcqF2RmhRYPy5QmFFEAeU1f3SJotu9BMta8Q8dXRDuHFv8poYqUUtEiWftBjtKn1aNhi9Qg2P4NdzF66dShYvB92z78WJbYeHTLTz/0/*)#f8rmqc0z`) ao invés do xprv original. Essa é a melhor maneira de importar uma sequência inteira de endereços somente para observação.
 
-Como alternativa, podemos importar endereços individuais. Por exemplo, considere o único endereço de amostra  retornado pelo programa `genhd-for-import`:
+Como alternativa, podemos importar endereços individuais. Por exemplo, considere o único endereço de amostra retornado pelo programa `genhd-for-import`:
 ```
 $ ./genhd-for-import 
 {
@@ -319,12 +319,12 @@ $ bitcoin-cli getaddressesbylabel "LibwallyWO"
 }
 ```
 
-## Resumo: Integrando o Libwally ao Bitcoin-CLI
+## Resumo: Integrando Libwally e Bitcoin-CLI
 
-Com um conhecimento básico de Libwally, agora podemos complementar todo o trabalho das lições anteriores. A transferência de endereços, chaves, transações e PSBTs são apenas algumas das maneiras pelas quais podemos usar esses dois poderosos métodos de programação do Bitcoin juntos. Também há muito mais profundidade potencial se quisermos nos aprofundar na extensa biblioteca de funções do Libwally.
+Com um conhecimento básico de Libwally, agora podemos complementar todo o trabalho das lições anteriores. A transferência de endereços, chaves, transações e PSBTs são apenas algumas das maneiras pelas quais podemos usar esses dois poderosos métodos de programação do Bitcoin juntos. Também há muito mais profundidade potencial se quisermos nos aprofundar na extensa biblioteca de funções da Libwally.
 
-> :fire: ***Qual é o poder de integrar Libwally e Bitcoin-CLI?*** Uma das maiores vantagens do Libwally é que ele tem muitas funções que podem ser usadas offline. Em comparação, o Bitcoin Core é um programa em rede. Isso pode ajudá-lo a aumentar a segurança fazendo com que o `bitcoin-cli` passe chaves, endereços, transações ou PSBTs para uma fonte offline (que estaria executando programas Libwally). Além disso, o Libwally pode fazer coisas que o Bitcoin Core não pode, como gerar uma seed a partir de um mnemônico BIP39 (e mesmo se não pudermos importá-la para o Bitcoin Core, _podemos_ importar a chave mestra, conforme mostrado aqui).
+> :fire: ***Qual é o poder de integrar Libwally e Bitcoin-CLI?*** Uma das maiores vantagens da Libwally é que ela tem muitas funções que podem ser usadas offline. Em comparação, o Bitcoin Core é um programa em rede. Isso pode ajudá-lo a aumentar a segurança fazendo com que o `bitcoin-cli` passe chaves, endereços, transações ou PSBTs para uma fonte offline (que estaria executando programas Libwally). Além disso, a Libwally pode fazer coisas que o Bitcoin Core não pode, como gerar uma seed a partir de um mnemônico BIP39 (e mesmo se não pudermos importá-la para o Bitcoin Core, _podemos_ importar a chave mestra, conforme mostrado aqui).
 
 ## O Que Vem Depois?
 
-Saiba mais sobre outras linguagens de programação no [Capítulo 17: Conversando com o Bitcoind com Outras Linguagens](17_0_Talking_to_Bitcoind_Other.md).
+Saiba mais sobre outras linguagens de programação no [Capítulo 18: Conversando com o Bitcoind com Outras Linguagens](18_0_Talking_to_Bitcoind_Other.md).
