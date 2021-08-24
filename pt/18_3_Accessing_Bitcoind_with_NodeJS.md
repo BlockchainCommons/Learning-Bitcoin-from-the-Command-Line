@@ -1,10 +1,9 @@
-# 17.3: Acessando o Bitcoind com NodeJS
+# 18.3: Acessando o Bitcoind com NodeJS
 
 > :information_source: **NOTA:** Esta seção foi adicionada recentemente ao curso e é um rascunho inicial que ainda pode estar aguardando revisão.
 
 Esta seção explica como interagir com o `bitcoind` usando a linguagem de programação NodeJS e o [pacote BCRPC](https://github.com/dgarage/bcrpc).
 
-## Set Up Node.js
 ## Configurando o Node.js
 
 O BCRPC é construído em node.js. Portanto, primeiro precisamos instalar os pacotes `node.js` e o `npm` (o gerenciador de pacotes do node) em nosso sistema.
@@ -27,7 +26,7 @@ $ cd bcrpc
 $ npm install
 ```
 
-Para testar o pacote BCRPC, devemos primeiro definir as variáveis ​​ambientais para o rpcuser e rpcpassword. Como de costume, eles vêm do `~/.bitcoin/bitcoin.conf`. Também devemos definir a porta RPC como sendo 18332, que deve ser a correta para a configuração Testnet padrão descrita nos documentos.
+Para testar o pacote BCRPC, devemos primeiro definir as variáveis de ambiente para o rpcuser e rpcpassword. Como de costume, elas vêm do `~/.bitcoin/bitcoin.conf`. Também devemos definir a porta RPC como sendo 18332, que deve ser a correta para a configuração Testnet padrão descrita nos documentos.
 
 ```
 $ export BITCOIND_USER=StandUp
@@ -35,7 +34,7 @@ $ export BITCOIND_PASS=d8340efbcd34e312044c8431c59c792c
 $ export BITCOIND_PORT=18332
 ```
 
-> :warning: **AVISO:** Obviamente, nunca colocaria nossa senha definida em uma variável de ambiente em um ambiente de produção.
+> :warning: **AVISO:** Obviamente, você nunca colocaria sua senha em uma variável de ambiente em um ambiente de produção.
 
 > :link: **MAINNET VS TESTNET:** A porta seria 8332 para uma configuração na Mainnet.
 
@@ -55,7 +54,7 @@ $ npm test
 
   2 passing (36ms)
 ```
-Parabéns, agora temos um wrapper RPC pronto para usar o Bitcoin com o Node.js que está funcionando com nossa configuração do Bitcoin.
+Parabéns, agora temos um wrapper RPC pronto para ser usado no Bitcoin com o Node.js e que está funcionando com as nossas configurações do Bitcoin.
 
 ### Criando um Projeto BCRPC
 
@@ -69,7 +68,7 @@ $ npm init
   [continue with default options]
 $ npm install bcrpc
 ```
-## Construindo nossa conexão
+## Construindo Nossa Conexão
 
 Em nosso diretório `myproject`, criamos um arquivo `.js` onde nosso código JavaScript será executado.
 
@@ -78,7 +77,7 @@ Podemos iniciar uma conexão RPC criando um `RpcAgent`:
 const RpcAgent = require('bcrpc');
 agent = new RpcAgent({port: 18332, user: 'StandUp', pass: 'd8340efbcd34e312044c8431c59c792c'});
 ```
-Obviamente, nosso `user` e `pass` devem coincidir novamente com o que está em nosso `~/.bitcoin/bitcoin.conf`, e usamos a `porta 18332` se estivermos na Testnet.
+Obviamente, nosso `user` e `pass` devem coincidir novamente com o que está em nosso `~/.bitcoin/bitcoin.conf`, e usamos a `port 18332` se estivermos na Testnet.
 
 ### Fazendo uma chamada RPC
 
@@ -108,15 +107,15 @@ As funções BCRPC podem aceitar argumentos. Por exemplo, o `getBlockHash` receb
 
 O resultado das funções BCRPC é um objeto JSON contendo informações sobre quaisquer erros e o id da solicitação. Ao acessar nosso resultado, adicionamos o `.result` no final dele para especificar que estamos interessados no resultado real, não em informações sobre os erros.
 
-### Executando nosso código
+### Executando Nosso Código
 
-Podemos encontrar o código `getinfo` no [diretório src/](src / 17_3_getinfo.js).
+Podemos encontrar o código `getinfo` no [diretório src/](src/18_3_getinfo.js).
 ```
 $ node getinfo.js
 1831094
 00000000000002bf8b522a830180ad3a93b8eed33121f54b3842d8838580a53c
 ```
-Isto é o que a saída do exemplo acima pareceria se substituíssemos o `console.log(blockCount.result);` e o `console.log(hash.result);` por `console.log(blockCount);` e `console.log (hash);`, respectivamente:
+Isso é com o que a saída do exemplo acima se pareceria se substituíssemos o `console.log(blockCount.result);` e o `console.log(hash.result);` por `console.log(blockCount);` e `console.log (hash);`, respectivamente:
 
 ```
 { result: 1774686, error: null, id: null }
@@ -127,9 +126,9 @@ Isto é o que a saída do exemplo acima pareceria se substituíssemos o `console
 }
 ```
 
-## Pesquisando os fundos
+## Pesquisando por Fundos
 
-É útil ao aceitar Bitcoin verificar os Bitcoin recebidos em um endereço específico em nossa carteira. Por exemplo, se administrássemos uma loja online que aceita Bitcoin, para cada pagamento de um cliente, geraríamos um novo endereço, mostraríamos esse endereço ao cliente e, em seguida, verificaríamos o saldo do endereço após algum tempo, para certificar-se de que o montante foi recebido:
+É útil, ao aceitar Bitcoin, verificar o Bitcoin recebido em um endereço específico em nossa carteira. Por exemplo, se administrássemos uma loja online que aceita Bitcoin, para cada pagamento de um cliente, geraríamos um novo endereço, mostraríamos esse endereço ao cliente e, em seguida, verificaríamos o saldo do endereço após algum tempo, para certificar-se de que o montante foi recebido:
 
 ```
 agent.getReceivedByAddress('mpGpCMX6SuUimDZKiVViuhd7EGyVxkNnha', function (err, addressInfo) {
@@ -151,7 +150,7 @@ agent.getReceivedByAddress('mpGpCMX6SuUimDZKiVViuhd7EGyVxkNnha', 6, function (er
 });
 ```
 
-### Pesquisando informações da carteira
+### Pesquisando Informações da Carteira
 
 Também podemos procurar informações adicionais sobre nossa carteira e visualizar nosso saldo, contagem de transações etc.
 
@@ -163,7 +162,7 @@ agent.getWalletInfo(function (err, walletInfo) {
 });
 ```
 
-O código está disponível como [walletinfo.js](src/17_3_walletinfo.js).
+O código está disponível como [walletinfo.js](src/18_3_walletinfo.js).
 ```
 $ node walletinfo.js
 0.008498
@@ -184,9 +183,9 @@ $ node walletinfo.js
   scanning: false
 }
 ```
-Ao invés de imprimir todos os detalhes associados à nossa carteira, podemos imprimir informações específicas, como nosso saldo. Como um objeto JSON está sendo acessado, podemos fazer isso alterando a linha `console.log(walletInfo.result);` para `console.log(walletInfo.result.balance);`:
+Ao invés de imprimirmos todos os detalhes associados à nossa carteira, podemos imprimir informações específicas, como nosso saldo. Como um objeto JSON está sendo acessado, podemos fazer isso alterando a linha `console.log(walletInfo.result);` para `console.log(walletInfo.result.balance);`:
 
-## Criando um endereço
+## Criando um Endereço
 
 Também podemos passar argumentos adicionais para os comandos RPC. Por exemplo, o seguinte gera um novo endereço legado, com o sinalizador `-addresstype`.
 
@@ -205,7 +204,7 @@ mtGPcBvRPZFEHo2YX8un9qqPBydhG82uuZ
 
 No BCRPC, geralmente podemos usar os mesmos sinalizadores que no `bitcoin-cli` no BCRPC. Embora usamos o camelCase (`getNewAddress`) para os métodos, os sinalizadores, que normalmente são separados por espaços na linha de comando, são colocados em strings e separados por vírgulas.
 
-## Enviando uma transação
+## Enviando uma Transação
 
 Podemos enviar saldos para um endereço muito facilmente, usando a função `sendToAddress`:
 
@@ -223,7 +222,7 @@ Isso deve retornar o txid da transação:
 1679bee019c61608340b79810377be2798efd4d2ec3ace0f00a1967af70666b9
 ```
 
-### Pesquisando uma transação
+### Pesquisando uma Transação
 
 Agora podemos desejar visualizar uma transação, como a que acabamos de enviar.
 ```
@@ -261,7 +260,7 @@ Devemos obter uma saída semelhante a esta:
 }
 ```
 
-O código completo está disponível no [sendtx.js](src/17_3_sendtx.js).
+O código completo está disponível no [sendtx.js](src/18_3_sendtx.js).
 
 ## Resumo: Acessando o Bitcoind com NodeJS
 
@@ -271,4 +270,4 @@ Com base nesses exemplos, devemos ser capazes de incorporar Bitcoin em um projet
 
 ## O Que Vem Depois?
 
-Vamos aprender mais sobre "Conversando com o Bitcoind com Outras Linguagens" na seção [§17.4: Acessando o Bitcoind com Python](17_2_Accessing_Bitcoind_with_Java.md).
+Vamos aprender mais sobre "Conversando com o Bitcoind com Outras Linguagens" na seção [§18.4: Acessando o Bitcoind com Python](18_4_Accessing_Bitcoind_with_Python.md).
