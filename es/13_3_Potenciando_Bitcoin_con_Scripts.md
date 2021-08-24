@@ -72,7 +72,7 @@ Script: <pubKeyBob> OP_CHECKSIG
 Running: True IF
 Stack: [ <sigAlice> ]
 ```
-!Maldiciones! ¡Solo Bob puede firmar inmediatamente usando el `redeemCode`!
+¡Maldiciones! ¡Solo Bob puede firmar inmediatamente usando el `redeemCode`!
 
 ```
 Script:  OP_CHECKSIG
@@ -289,13 +289,13 @@ Stack: [ <wasItSecretOrRevokeHash?> ]
 
 La ejecución del script revela que las comprobaciones iniciales, por encima de `IF` /` ELSE` / `ENDIF`, determinan si el hash era _o_ el` secretCode` _o_ el `revokeCode`. Si es así, Alice puede tomar los fondos en el primer bloque. De lo contrario, Bob puede tomar los fondos, pero solo después de que Alice haya tenido su oportunidad y después de que hayan transcurrido el tiempo de espera de 24 horas y el tiempo de espera absoluto.
 
-#### Comprenda los HTLC
+#### Comprenda los HTLCs
 
 Los HTLCs son bastante complejos y esta descripción general no intenta explicar todas sus complejidades. La [descripción general](https://rusty.ozlabs.org/?p=462) de Rusty Russell explica más y hay incluso más detalles en su artículo [Deployable Lightning](https://github.com/ElementsProject/lightning/blob/master/doc/deployable-lightning.pdf). Pero no se preocupe si algunas de las complejidades aún se le escapan, particularmente las interrelaciones de los dos guiones.
 
 A los efectos de este tutorial, hay dos lecciones importantes para los HTLC:
 
-* Comprenda que se puede crear una estructura muy compleja como un HTLC con Bitcoin Script.
+   * Comprenda que se puede crear una estructura muy compleja como un HTLC con Bitcoin Script.
    * Analizar cómo ejecutar cada uno de los scripts HTLC.
 
 Vale la pena dedicar tiempo a ejecutar cada uno de los dos scripts HTLC a través de cada una de sus permutaciones, un elemento de la pila a la vez.
