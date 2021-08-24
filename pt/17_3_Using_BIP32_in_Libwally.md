@@ -1,14 +1,14 @@
-# 16.3: Usando o BIP32 no Libwally
+# 17.3: Usando o BIP32 na Libwally
 
 > :information_source: **NOTA:** Esta seção foi adicionada recentemente ao curso e é um rascunho inicial que ainda pode estar aguardando revisão.
 
-Na seção [§16.2](16_2_Using_BIP39_in_Libwally.md), fomos capazes de usar a entropia para gerar uma semente e nosso mnemônico relacionado. Como devemos nos lembrar da seção [§3.5: Compreendendo o descritor](03_5_Understanding_the_Descriptor.md), uma seed é a base de uma Carteira Determinística Hierárquica (no inglês Hierchical Deterministic, HD), onde aquela única seed pode ser usada para gerar muitos endereços. Então, como passamos da seed para os endereços reais? É aí que entra o [BIP32](https://en.bitcoin.it/wiki/BIP_0032).
+Na seção [§17.2](17_2_Using_BIP39_in_Libwally.md), fomos capazes de usar entropia para gerar uma semente e nosso mnemônico relacionado. Como devemos nos lembrar da seção [§3.5: Compreendendo o Descritor](03_5_Understanding_the_Descriptor.md), uma seed é a base de uma Carteira Determinística Hierárquica (no inglês Hierchical Deterministic, HD), onde aquela única seed pode ser usada para gerar muitos endereços. Então, como passamos da seed para os endereços reais? É aí que entra o [BIP32](https://en.bitcoin.it/wiki/BIP_0032).
 
-## Criando uma raiz HD
+## Criando uma Raiz HD
 
 Para criar um endereço HD, é necessário começar com uma seed e, em seguida, descer na hierarquia até o ponto em que criamos os endereços.
 
-Isso começa com bastante facilidade, conosco gerando uma seed, o que já fizemos na seção anterior:
+Isso começa com bastante facilidade, gerando uma seed, o que já fizemos na seção anterior:
 ```
   unsigned char entropy[16];  
   randombytes_buf(entropy, 16);
@@ -20,7 +20,7 @@ Isso começa com bastante facilidade, conosco gerando uma seed, o que já fizemo
   size_t seed_len;  
   lw_response = bip39_mnemonic_to_seed(mnem,NULL,seed,BIP39_SEED_LEN_512,&seed_len);
 ```
-### Gerando uma chave raiz
+### Gerando uma Chave Raiz
 
 Com uma seed em mãos, podemos gerar uma chave mestra estendida com a função `bip32_key_from_seed_alloc` (ou, alternativamente, com o comando `bip32_key_from_seed`, que não faz o `alloc`):
 ```
@@ -42,15 +42,15 @@ Sempre que tivermos uma chave em mãos, podemos transformá-la em chaves xpub ou
   lw_response = bip32_key_to_base58(key_root, BIP32_FLAG_KEY_PUBLIC, &xpub);
 ```
 
-## Compreendendo a hierarquia
+## Compreendendo a Hierarquia
 
-Antes de prosseguir, precisamos entender como funciona a hierarquia de uma carteira HD. Conforme discutido na seção [§3.5](03_5_Understanding_the_Descriptor.md), um caminho de derivação descreve a árvore que seguimos para obter uma chave hierárquica, então `[0/1/0]` é o 0º filho do 1º filho do 0º filho de uma chave raiz. Às vezes, parte dessa derivação é marcada com `'` s ou `h`s para mostrar derivações endurecidas, que aumentam a segurança: `[0'/1'/0']`.
+Antes de prosseguir, precisamos entender como funciona a hierarquia de uma carteira HD. Conforme discutido na seção [§3.5](03_5_Understanding_the_Descriptor.md), um caminho de derivação descreve a árvore que seguimos para obter uma chave hierárquica, então `[0/1/0]` é o 0º filho do 1º filho do 0º filho de uma chave raiz. Às vezes, parte dessa derivação é marcada com `'`s ou `h`s para mostrar derivações endurecidas, que aumentam a segurança: `[0'/1'/0']`.
 
 No entanto, para carteiras HD, cada um desses níveis da hierarquia é usado de uma forma muito específica. Isso foi definido originalmente no [BIP44](https://github.com/bitcoin/bips/blob/master/bip-0044.mediawiki) e foi atualizado posteriormente para o Segwit no [BIP84](https://github.com/bitcoin/bips/blob/master/bip-0084.mediawiki).
 
 Ao todo, um caminho de derivação BIP32 é definido para ter cinco níveis:
 
-1. **Objetivo.** Isso geralmente é definido como `44'` ou `84'`, dependendo do BIP que estamos seguindo;
+1. **Propósito.** Isso geralmente é definido como `44'` ou `84'`, dependendo do BIP que estamos seguindo;
 2. **Moeda.** Para bitcoins Mainnet, é `0'`, para testnet é `1'`;
 3. **Conta.** Uma carteira pode conter várias contas discretas, começando com `0'`;
 4. **Troco.** Os endereços externos (para distribuição) são definidos como `0`, enquanto os endereços internos (para troco) são definidos como `1`;
@@ -62,13 +62,13 @@ Então, na testnet, o endereço zero para um endereço externo para a conta zero
 
 ### Entendendo a Hierarquia no Bitcoin Core
 
-Estaremos usando a hierarquia acima para todas as chaves de HD na Libwally, mas observe que este padrão não é usado no `bitcoin-cli` do Bitcoin Core, que ao invés disso usa `[m/0'/0'/0']` para o enésimo endereço externo e `[m/0'/1'/0']` para o enésimo endereço de troco.
+Estaremos usando a hierarquia acima para todas as chaves HD na Libwally, mas observe que este padrão não é usado no `bitcoin-cli` do Bitcoin Core, que ao invés disso usa `[m/0'/0'/0']` para o enésimo endereço externo e `[m/0'/1'/0']` para o enésimo endereço de troco.
 
-## Gerando um endereço
+## Gerando um Endereço
 
 Para gerar um endereço, devemos explorar toda a hierarquia.
 
-### Gerando uma chave da conta
+### Gerando uma Chave de Conta
 
 Uma maneira de fazer isso é usar a função `bip32_key_from_parent_path_alloc` para descer vários níveis de uma hierarquia. Podemos incorporar os níveis em uma matriz:
 ```
@@ -87,7 +87,7 @@ Sempre que tiviermos uma nova chave, poderemos usá-la para gerar novas chaves x
   lw_response = bip32_key_to_base58(key_account, BIP32_FLAG_KEY_PUBLIC, &a_xpub);
 ```
 
-### Gerando uma chave de endereço
+### Gerando uma Chave de Endereço
 
 Alternativamente, podemos usar a função `bip32_key_from_parent_alloc`, que apenas desce um nível da hierarquia por vez. O exemplo a seguir desce para o enésimo filho da chave da conta (que é o endereço externo) e, em seguida, o enésimo filho dessa chave. Isso seria útil porque poderíamos continuar gerando o primeiro endereço, o segundo endereço e assim por diante a partir dessa chave externa:
 ```
@@ -99,9 +99,9 @@ Alternativamente, podemos usar a função `bip32_key_from_parent_alloc`, que ape
 ```
 > :warning: **AVISO:** Em algum ponto desta hierarquia, podemos decidir gerar o `BIP32_FLAG_KEY_PUBLIC` ao invés do `BIP32_FLAG_KEY_PRIVATE`. Obviamente, essa decisão será baseada na nossa segurança e nas nossas necessidades, mas precisamos lembrar de que só precisamos de uma chave pública para gerar o endereço real.
 
-### Gerando um endereço
+### Gerando um Endereço
 
-Finalmente, estamos pronto para gerar um endereço a partir de sua chave final. Tudo que fazemos é executar `wally_bip32_to_addr_segwit` usando nossa chave final e uma descrição de que tipo de endereço é este.
+Finalmente, estamos prontos para gerar um endereço a partir de sua chave final. Tudo que fazemos é executar `wally_bip32_to_addr_segwit` usando nossa chave final e uma descrição de que tipo de endereço é este.
 ```
   char *segwit;
   lw_response = wally_bip32_key_to_addr_segwit(key_address,"tb",0,&segwit);
@@ -115,7 +115,7 @@ Há também uma função `wally_bip32_key_to_address`, que pode ser usada para g
 
 ## Testando o Código HD
 
-O código para esses exemplos de HD pode, como de costume, ser encontrado no [diretório src/](src / 16_3_genhd.c).
+O código para esses exemplos HD pode, como de costume, ser encontrado no [diretório src/](src/17_3_genhd.c).
 
 Podemos compilá-lo e testá-lo:
 ```
@@ -129,14 +129,14 @@ Account xpub key: tpubDWFQG78gYHzCkACXxkeh2LwWo8MVLm3YkTGd85LJwtpBB6xp4KwseGTEvx
 [m/84'/1'/0'/0/0]: tb1q0knqq26ek59pfl7nukzqr28m2zl5wn2f0ldvwu
 ```
 
-## Resumo: Usando o BIP32 no Libwally
+## Resumo: Usando o BIP32 na Libwally
 
-Uma carteira HD permite gerar um grande número de chaves a partir de uma única seed. Agora sabemos como essas chaves são organizadas no BIP44, BIP84 e no Bitcoin Core e, como derivá-las, começando com uma seed ou palavras mnemônicas.
+Uma carteira HD permite gerar um grande número de chaves a partir de uma única seed. Agora sabemos como essas chaves são organizadas no BIP44, BIP84 e no Bitcoin Core, além de como derivá-las, começando com uma seed ou palavras mnemônicas.
 
 > :fire: ***Qual é o poder do BIP32?*** As chaves são o elemento mais difícil (e mais perigoso) da maioria das operações criptográficas. Se as perdermos, perderemos tudo o que a chave protegeu. O BIP32 garante que só precisamos conhecer uma chave, a semente, ao invés de um grande número de chaves diferentes para endereços diferentes.
 
-> :fire: ***Qual é o poder do BIP32 na Libwally?*** O Bitcoind já faz a criação de endereços baseada em HD para nós, o que significa que normalmente não precisamos nos preocupar em derivar endereços dessa maneira. No entanto, usar as funções BIP32 da Libwally pode ser muito útil se estivermos uma máquina offline onde precisamos derivar endereços, possivelmente com base em uma semente passada do `bitcoind` para nosso dispositivo offline (ou vice-versa).
+> :fire: ***Qual é o poder do BIP32 na Libwally?*** O Bitcoind já faz a criação de endereços baseada em HD para nós, o que significa que normalmente não precisamos nos preocupar em derivar endereços dessa maneira. No entanto, usar as funções BIP32 da Libwally pode ser muito útil se tivermos uma máquina offline onde precisamos derivar endereços, possivelmente com base em uma semente passada do `bitcoind` para nosso dispositivo offline (ou vice-versa).
 
 ## O Que Vem Depois?
 
-Vamos aprender mais sobre "Programando o Bitcoind usando o Libwally" na seção [§16.4: Usando o PSBTs no Libwally](16_4_Using_PSBTs_in_Libwally.md).
+Vamos aprender mais sobre "Programando Bitcoin com Libwally" na seção [§17.4: Usando PSBTs na Libwally](16_4_Using_PSBTs_in_Libwally.md).
