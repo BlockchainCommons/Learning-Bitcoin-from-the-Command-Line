@@ -1,4 +1,4 @@
-# 17.6: Acessando o Bitcoind com Swift
+# 18.6: Acessando o Bitcoind com Swift
 
 > :information_source: **NOTA:** Esta seção foi adicionada recentemente ao curso e é um rascunho inicial que ainda pode estar aguardando revisão.
 
@@ -12,29 +12,29 @@ Ao invés disso, sugerimos a criação de um ambiente Swift ideal em um Mac. Exi
 
 ### 1. Instalando o Xcode
 
-Vamos precisar do `Xcode`, o ambiente de desenvolvimento integrado para o Swift e para o Objective-C. Isso pode ser facilmente instalado acessando a Mac App Store e o `Get` Xcode.
+Vamos precisar do `Xcode`, o ambiente de desenvolvimento integrado para o Swift e para o Objective-C. Isso pode ser facilmente instalado acessando a Mac App Store e baixando o Xcode.
 
-#### Alternativa: Instalando manualmente
+#### Alternativa: Instalando Manualmente
 
-Algumas pessoas desaconselham a instalação da App Store porque é tudo ou nada. Também não funcionará se estivermos usando o Mojave, pois iremos querer evitar as incompatibilidades da Catalina. Nesse caso, podemos fazer o download diretamente da [Área do desenvolvedor](https://developer.apple.com/download/more/) na Apple.
+Algumas pessoas desaconselham a instalação da App Store porque é tudo ou nada. Também não funcionará se estivermos usando o Mojave, pois desejaremos evitar as incompatibilidades do Catalina. Nesse caso, podemos fazer o download diretamente da [Área do desenvolvedor](https://developer.apple.com/download/more/) na Apple.
 
 Se estivermos usando o Mojave, precisaremos do arquivo `xip` para o Xcode 10.3.1. Caso contrário, podemos utilizar o mais recente.
 
-Depois de baixado, podemos clicar no `xip` para extraí-lo e mover o aplicativo Xcode para a pasta Aplicativos.
+Depois de baixado, podemos clicar no `xip` para extraí-lo e mover o aplicativo Xcode para a pasta de Aplicativos.
 
-De qualquer forma, devemos ter o Xcode instalado na pasta Aplicativos no final desta etapa.
+De qualquer forma, devemos ter o Xcode instalado na pasta de Aplicativos no final desta etapa.
 
-### 2. Instalando o servidor Gordian
+### 2. Instalando o Servidor Gordian
 
 Também vamos precisar de um node Bitcoin em nosso Mac, para que possamos nos comunicar com ele. Tecnicamente, poderíamos usar um node remoto e acessá-lo com o login e senha RPC pela rede. No entanto, sugerimos a instalação do full node diretamente no Mac, porque essa é a configuração mais segura e limpa, garantindo que nenhuma das comunicações saia de nossa máquina.
 
-Para instalar facilmente um full node em nosso Mac, podemos usar Blockchain Commons '[GordianServer for MacOS](https://github.com/BlockchainCommons/GordianServer-macOS). Podemos seguir as [instruções de instalação](https://github.com/BlockchainCommons/GordianServer-macOS#installation-instructions) no README, mas geralmente tudo que precisamos fazer é baixar o arquivo `dmg` atual, abri-lo e instalar a aplicação em nosso diretório de aplicações.
+Para instalar facilmente um full node em nosso Mac, podemos usar o [GordianServer for MacOS](https://github.com/BlockchainCommons/GordianServer-macOS) da Blockchain Commons. Podemos seguir as [instruções de instalação](https://github.com/BlockchainCommons/GordianServer-macOS#installation-instructions) no README, mas geralmente tudo que precisamos fazer é baixar o arquivo `dmg` atual, abri-lo e instalar a aplicação em nosso diretório de aplicações.
 
-Depois, vamos executar o aplicativo GordianServer e dizer a ele para `Start` a Testnet.
+Depois, vamos executar o aplicativo GordianServer e dizer a ele para `Start` na Testnet.
 
 > :link: **TESTNET vs. MAINNET:** Ou `Start` na Mainnet.
 
-#### 3. Tornando nosso bitcoin-cli Gordian acessível
+#### 3. Tornando Nosso bitcoin-cli Gordian Acessível
 
 Quando desejarmos acessar o `bitcoin-cli` criado pelo GordianServer em nosso Mac local, podemos encontrá-lo em `~/.standup/BitcoinCore/bitcoin-0.20.1/bin/bitcoin-cli`.
 
@@ -43,9 +43,9 @@ Podemos criar um alias para isso:
 alias bitcoin-cli="~/.standup/BitcoinCore/bitcoin-0.20.1/bin/bitcoin-cli -testnet"
 ```
 
-> :link: **TESTNET vs. MAINNET:** Obviamente, o parâmetro `-testnet` só é necessário se estivermos executando a testnet.
+> :link: **TESTNET vs. MAINNET:** Obviamente, o parâmetro `-testnet` só é necessário se estivermos rodando na testnet.
 
-### 4. Encontrando nossas informações do GordianServer
+### 4. Encontrando Nossas Informações do GordianServer
 
 Finalmente, precisaremos de nossas informações de `rpcuser` e `rpcpassword`. Essas informações estarão em `~/Library/Application Support/Bitcoin/bitcoin.conf` por padrão no Gordian.
 ```
@@ -54,9 +54,9 @@ rpcuser=oIjA53JC2u
 rpcpassword=ebVCeSyyM0LurvgQyi0exWTqm4oU0rZU
 ...
 ```
-## Construindo nossa conexão manualmente
+## Construindo Nossa Conexão Manualmente
 
-No momento em que este artigo foi escrito, não havia uma biblioteca Bitcoin RPC atualizada e simples de ser usada, que fosse específica para Swift, algo que pudesse entrar e começar a usar imediatamente. Portanto, faremos algo que nunca fizemos antes: Construir uma conexão RPC manualmente.
+No momento em que este artigo foi escrito, não havia uma biblioteca Bitcoin RPC atualizada e simples de ser usada, que fosse específica para Swift, algo que pudéssemos baixar e começar a usar imediatamente. Portanto, faremos algo que nunca fizemos antes: construir uma conexão RPC manualmente.
 
 ### Grave o Transmissor RPC
 
@@ -65,9 +65,9 @@ Isso requer apenas a escrita de uma função que passe os comandos RPC para o `b
 func makeCommand(method: String, param: Any, completionHandler: @escaping (Any?) -> Void) -> Void {
 ```
 
-As conexões RPC para o `bitcoind` usam o protocolo HTML, o que significa que precisamos fazer três coisas: Criar uma URL, fazer um URLRequest e, iniciar uma URLSession.
+As conexões RPC para o `bitcoind` usam o protocolo HTML, o que significa que precisamos fazer três coisas: Criar uma URL, fazer um URLRequest e iniciar uma URLSession.
 
-#### 1. Criando um URL
+#### 1. Criando uma URL
 
 Dentro da função, precisamos criar uma URL a partir do nosso IP, porta, `rpcuser`, `rpcpassword` e wallet:
 ```
@@ -77,7 +77,7 @@ Dentro da função, precisamos criar uma URL a partir do nosso IP, porta, `rpcus
     let rpcpassword = "ebVCeSyyM0LurvgQyi0exWTqm4oU0rZU"
     let walletName = ""
 ```
-A conexão RPC real com o Bitcoin Core é construída usando um URL no formato "http://rpcusername:rpcpassword@nodeIp/walletName":
+A conexão RPC real com o Bitcoin Core é construída usando uma URL no formato "http://rpcusername:rpcpassword@nodeIp/walletName":
 ```
     let walletUrl = "http://\(rpcusername):\(rpcpassword)@\(nodeIp)/\(walletName)"
 
@@ -154,9 +154,9 @@ Claro que eventualmente teremos que dizer à `task` para que ela seja iniciada:
 ```
 E isso é "tudo" o que precisamos fazer nessa interação RPC manual, usando uma linguagem de programação como o Swift.
 
-> :pray: **AGRADECIMENTOS:** Obrigado a @Fonta1n3 que forneceu o [código principal](https://github.com/BlockchainCommons/Learning-Bitcoin-from-the-Command-Line/issues/137) para nosso Transmissor RPC.
+> :pray: **AGRADECIMENTO:** Obrigado @Fonta1n3, que forneceu o [código principal](https://github.com/BlockchainCommons/Learning-Bitcoin-from-the-Command-Line/issues/137) para nosso Transmissor RPC.
 
-### Fazendo uma chamada RPC
+### Fazendo uma Chamada RPC
 
 Tendo escrito a função RPC `makeCommand`, podemos enviar uma chamada RPC executando-a. Aqui está `getblockchaininfo`:
 ```
@@ -169,7 +169,7 @@ makeCommand(method: method,param: param) { result in
 
 }
 ```
-### Fazendo uma chamada RPC com argumentos
+### Fazendo uma Chamada RPC com Argumentos
 
 Poderíamos da mesma forma obter a contagem de bloco atual a partir dessa informação e usá-la de modo redundante para obter o hash do bloco atual, usando o parâmetro `param`:
 ```
@@ -189,9 +189,9 @@ makeCommand(method: method,param: param) { result in
 }
 ```
 
-### Executando nosso código
+### Executando Nosso Código
 
-O código completo está disponível no [diretório src/](src / 17_6_getinfo.playground). Carregue-o no playground Xcode e, em seguida, "Editor -> Executar Playground" e devemos obter resultados como:
+O código completo está disponível no [diretório src/](src/18_6_getinfo.playground). Carregue-o no playground Xcode e, em seguida, "Editor -> Executar Playground" e devemos obter resultados como:
 ```
 {
     bestblockhash = 00000000000000069725608ebc5b59e520572a8088cbc57ffa5ba87b7f300ac7;
@@ -236,7 +236,7 @@ O código completo está disponível no [diretório src/](src / 17_6_getinfo.pla
 }
 Blockhash for 1836745 is 00000000000000069725608ebc5b59e520572a8088cbc57ffa5ba87b7f300ac7
 ```
-## Pesquisando fundos
+## Procurando por Fundos
 
 Com nosso novo `makeCommand` para funções RPC, podemos executar um comando como `getwalletinfo` ou `getbalance`:
 ```
@@ -277,11 +277,11 @@ Balance is 0.01
     walletversion = 169900;
 }
 ```
-## Criando um endereço
+## Criando um Endereço
 
 Criar um endereço é bastante simples, mas que tal criar um endereço legado com um rótulo específico? Isso requer dois parâmetros na nossa chamada RPC.
 
-Uma vez que a simples função `makeCommand` desta seção apenas passa nossos `param`s como as entranhas de um objeto JSON, tudo o que precisamos fazer é formatar corretamente essas entranhas. Esta é uma maneira para fazermos isso:
+Uma vez que a simples função `makeCommand` desta seção apenas passa nossos `param`s como as entranhas de um objeto JSON, tudo o que precisamos fazer é formatar corretamente essas entranhas. Aqui está uma maneira para fazermos isso:
 ```
 method = "getnewaddress"
 param = "\"learning-bitcoin\", \"legacy\""
@@ -296,7 +296,7 @@ Executá-lo no playground do Xcode produz o seguinte resultado:
 ```
 mt3ZRsmXHVMMqYQPJ8M74QjF78bmqrdHZF
 ```
-Esse resultado é obviamente um endereço legado, op rótulo pode então ser verificado na linha de comando:
+Esse resultado é obviamente um endereço legado; seu rótulo pode então ser verificado na linha de comando:
 ```
 $ bitcoin-cli getaddressesbylabel "learning-bitcoin"
 {
@@ -309,11 +309,11 @@ Sucesso!
 
 > :information_source: **NOTA:** Como costumamos dizer nesses exemplos de programação, um programa do mundo real seria muito mais sofisticado. Em particular, gostaríamos de poder enviar um objeto JSON real como um parâmetro e, em seguida, ter no nosso programa um `makeCommand` analisando-o e inserindo-o na URLSession de forma adequada. O que temos aqui maximiza a legibilidade e a simplicidade sem enfocar na facilidade de uso.
 
-## Enviando uma transação
+## Enviando uma Transação
 
 Como de costume, o envio de uma transação (da maneira mais difícil) é um processo de várias etapas:
 
-0. Gerar ou recebar um endereço de recebimento;
+0. Gerar ou receber um endereço de recebimento;
 1. Encontrar um UTXO não gasto;
 2. Criar uma transação bruta;
 3. Assinar a transação bruta;
@@ -321,7 +321,7 @@ Como de costume, o envio de uma transação (da maneira mais difícil) é um pro
 
 Usando o `address` gerado na etapa anterior como nosso destinatário.
 
-### 1. Encontrando um UTXO não gasto
+### 1. Encontrando um UTXO Não Gasto
 
 O RPC `listunspent` permite que encontremos nosso UTXO:
 ```
@@ -338,11 +338,11 @@ O RPC `listunspent` permite que encontremos nosso UTXO:
         let amount = utxo["amount"] as! NSNumber
         let new_amount = amount.floatValue - 0.0001
 ```
-Como em outros exemplos, vamos arbitrariamente pegar o enésimo UTXO e pegar o `txid`,`vout` e `amount` dele.
+Como em outros exemplos, vamos arbitrariamente pegar o enésimo UTXO e pegar o `txid`, `vout` e `amount` dele.
 
 > :information_source **NOTA:** Mais uma vez, um programa real seria muito mais sofisticado.
 
-### 2. Criando uma transação bruta
+### 2. Criando uma Transação Bruta
 
 Criar uma transação bruta é a coisa mais complicada, porque precisamos acertar todos os nossos objetos JSON, arrays e aspas. Veja como fazer isso no Swift, usando a formatação `param` muito básica do transmissor:
 ```
@@ -352,7 +352,7 @@ Criar uma transação bruta é a coisa mais complicada, porque precisamos acerta
 
             let hex = result as! NSString
 ```
-### 3. Assinando a transação bruta
+### 3. Assinando a Transação Bruta
 
 Assinar nossa transação requer apenas que executemos o RPC  `signrawtransactionwithwallet`, usando nosso novo `hex`:
 ```
@@ -365,7 +365,7 @@ Assinar nossa transação requer apenas que executemos o RPC  `signrawtransactio
                 let signedhex = signedhexinfo["hex"] as! NSString
 ```
 
-### 4. Enviando a transação bruta
+### 4. Enviando a Transação Bruta
 
 Enviar nossa transação é igualmente simples:
 ```
@@ -384,26 +384,26 @@ Enviar nossa transação é igualmente simples:
 }
 ```
 
-O código para este remetente de transação pode ser encontrado no [diretório src/](src/17_6_sendtx.playground).
+O código para este remetente de transação pode ser encontrado no [diretório src/](src/18_6_sendtx.playground).
 
-## Usando o Swift de outras maneiras
+## Usando o Swift de Outras Maneiras
 
 Isso cobre nossas discussões habituais sobre a programação do Bitcoin RPC usando uma linguagem, mas o Swift é uma linguagem particularmente importante, pois pode ser implantada em dispositivos móveis, um dos principais locais para nossas carteiras. Como tal, podemos querer considerar algumas outras bibliotecas:
 
-* O Blockchain Commons [ios-Bitcoin framework](https://github.com/BlockchainCommons/iOS-Bitcoin) converte a biblioteca Libbitcoin de C++ para Swift;
+* O [framework ios-Bitcoin](https://github.com/BlockchainCommons/iOS-Bitcoin) da Blockchain Commons converte a biblioteca Libbitcoin de C++ para Swift;
 * [Libwally Swift](https://github.com/blockchain/libwally-swift) é um wrapper Swift para a Libwally.
 
 ## Resumo: Acessando o Bitcoind com Swift
 
-O Swift é uma linguagem de programação robusta e moderna que infelizmente ainda não tem nenhuma biblioteca RPC fácil de ser utilizada... O que apenas nos deu a oportunidade de escrever uma função de acesso ao RPC. Com isso em mãos, podemos interagir com o `bitcoind` em um Mac ou criar aplicativos complementares em um iPhone, o que é uma combinação perfeita para usar o Bitcoin com airgap.
+O Swift é uma linguagem de programação robusta e moderna que infelizmente ainda não tem nenhuma biblioteca RPC fácil de ser utilizada... o que acabou de nos dar a oportunidade de escrever uma função de acesso ao RPC. Com isso em mãos, podemos interagir com o `bitcoind` em um Mac ou criar aplicativos complementares em um iPhone, o que é uma combinação perfeita para usar o Bitcoin com airgap.
 
 ## O Que Vem Depois?
 
-Aprenda sobre o Lightning em [Capítulo 18: Compreendendo a configuração da Lightning](18_0_Understanding_Your_Lightning_Setup.md).
+Aprenda sobre o Lightning em [Capítulo 19: Compreendendo Sua Configuração da Lightning](19_0_Understanding_Your_Lightning_Setup.md).
 
-## Variante: implantando o Swift no Ubuntu
+## Variante: Implantando o Swift no Ubuntu
 
-Se preferirmos implantar o Swift no Ubuntu, pode fazê-lo, embora a funcionalidade não seja a mesma. Parte do código neste capítulo provavelmente gerará erros que precisaremos resolver e também precisaremos trabalhar mais para vincular as bibliotecas C.
+Se preferirmos implantar o Swift no Ubuntu, podemos fazê-lo, embora a funcionalidade não seja a mesma. Parte do código neste capítulo provavelmente gerará erros que precisaremos resolver e também precisaremos trabalhar mais para vincular as bibliotecas C.
 
 Para começar, vamos instalar algumas bibliotecas Debian necessárias:
 ```
@@ -432,7 +432,7 @@ Swift version 5.1.3 (swift-5.1.3-RELEASE)
 Target: x86_64-unknown-linux-gnu
 ```
 
-### Criando um projeto
+### Criando um Projeto
 Depois de instalar o Swift em nossa máquina Ubuntu, podemos criar projetos com o comando `package init`:
 ```
 $ mkdir swift-project
@@ -450,7 +450,7 @@ Creating Tests/swift-projectTests/
 Creating Tests/swift-projectTests/swift_projectTests.swift
 Creating Tests/swift-projectTests/XCTestManifests.swift
 ```
-Também editaremos o `Sources/.../main.swift` e quando estivermos pronto para compilar, podemos usar o comando `build`:
+Também editaremos o `Sources/.../main.swift` e, quando estivermos pronto para compilar, podemos usar o comando `build`:
 ```
 $ swift build
 [4/4] Linking swift-project
