@@ -1,4 +1,4 @@
-# 17.2: Acessando o Bitcoind com Java
+# 18.2: Acessando o Bitcoind com Java
 
 > :information_source: **NOTA:** Esta seção foi adicionada recentemente ao curso e é um rascunho inicial que ainda pode estar aguardando revisão.
 
@@ -19,7 +19,7 @@ OpenJDK Runtime Environment (build 11.0.8+10-post-Debian-1deb10u1)
 OpenJDK 64-Bit Server VM (build 11.0.8+10-post-Debian-1deb10u1, mixed mode, sharing)
 ```
 
-### Criando um projeto Maven
+### Criando um Projeto Maven
 
 Para programar o Bitcoin usando o java, criaremos um projeto Maven:
 ```
@@ -57,7 +57,7 @@ Para incluir o `JavaBitcoindRpcClient`, devemos adicionar nossa dependência a `
         <version>1.2.1</version>
       </dependency>
 ```
-Também precisa adicionar propriedades do compilador para indicar qual versão do JDK compilará o código-fonte.  
+Também precisamos adicionar propriedades do compilador para indicar qual versão do JDK compilará o código-fonte.  
 
 ```
   <properties>                                                                  
@@ -68,7 +68,7 @@ Também precisa adicionar propriedades do compilador para indicar qual versão d
   </properties>                                                                 
 ```
 
-Sempre que adicionarmos um código-fonte às nossas aulas, poderemos testá-lo com:
+Sempre que adicionarmos um código-fonte às nossas classes, poderemos testá-lo com:
 ```
 $ mvn compile
 ```
@@ -79,16 +79,16 @@ $ mvn exec:java -Dexec.mainClass=com.blockchaincommons.lbtc.App
 
 ### Criando Projetos Alternativos
 
-Se usamos o [Gradle](https://gradle.org/releases/), podemos  executar o seguinte comando:
+Se usarmos o [Gradle](https://gradle.org/releases/), poderemos  executar o seguinte comando:
 ```groovy
 compile 'wf.bitcoin:JavaBitcoindRpcClient:1.2.1'
 ```
 
-Se quisermos um projeto de amostra e algumas instruções sobre como executá-lo no servidor que acabamos de criar, podemos consultar o [Projeto de amostra do Bitcoind Java](https://github.com/brunocvcunha/bitcoind-java-client- amostra/). Também pode navegar por todo o código de origem do [bitcoin-rpc-client](https://github.com/Polve/bitcoin-rpc-client).
+Se quisermos um projeto de amostra e algumas instruções sobre como executá-lo no servidor que acabamos de criar, podemos consultar o [Projeto de amostra do Bitcoind Java](https://github.com/bvolpato/bitcoind-java-client-sample). Também podemos navegar por todo o código de origem do [bitcoin-rpc-client](https://github.com/Polve/bitcoin-rpc-client).
 
-## Construindo nossa conexão
+## Construindo Nossa Conexão
 
-Para usar o `JavaBitcoindRpcClient`, precisamos criar uma instância `BitcoindRpcClient`. Fazemos isso criando um URL com argumentos de nome de usuário, senha, endereço IP e porta. Como devemos nos lembrar, o endereço IP é `127.0.0.1` e a porta `18332` devem estar corretos para a configuração testnet padrão descrita neste curso, enquanto podemos extrair o usuário e a senha abrindo o arquivo `~/.bitcoin/bitcoin.conf`.
+Para usar o `JavaBitcoindRpcClient`, precisamos criar uma instância `BitcoindRpcClient`. Fazemos isso criando um URL com argumentos de nome de usuário, senha, endereço IP e porta. Como devemos nos lembrar, o endereço IP `127.0.0.1` e a porta `18332` devem estar corretos para a configuração testnet padrão descrita neste curso, enquanto podemos extrair o usuário e a senha abrindo o arquivo `~/.bitcoin/bitcoin.conf`.
 
 ```java
        BitcoindRpcClient rpcClient = new BitcoinJSONRPCClient("http://StandUp:6305f1b2dbb3bc5a16cd0f4aac7e1eba@localhost:18332");
@@ -101,14 +101,14 @@ import wf.bitcoin.javabitcoindrpcclient.BitcoindRpcClient;
 
 > **MAINNET VS TESTNET:** A porta seria 8332 para uma configuração da mainnet.
 
-Se o `rpcClient` for inicializado com sucesso, podemos enviar comandos RPC.
+Se o `rpcClient` for inicializado com sucesso, poderemos enviar comandos RPC.
 
-Mais tarde, quando terminarmos nossa conexão `bitcoind`, precisamos fechá-la:
+Mais tarde, quando terminarmos nossa conexão `bitcoind`, precisaremos fechá-la:
 ```
 rpcClient.stop();
 ```
 
-### Fazendo uma chamada RPC
+### Fazendo uma Chamada RPC
 
 Você verá que o `BitcoindRpcClient` fornece a maioria das funcionalidades que podem ser acessadas através do `bitcoin-cli` ou outros métodos RPC, usando o mesmo método que o nome, mas em camelCase.
 
@@ -131,7 +131,7 @@ Blocks.....: 1830905
 Difficulty.: 4194304
 Hash Power.: 40367401348837.41
 ```
-### Fazendo uma chamada RPC usando argumentos
+### Fazendo uma Chamada RPC com Argumentos
 
 Podemos procurar os endereços em nossa carteira passando o endereço como um argumento para o comando `getAddressInfo`:
 
@@ -152,9 +152,9 @@ HdKeyPath: m/0'/0'/5'
 PubKey: 0368d0fffa651783524f8b934d24d03b32bf8ff2c0808943a556b3d74b2e5c7d65
 ```
 
-### Executando nosso código
+### Executando Nosso Código
 
-O código para esses exemplos pode ser encontrado no [diretório src/](src/17_2_App-getinfo.java) e deve ser instalado na estrutura de diretório padrão criada neste caso como `~/java-project/src/main/java/com/blockchaincommons/lbtc/App.java`. Ele pode então ser compilado e executado.
+O código para esses exemplos pode ser encontrado no [diretório src/](src/18_2_App-getinfo.java) e deve ser instalado na estrutura de diretório padrão criada neste caso como `~/java-project/src/main/java/com/blockchaincommons/lbtc/App.java`. Ele pode então ser compilado e executado.
 
 ```
 $ mvn compile
@@ -170,14 +170,14 @@ PubKey: 0368d0fffa651783524f8b934d24d03b32bf8ff2c0808943a556b3d74b2e5c7d65
 ```
 Você também verá muito mais informações sobre a compilação, é claro.
 
-## Pesquisando os fundos
+## Consultando Fundos
 
-Recuperando o saldo de uma conta inteira é tão fácil quanto:
+Recuperar o saldo de uma conta inteira é tão fácil quanto:
 ```
         System.out.println("Balance: " + rpcClient.getBalance());
 ```
 
-## Criando um endereço
+## Criando um Endereço
 
 Podemos criar um novo endereço em nossa carteira, anexando um rótulo específico a ela e até mesmo descartando nossa chave privada.
 
@@ -194,11 +194,11 @@ New Address: mpsFtZ8qTJPRGZy1gaaUw37fHeUSPLkzzs
 Priv Key: cTy2AnmAALsHokYzJzTdsUBSqBtypmWfmSNYgG6qQH43euUZgqic
 ```
 
-## Enviando uma transação
+## Enviando uma Transação
 
 A biblioteca `JavaBitcoindRpcClient` possui algumas ferramentas interessantes que facilitam a criação de uma transação desde o início.
 
-### Criando uma transação
+### Criando uma Transação
 
 Podemos criar uma transação bruta usando o método `createRawTransaction`, passando como argumentos dois objetos ArrayList contendo entradas e saídas a serem utilizadas.
 
@@ -253,7 +253,7 @@ Agora estamos prontos para realmente criar a transação:
     System.out.println("Created unsignedRawTx from addr1 to addr2: " + unsignedRawTxHex);
 ```
 
-### Assinando uma transação
+### Assinando uma Transação
 
 Agora podemos assinar a transação com o método `signRawTransactionWithKey`. Este método recebe como parâmetros uma transação de string bruta não assinada, a chave privada do endereço de envio e o objeto TxInput.
 
@@ -267,7 +267,7 @@ Agora podemos assinar a transação com o método `signRawTransactionWithKey`. E
     System.out.println("signedRawTx complete: " + srTx.complete());
 ```
 
-### Enviando uma transação
+### Enviando uma Transação
 
 Finalmente, o envio requer o comando `sendRawTransaction`:
 ```java
@@ -275,9 +275,9 @@ String sentRawTransactionID = rpcClient.sendRawTransaction(srTx.hex());
 System.out.println("Sent signedRawTx (txID): " + sentRawTransactionID);
 ```
 
-### Executando nosso código
+### Executando Nosso Código
 
-Agora podemos executar [o código da transação](src/17_2_App-sendtx.java) como `~/java-project/src/main/java/com/blockchaincommons/lbtc/App.java`.
+Agora podemos executar [o código da transação](src/18_2_App-sendtx.java) como `~/java-project/src/main/java/com/blockchaincommons/lbtc/App.java`.
 
 ```
 $ mvn compile
@@ -293,11 +293,11 @@ signedRawTx complete: true
 Sent signedRawTx (txID): 82032c07e0ed91780c3369a1943ea8abf49c9e11855ffedd935374ecbc789c45
 ```
 
-## Ouvindo as transações ou blocos
+## Escutando Transações ou Blocos
 
-Tal como acontece com [C e nas nossas bibliotecas ZMQ](15_3_Receiving_Bitcoind_Notifications_with_C.md), existem maneiras fáceis de usar o Java para ouvir a blockchain, além de executar o código específico quando algo acontece, como uma transação que envolve um endereço em nossa carteira, ou até a geração de um novo bloco na rede.
+Tal como acontece com [C e suas bibliotecas ZMQ](16_3_Receiving_Bitcoind_Notifications_with_C.md), existem maneiras fáceis de usar o Java para escutar a blockchain, além de executar o código específico quando algo acontece, como uma transação que envolve um endereço em nossa carteira, ou até a geração de um novo bloco na rede.
 
-Para fazer isso, podemos usar a classe `BitcoinAcceptor` do `JavaBitcoindRpcClient`, que permite anexar _listerners_ na rede.
+Para fazer isso, podemos usar a classe `BitcoinAcceptor` do `JavaBitcoindRpcClient`, que nos permite anexar "ouvintes" à rede.
 
 ```java
         String blockHash = rpcClient.getBestBlockHash();
@@ -316,7 +316,7 @@ Para fazer isso, podemos usar a classe `BitcoinAcceptor` do `JavaBitcoindRpcClie
   acceptor.run();
 ```
 
-Veja [o diretório src/](src / 17_2_App-listen.java) para o código completo. Cada vez que uma transação é enviada ou um novo bloco é gerado, devemos ver a saída em nosso console:
+Veja [o diretório src/](src/18_2_App-listen.java) para o código completo. Cada vez que uma transação é enviada ou um novo bloco é gerado, devemos ver a saída em nosso console:
 ```
 Transaction: {account=Tests, address=mhopuJzgmTwhGfpNLCJ9CRknugY691oXp1, category=receive, amount=5.0E-4, label=Tests, vout=1, confirmations=0, trusted=false, txid=361e8fcff243b74ebf396e595a007636654f67c3c7b55fd2860a3d37772155eb, walletconflicts=[], time=1513132887, timereceived=1513132887, bip125-replaceable=unknown}
 
@@ -325,8 +325,8 @@ Block: 000000004564adfee3738314549f7ca35d96c4da0afc6b232183917086b6d971
 
 ### Resumo: Acessando o Bitcoind com Java
 
-Usando a biblioteca `javabitcoinrpc`, podemos acessar facilmente o `bitcoind` por meio de chamadas RPC no Java. Também teremos acesso a recursos adicionais interessantes, como o serviço de escuta usando o comando `bitcoinAcceptor`.
+Usando a biblioteca `javabitcoinrpc`, podemos acessar facilmente o `bitcoind` por meio de chamadas RPC com Java. Também teremos acesso a recursos adicionais interessantes, como o serviço de escuta usando o comando `bitcoinAcceptor`.
 
 ## O Que Vem Depois?
 
-Vamos aprender mais sobre "Conversando com o Bitcoind com Outras Linguagens" na seção [§17.3: Acessando o Bitcoind com NodeJS](17_2_Accessing_Bitcoind_with_Java.md).
+Vamos aprender mais sobre "Conversando com o Bitcoind com Outras Linguagens" na seção [§18.3: Acessando o Bitcoind com NodeJS](18_3_Accessing_Bitcoind_with_NodeJS.md).
