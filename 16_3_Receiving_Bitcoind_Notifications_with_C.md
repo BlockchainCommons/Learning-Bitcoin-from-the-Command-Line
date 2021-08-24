@@ -121,7 +121,7 @@ Of course when you're done, you should clean up:
 
 ### Test the Notification Code
 
-The source code is in the [src directory](src/15_3_chainlistener.c) as usual. You should compile it:
+The source code is in the [src directory](src/16_3_chainlistener.c) as usual. You should compile it:
 ```
 $ cc -o chainlistener chainlistener.c -I/usr/local/include -L/usr/local/lib -lzmq -lczmq
 ```

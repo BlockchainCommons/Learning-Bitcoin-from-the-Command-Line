@@ -2,7 +2,7 @@
 
 > :information_source: **NOTE:** This section has been recently added to the course and is an early draft that may still be awaiting review. Caveat reader.
 
-[§15.1](15_1_Accessing_Bitcoind_with_C.md) laid out the methodology for creating C programs using RPC and JSON libraries. We're now going to show the potential of those C libraries by laying out a simplistic, first cut of an actual Bitcoin program.
+[§16.1](16_1_Accessing_Bitcoind_with_C.md) laid out the methodology for creating C programs using RPC and JSON libraries. We're now going to show the potential of those C libraries by laying out a simplistic, first cut of an actual Bitcoin program.
 
 ## Plan for Your Code
 
@@ -324,7 +324,7 @@ The entire code, with a _little_ more error-checking appears in the Appendix.
 
 ## Test Your Code
 
-The complete code can be found in the [src directory](src/15_2_sendtoaddress.c).
+The complete code can be found in the [src directory](src/16_2_sendtoaddress.c).
 
 Compile this as usual:
 ```
