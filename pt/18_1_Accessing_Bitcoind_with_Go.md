@@ -1,4 +1,4 @@
-# 17.1: Acessando o Bitcoind com Go
+# 18.1: Acessando o Bitcoind com Go
 
 > :information_source: **NOTA:** Esta seção foi adicionada recentemente ao curso e é um rascunho inicial que ainda pode estar aguardando revisão.
 
@@ -12,7 +12,7 @@ Para nos preparamos para o uso do Go em nossa máquina UNIX, primeiro precisamos
 $ sudo apt install curl
 ```
 
-Então, vamos ler a [página de downloads do Go](https://golang.org/dl/), para obtermos o link para o download mais recente e posteriormente fazer o download usando `curl`. Para uma configuração Debian, vamos querer usar a versão `linux-amd64`:
+Então, vamos ler a [página de downloads do Go](https://golang.org/dl/) para obtermos o link para o download mais recente e posteriormente fazer o download usando `curl`. Para uma configuração Debian, vamos querer usar a versão `linux-amd64`:
 
 ```
 $ curl -O https://dl.google.com/go/go1.15.1.linux-amd64.tar.gz
@@ -31,7 +31,7 @@ $ sudo chown -R root:root ./go
 $ sudo mv go /usr/local
 ```
 
-Agora precisamos criar um caminho no Go para especificar nosso ambiente. Abra o arquivo `~ / .profile` com o editor de texto mais utilizado por nós e vamos escolher e adicionar o seguinte ao final dele:
+Agora precisamos criar um caminho no Go para especificar nosso ambiente. Abra o arquivo `~ / .profile` com o editor de texto de sua escolha e adicione o seguinte ao final dele:
 
 ```
 export GOPATH=$HOME/work
@@ -86,7 +86,7 @@ Devemos ver a contagem de blocos impressa:
 2020/09/01 11:41:24 Block count: 1830861
 ```
 
-### Criando um projeto `rpcclient`
+### Criando um Projeto `rpcclient`
 
 Normalmente, iríamos criar projetos no diretório `~/work/src/myproject/bitcoin`:
 ```
@@ -101,13 +101,13 @@ import (
 	"github.com/btcsuite/btcd/rpcclient"
 )
 ```
-Esta declaração `import` permite que importemos bibliotecas relevantes. Para cada exemplo aqui, precisaremos importar `"log","fmt"` e `"github.com/btcsuite/btcd/rpcclient"`. Podemos precisar importar bibliotecas adicionais em alguns exemplos.
+Esta declaração `import` permite que importemos bibliotecas relevantes. Para cada exemplo aqui, precisaremos importar `"log", "fmt"` e `"github.com/btcsuite/btcd/rpcclient"`. Podemos precisar importar bibliotecas adicionais em alguns exemplos.
 
    * O `log` é usado para mostrar mensagens de erro na tela. Após cada vez que o node Bitcoin for chamado, uma instrução `if` irá verificar se há algum erro. Se houver erros, o `log` é usado para imprimi-los;
    * O `fmt` é usado para imprimir a saída;
    * O `rpcclient` é obviamente a biblioteca do `rpcclient`;
 
-## Construindo nossa conexão
+## Construindo Nossa Conexão
 
 Cada função do `bitcoind` no Go começa com a criação da conexão RPC, usando a função `ConnConfig`:
 ```
@@ -126,15 +126,15 @@ Cada função do `bitcoind` no Go começa com a criação da conexão RPC, usand
 ```
 Os parâmetros da `connCfg` permitem que escolhamos a porta Bitcoin RPC, nome de usuário, senha e se estamos usando a testnet ou mainnet.
 
-> **NOTA:** Novamente, precisamos nos certificar de substituir o `User` e o `Pass` com aquele encontrado no nosso `~/.bitcoin/bitcon.conf`.
+> **NOTA:** Novamente, precisamos nos certificar de substituir o `User` e o `Pass` com aqueles encontrados no nosso `~/.bitcoin/bitcon.conf`.
 
-A função `rpcclient.New(connCfg, nil)` configura o`client` para nos conectarmos ao nosso node de Bitcoin.
+A função `rpcclient.New(connCfg, nil)` configura o`client` para nos conectarmos ao nosso node Bitcoin.
 
-A linha `defer client.Shutdown()` é para desconectar do nosso node Bitcoin, uma vez que a função `main()` termina de ser executada. Após a linha `defer client.Shutdown()` é onde as coisas interessantes acontecem, e será muito fácil de utilizar. Isso porque o `rpcclient` ajuda a transformar os comandos `bitcoin-cli` em funções, usando PascalCase. Por exemplo, `bitcoin-cli getblockcount` se transformará em `client.GetBlockCount` no Go.
+A linha `defer client.Shutdown()` é para desconectar do nosso node Bitcoin, uma vez que a função `main()` termina de ser executada. Após a linha `defer client.Shutdown()` é onde as coisas interessantes acontecem –– e será muito fácil de utilizar. Isso porque o `rpcclient` ajuda a transformar os comandos `bitcoin-cli` em funções, usando PascalCase. Por exemplo, `bitcoin-cli getblockcount` se transformará em `client.GetBlockCount` no Go.
 
-### Fazendo uma chamada RPC
+### Fazendo uma Chamada RPC
 
-Agora, tudo o que é necessário é fazer uma chamada informativa como `GetBlockCount` ou` GetBlockHash` usando nosso `client`:
+Agora, tudo o que precisamos fazer é uma chamada informativa como `GetBlockCount` ou` GetBlockHash` usando nosso `client`:
 ```
 	blockCount, err := client.GetBlockCount()
 	if err != nil {
@@ -149,7 +149,7 @@ Agora, tudo o que é necessário é fazer uma chamada informativa como `GetBlock
 	fmt.Printf("%s\n", blockHash.String())
 ```
 
-### Fazendo uma chamada RPC com argumentos
+### Fazendo uma Chamada RPC com Argumentos
 
 As funções `rpcclient` também podem receber entradas, por exemplo, `client.GetBlockHash(blockCount)` recebe a contagem de blocos como uma entrada. O `client.GetBlockHash (blockCount)` de cima seria parecido com um comando `bitcoin-cli`:
 ```
@@ -158,9 +158,9 @@ $ bitcoin-cli getblockhash 1830868
 ```
 No entanto, uma peculiaridade com hashes no `rpcclient` é que normalmente eles irão ser mostrados em uma codificação diferente se imprimirmos normalmente com o ` blockHash`. Para imprimi-los como uma string, precisamos usar o `blockHash.String()`.
 
-### Executando nosso código
+### Executando Nosso Código
 
-Podemos baixar o código completo do [diretório src](src / 17_1_blockinfo.go).
+Podemos baixar o código completo do [diretório src](src/18_1_blockinfo.go).
 
 Podemos então, executar:
 ```
@@ -169,11 +169,11 @@ $ go run blockinfo.go
 00000000000002d53b6b9bba4d4e7dc44a79cebd1024d1bcfb9b3cc07d6cad9c
 ```
 
-O último número do bloco junto com nosso hash deve ser impresso.
+O último número do bloco, junto com nosso hash, devem ser impressos.
 
-## Pesquisando os fundos
+## Procurando por Fundos
 
-Devido às limitações do `btcd` no `rpcclient`, não pode fazer o uso da função `getwalletinfo`. No entanto, podemos usar o RPC `getbalance`:
+Devido às limitações do `btcd` no `rpcclient`, não podemos fazer uso da função `getwalletinfo`. No entanto, podemos usar o RPC `getbalance`:
 
 ```
 	wallet, err := client.GetBalance("*")
@@ -183,22 +183,21 @@ Devido às limitações do `btcd` no `rpcclient`, não pode fazer o uso da funç
 
 	fmt.Println(wallet)
 ```
-O `client.GetBalance("*")` requer a entrada `"*"`, devido a uma peculiaridade do `btcd`. O asterisco significa que desejamos obter o saldo de todas as nossas carteiras.
+O `client.GetBalance("*")` requer a entrada `"*"` devido a uma peculiaridade do `btcd`. O asterisco significa que desejamos obter o saldo de todas as nossas carteiras.
 
-Se executarmos [o código src](src / 17_1_getbalance.go), deveremos obter uma saída semelhante a esta:
+Se executarmos [o código src](src/18_1_getbalance.go), deveremos obter uma saída semelhante a esta:
 ```
 $ go run getbalance.go 
 0.000689 BTC
 ```
 
-## Criando um endereço
+## Criando um Endereço
 
 Podemos gerar endereços em Go, mas não podemos especificar o tipo do endereço:
 
 Isso requer o uso de uma função especial `chaincfg`, para especificar para qual rede os endereços estão sendo criados. Esta especificação é necessária apenas durante a geração do endereço, por isso é usada apenas neste exemplo. Também podemos incluir isso nos demais exemplos, mas não é necessário.
 
-Be sure to import ```"github.com/btcsuite/btcd/chaincfg"```:
-Vamos nos certificar de importar o `"github.com/btcsuite/btcd/chaincfg"`:
+Certifique-se de importar o `"github.com/btcsuite/btcd/chaincfg"`:
 ```
 import (
 	"log"
@@ -235,20 +234,20 @@ Podemos então criar nosso endereço:
 ```
 Uma peculiaridade com o `client.GetNewAddress("")` é que uma string vazia precisa ser incluída para que tudo funcione perfeitamente.
 
-Executando o [the source](17_1_getaddress.go) teremos os seguintes resultados:
+Executando o [código fonte](18_1_getaddress.go) teremos os seguintes resultados:
 ```
 $ go run getaddress.go 
 tb1qutkcj34pw0aq7n9wgp3ktmz780szlycwddfmza
 ```
 
-### Decodificando um endereço
+### Decodificando um Endereço
 
-Criando um endereço exigia um trabalho extra, ao especificar a blockchain correta. Usar um endereço também funcionará, porque teremos que decodificá-lo antes de usá-lo.
+Criar um endereço exigia um trabalho extra, em especificar a blockchain correta. Usar um endereço também exigirá, porque teremos que decodificá-lo antes de usá-lo.
 
 Isso significa que teremos que importar as bibliotecas `"github.com/btcsuite/btcutil"` e `"github.com/btcsuite/btcd/chaincfg"`.
 
    * O `btcutil` permite que um endereço Bitcoin seja decodificado de uma forma que o `rpcclient` possa entender. Isso é necessário ao trabalhar com endereços no `rpcclient`;
-   * O `chaincfg` é (novamente) usado para configurar nossa cadeia como a cadeia Testnet. Isso é necessário para a decodificação de endereços, pois os endereços usados na Mainnet e na Testnet são diferentes.
+   * O `chaincfg` é (novamente) usado para configurar nossa chain como a chain Testnet. Isso é necessário para a decodificação de endereços, pois os endereços usados na Mainnet e na Testnet são diferentes.
 
 ```
 import (
@@ -259,7 +258,7 @@ import (
 	"github.com/btcsuite/btcd/chaincfg"
 )
 ```
-A variável defaultNet agora é usada para especificar se nosso node do Bitcoin que está na Testnet ou na Mainnet. Essa informação (e o objeto `btcutil`) é então usado para decodificar o endereço.
+A variável defaultNet agora é usada para especificar se nosso node Bitcoin está na Testnet ou na Mainnet. Essa informação (e o objeto `btcutil`) é então usada para decodificar o endereço.
 
 > **MAINNET VS TESTNET:** `&chaincfg.TestNet3Params` deve ser `& chaincfg.MainNetParams` na Mainnet.
 
@@ -271,9 +270,9 @@ A variável defaultNet agora é usada para especificar se nosso node do Bitcoin 
 	}
 ```
 
-> **NOTA:** Precisamos alterar o endereço (`mpGpCMX6SuUimDZKiVViuhd7EGyVxkNnha`) para um que seja da nossa carteira. Podemos usar o  `bitcoin-cli listunspent` para encontrar alguns endereços com fundos para o teste. Se quisermos ser realmente sofisticados, podemos modificar o código Go para obter um argumento e, em seguida, escrever um script que executa o `listunspent`, para depois salvarmos a informação em uma variável e executar o código Go nela.
+> **NOTA:** Precisamos alterar o endereço (`mpGpCMX6SuUimDZKiVViuhd7EGyVxkNnha`) para um que seja da nossa carteira. Podemos usar o  `bitcoin-cli listunspent` para encontrar alguns endereços com fundos para teste. Se quisermos ser realmente sofisticados, podemos modificar o código Go para obter um argumento e, em seguida, escrever um script que executa o `listunspent`, para depois salvarmos a informação em uma variável e executar o código Go nela.
 
-Só depois disso usamos o RPC `getreceivedbyaddress`, no nosso endereço decodificado:
+Só depois disso usamos o RPC `getreceivedbyaddress` no nosso endereço decodificado:
 ```
 	wallet, err := client.GetReceivedByAddress(addr)
 	if err != nil {
@@ -282,20 +281,20 @@ Só depois disso usamos o RPC `getreceivedbyaddress`, no nosso endereço decodif
 
 	fmt.Println(wallet)
 ```
-Ao executar [o código](src/17_1_getamountreceived.go), devemos obter uma saída semelhante a esta:
+Ao executar [o código](src/18_1_getamountreceived.go), devemos obter uma saída semelhante a esta:
 ```
 $ go run getamountreceived.go 
 0.0085 BTC
 ```
 
-## Enviando uma transação
+## Enviando uma Transação
 
 Agora temos todas as peças do quebra-cabeça no lugar para enviar uma transação. Vamos querer:
 
 1. Importar as bibliotecas corretas, incluindo a `chaincfg` para especificar uma rede e o `btcutil` para decodificar um endereço;
 2. Escolher um endereço para enviar;
 3. Decodificar esse endereço;
-4. Executar o `sendtoaddress` para enviar fundos da maneira mais fácil.
+4. Executar o `sendtoaddress` para enviar fundos da maneira fácil.
 ```
 package main
 
@@ -334,14 +333,14 @@ func main() {
 	fmt.Println(sent)
 }
 ```
-Quando executamos [o código](src/17_1_sendtransaction.go), o txid da transação nos será retornado:
+Quando executamos [o código](src/18_1_sendtransaction.go), o txid da transação nos será retornado:
 
 ```
 $ go run sendtransaction.go
 9aa4cd6559e0d69059eae142c35bfe78b71a8084e1fcc2c74e2a9675e9e7489d
 ```
 
-### Pesquisando uma transação
+### Consultando uma Transação
 
 Para consultar uma transação, como a que acabamos de enviar, precisaremos fazer mais uma vez algumas conversões, desta vez do txid. O `"github.com/btcsuite/btcd/chaincfg/chainhash"` é importado para permitir que os hashes sejam armazenados no código Go. O `chainhash.NewHashFromStr("hash")` converte um hash em uma string para um formato que funciona com o rpcclient.
 
@@ -383,7 +382,7 @@ func main() {
 ```
 > **NOTA:** Novamente, vamos querer trocar o txid por um que realmente será reconhecido pelo nosso sistema.
 
-Ao executar [o código](src/17_1_lookuptransaction.go), ele imprimirá os detalhes associados a uma transação, como nosso valor e quantas vezes foi confirmado:
+Ao executar [o código](src/18_1_lookuptransaction.go), ele imprimirá os detalhes associados a uma transação, como seu valor e quantas vezes foi confirmada:
 
 ```
 $ go run lookuptransaction.go
@@ -418,4 +417,4 @@ Embora o `btcd` e o `rpcclient` tenham alguns limites, ainda podemos executar os
 
 ## O Que Vem Depois?
 
-Vamos aprender mais sobre "Conversando com o Bitcoind com Outras Linguagens" na seção [§17.2: Acessando Bitcoin com Java](17_2_Accessing_Bitcoind_with_Java.md).
+Vamos aprender mais sobre "Conversando com o Bitcoind com Outras Linguagens" na seção [§18.2: Acessando Bitcoin com Java](18_2_Accessing_Bitcoind_with_Java.md).
