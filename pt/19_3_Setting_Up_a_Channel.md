@@ -1,30 +1,30 @@
-# 18.3: Criando um canal na Lightning
+# 19.3: Criando um Canal na Lightning
 
 > :information_source: **NOTA:** Esta seção foi adicionada recentemente ao curso e é um rascunho inicial que ainda pode estar aguardando revisão.
 
-Agora que entendemos o básico da configuração da Lightning e, com sorte, já criamos ou recebemos informações sobre um segundo node Lightning. Estamos prontos para criar nosso primeiro canal na Lightning Network. Claro, precisaremos entender o que é e como é criado usando o c-lightning.
+Agora que entendemos o básico da configuração da Lightning e, com sorte, já criamos ou recebemos informações sobre um segundo node Lightning, estamos prontos para criar nosso primeiro canal na Lightning Network. Claro, precisaremos entender o que ele é e como é criado usando a c-lightning.
 
-> :book: ***O que é um canal Lightning?*** De maneira simples, um canal Lightning é um tubo de dinheiro que permite transferências rápidas, baratas e privadas sem enviar transações para a blockchain. Mais tecnicamente, um canal é uma transação de Bitcoin em cadeia com várias assinaturas 2 de 2 que estabelece um relacionamento financeiro sem confiança entre duas pessoas ou dois agentes. Uma certa quantia de dinheiro é depositada no canal, quando então se mantém um banco de dados local com saldo em bitcoins para ambas as partes, mantendo o registro de qual é o saldo de cada parte. Os dois usuários podem então trocar bitcoins por meio do canal Lightning sem nunca escrever na blockchain do Bitcoin. Somente quando desejam fechar o canal, eles liquidam os bitcoins na blockchain, com base no saldo final das moedas.
+> :book: ***O que é um canal Lightning?*** De maneira simples, um canal Lightning é um tubo de dinheiro que permite transferências rápidas, baratas e privadas sem enviar transações para a blockchain. Mais tecnicamente, um canal é uma transação multisig 2-de-2 no Bitcoin que estabelece um relacionamento financeiro sem confiança entre duas pessoas ou dois agentes. Uma certa quantia de dinheiro é depositada no canal, quando então se mantém um banco de dados local com saldo em bitcoins para ambas as partes, mantendo o registro de qual é o saldo de cada parte. Os dois usuários podem então trocar bitcoins por meio do canal Lightning sem nunca escrever na blockchain do Bitcoin. Somente quando desejam fechar o canal é que eles dividem os bitcoins na blockchain, com base na divisão final das moedas para cada um.
 
 > :book: ***Como os canais Lightning criam uma rede Lightning?*** Embora um canal Lightning só permita o pagamento entre dois usuários, os canais podem ser conectados para formar uma rede que permite pagamentos entre membros que não têm um canal direto entre eles. Isso cria uma rede entre várias pessoas, construída a partir de conexões em pares.
 
-Nesta seção, continuaremos usando nossa configuração c-lightning como nosso node principal.
+Nesta seção, continuaremos usando nossa configuraçãa c-lightning como nosso node principal.
 
-## Criando um canal
+## Criando um Canal
 
 A criação de um canal Lightning requer as seguintes etapas:
 
 * Financiar nossa carteira c-lightning com alguns satoshis;
-* Conectar-se a um nó remoto como um par;
+* Conectar-se a um node remoto como um par;
 * Abrir um canal.
 
-### Financiando nossa carteira c-lightning
+### Financiando Nossa Carteira c-lightning
 
 Para mover fundos para um canal Lightning, primeiro é necessário financiar nossa carteira c-lightning.
 
-> :book: ***O que é uma carteira c-lightning?*** A implementação padrão a c-lightning vem com uma carteira Bitcoin integrada que permite enviar e receber transações bitcoin na blockchain. Esta carteira será usada para criar novos canais.
+> :book: ***O que é uma carteira c-lightning?*** A implementação padrão da c-lightning vem com uma carteira Bitcoin integrada que permite enviar e receber transações de bitcoin na blockchain. Esta carteira será usada para criar novos canais.
 
-A primeira coisa que precisamos fazer é enviar alguns satoshis para nossa carteira c-lightning. Podemos criar um novo endereço usando o comando `lightning-cli newaddr`. Isso gera um novo endereço que pode ser subsequentemente usado para financiar canais gerenciados pelo node c-lightning. Podemos especificar o tipo de endereço desejado. Se não for especificado, o endereço gerado será um bech32.
+A primeira coisa que precisamos fazer é enviar alguns satoshis para nossa carteira c-lightning. Podemos criar um novo endereço usando o comando `lightning-cli newaddr`. Isto gera um novo endereço que pode ser subsequentemente usado para financiar canais gerenciados pelo node c-lightning. Podemos especificar o tipo de endereço desejado; se não for especificado, o endereço gerado será um bech32.
 
 ```
 $ lightning-cli --testnet newaddr
@@ -37,7 +37,7 @@ Podemos então enviar fundos para este endereço usando `bitcoin-cli sendtoaddre
 
 Esta transação é chamada de [transação de financiamento](https://github.com/lightningnetwork/lightning-rfc/blob/master/03-transactions.md#funding-transaction-output) e precisa ser confirmada antes que os fundos possam ser utilizados.
 
-> :book: ***O que é uma transação de financiamento?*** Uma transação de financiamento é uma transação de Bitcoin que coloca dinheiro em um canal Lightning. Pode ser de financiamento único (por um participante) ou de financiamento duplo (por ambos). A partir daí, as transações da Lightning tratam de realocar a propriedade da transação de financiamento, mas só se ajustam na blockchain quando o canal é fechado.
+> :book: ***O que é uma transação de financiamento?*** Uma transação de financiamento é uma transação de bitcoin que coloca dinheiro em um canal Lightning. Pode ser de financiamento único (por um participante) ou de financiamento duplo (por ambos). A partir daí, as transações da Lightning tratam de realocar a propriedade da transação de financiamento, mas só se ajustam na blockchain quando o canal é fechado.
 
 Para verificar nosso saldo local, devemos usar o comando `lightning-cli listfunds`:
 
@@ -76,11 +76,11 @@ Observe que o valor está listado em satoshis ou microsatoshis, não em Bitcoin!
 
 Agora que financiamos nossa carteira c-lightning, precisaremos de informações sobre um node remoto para começar a criar o processo do canal.
 
-### Conectando a um node Remoto
+### Conectando a um Node Remoto
 
 A próxima coisa que precisaremos fazer é conectar nosso node a um par. Isso é feito com o comando `lightning-cli connect`. Lembre-se que se quisermos mais informações sobre este comando, devemos digitar `lightning-cli help connect`.
 
-Para conectar nosso nodes a um par remoto, precisaremos do nosso id, que representa a chave pública do node de destino. Por conveniência, o `ID` pode ter a forma `id@host` ou `id@host:port`. Podemos ter recuperado isso com o `lightning-cli getinfo` (no c-lightning) ou `lncli --network=testnet getinfo` (no LND) conforme discutido no [adendo anterior](18_2__Interlude_Accessing_a_Second_Lightning_Node.md).
+Para conectar nosso node a um par remoto, precisaremos do nosso id, que representa a chave pública do node de destino. Por conveniência, o `ID` pode ter a forma `id@host` ou `id@host:port`. Podemos já ter pego esta informação com o `lightning-cli getinfo` (na c-lightning) ou `lncli --network=testnet getinfo` (no LND) conforme discutido no [adendo anterior](19_2__Interlude_Accessing_a_Second_Lightning_Node.md).
 
 Selecionamos o node LND, `032a7572dc013b6382cde391d79f292ced27305aa4162ec3906279fc4334602543`, que está localizado no endereço IP `45.33.35.151`, ao qual vamos nos conectar a partir de nosso node c-lightning:
 
@@ -92,15 +92,15 @@ $ lightning-cli --network=testnet connect 032a7572dc013b6382cde391d79f292ced2730
 }
 ```     
 
-### Abrindo um canal
+### Abrindo um Canal
 
-O comando fundchannel do RPC abre um canal de pagamento com um par ao comprometer uma transação de financiamento para o blockchain. Devemos usar o comando `lightning-cli fundchannel` para fazer isso, com os seguintes parâmetros:
+O comando fundchannel do RPC abre um canal de pagamento com um par ao comprometer uma transação de financiamento para a blockchain. Devemos usar o comando `lightning-cli fundchannel` para fazer isso, com os seguintes parâmetros:
 
 * **id** é o retorno do id do peer da conexão;
 * **amount** é o valor em satoshis retirado da carteira interna para financiar o canal. O valor não pode ser inferior ao limite mínimo, atualmente definido como 546 satoshis, nem superior a 16.777.215 satoshis (a menos que grandes canais tenham sido negociados com o par).
 * **feerate** é o feerate opcional usado para a transação de abertura e como feerate inicial para transações de confirmação e HTLC.
 * **announce** é um sinalizador opcional que aciona o anúncio deste canal ou não. O padrão é verdadeiro. Se desejarmos criar um canal privado, precisamos definí-lo como falso.
-* **minconf** especifica o número mínimo de confirmações que devem ter saídas usadas no processo de abertura de canal. O padrão é 1.
+* **minconf** especifica o número mínimo de confirmações que saídas usadas no processo de abertura do canal devem ter. O padrão é 1.
 * **utxos** especifica os utxos a serem usados ​​para financiar o canal, como uma matriz de “txid:vout”.
 
 Agora podemos abrir o canal assim:
@@ -158,11 +158,11 @@ c$ lightning-cli --testnet listfunds
 }
 
 ```
-Embora este novo canal com 100.000 satoshis não esteja confirmado, nosso estado será `CHANNELD_AWAITING_LOCKIN`. Observe que a alteração não confirmada de satoshis `99847` também está aparecendo como uma nova transação na carteira. Depois que todas as seis confirmações forem concluídas, o canal mudará para o estado `CHANNELD_NORMAL`, que será o estado permanente. Nesse momento, um `short_channel_id` também aparecerá, como:
+Embora este novo canal com 100.000 satoshis não esteja confirmado, nosso estado será `CHANNELD_AWAITING_LOCKIN`. Observe que a alteração não confirmada de `99847` satoshis também está aparecendo como uma nova transação na carteira. Depois que todas as seis confirmações forem concluídas, o canal mudará para o estado `CHANNELD_NORMAL`, que será o estado permanente. Nesse momento, um `short_channel_id` também aparecerá, por exemplo:
 ```
 "short_channel_id": "1862856x29x0",
 ```
-Esses valores indicam onde a transação de financiamento pode ser encontrada na blockchain. Ele aparece na forma `bloco x txid x vout`.
+Esses valores indicam onde a transação de financiamento pode ser encontrada na blockchain. Ela aparece na forma `bloco x txid x vout`.
 
 Neste caso, `1862856x29x0` significa:
 
@@ -174,12 +174,12 @@ Podemos precisar usar este `short_channel_id` para certos comandos na Lightning.
 
 Esta transação de financiamento também pode ser encontrada onchain pelo TXID [66694d23ca15efe379e5f4a71d9be1a2d65e383b89ee3abe126ee36a12f23c1d] (https://mempool.space/pt/testnet/tx/66694d23ca15efe379e5f4a71d9be1a2d65e383b89ee3abe126ee36a12f23c1d)
 
-> :book: ***O que é a capacidade do canal?*** Em um canal Lightning, ambos os lados do canal possuem uma parte da capacidade. O valor do lado do canal é chamado de *saldo local (local balance)* e o valor do outro lado é chamado de *saldo remoto (remote balance)*. Ambos os saldos podem ser atualizados muitas vezes sem fechar o canal (quando o saldo final é enviado para a blockchain), mas a capacidade do canal não pode mudar sem fechá-lo. A capacidade total de um canal é a soma do saldo de cada participante do canal.
+> :book: ***O que é a capacidade do canal?*** Em um canal Lightning, ambos os lados do canal possuem uma parte da capacidade. O valor do seu lado do canal é chamado de *saldo local (local balance)* e o valor do outro lado é chamado de *saldo remoto (remote balance)*. Ambos os saldos podem ser atualizados muitas vezes sem fechar o canal (quando o saldo final é enviado para a blockchain), mas a capacidade do canal não pode mudar sem fechá-lo. A capacidade total de um canal é a soma do saldo de cada participante do canal.
 
-## Resumo: Criando um canal na Lightning
+## Resumo: Criando um Canal na Lightning
 
 Precisaremos criar um canal com um node remoto para poder receber e enviar dinheiro pela Lightning Network.
 
 ## O Que Vem Depois?
 
-Você está pronto para passar para o [Capítulo 19: Usando Lightning](19_0_Using_Lightning.md).
+Você está pronto para passar para o [Capítulo 20: Usando Lightning](20_0_Using_Lightning.md).
