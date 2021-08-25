@@ -1,16 +1,16 @@
-# Adendo: Acessando um segundo node Lightning
+# Adendo: Acessando um Segundo Node Lightning
 
-> :information_source: ** NOTA: ** Esta seção foi adicionada recentemente ao curso e é um rascunho inicial que ainda pode estar aguardando revisão.
+> :information_source: **NOTA:** Esta seção foi adicionada recentemente ao curso e é um rascunho inicial que ainda pode estar aguardando revisão.
 
-Quando estávamos brincando com o Bitcoin, estávamos acessando uma rede existente, e isso torna tudo relativamente fácil para se trabalhar. Apenas ligávamos o `bitcoind` e estávamos imediatamente interagindo com a rede. Agora, é assim que a Lightning funciona: É fundamentalmente uma rede ponto a ponto, construída a partir das conexões entre dois nodes individuais. Em outras palavras, para interagir com a Lightning Network, precisaremos primeiro encontrar um node ao qual podemos nos conectar.
+Quando estávamos brincando com o Bitcoin, estávamos acessando uma rede existente, e isso torna tudo relativamente fácil para se trabalhar. Apenas ligávamos o `bitcoind` e estávamos imediatamente interagindo com a rede. Agora, a Lightning funciona da seguinte maneira: é fundamentalmente uma rede ponto a ponto, construída a partir das conexões entre dois nodes individuais. Em outras palavras, para interagir com a Lightning Network, precisaremos primeiro encontrar um node ao qual podemos nos conectar.
 
-Existem quatro maneiras de fazermos isso, as três primeiras são possíveis para  a nossa primeira conexão:
+Existem quatro maneiras de fazermos isso (das quais as três primeiras são possíveis para a nossa primeira conexão):
 
-## Pedindo informações sobre um node
+## Pedindo Informações Sobre um Node
 
 Se outra pessoa já tiver um node da Lightning Network na rede que escolhemos, podemos pedir o ID dele.
 
-Se estiverem executando o c-lightning, eles só precisam usar o comando `getinfo`:
+Se estiverem executando a c-lightning, eles só precisam usar o comando `getinfo`:
 ```
 $ lightning-cli getinfo
 lightning-cli: WARNING: default network changing in 2020: please set network=testnet in config!
@@ -48,23 +48,23 @@ lightning-cli: WARNING: default network changing in 2020: please set network=tes
    "lightning-dir": "/home/standup/.lightning/testnet"
 }
 ```
-Eles podem então poderão nos dizer o `ID` (`03240a4878a9a64aea6c3921a434e573845267b86e89ab19003b0c910a86d17687`). Eles também precisarão informar o endereço IP (`74.207.240.32`) e porta (`9735`).
+Eles poderão então nos dizer o `ID` deles (`03240a4878a9a64aea6c3921a434e573845267b86e89ab19003b0c910a86d17687`). Eles também precisarão informar o endereço IP (`74.207.240.32`) e porta (`9735`).
 
-## Criando um novo node c-lightning
+## Criando um Novo Node c-lightning
 
-No entanto, para fins de teste, provavelmente iremos desejar ter um segundo node sob nosso próprio controle. A maneira mais fácil de fazer isso é criar um segundo node c-lightning em uma nova máquina, usando Bitcoin Standup, de acordo com a seção [§2.1](02_1_Setting_Up_a_Bitcoin-Core_VPS_with_StackScript.md) ou compilando-o manualmente, de acordo com a seção [§18.1](18_1_Verifying_Your_Lightning_Setup .md).
+No entanto, para fins de teste, provavelmente iremos desejar ter um segundo node sob nosso próprio controle. A maneira mais fácil de fazer isso é criar um segundo node c-lightning em uma nova máquina, usando Bitcoin Standup, de acordo com a seção [§2.1](02_1_Setting_Up_a_Bitcoin-Core_VPS_with_StackScript.md) ou compilando-o manualmente, de acordo com a seção [§19.1](19_1_Verifying_Your_Lightning_Setup.md).
 
 Depois de ter nosso node em execução, podemos executar o `getinfo` para recuperar nossas informações, como mostrado acima.
 
-## Criando um novo node LND
+## Criando um Novo Node LND
 
-No entanto, para nossos exemplos no próximo capítulo, vamos criar um node LND. Isso nos permitirá demonstrar um pouco da profundidade do ecossistema Lightning, mostrando como comandos semelhantes funcionam nas duas plataformas diferentes.
+No entanto, para os exemplos do próximo capítulo, vamos criar um node LND. Isso nos permitirá demonstrar um pouco da profundidade do ecossistema Lightning, mostrando como comandos semelhantes funcionam nas duas plataformas diferentes.
 
 Uma maneira de criar um node LND é executar os scripts Bitcoin Standup novamente em uma nova máquina, mas desta vez escolher a LND, de acordo com a seção [§2.1](2_1_Setting_Up_a_Bitcoin-Core_VPS_with_StackScript.md).
 
 Outra forma é compilar o LND a partir do código-fonte em uma máquina em que já estejamos executando um node Bitcoin, como falaremos abaixo.
 
-### Compilando o código-fonte LND
+### Compilando o Código-Fonte do LND
 
 Primeiro, precisaremos baixar e instalar o Go:
 ```
@@ -72,9 +72,9 @@ $ wget --progress=bar:force https://dl.google.com/go/"go1.14.4"."linux"-"amd64".
 $ /bin/tar xzf ~standup/"go1.14.4"."linux"-"amd64".tar.gz -C ~standup
 $ sudo mv ~standup/go /usr/local
 ```
-Depois, precisamos nos certificar de que a versão Go é a mais atualizada (atualmente é a `go1.14.4`), e a plataforma e arquitetura são adequadas para nossa máquina. O item acima funcionará para o Debian.
+Depois, precisamos nos certificar de que a versão Go é a mais atualizada (atualmente é a `go1.14.4`), e que a plataforma e arquitetura são adequadas para nossa máquina. O item acima funcionará para o Debian.
 
-Vamos atulizar o caminho:
+Vamos atualizar nosso PATH:
 ```
 $ export GOPATH=~standup/gocode
 $ export PATH="$PATH":/usr/local/go/bin:"$GOPATH"/bin
@@ -89,7 +89,7 @@ Também precisaremos do `git` e do `make`:
 $ sudo apt-get install git
 $ sudo apt-get install build-essential
 ```
-Agora estamos pronto para recuperar o LND. Certifique-se de obter a versão atual (no momento, é a `v0.11.0-beta.rc4`).
+Agora estamos prontos para recuperar o LND. Certifique-se de obter a versão atual (no momento, é a `v0.11.0-beta.rc4`).
 ```
 $ go get -d github.com/lightningnetwork/lnd
 ```
@@ -107,21 +107,21 @@ Devemos alterá-la para os diretórios globais:
 $ sudo cp $GOPATH/bin/lnd $GOPATH/bin/lncli /usr/bin
 ```
 
-### Criando um arquivo de configuração LND
+### Criando um Arquivo de Configuração do LND
 
-Ao contrário do c-lightning, precisaremos criar um arquivo de configuração padrão para o LND.
+Ao contrário da c-lightning, precisaremos criar um arquivo de configuração padrão para o LND.
 
-No entanto, primeiro, iremos precisar habilitar o ZMQ em nosso Bitcoind, se ainda não o fizemos na seção [§15.3](15_3_Receiving_Bitcoind_Notifications_with_C.md).
+No entanto, primeiro, iremos precisar habilitar o ZMQ em nosso Bitcoind, se ainda não o fizemos na seção [§16.3](16_3_Receiving_Bitcoind_Notifications_with_C.md).
 
-Isso requer adicionar o seguinte ao nosso arquivo `~/.bitcoin/bitcoin.conf` se ainda não estiver lá:
+Isso requer adicionar o seguinte ao nosso arquivo `~/.bitcoin/bitcoin.conf`, se ainda não estiver lá:
 ```
 zmqpubrawblock=tcp://127.0.0.1:28332
 zmqpubrawtx=tcp://127.0.0.1:28333
 ```
 
-Se estivermos usando um arquivo de configuração Bitcoin do Standup ou algum outro `conf` especializado, precisamos nos certificar de colocar nossos novos comandos na seção correta. Idealmente, devemos chegar perto do topo do arquivo, caso contrário, na seção `[test]` (assumindo, como de costume, que estamos testando na testnet).
+Se estivermos usando um arquivo de configuração Bitcoin do Standup ou algum outro `conf` especializado, precisamos nos certificar de colocar nossos novos comandos na seção correta. Idealmente, devemos chegar perto do topo do arquivo, caso contrário, na seção `[test]` (assumindo, como de costume, que estamos usando a testnet).
 
-Devemos então, reiniciar o bitcoin (ou apenas reiniciar nossa máquina). Podemos testar se está tudo funcionando da seguinte maneira:
+Devemos então reiniciar o Bitcoin (ou apenas reiniciar nossa máquina). Podemos testar se está tudo funcionando da seguinte maneira:
 ```
 $ bitcoin-cli getzmqnotifications
 [
@@ -139,7 +139,7 @@ $ bitcoin-cli getzmqnotifications
 ```
 Agora estamos prontos para criar um arquivo de configuração.
 
-Primeiro, precisamos recuperar nosso rpcuser e rpcpassword. Esta é uma maneira automatizada de fazer isso:
+Primeiro, precisamos recuperar nosso rpcuser e rpcpassword. A seguinte é uma maneira automatizada de fazer isso:
 ```
 $ BITCOINRPC_USER=$(cat ~standup/.bitcoin/bitcoin.conf | grep rpcuser | awk -F = '{print $2}')
 $ BITCOINRPC_PASS=$(cat ~standup/.bitcoin/bitcoin.conf | grep rpcpassword | awk -F = '{print $2}')
@@ -171,7 +171,7 @@ bitcoind.zmqpubrawtx=tcp://127.0.0.1:28333
 EOF
 ```
 
-### Criando um serviço LND
+### Criando um Serviço LND
 
 Finalmente, podemos criar um serviço LND para executar automaticamente o `lnd`:
 ```
@@ -203,22 +203,22 @@ RestartSec=60
 WantedBy=multi-user.target
 EOF
 ```
-Em seguida, precisaremos instalar isso e iniciar as coisas:
+Em seguida, precisaremos instalar aquilo e iniciar as coisas:
 ```
 $ sudo cp ~/lnd.service /etc/systemd/system
 $ sudo systemctl enable lnd
 $ sudo systemctl start lnd
 ```
-É esperado que a primeira vez demore um tempo para a inicialização.
+(É esperado que a primeira vez leve um certo tempo.)
 
-### Habilitando as conexões remotas
+### Habilitando Conexões Remotas
 
-Assim como com o c-lightning, precisaremos tornar o LND acessível a outros nodes. Veja como fazer isso se usarmos o `ufw`, de acordo com as configurações do Bitcoin Standup:
+Assim como na c-lightning, precisaremos tornar o LND acessível a outros nodes. Veja como fazer isso se usarmos o `ufw`, de acordo com as configurações do Bitcoin Standup:
 ```
 $ sudo ufw allow 9735
 ```
 
-### Criando uma carteira
+### Criando uma Carteira
 
 Na primeira vez que executamos o LND, devemos criar uma carteira:
 ```
@@ -292,11 +292,11 @@ $ lncli --network=testnet getinfo
     }
 }
 ```
-O ID deste node é `032a7572dc013b6382cde391d79f292ced27305aa4162ec3906279fc4334602543`. Embora este comando não mostre o endereço IP e a porta, eles devem ser o endereço IP da nossa máquina e a porta `9735`.
+O ID deste node é `032a7572dc013b6382cde391d79f292ced27305aa4162ec3906279fc4334602543`. Embora este comando não nos mostre o endereço IP e a porta, eles devem ser o endereço IP da nossa máquina e a porta `9735`.
 
-## Ouvindo a Lightning
+## Escute a Fofoca
 
-Se já estivermos conectados à Lightning Network, nosso node já deve estar "fofocando" com seus pares, também já pode ser capaz de encontrar informações sobre os pares automaticamente, por meio do comando `listpeers`:
+Se já estivéssemos conectados à Lightning Network, e nosso node já estivesse "fofocando" com seus pares, também poderíamos ser capazes de encontrar informações sobre os pares automaticamente, por meio do comando `listpeers`:
 ```       
 c$ lightning-cli --network=testnet listpeers
 {
@@ -313,14 +313,14 @@ c$ lightning-cli --network=testnet listpeers
    ]
 }
 ```   
-No entanto, esse definitivamente não será o caso da nossa primeira interação com a Lightning Network.
+No entanto, este definitivamente não será o caso na nossa primeira interação com a Lightning Network.
 
-## Resumo: Adendo: Acessando um segundo node Lightning
+## Resumo: Adendo: Acessando um Segundo Node Lightning
 
-Sempre precisaremos de dois nodes Lightning para formar um canal. Se não tivermos outra pessoa que está testando as coisas conosco, precisaremos criar um segundo node, usando c-lightning ou (como faremos em nossos exemplos) usando a LND.
+Sempre precisaremos de dois nodes Lightning para formar um canal. Se não tivermos outra pessoa que está testando as coisas conosco, precisaremos criar um segundo node, usanda c-lightning ou (como faremos em nossos exemplos) usando a LND.
 
 ## O Que Vem Depois?
 
-Embora possivelmente tenhamos criado um LND, o c-lightning permanecerá o coração dos nossos exemplos até que precisemos começar a usar os dois, no [Capítulo 19](19_0_Understanding_Your_Lightning_Setup.md).
+Embora possivelmente tenhamos criado um LND, a c-lightning permanecerá no centro dos nossos exemplos até que precisemos começar a usar os dois, no [Capítulo 19](19_0_Understanding_Your_Lightning_Setup.md).
 
-Vamos continuar "Compreendendo a configuração da Lightning" na seção [§18.3: Criando um canal na Lightning](18_3_Setting_Up_a_Channel.md).
+Vamos continuar "Compreendendo a Configuração da Lightning" na seção [§19.3: Criando um Canal na Lightning](19_3_Setting_Up_a_Channel.md).
