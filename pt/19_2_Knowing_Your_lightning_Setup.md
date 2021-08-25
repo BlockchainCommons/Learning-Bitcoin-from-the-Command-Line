@@ -1,29 +1,29 @@
-# 18.2: Conhecendo a configuração do c-lightning
+# 19.2: Conhecendo a Configuração da c-lightning
 
 > :information_source: **NOTA:** Esta seção foi adicionada recentemente ao curso e é um rascunho inicial que ainda pode estar aguardando revisão.
 
-Antes de começar a acessar a Lightning Network, devemos compreender melhor nossa configuração.
+Antes de começar a acessar a Lightning Network, devemos compreender melhor a nossa configuração.
 
-## Conhecendo o diretório da c-lightning
+## Conhecendo o Diretório da c-lightning
 
-Ao usar o c-lightning, tudo será mantindo dentro do diretório `~/.lightning`.
+Ao usar a c-lightning, tudo será mantindo dentro do diretório `~/.lightning`.
 
 O diretório principal contém apenas os diretórios para as redes configuradas, neste caso da Testnet:
 ```
 $ ls ~/.lightning
 testnet
 ```
-O diretório `~/.lightning/testnet` irá então conter a essência de nossa configuração:
+O diretório `~/.lightning/testnet` irá então conter a essência da nossa configuração:
 ```
 $ ls ~/.lightning/testnet3
 config  gossip_store  hsm_secret  lightningd.sqlite3  lightningd.sqlite3-journal  lightning-rpc
 ```
 
-> :link: **TESTNET vs MAINNET:** Se estivermos usando a Mainnet, então _tudo_ será colocado no diretório principal `~/.lightning/bitcoin`. Essas várias configurações _empilham-se_ elegantemente, então se estivermos usando a Mainnet, Testnet e Regtest, descobriremos que `~/.lightning/bitcoin` contém os arquivos de configuração e os dados de mainnet, o diretório `~/.lightning/testnet` contém os dados da Testnet, e o diretório `~/.lightning/regtest` contém os dados Regtest.
+> :link: **TESTNET vs MAINNET:** Se estivermos usando a Mainnet, então _tudo_ será colocado no diretório principal `~/.lightning/bitcoin`. Essas várias configurações _empilham-se_ elegantemente, então se estivermos usando a Mainnet, Testnet e Regtest, descobriremos que `~/.lightning/bitcoin` contém os arquivos de configuração e os dados da Mainnet, o diretório `~/.lightning/testnet` contém os dados da Testnet, e o diretório `~/.lightning/regtest` contém os dados Regtest.
 
-## Conhecendo os comandos lightning-cli
+## Conhecendo os Comandos lightning-cli
 
-A maior parte do nosso trabalho inicial será feito com o comando `lightning-cli`, que oferece uma interface fácil para a `lightningd`, assim como o `bitcoin-cli`.
+A maior parte do nosso trabalho inicial será feito com o comando `lightning-cli`, que oferece uma interface fácil para o `lightningd`, assim como o `bitcoin-cli`.
 
 Já vimos que o comando `help` nos dará uma lista de outros comandos:
 
@@ -228,7 +228,7 @@ dev-rescan-outputs
 run `lightning-cli help <command>` for more information on a specific command
 ```
 
-## Conhecendo as informações de Lightning
+## Conhecendo Informações da Lightning
 
 Uma variedade de comandos `lightning-cli` podem fornecer informações adicionais sobre nosso node Lightning. Os mais comuns são:
 ```
@@ -329,12 +329,12 @@ c$ lightning-cli --testnet listconfigs
 }
 ```
 
-## Resumo: Conhecendo a configuração do c-lightning
+## Resumo: Conhecendo a Configuração da c-lightning
 
-O diretório `~/.lightning` contém todos os arquivos, enquanto o comando `lightning-cli help` mostra uma variedade de informações dos comandos que podem ser usados para obter mais informações sobre nossa configuração e funcionamento da Lightning Network.
+O diretório `~/.lightning` contém todos os arquivos, enquanto o comando `lightning-cli help` mostra uma variedade de informações dos comandos que podem ser usados para obter mais informações sobre a configuração e o funcionamento da Lightning Network.
 
 ## O Que Vem Depois?
 
-Precisaremos de um segundo node para testar o pagamento dos invoices. Se precisaremos de suporte para configurar um, podemos ler o [Adendo: Acessando um segundo node Lightning](18_2__Interlude_Accessing_a_Second_Lightning_Node.md).
+Precisaremos de um segundo node para testar o pagamento dos invoices. Se precisarmos de suporte para configurar um, podemos ler o [Adendo: Acessando um segundo node Lightning](19_2__Interlude_Accessing_a_Second_Lightning_Node.md).
 
-Caso contrário, vamos continuar "Compreendendo sua configuração do Lightning" na seção [§18.3: Criando um canal na Lightning](18_3_Setting_Up_a_Channel.md).
+Caso contrário, vamos continuar "Compreendendo a Configuração da Lightning" na seção [§19.3: Criando um Canal na Lightning](19_3_Setting_Up_a_Channel.md).
