@@ -2,7 +2,7 @@
 
 > :information_source: **NOTA:** Esta sección ha sido recientemente agregada al
 > curso y es un borrador inicial que puede estar esperando aun su revisión.
-> Precaución lector.
+> Lectura con advertencias.
 
 La mayoría de este curso presume que usted usara o bien Mainnet o bien Testnet.
 Sin embargo, esas no son las únicas opciones. Mientras desarrolla aplicaciones
@@ -35,9 +35,8 @@ transacciones a menos que se configure explícitamente la tarifa.
 Si usted lo desea, puede mas tarde reiniciar su Regtest con una nueva cadena de
 bloques.
 
-Los monederos Regtest y el estado de la cadena de bloques (estado de la cadena)
-son guardados en el subdirectorio regtest del directorio de configuración de
-Bitcoin:
+Los monederos Regtest y el estado de la cadena de bloques son guardados en el
+subdirectorio regtest del directorio de configuración de Bitcoin:
 ```
 user@mybtc:~/.bitcoin# ls
 bitcoin.conf  regtest  testnet3
@@ -120,7 +119,7 @@ transacciones de acuerdo a el
 [Capitulo 4](04_0_Enviando_Transacciones_Bitcoin.md).
 
 Es importante notar que para que se complete cualquier transacción, usted
-deberá generar (mine) nuevos bloques, así las transacciones pueden ser
+deberá generar (minar) nuevos bloques, así las transacciones pueden ser
 incluidas.
 
 Por ejemplo, para crear una transacción e incluirla en un bloque, usted debe
@@ -188,7 +187,7 @@ $ bitcoin-cli -regtest -generate 6
 
 ## Pruebe con NodeJS
 
-Cuando usted esta en regtest, es capaz de simular casos de borde y ataques que
+Cuando usted esta en regtest, es capaz de simular casos extremos y ataques que
 podrían ocurrir en el mundo real, tales como gastos dobles.
 
 Como se debatió en algún otro lado de este curso, usar librerías de software
@@ -266,8 +265,8 @@ rápidamente.
 > bloques, para testear transacciones, timelocks y otras características para
 > las que de otra manera debería sentarse y esperar. Sin embargo, el otro poder
 > es que usted puede correrlo de forma privada, sin conectarse a una cadena de
-> bloques publica, permitiéndole a usted probar sus propias ideas antes de
-> liberarlas dentro del mundo. 
+> bloques publica, permitiéndole probar sus propias ideas antes de liberarlas
+> dentro del mundo. 
 
 ## ¿Que sigue?
 

@@ -21,7 +21,7 @@ apropiado es copiado desde `/usr/share/zoneinfo/` a `/etc/localtime`.
 ## Paso 3: Actualizando Debian
 
 El gestor de paquetes `apt-get` es usado para actualizar su maquina e instalar
-`gnupg`, el generador de números aleatorios `haveged`, y el simple cortafuegos
+`gnupg`, el generador de números aleatorios `haveged`, y el cortafuegos simple
 `ufw`.
 
 Su maquina es configurada automáticamente para estar al día con `echo
