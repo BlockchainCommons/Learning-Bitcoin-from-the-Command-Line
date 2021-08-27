@@ -11,7 +11,7 @@ Una vez que haya descargado el binario, puede instalarlo en su sistema. Si está
 $ mv jq-linux64 jq
 $ sudo /usr/bin/install -m 0755 -o root -g root -t /usr/local/bin jq
 ```
-> :libro: ***¿Qué es JQ?*** JQ es para datos JSON - puedes usarlo para cortar, filtrar,  mapear y transformar datos estructurados con la misma facilidad que , , y sus amigos te permiten jugar con el texto."
+> :book: ***¿Qué es JQ?*** jq es como sed para datos JSON - puede usarlo para cortar y filtrar y mapear y transformar datos estructurados con la misma facilidad que sed, awk, grep y amigos se permiten jugar con el texto".
 
 ## Utilizar JQ para acceder al valor de un objeto JSON por clave
 
@@ -49,9 +49,9 @@ $ bitcoin-cli sendrawtransaction $signedtx
 
 **Ejemplo de uso:** _Capturar el txid y vout para un UTXO seleccionado._
 
-Sacar datos de un objeto JSON es fácil, pero ¿Qué pasa si ese objeto JSON está en un arreglo JSON? El comando `listunspent` ofrece un gran ejemplo, porque normalmente contendrá un número de transacciones diferentes. ¿Y si quieres capturar información específica de _una_ de ellas?
+Sacar datos de un objeto JSON es fácil, pero ¿Qué pasa si ese objeto JSON está en un arreglo JSON? El comando `listunspent` ofrece un gran ejemplo, porque normalmente contendrá un número de transacciones diferentes. ¿Y si quiere capturar información específica de _una_ de ellas?
 
-Cuando se trabaja con un array JSON, lo primero que hay que hacer es decirle a JQ a qué índice debe acceder. Por ejemplo, puede que hayas mirado tus transacciones en `listunspent` y hayas decidido que quieres trabajar con la segunda de ellas. Usas `'.[1]'` para acceder a ese primer elemento. El `[]` dice que estamos haciendo referencia a un arreglo JSON y el `0` dice que queremos el índice 0.
+Cuando se trabaja con un array JSON, lo primero que hay que hacer es decirle a JQ a qué índice debe acceder. Por ejemplo, puede que haya mirado sus transacciones en `listunspent` y que haya decidido que quiere trabajar con la segunda de ellas. Usas `'.[1]'` para acceder a ese primer elemento. El `[]` dice que estamos haciendo referencia a un arreglo JSON y el `0` dice que queremos el índice 0.
 ```
 $ bitcoin-cli listunspent | jq -r '.[1]'
 {
@@ -127,7 +127,7 @@ ca4898d8f950df03d6bfaa00578bd0305d041d24788b630d0c4a32debcac9f36
 ```
 Esto hace que sea fácil decidir qué UTXOs gastar en una transacción en crudo, pero no es muy bonito.
 
-Afortunadamente, JQ también te permite ser elegante. Puedes usar `{}`s para crear nuevos objetos JSON (ya sea para un análisis adicional o para una salida bonita). También puede definir el nombre de la nueva clave para cada uno de sus valores. La salida resultante debería ser mucho más intuitiva y menos propensa a errores (aunque, obviamente, menos útil para volcar información directamente en las variables).
+Afortunadamente, JQ también le permite ser elegante. Puede usar `{}`s para crear nuevos objetos JSON (ya sea para un análisis adicional o para una salida bonita). También puede definir el nombre de la nueva clave para cada uno de sus valores. La salida resultante debería ser mucho más intuitiva y menos propensa a errores (aunque, obviamente, menos útil para volcar información directamente en las variables).
 
 El siguiente ejemplo muestra exactamente el mismo análisis de `listunspent`, pero con cada objeto JSON antiguo reconstruido como un nuevo objeto JSON abreviado, con todos los nuevos valores nombrados con sus antiguas claves:
 ```
@@ -143,7 +143,7 @@ $ bitcoin-cli listunspent | jq -r '.[] | { txid: .txid, vout: .vout, amount: .am
   "amount": 0.00022
 }
 ```
-You could of course rename your new keys as you see fit. There's nothing magic in the original names:
+Por supuesto, puede cambiar el nombre de sus nuevas llaves como mejor se parezca. No hay nada mágico en los nombres originales.
 ```
 $ bitcoin-cli listunspent | jq -r '.[] | { tx: .txid, output: .vout, bitcoins: .amount }'
 {
@@ -260,7 +260,7 @@ $ echo ${usedvout[1]}
 ```
 El único truco real aquí es cómo guardamos la información usando el shell bash. En lugar de guardar en una variable con `$(comando)`, guardamos en una matriz con `($(comando))`. Entonces pudimos acceder a los elementos individuales de la matriz bash con una construcción `${variable[n]}`. En cambio, podíamos acceder a todo el arreglo con `${variable[@]}`. (Sí, nadie dijo nunca que bash fuera bonito).
 
-> :advertencia: **ADVERTENCIA:** Recuerde siempre que un UTXO es una transacción _más_ un vout. La primera vez que escribimos este ejemplo de JQ se nos escapó el vout, y dejó de funcionar cuando acabamos con una situación en la que nos habían enviado dos `vouts` de la misma transacción.
+> :warning: **ADVERTENCIA:** Recuerde siempre que un UTXO es una transacción _más_ un vout. La primera vez que escribimos este ejemplo de JQ se nos escapó el vout, y dejó de funcionar cuando acabamos con una situación en la que nos habían enviado dos `vouts` de la misma transacción.
 
 ### Recuperar los objetos relacionados
 
@@ -371,15 +371,15 @@ $ echo "$btcin-$btcout"| /usr/bin/bc
 ```
 Y este es también un buen ejemplo de por qué hay que comprobar dos veces las tarifas: teníamos la intención de enviar una tarifa de transacción de 5.000 satoshis, pero enviamos 255.000 satoshis en su lugar. ¡Ups!
 
-> :advertencia: **ADVERTENCIA:** La primera vez que escribimos esta lección, realmente calculamos mal nuestra tarifa y no lo vimos hasta que ejecutamos nuestra calculadora de tarifas. Es *así de fácil*, luego su dinero se esfuma. (El ejemplo de arriba es en realidad de nuestra segunda iteración de la calculadora, y esa vez cometimos el error a propósito).
+> :warning: **ADVERTENCIA:** La primera vez que escribimos esta lección, realmente calculamos mal nuestra tarifa y no lo vimos hasta que ejecutamos nuestra calculadora de tarifas. Es *así de fácil*, luego su dinero se esfuma. (El ejemplo de arriba es en realidad de nuestra segunda iteración de la calculadora, y esa vez cometimos el error a propósito).
 
 Para más magia de JSON (y si algo de esto no está claro), por favor lee el [Manual de JSON](https://stedolan.github.io/jq/manual/) y el [JSON Cookbook](https://github.com/stedolan/jq/wiki/Cookbook). Usaremos regularmente JQ en futuros ejemplos.
 
 ## Crear nuevos alias
 
-El código JQ puede ser un poco difícil de manejar, así que deberías considerar añadir algunas invocaciones más largas e interesantes a tu ~/.bash_profile.
+El código JQ puede ser un poco difícil de manejar, así que debería considerar añadir algunas invocaciones más largas e interesantes a tu ~/.bash_profile.
 
-Cada vez que busques una gran cantidad de información en un objeto JSON emitido por un comando `bitcoin-cli`, considera escribir un alias para reducirlo a lo que quieres ver.
+Cada vez que busque una gran cantidad de información en un objeto JSON emitido por un comando `bitcoin-cli`, considera escribir un alias para reducirlo a lo que quiere ver.
 ```
 alias btcunspent="bitcoin-cli listunspent | jq -r '.[] | { txid: .txid, vout: .vout, amount: .amount }'"
 ```
@@ -388,7 +388,7 @@ alias btcunspent="bitcoin-cli listunspent | jq -r '.[] | { txid: .txid, vout: .v
 
 El [Fee Calculation Script](src/04_2_i_txfee-calc.sh) está disponible en el directorio src-code. Puede descargarlo y guardarlo como `txfee-calc.sh`.
 
-> :advertencia: **ADVERTENCIA:** Este script no ha sido verificado de forma robusta. Si va a utilizarlo para verificar las comisiones de las transacciones reales, sólo deberá hacerlo como triple comprobación después de haber hecho todos los cálculos usted mismo.
+> :warning: **ADVERTENCIA:** Este script no ha sido verificado de forma robusta. Si va a utilizarlo para verificar las comisiones de las transacciones reales, sólo deberá hacerlo como triple comprobación después de haber hecho todos los cálculos usted mismo.
 
 Asegúrese de que los permisos del script son correctos:
 ```
@@ -399,7 +399,7 @@ A continuación, puede ejecutar el script de la siguiente manera:
 $ ./txfee-calc.sh $rawtxhex
 .255
 ```
-También puedes crear un alias:
+También puede crear un alias:
 ```
 alias btctxfee="~/txfee-calc.sh"
 ```
@@ -410,4 +410,4 @@ JQ facilita la extracción de información de arreglos y objetos JSON. También 
 
 ## ¿Qué sigue?
 
-Continua "Enviando Transacciones en Bitcoin" con [§4.3 Creando Transacciones en Crudo Usando Argumentos con Nombre](04_3_Creating_a_Raw_Transaction_with_Named_Arguments.md).
+Continua "Enviando Transacciones en Bitcoin" con [§4.3 Creando Transacciones en Cruda con Argumentos Ingresados con Nombre](04_3_Creando_una_Transaccion_Cruda_con_Argumentos_Ingresados_con_Nombre.md).
