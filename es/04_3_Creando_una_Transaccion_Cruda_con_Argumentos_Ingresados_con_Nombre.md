@@ -1,12 +1,12 @@
-# 4.3 Creación de una transacción en crudo con argumentos nombrados
+# 4.3 Creación de una transacción en cruda con argumentos ingresado con nombre
 
 A veces puede ser desalentador averiguar el orden correcto de los argumentos de un comando bitcoin-cli. Afortunadamente, puede utilizar _argumentos con nombre_ como alternativa.
 
-> : advertencia: **ADVERTENCIA DE VERSIÓN:** Esta es una innovación de Bitcoin Core v 0.14.0. Si ha utilizado nuestros scripts de instalación, es lo que debería tener, pero vuelva a comprobar su versión si tiene algún problema. También hay un error en el uso del comando `createrawtransaction` de los argumentos con nombre que presumiblemente será corregido en 0.14.1.
+> ⚠️ **ADVERTENCIA DE VERSIÓN:** Esta es una innovación de Bitcoin Core v 0.14.0. Si ha utilizado nuestros scripts de instalación, es lo que debería tener, pero vuelva a comprobar su versión si tiene algún problema. También hay un error en el uso del comando `createrawtransaction` de los argumentos con nombre que presumiblemente será corregido en 0.14.1.
 
 ## Crear un Alias para el argumento con nombre 
 
-Para utilizar un argumento con nombre debe ejecutar `bitcoin-cli` con el argumento `-named`. Si planeas hacer esto regularmente, probablemente querrás crear un alias:
+Para utilizar un argumento con nombre debe ejecutar `bitcoin-cli` con el argumento `-named`. Si planea hacer esto regularmente, probablemente querrá crear un alias:
 ```
 alias bitcoin-cli="bitcoin-cli -named"
 ```
@@ -84,14 +84,14 @@ e70dd2aa13422d12c222481c17ca21a57071f92ff86bdcffd7eaca71772ba172
 ```
 ¡Voilà! Ha enviado otra transacción en crudo, pero esta vez utilizando argumentos con nombre para mayor claridad y para reducir los errores.
 
-> : advertencia: **ADVERTENCIA DE VERSIÓN:** Aquí es donde aparece el error en Bitcoin Core 0.14: el argumento 'inputs' para 'createrawtransaction' se llama erróneamente 'transactions'. Así que, si está en Bitcoin Core 0.14.0, sustituye el argumento 'inputs' por 'transactions' para este y futuros ejemplos. Sin embargo, a partir de Bitcoin Core 0.14.1, este código debería funcionar como se muestra.
+> ⚠️ **ADVERTENCIA DE VERSIÓN:** Aquí es donde aparece el error en Bitcoin Core 0.14: el argumento 'inputs' para 'createrawtransaction' se llama erróneamente 'transactions'. Así que, si está en Bitcoin Core 0.14.0, sustituye el argumento 'inputs' por 'transactions' para este y futuros ejemplos. Sin embargo, a partir de Bitcoin Core 0.14.1, este código debería funcionar como se muestra.
 
 ## Resumen: Creación de una transacción en crudo con argumentos nombrados
 
-Ejecutando `bitcoin-cli` con la bandera `-named`, puedes utilizar argumentos con nombre en lugar de depender de argumentos ordenados. La ayuda de `bitcoin-cli` le mostrará siempre el nombre correcto de cada argumento. Esto puede resultar en un código más robusto, más fácil de leer y menos propenso a errores.
+Ejecutando `bitcoin-cli` con la bandera `-named`, puede utilizar argumentos con nombre en lugar de depender de argumentos ordenados. La ayuda de `bitcoin-cli` le mostrará siempre el nombre correcto de cada argumento. Esto puede resultar en un código más robusto, más fácil de leer y menos propenso a errores.
 
-Esta documentación utilizará argumentos con nombre para todos los ejemplos futuros, por claridad y para establecer las mejores prácticas. Sin embargo, también mostrará todos los argumentos en el orden correcto. Por lo tanto, si prefiere no utilizar argumentos con nombre, simplemente elimine la bandera '-named' y todos los "name="s y los ejemplos deberían seguir funcionando correctamente._
+_Esta documentación utilizará argumentos con nombre para todos los ejemplos futuros, por claridad y para establecer las mejores prácticas. Sin embargo, también mostrará todos los argumentos en el orden correcto. Por lo tanto, si prefiere no utilizar argumentos con nombre, simplemente elimine la bandera '-named' y todos los "name="s y los ejemplos deberían seguir funcionando correctamente._
 
 ## ¿Qué sigue?
 
-Continuar "Enviando transacciones de Bitcoin" con [§4.4: Sending Coins with Raw Transactions](04_4_Sending_Coins_with_a_Raw_Transaction.md).
+Continuar "Enviando transacciones de Bitcoin" con [§4.4: Enviando Monedas con una Transacción Cruda](04_4_Enviando_Monedas_con_una_Transaccion_Cruda.md).
