@@ -1,12 +1,12 @@
 # 4.6: Creando una Transacción Segwit
 
-> :fuente_de_informacion: **NOTA:** Esta sección ha sido añadida recientemente al curso y es un primer borrador que puede estar aún pendiente de revisión. Advertencia al lector.
+> :information_source: **NOTA:** Esta sección ha sido añadida recientemente al curso y es un primer borrador que puede estar aún pendiente de revisión. Advertencia al lector.
 
 Érase una vez, los cielos de Bitcoin se agitaron con las guerras de tamaño de bloque. Las tarifas se disparaban y los usuarios estaban preocupados por el escalado. Los desarrolladores de Bitcoin Core eran reacios a aumentar simplemente el tamaño de los bloques, pero llegaron a un compromiso: SegWit, el Testigo Segregado. Testigo Segregado es una forma elegante de decir "Firma Separada". Crea nuevos tipos de transacciones que eliminan las firmas al final de la transacción. Combinando esto con un aumento del tamaño de los bloques que sólo son visibles para los nodos actualizados, SegWit resolvió los problemas de escalado de Bitcoin en ese momento (y también resolvió un desagradable error de maleabilidad que había hecho impracticable un escalado aún mejor con protocolos de capa 2 como Lightning). 
 
 ¿El truco? SegWit utiliza diferentes direcciones, algunas de las cuales son compatibles con los nodos más antiguos, y otras no.
 
-> :advertencia: **ADVERTENCIA DE VERSIÓN:** SegWit fue introducido en BitCoin 0.16.0 con lo que se describió en su momento como "soporte completo". Dicho esto, hubo algunos fallos en su integración con `bitcoin-cli` en ese momento que impidieron que la firma funcionara correctamente en las nuevas direcciones P2SH-SegWit. La dirección Bech32 no compatible con la versión anterior también se introdujo en Bitcoin 0.16.0 y se convirtió en el tipo de dirección por defecto en Bitcoin 0.19.0. Toda esta funcionalidad debería ahora funcionar completamente con respecto a las funciones `bitcoin-cli` (y por lo tanto este tutorial). 
+> :warning: **ADVERTENCIA DE VERSIÓN:** SegWit fue introducido en BitCoin 0.16.0 con lo que se describió en su momento como "soporte completo". Dicho esto, hubo algunos fallos en su integración con `bitcoin-cli` en ese momento que impidieron que la firma funcionara correctamente en las nuevas direcciones P2SH-SegWit. La dirección Bech32 no compatible con la versión anterior también se introdujo en Bitcoin 0.16.0 y se convirtió en el tipo de dirección por defecto en Bitcoin 0.19.0. Toda esta funcionalidad debería ahora funcionar completamente con respecto a las funciones `bitcoin-cli` (y por lo tanto este tutorial). 
 
 > El problema es la interacción con el resto del mundo. Todo el mundo debería ser capaz de enviar a una dirección P2SH-SegWit porque fue construido a propósito para soportar la compatibilidad hacia atrás envolviendo la funcionalidad SegWit en un Script de Bitcoin. No ocurre lo mismo con las direcciones Bech32: si alguien le dice que no puede enviar a su dirección Bech32, es por eso, y necesita generar una dirección `legacy` o P2SH-SegWit para su uso. (Muchos sitios, particularmente los intercambios, tampoco pueden generar o recibir en direcciones SegWit, particularmente en direcciones Bech32, pero eso es un tema totalmente diferente y no afecta a su uso).
 
@@ -27,9 +27,9 @@ $ bitcoin-cli -named getnewaddress address_type=p2sh-segwit
 ```
 Ver una dirección con el prefijo "2" significa que lo ha hecho bien.
 
-> :enlace: **TESTNET vs MAINNET:** "3" para Mainnet.
+> :link: **TESTNET vs MAINNET:** "3" para Mainnet.
 
-Sin embargo, si la persona con la que estás interactuando tiene un cliente completamente maduro, podrá enviar a una dirección Bech32, que crea usando los comandos de la manera predeterminada:
+Sin embargo, si la persona con la que está interactuando tiene un cliente completamente maduro, podrá enviar a una dirección Bech32, que crea usando los comandos de la manera predeterminada:
 ```
 $ bitcoin-cli getnewaddress
 tb1q5gnwrh7ss5mmqt0qfan85jdagmumnatcscwpk6
@@ -42,9 +42,9 @@ tb1q05wx5tyadm8qe83exdqdyqvqqzjt3m38vfu8ff
 
 En este caso, hay que tener en cuenta que el prefijo único "tb1" denota Bech32.
 
-> :enlace: **TESTNET vs MAINNET:** "bc1" para mainnet.
+> :link: **TESTNET vs MAINNET:** "bc1" para mainnet.
 
-A Bitcoin-cli no le importa el tipo de dirección que estés usando. Puedes ejecutar un comando como `listaddressgroupings` y mezclará libremente direcciones de los diferentes tipos:
+A Bitcoin-cli no le importa el tipo de dirección que esté usando. Puede ejecutar un comando como `listaddressgroupings` y mezclará libremente direcciones de los diferentes tipos:
 ```
 $ bitcoin-cli listaddressgroupings
 [
@@ -111,7 +111,7 @@ $ bitcoin-cli listaddressgroupings
 
 ## Enviar una transacción SegWit de forma sencilla
 
-¿Cómo se envía una transacción Segwit? Exactamente igual que cualquier otra transacción. No importa si el UTXO es SegWit, la dirección es SegWit, o alguna combinación de ellos. Puedes esperar que `bitcoin-cli` haga lo correcto. Aunque se pueden notar las diferencias a través de las direcciones, no importan para interactuar con cosas a nivel de `bitcoin-cli` o RPC. (Y esta es una de las ventajas de utilizar la línea de comandos y la interfaz RPC, como se sugiere en este tutorial: los expertos ya han hecho el trabajo duro por usted, incluyendo cosas como la forma de enviar tanto a direcciones heredadas como a Bech32. Usted sólo tiene que utilizar esa funcionalidad en su propio beneficio).
+¿Cómo se envía una transacción Segwit? Exactamente igual que cualquier otra transacción. No importa si el UTXO es SegWit, la dirección es SegWit, o alguna combinación de ellos. Puede esperar que `bitcoin-cli` haga lo correcto. Aunque se pueden notar las diferencias a través de las direcciones, no importan para interactuar con cosas a nivel de `bitcoin-cli` o RPC. (Y esta es una de las ventajas de utilizar la línea de comandos y la interfaz RPC, como se sugiere en este tutorial: los expertos ya han hecho el trabajo duro por usted, incluyendo cosas como la forma de enviar tanto a direcciones heredadas como a Bech32. Usted sólo tiene que utilizar esa funcionalidad en su propio beneficio).
 
 Aquí hay un ejemplo de envío a una dirección SegWit, de la manera más fácil:
 ```
@@ -271,15 +271,15 @@ Todo funciona exactamente igual que otros tipos de transacciones.
 
 ### Reconocer el nuevo descriptor
 
-Si mira el campo `desc`, notará que la dirección SegWit tiene un estilo de descriptor diferente a los encontrados en [§3.5: Entendiendo el Descriptor](03_5_Entendiendo_el_Descriptor.md). Un descriptor heredado descrito en esa sección tenía el siguiente aspecto `pkh([d6043800/0'/0'/18']03efdee34c0009fd175f3b20b5e5a5517fd5d16746f2e635b44617adafeaebc388)#4ahsl9pk`. En cambio, nuestro nuevo descriptor SegWit tiene el siguiente aspecto `wpkh([d6043800/0'/0'/5']0327dbe2d58d9ed2dbeca28cd26e18f48aa94c127fa6fb4b60e4188f6360317640)#hd66hknp"`.
+Si mira el campo `desc`, notará que la dirección SegWit tiene un estilo de descriptor diferente a los encontrados en [§3.5: Entendiendo el Descriptor](03_5_Entendiendo_El_Descriptor.md). Un descriptor heredado descrito en esa sección tenía el siguiente aspecto `pkh([d6043800/0'/0'/18']03efdee34c0009fd175f3b20b5e5a5517fd5d16746f2e635b44617adafeaebc388)#4ahsl9pk`. En cambio, nuestro nuevo descriptor SegWit tiene el siguiente aspecto `wpkh([d6043800/0'/0'/5']0327dbe2d58d9ed2dbeca28cd26e18f48aa94c127fa6fb4b60e4188f6360317640)#hd66hknp"`.
 
-Lo más importante es que la función ha cambiado. Antes era `pkh`, que es una dirección de clave pública con hash P2PKH estándar. La dirección SegWit es en cambio `wpkh`, lo que significa que es una dirección SegWit nativa de P2WPKH. Esto subraya el poder de los descriptores: ***poder de los descriptores***. Describen cómo crear una dirección a partir de una clave u otra información, y las funciones definen sin ambigüedad cómo hacer la dirección en función de su tipo.
+Lo más importante es que la función ha cambiado. Antes era `pkh`, que es una dirección de clave pública con hash P2PKH estándar. La dirección SegWit es en cambio `wpkh`, lo que significa que es una dirección SegWit nativa de P2WPKH. Esto subraya :fire: ***el poder de los descriptores***. Describen cómo crear una dirección a partir de una clave u otra información, y las funciones definen sin ambigüedad cómo hacer la dirección en función de su tipo.
 
 ## Resumen: Creación de una transacción SegWit
 
 Realmente no hay ninguna complejidad en la creación de transacciones SegWit. Internamente, están estructuradas de forma diferente a las transacciones heredadas, pero desde la línea de comandos no hay ninguna diferencia: simplemente se utiliza una dirección con un prefijo diferente. Lo único que hay que tener en cuenta es que algunas personas pueden no ser capaces de enviar a una dirección Bech32 si están utilizando un software obsoleto.
 
-> : fuego: > ¿Qué ventajas tiene el envío de monedas con SegWit?
+> 🔥 ___¿Qué ventajas tiene el envío de monedas con SegWit?___
 
 > _Las ventajas._ Las transacciones con SegWit son más pequeñas, y por lo tanto serán más baratas de enviar que las transacciones heredadas debido a las menores comisiones. Bech32 duplica esta ventaja, y también crea direcciones que son más difíciles de estropear al transcribir - y eso es bastante importante, dado que el error del usuario es una de las formas más probables de perder sus bitcoins.
 
@@ -287,4 +287,4 @@ Realmente no hay ninguna complejidad en la creación de transacciones SegWit. In
 
 ## ¿Qué sigue?
 
-Avanzar a través de "bitcoin-cli" con [Capítulo 5: Controlando Transacciones Bitcoin](05_0_Controlling_Bitcoin_Transactions.md).
+Avanzar a través de "bitcoin-cli" con [Capítulo 5: Controlando Transacciones Bitcoin](05_0_Controlando_Transacciones_Bitcoin.md).
