@@ -1,12 +1,12 @@
 # 4.5: Enviando Monedas con Transacciones Crudas Automatizadas
 
-Este capítulo expone tres formas de enviar fondos a través de la interfaz cli de Bitcoin. [§4.1](04_1_Sending_Coins_The_Easy_Way.md) describe cómo hacerlo con un simple comando, y [§4.4](04_4_Sending_Coins_with_a_Raw_Transaction.md) detalla cómo usar una transacción en crudo más peligrosa. Esta sección final divide la diferencia mostrando cómo hacer que las transacciones crudas sean más simples y seguras. 
+Este capítulo expone tres formas de enviar fondos a través de la interfaz cli de Bitcoin. [§4.1](04_1_Enviando_Monedas_de_la_Forma_Facil.md) describe cómo hacerlo con un simple comando, y [§4.4](04_4_Enviando_Monedas_con_una_Transaccion_Cruda.md) detalla cómo usar una transacción en crudo más peligrosa. Esta sección final divide la diferencia mostrando cómo hacer que las transacciones crudas sean más simples y seguras. 
 
 ## Deje que Bitcoin calcule por usted
 
 La metodología para automatizar las transacciones en crudo es sencilla: usted crea una transacción en crudo, pero utiliza el comando `fundrawtransaction` para pedir a bitcoind que realice los cálculos por usted.
 
-Para utilizar este comando, tendrás que asegurarte de que tu archivo ~/.bitcoin/bitcoin.conf contiene variables racionales para calcular las tasas de las transacciones. Por favor, consulta [§4.1: Enviando Monedas de la Forma Fácil](04_1_Sending_Coins_The_Easy_Way.md) para más información al respecto.
+Para utilizar este comando, tendrá que asegurarse de que tu archivo ~/.bitcoin/bitcoin.conf contiene variables racionales para calcular las tasas de las transacciones. Por favor, consulta [§4.1: Enviando Monedas de la Forma Fácil](04_1_Enviando_Monedas_de_la_Forma_Facil.md) para más información al respecto.
 
 Para números muy conservadores, sugerimos añadir lo siguiente al `bitcoin.conf`:
 ```
@@ -19,9 +19,9 @@ mintxfee=0.001
 txconfirmtarget=1
 ```
 
-## Crear una transacción en crudo
+## Crear una transacción básica en crudo
 
-Para utilizar `fundrawtransaction`, primero debe crear una transacción básica que no contenga ninguna entrada ni ninguna dirección de cambio. Sólo debe indicar el destinatario y la cantidad que desea enviarle, en este caso "destinatario" y "0,0002" BTC.
+Para utilizar `fundrawtransaction`, primero debe crear una transacción básica que no contenga ninguna entrada ni ninguna dirección de cambio. Sólo debe indicar el destinatario y la cantidad que desea enviarle, en este caso "destinatario" y "0.0002" BTC.
 ```
 $ recipient=n2eMqTT929pb1RDNuqEnxdaLau1rxy3efi
 $ unfinishedtx=$(bitcoin-cli -named createrawtransaction inputs='''[]''' outputs='''{ "'$recipient'": 0.0002 }''')
@@ -98,9 +98,9 @@ $ bitcoin-cli -named decoderawtransaction hexstring=$rawtxhex3
   ]
 }
 ```
-Una cosa de interés aquí es la dirección de cambio, que es la segunda `vout`. Observe que es una dirección `tb1`, lo que significa que es Bech32; cuando le dimos a Bitcoin Core la capacidad total de gestionar nuestro cambio, lo hizo usando su tipo de dirección por defecto, Bech32, y funcionó bien. Por eso nuestro cambio a direcciones SegWit en [§4.6](04_6_Creating_a_Segwit_Transaction.md) realmente no es gran cosa, pero hay algunos inconvenientes para un uso más amplio, de los que hablaremos allí.
+Una cosa de interés aquí es la dirección de cambio, que es la segunda `vout`. Observe que es una dirección `tb1`, lo que significa que es Bech32; cuando le dimos a Bitcoin Core la capacidad total de gestionar nuestro cambio, lo hizo usando su tipo de dirección por defecto, Bech32, y funcionó bien. Por eso nuestro cambio a direcciones SegWit en [§4.6](04_6_Creando_una_Transaccion_Segwit.md) realmente no es gran cosa, pero hay algunos inconvenientes para un uso más amplio, de los que hablaremos allí.
 
-Aunque vimos la tasa en la salida de `fundrawtransaction`, no es visible aquí. Sin embargo, puede verificarlo con el script JQ `txfee-calc.sh` creado en el [Interludio JQ](https://github.com/BlockchainCommons/Learning-Bitcoin-from-the-Command-Line/blob/master/04_2__Interlude_Using_JQ.md):
+Aunque vimos la tasa en la salida de `fundrawtransaction`, no es visible aquí. Sin embargo, puede verificarlo con el script JQ `txfee-calc.sh` creado en el [Interludio JQ][Interludio: Usando JQ](04_2__Interludio_Usando_JQ.md)):
 ```
 $ ~/txfee-calc.sh $rawtxhex3
 .000222
@@ -162,7 +162,7 @@ $ bitcoin-cli listunspent
 
 Si tiene que enviar fondos con transacciones crudas, entonces `fundrawtransaction` le da una buena alternativa donde las comisiones, entradas y salidas se calculan por usted, para que no pierda accidentalmente un montón de dinero.
 
-> :fuego: > ¿Cuál es el poder de enviar monedas con transacciones crudas automatizadas?
+> :fire: ___¿Cuál es el poder de enviar monedas con transacciones crudas automatizadas?___
 
 > _Las ventajas._ Proporciona un buen equilibrio. Si está enviando fondos a mano y `sendtoaddress` no ofrece suficiente control por cualquier razón, puede obtener algunas de las ventajas de las transacciones en crudo sin los peligros asociados. Esta metodología debería usarse siempre que sea posible si está enviando transacciones en crudo a mano.
 
@@ -170,4 +170,4 @@ Si tiene que enviar fondos con transacciones crudas, entonces `fundrawtransactio
 
 ## ¿Qué sigue?
 
-Complemente "Enviando transacciones de Bitcoin" con [§4.6: Creando una Transacción Segwit](04_6_Creating_a_Segwit_Transaction.md).
+Complemente "Enviando transacciones de Bitcoin" con [§4.6: Creando una Transacción Segwit](04_6_Creando_una_Transaccion_Segwit.md).
