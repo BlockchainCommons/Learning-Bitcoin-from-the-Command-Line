@@ -14,8 +14,6 @@ TODO:
 - [ ] Update chapters from original translation commit to latest master or latest release (2.0.2?)
 - [ ] Better document the release process and how to translate to a release
 
-Unfortunately checkboxes don't work in the table markdown. If anyone knows how to put checkboxes in a table please do! For now we will mark things as:
-
 Blank when no one has announced the translation is in progress
 PENDING when someone currently selected chapter to translate. Maybe a github username can be added here to better track who's working on what
 REVIEW when PR created and review pending or accepted and waiting merge
@@ -23,7 +21,7 @@ DONE when review accepted and merged into spanish-translation
 
 Chapter|Word Count|Initial translation complete + merged|Chapter names and links updated to spanish and verified working|Updated to latest master/release?
 ---|---|---|---|---
-01_0_Introduction.md|1144|DONE||
+01_0_Introduction.md|1144|<ul><li> [x] </li></ul>|<ul><li> [ ] </li></ul>|<ul><li> [ ] </li></ul>
 01_1_Introducing_Bitcoin.md|2735|DONE||
 02_0_Setting_Up_a_Bitcoin-Core_VPS.md|226|REVIEW||
 02_1_Setting_Up_a_Bitcoin-Core_VPS_with_StackScript.md|2746|DONE||
@@ -48,14 +46,14 @@ Chapter|Word Count|Initial translation complete + merged|Chapter names and links
 05_1_Watching_for_Stuck_Transactions.md|595|DONE||
 05_2_Resending_a_Transaction_with_RBF.md|1372|DONE||
 05_3_Funding_a_Transaction_with_CPFP.md|827|DONE||
-06_0_Expanding_Bitcoin_Transactions_Multisigs.md|155|||
-06_1_Sending_a_Transaction_to_a_Multisig.md|1764|||
-06_2_Spending_a_Transaction_to_a_Multisig.md|1079|||
-06_3_Sending_an_Automated_Multisig.md|613|||
-07_0_Expanding_Bitcoin_Transactions_PSBTs.md|169|||
-07_1_Creating_a_Partially_Signed_Bitcoin_Transaction.md|1470|||
-07_2_Using_a_Partially_Signed_Bitcoin_Transaction.md|1393|||
-07_3_Integrating_with_Hardware_Wallets.md|2150|||
+06_0_Expanding_Bitcoin_Transactions_Multisigs.md|155|Maxi||
+06_1_Sending_a_Transaction_to_a_Multisig.md|1764|Maxi||
+06_2_Spending_a_Transaction_to_a_Multisig.md|1079|Maxi||
+06_3_Sending_an_Automated_Multisig.md|613|Maxi||
+07_0_Expanding_Bitcoin_Transactions_PSBTs.md|169|Ian||
+07_1_Creating_a_Partially_Signed_Bitcoin_Transaction.md|1470|Ian||
+07_2_Using_a_Partially_Signed_Bitcoin_Transaction.md|1393|Ian||
+07_3_Integrating_with_Hardware_Wallets.md|2150|Ian||
 08_0_Expanding_Bitcoin_Transactions_Other.md|139|REVIEW||
 08_1_Sending_a_Transaction_with_a_Locktime.md|1483|DONE||
 08_2_Sending_a_Transaction_with_Data.md|580|REVIEW||
@@ -116,7 +114,7 @@ Chapter|Word Count|Initial translation complete + merged|Chapter names and links
 20_0_Using_Lightning.md|146|REVIEW||
 20_1_Generate_a_Payment_Request.md|968|REVIEW||
 20_2_Paying_a_Invoice.md|604|REVIEW||
-20_3_Closing_a_Channel.md|848|||
+20_3_Closing_a_Channel.md|848|REVIEW||
 20_4_Lightning_Network_Review.md|626|REVIEW||
 A0_Appendices.md|112|REVIEW||
 A1_0_Understanding_Bitcoin_Standup.m|420|REVIEW||
@@ -127,4 +125,4 @@ CONTRIBUTING.md|529|||
 LICENSE-CC-BY-4.0.md|2716|||
 README.md|1705|DONE||
 TRANSLATING.md|686|||
-TOTAL|89069|||
+TOTAL|89069|<ul><li> [ ] </li></ul>||
