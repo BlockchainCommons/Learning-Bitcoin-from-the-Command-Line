@@ -42,7 +42,7 @@ Chapter|Word Count|Initial translation complete + merged|Chapter names and links
 04_3_Creating_a_Raw_Transaction_with_Named_Arguments.md|413|REVIEW||
 04_4_Sending_Coins_with_a_Raw_Transaction.md|1024|REVIEW||
 04_4__Interlude_Using_Curl.md|1643|REVIEW||
-04_5_Sending_Coins_with_Automated_Raw_Transactions.md|REVIEW||
+04_5_Sending_Coins_with_Automated_Raw_Transactions.md|614|REVIEW||
 04_6_Creating_a_Segwit_Transaction.md|1172|REVIEW||
 05_0_Controlling_Bitcoin_Transactions.md|149|DONE||
 05_1_Watching_for_Stuck_Transactions.md|595|DONE||
@@ -60,7 +60,7 @@ Chapter|Word Count|Initial translation complete + merged|Chapter names and links
 08_1_Sending_a_Transaction_with_a_Locktime.md|1483|DONE||
 08_2_Sending_a_Transaction_with_Data.md|580|REVIEW||
 09_0_Introducing_Bitcoin_Scripts.md|196|CONFLICT||
-09_1_Understanding_the_Foundation_of_Transactions.md|REVIEW||
+09_1_Understanding_the_Foundation_of_Transactions.md|989|REVIEW||
 09_2_Running_a_Bitcoin_Script.md|863|REVIEW||
 09_3_Testing_a_Bitcoin_Script.md|1000|REVIEW||
 09_4_Scripting_a_P2PKH.md|838|REVIEW||
