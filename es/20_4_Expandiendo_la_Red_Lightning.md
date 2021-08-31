@@ -1,4 +1,4 @@
-# 19.4: Expandiendo la Red Lightning
+# 20.4: Expandiendo la Red Lightning
 
 > :information_source: **NOTA:** Esta sección se ha agregado recientemente al curso y es un borrador inicial que aún puede estar pendiente de revisión. Lector de advertencias.
 

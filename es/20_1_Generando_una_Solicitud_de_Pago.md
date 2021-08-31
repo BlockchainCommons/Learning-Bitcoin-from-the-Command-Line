@@ -1,9 +1,9 @@
 
-# 19.1: Generación de una Solicitud de Pago
+# 20.1: Generación de una Solicitud de Pago
 
 > :information_source: **NOTA:** Esta sección se ha agregado recientemente al curso y es un borrador inicial que aún puede estar pendiente de revisión. Lector de advertencias.
 
-Esta sección describe cómo funcionan los pagos en Lightning Network, cómo crear una solicitud de pago (o _factura_), y, finalmente, cómo entenderla. Le emisión de facturas depende de que tenga un segundo nodo Lightning, como se describe en [Acceso a un Segundo Nodo Lightning](18_2__Interlude_Accessing_a_Second_Lightning_Node.md). Estos ejemplos usarán un nodo LND como su nodo secundario, para demostrar aún más las posibilidades de Lightning Network. Para diferenciar entre los nodos en estos ejemplos, las solicitudes se mostrarán como `c$` para el nodo c-lightning y `lnd$` como el nodo LND. Si desea reproducir estos pasos, debe [instalar su propio nodo LND secundario](18_2__Interlude_Accessing_a_Second_Lightning_Node.md#creating-a-new-lnd-node). 
+Esta sección describe cómo funcionan los pagos en Lightning Network, cómo crear una solicitud de pago (o _factura_), y, finalmente, cómo entenderla. Le emisión de facturas depende de que tenga un segundo nodo Lightning, como se describe en [Acceso a un Segundo Nodo Lightning](19_2__Interludio_Accediendo_a_un_Segundo_Nodo_Lightning.md). Estos ejemplos usarán un nodo LND como su nodo secundario, para demostrar aún más las posibilidades de Lightning Network. Para diferenciar entre los nodos en estos ejemplos, las solicitudes se mostrarán como `c$` para el nodo c-lightning y `lnd$` como el nodo LND. Si desea reproducir estos pasos, debe [instalar su propio nodo LND secundario](19_2__Interludio_Accediendo_a_un_Segundo_Nodo_Lightning.md#Crear-un-nuevo-nodo-LND). 
 
 > :book: ***¿Qué es una Factura?** Casi todos los pagos realizados en Lightning Network requieren una factura, que no es más que una **solicitud de pago** realizada por el destinatario del dinero y enviada por una variedad de medios al usario que paga. Todas las solicitudes de pago son de un solo uso. Las facturas Lightning utilizan la codificación bech32, que ya utiliza Segregated Witness para Bitcoin.
 
@@ -98,7 +98,7 @@ Esto es lo que significan los elementos más relevantes:
 
 > :book: ***¿Qué es un Contrato Bloqueado por Tiempo Codificado / Hashed Time Locked Contract (HTLC)?*** Un HTLC es un pago condicional que utiliza bloqueos de codificado y bloqueos de tiempo para garantizar la seguridad del pago. El receptor debe presentar una preimagen de pago o generar un comprobante de pago criptográfico antes de un tiempo determinado, de lo contrario el pagador puede cancelar el contrato gastándolo. Estos contratos se crean como resultados de la **Transacción de Compromiso**.
 
-> :book: ***¿Qué es una Transacción de Compromiso?*** Una transacción de compromiso es una transacción que gasta la transacción de financiacción original. Cada par tiene la firma del otro par, lo que significa que cualquiera puede gastar su transacción de compromiso cuando quiera. Después de que se crea cada nueva transacción de compromiso, se revoca la anterior. La transacción de compromiso es una forma en que la transacción de financiación se puede desbloquear en la cadena de bloques, como se analiza en [§19.3](19_3_Closing_a_Channel.md).
+> :book: ***¿Qué es una Transacción de Compromiso?*** Una transacción de compromiso es una transacción que gasta la transacción de financiacción original. Cada par tiene la firma del otro par, lo que significa que cualquiera puede gastar su transacción de compromiso cuando quiera. Después de que se crea cada nueva transacción de compromiso, se revoca la anterior. La transacción de compromiso es una forma en que la transacción de financiación se puede desbloquear en la cadena de bloques, como se analiza en [§20.3](20_3_Cerrando_un_Canal_Lightning.md).
 
 ### Verifique su Factura
 
@@ -182,4 +182,4 @@ En la mayoría de los casos, debe recibir una factura para utilizar los pagos de
 
 ## Que Sigue?
 
-Continúe "Usando Lightning" con [§19.2: Pagar una Factura](19_2_Paying_a_Invoice.md).
+Continúe "Usando Lightning" con [§20.2: Pagando una Factura](20_2_Pagando_una_Factura.md).
