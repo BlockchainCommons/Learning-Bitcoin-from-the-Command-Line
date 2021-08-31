@@ -2,7 +2,7 @@
 
 En esta última forma para variar la manera en que envia una transacción básica es usar la transacción para enviar datos en lugar de fondos (o en realidad, además de fondos). Esto le brinda la capacidad de incrustar información en la cadena de bloques. Se realiza mediante un comando especial `OP_RETURN`.
 
-El truco? Solo puede almacenar 80 bytes a la vez!
+¿El truco? Solo puede almacenar 80 bytes a la vez!
 
 ## Cree sus datos.
 
