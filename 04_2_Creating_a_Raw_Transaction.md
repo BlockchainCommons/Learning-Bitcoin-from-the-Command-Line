@@ -105,7 +105,7 @@ Each transaction has a fee associated with. It's _implicit_ when you send a raw 
 
 > :book: ***How much should you spend on transaction fees?*** [Bitcoin Fees](https://bitcoinfees.21.co/) has a nice live assessment. It says that the "fastest and cheapest transaction fee is currently 42 satoshis/byte" and that "For the median transaction size of 224 bytes, this results in a fee of 9,408 satoshis".
 
-Currently Bitcoin Fees suggests a transaction fee of about 10,000 satoshis, which is the same as .0001 BC. Yes, that's for the mainnet, not the testnet, but we want to test out things realistically, so that's what we're going to use.
+Currently Bitcoin Fees suggests a transaction fee of about 10,000 satoshis, which is the same as .0001 BTC. Yes, that's for the mainnet, not the testnet, but we want to test out things realistically, so that's what we're going to use.
 
 In this case, that means taking the .0005 BTC in the UTXO we're selected, reducing it by .0001 BTC for the transaction fee, and sending the remaining .0004 BTC. (And this is an example of why micropayments don't work on the Bitcoin network, because a $1 or so transaction fee is pretty expensive when you're sending $4, let alone if you were trying to make a micropayment of $0.50. But that's always why we have Lightning.)
 
