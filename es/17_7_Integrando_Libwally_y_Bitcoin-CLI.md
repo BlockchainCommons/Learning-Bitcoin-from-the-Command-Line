@@ -27,9 +27,9 @@ Para demostrar completamente esta metodología, creará una transacción con `bi
 ```
 Por ahora, usted sabe cómo configurar una transacción con `bitcoin-cli`:
 
-Aunque puso un destinatario y una cantidad en la salida, es irrelevante porque tendrá que reescribirlas. Un código un poco más elegante podría leer la información `vout` existente antes de reescribir, pero estamos manteniendo las cosas muy cerca de nuestro [código original](src/16_5_replacewithscript.c).
+Aunque puso un destinatario y una cantidad en la salida, es irrelevante porque tendrá que reescribirlas. Un código un poco más elegante podría leer la información `vout` existente antes de reescribir, pero estamos manteniendo las cosas muy cerca de nuestro [código original](../src/16_5_replacewithscript.c).
 
-Aquí está el cambio necesario, para que pueda especificar el  monto de satoshis para la salida `vout`, sin tener que ponerlo a fuego como en el original:
+Aquí está el cambio necesario, para que pueda especificar el monto de satoshis para la salida `vout`, sin tener que ponerlo a fuego como en el original:
 ```
 ...
   int satoshis = atoi(argv[3]);
@@ -176,7 +176,7 @@ Desafortunadamente, no todas las interacciones entre Libwally y `bitcoin-cli` va
 
 ## Importar claves privadas
 
-Afortunadamente puede hacer lo mismo importando una clave privada generada en Libwally. De un vistazo a [genhd-for-import.c](src/16_7_genhd_for_import.c), que es una versión simplificada del programa `genhd` de [§17.3](17_3_Usando_BIP32_en_Libwally.md) que también utiliza la biblioteca `jansson` de [§16.1](16_1_Accediendo_a_Bitcoind_en_C_con_las_Bibliotecas_RPC.md) para la salida regularizada.
+Afortunadamente puede hacer lo mismo importando una clave privada generada en Libwally. De un vistazo a [genhd-for-import.c](../src/16_7_genhd_for_import.c), que es una versión simplificada del programa `genhd` de [§17.3](17_3_Usando_BIP32_en_Libwally.md) que también utiliza la biblioteca `jansson` de [§16.1](16_1_Accediendo_a_Bitcoind_en_C_con_las_Bibliotecas_RPC.md) para la salida regularizada.
 
 El código actualizado también contiene un cambio de nota: solicita una huella dactilar de Libwally para que pueda crear correctamente una ruta de derivación:
 
@@ -289,7 +289,7 @@ $ bitcoin-cli getaddressesbylabel "LibwallyImports"
 ```
 El segundo en su lista de hecho coincide con su muestra (`tb1q9lhru6k0ymwrtr5w98w35n3lz22upml23h753n`). La importación de esta clave privada y la derivación de diez direcciones fue un éxito.
 
-Si usted mira hacia atrás en [§7.3](07_3_Integrando_con_Hardware_Wallets.md), vera que esta fue la misma metodología que usamos para importar direcciones desde un Hardware Wallet (aunque esta vez también importamos la clave privada como prueba de concepto). La mayor diferencia es que anteriormente la información fue creada por una caja negra (literalmente: era un dispositivo de Ledger), y esta vez usted mismo creó la información usando Libwally, mostrando cómo puede hacer este tipo de trabajo de modo _airgapped_ u otros dispositivos más remotos y luego llevarlo a `bitcoin-cli`.
+Si usted mira hacia atrás en [§7.3](07_3_Integrando_con_Hardware_Wallets.md), verá que esta fue la misma metodología que usamos para importar direcciones desde un Hardware Wallet (aunque esta vez también importamos la clave privada como prueba de concepto). La mayor diferencia es que anteriormente la información fue creada por una caja negra (literalmente: era un dispositivo de Ledger), y esta vez usted mismo creó la información usando Libwally, mostrando cómo puede hacer este tipo de trabajo de modo _airgapped_ u otros dispositivos más remotos y luego llevarlo a `bitcoin-cli`.
 
 # Importar direcciones
 
