@@ -45,7 +45,7 @@ Some relate to the wallet import format (WIF):
    
 ## Use BIP32 Functions
 
-There are additional BIP32 HD-wallet functions, beyond what was covered in [§16.3: Using BIP32 in Libwally](16_3_Using_BIP32_in_Libwally.md).
+There are additional BIP32 HD-wallet functions, beyond what was covered in [§17.3: Using BIP32 in Libwally](17_3_Using_BIP32_in_Libwally.md).
 
    * `bip32_key_get_fingerprint` — Generate a BIP32 fingerprint for an extended key
    * `bip32_key_serialize` — Transform an extended key into serialized bytes
@@ -65,7 +65,7 @@ The main functions are:
    
 ## Use BIP39 Functions
 
-A few BIP39 mnemonic-word functions were just overviewed in [§16.2: Using BIP39 in Libwally](16_2_Using_BIP39_in_Libwally.md):
+A few BIP39 mnemonic-word functions were just overviewed in [§17.2: Using BIP39 in Libwally](17_2_Using_BIP39_in_Libwally.md):
 
    * `bip39_get_languages` — See a list of supported languages
    * `bit39_get_word` — Retrieve a specific word from a language's word list
@@ -73,11 +73,11 @@ A few BIP39 mnemonic-word functions were just overviewed in [§16.2: Using BIP39
    
 ## Use PSBT Functions
 
-Listings of most PSBT functions can be found in [16.4: Using PSBTs in Libwally](16_4_Using_PSBTs_in_Libwally.md).
+Listings of most PSBT functions can be found in [17.4: Using PSBTs in Libwally](17_4_Using_PSBTs_in_Libwally.md).
 
 ## Use Script Functions
 
-[§16.5: Using Scripts in Libwally](16_5_Using_Scripts_in_Libwally.md) just barely touched upon Libwally's Scripts functions.
+[§17.5: Using Scripts in Libwally](17_5_Using_Scripts_in_Libwally.md) just barely touched upon Libwally's Scripts functions.
 
 There's another function that lets you determine the sort of script found in a transaction:
 
@@ -102,7 +102,7 @@ Then there are a slew of functions that create `scriptPubKey` from bytes, `scrip
 
 ## Use Transaction Functions
 
-We also just barely touched upon the functions that can be used to create and convert functions in [§16.5](16_5_Using_Scripts_in_Libwally.md).
+We also just barely touched upon the functions that can be used to create and convert functions in [§17.5](17_5_Using_Scripts_in_Libwally.md).
 
 There are numerous informational functions, some of the more interesting of which are:
 

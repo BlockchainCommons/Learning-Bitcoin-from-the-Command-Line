@@ -116,7 +116,7 @@ Obviously, there's a lot more you could look at in the PSBTs. In fact, looking i
 
 ### Test Your PSBT Reader
 
-Again, the code for this (extremely rudimentary and specific) PSBT reader is in the [src directory](src/16_4_examinepsbt.c). 
+Again, the code for this (extremely rudimentary and specific) PSBT reader is in the [src directory](src/17_4_examinepsbt.c). 
 
 You can compile it as normal:
 ```
@@ -289,7 +289,7 @@ But what you have is not yet a legal PSBT, because of the lack of inputs. You ca
 ```
 ### Test Your PSBT Creation
 
-At this point, you should have an empty, but working PSBT, which you can see by compiling and running [the program](src/16_4_createemptypsbt.c).
+At this point, you should have an empty, but working PSBT, which you can see by compiling and running [the program](src/17_4_createemptypsbt.c).
 ```
 $ cc createemptypsbt.c -lwallycore -o createemptypsbt
 $ ./createemptypsbt 

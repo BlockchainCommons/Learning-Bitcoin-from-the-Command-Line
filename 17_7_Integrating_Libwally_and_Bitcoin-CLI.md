@@ -8,7 +8,7 @@ This final section will offer some examples of using Libwally programs to comple
 
 ## Share a Transaction
 
-[§16.5: Using Scripts in Libwally](16_5_Using_Scripts_in_Libwally.md) detailed how Libwally could be used to rewrite an existing transaction, to do something that `bitcoin-cli` can't: produce a transaction that contains a unique P2SH. Obviously, this is a building block; if you decide to dig further into Libwally you'll create entire transactions on your own. But, this abbreviated methodology also has its own usage: it shows how transactions can be passed back and forth between `bitcoin-cli` and Libwally, demonstrating a first example of using them in a complementary fashion.
+[§17.5: Using Scripts in Libwally](17_5_Using_Scripts_in_Libwally.md) detailed how Libwally could be used to rewrite an existing transaction, to do something that `bitcoin-cli` can't: produce a transaction that contains a unique P2SH. Obviously, this is a building block; if you decide to dig further into Libwally you'll create entire transactions on your own. But, this abbreviated methodology also has its own usage: it shows how transactions can be passed back and forth between `bitcoin-cli` and Libwally, demonstrating a first example of using them in a complementary fashion.
 
 To fully demonstrate this methodology, you'll create a transaction with `bitcoin-cli`, using this UTXO:
 ```
@@ -33,7 +33,7 @@ $ utxo_vout=$(bitcoin-cli listunspent | jq -r '.[0] | .vout')
 $ recipient=tb1qycsmq3jas5wkhf8xrfn8k7438cm5pc8h9ae2k0
 $ rawtxhex=$(bitcoin-cli -named createrawtransaction inputs='''[ { "txid": "'$utxo_txid'", "vout": '$utxo_vout' } ]''' outputs='''{ "'$recipient'": 0.0009 }''')
 ```
-Though you placed a recipient and an amount in the output, it's irrelevent, because you'll be rewriting those. A fancier bit of code could read the existing `vout` info before rewriting, but we're keeping things very close to our [original code](src/16_5_replacewithscript.c).
+Though you placed a recipient and an amount in the output, it's irrelevent, because you'll be rewriting those. A fancier bit of code could read the existing `vout` info before rewriting, but we're keeping things very close to our [original code](src/17_5_replacewithscript.c).
 
 Here's the one change necessary, to allow you to specify the satoshi `vout`, without having to hardcode it, as in the original:
 ```
@@ -170,7 +170,7 @@ $ bitcoin-cli decoderawtransaction $signedtx
 ```
 Voila! That's the power of Libwally with `bitcoin-cli`.
 
-Obviously, you can also pass around a PSBT using the functions described in [§16.4](16_4_Using_PSBTs_in_Libwally.md) and that's a more up-to-date methodology for the modern-day usage of Bitcoin, but in either example, the concept of passing transactions from `bitcoin-cli` to Libwally code and back should be similar.
+Obviously, you can also pass around a PSBT using the functions described in [§17.4](17_4_Using_PSBTs_in_Libwally.md) and that's a more up-to-date methodology for the modern-day usage of Bitcoin, but in either example, the concept of passing transactions from `bitcoin-cli` to Libwally code and back should be similar.
 
 ## Import & Export BIP39 Seeds
 
@@ -182,7 +182,7 @@ Unfortunately, not all interactions between Libwally and `bitcoin-cli` go as smo
 
 ## Import Private Keys
 
-Fortunately, you can do much the same thing by importing a private key generated in Libwally. Take a look at [genhd-for-import.c](src/16_7_genhd_for_import.c), a simplified version of the `genhd` program from [§16.3](16_3_Using_BIP32_in_Libwally.md) that also uses the `jansson` library from [§15.1](15_1_Accessing_Bitcoind_with_C.md) for regularized output.
+Fortunately, you can do much the same thing by importing a private key generated in Libwally. Take a look at [genhd-for-import.c](src/17_7_genhd_for_import.c), a simplified version of the `genhd` program from [§17.3](17_3_Using_BIP32_in_Libwally.md) that also uses the `jansson` library from [§16.1](15_1_Accessing_Bitcoind_with_C.md) for regularized output.
 
 The updated code also contains one change of note: it requests a fingerprint from Libwally so that it can properly create a derivation path:
 ```
@@ -195,7 +195,7 @@ The updated code also contains one change of note: it requests a fingerprint fro
 
 > :warning: **WARNING:** Remember that the fingerprint in derivation paths is arbitrary. Because Libwally provides one, we're using it, but if you didn't have one, you could add an arbitrary 4-byte hexcode as a fingerprint to your derivation path.
 
-Be sure to compile the new code with the `jansson` library, after installing it (if necessary) per [§15.1](15_1_Accessing_Bitcoind_with_C.md).
+Be sure to compile the new code with the `jansson` library, after installing it (if necessary) per [§16.1](15_1_Accessing_Bitcoind_with_C.md).
 ```
 $ cc genhd-for-import.c -lwallycore -lsodium -ljansson -o genhd-for-import
 ```

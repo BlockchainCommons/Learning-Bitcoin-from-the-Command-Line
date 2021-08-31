@@ -22,7 +22,7 @@ txconfirmtarget=1
 ```
 You should enter these into `~/.bitcoin/bitcoin.conf`, in the main section, toward the top of the file or if you want to be sure you never use it elsewhere, under the `[test]` section.
 
-In order to get through this tutorial, we're willing to spend 100,00 satoshis per kB on every transaction (about $10!), and we want to get each transaction into the next block! (To put that in perspective, a typical transaction runs between .25 kB and 1 kB, so you'll actually be paying more like $2.50 than $10 ... if this were real money.)
+In order to get through this tutorial, we're willing to spend 100,000 satoshis per kB on every transaction (about $10!), and we want to get each transaction into the next block! (To put that in perspective, a typical transaction runs between .25 kB and 1 kB, so you'll actually be paying more like $2.50 than $10 ... if this were real money.)
 
 After you've edited your bitcoin.conf file, you'll want to kill and restart bitcoind.
 ```

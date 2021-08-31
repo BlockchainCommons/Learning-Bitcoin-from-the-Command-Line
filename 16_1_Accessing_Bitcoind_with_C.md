@@ -147,7 +147,7 @@ bitcoinrpc_global_cleanup();
 
 ### Test the Test Code
 
-Test code can be found at [15_1_testbitcoin.c in the src directory](src/15_1_testbitcoin.c). Download it to your testnet machine, then insert the correct RPC password (and change the RPC user if you didn't create your server with StandUp).
+Test code can be found at [16_1_testbitcoin.c in the src directory](src/16_1_testbitcoin.c). Download it to your testnet machine, then insert the correct RPC password (and change the RPC user if you didn't create your server with StandUp).
 
 You can compile and run this as follows:
 ```
@@ -213,7 +213,7 @@ printf("Block Count: %d\n",blocks);
 
 ### Test the Info Code
 
-Retrieve the test code from [the src directory](src/15_1_getmininginfo.c).
+Retrieve the test code from [the src directory](src/16_1_getmininginfo.c).
 ```
 $ cc getmininginfo.c -lbitcoinrpc -ljansson -o getmininginfo
 $ ./getmininginfo 
