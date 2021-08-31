@@ -135,7 +135,7 @@ Here's the complete code to retrieve a block hash, turn that into a block, and p
 
 ### Run Your Code
 
-You can access the [src code](src/17_5_main-getinfo.rs) and run it. Unfortunately, the "Block" info will come out a bit ugly because this example doesn't include a library to prettify it.
+You can access the [src code](src/18_5_main-getinfo.rs) and run it. Unfortunately, the "Block" info will come out a bit ugly because this example doesn't include a library to prettify it.
 ```
 $ cargo run 
    Compiling btc_test v0.1.0 (/home/standup/btc_test)
@@ -289,7 +289,7 @@ println!("{:?}", txid_sent);
 
 ### Run Your Code
 
-You can now run the complete code from the [src](src/17_5_main-sendtx.rs).
+You can now run the complete code from the [src](src/18_5_main-sendtx.rs).
 
 ```
 $ cargo run

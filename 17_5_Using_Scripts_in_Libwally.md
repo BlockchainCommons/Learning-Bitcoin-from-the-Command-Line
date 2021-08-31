@@ -98,7 +98,7 @@ As you might expect, you then add that input to your transaction:
   lw_response = wally_tx_add_input(tx,tx_input);
 ```
 
-> **NOTE** Obviously, you'll want to be able to create your own inputs if you're using Libwally for real applications, but this is intended as a first step. And, it can actually be useful for integrating with `bitcoin-cli`, as we'll see in [§16.7](16_7_Integrating_Libwally_and_Bitcoin-CLI.md).
+> **NOTE** Obviously, you'll want to be able to create your own inputs if you're using Libwally for real applications, but this is intended as a first step. And, it can actually be useful for integrating with `bitcoin-cli`, as we'll see in [§16.7](17_7_Integrating_Libwally_and_Bitcoin-CLI.md).
 
 ### Print a Transaction
 
@@ -113,7 +113,7 @@ We'll show how to make use of that in §16.7.
 
 ## Test Your Replacement Script
 
-You can grab the test code from the [src directory](src/16_5_replacewithscript.c) and compile it:
+You can grab the test code from the [src directory](src/17_5_replacewithscript.c) and compile it:
 ```
 $  cc replacewithscript.c -lwallycore -o replacewithscript
 ```

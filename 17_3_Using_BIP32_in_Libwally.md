@@ -115,7 +115,7 @@ There is also a `wally_bip32_key_to_address` function, which can be used to gene
 
 ## Test HD Code
 
-The code for these HD example can, as usual, be found in the [src directory](src/16_3_genhd.c).
+The code for these HD example can, as usual, be found in the [src directory](src/17_3_genhd.c).
 
 You can compile and test it:
 ```

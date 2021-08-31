@@ -14,7 +14,7 @@ All Bitcoin keys start with entropy. This first use of Libwally, and its BIP39 m
 
 > :book: ***What is Entropy?*** Entropy is a fancy way of saying randomness, but it's a carefully measured randomness that's used as the foundation of a true-random-number generated (TRG). Its measured in "bits", with more bits of entropy resulting in more randomness (and thus more protection for what's being generated). For Bitcoin, entropy is the foundation of your seed, which in an HD wallet generates all of your addresses.
 
-You'll always start work with Libwally by initializing the library and testing the results, as first demonstrated in [§16.1](16_1_Setting_Up_Libwally.md):
+You'll always start work with Libwally by initializing the library and testing the results, as first demonstrated in [§17.1](17_1_Setting_Up_Libwally.md):
 ```
   int lw_response;
 
@@ -82,7 +82,7 @@ If you've done everything right, you should get back a 64-byte seed. (That's the
 
 ## Test Mnemonic Code
 
-The full code for generating entropy, generating a BIP39 mnemonic, validating the mnemonic, and generating a seed can be found in the [src directory](src/16_2_genmnemonic.c). Download it and compile:
+The full code for generating entropy, generating a BIP39 mnemonic, validating the mnemonic, and generating a seed can be found in the [src directory](src/17_2_genmnemonic.c). Download it and compile:
 ```
 $ cc genmnemonic.c -lwallycore -lsodium -o genmnemonic
 ```
@@ -99,7 +99,7 @@ BIP39 allows you generate a set of 12-24 Mnemonic words from a seed (and the Lib
 
 > :fire: ***What is the power of BIP39?*** Bitcoin seeds and private keys are prone to all sorts of lossage. You mistype a single digit, and your money is gone forever. Mnemonic Words are a much more user-friendly way of representing the same data, but because they're words in the language of the user's choice, they're less prone to mistakes. The power of BIP39 is thus to improve the accessibility, usability, and safety of Bitcoin.
 
-> :fire: ***What is the power of BIP39 in Libwally?*** Bitcoind doesn't currently support mnemonic words, so using Libwally can allow you to generate mnemonic words in conjunction with addresses held by `bitcoind` (though as we'll see in §16.7, it requires a bit of a work-around at present to import your keys into Bitcoin Core).
+> :fire: ***What is the power of BIP39 in Libwally?*** Bitcoind doesn't currently support mnemonic words, so using Libwally can allow you to generate mnemonic words in conjunction with addresses held by `bitcoind` (though as we'll see in §17.7, it requires a bit of a work-around at present to import your keys into Bitcoin Core).
 
 ## What's Next?
 

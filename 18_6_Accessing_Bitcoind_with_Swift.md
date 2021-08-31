@@ -191,7 +191,7 @@ makeCommand(method: method,param: param) { result in
 
 ### Run Your Code
 
-The complete code is available in the [src directory](src/17_6_getinfo.playground). Load it into your Xcode playground and then "Editor -> Run Playground" and you should get results like:
+The complete code is available in the [src directory](src/18_6_getinfo.playground). Load it into your Xcode playground and then "Editor -> Run Playground" and you should get results like:
 ```
 {
     bestblockhash = 00000000000000069725608ebc5b59e520572a8088cbc57ffa5ba87b7f300ac7;
@@ -385,7 +385,7 @@ Sending your transaction is equally simple:
 }
 ```
 
-The code for this transaction sender can be found in the [src directory](src/17_6_sendtx.playground).
+The code for this transaction sender can be found in the [src directory](src/18_6_sendtx.playground).
 
 ## Use Swift in Other Ways
 
