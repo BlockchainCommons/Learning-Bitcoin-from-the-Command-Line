@@ -177,7 +177,7 @@ script   |  stack
 
 What if you wanted to instead write an equation system, such as `x + y = 3`, `y + z = 5`, and `x + z = 4`? A bit of algebra tells you that the answers come out to `x = 1`, `y = 2`, and `z = 3`. But, how do you script it?
 
-Most obviously, after the redeemer inputs the three numbers, you're going to need two copies of each numbers, since each number goes into two different equations. `OP_3DUP` takes care of that and results in `x y z x y z` being on the stack. Popping off two items at a time will give you `y z`, `z x`, and `x y`. Voila! That's the three equations, so you just need to add them up and test them in the right order! Here's the full script: `OP_3DUP OP_ADD 5 OP_EQUALVERIFY OP_ADD 4 OP_EQUALVERIFY OP_ADD 3 OP_EQUAL`.
+Most obviously, after the redeemer inputs the three numbers, you're going to need two copies of each number, since each number goes into two different equations. `OP_3DUP` takes care of that and results in `x y z x y z` being on the stack. Popping off two items at a time will give you `y z`, `z x`, and `x y`. Voila! That's the three equations, so you just need to add them up and test them in the right order! Here's the full script: `OP_3DUP OP_ADD 5 OP_EQUALVERIFY OP_ADD 4 OP_EQUALVERIFY OP_ADD 3 OP_EQUAL`.
 
 Here's how it runs with the correct unlocking script of `1 2 3`:
 ```

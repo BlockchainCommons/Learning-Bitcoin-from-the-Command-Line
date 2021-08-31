@@ -6,13 +6,13 @@ If you did a standard installation with [Bitcoin Standup](https://github.com/Blo
 
 > :book: ***What is Tor?*** Tor is a low-latency anonymity and overlay network based on onion routing and path-building design for enabling anonymous communication. It's free and open-source software with the name derived from the acronym for the original software project name: "The Onion Router".
 
-> :book: ***Why Use Tor for Bitcoin?*** The Bitcoin network is a peer-to-peer network that listens for transactions and propagates them using a public IP address.  When connecting to the network not using Tor, you would share your IP address, which could expose your location, your uptime, and others details to third parties — which is an undesirable privacy practice. To protect yourself online you should use tools like Tor to hide your connection details. Tor allows improve your privacy online as your data is cryptographically encoded and goes through different nodes, each one decoding a single layer (hence the onion metaphor).
+> :book: ***Why Use Tor for Bitcoin?*** The Bitcoin network is a peer-to-peer network that listens for transactions and propagates them using a public IP address.  When connecting to the network not using Tor, you would share your IP address, which could expose your location, your uptime, and others details to third parties — which is an undesirable privacy practice. To protect yourself online you should use tools like Tor to hide your connection details. Tor allows you to improve your privacy online as your data is cryptographically encoded and goes through different nodes, each one decoding a single layer (hence the onion metaphor).
 
 ## Understand Tor
 
 So how does Tor work?
 
-When a user wants to connect to an Internet server, Tor tries to build a path formed by at least three Tor nodes relays, called Guard, Middle, and Exit. While building this path, symmetric encryption keys are negotiated; when a message moves along the path, each relay then strips off its layer of encryption. In this way, the message arrives at the final destination in its original form, and each party only knows the previous and the next hop and cannot determine origin or destination.
+When a user wants to connect to an Internet server, Tor tries to build a path formed by at least three Tor relay nodes, called Guard, Middle, and Exit. While building this path, symmetric encryption keys are negotiated; when a message moves along the path, each relay then strips off its layer of encryption. In this way, the message arrives at the final destination in its original form, and each party only knows the previous and the next hop and cannot determine origin or destination.
 
 Here's what a connection looks like without Tor:
 ```

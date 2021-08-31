@@ -2,7 +2,7 @@
 
 > :information_source: **NOTE:** This section has been recently added to the course and is an early draft that may still be awaiting review. Caveat reader.
 
-You've already seen one alternative way to access the Bitcoind's RPC ports: `curl`, which was covered in a [Chapter 4 Interlude](04_4__Interlude_Using_Curl.md). Interacting with `bitcoind` through a RPC library in C is no different than that, you just need some good libraries to help you out. This section introduces a package called `libbitcoinrpc`, which allows you to access JSON-RPC `bitcoind` port.  It uses a `curl` library for accessing the data and it uses the `jansson` library for encoding and decoding the JSON.
+You've already seen one alternative way to access the Bitcoind's RPC ports: `curl`, which was covered in a [Chapter 4 Interlude](04_4__Interlude_Using_Curl.md). Interacting with `bitcoind` through an RPC library in C is no different than that, you just need some good libraries to help you out. This section introduces a package called `libbitcoinrpc`, which allows you to access JSON-RPC `bitcoind` port.  It uses a `curl` library for accessing the data and it uses the `jansson` library for encoding and decoding the JSON.
 
 ## Set Up libbitcoinrpc
 
@@ -106,7 +106,7 @@ First, initialize the library:
 ```
 bitcoinrpc_global_init();
 ```
-Then connect to your `bitcoind` with `bitcoinrpc_cl_init_params`. The four arguments for `bitcoinrpc_cl_init_params` are username, password, IP address, and port. You should already know all of this information from your work with [Curl](04_4__Interlude_Using_Curl.md). As you'll recall, the IP address 127.0.0.1 and port 18332 should be correct for the standard testnet setup described in this documents, while you can extract the user and password from `~/.bitcoin/bitcoin.conf`.
+Then connect to your `bitcoind` with `bitcoinrpc_cl_init_params`. The four arguments for `bitcoinrpc_cl_init_params` are username, password, IP address, and port. You should already know all of this information from your work with [Curl](04_4__Interlude_Using_Curl.md). As you'll recall, the IP address 127.0.0.1 and port 18332 should be correct for the standard testnet setup described in these documents, while you can extract the user and password from `~/.bitcoin/bitcoin.conf`.
 ```
 $ cat bitcoin.conf 
 server=1

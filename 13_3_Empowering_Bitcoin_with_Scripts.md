@@ -270,7 +270,7 @@ Running through the script reveals that the initial checks, above the `IF`/`ELSE
 
 #### Understand HTLCs
 
-HTLCs are quite complex, and this overview doesn't try to explain all of their intricacies. Rusty Russell's [overview](https://rusty.ozlabs.org/?p=462) explains more and there's even more detail in his [Deployable Lightning](https://github.com/ElementsProject/lightning/blob/master/doc/deployable-lightning.pdf) paper. But don't worry if some of the intricacies still escape you, particularly the interrelations of the two scripts.
+HTLCs are quite complex, and this overview doesn't try to explain all of their intricacies. Rusty Russell's [overview](https://rusty.ozlabs.org/?p=462) explains more, and there's even more detail in his [Deployable Lightning](https://github.com/ElementsProject/lightning/blob/master/doc/deployable-lightning.pdf) paper. But don't worry if some of the intricacies still escape you, particularly the interrelations of the two scripts.
 
 For the purposes of this tutorial, there are two important lessons for HTLCs:
 
