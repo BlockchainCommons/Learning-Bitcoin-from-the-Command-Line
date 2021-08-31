@@ -1,12 +1,12 @@
 # 13.2: Escritura de scripts complejos multifirma
 
-Hasta la fecha, las pruebas múltiples descritas en estos documentos han sido completamente simples, de la forma m-de-n o n-de-n. Sin embargo, es posible que desee múltiples funciones más complejas, en las que los cofirmantes varían o en las que pueden estar disponibles diferentes opciones con el tiempo.
+Hasta la fecha, las multifirma descritas en estos documentos han sido completamente simples, de la forma m-de-n o n-de-n. Sin embargo, es posible que desee transacciones multifirmas más complejas, en las que los cofirmantes varían o en las que pueden estar disponibles diferentes opciones con el tiempo.
 
 ## Escriba una variable multifirma
 
 Una firma múltiple variable requiere que firmen diferentes números de personas dependiendo de quién esté firmando.
 
-### Escribir una firma múltiple con un solo firmante o cofirmantes
+### Escribir una multifirma con un solo firmante o cofirmantes
 
 Imagine una corporación donde el presidente o dos de cada tres vicepresidentes pudieran estar de acuerdo con el uso de los fondos.
 
@@ -14,7 +14,7 @@ Puede escribir esto creando una declaración `IF` /` ELSE` / `ENDIF` que tenga d
 
 El script de bloqueo completo sería `OP_DEPTH 1 OP_EQUAL IF <pubKeyPres> OP_CHECKSIGNATURE ELSE 2 <pubKeyVPA> <pubKeyVPB> <pubKeyVPC> 3 OP_CHECKMULTISIG ENDIF`
 
-Si lo dirige el presidente, se vería así:
+Si lo ejecuta el presidente, se vería así:
 
 ```
 Script: <sigPres> OP_DEPTH 1 OP_EQUAL IF <pubKeyPres> OP_CHECKSIGNATURE ELSE 2 <pubKeyVPA> <pubKeyVPB> <pubKeyVPC> 3 OP_CHECKMULTISIG ENDIF
@@ -35,7 +35,7 @@ Running: 1 1 OP_EQUAL
 Stack: [ <sigPres> True ]
 ```
 
-Debido a que el resultado es "Verdadero", la secuencia de comandos ahora se contrae en la declaración "SI":
+Debido a que el resultado es "Verdadero", la secuencia de comandos ahora se contrae en la declaración `IF`:
 
 ```
 Script: <pubKeyPres> OP_CHECKSIGNATURE
@@ -50,7 +50,7 @@ Running: <sigPres> <pubKeyPres> OP_CHECKSIGNATURE
 Stack: [ True ]
 ```
 
-Si lo dirigen dos vicepresidentes, se vería así:
+Si lo ejecutan dos vicepresidentes, se vería así:
 
 ```
 Script: 0 <sigVPA> <sigVPB> OP_DEPTH 1 OP_EQUAL IF <pubKeyPres> OP_CHECKSIGNATURE ELSE 2 <pubKeyVPA> <pubKeyVPB> <pubKeyVPC> 3 OP_CHECKMULTISIG ENDIF
@@ -71,7 +71,7 @@ Running: 3 1 OP_EQUAL
 Stack: [ 0 <sigVPA> <sigVPB> False ]
 ```
 
-Debido a que el resultado es "False", la secuencia de comandos ahora se contrae en la declaración "ELSE":
+Debido a que el resultado es `False`, la secuencia de comandos ahora se contrae en la declaración "ELSE":
 
 ```
 Script: 2 <pubKeyVPA> <pubKeyVPB> <pubKeyVPC> 3 OP_CHECKMULTISIG
@@ -87,14 +87,14 @@ Stack: [ ]
 ```
 
 Puede notar que la firma del presidente solo usa un simple `OP_CHECKSIGNATURE` en lugar del código más complejo que generalmente se requiere para un P2PKH. 
-Podrían salirse con la suya al incluir la clave pública en el script de bloqueo, obviando el galimatías habitual, porque está codificado  y no se revelará (a través del `redeemScript`) hasta que se desbloquee la transacción. 
+Podrían salirse con la suya al incluir la clave pública en el script de bloqueo, obviando las galimatías habituales, porque está codificado  y no se revelará (a través del `redeemScript`) hasta que se desbloquee la transacción. 
 Esto también permite que todos los posibles firmantes firmen utilizando la misma metodología.
 
-El único problema posible es si el presidente está distraído y accidentalmente firma una transacción con uno de sus vicepresidentes, porque recuerda que se trata de una firma múltiple de 2 de 3. Una opción es decidir que es una condición de falla aceptable, porque el presidente está usando la multifirma incorrectamente. Otra opción es convertir la multifirma 2 de 3 en una 2 de 4, en caso de que el presidente no tolere la falla: `OP_DEPTH 1 OP_EQUAL IF <pubKeyPres> OP_CHECKSIGNATURE ELSE 2 <pubKeyVPA> <pubKeyVPB> < pubKeyVPC> <pubKeyPres> 4 OP_CHECKMULTISIG ENDIF`. Esto le permitiría al presidente firmar por error con cualquier vicepresidente, pero no afectaría las cosas si dos vicepresidentes quisieran firmar (correctamente).
+El único problema posible es si el presidente está distraído y accidentalmente firma una transacción con uno de sus vicepresidentes, porque este recuerda que se trata de una multifirma 2 de 3. Una opción es decidir que es una condición de falla aceptable, porque el presidente está usando la multifirma incorrectamente. Otra opción es convertir la multifirma 2 de 3 en una 2 de 4, en caso de que el presidente no tolere la falla: `OP_DEPTH 1 OP_EQUAL IF <pubKeyPres> OP_CHECKSIGNATURE ELSE 2 <pubKeyVPA> <pubKeyVPB> < pubKeyVPC> <pubKeyPres> 4 OP_CHECKMULTISIG ENDIF`. Esto le permitiría al presidente firmar por error con cualquier vicepresidente, pero no afectaría las cosas si dos vicepresidentes quisieran firmar (correctamente).
 
 ### Escribe una firma múltiple con un firmante obligatorio
 
-Otra posibilidad multisig implica tener una multifirma m-of-n donde se requiere uno de los firmantes. Por lo general, esto se puede gestionar dividiendo la multifirma en varios m de n-1. Por ejemplo, una firma múltiple de 2 de 3 en la que se requiere uno de los firmantes sería en realidad dos firmas múltiples de 2 de 2, cada una con el firmante requerido.
+Otra posibilidad de las multifirmas implica tener una multifirma m-of-n donde se requiere uno de los firmantes. Por lo general, esto se puede gestionar dividiendo la multifirma en varios m de n-1. Por ejemplo, una firma múltiple de 2 de 3 en la que se requiere uno de los firmantes sería en realidad dos firmas múltiples de 2 de 2, cada una con el firmante requerido.
 
 Aquí hay una forma sencilla de escribir eso:
 
@@ -113,7 +113,7 @@ Primero, el script verificaría las firmas con `<pubKeyRequired> <pubKeyA>`. Si 
 
 El resultado del `OP_CHECKMULTISIG` final que se ejecutó se dejará en la parte superior de la pila (aunque habrá cruft debajo si el primero tuvo éxito).
 
-## Escribir una firma múltiple de fideicomiso
+## Escriba un fideicomiso multifirma
 
 Hemos hablado mucho sobre fideicomisos. Multifirmas complejas combinadas con bloqueos de tiempo ofrecen una forma automatizada de crearlas de manera robusta.
 
@@ -141,7 +141,7 @@ ENDIF
 
 Primero, prueba una firma para el comprador y el agente de custodia, luego una firma para el vendedor y el agente de custodia. Si ambos fallan y han pasado 30 días, también permite una firma para el comprador y el vendedor.
 
-### Escriba una firma múltiple de fideicomiso centrada en el comprador
+### Escriba una fideicomiso multifirma centrado en el comprador
 
 [BIP 112](https://github.com/bitcoin/bips/blob/master/bip-0112.mediawiki#Escrow_with_Timeout) ofrece un ejemplo diferente de este tipo de depósito en garantía que no tiene las protecciones adicionales para evitar que se pierda el agente de depósito en garantía, pero que le da a Alice el control total si falla el depósito en garantía.
 
@@ -163,12 +163,12 @@ Tenga en cuenta que esta secuencia de comandos requiere que se pase un "Verdader
 
 Al principio, se permitiría el siguiente `sigScript`:` 0 <signer1> <signer2> True`. Después de 30 días, Alice podría producir un `sigScript` como este:` <sigA> False`.
 
-## Resumen: escritura de scripts complejos multifirma
+## Resumen: Escribiendo scripts multifirma complejos
 
-Por lo general, se pueden crear firmas múltiples más complejas combinando firmas o firmas múltiples con condicionales y pruebas. Las multifirmas resultantes pueden ser variables, requiriendo diferentes números de firmantes en función de quiénes son y cuándo están firmando.
+Por lo general, se pueden crear multifirmas más complejas combinando firmas o multifirmas con condicionales y pruebas. Las multifirmas resultantes pueden ser variables, requiriendo diferentes números de firmantes en función de quiénes son y cuándo están firmando.
 
 > :fire: ***¿Cuál es el poder de los scripts multisig complejos?*** Más allá de todo lo que hemos visto hasta la fecha, los scripts multifirma complejos son contratos verdaderamente inteligentes. Pueden ser muy precisos sobre quién puede firmar y cuándo. Se pueden admitir corporaciones multinivel, asociaciones y depósitos en garantía. El uso de otras funciones poderosas como los bloqueos de tiempo puede proteger aún más estos fondos, lo que permite que se liberen o incluso se devuelvan en determinados momentos.
 
 ## ¿Que sigue?
 
-Continúe "Diseñando scripts de Bitcoin reales" con [§13.3: Empoderamiento de Bitcoin con scripts](13_3_Potenciando_Bitcoin_con_Scripts.md).
+Continúe "Diseñando scripts de Bitcoin reales" con [§13.3: Potenciando Bitcoin con scripts](13_3_Potenciando_Bitcoin_con_Scripts.md).
