@@ -18,7 +18,7 @@ Para crear una dirección HD se requiere comenzar con una semilla, y luego ir ha
   size_t seed_len;  
   lw_response = bip39_mnemonic_to_seed(mnem,NULL,seed,BIP39_SEED_LEN_512,&seed_len);
 ```
-Como puede ver, necesitara decirle qué versión de la clave devolver, en este caso `BIP32_VER_TEST_PRIVATE`, una clave de testnet privada.
+Como puede ver, necesitará decirle qué versión de la clave devolver, en este caso `BIP32_VER_TEST_PRIVATE`, una clave de testnet privada.
 
 > :link: **TESTNET vs MAINNET:** En mainnet, en cambio, se pide `BIP32_VER_MAIN_PRIVATE`.
 
@@ -40,11 +40,11 @@ Antes de ir más lejos, es necesario entender cómo funciona la jerarquía de un
 Sin embargo, para las carteras HD, cada uno de esos niveles de la jerarquía se utiliza de una manera muy específica. Esto se definió originalmente en [BIP44](https://github.com/bitcoin/bips/blob/master/bip-0044.mediawiki) y más tarde se actualizó para Segwit en [BIP84].
 
 En conjunto, una ruta de derivación BIP32 se define para tener cinco niveles:
-1. **Purpose.** Normalmente se establece en `44'` o `84'`, dependiendo del BIP que se esté siguiendo.
-2. ***Coin.** Para bitcoins en MAINNET, esto es `0'`, para testnet es `1'`.
-3. **Account.** Una cartera puede contener varias cuentas discretas, empezando por `0'`.
-4. ***Change.** Las direcciones externas (para distribución) se establecen en `0`, mientras que las direcciones internas (para cambio) se establecen en `1`.
-5. **Index.** La enésima dirección de la jerarquía, comenzando con `0`.
+1. **Proósito.** Normalmente se establece en `44'` o `84'`, dependiendo del BIP que se esté siguiendo.
+2. **Moneda.** Para bitcoins en MAINNET, esto es `0'`, para testnet es `1'`.
+3. **Cuenta.** Una cartera puede contener varias cuentas discretas, empezando por `0'`.
+4. **Cambio.** Las direcciones externas (para distribución) se establecen en `0`, mientras que las direcciones internas (para cambio) se establecen en `1`.
+5. **Índice.** La enésima dirección de la jerarquía, comenzando con `0`.
 
 Así que en testnet, la dirección cero para una dirección externa para la cuenta cero para monedas de testnet usando los estándares BIP84 es `[m/84'/1'/0'/0/0]`. Esa es la dirección que usted estara creando momentáneamente.
 
@@ -78,7 +78,7 @@ Cada vez que tenga una nueva clave,usted  puede usarla para generar nuevas clave
 ```
 ### Generar una clave de dirección
 
-Alternativamente, puede usar la función `bip32_key_from_parent_alloc` , que simplemente baja un nivel de la jerarquía a la vez. El siguiente ejemplo se reduce al descendiente 0º de la clave de cuenta (que es la dirección externa) y luego al descendiente 0º de la anterior. Esto sería útil porque entonces usted podría seguir generando la primera dirección, la segunda dirección, y así sucesivamente a partir de esa clave externa:
+Alternativamente, puede usar la función `bip32_key_from_parent_alloc`, que simplemente baja un nivel de la jerarquía a la vez. El siguiente ejemplo se reduce al descendiente 0º de la clave de cuenta (que es la dirección externa) y luego al descendiente 0º de la anterior. Esto sería útil porque entonces usted podría seguir generando la primera dirección, la segunda dirección, y así sucesivamente a partir de esa clave externa:
 ```
   struct ext_key *key_external;  
   lw_response = bip32_key_from_parent_alloc(key_account,0,BIP32_FLAG_KEY_PRIVATE,&key_external);
@@ -103,7 +103,7 @@ También hay una función `wally_bip32_key_to_address` que se puede utilizar par
 
 ## Prueba de código HD
 
-El código para este ejemplo de HD se puede encontrar, como de costumbre, en el [src directory](src/16_3_genhd.c).
+El código para este ejemplo de HD se puede encontrar, como de costumbre, en el [src directory](../src/16_3_genhd.c).
 
 Puede compilarlo y probarlo:
 ```
