@@ -45,7 +45,7 @@ Hello, world!
 > :information_source: **NOTA:** si se encuentra con un error `linker Žcc' no encontrado`, tendrá que instalar un
 Compilador C. Si está en Linux, adelante e instale las [herramientas de desarrollo] (https://www.ostechnix.com/install-development-tools-linux/).
 
-Para acceder a la caja (biblioteca) de `bitcoincore-rpc`, debe añadirla a su Cargo.toml` en la sección `dependencies`:
+Para acceder a la caja (biblioteca) de `bitcoincore-rpc`, debe añadirla a su `Cargo.toml` en la sección `dependencies`:
 ```rust
 [dependencies]
 bitcoincore-rpc = "0.11.0"
@@ -119,7 +119,7 @@ Aquí está el código completo para recuperar un hash de bloque, convertirlo en
 
 ### Ejecute su código
 
-Puede acceder al [códugo src](src/17_5_main-getinfo.rs) y ejecutarlo. Desafortunadamente, la información de "Block" saldrá un poco fea porque este ejemplo no incluye una biblioteca para embellecerla.
+Puede acceder al [código src](src/17_5_main-getinfo.rs) y ejecutarlo. Desafortunadamente, la información de "Block" saldrá un poco fea porque este ejemplo no incluye una biblioteca para embellecerla.
 ```
 $ cargo run 
    Compiling btc_test v0.1.0 (/home/standup/btc_test)
