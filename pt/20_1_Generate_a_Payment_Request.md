@@ -1,12 +1,12 @@
-# 19.1: Gerando um Invoice
+# 20.1: Gerando um Invoice
 
 > :information_source: **NOTA:** Esta seção foi adicionada recentemente ao curso e é um rascunho inicial que ainda pode estar aguardando revisão.
 
-Esta seção descreve como os pagamentos funcionam na Lightning Network, como criar uma solicitação de pagamento (ou _invoice_) e, finalmente, como entendê-la. A emissão de invoices depende de termos um segundo node Lightning, conforme descrito na seção [Acessando um segundo node Lightning](18_2__Interlude_Accessing_a_Second_Lightning_Node.md). Esses exemplos usarão um node LND como nosso node secundário, para demonstrar ainda mais as possibilidades da Lightning Network. Para diferenciar entre os nodes nestes exemplos, os prompts serão mostrados como `c $` para o node c-lightning e `lnd $` para o node LND. Se quisermos reproduzir essas etapas, devemos [instalar nosso próprio node LND secundário](18_2__Interlude_Accessing_a_Second_Lightning_Node.md#Creating-a-new-lnd-node).
+Esta seção descreve como os pagamentos funcionam na Lightning Network, como criar uma solicitação de pagamento (ou _invoice_) e, finalmente, como entendê-la. A emissão de invoices depende de termos um segundo node Lightning, conforme descrito na seção [Acessando um Segundo Node Lightning](19_2__Interlude_Accessing_a_Second_Lightning_Node.md). Esses exemplos usarão um node LND como nosso node secundário, para demonstrar ainda mais as possibilidades da Lightning Network. Para diferenciar entre os nodes nestes exemplos, os prompts serão mostrados como `c $` para o node c-lightning e `lnd $` para o node LND. Se quisermos reproduzir essas etapas, devemos [instalar nosso próprio node LND secundário](19_2__Interlude_Accessing_a_Second_Lightning_Node.md#Creating-a-new-lnd-node).
 
 > :book: ***O que é um invoice?*** Quase todos os pagamentos feitos na Lightning Network exigem um invoice, que nada mais é do que um **pedido de pagamento** feito pelo destinatário do dinheiro e enviado por qualquer meio para o usuário que irá pagar. Todos os invoices são de uso único. Os invoices da Lightning usam a codificação bech32, que já é usada pela Segregated Witness para Bitcoin.
 
-## Criando um invoice
+## Criando um Invoice
 
 Para criar um novo invoice na c-lightning, usaríamos o comando `lightning-cli --testnet invoice`.
 
@@ -21,7 +21,7 @@ c$ lightning-cli --testnet invoice 100000 joe-payment "The money you owe me for 
    "warning_mpp_capacity": "The total incoming capacity is still insufficient even if the payer had MPP capability."
 }
 ```
-No entanto, para este exemplo, vamos gerar um invoice em um node LND e, em seguida, pagá-la no node c-lightning. Isso requer o comando `addinvoice` ligeiramente diferente na LND. Podemos usar o argumento `--amt` para indicar a quantia a ser paga (em  milisats) e adicionar uma descrição usando o argumento `--memo`.
+No entanto, para este exemplo, vamos gerar um invoice em um node LND e, em seguida, pagá-lo no node c-lightning. Isso requer o comando `addinvoice` ligeiramente diferente na LND. Podemos usar o argumento `--amt` para indicar a quantia a ser paga (em milisats) e adicionar uma descrição usando o argumento `--memo`.
 
 ```
 lnd$ lncli -n testnet addinvoice --amt 10000 --memo "First LN Payment - Learning Bitcoin and Lightning from the Command line."
@@ -33,13 +33,13 @@ lnd$ lncli -n testnet addinvoice --amt 10000 --memo "First LN Payment - Learning
 ```
 Observe que esses invoices não fazem referência direta ao canal que criamos: isso é necessário para o pagamento, mas não para solicitar o pagamento.
 
-## Compreendendo um invoice
+## Compreendendo um Invoice
 
 O `bolt11 payment_request` que criamos é composto de duas partes: uma é legível por humanos e a outra são apenas dados.
 
 > :book: **O que é um BOLT?** Os BOLTs são as [especificações individuais da Lightning Network](https://github.com/lightningnetwork/lightning-rfc).
 
-### Lendo a parte legível do invoice
+### Lendo a Parte Legível do Invoice
 
 A parte legível dos invoices começa com um `ln`. É `lnbc` para Bitcoin mainnet, `lntb` para Bitcoin testnet ou `lnbcrt` para Bitcoin regtest.
 Em seguida, listamos os fundos solicitados no invoice.
@@ -61,9 +61,9 @@ O `100u` diz que é para 100 bitcoins vezes o multiplicador microsatoshi. Existe
 
 100 BTC * 0,000001 = 0,0001 BTC, que é o mesmo que 10.000 satoshis.
 
-### Lendo a parte do invoice referente aos dados
+### Lendo a Parte do Invoice Referente aos Dados
 
-O resto do invoice ( `1p0cwnqtpp5djkdahy4hz0wc909y39ap9tm3rq2kk9320hw2jtntwv4x39uz6asdr5ge5hyum5ypxyugzsv9uk6etwwssz6gzvv4shymnfdenjqsnfw33k76twypskuepqf35kw6r5de5kueeqveex7mfqw35x2gzrdakk6ctwvssxc6twv5hqcqzpgsp5a9ryqw7t23myn9psd36ra5alzvp6lzhxua58609teslwqmdljpxs9qy9qsq9ee7h500jazef6c306psr0ncru469zgyr2m2h32c6ser28vrvh5j4q23c073xsvmjwgv9wtk2q7j6pj09fn53v2vkrdkgsjv7njh9aqqtjn3vd`) contém um marcador de tempo, dados especificamente marcados, e uma assinatura. Obviamente, não pode ler sem decodificá-lo, mas podemos pedir ao `lightning-cli` para fazer isso com o comando `decodepay`:
+O resto do invoice (`1p0cwnqtpp5djkdahy4hz0wc909y39ap9tm3rq2kk9320hw2jtntwv4x39uz6asdr5ge5hyum5ypxyugzsv9uk6etwwssz6gzvv4shymnfdenjqsnfw33k76twypskuepqf35kw6r5de5kueeqveex7mfqw35x2gzrdakk6ctwvssxc6twv5hqcqzpgsp5a9ryqw7t23myn9psd36ra5alzvp6lzhxua58609teslwqmdljpxs9qy9qsq9ee7h500jazef6c306psr0ncru469zgyr2m2h32c6ser28vrvh5j4q23c073xsvmjwgv9wtk2q7j6pj09fn53v2vkrdkgsjv7njh9aqqtjn3vd`) contém um marcador de tempo, dados especificamente marcados e uma assinatura. Obviamente, não pode ler sem decodificá-lo, mas podemos pedir ao `lightning-cli` para fazer isso com o comando `decodepay`:
 ```
 c$ lightning-cli --testnet decodepay lntb100u1p0cwnqtpp5djkdahy4hz0wc909y39ap9tm3rq2kk9320hw2jtntwv4x39uz6asdr5ge5hyum5ypxyugzsv9uk6etwwssz6gzvv4shymnfdenjqsnfw33k76twypskuepqf35kw6r5de5kueeqveex7mfqw35x2gzrdakk6ctwvssxc6twv5hqcqzpgsp5a9ryqw7t23myn9psd36ra5alzvp6lzhxua58609teslwqmdljpxs9qy9qsq9ee7h500jazef6c306psr0ncru469zgyr2m2h32c6ser28vrvh5j4q23c073xsvmjwgv9wtk2q7j6pj09fn53v2vkrdkgsjv7njh9aqqtjn3vd
 {
@@ -85,7 +85,7 @@ c$ lightning-cli --testnet decodepay lntb100u1p0cwnqtpp5djkdahy4hz0wc909y39ap9tm
 Aqui temos o que os elementos mais relevantes significam:
 
 1. `currency`: A moeda a ser paga;
-2. `created_at`: Momento em que a fatura foi criada. O valor é dado em tempo UNIX, que é segundos desde 1970.
+2. `created_at`: O momento em que a fatura foi criada. O valor é dado em tempo UNIX, que é segundos desde 1970.
 3. `expiry`: O momento em que nosso node marca a fatura como inválida. O padrão é 1 hora ou 3600 segundos.
 4. `payee`: A chave pública da pessoa (node) que recebe o pagamento da Lightning Network;
 5. `msatoshi` e `amount_msat`: O valor de satoshis a ser pago;
@@ -95,11 +95,11 @@ Aqui temos o que os elementos mais relevantes significam:
 
 > :book: ***O que são pagamentos condicionais?*** Embora os canais Lightning sejam criados entre dois participantes, vários canais podem ser conectados juntos, formando uma rede de pagamento que permite envio de valores entre todos os participantes da rede, mesmo aqueles sem um canal direto entre eles. Isso é feito usando um contrato inteligente denominado **Hashed Time Locked Contract**.
 
-> :book: ***O que é um Hashed Time Locked Contract (HTLC)?*** Um HTLC é um pagamento condicional que usa hashlocks e timelocks para garantir a segurança do pagamento. O destinatário deve apresentar uma pré-imagem do pagamento ou gerar um comprovante criptográfico de pagamento antes de um determinado prazo, caso contrário o pagador pode cancelar o contrato gastando-o. Esses contratos são criados como saídas da **Transação de compromisso**.
+> :book: ***O que é um Hashed Time Locked Contract (HTLC)?*** Um HTLC é um pagamento condicional que usa hashlocks e timelocks para garantir a segurança do pagamento. O destinatário deve apresentar uma pré-imagem do pagamento ou gerar um comprovante criptográfico de pagamento antes de um determinado prazo, caso contrário o pagador pode cancelar o contrato gastando-o. Esses contratos são criados como saídas da **Transação de Compromisso**.
 
-> :book: ***O que é uma transação de compromisso?*** Uma transação de compromisso é uma transação que gasta a transação de financiamento original. Cada par possui a assinatura do outro par, o que significa que qualquer um pode gastar sua transação do compromisso como quiser. Depois que cada nova transação de confirmação é criada, a antiga é revogada. A transação de confirmação é uma maneira pela qual a transação de financiamento pode ser desbloqueada na blockchain, conforme discutiremos na seção [§19.3](19_3_Closing_a_Channel.md).
+> :book: ***O que é uma transação de compromisso?*** Uma transação de compromisso é uma transação que gasta a transação de financiamento original. Cada par possui a assinatura do outro par, o que significa que qualquer um pode gastar sua transação do compromisso como quiser. Depois que cada nova transação de confirmação é criada, a antiga é revogada. A transação de confirmação é uma maneira pela qual a transação de financiamento pode ser desbloqueada na blockchain, conforme discutiremos na seção [§20.3](20_3_Closing_a_Channel.md).
 
-### Verificando nosso invoice
+### Verificando Nosso Invoice
 
 Existem dois elementos cruciais para verificar o invoice. O primeiro, obviamente, é o valor do pagamento, que já examinamos na parte legível. O segundo é o dado do `payee`, que é o pubkey do destinatário (node):
 ```
@@ -107,7 +107,7 @@ Existem dois elementos cruciais para verificar o invoice. O primeiro, obviamente
 ```
 Precisamos verificar se ele é o destinatário esperado.
 
-Olhando nas seções anteriores, mais precisamente na seção [§18.3](18_3_Setting_Up_a_Channel.md#opening-a-channel), podemos observar que é de fato o ID do par que usamos quando criamos nosso canal. Também podemos verificá-lo no outro node com o comando `getinfo`.
+Olhando nas seções anteriores, mais precisamente na seção [§19.3](19_3_Setting_Up_a_Channel.md#opening-a-channel), podemos observar que é de fato o ID do par que usamos quando criamos nosso canal. Também podemos verificá-lo no outro node com o comando `getinfo`.
 ```
 lnd$ lncli -n testnet getinfo
 {
@@ -173,12 +173,12 @@ lnd$ lncli -n testnet getinfo
     }
 }
 ```
-No entanto, o `payee` também pode ser alguém novo, caso em que provavelmente precisaremos verificar com a pessoa que emitiu o invoice para garantir que está tudo correto.
+No entanto, o `payee` também pode ser alguém novo, caso no qual provavelmente precisaremos verificar com a pessoa que emitiu o invoice para garantir que tudo está correto.
 
 ## Resumo: Gerando um Invoice
 
-Na maioria dos casos, precisamos receber um invoice para usar os pagamentos da Lightning Network. Neste exemplo, criamos um manualmente, mas se estivermos em um ambiente de produção, provavelmente teria sistemas fazendo isso automaticamente sempre que alguém adquirir produtos ou serviços. Claro, depois de receber um invoice, precisamos saber como lê-lo!
+Na maioria dos casos, precisamos receber um invoice para usar os pagamentos da Lightning Network. Neste exemplo, criamos um manualmente, mas se estivermos em um ambiente de produção, provavelmente teriam sistemas fazendo isso automaticamente sempre que alguém adquirir produtos ou serviços. Claro, depois de receber um invoice, precisamos saber como lê-lo!
 
 ## O Que Vem Depois?
 
-Vamos continuar "Usando a Lightning" na seção [§19.2: Pagando um Invoice](06_3_Sending_an_Automated_Multisig.md).
+Vamos continuar "Usando a Lightning" na seção [§20.2: Pagando um Invoice](20_2_Paying_a_Invoice.md).
