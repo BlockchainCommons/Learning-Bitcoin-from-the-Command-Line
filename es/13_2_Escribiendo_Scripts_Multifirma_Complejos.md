@@ -2,9 +2,9 @@
 
 Hasta la fecha, las multifirma descritas en estos documentos han sido completamente simples, de la forma m-de-n o n-de-n. Sin embargo, es posible que desee transacciones multifirmas más complejas, en las que los cofirmantes varían o en las que pueden estar disponibles diferentes opciones con el tiempo.
 
-## Escriba una variable multifirma
+## Escriba una multifirma de umbral
 
-Una firma múltiple variable requiere que firmen diferentes números de personas dependiendo de quién esté firmando.
+Una multifirma de umbral requiere que firmen diferentes números de personas dependiendo de quién esté firmando.
 
 ### Escribir una multifirma con un solo firmante o cofirmantes
 
@@ -92,9 +92,9 @@ Esto también permite que todos los posibles firmantes firmen utilizando la mism
 
 El único problema posible es si el presidente está distraído y accidentalmente firma una transacción con uno de sus vicepresidentes, porque este recuerda que se trata de una multifirma 2 de 3. Una opción es decidir que es una condición de falla aceptable, porque el presidente está usando la multifirma incorrectamente. Otra opción es convertir la multifirma 2 de 3 en una 2 de 4, en caso de que el presidente no tolere la falla: `OP_DEPTH 1 OP_EQUAL IF <pubKeyPres> OP_CHECKSIGNATURE ELSE 2 <pubKeyVPA> <pubKeyVPB> < pubKeyVPC> <pubKeyPres> 4 OP_CHECKMULTISIG ENDIF`. Esto le permitiría al presidente firmar por error con cualquier vicepresidente, pero no afectaría las cosas si dos vicepresidentes quisieran firmar (correctamente).
 
-### Escribe una firma múltiple con un firmante obligatorio
+### Escriba una multifirma con un firmante obligatorio
 
-Otra posibilidad de las multifirmas implica tener una multifirma m-of-n donde se requiere uno de los firmantes. Por lo general, esto se puede gestionar dividiendo la multifirma en varios m de n-1. Por ejemplo, una firma múltiple de 2 de 3 en la que se requiere uno de los firmantes sería en realidad dos firmas múltiples de 2 de 2, cada una con el firmante requerido.
+Otra posibilidad de las multifirmas implica tener una multifirma m-de-n donde se requiere uno de los firmantes. Por lo general, esto se puede gestionar dividiendo la multifirma en varios m de n-1. Por ejemplo, una firma múltiple de 2 de 3 en la que se requiere uno de los firmantes sería en realidad dos firmas múltiples de 2 de 2, cada una con el firmante requerido.
 
 Aquí hay una forma sencilla de escribir eso:
 
