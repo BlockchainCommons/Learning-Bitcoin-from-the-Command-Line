@@ -1,12 +1,12 @@
-# 19.2: Pagando um Invoice
+# 20.2: Pagando um Invoice
 
 > :information_source: **NOTA:** Esta seção foi adicionada recentemente ao curso e é um rascunho inicial que ainda pode estar aguardando revisão.
 
-Neste capítulo, aprenderemos como pagar um invoice usando o comando `lightning-cli pay`. Presume-se que já sabemos como analisar um invoice, de acordo com a seção [§19.1](19_1_Generate_a_Payment_Request.md) e sabemos que ele é válido.
+Neste capítulo, aprenderemos como pagar um invoice usando o comando `lightning-cli pay`. Presume-se que já sabemos como analisar um invoice, de acordo com a seção [§20.1](20_1_Generate_a_Payment_Request.md), e se ele é válido.
 
-## Verificando o saldo
+## Verificando o Saldo
 
-Obviamente, a primeira coisa que precisamos fazer é nos certificarmos de que possuímos fundos suficientes para pagar o invoice. Neste caso, o canal configurado anteriormente com `032a7572dc013b6382cde391d79f292ced27305aa4162ec3906279fc4334602543` contém 100.000 satoshis. Este será o canal de pagamento do inoice.
+Obviamente, a primeira coisa que precisamos fazer é nos certificarmos de que possuímos fundos suficientes para pagar o invoice. Neste caso, o canal configurado anteriormente com `032a7572dc013b6382cde391d79f292ced27305aa4162ec3906279fc4334602543` contém 100.000 satoshis. Este será o canal de pagamento do invoice.
 
 ```
 c$ lightning-cli --testnet listfunds
@@ -42,7 +42,7 @@ c$ lightning-cli --testnet listfunds
 ```
 Se não tivermos fundos suficientes, precisamos criar um novo canal.
 
-## Pagando nosso invoice
+## Pagando Nosso Invoice
 
 Vamos usar o comando `lightning-cli pay` para pagar o invoice. Ele tentará encontrar uma rota para o destino fornecido, para posteriormente enviar os fundos solicitados. Isso é muito simples porque há um canal direto entre o pagador e o destinatário:
 ```
@@ -60,9 +60,9 @@ c$ lightning-cli --testnet pay lntb100u1p0cwnqtpp5djkdahy4hz0wc909y39ap9tm3rq2kk
    "status": "complete"
 }
 ```
-Vamos observar todos os valores que estão em `msats`, não em `sats`!
+Vamos observar que todos os valores estão em `msats`, não em `sats`!
 
-### Pagando o invoice pela Lightning
+### Pagando o Invoice pela Lightning
 
 No entanto, _não_ precisamos ter um canal com um node para pagá-lo. Só precisamos ter uma rota razoável pela Lightning Network.
 
@@ -117,13 +117,13 @@ c$ lightning-cli --testnet pay lntb111110p1p0cw43ppp5u0ngjytlw6ywec3x784jale4xd7
    "status": "complete"
 }
 ```
-Essa é a verdadeira beleza da Lightning Network: Sem nenhum esforço dos participantes ponto a ponto, nossos canais individuais se tornam uma rede!
+Essa é a verdadeira beleza da Lightning Network: sem nenhum esforço dos participantes ponto a ponto, nossos canais individuais se tornam uma rede!
 
-> :book: ***Como funcionam os pagamentos na rede?*** Digamos que o node A tem um canal aberto com o node B, o node B tem um canal aberto com o node C e o node A recebe uma fatura do node C de 11.111 msat. O node A paga ao node B 11.111 msat, mais uma pequena taxa, e então o node B paga 11.111 msat ao node C. Muito fácil. Mas lembre-se de que todos os canais são, na verdade, apenas registros de quem é o proprietário e de quanto é a Transação de Financiamento. Então o que realmente acontece é 11.111 msat da Transação de Financiamento no canal AB muda de A para B e, em seguida, 11.111 msat da Transação de Financiamento no canal BC muda de B para C. Isso significa que duas coisas são necessárias para que este pagamento funcione: Primeiro, cada canal deve ter capacidade suficiente para o pagamento e; Segundo, o pagador em cada canal deve possuir o suficiente da capacidade para fazer o pagamento.
+> :book: ***Como funcionam os pagamentos na rede?*** Digamos que o node A tem um canal aberto com o node B, o node B tem um canal aberto com o node C e o node A recebe uma fatura do node C de 11.111 msat. O node A paga ao node B 11.111 msat, mais uma pequena taxa, e então o node B paga 11.111 msat ao node C. Muito fácil. Mas lembre-se de que todos os canais são, na verdade, apenas registros de quem é o proprietário e de quanto é a Transação de Financiamento. Então o que realmente acontece é 11.111 msat da Transação de Financiamento no canal AB muda de A para B e, em seguida, 11.111 msat da Transação de Financiamento no canal BC muda de B para C. Isso significa que duas coisas são necessárias para que este pagamento funcione: primeiro, cada canal deve ter capacidade suficiente para o pagamento; e segundo, o pagador em cada canal deve possuir o suficiente da capacidade para fazer o pagamento.
 
 Observe que, neste exemplo, 12.111 msat foram enviados para pagar uma fatura de 11.111 msat: o extra sendo uma taxa fixa muito pequena (não uma porcentagem) que foi paga ao intermediário.
 
-## Verificando nosso saldo
+## Verificando Nosso Saldo
 
 Após efetuar um pagamento com sucesso, veremos que nossos fundos foram alterados corretamente.
 
@@ -160,7 +160,7 @@ c$ lightning-cli --testnet listfunds
    ]
 }
 ```
-Observe que a capacidade do canal permanece em 100.000 satoshis (isso nunca irá mudar!), Mas que o `our_amount` agora é de apenas 90.000 satoshis (ou 90.000.000 msat).
+Observe que a capacidade do canal permanece em 100.000 satoshis (isso nunca irá mudar!), mas que o `our_amount` agora é de apenas 90.000 satoshis (ou 90.000.000 msat).
 
 Depois de pagar a segunda fatura, de 11.111 msat, os fundos mudam novamente:
 ```
@@ -203,4 +203,4 @@ Depois de recebermos um invoice, é fácil pagar com um único comando na Lightn
 
 ## O Que Vem Depois?
 
-Vamos continuar "Usando a Lightning" na seção [§19.3: Fechando um Canal na Lightning](19_3_Closing_a_Channel.md).
+Vamos continuar "Usando a Lightning" na seção [§20.3: Fechando um Canal na Lightning](20_3_Closing_a_Channel.md).
