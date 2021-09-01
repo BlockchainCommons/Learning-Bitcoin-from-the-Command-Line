@@ -1,4 +1,4 @@
-# 19.3: Fechando um canal
+# 20.3: Fechando um Canal
 
 > :information_source: **NOTA:** Esta seção foi adicionada recentemente ao curso e é um rascunho inicial que ainda pode estar aguardando revisão.
 
@@ -6,7 +6,7 @@ Neste capítulo, aprenderemos como fechar um canal usando a interface de linha d
 
 Para fechar um canal, primeiro precisamos saber o ID do node remoto. Podemos recuperá-lo de duas maneiras.
 
-## Encontrando nossos canais pelos saldos
+## Encontrando Nossos Canais Pelos Saldos
 
 Podemos usar o comando `lightning-cli listfunds` para ver nossos canais. Este comando RPC exibe todos os fundos disponíveis, em `outputs` não gastos (UTXOs) na carteira interna ou bloqueados em `channels` (canais) abertos.
 ```
@@ -59,11 +59,11 @@ Poderíamos também recuperar o ID do enésimo canal em uma variável como esta:
 c$ nodeidremote=$(lightning-cli --testnet listfunds | jq '.channels[0] | .peer_id')
 ```
 
-## Encontrando os canais usando o JQ
+## Encontrando Canais Usando o JQ
 
 A outra maneira de encontrar canais para serem fechados é usando o comando `listchannels`. Ele retorna dados dos canais que são conhecidos pelo node. Como os canais podem ser bidirecionais, até dois nodes serão retornados por cada canal (um para cada direção).
 
-No entanto, assim como no mundo real, a fofoca (gossip) da Lightning Network é muito eficaz e, em pouco tempo, iremos conhecer os milhares de canais. Isso é ótimo para enviar pagamentos via Lightning Network, mas é pouco útil para descobrir os nossos próprios canais. Fazer isso requer um pouco de trabalho do `jq`.
+No entanto, assim como no mundo real, a fofoca (gossip) da Lightning Network é muito eficaz e, em pouco tempo, iremos conhecer milhares de canais. Isso é ótimo para enviar pagamentos via Lightning Network, mas é pouco útil para descobrir os nossos próprios canais. Fazer isso requer um pouco de trabalho com `jq`.
 
 Primeiro, precisamos saber nosso próprio ID do node, que pode ser recuperado com o `getinfo`:
 ```
@@ -101,9 +101,9 @@ Depois de saber o que temos, podemos armazená-lo em uma variável:
 c$ nodeidremote=$(lightning-cli --testnet listchannels | jq '.channels[] | select(.source == '$nodeid' or .destination == '$nodeid') | .destination')
 ```
 
-## Fechando um canal
+## Fechando um Canal
 
-Agora que temos um ID do node remoto, estamos prontos para usar o comando `lightning-cli close` para fechar um canal. Por padrão, ele tentará fechar o canal cooperativamente com o par, se quisermos fechá-lo unilateralmente, precisamos definir o argumento `unilateraltimeout` com o número de segundos de espera. Se definirmos como sendo 0 e o par estiver online, um fechamento mútuo ainda irá ser tentado. Para este exemplo, tentaremos um fechamento mútuo.
+Agora que temos um ID do node remoto, estamos prontos para usar o comando `lightning-cli close` para fechar um canal. Por padrão, ele tentará fechar o canal cooperativamente com o par; se quisermos fechá-lo unilateralmente, precisamos definir o argumento `unilateraltimeout` com o número de segundos de espera. Se definirmos como sendo 0 e o par estiver online, um fechamento mútuo ainda irá ser tentado. Para este exemplo, tentaremos um fechamento mútuo.
 ```
 c$ lightning-cli --testnet close $nodeidremote 0
 {
@@ -112,7 +112,7 @@ c$ lightning-cli --testnet close $nodeidremote 0
    "type": "mutual"
 }
 ```
-A transação de fechamento na cadeia é [f68de52d80a1076e36c677ef640539c50e3d03f77f9f9db4f13048519489593f] (https://blockstream.info/testnet/tx/f68de52d80a1076e36c67795f9f9db4f13048519489593f].
+A transação de fechamento na blockchain é [f68de52d80a1076e36c677ef640539c50e3d03f77f9f9db4f13048519489593f] (https://blockstream.info/testnet/tx/f68de52d80a1076e36c67795f9f9db4f13048519489593f].
 
 É essa transação de fechamento que realmente gasta os fundos que foram negociados de um lado para outro por meio de transações Lightning. Isso pode ser visto examinando a transação:
 ```
@@ -177,7 +177,7 @@ $ bitcoin-cli --named getrawtransaction txid=f68de52d80a1076e36c677ef640539c50e3
   "blocktime": 1602713519
 }
 ```
-A entrada da transação é `66694d23ca15efe379e5f4a71d9be1a2d65e383b89ee3abe126ee36a12f23c1d`, que foi a transação de financiamento feita na seção [§18.3](18_3_Setting_Up_a_Channel.md). A transação tem duas saídas, uma para o node remoto e outra para a carteira local da c-lightning. A saída no índice 0 corresponde ao node remoto com um valor de 0,00010012 BTC e, a saída no índice 1 corresponde ao node local com um valor de 0,00089804 BTC.
+A entrada da transação é `66694d23ca15efe379e5f4a71d9be1a2d65e383b89ee3abe126ee36a12f23c1d`, que foi a transação de financiamento feita na seção [§19.3](19_3_Setting_Up_a_Channel.md). A transação tem duas saídas, uma para o node remoto e outra para a carteira local da c-lightning. A saída no índice 0 corresponde ao node remoto com um valor de 0,00010012 BTC e, a saída no índice 1 corresponde ao node local com um valor de 0,00089804 BTC.
 
 A Lightning mostrará da mesma forma 89.804 satoshis retornados como um novo UTXO em nossa carteira:
 
@@ -226,7 +226,7 @@ $ lightning-cli --network=testnet listfunds
 
 ```
 
-### Compreendendo os tipos de canais de fechamento.
+### Compreendendo os Tipos de Canais de Fechamento.
 
 O comando `close` do RPC tenta fechar um canal cooperativamente com nosso par ou unilateralmente após o argumento `unilateraltimeout` expirar. Isso traz alguma discussão adicional, pois vai ao cerne do design que não precisa de nenhuma confiança da Lightning:
 
@@ -238,7 +238,7 @@ No caso de um fechamento cooperativo, ambos os participantes do canal concordam 
 
 #### Fechamento Forçado
 
-No caso de fechamento forçado, apenas um participante está online ou os participantes discordam sobre o estado final do canal. Nessa situação, um par pode realizar um fechamento unilateral do canal sem a cooperação do outro node. É executado transmitindo uma transação de confirmação que confirma o estado do canal anterior que ambas as partes concordaram. Esta transação de compromisso contém o estado do canal dividido em duas partes: O saldo de cada participante e todos os pagamentos pendentes (HTLCs).
+No caso de fechamento forçado, apenas um participante está online ou os participantes discordam sobre o estado final do canal. Nessa situação, um par pode realizar um fechamento unilateral do canal sem a cooperação do outro node. É executado transmitindo uma transação de confirmação que confirma o estado do canal anterior que ambas as partes concordaram. Esta transação de compromisso contém o estado do canal dividido em duas partes: o saldo de cada participante e todos os pagamentos pendentes (HTLCs).
 
 Para realizar este tipo de fechamento, devemos especificar um argumento `unilateraltimeout`. Se este valor não for zero, o comando de fechamento fechará unilateralmente o canal quando esse número de segundos for atingido:
 ```
@@ -250,10 +250,10 @@ c$ lightning-cli --network=testnet close $newidremote 60
 }
 
 ```
-## Resumo: Fechando um canal
+## Resumo: Fechando um Canal
 
 Ao fechar um canal, realizamos uma transação na blockchain encerrando nosso relacionamento financeiro com o node remoto. Para fechar um canal, devemos levar em consideração nosso status e o tipo de fechamento que desejamos executar.
 
 ## O Que Vem Depois?
 
-Vamos continuar "Usando a Lightning" na seção [§19.4: Expandindo a rede Lightning](19_3_Closing_a_Channel.md).
+Vamos continuar "Usando a Lightning" na seção [§20.4: Expandindo a Rede Lightning](20_4_Lightning_Network_Review.md).
