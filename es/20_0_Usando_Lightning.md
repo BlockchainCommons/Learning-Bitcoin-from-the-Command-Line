@@ -1,4 +1,4 @@
-# Capítulo Diecinueve: Usando Lightning
+# Capítulo Veinte: Usando Lightning
 
 > :information_source: **NOTA:** Este es un borrador en progreso, por lo que puedo obtener algunos comentarios de los primeros revisores. Todavía no está listo para aprender.
 
@@ -19,7 +19,7 @@ Los objetivos de apoyo incluyen la capacidad de:
    
 ## Tabla de Contenido
 
-* [Sección Uno: Generación de una Solicitud de Pago](19_1_Generate_a_Payment_Request.md)
-* [Sección Dos: Pagar una Factura](19_2_Paying_a_Invoice.md)
-* [Sección Tres: Cerrar un Canal Lightning](19_3_Closing_a_Channel.md)
-* [Sección Cuatro: Expandiendo la Red Lightning](19_4_Lightning_Network_Review.md)
+* [Sección Uno: Generación de una Solicitud de Pago](20_1_Generando_una_Solicitud_de_Pago.md)
+* [Sección Dos: Pagar una Factura](20_2_Pagando_una_Factura.md)
+* [Sección Tres: Cerrar un Canal Lightning](20_3_Cerrando_un_Canal_Lightning.md)
+* [Sección Cuatro: Expandiendo la Red Lightning](20_4_Expandiendo_la_Red_Lightning.md)
