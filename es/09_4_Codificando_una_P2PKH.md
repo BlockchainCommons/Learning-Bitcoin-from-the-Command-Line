@@ -2,9 +2,9 @@
 
 Las direcciones P2PKH están perdiendo popularidad rápidamente debido a la llegada de SegWit, pero, no obstante, siguen siendo un gran bloque de construcción para comprender Bitcoin, y especialmente para comprender los scripts de Bitcoin. (Echaremos un vistazo rápido a cómo los scripts P2WPKH nativos de Segwit funcionan de manera diferente en la siguiente sección).
 
-## Comprender el script de desbloqueo
+## Comprenda el script de desbloqueo
 
-Durante mucho tiempo hemos dicho que cuando los fondos se envían a una dirección de Bitcoin, están bloqueados en la clave privada asociada con esa dirección. Esto se gestiona a través del `scriptPubKey` de una transacción P2PKH, que está diseñada de tal manera que requiere que el destinatario tenga la clave privada asociada a la dirección P2PKH Bitcoin. Para ser precisos, el destinatario debe proporcionar tanto la clave pública vinculada a la clave privada como una firma generada por la clave privada. 
+Durante mucho tiempo hemos dicho que cuando los fondos se envían a una dirección de Bitcoin, están bloqueados con la clave privada asociada con esa dirección. Esto se gestiona a través del `scriptPubKey` de una transacción P2PKH, que está diseñada de tal manera que requiere que el destinatario tenga la clave privada asociada a la dirección P2PKH Bitcoin. Para ser precisos, el destinatario debe proporcionar tanto la clave pública vinculada a la clave privada como una firma generada por la clave privada. 
 
 Revise nuevamente la transacción que creó en [§9.1](09_1_Entendiendo_la_base_de_las_Transacciones.md):
 ```
@@ -51,7 +51,7 @@ Puede ver que su `scriptSig` o secuencia de comandos de desbloqueo tiene dos val
 ```
 Eso es todo lo que es un script de desbloqueo! (Para un P2PKH.)
 
-## Comprender el script de bloqueo
+## Comprenda el script de bloqueo
 
 Recuerde que cada script de desbloqueo desbloquea un UTXO anterior. En el ejemplo anterior, `vin` revela que en realidad está desbloqueando el vout `0` de la transacción con txid `bb4362dec15e67d366088f5493c789f22fb4a604e767dae1f6a631687e2784aa`.
 
@@ -84,7 +84,7 @@ $ bitcoin-cli gettransaction "bb4362dec15e67d366088f5493c789f22fb4a604e767dae1f6
   "hex": "020000000001011efcc3bf9950ac2ea08c53b43a0f8cc21e4b5564e205f996f7cadb7d13bb79470000000017160014c4ea10874ae77d957e170bd43f2ee828a8e3bc71feffffff0218730100000000001976a91441d83eaffbf80f82dee4c152de59a38ffd0b602188ac713b10000000000017a914b780fc2e945bea71b9ee2d8d2901f00914a25fbd8702473044022025ee4fd38e6865125f7c315406c0b3a8139d482e3be333727d38868baa656d3d02204b35d9b5812cb85894541da611d5cec14c374ae7a7b8ba14bb44495747b571530121033cae26cb3fa063c95e2c55a94bd04ab9cf173104555efe448b1bfc3a68c8f873342c1b00"
 }
 ```
-Pero como puede ver no obtuvo el `scriptPubKey` con el comando`gettransaction`. Debe dar un paso adicional para recuperar eso examinando la información de la transacción sin procesar (esa es la `hex`) con `decoderawtransaction`:
+Pero como puede ver no obtuvo el `scriptPubKey` con el comando `gettransaction`. Debe dar un paso adicional para recuperar eso examinando la información de la transacción sin procesar (esa es la `hex`) con `decoderawtransaction`:
 
 ```
 $ hex=$(bitcoin-cli gettransaction "bb4362dec15e67d366088f5493c789f22fb4a604e767dae1f6a631687e2784aa" | jq -r '.hex')
@@ -170,7 +170,7 @@ Script: OP_HASH160 <pubKeyHash> OP_EQUALVERIFY OP_CHECKSIG
 Running: <pubKey> OP_DUP
 Stack: [ <signature> <pubKey> <pubKey> ]
 ```
-Por qué el duplicado? Porque es necesario comprobar los dos elementos de desbloqueo: la clave pública y la firma.
+¿Por qué el duplicado? Porque es necesario comprobar los dos elementos de desbloqueo: la clave pública y la firma.
 
 A continuación, `OP_HASH160` saca el resultado de la pila `<pubKey>`, lo codifica y vuelve a colocar el resultado en la pila.
 ```
@@ -183,7 +183,7 @@ Luego, coloca el `<pubKeyHash>` que estaba en el script de bloqueo en la pila:
 Script: OP_EQUALVERIFY OP_CHECKSIG
 Stack: [ <signature> <pubKey> <pubKeyHash> <pubKeyHash> ]
 ```
-`OP_EQUALVERIFY` es efectivamente dos códigos de operación: `OP_EQUAL`, que saca dos elementos de la pila y empuja `True` o `False` en función de la comparación y `OP_VERIFY` que muestra ese resultado e inmediatamente marca la transacción como inválida si es `False`. (El capítulo 12 habla más sobre el uso de `OP_VERIFY` como condicional.)
+`OP_EQUALVERIFY` es efectivamente dos códigos de operación: `OP_EQUAL`, que saca dos elementos de la pila y empuja `True` o `False` en función de la comparación y `OP_VERIFY` que muestra ese resultado e inmediatamente marca la transacción como inválida si es `False`. (El capítulo 12 habla más sobre el uso de `OP_VERIFY` como condicional).
 
 Suponiendo que los dos `<pubKeyHash>es` son iguales, obtendrá el siguiente resultado:
 ```
@@ -197,11 +197,11 @@ Script:
 Running: <signature> <pubKey> OP_CHECKSIG
 Stack: [ True ]
 ```
-El script ahora finaliza y, si tuvo éxito, la transacción puede volver a pasar el UTXO en cuestión.
+El script ahora finaliza y, si tuvo éxito, la transacción puede volver a gastar el UTXO en cuestión.
 
-### Usando btcdeb para un ejemplo P2PKH
+### Use btcdeb para un ejemplo P2PKH
 
-Probar transacciones reales de Bitcoin con `btcdeb` es un poco más complicado, porque necesita conocer la clave pública y la firma para que todo funcione, y generar esta última es algo difícil. Sin embargo, una forma de probar las cosas es dejar que Bitcoin haga el trabajo por usted generando una transacción que _desbloquearía_ un UTXO. Eso es lo que ha hecho anteriormente: generar la transacción para gastar el UTXO hizo que `bitcoin-cli` calcule la` <firma> `y la` <pubKey> `. Luego, mira la información de transacción sin procesar del UTXO para aprender el script de bloqueo, incluido el `<pubKeyHash>`
+Probar transacciones reales de Bitcoin con `btcdeb` es un poco más complicado, porque necesita conocer la clave pública y la firma para que todo funcione, y generar esta última es algo difícil. Sin embargo, una forma de probar las cosas es dejar que Bitcoin haga el trabajo por usted generando una transacción que _desbloquearía_ un UTXO. Eso es lo que ha hecho anteriormente: generar la transacción para gastar el UTXO hizo que `bitcoin-cli` calcule la `<firma> `y la `<pubKey>`. Luego, mira la información de transacción sin procesar del UTXO para aprender el script de bloqueo, incluido el `<pubKeyHash>`
 
 Usted puede poner juntos el script de bloqueo, la firma y la clave pública usando `btcdeb`, mostrando lo simple que es un script P2PKH.
 
@@ -350,7 +350,12 @@ En este punto, todo lo que se requiere es el `OP_CHECKSIG`:
 btcdeb> step
 error: Signature is found in scriptCode
 ```
-### Cómo buscar una clave de pub y una firma a mano
+
+(Desafortunadamente, esta verificación puede o no funcionar en algún momento debido a los caprichos del código Bitcoin Core y btcdeb).
+
+Como se muestra, un P2PKH es bastante simple: su protección proviene de la fuerza de su criptografía.
+
+### Cómo buscar una clave pública y una firma a mano
 
 ¿Qué pasaría si quisiera generar la información necesaria de la `<signature>` y `<PubKey>` para desbloquear un UTXO usted mismo, sin tener que apoyarse en `bitcoin-cli` para crear una transacción?
 
@@ -379,12 +384,12 @@ $ bitcoin-cli getaddressinfo mmX7GUoXq2wVcbnrnFJrGKsGR14fXiGbD9
   ]
 }
 ```
-Sin embargo, descubrir esa firma requiere comprender realmente los detalles de cómo se crean las transacciones de Bitcoin. Así que dejamos eso como un estudio avanzado para el lector: crear una transacción `bitcoin-cli` para" resolver "un UTXO es la mejor solución para eso por el momento.
+Sin embargo, descubrir esa firma requiere comprender realmente los detalles de cómo se crean las transacciones de Bitcoin. Así que dejamos eso como un estudio avanzado para el lector: crear una transacción `bitcoin-cli` para "resolver" un UTXO es la mejor solución para eso por el momento.
 
-## Resumen: creación de un script de pago a clave pública hash
+## Resumen: Codificando un pago al hash de una clave pública
 
 Enviar a una dirección P2PKH era relativamente fácil cuando solo usaba `bitcoin-cli`. Al examinar el script de Bitcoin subyacente, se ponen al descubierto las funciones criptográficas que estaban implícitas en la financiación de esa transacción: cómo se desbloqueó el UTXO con una firma y una clave pública.
 
 ## ¿Que sigue?
 
-Continúe con "Introducción a los scripts de Bitcoin" con [§9.5: Codificando una P2WPKH](09_5_Codificando_una_P2WPKH.md).
+Continúe "Introduciendo los scripts de Bitcoin" con [§9.5: Codificando una P2WPKH](09_5_Codificando_una_P2WPKH.md).
