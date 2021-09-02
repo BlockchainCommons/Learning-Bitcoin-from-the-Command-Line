@@ -36,7 +36,7 @@ $ signedtx=$(bitcoin-cli -named signrawtransactionwithwallet hexstring=$rawtxhex
 
 En realidad, no es necesario que la envíe: el objetivo es simplemente producir una transacción completa que pueda examinar.
 
->** NOTE:** ¿Por qué las direcciones heredadas (legacy)? Porque sus scripts son más significativos. Sin embargo, también ofreceremos un ejemplo de un SegWit P2WPKH nativo en [§9.5](09_5_Scripting_a_P2WPKH.md).
+>** NOTA:** ¿Por qué las direcciones heredadas (legacy)? Porque sus scripts son más significativos. Sin embargo, también ofreceremos un ejemplo de un SegWit P2WPKH nativo en [§9.5](09_5_Codificando_una_P2WPKH.md).
 
 ### Examine su transacción de prueba
 
@@ -82,9 +82,9 @@ $ bitcoin-cli -named decoderawtransaction hexstring=$signedtx
 ``` 
 Los dos scripts se encuentran en diferentes partes de la transación.
 
-El `scriptSig` se encuentra en el` vin`. Este es el script _unlocking_. Es lo que se ejecuta para acceder al UTXO que se utiliza para financiar esta transacción. Habrá un `scriptSig` por UTXO en una transacción.
+El `scriptSig` se encuentra en el` vin`. Este es el script _de desbloqueo_. Es lo que se ejecuta para acceder al UTXO que se utiliza para financiar esta transacción. Habrá un `scriptSig` por UTXO en una transacción.
 
-El `scriptPubKey` se encuentra en el` vout`. Este es el script _locking_. Es lo que bloquea la nueva salida de la transacción. Habrá una `scriptPubKey` por salida en una transacción.
+El `scriptPubKey` se encuentra en el` vout`. Este es el script _de bloqueo_. Es lo que bloquea la nueva salida de la transacción. Habrá una `scriptPubKey` por salida en una transacción.
 
 >:book:***¿Cómo interactúan scriptSig y scriptPubKey?*** El `scriptSig` de una transacción desbloquea el UTXO anterior; La salida de esta nueva transacción se bloqueará con un `scriptPubKey`, que a su vez puede ser desbloqueado por el` scriptSig` de la transacción que reutiliza ese UTXO.
 
@@ -139,7 +139,7 @@ Compare eso con el `scriptPubKey` de su nueva transacción P2PKH:
         ]
       }
 ```
-Estas dos transacciones están _definitivamente_ bloqueadas de diferentes formas. Bitcoin reconoce el primero como `scripthash` (P2SH) y el segundo como` pubkeyhash` (P2PKH), pero también debería poder ver la diferencia en los distintos códigos `asm`:`OOP_HASH160 a5d106eb8ee51b23cf60d8bd98bc285695f233f3 OP_EQUAL` frente a `OP_DUP OP_HASH160 06b5c6ba5330cdf738a2ce91152bfd0e71f9ec39 OP_EQUALVERIFY OP_CHECKSIG`.  Este es el poder de las secuencias de comandos: puede producir de manera muy simple algunos de los tipos de transacciones dramáticamente diferentes de los que aprendió en los capítulos anteriores.
+Estas dos transacciones están _definitivamente_ bloqueadas de diferentes formas. Bitcoin reconoce el primero como `scripthash` (P2SH) y el segundo como` pubkeyhash` (P2PKH), pero también debería poder ver la diferencia en los distintos códigos `asm`:`OP_HASH160 a5d106eb8ee51b23cf60d8bd98bc285695f233f3 OP_EQUAL` frente a `OP_DUP OP_HASH160 06b5c6ba5330cdf738a2ce91152bfd0e71f9ec39 OP_EQUALVERIFY OP_CHECKSIG`.  Este es el poder de las secuencias de comandos: puede producir de manera muy simple algunos de los tipos de transacciones dramáticamente diferentes de los que aprendió en los capítulos anteriores.
 
 ## Resumen: Entendiendo la base de las transacciones
 
