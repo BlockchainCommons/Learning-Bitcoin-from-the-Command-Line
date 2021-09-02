@@ -1,4 +1,4 @@
-# 9.2: Ejecución de un script de Bitcoin
+# 9.2: Ejecutando un script Bitcoin
 
 Los scripts de Bitcoin pueden no parecer inicialmente tan intuitivos, sin embargo su ejecución es bastante simple, utilizando la notación polaca inversa y una pila.
 
