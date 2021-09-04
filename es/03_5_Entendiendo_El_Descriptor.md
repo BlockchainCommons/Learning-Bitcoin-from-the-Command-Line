@@ -77,6 +77,31 @@ Esto es lo que todo eso significa:
 
 Consulte [Información de Bitcoin Core sobre la compatibilidad con descriptores](https://github.com/bitcoin/bitcoin/blob/master/doc/descriptors.md) para obtener más información.
 
+## Examine un Descriptor
+
+Usted puede examinar el descriptor con el comando RPC `getdescriptorinfo`:
+```
+$ bitcoin-cli getdescriptorinfo "pkh([d6043800/0'/0'/18']03efdee34c0009fd175f3b20b5e5a5517fd5d16746f2e635b44617adafeaebc388)#4ahsl9pk"
+{
+  "descriptor": "pkh([d6043800/0'/0'/18']03efdee34c0009fd175f3b20b5e5a5517fd5d16746f2e635b44617adafeaebc388)#4ahsl9pk",
+  "checksum": "4ahsl9pk",
+  "isrange": false,
+  "issolvable": true,
+  "hasprivatekeys": false
+}
+```
+Tenga en cuenta que devuelve una suma de comprobación. Si alguna vez le dan un descriptor sin una suma de verificación, puede aprenderlo con este comando:
+```
+$ bitcoin-cli getdescriptorinfo "pkh([d6043800/0'/0'/18']03efdee34c0009fd175f3b20b5e5a5517fd5d16746f2e635b44617adafeaebc388)"
+{
+  "descriptor": "pkh([d6043800/0'/0'/18']03efdee34c0009fd175f3b20b5e5a5517fd5d16746f2e635b44617adafeaebc388)#4ahsl9pk",
+  "checksum": "4ahsl9pk",
+  "isrange": false,
+  "issolvable": true,
+  "hasprivatekeys": false
+}
+```
+
 Además de darle la suma de verificación, este comando también verifica la validez del descriptor y proporciona información útil como comprobar si un descriptor contiene claves privadas.
 
 Uno de los poderes de un descriptor es poder derivar una dirección de forma regular. Esto se hace con el RPC `deriveaddresses`.
@@ -104,9 +129,9 @@ remote$ bitcoin-cli importmulti '[{"desc": "pkh([d6043800/0'"'"'/0'"'"'/18'"'"']
 ```
 Primero, notará nuestro primer uso realmente desagradable de las comillas. Cada `'` en la ruta de derivación tuvo que ser reemplazado por `'"'"'`. Solo espere tener que hacer eso si está manipulando un descriptor que contiene una ruta de derivación. (La otra opción es intercambiar el `'` con una `h` por el endurecido, pero eso cambiará su suma de verificación, por lo que si lo prefiere por su facilidad de uso, deberá obtener una nueva suma de verificación con `getdescriptorinfo` .)
 
-En segundo lugar, observará que marcamos esto como `solo vigilancia` o `watchonly`. Eso es porque sabemos que es una clave pública, por lo que no podemos gastar con ella. Si no hubiéramos podido ingresar esta bandera, `importmulti` nos habría ayudado a decirnos algo como: `Faltan algunas claves privadas, las salidas se considerarán solo de observación. Si es intencional, especifique la bandera de solo vigilancia`.
+En segundo lugar, observará que marcamos esto como `solo vigilancia` o `watchonly`. Eso es porque sabemos que es una clave pública, por lo que no podemos gastar con ella. Si no hubiésemos ingresado esta indicador, `importmulti` nos habría ayudado a decirnos algo como: `Faltan algunas claves privadas, las salidas se considerarán solo de observación. Si es intencional, especifique la bandera de solo vigilancia`.
 
-> :book: ***¿Qué es una dirección de solo reloj?*** Una dirección de solo reloj le permite ver las transacciones relacionadas con una dirección (o con toda una familia de direcciones si usó un `xpub`), pero no gastar fondos en esas direcciones.
+> :book: ***¿Qué es una dirección de solo obervación?*** Una dirección de solo observción le permite ver las transacciones relacionadas con una dirección (o con toda una familia de direcciones si usó un `xpub`), pero no gastar fondos en esas direcciones.
 
 Usando `getaddressesbylabel`, ¡ahora podemos ver que nuestra dirección ha sido importada correctamente a nuestra máquina remota!
 
@@ -119,14 +144,14 @@ remote$ bitcoin-cli getaddressesbylabel ""
 }
 ```
 
-## Resumen: comprensión del descriptor
+## Resumen: comprendiendo del descriptor
 
 Los descriptores le permiten pasar claves públicas y claves privadas entre billeteras, pero más que eso, le permiten definir direcciones de manera precisa y correcta y derivar direcciones de muchos tipos diferentes a partir de un formato de descripción estandarizado.
 
 > :fire: ***¿Cuál es el poder de los descriptores?*** Los descriptores le permiten importar y exportar semillas y claves. Eso es genial si quiere moverse entre diferentes carteras. Como desarrollador, también le permiten crear el tipo preciso de direcciones que le interesa crear. Por ejemplo, lo usamos en [FullyNoded 2](https://github.com/BlockchainCommons/FullyNoded-2/blob/master/Docs/How-it-works.md) para generar un multifirma a partir de tres semillas.
 
-Haremos un uso real de los descriptores en [§7.3] (07_3_Integrating_with_Hardware_Wallets.md), cuando estemos importando direcciones desde una billetera de hardware.
+Haremos un uso real de los descriptores en [§7.3](07_3_Integrando_con_Hardware_Wallets.md), cuando estemos importando direcciones desde una billetera de hardware.
 
 ## ¿Que sigue?
 
-Avance a través de "bitcoin-cli" con el [Capítulo cuatro: Envío de transacciones de Bitcoin] (04_0_Enviando_Transacciones_Bitcoin.md).
+Avance a través de "bitcoin-cli" con el [CCapítulo cuatro: Enviando Transacciones Bitcoin](04_0_Enviando_Transacciones_Bitcoin.md).
