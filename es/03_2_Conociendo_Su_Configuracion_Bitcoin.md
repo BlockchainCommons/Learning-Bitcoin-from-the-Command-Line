@@ -1,6 +1,6 @@
-# 3.2: Conociendo la configuración de Bitcoin
+# 3.2: Conociendo su configuración Bitcoin
 
-Antes de comenzar a jugar con Bitcoin, siempre desearía tener una mejor compresión de su configuración.
+Antes de comenzar a jugar con Bitcoin, es posible que siempre quiera llegar a una mejor comprension.
 
 ## Conozca su directorio de Bitcoin
 
@@ -11,7 +11,7 @@ El directorio principal solo contiene su archivo de configuración y el director
 $ ls ~/.bitcoin
 bitcoin.conf  testnet3
 ```
-Las guías de configuración del [Capítulo dos: Creación de un VPS de Bitcoin-Core] presentaron un archivo de configuración estandarizado. [§3.1: Verificación de la configuración de Bitcoin] sugirió cómo cambiarla para admitir configuraciones más avanzadas. Si está interesado en aprender aún más sobre el archivo de configuración, puede consultar el Generador de configuración de [Bitcoin Core de Jameson Lopp](https://jlopp.github.io/bitcoin-core-config-generator/).
+Las guías de configuración del [Capítulo dos: Creación de un VPS de Bitcoin-Core](02_0_Configurando_un_Bitcoin-Core_VPS.md) presentaron un archivo de configuración estandarizado. [3.1: Verificando Su Configuración Bitcoin](03_1_Verificando_Su_Configuracion_Bitcoin.md) sugirió cómo cambiarla para admitir configuraciones más avanzadas. Si está interesado en aprender aún más sobre el archivo de configuración, puede consultar el Generador de configuración de [Bitcoin Core de Jameson Lopp](https://jlopp.github.io/bitcoin-core-config-generator/).
 
 Volviendo a su directorio ~ / .bitcoin, encontrará que el directorio testnet3 contiene todas las vísceras:
 ```
@@ -21,7 +21,7 @@ bitcoind.pid  chainstate  fee_estimates.dat  onion_private_key	wallets
 ```
 No debería interactuar con la mayoría de estos archivos y directorios, particularmente con los directorios `blocks` y `chainstate`, que contienen todos los datos de la cadena de bloques, y la información en su directorio `wallets`, que contiene su billetera personal. Sin embargo, tome nota del archvo `debug.log`, al que debe consultar si alguna vez tiene problemas con la configuración.
 
-> :link: **TESTNET vs MAINNET:** Si está utilizando mainnet, entonces _todo_ se colocará en el directorio principal `~/.bitcoin`. Estas diversas configuraciones se apilan elegantemente, por lo que si usted está usando MainNet, testnet y Regtest, usted encontrará que `~/.bitcoin` contiene el archivo de configuración y sus datos MainNet, el directorio `~/.bitcoin/testnet3` contiene los datos Testnet, y el directorio `~/.bitcoin/regtest` los datos Regtest.
+> :link: **TESTNET vs MAINNET:** Si está utilizando mainnet, entonces _todo_ se colocará en el directorio principal `~/.bitcoin`. Estas diversas configuraciones se apilan elegantemente, por lo que si usted está usando mainnet, testnet y regtest, usted encontrará que `~/.bitcoin` contiene el archivo de configuración y sus datos MainNet, el directorio `~/.bitcoin/testnet3` contiene los datos Testnet, y el directorio `~/.bitcoin/regtest` los datos Regtest.
 
 ## Conozca sus comandos Bitcoin-cli
 
@@ -200,7 +200,7 @@ Examples:
 > bitcoin-cli getmininginfo
 > curl --user myusername --data-binary '{"jsonrpc": "1.0", "id": "curltest", "method": "getmininginfo", "params": []}' -H 'content-type: text/plain;' http://127.0.0.1:8332/
 ```
-> :book: ***¿Qué es RPC?*** `bitcoin-cli` es solo una interfaz práctica que le permite enviar comandos al `bitcoind`. Más específicamente, es una interfaz que le permite enviar comandos RPC (o Protocolo de procedimiento remoto) al `bitcoind`. A menudo, el comando `bitcoin-cli` y el comando RPC tienen nombres e interfaces idénticos, pero algunos comandos `bitcoin-cli` proporcionan atajos para solicitudes RPC más complejas. Generalmente, la interfaz `bitcoin-cli` es mucho más limpia y simple que intentar enviar comandos RPC a mano, usando `curl` o algún otro método. Sin embargo, también tiene limitaciones en cuanto a lo que puede hacer en última instancia.
+> :book: ***¿Qué es RPC?*** `bitcoin-cli` es solo una interfaz práctica que le permite enviar comandos al `bitcoind`. Más específicamente, es una interfaz que le permite enviar comandos RPC (o protocolo de procedimiento remoto) al `bitcoind`. A menudo, el comando `bitcoin-cli` y el comando RPC tienen nombres e interfaces idénticos, pero algunos comandos `bitcoin-cli` proporcionan atajos para solicitudes RPC más complejas. Generalmente, la interfaz `bitcoin-cli` es mucho más limpia y simple que intentar enviar comandos RPC a mano, usando `curl` o algún otro método. Sin embargo, también tiene limitaciones en cuanto a lo que puede hacer en última instancia.
 
 ## Opcional: conozca su información de Bitcoin
 
@@ -310,6 +310,6 @@ No dude en hacer referencia a cualquiera de estos y utilizar el comando "bitcoin
 
 El directorio `~/.bitcoin` contiene todos sus archivos, mientras que `bitcoin-cli help` se puede usar con una variedad de comandos informativos para obtener más información sobre cómo funcionan su configuración y Bitcoin.
 
-## Que sigue?
+## ¿Que sigue?
 
-Continúe con "Comprensión de la configuración de Bitcoin" [§3.3: Configurando su billetera](03_3_Configurando_Su_Billetera.md).
+Continúe "Entendiendo su configuracion de Bitcoin" en [§3.3: Configurando su billetera](03_3_Configurando_Su_Billetera.md).
