@@ -1,8 +1,8 @@
-# 3.4: Recibir una transacción
+# 3.4: Recibiendo una transaccion
 
 Ahora está listo para recibir algo de dinero en la nueva dirección que configuró.
 
-## Conseguir algo de dinero
+## Consiga algo de dinero
 
 Para hacer algo más, necesita obtener algo de dinero. En testnet, esto se hace a través de faucets. Dado que el dinero es fingido, simplemente vaya a un grifo, solicite algo de dinero y se lo enviará. Sugerimos usar el faucet en https://testnet-faucet.mempool.co/, https://bitcoinfaucet.uo1.net/ o https://testnet.coinfaucet.eu/en/. Si no están disponibles por alguna razón, busque "bitcoin testnet faucet" y debería encontrar otros.
 
@@ -10,7 +10,7 @@ Para usar un faucet, generalmente deberá ir a una URL y copiar y pegar su direc
 
 > :book: ***¿Qué es una transacción?*** Una transacción es un intercambio de bitcoins. El propietario de algunos bitcoins usa su clave privada para acceder a esas monedas, luego bloquea la transacción usando la clave pública del destinatario.
 
-> :link: ** TESTNET vs MAINNET: ** Lamentablemente, no hay grifos en la vida real. Si estuvieras jugando en la red principal, deberías ir y comprar bitcoins en un intercambio de bitcoins o en un cajero automático, o necesitarías que alguien te los envíe. La vida de Testnet es mucho más fácil.
+> :link: ** TESTNET vs MAINNET: ** Lamentablemente, no hay grifos en la vida real. Si estuviera jugando en la red principal, debería ir y comprar bitcoins en un intercambio de bitcoins o en un cajero automático, o necesitaría que alguien se los envíe. La vida de Testnet es mucho más fácil.
 
 ## Verifique su dinero
 
@@ -25,7 +25,7 @@ Pero espere, ¿¡todavía no hay saldo!?
 
 Bienvenido al mundo de la latencia de Bitcoin. ¡El problema es que su transacción aún no se ha registrado en un bloque!
 
-> :book: ***¿Qué es un bloque?*** Las transacciones se transmiten a través de la red y los mineros las reúnen en bloques. Estos bloques están asegurados con una prueba matemática de trabajo, que demuestra que la potencia de cálculo se ha gastado como parte de la creación del bloque. Es esa prueba de trabajo (multiplicada en muchos bloques, cada uno construido sobre el último) lo que, en última instancia, mantiene a Bitcoin seguro.
+> :book: ***¿Qué es un bloque?*** Las transacciones se transmiten a través de la red y los mineros las reúnen en bloques. Estos bloques están asegurados con una prueba matemática de trabajo, que demuestra que se ha gastado potencia de cálculo como parte de la creación del bloque. Es esa prueba de trabajo (multiplicada en muchos bloques, cada uno construido sobre el último) lo que, en última instancia, mantiene a Bitcoin seguro.
 
 > :book: ***¿Qué es un minero?*** Un minero es un participante de la red Bitcoin que trabaja para crear bloques. Es un trabajo remunerado: cuando un minero crea con éxito un bloque, se le paga una recompensa única más las tarifas por las transacciones en su bloque. La minería es un gran negocio. Los mineros tienden a funcionar con hardware especial, acelerado de manera que es más probable que puedan crear bloques. También tienden a ser parte de grupos de minería, donde todos los mineros acuerdan compartir las recompensas cuando uno de ellos crea un bloque con éxito.
 
@@ -40,7 +40,7 @@ Si todavía muestra un cero, probablemente se esté moviendo a través de este t
 
 ### Gane confianza en su dinero
 
-Puede usar `bitcoin-cli getbalance "*"[n]`, donde reemplaza `[n]` con un número entero, para ver si un saldo confirmado es 'n' bloques de profundidad
+Puede usar `bitcoin-cli getbalance "*"[n]`, donde reemplaza `[n]` con un número entero, para ver si un saldo confirmado esta a 'n' bloques de profundidad.
 
 > :book: ***¿Qué es la profundidad del bloque?*** Después de que se construye y se confirma un bloque, se construye otro bloque encima y otro ... Debido a que se trata de un proceso estocástico, existe alguna posibilidad de reversión cuando un bloque aún es nuevo. Por lo tanto, un bloque debe estar enterrado a varios bloques de profundidad en una cadena antes de que pueda sentirse totalmente seguro de sus fondos. Cada uno de esos bloques tiende a construirse en un promedio de 10 minutos ... por lo que generalmente toma alrededor de una hora para que una transacción confirmada reciba seis bloques de profundidad, que es la medida de plena confianza en Bitcoin.
 
@@ -57,7 +57,7 @@ Obviamente, cada diez minutos más o menos esta profundidad aumentará.
 
 Por supuesto, en la red de prueba, nadie está tan preocupado por la confiabilidad de sus fondos. Podrás gastar tu dinero tan pronto como se confirme.
 
-## Verificar su billetera
+## Verifique su billetera
 
 El comando `bitcoin-cli getwalletinfo` le brinda más información sobre el saldo de su billetera:
 
@@ -128,7 +128,7 @@ $ bitcoin-cli listtransactions
 
 ```
 
-Aquí se muestran dos transacciones (`8e2ab10cabe9ec04ed438086a80b1ac72558cc05bb206e48fc9a18b01b9282e9`) y (`ca4898d8f950df03d6bfaa00578bd0305d041d24788b630d0c4a32debcac9f36`) para una cantidad específica ( `0.01000000` y` 0.00010000`), que tanto se recibieron ( `receive`) por la misma dirección en nuestra cartera (`mi25UrzHnvn3bpEfFCNqJhPWJn5b77a5NE`) . Eso es una mala higiene de claves, por cierto: debe usar una nueva dirección para cada Bitcoin que reciba. En este caso, nos impacientamos porque el primer grifo no parecía funcionar.
+Aquí se muestran dos transacciones (`8e2ab10cabe9ec04ed438086a80b1ac72558cc05bb206e48fc9a18b01b9282e9`) y (`ca4898d8f950df03d6bfaa00578bd0305d041d24788b630d0c4a32debcac9f36`) para una cantidad específica ( `0.01000000` y` 0.00010000`), las cuales fueron recibidas ( `receive`) por la misma dirección en nuestra billetera (`mi25UrzHnvn3bpEfFCNqJhPWJn5b77a5NE`). Eso es una mala higiene de claves, por cierto: debe usar una nueva dirección para cada Bitcoin que reciba. En este caso, nos impacientamos porque el primer grifo no parecía funcionar.
 
 Puede acceder a información similar con el comando `bitcoin-cli listunspent`, pero solo muestra las transacciones por el dinero que no ha gastado. Estos se denominan UTXO y serán de vital importancia cuando envíe dinero al mundo de Bitcoin:
 
@@ -166,7 +166,7 @@ $ bitcoin-cli listunspent
 
 Tenga en cuenta que los bitcoins no son solo un lío homogéneo de dinero en efectivo atascado en su bolsillo. Cada transacción individual que recibe o envía se coloca en el libro mayor inmutable de blockchain, en un bloque. Puede ver estas transacciones individuales cuando mira su dinero no gastado. Esto significa que el gasto en bitcoins no es tan anónimo como parece. Aunque las direcciones son bastante privadas, las transacciones se pueden examinar a medida que entran y salen de las direcciones. Esto hace que la privacidad sea vulnerable al análisis estadístico. También introduce cierta no fungibilidad potencial para bitcoins, ya que puede rastrear una serie de transacciones, incluso si no puede rastrear un "bitcoin" específico.
 
-> :book: ***¿Por qué todas estas cantidades de bitcoins están en fracciones?*** Los bitcoins se producen lentamente, por lo que hay relativamente pocos en circulación. Como resultado, cada bitcoin en la red principal vale bastante (~ $ 9,000 en el momento de escribir este artículo). Esto significa que la gente suele trabajar en fracciones. De hecho, el .0101 en monedas de Testnet valdría alrededor de $ 100 si estuvieran en la red principal. Por esta razón, han aparecido nombres para cantidades más pequeñas de bitcoins, incluidos milibitcoins o mBTC (una milésima parte de un bitcoin), microbitcoins o bits o μBTC (una millonésima parte de un bitcoin) y satoshis (una centésima millonésima de un bitcoin). 
+> :book: ***¿Por qué todas estas cantidades de bitcoins están en fracciones?*** Los bitcoins se producen lentamente, por lo que hay relativamente pocos en circulación. Como resultado, cada bitcoin en la red principal vale bastante (~ $ 9,000 en el momento de escribir este artículo). Esto significa que la gente suele trabajar en fracciones. De hecho, el .0101 en monedas de Testnet valdría alrededor de $ 100 si estuvieran en la red principal. Por esta razón, han aparecido nombres para cantidades más pequeñas de bitcoins, incluidos milibitcoins o mBTC (una milésima parte de un bitcoin), microbitcoins o bits o μBTC (una millonésima parte de un bitcoin) y satoshis (una cien millonésima de un bitcoin). 
 
 ## Examine su transacción
 
@@ -202,7 +202,7 @@ $ bitcoin-cli gettransaction "8e2ab10cabe9ec04ed438086a80b1ac72558cc05bb206e48fc
 
 El comando `gettransaction` detallará las transacciones que están en su billetera, como esta, que nos fue enviada.
 
-Tenga en cuenta que "gettransaction" tiene dos argumentos opcionales:
+Tenga en cuenta que `gettransaction` tiene dos argumentos opcionales:
 
 ```
 $ bitcoin-cli help gettransaction
@@ -301,9 +301,9 @@ $ bitcoin-cli gettransaction "8e2ab10cabe9ec04ed438086a80b1ac72558cc05bb206e48fc
 ```
 
 
-Ahora puede ver la información completa sobre la transacción, incluidas todas las entradas ("vin") y todas las salidas ("vout). Una de las cosas interesantes a tener en cuenta es que, aunque recibimos .01 BTC en la transacción, otra .01010143 se envió a otra dirección. Probablemente se trataba de un cambio de dirección, un concepto que se explora en la siguiente sección. Es bastante típico que una transacción tenga múltiples entradas y / o múltiples salidas.
+Ahora puede ver la información completa sobre la transacción, incluidas todas las entradas ("vin") y todas las salidas ("vout). Una de las cosas interesantes a tener en cuenta es que, aunque recibimos .01 BTC en la transacción, otra .01010143 se envió a otra dirección. Probablemente se trataba de una dirección de cambio, un concepto que se explora en la siguiente sección. Es bastante típico que una transacción tenga múltiples entradas y/o múltiples salidas.
 
-Hay otro comando, `getrawtransaction`, que le permite ver las transacciones que no están en su billetera. Sin embargo, requiere que tenga un nodo sin podar y `txindex = 1` en su archivo` bitcoin.conf`. A menos que tenga una necesidad seria de información que no esté en su billetera, probablemente sea mejor usar un explorador de Bitcoin para este tipo de cosas ...
+Hay otro comando, `getrawtransaction`, que le permite ver las transacciones que no están en su billetera. Sin embargo, requiere que tenga un nodo sin podar y `txindex=1` en su archivo` bitcoin.conf`. A menos que tenga una necesidad seria de información que no esté en su billetera, probablemente sea mejor usar un explorador de Bitcoin para este tipo de cosas ...
 
 ## Opcional: Usar un explorador de bloques
 
@@ -322,12 +322,12 @@ También puede usarlo para ver transacciones individuales:
 
 Un explorador de bloques generalmente no proporciona más información que una mirada de línea de comandos a una transacción sin procesar; simplemente hace un buen trabajo al resaltar la información importante y armar las piezas del rompecabezas, incluidas las tarifas de transacción detrás de una transacción, otro concepto que cubriremos en secciones futuras.
 
-## Resumen: Recibir una transacción
+## Resumen: Recibiendo una transacción
 
-Los Faucets le darán dinero en la red de prueba. Vienen como transacciones sin procesar, que se pueden examinar con "gettransaction" o un explorador de bloques. Una vez que haya recibido una transacción, podrá verla en su saldo y en su billetera.
+Los grifos le darán dinero en la red de prueba. Vienen como transacciones sin procesar, que se pueden examinar con `gettransaction` o un explorador de bloques. Una vez que haya recibido una transacción, podrá verla en su saldo y en su billetera.
 
 ## ¿Que sigue?
 
-Para profundizar en cómo se describen las direcciones, de modo que se puedan transferir o convertir en partes de una firma múltiple, consulte [§3.5: Comprensión del descriptor](03_5_Understanding_the_Descriptor.md).
+Para profundizar en cómo se describen las direcciones, de modo que se puedan transferir o convertir en partes de una firma múltiple, consulte [3.5: Entendiendo el descriptor](03_5_Entendiendo_El_Descriptor.md).
 
-Pero si eso es demasiado profundo, continúe con el [Capítulo cuatro: Envío de transacciones de Bitcoin](04_0_Enviando_Transacciones_Bitcoin.md).
+Pero si eso es demasiado profundo, continúe con el [Capitulo cuatro: Enviando transacciones Bitcoin](04_0_Enviando_Transacciones_Bitcoin.md).
