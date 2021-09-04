@@ -1,14 +1,14 @@
 # Expandiendo las Transacciones Bitcoin con PSBTs
 
-En el capítulo anterior se discutió cómo usar las múltiples fnuciones para determinar de manera colaborativa el consentimiento entre múltiples partes. No es la única forma de colaborar en la creación de tansacciones de Bitcoin. Los PSBT son una tecnología mucho más nueva que le permite colaborar en una variedad de etapas, incluida la creación, financión y autenticación de una transacción de Bitcoin. 
+En el capítulo anterior se discutió cómo usar las múltiples fnuciones para determinar de manera colaborativa el consentimiento entre múltiples partes. No es la única forma de colaborar en la creación de transacciones de Bitcoin. Los PSBT son una tecnología mucho más nueva que le permite colaborar en una variedad de etapas, incluida la creación, financión y autenticación de una transacción de Bitcoin. 
 
 ## Objetivos de esta sección
 
 Después de trabajar en este capítulo, un desarrollador podrá:
 
    * Crear transacciones con PSBT
-   * Utilice herramientas de línea de comandos para completar PSBT
-   * Use HWI para interactuar con una billetera de hardware
+   * Utilizar herramientas de línea de comandos para completar PSBT
+   * Usar HWI para interactuar con una billetera de hardware
    
 Los objetivos de apoyo incluyen la capacidad de:
 
