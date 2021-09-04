@@ -25,9 +25,9 @@ Sería un "2" para una dirección P2SH o un "tb1" para una dirección Bech32.
 
 Toma nota de la dirección. Deberá entregárselo a quien le envíe los fondos.
 
-> :book: ***Qué es una dirección Bitcoin?*** Una dirección de Bitcoin es, literalmente, donde recibe dinero. Es como una dirección de correo electrónico, pero para fondos. Técnicamente, es una clave pública, aunque diferentes esquemas de direcciones lo ajustan de diferentes maneras. Sin embargo, a diferencia de una dirección de correo electrónico, una dirección de Bitcoin debe considerarse de un solo uso: úsela para recibir fondos solo una vez . Cuando desee recibir fondos de otra persona o en otro momento, genere una nueva dirección. Esto se sugiere en gran parte para mejorar su privacidad. Toda la cadena de bloques es inmutable, lo que significa que los exploradores pueden observar largas cadenas de transacciones a lo largo del tiempo, lo que hace posible determinar estadísticamente quiénes son usted y sus contactos, sin importar cuán cuidadoso sea. Sin embargo, si sigue reutilizando la misma dirección, esto se vuelve aún más fácil.
+> :book: ***¿Qué es una dirección Bitcoin?*** Una dirección de Bitcoin es, literalmente, donde recibe dinero. Es como una dirección de correo electrónico, pero para fondos. Técnicamente, es una clave pública, aunque diferentes esquemas de direcciones lo ajustan de diferentes maneras. Sin embargo, a diferencia de una dirección de correo electrónico, una dirección de Bitcoin debe considerarse de un solo uso: úsela para recibir fondos solo una vez . Cuando desee recibir fondos de otra persona o en otro momento, genere una nueva dirección. Esto se sugiere en gran parte para mejorar su privacidad. Toda la cadena de bloques es inmutable, lo que significa que los exploradores pueden observar largas cadenas de transacciones a lo largo del tiempo, lo que hace posible determinar estadísticamente quiénes son usted y sus contactos, sin importar cuán cuidadoso sea. Sin embargo, si sigue reutilizando la misma dirección, esto se vuelve aún más fácil.
 
-> :book: ***Qué es una billetera Bitcoin?*** Al crear su primera dirección de Bitcoin, también ha comenzado a completar su billetera de Bitcoin. Más precisamente, ha comenzado a llenar el archivo `wallet.dat` en su directorio `~/.bitcoin/testnet3/wallets`. El archivo `wallet.dat` contiene datos sobre preferencias y transacciones, pero lo más importante es que contiene todos los pares de claves que crea: tanto la clave pública (que es la fuente de la dirección donde recibe los fondos) como la clave privada (que es la forma en que gasta esos fondos). En su mayor parte, no tendrá que preocuparse por esa clave privada: `bitcoind` la usará cuando sea necesaria. Sin embargo, esto hace que el archivo `wallet.dat` sea extremadamente importante: si lo pierde, pierde sus claves privadas, y si pierde sus claves privadas, ¡pierde sus fondos!
+> :book: ***¿Qué es una billetera Bitcoin?*** Al crear su primera dirección de Bitcoin, también ha comenzado a completar su billetera de Bitcoin. Más precisamente, ha comenzado a llenar el archivo `wallet.dat` en su directorio `~/.bitcoin/testnet3/wallets`. El archivo `wallet.dat` contiene datos sobre preferencias y transacciones, pero lo más importante es que contiene todos los pares de claves que crea: tanto la clave pública (que es la fuente de la dirección donde recibe los fondos) como la clave privada (que es la forma en que gasta esos fondos). En su mayor parte, no tendrá que preocuparse por esa clave privada: `bitcoind` la usará cuando sea necesaria. Sin embargo, esto hace que el archivo `wallet.dat` sea extremadamente importante: si lo pierde, pierde sus claves privadas, y si pierde sus claves privadas, ¡pierde sus fondos!
 
 Con una sola dirección en la mano, puede pasar directamente a la siguiente sección y comenzar a recibir fondos. Sin embargo, antes de llegar allí, discutiremos brevemente los otros tipos de direcciones que encontrará en el futuro y hablaremos sobre algunos otros comandos de billetera que quizás desee usar en el futuro.
 
@@ -64,7 +64,7 @@ HyIP0nzdcH12aNbQ2s2rUxLwzG832HxiO1vt8S/jw+W4Ia29lw6hyyaqYOsliYdxne70C6SZ5Utma6QY
 ```
 Recibirás la firma como devolución.
 
-> :book: ***Qué es una firma?*** Una firma digital es una combinación de un mensaje y una clave privada que luego se puede desbloquear con una clave pública. Dado que existe una correspondencia uno a uno entre los elementos de un par de claves, el desbloqueo con una clave pública demuestra que el firmante controlaba la clave privada correspondiente.
+> :book: ***¿Qué es una firma?*** Una firma digital es una combinación de un mensaje y una clave privada que luego se puede desbloquear con una clave pública. Dado que existe una correspondencia uno a uno entre los elementos de un par de claves, el desbloqueo con una clave pública demuestra que el firmante controlaba la clave privada correspondiente.
 
 Luego, otra persona puede usar el comando `bitcoin-cli verifymessage` para verificar la firma. Ingresa la dirección en cuestión, la firma y el mensaje:
 ```
@@ -131,6 +131,6 @@ _Ha estado escribiendo esa dirección Bitcoin que generó muchas veces, mientras
 
 Necesita crear una dirección para recibir fondos. Su dirección se almacena en una billetera, de la que puede hacer una copia de seguridad. También puede hacer mucho más con una dirección, como descargar su clave privada o usarla para firmar mensajes. Pero realmente, crear esa dirección es _todo_ lo que necesita hacer para recibir fondos de Bitcoin.
 
-## Que sigue?
+## ¿Que sigue?
 
-Aléjese de "Comprendiendo la configuración de Bitcoin" con [Interludio: Usando variables de la linea de comandos](03_3_Interludio_Usando_Variables_Linea_Comando.md
+Aléjese de "Comprendiendo la configuración de Bitcoin" con [Interludio: Usando variables de la linea de comandos](03_3_Interludio_Usando_Variables_Linea_Comando.md)
