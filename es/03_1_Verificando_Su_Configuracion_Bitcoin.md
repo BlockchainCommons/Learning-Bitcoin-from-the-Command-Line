@@ -15,7 +15,7 @@ alias bd="bitcoind"
 alias btcinfo='bitcoin-cli getwalletinfo | egrep "\"balance\""; bitcoin-cli getnetworkinfo | egrep "\"version\"|connections"; bitcoin-cli getmininginfo | egrep "\"blocks\"|errors"'
 EOF
 ```
-Después de ingresar estos alias, puede ejecutar `source .bash_profile` para cargarlos o iniciar sesión de nuevo.
+Después de ingresar estos alias, puede ejecutar `source .bash_profile` para cargarlos o cerrar sesion e iniciar sesion de nuevo.
 
 Tenga en cuenta que estos alias incluyen atajos para ejecutar `bitcoin-cli`, para ejecutar `bitcoind` y para posicionarse en el directorio de Bitcoin. 
 Estos alias están destinados principalmente a facilitarle la vida. Le sugerimos que cree otros alias para facilitar el uso de comandos frecuentes 
@@ -48,7 +48,7 @@ $ bitcoin-cli getblockcount
 ```
 Eso le indica lo que está descargado; luego deberá verificarlo con un servicio en línea que le indique la altura actual del bloque.
 
-> :book: ***Qué es la altura del bloque?*** La altura del bloque es la distancia a la que se retira un bloque particular del bloque génesis. La altura del bloque actual es la altura del bloque más nuevo agregado a una cadena de bloques.
+> :book: ***¿Qué es la altura del bloque?*** La altura del bloque es la distancia a la que se retira un bloque particular del bloque génesis. La altura del bloque actual es la altura del bloque más nuevo agregado a una cadena de bloques.
 
 Puede hacer esto mirando un explorador de blocknet, tal como [Blockcypher Testnet explorer](https://live.blockcypher.com/btc-testnet/). Su número más reciente coincide con la salida del `getblockcount`? Si es así, está actualizado.
 
@@ -110,6 +110,6 @@ Para una mayor complejidad, puede hacer que cada uno de sus alias de 'inicio' us
 
 Antes de comenzar a jugar con bitcoin, debe asegurarse de que sus alias estén configurados, su bitcoind se esté ejecutando y sus bloques estén descargados. Es posible que también desee configurar algún acceso a configuraciones alternativas de Bitcoin, si es un usuario avanzado.
 
-## Que sigue?
+## ¿Que sigue?
 
 Continue "Conociendo su configuración Bitcoin" en [§3.2: Entendiendo su configuración Bitcoin](03_2_Conociendo_Su_Configuracion_Bitcoin.md).
