@@ -2,15 +2,15 @@
 
 > :information_source: **NOTA:** Esta sección se ha agregado recientemente al curso y es un borrador inicial que aún puede estar pendiente de revisión. Lector de advertencias.
 
-Uno de los mayores poderes de los PSBT es la capacidad de transferir transacciones a carteras de hardware. Esta será una gran herramienta de desarrollo para usted si continúa programando con Bitcoin. Sin embargo, no puede probarlo ahora si está utilizando una de las configuraciones que sugerimos para este curso: una máquina virtual en Linode según [§2.1](02_1_Configurando_un_Bitcoin-Core_VPS_con_StackScript.md) o una opción aún más remota como AWS según [§2.2](02_2_Configurando_Bitcoin_Core_Otros.md) — porque obviamente no tendrá forma de conectar una billetera de hardware a su máquina virtual remota.
+Uno de los mayores poderes de los PSBT es la capacidad de transferir transacciones a billeteras de hardware. Esta será una gran herramienta de desarrollo para usted si continúa programando con Bitcoin. Sin embargo, no puede probarlo ahora si está utilizando una de las configuraciones que sugerimos para este curso: una máquina virtual en Linode según [§2.1](02_1_Configurando_un_Bitcoin-Core_VPS_con_StackScript.md) o una opción aún más remota como AWS según [§2.2](02_2_Configurando_Bitcoin_Core_Otros.md) — porque obviamente no tendrá forma de conectar una billetera de hardware a su máquina virtual remota.
 
-> :book: ***¿Qué es una cartera de hardware?*** Una billetera de hardware es un dispositivo electrónico que mejora la seguridad de una criptomoneda al mantener todas las claves privadas en el dispositivo, en lugar de ponerlas en una computadora directamente conectada a Internet. Las carteras de hardware tienen protocolos específicos para proporcionar interacciones en línea, generalmente administradas por un programa que habla con el dispositivo a través de un puerto USB. En este capítulo, administraremos una billetera de hardware con `bitcoin-cli` y el programa `hwy.py`.
+> :book: ***¿Qué es una cartera de hardware?*** Una billetera de hardware es un dispositivo electrónico que mejora la seguridad de una criptomoneda al mantener todas las claves privadas en el dispositivo, en lugar de ponerlas en una computadora directamente conectada a Internet. Las billeteras de hardware tienen protocolos específicos para proporcionar interacciones en línea, generalmente administradas por un programa que habla con el dispositivo a través de un puerto USB. En este capítulo, administraremos una billetera de hardware con `bitcoin-cli` y el programa `hwy.py`.
 
-Tiene tres opciones para avanzar a través de este capítulo sobre carteras de hardware: (1) leer sin probar el código; (2) instale Bitcoin en una máquina local para probar completamente estos comandos; o (3) pasar directamente al [Capítulo 8: Expandiendo Transacciones Bitcoin en Otros Sentidos](08_0_Expandiendo_Bitcoin_Transacciones_Otros.md). Sugerimos la opción #1, pero si realmente quiere ensuciarse las manos, también daremos algo de apoyo a la #2 hablando sobre el uso de Macintosh (una plataforma de hardware compatible con [Bitcoin Standup](https://github.com/BlockchainCommons/Bitcoin-Standup)) para realizar pruebas.
+Tiene tres opciones para avanzar a través de este capítulo sobre billeteras de hardware: (1) leer sin probar el código; (2) instale Bitcoin en una máquina local para probar completamente estos comandos; o (3) pasar directamente al [Capítulo 8: Expandiendo Transacciones Bitcoin en Otros Sentidos](08_0_Expandiendo_Bitcoin_Transacciones_Otros.md). Sugerimos la opción #1, pero si realmente quiere ensuciarse las manos, también daremos algo de apoyo a la #2 hablando sobre el uso de Macintosh (una plataforma de hardware compatible con [Bitcoin Standup](https://github.com/BlockchainCommons/Bitcoin-Standup)) para realizar pruebas.
 
 > :warning: **ADVERTENCIA DE VERSIÓN:** Los PSBT son una innovación de Bitcoin Core v 0.17.0. Las versiones anteriores de Bitcoin Core no podrán funcionar con el PSBT mientras esté en progreso (aunque aún podrán reconocer la transacción final). La interfaz HWI apareció en Bitcoin Core v 0.18.0, pero siempre que utilice nuestra configuración sugerida con Bitcoin Standup, debería funcionar.
 
-La metodología descrita en este capítulo para la integración con una billetera de hardware depende de la [Interfaz de billetera de hardware de Bitcoin](https://github.com/bitcoin-core/HWI) lanzado a través de Bitcoin Core y se basa en el [instalación](https://github.com/bitcoin-core/HWI/blob/master/README.md) and [uso](https://hwi.readthedocs.io) instrucciones encontradas allí.
+La metodología descrita en este capítulo para la integración con una billetera de hardware depende de la [Interfaz de billetera de hardware de Bitcoin](https://github.com/bitcoin-core/HWI) lanzada a través de Bitcoin Core y se basa en las [instrucciones de instalación](https://github.com/bitcoin-core/HWI/blob/master/README.md) y [uso](https://hwi.readthedocs.io) que se encuentran allí.
 
 > :warning: **ADVERTENCIA DE FRESCURA:** La interfaz HWI es muy nueva y cruda en los bordes a partir de Bitcoin Core v 0.20.0. Puede ser difícil de instalar correctamente y puede tener errores poco intuitivos. Lo que sigue es una descripción de una configuración funcional, pero tomó varios intentos para hacerlo bien y su configuración puede variar.
 
@@ -42,7 +42,7 @@ Notará que no solo nos da la ruta completa, sino que también asegura que perma
 
 _Las siguientes instrucciones asumen nuevamente una Mac, y puede omitir nuevamente esta subsección si solo está leyendo este capítulo._
 
-HWI es un programa de Bitcoin Core disponible en Python que se puede utilizar para interactuar con carteras de hardware.
+HWI es un programa de Bitcoin Core disponible en Python que se puede utilizar para interactuar con billeteras de hardware.
 
 ### Instalar Python
 
@@ -74,7 +74,7 @@ $ brew install libusb
 
 Ahora está listo para instalar HWI, que requiere clonar un repositorio de GitHub y ejecutar un script de instalación.
 
-Si no tiene `git` ya instalado en su Mac, puede hacerlo simplemente intentando ejecutarlo: `git --version`.
+Si aun no tiene `git` instalado en su Mac, puede hacerlo simplemente intentando ejecutarlo así: `git --version`.
 
 Luego puede clonar el repositorio HWI:
 ```
@@ -89,7 +89,7 @@ HWI$ python3 setup.py install
 
 ### Crear un alias para HWI
 
-También querrá crear un alias aquí, variado según su ubicación de instalación real:
+También querrá crear un alias aquí, variará según la ubicación real de su instalación:
 ```
 $ alias hwi="~/Standup/HWI/hwi.py --testnet"
 ```
@@ -97,19 +97,19 @@ Nuevamente, hemos incluido una referencia a testnet en este alias.
 
 ## Prepare su Ledger
 
-_También tuvimos que elegir una plataforma de billetera de hardware para esta demostración de HWI. Nuestra elección fue el Ledger, que ha sido durante mucho tiempo nuestro banco de pruebas para carteras de hardware. Consulte [Información de soporte del dispositivo de HWI](https://github.com/bitcoin-core/HWI/blob/master/README.md#device-support) para obtener una lista de otros dispositivos compatibles. Si utiliza un dispositivo que no sea Ledger, deberá evaluar sus propias soluciones para prepararlo para su uso en Testnet, pero de lo contrario debería poder continuar con el curso tal como está escrito._
+_También tuvimos que elegir una plataforma de billetera de hardware para esta demostración de HWI. Nuestra elección fue el Ledger, que ha sido durante mucho tiempo nuestro banco de pruebas para billeteras de hardware. Consulte [Información de soporte del dispositivo de HWI](https://github.com/bitcoin-core/HWI/blob/master/README.md#device-support) para obtener una lista de otros dispositivos compatibles. Si utiliza un dispositivo que no sea Ledger, deberá evaluar sus propias soluciones para prepararlo para su uso en Testnet, pero de lo contrario debería poder continuar con el curso tal como está escrito._
 
 Si está trabajando con Bitcoins en su libro mayor, probablemente no tendrá que hacer nada. (Pero no sugerimos que se use con este curso).
 
 Para trabajar con monedas de Testnet, como sugiere este curso, deberá realizar algunas actualizaciones:
 
 1. Vaya a Configuración en su aplicación Ledger Live (es el engranaje), vaya a la pestaña "Funciones experimentales" y active el "Modo de desarrollador".
-2. Vaya al "Administrador" e instale "Prueba de Bitcoin". La versión actual requiere que primero instales "Bitcoin" y "Ethereum".
+2. Vaya al "Administrador" e instale "Prueba de Bitcoin". La versión actual requiere que primero instale "Bitcoin" y "Ethereum".
 3. Vaya al "Administrador", desplácese hasta su nueva "Prueba de Bitcoin" y "Agregar cuenta"
 
 ## Enlace a su Ledger
 
-Para que un libro mayor sea accesible, debe iniciar sesión con su PIN y luego abrir la aplicación que desea usar, en este caso, la aplicación "Prueba de Bitcoin". Es posible que deba repetir esto de vez en cuando si su Ledger se queda dormido.
+Para que un libro mayor sea accesible, debe iniciar sesión con su PIN y luego abrir la aplicación que desea usar, en este caso, la aplicación "Prueba de Bitcoin". Es posible que deba repetir esto de vez en cuando si su Ledger entra en reposo.
 
 Una vez que haya hecho eso, puede pedirle a HWI que acceda al Libro mayor con el comando `enumerate`::
 ```
@@ -128,7 +128,7 @@ Puede buscar fondos importando direcciones desde su billetera de hardware a su n
 
 ### Crea una billetera
 
-Para usar su billetera de hardware con `bitcoin-cli`, querrá crear una billetera con nombre específico en Bitcoin Core, usando el RPC `createwallet`, que es un comando que no hemos discutido anteriormente.
+Para usar su billetera de hardware con `bitcoin-cli`, querrá crear una billetera con nombre específico en Bitcoin Core, usando el comando RPC `createwallet`, que es un comando que no hemos discutido anteriormente.
 ```
 $ bitcoin-cli --named createwallet wallet_name="ledger" disable_private_keys="true"
 {
@@ -136,9 +136,9 @@ $ bitcoin-cli --named createwallet wallet_name="ledger" disable_private_keys="tr
   "warning": ""
 }
 ```
-En este caso, está creando un nuevo `ledger` de billetera sin claves privadas (ya que estas terminarán en el dispositivo de Ledger).
+En este caso, está creando un nuevo `ledger` de billetera sin claves privadas (ya que éstas terminarán en el dispositivo de Ledger).
 
-> :book: ***¿Por qué nombrar carteras?*** Hasta la fecha, este curso ha utilizado la billetera predeterminada ("") en Bitcoin Core. Esto está bien para muchos propósitos, pero es inadecuado si tiene una situación más compleja, como cuando está viendo claves desde una billetera de hardware. Aquí, queremos poder diferenciar de las claves de propiedad local (que se mantienen en la "" billetera) y las claves de propiedad remota (que se guardan en la billetera "ledger").
+> :book: ***¿Por qué nombrar billeteras?*** Hasta la fecha, este curso ha utilizado la billetera predeterminada ("") en Bitcoin Core. Esto está bien para muchos propósitos, pero es inadecuado si tiene una situación más compleja, como cuando está viendo claves desde una billetera de hardware. Aquí, queremos poder diferenciar de las claves de propiedad local (que se mantienen en la "" billetera) y las claves de propiedad remota (que se guardan en la billetera "ledger").
 
 Ahora puede ver que la nueva billetera está en su lista de billeteras:
 ```
@@ -157,7 +157,7 @@ Ahora tiene que importar una lista de seguimiento de direcciones desde la billet
 $ hwi -f 9a1d520b getkeypool --wpkh 0 1000
 [{"desc": "wpkh([9a1d520b/84h/1h/0h]tpubDD7KTtoGzK9GuWUQcr1uTJazsAkqoXhdrwGXWVix6nPpNZmSbagZWD4QSaMsyK8YohAirGDPrWdRiEpKzTFB7DrTrqfzHCn7yi5EsqeR93S/0/*)#qttxy592", "range": [0, 1000], "timestamp": "now", "internal": false, "keypool": true, "active": true, "watchonly": true}, {"desc": "wpkh([9a1d520b/84h/1h/0h]tpubDD7KTtoGzK9GuWUQcr1uTJazsAkqoXhdrwGXWVix6nPpNZmSbagZWD4QSaMsyK8YohAirGDPrWdRiEpKzTFB7DrTrqfzHCn7yi5EsqeR93S/1/*)#3lw8ep4j", "range": [0, 1000], "timestamp": "now", "internal": true, "keypool": true, "active": true, "watchonly": true}]
 ```
-Nos dirigimos a HWI con la `huella digital` y pedimos las primeras 1000 direcciones WPKH (Segwit nativo). A cambio, recibimos dos descriptores para el grupo de claves: uno para recibir direcciones y otro para cambiar direcciones.
+Nos dirigimos a HWI con la `huella digital` y pedimos las primeras 1000 direcciones WPKH (Segwit nativo). A cambio, recibimos dos descriptores para el grupo de claves: uno para las direcciones de recepción y otro para las direcciones de cambio.
 
 > :book: ***¿Qué es un grupo de claves?*** Un grupo de claves es un grupo de claves pregeneradas. Las billeteras HD modernas crean grupos de claves al continuar determinando nuevas direcciones jerárquicas basadas en la semilla original. La idea de los grupos de claves se implementó originalmente para facilitar los requisitos de respaldo de las billeteras. Esto permitió a un usuario generar un conjunto de claves y luego hacer una copia de seguridad de la billetera de inmediato, en lugar de requerir copias de seguridad después de que se creara cada nueva dirección. El concepto también ha demostrado ser muy útil en la actualidad, ya que permite importar un conjunto completo de direcciones futuras de un dispositivo a otro.
 
@@ -174,7 +174,7 @@ $ bitcoin-cli getdescriptorinfo "wpkh([9a1d520b/84h/1h/0h]tpubDD7KTtoGzK9GuWUQcr
   "hasprivatekeys": false
 }
 ```
-Como era de esperar, _no_ tenemos `privatekeys`, porque las carteras de hardware se aferran a ellas.
+Como era de esperar, _no_ tenemos `privatekeys`, porque las billeteras de hardware se aferran a ellas.
 
 Con los descriptores en la mano, puede importar las claves a su nueva billetera `ledger` usando el RPC `importmulti` que también conoció en [§3.5](03_5_Entendiendo_El_Descriptor.md). En este caso, simplemente coloque la respuesta completa que recibió de HWI en `'`s.
 ```
@@ -205,12 +205,12 @@ $ bitcoin-cli -rpcwallet=ledger getaddressesbylabel "" | more
 ```
 ## Reciba una Transacción
 
-Obviamente, recibir una transacción es sencillo. Utiliza `getnewaddress` para solicitar una de esas direcciones importadas:
+Obviamente, recibir una transacción es sencillo. Utilice `getnewaddress` para solicitar una de esas direcciones importadas:
 ```
 $ bitcoin-cli -rpcwallet=ledger getnewaddress
 tb1qqqvnezljtmc9d7x52udpc0m9zgl9leugd2ur7y
 ```
-Luego envíaselo dinero.
+Luego envíele dinero.
 
 El poder de HWI es que puede ver los pagos desde su nodo Bitcoin Core, en lugar de tener que conectar su billetera de hardware y consultarlo.
 ```
@@ -465,10 +465,10 @@ Hay una variedad de otros comandos disponibles para usar con HWI. En el momento 
 numerate,getmasterxpub,signtx,getxpub,signmessage,getkeypool,getdescriptors,displayaddress,setup,wipe,restore,backup,promptpin,togglepassphrase,sendpin
 ```
 
-## Resumen: integración con carteras de hardware
-Las carteras de hardware pueden ofrecer una mejor protección al mantener sus claves privadas fuera de línea, protegidas en el hardware. Afortunadamente, todavía hay una forma de interactuar con ellos usando `bitcoin-cli`. Simplemente instale HWI y luego le permitirá (1) importar claves públicas para verlas; y (2) firmar transacciones usando su billetera de hardware.
+## Resumen: integración con billeteras de hardware
+Las billeteras de hardware pueden ofrecer una mejor protección al mantener sus claves privadas fuera de línea, protegidas en el hardware. Afortunadamente, todavía hay una forma de interactuar con ellos usando `bitcoin-cli`. Simplemente instale HWI y luego le permitirá (1) importar claves públicas para verlas; y (2) firmar transacciones usando su billetera de hardware.
 
-> :fire: ***¿Cuál es el poder de HWI?*** HWI le permite interactuar con carteras de hardware utilizando todos los comandos de `bitcoin-cli` que ha aprendido hasta la fecha. Puede realizar transacciones sin procesar de cualquier tipo y luego enviar PSBT a carteras de hardware para firmar. Por lo tanto, tiene todo el poder de Bitcoin Core, pero también tiene la seguridad de un dispositivo de hardware.
+> :fire: ***¿Cuál es el poder de HWI?*** HWI le permite interactuar con billeteras de hardware utilizando todos los comandos de `bitcoin-cli` que ha aprendido hasta la fecha. Puede realizar transacciones sin procesar de cualquier tipo y luego enviar PSBT a billeteras de hardware para firmar. Por lo tanto, tiene todo el poder de Bitcoin Core, pero también tiene la seguridad de un dispositivo de hardware.
 
 ## ¿Que sigue?
 
