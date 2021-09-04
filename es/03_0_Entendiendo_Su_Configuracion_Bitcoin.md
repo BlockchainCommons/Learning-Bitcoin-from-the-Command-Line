@@ -8,7 +8,7 @@ Para este y futuros capítulos, suponemos que tiene un VPS con Bitcoin instalado
 
 Después de trabajar en este capítulo, un desarrollador podrá:
 
-   * Demuestrar que su nodo Bitcoin está instalado y actualizado.
+   * Demostrar que su nodo Bitcoin está instalado y actualizado.
    * Crear una dirección para recibir fondos de Bitcoin.
    * Usar comandos básicos de billetera.
    * Crear una dirección a partir de un descriptor
