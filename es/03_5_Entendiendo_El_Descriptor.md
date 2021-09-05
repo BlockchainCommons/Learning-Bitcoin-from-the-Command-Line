@@ -131,7 +131,7 @@ Primero, notará nuestro primer uso realmente desagradable de las comillas. Cada
 
 En segundo lugar, observará que marcamos esto como `solo vigilancia` o `watchonly`. Eso es porque sabemos que es una clave pública, por lo que no podemos gastar con ella. Si no hubiésemos ingresado esta indicador, `importmulti` nos habría ayudado a decirnos algo como: `Faltan algunas claves privadas, las salidas se considerarán solo de observación. Si es intencional, especifique la bandera de solo vigilancia`.
 
-> :book: ***¿Qué es una dirección de solo obervación?*** Una dirección de solo observción le permite ver las transacciones relacionadas con una dirección (o con toda una familia de direcciones si usó un `xpub`), pero no gastar fondos en esas direcciones.
+> :book: ***¿Qué es una dirección de solo observación?*** Una dirección de solo observación le permite ver las transacciones relacionadas con una dirección (o con toda una familia de direcciones si usó un `xpub`), pero no gastar fondos en esas direcciones.
 
 Usando `getaddressesbylabel`, ¡ahora podemos ver que nuestra dirección ha sido importada correctamente a nuestra máquina remota!
 
