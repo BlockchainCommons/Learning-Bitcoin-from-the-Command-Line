@@ -1,32 +1,32 @@
 # 7.1: Creando una Transacción Bitcoin Parcialmente Firmada
 
-> :information_source: **NOTA:** Esta sección se ha agregado recientemente al curso y es un borrador inicial que aún puede estar pendiente de revisión. Lector de advertencias.
+> :information_source: **NOTA:** Esta sección se ha agregado recientemente al curso y es un borrador inicial que aún puede estar pendiente de revisión. Lectura con precaución.
 
-Las transacciones de Bitcoin parcialmente firmadas (PSBT) son la forma más nueva de variar la creación de transacciones básicas de Bitcoin. Para ello, introducen la colaboración en cada paso del proceso, lo que permite a las personas (o programas) no solo autenticar las transacciones juntas (como con las multifirmas), sino también crear, financiar y transmitir fácilmente de manera colaborativa.. 
+Las transacciones de Bitcoin parcialmente firmadas (PSBT) son la forma más nueva de variar la creación de transacciones básicas de Bitcoin. Para ello, introducen la colaboración en cada paso del proceso, lo que permite a las personas (o programas) no solo autenticar las transacciones juntas (como con las multifirmas), sino también crear, financiar y transmitir fácilmente de manera colaborativa.
 
 > :warning: **ADVERTENCIA DE VERSIÓN:** Esta es una innovación de Bitcoin Core v 0.17.0. Las versiones anteriores de Bitcoin Core no podrán funcionar con el PSBT mientras esté en progreso (aunque aún podrán reconocer la transacción final). Algunas actualizaciones y mejoras para PSBT han continuado hasta 0.20.0.
 
-## Comprender cómo funcionan los PSBT
+## Comprenda cómo funcionan los PSBT
 
 Las multifirmas fueron excelentes para el caso muy específico de la tenencia conjunta de fondos y el establecimiento de reglas para quién, entre los firmantes conjuntos, podría autenticar el uso de esos fondos. Hay muchos casos de uso, como: una cuenta bancaria conjunta del cónyuge (una firma de 1 de 2); un requisito fiduciario para el control dual (una firma 2 de 2); y un depósito en garantía (una firma 2 de 3). 
 
-> :book: ***Que es una PSBT?*** Como sugiere el nombre, un PSBT es una transacción que no se ha firmado por completo. Eso es importante, porque una vez que se firma una transacción, su contenido se bloquea. [BIP174](https://github.com/bitcoin/bips/blob/master/bip-0174.mediawiki) definió una metodología abstracta para poner los PSBT juntos que describe y estandariza los roles en su creación colaborativa. Un *Creador* propone una transacción; uno o más *Actualizadores* lo complementan; y uno o más *Firmantes* lo autentican; antes de que un *Finalizador* lo complete; y un *Extracter* lo convierte en una transacción para la red Bitcoin. También puede haber un *Combinador* que fusiona PSBT paralelos de diferentes usuarios. 
+> :book: ***Que es una PSBT?*** Como sugiere el nombre, un PSBT es una transacción que no se ha firmado por completo. Eso es importante, porque una vez que se firma una transacción, su contenido se bloquea. [BIP174](https://github.com/bitcoin/bips/blob/master/bip-0174.mediawiki) definió una metodología abstracta para poner los PSBTs juntos que describe y estandariza los roles en su creación colaborativa. Un *Creador* propone una transacción; uno o más *Actualizadores* lo complementan; y uno o más *Firmantes* lo autentican; antes de que un *Finalizador* lo complete; y un *Extracter* lo convierte en una transacción para la red Bitcoin. También puede haber un *Combinador* que fusiona PSBT paralelos de diferentes usuarios. 
 
-Inicialmente, los PSBT pueden tener un aspecto similar a los de multifirmas porque tienen un solo bit de funcionalidad superpuesto: la capacidad de firmar conjuntamente una transacción. Sin embargo, fueron creados para un caso de uso totalmente diferente. Los PSBT reconocen la necesidad de que varios programas creen conjuntamente una transacción por varias razones diferentes, y proporcionan un formato regularizado para hacerlo. Son especialmente útiles para casos de uso que involucran carteras de hardware (para lo cual, consulte [§7.3] (https://github.com/BlockchainCommons/Learning-Bitcoin-from-the-Command-Line/blob/master/07_3_Integrating_with_Hardware_Wallets.md )), que están protegidos del acceso total a Internet y tienden a tener un historial de transacciones mínimo.
+Inicialmente, los PSBT pueden tener un aspecto similar a las multifirmas porque tienen un solo bit de funcionalidad superpuesto: la capacidad de firmar conjuntamente una transacción. Sin embargo, fueron creados para un caso de uso totalmente diferente. Los PSBT reconocen la necesidad de que varios programas creen conjuntamente una transacción por varias razones diferentes, y proporcionan un formato regularizado para hacerlo. Son especialmente útiles para casos de uso que involucran billeteras de hardware (para lo cual, consulte [§7.3] (https://github.com/BlockchainCommons/Learning-Bitcoin-from-the-Command-Line/blob/master/07_3_Integrating_with_Hardware_Wallets.md)), que están protegidas del acceso total a Internet y tienden a tener un historial de transacciones mínimo.
 
-En general, los PSBT proporcionan una serie de elementos funcionales que mejoran este caso de uso.:
+En general, los PSBT proporcionan una serie de elementos funcionales que mejoran este caso de uso:
 
 1. Proporcionan un _estándar_ para la creación colaborativa de transacciones, mientras que las metodologías anteriores (incluida la multifirma del capítulo anterior) dependían de la implementación.
 2. Admiten una _variedad más amplia de casos de uso_, incluida la financiación conjunta simple.
-3. Admiten _carteras de hardware_ y otros casos en los que un nodo puede no tener un historial de transacciones completo.
+3. Admiten _billeteras de hardware_ y otros casos en los que un nodo puede no tener un historial de transacciones completo.
 4. Opcionalmente, permiten la combinación de _transacciones no serializadas_, sin requerir que se pase un código hexadecimal cada vez más grande de usuario a usuario.
 
-Los PSBT hacen su trabajo al complementar la información de las transacciones normales con un conjunto de entradas y salidas, cada una de las cuales define todo lo que necesita saber sobre esos UTXO, de modo que incluso una billetera con espacio de aire pueda tomar una decisión informada sobre las firmas. Por lo tanto, una entrada enumera la cantidad de dinero en un UTXO y lo que se debe hacer para gastarlo, mientras que una salida hace lo mismo para los UTXO que está creando.
+Los PSBT hacen su trabajo al complementar la información de las transacciones normales con un conjunto de entradas y salidas, cada una de las cuales define todo lo que necesita saber sobre esos UTXO, de modo que incluso una una billetera aislada pueda tomar una decisión informada sobre las firmas. Por lo tanto, una entrada enumera la cantidad de dinero en un UTXO y lo que se debe hacer para gastarlo, mientras que una salida hace lo mismo para los UTXO que está creando.
 
 Esta primera sección describirá el proceso estándar de PSBT de: Creador, Actualizador, Firmante, Finalizador, Extractor. Lo hará desde una sola máquina, lo que hará que parezca una forma complicada de crear una transacción sin procesar. Pero, ten fe, ¡esto tiene un propósito! [§7.2](07_2_Usando_una_Transaccion_Bitcoin_Parcialmente_Firmada.md) y [§7.3](07_3_Integrando_con_Hardware_Wallets.md) mostrará algunos ejemplos de la vida real del uso de PSBT y convertirá este simple sistema en un proceso colaborativo compartido entre múltiples máquinas que tiene efectos reales y crea oportunidades reales.
 
-## Crear un PSBT a la antigua
-#### Papel de PSBT: Creadora
+## Cree un PSBT a la antigua
+#### Rol en la PSBT: Creador
 
 La forma más fácil de crear un PSBT es tomar una transacción existente y usar `converttopsbt` para convertirla en un PSBT. Ciertamente, esta no es la mejor manera, ya que requiere que realice una transacción para un formato (una transacción sin procesar) y luego la convierta a otro (PSBT), pero si tiene un software antiguo que solo puede generar una transacción sin procesar, puede que necesite usarlo..
 
@@ -42,7 +42,7 @@ c6de60427b28d8ec8102e49771e5d0348fc3ef6a5bf02eb864ec745105a6951b 1 8748eff5f12ca
 $ recipient=tb1qcaedd724gts3aug73m78c7nfsv9d8zs9q6h2kd
 $ rawtxhex=$(bitcoin-cli -named createrawtransaction inputs='''[ { "txid": "'$utxo_txid_1'", "vout": '$utxo_vout_1' }, { "txid": "'$utxo_txid_2'", "vout": '$utxo_vout_2' } ]''' outputs='''{ "'$recipient'": 0.0000065 }''')
 ```
-Entonces conviértelo:
+Entonces conviértalo:
 ```
 $ psbt=$(bitcoin-cli -named converttopsbt hexstring=$rawtxhex)
 $ echo $psbt
@@ -52,10 +52,10 @@ Tenga en cuenta que la codificación PSBT se ve muy diferente de la transacción
 
 Pero si puede, desea crear el PSBT directamente en su lugar...
 
-## Crear un PSBT de la manera difícil
-#### Papel de PSBT: Creadora
+## Cree un PSBT de la manera difícil
+#### Rol en la PSBT: Creador
 
-La primera metodología para crear un PSBT sin pasar por otro formato es el equivalente en PSBT de `createrawtransaction`. Se llama `createpsbt` y le brinda el máximo control al costo de la máxima mano de obra y la máxima oportunidad de error.
+La primera metodología para crear un PSBT sin pasar por otro formato es el equivalente en PSBT de `createrawtransaction`. Se llama `createpsbt` y le brinda el máximo control al costo de la máxima labor y la máxima oportunidad de error.
 
 La CLI debería parecer bastante familiar, solo con un nuevo comando RPC:
 ```
@@ -71,8 +71,8 @@ $ if [ "$psbt" == "$psbt_1" ]; then     echo "PSBTs are equal"; else     echo "P
 PSBTs are equal
 ```
 
-## Examinar una PSBT
-#### Rol de PSBT: Cualquiera
+## Examine una PSBT
+#### Rol en la PSBT: Cualquiera
 
 Entonces, ¿cómo se ve realmente tu PSBT? Puede ver eso con el comando `decodepsbt`:
 ```
@@ -136,7 +136,7 @@ $ bitcoin-cli -named decodepsbt psbt=$psbt
   ]
 }
 ```
-Es importante tener en cuenta que, aunque hemos definido los fundamentos de la transacción: los `vins` de dónde viene el dinero y los `vouts` de a dónde va, aún no hemos definido las `inputs` (entradas) y las `outputs` (salidas) que son el corazón de un PSBT y que son necesarias para los usuarios fuera de línea para evaluarlos. Esto es esperado: el rol del Creador como se define en [BIP174] (https://github.com/bitcoin/bips/blob/master/bip-0174.mediawiki) es delinear la transacción, mientras que el rol del Actualizador es comenzar a llenar en los datos específicos de PSBT. (OOtros comandos combinan los roles de Creador y Actualizador, pero `createpsbt` no lo hace porque no tiene acceso a su billetera)
+Es importante tener en cuenta que, aunque hemos definido los fundamentos de la transacción: los `vins` de dónde viene el dinero y los `vouts` de a dónde va, aún no hemos definido las `inputs` (entradas) y las `outputs` (salidas) que son el corazón de un PSBT y que son necesarias para los usuarios fuera de línea para evaluarlos. Esto es esperado: el rol del Creador como se define en [BIP174](https://github.com/bitcoin/bips/blob/master/bip-0174.mediawiki) es delinear la transacción, mientras que el rol del Actualizador es comenzar a llenar en los datos específicos de PSBT. (Otros comandos combinan los roles de Creador y Actualizador, pero `createpsbt` no lo hace porque no tiene acceso a su billetera).
 
 También puede usar el comando `analysepsbt` para ver su estado actual:
 ```
@@ -159,10 +159,10 @@ standup@btctest20:~$ bitcoin-cli -named analyzepsbt psbt=$psbt
 ```
 Del mismo modo, `analysepsbt` nos muestra un PSBT que necesita mejorarse. Echamos un vistazo a cada una de las dos `inputs` (correspondientes a los dos `vins`), y ninguna tiene la información que necesita.
 
-## Finalizar una PSBT
-#### Rol de PSBT: actualizador, firmante, finalizador
+## Finalize una PSBT
+#### Rol en la PSBT: Actualizador, Firmante, Finalizador
 
-Existe un comando `utxoupdatepsbt` que se puede usar para actualizar UTXO, importando su información de descriptor a mano, pero no desea usarlo a menos que tenga un caso de uso en el que no tenga toda esa información en las billeteras de todos los que firmarán el PSBT.
+Existe un comando `utxoupdatepsbt` que se puede usar para actualizar UTXOs, importando su información de descriptor a mano, pero no desea usarlo a menos que tenga un caso de uso en el que no tenga toda esa información en las billeteras de todos los que firmarán el PSBT.
 
 > :information_source: **NOTA:** Si elige Actualizar el PSBT con `utxoupdatepsbt`, aún necesitará usar `walletprocesspsbt` para firmarlo: es el único comando de rol de firmante para PSBT que está disponible en `bitcoin-cli`.
 
@@ -270,8 +270,8 @@ $ bitcoin-cli decodepsbt $psbt_f
 O para ser más precisos: (1) el PSBT se ha actualizado con la información de `witness_utxo`; (2) se ha firmado el PSBT; y (3) se ha finalizado el PSBT.
 
 
-## Crear un PSBT de la manera más fácil
-#### Papel de PSBT: Creadora, Actualizadora
+## Cree un PSBT de la manera más fácil
+#### Rol en la PSBT: Creador, Actualizador
 
 Si cree que debería haber un comando equivalente a `fundrawtransaction`, le complacerá saber que existe: `walletcreatefundedpsbt`. Podría usarlo de la misma manera que `createpsbt`:
 ```
@@ -445,7 +445,7 @@ A partir de ahí, debe usar `walletprocesspsbt` para Finalizar, como de costumbr
 ```
 $ psbt_new_f=$(bitcoin-cli walletprocesspsbt $psbt_new | jq -r '.psbt')
 ```
-Luego, un análisis mostrará que está a punto de funcionar también.:
+Luego, un análisis mostrará que tambien está a punto de estar lista para ser enviada:
 ```
 $ bitcoin-cli analyzepsbt $psbt_new_f
 {
@@ -469,8 +469,8 @@ $ bitcoin-cli analyzepsbt $psbt_new_f
 ```
 Ahora, ¿realmente querría usar `walletcreatefundedpsbt` si estuviera creando un programa `bitcoin-cli`? Probablemente no. Pero es el mismo análisis que si se debe usar `fundrawtransaction`. ¿Deja que Bitcoin Core haga el análisis, el cálculo y las decisiones, o lo toma usted mismo?
 
-## Enviar una PSBT
-#### Rol de PSBT: Extractor
+## Envíe una PSBT
+#### Rol en la PSBT: Extractor
 
 Para finalizar el PSBT, use `finalizepsbt`, que convertirá su PSBT nuevamente en hexadecimal. (También asumirá el rol de finalizador, si eso no sucedió ya).
 ```
@@ -500,10 +500,10 @@ Finalmente, si en cambio necesita más control y elige usar `utxoupdatepsbt` (qu
 
 ![](images/psbt-roles-for-cli-3.png)
 
-## Resumen: creación de una transacción de Bitcoin firmada parcialmente
+## Resumen: creando una transacción de Bitcoin firmada parcialmente
 
 La creación de un PSBT implica un flujo de trabajo algo complejo de creación, actualización, firma, finalización y extracción de un PSBT, después de lo cual se convierte nuevamente en una transacción sin procesar. ¿Por qué se tomaría tanto trabajo? Porque quiere colaborar entre múltiples usuarios o múltiples programas. Ahora que comprende este flujo de trabajo, la siguiente sección tiene algunos ejemplos reales de cómo hacerlo.
 
-## Que sigue?
+## ¿Que sigue?
 
 Continúe "Expandiendo transacciones de Bitcoin con PSBT" con [§7.2: Usando una Transacción Bitcoin Parcialmente Firmada](07_2_Usando_una_Transaccion_Bitcoin_Parcialmente_Firmada.md).
