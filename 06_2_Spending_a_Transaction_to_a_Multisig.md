@@ -151,8 +151,8 @@ cNPhhGjatADfhLD5gLfrR2JZKDE99Mn26NCbERsvnr24B3PcSbtR
 
 Ahora puedes hacer tu primer firma con el comando `signrawtransactionwithkey`. Aquí es donde las cosas son diferentes: necesitarás instruir al comando sobre cómo firmar. Puedes hacer esto agregando la siguiente información nueva:
 
-* Incluye un argumento `prevtxs` que incluya la `txid`, la `vout`, la `scriptPubKey`, y la `redeemScript` que registraste, cada una de ellas un par de key-value en el objeto JSON. 
-* Include a `privkeys` argument that lists the private keys you dumped on this machine.
+* Incluye un argumento `prevtxs` que incluya la `txid`, la `vout`, la `scriptPubKey`, y la `redeemScript` que registraste, cada una de ellas un par key-value en el objeto JSON. 
+* Incluye un argumento `privkeys` que liste las claves privadas que descargaste en esta máquina.
 
 ```
 machine1$ bitcoin-cli -named signrawtransactionwithkey hexstring=$rawtxhex prevtxs='''[ { "txid": "'$utxo_txid'", "vout": '$utxo_vout', "scriptPubKey": "'$utxo_spk'", "redeemScript": "'$redeem_script'" } ]''' privkeys='["cNPhhGjatADfhLD5gLfrR2JZKDE99Mn26NCbERsvnr24B3PcSbtR"]'
@@ -173,20 +173,20 @@ machine1$ bitcoin-cli -named signrawtransactionwithkey hexstring=$rawtxhex prevt
 }
 
 ```
-That produces scary errors and says that it's `failing`. This is all fine. You can see that the signature has been partially successfully because the `hex` has gotten longer. Though the transaction has been partially signed, it's not done because it needs more signatures. 
+Eso produce errores aterradores y dice que está `fallando`. Esto está bien. Puedes ver que la firma se ha realizado parcialmente correcta porque el `hex` se ha alargado. Aunque la transacción se ha firmado parcialmente, no se realiza porque necesita más firmas. 
 
-### Repeat for Other Signers
+### Repite para Otros Firmantes
 
-You can now pass the transaction on, to be signed again by anyone else required for the multisig. They do this by running the same signing command that you did but: (1) with the longer `hex` that you output from (`bitcoin-cli -named signrawtransactionwithkey hexstring=$rawtxhex prevtxs='''[ { "txid": "'$utxo_txid'", "vout": '$utxo_vout', "scriptPubKey": "'$utxo_spk'", "redeemScript": "'$redeem_script'" } ]''' privkeys='["cMgb3KM8hPATCtgMKarKMiFesLft6eEw3DY6BB8d97fkeXeqQagw"]' | jq -r '.hex'`); and (2) with their own private key.
+Ahora puedes transferir la transacción, para que la vuelva a firmar cualquier otra persona requerida para la multisig. Hacen esto correindo el mismo comando de firma que hiciste pero: (1) con el `hex` más largo que sacaste de (`bitcoin-cli -named signrawtransactionwithkey hexstring=$rawtxhex prevtxs='''[ { "txid": "'$utxo_txid'", "vout": '$utxo_vout', "scriptPubKey": "'$utxo_spk'", "redeemScript": "'$redeem_script'" } ]''' privkeys='["cMgb3KM8hPATCtgMKarKMiFesLft6eEw3DY6BB8d97fkeXeqQagw"]' | jq -r '.hex'`); y (2) con su propia clave privada.
 
-> :information_source: **NOTE — M-OF-N VS N-OF-N:** Obviously, if you have an n-of-n signature (like the 2-of-2 multisignature in this example), then everyone has to sign, but if you hae a m-of-n multisignature where "m < n", then the signature will be complete when only some ("m") of the signers have signed.
+> :information_source: **NOTA — M-DE-N VS N-DE-N:** Obviamente, si tienes una firma an n-of-n (como la multifirma 2-de-2 en este ejemplo), entonces todos deben firmar, pero si tienes una multifirma m-de-n donde "m < n", entonces la firma estará completa cuando sólo algún ("m") de los firmantes haya firmado.
 
-To do so first they access their private keys:
+Para hacerlo primero acceden a sus claves privadas:
 ```
 machine2$ bitcoin-cli -named dumpprivkey address=$address2
 cVhqpKhx2jgfLUWmyR22JnichoctJCHPtPERm11a2yxnVFKWEKyz
 ```
-Second, they sign the new `hex` using all the same `prevtxs` values:
+Segundo, firman el nuevo `hex` usando los mismos valores `prevtxs`:
 ```
 machine1$  bitcoin-cli -named signrawtransactionwithkey hexstring=020000000121654fa95d5a268abf96427e3292baed6c9f6d16ed9e80511070f954883864b100000000920047304402201c97b48215f261055e41b765ab025e77a849b349698ed742b305f2c845c69b3f022013a5142ef61db1ff425fbdcdeb3ea370aaff5265eee0956cff9aa97ad9a357e3010047522102da2f10746e9778dd57bd0276a4f84101c4e0a711f9cfd9f09cde55acbdd2d1912102bfde48be4aa8f4bf76c570e98a8d287f9be5638412ab38dede8e78df82f33fa352aeffffffff0188130000000000001600142c48d3401f6abed74f52df3f795c644b4398844600000000 prevtxs='''[ { "txid": "'$utxo_txid'", "vout": '$utxo_vout', "scriptPubKey": "'$utxo_spk'", "redeemScript": "'$redeem_script'" } ]''' privkeys='["cVhqpKhx2jgfLUWmyR22JnichoctJCHPtPERm11a2yxnVFKWEKyz"]'
 {
@@ -194,9 +194,9 @@ machine1$  bitcoin-cli -named signrawtransactionwithkey hexstring=02000000012165
   "complete": true
 }
 ```
-Third, they may need to send on the even longer `hexstring` they produce to additional signers.
+Tercero, puede que necesiten enviar en la aún más larga `hexstring` que producen para firmantes adicionales.
 
-But in this case, we now see that the signature is `complete`!
+Pero en este caso, vemos ahora que la firma está `completa`!
 
 ## Send Your Transaction
 
