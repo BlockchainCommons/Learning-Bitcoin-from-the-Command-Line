@@ -494,7 +494,7 @@ Al crear el software `bitcoin-cli`, lo más probable es que cumpla las cinco fun
 
 Si elige usar el atajo de `walletcreatefundedpsbt`, así es como se ve en su lugar:
 
-![](images/psbt-roles-for-cli-2.png)
+![](../images/psbt-roles-for-cli-2.png)
 
 Finalmente, si en cambio necesita más control y elige usar `utxoupdatepsbt` (que no está documentado en gran parte aquí), en su lugar tiene este flujo de trabajo:
 
