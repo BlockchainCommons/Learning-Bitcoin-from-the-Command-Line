@@ -101,57 +101,57 @@ En total, necesitarás recopilar tres cosas: información ampliada sobre el UTXO
 
 ### Accede a la información del UTXO
 
-To start with, grab the `txid` and the `vout` for the transaction that you want to spend, as usual. In this case, it was retrieved from the `gettransaction` info, above:
+Para empezar, toma la `txid` y la `vout` para la transacción que deseas gastar, como es habitual. En este caso, se recuperó de la información de `gettransaction`, arriba:
 ```
 $ utxo_txid=b164388854f9701051809eed166d9f6cedba92327e4296bf8a265a5da94f6521
 $ utxo_vout=0
 ```
-However, you need to also access a third bit of information about the UTXO, its `scriptPubKey`/`hex`, which is the script that locked the transaction. Again, you're probably doing this by looking at the details of the transaction:
+Sin embargo, necesitas acceder también a una tercera parte de la información acerca del UTXO, es `scriptPubKey`/`hex`, que es el script que  bloqueó la transacción. Nuevamente, probablemente estás haciendo esto mirando los detalles de la transacción:
 ```
 $ utxo_spk=a914a5d106eb8ee51b23cf60d8bd98bc285695f233f387
 ```
 
-### Record the Redeem Script
+### Registra el Script de Redención
 
-Hopefully, you saved the `redeemScript`. Now you should record it in a variable.
+Con suerte, has guardado el `redeemScript`. Ahora deberías registrarlo en una variable.
 
-This was drawn from our creation of the address in the previous section.
+Esto se extrajo de nuestra creación de la dirección en la sección anterior.
 ```
 redeem_script="522102da2f10746e9778dd57bd0276a4f84101c4e0a711f9cfd9f09cde55acbdd2d1912102bfde48be4aa8f4bf76c570e98a8d287f9be5638412ab38dede8e78df82f33fa352ae"
 ```
-### Decide Your Recipient
+### Decide Tu Destinatario
 
-We're just going to send the money back to ourself. This is useful because it frees the funds up from the multisig, converting them into a normal P2PKH transaction that can later be confirmed by a single private key:
+Nos enviaremos el dinero a nosotros mismos. Esto es útil porque libera los fondos de la multisig, convirtiéndolos en una transacción P2PKH normal que luego puede ser confirmada por una sola clave privada:
 ```
 $ recipient=$(bitcoin-cli getrawchangeaddress)
 ```
-## Create Your Transaction
+## Crea Tu Transacción
 
-You can now create your transaction. This is no different than usual.
+Ahora puedes crear tu transacción. Esto no es diferente de lo habitual.
 ```
 $ rawtxhex=$(bitcoin-cli -named createrawtransaction inputs='''[ { "txid": "'$utxo_txid'", "vout": '$utxo_vout' } ]''' outputs='''{ "'$recipient'": 0.00005}''')
 $ echo $rawtxhex
 020000000121654fa95d5a268abf96427e3292baed6c9f6d16ed9e80511070f954883864b10000000000ffffffff0188130000000000001600142c48d3401f6abed74f52df3f795c644b4398844600000000
 ```
 
-## Sign Your Transaction
+## Firma Tu Transacción
 
-You're now ready to sign your transaction. This is a multi-step process because you'll need to do it on multiple machines, each of which will contribute their own private keys.
+Ahora estás listo para firmar tu transacción. Este es un proceso de varios pasos porque deberás hacerlo en varias máquinas, cada una de las cuales contribuirá con sus propias claves privadas.
 
-### Dump Your First Private Key
+### Descarga Tu Primera Clave Privada
 
-Because this transaction isn't making full use of your wallet, you're going to need to directly access your private keys. Start on `machine1`, where you should retrieve any of that user's private keys that were involved in the multisig:
+Debido a que esta transacción no está haciendo un uso completo de tu billetera, necesitarás acceder directamente a tus claves privadas. Comienza en `machine1`, donde debes recuperar cualquiera de las claves privadas de ese usuario que estuvieron involucradas en la multisig:
 ```
 machine1$ bitcoin-cli -named dumpprivkey address=$address1
 cNPhhGjatADfhLD5gLfrR2JZKDE99Mn26NCbERsvnr24B3PcSbtR
 ```
-> :warning: **WARNING:** Directly accessing your private keys from the shell is very dangerous behavior and should be done with extreme care if you're using real money. At the least, don't save the information into a variable that could be accessed from your machine. Removing your shell's history is another great step. At the most, don't do it.
+> :warning: **ATENCIÓN:** Acceder directamente a tus claves privadas desde el shell es un comportamiento muy peligroso y debe hacerse con sumo cuidado si estás usando dinero real. Al menos, no guardes la información en una variable a la que se pueda acceder desde tu máquina. Eliminar el historial de tu shell es otro gran paso. A lo sumo, no lo hagas.
 
-### Make Your First Signature
+### Haz Tu Primer Firma
 
-You can now make your first signature with the `signrawtransactionwithkey` command. Here's where things are different: you're going to need to coach the command on how to sign. You do these by adding the following new information:
+Ahora puedes hacer tu primer firma con el comando `signrawtransactionwithkey`. Aquí es donde las cosas son diferentes: necesitarás instruir al comando sobre cómo firmar. Puedes hacer esto agregando la siguiente información nueva:
 
-* Include a `prevtxs` argument that includes the `txid`, the `vout`, the `scriptPubKey`, and the `redeemScript` that you recorded, each of them an individual key-value pair in the JSON object. 
+* Incluye un argumento `prevtxs` que incluya la `txid`, la `vout`, la `scriptPubKey`, y la `redeemScript` que registraste, cada una de ellas un par de key-value en el objeto JSON. 
 * Include a `privkeys` argument that lists the private keys you dumped on this machine.
 
 ```
