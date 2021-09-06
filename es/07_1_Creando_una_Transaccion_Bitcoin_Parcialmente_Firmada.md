@@ -12,7 +12,7 @@ Las multifirmas fueron excelentes para el caso muy específico de la tenencia co
 
 > :book: ***Que es una PSBT?*** Como sugiere el nombre, un PSBT es una transacción que no se ha firmado por completo. Eso es importante, porque una vez que se firma una transacción, su contenido se bloquea. [BIP174](https://github.com/bitcoin/bips/blob/master/bip-0174.mediawiki) definió una metodología abstracta para poner los PSBTs juntos que describe y estandariza los roles en su creación colaborativa. Un *Creador* propone una transacción; uno o más *Actualizadores* lo complementan; y uno o más *Firmantes* lo autentican; antes de que un *Finalizador* lo complete; y un *Extracter* lo convierte en una transacción para la red Bitcoin. También puede haber un *Combinador* que fusiona PSBT paralelos de diferentes usuarios. 
 
-Inicialmente, los PSBT pueden tener un aspecto similar a las multifirmas porque tienen un solo bit de funcionalidad superpuesto: la capacidad de firmar conjuntamente una transacción. Sin embargo, fueron creados para un caso de uso totalmente diferente. Los PSBT reconocen la necesidad de que varios programas creen conjuntamente una transacción por varias razones diferentes, y proporcionan un formato regularizado para hacerlo. Son especialmente útiles para casos de uso que involucran billeteras de hardware (para lo cual, consulte [§7.3] (https://github.com/BlockchainCommons/Learning-Bitcoin-from-the-Command-Line/blob/master/07_3_Integrating_with_Hardware_Wallets.md)), que están protegidas del acceso total a Internet y tienden a tener un historial de transacciones mínimo.
+Inicialmente, los PSBT pueden tener un aspecto similar a las multifirmas porque tienen un solo bit de funcionalidad superpuesto: la capacidad de firmar conjuntamente una transacción. Sin embargo, fueron creados para un caso de uso totalmente diferente. Los PSBT reconocen la necesidad de que varios programas creen conjuntamente una transacción por varias razones diferentes, y proporcionan un formato regularizado para hacerlo. Son especialmente útiles para casos de uso que involucran billeteras de hardware (para lo cual, consulte [§7.3](https://github.com/BlockchainCommons/Learning-Bitcoin-from-the-Command-Line/blob/master/07_3_Integrating_with_Hardware_Wallets.md)), que están protegidas del acceso total a Internet y tienden a tener un historial de transacciones mínimo.
 
 En general, los PSBT proporcionan una serie de elementos funcionales que mejoran este caso de uso:
 
@@ -490,7 +490,7 @@ ea73a631b456d2b041ed73bf5767946408c6ff067716929a68ecda2e3e4de6d3
 
 Al crear el software `bitcoin-cli`, lo más probable es que cumpla las cinco funciones principales de los PSBT con `createpsbt`, `walletprocesspsbt` y `finalizepsbt`. Esto es lo que parece ese flujo:
 
-![](images/psbt-roles-for-cli-1.png)
+![](../images/psbt-roles-for-cli-1.png)
 
 Si elige usar el atajo de `walletcreatefundedpsbt`, así es como se ve en su lugar:
 
@@ -498,7 +498,7 @@ Si elige usar el atajo de `walletcreatefundedpsbt`, así es como se ve en su lug
 
 Finalmente, si en cambio necesita más control y elige usar `utxoupdatepsbt` (que no está documentado en gran parte aquí), en su lugar tiene este flujo de trabajo:
 
-![](images/psbt-roles-for-cli-3.png)
+![](../images/psbt-roles-for-cli-3.png)
 
 ## Resumen: creando una transacción de Bitcoin firmada parcialmente
 
