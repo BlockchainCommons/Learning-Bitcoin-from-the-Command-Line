@@ -198,32 +198,32 @@ Tercero, puede que necesiten enviar en la aún más larga `hexstring` que produc
 
 Pero en este caso, vemos ahora que la firma está `completa`!
 
-## Send Your Transaction
+## Envía Tu Transacción
 
-When done, you should fall back on the standard JQ methodology to save your `hexstring` and then to send it:
+Una vez terminado, deberías volver a la metodología JQ estándar para guardar tu `hexstring` y luego enviarla:
 ```
 $ signedtx=$(bitcoin-cli -named signrawtransactionwithkey hexstring=020000000121654fa95d5a268abf96427e3292baed6c9f6d16ed9e80511070f954883864b100000000920047304402201c97b48215f261055e41b765ab025e77a849b349698ed742b305f2c845c69b3f022013a5142ef61db1ff425fbdcdeb3ea370aaff5265eee0956cff9aa97ad9a357e3010047522102da2f10746e9778dd57bd0276a4f84101c4e0a711f9cfd9f09cde55acbdd2d1912102bfde48be4aa8f4bf76c570e98a8d287f9be5638412ab38dede8e78df82f33fa352aeffffffff0188130000000000001600142c48d3401f6abed74f52df3f795c644b4398844600000000 prevtxs='''[ { "txid": "'$utxo_txid'", "vout": '$utxo_vout', "scriptPubKey": "'$utxo_spk'", "redeemScript": "'$redeem_script'" } ]''' privkeys='["cVhqpKhx2jgfLUWmyR22JnichoctJCHPtPERm11a2yxnVFKWEKyz"]' | jq -r .hex)
 $ bitcoin-cli -named sendrawtransaction hexstring=$signedtx
 99d2b5717fed8875a1ed3b2827dd60ae3089f9caa7c7c23d47635f6f5b397c04
 ```
 
-## Understand the Importance of This Expanded Signing Methodology
+## Comprendiendo la Importancia de Esta Metodología de Firmado Expandida
 
-This took some work, and as you'll soon learn, the foolishness with the private keys, the redeem script, and the scriptpubkey isn't actually required to redeem from multisignature addresses using newer versions of Bitcoin Core. So, what was the point?
+Esto requirió algo de trabajo, y como aprenderás pronto, la tontería con las claves privadas, el script de redención y el scriptpubkey en realidad no es necesario para redimir desde direcciones de firmas múltiples utilizando versiones más nuevas de Bitcoin Core. ¿De qué se trata, entonces?
 
-This redemption methodology shows a standard way to sign and reuse P2SH transactions. In short, to redeem P2SH funds, a `signrawtransactionwithkey` needs to:
+Esta metodología de redención muestra una forma estándar de firmar y reutilizar transacciones P2SH. En síntesis, para redimir fondos P2SH, una `signrawtransactionwithkey` necesita:
 
-1. Include the `scriptPubKey`, which explains the P2SH cryptographic puzzle.
-2. Include the `redeemScript`, which solves the P2SH cryptographic puzzle, and introduces a new puzzle of its own.
-3. Be run on each machine holding required private keys.
-4. Include the relevant signatures, which solve the redeemScript puzzle.
+1. Incluir la `scriptPubKey`, lo que explica el rompecabezas criptográfico P2SH.
+2. Incluir el `redeemScript`, que resuelve el rompecabezas criptográfico P2SH, e introduce un nuevo rompecabezas propio.
+3. Ejecutarse en cada máquina que tenga las claves privadas requeridas.
+4. Incluir las firmas relevantes, que resuelve el rompecabezas redeemScript.
 
-Here, we saw this methodology used  to redeem multisig funds. In the future you can also use it to redeem funds that were locked with other, more complex P2SH scripts, as explained starting in Chapter 9.
+Aquí, vimos esta metodología utilizada para redimir fondos multifirma. En el futuro también puedes usarlo para redimir fondos que estaban bloqueados con otros, scripts P2SH más complejos, como se explica a partir del Capítulo 9.
 
-## Summary: Spending a Transaction with a Multisig
+## Resumen: Gastar una Transacción con una Multisig
 
-It turns out that spending money sent to a multisig address can take quite a bit of work. But as long as you have your original addresses and your redeemScript, you can do it by signing a raw transaction with each different address, and providing some more information along the way.
+Resulta que gastar dinero enviado a una dirección multisig puede requerir bastante trabajo. Pero siempre que tengas tus direcciones originales y tu redeemScript, puedes hacerlo firmando una transacción sin procesar con cada dirección diferente y proporcionando más información en el camino.
 
-## What's Next?
+## ¿Qué sigue?
 
-Continue "Expanding Bitcoin Transactions" with [§6.3: Sending & Spending an Automated Multisig](06_3_Sending_an_Automated_Multisig.md).
+Continuar "Expandiendo Transacciones Bitcoin" con [§6.3: Enviando & Gastando una Multisig Automatizada](06_3_Sending_an_Automated_Multisig.md).
