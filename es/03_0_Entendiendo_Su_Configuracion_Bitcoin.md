@@ -25,7 +25,7 @@ Los objetivos de apoyo incluyen la capacidad de:
 
 * [Sección uno: Verificando Su Configuración Bitcoin](03_1_Verificando_su_Configuracion_Bitcoin.md)
 * [Sección dos: Conociendo la configuración de Bitcoin](03_2_Conociendo_su_Configuracion_Bitcoin.md)
-* [Sección tres: Configuración de su billetera](03_3_Configurar_su_billetera.md)
+* [Sección tres: Configuración de su billetera](03_3_Configurando_Su_Billetera.md)
    * [Interludio: uso de variables de la línea de comandos](03_3_Interludio_Usando_Variables_Linea_Comando.md)
 * [Sección cuatro: recibir una transacción](03_4_Recibiendo_una_Transaccion.md)
 * [Sección cinco: Comprensión del descriptor](03_5_Entendiendo_El_Descriptor.md)
