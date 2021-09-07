@@ -1,16 +1,15 @@
  # 6.3: Enviando & Gastando una Multisig automatizada
 
-The standard technique for creating multisignature addresses and for spending their funds is complex, but it's a worthwhile exercise for understanding a bit more about how they work, and how you can manipulate them at a relatively low level. However, Bitcoin Core has made multisigs a little bit easier in new releases. 
+La técnica estándar para crear direcciones de multifirma y para gastar sus fondos es compleja, pero es un ejercicio que vale la pena para comprender un poco más sobre cómo funcionan y cómo puedes manipularlas a un nivel relativamente bajo. Sin embargo, Bitcoin Core ha facilitado un poco las multisigs en los nuevos lanzamientos. 
 
-> :warning: **VERSION WARNING:** The `addmultisigaddress` command is available in Bitcoin Core v 0.10 or higher.
+> :warning: **AVISO DE VERSION:** El comando `addmultisigaddress` está disponible en Bitcoin Core v 0.10 o superior.
 
-## Create a Multisig Address in Your Wallet
+## Crear una Dirección Multisig en Tu Billetera
 
-In order to make funds sent to multisig addresses easier to spend, you just need to do some prep using the `addmultisigaddress` command. It's probably not what you'd want to do if you were writing multisig wallet programs, but if you were just trying to receive some funds by hand, it might save you some hair-pulling.
+Para que los fondos enviados a direcciones multisig sean más fáciles de gastar, solo necesita hacer algunos preparativos usando el comando `addmultisigaddress`. Probablemente no sea lo que te gustaría hacer si estuvieras escribiendo programas de billetera multifirma, pero si solo estuvieras tratando de recibir algunos fondos a mano, podría ahorrarte algunos tirones de pelo.
 
-### Collect the Keys
-
-You start off creating P2PKH addresses and retrieving public keys, as usual, for each user who will be part of the multisig:
+### Recolectar las Claves
+Empiezas creando direcciones P2PKH y recuperando claves públicas, como es habitual, para cada usuario que formará parte de la multisig:
 ```
 machine1$ address3=$(bitcoin-cli getnewaddress)
 machine1$ echo $address3
@@ -25,9 +24,9 @@ machine2$ bitcoin-cli -named getaddressinfo address=$address4 | jq -r '.pubkey'
 02a0d96e16458ff0c90db4826f86408f2cfa0e960514c0db547ff152d3e567738f
 ```
 
-### Create the Multisig Address Everywhere
+### Crear la Dirección Multisig en Cualquier Lugar
 
-Next you create the multisig on _each machine that contributes signatures_ using a new command, `addmultisigaddress`, instead of `createmultisig`. This new command saves some of the information into your wallet, making it a lot easier to spend the money afterward.
+A continuación, creas la multisig en _cada máquina que aporta firmas_ usando un nuevo comando, `addmultisigaddress`, en lugar de `createmultisig`. Este nuevo comando guarda parte de la información en tu billetera, lo que hace que sea mucho más fácil gastar el dinero después.
 ```
 machine1$ bitcoin-cli -named addmultisigaddress nrequired=2 keys='''["'$address3'","02a0d96e16458ff0c90db4826f86408f2cfa0e960514c0db547ff152d3e567738f"]'''
 {
@@ -43,7 +42,7 @@ machine2$ bitcoin-cli -named addmultisigaddress nrequired=2 keys='''["0297e681bf
   "descriptor": "wsh(multi(2,[ae42a66f]0297e681bff16cd4600138449e2527db4b2f83955c691a1b84254ecffddb9bfbfc,[fe6f2292/0'/0'/2']02a0d96e16458ff0c90db4826f86408f2cfa0e960514c0db547ff152d3e567738f))#cc96c5n6"
 }
 ```
-As noted in the previous section, it currently doesn't matter whether you use addresses or public keys, so we've shown the other mechanism here, mixing the two. You will get the same multisig address either way. However, _you must use the same order_. Thus, it's best for the members of the multisig to check amongst themselves to make sure they all got the same result.
+Como se señaló en la sección anterior, actualmente no importa si usas direcciones o claves públicas, por lo que mostramos el otro mecanismo aquí, mezclando los dos. Obtendrás la misma dirección multifirma de cualquier manera. Sin embargo, _debes utilizar el mismo orden_. Por lo tanto, es mejor que los miembros de la multifirma se comprueben entre ellos para asegurarse de que todos obtuvieron el mismo resultado.
 
 ### Watch for Funds
 
