@@ -104,7 +104,7 @@ If you are working with Bitcoins on your Ledger, you probably won't need to do a
 To work with Testnet coins, as suggested by this course, you'll need to make a few updates:
 
 1. Go to Settings on your Ledger Live app (it's the gear), go to the "Experimental Features" tab, and turn on "Developer Mode".
-2. Go to the "Manager" and install "Bitcoin Test". The current version requires that you have "Bitcoin" and "Etereum" installed first.
+2. Go to the "Manager" and install "Bitcoin Test". The current version requires that you have "Bitcoin" installed first.
 3. Go to the "Manager", scroll to your new "Bitcoin Test", and "Add Account"
 
 ## Link to a Ledger
