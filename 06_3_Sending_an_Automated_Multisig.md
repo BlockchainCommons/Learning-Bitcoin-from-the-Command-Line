@@ -1,4 +1,4 @@
- # 6.3: Enviando & Gastando una Multisig automatizada
+ # 6.3: Enviando & Gastando una Multisig Automatizada
 
 La técnica estándar para crear direcciones de multifirma y para gastar sus fondos es compleja, pero es un ejercicio que vale la pena para comprender un poco más sobre cómo funcionan y cómo puedes manipularlas a un nivel relativamente bajo. Sin embargo, Bitcoin Core ha facilitado un poco las multisigs en los nuevos lanzamientos. 
 
@@ -44,34 +44,34 @@ machine2$ bitcoin-cli -named addmultisigaddress nrequired=2 keys='''["0297e681bf
 ```
 Como se señaló en la sección anterior, actualmente no importa si usas direcciones o claves públicas, por lo que mostramos el otro mecanismo aquí, mezclando los dos. Obtendrás la misma dirección multifirma de cualquier manera. Sin embargo, _debes utilizar el mismo orden_. Por lo tanto, es mejor que los miembros de la multifirma se comprueben entre ellos para asegurarse de que todos obtuvieron el mismo resultado.
 
-### Watch for Funds
+### Estar Atento a los Fondos
 
-Afterward, the members of the multisig will still need to run `importaddress` to watch for funds received on the multisig address:
+Posteriormente, los miembros de la multisig aún necesitarán ejecutar `importaddress` para estar atentos a los fondos recibidos en la dirección multisig:
 ```
 machine1$ bitcoin-cli -named importaddress address=2Mzw7WBvh9RAQ4ssKqxyNyP7L9NAojLqSW8 rescan="false"
 
 machine2$ bitcoin-cli -named importaddress address=2Mzw7WBvh9RAQ4ssKqxyNyP7L9NAojLqSW8 rescan="false"
 ```
 
-## Respend with an Automated Transaction
+## Volver a Gastar con una Transacción Automatizada
 
-Afterward, you will be able to receive funds on the multisignature address as normal. The use of `addmultisigaddress` is simply a bureaucratic issue on the part of the recipients: a bit of bookkeeping to make life easier for them when they want to spend their funds.
+Posteriormente, podrás recibir fondos en la dirección multifirma como de costumbre. El uso de `addmultisigaddress` es simplemente una cuestión burocrática por parte de los destinatarios: un poco de contabilidad para facilitarles la vida cuando quieran gastar sus fondos.
 
-But, it makes life a lot easier. Because information was saved into the wallet, the signers will be able to respend the funds sent to the multisignature address exactly the same as any other address ... other than the need to sign on multiple machines.
+Pero hace la vida mucho más fácil. Debido a que la información se guardó en la billetera, los firmantes podrán volver a gastar los fondos enviados a la dirección multifirma exactamente igual que cualquier otra dirección ... aparte de la necesidad de firmar en varias máquinas.
 
-You start by collecting your variables, but you no longer need to worry about `scriptPubKey` or `redeemScript`.
+Comienzas recolectando tus variables, pero ya no tienes que preocuparte por `scriptPubKey` o `redeemScript`.
 
-Here's a new transaction sent to our new multisig address:
+Aquí hay una nueva transacción enviada a nuestra nueva dirección multisig:
 ```
 machine1$ utxo_txid=b9f3c4756ef8159d6a66414a4317f865882ee04beb57a0f8349dafcc98f5acbc
 machine1$ utxo_vout=0
 machine1$ recipient=$(bitcoin-cli getrawchangeaddress)
 ```
-You create a raw transaction:
+Creas una transacción sin procesar:
 ```
 machine1$ rawtxhex=$(bitcoin-cli -named createrawtransaction inputs='''[ { "txid": "'$utxo_txid'", "vout": '$utxo_vout' } ]''' outputs='''{ "'$recipient'": 0.00005}''')
 ```
-Then you sign it:
+Luego la firmas:
 ```
 machine1$ bitcoin-cli -named signrawtransactionwithwallet hexstring=$rawtxhex
 {
@@ -95,25 +95,25 @@ machine1$ bitcoin-cli -named signrawtransactionwithwallet hexstring=$rawtxhex
 }
 
 ```
-Note that you no longer had to give `signrawtransactionwithkey` extra help, because all of that extra information was already in your wallet. Most importantly, you didn't make your private keys vulnerable by directly manipulating them. Instead the process was _exactly_ the same as respending a normal UTXO, except that the transaction wasn't fully signed at the end.
+Ten en cuenta que ya no tienes que darle ayuda extra a `signrawtransactionwithkey`, porque toda esa información adicional ya estaba en tu billetera. Lo más importante es que no haz hecho vulnerables tus claves privadas manipulándolas directamente. En su lugar el proceso fue _exactamente_ el mismo que volver a gastar una UTXO normal, excepto que la transacción no fue firmada completamente al final.
 
-### Sign It On Other Machines
+### Fírmala en Otras Máquinas
 
-The final step is exporting the partially signed `hex` to any other machines and signing it again:
+El paso final es exportar el `hex` parcialmente firmado a cualquier otra máquina y volver a firmarlo:
 ```
 machine2$ signedtx=$(bitcoin-cli -named signrawtransactionwithwallet hexstring=02000000014ecda61c45f488e35c613a7c4ae26335a8d7bfd0a942f026d0fb1050e744a67d000000009100473044022025decef887fe2e3eb1c4b3edaa155e5755102d1570716f1467bb0b518b777ddf022017e97f8853af8acab4853ccf502213b7ff4cc3bd9502941369905371545de28d0147522102e7356952f4bb1daf475c04b95a2f7e0d9a12cf5b5c48a25b2303783d91849ba421030186d2b55de166389aefe209f508ce1fbd79966d9ac417adef74b7c1b5e0777652aeffffffff0130e1be07000000001976a9148dfbf103e48df7d1993448aa387dc31a2ebd522d88ac00000000 | jq -r '.hex')
 ```
-When everyone that's required has signed, you're off to the races:
+Cuando todos los que sean necesarios hayan firmado, te irás a las carreras:
 ```
 machine2$ bitcoin-cli -named sendrawtransaction hexstring=$signedtx
 3ce88839ac6165aeadcfb188c490e1b850468eff571b4ca78fac64342751510d
 ```
-As with the shortcut discussed in [§4.5: Sending Coins with Automated Raw Transactions](04_5_Sending_Coins_with_Automated_Raw_Transactions.md), the result is a lot easier, but you lose some control in the process.
+Al igual que con el shortcut discutido en [§4.5: Enviando Monedas con Transacciones sin Procesar Automatizadas](04_5_Sending_Coins_with_Automated_Raw_Transactions.md), el resultado es mucho más sencillo, pero pierdes algo de control en el proceso.
 
-## Summary: Sending & Spending an Automated Multisig
+## Resúmen: Enviando & Gastando una Multisig Automatizada
 
-There's an easier way to respend funds sent to multisig addresses that simply requires use of the `addmultisigaddress` command when you create your address. It doesn't demonstrate the intricacies of P2SH respending, and it doesn't give you expansive control, but if you just want to get your money, this is the way to go.
+Existe una manera más fácil de volver a gastar los fondos enviados a direcciones multisig que simplemente requiere el uso del comando `addmultisigaddress` cuando creas tu dirección. No demuestra las complejidades de volver a gastar de P2SH y no te brinda un control amplio, pero si solo deseas obtener tu dinero, este es el camino a seguir.
 
-## What's Next?
+## ¿Qué sigue?
 
-Learn more about "Expanding Bitcoin Transactions" with [Chapter Seven: Expanding Bitcoin Transactions with PSBTs](07_0_Expanding_Bitcoin_Transactions_PSBTs.md).
+Aprende más acerca de "Expandiendo Transacciones Bitcoin" con [Capítulo Siete: Expandiendo Transacciones Bitcoin con PSBTs](07_0_Expanding_Bitcoin_Transactions_PSBTs.md).
