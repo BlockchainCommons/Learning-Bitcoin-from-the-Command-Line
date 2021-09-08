@@ -154,4 +154,4 @@ Haremos un uso real de los descriptores en [§7.3](07_3_Integrando_con_Hardware_
 
 ## ¿Que sigue?
 
-Avance a través de "bitcoin-cli" con el [CCapítulo cuatro: Enviando Transacciones Bitcoin](04_0_Enviando_Transacciones_Bitcoin.md).
+Avance a través de "bitcoin-cli" con el [Capítulo cuatro: Enviando Transacciones Bitcoin](04_0_Enviando_Transacciones_Bitcoin.md).
