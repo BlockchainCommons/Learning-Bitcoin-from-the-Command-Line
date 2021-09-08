@@ -6,11 +6,11 @@ Es posible que haya notado un extraño campo `desc:` en el comando `listunspent`
 
 > :advertencia: **ADVERTENCIA DE VERSIÓN:** Esta es una innovación de Bitcoin Core v 0.17.0 que ha continuado expandiéndose a través de Bitcoin Core 0.20.0. La mayoría de los comandos de esta sección son de 0.17.0, pero el `importmulti` actualizado que admite descriptores es de 0.18.0.
 
-## Conozca la transferencia de direcciones
+## Conozca sobre transferencia de direcciones
 
 La mayor parte de este curso supone que está trabajando completamente desde un solo nodo donde administra su propia billetera, enviando y recibiendo pagos con las direcciones creadas por esa billetera. Sin embargo, no es necesariamente así como funciona el ecosistema de Bitcoin más grande. Allí, es más probable que mueva direcciones entre billeteras e incluso configure billeteras para vigilar los fondos controlados por diferentes billeteras.
 
-Ahí es donde entran los descriptores. Son más útiles si está interactuando con _otro_ software distinto a Bitcoin Core, y realmente necesita apoyarse en este tipo de función de compatibilidad: consulte [§6.1](https://github.com/BlockchainCommons /Learning-Bitcoin-from-the-Command-Line/blob/master/06_1_Sending_a_Transaction_to_a_Multisig.md) para ver un ejemplo del mundo real de cómo tener la capacidad de los descriptores es fundamental.
+Ahí es donde entran los descriptores. Son más útiles si está interactuando con _otro_ software distinto a Bitcoin Core, y realmente necesita apoyarse en este tipo de función de compatibilidad: consulte [§6.1](06_1_Enviando_una_Transaccion_a_una_Direccion_Multifirma.md) para ver un ejemplo del mundo real de cómo tener la capacidad de los descriptores es fundamental.
 
 El movimiento de direcciones entre carteras se solía centrar en `xpub` y` xprv`, y todavía se admiten.
 
@@ -24,13 +24,13 @@ El hecho de que pueda tener una "secuencia completa de claves secundarias ..." r
 
 > :book: ***¿Qué es una ruta de derivación?*** Cuando tiene claves jerárquicas, necesita poder definir claves individuales como descendientes de una semilla. Por ejemplo, `[0]` es la clave 0, `[0/1]` es el primer hijo de la clave 0, `[1/0/1]` es el primer nieto del hijo cero de la primera clave. Algunas claves también contienen un `'` después del número, para mostrar que están endurecidas, lo que las protege de un ataque específico que se puede usar para derivar un `xprv` de un`xpub`. No necesita preocuparse por los detalles, aparte del hecho de que esos `'` s le causarán problemas de formato cuando trabaje desde la línea de comandos.
 
-`xpubs` y` xprvs` resultaron ser insuficientes cuando los tipos de claves públicas se multiplicaron bajo la [expansión SegWit](https://github.com/BlockchainCommons/Learning-Bitcoin-from-the-Command-Line/blob/master/04_6_Creating_a_Segwit_Transaction .md), de ahí la necesidad de los "descriptores de salida".
+`xpubs` y` xprvs` resultaron ser insuficientes cuando los tipos de claves públicas se multiplicaron bajo la [expansión SegWit](04_6_Creando_una_Transaccion_Segwit.md), de ahí la necesidad de los "descriptores de salida".
 
 > :book: ***¿Qué es un descriptor de salida?*** Una descripción precisa de cómo derivar una dirección de Bitcoin a partir de una combinación de una función y una o más entradas a esa función.
 
 La introducción de funciones en los descriptores es lo que los hace poderosos, porque se pueden usar para transferir todo tipo de direcciones, desde las direcciones heredadas con las que estamos trabajando ahora hasta las direcciones Segwit y multifirma que encontraremos más adelante. Una función individual coincide con un tipo particular de dirección y se correlaciona con reglas específicas para generar esa dirección.
 
-## Capturar un descriptor
+## Capture un descriptor
 
 Los descriptores son visibles en varios comandos como `listunspent` y`getaddressinfo`:
 
