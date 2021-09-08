@@ -60,7 +60,7 @@ $ bitcoin-cli getaddressinfo ms7ruzvL4atCu77n47dStMb3of6iScS8kZ
 
 Aquí el descriptor es `pkh ([d6043800 / 0 '/ 0' / 18 '] 03efdee34c0009fd175f3b20b5e5a5517fd5d16746f2e635b44617adafeaebc388) # 4ahsl9pk`.
 
-## Entender un descriptor
+## Entienda un descriptor
 
 Un descriptor se divide en varias partes:
 
