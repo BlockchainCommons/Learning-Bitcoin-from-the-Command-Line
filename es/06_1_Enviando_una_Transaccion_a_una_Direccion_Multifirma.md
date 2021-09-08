@@ -1,10 +1,10 @@
 # 6.1: Enviando una Transacción con una Multifirma
 
-La primer forma de variar cómo envías una transacción básica es utilizar multifirma. Esto da la habilidad de requerir múltiples personas (o al menos múltiples claves privadas) autoricen el uso de los fondos.
+La primer forma de variar cómo envía una transacción básica es utilizar multifirma. Esto da la habilidad de requerir múltiples personas (o al menos múltiples claves privadas) autoricen el uso de los fondos.
 
 ## Entender Cómo Funciona una Multifirma
 
-En una transacción típica P2PKH o SegWit, los bitcoins son enviados a una dirección basada en tu clave pública, lo que significa que se requiere la clave privada relacionada para desbloquear la transacción, resolver el rompecabezas criptográfico y permitir la reutilización de los fondos. Pero, ¿qué pasaría si pudieras bloquear una transacción con _múltiples_ claves privadas? Esto haría que efectivamente los fondos puedan ser enviados a un grupo de personas, en la que todas esas personas tengan que acordar la reutilización de los fondos.
+En una transacción típica P2PKH o SegWit, los bitcoins son enviados a una dirección basada en su clave pública, lo que significa que se requiere la clave privada relacionada para desbloquear la transacción, resolver el rompecabezas criptográfico y permitir la reutilización de los fondos. Pero, ¿qué pasaría si pudiera bloquear una transacción con _múltiples_ claves privadas? Esto haría que efectivamente los fondos puedan ser enviados a un grupo de personas, en la que todas esas personas tengan que acordar la reutilización de los fondos.
 
 > :book: ***¿Qué es una multifirma?*** Una multifirma es una metodología que permite a más de una persona la creación conjunta de una firma digital. Es una técnica general para el uso criptográfico de claves que va más allá de Bitcoin.
 
