@@ -228,7 +228,7 @@ $ lightning-cli --network=testnet listfunds
 
 ### Entender los Tipos de Canales de Cierre
 
-El comando `close` RPC intenta cerrar un canal de manera cooperativa con su par o unilateralmente desués de que expire al argumento `unilateraltimeout`. Esto conlleva una discusión adicional, ya que va al corazón del diseño sin confianza de Lightning:
+El comando `close` RPC intenta cerrar un canal de manera cooperativa con su par o unilateralmente después de que expire al argumento `unilateraltimeout`. Esto conlleva una discusión adicional, ya que va al corazón del diseño sin confianza de Lightning:
 
 Cada participante de un canal puede crear tantos pagos Lightning a su contraparte como lo permitan sus fondos. La mayoría de las veces no habrá desacuerdos entre los participantes, por lo que solo habrá dos transacciones en cadena, una abriendo y la otra cerrando el canal. Sin embargo, puede haber escenarios en los que un par no esté en línea o no esté de acuerdo con el estado final del canal o cuando alguien intente robar fondos de la otra parte. Es por eso que existen cierres tanto cooperativos como forzosos.
 
