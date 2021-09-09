@@ -2,7 +2,7 @@
 
 La clásica, y compleja, forma de gastar fondos enviados a una dirección multifirma usando `bitcoin-cli` requiere mucho trabajo.
 
-## Encuentrar Sus Fondos
+## Encontrar Sus Fondos
 
 Para empezar, necesita encontrar sus fondos; su computadora no sabe buscarlos, porque no están asociados con ninguna dirección en su billetera. Puede alertar a `bitcoind` para hacerlo usando el comando `importaddress`:
 ```
@@ -140,7 +140,7 @@ Ahora está listo para firma su transacción. Este es un proceso de varios pasos
 
 ### Descargar Su Primera Clave Privada
 
-Debido a que esta transacción no está haciendo un uso completo de su billetera, necesitará acceder directamente a sus claves privadas. Comience en `machine1`, donde debe recuperar cualquiera de las claves privadas de ese usuario que estuvieron involucradas en la multisig:
+Debido a que esta transacción no está haciendo un uso completo de su billetera, necesitará acceder directamente a sus claves privadas. Comience en `machine1`, donde debe recuperar cualquiera de las claves privadas de ese usuario que estuvieron involucradas en la multifirma:
 ```
 machine1$ bitcoin-cli -named dumpprivkey address=$address1
 cNPhhGjatADfhLD5gLfrR2JZKDE99Mn26NCbERsvnr24B3PcSbtR
@@ -177,7 +177,7 @@ Eso produce errores aterradores y dice que está `fallando`. Esto está bien. Pu
 
 ### Repetir para Otros Firmantes
 
-Ahora puede transferir la transacción, para que la vuelva a firmar cualquier otra persona requerida para la multisig. Hacen esto corriendo el mismo comando de firma que hizo pero: (1) con el `hex` más largo que sacó de (`bitcoin-cli -named signrawtransactionwithkey hexstring=$rawtxhex prevtxs='''[ { "txid": "'$utxo_txid'", "vout": '$utxo_vout', "scriptPubKey": "'$utxo_spk'", "redeemScript": "'$redeem_script'" } ]''' privkeys='["cMgb3KM8hPATCtgMKarKMiFesLft6eEw3DY6BB8d97fkeXeqQagw"]' | jq -r '.hex'`); y (2) con su propia clave privada.
+Ahora puede transferir la transacción, para que la vuelva a firmar cualquier otra persona requerida para la multifirma. Hacen esto corriendo el mismo comando de firma que hizo pero: (1) con el `hex` más largo que sacó de (`bitcoin-cli -named signrawtransactionwithkey hexstring=$rawtxhex prevtxs='''[ { "txid": "'$utxo_txid'", "vout": '$utxo_vout', "scriptPubKey": "'$utxo_spk'", "redeemScript": "'$redeem_script'" } ]''' privkeys='["cMgb3KM8hPATCtgMKarKMiFesLft6eEw3DY6BB8d97fkeXeqQagw"]' | jq -r '.hex'`); y (2) con su propia clave privada.
 
 > :information_source: **NOTA — M-DE-N VS N-DE-N:** Obviamente, si tiene una firma n-of-n (como la multifirma 2-de-2 en este ejemplo), entonces todos deben firmar, pero si tiene una multifirma m-de-n donde "m < n", entonces la firma estará completa cuando sólo alguno ("m") de los firmantes haya firmado.
 
