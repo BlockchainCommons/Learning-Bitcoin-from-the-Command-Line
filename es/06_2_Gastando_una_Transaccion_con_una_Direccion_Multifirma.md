@@ -2,17 +2,17 @@
 
 La clásica, y compleja, forma de gastar fondos enviados a una dirección multifirma usando `bitcoin-cli` requiere mucho trabajo.
 
-## Encuentra Tus Fondos
+## Encuentrar Sus Fondos
 
-Para empezar, necesitas encontrar tus fondos; tu computadora no sabe buscarlos, porque no están asociados con ninguna dirección en tu billetera. Puedes alertar a `bitcoind` para hacerlo usando el comando `importaddress`:
+Para empezar, necesita encontrar sus fondos; su computadora no sabe buscarlos, porque no están asociados con ninguna dirección en su billetera. Puede alertar a `bitcoind` para hacerlo usando el comando `importaddress`:
 ```
 $ bitcoin-cli -named importaddress address=2NAGfA4nW6nrZkD5je8tSiAcYB9xL2xYMCz
 ```
-Si tienes un nodo podado (y probablemente lo tengas), tendrás que decirle que no vuelva a escanear:
+Si tiene un nodo podado (y probablemente lo tenga), tendrá que decirle que no vuelva a escanear:
 ```
 $ bitcoin-cli -named importaddress address=2NAGfA4nW6nrZkD5je8tSiAcYB9xL2xYMCz rescan="false"
 ```
-Si prefieres, puedes importar la dirección usando su descriptor (y esta es generalmente la mejor, más estandarizada respuesta):
+Si prefiere, puede importar la dirección usando su descriptor (y esta es generalmente la mejor, más estandarizada respuesta):
 ```
 $ bitcoin-cli importmulti '[{"desc": "sh(multi(2,02da2f10746e9778dd57bd0276a4f84101c4e0a711f9cfd9f09cde55acbdd2d191,02bfde48be4aa8f4bf76c570e98a8d287f9be5638412ab38dede8e78df82f33fa3))#0pazcr4y", "timestamp": "now", "watchonly": true}]'
 [
@@ -21,9 +21,9 @@ $ bitcoin-cli importmulti '[{"desc": "sh(multi(2,02da2f10746e9778dd57bd0276a4f84
   }
 ]
 ```
-Posteriormente, los fondos deberían aparecer cuando hagas `listunspent` ... pero aún así no son fáciles de gastar. (De hecho, tu billetera puede afirmar que no se pueden gastar `spendable` en absoluto!)
+Posteriormente, los fondos deberían aparecer cuando haga `listunspent` ... pero aún así no son fáciles de gastar. (De hecho, su billetera puede afirmar que no se pueden gastar `spendable` en absoluto!)
 
-Si por alguna razón no te es posible incorporar la dirección a tu billetera, puedes usar `gettransaction` para obtener la info (o mira en un explorador de bloques).
+Si por alguna razón no le es posible incorporar la dirección a su billetera, puede usar `gettransaction` para obtener la info (o mirar en un explorador de bloques).
 ```
 $ bitcoin-cli -named gettransaction txid=b164388854f9701051809eed166d9f6cedba92327e4296bf8a265a5da94f6521 verbose=true
 {
@@ -93,66 +93,66 @@ $ bitcoin-cli -named gettransaction txid=b164388854f9701051809eed166d9f6cedba923
 }
 ```
 
-## Configura Tus Variables
+## Configurar Sus Variables
 
-Cuando estés listo para gastar los fondos recibidos por una dirección de multifirma, necesitarás recopilar _muchos_ datos: mucho más de lo que necesitas cuando gastas un P2PKH normal o un UTXO SegWit. Esto se debe en parte a que la información de la dirección multifirma no está en tu billetera, y en parte a que estás gastando dinero que se envió a una dirección P2SH (pago a script-hash), y eso es mucho más exigente.
+Cuando esté listo para gastar los fondos recibidos por una dirección de multifirma, necesitará recopilar _muchos_ datos: mucho más de lo que necesita cuando gasta un P2PKH normal o un UTXO SegWit. Esto se debe en parte a que la información de la dirección multifirma no está en su billetera, y en parte a que está gastando dinero que se envió a una dirección P2SH (pago a script-hash), y eso es mucho más exigente.
 
-En total, necesitarás recopilar tres cosas: información ampliada sobre el UTXO; el redeemScript; y todas las claves privadas involucradas. Por supuesto, también necesitarás una nueva dirección de destinatario. Las claves privadas deben esperar el paso de firma, pero todo lo demás se puede hacer ahora.
+En total, necesitará recopilar tres cosas: información ampliada sobre el UTXO; el redeemScript; y todas las claves privadas involucradas. Por supuesto, también necesitará una nueva dirección de destinatario. Las claves privadas deben esperar el paso de firma, pero todo lo demás se puede hacer ahora.
 
-### Accede a la información del UTXO
+### Acceder a la información del UTXO
 
-Para empezar, toma la `txid` y la `vout` para la transacción que deseas gastar, como es habitual. En este caso, se recuperó de la información de `gettransaction`, arriba:
+Para empezar, tome la `txid` y la `vout` para la transacción que desea gastar, como es habitual. En este caso, se recuperó de la información de `gettransaction`, arriba:
 ```
 $ utxo_txid=b164388854f9701051809eed166d9f6cedba92327e4296bf8a265a5da94f6521
 $ utxo_vout=0
 ```
-Sin embargo, necesitas acceder también a una tercera parte de la información acerca del UTXO, es `scriptPubKey`/`hex`, que es el script que  bloqueó la transacción. Nuevamente, probablemente estás haciendo esto mirando los detalles de la transacción:
+Sin embargo, necesita acceder también a una tercera parte de la información acerca del UTXO, es `scriptPubKey`/`hex`, que es el script que bloqueó la transacción. Nuevamente, probablemente está haciendo esto mirando los detalles de la transacción:
 ```
 $ utxo_spk=a914a5d106eb8ee51b23cf60d8bd98bc285695f233f387
 ```
 
-### Registra el Script de Redención
+### Registrar el Script de Redención
 
-Con suerte, has guardado el `redeemScript`. Ahora deberías registrarlo en una variable.
+Con suerte, ha guardado el `redeemScript`. Ahora debería registrarlo en una variable.
 
 Esto se extrajo de nuestra creación de la dirección en la sección anterior.
 ```
 redeem_script="522102da2f10746e9778dd57bd0276a4f84101c4e0a711f9cfd9f09cde55acbdd2d1912102bfde48be4aa8f4bf76c570e98a8d287f9be5638412ab38dede8e78df82f33fa352ae"
 ```
-### Decide Tu Destinatario
+### Decidir Su Destinatario
 
 Nos enviaremos el dinero a nosotros mismos. Esto es útil porque libera los fondos de la multisig, convirtiéndolos en una transacción P2PKH normal que luego puede ser confirmada por una sola clave privada:
 ```
 $ recipient=$(bitcoin-cli getrawchangeaddress)
 ```
-## Crea Tu Transacción
+## Crear Su Transacción
 
-Ahora puedes crear tu transacción. Esto no es diferente de lo habitual.
+Ahora puede crear su transacción. Esto no es diferente de lo habitual.
 ```
 $ rawtxhex=$(bitcoin-cli -named createrawtransaction inputs='''[ { "txid": "'$utxo_txid'", "vout": '$utxo_vout' } ]''' outputs='''{ "'$recipient'": 0.00005}''')
 $ echo $rawtxhex
 020000000121654fa95d5a268abf96427e3292baed6c9f6d16ed9e80511070f954883864b10000000000ffffffff0188130000000000001600142c48d3401f6abed74f52df3f795c644b4398844600000000
 ```
 
-## Firma Tu Transacción
+## Firmar Su Transacción
 
-Ahora estás listo para firmar tu transacción. Este es un proceso de varios pasos porque deberás hacerlo en varias máquinas, cada una de las cuales contribuirá con sus propias claves privadas.
+Ahora está listo para firma su transacción. Este es un proceso de varios pasos porque deberá hacerlo en varias máquinas, cada una de las cuales contribuirá con sus propias claves privadas.
 
-### Descarga Tu Primera Clave Privada
+### Descargar Su Primera Clave Privada
 
-Debido a que esta transacción no está haciendo un uso completo de tu billetera, necesitarás acceder directamente a tus claves privadas. Comienza en `machine1`, donde debes recuperar cualquiera de las claves privadas de ese usuario que estuvieron involucradas en la multisig:
+Debido a que esta transacción no está haciendo un uso completo de su billetera, necesitará acceder directamente a sus claves privadas. Comience en `machine1`, donde debe recuperar cualquiera de las claves privadas de ese usuario que estuvieron involucradas en la multisig:
 ```
 machine1$ bitcoin-cli -named dumpprivkey address=$address1
 cNPhhGjatADfhLD5gLfrR2JZKDE99Mn26NCbERsvnr24B3PcSbtR
 ```
-> :warning: **ATENCIÓN:** Acceder directamente a tus claves privadas desde el shell es un comportamiento muy peligroso y debe hacerse con sumo cuidado si estás usando dinero real. Al menos, no guardes la información en una variable a la que se pueda acceder desde tu máquina. Eliminar el historial de tu shell es otro gran paso. A lo sumo, no lo hagas.
+> :warning: **ATENCIÓN:** Acceder directamente a sus claves privadas desde el shell es un comportamiento muy peligroso y debe hacerse con sumo cuidado si está usando dinero real. Al menos, no guarde la información en una variable a la que se pueda acceder desde su máquina. Eliminar el historial de su shell es otro gran paso. A lo sumo, no lo haga.
 
-### Haz Tu Primer Firma
+### Hacer Su Primer Firma
 
-Ahora puedes hacer tu primer firma con el comando `signrawtransactionwithkey`. Aquí es donde las cosas son diferentes: necesitarás instruir al comando sobre cómo firmar. Puedes hacer esto agregando la siguiente información nueva:
+Ahora puede hacer su primer firma con el comando `signrawtransactionwithkey`. Aquí es donde las cosas son diferentes: necesitará instruir al comando sobre cómo firmar. Puede hacer esto agregando la siguiente información nueva:
 
-* Incluye un argumento `prevtxs` que incluya la `txid`, la `vout`, la `scriptPubKey`, y la `redeemScript` que registraste, cada una de ellas un par key-value en el objeto JSON. 
-* Incluye un argumento `privkeys` que liste las claves privadas que descargaste en esta máquina.
+* Incluya un argumento `prevtxs` que incluya la `txid`, la `vout`, la `scriptPubKey`, y la `redeemScript` que registró, cada una de ellas un par key-value en el objeto JSON. 
+* Incluya un argumento `privkeys` que liste las claves privadas que descargó en esta máquina.
 
 ```
 machine1$ bitcoin-cli -named signrawtransactionwithkey hexstring=$rawtxhex prevtxs='''[ { "txid": "'$utxo_txid'", "vout": '$utxo_vout', "scriptPubKey": "'$utxo_spk'", "redeemScript": "'$redeem_script'" } ]''' privkeys='["cNPhhGjatADfhLD5gLfrR2JZKDE99Mn26NCbERsvnr24B3PcSbtR"]'
@@ -173,13 +173,13 @@ machine1$ bitcoin-cli -named signrawtransactionwithkey hexstring=$rawtxhex prevt
 }
 
 ```
-Eso produce errores aterradores y dice que está `fallando`. Esto está bien. Puedes ver que la firma se ha realizado parcialmente correcta porque el `hex` se ha alargado. Aunque la transacción se ha firmado parcialmente, no se realiza porque necesita más firmas. 
+Eso produce errores aterradores y dice que está `fallando`. Esto está bien. Puede ver que la firma se ha realizado parcialmente correcta porque el `hex` se ha alargado. Aunque la transacción se ha firmado parcialmente, no se realiza porque necesita más firmas. 
 
-### Repite para Otros Firmantes
+### Repetir para Otros Firmantes
 
-Ahora puedes transferir la transacción, para que la vuelva a firmar cualquier otra persona requerida para la multisig. Hacen esto correindo el mismo comando de firma que hiciste pero: (1) con el `hex` más largo que sacaste de (`bitcoin-cli -named signrawtransactionwithkey hexstring=$rawtxhex prevtxs='''[ { "txid": "'$utxo_txid'", "vout": '$utxo_vout', "scriptPubKey": "'$utxo_spk'", "redeemScript": "'$redeem_script'" } ]''' privkeys='["cMgb3KM8hPATCtgMKarKMiFesLft6eEw3DY6BB8d97fkeXeqQagw"]' | jq -r '.hex'`); y (2) con su propia clave privada.
+Ahora puede transferir la transacción, para que la vuelva a firmar cualquier otra persona requerida para la multisig. Hacen esto corriendo el mismo comando de firma que hizo pero: (1) con el `hex` más largo que sacó de (`bitcoin-cli -named signrawtransactionwithkey hexstring=$rawtxhex prevtxs='''[ { "txid": "'$utxo_txid'", "vout": '$utxo_vout', "scriptPubKey": "'$utxo_spk'", "redeemScript": "'$redeem_script'" } ]''' privkeys='["cMgb3KM8hPATCtgMKarKMiFesLft6eEw3DY6BB8d97fkeXeqQagw"]' | jq -r '.hex'`); y (2) con su propia clave privada.
 
-> :information_source: **NOTA — M-DE-N VS N-DE-N:** Obviamente, si tienes una firma an n-of-n (como la multifirma 2-de-2 en este ejemplo), entonces todos deben firmar, pero si tienes una multifirma m-de-n donde "m < n", entonces la firma estará completa cuando sólo algún ("m") de los firmantes haya firmado.
+> :information_source: **NOTA — M-DE-N VS N-DE-N:** Obviamente, si tiene una firma n-of-n (como la multifirma 2-de-2 en este ejemplo), entonces todos deben firmar, pero si tiene una multifirma m-de-n donde "m < n", entonces la firma estará completa cuando sólo alguno ("m") de los firmantes haya firmado.
 
 Para hacerlo primero acceden a sus claves privadas:
 ```
@@ -198,9 +198,9 @@ Tercero, puede que necesiten enviar en la aún más larga `hexstring` que produc
 
 Pero en este caso, vemos ahora que la firma está `completa`!
 
-## Envía Tu Transacción
+## Enviar Su Transacción
 
-Una vez terminado, deberías volver a la metodología JQ estándar para guardar tu `hexstring` y luego enviarla:
+Una vez terminado, debería volver a la metodología JQ estándar para guardar su `hexstring` y luego enviarla:
 ```
 $ signedtx=$(bitcoin-cli -named signrawtransactionwithkey hexstring=020000000121654fa95d5a268abf96427e3292baed6c9f6d16ed9e80511070f954883864b100000000920047304402201c97b48215f261055e41b765ab025e77a849b349698ed742b305f2c845c69b3f022013a5142ef61db1ff425fbdcdeb3ea370aaff5265eee0956cff9aa97ad9a357e3010047522102da2f10746e9778dd57bd0276a4f84101c4e0a711f9cfd9f09cde55acbdd2d1912102bfde48be4aa8f4bf76c570e98a8d287f9be5638412ab38dede8e78df82f33fa352aeffffffff0188130000000000001600142c48d3401f6abed74f52df3f795c644b4398844600000000 prevtxs='''[ { "txid": "'$utxo_txid'", "vout": '$utxo_vout', "scriptPubKey": "'$utxo_spk'", "redeemScript": "'$redeem_script'" } ]''' privkeys='["cVhqpKhx2jgfLUWmyR22JnichoctJCHPtPERm11a2yxnVFKWEKyz"]' | jq -r .hex)
 $ bitcoin-cli -named sendrawtransaction hexstring=$signedtx
@@ -209,7 +209,7 @@ $ bitcoin-cli -named sendrawtransaction hexstring=$signedtx
 
 ## Comprendiendo la Importancia de Esta Metodología de Firmado Expandida
 
-Esto requirió algo de trabajo, y como aprenderás pronto, la tontería con las claves privadas, el script de redención y el scriptpubkey en realidad no es necesario para redimir desde direcciones de firmas múltiples utilizando versiones más nuevas de Bitcoin Core. ¿De qué se trata, entonces?
+Esto requirió algo de trabajo, y como aprenderá pronto, la tontería con las claves privadas, el script de redención y el scriptpubkey en realidad no es necesario para redimir desde direcciones de firmas múltiples utilizando versiones más nuevas de Bitcoin Core. ¿De qué se trata, entonces?
 
 Esta metodología de redención muestra una forma estándar de firmar y reutilizar transacciones P2SH. En síntesis, para redimir fondos P2SH, una `signrawtransactionwithkey` necesita:
 
@@ -218,11 +218,11 @@ Esta metodología de redención muestra una forma estándar de firmar y reutiliz
 3. Ejecutarse en cada máquina que tenga las claves privadas requeridas.
 4. Incluir las firmas relevantes, que resuelve el rompecabezas redeemScript.
 
-Aquí, vimos esta metodología utilizada para redimir fondos multifirma. En el futuro también puedes usarlo para redimir fondos que estaban bloqueados con otros, scripts P2SH más complejos, como se explica a partir del Capítulo 9.
+Aquí, vimos esta metodología utilizada para redimir fondos multifirma. En el futuro también puede usarlo para redimir fondos que estaban bloqueados con otros, scripts P2SH más complejos, como se explica a partir del Capítulo 9.
 
-## Resumen: Gastar una Transacción con una Multisig
+## Resumen: Gastando una Transacción con una Multifirma
 
-Resulta que gastar dinero enviado a una dirección multisig puede requerir bastante trabajo. Pero siempre que tengas tus direcciones originales y tu redeemScript, puedes hacerlo firmando una transacción sin procesar con cada dirección diferente y proporcionando más información en el camino.
+Resulta que gastar dinero enviado a una dirección multifirma puede requerir bastante trabajo. Pero siempre que tenga sus direcciones originales y su redeemScript, puede hacerlo firmando una transacción sin procesar con cada dirección diferente y proporcionando más información en el camino.
 
 ## ¿Qué sigue?
 
