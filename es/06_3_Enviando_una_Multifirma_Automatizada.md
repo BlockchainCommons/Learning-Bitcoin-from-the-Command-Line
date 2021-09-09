@@ -1,15 +1,15 @@
-# 6.3: Enviando & Gastando una Multisig Automatizada
+# 6.3: Enviando & Gastando una Multifirma Automatizada
 
 La técnica estándar para crear direcciones de multifirma y para gastar sus fondos es compleja, pero es un ejercicio que vale la pena para comprender un poco más sobre cómo funcionan y cómo puede manipularlas a un nivel relativamente bajo. Sin embargo, Bitcoin Core ha facilitado un poco las multifirmas en los nuevos lanzamientos. 
 
 > :warning: **AVISO DE VERSION:** El comando `addmultisigaddress` está disponible en Bitcoin Core v 0.10 o superior.
 
-## Crear una Dirección Multisig en Su Billetera
+## Crear una Dirección Multifirma en Su Billetera
 
 Para que los fondos enviados a direcciones multifirma sean más fáciles de gastar, sólo necesita hacer algunos preparativos usando el comando `addmultisigaddress`. Probablemente no sea lo que le gustaría hacer si estuviera escribiendo programas de billetera multifirma, pero si sólo estuviera tratando de recibir algunos fondos a mano, podría ahorrarse algunos tirones de pelo.
 
 ### Recolectar las Claves
-Empieza creando direcciones P2PKH y recuperando claves públicas, como es habitual, para cada usuario que formará parte de la multisig:
+Empieza creando direcciones P2PKH y recuperando claves públicas, como es habitual, para cada usuario que formará parte de la multifirma:
 ```
 machine1$ address3=$(bitcoin-cli getnewaddress)
 machine1$ echo $address3
