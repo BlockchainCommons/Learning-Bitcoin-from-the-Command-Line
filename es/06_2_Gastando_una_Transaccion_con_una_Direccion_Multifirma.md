@@ -121,7 +121,7 @@ redeem_script="522102da2f10746e9778dd57bd0276a4f84101c4e0a711f9cfd9f09cde55acbdd
 ```
 ### Decidir Su Destinatario
 
-Nos enviaremos el dinero a nosotros mismos. Esto es útil porque libera los fondos de la multisig, convirtiéndolos en una transacción P2PKH normal que luego puede ser confirmada por una sola clave privada:
+Nos enviaremos el dinero a nosotros mismos. Esto es útil porque libera los fondos de la multifirma, convirtiéndolos en una transacción P2PKH normal que luego puede ser confirmada por una sola clave privada:
 ```
 $ recipient=$(bitcoin-cli getrawchangeaddress)
 ```
