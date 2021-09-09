@@ -179,7 +179,7 @@ Eso produce errores aterradores y dice que está `fallando`. Esto está bien. Pu
 
 Ahora puede transferir la transacción, para que la vuelva a firmar cualquier otra persona requerida para la multifirma. Hacen esto corriendo el mismo comando de firma que hizo pero: (1) con el `hex` más largo que sacó de (`bitcoin-cli -named signrawtransactionwithkey hexstring=$rawtxhex prevtxs='''[ { "txid": "'$utxo_txid'", "vout": '$utxo_vout', "scriptPubKey": "'$utxo_spk'", "redeemScript": "'$redeem_script'" } ]''' privkeys='["cMgb3KM8hPATCtgMKarKMiFesLft6eEw3DY6BB8d97fkeXeqQagw"]' | jq -r '.hex'`); y (2) con su propia clave privada.
 
-> :information_source: **NOTA — M-DE-N VS N-DE-N:** Obviamente, si tiene una firma n-of-n (como la multifirma 2-de-2 en este ejemplo), entonces todos deben firmar, pero si tiene una multifirma m-de-n donde "m < n", entonces la firma estará completa cuando sólo alguno ("m") de los firmantes haya firmado.
+> :information_source: **NOTA — M-DE-N VS N-DE-N:** Obviamente, si tiene una firma n-de-n (como la multifirma 2-de-2 en este ejemplo), entonces todos deben firmar, pero si tiene una multifirma m-de-n donde "m < n", entonces la firma estará completa cuando sólo alguno ("m") de los firmantes haya firmado.
 
 Para hacerlo primero acceden a sus claves privadas:
 ```
