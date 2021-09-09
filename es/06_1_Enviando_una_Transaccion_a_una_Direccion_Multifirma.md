@@ -10,7 +10,7 @@ En una transacción típica P2PKH o SegWit, los bitcoins son enviados a una dire
 
 Técnicamente, un rompecabezas criptográfico multifirma es creado por Bitcoin usando el comando OP_CHECKMULTISIG, y normalmente está encapsulado en una dirección P2SH. [§10.4: Codificando una Multifirma](10_4_Codificando_una_Multifirma.md) detallará con más precisión cómo funciona. Por ahora, todo lo que debe saber es que puede usar el comando `bitcoin-cli` para crear direcciones multifirma; los fondos pueden ser enviados a estas direcciones como a cualquier otra dirección P2PKH o Segwit, pero serán requeridas múltiples claves privadas para la redención de los fondos.
 
-> :book: ***¿Qué es una transacción multiforma?*** Una transacción mutifirma es una transacción de Bitcoin que ha sido enviada a una dirección multifirma, requiriendo así la firma de ciertas personas del grupo multifirma para reutilizar los fondos.
+> :book: ***¿Qué es una transacción multifirma?*** Una transacción mutifirma es una transacción de Bitcoin que ha sido enviada a una dirección multifirma, requiriendo así la firma de ciertas personas del grupo multifirma para reutilizar los fondos.
 
 Multifirmas simples requieren que todos en el grupo firmen el UTXO cuando sea gastado. Sin embargo, es posible una mayor complejidad. Las multifirmas son descriptas generalmente como "m de n". Esto significa que la transacción está bloqueada con un grupo de "n" claves, pero sólo "m" de ellas son requeridas para desbloquear la transacción. 
 
@@ -141,7 +141,7 @@ Si observa el `descriptor` para la multifirma creada anteriormente, verá que Bi
 ```
 Sin embargo, si importa una dirección con el tipo `sortedmulti`, hará lo correcto, que es para lo que están los descriptores!
 
-> :warning: **AVISO DE VERSION:** Bitcoin Core sólo entiende la función descriptor `sortedmulti` comenzando por la v 0.20.0. Intenta acceder al descriptor en una versión anterior de Bitcoin Core y obtendrás un error como `A function is needed within P2WSH` (Una función es necesaria dentro de PSWSH).
+> :warning: **AVISO DE VERSION:** Bitcoin Core sólo entiende la función descriptor `sortedmulti` comenzando por la v 0.20.0. Intenta acceder al descriptor en una versión anterior de Bitcoin Core y obtendrá un error como `A function is needed within P2WSH` (Una función es necesaria dentro de PSWSH).
 
 ## Enviar a una dirección Multifirma
 
@@ -197,7 +197,7 @@ Como puede ver, no hubo nada inusual en la creación de la transacción, y se ve
 
 ## Resumen: Enviando una Transacción a una Dirección Multifirma
 
-Las direcciones Multifirma bloquean fondos en varias claves privadas - requiriendo posiblemente todas esas claves privadas para la redención, y requiriendo posiblemente sólo algunas del conjunto. Son bastante fáciles de crear con `bitcoin-cli` y son enteramente normales para enviar. Esta facilidad es debido en gran parte al uso invisible de direcciones P2SH (pay-to-script-hash), un gran tema que ya hemos abordado dos veces, con direcciones P2SH-SegWit y multifirma, y que tendrá más cobertura en el futuro.
+Las direcciones Multifirmas bloquean fondos en varias claves privadas - requiriendo posiblemente todas esas claves privadas para la redención, y requiriendo posiblemente sólo algunas del conjunto. Son bastante fáciles de crear con `bitcoin-cli` y son enteramente normales para enviar. Esta facilidad es debido en gran parte al uso invisible de direcciones P2SH (pay-to-script-hash), un gran tema que ya hemos abordado dos veces, con direcciones P2SH-SegWit y multifirma, y que tendrá más cobertura en el futuro.
 
 > :fire: ***¿Cuál es el poder de las multifirmas?*** Las multifirmas permiten el modelado de una variedad de acuerdos financieros, como corporaciones, sociedades, comites, y otros grupos. Una multifirma 1-de-2 puede ser una cuenta conjunta de una pareja casada, mientras que una Sociedad de Responsabilidad Limitada podría utilizar una multifirma 2 de 2 para grandes gastos. Las multifirmas también forman una de las bases de los Contratos Inteligentes. Por ejemplo, un acuerdo de bienes raíces podría cerrarse con una multifirma 2 de 3, donde las firmas son enviadas por el comprador, el vendedor y un agente de custodia. Una vez que el agente de custodia acepta que se han cumplido todas las condiciones, libera los fondos para el vendedor; o alternativamente, el comprador y el vendedor pueden liberar conjuntamente los fondos.
 
