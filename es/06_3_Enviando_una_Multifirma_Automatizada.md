@@ -1,15 +1,15 @@
- # 6.3: Enviando & Gastando una Multisig Automatizada
+# 6.3: Enviando & Gastando una Multisig Automatizada
 
-La técnica estándar para crear direcciones de multifirma y para gastar sus fondos es compleja, pero es un ejercicio que vale la pena para comprender un poco más sobre cómo funcionan y cómo puedes manipularlas a un nivel relativamente bajo. Sin embargo, Bitcoin Core ha facilitado un poco las multisigs en los nuevos lanzamientos. 
+La técnica estándar para crear direcciones de multifirma y para gastar sus fondos es compleja, pero es un ejercicio que vale la pena para comprender un poco más sobre cómo funcionan y cómo puede manipularlas a un nivel relativamente bajo. Sin embargo, Bitcoin Core ha facilitado un poco las multifirmas en los nuevos lanzamientos. 
 
 > :warning: **AVISO DE VERSION:** El comando `addmultisigaddress` está disponible en Bitcoin Core v 0.10 o superior.
 
-## Crear una Dirección Multisig en Tu Billetera
+## Crear una Dirección Multisig en Su Billetera
 
-Para que los fondos enviados a direcciones multisig sean más fáciles de gastar, solo necesita hacer algunos preparativos usando el comando `addmultisigaddress`. Probablemente no sea lo que te gustaría hacer si estuvieras escribiendo programas de billetera multifirma, pero si solo estuvieras tratando de recibir algunos fondos a mano, podría ahorrarte algunos tirones de pelo.
+Para que los fondos enviados a direcciones multifirma sean más fáciles de gastar, sólo necesita hacer algunos preparativos usando el comando `addmultisigaddress`. Probablemente no sea lo que le gustaría hacer si estuviera escribiendo programas de billetera multifirma, pero si sólo estuviera tratando de recibir algunos fondos a mano, podría ahorrarse algunos tirones de pelo.
 
 ### Recolectar las Claves
-Empiezas creando direcciones P2PKH y recuperando claves públicas, como es habitual, para cada usuario que formará parte de la multisig:
+Empieza creando direcciones P2PKH y recuperando claves públicas, como es habitual, para cada usuario que formará parte de la multisig:
 ```
 machine1$ address3=$(bitcoin-cli getnewaddress)
 machine1$ echo $address3
@@ -24,9 +24,9 @@ machine2$ bitcoin-cli -named getaddressinfo address=$address4 | jq -r '.pubkey'
 02a0d96e16458ff0c90db4826f86408f2cfa0e960514c0db547ff152d3e567738f
 ```
 
-### Crear la Dirección Multisig en Cualquier Lugar
+### Crear la Dirección Multifirma en Cualquier Lugar
 
-A continuación, creas la multisig en _cada máquina que aporta firmas_ usando un nuevo comando, `addmultisigaddress`, en lugar de `createmultisig`. Este nuevo comando guarda parte de la información en tu billetera, lo que hace que sea mucho más fácil gastar el dinero después.
+A continuación, crea la multifirma en _cada máquina que aporta firmas_ usando un nuevo comando, `addmultisigaddress`, en lugar de `createmultisig`. Este nuevo comando guarda parte de la información en su billetera, lo que hace que sea mucho más fácil gastar el dinero después.
 ```
 machine1$ bitcoin-cli -named addmultisigaddress nrequired=2 keys='''["'$address3'","02a0d96e16458ff0c90db4826f86408f2cfa0e960514c0db547ff152d3e567738f"]'''
 {
@@ -42,11 +42,11 @@ machine2$ bitcoin-cli -named addmultisigaddress nrequired=2 keys='''["0297e681bf
   "descriptor": "wsh(multi(2,[ae42a66f]0297e681bff16cd4600138449e2527db4b2f83955c691a1b84254ecffddb9bfbfc,[fe6f2292/0'/0'/2']02a0d96e16458ff0c90db4826f86408f2cfa0e960514c0db547ff152d3e567738f))#cc96c5n6"
 }
 ```
-Como se señaló en la sección anterior, actualmente no importa si usas direcciones o claves públicas, por lo que mostramos el otro mecanismo aquí, mezclando los dos. Obtendrás la misma dirección multifirma de cualquier manera. Sin embargo, _debes utilizar el mismo orden_. Por lo tanto, es mejor que los miembros de la multifirma se comprueben entre ellos para asegurarse de que todos obtuvieron el mismo resultado.
+Como se señaló en la sección anterior, actualmente no importa si usa direcciones o claves públicas, por lo que mostramos el otro mecanismo aquí, mezclando los dos. Obtendrá la misma dirección multifirma de cualquier manera. Sin embargo, _debe utilizar el mismo orden_. Por lo tanto, es mejor que los miembros de la multifirma se comprueben entre ellos para asegurarse de que todos obtuvieron el mismo resultado.
 
 ### Estar Atento a los Fondos
 
-Posteriormente, los miembros de la multisig aún necesitarán ejecutar `importaddress` para estar atentos a los fondos recibidos en la dirección multisig:
+Posteriormente, los miembros de la multifirma aún necesitarán ejecutar `importaddress` para estar atentos a los fondos recibidos en la dirección multifirma:
 ```
 machine1$ bitcoin-cli -named importaddress address=2Mzw7WBvh9RAQ4ssKqxyNyP7L9NAojLqSW8 rescan="false"
 
@@ -55,23 +55,23 @@ machine2$ bitcoin-cli -named importaddress address=2Mzw7WBvh9RAQ4ssKqxyNyP7L9NAo
 
 ## Volver a Gastar con una Transacción Automatizada
 
-Posteriormente, podrás recibir fondos en la dirección multifirma como de costumbre. El uso de `addmultisigaddress` es simplemente una cuestión burocrática por parte de los destinatarios: un poco de contabilidad para facilitarles la vida cuando quieran gastar sus fondos.
+Posteriormente, podrá recibir fondos en la dirección multifirma como de costumbre. El uso de `addmultisigaddress` es simplemente una cuestión burocrática por parte de los destinatarios: un poco de contabilidad para facilitarles la vida cuando quieran gastar sus fondos.
 
 Pero hace la vida mucho más fácil. Debido a que la información se guardó en la billetera, los firmantes podrán volver a gastar los fondos enviados a la dirección multifirma exactamente igual que cualquier otra dirección ... aparte de la necesidad de firmar en varias máquinas.
 
-Comienzas recolectando tus variables, pero ya no tienes que preocuparte por `scriptPubKey` o `redeemScript`.
+Comienzas recolectando sus variables, pero ya no tiene que preocuparse por `scriptPubKey` o `redeemScript`.
 
-Aquí hay una nueva transacción enviada a nuestra nueva dirección multisig:
+Aquí hay una nueva transacción enviada a nuestra nueva dirección multifirma:
 ```
 machine1$ utxo_txid=b9f3c4756ef8159d6a66414a4317f865882ee04beb57a0f8349dafcc98f5acbc
 machine1$ utxo_vout=0
 machine1$ recipient=$(bitcoin-cli getrawchangeaddress)
 ```
-Creas una transacción sin procesar:
+Crea una transacción sin procesar:
 ```
 machine1$ rawtxhex=$(bitcoin-cli -named createrawtransaction inputs='''[ { "txid": "'$utxo_txid'", "vout": '$utxo_vout' } ]''' outputs='''{ "'$recipient'": 0.00005}''')
 ```
-Luego la firmas:
+Luego la firma:
 ```
 machine1$ bitcoin-cli -named signrawtransactionwithwallet hexstring=$rawtxhex
 {
@@ -95,25 +95,25 @@ machine1$ bitcoin-cli -named signrawtransactionwithwallet hexstring=$rawtxhex
 }
 
 ```
-Ten en cuenta que ya no tienes que darle ayuda extra a `signrawtransactionwithkey`, porque toda esa información adicional ya estaba en tu billetera. Lo más importante es que no haz hecho vulnerables tus claves privadas manipulándolas directamente. En su lugar el proceso fue _exactamente_ el mismo que volver a gastar una UTXO normal, excepto que la transacción no fue firmada completamente al final.
+Tenga en cuenta que ya no tiene que darle ayuda extra a `signrawtransactionwithkey`, porque toda esa información adicional ya estaba en su billetera. Lo más importante es que no ha hecho vulnerables sus claves privadas manipulándolas directamente. En su lugar el proceso fue _exactamente_ el mismo que volver a gastar una UTXO normal, excepto que la transacción no fue firmada completamente al final.
 
-### Fírmala en Otras Máquinas
+### Fírmela en Otras Máquinas
 
 El paso final es exportar el `hex` parcialmente firmado a cualquier otra máquina y volver a firmarlo:
 ```
 machine2$ signedtx=$(bitcoin-cli -named signrawtransactionwithwallet hexstring=02000000014ecda61c45f488e35c613a7c4ae26335a8d7bfd0a942f026d0fb1050e744a67d000000009100473044022025decef887fe2e3eb1c4b3edaa155e5755102d1570716f1467bb0b518b777ddf022017e97f8853af8acab4853ccf502213b7ff4cc3bd9502941369905371545de28d0147522102e7356952f4bb1daf475c04b95a2f7e0d9a12cf5b5c48a25b2303783d91849ba421030186d2b55de166389aefe209f508ce1fbd79966d9ac417adef74b7c1b5e0777652aeffffffff0130e1be07000000001976a9148dfbf103e48df7d1993448aa387dc31a2ebd522d88ac00000000 | jq -r '.hex')
 ```
-Cuando todos los que sean necesarios hayan firmado, te irás a las carreras:
+Cuando todos los que sean necesarios hayan firmado, se irá a las carreras:
 ```
 machine2$ bitcoin-cli -named sendrawtransaction hexstring=$signedtx
 3ce88839ac6165aeadcfb188c490e1b850468eff571b4ca78fac64342751510d
 ```
-Al igual que con el shortcut discutido en [§4.5: Enviando Monedas con Transacciones Crudas Automatizadas](04_5_Enviando_Monedas_con_Transacciones_Crudas_Automatizadas.md), el resultado es mucho más sencillo, pero pierdes algo de control en el proceso.
+Al igual que con el shortcut discutido en [§4.5: Enviando Monedas con Transacciones Crudas Automatizadas](04_5_Enviando_Monedas_con_Transacciones_Crudas_Automatizadas.md), el resultado es mucho más sencillo, pero pierde algo de control en el proceso.
 
-## Resúmen: Enviando & Gastando una Multisig Automatizada
+## Resúmen: Enviando & Gastando una Multifirma Automatizada
 
-Existe una manera más fácil de volver a gastar los fondos enviados a direcciones multisig que simplemente requiere el uso del comando `addmultisigaddress` cuando creas tu dirección. No demuestra las complejidades de volver a gastar de P2SH y no te brinda un control amplio, pero si solo deseas obtener tu dinero, este es el camino a seguir.
+Existe una manera más fácil de volver a gastar los fondos enviados a direcciones multifirma que simplemente requiere el uso del comando `addmultisigaddress` cuando crea su dirección. No demuestra las complejidades de volver a gastar de P2SH y no le brinda un control amplio, pero si solo desea obtener su dinero, este es el camino a seguir.
 
 ## ¿Qué sigue?
 
-Aprende más acerca de "Expandiendo Transacciones Bitcoin" con [Capítulo Siete: Expandiendo las Transacciones Bitcoin con PSBTs (07_0_Expandiendo_las_Transacciones_Bitcoin_con_PSBTs.md).
+Aprende más acerca de "Expandiendo Transacciones Bitcoin" con [Capítulo Siete: Expandiendo las Transacciones Bitcoin con PSBTs] (07_0_Expandiendo_las_Transacciones_Bitcoin_con_PSBTs.md).
