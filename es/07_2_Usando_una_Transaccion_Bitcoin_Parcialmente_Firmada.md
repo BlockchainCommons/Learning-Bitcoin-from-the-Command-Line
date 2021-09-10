@@ -270,7 +270,7 @@ machine1$ bitcoin-cli analyzepsbt $psbt_p1
 ```
 Esto demuestra que la información UTXO ha sido importada y que hay una _firma parcial_, pero que la firma de la entrada única aún no está completa.
 
-Aquí está lo mismo en la otra máquina.:
+Aquí está lo mismo en la otra máquina:
 ```
 machine2$ psbt=cHNidP8BAHECAAAAAbU5tQSXtwlf5ZamU+wwrLjHFp1p6WQh7haL/sLFYuxTAAAAAAD/////AnhBDwAAAAAAFgAUzun4goil9JgBkaKNeuCP9YQFDad4QQ8AAAAAABYAFI2GH/borPHKKjs91ZyG8uigq6dcAAAAAAAAAAA=
 machine2$ psbt_p2=$(bitcoin-cli walletprocesspsbt $psbt | jq -r '.psbt')
