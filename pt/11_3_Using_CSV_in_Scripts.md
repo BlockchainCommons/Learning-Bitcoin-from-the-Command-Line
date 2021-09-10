@@ -8,7 +8,7 @@ O ```nLockTime``` e o ```OP_CHECKLOCKTIMEVERIFY``` (ou CLTV) são apenas um lado
 
 Cada entrada em uma transação tem um valor ```nSequence``` (ou se preferirmos ```sequence```). Tem sido uma ferramenta principal para melhorias do Bitcoin, conforme discutido anteriormente na seção [§5.2: Reenviando uma transação com o RBF](05_2_Resending_a_Transaction_with_RBF.md) e na [§8.1 Enviando uma transação com Locktime](08_1_Sending_a_Transaction_with_a_Locktime.md), onde o usamos para sinalizar o RBF e o ```nLockTime```, respectivamente. No entanto, há mais um uso para o ```nSequence```, descrito no [BIP 68](https://github.com/bitcoin/bips/blob/master/bip-0068.mediawiki): Podemos usá-lo para criar um timelock relativo em uma transação.
 
-Um timelock relativo é um bloqueio colocado em uma entrada específica de uma transação e que é calculado em relação à data de mineração do UTXO que está sendo usado na entrada. Por exemplo, se um UTXO foi minerado no bloco #468260 e uma transação foi criada onde a entrada para aquele UTXO foi uma ```nSequence``` de 100, então a nova transação não poderia ser minerada até o bloco #468360.
+Um timelock relativo é um bloqueio colocado em uma entrada específica de uma transação e que é calculado em relação à data de mineração da UTXO que está sendo usado na entrada. Por exemplo, se uma UTXO foi minerada no bloco #468260 e uma transação foi criada onde a entrada para aquela UTXO foi uma ```nSequence``` de 100, então a nova transação não poderia ser minerada até o bloco #468360.
 
 Simples assim!
 
@@ -18,7 +18,7 @@ Simples assim!
 
 ### Criando um CSV de Tempo de Bloco Relativo
 
-O formato para usar o ```nSequence``` para representar bloqueios de tempo relativos é definido no [BIP 68](https://github.com/bitcoin/bips/blob/master/bip-0068.mediawiki) e é um pouco mais complexo do que apenas inserir um número qualquer, como fizemos no ```nTimeLock```. Ao invés disso, as especificações BIP dividem o número de quatro bytes em três partes:
+O formato para usar o ```nSequence``` para representar bloqueios de tempo relativos é definido no [BIP 68](https://github.com/bitcoin/bips/blob/master/bip-0068.mediawiki) e é um pouco mais complexo do que apenas inserir um número qualquer, como fizemos no ```nTimeLock```. Ao invés disso, as especificações do BIP dividem o número de quatro bytes em três partes:
 
 * Os primeiros dois bytes são usados ​​para especificar um timelock relativo;
 * O 23º bit é usado para sinalizar positivamente se o bloqueio se refere a um tempo ou a uma altura de bloco;
@@ -35,7 +35,7 @@ A fim de fazer isso, precisamos:
 1. Decidir o quanto no futuro definiremos o nosso bloqueio de tempo relativo;
 2. Converter isso para segundos;
 3. Dividir por 512;
-4. Arredondar esse valor para cima ou para baixo e definí-lo como ```nSequence```;
+4. Arredondar esse valor para cima ou para baixo e defini-lo como ```nSequence```;
 5. Definir o 23º bit como verdadeiro.
 
 Para definir um período de 6 meses no futuro, devemos primeiro calcular da seguinte forma:
@@ -59,9 +59,9 @@ Se convertermos de volta, teremos o valor de 4224679 = 10000000111011010100111. 
 
 Então desejamos criar uma transação simples com um timelock relativo? Tudo que precisamos fazer é emitir uma transação onde o ```nSequence``` de uma entrada é definido como mostramos acima: Com o ```nSequence``` para essa entrada definido de forma que os primeiros dois bytes definam o timelock, o 23º bit define o tipo do timelock, e o 32º bit é definido como sendo falso.
 
-Vamos enviar a transação e veremos que ela não pode ser legalmente minerada até que blocos ou tempo suficientes tenham passado além do tempo que o UTXO foi minerado.
+Vamos enviar a transação e veremos que ela não pode ser legalmente minerada até que blocos ou tempo suficientes tenham passado além do tempo que a UTXO foi minerada.
 
-Exceto que praticamente ninguém faz isso. As definições do [BIP 68](https://github.com/bitcoin/bips/blob/master/bip-0068.mediawiki) para ```nSequence``` foram incorporadas ao Bitcoin Core ao mesmo tempo que o [BIP 112](https: //github.com/bitcoin/bips/blob/master/bip-0112.mediawiki), que descreve o opcode CSV e o ```nSequence``` equivalente ao opcode CLTV. Assim como o CLTV, o CSV oferece recursos aprimorados. Portanto, quase todo o uso dos timelocks relativos foi com o opcode CSV, não com o valor ```nSequence``` bruto por si só.
+Exceto que praticamente ninguém faz isso. As definições do [BIP 68](https://github.com/bitcoin/bips/blob/master/bip-0068.mediawiki) para ```nSequence``` foram incorporadas ao Bitcoin Core ao mesmo tempo que o [BIP 112](https://github.com/bitcoin/bips/blob/master/bip-0112.mediawiki), que descreve o opcode CSV e o ```nSequence``` equivalente ao opcode CLTV. Assim como o CLTV, o CSV oferece recursos aprimorados. Portanto, quase todo o uso dos timelocks relativos foi com o opcode CSV, não com o valor ```nSequence``` bruto por si só.
 
 |                      | Absolute Timelock | Relative Timelock |
 |:--------------------:|-------------------|-------------------|
@@ -72,11 +72,11 @@ Exceto que praticamente ninguém faz isso. As definições do [BIP 68](https://g
 
 O ```OP_SEQUENCEVERIFY``` nos Scripts do Bitcoin funciona quase como o ```OP_LOCKTIMEVERIFY```.
 
-Podemos exigir que um UTXO seja mantido por cem blocos após sua mineração:
+Podemos exigir que uma UTXO seja mantida por cem blocos após sua mineração:
 ```
 100 OP_CHECKSEQUENCEVERIFY
 ```
-Ou podemos fazer um cálculo mais complexo para exigir que um UTXO seja retido daqui seis meses, neste caso acabaremos com um número mais complexo:
+Ou podemos fazer um cálculo mais complexo para exigir que uma UTXO seja retida daqui seis meses, neste caso acabaremos com um número mais complexo:
 ```
 4224679 OP_CHECKSEQUENCEVERIFY
 ```
@@ -85,7 +85,7 @@ Neste caso, usaremos uma abreviatura:
 <+6Months> OP_CHECKSEQUENCEVERIFY
 ```
 
-> :warning: **ATENÇÃO:** Lembre-se de que um timelock relativo é um intervalo de tempo desde a mineração do UTXO usado como uma entrada. _Não_ é um intervalo de tempo após a criação da transação. Se usarmos um UTXO que já foi confirmado cem vezes, e colocarmos um timelock relativo de 100 blocos nele, ele será elegível para mineração imediatamente. Os timelocks relativos têm alguns usos muito específicos, mas provavelmente não se aplicam se nosso único objetivo for determinar algum tempo definido no futuro.
+> :warning: **ATENÇÃO:** Lembre-se de que um timelock relativo é um intervalo de tempo desde a mineração da UTXO usada como uma entrada. _Não_ é um intervalo de tempo após a criação da transação. Se usarmos uma UTXO que já foi confirmada cem vezes, e colocarmos um timelock relativo de 100 blocos nela, ela será elegível para mineração imediatamente. Os timelocks relativos têm alguns usos muito específicos, mas provavelmente não se aplicam se nosso único objetivo for determinar algum tempo definido no futuro.
 
 ### Entendendo como o CSV realmente funciona
 
@@ -97,7 +97,7 @@ O CSV tem muitas das mesmas sutilezas de uso que CLTV:
 * Tanto o operando da pilha quanto o ```nSequence``` devem ter o mesmo valor no 23º bit;
 * O ```nSequence``` deve ser maior ou igual ao operando da pilha.
 
-Assim como no CLTV, quando estamos repensando um UTXO com um CSV em condições de bloqueio, devemos definir o ```nSequence``` para habilitar a transação. Normalmente, o configuraremos com o valor exato no script de bloqueio.
+Assim como no CLTV, quando estiver usando uma UTXO com um CSV em condições de bloqueio, devemos definir o ```nSequence``` para habilitar a transação. Normalmente, o configuraremos com o valor exato no script de bloqueio.
 
 ## Escrevendo um script CSV
 
@@ -133,16 +133,15 @@ Length: 3 bytes
 Hexcode: 03a77640
 ```
 
-## Gastando um UTXO do CSV
+## Gastando uma UTXO do CSV
 
-Para gastar um UTXO bloqueado com um script CSV, devemos definir o ```nSequence``` dessa entrada para um valor maior que o requerido no script, mas menor que o tempo entre o UTXO e o bloco atual. Isso mesmo, isso significa que precisamos saber o requisito exato no script de bloqueio. Mas temos uma cópia do ```redeemScript```, então se não conhecermos os requisitos, podemos desserializá-lo e, em seguida, definir o ```nSequence``` como sendo o número que é mostrado lá.
+Para gastar uma UTXO bloqueado com um script CSV, devemos definir o ```nSequence``` dessa entrada para um valor maior que o requerido no script, mas menor que o tempo entre a UTXO e o bloco atual. Isso mesmo, isso significa que precisamos saber o requisito exato no script de bloqueio. Mas temos uma cópia do ```redeemScript```, então se não conhecermos os requisitos, podemos desserializá-lo e, em seguida, definir o ```nSequence``` como sendo o número que é mostrado lá.
 
 ## Resumo: Usando o CSV nos Scripts
 
 O ```nSequence``` e o CSV oferecem uma alternativa para o ```nLockTime``` e o CLTV onde bloqueamos uma transação com base em um tempo relativo desde que a entrada foi extraída, ao invés de basear o bloqueio em um tempo definido no futuro. Eles funcionam quase de forma idêntica, exceto pelo fato de que o valor do ```nSequence``` é codificado de forma ligeiramente diferente do valor do ```nLockTime```, com bits específicos significando coisas específicas.
 
-> :fire: ***What is the power of CSV?*** CSV isn't just a lazy way to lock, when you don't want to calculate a time in the future. Instead, it's a totally different paradigm, a lock that you would use if it was important to create a specific minimum duration between when a transaction is mined and when its funds can be respent. The most obvious usage is (once more) for an escrow, when you want a precise time between the input of funds and their output. However, it has much more powerful possibilities in off-chain transactions, including payment channels. These applications are by definition built on transactions that are not actually put onto the blockchain, which means that if they are later put on the blockchain an enforced time-lapse can be very helpful. [Hashed Timelock Contracts](https://en.bitcoin.it/wiki/Hashed_Timelock_Contracts) have been one such implementation, empowering the Lightning payment network. They're discussed in [§13.3: Empowering Bitcoin with Scripts](13_3_Empowering_Bitcoin_with_Scripts.md).
-> :fire: ***Qual é o poder do CSV?*** O CSV não é apenas uma maneira preguiçosa de bloquear uma transação, quando não queremos calcular um tempo no futuro. Ele é um paradigma totalmente diferente, um bloqueio que usaríamos se fosse importante criar uma duração mínima específica entre o momento em que uma transação é minerada e o momento em que os fundos podem ser gastos. O uso mais óbvio é (mais uma vez) para um depósito, quando desejamos um tempo preciso entre a entrada dos fundos e a saída. No entanto, ele tem possibilidades muito mais poderosas em transações fora da rede, incluindo canais de pagamento. Esses aplicativos são, por definição, construídos em transações que não são realmente colocadas na blockchain, o que significa que, se forem posteriormente colocados em um bloco, um período de tempo pode ser muito útil. Os [Hashed Timelock Contracts](https://en.bitcoin.it/wiki/Hashed_Timelock_Contracts) foram uma dessas implementações, dando a base para a rede de pagamento Lightning. Eles serão discutidos na seção [§13.3: Expandindo os Scripts do Bitcoin](13_3_Empowering_Bitcoin_with_Scripts.md).
+> :fire: ***Qual é o poder do CSV?*** O CSV não é apenas uma maneira preguiçosa de bloquear uma transação, quando não queremos calcular um tempo no futuro. Ele é um paradigma totalmente diferente, um bloqueio que usaríamos se fosse importante criar uma duração mínima específica entre o momento em que uma transação é minerada e o momento em que os fundos podem ser gastos. O uso mais óbvio é (mais uma vez) para uma conta de garantia, quando desejamos um tempo preciso entre a entrada dos fundos e a saída. No entanto, ele tem possibilidades muito mais poderosas em transações fora da rede, incluindo canais de pagamento. Esses aplicativos são, por definição, construídos em transações que não são realmente colocadas na blockchain, o que significa que, se forem posteriormente colocados em um bloco, um período de tempo pode ser muito útil. Os [Hashed Timelock Contracts](https://en.bitcoin.it/wiki/Hashed_Timelock_Contracts) foram uma dessas implementações, dando a base para a rede de pagamento Lightning. Eles serão discutidos na seção [§13.3: Expandindo os Scripts do Bitcoin](13_3_Empowering_Bitcoin_with_Scripts.md).
 
 ## O Que Vem Depois?
 
