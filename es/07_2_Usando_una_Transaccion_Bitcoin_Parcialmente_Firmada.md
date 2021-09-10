@@ -1,6 +1,7 @@
 # 7.2: Usando una Transacción Bitcoin Parcialmente Firmada
 
-> :information_source: **NOTA:** Esta sección se ha agregado recientemente al curso y es un borrador inicial que aún puede estar pendiente de revisión. Lector de advertencias.
+> :information_source: **NOTA:** Esta sección se ha agregado recientemente al curso y es un borrador inicial que aún puede estar pendiente de revisión. Lectura con advertencias.
+> 
 Ahora que ha aprendido el flujo de trabajo básico para generar un PSBT, probablemente quiera hacer algo con él. ¿Qué pueden hacer las PSBT que las multifirmas (y las transacciones sin procesar normales) no pueden hacer? Para empezar, tiene la facilidad de uso de un formato estandarizado, lo que significa que puede usar sus transacciones `bitcoin-cli` y combinarlas con transacciones generadas por personas (o programas) en otras plataformas. Más allá de eso, puede hacer algunas cosas que no fueron fáciles usando otras mecánicas.
 
 A continuación se muestran tres ejemplos del uso de PSBT para: multifirmas, agrupación de dinero y unión de monedas.
@@ -54,7 +55,7 @@ tb1qem5l3q5g5h6fsqv352xh4cy07kzq2rd8gphqma
 machine2$ bitcoin-cli getnewaddress
 tb1q3krplahg4ncu523m8h2eephjazs2hf6ur8r6zp
 ```
-Lo primero que hacemos es crear un PSBT en la máquina de nuestra elección. (No importa cuál.) Necesitamos usar `createpsbt` de [§7.1](07_1_Creando_una_Transaccion_Bitcoin_Parcialmente_Firmada.md) para esto, no el más simple `walletcreatefundedpsbt`, porque necesitamos el control adicional de seleccionar el dinero protegido por la multifirma. (Este será el caso de los tres ejemplos de esta sección, lo que demuestra por qué normalmente necesita usar `createpsbt` para las cosas complejas).
+Lo primero que hacemos es crear un PSBT en la máquina de nuestra elección. (No importa cuál). Necesitamos usar `createpsbt` de [§7.1](07_1_Creando_una_Transaccion_Bitcoin_Parcialmente_Firmada.md) para esto, no el más simple `walletcreatefundedpsbt`, porque necesitamos el control adicional de seleccionar el dinero protegido por la multifirma. (Este será el caso de los tres ejemplos de esta sección, lo que demuestra por qué normalmente necesita usar `createpsbt` para las cosas complejas).
 ```
 machine1$ utxo_txid=53ec62c5c2fe8b16ee2164e9699d16c7b8ac30ec53a696e55f09b79704b539b5
 machine1$ utxo_vout=0
@@ -276,7 +277,7 @@ machine2$ psbt_p2=$(bitcoin-cli walletprocesspsbt $psbt | jq -r '.psbt')
 machine3$ echo $psbt_p2
 cHNidP8BAHECAAAAAbU5tQSXtwlf5ZamU+wwrLjHFp1p6WQh7haL/sLFYuxTAAAAAAD/////AnhBDwAAAAAAFgAUzun4goil9JgBkaKNeuCP9YQFDad4QQ8AAAAAABYAFI2GH/borPHKKjs91ZyG8uigq6dcAAAAAAABASu4gx4AAAAAACIAICJMtQOn94NXmbnCLuDDx9k9CQNW4w5wAVw+u/pRWjB0IgIDeJ9UNCNnDhaWZ/9+Hy2iqX3xsJEicuFC1YJFGs69BjZHMEQCIDJ71isvR2We6ym1QByLV5SQ+XEJD0SAP76fe1JU5PZ/AiB3V7ejl2H+9LLS6ubqYr/bSKfRfEqrp2FCMISjrWGZ6QEBBUdSIQONc63yx+oz+dw0t3titZr0M8HenHYzMtp56D4VX5YDDiEDeJ9UNCNnDhaWZ/9+Hy2iqX3xsJEicuFC1YJFGs69BjZSriIGA3ifVDQjZw4Wlmf/fh8toql98bCRInLhQtWCRRrOvQY2ENPtiCUAAACAAAAAgAYAAIAiBgONc63yx+oz+dw0t3titZr0M8HenHYzMtp56D4VX5YDDgRZu4lPAAAiAgNJzEMyT3rZS7QHqb8SvFCv2ee0MKRyVy8bY8tVUDT1KhDT7YglAAAAgAAAAIADAACAAA==
 ```
-Tenga en cuenta nuevamente que gestionamos la firma de este multifirma generando un PSBT totalmente sin firmar con el UTXO correcto, luego permitiendo que cada uno de los usuarios procese ese PSBT por su cuenta, agregando entradas y firmas. Como resultado, tenemos dos PSBT, cada uno de los cuales contiene una firma y no la otra. Eso no funcionaría en el escenario clásico multifirma, porque todas las firmas tienen que ser serializadas. Aquí, en cambio, podemos iniciar sesión en paralelo y luego hacer uso del rol de Combinador para mezclarlos juntos.
+Tenga en cuenta nuevamente que gestionamos la firma de este multifirma generando un PSBT totalmente sin firmar con el UTXO correcto, luego permitiendo que cada uno de los usuarios procese ese PSBT por su cuenta, agregando entradas y firmas. Como resultado, tenemos dos PSBT, cada uno de los cuales contiene una firma y no la otra. Eso no funcionaría en el escenario clásico multifirma, porque todas las firmas tienen que ser serializadas. Aquí, en cambio, podemos iniciar sesión en paralelo y luego hacer uso del rol de Combinador para mezclarlas juntos.
 
 Volvemos a ir a cualquiera de las dos máquinas y nos aseguramos de tener ambos PSBT en variables, luego los combinamos:
 ```
@@ -405,7 +406,7 @@ $ bitcoin-cli analyzepsbt $psbt_c
   "next": "finalizer"
 }
 ```
-¡Funcionó! Simplemente finalizamos y enviamos y terminamos:
+¡Funcionó! Simplemente finalizamos, enviamos y terminamos:
 ```
 machine2$ psbt_c_hex=$(bitcoin-cli finalizepsbt $psbt_c | jq -r '.hex')
 standup@btctest2:~$ bitcoin-cli -named sendrawtransaction hexstring=$psbt_c_hex
@@ -415,11 +416,11 @@ Obviamente, no hubo una gran mejora en el uso de este método en comparación co
 
 En primer lugar, es independiente de la plataforma. Siempre que todos utilicen un servicio que admita Bitcoin Core 0.17, todos podrán firmar esta transacción, lo cual no es cierto cuando los multifirmas clásicos se transmiten entre diferentes plataformas.
 
-En segundo lugar, es mucho más escalable. Considere un multifirma de 3 de 5. Bajo la vieja metodología, tendría que pasar de persona a persona, aumentando enormemente los problemas si se rompe algún eslabón de la cadena. Aquí, otros usuarios solo tienen que enviar los PSBT al Creador, y tan pronto como tenga suficiente, puede generar la transacción final.
+En segundo lugar, es mucho más escalable. Considere un multifirma de 3 de 5. Bajo la vieja metodología, tendría que pasar de persona a persona, aumentando enormemente los problemas si se rompe algún eslabón de la cadena. Aquí, otros usuarios solo tienen que enviar los PSBTs al Creador, y tan pronto como tenga suficiente, puede generar la transacción final.
 
 ## Utilice un PSBT para juntar dinero
 
-Multifirmas como la utilizada en el ejemplo anterior se suelen utilizar para recibir pagos por trabajo colaborativo, ya sean regalías por un libro o pagos realizados a una empresa. En esa situación, el ejemplo anterior funciona muy bien: los dos participantes reciben su dinero y luego lo dividen. Pero, ¿qué pasa con el caso inverso, donde dos (o más) participantes quieren establecer una empresa conjunta y necesitan sembrarla con dinero?
+Multifirmas como la utilizada en el ejemplo anterior se suelen utilizar para recibir pagos por trabajo colaborativo, ya sean regalías por un libro o pagos realizados a una empresa. En esa situación, el ejemplo anterior funciona muy bien: los dos participantes reciben su dinero y luego lo dividen. Pero, ¿qué pasa con el caso inverso, donde dos (o más) participantes quieren establecer una empresa conjunta y necesitan financiarla con dinero?
 
 La respuesta tradicional es crear una multifirma y luego hacer que los participantes le envíen sus fondos individualmente. El problema es que el primer pagador tiene que depender de la buena fe del segundo, y eso no se basa en la fortaleza de Bitcoin, que es su _confianza sin depender de las contrapartes_. Afortunadamente, con la llegada de los PSBT, ahora podemos realizar pagos sin confianza que agrupan fondos.
 
@@ -571,7 +572,7 @@ machine2$ bitcoin-cli -named sendrawtransaction hexstring=$psbt_hex
 
 ## Usa una PSBT para CoinJoin
 
-CoinJoin es otra aplicación de Bitcoin que requiere desconfianza. Aquí, tiene una variedad de partes que no necesariamente se conocen entre sí uniéndose al dinero y recuperándolo.
+CoinJoin es otra aplicación de Bitcoin que requiere desconfianza. Aquí, tiene una variedad de partes que no necesariamente se conocen entre sí juntando dinero y recuperándolo.
 
 La metodología para administrarlo con PSBT es exactamente la misma que ha visto en los ejemplos anteriores, como lo demuestra el siguiente pseudocódigo:
 ```
@@ -581,13 +582,14 @@ Cada usuario pone su propio UTXO y cada uno recibe una salida correspondiente.
 
 La mejor manera de administrar un CoinJoin es enviar el PSBT base a todas las partes (que podrían ser numerosas), y luego hacer que cada una de ellas firme el PSBT y lo envíe de vuelta a una sola parte que combinará, finalizará y enviará.
 
-## Resumen: uso de una transacción de Bitcoin firmada parcialmente
+## Resumen: Usando una transacción Bitcoin parcialmente firmada
 
-Ahora ha visto el proceso de PSBT que aprendió en [§7.1](07_1_Creando_una_Transaccion_Bitcoin_Parcialmente_Firmada.md) en uso en tres ejemplos de la vida real: creación de una multifirma, agrupación de fondos y CoinJoining. Todo esto era teóricamente posible en Bitcoin clásico al hacer que varias personas firmen transacciones cuidadosamente construidas, pero los PSBT lo hacen estandarizado y simple.
+Ahora ha visto el proceso de PSBT que aprendió en [§7.1](07_1_Creando_una_Transaccion_Bitcoin_Parcialmente_Firmada.md) en uso en tres ejemplos de la vida real: creación de una multifirma, agrupación de fondos y dentro de un CoinJoin. Todo esto era teóricamente posible en Bitcoin clásico al hacer que varias personas firmen transacciones cuidadosamente construidas, pero los PSBT lo hacen estandarizado y simple.
 
-> :fire: ***¿Cuál es el poder de una PSBT?*** Un PSBT permite la creación de transacciones sin confianza entre múltiples partes y múltiples máquinas. Si más de una parte necesita financiar una transacción, si más de una parte necesita firmar una transacción o si una transacción debe crearse en una máquina y firmarse en otra, entonces un PSBT lo simplifica sin depender de la Mecanismos de firma parcial no estandarizados que solían existir antes de PSBT.
-Ese último punto, sobre la creación de una transacción en una máquina y la firma en otra, es un elemento de los PSBT al que aún no hemos llegado. Está en el corazón de las billeteras de hardware, donde a menudo desea crear una transacción en un nodo completo y luego pasarla a una billetera de hardware cuando se requiere una firma. Ese es el tema de la última sección (y nuestro cuarto ejemplo de la vida real) en este capítulo sobre PSBT.
+> :fire: ***¿Cuál es el poder de una PSBT?*** Un PSBT permite la creación de transacciones sin confianza entre múltiples partes y múltiples máquinas. Si más de una parte necesita financiar una transacción, si más de una parte necesita firmar una transacción o si una transacción debe crearse en una máquina y firmarse en otra, entonces un PSBT lo simplifica sin depender de la mecanismos de firma parcial no estandarizados que solían existir antes de PSBT.
 
-## What's Next?
+Ese último punto, sobre la creación de una transacción en una máquina y la firma en otra, es un elemento de los PSBT al que aún no hemos llegado. Está en el corazón de las billeteras de hardware, donde a menudo desea crear una transacción en un nodo completo y luego pasarla a una billetera de hardware cuando se requiere una firma. Ese es el tema de la última sección (y nuestro cuarto ejemplo de la vida real) en este capítulo sobre PSBTs.
+
+## ¿Qué sigue?
 
 Continúe "Expandiendo transacciones de Bitcoin con PSBT" con [§7.3: Integrando con Hardware Wallets](07_3_Integrando_con_Hardware_Wallets.md).
