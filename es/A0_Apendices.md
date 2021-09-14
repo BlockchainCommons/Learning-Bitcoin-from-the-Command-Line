@@ -19,6 +19,6 @@ Los objetivos de apoyo incluyen la capacidad de:
    
 ## Tabla de Contenido
 
-   * [Apéndice Uno: Entendiendo la Configuración Inicial de Bitcoin](A1_0_Entendiendo_la_Configuracion_Inicial_de_Bitcoin.md)
+   * [Apéndice Uno: Entendiendo la Configuración Inicial de Bitcoin](A1_0_Entendiendo_Bitcoin_Standup.md)
    * [Apéndice Dos: Compilando Bitcoin desde la Fuente](A2_0_Compilando_Bitcoin_desde_la_Fuente.md)
    * [Apéndice Tres: Usando Bitcoin Regtest](A3_0_Usando_Bitcoin_Regtest.md)

@@ -16,5 +16,5 @@ Los objetivos de apoyo incluyen la capacidad de:
 
 ## Tabla de contenido
 
-* [Sección uno: Usando scripts condicionales](12_1_Usando_Scripts_Condicionales.md)
+* [Sección uno: Usando scripts condicionales](12_1_Usando_Script_Condicionales.md)
 * [Sección dos: Usando otros comandos de scripting](12_2_Usando_Otros_Comandos_de_Scripting.md)

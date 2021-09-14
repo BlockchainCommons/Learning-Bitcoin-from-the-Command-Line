@@ -92,7 +92,7 @@ Hexcode: 049f7b2adc
 
 ## Analizar un P2SH Multifirma
 
-Para comprender mejor este proceso, aplicaremos ingeniería inversa al P2SH multifirma que creamos en [§6.1: Envío de una Transacción a un Multifirma](06_1_Sending_a_Transaction_to_a_Multisig.md). Eche un vistazo al `redeemScript` que usó, que ahora sabe que es la versión serializada en hex del script de bloqueo:
+Para comprender mejor este proceso, aplicaremos ingeniería inversa al P2SH multifirma que creamos en [§6.1: Envío de una Transacción a un Multifirma](06_1_Enviando_una_Transaccion_a_una_Direccion_Multifirma.md). Eche un vistazo al `redeemScript` que usó, que ahora sabe que es la versión serializada en hex del script de bloqueo:
 ```
 522102da2f10746e9778dd57bd0276a4f84101c4e0a711f9cfd9f09cde55acbdd2d1912102bfde48be4aa8f4bf76c570e98a8d287f9be5638412ab38dede8e78df82f33fa352ae
 ```
@@ -142,7 +142,7 @@ Es especialmente útil para verificar su trabajo cuando está serializando.
 
 ## Serializar un Script de Bloqueo de Forma Sencilla
 
-Cuando instaló `btcdeb` en [§9.3](09_3_Testing_a_Bitcoin_Script.md) también instaló `btcc` que se puede usar para seralizar scripts de Bitcoin:
+Cuando instaló `btcdeb` en [§9.3](09_3_Probando_un_Script_Bitcoin.md) también instaló `btcc` que se puede usar para seralizar scripts de Bitcoin:
 ```
 $ btcc 2 02da2f10746e9778dd57bd0276a4f84101c4e0a711f9cfd9f09cde55acbdd2d191 02bfde48be4aa8f4bf76c570e98a8d287f9be5638412ab38dede8e78df82f33fa3 2 OP_CHECKMULTISIG
 warning: ambiguous input 2 is interpreted as a numeric value; use OP_2 to force into opcode
@@ -177,4 +177,4 @@ En realidad, la creación del script de bloqueo P2SH se sumerge en las entrañas
 
 ## ¿Que Sigue?
 
-Continúe "Incrustando Bitcoin Scripts" con [§10.3: Ejecución de un Bitcoin Script con P2SH](10_3_Running_a_Bitcoin_Script_with_P2SH.md).
+Continúe "Incrustando Bitcoin Scripts" con [§10.3: Ejecución de un Bitcoin Script con P2SH](10_3_Ejecutando_un_Script_Bitcoin_con_P2SH.md).

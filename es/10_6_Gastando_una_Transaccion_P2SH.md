@@ -4,11 +4,11 @@ Antes de cerrar esta descripcion general de las transacciones P2SH, veremos cóm
 
 ## Utilice el Guión de Canjear
 
-Como vimos en [§6.2: Gastando una Transacción a una Multifirma](06_2_Spending_a_Transaction_to_a_Multisig.md), gastar una transacción P2SH se trata de tener esa versión serializada del script de bloqueo, el llamado _redeemScript_. Entonces, el primer paso para poder gastar una transacción P2SH es asegurarse de guardar el _redeemScript_ antes de dar la dirección P2SH a todos. 
+Como vimos en [§6.2: Gastando una Transacción a una Multifirma](06_2_Gastando_una_Transaccion_con_una_Direccion_Multifirma.md), gastar una transacción P2SH se trata de tener esa versión serializada del script de bloqueo, el llamado _redeemScript_. Entonces, el primer paso para poder gastar una transacción P2SH es asegurarse de guardar el _redeemScript_ antes de dar la dirección P2SH a todos. 
 
 ### Recoge Sus Variables
 
-Debido a que las direcciones P2SH distintas de las direcciones segwit anidadas y mulifirmas especiales no están integradas en `bitcoin-cli` no habrá atajos para el gasto P2SH como viste en [§6.3: Enviando una Multifirma Automatizada](6_3_Sending_an_Automated_Multisig.md). ¡Necesitará recopilar todas las variables más complejas por tu cuenta!
+Debido a que las direcciones P2SH distintas de las direcciones segwit anidadas y mulifirmas especiales no están integradas en `bitcoin-cli` no habrá atajos para el gasto P2SH como viste en [§6.3: Enviando una Multifirma Automatizada](06_3_Enviando_una_Multifirma_Automatizada.md). ¡Necesitará recopilar todas las variables más complejas por su cuenta!
 
 Esto significa que debe recopilar:
 
@@ -39,4 +39,4 @@ Ya gastó un P2SH en el Capítulo 6, cuando reenvió una transacción multifirma
 
 ## Que Sigue?
 
-Avanzar a través de "Bitcoin Scripting" con el [Capítulo Once: Potenciando Bloqueos de Tiempo con Bitcoin Scripts](11_0_Empowering_Timelock_with_Bitcoin_Scripts.md).
+Avanzar a través de "Bitcoin Scripting" con el [Capítulo Once: Potenciando Bloqueos de Tiempo con Bitcoin Scripts](11_0_Potenciando_Bloqueos_de_Tiempo_con_Bitcoin_Scripts.md).

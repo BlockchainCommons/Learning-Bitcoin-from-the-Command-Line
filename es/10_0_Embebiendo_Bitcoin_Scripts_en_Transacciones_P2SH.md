@@ -18,9 +18,9 @@ Los objetivos de apoyo incluyen la capacidad de:
    
 ## Tabla de Contenido
 
-* [Sección Uno: Comprender la Base de P2SH](10_1_Understanding_the_Foundation_of_P2SH.md)
-* [Sección Dos: Construyendo la Estructura de P2SH](10_2_Building_the_Structure_of_P2SH.md)  
-* [Sección Tres: Ejecución de un Bitcoin Script con P2SH](10_3_Running_a_Bitcoin_Script_with_P2SH.md)
-* [Sección Cuatro: Creación de un Script de Multifirma](10_4_Scripting_a_Multisig.md)
-* [Sección Cinco: Creación de un Script de Segwit](10_5_Scripting_a_Segwit_Script.md)
-* [Sección Seis: Gasto en Transacciones P2SH](10_6_Spending_a_P2SH_Transaction.md)
+* [Sección Uno: Comprender la Base de P2SH](10_1_Entendiendo_la_Base_de_P2SH.md)
+* [Sección Dos: Construyendo la Estructura de P2SH](10_2_Construyendo_la_Estructura_de_P2SH.md)  
+* [Sección Tres: Ejecución de un Bitcoin Script con P2SH](10_3_Ejecutando_un_Script_Bitcoin_con_P2SH.md)
+* [Sección Cuatro: Creación de un Script de Multifirma](10_4_Codificando_una_Multifirma.md)
+* [Sección Cinco: Creación de un Script de Segwit](10_5_Codificando_un_Script_Segwit.md)
+* [Sección Seis: Gasto en Transacciones P2SH](10_6_Gastando_una_Transaccion_P2SH.md)
