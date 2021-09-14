@@ -244,9 +244,9 @@ La creación de un VPS de Bitcoin-Core con los scripts Standup hizo que todo el 
 
 Tiene algunas opciones para lo que sigue:
 
- *Lea [StackScript] (https://github.com/BlockchainCommons/Bitcoin-Standup-Scripts/blob/master/Scripts/LinodeStandUp.sh) para comprender su configuración.
+* Lea [StackScript](https://github.com/BlockchainCommons/Bitcoin-Standup-Scripts/blob/master/Scripts/LinodeStandUp.sh) para comprender su configuración.
 
-* Lea lo que hace StackScript en el [Apéndice I] (A1_0_Entendiendo_Bitcoin_Standup.md).
+* Lea lo que hace StackScript en el [Apéndice I](A1_0_Entendiendo_Bitcoin_Standup.md).
 
 * Elija una metodología completamente alternativa en [§2.2: Configuración de una máquina Bitcoin-Core a través de otros medios](02_2_Configurando_Bitcoin_Core_Otros.md).
 
@@ -255,12 +255,12 @@ Tiene algunas opciones para lo que sigue:
 
 ## Sinopsis: Tipos de instalación de Bitcoin
 
-** Mainnet. ** Esto descargará la totalidad de la cadena de bloques de Bitcoin. Esto es alrededor de 380G de datos (y cada día se aumenta más).
+**Mainnet.** Esto descargará la totalidad de la cadena de bloques de Bitcoin. Esto es alrededor de 380G de datos (y cada día se aumenta más).
 
-** Mainnet podado. ** Esto reducirá la cadena de bloques que está almacenando a solo los últimos 550 bloques. Si no está minando o ejecutando algún otro servicio de Bitcoin, esto debería ser suficiente para la validación.
+**Mainnet podado.** Esto reducirá la cadena de bloques que está almacenando a solo los últimos 550 bloques. Si no está minando o ejecutando algún otro servicio de Bitcoin, esto debería ser suficiente para la validación.
 
-** Testnet. ** Esto le da acceso a una cadena de bloques de Bitcoin alternativa donde los Bitcoins en realidad no tienen valor. Está destinado a la experimentación y las pruebas.
+**Testnet.** Esto le da acceso a una cadena de bloques de Bitcoin alternativa donde los Bitcoins en realidad no tienen valor. Está destinado a la experimentación y las pruebas.
 
-** Testnet podado. ** Estos son solo los últimos 550 bloques de Testnet ... porque la cadena de bloques de Testnet también es bastante grande ahora.
+**Testnet podado.** Estos son solo los últimos 550 bloques de Testnet ... porque la cadena de bloques de Testnet también es bastante grande ahora.
 
-** Private Regtest. ** Este es el modo de prueba de regresión, que le permite ejecutar un servidor Bitcoin totalmente local. Permite pruebas aún más profundas. No es necesario podar aquí, porque comenzará desde cero. Esta es una configuración muy diferente, por lo que se trata en el [Apéndice 3](A3_0_Usando_Bitcoin_Regtest.md).
+**Private Regtest.** Este es el modo de prueba de regresión, que le permite ejecutar un servidor Bitcoin totalmente local. Permite pruebas aún más profundas. No es necesario podar aquí, porque comenzará desde cero. Esta es una configuración muy diferente, por lo que se trata en el [Apéndice 3](A3_0_Usando_Bitcoin_Regtest.md).
