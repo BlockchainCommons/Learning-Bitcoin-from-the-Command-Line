@@ -100,7 +100,7 @@ $ bitcoin-cli -named decoderawtransaction hexstring=$rawtxhex3
 ```
 Una cosa de interés aquí es la dirección de cambio, que es la segunda `vout`. Observe que es una dirección `tb1`, lo que significa que es Bech32; cuando le dimos a Bitcoin Core la capacidad total de gestionar nuestro cambio, lo hizo usando su tipo de dirección por defecto, Bech32, y funcionó bien. Por eso nuestro cambio a direcciones SegWit en [§4.6](04_6_Creando_una_Transaccion_Segwit.md) realmente no es gran cosa, pero hay algunos inconvenientes para un uso más amplio, de los que hablaremos allí.
 
-Aunque vimos la tasa en la salida de `fundrawtransaction`, no es visible aquí. Sin embargo, puede verificarlo con el script JQ `txfee-calc.sh` creado en el [Interludio JQ][Interludio: Usando JQ](04_2__Interludio_Usando_JQ.md)):
+Aunque vimos la tasa en la salida de `fundrawtransaction`, no es visible aquí. Sin embargo, puede verificarlo con el script JQ `txfee-calc.sh` creado en el [Interludio: Usando JQ](04_2_Interludio_Usando_JQ.md):
 ```
 $ ~/txfee-calc.sh $rawtxhex3
 .000222
