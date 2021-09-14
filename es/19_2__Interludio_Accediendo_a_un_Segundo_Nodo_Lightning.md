@@ -111,7 +111,7 @@ $ sudo cp $GOPATH/bin/lnd $GOPATH/bin/lncli /usr/bin
 
 A diferencia de c-lightning, necesitará crear un archivo de configuración predeterminado para LND.
 
-Sin embargo, usted primero necesita habilitar ZMQ en su Bitcoind, si no lo hizo ya en [§16.3](6_3_Recibiendo_Notificaciones_de_Bitcoind_en_C_con_las_Bibliotecas_ZMQ.md).
+Sin embargo, usted primero necesita habilitar ZMQ en su Bitcoind, si no lo hizo ya en [§16.3](16_3_Recibiendo_Notificaciones_de_Bitcoind_en_C_con_las_Bibliotecas_ZMQ.md).
 
 Esto requiere agregar lo siguiente a su archivo `~/. bitcoin/bitcoin.conf` si no está ya allí:
 ```
