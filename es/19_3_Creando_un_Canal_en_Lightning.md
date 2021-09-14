@@ -74,7 +74,7 @@ c$ lightning-cli --testnet listfunds
 ```     
 Tenga en cuenta que el valor aparece en satoshis o microsatoshis, ¡no en Bitcoin!
 
-> :book: ***¿Qué son los satoshis y msat?*** Ya conoció los satoshis en [§3.4](03_4_Receiving_a_Transaction.md). Un satoshi es la cien millonésima parte de un bitcoin, por lo que 300.000 satoshi = 0,003 BTC. Un satoshi es la unidad monetaria más pequeña de la red Bitcoin. Pero, la red Lightning puede ser más pequeña, por lo que 1000 msat, o milisatoshis, equivalen a un satoshi. Eso significa que 1 msat es la cien mil millonésima parte de un bitcoin y 300.000.000 msat = 0,003 BTC.
+> :book: ***¿Qué son los satoshis y msat?*** Ya conoció los satoshis en [§3.4](03_4_Recibiendo_una_Transaccion.md). Un satoshi es la cien millonésima parte de un bitcoin, por lo que 300.000 satoshi = 0,003 BTC. Un satoshi es la unidad monetaria más pequeña de la red Bitcoin. Pero, la red Lightning puede ser más pequeña, por lo que 1000 msat, o milisatoshis, equivalen a un satoshi. Eso significa que 1 msat es la cien mil millonésima parte de un bitcoin y 300.000.000 msat = 0,003 BTC.
 
 Ahora que ha financiado su billetera c-lightning, necesitará información sobre un nodo remoto para comenzar a crear el proceso de canal.
 
@@ -82,7 +82,7 @@ Ahora que ha financiado su billetera c-lightning, necesitará información sobre
 
 Lo siguiente que debe hacer es conectar su nodo a un par. Esto se hace con el comando `lightning-cli connect`. Recuerde que si desea obtener más información sobre este comando, debe escribir `lightning-cli help connect`.
 
-Para conectar su nodo a un par remoto, necesita su ID, que representa la clave pública del nodo de destino. Para su comodidad, `id` puede tener el formato `id@host` o `id@host:port`. Es posible que haya recuperado esto con `lightning-cli getinfo` (en c-lightning) o `lncli --network=testnet getinfo` (en LND) como se discutió en el [interludio anterior](18_2__Interlude_Accessing_a_Second_Lightning_Node.md).
+Para conectar su nodo a un par remoto, necesita su ID, que representa la clave pública del nodo de destino. Para su comodidad, `id` puede tener el formato `id@host` o `id@host:port`. Es posible que haya recuperado esto con `lightning-cli getinfo` (en c-lightning) o `lncli --network=testnet getinfo` (en LND) como se discutió en el [interludio anterior](19_2__Interludio_Accediendo_a_un_Segundo_Nodo_Lightning.md).
 
 Hemos seleccionado el nodo LND, `032a7572dc013b6382cde391d79f292ced27305aa4162ec3906279fc4334602543`, que se encuentra en la dirección IP `45.33.35.151`, a la que nos vamos a conectar desde nuestro nodo c-lightning:
 
