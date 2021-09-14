@@ -108,7 +108,7 @@ Hay dos elementos cruciales para verificar la factura. El primero, obviamente, e
 ```
 Debe comprobar que ese es el destinatario esperado.
 
-Mirando hacia atrás en [§18.3](18_3_Setting_Up_a_Channel.md#opening-a-channel), puede ver que ese es efectivamente el ID de par que usó cuando creó su canal. También puede verificarlo en el nodo opuesto con el comando `getinfo`.
+Mirando hacia atrás en [§19.3](19_3_Creando_un_Canal_en_Lightning.md#opening-a-channel), puede ver que ese es efectivamente el ID de par que usó cuando creó su canal. También puede verificarlo en el nodo opuesto con el comando `getinfo`.
 ```
 lnd$ lncli -n testnet getinfo
 {
