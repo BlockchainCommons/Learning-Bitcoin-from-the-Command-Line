@@ -4,9 +4,9 @@
 
 En esta sección, instalará y verificará c-lightning, su utilidad para acceder a Lightning Network.
 
-> :libro: ***¿Qué es Lightning Network?*** Lightning Network es una red descentralizada que utiliza la funcionalidad de contrato inteligente de la cadena de bloques de Bitcoin para permitir pagos instantáneos a través de una red de participantes. Lightning está construido como un protocolo de capa 2 que interactúa con Bitcoin para permitir a los usuarios intercambiar sus bitcoins "fuera de la cadena".
+> :book: ***¿Qué es Lightning Network?*** Lightning Network es una red descentralizada que utiliza la funcionalidad de contrato inteligente de la cadena de bloques de Bitcoin para permitir pagos instantáneos a través de una red de participantes. Lightning está construido como un protocolo de capa 2 que interactúa con Bitcoin para permitir a los usuarios intercambiar sus bitcoins "fuera de la cadena".
 
->: libro: *** ¿Qué es un protocolo de capa 2? *** La capa 2 se refiere a un protocolo secundario construido sobre el sistema de cadena de bloques de Bitcoin. El objetivo principal de estos protocolos es resolver la velocidad de transacción y las dificultades de escalado que están presentes en Bitcoin: Bitcoin no es capaz de procesar miles de transacciones por segundo (TPS), por lo que se han creado protocolos de capa 2 para resolver el problema de escalabilidad de blockchain. Estas soluciones también se conocen como soluciones de escalado "fuera de la cadena".
+> :book: ***¿Qué es un protocolo de capa 2? *** La capa 2 se refiere a un protocolo secundario construido sobre el sistema de cadena de bloques de Bitcoin. El objetivo principal de estos protocolos es resolver la velocidad de transacción y las dificultades de escalado que están presentes en Bitcoin: Bitcoin no es capaz de procesar miles de transacciones por segundo (TPS), por lo que se han creado protocolos de capa 2 para resolver el problema de escalabilidad de blockchain. Estas soluciones también se conocen como soluciones de escalado "fuera de la cadena".
 
 ## Instalar C-Lightning
 
