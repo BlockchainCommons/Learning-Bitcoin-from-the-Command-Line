@@ -4,9 +4,9 @@ Este documento explica cómo configurar un VPS (Virtual Private Sever) para ejec
 
 > :warning: **ADVERTENCIA:** : No use un VPS para una billetera bitcoin con fondos reales significativos; ver [http://blog.thestateofme.com/2012/03/03/lessons-to-be-learned-from-the-linode-bitcoin-incident](http://blog.thestateofme.com/2012/03/03/lessons-to-be-learned-from-the-linode-bitcoin-incident). Es genial poder experimentar con transacciones reales de bitcoins en un nodo en vivo sin tener que conectar un servidor autohospedado en una red local. También es útil poder usar un iPhone o iPad para comunicarse a través de SSH con su VPS para realizar algunas tareas simples de bitcoin. Pero se requiere un mayor nivel de seguridad para fondos importantes.
 
-* Si desea comprender lo que hace esta configuración, lea el [Apéndice I: Entendiendo Bitcoin Standup](A1_0_Entendiendo_la_Configuracion_Inicial_de_Bitcoin.md) mientras realiza la instalación.
+* Si desea comprender lo que hace esta configuración, lea el [Apéndice I: Entendiendo Bitcoin Standup](A1_0_Entendiendo_Bitcoin_Standup.md) mientras realiza la instalación.
 * Si, en cambio, desea configurar en una máquina que no sea un VPS Linode, como una máquina AWS o una Mac, puede ir a [2.2: Configuración de una máquina Bitcoin-Core a través de otros medios](02_2_Configurando_Bitcoin_Core_Otros.md)
-* Si ya tiene un nodo de Bitcoin en ejecución, vaya al [Capítulo tres: Entendiendo la configuración de Bitcoin](03_0_Entendiendo_su_configuracion_Bitcoin.md).
+* Si ya tiene un nodo de Bitcoin en ejecución, vaya al [Capítulo tres: Entendiendo la configuración de Bitcoin](03_0_Entendiendo_Su_Configuracion_Bitcoin.md).
 
 ## Introducción a Linode
 
@@ -50,7 +50,7 @@ Ahora está listo para crear un nodo basado en Stackscript.
    * **Nombre de host completamente calificado.** Si va a incluir este VPS como parte de una red con registros DNS completos, escriba el nombre de host con su dominio. Por ejemplo, "mybtctest.mydomain.com". De lo contrario, repita el nombre de host corto y agregue ".local", por ejemplo "mybtctest.local".
 3. Ingrese la contraseña para el usuario "standup".
 4. Elija un tipo de instalación en las opciones avanzadas. 
-   * **Tipo de instalación.** Probablemente sea "Mainnet" o "Pruned Mainnet" si está configurando un nodo para su uso y "Testnet" o "Pruned Testnet" si solo está probando. La mayor parte de este tutorial asumirá que eligió "Testnet podado", pero aún debería poder seguir con otros tipos. Consulte la [Synopsis](#synopsis-bitcoin-installation-types) para obtener más información sobre estas opciones. (Tenga en cuenta que si planea probar los capítulos Lightning, probablemente querrá usar un nodo sin podar, ya que trabajar con nodos podados en Lightning es dudoso. Consulte [§18.1](18_1_Verifying_Your_Lightning_Setup.md#compiling-the-source-code) para conocer los detalles).
+   * **Tipo de instalación.** Probablemente sea "Mainnet" o "Pruned Mainnet" si está configurando un nodo para su uso y "Testnet" o "Pruned Testnet" si solo está probando. La mayor parte de este tutorial asumirá que eligió "Testnet podado", pero aún debería poder seguir con otros tipos. Consulte la [Synopsis](#synopsis-bitcoin-installation-types) para obtener más información sobre estas opciones. (Tenga en cuenta que si planea probar los capítulos Lightning, probablemente querrá usar un nodo sin podar, ya que trabajar con nodos podados en Lightning es dudoso. Consulte [§19.1](19_1_Verificando_Su_Configuracion_Lightning.md#compiling-the-source-code) para conocer los detalles).
 5. Complete cualquier otra opción avanzada apropiada.
    * **X25519 Clave pública.** Esta es una clave pública para agregar a la lista de clientes autorizados de Tor. Si no lo usa, cualquiera que obtenga el código QR de su nodo puede acceder a él. Obtendrá esta clave pública de cualquier cliente que esté utilizando para conectarse a su nodo. Por ejemplo, si usa [FullyNoded 2](https://github.com/BlockchainCommons/FullyNoded-2), puede ir a su configuración y "Exportar clave pública de autenticación Tor V3" para usar aquí.
   * **Clave SSH.** Copie aquí la clave SSH de su computadora local; esto le permite iniciar sesión automáticamente a través de SSH en la cuenta standup. Si aún no ha configurado una clave SSH en su computadora local, hay buenas instrucciones para ello en [Github](https://help.github.com/articles/generating-a-new-ssh-key-and-adding-it-to-the-ssh-agent/). Es posible que también desee agregar su clave SSH en su Linode LISH (Linode Interactive Shell) yendo a su "Página de inicio de Linode / Mis preferencias / Configuración de LISH / Teclas de LISH". El uso de una clave SSH le brindará una forma más sencilla y segura de iniciar sesión en su servidor.
@@ -65,7 +65,7 @@ Finalmente, deberá completar una contraseña de root, que será la contraseña 
 
 ### Elija otras opciones de standup
 
-Blockchain Commons se encuentra actualmente en el proceso de expandir sus scripts de Bitcoin Standup con opciones para instalar Lightning y otras aplicaciones de Bitcoin importantes. Eche un vistazo a las opciones adicionales y vea si son cosas con las que le gustaría jugar. En particular, si Lightning es una opción, sugerimos instalarlo, porque hará que el [Capítulo 18](18_0_Understanding_Your_Lightning_Setup.md) y el [Capítulo 19](19_0_Using_Lightning.md) sean mucho más fáciles.
+Blockchain Commons se encuentra actualmente en el proceso de expandir sus scripts de Bitcoin Standup con opciones para instalar Lightning y otras aplicaciones de Bitcoin importantes. Eche un vistazo a las opciones adicionales y vea si son cosas con las que le gustaría jugar. En particular, si Lightning es una opción, sugerimos instalarlo, porque hará que el [Capítulo 19](19_0_Entendiendo_Su_Configuracion_Lightning.md) y el [Capítulo 20](20_0_Usando_Lightning.md) sean mucho más fáciles.
 
 ### Elija un plan Linode
 
@@ -191,9 +191,9 @@ Aunque la imagen predeterminada de Debian 10 que estamos usando para su VPS ha s
 
 Su instalación de Bitcoin VPS es mínima y casi no permite ninguna comunicación. Esto se hace a través del sencillo firewall (`ufw`), que bloquea todo excepto las conexiones SSH. También es posible una seguridad adicional para sus puertos RPC, gracias a los servicios ocultos instalados por Tor.
 
-** Ajustando UFW. ** ¡Probablemente debería dejar UFW en su etapa superprotegida! No debería utilizar una máquina Bitcoin para otros servicios, ¡porque todos aumentan su vulnerabilidad! Si decide lo contrario, hay varias [guías de UFW] (https://www.digitalocean.com/community/tutorials/ufw-essentials-common-firewall-rules-and-commands) que le permitirán agregar servicios. Como se anuncia, no es complicado. Por ejemplo, agregar servicios de correo solo requeriría abrir el puerto de correo: `sudo ufw allow 25`. Pero en general no debería eso.
+**Ajustando UFW.** ¡Probablemente debería dejar UFW en su etapa superprotegida! No debería utilizar una máquina Bitcoin para otros servicios, ¡porque todos aumentan su vulnerabilidad! Si decide lo contrario, hay varias [guías de UFW](https://www.digitalocean.com/community/tutorials/ufw-essentials-common-firewall-rules-and-commands) que le permitirán agregar servicios. Como se anuncia, no es complicado. Por ejemplo, agregar servicios de correo solo requeriría abrir el puerto de correo: `sudo ufw allow 25`. Pero en general no debería eso.
 
-** Ajuste de Tor. ** Es posible que desee proteger mejor servicios tales como SSH. Consulte el [Capítulo 12: Uso de Tor] (https://github.com/BlockchainCommons/Learning-Bitcoin-from-the-Command-Line/blob/master/12_0_Using_Tor.md) para obtener más información sobre Tor.
+**Ajuste de Tor.** Es posible que desee proteger mejor servicios tales como SSH. Consulte el [Capítulo 14: Usando Tor](14_0_Usando_Tor.md) para obtener más información sobre Tor.
 
 ### Consolas de comando protegidas
 
@@ -246,11 +246,11 @@ Tiene algunas opciones para lo que sigue:
 
  *Lea [StackScript] (https://github.com/BlockchainCommons/Bitcoin-Standup-Scripts/blob/master/Scripts/LinodeStandUp.sh) para comprender su configuración.
 
-* Lea lo que hace StackScript en el [Apéndice I] (A1_0_Entendiendo_la_Configuracion_Inicial_de_Bitcoin.md).
+* Lea lo que hace StackScript en el [Apéndice I] (A1_0_Entendiendo_Bitcoin_Standup.md).
 
 * Elija una metodología completamente alternativa en [§2.2: Configuración de una máquina Bitcoin-Core a través de otros medios](02_2_Configurando_Bitcoin_Core_Otros.md).
 
-* Pase a "bitcoin-cli" con el [Capítulo tres: Entendiendo la configuración de Bitcoin](03_0_Entendiendo_su_configuracion_Bitcoin.md).
+* Pase a "bitcoin-cli" con el [Capítulo tres: Entendiendo la configuración de Bitcoin](03_0_Entendiendo_Su_Configuracion_Bitcoin.md).
 
 
 ## Sinopsis: Tipos de instalación de Bitcoin
@@ -263,4 +263,4 @@ Tiene algunas opciones para lo que sigue:
 
 ** Testnet podado. ** Estos son solo los últimos 550 bloques de Testnet ... porque la cadena de bloques de Testnet también es bastante grande ahora.
 
-** Private Regtest. ** Este es el modo de prueba de regresión, que le permite ejecutar un servidor Bitcoin totalmente local. Permite pruebas aún más profundas. No es necesario podar aquí, porque comenzará desde cero. Esta es una configuración muy diferente, por lo que se trata en el [Apéndice 3] (A3_0_Usando_Bitcoin_Regtest.md).
+** Private Regtest. ** Este es el modo de prueba de regresión, que le permite ejecutar un servidor Bitcoin totalmente local. Permite pruebas aún más profundas. No es necesario podar aquí, porque comenzará desde cero. Esta es una configuración muy diferente, por lo que se trata en el [Apéndice 3](A3_0_Usando_Bitcoin_Regtest.md).
