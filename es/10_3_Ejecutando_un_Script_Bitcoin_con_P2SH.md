@@ -97,4 +97,4 @@ Una vez que conozca la técnica de construcción de P2SH, cualquier script se pu
 
 ## Que Sigue?
 
-Continúe "Incrustando Bitcoin Scripts" con [§10.4: Scripting a Multisig](10_4_Codificando_una_Multifirma.md).
+Continúe "Incrustando Bitcoin Scripts" con [§10.4: Codificando una Multifirma](10_4_Codificando_una_Multifirma.md).
