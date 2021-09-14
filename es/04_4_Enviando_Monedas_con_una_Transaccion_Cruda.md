@@ -1,6 +1,6 @@
 # 4.4: Enviando Monedas con una Transacción Cruda
 
-Como se indicó al principio de este capítulo, la interfaz `bitcoin-cli` ofrece tres formas principales de enviar monedas. En [§4.1](04_1_Enviando_Monedas_de_la_Forma_Facil.md) hablamos de enviarlas de la primera manera, usando el comando `sendtoaddress`. Desde entonces, hemos estado construyendo detalles sobre cómo enviar monedas de una segunda manera, con transacciones en crudo. El [§4.2](04_2_Creando_una_Transaccion_Cruda.md) enseñó cómo crear una transacción sin procesar, un [Interlude](04_2__Interludio_Usando_JQ..md) explicó JQ, y el [§4.3](04_3_Creando_una_Transaccion_Cruda_con_Argumentos_Ingresados_con_Nombre.md) demostró los argumentos con nombre.
+Como se indicó al principio de este capítulo, la interfaz `bitcoin-cli` ofrece tres formas principales de enviar monedas. En [§4.1](04_1_Enviando_Monedas_de_la_Forma_Facil.md) hablamos de enviarlas de la primera manera, usando el comando `sendtoaddress`. Desde entonces, hemos estado construyendo detalles sobre cómo enviar monedas de una segunda manera, con transacciones en crudo. El [§4.2](04_2_Creando_una_Transaccion_Cruda.md) enseñó cómo crear una transacción sin procesar, un [Interlude](04_2_Interludio_Usando_JQ.md) explicó JQ, y el [§4.3](04_3_Creando_una_Transaccion_Cruda_con_Argumentos_Ingresados_con_Nombre.md) demostró los argumentos con nombre.
 
 Ahora podemos juntar todo esto y enviar fondos usando una transacción en crudo.
 
