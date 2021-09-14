@@ -19,7 +19,7 @@ Entonces, ¿cómo se escribe un script de Bitcoin más complejo? La respuesta es
 
 ## Entender el P2SH Script
 
-Ya vio una transacción P2SH cuando creó una firma múltiple en [§6.1: Envío de una Transacción a una Multifirma](06_1_Sending_a_Transaction_to_a_Multisig.md). Aunque multifirma es uno de los tipos de transacciones estándar, `bitcoin-cli` simplifica el uso de sus multifirmas al incrustarlas en transacciones P2SH, como se describe con más detalle en [§8.4: Scripting a Multisig](08_4_Scripting_a_Multisig.md).
+Ya vio una transacción P2SH cuando creó una firma múltiple en [§6.1: Envío de una Transacción a una Multifirma](06_1_Enviando_una_Transaccion_a_una_Direccion_Multifirma.md). Aunque multifirma es uno de los tipos de transacciones estándar, `bitcoin-cli` simplifica el uso de sus multifirmas al incrustarlas en transacciones P2SH, como se describe con más detalle en [§10.4: Scripting a Multisig](10_4_Codificando_una_Multifirma.md).
 
 Entonces, veamos una vez más el `scriptPubKey` de ese P2SH multifirma:
 ```
@@ -56,7 +56,7 @@ En general, se requieren cuatro pasos:
 
 Cada uno de esos pasos, por supuesto, requiere algo de trabajo por sí solo, y algunos de ellos pueden ser bastante intrincados. La buena noticia es que realmente no tiene que preocuparse por por ellos, porque son lo sucifientemente complejos como para que normalmente tenga una API que se encargue de todo por usted. 
 
-Entonces, por ahora, solo le proporcionaremos una descripción general, para que comprenda la metodología general. En [§10.2: Construyendo la Estructura de P2SH](10_2_Building_the_Structure_of_P2SH.md) proporcionaremos una mirada más profunda a la creación de scripts, en caso de que alguna vez quiera comprender las entrañas de este proceso.
+Entonces, por ahora, solo le proporcionaremos una descripción general, para que comprenda la metodología general. En [§10.2: Construyendo la Estructura de P2SH](10_2_Construyendo_la_Estructura_de_P2SH.md) proporcionaremos una mirada más profunda a la creación de scripts, en caso de que alguna vez quiera comprender las entrañas de este proceso.
 
 ## Comprender Cómo Enviar una Transacción de Script P2SH
 
@@ -75,7 +75,7 @@ El truco para canjear una transacción P2SH es que el destinatario debe haber gu
 
 Un `scriptSig` de desbloqueo para una transacción P2SH se forma como: `... data ... <redeemScript>`. Los `datos` deben ser _solo_ datos que se insertan en la pila, no operadores. ([BIP 16](https://github.com/bitcoin/bips/blob/master/bip-0016.mediawiki) los llama firmas, pero eso no es un requisito real.)
 
-> :warning: **ADVERTENCIA:** Aunque las firmas no son un requisito, un script P2SH en realidad no es muy seguro si no requiere al menos una firma en sus entradas. Las razones de esto se describen en [§13.1: Escritura de Scripts de Rompecabezas](13_1_Writing_Puzzle_Scripts.md).
+> :warning: **ADVERTENCIA:** Aunque las firmas no son un requisito, un script P2SH en realidad no es muy seguro si no requiere al menos una firma en sus entradas. Las razones de esto se describen en [§13.1: Escritura de Scripts de Rompecabezas](13_1_Escribiendo_Puzzle_Scripts.md).
 
 Cuando se canjea un UTXO, se ejecuta en dos rondas de verificación:
 
@@ -84,9 +84,9 @@ Cuando se canjea un UTXO, se ejecuta en dos rondas de verificación:
 3. En segundo lugar, el `redeemScript` se ejecuta utilizando los datos anteriores que se insertaron en la pila. 
 4. Si esa segunda ronda de verificación _también_ tiene éxito, el UTXO se desbloquea.
 
-Si bien no puede crear fácilmente una transacción P2SH sin una API, debería poder canjear fácilmente una transacción P2SH con `bitcoin-cli`. De hecho, ya lo hizo en [§6.2: Envío de una Transacción a un Multifirma](06_2_Spending_a_Transaction_to_a_Multisig.md). El proceso exacto se describe en [§10.6: Gasto de una Transacción P2SH](10_6_Spending_a_P2SH_Transaction.md), una vez que hayamos terminado con todas las complejidades de la creación de transacciones P2SH.
+Si bien no puede crear fácilmente una transacción P2SH sin una API, debería poder canjear fácilmente una transacción P2SH con `bitcoin-cli`. De hecho, ya lo hizo en [§6.2: Envío de una Transacción a un Multifirma](06_2_Gastando_una_Transaccion_con_una_Direccion_Multifirma.md). El proceso exacto se describe en [§10.6: Gasto de una Transacción P2SH](10_6_Gastando_una_Transaccion_P2SH.md), una vez que hayamos terminado con todas las complejidades de la creación de transacciones P2SH.
 
-> :warning: **ADVERTENCIA:** Puede crear una transacción perfectamente válida con un código redeemScript correctamente codificado, pero si el código redeemScript no se ejecuta o no se ejecuta correctamente, sus fondos se perderán para siempre. Por eso es tan importante probar sus secuencias de comandos, como se explíca en [§9.3: Prueba de una Bitcoin Script](09_3_Testing_a_Bitcoin_Script.md).
+> :warning: **ADVERTENCIA:** Puede crear una transacción perfectamente válida con un código redeemScript correctamente codificado, pero si el código redeemScript no se ejecuta o no se ejecuta correctamente, sus fondos se perderán para siempre. Por eso es tan importante probar sus secuencias de comandos, como se explíca en [§9.3: Prueba de una Bitcoin Script](09_3_Probando_un_Script_Bitcoin.md).
 
 ## Resumen: Comprensión de la Base de P2SH
 
@@ -96,4 +96,4 @@ Los scripts arbitrarios de Bitcoin no son estándar en Bitcoin. Sin embargo, pue
 
 ## Que Sigue?
 
-Continúe "Incrustando Bitcoin Scripts" con [§10.2: Construyendo la Estructura de P2SH](10_2_Building_the_Structure_of_P2SH.md).
+Continúe "Incrustando Bitcoin Scripts" con [§10.2: Construyendo la Estructura de P2SH](10_2_Construyendo_la_Estructura_de_P2SH.md).
