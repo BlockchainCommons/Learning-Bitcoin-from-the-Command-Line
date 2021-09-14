@@ -18,6 +18,6 @@ Los objetivos de apoyo incluyen la capacidad de:
    
 ## Tabla de Contenido
    
-   * [Sección uno: Vigilancia de transacciones atascadas](05_1_Watching_for_Stuck_Transactions.md)
-   * [Sección dos: Reenvío de una transacción con RBF](05_2_Resending_a_Transaction_with_RBF.md)
-   * [Sección tres: Financiamiento de una transacción con CPFP](05_3_Funding_a_Transaction_with_CPFP.md)
+   * [Sección uno: Vigilando por Transacciones Estancadas](05_1_Vigilando_por_Transacciones_Estancadas.md)
+   * [Sección dos: Reenviando una Transacción con RBF](05_2_Reenviando_a_Transaccion_con_RBF.md)
+   * [Sección tres: Financiando una Transacción con CPFP](05_3_Financiando_una_Transaccion_con_CPFP.md)
