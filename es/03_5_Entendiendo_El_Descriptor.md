@@ -69,7 +69,7 @@ function([derivation-path]key)#checksum
 ```
 
 Esto es lo que todo eso significa:
-* **Función.** La función que se utiliza para crear una dirección a partir de esa tecla. En estos casos, es `pkh`, que es la dirección heredada P2PKH estándar que conoció en [§3.3: Configuración de su billetera](03_3_Setting_Up_Your_Wallet.md). De manera similar, una dirección P2WSH SegWit usaría `wsh` y una dirección P2WPKH usaría` wpkh`.
+* **Función.** La función que se utiliza para crear una dirección a partir de esa tecla. En estos casos, es `pkh`, que es la dirección heredada P2PKH estándar que conoció en [§3.3: Configuración de su billetera](03_3_Configurando_Su_Billetera.md). De manera similar, una dirección P2WSH SegWit usaría `wsh` y una dirección P2WPKH usaría` wpkh`.
 * **Ruta de derivación.** Esto describe qué parte de una billetera HD se está exportando. En este caso, es una semilla con la huella digital `d6043800` y luego el hijo 18 del hijo 0 del hijo 0 (` 0'/ 0'/18'`) de esa semilla. También puede haber una derivación adicional después de la clave: `función ([ruta de derivación] clave / más-derivación) # suma de comprobación`
    * Vale la pena señalar aquí que si alguna vez obtiene una ruta de derivación sin una huella digital, puede inventarla. Es solo que si hay uno existente, debe coincidir, porque si alguna vez regresa al dispositivo que creó la huella digital, deberá tener el mismo.
 * **Clave**. La clave o claves que se están transfiriendo. Esto podría ser algo tradicional como un `xpub` o` xprv`, podría ser simplemente una clave pública para una dirección, como en este caso, podría ser un conjunto de direcciones para una firma múltiple, o podría ser otra cosa. Estos son los datos centrales: la función explica qué hacer con ellos.
