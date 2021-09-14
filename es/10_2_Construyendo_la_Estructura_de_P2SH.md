@@ -67,7 +67,7 @@ Para completar su serialización, traduzca el código hexadecimal a binario. En 
 
 ## Ejecute el Script de Conversión de Enteros
 
-Un script complejo para cambiar un entero entre -2147483647 y 2147483647 a una representación de little-endian signed-magnitude se puede encontrar en el [directorio de código src](src/10_2_integer2lehex.sh). Puede descargarlo como `integeer2lehex.sh`.
+Un script complejo para cambiar un entero entre -2147483647 y 2147483647 a una representación de little-endian signed-magnitude se puede encontrar en el [directorio de código src](../src/10_2_integer2lehex.sh). Puede descargarlo como `integeer2lehex.sh`.
 
 > :warning: **ADVERTENCIA:** Esta script no se ha comprobado de forma exhaustiva. Se va a usarlo para crear scripts de bloqueo reales, debe asegurarse de verificar y probar sus resultados.
 
@@ -112,7 +112,7 @@ Esto es lo que significan las partes individuales:
 * 0x52 = OP_2
 * 0xae = OP_CHECKMULTISIG
 
-En otras palabras, ese `redeemScript` era una traducción de `2 02da2f10746e9778dd57bd0276a4f84101c4e0a711f9cfd9f09cde55acbdd2d191 02bfde48be4aa8f4bf76c570e98a8d287f9be5638412ab38dede8e78df82f33fa3 2 OP_CHECKMULTISIG`. Regresaremos a este script en [§10.4: Creación de una Script Multifirma](10_4_Scripting_a_Multisig.md) cuando detallemos exactamente cómo funcionan las multifirmas dentro del paradigma P2SH.
+En otras palabras, ese `redeemScript` era una traducción de `2 02da2f10746e9778dd57bd0276a4f84101c4e0a711f9cfd9f09cde55acbdd2d191 02bfde48be4aa8f4bf76c570e98a8d287f9be5638412ab38dede8e78df82f33fa3 2 OP_CHECKMULTISIG`. Regresaremos a este script en [§10.4: Creación de una Script Multifirma](10_4_Codificando_una_Multifirma.md) cuando detallemos exactamente cómo funcionan las multifirmas dentro del paradigma P2SH.
 
 Si desea una mano mecánica con este tipo de traducción en el futuro, puede usar `bitcoin-cli decodescript`:
 ```
