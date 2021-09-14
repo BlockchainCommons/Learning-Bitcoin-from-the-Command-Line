@@ -73,7 +73,7 @@ El siguiente simple script de bloqueo puede ser usado para transformar el output
 
 ### Codificar un Script CLTV
 
-Por supuesto, como con cualquier Bitcoin Script complejo, este script CLTV sera codificado de hecho en un script P2SH, como se explica en [§10.1: Comprendiendo la base de P2SH](10_1_Comprendiendo_la_Base_de_P2SH.md) y [§10.2: Construyendo la estructura de P2SH](10_2_Construyendo_la_Estructura_de_P2SH.md). 
+Por supuesto, como con cualquier Bitcoin Script complejo, este script CLTV sera codificado de hecho en un script P2SH, como se explica en [§10.1: Entendiendo la Base de P2SH](10_1_Entendiendo_la_Base_de_P2SH.md) y [§10.2: Construyendo la estructura de P2SH](10_2_Construyendo_la_Estructura_de_P2SH.md). 
 
 Asumiendo que `<SiguienteAño>` fuera el entero "1546288031" (hexadecimal en "little-endian": 0x9f7b2a5c) y `<HashLlavePública>` fuera "371c20fb2e9899338ce5e99908e64fd30b789313", este `redeemScript` seria construido como:
 ```
