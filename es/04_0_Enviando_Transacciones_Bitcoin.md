@@ -20,7 +20,7 @@ Con los objetivos complementarios se tendrá la habilidad de:
    
 ## Tabla de contenido
   
-  * [Sección Uno: Enviando Monedas de la Forma Fácil](04_0_Enviando_Transacciones_Bitcoin.md)
+  * [Sección Uno: Enviando Monedas de la Forma Fácil](04_1_Enviando_Monedas_de_la_Forma_Facil.md)
   * [Sección Dos: Creando una Transacción Cruda](04_2_Creando_una_Transaccion_Cruda.md)
      * [Interludio: Usando JQ](04_2_Interludio_Usando_JQ.md)
   * [Sección Tres: Creando una Transacción Cruda con Argumentos Ingresados con Nombre](04_3_Creando_una_Transaccion_Cruda_con_Argumentos_Ingresados_con_Nombre.md)
