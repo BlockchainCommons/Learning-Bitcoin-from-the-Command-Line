@@ -86,7 +86,7 @@ Si le gustaría hacer su propia traducción, por favor, vea [Contribuyendo](#con
   * [11.2: Usando CLTV en Scripts](11_2_Usando_CLTV_en_Scripts.md)
   * [11.3: Usando CSV en Scripts](11_3_Usando_CSV_en_Scripts.md)
 * [12.0: Expandiendo Scripts Bitcoin](12_0_Expandiendo_Scripts_Bitcoin.md)
-  * [12.1: Usando Scripts Condicionales](12_1_Usando_Scripts_Condicionales.md)
+  * [12.1: Usando Scripts Condicionales](12_1_Usando_Script_Condicionales.md)
   * [12.2: Usando Otros Comandos de Scripting](12_2_Usando_Otros_Comandos_de_Scripting.md)
 * [13.0: Diseñando Bitcoin Scripts Reales](13_0_Disenando_Bitcoin_Scripts_Reales.md)
   * [13.1: Escribiendo Puzzles Scripts](13_1_Escribiendo_Puzzle_Scripts.md)
