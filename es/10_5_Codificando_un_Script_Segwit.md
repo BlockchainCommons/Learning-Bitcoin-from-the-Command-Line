@@ -2,7 +2,7 @@
 
 > :information_source: **NOTA:** Esta sección se ha agregado recientemente al curso y es un borrador inicial que aún puede estar pendiente de revisión. Lector de advertencias.
 
-Segwit introdujo una serie de nuevas opciones para los tipos de direcciones (y, por lo tanto, secuencias de comandos). [§9.5: Codificando una P2WPKH](09_5_Scripting_a_P2WPKH.md) explicó cómo el nuevo tipo de dirección Bech32 variaba los scripts estándar encontrados en la mayoría de las transacciones tradicionales. Este capitulo analiza los otros tres tipos de scripts introducidos por la actualización de Segwit: el P2SH-Segwit (que era la dirección de transición "Segwit anidada", cuando Segwit entró en uso), el P2WSH (que es el equivalente Segwit de la dirección P2SH, al igual que P2WPKH es el equivalente Segwit de la dirección P2PKH), y la dirección P2WSH anidada.
+Segwit introdujo una serie de nuevas opciones para los tipos de direcciones (y, por lo tanto, secuencias de comandos). [§9.5: Codificando una P2WPKH](09_5_Codificando_una_P2WPKH.md) explicó cómo el nuevo tipo de dirección Bech32 variaba los scripts estándar encontrados en la mayoría de las transacciones tradicionales. Este capitulo analiza los otros tres tipos de scripts introducidos por la actualización de Segwit: el P2SH-Segwit (que era la dirección de transición "Segwit anidada", cuando Segwit entró en uso), el P2WSH (que es el equivalente Segwit de la dirección P2SH, al igual que P2WPKH es el equivalente Segwit de la dirección P2PKH), y la dirección P2WSH anidada.
 
 Esta es otra situación en la que realmente no tendrá que preocuparse por estos matices mientras trabaja con `bitcoin-cli`, pero es útil saber cómo funciona todo.
 
@@ -17,7 +17,7 @@ $ bitcoin-cli getnewaddress -addresstype p2sh-segwit
 ```
 La dirección comienza con un `2` (o un `3`) que la revela como un guión.
 
-> :book: ***¿Por qué los nodos antiguos no pueden enviar a direcciones nativas de Segwit?*** [§10.1](10_1_Understanding_the_Foundation_of_P2SH.md) señaló que había un número determinado de transacciones de Bitcoin "estándar". En realidad, no puede bloquear una transacción con un script que no sea uno de esos tipos estándar. Segwit ahora se reconoce como uno de esos estándares, pero un nodo antiguo no lo sabrá, por lo que se negará a enviar una transacción de este tipo para la protección del remitente. Envolver una dirección Segwit dentro de un hash de script estándar resuelve el problema.
+> :book: ***¿Por qué los nodos antiguos no pueden enviar a direcciones nativas de Segwit?*** [§10.1](10_1_Entendiendo_la_Base_de_P2SH.md) señaló que había un número determinado de transacciones de Bitcoin "estándar". En realidad, no puede bloquear una transacción con un script que no sea uno de esos tipos estándar. Segwit ahora se reconoce como uno de esos estándares, pero un nodo antiguo no lo sabrá, por lo que se negará a enviar una transacción de este tipo para la protección del remitente. Envolver una dirección Segwit dentro de un hash de script estándar resuelve el problema.
 
 Cuando mira un UTXO enviado a esa dirección, puede ver que el `desc` es diferente, revelando una dirección WPKH envuelta en un script:
 ```
@@ -36,7 +36,7 @@ $ bitcoin-cli listunspent
     "safe": true
   }
 ```
-Más importante aún, hay un `redeemScript`, que decodifica a `OP_0 OP_PUSHDATA (20 bytes) 3ab2a09a1a5f2feb6c799b5ab345069a96e1a0a`. Deberia parecer familiar, porque es un `OP_0` seguido de un código hexadecimal de 20 bytes de un hash de clave pública. En otras palabras, un P2SH-SegWit es solo un SegWit `scriptPubKey` atascado en un script. Eso es todo al respecto. Coincide precisamente con la forma en que las multifirmas modernas son un multifirma atascado en un P2SH, como se explica en [§10.4: Codificando una Multifirma](10_4_Scripting_a_Multisig.md).
+Más importante aún, hay un `redeemScript`, que decodifica a `OP_0 OP_PUSHDATA (20 bytes) 3ab2a09a1a5f2feb6c799b5ab345069a96e1a0a`. Deberia parecer familiar, porque es un `OP_0` seguido de un código hexadecimal de 20 bytes de un hash de clave pública. En otras palabras, un P2SH-SegWit es solo un SegWit `scriptPubKey` atascado en un script. Eso es todo al respecto. Coincide precisamente con la forma en que las multifirmas modernas son un multifirma atascado en un P2SH, como se explica en [§10.4: Codificando una Multifirma](10_4_Codificando_una_Multifirma.md).
 
 La transacción sin procesar revela un poco más cuando mira el `vout` `1`:
 ```
@@ -95,7 +95,7 @@ $ bitcoin-cli decoderawtransaction $hex
   ]
 }
 ```
-Esto confirma que esto es solo un P2SH normal, bloqueado por `"OP_DUP OP_HASH160 41d83eaffbf80f82dee4c152de59a38ffd0b6021 OP_EQUALVERIFY OP_CHECKSIG"`. Es cuando se ejecuta el script de canje que ocurre la magia. Al igual que con un P2WPKH, un nodo antiguo verá `OP_0 OP_PUSHDATA (20 bytes) 3ab2a09a1a5f2feb6c799b5ab345069a96e1a0a` y lo verificará automáticamente, mientras que un nuevo nodo lo verá, sabrá que es un P2WPKH, y así saldrá con los `testigos`. See [§9.5: Codificando una P2WPKH](09_5_Scripting_a_P2WPKH.md).
+Esto confirma que esto es solo un P2SH normal, bloqueado por `"OP_DUP OP_HASH160 41d83eaffbf80f82dee4c152de59a38ffd0b6021 OP_EQUALVERIFY OP_CHECKSIG"`. Es cuando se ejecuta el script de canje que ocurre la magia. Al igual que con un P2WPKH, un nodo antiguo verá `OP_0 OP_PUSHDATA (20 bytes) 3ab2a09a1a5f2feb6c799b5ab345069a96e1a0a` y lo verificará automáticamente, mientras que un nuevo nodo lo verá, sabrá que es un P2WPKH, y así saldrá con los `testigos`. See [§9.5: Codificando una P2WPKH](09_5_Codificando_una_P2WPKH.md).
 
 > :book: ***¿Cuáles son las desventajas de las transacciones segwit anidadas?*** Son más grandes que las transacciones nativas de Segwit, por lo que obtiene algunas de las ventajas de Segwit, pero no todas.
 
@@ -123,4 +123,4 @@ La dirección P2WSH es una variante Segwit de P2SH, al igual que P2WPKH es una v
 
 ## Que Sigue?
 
-Continúe "Incrustando Bitcoin Scripts" con [§10.6: Gastando una Transacción P2SH](10_6_Spending_a_P2SH_Transaction.md).
+Continúe "Incrustando Bitcoin Scripts" con [§10.6: Gastando una Transacción P2SH](10_6_Gastando_una_Transaccion_P2SH.md).
