@@ -1,6 +1,6 @@
 # 10.4: Guioniendo una Multifirma
 
-Antes de cerrar esta introducción a las secuencias de comandos P2SH, vale la pena examinar un ejemplo más realista. Desde [§6.1](06_1_Sending_a_Transaction_to_a_Multisig.md), hemos estado diciendo casualmente que la `bitcoin-cli` envuelve su transacción multifirma en una transacción P2SH. De hecho, esta es la metodologiá estándar para crear multifirmas en Blockchain. Así es como funciona eso en profundidad.
+Antes de cerrar esta introducción a las secuencias de comandos P2SH, vale la pena examinar un ejemplo más realista. Desde [§6.1](06_1_Enviando_una_Transaccion_a_una_Direccion_Multifirma.md), hemos estado diciendo casualmente que la `bitcoin-cli` envuelve su transacción multifirma en una transacción P2SH. De hecho, esta es la metodologiá estándar para crear multifirmas en Blockchain. Así es como funciona eso en profundidad.
 
 ## Entender el Código Multifirma
 
@@ -22,15 +22,15 @@ El requisito de que `0` como primer operando de `OP_CHECKMULTISIG` es una regla 
 
 ## Crear una Multifima Sin Procesar
 
-Como se explica en [§10.1: Creación de un Bitcoin Script con P2SH](10_1_Building_a_Bitcoin_Script_with_P2SH.md), las multifirmas son uno de los tipos de transacciones estándar de Bitcoin. Se puede crear una transacción con un script de bloqueo que utiliza el comando `OP_CHECKMULTISIG` sin procesar, y se aceptará en un bloque. Esta es la metodología clásica para usar multifirmas en Bitcoin.
+Como se explica en [§10.1: Creación de un Bitcoin Script con P2SH](10_0_Embebiendo_Bitcoin_Scripts_en_Transacciones_P2SH.md), las multifirmas son uno de los tipos de transacciones estándar de Bitcoin. Se puede crear una transacción con un script de bloqueo que utiliza el comando `OP_CHECKMULTISIG` sin procesar, y se aceptará en un bloque. Esta es la metodología clásica para usar multifirmas en Bitcoin.
 
-Como ejemplo, volveremos a visitar la multifirma creado en [§8.1](08_1_Sending_a_Transaction_to_a_Multisig.md) una útltima vez y crearemos un nuevo script de bloqueo para esta utilizando dicha metodología. Como recordará, se trataba de una multifirma 2 de 2 construida a partir de `$address1` y `$address2`. 
+Como ejemplo, volveremos a visitar la multifirma creado en [§6.1](06_1_Enviando_una_Transaccion_a_una_Direccion_Multifirma.md) una útltima vez y crearemos un nuevo script de bloqueo para esta utilizando dicha metodología. Como recordará, se trataba de una multifirma 2 de 2 construida a partir de `$address1` y `$address2`. 
 
 Como el script de bloquo `OP_CHECKMULTISIG` requiere la "m" (`2`), las direcciones y la "n" (`2`), puede escribir la siguiente `scriptPubKey`:
 ```
 2 $address1 $address2 2 OP_CHECKMULTISIG
 ```
-Si esto le parece familiar, es porque es la multifirma que deserializó en [§8.2: Construcción de la Estructura de P2SH](08_2_Building_the_Structure_of_P2SH.md).
+Si esto le parece familiar, es porque es la multifirma que deserializó en [§10.2: Construyendo la Estructura de P2SH](10_2_Construyendo_la_Estructura_de_P2SH.md).
 ```
 2 02da2f10746e9778dd57bd0276a4f84101c4e0a711f9cfd9f09cde55acbdd2d191 02bfde48be4aa8f4bf76c570e98a8d287f9be5638412ab38dede8e78df82f33fa3 2 OP_CHECKMULTISIG
 ```
@@ -138,12 +138,12 @@ Luego, ejecute el script multifirma:
 3. Validar `0 $signature1 $signature2 2 $address1 $address2 2 OP_CHECKMULTISIG`.
 4. Es correcto si los operandos cumplen con la deserialización `redeemScript`.
 
-Ahora sabe cómo se creó realmente la transacción multifirma en [§6.1](06_1_Sending_a_Transaction_to_a_Multisig.md), cómo se validó para el gasto y por qué ese `redeemScript` era tan importante.
+Ahora sabe cómo se creó realmente la transacción multifirma en [§6.1](06_1_Enviando_una_Transaccion_a_una_Direccion_Multifirma.md), cómo se validó para el gasto y por qué ese `redeemScript` era tan importante.
 
 ## Resumen: Creación de Guiones de Multifirmas
 
-Las multifirmas son un tipo de transacción estándar, pero su uso es un poco complicado, por lo que se incorporan regularmente en las transacciones P2SH, como fue el caso en [§6.1](06_1_Sending_a_Transaction_to_a_Multisig.md) cuando creamos nuestras primeras multifirmas. El resultado es más limpio, más pequeño y más estandarizado — pero lo que es más importante, es un gran ejemplo del mundo real cómo funcionan realmente los scripts P2SH.
+Las multifirmas son un tipo de transacción estándar, pero su uso es un poco complicado, por lo que se incorporan regularmente en las transacciones P2SH, como fue el caso en [§6.1](06_1_Enviando_una_Transaccion_a_una_Direccion_Multifirma.md) cuando creamos nuestras primeras multifirmas. El resultado es más limpio, más pequeño y más estandarizado — pero lo que es más importante, es un gran ejemplo del mundo real cómo funcionan realmente los scripts P2SH.
 
 ## Que Sigue?
 
-Continúe "Incrustando Bitcoin Scripts" con [§10.5: Scripting a Segwit Script](10_5_Scripting_a_Segwit_Script.md)
+Continúe "Incrustando Bitcoin Scripts" con [§10.5: Codificando un Script Segwit](10_5_Codificando_un_Script_Segwit.md)
