@@ -1,7 +1,7 @@
 # 7.2: Usando una Transacción Bitcoin Parcialmente Firmada
 
 > :information_source: **NOTA:** Esta sección se ha agregado recientemente al curso y es un borrador inicial que aún puede estar pendiente de revisión. Lectura con advertencias.
-> 
+
 Ahora que ha aprendido el flujo de trabajo básico para generar un PSBT, probablemente quiera hacer algo con él. ¿Qué pueden hacer las PSBT que las multifirmas (y las transacciones sin procesar normales) no pueden hacer? Para empezar, tiene la facilidad de uso de un formato estandarizado, lo que significa que puede usar sus transacciones `bitcoin-cli` y combinarlas con transacciones generadas por personas (o programas) en otras plataformas. Más allá de eso, puede hacer algunas cosas que no fueron fáciles usando otras mecánicas.
 
 A continuación se muestran tres ejemplos del uso de PSBT para: multifirmas, agrupación de dinero y unión de monedas.
@@ -277,7 +277,7 @@ machine2$ psbt_p2=$(bitcoin-cli walletprocesspsbt $psbt | jq -r '.psbt')
 machine3$ echo $psbt_p2
 cHNidP8BAHECAAAAAbU5tQSXtwlf5ZamU+wwrLjHFp1p6WQh7haL/sLFYuxTAAAAAAD/////AnhBDwAAAAAAFgAUzun4goil9JgBkaKNeuCP9YQFDad4QQ8AAAAAABYAFI2GH/borPHKKjs91ZyG8uigq6dcAAAAAAABASu4gx4AAAAAACIAICJMtQOn94NXmbnCLuDDx9k9CQNW4w5wAVw+u/pRWjB0IgIDeJ9UNCNnDhaWZ/9+Hy2iqX3xsJEicuFC1YJFGs69BjZHMEQCIDJ71isvR2We6ym1QByLV5SQ+XEJD0SAP76fe1JU5PZ/AiB3V7ejl2H+9LLS6ubqYr/bSKfRfEqrp2FCMISjrWGZ6QEBBUdSIQONc63yx+oz+dw0t3titZr0M8HenHYzMtp56D4VX5YDDiEDeJ9UNCNnDhaWZ/9+Hy2iqX3xsJEicuFC1YJFGs69BjZSriIGA3ifVDQjZw4Wlmf/fh8toql98bCRInLhQtWCRRrOvQY2ENPtiCUAAACAAAAAgAYAAIAiBgONc63yx+oz+dw0t3titZr0M8HenHYzMtp56D4VX5YDDgRZu4lPAAAiAgNJzEMyT3rZS7QHqb8SvFCv2ee0MKRyVy8bY8tVUDT1KhDT7YglAAAAgAAAAIADAACAAA==
 ```
-Tenga en cuenta nuevamente que gestionamos la firma de este multifirma generando un PSBT totalmente sin firmar con el UTXO correcto, luego permitiendo que cada uno de los usuarios procese ese PSBT por su cuenta, agregando entradas y firmas. Como resultado, tenemos dos PSBT, cada uno de los cuales contiene una firma y no la otra. Eso no funcionaría en el escenario clásico multifirma, porque todas las firmas tienen que ser serializadas. Aquí, en cambio, podemos iniciar sesión en paralelo y luego hacer uso del rol de Combinador para mezclarlas juntos.
+Tenga en cuenta nuevamente que gestionamos la firma de este multifirma generando un PSBT totalmente sin firmar con el UTXO correcto, luego permitiendo que cada uno de los usuarios procese ese PSBT por su cuenta, agregando entradas y firmas. Como resultado, tenemos dos PSBT, cada uno de los cuales contiene una firma y no la otra. Eso no funcionaría en el escenario clásico multifirma, porque todas las firmas tienen que ser serializadas. Aquí, en cambio, podemos iniciar sesión en paralelo y luego hacer uso del rol de Combinador para mezclarlas juntas.
 
 Volvemos a ir a cualquiera de las dos máquinas y nos aseguramos de tener ambos PSBT en variables, luego los combinamos:
 ```
