@@ -46,9 +46,9 @@ Si su transacción se atasca más de lo que deseas, normalmente puede hacer una 
 
 **2. Espere Hasta Que Expire.** Se envió accidentalmente sin tarifa de transacción, o si se cumplen otras condiciones, es posible que su transacción nunca se realice. Sin embargo, sus monedas no se pierden. Siempre que no tenga una billetera que reenvíe intencionalmente las transacciones no confirmadas, debería borrarse del mempool en aproximadamente tres días, y luego puede volver a intentarlo.
 
-**3. Utilice RBF Como Remitente.** Si usted es el remitente de la transacción y se inscribió en RBF (Replace by fee / Reemplazar Por Tarifa), puede volver a intentarlo con una tarifa más alta. Consulte [§5.2: Resending a Transaction with RBF](05_2_Resending_a_Transaction_with_RBF.md).
+**3. Utilice RBF Como Remitente.** Si usted es el remitente de la transacción y se inscribió en RBF (Replace by fee / Reemplazar Por Tarifa), puede volver a intentarlo con una tarifa más alta. Consulte [§5.2: Reenviando una Transacción con RBF](05_2_Reenviando_a_Transaccion_con_RBF.md).
 
-**4. Us CPFP Como La Receptora.** Alternativeamente, si usted es el receptor de la transacción, puede usar CPFP (Child-pays-for-parent / nino-paga-por-el-padre) para usar la transacción no confirmada como entrada para una nueva transacción. Consulte [§5.3: Funding a Transaction with CPFP](05_3_Funding_a_Transaction_with_CPFP.md).
+**4. Us CPFP Como La Receptora.** Alternativeamente, si usted es el receptor de la transacción, puede usar CPFP (Child-pays-for-parent / nino-paga-por-el-padre) para usar la transacción no confirmada como entrada para una nueva transacción. Consulte [§5.3: Financiando una Transacción con CPFP](05_3_Financiando_una_Transaccion_con_CPFP.md).
 
 ## Resumen: Observación de Transacciones Atascadas
 
@@ -56,4 +56,4 @@ Esta es una introducción al poder de las transacciónes de Bitcoin. Si lo sabe 
 
 ## Que Sigue?
 
-Continúe "Controlando las Transacciones de Bitcoin" con [§5.2: Resending a Transaction with RBF](05_2_Resending_a_Transaction_with_RBF.md).  
+Continúe "Controlando las Transacciones de Bitcoin" con [§5.2: Reenviando una Transacción con RBF](05_2_Reenviando_a_Transaccion_con_RBF.md).  
