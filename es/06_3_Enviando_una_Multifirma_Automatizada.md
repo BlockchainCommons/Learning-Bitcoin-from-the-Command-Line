@@ -116,4 +116,4 @@ Existe una manera más fácil de volver a gastar los fondos enviados a direccion
 
 ## ¿Qué sigue?
 
-Aprende más acerca de "Expandiendo Transacciones Bitcoin" con [Capítulo Siete: Expandiendo las Transacciones Bitcoin con PSBTs] (07_0_Expandiendo_las_Transacciones_Bitcoin_con_PSBTs.md).
+Aprende más acerca de "Expandiendo Transacciones Bitcoin" con [Capítulo Siete: Expandiendo las Transacciones Bitcoin con PSBTs](07_0_Expandiendo_las_Transacciones_Bitcoin_con_PSBTs.md).
