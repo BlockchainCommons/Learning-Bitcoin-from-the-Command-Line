@@ -54,6 +54,9 @@ Ahora que tiene Tor instalado y sabe cómo usarlo, puede agregar otros servicios
 
 > :fire: ***¿Cuál es el poder de otros servicios ocultos?*** Cada vez que accede a un servicio en su servidor de forma remota, deja huellas en la red. Incluso si los datos están encriptados por algo como SSH (o TLS), los merodeadores en la red pueden ver desde dónde se está conectando, a dónde se está conectando y qué servicio está utilizando. ¿Importa esto? Esta es la pregunta que debe hacer. Pero si la respuesta es "Sí", puede proteger la conexión con un servicio oculto.
 
+
+## ¿Que sigue?
+
 Continúe con "Uso de i2p" con el [Capítulo quince](15_0_Usando_i2p.md).
 
 O, si lo prefiere, hay dos caminos alternativos:
