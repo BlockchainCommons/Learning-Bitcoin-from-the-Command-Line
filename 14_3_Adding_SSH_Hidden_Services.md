@@ -56,10 +56,4 @@ Now that you've got Tor installed and know how to use it, you can add other serv
 
 ## What's Next?
 
-Move on to "Using i2p" with [Chapter Fifteen: Using i2p](15_0_Using_i2p.md).
-
-Or, if you prefer, there are two alternate paths:
-
-If you want to stay focused on Bitcoin, move on to "Programming with RPC" with [Chapter Sixteen: Talking to Bitcoind with C](16_0_Talking_to_Bitcoind.md).
-
-Or, if you want to stay focused on the command-line because you're not a programmer, you can skip to [Chapter Nineteen: Understanding Your Lightning Setup](19_0_Understanding_Your_Lightning_Setup.md) to continue your command-line education with the Lightning Network.
+For a different sort of privacy, move on to "Using i2p" with [Chapter Fifteen: Using i2p](15_0_Using_i2p.md).
