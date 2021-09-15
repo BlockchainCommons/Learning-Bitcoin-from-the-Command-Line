@@ -123,4 +123,4 @@ Puede aprovechar los incentivos de CPFP para liberar fondos que le han sido envi
 
 ## Que Sigue?
 
-Avance a través de "bitcoin-cli" con [Chapter Six: Expanding Bitcoin Transactions with Multisigs](06_0_Expanding_Bitcoin_Transactions_Multisigs.md).
+Avance a través de "bitcoin-cli" con [Capitulo seis: Expandiendo las Transacciones Bitcoin con Multifirmas](06_0_Expandiendo_las_Transacciones_Bitcoin_con_Multifirmas.md).

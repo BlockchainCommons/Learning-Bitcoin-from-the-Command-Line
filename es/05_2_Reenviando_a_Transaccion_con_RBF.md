@@ -42,7 +42,7 @@ La bandera `bip125-replaceable` permanecerá `yes` hasta que la transacción rec
 
 > :book: ***¿Debo confiar en transacciones sin confirmaciones?*** No, nunca. Esto era cierto antes de RBF y fue cierto después de RBF. Las transacciones deben recibir confirmaciones antes de que sean confiables. Esto es especialmente cierto si una transacción está marcada como `bip125-replaceable`, porque entonces puede ser ... reemplazada.
 
-> :information_source: **NOTA — SECUENCIA:** Este es el primer uso del valor `nSequence` en Bitcoin. Puede configurarlo entre 1 y 0xffffffff-2 (4294967293) y habilitar RBF, pero si no tiene cuidado, puede enfrentarse al uso paralelo de `nSequence` para bloqueos temporales relativos. :t Sugerimos configurarlo siempre en "1", que es lo que hace Bitcoin Core, pero la otra opción es configurarlo en un valor entre 0xf0000000 (4026531840) y 0xffffffff-2 (4294967293). Establecerlo en "1" efectivamente hace que los bloqueos temporales relativos sean irrelevantes y establecerlo en 0xf0000000 o superior los desactiva. Todo esto se explica con más detalle en [§11.3: Using CSV in Scripts](11_3_Using_CSV_in_Scripts.md). Por ahora, simplemente elija uno de los valores no conflictivos para `nSequence`.
+> :information_source: **NOTA — SECUENCIA:** Este es el primer uso del valor `nSequence` en Bitcoin. Puede configurarlo entre 1 y 0xffffffff-2 (4294967293) y habilitar RBF, pero si no tiene cuidado, puede enfrentarse al uso paralelo de `nSequence` para bloqueos temporales relativos. :t Sugerimos configurarlo siempre en "1", que es lo que hace Bitcoin Core, pero la otra opción es configurarlo en un valor entre 0xf0000000 (4026531840) y 0xffffffff-2 (4294967293). Establecerlo en "1" efectivamente hace que los bloqueos temporales relativos sean irrelevantes y establecerlo en 0xf0000000 o superior los desactiva. Todo esto se explica con más detalle en [§11.3: Usando CSV en Scripts](11_3_Usando_CSV_en_Scripts.md). Por ahora, simplemente elija uno de los valores no conflictivos para `nSequence`.
 
 ### Opcional: Optar Siempre por RBF
 
@@ -212,4 +212,4 @@ Si una transacción está atascada y no desea esperar a que caduque por completo
 
 ## Que Sigue?
 
-Continúe "Controlando las Transacciones de Bitcoin" con [§5.3: Funding a Transaction with CPFP](05_3_Funding_a_Transaction_with_CPFP.md).  
+Continúe "Controlando las Transacciones de Bitcoin" con [§5.3: Financiando una Transacción con CPFP](05_3_Financiando_una_Transaccion_con_CPFP.md).  

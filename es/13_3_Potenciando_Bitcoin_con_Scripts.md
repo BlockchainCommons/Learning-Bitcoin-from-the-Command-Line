@@ -167,7 +167,7 @@ En esta situación, podría publicar virtuosamente la transacción, cerrando el 
 
 ### Bloqueo con contratos codificados con bloqueo de tiempo y hashes
 
-Las Transacciones de Compromiso Revocable fueron solo un trampolín hacia Lightning. La Lightning Network real utiliza un mecanismo más complejo llamado [contrato de bloqueo de tiempo hash] (https://en.bitcoin.it/wiki/Hashed_Timelock_Contracts), o HTLC.
+Las Transacciones de Compromiso Revocable fueron solo un trampolín hacia Lightning. La Lightning Network real utiliza un mecanismo más complejo llamado [contrato de bloqueo de tiempo hash](https://en.bitcoin.it/wiki/Hashed_Timelock_Contracts), o HTLC.
 
 El objetivo principal de los HTLCs es crear una red integral de participantes. Las transacciones ya no son solo entre un par de participantes que han ingresado a la red juntos, sino que ahora pueden ser entre personas previamente no asociadas. Cuando se envían fondos, se crea una serie de transacciones, cada una de ellas bloqueada con un `secretHash`. Cuando se revela el `secretCode` correspondiente, se puede gastar toda la cadena de transacciones. Esto es lo que permite que las transacciones singulares se conviertan realmente en una red.
 

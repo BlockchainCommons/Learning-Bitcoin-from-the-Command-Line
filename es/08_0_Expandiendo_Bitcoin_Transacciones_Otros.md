@@ -1,6 +1,6 @@
 # Capítulo ocho: Expandiendo las transacciones de Bitcoin de otras formas
 
-En la definición de transacciones básicas en el [Capítulo Seis](06_0_Expanding_Bitcoin_Transactions_Multisigs.md) se comentó que se enviaron _fondos_ _inmediatamente_, sin embargo ambos son elementos que se pueden cambiar. Esta sección final sobre la expansión de las transacciones de Bitcoin habla sobre cómo enviar cosas que no sean dinero en efectivo y cómo hacerlo en otro momento que no sea ahora.
+En la definición de transacciones básicas en el [Capítulo Seis](06_0_Expandiendo_las_Transacciones_Bitcoin_con_Multifirmas.md) se comentó que se enviaron _fondos_ _inmediatamente_, sin embargo ambos son elementos que se pueden cambiar. Esta sección final sobre la expansión de las transacciones de Bitcoin habla sobre cómo enviar cosas que no sean dinero en efectivo y cómo hacerlo en otro momento que no sea ahora.
 
 ## Objetivos de esta sección
 

@@ -112,7 +112,7 @@ Ese es el método estándar en Bitcoin Script para bloquear una transacción P2P
 
 ## Examine un tipo diferente de transacción
 
-Antes de dejar atrás esta base, veremos un tipo diferente de secuencia de comandos de bloqueo. Aquí está el `scriptPubKey` de la transacción multisig que creó en [§6.1: Enviando una Transacción a una Dirección Multifirma](06_1_Sending_a_Transaction_to_a_Multisig.md).
+Antes de dejar atrás esta base, veremos un tipo diferente de secuencia de comandos de bloqueo. Aquí está el `scriptPubKey` de la transacción multisig que creó en [§6.1: Enviando una Transacción a una Dirección Multifirma](06_1_Enviando_una_Transaccion_a_una_Direccion_Multifirma.md).
 
 ```
       "scriptPubKey": {
@@ -143,7 +143,7 @@ Estas dos transacciones están _definitivamente_ bloqueadas de diferentes formas
 
 ## Resumen: Entendiendo la base de las transacciones
 
-Cada transacción de Bitcoin incluye al menos un script de desbloqueo (`scriptSig`), que resuelve un rompecabezas criptográfico anterior, y al menos un script de bloqueo (` scriptPubKey`), que crea un nuevo rompecabezas criptográfico. Hay un "scriptSig" por entrada y un "scriptPubKey" por salida. Cada uno de estos scripts está escrito en Bitcoin Script, un lenguaje similar a Forth que potencia aún más a Bitcoin.
+Cada transacción de Bitcoin incluye al menos un script de desbloqueo (`scriptSig`), que resuelve un rompecabezas criptográfico anterior, y al menos un script de bloqueo (`scriptPubKey`), que crea un nuevo rompecabezas criptográfico. Hay un "scriptSig" por entrada y un "scriptPubKey" por salida. Cada uno de estos scripts está escrito en Bitcoin Script, un lenguaje similar a Forth que potencia aún más a Bitcoin.
 
 
 >:fire:***¿Cuál es el poder de los scripts?*** Los scripts desbloquean todo el poder de los contratos inteligentes. Con los códigos de operación adecuados, puede tomar decisiones muy precisas sobre quién puede canjear fondos, cuándo pueden canjear fondos y cómo pueden canjear fondos. También se pueden codificar en un script reglas más complejas para el gasto corporativo, el gasto en asociaciones, el gasto por poder y otras metodologías. Incluso habilita servicios de Bitcoin más complejos, como Lightning y sidechains.

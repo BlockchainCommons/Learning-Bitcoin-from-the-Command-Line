@@ -54,6 +54,13 @@ Ahora que tiene Tor instalado y sabe cómo usarlo, puede agregar otros servicios
 
 > :fire: ***¿Cuál es el poder de otros servicios ocultos?*** Cada vez que accede a un servicio en su servidor de forma remota, deja huellas en la red. Incluso si los datos están encriptados por algo como SSH (o TLS), los merodeadores en la red pueden ver desde dónde se está conectando, a dónde se está conectando y qué servicio está utilizando. ¿Importa esto? Esta es la pregunta que debe hacer. Pero si la respuesta es "Sí", puede proteger la conexión con un servicio oculto.
 
-Siga a "Programación con RPC" con [Capítulo 16: Hablar con Bitcoind con C](16_0_Hablando_a_Bitcoind_con_C.md).
+
+## ¿Que sigue?
+
+Continúe con "Uso de i2p" con el [Capítulo quince](15_0_Usando_i2p.md).
+
+O, si lo prefiere, hay dos caminos alternativos:
+
+Si desea mantenerse enfocado en Bitcoin, continúe con "Programación con RPC" con [Capítulo 16: Hablar con Bitcoind con C](16_0_Hablando_a_Bitcoind_con_C.md).
 
 O, si no es un programador, puede pasar al [Capítulo 19: Entendiendo la configuración de Lightning](19_0_Entendiendo_Su_Configuracion_Lightning.md) para continuar con su educación de línea de comandos con la red Lightning.
