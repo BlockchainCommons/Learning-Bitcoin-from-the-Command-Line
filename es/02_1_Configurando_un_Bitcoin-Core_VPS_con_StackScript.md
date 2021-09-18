@@ -222,7 +222,13 @@ _Si desea saber más sobre lo que hace el stackscript de Bitcoin Standup, consul
 
 ¡Así que ahora probablemente quiera jugar con Bitcoin!
 
-Pero espere, su demonio de Bitcoin probablemente todavía esté descargando bloques. El comando `bitcoin-cli getblockcount` le dirá cómo se encuentra actualmente:
+Pero espere, primero debe iniciar el demonio de Bitcoin:
+
+```
+$ bitcoind -daemon
+```
+
+Su demonio de Bitcoin comenzará a descargar bloques. El comando `bitcoin-cli getblockcount` le dirá cómo se encuentra actualmente:
 
 ```
 $ bitcoin-cli getblockcount
