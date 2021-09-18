@@ -118,7 +118,7 @@ There is also a `wally_bip32_key_to_address` function, which can be used to gene
 The code for these HD example can, as usual, be found in the [src directory](src/17_3_genhd.c).
 
 You can compile and test it:
-```bash
+```
 $ cc genhd.c -lwallycore -lsodium -o genhd
 $ ./genhd
 Mnemonic: behind mirror pond finish borrow wood park foam guess mail regular reflect
