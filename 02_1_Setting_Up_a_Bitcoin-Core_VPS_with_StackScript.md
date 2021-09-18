@@ -217,7 +217,12 @@ _If you'd like to know more about what the Bitcoin Standup stackscript does, ple
 
 So now you probably want to play with Bitcoin!
 
-But wait, your Bitcoin daemon is probably still downloading blocks. The `bitcoin-cli getblockcount` will tell you how you're currently doing:
+But wait, first you need to run the Bitcoin daemon:
+```
+$ bitcoind -daemon
+```
+
+Your Bitcoin daemon will start downloading blocks. The `bitcoin-cli getblockcount` will tell you how you're currently doing:
 ```
 $ bitcoin-cli getblockcount
 1771352
