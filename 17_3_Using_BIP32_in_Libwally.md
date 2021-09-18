@@ -97,7 +97,7 @@ Alternatively, you can use the `bip32_key_from_parent_alloc` function, which jus
   struct ext_key *key_address;  
   lw_response = bip32_key_from_parent_alloc(key_external,0,BIP32_FLAG_KEY_PRIVATE,&key_address);
 ```
-> :warning: **WARNING::** At some point in this hierarchy, you might decide to generate `BIP32_FLAG_KEY_PUBLIC` instead of `BIP32_FLAG_KEY_PRIVATE`. Obviously this decision will be based on your security and your needs, but remember that you only need a public key to generate the actual address.
+> :warning: **WARNING:** At some point in this hierarchy, you might decide to generate `BIP32_FLAG_KEY_PUBLIC` instead of `BIP32_FLAG_KEY_PRIVATE`. Obviously this decision will be based on your security and your needs, but remember that you only need a public key to generate the actual address.
 
 ### Generate an Address
 
