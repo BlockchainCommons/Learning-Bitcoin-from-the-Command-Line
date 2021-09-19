@@ -73,8 +73,7 @@ to start reviewing before you finish all chapter translation.
 You can track the state of the translation of that particular chapter in the 
 body of the pull request, with the following template:
 
----
-
+```
 This pull request creates the <translated_language> version of the chapter
 <chapter_number> of Learning-Bitcoin-from-the-Command-Line.
 
@@ -93,8 +92,7 @@ Things to check:
 | _2_           | <ul><li> [ ] </li></ul> | <ul><li> [ ] </li></ul> | <ul><li> [ ] </li></ul> |
 | _3_           | <ul><li> [ ] </li></ul> | <ul><li> [ ] </li></ul> | <ul><li> [ ] </li></ul> |
 | _etc_         | <ul><li> [ ] </li></ul> | <ul><li> [ ] </li></ul> | <ul><li> [ ] </li></ul> |
-
------
+```
 
 ### FINAL SUGGESTIONS:
 - _Keep lines under 80 characters_. Markdown parser will format them right
