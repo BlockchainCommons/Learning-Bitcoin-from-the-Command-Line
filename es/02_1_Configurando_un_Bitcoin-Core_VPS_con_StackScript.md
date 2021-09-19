@@ -142,6 +142,13 @@ $ ls
 bitcoin-0.20.0-x86_64-linux-gnu.tar.gz  laanwj-releases.asc  SHA256SUMS.asc
 ```
 
+Si no es así, es posible que no esté en el directorio home correcto:
+```
+$ cd /home/standup
+$ ls
+bitcoin-0.20.0-x86_64-linux-gnu.tar.gz  laanwj-releases.asc  SHA256SUMS.asc
+```
+
 Estos son los diversos archivos que se utilizaron para instalar Bitcoin en su VPS. Ninguno es necesario. Los dejamos en caso de que desee realizar una verificación adicional. De lo contrario, puede eliminarlos:
 
 ```
