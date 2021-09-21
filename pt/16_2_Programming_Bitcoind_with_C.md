@@ -1,11 +1,10 @@
-
-# 15.2: Programando o Bitcoind usando C com bibliotecas RPC
+# 16.2: Programando o Bitcoind usando C com bibliotecas RPC
 
 > :information_source: **NOTA:** Esta seção foi adicionada recentemente ao curso e é um rascunho que pode estar aguardando revisão. Portanto, leitor, tenha cuidado.
 
-A sessão [§15.1](15_1_Accessing_Bitcoind_with_C.md) apresentou a metodologia para a criação de programas C usando bibliotecas RPC e JSON. Agora vamos mostrar o potencial dessas bibliotecas C fazendo algumas coisas um pouco mais avançadas usando o programa real do Bitcoin.
+A seção [§16.1](16_1_Accessing_Bitcoind_with_C.md) apresentou a metodologia para a criação de programas C usando bibliotecas RPC e JSON. Agora vamos mostrar o potencial dessas bibliotecas C fazendo algumas coisas um pouco mais avançadas usando o programa real do Bitcoin.
 
-## Planejando o código
+## Planejando o Código
 
 Esta seção irá criar uma versão simples do ``sendtoaddress``, permitindo ao usuário enviar as moedas para um endereço, desde que tenha um UTXO grande o suficiente para isso. Aqui está o que precisamos fazer:
 
@@ -18,7 +17,7 @@ Esta seção irá criar uma versão simples do ``sendtoaddress``, permitindo ao 
   7. Assinar a transação;
   8. Enviar a transação.
   
-### Planejando para o futuro
+### Planejando para o Futuro
 
 Como este é o nosso primeiro programa C funcional, vamos mantê-lo simples (ou seja, vamos usar a filosofia, _Keep it Simple_ ou também conhecida como KISS). Se estivéssemos produzindo um programa para estar em produção, desejaríamos pelo menos os seguintes passos:
 
@@ -31,11 +30,11 @@ Como este é o nosso primeiro programa C funcional, vamos mantê-lo simples (ou 
    
 Se deseja continuar a expandir este exemplo, seria ótimo começar a lidar com as inadequações do programa.
 
-## Escrevendo o sistema de transação
+## Escrevendo o Sistema de Transação
 
 Agora estamos prontos para realizar o passo a passo do nosso plano
 
-### Etapa 1: Solicitando um endereço e uma quantia
+### Etapa 1: Solicitando um Endereço e uma Quantia
 
 Inserir as informações é bem simples se usarmos os argumentos na linha de comando:
 ``` c
@@ -54,7 +53,7 @@ printf("Sending %4.8f BTC to %s\n",tx_amount,tx_recipient);
 
 > :aviso: **ATENÇÃO:** Um programa real precisaria de uma higienização muito melhor dessas variáveis.
 
-### Etapa 2: Definindo uma taxa arbitrária
+### Etapa 2: Definindo uma Taxa Arbitrária
 
 Este exemplo colocamos uma taxa arbitrária de 0.0005 BTC para garantir que as transações do teste sejam processadas rapidamente:
 
@@ -65,9 +64,9 @@ float tx_total = tx_amount + tx_fee;
 
 > :warning: **ATENÇÃO:** Um programa real calcularia uma taxa que minimizasse o custo, garantindo que a velocidade fosse aquela que o remetente estivesse disposto a utilizar.
 
-### Etapa 3: Preparando nosso RPC
+### Etapa 3: Preparando Nosso RPC
 
-Obviamente, precisaremos preparar todas as nossas variáveis novamente, conforme discutido na sessão [§15.1: Acessando o Bitcoind usando C](15_1_Accessing_Bitcoind_with_C.md). Também precisaremos inicializar a nossa biblioteca, conectar o cliente RPC e preparar nosso objeto de resposta:
+Obviamente, precisaremos preparar todas as nossas variáveis novamente, conforme discutido na seção [§16.1: Acessando o Bitcoind com C](16_1_Accessing_Bitcoind_with_C.md). Também precisaremos inicializar a nossa biblioteca, conectar o cliente RPC e preparar nosso objeto de resposta:
 ``` c
 bitcoinrpc_global_init();
 rpc_client = bitcoinrpc_cl_init_params("bitcoinrpc", "YOUR-RPC-PASSWD", "127.0.0.1", 18332);
@@ -157,7 +156,7 @@ if(!tx_id) {
 
 > **ATENÇÃO** Um programa em produção usaria sub-rotinas para este tipo de pesquisa, de forma que pudéssemos chamar vários RPCs de uma biblioteca de funções C. Vamos apenas colocar tudo em um `main` como parte da nossa filosofia KISS.
 
-### Etapa 5: Criando um endereço de troco
+### Etapa 5: Criando um Endereço de Troco
 
 Repita a metodologia padrão de pesquisa RPC para obter um endereço de troco:
 ``` c
@@ -188,7 +187,7 @@ A única diferença é quais informações específicas são extraídas do objet
 
 > :warning: **ATENÇÃO:** Aqui temos uma sub-rotina que seria bem legal: Abstrair toda a inicialização e chamada do método RPC.
 
-### Etapa 6: Criando uma transação bruta
+### Etapa 6: Criando uma Transação Bruta
 
 Criar a transação bruta real é outra parte complicada da programação da substituição do ``sendtoaddress``. Isso porque requer a criação de um objeto JSON complexo como parâmetro.
 
@@ -200,7 +199,7 @@ createrawtransaction [{"txid":"id","vout":n},...] {"address":amount,"data":"hex"
 
 Para relembrar, as entradas serão uma matriz JSON contendo um objeto JSON para cada UTXO. Então, as saídas estarão todas em um objeto JSON. É mais fácil criar esses elementos JSON de dentro para fora, usando os comandos ``jansson``.
 
-#### Etapa 6.1: Criando os parâmetros de entrada
+#### Etapa 6.1: Criando os Parâmetros de Entrada
 
 Para criar o objeto de entrada para nosso UTXO, vamos usar o ``json_object`` e preencher com os valores-chave usando ``json_object_set_new`` (para referências recém-criadas) ou ``json_object_set`` (para referências já existentes):
 ``` c
@@ -220,7 +219,7 @@ inputparams = json_array();
 json_array_append(inputparams,inputtxid);
 ```
 
-#### Etapa 6.2: Criando os parâmetros de saída
+#### Etapa 6.2: Criando os Parâmetros de Saída
 
 Para criar a matriz de saída para a transação, vamos seguir o mesmo processo, criando um objeto JSON com ``json_object`` e, em seguida, vamos preenchê-lo com o ``json_object_set``:
 ``` c
@@ -248,7 +247,7 @@ json_array_append(params,inputparams);
 json_array_append(params,outputparams);
 ```
 
-#### Etapa 6.4: Fazendo a chamada ao RPC
+#### Etapa 6.4: Fazendo a Chamada ao RPC
 
 Vamos usar o método normal para criar uma chamada ao RPC:
 ``` c
@@ -271,7 +270,7 @@ lu_result = json_object_get(lu_response,"result");
 
 char *tx_rawhex = strdup(json_string_value(lu_result));
 ```
-### Etapa 7. Assinando a transação
+### Etapa 7. Assinando a Transação
 
 É muito mais fácil atribuir um parâmetro simples a uma função. Basta criar uma matriz JSON e, em seguida, atribuir o parâmetro à matriz:
 ``` c
@@ -301,7 +300,7 @@ json_decref(lu_signature);
 ```
 > :warning: ***ATENÇÃO:*** Um programa em produção obviamente iria testar cuidadosamente a resposta de cada comando RPC para se certificar de que não teria erros. Isso é ainda mais verdadeiro para  a função ``signrawtransaction``, porque podemos acabar com uma transação parcialmente assinada. Ou ainda pior, se não verificarmos os erros no objeto JSON, veremos apenas o ``hex`` e não iremos saber que ele não está assinado ou se está parcialmente assinado.
 
-### Etapa 8. Enviando a transação
+### Etapa 8. Enviando a Transação
 
 Agora podemos enviar a transação, usando todas as técnicas aprendidas anteriormente:
 ``` c
@@ -329,9 +328,9 @@ printf("Txid: %s\n",tx_newid);
 
 O código inteiro, com um _pouco_ mais verificação de erros, está disponível no Apêndice.
 
-## Testando o código
+## Testando o Código
 
-O código completo pode ser encontrado no [diretório src/](src/15_2_sendtoaddress.c).
+O código completo pode ser encontrado no [diretório src/](src/16_2_sendtoaddress.c).
 
 Compile-o como de costume:
 ```
@@ -345,10 +344,10 @@ Txid: b93b19396f8baa37f5f701c7ca59d3128144c943af5294aeb48e3eb4c30fa9d2
 ```
 Você pode ver as informações sobre esta transação que enviamos clicando [aqui](https://mempool.space/pt/testnet/tx/b93b19396f8baa37f5f701c7ca59d3128144c943af5294aeb48e3eb4c30fa9d2/).
 
-## Resumo do Programando o Bitcoind usando C com bibliotecas RPC
+## Resumo: Programando o Bitcoind em C com Bibliotecas RPC
 
 Com acesso a uma biblioteca C, podemos criar programas com muito mais recursos quando comparados aos  scripts no shell. Mas isso pode dar muito trabalho! Mesmo com 316 linhas de código, o ``sendtoaddress.c`` não cobre todos os detalhes necessários para transacionar bitcoins de forma segura e inteligente.
 
 ## O Que Vem Depois?
 
-Aprenda mais sobre "Programando o Bitcoind usando C" na próxima sessão [15.3: Recebendo notificações usando C com a biblioteca ZMQ](15_3_Receiving_Bitcoind_Notifications_with_C.md).
+Aprenda mais sobre "Programando o Bitcoind com C" na próxima seção [16.3: Recebendo notificações usando C com a biblioteca ZMQ](16_3_Receiving_Bitcoind_Notifications_with_C.md).

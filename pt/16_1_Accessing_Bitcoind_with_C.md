@@ -1,5 +1,4 @@
-
-# 15.1: Acessando o Bitcoind usando C com bibliotecas RPC
+# 16.1: Acessando o Bitcoind em C com Bibliotecas RPC
 
 > :information_source: **NOTA:** Esta seção foi adicionada recentemente ao curso e é um esboço que ainda pode estar aguardando revisão. Portanto, leitor, tenha cuidado.
 
@@ -29,7 +28,7 @@ $ git clone https://github.com/gitmarek/libbitcoinrpc
 
 > :warning: **ATENÇÃO** Uma alteração no RPC "signrawtransaction" causou uma assinatura com ``libbitcoinrpc`` para o segfault no Bitcoin 0.17 ou superior. O [Pull Request foi submetido](https://github.com/gitmarek/libbitcoinrpc/pull/1/commits) para resolver o problema, mas se ainda não tiver sido feito o merge,  podemos simplesmente fazer uma simples mudança no código-fonte para ``src/bitcoinrpc_method.c`` antes de compilarmos.
 
-### Compilando o libbitcoinrpc.
+### Compilando o libbitcoinrpc
 
 Antes de compilarmos e instalarmos o pacote, provavelmente precisaremos ajustar nosso  ``$PATH``, para que  possamos acessar o ``/sbin/ldconfig``:
 ```
@@ -91,7 +90,7 @@ Installing man pages
 install -m 644 doc/man3/bitcoinrpc*.gz /usr/local/man/man3
 ```
 
-## Preparando o código
+## Preparando o Código
 
 ``libbitcoinrpc`` tem métodos simples e bem estruturados para conectar-se ao nosso `bitcoind`, executando chamadas RPC e decodificando a resposta.
 
@@ -107,7 +106,7 @@ Precisaremos também vincular as bibliotecas apropriadas sempre que possamos com
 $ cc yourcode.c -lbitcoinrpc -ljansson -o yourcode
 ```
 
-## Construindo a conexão
+## Construindo a Conexão
 
 Para construir a conexão com o servidor ``bitcoind`` é necessário alguns simples passos.
 
@@ -154,7 +153,7 @@ Mais tarde, quando tivermos feito com a conexão de ``bitcoind``, poderemos fech
 bitcoinrpc_global_cleanup();
 ```
 
-### Testando o código de teste
+### Testando o Código de Teste
 
 O código de teste pode ser encontrado [no diretório src com o nome 15_1_testbitcoin.c](src/15_1_testbitcoin.c). Vamos fazer o download para a nossa máquina TestNet e depois inserir a senha correta do RPC (e alterar o usuário RPC se não tivermos criado o servidor com StandUp).
 
@@ -167,7 +166,7 @@ Successfully connected to server!
 
 > :warning: **ATENÇÃO:** Se esquecermos de inserir a senha RPC nesta ou em qualquer outro código que possuem dependências do RPC, receberemos um misterioso ``ERROR CODE 5``.
 
-## Fazendo uma chamada ao RPC
+## Fazendo uma Chamada ao RPC
 
 Para usarmos um método RPC usando ``libbitcoinrpc``, devemos inicializar uma variável do tipo ``bitcoinrpc_method_t``. Podemos fazer com o valor apropriado para o método que desejamos utilizar, que estão todos listados na [Referências do BitcoinRPC](https://github.com/gitmarek/libbitcoinrpc/blob/master/doc/reference.md).
 ``` c
@@ -188,7 +187,7 @@ Vamos usar a variável ``rpc_client`` que aprendemos no teste anterior e vamos a
 bitcoinrpc_call(rpc_client, getmininginfo, btcresponse, &btcerror);
 ```
 
-### Mostrando o retorno da chamada
+### Mostrando o Retorno da Chamada
 
 Com certeza iremos querer saber o que a RPC retornou. Para fazermos isso, vamos recuperar a saída da nossa chamada como sendo um objeto JSON com ``bitcoinrpc_resp_get`` e vamos salvá-la em um objeto padrão ``jansson``, do tipo ``json_t``:
 ``` c
@@ -222,7 +221,7 @@ printf("Block Count: %d\n",blocks);
 
 > :warning: **ATENÇÃO:** É extremamente fácil ocasionar erros de segmentação no código C quando estivermos trabalhando com os objetos ``jansson`` caso fiquemos confusos com que tipo de objeto estamos recuperando.  Por isso, precisamos fazer isso com cuidado usando o ``bitcoin-cli help`` para saber o que devemos esperar, e se tivermos uma falha de segmentação, primeiro precisamos analisar se nossas funções de recuperação JSON estão corretas.
 
-### Testando o código de informação
+### Testando o Código de Informação
 
 Vamos recuperar o código de teste que está no [diretório src](15_1_GetMiningInfo.c).
 ```
@@ -253,11 +252,11 @@ Just the Result: {
 Block Count: 1804406
 ```
 
-## Fazendo uma chamada RPC usando argumentos
+## Fazendo uma Chamada RPC Usando Argumentos
 
 Mas e se a sua chamada RPC tiver argumentos?
 
-### Criando uma matriz JSON
+### Criando uma Matriz JSON
 
 Para enviar parâmetros para a nossa chamada RPC usando ``libbitcoinrpc`` teremos que envolvê-los em uma matriz json. Como uma matriz é apenas uma simples listagem de valores, tudo o que precisamos fazer é codificar os parâmetros como elementos ordenados na matriz.
 
@@ -275,7 +274,7 @@ Observe que existem duas variantes para o comando de anexação: ``json_array_ap
 
 Esta metodologia simples ``json_array_apend_new`` servirá para a maioria dos comandos RPC com parâmetros, mas alguns dos comandos RPC exigem entradas mais complexas. Nesses casos, precisaremos criar objetos JSON ou arrays em JSON, que anexaremos ao parâmetros de array como de costume. A próxima seção contém um exemplo de como fazer isso usando o ``CrayAwTransaction``, que contém uma matriz JSON de objetos JSON para as entradas, um objeto JSON para as saídas e o parâmetro ``locktime``.
 
-### Atribuindo os parâmetros
+### Atribuindo os Parâmetros
 
 Quando criamos o parâmetro array no JSON, simplesmente o atribuímos depois de inicializar o método RPC, da seguinte maneira:
 ``` c
@@ -283,12 +282,12 @@ bitcoinrpc_method_set_params(rpc_method, params)
 ```
 Esta seção não inclui uma amostra abrangente dessa metodologia mais complexa, mas vamos vê-la em ação várias vezes no nosso primeiro programa C mais abrangente usando o RPC, na próxima seção.
 
-## Resumo do capítulo Acessando o Bitcoind usando C com bibliotecas RPC
+## Resumo: Acessando o Bitcoind em C com Bibliotecas RPC
 
 Ao vincular às bibliotecas ``BitcoinRPC`` do RPC e as bibliotecas ``jansson`` do JSON, podemos acessar facilmente o ``bitcoind`` usando chamadas RPC de uma biblioteca C. Para fazer isso, criamos uma conexão RPC, que faz as chamadas individuais de RPC, algumas delas passando alguns parâmetros. O ``jansson`` permite decodificar as respostas no formato JSON. A próxima seção demonstrará como isso pode ser usado para um programa de uso do mundo real.
 
-* :fire: ***Qual é o poder de C?*** O C permite que façamos o próximo passo muito além do script shell, permitindo a criação de programas mais complexos e robustos.
+* :fire: ***Qual é o poder do C?*** O C permite que façamos o próximo passo muito além do script shell, permitindo a criação de programas mais complexos e robustos.
 
 ## O Que Vem Depois?
 
-Vamos falar mais um pouco no "Conversando com o Bitcoind usando C" no capítulo [15.2: Programando o Bitcoind usando C com bibliotecas RPC](15_2_Programming_bitcoind_with_c.md).
+Vamos falar mais um pouco no "Conversando com o Bitcoind com C" no capítulo [16.2: Programando o Bitcoind em C com Bibliotecas RPC](16_2_Programming_bitcoind_with_c.md).
