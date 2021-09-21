@@ -16,11 +16,11 @@ Os objetivos secundários do capítulo incluem a capacidade de:
    * Compreender as várias variações dos scripts Segwit;
    * Entender como gastar fundos enviados a um P2SH.
 
-## Tabela de conteúdo
+## Tabela de Conteúdo
 
 * [Seção 1: Compreendendo a Base do P2SH](10_1_Understanding_the_Foundation_of_P2SH.md)
 * [Seção 2: Construindo a Estrutura do P2SH](10_2_Building_the_Structure_of_P2SH.md)
-* [Seção 3: Executando um Script Bitcoin com P2SH](10_3_Running_a_Bitcoin_Script_with_P2SH.md)
+* [Seção 3: Executando um Script do Bitcoin com P2SH](10_3_Running_a_Bitcoin_Script_with_P2SH.md)
 * [Seção 4: Programando um Multisig](10_4_Scripting_a_Multisig.md)
 * [Seção 5: Programando um Script Segwit](10_5_Scripting_a_Segwit_Script.md)
 * [Seção 6: Gastando uma Transação P2SH](10_6_Spending_a_P2SH_Transaction.md)
