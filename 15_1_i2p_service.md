@@ -2,7 +2,7 @@
 
 > :information_source: **NOTE:** This section has been recently added to the course and is an early draft that may still be awaiting review. Caveat reader.
 
-Rather than using the proxy-based Tor service to ensure the privacy of your Bitcoin communications, you may instead wish to use I2P, which is designed to act as a private network within the internet, rather than simply offering private acecss to internet services.
+Rather than using the proxy-based Tor service to ensure the privacy of your Bitcoin communications, you may instead wish to use I2P, which is designed to act as a private network within the internet, rather than simply offering private access to internet services.
 
 ## Understand the Differences
 
@@ -73,7 +73,7 @@ The following will run Bitcoin Core I2P services:
    i2psam=127.0.0.1:7656
    debug=i2p
    ```
-   The logging option, `debug=i2p`, is used to record additional information in the debug log about your I2P configuration and connections. The default location for this debugging file on Linux is: `~/.bitcoin/bitcoin.conf`:
+   The logging option, `debug=i2p`, is used to record additional information in the debug log about your I2P configuration and connections. The default location for this debugging file on Linux is: `~/.bitcoin/debug.log`:
 
 5. Restart `bitcoind`
 
@@ -112,10 +112,10 @@ You now have your Bitcoin server accessible through the I2P network at your new 
 
 ## Summary: Bitcoin Core as an I2P (Invisible Internet Project) service
 
-It is always good to have alternatives for privacy and not depend solely on Tor for running Bitcoin Core as a hidden service. Since i2p was recently added in Bitcoin Core, not many people use it. Experiment with it and report bugs if you find any issues.
+It is always good to have alternatives for privacy and not depend solely on Tor for running Bitcoin Core as a hidden service. Since I2P was recently added in Bitcoin Core, not many people use it. Experiment with it and report bugs if you find any issues.
 
-> :information_source: **NOTE:** For the official i2prouter implementation in Java, visit the [i2p download page](https://geti2p.net/en/download) and follow the instructions for your Operating System. Once installed, open a terminal window and type `i2prouter start`. Then visit `127.0.0.1:7657` in your browser to enable SAM. To do so, select: "Configure Homepage", then "Clients", and finally select the "Play Button" next to SAM application Bridge. On the left side of the page, there should be a green light next to "Shared Clients".
+> :information_source: **NOTE:** For the official i2prouter implementation in Java, visit the [I2P download page](https://geti2p.net/en/download) and follow the instructions for your Operating System. Once installed, open a terminal window and type `i2prouter start`. Then visit `127.0.0.1:7657` in your browser to enable SAM. To do so, select: "Configure Homepage", then "Clients", and finally select the "Play Button" next to SAM application Bridge. On the left side of the page, there should be a green light next to "Shared Clients".
 
 Move on to "Programming with RPC" with [Chapter Sixteen: Talking to Bitcoind with C](16_0_Talking_to_Bitcoind.md).
 
-Or, if you're not a programmer, you can skip to [Chapter Nineteen: Understanding Your Lightning Seutp](https://github.com/BlockchainCommons/Learning-Bitcoin-from-the-Command-Line/blob/master/19_0_Understanding_Your_Lightning_Setup.md) to continue your command-line education with the Lightning Network.
+Or, if you're not a programmer, you can skip to [Chapter Nineteen: Understanding Your Lightning Setup](https://github.com/BlockchainCommons/Learning-Bitcoin-from-the-Command-Line/blob/master/19_0_Understanding_Your_Lightning_Setup.md) to continue your command-line education with the Lightning Network.
