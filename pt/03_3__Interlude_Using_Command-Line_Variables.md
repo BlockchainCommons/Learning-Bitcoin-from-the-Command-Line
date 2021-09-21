@@ -1,4 +1,4 @@
-# Usando variáveis de linha de comando
+# Usando Variáveis de Linha de Comando
 
 A sessão anterior demonstrou vários comandos de linha de comando usados sem ofuscação ou interferência. No entanto, geralmente essa não é a melhor maneira de executar o Bitcoin usando a linha de comando. Como estamos lidando com variáveis longas, complexas e difíceis de serem lidas, é fácil cometer um erro se estivermos copiando essas variáveis (ou, perder alguns satoshis, se as digitarmos manualmente). Como essas variáveis podem significar a diferença entre receber e perder dinheiro quando usarmos a Mainnet, não _queremos_ cometer erros. Por esses motivos, sugerimos enfaticamente o uso de variáveis de linha de comando para salvar endereços, assinaturas ou outras cadeias de informações longas sempre que isso for razoável.
 
@@ -31,10 +31,10 @@ O restante deste tutorial usará esse estilo de armazenamento de informações q
 
 > :book: ***Quando não é prático usar variáveis de linha de comando?*** Variáveis de linha de comando não são práticas se precisarmos usar as informações em algum lugar diferente da linha de comando. Por exemplo, salvar a assinatura pode não ser útil se tivermos que enviá-la a outra pessoa por e-mail. Além disso, alguns comandos futuros produzirão objetos JSON ao invés de informações simples, e as variáveis não podem ser usadas para capturar essas informações, ao menos não sem um _pouco_ mais de mais trabalho.
 
-## Resumo do Usando variáveis de linha de comando
+## Resumo: Usando Variáveis de Linha de Comando
 
 Variáveis de shell podem ser usadas para manter longas strings, minimizando as chances de erros.
 
 ## O Que Vem Depois?
 
-Vamos continuar "Compreendendo a configuração do node Bitcoin" na sessão [3.4: Recebendo uma transação](03_4_Receiving_a_Transaction.md).
+Vamos continuar "Compreendendo Nossa Configuração do Bitcoin" na sessão [3.4: Recebendo uma Transação](03_4_Receiving_a_Transaction.md).

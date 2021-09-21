@@ -1,9 +1,8 @@
-
-# 3.1: Verificando a configuração do node Bitcoin
+# 3.1: Verificando Nossa Configuração do Bitcoin
 
 Antes de começarmos a brincar com Bitcoin, devemos nos certificar de que tudo está configurado corretamente.
 
-## Crie os aliases
+## Crie os Aliases
 
 Sugerimos a criação de alguns aliases (um tipo de atalho) para facilitar o uso do Bitcoin.
 
@@ -32,7 +31,7 @@ standup    455  1.3 34.4 3387536 1392904 ?     SLsl Jun16  59:30 /usr/local/bin/
 
 Se ele não estiver listado, podemos executar o `/usr/local/bin/bitcoind -daemon` manualmente e também colocá-lo em crontab.
 
-## Verificando os blocos
+## Verificando os Blocos
 
 Vamos partir do pressuposto que já tenhamos baixado todo o blockchain antes de começarmos a brincar. Basta executar o comando `bitcoin-cli getblockcount` para ver tudo está carregado corretamente.
 ```
@@ -59,7 +58,7 @@ $ btcblock
 
 Se a nossa blockchain não estiver atualizada, mas nosso `getblockcount` estiver aumentando, não há problema. O tempo total de download pode levar de uma a várias horas, dependendo da configuração.
 
-## Opcional: Conhecendo os tipos de servidores
+## Opcional: Conhecendo os Tipos de Servidores
 
 > **TESTNET vs MAINNET:** Ao configurar o node Bitcoin, precisamos escolher se vamos criá-lo como sendo um Mainnet, Testnet ou Regtest. Embora este documento presuma uma configuração de Testnet, vale a pena entender como podemos acessar e usar os outros tipos de configuração, inclusive, como ter todos na mesma máquina! Mas, se formos iniciantes, podemos pular isso, pois não é necessário para uma configuração básica.
 
@@ -95,10 +94,10 @@ EOF
 ```
 Para ainda mais complexidade, podemos fazer com que cada um dos aliases 'start' use o sinalizador -conf para carregar a configuração de um arquivo diferente. Isso vai muito além do escopo deste tutorial, mas o oferecemos como um ponto de partida para quando nossas explorações de Bitcoin atingirem o próximo nível.
 
-## Resumo do Verificando a configuração do seu node Bitcoin
+## Resumo: Verificando Nossa Configuração do Bitcoin
 
 Antes de começar a brincar com o Bitcoin, devemos nos certificar de que nossos aliases estão configurados, nosso bitcoind está rodando e os blocos foram baixados. Também podemos querer configurar algum acesso a configurações alternativas de Bitcoin, se formos usuários mais avançados.
 
 ## O Que Vem Depois?
 
-Continue "Understanding Your Bitcoin Setup" com [3.2: Knowing Your Bitcoin Setup](03_2_Knowing_Your_Bitcoin_Setup.md).
+Continue "Compreendendo Nossa Configuração do Bitcoin" com [3.2: Conhecendo Nossa Configuração do Bitcoin](03_2_Knowing_Your_Bitcoin_Setup.md).
