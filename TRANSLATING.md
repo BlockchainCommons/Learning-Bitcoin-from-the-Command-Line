@@ -45,4 +45,69 @@ Thank you for your interest in translating Learning Bitcoin from the Command Lin
    * It is our hope that translations will stay up to day with new releases, particularly major and minor releases, which are likely to include new content and updates. Currently, these only occur ever few years
    * If you have decided to stop updating a translation, please let us know in an Issue, so that we can let the community know that we are looking for a new translator to continue updating a translation.
 
+### WORKFLOW EXAMPLE
+
+Chapter 3 has 7 subsections: 3.0, 3.1, 3.2, 3.3, Interlude 3.3, 3.4 and 3.5.
+Suppose you want to translate it to french.
+
+One approach to its translation would be to create a branch `french-3` from
+`french-translation` branch (created in the previous step). Then create a
+translation file for the 3.0 subsection. When you think that chapter 3.0 is
+ready for review you commit your changes and continue with the next file,
+subsection 3.1. Repeat the same process for this file and all the following.
+After this, your branch `french-3` will diverge from the base branch
+(`french-translation` in this case) by 7 different commits, one for each
+subsection, plus some more commits if you forgot to make some changes or need
+to correct others.  At this point you are ready to push your changes to your
+fork and open a pull request to the original repository.
+
+In the review process you will discuss some decisions with your reviewer and
+introduce new changes in the form of commits if you have to change some parts
+of your modifications.  Don't forget to commit those changes in meaningful
+chunks and push them to your fork.  After polishing your changes, your reviewer
+will accept your changes and it will request the merge of those changes on the
+`french-translation` branch.  Note that you can also push your changes and
+create your pull request after your first commit. This will allow the reviewer
+to start reviewing before you finish all chapter translation.
+
+You can track the state of the translation of that particular chapter in the 
+body of the pull request, with the following template:
+
+```
+This pull request creates the <translated_language> version of the chapter
+<chapter_number> of Learning-Bitcoin-from-the-Command-Line.
+
+Things to check:
+- Respect filenames and chapter names from translated [README](local/path/to/README).
+- Correct translation.
+- Term consistency: review ["translation memory"](local/path/to/file) file.
+- Good punctuation.
+- Correct linking.
+- Nice formatting.
+
+| Sub chapter   |       Translated        |         Reviewed        |          Done           |
+| ------------- |   :--------------:      |    :--------------:     |    :--------------:     |
+| _0_           | <ul><li> [ ] </li></ul> | <ul><li> [ ] </li></ul> | <ul><li> [ ] </li></ul> |
+| _1_           | <ul><li> [ ] </li></ul> | <ul><li> [ ] </li></ul> | <ul><li> [ ] </li></ul> |
+| _2_           | <ul><li> [ ] </li></ul> | <ul><li> [ ] </li></ul> | <ul><li> [ ] </li></ul> |
+| _3_           | <ul><li> [ ] </li></ul> | <ul><li> [ ] </li></ul> | <ul><li> [ ] </li></ul> |
+| _etc_         | <ul><li> [ ] </li></ul> | <ul><li> [ ] </li></ul> | <ul><li> [ ] </li></ul> |
+```
+
+### FINAL SUGGESTIONS:
+- _Keep lines under 80 characters_. Markdown parser will format them right
+  (double check that) and the review process will be easier.
+- _Translate `README.md` file first_ and use it as reference for the translation
+  of all the following chapter names, filenames and link names.  The README
+  represents the state of the master branch at the moment of begin the
+  translation process. It will be consulted by all translators to know how to
+  translate file and chapter names. Try to reach an agreement with the other
+  translators about those names before writing any chapter and keep further
+  changes of this file to minimum.
+- _Create a "translation memory" file_ with special words that could have
+  multiple translations under the same contexts and the translation chosen for
+  them. Good candidates to be in this list would be domain specific words,
+  like: multisig, input, output, script, timelock, locktime, hash, etc.
+
+
 Again, thank you!
