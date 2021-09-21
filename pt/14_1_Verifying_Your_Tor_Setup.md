@@ -1,4 +1,4 @@
-# 14.1: Verificando a Configuração do Tor
+# 14.1: Verificando Nossa Configuração do Tor
 
 > :information_source: **NOTA:** Esta seção foi adicionada recentemente ao curso e é um rascunho inicial que ainda pode estar aguardando revisão.
 
