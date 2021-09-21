@@ -270,4 +270,4 @@ Quando satoshinhos entram na nossa carteira Bitcoin, eles permanecem em quantida
 
 ## O Que Vem Depois?
 
-Vamos fazer uma pausa do "Enviando Transações no Bitcoin" para lermos o [Prefácio: Usando JQ](04_2__Interlude_Using_JQ.md).
+Vamos fazer uma pausa em "Enviando Transações no Bitcoin" para lermos o [Prefácio: Usando JQ](04_2__Interlude_Using_JQ.md).
