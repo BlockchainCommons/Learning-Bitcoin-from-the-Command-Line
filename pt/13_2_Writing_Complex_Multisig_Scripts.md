@@ -1,4 +1,4 @@
-# 13.2: Escrevendo Scripts Multisig Complexos
+# 13.2: Escrevendo Scripts Complexos de Multisig
 
 Até o momento, os multisigs descritos nesses documentos têm sido inteiramente simples, na forma m-de-n ou n-de-n. No entanto, podemos desejar multisigs mais complexos, onde as pessoas que assinam as transações variam ou onde diferentes opções podem se tornar disponíveis ao longo do tempo.
 
@@ -140,7 +140,7 @@ Observe que este script requer que um ```True``` ou ```False``` seja passado par
 
 No início, o seguinte ```sigScript``` seria permitido: ```0 <signer1> <signer2> True```. Após 30 dias, Alice poderia produzir um ```sigScript``` como este: ```<sigA> False```.
 
-## Resumo: Escrevendo Scripts Multisig Complexos
+## Resumo: Escrevendo Scripts Complexos de Multisig
 
 Os multisigs mais complexos podem ser normalmente criados combinando assinaturas ou multi-assinaturas com condicionais e testes. Os multisigs resultantes podem ser variáveis, exigindo diferentes números de assinantes com base em quem são e quando estão assinando.
 

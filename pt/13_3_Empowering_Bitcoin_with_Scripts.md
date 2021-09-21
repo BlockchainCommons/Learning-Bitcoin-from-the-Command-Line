@@ -271,6 +271,6 @@ Vamos ficar "Usando o Tor" no [Capítulo Quatorze: Usando o Tor](14_0_Using_Tor.
 
 Ou, se preferir, existem dois caminhos alternativos:
 
-Se quiser manter o foco no Bitcoin, siga em frente para "Programando com o RPC" no [Capítulo Quinze: Conversando com Bitcoind usando C](15_0_Talking_to_Bitcoind.md).
+Se quiser manter o foco no Bitcoin, siga em frente para "Programando com RPC" no [Capítulo Dezesseis: Conversando com Bitcoind com C](16_0_Talking_to_Bitcoind.md).
 
-Ou, se quiser manter o foco na linha de comando porque não é um programador, pode pular para o [Capítulo Dezoito: Entendendo Nossa Configuração da Lightning](18_0_Understanding_Your_Lightning_Setup.md) para continuar seus estudos da linha de comando com a Lightning Network.
+Ou, se quiser manter o foco na linha de comando porque não é um programador, pode pular para o [Capítulo Dezenove: Compreendendo Nossa Configuração da Lightning](19_0_Understanding_Your_Lightning_Setup.md) para continuar seus estudos da linha de comando com a Lightning Network.
