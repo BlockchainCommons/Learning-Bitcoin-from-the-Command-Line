@@ -203,4 +203,4 @@ Depois de recebermos um invoice, é fácil pagar com um único comando na Lightn
 
 ## O Que Vem Depois?
 
-Vamos continuar "Usando a Lightning" na seção [§20.3: Fechando um Canal na Lightning](20_3_Closing_a_Channel.md).
+Vamos continuar "Usando a Lightning" na seção [§20.3: Fechando um Canal Lightning](20_3_Closing_a_Channel.md).

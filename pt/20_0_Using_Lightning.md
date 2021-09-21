@@ -19,8 +19,7 @@ Os objetivos secundários do capítulo incluem a capacidade de:
 
 ## Tabela de Conteúdo
 
-* [Seção 1: Gerando um Invoice](19_1_Generate_a_Payment_Request.md)
-* [Seção 2: Pagando um Invoice](19_2_Paying_a_Invoice.md)
-* [Seção 3: Fechando um Canal na Lightning](19_3_Closing_a_Channel.md)
-* [Seção 4: Expandindo a Lightning Network](19_4_Lightning_Network_Review.md)
-
+* [Seção 1: Gerando um Invoice](20_1_Generate_a_Payment_Request.md)
+* [Seção 2: Pagando um Invoice](20_2_Paying_a_Invoice.md)
+* [Seção 3: Fechando um Canal Lightning](20_3_Closing_a_Channel.md)
+* [Seção 4: Expandindo a Lightning Network](20_4_Lightning_Network_Review.md)
