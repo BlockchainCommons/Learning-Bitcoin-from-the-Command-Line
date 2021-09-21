@@ -196,7 +196,7 @@ b164388854f9701051809eed166d9f6cedba92327e4296bf8a265a5da94f6521
 ```
 Como podemos ver, não houve nada de incomum na criação da transação e ela parece normal, embora com um endereço com um prefixo diferente do normal (```2N8MytPW2ih27LctLjn6LfLFZZb1PFSsqBr```). Sem surpresa, como também não vimos diferença quando enviamos para endereços Bech32 pela primeira vez na seção [§4.6](04_6_Creating_a_Segwit_Transaction.md).
 
-## Resumo: Enviando uma Transação Multisig
+## Resumo: Enviando uma Transação com Multisig
 
 Os endereços multisig trancam os fundos usando várias chaves privadas, possivelmente exigindo todas essas chaves privadas para resgate e, possivelmente, exigindo apenas algumas do conjunto. Eles são fáceis de serem criados com o ```bitcoin-cli``` e são simples para serem enviados. Essa facilidade se deve em grande parte ao uso invisível de endereços P2SH (Pay-To-Script-Hash), um tópico extenso que já falamos duas vezes, com endereços P2SH-SegWit e agora com os multisigs, e um outro que receberá mais atenção no futuro.
 

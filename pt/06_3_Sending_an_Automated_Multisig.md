@@ -117,4 +117,4 @@ Existe uma maneira mais fácil de gastar fundos enviados para os nossos endereç
 
 ## O Que Vem Depois?
 
-Saiba mais sobre "Expandindo Transações no Bitcoin com Multisigs" no [Capítulo 7: Expandindo Transações no Bitcoin com PSBTs](07_0_Expanding_Bitcoin_Transactions_PSBTs.md).
+Saiba mais sobre "Expandindo Transações no Bitcoin" no [Capítulo 7: Expandindo Transações no Bitcoin com PSBTs](07_0_Expanding_Bitcoin_Transactions_PSBTs.md).
