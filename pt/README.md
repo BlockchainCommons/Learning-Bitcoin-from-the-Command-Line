@@ -3,7 +3,7 @@
 
 ![](https://www.blockchaincommons.com/images/projects/lbtc-screen.png)
 
-"Aprendendo Bitcoin pela Linha de Comando", esta é a versão em português de [Learning Bitcoin from the Command Line](https://github.com/BlockchainCommons/Learning-Bitcoin-from-the-Command-Line), um tutorial para trabalhar com Bitcoin (e Lightning) que ensina a interação direta com os servidores da maneira mais robusta e segura, para começar a trabalhar com criptomoedas.
+"Aprendendo Bitcoin pela Linha de Comando" é a versão em português de [Learning Bitcoin from the Command Line](https://github.com/BlockchainCommons/Learning-Bitcoin-from-the-Command-Line), um tutorial para trabalhar com Bitcoin (e Lightning) que ensina a interação direta com os próprios servidores como a maneira mais robusta e segura para começar a trabalhar com criptomoedas.
 
 > NOTA: Este é um rascunho em progresso, para que eu possa receber algum feedback de revisores iniciais. Ainda não está pronto para uso.
 
@@ -22,19 +22,19 @@ Se você gostaria de fazer a sua própria tradução, por favor veja [Contribuin
 **Estado**: Finalizado. Atualizado para 0.20.
 
 * [1.0: Introdução à Programação com Bitcoin Core e Lightning](01_0_Introduction.md)
-    * [Prefácio: Introduzindo o Bitcoin](01_1_Introducing_Bitcoin.md)
+    * [Prefácio: Apresentando o Bitcoin](01_1_Introducing_Bitcoin.md)
 * [2.0: Configurando um Bitcoin-Core VPS](02_0_Setting_Up_a_Bitcoin-Core_VPS.md)
   * [2.1: Configurando um Bitcoin-Core VPS com Bitcoin Standup](02_1_Setting_Up_a_Bitcoin-Core_VPS_with_StackScript.md)
-  * [2.2: Configurando uma Máquina Bitcoin-Core de Outras Formas](02_2_Setting_Up_Bitcoin_Core_Other.md)
+  * [2.2: Configurando uma Máquina Bitcoin-Core de Outras Maneiras](02_2_Setting_Up_Bitcoin_Core_Other.md)
 
-### PARTE DOIS: USANDO BITCOIN-CLI
+### PARTE DOIS: USANDO O BITCOIN-CLI
 
 **Estado:** Finalizado. Atualizado para 0.20.
 
-* [3.0: Compreendendo Sua Configuração do Bitcoin](03_0_Understanding_Your_Bitcoin_Setup.md)
-  * [3.1: Verificando Sua Configuração do Bitcoin](03_1_Verifying_Your_Bitcoin_Setup.md)
-  * [3.2: Conhecendo Sua Configuração do Bitcoin](03_2_Knowing_Your_Bitcoin_Setup.md)
-  * [3.3: Configurando Sua Carteira](03_3_Setting_Up_Your_Wallet.md)
+* [3.0: Compreendendo Nossa Configuração do Bitcoin](03_0_Understanding_Your_Bitcoin_Setup.md)
+  * [3.1: Verificando Nossa Configuração do Bitcoin](03_1_Verifying_Your_Bitcoin_Setup.md)
+  * [3.2: Conhecendo Nossa Configuração do Bitcoin](03_2_Knowing_Your_Bitcoin_Setup.md)
+  * [3.3: Configurando Nossa Carteira](03_3_Setting_Up_Your_Wallet.md)
     * [Prefácio: Usando Variáveis de Linha de Comando](03_3__Interlude_Using_Command-Line_Variables.md)
   * [3.4: Recebendo uma Transação](03_4_Receiving_a_Transaction.md)
   * [3.5: Compreendendo o Descritor](03_5_Understanding_the_Descriptor.md)
@@ -49,7 +49,7 @@ Se você gostaria de fazer a sua própria tradução, por favor veja [Contribuin
   * [4.6: Criando uma Transação SegWit](04_6_Creating_a_Segwit_Transaction.md)
 * [5.0: Controlando Transações no Bitcoin](05_0_Controlling_Bitcoin_Transactions.md)
   * [5.1 Atentando-se para Transações Presas](05_1_Watching_for_Stuck_Transactions.md)
-  * [5.2: Re-enviando uma Transação com RBF](05_2_Resending_a_Transaction_with_RBF.md)
+  * [5.2: Reenviando uma Transação com RBF](05_2_Resending_a_Transaction_with_RBF.md)
   * [5.3: Financiando uma Transação com CPFP](05_3_Funding_a_Transaction_with_CPFP.md)
 * [6.0: Expandindo Transações no Bitcoin com Multisigs](06_0_Expanding_Bitcoin_Transactions_Multisigs.md)
   * [6.1: Enviando uma Transação com Multisig](06_1_Sending_a_Transaction_to_a_Multisig.md)
@@ -58,7 +58,7 @@ Se você gostaria de fazer a sua própria tradução, por favor veja [Contribuin
 * [7.0: Expandindo Transações no Bitcoin com PSBTs](07_0_Expanding_Bitcoin_Transactions_PSBTs.md)
   * [7.1: Criando uma Transação Parcialmente Assinada no Bitcoin (PSBT)](07_1_Creating_a_Partially_Signed_Bitcoin_Transaction.md)
   * [7.2: Usando uma Transação Parcialmente Assinada no Bitcoin (PSBT)](07_2_Using_a_Partially_Signed_Bitcoin_Transaction.md)
-  * [7.3: Integrando com Carteiras de Hardware](07_3_Integrating_with_Hardware_Wallets.md)
+  * [7.3: Integrando com Hardware Wallets](07_3_Integrating_with_Hardware_Wallets.md)
 * [8.0: Expandindo Transações no Bitcoin de Outras Maneiras](08_0_Expanding_Bitcoin_Transactions_Other.md)  
   * [8.1: Enviando uma Transação com um Locktime](08_1_Sending_a_Transaction_with_a_Locktime.md)
   * [8.2: Enviando uma Transação com Dados](08_2_Sending_a_Transaction_with_Data.md)
@@ -67,81 +67,81 @@ Se você gostaria de fazer a sua própria tradução, por favor veja [Contribuin
 
 **Estado:** Finalizado. Atualizado para 0.20 e btcdeb.
 
-* [9.0: Introduzindo Scripts no Bitcoin](09_0_Introducing_Bitcoin_Scripts.md)
-  * [9.1: Compreendendo a Fundação de Transações](09_1_Understanding_the_Foundation_of_Transactions.md)
-  * [9.2: Rodando um Script no Bitcoin](09_2_Running_a_Bitcoin_Script.md)
-  * [9.3: Testando um Script no Bitcoin](09_3_Testing_a_Bitcoin_Script.md)
+* [9.0: Apresentando os Scripts do Bitcoin](09_0_Introducing_Bitcoin_Scripts.md)
+  * [9.1: Compreendendo a Base das Transações](09_1_Understanding_the_Foundation_of_Transactions.md)
+  * [9.2: Executando um Script do Bitcoin](09_2_Running_a_Bitcoin_Script.md)
+  * [9.3: Testando um Script do Bitcoin](09_3_Testing_a_Bitcoin_Script.md)
   * [9.4: Programando um P2PKH](09_4_Scripting_a_P2PKH.md)
   * [9.5: Programando um P2WPKH](09_5_Scripting_a_P2WPKH.md)
-* [10.0: Embutindo Scripts em Transações P2SH no Bitcoin](10_0_Embedding_Bitcoin_Scripts_in_P2SH_Transactions.md)
-  * [10.1: Compreendendo a Fundação do P2SH](10_1_Understanding_the_Foundation_of_P2SH.md)
+* [10.0: Incorporando Scripts em Transações P2SH no Bitcoin](10_0_Embedding_Bitcoin_Scripts_in_P2SH_Transactions.md)
+  * [10.1: Compreendendo a Base do P2SH](10_1_Understanding_the_Foundation_of_P2SH.md)
   * [10.2: Construindo a Estrutura do P2SH](10_2_Building_the_Structure_of_P2SH.md)
-  * [10.3: Rodando um Script no Bitcoin com P2SH](10_3_Running_a_Bitcoin_Script_with_P2SH.md)
+  * [10.3: Executando um Script do Bitcoin com P2SH](10_3_Running_a_Bitcoin_Script_with_P2SH.md)
   * [10.4: Programando um Multisig](10_4_Scripting_a_Multisig.md)
   * [10.5: Programando um Script Segwit](10_5_Scripting_a_Segwit_Script.md)
   * [10.6: Gastando uma Transação P2SH](10_6_Spending_a_P2SH_Transaction.md)
-* [11.0: Capacitando Timelock com Scripts no Bitcoin](11_0_Empowering_Timelock_with_Bitcoin_Scripts.md)
-  * [11.1: Compreendendo Opções de Timelock](11_1_Understanding_Timelock_Options.md)
+* [11.0: Capacitando Timelock com Scripts do Bitcoin](11_0_Empowering_Timelock_with_Bitcoin_Scripts.md)
+  * [11.1: Compreendendo As Opções de Timelock](11_1_Understanding_Timelock_Options.md)
   * [11.2: Usando CLTV em Scripts](11_2_Using_CLTV_in_Scripts.md)
   * [11.3: Usando CSV em Scripts](11_3_Using_CSV_in_Scripts.md)
-* [12.0: Expandindo Scripts no Bitcoin](12_0_Expanding_Bitcoin_Scripts.md)
-  * [12.1: Usando Condicionais de Script](12_1_Using_Script_Conditionals.md)
-  * [12.2: Usando Outros Comandos de Script](12_2_Using_Other_Script_Commands.md)
+* [12.0: Expandindo os Scripts do Bitcoin](12_0_Expanding_Bitcoin_Scripts.md)
+  * [12.1: Usando Condicionais no Script](12_1_Using_Script_Conditionals.md)
+  * [12.2: Usando Outros Comandos no Script](12_2_Using_Other_Script_Commands.md)
 * [13.0: Projetando Scripts Reais no Bitcoin](13_0_Designing_Real_Bitcoin_Scripts.md)
   * [13.1: Escrevendo Scripts de Quebra-Cabeças](13_1_Writing_Puzzle_Scripts.md)
   * [13.2: Escrevendo Scripts Complexos de Multisig](13_2_Writing_Complex_Multisig_Scripts.md)
   * [13.3: Capacitando o Bitcoin com Scripts](13_3_Empowering_Bitcoin_with_Scripts.md)
 
-### PARTE QUATRO: USANDO TOR
+### PARTE QUATRO: PRIVACIDADE
 
 **Estado:** Finalizado.
 
-* [14.0: Usando Tor](14_0_Using_Tor.md)
-  * [14.1: Verificando Sua Configuração do Tor](14_1_Verifying_Your_Tor_Setup.md)
-  * [14.2: Mudando Seus Serviços Ocultos do Bitcoin](14_2_Changing_Your_Bitcoin_Hidden_Services.md)
-  * [14.3: Adicionando SSH aos Seus Serviços Ocultos](14_3_Adding_SSH_Hidden_Services.md)
+* [14.0: Usando o Tor](14_0_Using_Tor.md)
+  * [14.1: Verificando Nossa Configuração do Tor](14_1_Verifying_Your_Tor_Setup.md)
+  * [14.2: Mudando Nossos Serviços Ocultos do Bitcoin](14_2_Changing_Your_Bitcoin_Hidden_Services.md)
+  * [14.3: Adicionando Serviços SSH Ocultos](14_3_Adding_SSH_Hidden_Services.md)
 
-* [15.0: Usando i2p](15_0_Using_i2p.md)
-  * [15.1: Bitcoin Core como um Serviço I2P (Invisible Internet Project)](15_1_i2p_service.md)
+* [15.0: Usando o I2P](15_0_Using_i2p.md)
+  * [15.1: Bitcoin Core como um Serviço I2P (Projeto Internet Invisível)](15_1_i2p_service.md)
 
 ### PARTE CINCO: PROGRAMANDO COM RPC
 
 **Estado:** Finalizado.
 
-* [16.0: Conversando com o Bitcoind com C](15_0_Talking_to_Bitcoind.md)
-  * [16.1: Acessando o Bitcoind em C com Livrarias RPC](15_1_Accessing_Bitcoind_with_C.md)
-  * [16.2: Programando o Bitcoind em C com Livrarias RPC](15_2_Programming_Bitcoind_with_C.md)
-  * [16.3: Recebendo Notificações em C com Livrarias ZMQ](15_3_Receiving_Bitcoind_Notifications_with_C.md)
-* [17.0: Programando Bitcoin com Libwally](16_0_Programming_with_Libwally.md)
-   * [17.1: Configurando a Libwally](16_1_Setting_Up_Libwally.md)
-   * [17.2: Usando BIP39 na Libwally](16_2_Using_BIP39_in_Libwally.md)
-   * [17.3: Usando BIP32 na Libwally](16_3_Using_BIP32_in_Libwally.md) 
-   * [17.4: Usando PSBTs na Libwally](16_4_Using_PSBTs_in_Libwally.md)
-   * [17.5: Usando Scripts na Libwally](16_5_Using_Scripts_in_Libwally.md)
-   * [17.6: Usando Outras Funções na Libwally](16_6_Using_Other_Functions_in_Libwally.md)
-   * [17.7: Integrando Libwally e Bitcoin-CLI](16_7_Integrating_Libwally_and_Bitcoin-CLI.md)
-* [18.0: Conversando com o Bitcoind com Outras Linguagens](17_0_Talking_to_Bitcoind_Other.md)
-  * [18.1: Acessando o Bitcoind com Go](17_1_Accessing_Bitcoind_with_Go.md)
-  * [18.2: Acessando o Bitcoind com Java](17_2_Accessing_Bitcoind_with_Java.md)
-  * [18.3: Acessando o Bitcoind com Node JS](17_3_Accessing_Bitcoind_with_NodeJS.md)
-  * [18.4: Acessando o Bitcoind com Python](17_4_Accessing_Bitcoind_with_Python.md)
-  * [18.5: Acessando o Bitcoind com Rust](17_5_Accessing_Bitcoind_with_Rust.md)
-  * [18.6: Acessando o Bitcoind com Swift](17_6_Accessing_Bitcoind_with_Swift.md)
+* [16.0: Conversando com o Bitcoind com C](16_0_Talking_to_Bitcoind.md)
+  * [16.1: Acessando o Bitcoind em C com Bibliotecas RPC](16_1_Accessing_Bitcoind_with_C.md)
+  * [16.2: Programando o Bitcoind em C com Bibliotecas RPC](16_2_Programming_Bitcoind_with_C.md)
+  * [16.3: Recebendo Notificações em C com Bibliotecas ZMQ](16_3_Receiving_Bitcoind_Notifications_with_C.md)
+* [17.0: Programando o Bitcoin com Libwally](17_0_Programming_with_Libwally.md)
+   * [17.1: Configurando a Libwally](17_1_Setting_Up_Libwally.md)
+   * [17.2: Usando BIP39 na Libwally](17_2_Using_BIP39_in_Libwally.md)
+   * [17.3: Usando BIP32 na Libwally](17_3_Using_BIP32_in_Libwally.md) 
+   * [17.4: Usando PSBTs na Libwally](17_4_Using_PSBTs_in_Libwally.md)
+   * [17.5: Usando Scripts na Libwally](17_5_Using_Scripts_in_Libwally.md)
+   * [17.6: Usando Outras Funções na Libwally](17_6_Using_Other_Functions_in_Libwally.md)
+   * [17.7: Integrando Libwally e Bitcoin-CLI](17_7_Integrating_Libwally_and_Bitcoin-CLI.md)
+* [18.0: Conversando com o Bitcoind com Outras Linguagens](18_0_Talking_to_Bitcoind_Other.md)
+  * [18.1: Acessando o Bitcoind com Go](18_1_Accessing_Bitcoind_with_Go.md)
+  * [18.2: Acessando o Bitcoind com Java](18_2_Accessing_Bitcoind_with_Java.md)
+  * [18.3: Acessando o Bitcoind com Node JS](18_3_Accessing_Bitcoind_with_NodeJS.md)
+  * [18.4: Acessando o Bitcoind com Python](18_4_Accessing_Bitcoind_with_Python.md)
+  * [18.5: Acessando o Bitcoind com Rust](18_5_Accessing_Bitcoind_with_Rust.md)
+  * [18.6: Acessando o Bitcoind com Swift](18_6_Accessing_Bitcoind_with_Swift.md)
 
-### PARTE SEIS: USANDO LIGHTNING-CLI
+### PARTE SEIS: USANDO A LIGHTNING-CLI
 
 **Estado:** Finalizado.
 
-* [19.0: Compreendendo Sua Configuração Lightning](18_0_Understanding_Your_Lightning_Setup.md)
-  * [19.1: Verificando Sua Configuração c-lightning](18_1_Verifying_Your_Lightning_Setup.md)
-  * [19.2: Conhecendo Sua Configuração c-lightning](18_2_Knowing_Your_lightning_Setup.md)
-     * [Prefácio: Acessando um Segundo Node Lightning](18_2__Interlude_Accessing_a_Second_Lightning_Node.md)
-  * [19.3: Criando um Canal Lightning](18_3_Setting_Up_a_Channel.md)
-* [20.0: Usando Lightning](19_0_Using_Lightning.md)
-  * [20.1: Gerando um Pedido de Pagamento](19_1_Generate_a_Payment_Request.md)
-  * [20.2: Pagando uma Fatura](19_2_Paying_a_Invoice.md)
-  * [20.3: Fechando um Canal Lighnting]((19_3_Closing_a_Channel.md))
-  * [20.4: Expandindo a Rede Lightning](19_4_Lightning_Network_Review.md)
+* [19.0: Compreendendo Nossa Configuração da Lightning](19_0_Understanding_Your_Lightning_Setup.md)
+  * [19.1: Verificando Nossa Configuração da c-lightning](19_1_Verifying_Your_Lightning_Setup.md)
+  * [19.2: Conhecendo Nossa Configuração da c-lightning](19_2_Knowing_Your_lightning_Setup.md)
+     * [Prefácio: Acessando um Segundo Node Lightning](19_2__Interlude_Accessing_a_Second_Lightning_Node.md)
+  * [19.3: Criando um Canal Lightning](19_3_Setting_Up_a_Channel.md)
+* [20.0: Usando a Lightning](20_0_Using_Lightning.md)
+  * [20.1: Gerando um Invoice](20_1_Generate_a_Payment_Request.md)
+  * [20.2: Pagando um Invoice](20_2_Paying_a_Invoice.md)
+  * [20.3: Fechando um Canal Lighnting]((20_3_Closing_a_Channel.md))
+  * [20.4: Expandindo a Lightning Network](20_4_Lightning_Network_Review.md)
 
 ### APÊNDICES
 
@@ -222,4 +222,4 @@ As seguintes chaves podem ser utilizadas para comunicar informação confidencia
 | ----------------- | -------------------------------------------------- |
 | Christopher Allen | FDFE 14A5 4ECB 30FC 5D22  74EF F8D3 6C91 3574 05ED |
 
-Você pode importar uma chave rodando o seguinte comando com a fingerprint daquele indivíduo: `gpg --recv-keys "<fingerprint>"` Se certifique de colocar o fingerprint entre aspas caso o mesmo contenha espaços.
+Você pode importar uma chave executando o seguinte comando com a fingerprint daquele indivíduo: `gpg --recv-keys "<fingerprint>"` Se certifique de colocar o fingerprint entre aspas caso o mesmo contenha espaços.

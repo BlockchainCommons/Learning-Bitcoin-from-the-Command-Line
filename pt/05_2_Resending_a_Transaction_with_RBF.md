@@ -1,10 +1,10 @@
-# 5.2: Reenviando uma transação com o RBF
+# 5.2: Reenviando uma Transação com RBF
 
 Se a nossa transação Bitcoin travar e formos a parte que está enviando o saldo, podemos reenviá-la usando o RBF (Replace-By-Fee). No entanto, isso não é tudo que o RBF pode fazer: Geralmente é um recurso poderoso  que permite aos remetentes do Bitcoin recriar transações por vários motivos.
 
 > :warning: **AVISO DE VERSÃO:** Esta é uma inovação do Bitcoin Core v0.12.0, que atingiu a maturidade total na carteira do Bitcoin Core na versão 0.14.0. Obviamente, a maioria das pessoas já deveria estar usando-a.
 
-## Opt-In para o RBF
+## Optando pelo RBF
 
 O RBF é um recurso opcional do Bitcoin. As transações só são elegíveis para usar o RBF se tiverem sido criadas com um sinalizador RBF especial. Isso é feito configurando qualquer um dos números de sequência UTXO da transação (que normalmente são configurados automaticamente), de modo que seja maior que 0 e menor que 0xffffffff-1 (4294967294).
 
@@ -42,19 +42,19 @@ O sinalizador ```bip125-replaceeable``` permanecerá como ```yes``` até que a t
 
 > :book: ***Devo confiar nas transações   que não possuem confirmações?*** Não, nunca. Isso era uma verdade antes do RBF e continua sendo depois do RBF. As transações devem receber confirmações antes de serem determinadas como confiáveis. Isto é especialmente verdadeiro se uma transação for marcada como ```bip125-replaceable```, porque ela pode muito bem ser... substituída.
 
-> :information_source: **NOTA - SEQUÊNCIA:** Este é o primeiro uso do valor ```nSequence``` no Bitcoin. Podemos configurá-lo entre 1 e 0xffffffff-2 (4294967293) e habilitar o RBF, mas se não tivermos cuidado, poderemos bater de frente com o uso paralelo do ```nSequence``` que serve para _timelocks_ relativos. Sugerimos sempre configurá-lo como "1", que é o que o Bitcoin Core faz, mas a outra opção é configurá-lo com um valor entre 0xf0000000 (4026531840) e 0xffffffff-2 (4294967293). Configurá-lo como sendo "1" efetivamente torna os bloqueios de tempo relativos irrelevantes e configurá-lo para 0xf0000000 ou superior os desativa. Tudo isso é explicado posteriormente na sessão [§11.3: Usando CSV nos Scripts](11_3_Using_CSV_in_Scripts.md). Por enquanto, basta escolhermos um dos valores não conflitantes para o ```nSequence```.
+> :information_source: **NOTA - SEQUÊNCIA:** Este é o primeiro uso do valor ```nSequence``` no Bitcoin. Podemos configurá-lo entre 1 e 0xffffffff-2 (4294967293) e habilitar o RBF, mas se não tivermos cuidado, poderemos bater de frente com o uso paralelo do ```nSequence``` que serve para _timelocks_ relativos. Sugerimos sempre configurá-lo como "1", que é o que o Bitcoin Core faz, mas a outra opção é configurá-lo com um valor entre 0xf0000000 (4026531840) e 0xffffffff-2 (4294967293). Configurá-lo como sendo "1" efetivamente torna os bloqueios de tempo relativos irrelevantes e configurá-lo para 0xf0000000 ou superior os desativa. Tudo isso é explicado posteriormente na seção [§11.3: Usando CSV nos Scripts](11_3_Using_CSV_in_Scripts.md). Por enquanto, basta escolhermos um dos valores não conflitantes para o ```nSequence```.
 
-### Opcional: Sempre habilite o RBF
+### Opcional: Sempre Habilite o RBF
 
-Se preferirmos, podemos _sempre_ optar por habilitar o RBF. Podemos fazer isso executando nosso ```bitcoind``` com o comando ``` -walletrbf```. Depois de fazermos isso (e reiniciarmos nosso ```bitcoind```), todos os UTXOs devem ter um número de sequência inferior e as transações posteriores devem ser marcadas como ```bip125-replaceable```.
+Se preferirmos, podemos optar por _sempre_ habilitar o RBF. Podemos fazer isso executando nosso ```bitcoind``` com o comando ``` -walletrbf```. Depois de fazermos isso (e reiniciarmos nosso ```bitcoind```), todos os UTXOs devem ter um número de sequência inferior e as transações posteriores devem ser marcadas como ```bip125-replaceable```.
 
 > :warning: **AVISO DE VERSÃO:** O sinalizador walletrbf requer o Bitcoin Core v.0.14.0 ou superior.
 
-## Entendendo o funcionamento do RBF
+## Entendendo o Funcionamento do RBF
 
 A funcionalidade RBF é baseada no [BIP 125](https://github.com/bitcoin/bips/blob/master/bip-0125.mediawiki), que lista as seguintes regras para usá-lo:
 
-> 1. As transações originais sinalizam a possibilidade de serem substituídas de maneira explicita ou por herança, conforme descrito na sessão anterior.
+> 1. As transações originais sinalizam a possibilidade de serem substituídas de maneira explicita ou por herança, conforme descrito na seção anterior.
 
 Isso significa que o número de sequência deve ser definido para menos de 0xffffffff-1 (4294967294), ou o mesmo é verdadeiro para transações pai não confirmadas.
 
@@ -73,7 +73,7 @@ Diante desse conflito, os mineradores saberão usar aquele com a taxa mais alta 
 
 > :warning: **ATENÇÃO:** Algumas discussões anteriores sobre esta política sugeriram que o número ```nSequence``` também fosse aumentado. Na verdade, esse era o uso pretendido do ```nSequence``` em sua forma original. Isso _não_ faz parte da política publicada no BIP 125. Na verdade, aumentar o número da sequência, pode travar acidentalmente nossa transação com um _timelock_ relativo, a menos que usemos números de sequência no intervalo de 0xf0000000 (4026531840) a 0xffffffff-2 (4294967293) .
 
-## Substituindo uma transação no modo hard: Manualmente
+## Substituindo uma Transação no Modo Difícil: Manualmente
 
 Para criar uma transação RBF manual, tudo o que precisamos fazer é criar uma transação bruta que: (1) Substitua uma transação bruta anterior onde o RBF foi habilitado e que não foi confirmada; (2) Reutilizar um ou mais dos mesmos UTXOs; (3) Aumentar as taxas e; (4) Pagar a taxa mínima de ambas as transações [que já podem ser atendidas no item (3)].
 
@@ -154,7 +154,7 @@ $ bitcoin-cli -named gettransaction txid=5b953a0bdfae0d11d20d195ea43ab7c31a5471d
 ```
 Nossos destinatários terão nosso saldo, e a transação original que foi falha acabará saindo do mempool.
 
-## Substituindo uma transação no modo easy: Usando o bumpfee
+## Substituindo uma Transação no Modo Fácil: Usando o bumpfee
 
 As transações brutas são muito poderosas e podemos fazer muitas coisas interessantes combinando-as com o RBF. No entanto, às vezes _tudo_ o que desejamos é apenas liberar uma transação que está presa na mempool. Podemos fazer isso com um comando simples, o ```bumpfee```.
 
@@ -201,7 +201,7 @@ $ bitcoin-cli -named gettransaction txid=75208c5c8cbd83081a0085cd050fc7a4064d87c
 ```
 > :aviso: **AVISO DE VERSÃO:** O comando ```bumpfee``` no RPC requer o Bitcoin Core v.0.14.0.
 
-## Resumo do Reenviando uma transação com o RBF
+## Resumo: Reenviando uma Transação com RBF
 
 Se uma transação ficar presa na mempool e não quisermos esperar que ela expire, e se habilitamos o RBF nela, podemos fazer um gasto duplo usando o RBF para criar uma transação de substituição (ou apenas usar o comando ```bumpfee```).
 
@@ -209,6 +209,6 @@ Se uma transação ficar presa na mempool e não quisermos esperar que ela expir
 
 > Por exemplo, podemos enviar uma transação e, antes de ser confirmada, combiná-la com uma segunda transação. Isso permite que possamos comprimir várias transações em uma única, diminuindo as taxas totais. Também podemos oferecer benefícios à privacidade. Existem outras razões para usarmos o RBF, como por exemplo contratos inteligentes ou transferência de transações, conforme descrito na parte referente a [Perguntas frequentes sobre RBF de opt-in](https://bitcoincore.org/en/faq/optin_rbf/).
 
-## O que vem depois?
+## O Que Vem Depois?
 
-Vamos continuar "Controlando as transações de Bitcoin" na sessão [§5.3: Financiando uma transação com o CPFP](05_3_Funding_a_Transaction_with_CPFP.md).
+Vamos continuar "Controlando Transações no Bitcoin" na seção [§5.3: Financiando uma Transação com CPFP](05_3_Funding_a_Transaction_with_CPFP.md).

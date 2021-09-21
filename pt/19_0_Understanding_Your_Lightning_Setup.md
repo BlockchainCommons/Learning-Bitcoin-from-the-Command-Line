@@ -1,4 +1,4 @@
-# Capítulo 19: Compreendendo a Configuração da Lightning
+# Capítulo 19: Compreendendo Nossa Configuração da Lightning
 
 > :information_source: **NOTA:** Este é um rascunho que está em andamento. Seu objetivo é que possa obter alguns comentários dos revisores iniciais. Ainda não está pronto para ser produzido.
 
@@ -20,7 +20,7 @@ Os objetivos secundários do capítulo incluem a capacidade de:
 
 ## Tabela de Conteúdo
 
-* [Seção 1: Verificando a Configuração da c-lightning](19_1_Verifying_Your_Lightning_Setup.md)
-* [Seção 2: Conhecendo a Configuração da c-lightning](19_2_Knowing_Your_lightning_Setup.md)
+* [Seção 1: Verificando Nossa Configuração da c-lightning](19_1_Verifying_Your_Lightning_Setup.md)
+* [Seção 2: Conhecendo Nossa Configuração da c-lightning](19_2_Knowing_Your_lightning_Setup.md)
    * [Adendo: Acessando um Segundo Node Lightning](19_2__Interlude_Accessing_a_Second_Lightning_Node.md)
-* [Seção 3: Criando um Canal na Lightning](19_3_Setting_Up_a_Channel.md)
+* [Seção 3: Criando um Canal Lightning](19_3_Setting_Up_a_Channel.md)

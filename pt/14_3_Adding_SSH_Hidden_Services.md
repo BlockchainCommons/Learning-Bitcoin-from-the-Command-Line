@@ -1,10 +1,10 @@
-# 14.3: Adicionando um Serviço SSH Oculto
+# 14.3: Adicionando Serviços SSH Ocultos
 
 >:information_source: **NOTA:** Esta seção foi adicionada recentemente ao curso e é um rascunho inicial que ainda pode estar aguardando revisão.
 
 Até agora, usamos o Tor com os nossos serviços Bitcoin, mas também podemos usá-lo para proteger outros serviços em nossa máquina, melhorando a segurança e a privacidade. Esta seção demonstra como fazer isso, introduzindo um serviço ```ssh``` oculto para fazer o login remotamente usando o Tor.
 
-## Criando serviços SSH ocultos
+## Criando Serviços SSH Ocultos
 
 Novos serviços são criados adicionando-os ao arquivo ```/etc/tor/torrc```:
 ```
@@ -48,12 +48,12 @@ Are you sure you want to continue connecting (yes/no)? yes
 Warning: Permanently added 'qwkemc3vusd73glx22t3sglf7izs75hqodxsgjqgqlujemv73j73qpid.onion' (ECDSA) to the list of known hosts.
 standup@qwkemc3vusd73glx22t3sglf7izs75hqodxsgjqgqlujemv73j73qpid.onion's password: 
 ```
-## Resumo: Adicionando um Serviço SSH Oculto
+## Resumo: Adicionando Serviços SSH Ocultos
 
 Agora que instalamos o Tor e sabemos como usá-lo, podemos adicionar outros serviços ao Tor. Apenas adicionamos as linhas ao nosso ```torrc``` (no nosso servidor) e o conectamos com o ```torify``` (no nosso cliente).
 
 > :fire: ***Qual é o poder de utilizar outros serviços ocultos?*** Cada vez que acessamos um serviço em nosso servidor remotamente, deixamos pegadas na rede. Mesmo que os dados sejam criptografados usando SSH (ou TLS), os vigias da rede podem ver de onde estamos nos conectando, para onde estamos conectando e qual serviço estamos usando. Isso realmente importa pra nós? Esta é a pergunta que devemos fazer. Mas se a resposta for "Sim", podemos proteger a conexão com um serviço oculto.
 
-Vamos seguir "Programando com o RPC" no [Capítulo Dezesseis: Conversando com o Bitcoind usando C](16_0_Talking_to_Bitcoind.md).
+## O Que Vem Depois?
 
-Ou, se você não for um programador, pode pular para o [Capítulo Dezenove: Entendendo Nossa Configuração da Lightning](19_0_Understanding_Your_Lightning_Setup.md) para aumentar nosso conhecimento sobre a Lightning Network usando a linha de comando.
+Para um tipo diferente de privacidade, vamos seguir para "Usando o I2P" com o [Capítulo Quize: Usando o I2P](15_0_Using_i2p.md)

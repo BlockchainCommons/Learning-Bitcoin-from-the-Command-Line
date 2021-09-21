@@ -1,4 +1,4 @@
-# 7.2: Usando uma Transação Bitcoin Parcialmente Assinada
+# 7.2: Usando uma Transação Parcialmente Assinada no Bitcoin (PSBT)
 
 > :information_source: **NOTA:** Esta seção foi adicionada recentemente ao curso e é um rascunho inicial que ainda pode estar aguardando revisão.
 
@@ -588,7 +588,7 @@ Cada usuário coloca o próprio UTXO e cada um recebe uma saída correspondente.
 
 A melhor maneira de gerenciar um CoinJoin é enviar a PSBT básica para todas as partes (que podem ser inúmeras) e, em seguida, fazer com que cada uma assine a PSBT e envie de volta para uma única parte que irá combinar, finalizar e enviar.
 
-## Resumo: Usando uma Transação Bitcoin Parcialmente Assinada
+## Resumo: Usando uma Transação Parcialmente Assinada no Bitcoin (PSBT)
 
 Agora vimos o processo PSBT que aprendemos na seção [§7.1](07_1_Creating_a_Partially_Signed_Bitcoin_Transaction.md) em uso em três exemplos da vida real: criando um multisig, um financiamento e fazendo CoinJoin. Tudo isso era teoricamente possível no Bitcoin com várias pessoas assinando transações cuidadosamente construídas, mas as PSBTs tornam isso padronizado e simples.
 

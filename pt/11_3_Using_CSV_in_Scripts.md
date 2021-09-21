@@ -1,4 +1,4 @@
-# 11.3: Usando o CSV nos Scripts
+# 11.3: Usando CSV em Scripts
 
 O ```nLockTime``` e o ```OP_CHECKLOCKTIMEVERIFY``` (ou CLTV) são apenas um lado da equação do timelock. Do outro lado estão o ```nSequence``` e o ```OP_CHECKSEQUENCEVERIFY```, que podem ser usados ​​para verificar tempos relativos ao invés de tempos absolutos.
 
@@ -55,7 +55,7 @@ $ echo $relativevalue
 ```
 Se convertermos de volta, teremos o valor de 4224679 = 10000000111011010100111. O 23º dígito é definido como "1", enquanto os primeiros 2 bytes, 0111011010100111, são convertidos em 76A7 em hexadecimal ou 30375 em decimal. Multiplicando isso por 512, teremos 15,55 milhões de segundos, o que de fato é 180 dias.
 
-## Criando uma transação com um timelock relativo
+## Criando uma Transação com um Timelock Relativo
 
 Então desejamos criar uma transação simples com um timelock relativo? Tudo que precisamos fazer é emitir uma transação onde o ```nSequence``` de uma entrada é definido como mostramos acima: Com o ```nSequence``` para essa entrada definido de forma que os primeiros dois bytes definam o timelock, o 23º bit define o tipo do timelock, e o 32º bit é definido como sendo falso.
 
@@ -87,7 +87,7 @@ Neste caso, usaremos uma abreviatura:
 
 > :warning: **ATENÇÃO:** Lembre-se de que um timelock relativo é um intervalo de tempo desde a mineração da UTXO usada como uma entrada. _Não_ é um intervalo de tempo após a criação da transação. Se usarmos uma UTXO que já foi confirmada cem vezes, e colocarmos um timelock relativo de 100 blocos nela, ela será elegível para mineração imediatamente. Os timelocks relativos têm alguns usos muito específicos, mas provavelmente não se aplicam se nosso único objetivo for determinar algum tempo definido no futuro.
 
-### Entendendo como o CSV realmente funciona
+### Entendendo como o CSV Realmente Funciona
 
 O CSV tem muitas das mesmas sutilezas de uso que CLTV:
 
@@ -99,7 +99,7 @@ O CSV tem muitas das mesmas sutilezas de uso que CLTV:
 
 Assim como no CLTV, quando estiver usando uma UTXO com um CSV em condições de bloqueio, devemos definir o ```nSequence``` para habilitar a transação. Normalmente, o configuraremos com o valor exato no script de bloqueio.
 
-## Escrevendo um script CSV
+## Escrevendo um Script CSV
 
 Assim como o ```OP_CHECKLOCKTIMEVERIFY```, o ```OP_CHECKSEQUENCEVERIFY``` inclui um ```OP_VERIFY``` implícito e deixa os argumentos na pilha, exigindo um ```OP_DROP``` quando finalizar tudo.
 
@@ -108,7 +108,7 @@ Um script que bloquearia fundos por até seis meses após a mineração e que ex
 <+6Months> OP_CHECKSEQUENCEVERIFY OP_DROP OP_DUP OP_HASH160 <pubKeyHash> OP_EQUALVERIFY OP_CHECKSIG
 ```
 
-### Codificando um script CSV
+### Codificando um Script CSV
 
 Ao codificar um script CSV, precisamos tomar cuidado ao codificar o valor inteiro para o timelock relativo. Deve ser passado como um número inteiro de 3 bytes, o que significa que iremos ignorar o maior byte, o que pode desativar o timelock relativo. Como é um número inteiro, precisamos nos certificar de convertê-lo para little-endian.
 
@@ -137,7 +137,7 @@ Hexcode: 03a77640
 
 Para gastar uma UTXO bloqueado com um script CSV, devemos definir o ```nSequence``` dessa entrada para um valor maior que o requerido no script, mas menor que o tempo entre a UTXO e o bloco atual. Isso mesmo, isso significa que precisamos saber o requisito exato no script de bloqueio. Mas temos uma cópia do ```redeemScript```, então se não conhecermos os requisitos, podemos desserializá-lo e, em seguida, definir o ```nSequence``` como sendo o número que é mostrado lá.
 
-## Resumo: Usando o CSV nos Scripts
+## Resumo: Usando CSV em Scripts
 
 O ```nSequence``` e o CSV oferecem uma alternativa para o ```nLockTime``` e o CLTV onde bloqueamos uma transação com base em um tempo relativo desde que a entrada foi extraída, ao invés de basear o bloqueio em um tempo definido no futuro. Eles funcionam quase de forma idêntica, exceto pelo fato de que o valor do ```nSequence``` é codificado de forma ligeiramente diferente do valor do ```nLockTime```, com bits específicos significando coisas específicas.
 
@@ -145,4 +145,4 @@ O ```nSequence``` e o CSV oferecem uma alternativa para o ```nLockTime``` e o CL
 
 ## O Que Vem Depois?
 
-Vamos avançar "Criando Scripts do Bitcoin" no capítulo [12: Expandindo os Scripts do Bitcoin](12_0_Expanding_Bitcoin_Scripts.md).
+Vamos avançar em "Programando no Bitcoin" com o [Capítulo 12: Expandindo os Scripts do Bitcoin](12_0_Expanding_Bitcoin_Scripts.md).

@@ -1,4 +1,4 @@
-# 9.2: Executando um Script no Bitcoin
+# 9.2: Executando um Script do Bitcoin
 
 Os scripts de Bitcoin podem não parecer tão intuitivos no começo, mas sua execução é bastante simples usando a notação polonesa reversa e uma pilha (_stack_).
 
@@ -116,7 +116,7 @@ O Bitcoin irá verificar uma transação e permitir que o UTXO possa ser gasto n
 
 No exemplo acima, a transação seria bem-sucedida porque a pilha tem um ```True``` no final. Mas, seria igualmente permitido terminar com uma pilha completa e o número ```42``` no topo (os leitores do Guia do Mochileiro das Galáxias pegaram a referência).
 
-## Resumo: Executando um Script no Bitcoin
+## Resumo: Executando um Script do Bitcoin
 
 Para processar um script no Bitcoin, um ```scriptSig``` é executado seguido pelo ```scriptPubKey``` que ele está desbloqueando. Esses comandos são executados em ordem, da esquerda para a direita, com constantes sendo colocadas em uma pilha e os operadores retirando elementos dessa pilha e, em seguida, enviando os resultados de volta para ela. Se o script não parar no meio e se o item no topo da pilha no final for diferente de zero, então o UTXO será desbloqueado.
 

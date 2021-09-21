@@ -1,4 +1,4 @@
-# 9.5: Criando um script P2WPKH
+# 9.5: Programando um P2WPKH
 
 > :information_source: **NOTA:** Esta seção foi adicionada recentemente ao curso e é um rascunho inicial que ainda pode estar aguardando revisão. Cautela, leitor.
 
@@ -106,7 +106,7 @@ Uma máquina que entende como o SegWit funciona faz exatamente as mesmas coisas 
 
 Portanto, é outra maneira de fazer a mesma coisa, mas sem ter os scripts embutidos nas transações. Ao invés disso, o processo é integrado ao software do node.
 
-## Resumo: Criando um script P2WPKH
+## Resumo: Programando um P2WPKH
 
 Em grande parte, _não_ programamos um P2WPKH. Ao invés disso, o Bitcoin Core cria a transação de uma maneira diferente, colocando as informações da testemunha em um lugar diferente ao invés de um ```scriptSig``` tradicional. Isso significa que os P2WPKHs são uma digressão dos scripts de Bitcoin desta parte do livro, porque são uma expansão do Bitcoin que se distancia dos scripts tradicionais.
 

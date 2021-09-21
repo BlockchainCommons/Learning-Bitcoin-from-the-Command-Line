@@ -1,9 +1,8 @@
-
-# 3.3: Configurando nossa carteira
+# 3.3: Configurando Nossa carteira
 
 Agora estamos prontos para começar a brincar com o Bitcoin. Para começar, precisaremos criar um endereço para receber fundos.
 
-## Criando um endereço
+## Criando um Endereço
 
 A primeira coisa que precisamos fazer é criar um endereço para recebimento de pagamentos. Podemos fazer isso usando o comando `bitcoin-cli getnewaddress`. Temos que lembrar que se quisermos mais informações sobre este comando, podemos digitar `bitcoin-cli help getnewaddress`. Atualmente, existem três tipos de endereços: Os `legacy` e os dois tipos de endereço SegWit, `p2sh-segwit` e `bech32`. Se não especificarmos qual queremos criar, sempre teremos por padrão o `bech32`.
 
@@ -28,7 +27,7 @@ Anote cuidadosamente o endereço. Precisaremos utilizá-lo para quando recebermo
 
 Com um único endereço em mãos, podemos pular direto para a próxima seção e começar a receber alguns satoshinhos. No entanto, antes de chegarmos lá, vamos discutir brevemente os outros tipos de endereços que encontraremos no futuro e falar sobre alguns outros comandos de carteira que podemos querer usar mais pra frente.
 
-### Conhecendo os endereços do Bitcoin
+### Conhecendo os Endereços do Bitcoin
 
 Existem três tipos de endereços Bitcoin que podemos criar com o comando RPC `getnewaddress`. Usaremos um endereço `legacy` (P2PKH) aqui, mas iremos utilizar um endereço SegWit (P2SH-SegWit) ou Bech32 na sessão [4.6: Criação de uma transação Segwit](04_6_Creating_a_Segwit_Transaction.md).
 
@@ -50,7 +49,7 @@ Existem dois endereços desse tipo:
 
 Existem outros tipos de endereços de Bitcoin, como P2PK (que paga a uma chave pública simples e está obsoleto devido à sua insegurança futura) e P2SH (que paga a um Hash de script e que é usado pelo SegWit e esta aninhado com a primeira geração endereços. Vamos conhecê-lo mais detalhadamente nos próximos capítulos).
 
-## Opcional: Assinando uma mensagem
+## Opcional: Assinando uma Mensagem
 
 Às vezes, precisamos provar que controlamos um endereço Bitcoin (ou melhor, que controlamos a chave privada). Isso é importante porque permite que as pessoas saibam que estão enviando fundos para a pessoa certa. Isso pode ser feito criando uma assinatura com o comando `bitcoin-cli signmessage`, na forma `bitcoin-cli signmessage [endereço] [mensagem]`. Por exemplo:
 
@@ -77,7 +76,7 @@ error message:
 Invalid address
 ```
 
-## Opcional: Fazendo o dump da nossa carteira
+## Opcional: Fazendo o Dump da Nossa Carteira
 
 Pode parecer perigoso ter todas as chaves privadas insubstituíveis em um único arquivo. É para isso que serve o comando `bitcoin-cli dumpwallet`. Ele permite que façamos uma cópia do nosso arquivo `wallet.dat`:
 ```
@@ -97,7 +96,7 @@ error message:
 Importing wallets is disabled when blocks are pruned
 ```
 
-## Opcional: Visualizando as chaves privadas
+## Opcional: Visualizando as Chaves Privadas
 
 Às vezes, podemos querer realmente olhar para as chaves privadas associadas aos nossos endereços Bitcoin. Talvez queremos assinar uma mensagem ou gastar bitcoins em uma máquina diferente. Talvez só estamos querendo fazer backup de algumas chaves privadas importantes. Também pode fazer isso com nosso arquivo criado acima, já que ele pode ser lido por humanos.
 ```
@@ -123,10 +122,10 @@ Novamente, é esperado que isso exija um node não prunado. Isso provavelmente v
 
 _Nós digitamos aquele endereço Bitcoin que gerou, enquanto assinávamos uma mensagem e agora estamos fazendo o dump as chaves. Se por acaso achar que isso é muito complicado, os autores e tradutores também concordam com isso. Também estamos sujeitos a erros, um tópico que abordaremos na próxima sessão._
 
-## Resumo do Configurando nossa carteira
+## Resumo: Configurando Nossa carteira
 
 Precisamos criar um endereço para receber fundos. Nosso endereço é armazenado em uma carteira, da qual podemos fazer o backup. Podemos fazer muito coisas com nosso endereço, como fazer o dump da nossa chave privada ou usá-la para assinar mensagens. Mas, realmente, criar esse endereço é _tudo_ que precisaremos fazer para receber alguns satoshinhos.
 
 ## O Que Vem Depois?
 
-Vamos dar uma pausa no capítulo "Compreendendo a configuração do node Bitcoin" na sessão [Usando variáveis de linha de comando](03_3__Interlude_Using_Command-Line_Variables.md).
+Vamos dar uma pausa no capítulo "Compreendendo Nossa Configuração do Bitcoin" com o [Prefácio: Usando Variáveis de Linha de Comando](03_3__Interlude_Using_Command-Line_Variables.md).

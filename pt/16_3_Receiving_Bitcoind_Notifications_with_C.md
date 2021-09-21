@@ -1,9 +1,8 @@
-
-# 15.3 Recebendo notificações usando C com a biblioteca ZMQ
+# 16.3 Recebendo Notificações em C com Bibliotecas ZMQ
 
 > :information_source: **NOTA:** Esta seção foi adicionada recentemente ao curso e é um rascunho que pode estar aguardando revisão. Portanto, leitor, tenha cuidado.
 
-As sessões [§15.1](15_1_Accessing_Bitcoind_with_C.md) e [§15.2](15_2_Programming_Bitcoind_with_C.md) introduziram as bibliotecas RPC e JSON no C e, também mostrou uma das vantagens de acessar os comandos RPC do Bitcoin por meio de uma linguagem de programação: A capacidade de criar programas razoavelmente  complexos. Este capítulo apresenta uma terceira biblioteca, a [ZMQ](http://zeromq.org/) e, ao fazer isso, revela outra vantagem: A capacidade de monitorar as notificações. Iremos usá-la para codificar para ouvirmos a blockchain.
+As sessões [§16.1](16_1_Accessing_Bitcoind_with_C.md) e [§16.2](16_2_Programming_Bitcoind_with_C.md) introduziram as bibliotecas RPC e JSON no C e, também mostrou uma das vantagens de acessar os comandos RPC do Bitcoin por meio de uma linguagem de programação: A capacidade de criar programas razoavelmente  complexos. Este capítulo apresenta uma terceira biblioteca, a [ZMQ](http://zeromq.org/) e, ao fazer isso, revela outra vantagem: a capacidade de monitorar as notificações. Iremos usá-la para codificar para ouvirmos a blockchain.
 
 > :book: ***O que é ZMQ?*** O ZeroMQ (ZMQ) é uma biblioteca de mensagens assíncronas de alto desempenho que fornece uma fila de mensagens. A biblioteca oferece suporte a padrões de mensagens comuns (pub/sub, request/reply, client/server e outros) em uma variedade de transportes (TCP, in-process, inter-process, multicast, WebSocket e mais), tornando mensagens entre processos tão simples quanto mensagens entre threads. Podemos encontrar mais detalhes sobre as notificações do ZMQ e outros tipos de mensagens [neste repositório](https://github.com/Actinium-project/ChainTools/blob/master/docs/chainlistener.md).
 
@@ -58,7 +57,7 @@ $ sudo apt-get install libczmq-dev
 ```
 Agora estamos pronto para escrever o código!
 
-## Escrevendo o programa de notificação
+## Escrevendo o Programa de Notificação
 
 O programa C à seguir é um cliente simples que se inscreve em um ponto da conexão ZMQ servido pelo ``bitcoind`` e lê as mensagens recebidas.
 
@@ -120,7 +119,7 @@ Claro, quando terminar o processo, precisamos limpar tudo:
 }
 ```
 
-### Testando o código de notificação
+### Testando o Código de Notificação
 
 O código-fonte completo está no [diretório src/](src/15_3_chainlistener.c) como de costume. Precisamos compilá-lo:
 ```
@@ -144,7 +143,7 @@ No: 70
 .......
 ```
 
-### Resumo do capítulo Recebendo Notificações Usando C com a Biblioteca ZMQ
+### Resumo: Recebendo Notificações em C com Bibliotecas ZMQ
 
 Ao usar a estrutura ZMQ, podemos receber notificações facilmente, inscrevendo-as em um ponto de conexão exposto pelo ``bitcoind`` através do nosso arquivo de configuração.
 
@@ -152,4 +151,4 @@ Ao usar a estrutura ZMQ, podemos receber notificações facilmente, inscrevendo-
 
 ## O Que Vem Depois?
 
-Saiba mais sobre "como Programar com RPC" no [Capítulo 16: Programando Bitcoin com Libwally](16_0_Programming_with_Libwally.md).
+Saiba mais sobre "Programando com RPC" no [Capítulo 17: Programando o Bitcoin com Libwally](17_0_Programming_with_Libwally.md).

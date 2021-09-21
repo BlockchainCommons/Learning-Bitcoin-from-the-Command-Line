@@ -1,4 +1,4 @@
-# 7.1: Criando uma Transação Bitcoin Parcialmente Assinada
+# 7.1: Criando uma Transação Parcialmente Assinada no Bitcoin (PSBT)
 
 > :information_source: **NOTA:** Esta seção foi adicionada recentemente ao curso e é um rascunho inicial que ainda pode estar aguardando revisão.
 
@@ -505,10 +505,10 @@ Finalmente, se precisarmos de mais controle e optarmos por usar o comando ```utx
 
 ![](images/psbt-roles-for-cli-3.png)
 
-## Resumo: Criando uma Transação Bitcoin Parcialmente Assinada
+## Resumo: Criando uma Transação Parcialmente Assinada no Bitcoin (PSBT)
 
 A criação de uma PSBT envolve um fluxo de trabalho um tanto complexo de criação, atualização, assinatura, finalização e extração da PSBT, após o qual ela se converte novamente em uma transação bruta. Por que teríamos tanto trabalho? Porque desejamos colaborar entre vários usuários ou vários programas. Agora que entendemos esse fluxo de trabalho, a próxima seção irá apresentar alguns exemplos reais de como fazer isso.
 
 ## O Que Vem Depois?
 
-Vamos continuar "Expandindo Transações no Bitcoin com PSBTs" na seção [§7.2: Usando uma Transação Bitcoin Parcialmente Assinada](07_2_Using_a_Partially_Signed_Bitcoin_Transaction.md).
+Vamos continuar "Expandindo Transações no Bitcoin com PSBTs" na seção [§7.2: Usando uma Transação Parcialmente Assinada no Bitcoin (PSBT)](07_2_Using_a_Partially_Signed_Bitcoin_Transaction.md).

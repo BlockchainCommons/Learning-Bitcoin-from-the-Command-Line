@@ -1,4 +1,4 @@
-# 10.1: Compreendendo a Fundação do P2SH
+# 10.1: Compreendendo a Base do P2SH
 
 Sabemos que os scripts do Bitcoin podem ser usados para controlar o resgate dos UTXOs. A próxima etapa é criar os nossos próprios scripts... mas isso requer uma técnica muito específica.
 
@@ -89,7 +89,7 @@ Considerando que não podemos criar facilmente uma transação P2SH sem uma API,
 
 > :warning: **AVISO:** Podemos criar uma transação perfeitamente válida com um redeemScript com o hash correto, mas se o redeemScript não funcionar, ou não funcionar corretamente, os fundos serão perdidos para sempre. É por isso que é importantíssimo testar os scripts, conforme discutido na seção [§9.3: Testando um Script no Bitcoin](09_3_Testing_a_Bitcoin_Script.md).
 
-## Resumo: Compreendendo a Fundação do P2SH
+## Resumo: Compreendendo a Base do P2SH
 
 Scripts arbitrários não são o padrão no Bitcoin. No entanto, podemos incorporá-los em transações padrão usando o tipo de endereço P2SH. Precisamos apenas fazer um hash do nosso script como parte do script de bloqueio, então o revelamos e executamos como parte do script de desbloqueio. Contanto que  também possamos satisfazer o ```redeemScript```, o UTXO poderá ser gasto.
 

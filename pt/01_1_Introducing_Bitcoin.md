@@ -1,4 +1,3 @@
-
 # Prefácio: Apresentando o Bitcoin
 
 Antes de começar a programar em Bitcoin (e Lightning), você deve ter uma compreensão básica do que são e como funcionam. Esta seção fornece essa visão geral. Várias outras definições irão aparecer mais à frente. O objetivo deste capítulo é apenas dar o conteúdo base.
@@ -25,11 +24,11 @@ Os fundos são protegidos pelo uso de hashes. As chaves públicas não são real
 
 No entanto, esses scripts do Bitcoin são o nível mais baixo de funcionalidade deste protocolo. Grande parte do trabalho do Bitcoin é feito através do `bitcoind` do Bitcoin, que é controlado por meio de comandos RPC. Muitas pessoas enviam esses comandos RPC por meio do programa chamado `bitcoin-cli`, que fornece uma interface ainda mais simples. Os não programadores nem mesmo se preocupam com essas minúcias, permitindo o uso de carteiras programáveis com interfaces mais simples.
 
-### Resumindo o Bitcoin
+### Bitcoin –– Em Resumo
 
 Uma maneira de pensar no Bitcoin é como _uma sequência de transações atômicas_. Cada transação é autenticada por um remetente com a solução para um quebra-cabeça criptográfico anterior que foi armazenado como um script. A nova transação é bloqueada para o destinatário com um novo quebra-cabeça criptográfico que também é armazenado como um script. Cada transação é registrada no livro razão global imutável.
 
-## Sobre criptografia de chave pública
+## Sobre Criptografia de Chave Pública
 
 A criptografia de chave pública é um sistema matemático para proteção de dados e comprovação de propriedade por meio de um par assimétrico de chaves que estão vinculadas entre si: a chave pública e a chave privada.
 
@@ -45,15 +44,15 @@ A criptografia de chave pública é um sistema matemático para proteção de da
 
 O Bitcoin aproveita a capacidade do hash de disfarçar os dados originais, o que permite ocultar a chave pública real do usuário, tornando as transações resistentes à computação quântica.
 
-### Resumindo a criptografia de chave pública
+### Criptografia de Chave Pública –– Em Resumo
 
 Uma maneira de pensar na criptografia de chave pública é: _um jeito de qualquer pessoa proteger os dados de forma que apenas uma pessoa autorizada possa acessá-los e também possa provar que tem esse acesso._
 
 ## Sobre CCE
 
-O CCE é um acrônimo para criptografia de curva elíptica. É um ramo específico da criptografia de chave pública que depende de cálculos matemáticos usando curvas elípticas definidas sobre campos finitos. É mais complexo e difícil de explicar do que a criptografia de chave pública clássica (que usava números primos), mas tem algumas vantagens interessantes.
+CCE é um acrônimo para criptografia de curva elíptica(em inglês: ECC, ou Elliptic-Curve Cryptography). É um ramo específico da criptografia de chave pública que depende de cálculos matemáticos usando curvas elípticas definidas sobre campos finitos. É mais complexo e difícil de explicar do que a criptografia de chave pública clássica (que usava números primos), mas tem algumas vantagens interessantes.
 
-O CCE não terá tanta atenção neste tutorial. Isso porque falaremos mais sobre a integração com servidores Bitcoin Core e Lightning, que já cuidaram da parte criptografia para você. Na verdade, a intenção deste tutorial é que você não precise se preocupar com a criptografia, porque isso é algo que você _realmente_ deseja que os especialistas lidem.
+A CCE não receberá tanta atenção neste tutorial. Isso porque falaremos mais sobre a integração com servidores Bitcoin Core e Lightning, que já cuidaram da parte criptografia para você. Na verdade, a intenção deste tutorial é que você não precise se preocupar com a criptografia, porque isso é algo que você _realmente_ deseja que os especialistas lidem.
 
 **_O que é uma curva elíptica?_** Uma curva elíptica é uma curva geométrica que assume a forma ``y`` <sup>`` 2`` </sup> = ``x`` <sup> ``3`` </sup> `` + ax + b``. Uma curva elíptica específica é escolhida selecionando valores específicos de ``a`` e ``b``. A curva deve ser examinada cuidadosamente para determinar se funciona bem para criptografia. Por exemplo, a curva secp256k1 usada pelo Bitcoin é definida como ``a = 0`` e ``b = 7``.
 
@@ -67,11 +66,11 @@ Qualquer linha que cruze uma curva elíptica o fará em 1 ou 3 pontos... e essa 
 
 Essa metodologia específica também explica por que os campos finitos são usados ​​em curvas elípticas: Ela garante que a chave privada não ficará muito grande. Observe que o campo finito para secp256k1 é ligeiramente menor que 256 bits, o que significa que todas as chaves públicas terão 256 bits, assim como as chaves privadas.
 
-**_Quais são as vantagens do CCE?_** A principal vantagem do CCE é que ele permite a mesma segurança da criptografia de chave pública clássica com uma chave muito menor. Uma chave pública de curva elíptica de 256 bits corresponde a uma chave pública tradicional (RSA) de 3072 bits.
+**_Quais são as vantagens da CCE?_** A principal vantagem da CCE é que ele permite a mesma segurança da criptografia de chave pública clássica com uma chave muito menor. Uma chave pública de curva elíptica de 256 bits corresponde a uma chave pública tradicional (RSA) de 3072 bits.
 
-### Resumindo o CCE
+### CCE –– Em Resumo
 
-Uma maneira de pensar no CCE é: _Um jeito de permitir a criptografia de chave pública usando chaves muito pequenas e uma matemática bem obscura._
+Uma maneira de pensar na CCE é: _um jeito de permitir a criptografia de chave pública usando chaves muito pequenas e uma matemática bem obscura._
 
 ## Sobre Blockchains
 
@@ -83,16 +82,16 @@ Embora precise entender os fundamentos de como uma blockchain funciona para ente
 
 **_O que é um fork?_** Ocasionalmente, dois blocos são criados ao mesmo tempo. Isso cria, temporariamente, um fork de um bloco, onde qualquer um dos blocos atuais pode ser o "verdadeiro". De vez em quando, um fork pode se expandir para dois blocos, três blocos ou mesmo quatro blocos de comprimento, mas muito rapidamente um lado da bifurcação é determinado como o verdadeiro e o outro se torna o que chamamos de "órfão". Isso faz parte do processo estocástico de criação de bloco e demonstra por que vários blocos devem ser construídos sobre um bloco antes que ele possa ser considerado verdadeiramente confiável e não rejeitável.
 
-### Resumindo a blockchain
+### Blockchain –– Em Resumo
 
 Uma maneira de pensar na blockchain é: _Uma série vinculada de blocos de dados imutáveis, até o seu bloco inicial._
 Outra forma é: _Uma série de blocos vinculados para ordenar dados absolutos que podem ser conflitantes_.
 
-## A Blockchain é adequada para mim?
+## A Blockchain é Adequada para Mim?
 
 Se você deseja negociar bitcoins, então obviamente a Bitcoin é adequada para você. No entanto, de forma mais ampla, a blockchain se tornou uma cultura pop da atualidade, embora não seja uma solução mágica para todos os problemas técnicos. Dito isso, existem muitas situações específicas em que a blockchain é uma tecnologia superior.
 
-Blockchains provavelmente _são_ úteis nos seguintes casos:
+Blockchains provavelmente _serão_ úteis nos seguintes casos:
 
 * Os usuários não confiam uns nos outros.
     * Ou: Os usuários estão em diferentes localidades.
@@ -119,32 +118,32 @@ Blockchains provavelmente _não_ serão úteis caso:
 
 Observe que ainda pode haver soluções para algumas dessas situações dentro do ecossistema Bitcoin. Por exemplo, os canais de pagamento estão lidando rapidamente com questões de liquidez e finalização do pagamento.
 
-## Sobre a Lightning (Network)
+## Sobre a Lightning
 
-A lightning é um protocolo de segunda camada que interage com o Bitcoin para permitir que os usuários troquem seus bitcoins "offchain" (fora da blockchain). Possui vantagens e desvantagens em relação ao uso da camada principal do Bitcoin.
+A Lightning é um protocolo de segunda camada que interage com o Bitcoin para permitir que os usuários troquem seus bitcoins "offchain" (fora da blockchain). Possui vantagens e desvantagens em relação ao uso da camada principal do Bitcoin.
 
-A lightning também é um dos focos deste tutorial. Embora o ponto principal seja sobre a interação direta com o Bitcoin (e o `bitcoind`), vamos falar um pouco sobre a lightning e o porque é uma tecnologia que está prestes a se tornar uma alternativa popular ao Bitcoin, em um futuro próximo. Este livro tem a mesma abordagem para a lightning e para o Bitcoin: Ele ensina como interagir diretamente com a Lightning de maneira confiável à partir da linha de comando.
+A Lightning também é um dos focos deste tutorial. Embora o ponto principal seja sobre a interação direta com o Bitcoin (e o `bitcoind`), vamos falar um pouco sobre a Lightning e o porque é uma tecnologia que está prestes a se tornar uma alternativa popular ao Bitcoin, em um futuro próximo. Este livro tem a mesma abordagem para a Lightning e para o Bitcoin: Ele ensina como interagir diretamente com a Lightning de maneira confiável à partir da linha de comando.
 
-Ao contrário do Bitcoin, existem várias variantes da lightning. Este tutorial usa a implementação compatível do padrão [C-lightning](https://github.com/ElementsProject/lightning) como sendo seu servidor lightning confiável.
+Ao contrário do Bitcoin, existem várias variantes da Lightning. Este tutorial usa a implementação compatível do padrão [c-lightning](https://github.com/ElementsProject/lightning) como sendo seu servidor Lightning confiável.
 
-**_O que é um protocolo de segunda camada?_** Um protocolo de segunda camada no Bitcoin funciona tendo como base o Bitcoin. Nesse caso, a lightning trabalha em cima do Bitcoin, interagindo com ele por meio de contratos inteligentes.
+**_O que é um protocolo de segunda camada?_** Um protocolo de segunda camada no Bitcoin funciona tendo como base o Bitcoin. Nesse caso, a Lightning trabalha em cima do Bitcoin, interagindo com ele por meio de contratos inteligentes.
 
-**_O que é um canal lightning?_** Um canal Lightning é uma conexão entre dois usuários utilizando a lightning. Cada um dos usuários bloqueia uma quantidade de bitcoins na blockchain do Bitcoin usando uma assinatura multi-sig, criada e assinada por ambos. Os dois usuários podem, então, trocar bitcoins por meio do canal lightning sem precisar gravar nada na blockchain Bitcoin. Somente quando desejam fechar o canal, eles liquidam os bitcoins, com base na divisão no saldo final das partes.
+**_O que é um canal Lightning?_** Um canal Lightning é uma conexão entre dois usuários utilizando a Lightning. Cada um dos usuários bloqueia uma quantidade de bitcoins na blockchain do Bitcoin usando uma assinatura multi-sig, criada e assinada por ambos. Os dois usuários podem, então, trocar bitcoins por meio do canal Lightning sem precisar gravar nada na blockchain Bitcoin. Somente quando desejam fechar o canal, eles liquidam os bitcoins, com base na divisão no saldo final das partes.
 
-**_O que é a Lightning Network?_** A junção de todos os canais da lightning criam a Lightning Network. Isso permite que dois usuários que não tenham um canal entre si troquem bitcoins usando Lightning: O protocolo forma uma cadeia de canais entre os dois usuários e, em seguida, troca as moedas através da cadeia usando transações que chamamos de _time-locked transactions_.
+**_O que é a Lightning Network?_** A junção de todos os canais da Lightning criam a Lightning Network. Isso permite que dois usuários que não tenham um canal entre si troquem bitcoins usando Lightning: O protocolo forma uma cadeia de canais entre os dois usuários e, em seguida, troca as moedas através da cadeia usando transações que chamamos de _time-locked transactions_.
 
-**_Quais são as vantagens da lightning?_** A lightning permite transações mais rápidas com taxas mais baixas. Isso cria a possibilidade real de micropagamentos usando bitcoin. Ela também oferece maior privacidade, uma vez que está fora da rede, com apenas o primeiro e o último estado da transação sendo gravados blockchain do Bitcoin.
+**_Quais são as vantagens da Lightning?_** A Lightning permite transações mais rápidas com taxas mais baixas. Isso cria a possibilidade real de micropagamentos usando bitcoin. Ela também oferece maior privacidade, uma vez que está fora da rede, com apenas o primeiro e o último estado da transação sendo gravados blockchain do Bitcoin.
 
-**_Quais são as desvantagens do Lightning?_** A lightning ainda é uma tecnologia muito nova e não foi testada tão exaustivamente quanto o Bitcoin. Isso não é apenas uma questão de implementação tecnológica, mas também se o design que pode ser manipulado de maneiras não pensadas anteriormente.
+**_Quais são as desvantagens do Lightning?_** A Lightning ainda é uma tecnologia muito nova e não foi testada tão exaustivamente quanto o Bitcoin. Isso não é apenas uma questão de implementação tecnológica, mas também se o design que pode ser manipulado de maneiras não pensadas anteriormente.
 
-### Resumindo a lightning
+### Resumindo a Lightning
 
 Uma maneira de pensar na Lightning é: _Um jeito de transacionar bitcoins usando canais offchain entre duas pessoas, de modo que apenas o primeiro e o último estado precisem ser gravados na blockchain_.
 
 ## Resumo: Apresentando o Bitcoin
 
-O Bitcoin é um sistema _peer-to-peer_ que permite a transferência de fundos por meio de transações bloqueadas por quebra-cabeças. Esses quebra-cabeças dependem da criptografia de curva elíptica de chave pública. Quando você generaliza as ideias por trás do Bitcoin, encontra-se as blockchains, uma tecnologia que atualmente está crescendo e inovando muitos setores. Quando você expande as ideias por trás do Bitcoin, obtém protocolos de segunda camada, como a lightning, que expandem o potencial da moeda.
+O Bitcoin é um sistema _peer-to-peer_ que permite a transferência de fundos por meio de transações bloqueadas por quebra-cabeças. Esses quebra-cabeças dependem da criptografia de curva elíptica de chave pública. Quando você generaliza as ideias por trás do Bitcoin, encontra-se as blockchains, uma tecnologia que atualmente está crescendo e inovando muitos setores. Quando você expande as ideias por trás do Bitcoin, obtém protocolos de segunda camada, como a Lightning, que expandem o potencial da moeda.
 
 ## O Que Vem Depois?
 
-Vamos avançar para "se preparar para o Bitcoin" com o [Capítulo Dois: Configurando um Bitcoin-Core no VPS](02_0_Setting_Up_a_Bitcoin-Core_VPS.md).
+Vamos avançar em "Se Prepararando para o Bitcoin" com o [Capítulo Dois: Configurando um Bitcoin-Core VPS](02_0_Setting_Up_a_Bitcoin-Core_VPS.md).

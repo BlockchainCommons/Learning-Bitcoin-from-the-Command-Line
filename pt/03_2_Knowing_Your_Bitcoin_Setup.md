@@ -1,9 +1,8 @@
-
-# 3.2: Conhecendo a configuração do node Bitcoin
+# 3.2: Conhecendo Nossa Configuração do Bitcoin
 
 Antes de começarmos a brincar com Bitcoin, é sempre bom entender melhor nossa configuração.
 
-## Conhecendo o diretório do Bitcoin
+## Conhecendo o Diretório do Bitcoin
 
 Para começar, devemos entender onde tudo está guardado: O diretório `~/.bitcoin`.
 
@@ -24,7 +23,7 @@ Não deve mexer com a maioria desses arquivos e diretórios, particularmente os 
 
 > :link: **TESTNET vs MAINNET:** Se estivermos usando a Mainnet, então _tudo_ será colocado no diretório principal `~/.bitcoin`. Então se estivermos usando a Mainnet, Testnet e a Regtest, veremos que o `~/.bitcoin` contém nosso arquivo de configuração e nossos dados da mainnet, o diretório `~/.bitcoin/testnet3` contém nossos dados da Testnet, e o diretório `~/.bitcoin/regtest` contém os dados do regtest.
 
-## Conhecendo os comandos do Bitcoin-cli
+## Conhecendo os Comandos do Bitcoin-CLI
 
 A maior parte do nosso trabalho inicial será feito com o comando `bitcoin-cli`, que oferece uma interface simples para o `bitcoind`. Se quisermos mais informações sobre como utilizá-lo, basta executá-lo com o argumento `help`. Sem nenhum outro argumento, ele mostrara todos os possíveis comandos:
 ```
@@ -202,7 +201,7 @@ Examples:
 ```
 > :book: ***O que é o RPC?*** O`bitcoin-cli` é apenas uma interface útil que permite enviar comandos para o`bitcoind`. Mais especificamente, é uma interface que permite enviar comandos RPC (Remote Procedure Protocol ou, protocolo de procedimento remoto, no português) para o `bitcoind`. Frequentemente, o comando `bitcoin-cli` e o comando RPC possuem nomes e interfaces idênticos, mas alguns comandos no `bitcoin-cli` fornecem atalhos para solicitações RPC mais complexas. Geralmente, a interface `bitcoin-cli` é muito mais limpa e simples do que tentar enviar comandos RPC manualmente, usando `curl` ou algum outro método. No entanto, ele também tem limitações quanto ao que podemos fazer.
 
-## Opcional: Conhecendo as informações do node Bitcoin
+## Opcional: Conhecendo as Informações do Node Bitcoin
 
 Uma variedade de comandos bitcoin-cli podem fornecer informações adicionais sobre nossos node Bitcoin. Os mais comuns são:
 
@@ -307,10 +306,10 @@ $ bitcoin-cli getnetworkinfo
 
 Vamos testar à vontade qualquer um deles e usar `bitcoin-cli help` se quisermos saber mais informações sobre o que qualquer um deles faz.
 
-## Resumo do Conhecendo a configuração do seu node Bitcoin
+## Resumo: Conhecendo Nossa Configuração do Bitcoin
 
 O diretório `~/.bitcoin` contém todos os arquivos, enquanto o `bitcoin-cli help` nos retorna uma variedade de informações de comandos que podem ser usados para obter mais informações sobre como nossa configuração e o Bitcoin funcionam.
 
 ## O Que Vem Depois?
 
-Vamos continuar "Compreendendo a configuração do node Bitcoin" na sessão [3.3: Configurando nossa carteira](03_3_Setting_Up_Your_Wallet.md).
+Vamos continuar "Compreendendo Nossa Configuração do Bitcoin" na sessão [3.3: Configurando Nossa Carteira](03_3_Setting_Up_Your_Wallet.md).

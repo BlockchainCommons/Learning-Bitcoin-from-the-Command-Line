@@ -6,7 +6,7 @@ Na seção 3 deste capítulo, ao apresentar os scripts, dissemos que era prováv
 
 ## Criando o Script
 
-Criar o script é a coisa _mais fácil_ de se fazer na Libwally. Veja o exemplo a seguir, um simples [Script Quebra-Cabeça](13_1_Writing_Puzzle_Scripts.md) ao qual retornamos de vez em quando:
+Criar o script é a coisa _mais fácil_ de se fazer na Libwally. Veja o exemplo a seguir, um simples [Script de Quebra-Cabeças](13_1_Writing_Puzzle_Scripts.md) ao qual retornamos de vez em quando:
 ```
 OP_ADD 99 OP_EQUAL
 ```

@@ -2,7 +2,7 @@
 
 O ```bitcoin-cli``` oferece três principais maneiras de enviar bitcoins: Utilizando um simples comando; Utilizando uma transação bruta e; Utilizando uma transação bruta com cálculos. Cada uma possui seus prós e contras. Este primeiro método de envio será o mais simples.
 
-## Definindo Sua Taxa de Transação
+## Definindo Nossa Taxa de Transação
 
 Antes de enviar qualquer bitcoin pela rede, devemos pensar sobre as taxas de transação que iremos pagar.
 

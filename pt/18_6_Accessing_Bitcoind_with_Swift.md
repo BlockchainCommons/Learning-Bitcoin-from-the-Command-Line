@@ -399,7 +399,7 @@ O Swift é uma linguagem de programação robusta e moderna que infelizmente ain
 
 ## O Que Vem Depois?
 
-Aprenda sobre o Lightning em [Capítulo 19: Compreendendo Sua Configuração da Lightning](19_0_Understanding_Your_Lightning_Setup.md).
+Aprenda sobre o Lightning em [Capítulo 19: Compreendendo Nossa Configuração da Lightning](19_0_Understanding_Your_Lightning_Setup.md).
 
 ## Variante: Implantando o Swift no Ubuntu
 

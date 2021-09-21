@@ -1,10 +1,10 @@
-# 5.3: Financiando uma transação com o CPFP
+# 5.3: Financiando uma Transação com CPFP
 
 Se nossa transação do Bitcoin travar e formos os _recebedores_, poderemos aumentar a velocidade usando o CPFP (Child-Pays-For-Parent). Esta é uma alternativa semelhante ao que a parte que _ envia_ o saldo pode fazer usando o RBF.
 
 > :warning: **AVISO DE VERSÃO:** Esta é uma inovação do Bitcoin Core v0.13.0, o que novamente significa que a maioria das pessoas já deve estar utilizando-a.
 
-## Entendendo o funcionamento do CPFP
+## Entendendo o Funcionamento do CPFP
 
 O RBF é possível caso você seja a parte que está enviando o saldo. O remetente errou e precisou aumentar a taxa, ou queria ser inteligente e combinar transações por diversos motivos. O RBF é um poderoso recurso voltado para o remetente. De certa forma, o CPFP é o oposto do RBF, pois dá poder ao destinatário que sabe que o dinheiro ainda não chegou e quer acelerar o processo. No entanto, também é um recurso muito mais simples, com aplicabilidade não tão ampla quanto a primeira.
 
@@ -12,7 +12,7 @@ Basicamente, a ideia do CPFP é que um destinatário tenha uma transação que n
 
 Devemos observar que o CPFP não é um recurso novo no protocolo, assim como o RBF. É apenas um novo esquema de incentivo que pode ser usado para a seleção de transações pelos mineradores. Isso também significa que não é tão confiável quanto uma alteração feita pelo RBF: Pode haver motivos para que o filho não seja selecionado para ser colocado em um bloco e isso impedirá que o pai também seja colocado no bloco.
 
-## Gastando UTXOs não confirmados
+## Gastando UTXOs Não Confirmados
 
 Financiar uma transação com o CPFP é um processo muito simples, usando os métodos com os quais já estamos familiarizados:
 
@@ -108,7 +108,7 @@ Nossas transações podem ser processadas rapidamente, ou não. Tudo depende se 
 
 E isso realmente é tudo o que podemos fazer.
 
-### Atenção aos nuances
+### Atenção aos Nuances
 
 Embora o CPFP seja geralmente descrito como sendo um destinatário que usa uma nova transação para pagar por uma antiga que não foi confirmada, existem alguns nuances.
 
@@ -116,12 +116,12 @@ A parte que está _enviando_ poderia usar o CPFP para liberar uma transação se
 
 A parte que está _recebendo_ pode usar o CPFP mesmo se não estiver planejando gastar o dinheiro imediatamente, por exemplo, se estiver preocupado que os fundos possam não ser reenviados se a transação expirar. Nesse caso, ele apenas cria uma transação secundária que envia todo o dinheiro (menos a taxa de transação) para um endereço de troco. Isso é o que fizemos no nosso exemplo.
 
-## Resumo do Financiando uma transação com o CPFP
+## Resumo: Financiando uma Transação com CPFP
 
 Podemos aproveitar os incentivos do CPFP para liberar fundos que nos foram enviados, mas que não foram confirmados. Basta usar a transação não confirmada como sendo um UTXO e pagar uma taxa de transação acima da média.
 
 > :fire: ***Qual é o poder do CPFP?*** O seu uso é apenas para liberar fundos quando formos os recebedores dos fundos e o remetente não quer ajudar por qualquer que seja o motivo. Ele não tem as mesmas habilidades que o RBF, mas é uma maneira alternativa de exercer controle sobre uma transação depois que ela foi colocada na mempool, mas antes de ser confirmada em um bloco.
 
-## O que vem depois?
+## O Que Vem Depois?
 
-Vamos avançar para o [Capítulo 6: Expandindo as Transações de Bitcoin com Multisigs](06_0_Expanding_Bitcoin_Transactions_Multisigs.md).
+Vamos avançar para o [Capítulo 6: Expandindo Transações no Bitcoin com Multisigs](06_0_Expanding_Bitcoin_Transactions_Multisigs.md).

@@ -1,4 +1,4 @@
-# Adendo: Acessando um Segundo Node Lightning
+# Prefácio: Acessando um Segundo Node Lightning
 
 > :information_source: **NOTA:** Esta seção foi adicionada recentemente ao curso e é um rascunho inicial que ainda pode estar aguardando revisão.
 
@@ -315,12 +315,12 @@ c$ lightning-cli --network=testnet listpeers
 ```   
 No entanto, este definitivamente não será o caso na nossa primeira interação com a Lightning Network.
 
-## Resumo: Adendo: Acessando um Segundo Node Lightning
+## Resumo: Prefácio: Acessando um Segundo Node Lightning
 
 Sempre precisaremos de dois nodes Lightning para formar um canal. Se não tivermos outra pessoa que está testando as coisas conosco, precisaremos criar um segundo node, usanda c-lightning ou (como faremos em nossos exemplos) usando a LND.
 
 ## O Que Vem Depois?
 
-Embora possivelmente tenhamos criado um LND, a c-lightning permanecerá no centro dos nossos exemplos até que precisemos começar a usar os dois, no [Capítulo 19](19_0_Understanding_Your_Lightning_Setup.md).
+Embora possivelmente tenhamos criado um LND, a c-lightning permanecerá no centro dos nossos exemplos até que precisemos começar a usar os dois, no [Capítulo 20](20_0_Using_Lightning.md).
 
-Vamos continuar "Compreendendo a Configuração da Lightning" na seção [§19.3: Criando um Canal na Lightning](19_3_Setting_Up_a_Channel.md).
+Vamos continuar "Compreendendo Nossa Configuração da Lightning" na seção [§19.3: Criando um Canal Lightning](19_3_Setting_Up_a_Channel.md).

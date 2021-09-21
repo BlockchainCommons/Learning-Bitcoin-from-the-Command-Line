@@ -173,7 +173,7 @@ Dependendo de nossa API, podemos inserir isso como um ```scriptPubKey``` no esti
 
 Podemos observar que o ```hex scriptPubKey``` para a transação P2SH Script irá _sempre_ começar com um ```a914```, que é o ```OP_HASH160``` seguido por um ```OP_PUSHDATA``` de 20 bytes (hex: ```0x14```); e _sempre_ terminará com um ```87```, que é um ```OP_EQUAL```. Portanto, tudo o que precisamos fazer é colocar o script de resgate em hash entre esses números.
 
-## Resumo: Construindo a Estrutura de P2SH
+## Resumo: Construindo a Estrutura do P2SH
 
 Na verdade, a criação do script de bloqueio P2SH entra ainda mais nas entranhas do Bitcoin. Embora seja útil saber como tudo isso funciona em um nível muito baixo, é mais provável que tenhamos uma API cuidando de todo o trabalho pesado para nós. Nossa tarefa será simplesmente criar o Script Bitcoin para fazer o bloqueio... que é o tópico principal dos capítulos 9, 11 e 12.
 

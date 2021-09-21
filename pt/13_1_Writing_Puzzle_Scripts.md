@@ -1,4 +1,4 @@
-# 13.1: Escrevendo Scripts de Quebra-Cabeça
+# 13.1: Escrevendo Scripts de Quebra-Cabeças
 
 Os scripts de Bitcoin realmente _não_ precisam depender do conhecimento de uma chave secreta. Ao invés disso, eles podem ser quebra-cabeças de qualquer tipo.
 

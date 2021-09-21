@@ -100,7 +100,7 @@ Geralmente, esses eram problemas com qualquer tipo de script complexo do Bitcoin
 
 Os Multisigs P2SH são a metodologia moderna para a criação de multisigs na Blockchain. Elas podem ser criadas de forma muito simples, usando o mesmo processo visto nas seções anteriores.
 
-### Criando o Bloqueio para o Multisig P2SH
+### Criando um Bloqueio para o Multisig P2SH
 
 Para criar um multisig P2SH, siga as etapas padrão para criar um script de bloqueio P2SH:
 

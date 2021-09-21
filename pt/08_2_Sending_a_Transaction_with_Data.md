@@ -1,10 +1,10 @@
-# 8.2: Enviando uma transação com dados
+# 8.2: Enviando uma Transação com Dados
 
 O último jeito de variar a forma como enviamos uma transação simples é usar a transação para enviar dados ao invés de saldos (ou, na prática, enviar algo além dos saldos). Isso nos dá a capacidade de inserir informações na blockchain. Isso é feito através de um comando especial, o ```OP_RETURN```.
 
 A pegadinha? Só podemos armazenar 80 bytes por vez!
 
-## Criando nossos dados
+## Criando Nossos Dados
 
 A primeira coisa que precisamos fazer é criar os 80 bytes (ou menos) de dados que iremos gravar no nosso ```OP_RETURN```. Isso pode ser tão simples quanto preparar uma mensagem ou podemos usar o hash dos dados existentes. Por exemplo, o ```sha256sum``` produz 256 bits de dados, que são apenas 32 bytes, bem abaixo do nosso limite:
 ```
@@ -14,7 +14,7 @@ $ op_return_data="b9f81a8919e5aba39aeb86145c684010e6e559b580a85003ae25d78237a12e
 ```
 > :book: _O que é um OP_RETURN?_ Todas as transações Bitcoin são construídas com scripts que iremos ver mais a fundo no próximo capítulo. O ```OP_RETURN``` é um script simples que define o OUTPUT como sendo inválido. A convenção resultou no uso dele para incorporar dados na blockchain.
 
-## Separando algumas moedas
+## Separando Algumas Moedas
 
 Nosso objetivo ao criar uma transação de dados não é enviar dinheiro para alguém, mas colocar dados dentro da blockchain. No entanto, _devemos_ gastar algumas moedas para fazer isso. Só precisamos usar um endereço de troco como sendo nosso _ único_ destinatário. Em seguida, podemos identificar um UTXO e enviá-lo para nosso endereço de troco, sem esquecer da taxa de transação, ao mesmo tempo que usamos a mesma transação para criar um OP_RETURN.
 
@@ -41,7 +41,7 @@ $ utxo_vout=$(bitcoin-cli listunspent | jq -r '.[0] | .vout')
 $ changeaddress=$(bitcoin-cli getrawchangeaddress)
 ```
 
-## Escrevendo uma transação bruta
+## Escrevendo uma Transação Bruta
 
 Agora podemos escrever uma nova transação bruta com duas saídas: uma é o nosso endereço de alteração para recuperar (a maior parte) do nosso saldo, a outra é um endereço de dados, que é uma variável ```bitcoin-cli``` para um OP_RETURN.
 ```
@@ -97,18 +97,18 @@ Esta é a cara da transação:
 ```
 Como podemos observar, ela envia a maior parte do dinheiro de volta para o endereço de troco (`tb1qnx9fkrksw6aaaswc3kj0gademhn4ud3q7cz4fm`) menos a taxa de transação. Mais importante, a primeira saída mostra um OP_RETURN com os dados (`b9f81a8919e5aba39aeb86145c684010e6e559b580a85003ae25d78237a12e75`) logo depois.
 
-## Enviando uma transação bruta
+## Enviando uma Transação Bruta
 
 Assine a transação bruta e envie-a, e logo esse OP_RETURN será incorporado a blockchain!
 
-## Verificando nosso OP_RETURN
+## Verificando Nosso OP_RETURN
 
 Novamente, podemos olhar para essa transação usando um explorador da blockchain:
 [https://mempool.space/pt/testnet/tx/a600148ac3b05f0c774b8687a71c545077ea5dfb9677e5c6d708215053d892e8/]
 
 Podemos observar um aviso sobre os dados estarem em um "protocolo desconhecido". Se estivermos projetando algum uso regular dos dados ```OP_RETURN```, provavelmente iremos marcar com um prefixo especial, para marcar esse protocolo. Então, os dados OP_RETURN reais podem ser algo como "CONTRACTS3b110a164aa18d3a5ab064ba93fdce62". Este exemplo não usa um prefixo para evitar qualquer tipo de confusão com os espaços de dados.
 
-## Resumo: Enviando uma transação com dados
+## Resumo: Enviando uma Transação com Dados
 
 Podemos usar o ```OP_RETURN``` para armazenar até 80 bytes de dados na blockchain. Fazemos isso com a palavra-código ```data``` em um ```vout```. Ainda precisaremos enviar alguns satoshinhos, mas basta enviá-lo de volta para um endereço de troco, retirando a taxa de transação.
 
@@ -116,6 +116,6 @@ Podemos usar o ```OP_RETURN``` para armazenar até 80 bytes de dados na blockcha
 
 Observe que há alguma controvérsia sobre o uso da blockchain do Bitcoin usando-a para este fim.
 
-## O que vem depois?
+## O Que Vem Depois?
 
-Vamos conhecer mais sobre o "Script no Bitcoin" no [Capítulo Nove: Apresentando os Scripts no Bitcoin](09_0_Introducing_Bitcoin_Scripts.md).
+Vamos conhecer mais sobre "Programando no Bitcoin" no [Capítulo Nove: Apresentando os Scripts do Bitcoin](09_0_Introducing_Bitcoin_Scripts.md).

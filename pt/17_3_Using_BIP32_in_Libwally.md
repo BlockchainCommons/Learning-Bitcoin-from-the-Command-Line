@@ -1,4 +1,4 @@
-# 17.3: Usando o BIP32 na Libwally
+# 17.3: Usando BIP32 na Libwally
 
 > :information_source: **NOTA:** Esta seção foi adicionada recentemente ao curso e é um rascunho inicial que ainda pode estar aguardando revisão.
 
@@ -129,7 +129,7 @@ Account xpub key: tpubDWFQG78gYHzCkACXxkeh2LwWo8MVLm3YkTGd85LJwtpBB6xp4KwseGTEvx
 [m/84'/1'/0'/0/0]: tb1q0knqq26ek59pfl7nukzqr28m2zl5wn2f0ldvwu
 ```
 
-## Resumo: Usando o BIP32 na Libwally
+## Resumo: Usando BIP32 na Libwally
 
 Uma carteira HD permite gerar um grande número de chaves a partir de uma única seed. Agora sabemos como essas chaves são organizadas no BIP44, BIP84 e no Bitcoin Core, além de como derivá-las, começando com uma seed ou palavras mnemônicas.
 
@@ -139,4 +139,4 @@ Uma carteira HD permite gerar um grande número de chaves a partir de uma única
 
 ## O Que Vem Depois?
 
-Vamos aprender mais sobre "Programando Bitcoin com Libwally" na seção [§17.4: Usando PSBTs na Libwally](16_4_Using_PSBTs_in_Libwally.md).
+Vamos aprender mais sobre "Programando Bitcoin com Libwally" na seção [§17.4: Usando PSBTs na Libwally](17_4_Using_PSBTs_in_Libwally.md).

@@ -1,6 +1,6 @@
-# 2.2: Configurando uma Máquina Bitcoin Core de Outras Maneiras
+# 2.2: Configurando uma Máquina Bitcoin-Core de Outras Maneiras
 
-A seção anterior, [§2.1: Configurando um Bitcoin Core VPS com Bitcoin Standup](02_1_Setting_Up_a_Bitcoin-Core_VPS_with_StackScript.md), assumimos que iríamos criar um full node em um VPS usando um StackScript Linode. Entretanto, podemos querer criar uma instância do Bitcoin Core via qualquer outra metodologia a nossa escolha e ainda assim acompanhar as próximas etapas deste tutorial.
+A seção anterior, [§2.1: Configurando um Bitcoin-Core VPS com Bitcoin Standup](02_1_Setting_Up_a_Bitcoin-Core_VPS_with_StackScript.md), assumimos que iríamos criar um full node em um VPS usando um StackScript Linode. Entretanto, podemos querer criar uma instância do Bitcoin Core via qualquer outra metodologia a nossa escolha e ainda assim acompanhar as próximas etapas deste tutorial.
 
 
 A seguir estão outras metodologias de configuração das quais temos conhecimento:
@@ -15,4 +15,4 @@ A seguir estão outras metodologias de configuração das quais temos conhecimen
 
 A não ser que queiramos retornar a alguma das outras metodologias de criação de um node Bitcoin Core, devemos:
 
-   * Seguir em frente usando o "bitcoin-cli" com o [Capítulo Três: Compreendendo Sua Configuração do Bitcoin](03_0_Understanding_Your_Bitcoin_Setup.md).
+   * Seguir em frente para o "bitcoin-cli" com o [Capítulo Três: Compreendendo Nossa Configuração do Bitcoin](03_0_Understanding_Your_Bitcoin_Setup.md).

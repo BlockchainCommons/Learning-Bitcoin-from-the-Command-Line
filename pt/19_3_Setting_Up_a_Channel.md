@@ -1,4 +1,4 @@
-# 19.3: Criando um Canal na Lightning
+# 19.3: Criando um Canal Lightning
 
 > :information_source: **NOTA:** Esta seção foi adicionada recentemente ao curso e é um rascunho inicial que ainda pode estar aguardando revisão.
 
@@ -176,10 +176,10 @@ Esta transação de financiamento também pode ser encontrada onchain pelo TXID 
 
 > :book: ***O que é a capacidade do canal?*** Em um canal Lightning, ambos os lados do canal possuem uma parte da capacidade. O valor do seu lado do canal é chamado de *saldo local (local balance)* e o valor do outro lado é chamado de *saldo remoto (remote balance)*. Ambos os saldos podem ser atualizados muitas vezes sem fechar o canal (quando o saldo final é enviado para a blockchain), mas a capacidade do canal não pode mudar sem fechá-lo. A capacidade total de um canal é a soma do saldo de cada participante do canal.
 
-## Resumo: Criando um Canal na Lightning
+## Resumo: Criando um Canal Lightning
 
 Precisaremos criar um canal com um node remoto para poder receber e enviar dinheiro pela Lightning Network.
 
 ## O Que Vem Depois?
 
-Você está pronto para passar para o [Capítulo 20: Usando Lightning](20_0_Using_Lightning.md).
+Você está pronto para passar para o [Capítulo 20: Usando a Lightning](20_0_Using_Lightning.md).

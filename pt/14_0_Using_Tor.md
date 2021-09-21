@@ -16,6 +16,6 @@ Os objetivos secundários incluem a capacidade de:
   
 ## Tabela de Conteúdo
 
-* [Seção 1: Verificando a Sua Configuração do Tor](14_1_Verifying_Your_Tor_Setup.md)
-* [Seção 2: Mudando os Seus Serviços Ocultos do Bitcoin](14_2_Changing_Your_Bitcoin_Hidden_Services.md)
-* [Seção 3: Adicionando um Serviço SSH Oculto](14_3_Adding_SSH_Hidden_Services.md)
+* [Seção 1: Verificando Nossa Configuração do Tor](14_1_Verifying_Your_Tor_Setup.md)
+* [Seção 2: Mudando Nossos Serviços Ocultos do Bitcoin](14_2_Changing_Your_Bitcoin_Hidden_Services.md)
+* [Seção 3: Adicionando Serviços SSH Ocultos](14_3_Adding_SSH_Hidden_Services.md)

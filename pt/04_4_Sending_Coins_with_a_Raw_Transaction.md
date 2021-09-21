@@ -182,6 +182,6 @@ Para enviar moedas usando transações brutas, precisamos criar uma transação 
 
 ## O Que Vem Depois?
 
-Veja uma forma alternativa de inserir comandos no [Prefácio: Usando JQ](04_4__Interlude_Using_Curl.md).
+Veja uma forma alternativa de inserir comandos no [Prefácio: Usando Curl](04_4__Interlude_Using_Curl.md).
 
 Ou, se preferir pular o que é francamente uma digressão, podemos aprender mais uma forma de enviar transações no Bitcoin na seção [§4.5 Enviando Moedas com Transações Brutas Automatizadas](04_5_Sending_Coins_with_Automated_Raw_Transactions.md).

@@ -1,4 +1,4 @@
-# 19.2: Conhecendo a Configuração da c-lightning
+# 19.2: Conhecendo Nossa Configuração da c-lightning
 
 > :information_source: **NOTA:** Esta seção foi adicionada recentemente ao curso e é um rascunho inicial que ainda pode estar aguardando revisão.
 
@@ -329,12 +329,12 @@ c$ lightning-cli --testnet listconfigs
 }
 ```
 
-## Resumo: Conhecendo a Configuração da c-lightning
+## Resumo: Conhecendo Nossa Configuração da c-lightning
 
 O diretório `~/.lightning` contém todos os arquivos, enquanto o comando `lightning-cli help` mostra uma variedade de informações dos comandos que podem ser usados para obter mais informações sobre a configuração e o funcionamento da Lightning Network.
 
 ## O Que Vem Depois?
 
-Precisaremos de um segundo node para testar o pagamento dos invoices. Se precisarmos de suporte para configurar um, podemos ler o [Adendo: Acessando um Segundo Node Lightning](19_2__Interlude_Accessing_a_Second_Lightning_Node.md).
+Precisaremos de um segundo node para testar o pagamento dos invoices. Se precisarmos de suporte para configurar um, podemos ler o [Prefácio: Acessando um Segundo Node Lightning](19_2__Interlude_Accessing_a_Second_Lightning_Node.md).
 
 Caso contrário, vamos continuar "Compreendendo a Configuração da Lightning" na seção [§19.3: Criando um Canal na Lightning](19_3_Setting_Up_a_Channel.md).

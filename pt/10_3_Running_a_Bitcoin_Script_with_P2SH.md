@@ -2,7 +2,7 @@
 
 Agora que conhecemos a teoria e a prática por trás dos endereços P2SH, estamos prontos para transformar um script de Bitcoin não-padrão em uma transação real. Vamos utilizar o script de bloqueio simples da seção [§9.2: Executando um Script no Bitcoin](09_2_Running_a_Bitcoin_Script.md), `OP_ADD 99 OP_EQUAL`.
 
-## Criando uma transação P2SH
+## Criando uma Transação P2SH
 
 Para bloquear uma transação com este script, precisamos fazer o seguinte:
 

@@ -1,8 +1,8 @@
-# 5.1: Observando as transações presas na mempool
+# 5.1: Atentando-se para Transações Presas
 
 Às vezes, uma transação de Bitcoin pode ficar presa. Isso normalmente ocorre porque não havia taxa de transação suficiente, mas também pode ser devido a uma falha da rede ou do software.
 
-## Observando as transações enviadas
+## Observando as Transações Enviadas
 
 Nós devemos _sempre_ observar as transações para garantir que tenham sido encerradas. O ```bitcoin-cli listtransactions``` mostrará todas as nossas transações de entrada e saída, enquanto o ```bitcoin-cli gettransaction``` juntamente com um txid, irá mostrar uma transação específica.
 
@@ -50,10 +50,10 @@ Se sua transação ficar paralisada por mais tempo do que esperamos, normalmente
 
 **4. Use o CPFP como sendo o destinatário.** Se nós formos os recebedores do saldo, podemos usar o CPFP (Child-Pays-For-Parent) para usar a transação não confirmada como um input para uma nova transação. Podemos consultar a sessão [§5.3: Financiando uma transação com o CPFP](05_3_Funding_a_Transaction_with_CPFP.md).
 
-## Resumo do Observando as transações presas na mempool
+## Resumo: Atentando-se para Transações Presas
 
 Esta é uma introdução ao poder das transações do Bitcoin. Se sabemos que uma transação está presa, podemos decidir como liberá-la com recursos como o RBF ou o CPFP.
 
-## O que vem depois?
+## O Que Vem Depois?
 
-Continuemos "Controlando as transações de Bitcoin" com a sessão [§5.2: Reenviando uma transação com o RBF](05_2_Resending_a_Transaction_with_RBF.md).
+Continuemos "Controlando Transações no Bitcoin" com a sessão [§5.2: Reenviando uma Transação com RBF](05_2_Resending_a_Transaction_with_RBF.md).

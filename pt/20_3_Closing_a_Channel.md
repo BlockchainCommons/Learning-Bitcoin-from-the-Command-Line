@@ -256,4 +256,4 @@ Ao fechar um canal, realizamos uma transação na blockchain encerrando nosso re
 
 ## O Que Vem Depois?
 
-Vamos continuar "Usando a Lightning" na seção [§20.4: Expandindo a Rede Lightning](20_4_Lightning_Network_Review.md).
+Vamos continuar "Usando a Lightning" na seção [§20.4: Expandindo a Lightning Network](20_4_Lightning_Network_Review.md).
