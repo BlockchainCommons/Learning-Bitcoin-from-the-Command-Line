@@ -122,6 +122,6 @@ Se quisermos aumentar a segurança da instalação do Bitcoin a partir da fonte,
 
 ## O Que Vem Depois?
 
-Se estávamos no processo de criação de um node de Bitcoin para usar neste curso, devemos continuar com o [Capítulo 3: Compreendendo Sua Configuração do Bitcoin](03_0_Understanding_Your_Bitcoin_Setup.md).
+Se estávamos no processo de criação de um node Bitcoin para usar neste curso, devemos continuar com o [Capítulo 3: Compreendendo Nossa Configuração do Bitcoin](03_0_Understanding_Your_Bitcoin_Setup.md).
 
 Se estivermos lendo os apêndices, vamos continuar com o [Apêndice 3: Usando o Bitcoin Regtest](A3_0_Using_Bitcoin_Regtest.md).

@@ -26,7 +26,7 @@ Se fornecemos um endereço IP, o acesso `ssh` será limitado a esse endereço, d
 
 ## Etapa 5: Configurando o Tor
 
-O Tor é instalado para fornecer serviços protegidos (ocultos) para acessar os comandos RPC do Bitcoin através do nosso servidor.  Podemos consultar a seção [§14.1: Verificando a Configuração do Tor](14_1_Verifying_Your_Tor_Setup.md) para obter mais informações sobre a configuração do Tor.
+O Tor é instalado para fornecer serviços protegidos (ocultos) para acessar os comandos RPC do Bitcoin através do nosso servidor.  Podemos consultar a seção [§14.1: Verificando Nossa Configuração do Tor](14_1_Verifying_Your_Tor_Setup.md) para obter mais informações sobre a configuração do Tor.
 
 Se criarmos um cliente autorizado para os serviços ocultos, o acesso será limitado a essa chave, que está em `/var/lib/tor/standup/authorized_clients`. Caso contrário, na seção [§14.2](14_2_Changing_Your_Bitcoin_Hidden_Services.md) explicamos como podemos fazê-la depois.
 
