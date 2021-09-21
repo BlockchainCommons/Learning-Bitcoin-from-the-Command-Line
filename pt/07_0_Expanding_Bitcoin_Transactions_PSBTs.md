@@ -19,6 +19,6 @@ Os objetivos secundários do capítulo incluem a capacidade de:
   
 ## Tabela de Conteúdo
 
-   * [Seção Um: Criando uma Transação Bitcoin Parcialmente Assinada](07_1_Creating_a_Partially_Signed_Bitcoin_Transaction.md)
-   * [Seção Dois: Usando uma Transação Bitcoin Parcialmente Assinada](07_2_Using_a_Partially_Signed_Bitcoin_Transaction.md)
+   * [Seção Um: Criando uma Transação Parcialmente Assinada no Bitcoin (PSBT)](07_1_Creating_a_Partially_Signed_Bitcoin_Transaction.md)
+   * [Seção Dois: Usando uma Transação Parcialmente Assinada no Bitcoin (PSBT)](07_2_Using_a_Partially_Signed_Bitcoin_Transaction.md)
    * [Seção Três: Integrando com Hardware Wallets](07_3_Integrating_with_Hardware_Wallets.md)
