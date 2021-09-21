@@ -1,4 +1,4 @@
-# 16.1: Configurando a Libwally
+# 17.1: Configurando a Libwally
 
 > :information_source: **NOTA:** Esta seção foi adicionada recentemente ao curso e é um rascunho inicial que ainda pode estar aguardando revisão.
 
@@ -129,7 +129,7 @@ Em ambos os casos, o argumento é para flags, mas atualmente está definido como
 
 ## Testando um Programa de Teste da Libwally
 
-O diretório src contém o arquivo [testwally.c](src / 16_1_testwally.c), que apenas mostra como funcionam as funções de inicialização e de limpeza.
+O diretório src contém o arquivo [testwally.c](src/17_1_testwally.c), que apenas mostra como funcionam as funções de inicialização e de limpeza.
 
 Podemos compilá-lo da seguinte maneira:
 ```
@@ -192,4 +192,4 @@ Então, o que exatamente podemos fazer agora? É para dar essa resposta que temo
 
 ## O Que Vem Depois?
 
-Vamos aprender mais sobre "Programando Bitcoin com Libwally" na seção [§16.2: Usando BIP39 na Libwally](16_2_Using_BIP39_in_Libwally.md).
+Vamos aprender mais sobre "Programando o Bitcoin com Libwally" na seção [§17.2: Usando BIP39 na Libwally](17_2_Using_BIP39_in_Libwally.md).

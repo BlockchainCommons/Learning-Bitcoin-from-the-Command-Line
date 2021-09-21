@@ -1,4 +1,4 @@
-# 17.7: Integranda Libwally e Bitcoin-CLI
+# 17.7: Integrando Libwally e Bitcoin-CLI
 
 > :information_source: **NOTA:** Esta seção foi adicionada recentemente ao curso e é um rascunho inicial que ainda pode estar aguardando revisão.
 

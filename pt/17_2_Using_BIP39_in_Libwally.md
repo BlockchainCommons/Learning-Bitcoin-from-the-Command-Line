@@ -1,4 +1,4 @@
-# 16.2: Usando BIP39 na Libwally
+# 17.2: Usando BIP39 na Libwally
 
 > :information_source: **NOTA:** Esta seção foi adicionada recentemente ao curso e é um rascunho inicial que ainda pode estar aguardando revisão.
 
@@ -103,4 +103,4 @@ O BIP39 nos permite gerar um conjunto de 12-24 palavras Mnemônicas a partir de 
 
 ## O Que Vem Depois?
 
-Vamos aprender mais sobre "Programando o Bitcoind usando o Libwally" na seção [§17.3: Usando o BIP32 no Libwally](16_3_Using_BIP32_in_Libwally.md).
+Vamos aprender mais sobre "Programando o Bitcoind usando o Libwally" na seção [§17.3: Usando o BIP32 no Libwally](17_3_Using_BIP32_in_Libwally.md).
