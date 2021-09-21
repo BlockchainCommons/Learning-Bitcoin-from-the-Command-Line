@@ -1,4 +1,4 @@
-# 19.1: Verificando a Configuração da c-lightning
+# 19.1: Verificando Nossa Configuração da c-lightning
 
 >: information_source: **NOTA:** Esta seção foi adicionada recentemente ao curso e é um rascunho inicial que ainda pode estar aguardando revisão.
 
@@ -258,13 +258,13 @@ Também existe um arquivo de configuração geral (o padrão é `~/.lightning/co
 
 Nossa configuração pode não ter nenhum arquivo de configuração: a c-lightning será executada com uma boa configuração padrão, sem eles.
 
-## Resumo: Verificando a Configuração da c-lightning
+## Resumo: Verificando Nossa Configuração da c-lightning
 
 Antes de começar a brincar com a lightning, devemos nos certificar de que nossos aliases estão configurados, nosso `lightningd` está rodando e nosso node está sincronizado. Também podemos querer configurar algum acesso a configurações alternativas da Lightning, em outras redes.
 
 ## O Que Vem Depois?
 
-Vamos continuar "Compreendendo a Configuração da Lightning" na seção [§19.2: Conhecendo a Configuração da c-lightning](19_2_Knowing_Your_lightning_Setup.md).
+Vamos continuar "Compreendendo a Configuração da Lightning" na seção [§19.2: Conhecendo Nossa Configuração da c-lightning](19_2_Knowing_Your_lightning_Setup.md).
 
 ## Variante: Instalando do Ubuntu ppa
 
