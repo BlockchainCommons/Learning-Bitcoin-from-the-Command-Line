@@ -1,4 +1,4 @@
-# 11.2: Usando o CLTV nos Scripts
+# 11.2: Usando CLTV em Scripts
 
 O ```OP_CHECKLOCKTIMEVERIFY``` (ou CLTV) é o complemento natural para o ```nLockTime```. Ele muda a ideia de bloquear transações por um tempo absoluto ou altura de bloco para o âmbito dos opcodes, permitindo o bloqueio das UTXOs individuais.
 
@@ -21,7 +21,7 @@ O ```OP_CHECKLOCKTIMEVERIFY``` funciona dentro do mesmo paradigma de altura de b
 
 Como o CLTV é apenas parte de um script (e presumivelmente parte de uma transação P2SH), uma transação CLTV não é mantida fora da mempool como uma transação ```nLockTime```. Logo, assim que for verificado, ele vai para a blockchain e os fundos são considerados gastos. O truque é que todas as saídas que foram bloqueadas com o CLTV não estão disponíveis para _serem gastas_ até que o CLTV permita.
 
-### Compreendendo um CLTV de tempo absoluto
+### Compreendendo um CLTV de Tempo Absoluto
 
 É assim que o ```OP_CHECKLOCKTIMEVERIFY``` seria utilizado para verificar o locktime de 24 de maio de 2017:
 ```
@@ -36,7 +36,7 @@ Ou assim:
 <AbsoluteTime> OP_CHECKLOCKTIMEVERIFY
 ```
 
-### Compreendendo um CLTV de altura de bloco absoluta
+### Compreendendo um CLTV de Altura de Bloco Absoluta
 
 É assim que o ```OPCHECKLOCKTIMEVERIFY``` compararia a uma altura de bloqueio alcançada no dia 24 de maio de 2017:
 ```
@@ -47,7 +47,7 @@ Mas geralmente vamos abstrair assim:
 <AbsoluteBlockHeight> OP_CHECKLOCKTIMEVERIFY
 ```
 
-### Entendendo como o CLTV realmente funciona
+### Entendendo como o CLTV Realmente Funciona
 
 A explicação acima é suficiente para usar e entender o CLTV. No entanto, o [BIP 65](https://github.com/bitcoin/bips/blob/master/bip-0065.mediawiki) apresenta todos os seguintes detalhes.
 
@@ -71,7 +71,7 @@ O seguinte script de bloqueio simples pode ser usado para transformar uma saída
 <NextYear> OP_CHECKLOCKTIMEVERIFY OP_DROP OP_DUP OP_HASH160 <pubKeyHash> OP_EQUALVERIFY OP_CHECKSIG
 ```
 
-### Codificando um script CLTV
+### Codificando um Script CLTV
 
 Obviamente, como acontece com quaisquer scripts Bitcoin complexos, este script CLTV seria realmente codificado em um script P2SH, conforme explicado na seção [§10.1: Entendendo a Fundação do P2SH](10_1_Understanding_the_Foundation_of_P2SH.md) e na [§10.2: Construindo a Estrutura de P2SH](10_2_Building_the_Structure_of_P2SH.md).
 
@@ -116,7 +116,7 @@ No caso do exemplo acima, o script de desbloqueio abaixo seria suficiente, desde
 <signature> <pubKey>
 ```
 
-### Executando um script CLTV
+### Executando um Script CLTV
 
 Para executar o Script, primeiro devemos concatenar os scripts de desbloqueio e bloqueio:
 ```
@@ -142,7 +142,7 @@ Stack: [ <signature> <pubKey> ]
 ```
 Finalmente, o restante do script é executado, que é uma verificação normal de uma assinatura e chave pública.
 
-## Resumo: Usando o CLTV nos Scripts
+## Resumo: Usando CLTV em Scripts
 
 O ```OP-CHECKLOCKTIMEVERIFY``` é um opcode simples que olha para um único argumento, o interpreta como uma altura de bloco ou timestamp UNIX, e só permite que a UTXO seja desbloqueada se àquela altura de bloco ou timestamp UNIX estiver no passado. Definir o ```nLockTime``` na transação de gastos é o que permite ao Bitcoin fazer este cálculo.
 
@@ -150,4 +150,4 @@ O ```OP-CHECKLOCKTIMEVERIFY``` é um opcode simples que olha para um único argu
 
 ## O Que Vem Depois?
 
-Vamos continuar "Aumentando o poder do timelock com scripts do Bitcoin" na seção [§11.3: Usando o CSV nos Scripts](11_3_Using_CSV_in_Scripts.md).
+Vamos continuar "Capacitando Timelock com Scripts no Bitcoin" na seção [§11.3: Usando CSV em Scripts](11_3_Using_CSV_in_Scripts.md).
