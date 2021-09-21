@@ -417,4 +417,4 @@ Embora o `btcd` e o `rpcclient` tenham alguns limites, ainda podemos executar os
 
 ## O Que Vem Depois?
 
-Vamos aprender mais sobre "Conversando com o Bitcoind com Outras Linguagens" na seção [§18.2: Acessando Bitcoin com Java](18_2_Accessing_Bitcoind_with_Java.md).
+Vamos aprender mais sobre "Conversando com o Bitcoind com Outras Linguagens" na seção [§18.2: Acessando o Bitcoin com Java](18_2_Accessing_Bitcoind_with_Java.md).
