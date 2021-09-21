@@ -1,4 +1,4 @@
-# 2.1: Configurando um Bitcoin Core VPS com Bitcoin Standup
+# 2.1: Configurando um Bitcoin-Core VPS com Bitcoin Standup
 
 Este documento explica como configurar um VPS (Virtual Private Server, ou no português, Servidor Privado Virtual) para rodar um node do Bitcoin usando o Linode.com, instalado usando um StackScript automatizado do [projeto Bitcoin Standup](https://github.com/BlockchainCommons/Bitcoin-Standup-Scripts). Apenas precisamos copiar e colar alguns comandos e inicializar o VPS. Quase que imediatamente após a inicialização, encontraremos o nosso novo node do Bitcoin baixando os blocos.
 
@@ -227,7 +227,7 @@ Mas quando estabilizar em um número, estaremos prontos para continuar!
 
 Mesmo assim, pode ser uma boa hora para mais alguns cafézinhos. Mas logo logo o nosso sistema estará pronto, e nós também!
 
-## Resumo: Configurando um Bitcoin Core VPS Manualmente
+## Resumo: Configurando um Bitcoin-Core VPS Manualmente
 
 Criar um Bitcoin Core VPS com os scripts Standup fizeram com que todo o processo fique rápido, simples, e (esperamos), indolor.
 
@@ -238,7 +238,7 @@ Temos algumas opções para o que podemos seguir:
    * Ler o [StackScript](https://github.com/BlockchainCommons/Bitcoin-Standup-Scripts/blob/master/Scripts/LinodeStandUp.sh) para entender a configuração;
    * Ler o que o StackScript faz no [Apêndice I: Compreendendo o Bitcoin Standup](A1_0_Understanding_Bitcoin_Standup.md);
    * Escolher uma metodologia inteiramente alternativa, como descrito na seção [§2.2: Configurando uma Máquina Bitcoin-Core de Outras Maneiras](02_2_Setting_Up_Bitcoin_Core_Other.md);
-   * Usar o "bitcoin-cli" com o [Capítulo Três: Compreendendo a Sua Configuração do Bitcoin](03_0_Understanding_Your_Bitcoin_Setup.md).
+   * Usar o "bitcoin-cli" com o [Capítulo Três: Compreendendo Nossa Configuração do Bitcoin](03_0_Understanding_Your_Bitcoin_Setup.md).
 
 ## Sinopse: Tipos de Instalação do Bitcoin
 

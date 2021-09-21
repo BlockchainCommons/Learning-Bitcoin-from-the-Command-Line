@@ -1,5 +1,4 @@
-
-# Capítulo 2: Configurando um Bitcoin-Core no VPS
+# Capítulo 2: Configurando um Bitcoin-Core VPS
 
 Para começar a usar o Bitcoin, primeiro precisamos configurar uma máquina que execute o Bitcoin. Os artigos neste capítulo descrevem como fazer isso, principalmente usando um VPS (Virtual Private Server).
 
@@ -23,5 +22,5 @@ Os objetivos secundários incluem a capacidade de:
 
 Na verdade, não é preciso ler este capítulo inteiro. Decida se gostaria de executar um StackScript para configurar um node em um VPS Linode (§2.2); Ou você deseja configurar em um ambiente diferente, como em uma máquina AWS ou um Mac (§2.3). Em seguida, vá para a seção mais apropriada. Informações adicionais sobre nossas configurações sugeridas também podem ser encontradas no [Apêndice I](A1_0_Understanding_Bitcoin_Standup.md).
 
-   * [Seção Um: Configurando um Bitcoin Core VPS com Bitcoin Standup](02_1_Setting_Up_a_Bitcoin-Core_VPS_with_StackScript.md)
-   * [Seção Dois: Configurando uma máquina Bitcoin Core usando outros meios](02_2_Setting_Up_Bitcoin_Core_Other.md)
+   * [Seção Um: Configurando um Bitcoin-Core VPS com Bitcoin Standup](02_1_Setting_Up_a_Bitcoin-Core_VPS_with_StackScript.md)
+   * [Seção Dois: Configurando uma Máquina Bitcoin-Core de Outras Maneiras](02_2_Setting_Up_Bitcoin_Core_Other.md)
