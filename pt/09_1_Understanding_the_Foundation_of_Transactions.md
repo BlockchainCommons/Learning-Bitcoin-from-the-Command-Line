@@ -1,4 +1,4 @@
-# 9.1: Compreendendo a Base de Transações
+# 9.1: Compreendendo a Base das Transações
 
 A base do Bitcoin é a capacidade de proteger transações, algo que é feito com uma linguagem de programação simples.
 
@@ -131,9 +131,9 @@ Vamos comparar isso com o ```ScriptPubkey``` da nossa nova transação P2PKH:
 
 Essas duas transações são _definitivamente_ trancadas de maneiras diferentes. O Bitcoin reconhece a primeira como sendo ```scripthash``` (P2SH) e a segunda como sendo ```pubkeyhash``` (P2PKH), mas também devemos ser capazes de ver a diferença nos diferentes códigos ```asm```: ```OP_HASH160 a5d106eb8ee51b23cf60d8bd98bc285695f233f3 OP_EQUAL``` versus ```OP_DUP OP_HASH160 06b5c6ba5330cdf738a2ce91152bfd0e71f9ec39 Op_equalverify op_checksig```. Este é o poder da programação: conseguimos, de maneira bem simples, produzir alguns dos tipos drasticamente diferentes de transações que aprendemos nos capítulos anteriores.
 
-## Resumo: Compreendendo a Base de Transações
+## Resumo: Compreendendo a Base das Transações
 
-Cada transação do bitcoin inclui pelo menos um script de desbloqueio (```scriptSig```), que resolve um quebra-cabeça criptográfico anterior, e pelo menos um script de bloqueio (```scriptPubKey```), que cria um novo quebra-cabeça criptográfico. Há um ```scriptSig``` para cada entrada e um ```scriptPubKey``` para cada saída. Cada um desses scripts é escrito usando o Bitcoin Script, uma linguagem semelhante à linguagem de programação Forth que fortalece ainda mais o Bitcoin.
+Cada transação do Bitcoin inclui pelo menos um script de desbloqueio (```scriptSig```), que resolve um quebra-cabeça criptográfico anterior, e pelo menos um script de bloqueio (```scriptPubKey```), que cria um novo quebra-cabeça criptográfico. Há um ```scriptSig``` para cada entrada e um ```scriptPubKey``` para cada saída. Cada um desses scripts é escrito usando o Bitcoin Script, uma linguagem semelhante à linguagem de programação Forth que fortalece ainda mais o Bitcoin.
 
 > :fire: ***Qual é o poder dos scripts?*** Os scripts desbloqueiam todo o poder dos contratos inteligentes. Com os opcodes apropriados, podemos tomar decisões muito precisas sobre quem pode resgatar os fundos, quando podem ser resgatados e como eles podem resgatá-los. Regras mais complexas para saldos corporativos, endereços de parceria, gastos com proxy e outras metodologias também podem ser codificados dentro de um script. Os scripts também conseguem capacitar serviços mais complexos no Bitcoin, como a Lightning e sidechains.
 

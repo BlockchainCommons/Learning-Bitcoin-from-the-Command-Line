@@ -1,4 +1,4 @@
-# 9.3: Testando um Script no Bitcoin
+# 9.3: Testando um Script do Bitcoin
 
 Programar no Bitcoin nos permite um controle adicional considerável sobre as transações no Bitcoin, mas também é um tanto quanto perigoso. Como descreveremos na seção [§10.1](10_1_Understanding_the_Foundation_of_P2SH.md), os scripts reais são um tanto isolados da rede Bitcoin, o que significa que é possível escrever um script e a rede aceitá-lo, mesmo que seja impossível resgatar daquele script! Portanto, precisamos testar exaustivamente nossos scripts antes de colocarmos nosso dinheiro neles.
 
@@ -46,7 +46,7 @@ O ```btcdeb``` funciona como um depurador padrão. Ele pega um script (bem como 
 
 Se ao invés disso nós quisermos inicializá-lo sem argumentos, iremos obter simplesmente um interpretador onde podemos emitir comandos ```exec [opcode]``` para realizar ações diretas.
 
-### Usando o btcdeb para um Exemplo de Adição
+### Usando o btcdeb com um Exemplo de Adição
 
 O exemplo a seguir mostra o uso do ```btcdeb``` usando como exemplo a adição da seção anterior, ```1 2 OP_ADD```
 ```
@@ -200,7 +200,7 @@ E como podemos faz isso? Acontece que esse é o tópico do [capítulo 10](10_0_E
 
 _Quaisquer que sejam_ os outros métodos de teste que usamos, testar um script na Testnet deve ser nosso teste final _antes_ de colocar nosso script em Mainnet. Não podemos confiar que nosso código está correto. Não podemos fazer isso apenas olhando para ele. Nem mesmo podemos confiar em quaisquer simuladores ou depuradores que estivermos utilizando. Fazer isso é outra ótima maneira de perder seu saldo no Bitcoin.
 
-## Resumo: Testando um Script no Bitcoin
+## Resumo: Testando um Script do Bitcoin
 
 Você deve instalar o ```btcdeb``` como uma ferramenta de linha de comando para testar os scripts do Bitcoin. No momento em que este livro foi escrito, produzimos resultados precisos que podem percorrer todo o processo do script. Também podemos procurar em alguns sites online uma representação mais visual. Quando estivermos com tudo pronto, vamos precisar usar a testnet para ter certeza de que as coisas estão funcionando com precisão, antes de implantarmos na Mainnet.
 

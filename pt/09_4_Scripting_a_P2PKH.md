@@ -350,7 +350,7 @@ Infelizmente, esta verificação pode ou não estar funcionando no momento do te
 
 Como mostramos, um P2PKH  é bastante simples. Nossa proteção vem através da força de sua criptografia.
 
-### Como Procurar uma Pub Key e uma Assinatura Manualmente
+### Como Procurar uma PubKey e uma Assinatura Manualmente
 
 E se quiséssemos gerar a ```<signature>``` e a ```<PubKey>```, informações necessárias para desbloquear um UTXO, sem usar o ```bitcoin-cli``` para criar uma transação?
 
@@ -386,4 +386,4 @@ Enviar para um endereço P2PKH foi relativamente fácil quando estávamos usando
 
 ## O Que Vem Depois?
 
-Vamos continuar "Apresentando Scripts no Bitcoin" na seção [§9.4: Programando um P2WPKH](09_4_Scripting_a_P2WPKH.md).
+Vamos continuar "Apresentando Scripts no Bitcoin" na seção [§9.5: Programando um P2WPKH](09_5_Scripting_a_P2WPKH.md).
