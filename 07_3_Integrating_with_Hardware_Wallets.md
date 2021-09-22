@@ -91,7 +91,7 @@ HWI$ python3 setup.py install
 
 You'll want to create an alias here too, varied by your actual install location:
 ```
-$ alias hwi="~/Standup/HWI/hwi.py --testnet"
+$ alias hwi="~/Standup/HWI/hwi.py --chain test"
 ```
 Again, we've included a reference to testnet in this alias.
 
@@ -154,10 +154,10 @@ Because you've created a second wallet, some commands will now require a `-rpcwa
 
 You now have to import a watch-list of addresses from the hardware wallet. This is done with HWI's `getkeypool` command:
 ```
-$ hwi -f 9a1d520b getkeypool --wpkh 0 1000
+$ hwi -f 9a1d520b getkeypool 0 1000
 [{"desc": "wpkh([9a1d520b/84h/1h/0h]tpubDD7KTtoGzK9GuWUQcr1uTJazsAkqoXhdrwGXWVix6nPpNZmSbagZWD4QSaMsyK8YohAirGDPrWdRiEpKzTFB7DrTrqfzHCn7yi5EsqeR93S/0/*)#qttxy592", "range": [0, 1000], "timestamp": "now", "internal": false, "keypool": true, "active": true, "watchonly": true}, {"desc": "wpkh([9a1d520b/84h/1h/0h]tpubDD7KTtoGzK9GuWUQcr1uTJazsAkqoXhdrwGXWVix6nPpNZmSbagZWD4QSaMsyK8YohAirGDPrWdRiEpKzTFB7DrTrqfzHCn7yi5EsqeR93S/1/*)#3lw8ep4j", "range": [0, 1000], "timestamp": "now", "internal": true, "keypool": true, "active": true, "watchonly": true}]
 ```
-We address HWI with the `fingerprint` and ask for the first 1000 WPKH (native Segwit) addresses. In return, we receive two descriptors for the key pool: one for receiving addresses and one for change addresses.
+We address HWI with the `fingerprint` and ask for the first 1000 addresses. The WPKH (native Segwit) address type is used as a default. In return, we receive two descriptors for the key pool: one for receiving addresses and one for change addresses.
 
 > :book: ***What is a key pool?*** A key pool is a group of pregenerated keys. Modern HD wallets create key pools by continuing to determine new hierarchical addresses based on the original seed. The idea of key pools was originally implemented to ease the backup requirements of wallets. This allowed a user to generate a keypool and then backup the wallet immediately, rather than requiring backups after every new address was created. The concept has also proven very useful in the modern day since it allows the importing of a whole set of future addresses from one device to another.
 
