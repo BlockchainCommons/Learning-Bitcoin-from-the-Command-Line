@@ -53,7 +53,7 @@ You're now ready to create a node based on the Stackscript.
    * **SSH Key.** Copy your local computer's SSH key here; this allows you be able to automatically login in via SSH to the standup account. If you haven't setup an SSH key on your local computer yet, there are good instructions for it on [Github](https://help.github.com/articles/generating-a-new-ssh-key-and-adding-it-to-the-ssh-agent/).  You may also want to add your SSH key into your Linode LISH (Linode Interactive Shell) by going to your "Linode Home Page / My Preferences / LISH Settings /  LISH Keys". Using an SSH key will give you a simpler and safer way to log in to your server.
    * **SSH-Allowed IPs.** This is a comma-separated list of IPs that will be allowed to SSH into the VPS. For example "192.168.1.15,192.168.1.16". If you do not enter any IPs, _your VPS will not be very secure_. It will constantly be bombarded by attackers trying to find their way in, and they may very well succeed.
 5. Select an Image
-   * **Target Image.** If you followed the instructions, this will only allow you to select "Debian 10" (though "Debian 9" did also work with previous versions of this Stackscript and might still).
+   * **Target Image.** If you followed the instructions, this will only allow you to select "Debian 11" (though previous versions of this Stackscript worked with Debian 9 or 10and might still).
 6. Choose a region for where the Linode will be located.
 
 *The remaining questions all have to do with the mechanics of the VPS deployment and should be left as they are with one exception: bump the Swap Disk from 256MB to 512MB, to ensure that you have enough memory to download the blockchain.*
@@ -196,7 +196,7 @@ If all look good, congratulations, you have a functioning Bitcoin node using Lin
 
 ## What We Have Wrought
 
-Although the default Debian 10 image that we are using for your VPS has been modified by Linode to be relatively secure, your Bitcoin node as installed through the Linode StackScript is set up with an even higher level of security. You may find this limiting, or be unable to do things that you expect. Here are a few notes on that:
+Although the default Debian 11 image that we are using for your VPS has been modified by Linode to be relatively secure, your Bitcoin node as installed through the Linode StackScript is set up with an even higher level of security. You may find this limiting, or be unable to do things that you expect. Here are a few notes on that:
 
 ### Protected Services
 
