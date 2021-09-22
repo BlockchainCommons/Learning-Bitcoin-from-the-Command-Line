@@ -36,7 +36,7 @@ Your server security won't be complete if people can break into your Linode acco
 
 ### Load the StackScript
 
-Download the [Linode Standup Script](https://github.com/BlockchainCommons/Bitcoin-Standup-Scripts/blob/master/Scripts/LinodeStandUp.sh) from the [Bitcoin Standup Scripts repo](https://github.com/BlockchainCommons/Bitcoin-Standup-Scripts). This script basically automates all Bitcoin VPS setup instructions. If you want to be particulary prudent, read it over carefully. If you are satisfied, you can copy that StackScript into your own account by going to the [Stackscripts page](https://cloud.linode.com/stackscripts?type=account) on your Linode account and selecting to [Create New Stackscript](https://cloud.linode.com/stackscripts/create). Give it a good name (we use `Bitcoin Standup`), then copy and paste the script. Choose Debian 10 for your target image and "Save" it.
+Download the [Linode Standup Script](https://github.com/BlockchainCommons/Bitcoin-Standup-Scripts/blob/master/Scripts/LinodeStandUp.sh) from the [Bitcoin Standup Scripts repo](https://github.com/BlockchainCommons/Bitcoin-Standup-Scripts). This script basically automates all Bitcoin VPS setup instructions. If you want to be particulary prudent, read it over carefully. If you are satisfied, you can copy that StackScript into your own account by going to the [Stackscripts page](https://cloud.linode.com/stackscripts?type=account) on your Linode account and selecting to [Create New Stackscript](https://cloud.linode.com/stackscripts/create). Give it a good name (we use `Bitcoin Standup`), then copy and paste the script. Choose Debian 11 for your target image and "Save" it.
 
 ### Do the Initial Setup
 
@@ -69,7 +69,7 @@ Blockchain Commons is currently in the process of expanding its Bitcoin Standup 
 
 You'll next to choose a Linode plan.
 
-A Linode 4GB will suffice for most setups, including: Pruned Mainnet, Pruned Testnet, and even non-Pruned Testnet. They all use less than 50G of storage and 4GB is a comfortable amount of memory. This is the setup we suggest. It runs $20 per month.
+A Shared-CPU Linode 4GB will suffice for most setups, including: Pruned Mainnet, Pruned Testnet, and even non-Pruned Testnet. They all use less than 50G of storage and 4GB is a comfortable amount of memory. This is the setup we suggest. It runs $20 per month.
 
 If you want to instead have a non-Pruned Mainnet in a VPS, you'll need to install a Linode with a disk in excess of 280G(!), which is currently the Linode 16GB, which has 320G of storage and 16G of memory and costs approximately $80 per month. We do _not_ suggest this.
 
@@ -87,6 +87,8 @@ Note, there may be ways to reduce both costs.
 
 * For the machines we suggest as **Linode 4GB**, you may be able to reduce that to a Linode 2GB. Some versions of Bitcoin Core have worked well at that size, some have occasionally run out of memory and then recovered, and some have continuously run out of memory. Remember to up that swap space to maximize the odds of this working. Use at your own risk.
 * For the Unpruned Mainnet, which we suggest as a **Linode 16GB**, you can probably get by with a Linode 4GB, but add [Block Storage](https://cloud.linode.com/volumes) sufficient to store the blockchain. This is certainly a better long-term solution since the Bitcoin blockchain's storage requirements continuously increase if you don't prune, while the CPU requirements don't (or don't to the same degree). A 320 GibiByte storage would be $32 a month, which combined with a Linode 4GB is $52 a month, instead of $80, and more importantly you can keep growing it. We don't fully document this setup for two reasons (1) we don't suggest the unpruned mainnet setup, and so we suspect it's a much less common setup; and (2) we haven't tested how Linodes volumes compare to their intrinic SSDs for performance and usage. But there's full documentation on the Block Storage page. You'd need to set up the Linode, run its stackscript, but then interrupt it to move the blockchain storage overly to a newly commissioned volume before continuing.
+
+If you are running a deployment that will be transacting real Bitcoins, you may want to alternatively consider a Dedicated-CPU Linode, which tends to run 50% more expensive than the Shared-CPU Linode. We've generally found the Shared CPUs to be entirely sufficient, but for a wide deployment, you may wish to consider higher levels of reliability.
 
 ### Do the Final Setup
 
@@ -136,7 +138,7 @@ At that point, your home directory should look like this:
 
 ```
 $ ls
-bitcoin-0.20.0-x86_64-linux-gnu.tar.gz  laanwj-releases.asc  SHA256SUMS.asc
+bitcoin-22.0-x86_64-linux-gnu.tar.gz  keys.txt  SHA256SUMS  SHA256SUMS.asc
 ```
 
 These are the various files that were used to install Bitcoin on your VPS. _None_ of them are necessary. We've just left them in case you want to do any additional verification. Otherwise, you can delete them:
@@ -156,10 +158,26 @@ $ sudo grep VERIFICATION /standup.log
 If you see something like the following, all should be well:
 
 ```
-/root/StackScript - VERIFICATION SUCCESS / SIG: gpg: Good signature from "Wladimir J. van der Laan (Bitcoin Core binary release signing key) <laanwj@gmail.com>" [unknown]
-/root/StackScript - VERIFICATION SUCCESS / SHA: 35ec10f87b6bc1e44fd9cd1157e5dfa4```
+./standup.sh - SIG VERIFICATION SUCCESS: 9 GOOD SIGNATURES FOUND.
+./standup.sh - SHA VERIFICATION SUCCESS / SHA: bitcoin-22.0-x86_64-linux-gnu.tar.gz: OK
 ```
-However, if either of those two checks instead reads "VERIFICATION ERROR", then there's a problem. Since this is all scripted, it's possible that there's just been a minor change that has caused the script's checks not to work right. (This has happened a few times over the existence of the script that became Standup.) But, it's also possible that someone is trying to encourage you to run a fake copy of the Bitcoin daemon. So, _be very sure you know what happened before you make use of Bitcoin!_
+If either of those two checks instead reads "VERIFICATION ERROR", then there's a problem.
+
+The log also contains more information on the Signatures, if you want to make sure you know _who_ signed the Bitcoin release:
+```
+$ sudo grep -i good /standup.log
+./standup.sh - SIG VERIFICATION SUCCESS: 9 GOOD SIGNATURES FOUND.
+gpg: Good signature from "Andrew Chow (Official New Key) <achow101@gmail.com>" [unknown]
+gpg: Good signature from "Ben Carman <benthecarman@live.com>" [unknown]
+gpg: Good signature from "Antoine Poinsot <darosior@protonmail.com>" [unknown]
+gpg: Good signature from "Stephan Oeste (it) <it@oeste.de>" [unknown]
+gpg: Good signature from "Michael Ford (bitcoin-otc) <fanquake@gmail.com>" [unknown]
+gpg: Good signature from "Oliver Gugger <gugger@gmail.com>" [unknown]
+gpg: Good signature from "Hennadii Stepanov (hebasto) <hebasto@gmail.com>" [unknown]
+gpg: Good signature from "Jon Atack <jon@atack.com>" [unknown]
+gpg: Good signature from "Wladimir J. van der Laan <laanwj@visucore.com>" [unknown]
+```
+Since this is all scripted, it's possible that there's just been a minor change that has caused the script's checks not to work right. (This has happened a few times over the existence of the script that became Standup.) But, it's also possible that someone is trying to encourage you to run a fake copy of the Bitcoin daemon. So, _be very sure you know what happened before you make use of Bitcoin!_
 
 ### Read the Logs
 
