@@ -47,19 +47,16 @@ You're now ready to create a node based on the Stackscript.
    * **Short Hostname.** Pick a name for your VPS. For example, "mybtctest".
    * **Fully Qualified Hostname.** If you're going to include this VPS as part of a network with full DNS records, type in the hostname with its domain. For example, "mybtctest.mydomain.com". Otherwise, just repeat the short hostname and add ".local", for example "mybtctest.local".
 3. Enter the password for the "standup" user.
-4. Choose an Installation Type in the advanced options. 
-   * **Installation Type.** This is likely "Mainnet" or "Pruned Mainnet" if you are setting up a node for usage and "Testnet" or "Pruned Testnet" if you're just playing around. The bulk of this tutorial will assume you chose "Pruned Testnet", but you should still be able to follow along with other types. See the [Synopsis](#synopsis-bitcoin-installation-types) for more information on these options. (Note that if you plan to try out the Lightning chapters, you'll probably want to use an Unpruned node, as working with Pruned nodes on Lightning is iffy. See [§18.1](18_1_Verifying_Your_Lightning_Setup.md#compiling-the-source-code) for the specifics.)
-5. Fill in any other appropriate advanced options.
+4. Fill in the appropriate advanced options. 
    * **X25519 Public Key.** This is a public key to add to Tor's list of authorized clients. If you don't use it, anyone who gets the QR code for your node can access it. You'll get this public key from whichever client you're using to connect to your node. For example, if you use [FullyNoded 2](https://github.com/BlockchainCommons/FullyNoded-2), you can go to its settings and "Export Tor V3 Authentication Public Key" for use here.
-  * **SSH Key.** Copy your local computer's SSH key here; this allows you be able to automatically login in via SSH to the standup account. If you haven't setup an SSH key on your local computer yet, there are good instructions for it on [Github](https://help.github.com/articles/generating-a-new-ssh-key-and-adding-it-to-the-ssh-agent/).  You may also want to add your SSH key into your Linode LISH (Linode Interactive Shell) by going to your "Linode Home Page / My Preferences / LISH Settings /  LISH Keys". Using an SSH key will give you a simpler and safer way to log in to your server.
-  * **SSH-Allowed IPs.** This is a comma-separated list of IPs that will be allowed to SSH into the VPS. For example "192.168.1.15,192.168.1.16". If you do not enter any IPs, _your VPS will not be very secure_. It will constantly be bombarded by attackers trying to find their way in, and they may very well succeed.
-4. Select an Image
+   * **Installation Type.** This is likely "Mainnet" or "Pruned Mainnet" if you are setting up a node for usage and "Testnet" or "Pruned Testnet" if you're just playing around. The bulk of this tutorial will assume you chose "Pruned Testnet", but you should still be able to follow along with other types. See the [Synopsis](#synopsis-bitcoin-installation-types) for more information on these options. (Note that if you plan to try out the Lightning chapters, you'll probably want to use an Unpruned node, as working with Pruned nodes on Lightning is iffy. See [§18.1](18_1_Verifying_Your_Lightning_Setup.md#compiling-the-source-code) for the specifics.)
+   * **SSH Key.** Copy your local computer's SSH key here; this allows you be able to automatically login in via SSH to the standup account. If you haven't setup an SSH key on your local computer yet, there are good instructions for it on [Github](https://help.github.com/articles/generating-a-new-ssh-key-and-adding-it-to-the-ssh-agent/).  You may also want to add your SSH key into your Linode LISH (Linode Interactive Shell) by going to your "Linode Home Page / My Preferences / LISH Settings /  LISH Keys". Using an SSH key will give you a simpler and safer way to log in to your server.
+   * **SSH-Allowed IPs.** This is a comma-separated list of IPs that will be allowed to SSH into the VPS. For example "192.168.1.15,192.168.1.16". If you do not enter any IPs, _your VPS will not be very secure_. It will constantly be bombarded by attackers trying to find their way in, and they may very well succeed.
+5. Select an Image
    * **Target Image.** If you followed the instructions, this will only allow you to select "Debian 10" (though "Debian 9" did also work with previous versions of this Stackscript and might still).
-5. Choose a region for where the Linode will be located.
+6. Choose a region for where the Linode will be located.
 
-*The remaining questions all have to do with the mechanics of the VPS deployment and should be left as they are with one exception: bump the Swap Disk from 256MB to 512MB, to ensure that you have enough memory to download the blockchain._
-
-Finally, you'll need to fill in a root password, which will be the password used for the root account.
+*The remaining questions all have to do with the mechanics of the VPS deployment and should be left as they are with one exception: bump the Swap Disk from 256MB to 512MB, to ensure that you have enough memory to download the blockchain.*
 
 ### Choose Other Standup Options
 
@@ -69,7 +66,7 @@ Blockchain Commons is currently in the process of expanding its Bitcoin Standup 
 
 You'll next to choose a Linode plan.
 
-A Shared-CPU Linode 4GB will suffice for most setups, including: Pruned Mainnet, Pruned Testnet, and even non-Pruned Testnet. They all use less than 50G of storage and 4GB is a comfortable amount of memory. This is the setup we suggest. It runs $20 per month.
+Linode will default to Dedicated-CPU plans, but you can select the more cost-efficient Shared-CPU instead. A Shared-CPU Linode 4GB will suffice for most setups, including: Pruned Mainnet, Pruned Testnet, and even non-Pruned Testnet. They all use less than 50G of storage and 4GB is a comfortable amount of memory. This is the setup we suggest. It runs $20 per month.
 
 If you want to instead have a non-Pruned Mainnet in a VPS, you'll need to install a Linode with a disk in excess of 280G(!), which is currently the Linode 16GB, which has 320G of storage and 16G of memory and costs approximately $80 per month. We do _not_ suggest this.
 
