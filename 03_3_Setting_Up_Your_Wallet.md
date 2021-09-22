@@ -1,14 +1,53 @@
 # 3.3: Setting Up Your Wallet
 
-You're now ready to start working with Bitcoin. To begin with, you'll need to create an address for receiving funds.
+You're now ready to start working with Bitcoin. To begin with, you'll need to create a wallet for sending and receiving funds.
+
+## Create a Wallet
+
+> :warning: **VERSION WARNING:** Newer versions of Bitcoin Core, starting with v0.21.0, will no longer automatically create a default wallet on startup. So, you will need to manually create one. But if you're running an older version of Bitcoin Core, a new wallet has already been created for you, in which case you can skip ahead to [Create an Address](#create-an-address).
+
+The first thing you need to do is create a new wallet, which can be done with the `bitcoin-cli createwallet` command. By creating a new wallet, you'll be creating your public-private key pair. Your public key is the source from which your addresses will be created, and your private key is what will allow you to spend any funds you receive into your addresses. Bitcoin Core will automatically save that information into a `wallet.dat` file in your `~/.bitcoin/testnet3/wallets` directory.
+
+If you check your `wallets` directory, you'll see that it's currently empty.
+```
+$ ls ~/.bitcoin/testnet3/wallets
+$
+```
+
+Although Bitcoin Core won't create a new wallet for you, it will still load a top-level unnamed ("") wallet on startup by default. You can take advantage of this by creating a new unnamed wallet.
+```
+$ bitcoin-cli createwallet ""
+{
+  "name": "",
+  "warning": ""
+}
+```
+
+Now, your `wallets` directory should be populated.
+```
+$ ls ~/.bitcoin/testnet3/wallets
+database  db.log  wallet.dat
+```
+
+> :book: ***What is a Bitcoin wallet?*** A Bitcoin wallet is the digital equivalent of a physical wallet on the Bitcoin network. It stores information on the amount of bitcoins you have and where it's located (addresses), as well as the ways you can use to spend it. Spending physical money is intuitive, but to spend bitcoins users need to provide the correct _private key_. We will explain this in more detail throughout the course, but what you should know for now is that this public-private key dynamic is part of what makes Bitcoin secure and trustless. Your key pair information is saved in the `wallet.dat` file, in addition to data about preferences and transactions. For the most part, you won't have to worry about that private key: `bitcoind` will use it when it's needed. However, this makes the `wallet.dat` file extremely important: if you lose it, you lose your private keys, and if you lose your private keys, you lose your funds!
+
+Sweet, now you have a Bitcoin wallet. But a wallet will be of little use for receiving bitcoins if you don't create an address first.
 
 ## Create an Address
 
-The first thing you need to do is create an address for receiving payments. This is done with the `bitcoin-cli getnewaddress` command. Remember that if you want more information on this command, you should type `bitcoin-cli help getnewaddress`. Currently, there are three types of addresses: `legacy` and the two types of SegWit address, `p2sh-segwit` and `bech32`. If you do not otherwise specify, you'll get the default, which is currently `bech32`.
+The next thing you need to do is create an address for receiving payments. This is done with the `bitcoin-cli getnewaddress` command. Remember that if you want more information on this command, you should type `bitcoin-cli help getnewaddress`. Currently, there are three types of addresses: `legacy` and the two types of SegWit address, `p2sh-segwit` and `bech32`. If you do not otherwise specify, you'll get the default, which is currently `bech32`.
 
 However, for the next few sections we're instead going to be using `legacy` addresses, both because `bitcoin-cli` had some teething problems with its early versions of SegWit addresses, and because other people might not be able to send to `bech32` addresses. This is all unlikely to be a problem for you now, but for the moment we want to get your started with transaction examples that are (mostly) guaranteed to work.
 
-You can require `legacy` address either with the second argument to `getnewaddress` or with the named `addresstype` argument.
+First, restart `bitcoind` so your new unnamed wallet is set as default and automatically loaded.
+```
+$ bitcoin-cli stop
+Bitcoin Core stopping # wait a minute so it stops completely
+$ bitcoind -daemon
+Bitcoin Core starting # wait a minute so it starts completely
+```
+
+You can now create an address. You can require `legacy` address either with the second argument to `getnewaddress` or with the named `addresstype` argument.
 ```
 $ bitcoin-cli getnewaddress -addresstype legacy
 moKVV6XEhfrBCE3QCYq6ppT7AaMF8KsZ1B
@@ -17,12 +56,9 @@ Note that this address begins with an "m" (or sometimes an "n") to signify a tes
 
 > :link: **TESTNET vs MAINNET:** The equivalent mainnet address would start with a "1" (for Legacy), "3" (for P2SH), or "bc1" (for Bech32).
 
-
 Take careful note of the address. You'll need to give it to whomever will be sending you funds.
 
-> :book: ***What is a Bitcoin address?*** A Bitcoin address is literally where you receive money. It's like an email address, but for funds. Technically, it's a public key, though different address schemes adjust that in different ways. However unlike an email address, a Bitcoin address should be considered single use: use it to receive funds just _once_. When you want to receive funds from someone else or at some other time, generate a new address. This is suggested in large part to improve your privacy. The whole blockchain is immutable, which means that explorers can look at long chains of transactions over time, making it possible to statistically determine who you and your contacts are, no matter how careful you are. However, if you keep reusing the same address, then this becomes even easier.
-
-> :book: ***What is a Bitcoin wallet?*** By creating your first Bitcoin address, you've also begun to fill in your Bitcoin wallet. More precisely, you've begun to fill the `wallet.dat` file in your `~/.bitcoin/testnet3 /wallets` directory. The `wallet.dat` file contains data about preferences and transactions, but more importantly it contains all of the key pairs that you create: both the public key (which is the source of the address where you receive funds) and the private key (which is how you spend those funds). For the most part, you won't have to worry about that private key: `bitcoind` will use it when it's needed. However, this makes the `wallet.dat` file extremely important: if you lose it, you lose your private keys, and if you lose your private keys, you lose your funds!
+> :book: ***What is a Bitcoin address?*** A Bitcoin address is literally where you receive money. It's like an email address, but for funds. Technically, it's a public key, though different address schemes adjust that in different ways. However unlike an email address, a Bitcoin address should be considered single use: use it to receive funds just _once_. When you want to receive funds from someone else or at some other time, generate a new address. This is suggested in large part to improve your privacy. The whole blockchain is immutable, which means that explorers can look at long chains of transactions over time, making it possible to statistically determine who you and your contacts are, no matter how careful you are. However, if you keep reusing the same address, then this becomes even easier. By creating your first Bitcoin address, you've also begun to fill in your Bitcoin wallet. More precisely, you've begun to fill the `wallet.dat` file in your `~/.bitcoin/testnet3 /wallets` directory.
 
 With a single address in hand, you could jump straight to the next section and begin receiving funds. However, before we get there, we're going to briefly discuss the other sorts of addresses that you'll meet in the future and talk about a few other wallet commands that you might want to use in the future.
 
