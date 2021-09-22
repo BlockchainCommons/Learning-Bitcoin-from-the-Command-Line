@@ -9,7 +9,7 @@ In [§17.2](17_2_Using_BIP39_in_Libwally.md), you were able to use entropy to ge
 To create a HD address requires starting with a seed, and then walking down the hierarchy until the point that you create addresses.
 
 That starts off easily enough, you just generate a seed, which you already did in the previous section:
-```
+```c
   unsigned char entropy[16];  
   randombytes_buf(entropy, 16);
 
@@ -23,7 +23,7 @@ That starts off easily enough, you just generate a seed, which you already did i
 ### Generate a Root Key
 
 With a seed in hand, you can then generate a master extended key with the `bip32_key_from_seed_alloc` function (or alternatively the `bip32_key_from_seed`, which doesn't do the `alloc`):
-```
+```c
   struct ext_key *key_root;  
   lw_response = bip32_key_from_seed_alloc(seed,sizeof(seed),BIP32_VER_TEST_PRIVATE,0,&key_root);
 ```
@@ -34,7 +34,7 @@ As you can see, you'll need to tell it what version of the key to return, in thi
 ### Generate xpub & xprv
 
 Whenever you have a key in hand, you can turn it into xpub or xprv keys for distribution with the `bip32_key_to_base58` command. You just tell it whether you want a `PRIVATE` (xprv) or `PUBLIC` (xpub) key:
-```
+```c
   char *xprv;
   lw_response = bip32_key_to_base58(key_root, BIP32_FLAG_KEY_PRIVATE, &xprv);
 
@@ -71,18 +71,18 @@ To generate an address, you thus have to dig down through the whole hierarchy.
 ### Generate an Account Key
 
 One way to do this is to use the `bip32_key_from_parent_path_alloc` function to drop down several levels of a hierarchy. You embed the levels in an array:
-```
+```c
   uint32_t path_account[] = {BIP32_INITIAL_HARDENED_CHILD+84, BIP32_INITIAL_HARDENED_CHILD+1, BIP32_INITIAL_HARDENED_CHILD};
 ```
 Here we'll be looking at the zeroth hardened child (that's the account) or the first hardened child (that's testnet coins) of the 84th hardened child (that's the BIP84 standard): `[m/84'/1'/0']`.
 
 You can then use that path to generate a new key from your old key:
-```
+```c
   struct ext_key *key_account;
   lw_response = bip32_key_from_parent_path_alloc(key_root,path_account,sizeof(path_account),BIP32_FLAG_KEY_PRIVATE,&key_account);
 ```
 Every time you have a new key, you can use that to generate new xprv and xpub keys, if you desire:
-```
+```c
   lw_response = bip32_key_to_base58(key_account, BIP32_FLAG_KEY_PRIVATE, &a_xprv);
   lw_response = bip32_key_to_base58(key_account, BIP32_FLAG_KEY_PUBLIC, &a_xpub);
 ```
@@ -90,19 +90,19 @@ Every time you have a new key, you can use that to generate new xprv and xpub ke
 ### Generate an Address Key
 
 Alternatively, you can use the `bip32_key_from_parent_alloc` function, which just drops down one level of the hierarchy at a time. The following example drops down to the 0th child of the account key (which is the external address) and then the 0th child of that. This would be useful because then you could continue generating the 1st address, the 2nd address, and so on from that external key:
-```
+```c
   struct ext_key *key_external;  
   lw_response = bip32_key_from_parent_alloc(key_account,0,BIP32_FLAG_KEY_PRIVATE,&key_external);
 
   struct ext_key *key_address;  
   lw_response = bip32_key_from_parent_alloc(key_external,0,BIP32_FLAG_KEY_PRIVATE,&key_address);
 ```
-> :warning: **WARNING::** At some point in this hierarchy, you might decide to generate `BIP32_FLAG_KEY_PUBLIC` instead of `BIP32_FLAG_KEY_PRIVATE`. Obviously this decision will be based on your security and your needs, but remember that you only need a public key to generate the actual address.
+> :warning: **WARNING:** At some point in this hierarchy, you might decide to generate `BIP32_FLAG_KEY_PUBLIC` instead of `BIP32_FLAG_KEY_PRIVATE`. Obviously this decision will be based on your security and your needs, but remember that you only need a public key to generate the actual address.
 
 ### Generate an Address
 
 Finally, you're ready to generate an address from your final key. All you do is run `wally_bip32_to_addr_segwit` using your final key and a description of what sort of address this is.
-```
+```c
   char *segwit;
   lw_response = wally_bip32_key_to_addr_segwit(key_address,"tb",0,&segwit);
 
