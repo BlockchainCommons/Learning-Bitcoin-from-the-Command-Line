@@ -121,4 +121,4 @@ Agora temos um servidor do Bitcoin acessível através da rede I2P no nosso novo
 
 Siga em frente para o "Programando com RPC" no [Capítulo Dezesseis: Conversando com o Bitcoind com C](16_0_Talking_to_Bitcoind.md).
 
-Ou, se não formos programadores, podemos pular para o [Capítulo Dezenove: Compreendendo Sua Configuração Lightning](https://github.com/namcios/Learning-Bitcoin-from-the-Command-Line/blob/portuguese-translation/pt/18_0_Understanding_Your_Lightning_Setup.md) para continuarmos nosso aprendizado da linha de comando com a rede Lightning.
+Ou, se não formos programadores, podemos pular para o [Capítulo Dezenove: Compreendendo Sua Configuração Lightning](https://github.com/namcios/Learning-Bitcoin-from-the-Command-Line/blob/portuguese-translation/pt/19_0_Understanding_Your_Lightning_Setup.md) para continuarmos nosso aprendizado da linha de comando com a rede Lightning.
