@@ -155,9 +155,33 @@ If you'd like to make your own translation, please see [Contributing](https://gi
 
 ## Status - Beta
 
-v2.0.1 of **Learning Bitcoin from the Command Line** is feature complete. It may still be undergoing third-party review or editing, but it can be used for learning.
+v2.1.0 of **Learning Bitcoin from the Command Line** is feature complete and has undergone full editing and integration. It is ready for learning
 
 We are also tentatively considering what we could include in a [v3.0](TODO-30.md) of the course. If you'd like to support work of that sort, become a [GitHub Sponsor](https://github.com/sponsors/BlockchainCommons) or support us at our [BTCPay Server](https://btcpay.blockchaincommons.com/), and let us know that **Learning Bitcoin** was the reason why.
+### Version History
+
+#### 2.1.0 (pending)
+
+* New chapter 15  (i2p).
+* Added fixes to wallet usage from 0.21
+* Updated install to new Bitcoin Scripts for 22.0
+* Incorporated numerous fixes revealed by first translation projects
+
+#### 2.0.1 (June 15, 2021)
+
+* Numerous small patches following 2.0
+* Intended as baseline for translations (2.2.0), but 2.1.0 material on i2p slipped in
+
+#### 2.0.0 (November 3, 2020)
+
+* Second major release of Learning Bitcoin
+* Added material on Segwit, Tor, hardware wallets, lightning, regtest
+* Completely previous unfinished work on programming using a variety of languages
+
+#### 1.0.0 (pre-2020)
+
+* Original, extensive but incomplete version
+* Contained comprehensive sections on setup, bitcoin-cli, and scripting
 
 ## Origin, Authors, Copyright & Licenses
 
