@@ -161,7 +161,7 @@ Estamos considerando tentativamente aquello que podríamos incluir en una [v3.0]
 
 ## Origen, Autores, Copyright & Licencias
 
-A menos que sea señalado de otra manera (ya sea en este [LEEME.md](./LEEME.md) o en los comentarios en los encabezados de los archivos) el contenido de este repositorio es Copyright © 2020 por Blockchain Commons, LLC, y esta bajo licencia [CC-BY](./LICENSE-CC-BY-4.0.md).
+A menos que sea señalado de otra manera (ya sea en este [README.md](./README.md) o en los comentarios en los encabezados de los archivos) el contenido de este repositorio es Copyright © 2020 por Blockchain Commons, LLC, y esta bajo licencia [CC-BY](./LICENSE-CC-BY-4.0.md).
 
 ## Apoyo Financiero
 
