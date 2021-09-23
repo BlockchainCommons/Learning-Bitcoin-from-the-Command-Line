@@ -4,13 +4,13 @@ Agora estamos prontos para receber dinheiro no endereço que configuramos.
 
 ## Pegando um Pouco de Dinheiro
 
-Para fazermos qualquer coisa a mais, precisamos de dinheiro. Na testnet, isso é feito por meio de _faucets_. Como o dinheiro é de mentira, basta irmos a um faucet e pedirmos um pouco de dinheiro que ele será enviado para nós. Sugerimos usar o faucet em https://testnet-faucet.mempool.co/, https://bitcoinfaucet.uo1.net/ ou https://testnet.coinfaucet.eu/en/. Se eles não estiverem disponíveis por algum motivo, podemos pesquisar por "bitcoin testnet faucet" na internet e encontrar outros. 
+Para fazermos qualquer coisa a mais, precisamos de dinheiro. Na Testnet, isso é feito por meio de _faucets_. Como o dinheiro é de mentira, basta irmos a um faucet e pedirmos um pouco de dinheiro que ele será enviado para nós. Sugerimos usar o faucet em https://testnet-faucet.mempool.co/, https://bitcoinfaucet.uo1.net/ ou https://testnet.coinfaucet.eu/en/. Se eles não estiverem disponíveis por algum motivo, podemos pesquisar por "bitcoin testnet faucet" na internet e encontrar outros. 
 
-Para usarmos um faucet, geralmente precisamos acessar uma URL e copiar e colar nosso endereço. Observe que este é um daqueles casos em que não seremos capazes de usar variáveis de linha de comando, infelizmente. Posteriormente, será criada uma transação que enviará dinheiro da faucet para nós. 
+Para usarmos um faucet, geralmente precisamos acessar uma URL e copiar e colar nosso endereço. É importante observamos que este é um daqueles casos em que não seremos capazes de usar variáveis de linha de comando, infelizmente. Posteriormente, será criada uma transação que enviará dinheiro da faucet para nós. 
 
-> :book: ***O que é uma transação?*** Uma transação é uma troca de bitcoins. O proprietário de alguns bitcoins usa sua chave privada para acessar essas moedas e, em seguida, bloqueia a transação usando a chave pública do destinatário. 
+> :book: ***O que é uma transação?*** Uma transação é uma troca de bitcoins. O proprietário de alguns bitcoins usa sua chave privada para acessar essas moedas e, em seguida, bloqueia a transação usando a chave pública do destinatário.
 
-> :link: **TESTNET vs MAINNET:** Infelizmente, não existem faucets na vida real. Se estivéssemos usando a mainnet, precisaríamos ir e realmente comprar bitcoins em uma exchange de bitcoins ou em um caixa eletrônico, ou precisaríamos que alguém os enviasse para nós. A vida na testnet é muito mais fácil. 
+> :link: **TESTNET vs MAINNET:** Infelizmente, não existem faucets na vida real. Se estivéssemos usando a Mainnet, precisaríamos realmente comprar bitcoins em uma exchange ou em um caixa eletrônico, ou precisaríamos que alguém os enviasse alguns satoshinhos. A vida na Testnet é muito mais fácil. 
 
 ## Verificando o Nosso Dinheiro
 
@@ -21,12 +21,11 @@ $ bitcoin-cli getbalance
 ```
 Mas espere, não há nenhum saldo ainda!?
 
-
-Bem-vindo ao mundo da latência do Bitcoin. O problema é que nossa transação ainda não foi gravada em bloco!
+Bem-vindo ao mundo da latência do Bitcoin. O problema é que nossa transação ainda não foi gravada no bloco!
 
 > :book: ***O que é um bloco?*** As transações são transmitidas pela rede e reunidas em blocos pelos mineradores. Esses blocos são protegidos com uma prova de trabalho matemática (em inglês, _proof-of-work_, ou PoW), que prova que o poder de computação foi gasto como parte da criação do bloco. É essa prova de trabalho (multiplicada por muitos blocos, cada um construído sobre o último) que mantém o Bitcoin seguro.
 
-> :book: ***O que é um minerador?*** Um minerador é um participante na rede Bitcoin que trabalha para criar blocos. É um trabalho remunerado: quando um minerador cria um bloco com sucesso, ele recebe uma recompensa única mais as taxas pelas transações em seu bloco. A mineração é um grande negócio. Os mineradores tendem a funcionar em hardware especial, acelerado de maneiras que tornam mais provável que sejam capazes de criar blocos. Eles também tendem a fazer parte de pools de mineração (_mining pools_), onde todos os mineradores concordam em dividir as recompensas quando um deles cria um bloco com sucesso. 
+> :book: ***O que é um minerador?*** Um minerador é um participante na rede Bitcoin que trabalha para criar blocos. É um trabalho remunerado: quando um minerador cria um bloco com sucesso, ele recebe uma recompensa única mais as taxas pelas transações em seu bloco. A mineração é um grande negócio. Os mineradores tendem a utilizar hardwares especiais, projeto de maneiras que tornam mais provável que sejam capazes de criar blocos. Eles também tendem a fazer parte de pools de mineração (_mining pools_), onde todos os mineradores concordam em dividir as recompensas quando um deles cria um bloco com sucesso. 
 
 Felizmente, `bitcoin-cli getunconfirmedbalance` ainda deve mostrar nosso saldo atualizado, desde que a transação inicial tenha sido criada:
 ```
@@ -34,13 +33,13 @@ $ bitcoin-cli getunconfirmedbalance
 0.01010000
 ```
 
-Se ainda estiver mostrando um zero, provavelmente estamos avançando neste tutorial rápido demais. Espere um segundo. As moedas devem aparecer não confirmadas e, em seguida, mover rapidamente para confirmadas. Observe que uma moeda pode passar de um saldo não confirmado para o confirmado quase imediatamente, portanto, devemos nos certificar de verificar os dois. No entanto, se o `getbalance` e o `getunconfirmedbalance` ainda mostrarem zero em dez minutos, então provavelmente há algo errado com a faucet e precisaremos escolher outra.
+Se ainda estiver mostrando um zero, provavelmente estamos avançando neste tutorial rápido demais. Espere alguns segundos. As moedas devem aparecer não confirmadas e, em seguida, serão rapidamente confirmadas. Observe que uma moeda pode passar de um saldo não confirmado para o confirmado quase imediatamente, portanto, devemos nos certificar de verificar ambos. No entanto, se o `getbalance` e o `getunconfirmedbalance` ainda mostrarem zero nos próximos dez minutos, então provavelmente há algo errado com o faucet e precisaremos escolher outra.
 
 ### Ganhando Confiança no Nosso Dinheiro
 
-Podemos usar `bitcoin-cli getbalance" * "[n]`, onde substituimos `[n]` por um inteiro, para ver se um saldo confirmado tem 'n' blocos de profundidade.
+Podemos usar `bitcoin-cli getbalance" * "[n]`, onde substituímos `[n]` por um inteiro, para ver se um saldo confirmado tem 'n' blocos de profundidade.
 
-> :book: ***O que é a profundidade do bloco?*** Depois que um bloco é construído e confirmado, outro bloco é construído em cima dele e então outro ... Como este é um processo estocástico, há alguma chance de reversão quando um bloco ainda é novo. Portanto, um bloco deve ser "enterrado" vários blocos ao fundo de uma cadeia antes que possamos nos sentir totalmente confiante em nossos fundos. Cada um desses blocos tende a ser construído em uma média de 10 minutos ... então normalmente leva cerca de uma hora para uma transação confirmada receber seis blocos de profundidade, que é a medida para confiança completa no Bitcoin.
+> :book: ***O que é a profundidade do bloco?*** Depois que um bloco é construído e confirmado, outro bloco é construído em cima dele e então outro... Como este é um processo estocástico, há alguma chance de reversão quando um bloco ainda é novo. Portanto, um bloco deve ser "enterrado" vários blocos na blockchain antes que possamos nos sentir totalmente confiantes com nossos fundos. Cada um desses blocos tende a ser construído em uma média de 10 minutos, então normalmente leva cerca de uma hora para uma transação confirmada receber seis blocos de profundidade, que é a medida para completa confiança no Bitcoin.
 
 O seguinte mostra que nossas transações foram confirmadas uma vez, mas não duas vezes: 
 ```
@@ -52,7 +51,7 @@ $  bitcoin-cli getbalance "*" 2
 
 Obviamente, a cada dez minutos mais ou menos essa profundidade aumentará.
 
-É claro que, na testnet, ninguém está tão preocupado com a confiabilidade dos nossos fundos. nós poderemos gastar nosso dinheiro assim que for confirmado.
+É claro que, na Testnet, ninguém está tão preocupado com a confiabilidade dos fundos. Nós poderemos gastar nosso dinheiro assim que for confirmado.
 
 ## Verificando Nossa Carteira
 
@@ -122,7 +121,7 @@ $ bitcoin-cli listtransactions
 ]
 
 ```
-Isto mostra duas transações (`8e2ab10cabe9ec04ed438086a80b1ac72558cc05bb206e48fc9a18b01b9282e9`) e (` ca4898d8f950df03d6bfaa00578bd0305d041d24788b630d0c4a32debcac9f36`) para uma quantidade específica (`0.01000000` e `0.00010000`), que foram recebidas (`receive`) pelo mesmo endereço em nossa carteira (` mi25UrzHnvn3bpEfFCNqJhPWJn5b77a5NE`) . À propósito, isso é uma má higiene de chave: devemos usar um novo endereço para cada Bitcoin que recebermos. Nesse caso, ficamos impacientes porque a primeira faucet parecia não estar funcionando.
+Isto mostra duas transações (`8e2ab10cabe9ec04ed438086a80b1ac72558cc05bb206e48fc9a18b01b9282e9`) e (` ca4898d8f950df03d6bfaa00578bd0305d041d24788b630d0c4a32debcac9f36`) para uma quantidade específica (`0.01000000` e `0.00010000`), que foram recebidas (`receive`) pelo mesmo endereço em nossa carteira (` mi25UrzHnvn3bpEfFCNqJhPWJn5b77a5NE`) . À propósito, isso é uma boa prática para as chaves: devemos usar um novo endereço para cada Bitcoin que recebermos. Nesse caso, ficamos impacientes porque a primeira faucet parecia não estar funcionando.
 
 Podemos acessar informações semelhantes com o comando `bitcoin-cli listunspent`, mas ele só mostra as transações para o dinheiro que não gastamos. Eles são chamados de UTXOs e serão de vital importância quando estivermos enviando dinheiro de volta para o mundo Bitcoin: 
 ```
@@ -156,11 +155,9 @@ $ bitcoin-cli listunspent
   }
 ]
 ```
-Observe que os bitcoins não são simplesmente uma bagunça homogênea de dinheiro enfiado no nosso bolso. Cada transação individual que recebemos ou enviamod é colocada no livro razão da blockchain imutável, em um bloco. Podemos ver essas transações individuais quando olhamos para o nosso dinheiro não gasto. Isso significa que os gastos com bitcoins não são tão anônimos quanto se pensa. Embora os endereços sejam bastante privados, as transações podem ser examinadas à medida que entram e saem dos endereços. Isso torna a privacidade vulnerável à análise estatística. Também introduz uma potencial não fungibilidade para bitcoins, já que se pode rastrear uma série de transações, mesmo se não puder rastrear um "bitcoin" específico.
+Observe que os bitcoins não são simplesmente uma bagunça homogênea de dinheiro enfiado no nosso bolso. Cada transação individual que recebemos ou enviamos é colocada no livro razão da blockchain imutável, em um bloco. Podemos ver essas transações individuais quando olhamos para o nosso dinheiro não gasto. Isso significa que os gastos com bitcoins não são tão anônimos quanto pensamos. Embora os endereços sejam bastante privados, as transações podem ser examinadas à medida que entram e saem dos endereços. Isso torna a privacidade vulnerável à análise estatística. Também introduz uma potencial de não fungibilidade para os bitcoins, já que se pode rastrear uma série de transações, mesmo se não puder rastrear um "bitcoin" específico.
 
-> :book: ***Why are all of these bitcoin amounts in fractions?*** Bitcoins are produced slowly, and so there are relatively few in circulation. As a result, each bitcoin over on the mainnet is worth quite a bit (~ $9,000 at the time of this writing). This means that people usually work in fractions. In fact, the .0101 in Testnet coins would be worth about $100 if they were on the mainnet. For this reason, names have appeared for smaller amounts of bitcoins, including millibitcoins or mBTCs (one-thousandth of a bitcoin), microbitcoins or bits or μBTCs (one-millionth of a bitcoin), and satoshis (one hundred millionth of a bitcoin).
-
->: book: ***Por que todas essas quantidades de bitcoin em frações?*** Os bitcoins são produzidos lentamente e, portanto, há relativamente poucos em circulação. Como resultado, cada bitcoin na rede principal vale um pouco (~ $9.000 no momento em que este livro foi escrito). Isso significa que as pessoas geralmente trabalham em frações. Na verdade, o 0,0101 em moedas Testnet valeria cerca de $100 se eles estivessem na rede principal. Por esse motivo, surgiram nomes para quantidades menores de bitcoins, incluindo milibitcoins ou mBTCs (um milésimo de um bitcoin), microbitcoins ou bits ou μBTCs (um milionésimo de um bitcoin) e satoshis (um centésimo de milionésimo de um bitcoin).
+>: book: ***Por que todas essas quantidades de bitcoin em frações?*** Os bitcoins são produzidos lentamente e, portanto, há relativamente poucos em circulação. Como resultado, cada bitcoin na rede principal valem relativamente bastante (pouco mais de 9 mil dólares no momento em que este livro foi escrito). Isso significa que as pessoas geralmente trabalham com frações. Na verdade, o 0,0101 em moedas Testnet valeria cerca de $100 se eles estivessem na rede principal. Por esse motivo, surgiram nomes para quantidades menores de bitcoins, incluindo milibitcoins ou mBTCs (um milésimo de um bitcoin), microbitcoins ou bits ou μBTCs (um milionésimo de um bitcoin) e satoshis (um centésimo de milionésimo de um bitcoin).
 
 ## Examinando Nossa Transação
 
@@ -194,7 +191,7 @@ $ bitcoin-cli gettransaction "8e2ab10cabe9ec04ed438086a80b1ac72558cc05bb206e48fc
 ```
 O comando `gettransaction` detalhará transações que estão na nossa carteira, como esta, que nos foi enviada.
 
-Observe que `gettransaction` tem dois argumentos opcionais:
+Observando o `gettransaction` temos dois argumentos opcionais:
 ```
 $ bitcoin-cli help gettransaction
 gettransaction "txid" ( include_watchonly verbose )
@@ -206,7 +203,7 @@ Arguments:
 2. include_watchonly    (boolean, optional, default=true for watch-only wallets, otherwise false) Whether to include watch-only addresses in balance calculation and details[]
 3. verbose              (boolean, optional, default=false) Whether to include a `decoded` field containing the decoded transaction (equivalent to RPC decoderawtransaction)
 ```
-Configurando esses dois para true ou false, podemos escolher se queremos incluir endereços "watch-only" no resultado (com os quais não nos importamos) ou vermos um resultado mais extenso (o que queremos).
+Configurando esses dois como `true` ou `false`, podemos escolher se queremos incluir endereços "watch-only" no resultado (com os quais não nos importamos) ou vermos um resultado mais extenso (o que queremos).
 
 Aqui estão os dados quando definimos `include_watchonly` como `false` e `verbose` como `true`. 
 ```
@@ -290,27 +287,27 @@ $ bitcoin-cli gettransaction "8e2ab10cabe9ec04ed438086a80b1ac72558cc05bb206e48fc
 ```
 Agora podemos ver todas as informações sobre a transação, incluindo todas as entradas ("vin") e todas as saídas ("vout). Uma das coisas interessantes a se notar é que, embora tenhamos recebido 0,01 BTC na transação, outro 0.01010143 foi enviado para outro endereço. Provavelmente era um endereço de troco, um conceito que será explorado na próxima seção. É bastante comum uma transação ter várias entradas e/ou várias saídas.
 
-Existe outro comando, `getrawtransaction`, que nos permite ver as transações que não estão em nossa carteira. No entanto, requer que tenhamos um node não prunado e `txindex = 1` em nosso arquivo `bitcoin.conf`. A menos que tenhamos uma necessidade séria de informações que não estão em nossa carteira, provavelmente é melhor usarmos um explorador de Bitcoin para esse tipo de coisa ... 
+Existe outro comando, `getrawtransaction`, que nos permite ver as transações que não estão em nossa carteira. No entanto, requer que tenhamos um node não prunado e `txindex = 1` em nosso arquivo `bitcoin.conf`. A menos que tenhamos uma necessidade séria de informações que não estão em nossa carteira, provavelmente é melhor usarmos um explorador de Bitcoin para esse tipo de coisa. 
 
 ## Opcional: Usando um Explorador de Blocos
 
-Até mesmo olhar para as informações detalhadas de uma transação pode ser um pouco intimidante. O principal objetivo deste tutorial é ensinar como lidar com transações brutas da linha de comando, mas ficaremos felizes em falar sobre outras ferramentas quando elas forem aplicáveis. Uma dessas ferramentas é um explorador de blocos, que você pode usar para ver as transações de um navegador da web em um formato muito mais amigável.
+Até mesmo olhar para as informações detalhadas de uma transação pode ser um pouco intimidante. O principal objetivo deste tutorial é ensinar como lidar com transações brutas da linha de comando, mas ficaremos felizes em falar sobre outras ferramentas quando elas forem aplicáveis. Uma dessas ferramentas é um explorador de blocos, que podemos usar para ver as transações de um navegador web em um formato muito mais amigável.
 
-Atualmente, nosso explorador de bloco preferido é [https://live.blockcypher.com/](https://live.blockcypher.com/).
+Atualmente, nosso explorador de bloco preferido é [https://mempool.space/](https://mempool.space/).
 
 Podemos usá-lo para procurar transações para um endereço:
 
-[https://live.blockcypher.com/btc-testnet/address/mi25UrzHnvn3bpEfFCNqJhPWJn5b77a5NE/](https://live.blockcypher.com/btc-testnet/address/mi25UrzHnvn3bpEfFCNqJhPWJn5b77a5NE/)
+[https://mempool.space/pt/testnet/address/mi25UrzHnvn3bpEfFCNqJhPWJn5b77a5NE](https://mempool.space/pt/testnet/address/mi25UrzHnvn3bpEfFCNqJhPWJn5b77a5NE)
 
 Também podemos usá-lo para ver transações individuais:
 
-[https://live.blockcypher.com/btc-testnet/tx/8e2ab10cabe9ec04ed438086a80b1ac72558cc05bb206e48fc9a18b01b9282e9/](https://live.blockcypher.com/btc-testnet/tx/8e2ab10cabe9ec04ed438086a80b1ac72558cc05bb206e48fc9a18b01b9282e9/)
+[https://mempool.space/pt/testnet/tx/8e2ab10cabe9ec04ed438086a80b1ac72558cc05bb206e48fc9a18b01b9282e9](https://mempool.space/pt/testnet/tx/8e2ab10cabe9ec04ed438086a80b1ac72558cc05bb206e48fc9a18b01b9282e9)
 
 Um explorador de bloco geralmente não fornece mais informações do que uma linha de comando em uma transação bruta; ele apenas destaca as informações importantes e junta as peças do quebra-cabeça, incluindo as taxas de transação por trás de uma transação - outro conceito que abordaremos nas próximas seções. 
 
 ## Resumo: Recebendo uma Transação
 
-As faucets nos vão dar dinheiro na testnet. O dinheiro vem como transações brutas, que podem ser examinadas com `gettransaction` ou um explorador de blocos. Assim que recebermos uma transação, poderemos vê-la em nosso saldo e em nossa carteira.
+As faucets nos vão dar dinheiro na Testnet. O dinheiro vem como transações brutas, que podem ser examinadas com `gettransaction` ou um explorador de blocos. Assim que recebermos uma transação, poderemos vê-la em nosso saldo e em nossa carteira.
 
 ## O Que Vem Depois?
 
