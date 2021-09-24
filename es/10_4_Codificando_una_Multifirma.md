@@ -95,7 +95,7 @@ Desafortunadamente, la técnica de incrustar una multifirma sin procesar en una 
 
 Estos eran generalmente problemas con cualquier tipo de script de Bitcoin complejo, pero rápidamente se convirtieron en problemas muy reales cuando se aplicaron a multifirmas, que fueron algunos de los primeros scripts complejos que se utilizaron ampliamente en la red de Bitcoin. Las transacciones P2SH se crearon para resolver estos problemas a partir de 2012. 
 
-> :book: ***¿Qué es un P2SH multifirma?*** Las multifirmas P2SH fueron la primera implementación de transacciones P2SH. Simplemente empaquetan una transacción estándar de multifirmas en una transacción P2SH estándar. Simplemente empaquetan una transacción estándar de multifirma en una transacción P2SH estándar. Esto permite la estandarización de direcciones; reduce el almacenamiento de datos; y aumenta los recuentos de "m" y "n".
+> :book: ***¿Qué es un P2SH multifirma?*** Las multifirmas P2SH fueron la primera implementación de transacciones P2SH. Simplemente empaquetan una transacción multifirma estándar en una transacción P2SH estándar. Esto permite la estandarización de direcciones; reduce el almacenamiento de datos; y aumenta los recuentos de "m" y "n".
 
 ## Crear un P2SH Multifirma
 
