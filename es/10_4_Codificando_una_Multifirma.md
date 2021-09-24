@@ -1,4 +1,4 @@
-# 10.4: Guioniendo una Multifirma
+# 10.4: Codificando una Multifirma
 
 Antes de cerrar esta introducción a las secuencias de comandos P2SH, vale la pena examinar un ejemplo más realista. Desde [§6.1](06_1_Enviando_una_Transaccion_a_una_Direccion_Multifirma.md), hemos estado diciendo casualmente que la `bitcoin-cli` envuelve su transacción multifirma en una transacción P2SH. De hecho, esta es la metodologiá estándar para crear multifirmas en Blockchain. Así es como funciona eso en profundidad.
 
