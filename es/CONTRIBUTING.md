@@ -7,7 +7,7 @@ fácil y transparente como sea posible, si se trata de:
 - Discutir el estado actual del código
 - Enviar una solución
 - Proponer nuevas características
-- Convertirse un mantenedor
+- Convertirse en mantenedor
 
 ## Nosotros desarrollamos con Github
 
@@ -21,7 +21,7 @@ de este proyecto, por favor, háganos lo saber
 [abriendo un nuevo issue](https://github.com/BlockchainCommons/Learning-Bitcoin-from-the-Command-Line/issues/new),
 pero considere buscar a través de los issues existentes primero para comprobar
 y ver si el problema ya ha sido reportado. Si es así, nunca hace daño agregar
-un rápido "+1" o "Yo tengo el mismo problema también". Esto ayuda a priorizar
+un rápido "+1" o "Yo también tengo el mismo problema". Esto ayuda a priorizar
 los problemas y solicitudes mas comunes.
 
 ### Escriba reportes de bugs con detalle, contexto y código de ejemplo
@@ -55,10 +55,10 @@ propuestas antes de empezar a programarlas como un
 [issue](https://github.com/BlockchainCommons/Learning-Bitcoin-from-the-Command-Line/issues)
 o como un 
 [borrador de "pull request"](https://github.com/BlockchainCommons/Learning-Bitcoin-from-the-Command-Line/pulls), 
-el cual es una 
-[linda característica nueva](https://github.blog/2019-02-14-introducing-draft-pull-requests/) 
-que le da a otros contribuidores la oportunidad de dirigirte en la dirección
-correcta, darte devoluciones en el diseño, e incluso quizás discutir si ya hay
+la cual es una 
+[agradable característica nueva](https://github.blog/2019-02-14-introducing-draft-pull-requests/) 
+que le da a otros contribuidores la oportunidad de dirigirlo en la dirección
+correcta, darle devoluciones en el diseño, e incluso quizás discutir si ya hay
 trabajo relacionado en camino.
 
 ### Use un estilo de código consistente
@@ -67,7 +67,7 @@ trabajo relacionado en camino.
 * Nosotros SIEMPRE ponemos espacios luego de los elementos de listas y los
   parámetros de los métodos ([1, 2, 3], no [1,2,3]), alrededor de operadores 
   (x += 1, no x+=1), y alrededor de las "hash arrows".
-* Este es código abierto. Considere que la gente leerá su código, y
+* Este software es de código abierto. Considere que la gente leerá su código, y
   hágalo ver lindo para ellos. Es como manejar un auto: Por ahí usted ama hacer
   trompos cuando esta solo, pero con pasajeros el objetivo es hacer el paseo lo
   mas suave posible.
