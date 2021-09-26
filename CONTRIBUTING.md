@@ -35,7 +35,7 @@ People *love* thorough bug reports. I'm not even kidding.
 
 Simple Pull Requests to fix typos, to document, or to fix small bugs are always welcome.
 
-We ask that more significant improvements to the project be first proposed before anybody starts to code as an [issue](./issues) or as a [draft Pull Request](./pulls), which is a [nice new feature](https://github.blog/2019-02-14-introducing-draft-pull-requests/) that gives other contributors a chance to point you in the right direction, give feedback on the design, and maybe discuss if related work is already under way.
+We ask that more significant improvements to the project be first proposed before anybody starts to code as an [issue](https://github.com/BlockchainCommons/Learning-Bitcoin-from-the-Command-Line/issues) or as a [draft Pull Request](https://github.com/BlockchainCommons/Learning-Bitcoin-from-the-Command-Line/pulls), which is a [nice new feature](https://github.blog/2019-02-14-introducing-draft-pull-requests/) that gives other contributors a chance to point you in the right direction, give feedback on the design, and maybe discuss if related work is already under way.
 
 ### Use a Consistent Coding Style
 
@@ -61,5 +61,5 @@ In short, when you submit code changes, your submissions are understood to be av
 ## References
 
 Portions of this CONTRIBUTING.md document were adopted from best practices of a number of open source projects, including:
-* [Facebook's Draft](https://github.com/facebook/draft-js/blob/a9316a723f9e918afde44dea68b5f9f39b7d9b00/CONTRIBUTING.md)
+* [Facebook's Draft](https://github.com/facebook/draft-js/blob/master/CONTRIBUTING.md)
 * [IPFS Contributing](https://github.com/ipfs/community/blob/master/CONTRIBUTING.md)
