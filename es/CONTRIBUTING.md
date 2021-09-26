@@ -4,9 +4,9 @@
 fácil y transparente como sea posible, si se trata de:
 
 - Reportar un bug
-- Discutir el estado actual del código.
+- Discutir el estado actual del código
 - Enviar una solución
-- Proponer nuevas características.
+- Proponer nuevas características
 - Convertirse un mantenedor
 
 ## Nosotros desarrollamos con Github
@@ -14,9 +14,7 @@ fácil y transparente como sea posible, si se trata de:
 Usamos Github para alojar código, rastrear problemas y pedidos de
 características, y para aceptar "pull request".
 
-## Reporte bugs usando los
-[issues](https://github.com/BlockchainCommons/Learning-Bitcoin-from-the-Command-Line/issues)
-de Github
+## Reporte bugs usando los [issues](https://github.com/BlockchainCommons/Learning-Bitcoin-from-the-Command-Line/issues) de Github
 
 Si usted encuentra bugs, errores, o inconsistencias en el código o documentos
 de este proyecto, por favor, háganos lo saber 
@@ -39,7 +37,7 @@ reporte de un bug por parte de @briandk. Aquí hay
     - ¡Sea especifico!
     - Facilite código de muestra si puede. [El reporte de bugs de stackoverflow](http://stackoverflow.com/q/12488905/180626) 
       incluye muestras de codigo que *cualquiera* con una configuracion basica
-      de R puede correr para reproducir lo que estoy viendo.
+      de R puede correr para reproducir lo que estoy viendo
 - Lo que esperaba que pasara
 - Lo que realmente sucedió
 - Notas (posiblemente incluyendo porque usted cree que esto pueda estar
@@ -49,8 +47,8 @@ La gente *ama* los reportes de bugs exhaustivos. No es broma.
 
 ## Envíe cambios en el código a través de "pull requests"
 
-"pull requests" simples para arreglar errores de tipeo, para documentar, o para corregir
-bugs pequeños son siempre bienvenidos.
+"pull requests" simples para arreglar errores de tipeo, para documentar, o para
+corregir bugs pequeños son siempre bienvenidos.
 
 Nosotros pedimos que mejoras mas significativas al proyecto sean primero
 propuestas antes de empezar a programarlas como un 
@@ -65,7 +63,7 @@ trabajo relacionado en camino.
 
 ### Use un estilo de código consistente
 
-* Nosotros aplicamos sangría usando dos espacios ("soft tabs")
+* Nosotros aplicamos sangría usando dos espacios ("soft tabs").
 * Nosotros SIEMPRE ponemos espacios luego de los elementos de listas y los
   parámetros de los métodos ([1, 2, 3], no [1,2,3]), alrededor de operadores 
   (x += 1, no x+=1), y alrededor de las "hash arrows".
