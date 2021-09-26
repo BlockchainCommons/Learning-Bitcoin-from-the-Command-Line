@@ -72,8 +72,7 @@ trabajo relacionado en camino.
   trompos cuando esta solo, pero con pasajeros el objetivo es hacer el paseo lo
   mas suave posible.
 
-### Use [Github Flow](https://guides.github.com/introduction/flow/index.html)
-para las "pull requests"
+### Use [Github Flow](https://guides.github.com/introduction/flow/index.html) para las "pull requests"
 
 Usamos [Github Flow](https://guides.github.com/introduction/flow/index.html).
 Cuando envíe una "pull request", por favor:
