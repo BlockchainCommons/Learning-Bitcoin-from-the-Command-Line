@@ -47,7 +47,7 @@ La gente *ama* los reportes de bugs exhaustivos. No es broma.
 
 ## Envíe cambios en el código a través de "pull requests"
 
-"pull requests" simples para arreglar errores de tipeo, para documentar, o para
+Los "pull requests" simples para arreglar errores de tipeo, para documentar, o para
 corregir bugs pequeños son siempre bienvenidos.
 
 Nosotros pedimos que mejoras mas significativas al proyecto sean primero
