@@ -99,5 +99,5 @@ mantenedores si eso fuera un problema.
 
 Porciones de este documento, CONTRIBUYENDO.md, fueron adoptadas de las mejores
 practicas de un numero de proyectos de código abierto, incluyendo:
-* [Facebook's Draft](https://github.com/facebook/draft-js/blob/a9316a723f9e918afde44dea68b5f9f39b7d9b00/CONTRIBUTING.md)
+* [Facebook's Draft](https://github.com/facebook/draft-js/blob/master/CONTRIBUTING.md)
 * [IPFS Contributing](https://github.com/ipfs/community/blob/master/CONTRIBUTING.md)
