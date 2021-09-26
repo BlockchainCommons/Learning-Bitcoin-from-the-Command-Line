@@ -386,7 +386,7 @@ alias btcunspent="bitcoin-cli listunspent | jq -r '.[] | { txid: .txid, vout: .v
 
 ## Ejecutar el script comisión por transacción
 
-El [Fee Calculation Script](src/04_2_i_txfee-calc.sh) está disponible en el directorio src-code. Puede descargarlo y guardarlo como `txfee-calc.sh`.
+El [script de cálculo de tasas](../src/04_2_i_txfee-calc.sh) está disponible en el directorio src-code. Puede descargarlo y guardarlo como `txfee-calc.sh`.
 
 > :warning: **ADVERTENCIA:** Este script no ha sido verificado de forma robusta. Si va a utilizarlo para verificar las comisiones de las transacciones reales, sólo deberá hacerlo como triple comprobación después de haber hecho todos los cálculos usted mismo.
 
