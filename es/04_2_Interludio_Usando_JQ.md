@@ -161,7 +161,7 @@ $ bitcoin-cli listunspent | jq -r '.[] | { tx: .txid, output: .vout, bitcoins: .
 
 **Ejemplo de uso:** _Buscar automáticamente los UTXOs que se utilizan en una transacción._
 
-Hasta ahora, las búsquedas en JQ han sido bastante sencillas: se utiliza una clave para buscar uno o más valores en un objeto o arreglo JSON. ¿Pero qué pasa si quieres buscar un valor en un objeto JSON... por otro valor? Este tipo de búsqueda indirecta tiene una aplicación real cuando se trabaja con transacciones construidas sobre UTXOs existentes. Por ejemplo, puede permitirte calcular el valor de la suma de los UTXOs que se utilizan en una transacción, algo que es de vital importancia.
+Hasta ahora, las búsquedas en JQ han sido bastante sencillas: se utiliza una clave para buscar uno o más valores en un objeto o arreglo JSON. ¿Pero qué pasa si quiere buscar un valor en un objeto JSON... por otro valor? Este tipo de búsqueda indirecta tiene una aplicación real cuando se trabaja con transacciones construidas sobre UTXOs existentes. Por ejemplo, puede permitirse calcular el valor de la suma de los UTXOs que se utilizan en una transacción, algo que es de vital importancia.
 
 Este ejemplo utiliza la siguiente transacción en crudo. Tenga en cuenta que esta es una transacción cruda más compleja con dos entradas y dos salidas. Aprenderemos a hacerlas en próximas secciones; por ahora, es necesario para poder ofrecer ejemplos robustos. Observa que, a diferencia de nuestros ejemplos anteriores, éste tiene dos objetos en su matriz `vin` y dos en su matriz `vout`.
 ```
@@ -324,7 +324,7 @@ Obsérvese que hemos utilizado otra parte de la fealdad de la arreglo `${#usedtx
 
 **Ejemplo de uso:** _Calcular automáticamente el valor de los UTXOs utilizados en una transacción._
 
-Ahora puedes ir un paso más allá, y solicitar el .amount (o cualquier otro valor-clave JSON) de los UTXOs que estás recuperando.
+Ahora puede ir un paso más allá, y solicitar el .amount (o cualquier otro valor-clave JSON) de los UTXOs que está recuperando.
 
 Este ejemplo repite el uso de las arreglos `$usedtxid` y `$usedvout` que fueron establecidas de la siguiente manera:
 ```
@@ -353,7 +353,7 @@ Para calcular la tarifa completa de la transacción en este punto sólo hace fal
 $ bitcoin-cli decoderawtransaction $rawtxhex | jq -r '.vout  [] | .value' | awk '{s+=$1} END {print s}'
 1.045
 ```
-Para completar el cálculo de la tasa de transacción, se resta el importe de .vout (1,045) del importe de .vin (1,3).
+Para completar el cálculo de la tasa de transacción, se resta el importe de .vout (1.045) del importe de .vin (1.3).
 
 Para ello, tendrá que instalar `bc`:
 ```
@@ -377,7 +377,7 @@ Para más magia de JSON (y si algo de esto no está claro), por favor lee el [Ma
 
 ## Crear nuevos alias
 
-El código JQ puede ser un poco difícil de manejar, así que debería considerar añadir algunas invocaciones más largas e interesantes a tu ~/.bash_profile.
+El código JQ puede ser un poco difícil de manejar, así que debería considerar añadir algunas invocaciones más largas e interesantes a su ~/.bash_profile.
 
 Cada vez que busque una gran cantidad de información en un objeto JSON emitido por un comando `bitcoin-cli`, considera escribir un alias para reducirlo a lo que quiere ver.
 ```
