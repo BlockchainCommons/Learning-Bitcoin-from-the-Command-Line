@@ -161,7 +161,7 @@ Estamos considerando tentativamente aquello que podríamos incluir en una [v3.0]
 
 ## Origen, Autores, Copyright & Licencias
 
-A menos que sea señalado de otra manera (ya sea en este [LEEME.md](./LEEME.md) o en los comentarios en los encabezados de los archivos) el contenido de este repositorio es Copyright © 2020 por Blockchain Commons, LLC, y esta bajo licencia [CC-BY](./LICENSE-CC-BY-4.0.md).
+A menos que sea señalado de otra manera (ya sea en este [README.md](./README.md) o en los comentarios en los encabezados de los archivos) el contenido de este repositorio es Copyright © 2020 por Blockchain Commons, LLC, y esta bajo licencia [CC-BY](../LICENSE-CC-BY-4.0.md).
 
 ## Apoyo Financiero
 
@@ -171,7 +171,7 @@ Para apoyar financieramente el futuro desarrollo de *Aprendiendo Bitcoin desde l
 
 ## Contribuyendo <a name="contribuyendo"></a>
 
-Animamos las contribuciones publicas a través de issues y pull requests! Por favor, revise [CONTRIBUYENDO.md](./CONTRIBUYENDO.md) para mas detalles sobre nuestro proceso de desarrollo. Todas las contribuciones a este repositorio requieren un [Acuerdo de Licencia de Colaborador](./CLA.md) firmado mediante GPG.
+Animamos las contribuciones publicas a través de issues y pull requests! Por favor, revise [CONTRIBUYENDO.md](./CONTRIBUYENDO.md) para mas detalles sobre nuestro proceso de desarrollo. Todas las contribuciones a este repositorio requieren un [Acuerdo de Licencia de Colaborador](../CLA.md) firmado mediante GPG.
 
 Si le gustaría proveer una traducción de Aprendiendo Bitcoin desde la Línea de Comandos, por favor, vea también [TRADUCIENDO.md](./TRADUCIENDO.md).
 

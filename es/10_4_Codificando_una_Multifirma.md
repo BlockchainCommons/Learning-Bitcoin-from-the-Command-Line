@@ -118,7 +118,7 @@ Luego puede crear una transacción usando esa `scriptPubKey`.
 
 ## Desbloquear la Multifirma P2SH
 
-Para desbloquear esta transacción multifirma es necessario que el destinatario produzca un scriptSig que incluya las dos firmas y el `redeemScript`.
+Para desbloquear esta transacción multifirma es necesario que el destinatario produzca un scriptSig que incluya las dos firmas y el `redeemScript`.
 
 ### Ejecute la Primera Ronda de Validación P2SH
 
