@@ -1,6 +1,6 @@
 # 10.4: Codificando una Multifirma
 
-Antes de cerrar esta introducción a las secuencias de comandos P2SH, vale la pena examinar un ejemplo más realista. Desde [§6.1](06_1_Enviando_una_Transaccion_a_una_Direccion_Multifirma.md), hemos estado diciendo casualmente que la `bitcoin-cli` envuelve su transacción multifirma en una transacción P2SH. De hecho, esta es la metodología estándar para crear multifirmas en Blockchain. Así es como funciona eso en profundidad.
+Antes de cerrar esta introducción a las secuencias de comandos P2SH, vale la pena examinar un ejemplo más realista. Desde [§6.1](06_1_Enviando_una_Transaccion_a_una_Direccion_Multifirma.md), hemos estado diciendo casualmente que la interfaz `bitcoin-cli` envuelve su transacción multifirma en una transacción P2SH. De hecho, esta es la metodología estándar para crear multifirmas en Blockchain. Así es como funciona eso en profundidad.
 
 ## Entender el Código Multifirma
 
@@ -9,7 +9,7 @@ Las transacciones multifirma se crean en Bitcoin utlizando el código `OP_CHECKM
 1. Saca el primer valor de la pila (`<n>`).
 2. Saca los valores "n" de la pila como direcciones de Bitcoin (claves públicas con hash).
 3. Saca el siguiente valor de la pila (`<m>`).
-4. Saca los valores "m" de la pila como posible firmas.
+4. Saca los valores "m" de la pila como posibles firmas.
 5. Saca un `0` de la pila debido a un error en la codificación.
 6. Compara las firmas con las direcciones de Bitcoin.
 7. Empuja un `True` o `False` según el resultado.
@@ -39,7 +39,7 @@ Si esto le parece familiar, es porque es la multifirma que deserializó en [§10
 
 ## Desbloquear un Multifirma Sin Procesar
 
-El `scriptSig` para una dirección estándar mutlfirma debe enviar los operandos que faltan para `OP_CHECKMULTISIG`: un `0` seguido de "m" firmas. Por ejemplo:
+El `scriptSig` para una dirección estándar multifirma debe enviar los operandos que faltan para `OP_CHECKMULTISIG`: un `0` seguido de "m" firmas. Por ejemplo:
 ```
 0 $signature1 $signature2
 ```
@@ -99,7 +99,7 @@ Estos eran generalmente problemas con cualquier tipo de script de Bitcoin comple
 
 ## Crear un P2SH Multifirma
 
-Las multifirmas P2SH son la metodología moderna para crear multifirmas en los Blockchains. Se pueden crear de forma muy sencilla, utilizando el mismo proceso visto en las secciones anteriores.
+Las multifirmas P2SH son la metodología moderna para crear multifirmas en las Blockchains. Se pueden crear de forma muy sencilla, utilizando el mismo proceso visto en las secciones anteriores.
 
 ### Crear la Cerradura para P2SH Multifirma
 
