@@ -129,7 +129,7 @@ Em ambos os casos, o argumento é para flags, mas atualmente está definido como
 
 ## Testando um Programa de Teste da Libwally
 
-O diretório src contém o arquivo [testwally.c](src/17_1_testwally.c), que apenas mostra como funcionam as funções de inicialização e de limpeza.
+O diretório src contém o arquivo [testwally.c](../src/17_1_testwally.c), que apenas mostra como funcionam as funções de inicialização e de limpeza.
 
 Podemos compilá-lo da seguinte maneira:
 ```

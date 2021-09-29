@@ -160,7 +160,7 @@ No entanto, uma peculiaridade com hashes no `rpcclient` é que normalmente eles 
 
 ### Executando Nosso Código
 
-Podemos baixar o código completo do [diretório src](src/18_1_blockinfo.go).
+Podemos baixar o código completo do [diretório src](../src/18_1_blockinfo.go).
 
 Podemos então, executar:
 ```
@@ -185,7 +185,7 @@ Devido às limitações do `btcd` no `rpcclient`, não podemos fazer uso da fun�
 ```
 O `client.GetBalance("*")` requer a entrada `"*"` devido a uma peculiaridade do `btcd`. O asterisco significa que desejamos obter o saldo de todas as nossas carteiras.
 
-Se executarmos [o código src](src/18_1_getbalance.go), deveremos obter uma saída semelhante a esta:
+Se executarmos [o código src](../src/18_1_getbalance.go), deveremos obter uma saída semelhante a esta:
 ```
 $ go run getbalance.go 
 0.000689 BTC
@@ -281,7 +281,7 @@ Só depois disso usamos o RPC `getreceivedbyaddress` no nosso endereço decodifi
 
 	fmt.Println(wallet)
 ```
-Ao executar [o código](src/18_1_getamountreceived.go), devemos obter uma saída semelhante a esta:
+Ao executar [o código](../src/18_1_getamountreceived.go), devemos obter uma saída semelhante a esta:
 ```
 $ go run getamountreceived.go 
 0.0085 BTC
@@ -333,7 +333,7 @@ func main() {
 	fmt.Println(sent)
 }
 ```
-Quando executamos [o código](src/18_1_sendtransaction.go), o txid da transação nos será retornado:
+Quando executamos [o código](../src/18_1_sendtransaction.go), o txid da transação nos será retornado:
 
 ```
 $ go run sendtransaction.go
@@ -382,7 +382,7 @@ func main() {
 ```
 > **NOTA:** Novamente, vamos querer trocar o txid por um que realmente será reconhecido pelo nosso sistema.
 
-Ao executar [o código](src/18_1_lookuptransaction.go), ele imprimirá os detalhes associados a uma transação, como seu valor e quantas vezes foi confirmada:
+Ao executar [o código](../src/18_1_lookuptransaction.go), ele imprimirá os detalhes associados a uma transação, como seu valor e quantas vezes foi confirmada:
 
 ```
 $ go run lookuptransaction.go

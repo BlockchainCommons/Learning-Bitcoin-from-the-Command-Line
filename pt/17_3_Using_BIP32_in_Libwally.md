@@ -115,7 +115,7 @@ Há também uma função `wally_bip32_key_to_address`, que pode ser usada para g
 
 ## Testando o Código HD
 
-O código para esses exemplos HD pode, como de costume, ser encontrado no [diretório src/](src/17_3_genhd.c).
+O código para esses exemplos HD pode, como de costume, ser encontrado no [diretório src/](../src/17_3_genhd.c).
 
 Podemos compilá-lo e testá-lo:
 ```

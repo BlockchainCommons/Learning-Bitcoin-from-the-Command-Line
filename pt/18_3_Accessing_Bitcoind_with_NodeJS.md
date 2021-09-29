@@ -109,7 +109,7 @@ O resultado das funções BCRPC é um objeto JSON contendo informações sobre q
 
 ### Executando Nosso Código
 
-Podemos encontrar o código `getinfo` no [diretório src/](src/18_3_getinfo.js).
+Podemos encontrar o código `getinfo` no [diretório src/](../src/18_3_getinfo.js).
 ```
 $ node getinfo.js
 1831094
@@ -162,7 +162,7 @@ agent.getWalletInfo(function (err, walletInfo) {
 });
 ```
 
-O código está disponível como [walletinfo.js](src/18_3_walletinfo.js).
+O código está disponível como [walletinfo.js](../src/18_3_walletinfo.js).
 ```
 $ node walletinfo.js
 0.008498
@@ -260,7 +260,7 @@ Devemos obter uma saída semelhante a esta:
 }
 ```
 
-O código completo está disponível no [sendtx.js](src/18_3_sendtx.js).
+O código completo está disponível no [sendtx.js](../src/18_3_sendtx.js).
 
 ## Resumo: Acessando o Bitcoind com NodeJS
 

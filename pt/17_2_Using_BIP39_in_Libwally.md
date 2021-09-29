@@ -82,7 +82,7 @@ Se dizermos tudo certo, devemos obter uma seed de 64 bytes. (Essa é a variável
 
 ## Testando o Código Mnemônico
 
-O código completo para gerar entropia, gerar um mnemônico BIP39, validar o mnemônico e gerar uma seed pode ser encontrado no [diretório src/](src/17_2_genmnemonic.c). Podemos fazer o download e compilar:
+O código completo para gerar entropia, gerar um mnemônico BIP39, validar o mnemônico e gerar uma seed pode ser encontrado no [diretório src/](../src/17_2_genmnemonic.c). Podemos fazer o download e compilar:
 ```
 $ cc genmnemonic.c -lwallycore -lsodium -o genmnemonic
 ```

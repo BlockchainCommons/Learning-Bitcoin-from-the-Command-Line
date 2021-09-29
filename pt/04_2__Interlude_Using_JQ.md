@@ -397,7 +397,7 @@ alias btcunspent="bitcoin-cli listunspent | jq -r '.[] | { txid: .txid, vout: .v
 
 ## Executando o Script de Taxa de Transação
 
-O [Script de Cálculo de Taxa](src/04_2_i_txfee-calc.sh) está disponível no diretório `src/`. Você pode baixá-lo e salvá-lo como ```txfee-calc.sh```.
+O [Script de Cálculo de Taxa](../src/04_2_i_txfee-calc.sh) está disponível no diretório `src/`. Você pode baixá-lo e salvá-lo como ```txfee-calc.sh```.
 
 > :warning: **ATENÇÃO:** Este script não foi verificado extensivamente. Se for usá-lo para verificar as taxas de transação reais, só deve fazê-lo depois de fazer uma verificação pessoal dos valores.
 

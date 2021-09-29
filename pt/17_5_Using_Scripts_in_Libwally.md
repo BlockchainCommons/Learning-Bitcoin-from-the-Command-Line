@@ -112,7 +112,7 @@ Mostraremos como fazer uso disso na seção §17.7.
 
 ## Testando Nosso Script de Substituição
 
-Podemos pegar o código de teste do [diretório src/](src/17_5_replacewithscript.c) e compilá-lo:
+Podemos pegar o código de teste do [diretório src/](../src/17_5_replacewithscript.c) e compilá-lo:
 ```
 $  cc replacewithscript.c -lwallycore -o replacewithscript
 ```

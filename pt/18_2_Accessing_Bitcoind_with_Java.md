@@ -154,7 +154,7 @@ PubKey: 0368d0fffa651783524f8b934d24d03b32bf8ff2c0808943a556b3d74b2e5c7d65
 
 ### Executando Nosso Código
 
-O código para esses exemplos pode ser encontrado no [diretório src/](src/18_2_App-getinfo.java) e deve ser instalado na estrutura de diretório padrão criada neste caso como `~/java-project/src/main/java/com/blockchaincommons/lbtc/App.java`. Ele pode então ser compilado e executado.
+O código para esses exemplos pode ser encontrado no [diretório src/](../src/18_2_App-getinfo.java) e deve ser instalado na estrutura de diretório padrão criada neste caso como `~/java-project/src/main/java/com/blockchaincommons/lbtc/App.java`. Ele pode então ser compilado e executado.
 
 ```
 $ mvn compile
@@ -277,7 +277,7 @@ System.out.println("Sent signedRawTx (txID): " + sentRawTransactionID);
 
 ### Executando Nosso Código
 
-Agora podemos executar [o código da transação](src/18_2_App-sendtx.java) como `~/java-project/src/main/java/com/blockchaincommons/lbtc/App.java`.
+Agora podemos executar [o código da transação](../src/18_2_App-sendtx.java) como `~/java-project/src/main/java/com/blockchaincommons/lbtc/App.java`.
 
 ```
 $ mvn compile
@@ -316,7 +316,7 @@ Para fazer isso, podemos usar a classe `BitcoinAcceptor` do `JavaBitcoindRpcClie
   acceptor.run();
 ```
 
-Veja [o diretório src/](src/18_2_App-listen.java) para o código completo. Cada vez que uma transação é enviada ou um novo bloco é gerado, devemos ver a saída em nosso console:
+Veja [o diretório src/](../src/18_2_App-listen.java) para o código completo. Cada vez que uma transação é enviada ou um novo bloco é gerado, devemos ver a saída em nosso console:
 ```
 Transaction: {account=Tests, address=mhopuJzgmTwhGfpNLCJ9CRknugY691oXp1, category=receive, amount=5.0E-4, label=Tests, vout=1, confirmations=0, trusted=false, txid=361e8fcff243b74ebf396e595a007636654f67c3c7b55fd2860a3d37772155eb, walletconflicts=[], time=1513132887, timereceived=1513132887, bip125-replaceable=unknown}
 

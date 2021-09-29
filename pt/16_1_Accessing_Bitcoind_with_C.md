@@ -26,7 +26,7 @@ $ sudo apt-get install git
 $ git clone https://github.com/gitmarek/libbitcoinrpc
 ```
 
-> :warning: **ATENÇÃO** Uma alteração no RPC "signrawtransaction" causou uma assinatura com ``libbitcoinrpc`` para o segfault no Bitcoin 0.17 ou superior. O [Pull Request foi submetido](https://github.com/gitmarek/libbitcoinrpc/pull/1/commits) para resolver o problema, mas se ainda não tiver sido feito o merge,  podemos simplesmente fazer uma simples mudança no código-fonte para ``src/bitcoinrpc_method.c`` antes de compilarmos.
+> :warning: **ATENÇÃO** Uma alteração no RPC "signrawtransaction" causou uma assinatura com ``libbitcoinrpc`` para o segfault no Bitcoin 0.17 ou superior. O [Pull Request foi submetido](https://github.com/gitmarek/libbitcoinrpc/pull/1/commits) para resolver o problema, mas se ainda não tiver sido feito o merge, podemos simplesmente fazer uma simples mudança no código-fonte para ``src/bitcoinrpc_method.c`` antes de compilarmos.
 
 ### Compilando o libbitcoinrpc
 
@@ -155,7 +155,7 @@ bitcoinrpc_global_cleanup();
 
 ### Testando o Código de Teste
 
-O código de teste pode ser encontrado [no diretório src com o nome 15_1_testbitcoin.c](src/15_1_testbitcoin.c). Vamos fazer o download para a nossa máquina TestNet e depois inserir a senha correta do RPC (e alterar o usuário RPC se não tivermos criado o servidor com StandUp).
+O código de teste pode ser encontrado [no diretório src com o nome 16_1_testbitcoin.c](../src/16_1_testbitcoin.c). Vamos fazer o download para a nossa máquina TestNet e depois inserir a senha correta do RPC (e alterar o usuário RPC se não tivermos criado o servidor com StandUp).
 
 Podemos compilar e executar o código da seguinte maneira:
 ```
@@ -223,7 +223,7 @@ printf("Block Count: %d\n",blocks);
 
 ### Testando o Código de Informação
 
-Vamos recuperar o código de teste que está no [diretório src](15_1_GetMiningInfo.c).
+Vamos recuperar o código de teste que está no [diretório src](../src/16_1_getmininginfo.c).
 ```
 $ cc getmininginfo.c -lbitcoinrpc -ljansson -o getmininginfo
 $ ./getmininginfo 

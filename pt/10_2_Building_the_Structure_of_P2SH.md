@@ -68,7 +68,7 @@ Para completar nossa serialização, traduzimos o código hexadecimal em binári
 
 ## Executando o Script de Conversão de Inteiros
 
-Um script completo para alterar um número inteiro entre -2147483647 e 2147483647 para uma representação de magnitude assinada do tipo _little-endian_ em hexadecimal pode ser encontrado no [diretório de código src](src/10_2_integer2lehex.sh). Podemos baixar o ```integeer2lehex.sh```.
+Um script completo para alterar um número inteiro entre -2147483647 e 2147483647 para uma representação de magnitude assinada do tipo _little-endian_ em hexadecimal pode ser encontrado no [diretório de código src](../src/10_2_integer2lehex.sh). Podemos baixar o ```integeer2lehex.sh```.
 
 > :warning: **AVISO:** Este script não foi verificado de forma consistente. Se formos utilizá-lo para criar scripts de bloqueio reais, precisamos nos certificar de verificar e testar os resultados.
 
