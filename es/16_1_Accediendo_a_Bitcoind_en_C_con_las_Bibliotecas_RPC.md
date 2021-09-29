@@ -2,7 +2,7 @@
 
 > :information_source: **NOTA:** Esta sección se ha agregado recientemente al curso y es un borrador inicial que aún puede estar pendiente de revisión. Lectura con advertencias.
 
-Ya ha visto una forma alternativa de acceder a los puertos RPC de Bitcoind: `curl` que se cubrió en el [Interludio del Capítulo 4](04_4__Interludio_Usando_Curl.md). Interactuar con `bitcoind` a través de una biblioteca RPC en C no es diferente a eso, solo necesita algunas buenas bibliotecas para ayudarlo. Esta sección presenta un paquete llamado `libbitcoinrpc`, que le permite acceder al puerto JSON-RPC `bitcoind`. Utiliza una biblioteca `curl` para acceder a los datos y usa la biblioteca `jansson` para codificar y decodificar el JSON.
+Ya ha visto una forma alternativa de acceder a los puertos RPC de Bitcoind: `curl` que se cubrió en el [Interludio del Capítulo 4](04_4_Interludio_Usando_Curl.md). Interactuar con `bitcoind` a través de una biblioteca RPC en C no es diferente a eso, solo necesita algunas buenas bibliotecas para ayudarlo. Esta sección presenta un paquete llamado `libbitcoinrpc`, que le permite acceder al puerto JSON-RPC `bitcoind`. Utiliza una biblioteca `curl` para acceder a los datos y usa la biblioteca `jansson` para codificar y decodificar el JSON.
 
 ## Configurar libbitcoinrpc
 
@@ -107,7 +107,7 @@ Primero, inicialice la biblioteca:
 ```
 bitcoinrpc_global_init();
 ```
-Luego conéctese a su `bitcoind` con `bitcoinrpc_cl_init_params`. Los cuatro argumentos son  `bitcoinrpc_cl_init_params` son nombre de usuario, contraseña, dirección IP y puerto. Ya debería conocer toda esta información de su trabajo con [Curl](04_4__Interlude_Using_Curl.md). Como recordará, la dirección IP 127.0.0.1 y el puerto 18332 deben ser correctos para la configuración estándar de testnet descrita en estos documentos, mientras que puede extraer el usuario y la contraseña de `~/.bitcoin/bitcoin.conf`.
+Luego conéctese a su `bitcoind` con `bitcoinrpc_cl_init_params`. Los cuatro argumentos son  `bitcoinrpc_cl_init_params` son nombre de usuario, contraseña, dirección IP y puerto. Ya debería conocer toda esta información de su trabajo con [Curl](04_4_Interludio_Usando_Curl.md). Como recordará, la dirección IP 127.0.0.1 y el puerto 18332 deben ser correctos para la configuración estándar de testnet descrita en estos documentos, mientras que puede extraer el usuario y la contraseña de `~/.bitcoin/bitcoin.conf`.
 ```
 $ cat bitcoin.conf 
 server=1
@@ -148,7 +148,7 @@ bitcoinrpc_global_cleanup();
 
 ### Pruebe el código de prueba
 
-El código de prueba se puede encontrar en el directorio src [15_1_testbitcoin.c](../src/15_1_testbitcoin.c). Descárguelo en su máquina de testnet, luego inserte la contraseña de RPC correcta (y cambie el usuario de RPC si no creó su servidor con StandUp).
+El código de prueba se puede encontrar en el directorio src [15_1_testbitcoin.c](https://github.com/BlockchainCommons/Learning-Bitcoin-from-the-Command-Line/blob/spanish-translation/src/15_1_testbitcoin.c). Descárguelo en su máquina de testnet, luego inserte la contraseña de RPC correcta (y cambie el usuario de RPC si no creó su servidor con StandUp).
 
 Puede compilar y ejecutar esto de la siguiente manera:
 ```
@@ -192,7 +192,7 @@ printf ("%s\n", json_dumps(j, JSON_INDENT(2)));
 ```
 Sin embargo, dado que ahora está escribiendo programas completos, probablemente desee hacer un trabajo más sutil, como extraer valores JSON individuales para un uso específico. La [referencia jansson](https://jansson.readthedocs.io/en/2.10/apiref.html) detalla cómo hacerlo.
 
-Al igual que cuando usaba [Curl](04_4__Interlude_Using_Curl.md), encontrará que RPC devuelve un objeto JSON que contiene un `id`, un `error`, y, lo más importante, un objeto JSON de `result`. 
+Al igual que cuando usaba [Curl](04_4_Interludio_Usando_Curl.md), encontrará que RPC devuelve un objeto JSON que contiene un `id`, un `error`, y, lo más importante, un objeto JSON de `result`. 
 
 La función `json_object_get` le permitirá recuperar un valor (como el `result`) de un objeto JSON por clave:
 ```
@@ -214,7 +214,7 @@ printf("Block Count: %d\n",blocks);
 
 ### Prueba el código de información
 
-Recupere el código de prueba del [directorio src](../src/15_1_getmininginfo.c).
+Recupere el código de prueba del [directorio src](https://github.com/BlockchainCommons/Learning-Bitcoin-from-the-Command-Line/blob/spanish-translation/src/15_1_getmininginfo.c).
 ```
 $ cc getmininginfo.c -lbitcoinrpc -ljansson -o getmininginfo
 $ ./getmininginfo 
