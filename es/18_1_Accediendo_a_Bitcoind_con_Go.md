@@ -150,7 +150,7 @@ Para imprimirlos como una cadena, es necesario utilizar `blockHash.String()`.
 
 ### Ejecute su código
 
-Puede descargar el código completo desde el [src directory](src/17_1_blockinfo.go).
+Puede descargar el código completo desde el [src directory](https://github.com/BlockchainCommons/Learning-Bitcoin-from-the-Command-Line/blob/master/src/17_1_blockinfo.go).
 
 A continuación, puede ejecutar:
 ```
@@ -173,7 +173,7 @@ Sin embargo, usted puede hacer uso de la llamada RPC `getbalance`:
 ```
 
 `client.GetBalance("*")` requiere la entrada `"*"`, debido a una peculiaridad con `btcd`. El asterisco significa que usted quiere conseguir el saldo de todas sus carteras.
-Si ejecuta [the src code](src/17_1_getbalance.go), debería obtener una salida similar a esta:
+Si ejecuta [the src code](https://github.com/BlockchainCommons/Learning-Bitcoin-from-the-Command-Line/blob/master/src/17_1_getbalance.go), debería obtener una salida similar a esta:
 ```
 $ go run getbalance.go 
 0,000689 BTC
@@ -227,7 +227,7 @@ A continuación, puede crear su dirección:
 ```
 Una peculiaridad con `client.GetNewAddress(")` es que se debe incluir una cadena vacía para que funcione.
 
-Ejecutando [the source](17_1_getaddress.go) se obtienen los siguientes resultados:
+Ejecutando [the source](https://github.com/BlockchainCommons/Learning-Bitcoin-from-the-Command-Line/blob/master/src/17_1_getaddress.go) se obtienen los siguientes resultados:
 
 ```
 $ go run getaddress.go 
@@ -271,7 +271,7 @@ Solo después de esto, use la dirección `getreceivedbyaddress` RPC, en su direc
 
 	fmt.Println(wallet)
 ```
-Cuando ejecute [el código](src/17_1_getamountreceived.go), debería obtener una salida similar a:
+Cuando ejecute [el código](https://github.com/BlockchainCommons/Learning-Bitcoin-from-the-Command-Line/blob/master/src/17_1_getamountreceived.go), debería obtener una salida similar a:
 ```
 $ go run getamountreceived.go 
 0.0085 BTC
@@ -323,7 +323,7 @@ func main() {
 	fmt.Println(sent)
 }
 ```
-Cuando se ejecuta [el código](src/17_1_sendtransaction.go), el txid de la transacción se emite:
+Cuando se ejecuta [el código](https://github.com/BlockchainCommons/Learning-Bitcoin-from-the-Command-Line/blob/master/src/17_1_sendtransaction.go), el txid de la transacción se emite:
 ```
 $ go run sendtransaction.go
 9aa4cd6559e0d69059eae142c35bfe78b71a8084e1fcc2c74e2a9675e9e7489d
@@ -369,7 +369,7 @@ func main() {
 ```
 > **NOTA:** De nuevo, querrá cambiar el txid por uno realmente reconocido por su sistema.
 
-Cuando ejecute [el código](17_1_lookuptransaction.go) imprimirá los detalles asociados con una transacción, como su cantidad y cuántas veces se ha confirmado:
+Cuando ejecute [el código](https://github.com/BlockchainCommons/Learning-Bitcoin-from-the-Command-Line/blob/master/src/17_1_lookuptransaction.go) imprimirá los detalles asociados con una transacción, como su cantidad y cuántas veces se ha confirmado:
 ```
 $ go run lookuptransaction.go
 {
