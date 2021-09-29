@@ -128,7 +128,7 @@ print("---------------------------------------------------------------\n")
 
 ### Executando nosso código
 
-Podemos usar [o código que está no src/](src/18_4_getinfo.py) e executá-lo com `python3`:
+Podemos usar [o código que está no src/](../src/18_4_getinfo.py) e executá-lo com `python3`:
 
 ```
 $ python3 getinfo.py
@@ -244,7 +244,7 @@ pprint(utxo_tx_details)
 print("---------------------------------------------------------------\n")
 ```
 
-Este código está disponível no arquivo [walletinfo.py](src/18_4_walletinfo.py).
+Este código está disponível no arquivo [walletinfo.py](../src/18_4_walletinfo.py).
 ```
 $ python3 walletinfo.py 
 ---------------------------------------------------------------
@@ -422,7 +422,7 @@ send_tx = rpc_client.sendrawtransaction(signed_tx['hex'])
 ```
 ### Executando Nosso Código
 
-[Este código](src/18_4_sendtx.py) está cheio de instruções com `print` para demonstrar todos os dados disponíveis a cada momento:
+[Este código](../src/18_4_sendtx.py) está cheio de instruções com `print` para demonstrar todos os dados disponíveis a cada momento:
 ```
 $ python3 sendtx.py 
 Creating a Transaction

@@ -33,7 +33,7 @@ $ utxo_vout=$(bitcoin-cli listunspent | jq -r '.[0] | .vout')
 $ recipient=tb1qycsmq3jas5wkhf8xrfn8k7438cm5pc8h9ae2k0
 $ rawtxhex=$(bitcoin-cli -named createrawtransaction inputs='''[ { "txid": "'$utxo_txid'", "vout": '$utxo_vout' } ]''' outputs='''{ "'$recipient'": 0.0009 }''')
 ```
-Embora tenhamos colocado um destinatário e uma quantia na saída, isto é irrelevante, porque nós o reescreveremos. Um código mais elaborado poderia ler as informações `vout` existentes antes de reescrever, mas estamos mantendo as coisas muito próximas do nosso [código original](src/17_5_replacewithscript.c).
+Embora tenhamos colocado um destinatário e uma quantia na saída, isto é irrelevante, porque nós o reescreveremos. Um código mais elaborado poderia ler as informações `vout` existentes antes de reescrever, mas estamos mantendo as coisas muito próximas do nosso [código original](../src/17_5_replacewithscript.c).
 
 Aqui está a única alteração necessária, para permitir que especifiquemos os satoshis no `vout`, sem ter que codificá-lo, como no original:
 ```
@@ -182,7 +182,7 @@ Infelizmente, nem todas as interações entre a Libwally e o `bitcoin-cli` são 
 
 ## Importando Chaves Privadas
 
-Felizmente, podemos fazer quase a mesma coisa importando uma chave privada gerada na Libwally. Dê uma olhada no [genhd-for-import.c](src/17_7_genhd_for_import.c), uma versão simplificada do programa `genhd` da seção [§17.3](17_3_Using_BIP32_in_Libwally.md) que também usa a biblioteca `jansson` da seção [§16.1](16_1_Accessing_Bitcoind_with_C.md) para saída regularizada.
+Felizmente, podemos fazer quase a mesma coisa importando uma chave privada gerada na Libwally. Dê uma olhada no [genhd-for-import.c](../src/17_7_genhd_for_import.c), uma versão simplificada do programa `genhd` da seção [§17.3](17_3_Using_BIP32_in_Libwally.md) que também usa a biblioteca `jansson` da seção [§16.1](16_1_Accessing_Bitcoind_with_C.md) para saída regularizada.
 
 O código atualizado também contém uma alteração importante, pois ele solicita uma impressão digital da Libwally para que se possa criar um caminho de derivação de maneira adequada:
 ```

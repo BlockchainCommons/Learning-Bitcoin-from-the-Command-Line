@@ -116,7 +116,7 @@ Obviamente, há muito mais coisas que poderemos observar nos PSBTs. Na verdade, 
 
 ### Testando Nosso Leitor PSBT
  
-Novamente, o código para este leitor PSBT (extremamente rudimentar e específico) está no [diretório src/](src/17_4_examinepsbt.c).
+Novamente, o código para este leitor PSBT (extremamente rudimentar e específico) está no [diretório src/](../src/17_4_examinepsbt.c).
 
 Podemos compilá-lo normalmente:
 ```
@@ -289,7 +289,7 @@ Mas o que temos ainda não é um PSBT legal, por falta de entradas. Podemos cri�
 ```
 ### Testando nosso PSBT Criado
 
-Neste ponto, devemos ter um PSBT vazio, mas funcionando, que pode ser visto compilando e executando [o programa](src/17_4_createemptypsbt.c).
+Neste ponto, devemos ter um PSBT vazio, mas funcionando, que pode ser visto compilando e executando [o programa](../src/17_4_createemptypsbt.c).
 ```
 $ cc createemptypsbt.c -lwallycore -o createemptypsbt
 $ ./createemptypsbt 

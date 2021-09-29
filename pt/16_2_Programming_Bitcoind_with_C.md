@@ -330,7 +330,7 @@ O código inteiro, com um _pouco_ mais verificação de erros, está disponível
 
 ## Testando o Código
 
-O código completo pode ser encontrado no [diretório src/](src/16_2_sendtoaddress.c).
+O código completo pode ser encontrado no [diretório src/](../src/16_2_sendtoaddress.c).
 
 Compile-o como de costume:
 ```

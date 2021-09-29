@@ -191,7 +191,7 @@ makeCommand(method: method,param: param) { result in
 
 ### Executando Nosso Código
 
-O código completo está disponível no [diretório src/](src/18_6_getinfo.playground). Carregue-o no playground Xcode e, em seguida, "Editor -> Executar Playground" e devemos obter resultados como:
+O código completo está disponível no [diretório src/](../src/18_6_getinfo.playground). Carregue-o no playground Xcode e, em seguida, "Editor -> Executar Playground" e devemos obter resultados como:
 ```
 {
     bestblockhash = 00000000000000069725608ebc5b59e520572a8088cbc57ffa5ba87b7f300ac7;
@@ -384,7 +384,7 @@ Enviar nossa transação é igualmente simples:
 }
 ```
 
-O código para este remetente de transação pode ser encontrado no [diretório src/](src/18_6_sendtx.playground).
+O código para este remetente de transação pode ser encontrado no [diretório src/](../src/18_6_sendtx.playground).
 
 ## Usando o Swift de Outras Maneiras
 

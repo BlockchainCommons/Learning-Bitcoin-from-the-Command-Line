@@ -121,7 +121,7 @@ Claro, quando terminar o processo, precisamos limpar tudo:
 
 ### Testando o Código de Notificação
 
-O código-fonte completo está no [diretório src/](src/15_3_chainlistener.c) como de costume. Precisamos compilá-lo:
+O código-fonte completo está no [diretório src/](../src/16_3_chainlistener.c) como de costume. Precisamos compilá-lo:
 ```
 $ cc -o chainlistener chainlistener.c -I/usr/local/include -L/usr/local/lib -lzmq -lczmq
 ```

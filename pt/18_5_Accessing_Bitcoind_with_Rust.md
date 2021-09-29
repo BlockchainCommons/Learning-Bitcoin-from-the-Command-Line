@@ -134,7 +134,7 @@ Aqui está o código completo para recuperar um hash de bloco, transformando-o e
 
 ### Executando Nosso Código
 
-Podemos acessar o [código src](src/18_5_main-getinfo.rs) e executá-lo. Infelizmente, a informação do "Block" sairá um pouco feia porque este exemplo não inclui uma biblioteca para embelezá-la.
+Podemos acessar o [código src](../src/18_5_main-getinfo.rs) e executá-lo. Infelizmente, a informação do "Block" sairá um pouco feia porque este exemplo não inclui uma biblioteca para embelezá-la.
 
 ```
 $ cargo run 
@@ -289,7 +289,7 @@ println!("{:?}", txid_sent);
 
 ### Executando Nosso Código
 
-Agora podemos executar o código completo do [src](src/18_5_main-sendtx.rs).
+Agora podemos executar o código completo do [src](../src/18_5_main-sendtx.rs).
 
 
 ```
