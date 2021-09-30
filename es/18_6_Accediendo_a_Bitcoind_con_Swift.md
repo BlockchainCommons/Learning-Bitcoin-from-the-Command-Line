@@ -92,7 +92,7 @@ Que debería parecerse mucho a la URL utilizada en algunas de las secciones ante
 #### 2. Crear una URLRequest
 
 Con esa URL en su mano, ahora puede crear una URLRequest, con el método `POST` y el tipo de contenido `text/plain`. El cuerpo HTTP es entonces el objeto JSON familiar que ha estado enviando cada vez que se conectas directamente a los puertos RPC de Bitcoin Core, como se demostró por primera vez al usar Curl en [§4.4](04_4__Interludio_Usando_Curl.md).
-s
+
 ```
     var request = URLRequest(url: url!)
     request.httpMethod = "POST"
@@ -190,7 +190,7 @@ makeCommand(method: method,param: param) { result in
 ```
 ### Ejecute su código
 
-El código completo está disponible en el [directorio src](src/17_6_getinfo.playground). Cárgalo en su entorno Xcode y luego "Editor -> Run Playground" y obtendrá resultados como:
+El código completo está disponible en el [directorio src](https://github.com/BlockchainCommons/Learning-Bitcoin-from-the-Command-Line/blob/master/src/18_6_getinfo.playground). Cárgalo en su entorno Xcode y luego "Editor -> Run Playground" y obtendrá resultados como:
 ```
 {	
     bestblockhash = 00000000000000069725608ebc5b59e520572a8088cbc57ffa5ba87b7f300ac7;
@@ -380,7 +380,7 @@ El envío de su transacción es igualmente simple:
     }
 }
 ```
-El código para este remitente de transacción se puede encontrar en el [src directory](src/17_6_sendtx.playground).
+El código para este remitente de transacción se puede encontrar en el [src directory](https://github.com/BlockchainCommons/Learning-Bitcoin-from-the-Command-Line/blob/master/src/18_6_sendtx.playground).
 
 ## Usar Swift de otras maneras
 
