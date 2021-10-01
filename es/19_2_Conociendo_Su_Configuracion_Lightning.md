@@ -334,6 +334,6 @@ El directorio `~/.lightning` contiene todos sus archivos, mientras que el comand
 
 ## Que sigue?
 
-Necesitará tener un segundo nodo Linode para probar el pago real de facturas. Si necesita ayuda para configurar uno, lea  [Interludio: Acceso a un segundo nodo Lightning .](19_2__Interludio_Accediendo_a_un_Segundo_Nodo_Lightning.md).
+Necesitará tener un segundo nodo Linode para probar el pago real de facturas. Si necesita ayuda para configurar uno, lea  [Interludio: Acceso a un segundo nodo Lightning.](19_2_Interludio_Accediendo_a_un_Segundo_Nodo_Lightning.md).
 
 De lo contrario, continúe "Comprensión de la configuración de Lightning" con [§19.3: Configurando un Canal](19_3_Creando_un_Canal_en_Lightning.md).
