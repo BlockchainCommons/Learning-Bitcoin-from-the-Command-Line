@@ -6,7 +6,7 @@ En esta sección, instalará y verificará c-lightning, su utilidad para acceder
 
 > :book: ***¿Qué es Lightning Network?*** Lightning Network es una red descentralizada que utiliza la funcionalidad de contrato inteligente de la cadena de bloques de Bitcoin para permitir pagos instantáneos a través de una red de participantes. Lightning está construido como un protocolo de capa 2 que interactúa con Bitcoin para permitir a los usuarios intercambiar sus bitcoins "fuera de la cadena".
 
-> :book: ***¿Qué es un protocolo de capa 2? *** La capa 2 se refiere a un protocolo secundario construido sobre el sistema de cadena de bloques de Bitcoin. El objetivo principal de estos protocolos es resolver la velocidad de transacción y las dificultades de escalado que están presentes en Bitcoin: Bitcoin no es capaz de procesar miles de transacciones por segundo (TPS), por lo que se han creado protocolos de capa 2 para resolver el problema de escalabilidad de blockchain. Estas soluciones también se conocen como soluciones de escalado "fuera de la cadena".
+> :book: ***¿Qué es un protocolo de capa 2?*** La capa 2 se refiere a un protocolo secundario construido sobre el sistema de cadena de bloques de Bitcoin. El objetivo principal de estos protocolos es resolver la velocidad de transacción y las dificultades de escalado que están presentes en Bitcoin: Bitcoin no es capaz de procesar miles de transacciones por segundo (TPS), por lo que se han creado protocolos de capa 2 para resolver el problema de escalabilidad de blockchain. Estas soluciones también se conocen como soluciones de escalado "fuera de la cadena".
 
 ## Instalar C-Lightning
 
@@ -31,7 +31,7 @@ Si no es así, deberá instalarlo ahora. Desafortunadamente, si está utilizando
 
 > :book: ***¿Qué es c-lightning?*** Hay tres implementaciones diferentes de Lightning en la actualidad: c-lightning, LND y Eclair. Todos deben ser funcionalmente compatibles, basados ​​en las mismas [RFC de BOLT](https://github.com/lightningnetwork/lightning-rfc/blob/master/00-introduction.md), pero sus detalles de implementación pueden ser diferentes. Hemos elegido c-lightning como base de nuestro curso porque también es parte del mismo [Elements Project](https://github.com/ElementsProject) que también contiene Libwally.
 
-### Compila el código fuente de c-lightning
+### Compilar el código fuente de c-lightning
 
 La instalación de Lightning desde el código fuente debería ser bastante simple si sigue estas instrucciones.
 
@@ -93,7 +93,7 @@ Si instaló `c-lightning` a mano, ahora deberá iniciarlo:
 $ nohup lightningd --testnet &
 ```
 
-### Ejecuta lightningd como servicio
+### Ejecutar lightningd como servicio
 
 Si lo prefiere, puede instalar `lightningd` como un servicio que se ejecutará cada vez que reinicie su máquina. Lo siguiente lo hará y comenzará a ejecutarse de inmediato:
 
@@ -212,7 +212,7 @@ alias lninfo='lightning-cli getinfo'
 EOF
 ```
 
-Después de ingresar estos alias, puede `source ~ / .bash_profile` para ingresarlos o simplemente cerrar sesión y volver a ingresar.
+Después de ingresar estos alias, puede `source ~/.bash_profile` para ingresarlos o simplemente cerrar sesión y volver a ingresar.
 
 Tenga en cuenta que estos alias incluyen atajos para ejecutar `lightning-cli`, para ejecutar` lightningd` y para ir al directorio c-lightning. Estos alias están destinados principalmente a facilitarle la vida. Le sugerimos que cree otros alias para facilitar el uso de comandos frecuentes (y argumentos) y minimizar los errores. Los alias de este tipo pueden ser aún más útiles si tiene una configuración compleja en la que ejecuta regularmente comandos asociados con Mainnet, con Testnet, _y_ con Regtest, como se explica más adelante.
 
@@ -222,14 +222,14 @@ Dicho esto, el uso de estos alias en _este_ documento podría oscurecer accident
 
 > :link: **TESTNET vs MAINNET:** Cuando configura su nodo, elige crearlo como un nodo Mainnet, Testnet o Regtest. Aunque este documento presupone una configuración de testnet, vale la pena comprender cómo puede acceder y utilizar los otros tipos de configuración, ¡incluso todos en la misma máquina! Pero, si es un usuario nuevo, omita esto, ya que no es necesario para una configuración básica.
 
-Cuando se inicia lightningd, generalmente lee un archivo de configuración cuya ubicación depende de la red que esté utilizando (predeterminado: `~ / .lightning / testnet / config`). Esto se puede cambiar con los indicadores `–conf` y` –lightning-dir`.
+Cuando se inicia lightningd, generalmente lee un archivo de configuración cuya ubicación depende de la red que esté utilizando (predeterminado: `~/.lightning/testnet/config`). Esto se puede cambiar con los indicadores `–conf` y` –lightning-dir`.
 
 ```
 ~/.lightning/testnet$ ls -la config
 -rw-rw-r-- 1 user user 267 jul 12 17:08 config
 ```
 
-También hay un archivo de configuración general (predeterminado: `~ / .lightning / config`). Si desea ejecutar varios tipos diferentes de nodos simultáneamente, debe dejar el indicador testnet (o regtest) fuera de este archivo de configuración. A continuación, debe elegir si está utilizando la red principal, la red de prueba o su registro cada vez que ejecute `lightningd` o` lightning-cli`.
+También hay un archivo de configuración general (predeterminado: `~/.lightning/config`). Si desea ejecutar varios tipos diferentes de nodos simultáneamente, debe dejar el indicador testnet (o regtest) fuera de este archivo de configuración. A continuación, debe elegir si está utilizando la red principal, la red de prueba o su registro cada vez que ejecute `lightningd` o` lightning-cli`.
 
 Es posible que su configuración no tenga ningún archivo de configuración: c-lightning se ejecutará con una buena configuración predeterminada sin ellos.
 
