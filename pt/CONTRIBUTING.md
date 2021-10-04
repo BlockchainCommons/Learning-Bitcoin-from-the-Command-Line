@@ -55,7 +55,7 @@ Usamos [Github Flow](https://guides.github.com/introduction/flow/index.html). Ao
 
 ### Envie Sob a Licença de Patente BSD-2-Clause Plus
 
-Resumindo, quando você envia alterações de código, seus envios são considerados disponíveis sob a mesma licença [CC-BY](../ LICENSE-CC-BY-4.0.md) que cobre o projeto. Também pedimos que todos os contribuidores de código do GPG assinem o [Contrato de Licença de Contribuidor (CLA.md)](../CLA.md) para proteger futuros usuários deste projeto. Sinta-se à vontade para entrar em contato com os mantenedores se isso for um problema. 
+Resumindo, quando você envia alterações de código, seus envios são considerados disponíveis sob a mesma licença [CC-BY](../LICENSE-CC-BY-4.0.md) que cobre o projeto. Também pedimos que todos os contribuidores de código do GPG assinem o [Contrato de Licença de Contribuidor (CLA.md)](../CLA.md) para proteger futuros usuários deste projeto. Sinta-se à vontade para entrar em contato com os mantenedores se isso for um problema. 
 
 ## Referências
 
