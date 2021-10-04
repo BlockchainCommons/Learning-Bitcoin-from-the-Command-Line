@@ -13,7 +13,7 @@ _Este tutorial assume que você tenha um mínimo de background em como utilizar 
 
 * [Espanhol](https://github.com/BlockchainCommons/Learning-Bitcoin-from-the-Command-Line/tree/spanish-translation/es) - em progresso
 
-Se você gostaria de fazer a sua própria tradução, por favor veja [Contribuindo](https://github.com/BlockchainCommons/Learning-Bitcoin-from-the-Command-Line/tree/master#contributing) abaixo.
+Se você gostaria de fazer a sua própria tradução, por favor veja [Contribuindo](https://github.com/BlockchainCommons/Learning-Bitcoin-from-the-Command-Line/tree/master/pt#contribuindo) abaixo.
 
 ## Índice
 
@@ -156,11 +156,11 @@ Se você gostaria de fazer a sua própria tradução, por favor veja [Contribuin
 
 v2.0.1 do **Aprendendo Bitcoin pela Linha de Comando** é uma beta. Pode ainda estar sendo sujeito a revisões ou edições de terceiros, mas já pode ser utilizado para o aprendizado.
 
-Nós também estamos considerando o que poderíamos incluir em uma [v3.0](TODO-30.md) do curso. Se você gostaria de apoiar um trabalho desse tipo, torne-se um [Patrocinador no GitHub](https://github.com/sponsors/BlockchainCommons) ou nos apoie pelo nosso [Servidor BTCPay](https://btcpay.blockchaincommons.com/), e nos informe que **Aprendendo Bitcoin** foi o motivo.
+Nós também estamos considerando o que poderíamos incluir em uma [v3.0](../TODO-30.md) do curso. Se você gostaria de apoiar um trabalho desse tipo, torne-se um [Patrocinador no GitHub](https://github.com/sponsors/BlockchainCommons) ou nos apoie pelo nosso [Servidor BTCPay](https://btcpay.blockchaincommons.com/), e nos informe que **Aprendendo Bitcoin** foi o motivo.
 
 ## Origem, Autores, Copyright & Licenças
 
-A não ser que indicado o contrário (ou neste [/README.md](./README.md) ou nos comentários nos cabeçalhos dos aquivos), os conteúdos deste repositório são Copyright © 2020 por Blockchain Commons, LLC, e licenciados sob [CC-BY](./LICENSE-CC-BY-4.0.md).
+A não ser que indicado o contrário (ou neste [/README.md](./README.md) ou nos comentários nos cabeçalhos dos aquivos), os conteúdos deste repositório são Copyright © 2020 por Blockchain Commons, LLC, e licenciados sob [CC-BY](../LICENSE-CC-BY-4.0.md).
 
 ## Apoio Financeiro
 
@@ -170,9 +170,9 @@ Para apoiar financeiramente o desenvolvimento futuro de `$projectname` e outros 
 
 ## Contribuindo
 
-Nós encorajamos contribuições públicas por meio de issues e pull requests! Por favor revise [CONTRIBUTING.md](./CONTRIBUTING.md) para detalhes sobre o nosso processo de desenvolvimento. Todas as contribuições para este repositório requerem um [Contrato de Licença do Contribuidor](./CLA.md) assinado por GPG.
+Nós encorajamos contribuições públicas por meio de issues e pull requests! Por favor revise [CONTRIBUTING.md](./CONTRIBUTING.md) para detalhes sobre o nosso processo de desenvolvimento. Todas as contribuições para este repositório requerem um [Contrato de Licença do Contribuidor](../CLA.md) assinado por GPG.
 
-Se você gostaria de providenciar uma tradução de Aprendendo Bitcoin para outra língua, por favor veja também [TRANSLATING.md](./TRANSLATING.md).
+Se você gostaria de providenciar uma tradução de Aprendendo Bitcoin para outra língua, por favor veja também [TRANSLATING.md](../TRANSLATING.md).
 
 ### Discussões
 
@@ -182,7 +182,7 @@ O melhor lugar para conversar sobre a Blockchain Commons e seus projetos é na n
 
 ### Outras Questões & Problemas
 
-Como uma comunidade open-source e de desenvolvimento aberto, a Blockchain Commons não tem os recursos para fornecer apoio direto dos nossos projetos. Por favor considere a área de discussões como um local onde você pode receber respostas a perguntas. Alternativamente, por favor use o campo de [issues](./issues) deste repositório. Infelizmente, não podemos fazer promessas em relação ao tempo de resposta.
+Como uma comunidade open-source e de desenvolvimento aberto, a Blockchain Commons não tem os recursos para fornecer apoio direto dos nossos projetos. Por favor considere a área de discussões como um local onde você pode receber respostas a perguntas. Alternativamente, por favor use o campo de [issues](https://github.com/BlockchainCommons/Learning-Bitcoin-from-the-Command-Line/issues) deste repositório. Infelizmente, não podemos fazer promessas em relação ao tempo de resposta.
 
 Se a sua empresa requer apoio para usar os nossos projetos, por favor nos contacte diretamente para opcões. Nós podemos ser capazes de te oferecer um contrato para apoio por um de nossos contribuidores, ou poderemos te indicar outra entidade que possa oferecer o apoio contratual que você precisa.
 
