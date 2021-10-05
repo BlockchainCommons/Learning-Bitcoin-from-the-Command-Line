@@ -119,7 +119,7 @@ Aquí está el código completo para recuperar un hash de bloque, convertirlo en
 
 ### Ejecute su código
 
-Puede acceder al [código src](src/17_5_main-getinfo.rs) y ejecutarlo. Desafortunadamente, la información de "Block" saldrá un poco fea porque este ejemplo no incluye una biblioteca para embellecerla.
+Puede acceder al [código src](https://github.com/BlockchainCommons/Learning-Bitcoin-from-the-Command-Line/blob/master/src/18_5_main-getinfo.rs) y ejecutarlo. Desafortunadamente, la información de "Block" saldrá un poco fea porque este ejemplo no incluye una biblioteca para embellecerla.
 ```
 $ cargo run 
    Compiling btc_test v0.1.0 (/home/standup/btc_test)
@@ -260,7 +260,7 @@ println!("{:?}", txid_sent);
 ```
 ### Ejecute su código
 
-Ahora puede ejecutar el código completo desde [src](src/17_5_main-sendtx.rs).
+Ahora puede ejecutar el código completo desde [src](https://github.com/BlockchainCommons/Learning-Bitcoin-from-the-Command-Line/blob/master/src/18_5_main-sendtx.rs).
 ```
 $ cargo run
    Compiling btc_test v0.1.0 (/home/standup/btc_test)
@@ -327,4 +327,4 @@ b0eda3517e6fac69e58ae315d7fe7a1981e3a858996cc1e3135618cac9b79d1a
 
 ## ¿Qué es lo siguiente?
 
-Obtenga más información sobre "Cómo hablar con Bitcoin en otros idiomas" en [18.6: Cómo acceder a Bitcoin con Swift](18_6_Accediendo_a_Bitcoind_con_Swift.md).
+Obtenga más información sobre "Cómo hablar con Bitcoin en otros lenguajes" en [18.6: Cómo acceder a Bitcoin con Swift](18_6_Accediendo_a_Bitcoind_con_Swift.md).
