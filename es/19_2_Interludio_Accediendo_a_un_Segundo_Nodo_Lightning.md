@@ -113,7 +113,7 @@ A diferencia de c-lightning, necesitará crear un archivo de configuración pred
 
 Sin embargo, usted primero necesita habilitar ZMQ en su Bitcoind, si no lo hizo ya en [§16.3](16_3_Recibiendo_Notificaciones_de_Bitcoind_en_C_con_las_Bibliotecas_ZMQ.md).
 
-Esto requiere agregar lo siguiente a su archivo `~/. bitcoin/bitcoin.conf` si no está ya allí:
+Esto requiere agregar lo siguiente a su archivo `~/.bitcoin/bitcoin.conf` si no está ya allí:
 ```
 zmqpubrawblock=tcp://127.0.0.1:28332
 zmqpubrawtx=tcp://127.0.0.1:28333
@@ -293,7 +293,7 @@ El ID de este nodo es `032a7572dc013b6382cde391d79f292ced27305aa4162ec3906279fc4
 
 ## Escuchando el Gossip
 
-Si ya estaba conectado a la Red Relámpago, y estaba "chismeando" con nodos compañeros, también podría ser capaz de encontrar información sobre compañeros automáticamente, a través del comando `listpeers`:
+Si ya estaba conectado a la red lightning, y estaba "chismeando" con nodos compañeros, también podría ser capaz de encontrar información sobre compañeros automáticamente, a través del comando `listpeers`:
 
 ```       
 c$ lightning-cli --network=testnet listpeers
