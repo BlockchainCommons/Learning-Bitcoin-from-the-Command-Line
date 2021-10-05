@@ -91,7 +91,7 @@ El resultado de las funciones BCRPC es un objeto JSON que contiene información 
 
 ### Ejecute su código
 
-Puede encontrar el código `getinfo` en el [directorio src]((src/17_3_getinfo.js).
+Puede encontrar el código `getinfo` en el [directorio src](https://github.com/BlockchainCommons/Learning-Bitcoin-from-the-Command-Line/blob/master/src/18_3_getinfo.js).
 ```
 $ node getinfo.js
 1831094
@@ -138,7 +138,7 @@ agent.getWalletInfo(function (err, walletInfo) {
   console.log(walletInfo.result);
 });
 ```
-La fuente está disponible como [walletinfo.js](src/17_3_walletinfo.js).
+La fuente está disponible como [walletinfo.js](https://github.com/BlockchainCommons/Learning-Bitcoin-from-the-Command-Line/blob/master/src/18_3_walletinfo.js).
 ```
 $ node walletinfo.js
 0.008498
@@ -229,7 +229,7 @@ Debería obtener una salida similar a esta:
   hex: '02000000000101e9e8c3bd057d54e73baadc60c166860163b0e7aa60cab33a03e89fb44321f8d5010000001716001435c2aa3fc09ea53c3e23925c5b2e93b9119b2568feffffff02a0860100000000001976a914600c8c6a4abb0a502ea4de01681fe4fa1ca7800688ac65ec1c000000000017a91425b920efb2fde1a0277d3df11d0fd7249e17cf8587024730440220403a863d312946aae3f3ef0a57206197bc67f71536fb5f4b9ca71a7e226b6dc50220329646cf786cfef79d60de3ef54f702ab1073694022f0618731902d926918c3e012103e6feac9d7a8ad1ac6b36fb4c91c1c9f7fff1e7f63f0340e5253a0e4478b7b13f41fd1a00'
 }
 ```
-El código completo está disponible como [sendtx.js](src/17_3_sendtx.js).
+El código completo está disponible como [sendtx.js](https://github.com/BlockchainCommons/Learning-Bitcoin-from-the-Command-Line/blob/master/src/18_3_sendtx.js).
 
 ## Resumen: Acceso a Bitcoind con node.js
 
