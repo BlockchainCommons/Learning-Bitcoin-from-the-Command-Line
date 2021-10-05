@@ -14,7 +14,7 @@ $ ls ~/.lightning
 testnet
 ```
 
-El directorio`~/.lightning/testnet`contendrá todas las entrañas de su configuración:
+El directorio `~/.lightning/testnet` contendrá todas las entrañas de su configuración:
 ```
 $ ls ~/.lightning/testnet3
 config  gossip_store  hsm_secret  lightningd.sqlite3  lightningd.sqlite3-journal  lightning-rpc
@@ -242,7 +242,7 @@ $ lightning-cli --testnet listnodes
 * listfunds: El comando RPC `listfunds` muestra todos los fondos disponibles, ya sea en salidas no gastadas (UTXO) en la billetera interna o fondos bloqueados en los canales abiertos actualmente.
 * listtransactions: El comando RPC `listtransactions` devuelve transacciones rastreadas en la billetera. Esto incluye depósitos, retiros y transacciones relacionadas con los canales.
 * listinvoices: El comando RPC `listinvoices` recupera el estado de una factura específica, si existe, o el estado de todas las facturas si no se proporciona ningún argumento.
-* listnodes: El comando RPC `listnodes` devuelve los nodos que su servidor ha aprendido a través de mensajes de chismes, o uno solo si se especificó el ID de nodo.
+* listnodes: El comando RPC `listnodes` devuelve los nodos que su servidor ha aprendido a través de mensajes de gossip, o uno solo si se especificó el ID de nodo.
 
 Por ejemplo `lightning-cli listconfigs` le brinda una variedad de información sobre su configuración:
 ```
@@ -334,6 +334,6 @@ El directorio `~/.lightning` contiene todos sus archivos, mientras que el comand
 
 ## Que sigue?
 
-Necesitará tener un segundo nodo Linode para probar el pago real de facturas. Si necesita ayuda para configurar uno, lea  [Interludio: Acceso a un segundo nodo Lightning .](19_2__Interludio_Accediendo_a_un_Segundo_Nodo_Lightning.md).
+Necesitará tener un segundo nodo Linode para probar el pago real de facturas. Si necesita ayuda para configurar uno, lea  [Interludio: Acceso a un segundo nodo Lightning.](19_2_Interludio_Accediendo_a_un_Segundo_Nodo_Lightning.md).
 
 De lo contrario, continúe "Comprensión de la configuración de Lightning" con [§19.3: Configurando un Canal](19_3_Creando_un_Canal_en_Lightning.md).
