@@ -122,7 +122,7 @@ print("---------------------------------------------------------------\n")
 ```
 ### Ejecute su código
 
-Puede recuperar [el código fuente en](src/17_4_getinfo.py) y ejecutarlo con `python3`:
+Puede recuperar [el código fuente en](https://github.com/BlockchainCommons/Learning-Bitcoin-from-the-Command-Line/blob/master/src/18_4_getinfo.py) y ejecutarlo con `python3`:
 ```
 $ python3 getinfo.py
 ---------------------------------------------------------------
@@ -225,7 +225,7 @@ print("------------")
 pprint(utxo_tx_details)
 print("---------------------------------------------------------------\n")
 ```
-Este código está disponible en [walletinfo.py](src/17_4_walletinfo.py).
+Este código está disponible en [walletinfo.py](https://github.com/BlockchainCommons/Learning-Bitcoin-from-the-Command-Line/blob/master/src/18_4_walletinfo.py).
 ```
 $ python3 walletinfo.py 
 ---------------------------------------------------------------
@@ -396,7 +396,7 @@ send_tx = rpc_client.sendrawtransaction(signed_tx['hex'])
 ```
 ### Ejecute su código
 
-El [código de ejemplo](src/17_4_sendtx.py) está lleno de sentencias `print` para demostrar todos los datos disponibles en cada punto:
+El [código de ejemplo](https://github.com/BlockchainCommons/Learning-Bitcoin-from-the-Command-Line/blob/master/src/18_4_sendtx.py) está lleno de sentencias `print` para demostrar todos los datos disponibles en cada punto:
 ```
 $ python3 sendtx.py 
 Creating a Transaction
@@ -434,7 +434,7 @@ Acceder a Bitcoind con Python es muy fácil mientras usa la biblioteca `python-b
 
 ## ¿Qué es lo siguiente?
 
-Obtén más información sobre "Cómo hablar con Bitcoin en otros lenguages" en [18.5: Cómo acceder a Bitcoin con Rust](18_5_Accediendo_a_Bitcoind_con_Rust.md).
+Obtén más información sobre "Cómo hablar con Bitcoin en otros lenguajes" en [18.5: Cómo acceder a Bitcoin con Rust](18_5_Accediendo_a_Bitcoind_con_Rust.md).
 
 ## Variante: Construir Python desde el Origen
 
