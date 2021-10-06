@@ -34,7 +34,7 @@ $ lightning-cli --testnet newaddr
 }
 ```  
 
-Luego puede enviar fondos a esta dirección usando `bitcoin-cli sendtoaddress` (o cualquier otra metodología que prefiera). Para este ejemplo, lo hicimos en la transacción [11094bb9ac29ce5af9f1e5a0e4aac2066ae132f25b72bff90fcddf64bf2feb02](https://blockstream.info/testnet/tx/11094bb9ac29ce5af9f1e5a0e4b2ac2066ae2f25b72bff90fcddf64bf2feb02]
+Luego puede enviar fondos a esta dirección usando `bitcoin-cli sendtoaddress` (o cualquier otra metodología que prefiera). Para este ejemplo, lo hicimos en la transacción [11094bb9ac29ce5af9f1e5a0e4aac2066ae132f25b72bff90fcddf64bf2feb02](https://blockstream.info/testnet/tx/11094bb9ac29ce5af9f1e5a0e4b2ac2066ae2f25b72bff90fcddf64bf2feb02)
 
 Esta transacción se denomina [transacción de financiación](https://github.com/lightningnetwork/lightning-rfc/blob/master/03-transactions.md#funding-transaction-output) y debe confirmarse antes de que los fondos puedan ser usado.
 
@@ -82,7 +82,7 @@ Ahora que ha financiado su billetera c-lightning, necesitará información sobre
 
 Lo siguiente que debe hacer es conectar su nodo a un par. Esto se hace con el comando `lightning-cli connect`. Recuerde que si desea obtener más información sobre este comando, debe escribir `lightning-cli help connect`.
 
-Para conectar su nodo a un par remoto, necesita su ID, que representa la clave pública del nodo de destino. Para su comodidad, `id` puede tener el formato `id@host` o `id@host:port`. Es posible que haya recuperado esto con `lightning-cli getinfo` (en c-lightning) o `lncli --network=testnet getinfo` (en LND) como se discutió en el [interludio anterior](19_2__Interludio_Accediendo_a_un_Segundo_Nodo_Lightning.md).
+Para conectar su nodo a un par remoto, necesita su ID, que representa la clave pública del nodo de destino. Para su comodidad, `id` puede tener el formato `id@host` o `id@host:port`. Es posible que haya recuperado esto con `lightning-cli getinfo` (en c-lightning) o `lncli --network=testnet getinfo` (en LND) como se discutió en el [interludio anterior](19_2_Interludio_Accediendo_a_un_Segundo_Nodo_Lightning.md).
 
 Hemos seleccionado el nodo LND, `032a7572dc013b6382cde391d79f292ced27305aa4162ec3906279fc4334602543`, que se encuentra en la dirección IP `45.33.35.151`, a la que nos vamos a conectar desde nuestro nodo c-lightning:
 
@@ -98,12 +98,12 @@ $ lightning-cli --network=testnet connect 032a7572dc013b6382cde391d79f292ced2730
 
 El comando fundchannel RPC abre un canal de pago con un par al realizar una transacción de financiación en la cadena de bloques. Debe usar el comando `lightning-cli fundchannel` para hacerlo, con los siguientes parámetros:
 
-* ** id ** es el retorno de la identificación del par de connect.
-* ** monto ** es el monto en satoshis que se toma de la billetera interna para financiar el canal. El valor no puede ser menor que el límite de polvo, actualmente establecido en 546, ni más de 16.777.215 satoshi (a menos que se hayan negociado grandes canales con el par).
-* ** tarifa ** es una tarifa opcional utilizada para la transacción de apertura y como tarifa inicial para transacciones de compromiso y HTLC.
-* ** anuncio ** es una bandera opcional que activa si anunciar este canal o no. Por defecto es verdadero. Si desea crear un canal privado no anunciado, configúrelo en falso.
-* ** minconf ** especifica el número mínimo de confirmaciones que deben tener las salidas utilizadas en el proceso de apertura del canal. El valor predeterminado es 1.
-* ** utxos ** especifica los utxos que se utilizarán para financiar el canal, como una matriz de "txid: vout".
+* **id** es el retorno de la identificación del par de connect.
+* **monto** es el monto en satoshis que se toma de la billetera interna para financiar el canal. El valor no puede ser menor que el límite de polvo, actualmente establecido en 546, ni más de 16.777.215 satoshi (a menos que se hayan negociado grandes canales con el par).
+* **tarifa** es una tarifa opcional utilizada para la transacción de apertura y como tarifa inicial para transacciones de compromiso y HTLC.
+* **anuncio** es una bandera opcional que activa si anunciar este canal o no. Por defecto es verdadero. Si desea crear un canal privado no anunciado, configúrelo en falso.
+* **minconf** especifica el número mínimo de confirmaciones que deben tener las salidas utilizadas en el proceso de apertura del canal. El valor predeterminado es 1.
+* **utxos** especifica los utxos que se utilizarán para financiar el canal, como una matriz de "txid: vout".
 
 Ahora puede abrir el canal así:
 
@@ -165,7 +165,7 @@ c$ lightning-cli --testnet listfunds
 Si bien este nuevo canal con 100.000 satoshis no está confirmado, su estado será `CHANNELD_AWAITING_LOCKIN`. Tenga en cuenta que el cambio no confirmado de satoshis `99847` también se muestra como una nueva transacción en la billetera. Una vez completadas las seis confirmaciones, el canal cambiará al estado `CHANNELD_NORMAL`, que será su estado permanente. En este momento, también aparecerá un `short_channel_id`, como:
 
 ```
-         "short_channel_id": "1862856x29x0",
+"short_channel_id": "1862856x29x0",
 ```
 
 Estos valores indican dónde se puede encontrar la transacción de financiación en la cadena de bloques. Aparece en la forma `block x txid x vout`.
@@ -178,7 +178,7 @@ En este caso, "1862856x29x0" significa:
 
 Es posible que deba usar este `short_channel_id` para ciertos comandos en Lightning.
 
-Esta transacción de financiación también se puede encontrar en la cadena en [66694d23ca15efe379e5f4a71d9be1a2d65e383b89ee3abe126ee36a12f23c1d](https://blockstream.info/testnet/tx/66694d23ca15efe379e5f4a71d9abe123a2d89e5f4a71d9a126ee36a12f23c1d]
+Esta transacción de financiación también se puede encontrar en la cadena en [66694d23ca15efe379e5f4a71d9be1a2d65e383b89ee3abe126ee36a12f23c1d](https://blockstream.info/testnet/tx/66694d23ca15efe379e5f4a71d9be1a2d65e383b89ee3abe126ee36a12f23c1d)
 
 > :book: ***¿Qué es la capacidad del canal?*** En un canal Lightning, ambos lados del canal poseen una parte de su capacidad. La cantidad de su lado del canal se llama *saldo local* y la cantidad de su lado se llama *saldo remoto*. Ambos saldos se pueden actualizar muchas veces sin cerrar el canal (cuando el saldo final se envía a la cadena de bloques), pero la capacidad del canal no puede cambiar sin cerrarlo o empalmarlo. La capacidad total de un canal es la suma del saldo que tiene cada participante en el canal.
 

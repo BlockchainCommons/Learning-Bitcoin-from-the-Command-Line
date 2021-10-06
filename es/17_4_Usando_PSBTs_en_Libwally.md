@@ -116,7 +116,7 @@ Obviamente, hay mucho más que podría ver en los PSBT. De hecho, observar es el
 
 ### Pruebe su lector PSBT
 
-De nuevo, el código para este lector PSBT (extremadamente rudimentario y específico) está en el [src directory](../src/16_4_examinepsbt.c). 
+De nuevo, el código para este lector PSBT (extremadamente rudimentario y específico) está en el [src directory](../src/17_4_examinepsbt.c). 
 
 Puede compilarlo como siempre:
 ```
@@ -271,7 +271,7 @@ Puede ver la entrada en satoshis y el `scriptPubKey` claramente listados en las 
 ## Crear un PSBT
 
 Como se señaló al principio de esta sección, todas las funciones necesarias para crear y procesar las PSBT están disponibles en Libwally. En realidad, correr a través del proceso de hacerlo es lo suficientemente complejo como para que esté más allá del alcance de esta sección, pero aquí hay una rápida ejecución de las funciones requeridas. Tenga en cuenta que los [documentos](https://wally.readthedocs.io/en/latest/psbt/) están desactualizados para PSBTs, por lo que deberá consultar `/usr/include/wally_psbt.h` para información completa.
-Como se discute en [§7.1](07_1_Creating_a_Partially_Signed_Bitcoin_Transaction.md) hay varios roles involucrados en la creación de PSBTs
+Como se discute en [§7.1](07_1_Creando_una_Transaccion_Bitcoin_Parcialmente_Firmada.md) hay varios roles involucrados en la creación de PSBTs
 
 ### Tomar el rol de creador
 
@@ -290,7 +290,7 @@ Pero lo que usted tiene todavía no es un PSBT legal, debido a la falta de insum
 ```
 ## Pruebe su creación de PSBT
 
-En este punto, debería tener un PSBT vacío, pero funcional, que puede ver compilando y ejecutando [the program](../src/16_4_createemptypsbt.c).
+En este punto, debería tener un PSBT vacío, pero funcional, que puede ver compilando y ejecutando [el programa](../src/17_4_createemptypsbt.c).
 ```
 $ cc createemptypsbt.c -lwallycore -o createemptypsbt
 $ ./createemptypsbt 

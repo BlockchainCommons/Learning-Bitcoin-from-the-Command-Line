@@ -128,7 +128,7 @@ En ambos casos, el argumento es para flags, pero actualmente tiene el valor `0`.
 
 ## Prueba un programa de prueba de Libwally
 
-El directorio src contiene [testwally.c](../src/16_1_testwally.c), que sólo muestra cómo funcionan las funciones de inicialización y limpieza.
+El directorio src contiene [testwally.c](../src/17_1_testwally.c), que sólo muestra cómo funcionan las funciones de inicialización y limpieza.
 
 Puede compilarlo de la siguiente manera:
 ```
@@ -188,4 +188,4 @@ Entonces, ¿qué puede hacer ahora?   De eso es lo que se trata en el siguiente 
 
 ## ¿Qué es lo siguiente?
 
-Más información sobre "Programar Bitcoin con Libwally" en [17.2: Usar BIP39 en Libwally](17_2_Using_BIP39_in_Libwally.md).
+Más información sobre "Programar Bitcoin con Libwally" en [17.2: Usar BIP39 en Libwally](17_2_Usando_BIP39_en_Libwally.md).

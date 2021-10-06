@@ -24,7 +24,7 @@ Los objetivos de apoyo incluyen la capacidad de:
 
 * [Sección uno: Verificación de la configuración de c-lightning](19_1_Verificando_Su_Configuracion_Lightning.md)
 * [Sección dos: Conozca su configuración de c-lightning](19_2_Conociendo_Su_Configuracion_Lightning.md)
-   * [Interludio: Acceso a un segundo nodo Lightning](19_2__Interludio_Accediendo_a_un_Segundo_Nodo_Lightning.md)
+   * [Interludio: Acceso a un segundo nodo Lightning](19_2_Interludio_Accediendo_a_un_Segundo_Nodo_Lightning.md)
 * [Sección tres: Creación de un canal Lightning](19_3_Creando_un_Canal_en_Lightning.md)
 
 

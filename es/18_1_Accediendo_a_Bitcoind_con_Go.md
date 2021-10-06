@@ -16,7 +16,7 @@ Luego, mire la página [de descargas Go](https://golang.org/dl/), obtenga el enl
 $ curl -O https://dl.google.com/go/go1.15.1.linux-amd64.tar.gz
 ```
 
-Una vez finalizada la descarga, compare el hash de la descarga con el hash en la página  [Go downloads page](https://golang.org/dl/):
+Una vez finalizada la descarga, compare el hash de la descarga con el hash en la página [de descargas Go](https://golang.org/dl/):
 ```
 $ sha256sum go1.15.1.linux-amd64.tar.gz 
 70ac0dbf60a8ee9236f337ed0daa7a4c3b98f6186d4497826f68e97c0c0413f6  go1.15.1.linux-amd64.tar.gz
@@ -51,7 +51,7 @@ Para probar que funciona, vaya al directorio con los ejemplos de Bitcoin Core:
 ```
 $ cd $GOPATH/src/github.com/btcsuite/btcd/rpcclient/examples/bitcoincorehttp
 ```
-Modificar el archivo `main.go` e introduzca los detalles asociados con la configuración del núcleo de Bitcoin, que se pueden encontrar en ` ~/. bitcoin/bitcoin.conf`:
+Modificar el archivo `main.go` e introduzca los detalles asociados con la configuración del núcleo de Bitcoin, que se pueden encontrar en `~/.bitcoin/bitcoin.conf`:
 
 ```
 		Host:         "localhost:18332",
@@ -87,7 +87,7 @@ import (
 ```
 
 Esta declaración `import`  le permite importar bibliotecas relevantes. Para cada ejemplo aquí, necesitará importar `"log", "fmt"` y `"github.com/btcsuite/btcd/rpcclient"`. Es posible que necesite importar bibliotecas adicionales para algunos ejemplos. 
-   * `log` se utiliza para imprimir mensajes de error. Después de cada llamada al nodo Bitcoin, una sentencia `if` comprobará si hay algún error. Si hay errores, `log` se utiliza para imprimirlos. 
+   * `log` se utiliza para imprimir mensajes de error. Después de cada llamada al nodo Bitcoin, una declaración `if` comprobará si hay algún error. Si hay errores, `log` se utiliza para imprimirlos. 
    * `fmt` se utiliza para imprimir la salida. 
    * `rpcclient`; es obviamente la biblioteca `rpcclient`
    * 
@@ -111,7 +111,7 @@ Cada función `bitcoind` en Go comienza con la creación de la conexión RPC, us
 ```
 Los parámetros `connCfg` le permiten elegir el puerto RPC de Bitcoin, nombre de usuario, contraseña y si está en testnet o mainnet. 
 
-> **NOTA:** De nuevo, asegúrese de sustituir el `User` y `Pass` con el que se encuentra en su `~/. bitcoin/bitcon.conf`. 
+> **NOTA:** De nuevo, asegúrese de sustituir el `User` y `Pass` con el que se encuentra en su `~/.bitcoin/bitcon.conf`. 
 
 Por tanto la función `rpcclient. New(connCfg, nil)` configura su `client` para conectarse a su nodo Bitcoin.
 La línea `defer client.Shutdown()` es para desconectar de su nodo Bitcoin, una vez que la función `main()` termina de ejecutarse. 
@@ -150,7 +150,7 @@ Para imprimirlos como una cadena, es necesario utilizar `blockHash.String()`.
 
 ### Ejecute su código
 
-Puede descargar el código completo desde el [src directory](https://github.com/BlockchainCommons/Learning-Bitcoin-from-the-Command-Line/blob/master/src/17_1_blockinfo.go).
+Puede descargar el código completo desde el [src directory](../src/18_1_blockinfo.go).
 
 A continuación, puede ejecutar:
 ```
@@ -173,10 +173,10 @@ Sin embargo, usted puede hacer uso de la llamada RPC `getbalance`:
 ```
 
 `client.GetBalance("*")` requiere la entrada `"*"`, debido a una peculiaridad con `btcd`. El asterisco significa que usted quiere conseguir el saldo de todas sus carteras.
-Si ejecuta [the src code](https://github.com/BlockchainCommons/Learning-Bitcoin-from-the-Command-Line/blob/master/src/17_1_getbalance.go), debería obtener una salida similar a esta:
+Si ejecuta [el código src](../src/18_1_getbalance.go), debería obtener una salida similar a esta:
 ```
 $ go run getbalance.go 
-0,000689 BTC
+0.000689 BTC
 ```
 
 ## Crear una dirección
@@ -227,7 +227,7 @@ A continuación, puede crear su dirección:
 ```
 Una peculiaridad con `client.GetNewAddress(")` es que se debe incluir una cadena vacía para que funcione.
 
-Ejecutando [the source](https://github.com/BlockchainCommons/Learning-Bitcoin-from-the-Command-Line/blob/master/src/17_1_getaddress.go) se obtienen los siguientes resultados:
+Ejecutando [la fuente](https://github.com/BlockchainCommons/Learning-Bitcoin-from-the-Command-Line/blob/master/src/18_1_getaddress.go) se obtienen los siguientes resultados:
 
 ```
 $ go run getaddress.go 
@@ -271,7 +271,7 @@ Solo después de esto, use la dirección `getreceivedbyaddress` RPC, en su direc
 
 	fmt.Println(wallet)
 ```
-Cuando ejecute [el código](https://github.com/BlockchainCommons/Learning-Bitcoin-from-the-Command-Line/blob/master/src/17_1_getamountreceived.go), debería obtener una salida similar a:
+Cuando ejecute [el código](../src/18_1_getamountreceived.go), debería obtener una salida similar a:
 ```
 $ go run getamountreceived.go 
 0.0085 BTC
@@ -323,7 +323,7 @@ func main() {
 	fmt.Println(sent)
 }
 ```
-Cuando se ejecuta [el código](https://github.com/BlockchainCommons/Learning-Bitcoin-from-the-Command-Line/blob/master/src/17_1_sendtransaction.go), el txid de la transacción se emite:
+Cuando se ejecuta [el código](../src/18_1_sendtransaction.go), el txid de la transacción se emite:
 ```
 $ go run sendtransaction.go
 9aa4cd6559e0d69059eae142c35bfe78b71a8084e1fcc2c74e2a9675e9e7489d
@@ -369,7 +369,7 @@ func main() {
 ```
 > **NOTA:** De nuevo, querrá cambiar el txid por uno realmente reconocido por su sistema.
 
-Cuando ejecute [el código](https://github.com/BlockchainCommons/Learning-Bitcoin-from-the-Command-Line/blob/master/src/17_1_lookuptransaction.go) imprimirá los detalles asociados con una transacción, como su cantidad y cuántas veces se ha confirmado:
+Cuando ejecute [el código](../src/18_1_lookuptransaction.go) imprimirá los detalles asociados con una transacción, como su cantidad y cuántas veces se ha confirmado:
 ```
 $ go run lookuptransaction.go
 {

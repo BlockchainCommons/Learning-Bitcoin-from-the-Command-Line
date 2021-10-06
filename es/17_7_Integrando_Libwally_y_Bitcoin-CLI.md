@@ -27,7 +27,7 @@ Para demostrar completamente esta metodología, creará una transacción con `bi
 ```
 Por ahora, usted sabe cómo configurar una transacción con `bitcoin-cli`:
 
-Aunque puso un destinatario y una cantidad en la salida, es irrelevante porque tendrá que reescribirlas. Un código un poco más elegante podría leer la información `vout` existente antes de reescribir, pero estamos manteniendo las cosas muy cerca de nuestro [código original](../src/16_5_replacewithscript.c).
+Aunque puso un destinatario y una cantidad en la salida, es irrelevante porque tendrá que reescribirlas. Un código un poco más elegante podría leer la información `vout` existente antes de reescribir, pero estamos manteniendo las cosas muy cerca de nuestro [código original](../src/17_5_replacewithscript.c).
 
 Aquí está el cambio necesario, para que pueda especificar el monto de satoshis para la salida `vout`, sin tener que ponerlo a fuego como en el original:
 ```
@@ -164,7 +164,7 @@ $ bitcoin-cli decoderawtransaction $signedtx
 ```
 ¡Voila! Ese es el poder de Libwally con `bitcoin-cli`.
 
-Obviamente, también puede pasar un PSBT usando las funciones descritas en [§17.4](117_4_Usando_PSBTs_en_Libwally.md) y esa es una metodología más actualizada para el uso actual de Bitcoin, pero en cualquier caso, el concepto de pasar transacciones desde `bitcoin-cli` a código Libwally y viceversa debe ser similar.
+Obviamente, también puede pasar un PSBT usando las funciones descritas en [§17.4](17_4_Usando_PSBTs_en_Libwally.md) y esa es una metodología más actualizada para el uso actual de Bitcoin, pero en cualquier caso, el concepto de pasar transacciones desde `bitcoin-cli` a código Libwally y viceversa debe ser similar.
 
 ## Importar y exportar semillas BIP39
 
@@ -176,7 +176,7 @@ Desafortunadamente, no todas las interacciones entre Libwally y `bitcoin-cli` va
 
 ## Importar claves privadas
 
-Afortunadamente puede hacer lo mismo importando una clave privada generada en Libwally. De un vistazo a [genhd-for-import.c](../src/16_7_genhd_for_import.c), que es una versión simplificada del programa `genhd` de [§17.3](17_3_Usando_BIP32_en_Libwally.md) que también utiliza la biblioteca `jansson` de [§16.1](16_1_Accediendo_a_Bitcoind_en_C_con_las_Bibliotecas_RPC.md) para la salida regularizada.
+Afortunadamente puede hacer lo mismo importando una clave privada generada en Libwally. De un vistazo a [genhd-for-import.c](../src/17_7_genhd_for_import.c), que es una versión simplificada del programa `genhd` de [§17.3](17_3_Usando_BIP32_en_Libwally.md) que también utiliza la biblioteca `jansson` de [§16.1](16_1_Accediendo_a_Bitcoind_en_C_con_las_Bibliotecas_RPC.md) para la salida regularizada.
 
 El código actualizado también contiene un cambio de nota: solicita una huella dactilar de Libwally para que pueda crear correctamente una ruta de derivación:
 

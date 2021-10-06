@@ -43,7 +43,7 @@ $ cargo run
 Hello, world!
 ```
 > :information_source: **NOTA:** si se encuentra con un error `linker Žcc' no encontrado`, tendrá que instalar un
-Compilador C. Si está en Linux, adelante e instale las [herramientas de desarrollo] (https://www.ostechnix.com/install-development-tools-linux/).
+Compilador C. Si está en Linux, adelante e instale las [herramientas de desarrollo](https://www.ostechnix.com/install-development-tools-linux/).
 
 Para acceder a la caja (biblioteca) de `bitcoincore-rpc`, debe añadirla a su `Cargo.toml` en la sección `dependencies`:
 ```rust

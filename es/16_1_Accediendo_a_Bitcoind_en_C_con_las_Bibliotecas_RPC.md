@@ -67,7 +67,7 @@ ldconfig -v -n .lib
 	libbitcoinrpc.so.0 -> libbitcoinrpc.so.0.2 (changed)
 ln -fs libbitcoinrpc.so.0 .lib/libbitcoinrpc.so
 ```
-Si eso funciona, puede instalar el paquete::
+Si eso funciona, puede instalar el paquete:
 ```
 $ sudo make install
 Installing to 
@@ -148,7 +148,7 @@ bitcoinrpc_global_cleanup();
 
 ### Pruebe el código de prueba
 
-El código de prueba se puede encontrar en el directorio src [15_1_testbitcoin.c](https://github.com/BlockchainCommons/Learning-Bitcoin-from-the-Command-Line/blob/spanish-translation/src/15_1_testbitcoin.c). Descárguelo en su máquina de testnet, luego inserte la contraseña de RPC correcta (y cambie el usuario de RPC si no creó su servidor con StandUp).
+El código de prueba se puede encontrar en el directorio src [16_1_testbitcoin.c](../src/16_1_testbitcoin.c). Descárguelo en su máquina de testnet, luego inserte la contraseña de RPC correcta (y cambie el usuario de RPC si no creó su servidor con StandUp).
 
 Puede compilar y ejecutar esto de la siguiente manera:
 ```
@@ -214,7 +214,7 @@ printf("Block Count: %d\n",blocks);
 
 ### Prueba el código de información
 
-Recupere el código de prueba del [directorio src](https://github.com/BlockchainCommons/Learning-Bitcoin-from-the-Command-Line/blob/spanish-translation/src/15_1_getmininginfo.c).
+Recupere el código de prueba del [directorio src](../src/16_1_getmininginfo.c).
 ```
 $ cc getmininginfo.c -lbitcoinrpc -ljansson -o getmininginfo
 $ ./getmininginfo 

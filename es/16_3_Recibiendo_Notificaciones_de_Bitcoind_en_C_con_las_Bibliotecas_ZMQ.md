@@ -4,7 +4,7 @@
 
 [§16.1](16_1_Accediendo_a_Bitcoind_en_C_con_las_Bibliotecas_RPC.md) y [§16.2](16_2_Programando_Bitcoind_en_C_con_las_Bibliotecas_RPC.md) introdujeron las bibliotecas RPC y JSON para C, y al hacerlo mostró una de las ventajas de acceder a los comandos RPC de Bitcoin a través de un lenguaje de programación: la capacidad de crear programas mucho más complejos. Este capítulo presenta una tercera biblioteca, para [ZMQ](http://zeromq.org/), y al hacerlo revela otra ventaja: la capacidad de monitorear las notificaciones. Lo usará para codificar un oyente de blockchain.
 
-> :libro: ***¿Qué es ZMQ?*** ZeroMQ (ZMQ) es una biblioteca de mensajería asincrónica de alto rendimiento que proporciona una cola de mensajes. ZeroMQ admite patrones de mensajería comunes (publicación / sub, solicitud / respuesta, cliente / servidor y otros) a través de una variedad de transportes (TCP, en proceso, entre procesos, multidifusión, WebSocket y más), lo que hace que la mensajería entre procesos tan simple como la mensajería entre subprocesos. Puede encontrar más detalles sobre las notificaciones de ZMQ y otros tipos de mensajes en [este repositorio](https://github.com/Actinium-project/ChainTools/blob/master/docs/chainlistener.md).
+> :book: ***¿Qué es ZMQ?*** ZeroMQ (ZMQ) es una biblioteca de mensajería asincrónica de alto rendimiento que proporciona una cola de mensajes. ZeroMQ admite patrones de mensajería comunes (publicación / sub, solicitud / respuesta, cliente / servidor y otros) a través de una variedad de transportes (TCP, en proceso, entre procesos, multidifusión, WebSocket y más), lo que hace que la mensajería entre procesos tan simple como la mensajería entre subprocesos. Puede encontrar más detalles sobre las notificaciones de ZMQ y otros tipos de mensajes en [este repositorio](https://github.com/Actinium-project/ChainTools/blob/master/docs/chainlistener.md).
 
 ## Configurar ZMQ
 
@@ -133,7 +133,7 @@ Por supuesto, cuando termine, debe limpiar:
 
 ### Pruebe el código de notificación
 
-El código fuente está en el [directorio src](../src/15_3_chainlistener.c) como de costumbre. Debería compilarlo:
+El código fuente está en el [directorio src](../src/16_3_chainlistener.c) como de costumbre. Debería compilarlo:
 
 ```
 $ cc -o chainlistener chainlistener.c -I/usr/local/include -L/usr/local/lib -lzmq -lczmq

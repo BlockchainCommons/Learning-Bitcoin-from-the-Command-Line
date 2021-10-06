@@ -51,7 +51,7 @@ Puede usar diferentes implementaciones complementos billeteras móviles o copias
 
 ## ¿Que Sigue?
 
-Ha completado Aprender Bitcoin Desde la Línea de Comandos, aunque si nunca visitó los [Apéndices](A0_Appendices.md) de configuraciones alternativas, puede hacerlo ahora.
+Ha completado Aprender Bitcoin Desde la Línea de Comandos, aunque si nunca visitó los [Apéndices](A0_Apendices.md) de configuraciones alternativas, puede hacerlo ahora.
 
 De lo contrario, le recomendamos que se una a las comunidades de desarrolladores, programe y ponga en práctica sus nuevos conocimientos.
 

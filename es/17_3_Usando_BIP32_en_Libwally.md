@@ -103,7 +103,7 @@ También hay una función `wally_bip32_key_to_address` que se puede utilizar par
 
 ## Prueba de código HD
 
-El código para este ejemplo de HD se puede encontrar, como de costumbre, en el [src directory](../src/16_3_genhd.c).
+El código para este ejemplo de HD se puede encontrar, como de costumbre, en el [src directory](../src/17_3_genhd.c).
 
 Puede compilarlo y probarlo:
 ```
