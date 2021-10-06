@@ -110,7 +110,7 @@ Vamos a mostrar cómo hacer uso de eso en §17.7.
 
 ## Pruebe su script de reemplazo
 
-Puede tomar el código de prueba del [directorio src](../src/16_5_replacewithscript.c) y compilarlo:
+Puede tomar el código de prueba del [directorio src](../src/17_5_replacewithscript.c) y compilarlo:
 ```
 $  cc replacewithscript.c -lwallycore -o replacewithscript
 ```
