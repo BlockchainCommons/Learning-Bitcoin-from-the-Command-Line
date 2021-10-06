@@ -67,7 +67,7 @@ ldconfig -v -n .lib
 	libbitcoinrpc.so.0 -> libbitcoinrpc.so.0.2 (changed)
 ln -fs libbitcoinrpc.so.0 .lib/libbitcoinrpc.so
 ```
-Si eso funciona, puede instalar el paquete::
+Si eso funciona, puede instalar el paquete:
 ```
 $ sudo make install
 Installing to 
