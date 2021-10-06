@@ -188,4 +188,4 @@ Entonces, ¿qué puede hacer ahora?   De eso es lo que se trata en el siguiente 
 
 ## ¿Qué es lo siguiente?
 
-Más información sobre "Programar Bitcoin con Libwally" en [17.2: Usar BIP39 en Libwally](17_2_Using_BIP39_in_Libwally.md).
+Más información sobre "Programar Bitcoin con Libwally" en [17.2: Usar BIP39 en Libwally](17_2_Usando_BIP39_en_Libwally.md).
