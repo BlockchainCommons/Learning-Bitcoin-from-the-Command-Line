@@ -76,7 +76,7 @@ print("---------------------------------------------------------------")
 print("Block Count:", block_count)
 print("---------------------------------------------------------------\n")
 ```
-Debería ver la siguiente salida con `logging` activado :
+Debería ver la siguiente salida con `logging` activado:
 ```sh
 DEBUG:BitcoinRPC:-3-> getblockcount []
 DEBUG:BitcoinRPC:<-3- 1773020
