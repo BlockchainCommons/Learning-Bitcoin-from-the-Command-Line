@@ -2,7 +2,7 @@
 
 > :information_source: **NOTA:** Esta sección se agregó recientemente al curso y es un borrador inicial que aún puede estar pendiente de revisión. Lector de advertencias.
 
-[§16.1](16_1_Accediendo_a_Bitcoind_en_C_con_las_Bibliotecas_RPC) presentó la metodología para crear programas en C utilizando bibliotecas RPC y JSON. Ahora vamos a mostrar el potencial de esas bibliotecas C presentando un primer corte simplista de un programa Bitcoin real.
+[§16.1](16_1_Accediendo_a_Bitcoind_en_C_con_las_Bibliotecas_RPC.md) presentó la metodología para crear programas en C utilizando bibliotecas RPC y JSON. Ahora vamos a mostrar el potencial de esas bibliotecas C presentando un primer corte simplista de un programa Bitcoin real.
 
 ## Planifique su código
 
