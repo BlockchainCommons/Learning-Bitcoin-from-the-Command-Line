@@ -67,7 +67,7 @@ float tx_total = tx_amount + tx_fee;
 
 ### Paso 3: Prepare su RPC
 
-Obviamente, necesitará tener todas sus variables listas nuevamente, como se discutió en [§16.1: Acceso a Bitcoind con C](16_1_Accediendo_a_Bitcoind_en_C_con_las_Bibliotecas_RPC). También necesita inicializar su biblioteca, conectar su cliente RPC y preparar su objeto de respuesta:
+Obviamente, necesitará tener todas sus variables listas nuevamente, como se discutió en [§16.1: Acceso a Bitcoind con C](16_1_Accediendo_a_Bitcoind_en_C_con_las_Bibliotecas_RPC.md). También necesita inicializar su biblioteca, conectar su cliente RPC y preparar su objeto de respuesta:
 
 ```
 bitcoinrpc_global_init();
@@ -197,7 +197,7 @@ char *changeaddress = strdup(json_string_value(lu_result));
 
 La única diferencia es qué información particular se extrae del objeto JSON.
 
-> :warning:**ADVERTENCIA:** Aquí hay un lugar en el que una subrutina sería realmente agradable: abstraer toda la inicialización y llamada del método RPC.
+> :warning: **ADVERTENCIA:** Aquí hay un lugar en el que una subrutina sería realmente agradable: abstraer toda la inicialización y llamada del método RPC.
 
 
 ### Paso 6: Crea una transacción sin procesar
@@ -253,7 +253,7 @@ json_object_set(outputparams, tx_recipient, json_string(tx_amount_string));
 json_object_set(outputparams, changeaddress, json_string(tx_change_string));
 ```
 
-> :warning:**ADVERTENCIA: **Puede esperar ingresar sus valores de Bitcoin como números, usando `json_real`. Desafortunadamente, esto expone uno de los principales problemas con la integración de la biblioteca `jansson` y Bitcoin. Bitcoin solo es válido hasta ocho dígitos significativos después del punto decimal. Puede recordar que .00000001 BTC es un satoshi, y esa es la división más pequeña posible de un Bitcoin. Los dobles en C ofrecen dígitos más significativos que eso, aunque a menudo son imprecisos más allá de los ocho decimales. Si intenta convertir directamente de su valor doble en C (o un valor flotante, para el caso) a un valor de Bitcoin, la imprecisión a menudo creará un valor de Bitcoin con más de ocho dígitos significativos. Antes de Bitcoin Core 0.12, esto parece funcionar, y podría usar `json_real`. Pero a partir de Bitcoin Core 0.12, si intenta darle a `createrawtransaction` un valor de Bitcoin con demasiados dígitos significativos, obtendrá un error y la transacción no se creará. Como resultado, si el valor de Bitcoin _ever_ se ha convertido en un doble o flotante, debe reformatearlo a ocho dígitos significativos después del dígito antes de introducirlo como una cadena. Obviamente, esto es una tontería, por lo que debe asegurarse de que continúe funcionando en futuras versiones de Bitcoin Core.
+> :warning:**ADVERTENCIA:** Puede esperar ingresar sus valores de Bitcoin como números, usando `json_real`. Desafortunadamente, esto expone uno de los principales problemas con la integración de la biblioteca `jansson` y Bitcoin. Bitcoin solo es válido hasta ocho dígitos significativos después del punto decimal. Puede recordar que .00000001 BTC es un satoshi, y esa es la división más pequeña posible de un Bitcoin. Los dobles en C ofrecen dígitos más significativos que eso, aunque a menudo son imprecisos más allá de los ocho decimales. Si intenta convertir directamente de su valor doble en C (o un valor flotante, para el caso) a un valor de Bitcoin, la imprecisión a menudo creará un valor de Bitcoin con más de ocho dígitos significativos. Antes de Bitcoin Core 0.12, esto parece funcionar, y podría usar `json_real`. Pero a partir de Bitcoin Core 0.12, si intenta darle a `createrawtransaction` un valor de Bitcoin con demasiados dígitos significativos, obtendrá un error y la transacción no se creará. Como resultado, si el valor de Bitcoin _ever_ se ha convertido en un doble o flotante, debe reformatearlo a ocho dígitos significativos después del dígito antes de introducirlo como una cadena. Obviamente, esto es una tontería, por lo que debe asegurarse de que continúe funcionando en futuras versiones de Bitcoin Core.
 
 #### Paso 6.3: Crear la matriz de parámetros
 
@@ -329,7 +329,7 @@ char *tx_signrawhex = strdup(json_string_value(lu_signature));
 json_decref(lu_signature);
 ```
 
-> :warning: *** ADVERTENCIA: *** Un programa del mundo real obviamente probaría cuidadosamente la respuesta de cada comando RPC para asegurarse de que no haya errores. Eso es especialmente cierto para `signrawtransaction`, porque podría terminar con una transacción parcialmente firmada. Peor aún, si no verifica los errores en el objeto JSON, solo verá el `hex` y no se dará cuenta de que está sin firmar o parcialmente firmado.
+> :warning: ***ADVERTENCIA:*** Un programa del mundo real obviamente probaría cuidadosamente la respuesta de cada comando RPC para asegurarse de que no haya errores. Eso es especialmente cierto para `signrawtransaction`, porque podría terminar con una transacción parcialmente firmada. Peor aún, si no verifica los errores en el objeto JSON, solo verá el `hex` y no se dará cuenta de que está sin firmar o parcialmente firmado.
 
 ### Paso 8. Envíar la transacción
 
