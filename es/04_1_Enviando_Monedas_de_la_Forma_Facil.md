@@ -2,11 +2,11 @@
 
 El comando `bitcoin-cli` ofrece tres formas principales de enviar monedas: como un simple comando; como una transacción en crudo; y como una transacción en crudo con cálculo. Cada una tiene sus propias ventajas y desventajas. El primer método para enviar monedas es también el más sencillo.
 
-## Indica la Comisión de la Transacción
+## Indicar la Comisión de la Transacción
 
 Antes de enviar dinero en la red Bitcoin, debe pensar en las comisiones por transacción que va a pagar.
 
-> 📖 ***¿Qué es una comisión por transacción?*** No existe el almuerzo gratis. Los mineros incorporan las transacciones a los bloques porque se les paga para ello. No sólo obtienen el pago de la red por crear el bloque, sino que también les pagan los usuarios por incluir sus transacciones en el. Si no paga una comisión, su transacción puede quedarse atascada... para siempre (o, hasta que se haga con alguno de los trucos de [Capítulo Cinco](05_0_Controlando_Transacciones_Bitcoin.md)).
+> 📖 ***¿Qué es una comisión por transacción?*** No existe el almuerzo gratis. Los mineros incorporan las transacciones a los bloques porque se les paga para ello. No sólo obtienen el pago de la red por crear el bloque, sino que también les pagan los usuarios por incluir sus transacciones en el. Si no paga una comisión, su transacción puede quedarse atascada... para siempre (o, hasta que se haga con alguno de los trucos del [Capítulo Cinco](05_0_Controlando_Transacciones_Bitcoin.md)).
 
 Cuando se utilizan los métodos simples y automatizados para crear transacciones, como se indica aquí y en [§4.5: Enviando Monedas con Transacciones Automatizadas en Crudo](04_5_Enviando_Monedas_con_Transacciones_Crudas_Automatizadas.md), Bitcoin calculará las tasas de transacción por usted. Esto se hace utilizando tasas flotantes, donde `bitcoind` observa el tiempo que tardan las transacciones en confirmarse y calcula automáticamente lo que se debe gastar.
 
@@ -32,7 +32,7 @@ $ bitcoind -daemon
 
 ## Obtener una dirección
 
-Necesita un lugar al que enviar sus monedas. Normalmente, alguien le enviará una dirección y quizás le dé una firma para demostrar que es el propietario de esa dirección. También puede darle un código QR para que lo escanee y no se equivoques al escribir la dirección. En nuestro caso, vamos a enviar monedas a `n2eMqTT929pb1RDNuqEnxdaLau1rxy3efi`, que es una dirección de retorno de un antiguo grifo de Tesetnet.
+Necesita un lugar al que enviar sus monedas. Normalmente, alguien le enviará una dirección y quizás le dé una firma para demostrar que es el propietario de esa dirección. También puede darle un código QR para que lo escanee y no se equivoque al escribir la dirección. En nuestro caso, vamos a enviar monedas a `n2eMqTT929pb1RDNuqEnxdaLau1rxy3efi`, que es una dirección de retorno de un antiguo grifo de Testnet.
 
 > 📖 ***¿Qué es un código QR?*** Un código QR es sólo una codificación de una dirección Bitcoin. Muchas billeteras generarán códigos QR para usted, mientras que algunos sitios convertirán de una dirección a un código QR. Obviamente, sólo debe aceptar un código QR de un sitio en el que confíe absolutamente. Un pagador puede utilizar un escáner de código de barras para leer el código QR y luego pagar con él.
 
@@ -47,7 +47,7 @@ $ echo $txid
 
 > 🙏 Para ayudar a mantener vivos los grifos de testnet, intente utilizar la dirección de retorno del mismo grifo que utilizó en el capítulo anterior sobre la recepción de transacciones.
 
-Asegurese de que la dirección que escribe es a donde quieres que vaya el dinero. Asegúrese _Doble_. Si se equivocas en Bitcoin, no hay vuelta atrás. 
+Asegurese de que la dirección que escribe es a donde quiere que vaya el dinero. Asegúrese _Doble_. Si se equivoca en Bitcoin, no hay vuelta atrás. 
 
 Recibirá un txid de vuelta cuando utilice este comando.
 
@@ -93,11 +93,11 @@ Mientras espera a que esta transacción se complete, notará que bitcoin-cli get
 
 ## Resumen: Enviando Monedas de Forma Sencilla
 
-Para enviar monedas de forma fácil, asegúrese de que los valores predeterminados de la transacción son racionales, consigue una dirección y envía monedas allí. ¡Por eso lo llaman fácil!
+Para enviar monedas de forma fácil, asegúrese de que los valores predeterminados de la transacción son racionales, consiga una dirección y envíe monedas allí. ¡Por eso lo llaman fácil!
 
 > 🔥 ***¿Cuál es el poder de enviar monedas de manera fácil?***
 
-> _Las ventajas._ Es facil. No tiene que preocuparte de cosas arcaicas como los UTXOs. No tiene que calcular las comisiones a mano, por lo que no es probable que cometa errores que le cuesten grandes cantidades de dinero. Si su único objetivo es sentarse frente a su ordenador y enviar dinero, este es el camino a seguir.
+> _Las ventajas._ Es facil. No tiene que preocuparse de cosas arcaicas como los UTXOs. No tiene que calcular las comisiones a mano, por lo que no es probable que cometa errores que le cuesten grandes cantidades de dinero. Si su único objetivo es sentarse frente a su ordenador y enviar dinero, este es el camino a seguir.
 
 > _Las desventajas._ Es de alto nivel. Usted tiene muy poco dominio sobre lo que ocurre, y no puede hacer nada del otro mundo. Si está planeando escribir software de Bitcoin más complejo o quiere una comprensión más profunda de cómo funciona Bitcoin, entonces la forma fácil es sólo una diversión aburrida antes de llegar a lo real.
 
