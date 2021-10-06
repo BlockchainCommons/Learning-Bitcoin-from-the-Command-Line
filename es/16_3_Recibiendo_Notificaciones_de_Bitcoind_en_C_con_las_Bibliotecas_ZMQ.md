@@ -133,7 +133,7 @@ Por supuesto, cuando termine, debe limpiar:
 
 ### Pruebe el código de notificación
 
-El código fuente está en el [directorio src](../src/15_3_chainlistener.c) como de costumbre. Debería compilarlo:
+El código fuente está en el [directorio src](../src/16_3_chainlistener.c) como de costumbre. Debería compilarlo:
 
 ```
 $ cc -o chainlistener chainlistener.c -I/usr/local/include -L/usr/local/lib -lzmq -lczmq
