@@ -80,7 +80,7 @@ Un comando más lo añade a su transacción:
 
 Crear la entrada es mucho más difícil porque usted tiene que acumular información en las rutinas de creación, no todas las cuales son intuitivamente accesibles cuando usa Libwally. Así que, en lugar de ir tan profundo en la maleza, aquí es donde tomamos nuestro atajo. Escribimos nuestro código para que pase el código hexadecimal de una transacción que ya ha sido creada, y luego simplemente reutilizamos la entrada.
 
-La conversión del código hexadecimal se realiza con `wally_tx_from_hex:
+La conversión del código hexadecimal se realiza con `wally_tx_from_hex`:
 ```
   struct wally_tx *utxo;
   lw_response = wally_tx_from_hex(utxo_hex,0,&utxo);
