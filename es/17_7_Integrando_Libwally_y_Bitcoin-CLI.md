@@ -164,7 +164,7 @@ $ bitcoin-cli decoderawtransaction $signedtx
 ```
 ¡Voila! Ese es el poder de Libwally con `bitcoin-cli`.
 
-Obviamente, también puede pasar un PSBT usando las funciones descritas en [§17.4](117_4_Usando_PSBTs_en_Libwally.md) y esa es una metodología más actualizada para el uso actual de Bitcoin, pero en cualquier caso, el concepto de pasar transacciones desde `bitcoin-cli` a código Libwally y viceversa debe ser similar.
+Obviamente, también puede pasar un PSBT usando las funciones descritas en [§17.4](17_4_Usando_PSBTs_en_Libwally.md) y esa es una metodología más actualizada para el uso actual de Bitcoin, pero en cualquier caso, el concepto de pasar transacciones desde `bitcoin-cli` a código Libwally y viceversa debe ser similar.
 
 ## Importar y exportar semillas BIP39
 
