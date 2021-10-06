@@ -82,7 +82,7 @@ One more command adds it to your transaction:
 
 Creating the input is much harder because you have to pile information into the creation routines, not all of which is intuitively accessible when you're using Libwally. So, rather than going that deep into the weeds, here's where we take our shortcut. We write our code so that it's passed the hex code for a transaction that's already been created, and then we just reuse the input.
 
-The conversion from the hex code is done with `wally_tx_from_hex:
+The conversion from the hex code is done with `wally_tx_from_hex`:
 ```
   struct wally_tx *utxo;
   lw_response = wally_tx_from_hex(utxo_hex,0,&utxo);
