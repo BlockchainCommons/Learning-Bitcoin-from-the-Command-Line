@@ -79,14 +79,14 @@ Si usa [Gradle](https://gradle.org/releases/), puede ejecutar:
 compile 'wf.bitcoin:JavaBitcoindRpcClient:1.2.1'
 ```
 
-Si desea un proyecto de ejemplo y algunas instrucciones sobre cómo ejecutarlo en el servidor que acaba de crear, puede consultar el [Proyecto de Ejemplo](https://github.com/brunocvcunha/bitcoind-java-client-sample/). También puede buscar todo el código fuente para bitcoin-rpc-client (https://github.com/Polve/bitcoin-rpc-client).
+Si desea un proyecto de ejemplo y algunas instrucciones sobre cómo ejecutarlo en el servidor que acaba de crear, puede consultar el [Proyecto de Ejemplo](https://github.com/brunocvcunha/bitcoind-java-client-sample/). También puede buscar todo el código fuente para [bitcoin-rpc-client](https://github.com/Polve/bitcoin-rpc-client).
 
 ## Construya su conexión
 
 Para usar `JavaBitcoindRpcClient`, necesita crear una instancia `BitcoindRpcClient`. Esto se hace creando una URL con argumentos de nombre de usuario, contraseña, dirección IP y puerto. Como recordará, la dirección IP `127.0.0.1` y el puerto `18332` deberían ser correctos para la configuración de testnet estándar descrita en este curso, mientras que puede extraer el usuario y la contraseña de `~/. bitcoin/bitcoin.conf`.
 
 ```java
-       BitcoindRpcClient rpcClient = new BitcoinJSONRPCClient("http://StandUp:6305f1b2dbb3bc5a16cd0f4aac7e1eba@localhost:18332");
+BitcoindRpcClient rpcClient = new BitcoinJSONRPCClient("http://StandUp:6305f1b2dbb3bc5a16cd0f4aac7e1eba@localhost:18332");
 ```
 
 Tenga en cuenta que también necesitará importar la información adecuada:
@@ -151,7 +151,7 @@ PubKey: 0368d0fffa651783524f8b934d24d03b32bf8ff2c0808943a556b3d74b2e5c7d65
 ```
 ### Ejecute su código
 
-El código para estos ejemplos se puede encontrar en el [directorio src](https://github.com/BlockchainCommons/Learning-Bitcoin-from-the-Command-Line/blob/master/src/18_2_App-getinfo.java) y debe ser instalado en la estructura de directorios estándar creada aquí como `~/java-project/src/main/java/com/blockchaincommons/lbtc/App.java`. Luego se puede compilar y ejecutar.
+El código para estos ejemplos se puede encontrar en el [directorio src](../src/18_2_App-getinfo.java) y debe ser instalado en la estructura de directorios estándar creada aquí como `~/java-project/src/main/java/com/blockchaincommons/lbtc/App.java`. Luego se puede compilar y ejecutar.
 ```
 $ mvn compile
 $ mvn exec:java -Dexec.mainClass=com.blockchaincommons.lbtc.App
@@ -265,7 +265,7 @@ Finalmente enviar requiere el comando `sendRawTransaction` :
 ```
 ### Ejecute su código
 
-Ahora puede ejecutar [el código de transacción](https://github.com/BlockchainCommons/Learning-Bitcoin-from-the-Command-Line/blob/master/src/17_2_App-sendtx.java) como `~/java-project/src/main/java/com/blockchaincommons/lbtc/App.java`.
+Ahora puede ejecutar [el código de transacción](../src/18_2_App-sendtx.java) como `~/java-project/src/main/java/com/blockchaincommons/lbtc/App.java`.
 ```
 $ mvn compile
 $ mvn exec:java -Dexec.mainClass=com.blockchaincommons.lbtc.App
@@ -300,7 +300,7 @@ Para ello, usa la clase `JavaBitcoindRpcClient` `BitcoinAcceptor`, que le permit
 	});
   acceptor.run();
 ```
-Vea en el [directorio src](https://github.com/BlockchainCommons/Learning-Bitcoin-from-the-Command-Line/blob/master/src/17_2_App-listen.java) para el código completo. Cada vez que se envíe una transacción o se genere un nuevo bloque, debería ver la salida en su consola:
+Vea en el [directorio src](../src/18_2_App-listen.java) para el código completo. Cada vez que se envíe una transacción o se genere un nuevo bloque, debería ver la salida en su consola:
 ```
 Transaction: {account=Tests, address=mhopuJzgmTwhGfpNLCJ9CRknugY691oXp1, category=receive, amount=5.0E-4, label=Tests, vout=1, confirmations=0, trusted=false, txid=361e8fcff243b74ebf396e595a007636654f67c3c7b55fd2860a3d37772155eb, walletconflicts=[], time=1513132887, timereceived=1513132887, bip125-replaceable=unknown}
 
