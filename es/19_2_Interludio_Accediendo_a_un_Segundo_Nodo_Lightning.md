@@ -53,7 +53,7 @@ A continuación, pueden decirle su `id` (`03240a4878a9a64aea6c3921a434e573845267
 
 ## Crear un nuevo nodo c-lightning
 
-Sin embargo, para fines de prueba, es probable que desee tener un segundo nodo bajo su propio control. La forma más fácil de hacerlo es crear un segundo nodo c-lightning en una máquina nueva, usando Bitcoin Standup, por [§2.1](02_1_Configurando_un_Bitcoin-Core_VPS_con_StackScript.md) o compilándolo a mano, por [§19.1](9_1_Verificando_Su_Configuracion_Lightning.md).
+Sin embargo, para fines de prueba, es probable que desee tener un segundo nodo bajo su propio control. La forma más fácil de hacerlo es crear un segundo nodo c-lightning en una máquina nueva, usando Bitcoin Standup, por [§2.1](02_1_Configurando_un_Bitcoin-Core_VPS_con_StackScript.md) o compilándolo a mano, por [§19.1](19_1_Verificando_Su_Configuracion_Lightning.md).
 
 Una vez que tenga su nodo en ejecución, puede ejecutar `getinfo` para recuperar su información, como se muestra arriba.
 
