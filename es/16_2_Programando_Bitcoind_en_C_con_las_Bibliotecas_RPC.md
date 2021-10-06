@@ -364,7 +364,7 @@ El código completo, con un poco más de comprobación de errores, aparece en el
 ## Pruebe su código
 
 
-El código completo se puede encontrar en el [directorio src](../src/15_2_sendtoaddress.c).
+El código completo se puede encontrar en el [directorio src](../src/16_2_sendtoaddress.c).
 
 Compile esto como de costumbre:
 
