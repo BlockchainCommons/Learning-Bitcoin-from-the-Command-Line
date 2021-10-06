@@ -9,7 +9,7 @@ Antes de sumergirse en la creación de transacciones en crudo, debería asegurar
 
 > :book: ***¿Qué es un UTXO?*** Cuando recibe dinero en efectivo en su monedero Bitcoin, aparece como una transacción individual. Cada una de estas transacciones se denomina Unspent Transaction Output (UTXO), o salida de transacción no gastada. No importa si se hicieron varios pagos a la misma dirección o a múltiples direcciones: cada transacción entrante permanece distinta en su monedero como un UTXO.
 
-Cuando crea una nueva transacción saliente, reúne uno o más UTXOs, cada uno de los cuales representa una porción de dinero que has recibido. Los utilizas como entradas para una nueva transacción. Su importe conjunto debe ser igual a lo que quieres gastar _o más_. Luego, genera una o más salidas, que dan el dinero representado por las entradas a una o más personas. Esto crea nuevos UTXOs para los receptores, que luego pueden usar _esos_ para financiar futuras transacciones.
+Cuando crea una nueva transacción saliente, reúne uno o más UTXOs, cada uno de los cuales representa una porción de dinero que ha recibido. Los utiliza como entradas para una nueva transacción. Su importe conjunto debe ser igual a lo que quieres gastar _o más_. Luego, genera una o más salidas, que dan el dinero representado por las entradas a una o más personas. Esto crea nuevos UTXOs para los receptores, que luego pueden usar _esos_ para financiar futuras transacciones.
 
 Este es el truco: ¡Todos de los UTXOs que reúna se gastan en su totalidad! Esto significa que, si quiere enviar sólo una parte del dinero de un UTXO a otra persona, ¡También tiene que generar una salida adicional que te devuelva el resto! Por ahora, no nos preocuparemos por eso, pero el uso de una dirección de cambio será vital cuando pasemos de la teoría de este capítulo a transacciones más prácticas.
 
@@ -96,25 +96,25 @@ $ echo $utxo_vout
 $ echo $recipient
 n2eMqTT929pb1RDNuqEnxdaLau1rxy3efi
 ```
-Este destinatario es especialmente importante, porque si se equivocas, ¡Su dinero está _perdido_! (Y, como ya hemos visto, elegir la transacción equivocada puede suponer la pérdida de dinero). Así que compruébelo todo tres veces.
+Este destinatario es especialmente importante, porque si se equivoca, ¡Su dinero está _perdido_! (Y, como ya hemos visto, elegir la transacción equivocada puede suponer la pérdida de dinero). Así que compruébelo todo tres veces.
 
 ### Comprender la comisión por transacción
 
-Cada transacción tiene una tasa asociada. Es _implícito_ cuando envías una transacción en crudo: la cantidad que pagarás como tarifa es siempre igual a la cantidad de tu entrada menos la cantidad de tu salida. Por lo tanto, tienes que disminuir tu salida un poco de tu entrada para asegurarte de que tu transacción salga.
+Cada transacción tiene una tasa asociada. Es _implícito_ cuando envía una transacción en crudo: la cantidad que pagará como tarifa es siempre igual a la cantidad de su entrada menos la cantidad de su salida. Por lo tanto, tiene que disminuir su salida un poco de su entrada para asegurarse de que su transacción salga.
 
-> :warning: **AVISO:** ¡Esta es la parte más peligrosa de las transacciones en crudo! Debido a que automáticamente gasta toda la cantidad en los UTXOs que utiliza, es de vital importancia que se asegures de saber (1) exactamente qué UTXOs está usando; (2) exactamente cuánto dinero contienen; (3) exactamente cuánto dinero está enviando; y (4) cuál es la diferencia. Si te equivocas y utilizas el UTXO equivocado (con más dinero del que pensabas) o si envías muy poco dinero, el exceso se pierde. Para siempre. ¡No cometa ese error! Conozca sus entradas y salidas _precisamente_. O mejor, no utilice las transacciones en crudo salvo como parte de un programa cuidadosamente estudiado y triplemente comprobado. 
+> :warning: **AVISO:** ¡Esta es la parte más peligrosa de las transacciones en crudo! Debido a que automáticamente gasta toda la cantidad en los UTXOs que utiliza, es de vital importancia que se asegure de saber (1) exactamente qué UTXOs está usando; (2) exactamente cuánto dinero contienen; (3) exactamente cuánto dinero está enviando; y (4) cuál es la diferencia. Si se equivoca y utiliza el UTXO equivocado (con más dinero del que pensabas) o si envías muy poco dinero, el exceso se pierde. Para siempre. ¡No cometa ese error! Conozca sus entradas y salidas _precisamente_. O mejor, no utilice las transacciones en crudo salvo como parte de un programa cuidadosamente estudiado y triplemente comprobado. 
 
 > :book: ***¿Cuánto deberá gastar en tasas de transacción?*** [Bitcoin Fees](https://bitcoinfees.21.co/) tiene una buena evaluación en vivo. Dice que "la tarifa de transacción más rápida y barata es actualmente de 42 satoshis/byte" y que "para el tamaño medio de transacción de 224 bytes, esto resulta en una tarifa de 9.408 satoshis".
 
 Actualmente Bitcoin Fees sugiere una tarifa de transacción de unos 10.000 satoshis, que es lo mismo que 0,0001 BC. Sí, eso es para la red principal, no para la red de pruebas, pero queremos probar las cosas de forma realista, así que eso es lo que vamos a utilizar.
 
-En este caso, eso significa tomar los 0,0005 BTC en el UTXO que hemos seleccionado, reduciéndolos en 0,0001 BTC para la tasa de transacción, y enviando los 0,0004 BTC restantes. (Y este es un ejemplo de por qué los micropagos no funcionan en la red Bitcoin, porque una tarifa de transacción de 1$ más o menos es bastante cara cuando se está enviando 4$, y no digamos si estuvieras intentando hacer un micropago de 0,50$. Pero siempre es por eso que tenemos Lightning).
+En este caso, eso significa tomar los 0,0005 BTC en el UTXO que hemos seleccionado, reduciéndolos en 0,0001 BTC para la tasa de transacción, y enviando los 0,0004 BTC restantes. (Y este es un ejemplo de por qué los micropagos no funcionan en la red Bitcoin, porque una tarifa de transacción de 1$ más o menos es bastante cara cuando se está enviando 4$, y no digamos si estuviera intentando hacer un micropago de 0,50$. Pero siempre es por eso que tenemos Lightning).
 
-> :warning: **ADVERTENCIA:** Cuanto más baja sea la tarifa de la transacción, más tiempo pasará antes de que tu transacción se incorpore a un bloque. El sitio de tarifas de Bitcoin enumera los tiempos esperados, desde un esperado 0 bloques, hasta 22. Dado que los bloques se construyen de media cada 10 minutos, ¡esa es la diferencia entre unos minutos y unas horas! Por lo tanto, elija una tarifa de transacción que sea apropiada para lo que está enviando. Tenga en cuenta que nunca debe bajar de la tarifa mínima de retransmisión, que es de 0,0001 BTC.
+> :warning: **ADVERTENCIA:** Cuanto más baja sea la tarifa de la transacción, más tiempo pasará antes de que su transacción se incorpore a un bloque. El sitio de tarifas de Bitcoin enumera los tiempos esperados, desde un esperado 0 bloques, hasta 22. Dado que los bloques se construyen de media cada 10 minutos, ¡esa es la diferencia entre unos minutos y unas horas! Por lo tanto, elija una tarifa de transacción que sea apropiada para lo que está enviando. Tenga en cuenta que nunca debe bajar de la tarifa mínima de retransmisión, que es de 0,0001 BTC.
 
 ### Escribir la transacción en crudo
 
-Ahora está listo para crear la transacción en crudo. Esto utiliza el comando `createrawtransaction`, que puede parecer un poco intimidante. Eso es porque el comando `createrawtransaction` no te protege completamente del RPC JSON que utiliza bitcoin-cli. En su lugar, va a introducir un arreglo JSON para listar los UTXOs que está gastando y un objeto JSON para listar las salidas.
+Ahora está listo para crear la transacción en crudo. Esto utiliza el comando `createrawtransaction`, que puede parecer un poco intimidante. Eso es porque el comando `createrawtransaction` no le protege completamente del RPC JSON que utiliza bitcoin-cli. En su lugar, va a introducir un arreglo JSON para listar los UTXOs que está gastando y un objeto JSON para listar las salidas.
 
 Este es el formato estándar:
 ```
@@ -129,7 +129,7 @@ $ bitcoin-cli createrawtransaction
    "'$your_recipient'": bitcoin_amount
  }'''
  ```
-Sí, hay todo tipo de comillas locas ahí, pero confíe en que harán lo correcto. Use `'''` para marcar el inicio y el final del array JSON y del objeto JSON. Protege las palabras normales como `"this"`, pero no necesitas proteger los números normales: `0`. Si son variables, inserta comillas simples, como `"'$this_word'"` y `'$this_num'`. (Ya se acostumbrarás).
+Sí, hay todo tipo de comillas locas ahí, pero confíe en que harán lo correcto. Use `'''` para marcar el inicio y el final del array JSON y del objeto JSON. Protege las palabras normales como `"this"`, pero no necesita proteger los números normales: `0`. Si son variables, inserta comillas simples, como `"'$this_word'"` y `'$this_num'`. (Ya se acostumbrá).
 
  Aquí hay un comando que crea una transacción en crudo para enviar su $utxo a su $recipient
  ```
@@ -180,7 +180,7 @@ $ bitcoin-cli decoderawtransaction $rawtxhex
 }
 ```
 
-Comprueba el `vin`. ¿Está gastando la transacción correcta? ¿Contiene la cantidad de dinero esperada? (Compruébalo con `bitcoin-cli gettransaction` y asegúrese de mirar el `vout` correcto). Comprueba su `vout`. ¿Está enviando la cantidad correcta? ¿Va a la dirección correcta? Por último, haga los cálculos para asegurarse de que el dinero cuadra. ¿El valor del UTXO menos la cantidad que se está gastando es igual a la tasa de transacción prevista?
+Compruebe el `vin`. ¿Está gastando la transacción correcta? ¿Contiene la cantidad de dinero esperada? (Compruébelo con `bitcoin-cli gettransaction` y asegúrese de mirar el `vout` correcto). Compruebe su `vout`. ¿Está enviando la cantidad correcta? ¿Va a la dirección correcta? Por último, haga los cálculos para asegurarse de que el dinero cuadra. ¿El valor del UTXO menos la cantidad que se está gastando es igual a la tasa de transacción prevista?
 
 > :information_source: **NOTA - SECUENCIA:** Puede notar que cada entrada tiene un número de secuencia, establecido aquí en 4294967295, que es 0xFFFFFFFF. Esta es la última frontera de las transacciones de Bitcoin, porque es un campo estándar en las transacciones que originalmente estaba destinado a un propósito específico, pero nunca fue implementado completamente. Así que ahora hay este número entero en las transacciones que podría ser reutilizado para otros usos. Y, de hecho, lo ha sido. En el momento de escribir este artículo hay tres usos diferentes para la variable que se llama `nSequence` en el código de Bitcoin Core: permite RBF, `nLockTime`, y timelocks relativos. Si no hay nada raro, `nSequence` se establecerá en 4294967295. Establecer un valor más bajo indica que están ocurriendo cosas especiales.
 
@@ -263,7 +263,7 @@ Pronto `listtransactions` deberá mostrar una transacción confirmada de la cate
 ```
 Puede ver que coincide con el `txid` y la dirección del `receptor`. No sólo muestra el "importe" enviado, sino también la `comisión` de la transacción. Y, ya ha recibido una confirmación, porque ofrecimos una tarifa que haría que se incluyera en un bloque rápidamente.
 
-¡Felicidades! ¡Ahora eres unos cuantos satoshis más pobre!
+¡Felicidades! ¡Ahora es unos cuantos satoshis más pobre!
 
 
 ## Resumen: Creación de una transacción en crudo
