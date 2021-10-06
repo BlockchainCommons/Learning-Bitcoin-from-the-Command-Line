@@ -128,7 +128,7 @@ En ambos casos, el argumento es para flags, pero actualmente tiene el valor `0`.
 
 ## Prueba un programa de prueba de Libwally
 
-El directorio src contiene [testwally.c](../src/16_1_testwally.c), que sólo muestra cómo funcionan las funciones de inicialización y limpieza.
+El directorio src contiene [testwally.c](../src/17_1_testwally.c), que sólo muestra cómo funcionan las funciones de inicialización y limpieza.
 
 Puede compilarlo de la siguiente manera:
 ```
