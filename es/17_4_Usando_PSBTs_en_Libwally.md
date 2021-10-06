@@ -116,7 +116,7 @@ Obviamente, hay mucho más que podría ver en los PSBT. De hecho, observar es el
 
 ### Pruebe su lector PSBT
 
-De nuevo, el código para este lector PSBT (extremadamente rudimentario y específico) está en el [src directory](../src/16_4_examinepsbt.c). 
+De nuevo, el código para este lector PSBT (extremadamente rudimentario y específico) está en el [src directory](../src/17_4_examinepsbt.c). 
 
 Puede compilarlo como siempre:
 ```
@@ -290,7 +290,7 @@ Pero lo que usted tiene todavía no es un PSBT legal, debido a la falta de insum
 ```
 ## Pruebe su creación de PSBT
 
-En este punto, debería tener un PSBT vacío, pero funcional, que puede ver compilando y ejecutando [el programa](../src/16_4_createemptypsbt.c).
+En este punto, debería tener un PSBT vacío, pero funcional, que puede ver compilando y ejecutando [el programa](../src/17_4_createemptypsbt.c).
 ```
 $ cc createemptypsbt.c -lwallycore -o createemptypsbt
 $ ./createemptypsbt 
