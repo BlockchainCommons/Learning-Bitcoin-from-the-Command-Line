@@ -243,7 +243,7 @@ Continúe "Comprender su configuración Lightning" con [§19.2: Conocer su confi
 
 ## Variante: instalar desde Ubuntu ppa
 
-Si está usando una versión de Ubuntu que no sea Debian, puede instalar c-lightning usando [Ubuntu ppa] (https://launchpad.net/~lightningnetwork/+archive/ubuntu/ppa):
+Si está usando una versión de Ubuntu que no sea Debian, puede instalar c-lightning usando [Ubuntu ppa](https://launchpad.net/~lightningnetwork/+archive/ubuntu/ppa):
 
 ```
 $ sudo apt-get install -y software-properties-common
