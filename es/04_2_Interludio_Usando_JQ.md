@@ -45,7 +45,7 @@ Así podrá utilizar esas variables fácilmente y sin errores:
 $ bitcoin-cli sendrawtransaction $signedtx
 3f9ccb6e16663e66dc119de1866610cc4f7a83079bfec2abf0598ed3adf10a78
 ```
-## Utilizar JQ para acceder a los valores de un objeto JSON en una Arreglo por clave
+## Utilizar JQ para acceder a los valores de un objeto JSON en un arreglo por clave
 
 **Ejemplo de uso:** _Capturar el txid y vout para un UTXO seleccionado._
 
@@ -68,7 +68,7 @@ $ bitcoin-cli listunspent | jq -r '.[1]'
   "safe": true
 }
 ```
-A continuación, puede capturar un valor individual de esa arreglo seleccionada (1) utilizando una tubería _dentro_ de los argumentos JQ; y luego (2) solicitando el valor específico después, como en el ejemplo anterior. Lo siguiente capturaría el `txid` del objeto JSON número 0 del arreglo JSON producido por `listunspent`:
+A continuación, puede capturar un valor individual de ese arreglo seleccionado (1) utilizando una tubería _dentro_ de los argumentos JQ; y luego (2) solicitando el valor específico después, como en el ejemplo anterior. Lo siguiente capturaría el `txid` del objeto JSON número 0 del arreglo JSON producido por `listunspent`:
 ```
 $ bitcoin-cli listunspent | jq -r '.[1] | .txid'
 91261eafae15ea53dedbea7c1db748c52bbc04a85859ffd0d839bda1421fda4c
@@ -101,7 +101,7 @@ $ bitcoin-cli listunspent | jq -r '.[] | .amount'
 
 **Ejemplo de uso:** _Sumar el valor de todos los UTXOs no gastados._
 
-En este punto, puede empezar a usar la salida de JQ para hacer cálculos sencillos. Por ejemplo, sumando los valores de esas transacciones no gastadas con un simple script `awk` te dara el equivalente a `getbalance`:
+En este punto, puede empezar a usar la salida de JQ para hacer cálculos sencillos. Por ejemplo, sumando los valores de esas transacciones no gastadas con un simple script `awk` le dara el equivalente a `getbalance`:
 ```
 $ bitcoin-cli listunspent | jq -r '.[] | .amount' | awk '{s+=$1} END {print s}'
 0.00032
@@ -318,7 +318,7 @@ $ for ((i=0; i<${#usedtxid[*]}; i++)); do txid=${usedtxid[i]}; vout=${usedvout[i
 }
 
 ```
-Obsérvese que hemos utilizado otra parte de la fealdad de la arreglo `${#usedtxid[*]}` para determinar el tamaño de la arreglo, y luego hemos accedido a cada valor en el arreglo `usedtxid` y a cada valor en el arreglo paralelo `usedvout`, colocándolos en variables más simples para un acceso menos feo.
+Obsérvese que hemos utilizado otra parte de la fealdad de la arreglo `${#usedtxid[*]}` para determinar el tamaño del arreglo, y luego hemos accedido a cada valor en el arreglo `usedtxid` y a cada valor en el arreglo paralelo `usedvout`, colocándolos en variables más simples para un acceso menos feo.
 
 ## Utilizar JSON para el cálculo simple por valor
 
@@ -379,7 +379,7 @@ Para más magia de JSON (y si algo de esto no está claro), por favor lee el [Ma
 
 El código JQ puede ser un poco difícil de manejar, así que debería considerar añadir algunas invocaciones más largas e interesantes a su ~/.bash_profile.
 
-Cada vez que busque una gran cantidad de información en un objeto JSON emitido por un comando `bitcoin-cli`, considera escribir un alias para reducirlo a lo que quiere ver.
+Cada vez que busque una gran cantidad de información en un objeto JSON emitido por un comando `bitcoin-cli`, considere escribir un alias para reducirlo a lo que quiere ver.
 ```
 alias btcunspent="bitcoin-cli listunspent | jq -r '.[] | { txid: .txid, vout: .vout, amount: .amount }'"
 ```
@@ -410,4 +410,4 @@ JQ facilita la extracción de información de arreglos y objetos JSON. También 
 
 ## ¿Qué sigue?
 
-Continua "Enviando Transacciones en Bitcoin" con [§4.3 Creando Transacciones en Cruda con Argumentos Ingresados con Nombre](04_3_Creando_una_Transaccion_Cruda_con_Argumentos_Ingresados_con_Nombre.md).
+Continue "Enviando Transacciones en Bitcoin" con [§4.3 Creando Transacciones en Cruda con Argumentos Ingresados con Nombre](04_3_Creando_una_Transaccion_Cruda_con_Argumentos_Ingresados_con_Nombre.md).
