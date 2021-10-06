@@ -36,11 +36,11 @@ Después, ejecute la aplicación GordianServer y decirle que inicie `Start` Test
 
 #### 3. Haga accesible su Gordian bitcoin-cli
 
-Cuando quiera acceder al `bitcoin-cli` creado por GordianServer en su Mac local, puede encontrarlo en  `~/. standup/BitcoinCore/bitcoin-VERSION/bin/bitcoin-cli`, por ejemplo  `~/. standup/BitcoinCore/bitcoin-0.20.1/bin/bitcoin-cli`. 
+Cuando quiera acceder al `bitcoin-cli` creado por GordianServer en su Mac local, puede encontrarlo en  `~/.standup/BitcoinCore/bitcoin-VERSION/bin/bitcoin-cli`, por ejemplo  `~/.standup/BitcoinCore/bitcoin-0.20.1/bin/bitcoin-cli`. 
 
 Es posible que desee crear un alias para eso:
 ```
-alias bitcoin-cli="~/. standup/BitcoinCore/bitcoin-0.20.1/bin/bitcoin-cli -testnet"
+alias bitcoin-cli="~/.standup/BitcoinCore/bitcoin-0.20.1/bin/bitcoin-cli -testnet"
 ```
 
 > :link: **TESTNET vs. MAINNET:** Obviamente, el parámetro `-testnet` solo es necesario si se está ejecutando en testnet.
