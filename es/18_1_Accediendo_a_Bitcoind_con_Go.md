@@ -16,7 +16,7 @@ Luego, mire la página [de descargas Go](https://golang.org/dl/), obtenga el enl
 $ curl -O https://dl.google.com/go/go1.15.1.linux-amd64.tar.gz
 ```
 
-Una vez finalizada la descarga, compare el hash de la descarga con el hash en la página  [Go downloads page](https://golang.org/dl/):
+Una vez finalizada la descarga, compare el hash de la descarga con el hash en la página [de descargas Go](https://golang.org/dl/):
 ```
 $ sha256sum go1.15.1.linux-amd64.tar.gz 
 70ac0dbf60a8ee9236f337ed0daa7a4c3b98f6186d4497826f68e97c0c0413f6  go1.15.1.linux-amd64.tar.gz
@@ -51,7 +51,7 @@ Para probar que funciona, vaya al directorio con los ejemplos de Bitcoin Core:
 ```
 $ cd $GOPATH/src/github.com/btcsuite/btcd/rpcclient/examples/bitcoincorehttp
 ```
-Modificar el archivo `main.go` e introduzca los detalles asociados con la configuración del núcleo de Bitcoin, que se pueden encontrar en ` ~/. bitcoin/bitcoin.conf`:
+Modificar el archivo `main.go` e introduzca los detalles asociados con la configuración del núcleo de Bitcoin, que se pueden encontrar en `~/.bitcoin/bitcoin.conf`:
 
 ```
 		Host:         "localhost:18332",
@@ -87,7 +87,7 @@ import (
 ```
 
 Esta declaración `import`  le permite importar bibliotecas relevantes. Para cada ejemplo aquí, necesitará importar `"log", "fmt"` y `"github.com/btcsuite/btcd/rpcclient"`. Es posible que necesite importar bibliotecas adicionales para algunos ejemplos. 
-   * `log` se utiliza para imprimir mensajes de error. Después de cada llamada al nodo Bitcoin, una sentencia `if` comprobará si hay algún error. Si hay errores, `log` se utiliza para imprimirlos. 
+   * `log` se utiliza para imprimir mensajes de error. Después de cada llamada al nodo Bitcoin, una declaración `if` comprobará si hay algún error. Si hay errores, `log` se utiliza para imprimirlos. 
    * `fmt` se utiliza para imprimir la salida. 
    * `rpcclient`; es obviamente la biblioteca `rpcclient`
    * 
@@ -111,7 +111,7 @@ Cada función `bitcoind` en Go comienza con la creación de la conexión RPC, us
 ```
 Los parámetros `connCfg` le permiten elegir el puerto RPC de Bitcoin, nombre de usuario, contraseña y si está en testnet o mainnet. 
 
-> **NOTA:** De nuevo, asegúrese de sustituir el `User` y `Pass` con el que se encuentra en su `~/. bitcoin/bitcon.conf`. 
+> **NOTA:** De nuevo, asegúrese de sustituir el `User` y `Pass` con el que se encuentra en su `~/.bitcoin/bitcon.conf`. 
 
 Por tanto la función `rpcclient. New(connCfg, nil)` configura su `client` para conectarse a su nodo Bitcoin.
 La línea `defer client.Shutdown()` es para desconectar de su nodo Bitcoin, una vez que la función `main()` termina de ejecutarse. 
@@ -150,7 +150,7 @@ Para imprimirlos como una cadena, es necesario utilizar `blockHash.String()`.
 
 ### Ejecute su código
 
-Puede descargar el código completo desde el [src directory](https://github.com/BlockchainCommons/Learning-Bitcoin-from-the-Command-Line/blob/master/src/17_1_blockinfo.go).
+Puede descargar el código completo desde el [src directory](../src/18_1_blockinfo.go).
 
 A continuación, puede ejecutar:
 ```
