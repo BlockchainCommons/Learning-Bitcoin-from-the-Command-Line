@@ -13,7 +13,7 @@ Diferencias básicas entre Tor y i2p:
 
 Lea más: https://geti2p.net/en/comparison/tor
 
-Este no es instalado por [Bitcoin Standup](https://github.com/BlockchainCommons/Bitcoin-Standup-Scripts) actualmente ya que el soporte i2p fue agregado a Bitcoin Core recientemente. Sin embargo, puede probarlo manualmente siguiendo los pasos mencionados en la [Sección Uno](15_1_i2p_service.md).
+Este no es instalado por [Bitcoin Standup](https://github.com/BlockchainCommons/Bitcoin-Standup-Scripts) actualmente ya que el soporte i2p fue agregado a Bitcoin Core recientemente. Sin embargo, puede probarlo manualmente siguiendo los pasos mencionados en la [Sección Uno](15_1_Servicio_i2p.md).
 
 ## Objetivos para Este Capítulo
 
