@@ -173,10 +173,10 @@ Sin embargo, usted puede hacer uso de la llamada RPC `getbalance`:
 ```
 
 `client.GetBalance("*")` requiere la entrada `"*"`, debido a una peculiaridad con `btcd`. El asterisco significa que usted quiere conseguir el saldo de todas sus carteras.
-Si ejecuta [the src code](../src/18_1_getbalance.go), debería obtener una salida similar a esta:
+Si ejecuta [el código src](../src/18_1_getbalance.go), debería obtener una salida similar a esta:
 ```
 $ go run getbalance.go 
-0,000689 BTC
+0.000689 BTC
 ```
 
 ## Crear una dirección
@@ -227,7 +227,7 @@ A continuación, puede crear su dirección:
 ```
 Una peculiaridad con `client.GetNewAddress(")` es que se debe incluir una cadena vacía para que funcione.
 
-Ejecutando [the source](https://github.com/BlockchainCommons/Learning-Bitcoin-from-the-Command-Line/blob/master/src/17_1_getaddress.go) se obtienen los siguientes resultados:
+Ejecutando [la fuente](https://github.com/BlockchainCommons/Learning-Bitcoin-from-the-Command-Line/blob/master/src/18_1_getaddress.go) se obtienen los siguientes resultados:
 
 ```
 $ go run getaddress.go 
