@@ -1,4 +1,4 @@
-# Learning Bitcoin from the Command Line 2.0.1
+# Learning Bitcoin from the Command Line 2.1.0
 ### _by Christopher Allen and Shannon Appelcline_
 
 ![](https://www.blockchaincommons.com/images/projects/lbtc-screen.png)
