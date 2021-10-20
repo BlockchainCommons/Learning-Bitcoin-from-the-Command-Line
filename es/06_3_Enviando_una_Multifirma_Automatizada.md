@@ -59,7 +59,7 @@ Posteriormente, podrá recibir fondos en la dirección multifirma como de costum
 
 Pero hace la vida mucho más fácil. Debido a que la información se guardó en la billetera, los firmantes podrán volver a gastar los fondos enviados a la dirección multifirma exactamente igual que cualquier otra dirección ... aparte de la necesidad de firmar en varias máquinas.
 
-Comienzas recolectando sus variables, pero ya no tiene que preocuparse por `scriptPubKey` o `redeemScript`.
+Comienza recolectando sus variables, pero ya no tiene que preocuparse por `scriptPubKey` o `redeemScript`.
 
 Aquí hay una nueva transacción enviada a nuestra nueva dirección multifirma:
 ```
