@@ -1,10 +1,41 @@
 # 3.3: Configurando su billetera
 
-Ahora está listo para comenzar a trabajar con Bitcoin. Para empezar, deberá crear una dirección para recibir fondos.
+Ahora está listo para comenzar a trabajar con Bitcoin. Para empezar, deberá crear una billetera para recibir fondos.
+
+## Crear una billetera
+
+> :warning: **VERSION WARNING:** Las versiones más recientes de Bitcoin Core, a partir de la v0.21.0, ya no crearán automáticamente una billetera predeterminada al inicio. Por lo tanto, deberá crear uno manualmente. Pero si está ejecutando una versión anterior de Bitcoin Core, ya se ha creado una nueva billetera para usted, en cuyo caso puede pasar a [Crear una dirección] (#crear-una-dirección).
+
+Lo primero que debe hacer es crear una nueva billetera, lo que se puede hacer con el comando `bitcoin-cli createwallet`. Al crear una nueva billetera, creará su par de claves pública-privada. Su clave pública es la fuente a partir de la cual se crearán sus direcciones, y su clave privada es la que le permitirá gastar los fondos que reciba en sus direcciones. Bitcoin Core guardará automáticamente esa información en un archivo `wallet.dat` en su directorio `~/.bitcoin/testnet3/wallets`.
+
+Si revisa su directorio `wallets`, verá que actualmente está vacío.
+```
+$ ls ~/.bitcoin/testnet3/wallets
+$
+```
+
+Aunque Bitcoin Core no creará una nueva billetera para usted, todavía cargará una billetera sin nombre de nivel superior ("") al inicio de forma predeterminada. Puede aprovechar esto creando una nueva billetera sin nombre.
+```
+$ bitcoin-cli createwallet ""
+{
+  "name": "",
+  "warning": ""
+}
+```
+
+Ahora, su directorio `wallets` debería estar poblado.
+```
+$ ls ~/.bitcoin/testnet3/wallets
+database  db.log  wallet.dat
+```
+
+> :book: ***What is a Bitcoin wallet?*** Una billetera Bitcoin es el equivalente digital de una billetera física en la red Bitcoin. Almacena información sobre la cantidad de bitcoins que tiene y dónde se encuentra (direcciones), así como las formas en que puede utilizar para gastarlos. Gastar dinero físico es intuitivo, pero para gastar bitcoins, los usuarios deben proporcionar la _clave privada_ correcta. Explicaremos esto con más detalle a lo largo del curso, pero lo que debe saber por ahora es que esta dinámica de clave pública-privada es parte de lo que hace que Bitcoin sea seguro y sin confianza. La información de su par de claves se guarda en el archivo `wallet.dat`, además de los datos sobre preferencias y transacciones. En su mayor parte, no tendrá que preocuparse por esa clave privada: `bitcoind` la usará cuando sea necesario. Sin embargo, esto hace que el archivo `wallet.dat` sea extremadamente importante: si lo pierde, pierde sus claves privadas, y si pierde sus claves privadas, ¡pierde sus fondos!
+
+Genial, ahora tiene una billetera Bitcoin. Pero una billetera será de poca utilidad para recibir bitcoins si no crea una dirección primero.
 
 ## Crear una dirección.
 
-Lo primero que debe hacer es crear una dirección para recibir pagos. Esto se hace con el comando `bitcoin-cli getnewaddress`. 
+Lo siguiente que debe hacer es crear una dirección para recibir pagos. Esto se hace con el comando `bitcoin-cli getnewaddress`. 
 Recuerde que si quiere más información sobre este comando, debe escribir `bitcoin-cli help getnewaddress`. 
 Actualmente, hay tres tipos de direcciones: legacy y los dos tipos de direcciones SegWit `p2sh-segwit` y `bech32`. 
 Si no especifica lo contrario, obtendrá el valor predeterminado, que es actualmente bech32.
@@ -13,7 +44,16 @@ Sin embargo, en las próximas secciones usaremos direcciones `legacy`, tanto por
 de direcciones SegWit como porque otras personas podrían no ser capaces de enviar a direcciones `bech32`. Es poco probable que todo esto sea un problema para 
 usted ahora, pero por el momento queremos comenzar con ejemplos de transacciones que está (en su mayoría) garantizado que funcionan.
 
-Puede solicitar la dirección `legacy` con el segundo argumento a `getnewaddress` o con el argumento nombrado `addresstype`.
+Primero, reinicie `bitcoind` por lo que su nueva billetera sin nombre se establece como predeterminada y se carga automáticamente.
+```
+$ bitcoin-cli stop
+Bitcoin Core stopping # wait a minute so it stops completely
+$ bitcoind -daemon
+Bitcoin Core starting # wait a minute so it starts completely
+```
+
+Ahora puede crear una dirección. Puede requerir la dirección `legacy` ya sea con el segundo argumento de` getnewaddress` o con el argumento llamado `addresstype`.
+
 ```
 $ bitcoin-cli getnewaddress -addresstype legacy
 moKVV6XEhfrBCE3QCYq6ppT7AaMF8KsZ1B
@@ -26,8 +66,6 @@ Sería un "2" para una dirección P2SH o un "tb1" para una dirección Bech32.
 Toma nota de la dirección. Deberá entregárselo a quien le envíe los fondos.
 
 > :book: ***¿Qué es una dirección Bitcoin?*** Una dirección de Bitcoin es, literalmente, donde recibe dinero. Es como una dirección de correo electrónico, pero para fondos. Técnicamente, es una clave pública, aunque diferentes esquemas de direcciones lo ajustan de diferentes maneras. Sin embargo, a diferencia de una dirección de correo electrónico, una dirección de Bitcoin debe considerarse de un solo uso: úsela para recibir fondos solo una vez . Cuando desee recibir fondos de otra persona o en otro momento, genere una nueva dirección. Esto se sugiere en gran parte para mejorar su privacidad. Toda la cadena de bloques es inmutable, lo que significa que los exploradores pueden observar largas cadenas de transacciones a lo largo del tiempo, lo que hace posible determinar estadísticamente quiénes son usted y sus contactos, sin importar cuán cuidadoso sea. Sin embargo, si sigue reutilizando la misma dirección, esto se vuelve aún más fácil.
-
-> :book: ***¿Qué es una billetera Bitcoin?*** Al crear su primera dirección de Bitcoin, también ha comenzado a completar su billetera de Bitcoin. Más precisamente, ha comenzado a llenar el archivo `wallet.dat` en su directorio `~/.bitcoin/testnet3/wallets`. El archivo `wallet.dat` contiene datos sobre preferencias y transacciones, pero lo más importante es que contiene todos los pares de claves que crea: tanto la clave pública (que es la fuente de la dirección donde recibe los fondos) como la clave privada (que es la forma en que gasta esos fondos). En su mayor parte, no tendrá que preocuparse por esa clave privada: `bitcoind` la usará cuando sea necesaria. Sin embargo, esto hace que el archivo `wallet.dat` sea extremadamente importante: si lo pierde, pierde sus claves privadas, y si pierde sus claves privadas, ¡pierde sus fondos!
 
 Con una sola dirección en la mano, puede pasar directamente a la siguiente sección y comenzar a recibir fondos. Sin embargo, antes de llegar allí, discutiremos brevemente los otros tipos de direcciones que encontrará en el futuro y hablaremos sobre algunos otros comandos de billetera que quizás desee usar en el futuro.
 
