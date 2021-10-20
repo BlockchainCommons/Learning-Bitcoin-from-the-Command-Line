@@ -185,7 +185,7 @@ Para enviar monedas con transacciones en crudo, necesita crear una transacción 
 
 ## ¿Qué sigue?
 
-Vea otra forma alternativa de introducir comandos con [Interludio: Usando Curl](04_4__Interludio_Usando_Curl.md).
+Vea otra forma alternativa de introducir comandos con [Interludio: Usando Curl](04_4_Interludio_Usando_Curl.md).
 
 O, si prefiere saltarse lo que es francamente una paréntesis, aprende una forma más de "Enviar Transacciones Bitcoin" con [§4.5: Enviando Monedas con Transacciones Crudas Automatizadas](04_5_Enviando_Monedas_con_Transacciones_Crudas_Automatizadas.md).
 
