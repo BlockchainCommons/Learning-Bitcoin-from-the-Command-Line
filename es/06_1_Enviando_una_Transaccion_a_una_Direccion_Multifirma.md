@@ -97,7 +97,7 @@ _address_ es lo que dará a la gente que desee enviar fondos. Verá que tiene un
 
 > :link: **TESTNET vs MAINNET:** En testnet, el prefijo para direcciones P2SH es `2`, mientras que en mainnet, es `3`.
 
-_redeemScript_ es lo que necesita para redimir los fondos (junto a las claves privadas para "m" de the "n" direcciones). Este script es otra característica especial de las direcciones P2SH y será explicada completamente en [§8.1: Enviando una Transacción con Bloqueo de Tiempo](08_1_Enviando_una_Transaccion_con_Bloqueo_de_Tiempo.md). Por ahora, sólo debe saber que es algo más de data lo que se requiere para obtener su dinero.
+El _redeemScript_ es lo que necesita para redimir los fondos (junto a las claves privadas para "m" de the "n" direcciones). Este script es otra característica especial de las direcciones P2SH y será explicada completamente en [§10.3: Ejecutando un script de Bitcoin con P2SH](10_3_Ejecutando_un_Script_Bitcoin_con_P2SH.md). Por ahora, sólo debe saber que es algo más de data lo que se requiere para obtener su dinero.
 
 _descriptor_ es la descripción estandarizada de una dirección que conocimos en [§3.5: Entendiendo El Descriptor](03_5_Entendiendo_El_Descriptor.md). Provee una forma en la que podría importar esta dirección nuevamente a la otra máquina, usando el RPC `importmulti`.
 
