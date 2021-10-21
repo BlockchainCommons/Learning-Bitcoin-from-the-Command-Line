@@ -91,7 +91,7 @@ HWI$ python3 setup.py install
 
 También querrá crear un alias aquí, variará según la ubicación real de su instalación:
 ```
-$ alias hwi="~/Standup/HWI/hwi.py --testnet"
+$ alias hwi="~/Standup/HWI/hwi.py --chain test"
 ```
 Nuevamente, hemos incluido una referencia a testnet en este alias.
 
@@ -104,7 +104,7 @@ Si está trabajando con Bitcoins en su libro mayor, probablemente no tendrá que
 Para trabajar con monedas de Testnet, como sugiere este curso, deberá realizar algunas actualizaciones:
 
 1. Vaya a Configuración en su aplicación Ledger Live (es el engranaje), vaya a la pestaña "Funciones experimentales" y active el "Modo de desarrollador".
-2. Vaya al "Administrador" e instale "Prueba de Bitcoin". La versión actual requiere que primero instale "Bitcoin" y "Ethereum".
+2. Vaya al "Administrador" e instale "Prueba de Bitcoin". La versión actual requiere que primero instale "Bitcoin".
 3. Vaya al "Administrador", desplácese hasta su nueva "Prueba de Bitcoin" y "Agregar cuenta"
 
 ## Enlace a su Ledger
@@ -154,10 +154,10 @@ Debido a que ha creado una segunda billetera, algunos comandos ahora requerirán
 
 Ahora tiene que importar una lista de seguimiento de direcciones desde la billetera de hardware. Esto se hace con el comando `getkeypool` de HWI:
 ```
-$ hwi -f 9a1d520b getkeypool --wpkh 0 1000
+$ hwi -f 9a1d520b getkeypool 0 1000
 [{"desc": "wpkh([9a1d520b/84h/1h/0h]tpubDD7KTtoGzK9GuWUQcr1uTJazsAkqoXhdrwGXWVix6nPpNZmSbagZWD4QSaMsyK8YohAirGDPrWdRiEpKzTFB7DrTrqfzHCn7yi5EsqeR93S/0/*)#qttxy592", "range": [0, 1000], "timestamp": "now", "internal": false, "keypool": true, "active": true, "watchonly": true}, {"desc": "wpkh([9a1d520b/84h/1h/0h]tpubDD7KTtoGzK9GuWUQcr1uTJazsAkqoXhdrwGXWVix6nPpNZmSbagZWD4QSaMsyK8YohAirGDPrWdRiEpKzTFB7DrTrqfzHCn7yi5EsqeR93S/1/*)#3lw8ep4j", "range": [0, 1000], "timestamp": "now", "internal": true, "keypool": true, "active": true, "watchonly": true}]
 ```
-Nos dirigimos a HWI con la `huella digital` y pedimos las primeras 1000 direcciones WPKH (Segwit nativo). A cambio, recibimos dos descriptores para el grupo de claves: uno para las direcciones de recepción y otro para las direcciones de cambio.
+Nos dirigimos a HWI con la `huella digital` y pedimos las primeras 1000 direcciones WPKH (Segwit nativo). El tipo de direcciones WPKH (native Segwit) es usado por defecto. A cambio, recibimos dos descriptores para el grupo de claves: uno para las direcciones de recepción y otro para las direcciones de cambio.
 
 > :book: ***¿Qué es un grupo de claves?*** Un grupo de claves es un grupo de claves pregeneradas. Las billeteras HD modernas crean grupos de claves al continuar determinando nuevas direcciones jerárquicas basadas en la semilla original. La idea de los grupos de claves se implementó originalmente para facilitar los requisitos de respaldo de las billeteras. Esto permitió a un usuario generar un conjunto de claves y luego hacer una copia de seguridad de la billetera de inmediato, en lugar de requerir copias de seguridad después de que se creara cada nueva dirección. El concepto también ha demostrado ser muy útil en la actualidad, ya que permite importar un conjunto completo de direcciones futuras de un dispositivo a otro.
 
