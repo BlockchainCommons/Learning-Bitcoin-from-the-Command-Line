@@ -22,11 +22,11 @@ El requisito de que `0` como primer operando de `OP_CHECKMULTISIG` es una regla 
 
 ## Crear una Multifima Sin Procesar
 
-Como se explica en [§10.1: Creación de un Bitcoin Script con P2SH](10_0_Embebiendo_Bitcoin_Scripts_en_Transacciones_P2SH.md), las multifirmas son uno de los tipos de transacciones estándar de Bitcoin. Se puede crear una transacción con un script de bloqueo que utiliza el comando `OP_CHECKMULTISIG` sin procesar, y se aceptará en un bloque. Esta es la metodología clásica para usar multifirmas en Bitcoin.
+Como se explica en [§10.1: Entendiendo la Base de P2SH](10_1_Entendiendo_la_Base_de_P2SH.md), las multifirmas son uno de los tipos de transacciones estándar de Bitcoin. Se puede crear una transacción con un script de bloqueo que utiliza el comando `OP_CHECKMULTISIG` sin procesar, y se aceptará en un bloque. Esta es la metodología clásica para usar multifirmas en Bitcoin.
 
-Como ejemplo, volveremos a visitar la multifirma creado en [§6.1](06_1_Enviando_una_Transaccion_a_una_Direccion_Multifirma.md) una útltima vez y crearemos un nuevo script de bloqueo para esta utilizando dicha metodología. Como recordará, se trataba de una multifirma 2 de 2 construida a partir de `$address1` y `$address2`. 
+Como ejemplo, volveremos a visitar la multifirma creado en [§6.1: Enviando una Transacción con una Multifirma](06_1_Enviando_una_Transaccion_a_una_Direccion_Multifirma.md) una útltima vez y crearemos un nuevo script de bloqueo para esta utilizando dicha metodología. Como recordará, se trataba de una multifirma 2 de 2 construida a partir de `$address1` y `$address2`. 
 
-Como el script de bloquo `OP_CHECKMULTISIG` requiere la "m" (`2`), las direcciones y la "n" (`2`), puede escribir la siguiente `scriptPubKey`:
+Como el script de bloqueo `OP_CHECKMULTISIG` requiere la "m" (`2`), las direcciones y la "n" (`2`), puede escribir la siguiente `scriptPubKey`:
 ```
 2 $address1 $address2 2 OP_CHECKMULTISIG
 ```
