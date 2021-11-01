@@ -4,7 +4,7 @@ Antes de cerrar esta descripcion general de las transacciones P2SH, veremos cóm
 
 ## Utilice el Guión de Canjear
 
-Como vimos en [§6.2: Gastando una Transacción a una Multifirma](06_2_Gastando_una_Transaccion_con_una_Direccion_Multifirma.md), gastar una transacción P2SH se trata de tener esa versión serializada del script de bloqueo, el llamado _redeemScript_. Entonces, el primer paso para poder gastar una transacción P2SH es asegurarse de guardar el _redeemScript_ antes de dar la dirección P2SH a todos. 
+Como vimos en [§6.2: Gastando una Transacción con una Multifirma](06_2_Gastando_una_Transaccion_con_una_Direccion_Multifirma.md), gastar una transacción P2SH se trata de tener esa versión serializada del script de bloqueo, el llamado _redeemScript_. Entonces, el primer paso para poder gastar una transacción P2SH es asegurarse de guardar el _redeemScript_ antes de dar la dirección P2SH a todos. 
 
 ### Recoge Sus Variables
 
