@@ -33,7 +33,7 @@ $ bitcoin-cli -named signrawtransactionwithkey hexstring=$rawtxhex prevtxs='''[ 
 ```
 Con cualquier otro tipo de P2SH, incluirá un `redeemscript` diferente, pero por lo demás, la práctica es exactamente la misma. La única diferencia es que después de dos capítulos de trabajo en Scripts, ahora comprende qué es el `scriptPubKey` y qué es el `redeemScript`, así que con suerte lo que eran elementos misteriosos hace cuatro capítulos ahora es viejo sombrero.
 
-## Resumen: Gastar una Transacción con un Bitcoin Script
+## Resumen: Gastar una Transacción P2SH
 
 Ya gastó un P2SH en el Capítulo 6, cuando reenvió una transacción multifirma de la manera difícil, lo que requirió alinear la información de `scriptPubKey` y `redeemScript`. Ahora sabe que el `scriptPubKey` es un script de bloqueo P2SH estandarizado, mientras que el `redeemScript` coincide con un hash en ese script de bloqueo y que necesita poder ejecutarlo con las variables adecuadas para recibir un resultado `True`. Pero aparte de saber más, no hay nada nuevo en gastar una transacciónn P2SH, porque ya lo hizo!
 
