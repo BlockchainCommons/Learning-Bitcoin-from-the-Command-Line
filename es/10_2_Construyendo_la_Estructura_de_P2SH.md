@@ -67,7 +67,7 @@ Para completar su serialización, traduzca el código hexadecimal a binario. En 
 
 ## Ejecute el Script de Conversión de Enteros
 
-Un script complejo para cambiar un entero entre -2147483647 y 2147483647 a una representación de little-endian signed-magnitude se puede encontrar en el [directorio de código src](../src/10_2_integer2lehex.sh). Puede descargarlo como `integeer2lehex.sh`.
+Un script complejo para cambiar un entero entre -2147483647 y 2147483647 a una representación de little-endian signed-magnitude se puede encontrar en el [directorio de código src](../src/10_2_integer2lehex.sh). Puede descargarlo como `integer2lehex.sh`.
 
 > :warning: **ADVERTENCIA:** Esta script no se ha comprobado de forma exhaustiva. Se va a usarlo para crear scripts de bloqueo reales, debe asegurarse de verificar y probar sus resultados.
 
@@ -171,7 +171,7 @@ Dependiendo de su API, es posible que pueda ingresar esto como un `scriptPubKey`
 
  Tenga en cuenta que la `hex scriptPubKey` para la transacción P2SH Script _siempre_ comenzará con un `a914`, que es el `OP_HASH160` seguido de un `OP_PUSHDATA` de 20 bytes (hex: `0x14`); y _siempre_ terminará con un `87`, que es un `OP_EQUAL`. Entonces, todo lo que tiene que hacer es colocar su script de canje con hash entre esos números.
 
-## Resumen: Comprensión de la Base de P2SH
+## Resumen: Construyendo la Base de P2SH
 
 En realidad, la creación del script de bloqueo P2SH se sumerge en las entrañas de Bitcoin más que nunca. Aunque es útil saber cómo funciona todo esto a un nivel muy bajo, lo más probable es que tenga una API que se encargue de todo el trabajo pesado por usted. Su tarea será simplemente crear el script de Bitcoin para hacer el bloqueo ... que es el tema principal de los capítulos 9 y 11-12.
 
