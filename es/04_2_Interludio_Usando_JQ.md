@@ -51,7 +51,7 @@ $ bitcoin-cli sendrawtransaction $signedtx
 
 Sacar datos de un objeto JSON es fácil, pero ¿Qué pasa si ese objeto JSON está en un arreglo JSON? El comando `listunspent` ofrece un gran ejemplo, porque normalmente contendrá un número de transacciones diferentes. ¿Y si quiere capturar información específica de _una_ de ellas?
 
-Cuando se trabaja con un array JSON, lo primero que hay que hacer es decirle a JQ a qué índice debe acceder. Por ejemplo, puede que haya mirado sus transacciones en `listunspent` y que haya decidido que quiere trabajar con la segunda de ellas. Usas `'.[1]'` para acceder a ese primer elemento. El `[]` dice que estamos haciendo referencia a un arreglo JSON y el `0` dice que queremos el índice 0.
+Cuando se trabaja con un array JSON, lo primero que hay que hacer es decirle a JQ a qué índice debe acceder. Por ejemplo, puede que haya mirado sus transacciones en `listunspent` y que haya decidido que quiere trabajar con la segunda de ellas. Usas `'.[1]'` para acceder a ese segundo elemento. El `[]` dice que estamos haciendo referencia a un arreglo JSON y el `1` dice que queremos el índice 1.
 ```
 $ bitcoin-cli listunspent | jq -r '.[1]'
 {
@@ -68,7 +68,7 @@ $ bitcoin-cli listunspent | jq -r '.[1]'
   "safe": true
 }
 ```
-A continuación, puede capturar un valor individual de ese arreglo seleccionado (1) utilizando una tubería _dentro_ de los argumentos JQ; y luego (2) solicitando el valor específico después, como en el ejemplo anterior. Lo siguiente capturaría el `txid` del objeto JSON número 0 del arreglo JSON producido por `listunspent`:
+A continuación, puede capturar un valor individual de ese arreglo seleccionado (1) utilizando una tubería _dentro_ de los argumentos JQ; y luego (2) solicitando el valor específico después, como en el ejemplo anterior. Lo siguiente capturaría el `txid` del objeto JSON número 1 del arreglo JSON producido por `listunspent`:
 ```
 $ bitcoin-cli listunspent | jq -r '.[1] | .txid'
 91261eafae15ea53dedbea7c1db748c52bbc04a85859ffd0d839bda1421fda4c
