@@ -7,7 +7,7 @@ su elección y seguir los pasos posteriores de este tutorial.
 A continuación, se muestran otras metodologías de configuración que conocemos:
 
 * *[Compilación desde la fuente](A2_0_Compilando_Bitcoin_desde_la_Fuente.md).* Si prefiere compilar Bitcoin Core a mano, eso se trata en el Apéndice 2.
-* *[Usando GordianNode-macOS](https://github.com/BlockchainCommons/GordianNode-macOS).* Si tienes una Mac moderna, puedes usar la aplicación *GordianNode* de 
+* *[Usando GordianNode-macOS](https://github.com/BlockchainCommons/GordianNode-macOS).* Si tiene una Mac moderna, puede usar la aplicación *GordianNode* de 
 Blockchain Commons, con tecnología *BitcoinStandup*, para instalar un nodo completo en su Mac.
 * *[Uso de otros scripts de Bitcoin Standup](https://github.com/BlockchainCommons/Bitcoin-Standup-Scripts).* Blockchain Commons también ofrece una versión del 
 script de Linode que se uso anteriormente y que se puede ejecutar desde la línea de comandos en cualquier máquina Debian o Ubuntu. Este tiende a ser un script 
