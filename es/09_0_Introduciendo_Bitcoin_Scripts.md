@@ -20,7 +20,7 @@ Los objetivos de apoyo incluyen la capacidad de:
    
 ## Tabla de contenido
 
-* [Sección uno: Entendiendo la base de las transacciones](09_1_Entendiendo_la_base_de_las_Transacciones.md)
+* [Sección uno: Entendiendo la base de las transacciones](09_1_Entendiendo_la_Base_de_las_Transacciones.md)
 * [Sección dos: Ejecución de un script de Bitcoin](09_2_Ejecutando_un_Script_Bitcoin.md)
 * [Sección tres: Probando un Script Bitcoin](09_3_Probando_un_Script_Bitcoin.md)
 * [Sección cuatro: Codificando una P2PKH](09_4_Codificando_una_P2PKH.md)
