@@ -357,7 +357,7 @@ To complete the transaction fee calculation, you subtract the .vout .amount (1.0
 
 To do this, you'll need to install `bc`:
 ```
-$ sudo apt-get intall bc
+$ sudo apt-get install bc
 ```
 
 Putting it all together creates a complete calculator in just five lines of script:
