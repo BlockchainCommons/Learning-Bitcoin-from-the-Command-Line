@@ -40,7 +40,7 @@ Comparar dos números
 
 Vea también: `OP_NUMEQUALVERIFY` (0x9d),`OP_NUMNOTEQUAL` (0x9e)
 
-Prueba tres números:
+Probar tres números:
 
 * OP_WITHIN (0xa5) - 1 si un número está en el rango de otros dos números
 
