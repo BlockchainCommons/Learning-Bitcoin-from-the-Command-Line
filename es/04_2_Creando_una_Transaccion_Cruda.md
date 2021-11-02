@@ -272,4 +272,4 @@ Cuando el dinero entra en su monedero Bitcoin, permanece como cantidades distint
 
 ## ¿Qué sigue?
 
-Retroceda con "Enviando Transacciones en Bitcoin" con [Interludio: Usando JQ](04_2__Interludio_Usando_JQ.md).
+Retroceda con "Enviando Transacciones en Bitcoin" con [Interludio: Usando JQ](04_2_Interludio_Usando_JQ.md).
