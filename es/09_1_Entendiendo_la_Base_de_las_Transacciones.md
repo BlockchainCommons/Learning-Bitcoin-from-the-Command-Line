@@ -4,13 +4,13 @@ La base de Bitcoin es la capacidad de proteger las transacciones, algo que se ha
 
 ## Conozca las partes del rompecabezas criptográfico
 
-Como se describe en el [Capítulo 1](01_1_Introduciendo_Bitcoin.md), los fondos en cada transacción de Bitcoin están bloqueados con un rompecabezas criptográfico. Para ser precisos, dijimos que Bitcoin se compone de "una secuencia de transacciones atómicas". Observamos que: "Cada transacción es autenticada por un remitente con la solución a un rompecabezas criptográfico anterior que se almacenó como un script. La nueva transacción está bloqueada para el destinatario con un nuevo rompecabezas criptográfico que también se almacena como un script". Esos scripts, que bloquean y desbloquean transacciones, están escritos en Bitcoin Script.
+Como se describe en el [Capítulo 1](01_0_Introduccion.md), los fondos en cada transacción de Bitcoin están bloqueados con un rompecabezas criptográfico. Para ser precisos, dijimos que Bitcoin se compone de "una secuencia de transacciones atómicas". Observamos que: "Cada transacción es autenticada por un remitente con la solución a un rompecabezas criptográfico anterior que se almacenó como un script. La nueva transacción está bloqueada para el destinatario con un nuevo rompecabezas criptográfico que también se almacena como un script". Esos scripts, que bloquean y desbloquean transacciones, están escritos en Bitcoin Script.
 
 >:book: ***¿Qué es Bitcoin Script?*** Bitcoin Script es un lenguaje similar a Forth basado en pilas que evita los bucles a propósito y, por lo tanto, no es Turing completo. Se compone de códigos de operación individuales. Cada transacción en Bitcoin está bloqueada con un script de Bitcoin; cuando la transacción de bloqueo para un UTXO se ejecuta con las entradas correctas, ese UTXO se puede gastar.
 
 El hecho de que las transacciones estén bloqueadas con scripts significa que pueden bloquearse de varias formas diferentes, lo que requiere una variedad de claves diferentes. De hecho, hemos conocido varios mecanismos de bloqueo diferentes hasta la fecha, cada uno de los cuales usaba diferentes códigos de operación:
 
-* OP_CHECKSIG, que compara una clave pública con una firma, es la base de la dirección P2PKH clásica, como se detallará completamente en [§9.3: Probando un script P2PKH](09_3_Probando_un_Script_Bitcoin.md).
+* OP_CHECKSIG, que compara una clave pública con una firma, es la base de la dirección P2PKH clásica, como se detallará completamente en [§9.4: Codificando un script P2PKH](09_4_Codificando_una_P2PKH.md).
 
 * OP_CHECKMULTISIG verifica de manera similar las multifirma, como se detallará completamente en [§10.4: Codificando una Multifirma](10_4_Codificando_una_Multifirma.md).
 
