@@ -9,7 +9,7 @@ Aquí está la trampa para usar los scripts de Bitcoin: por razones de seguridad
 * __Pagar a Clave Pública (Pay to Public Key, P2PK)__ — Una transacción antigua y obsoleta (`<pubKey> OP_CHECKSIG`) que ha sido reemplazada por la mejor seguridad de P2PKH.
 * __Pagar al Testigo del Hash de la Clave Pública (Pay to Public Key Hash, P2PKH)__ — Una transacción (`OP_DUP OP_HASH160 <pubKeyHash> OP_EQUALVERIFY OP_CHECKSIG`) que paga el hash de una clave pública.
 * __Pagar Para Ser Testigo de Hash de Clave Pública (Pay to Witness Public Key Hash, P2WPKH)__ — El tipo más nuevo de transacción de clave pública. Es solo (`OP_0 <pubKeyHash`) porque depende del consenso del minero para funcionar, como se describe en [§9.5](09_5_Codificando_una_P2WPKH.md).
-* __Multifirma (Multisig)__ — Una transacción para un grupo de claves, como se explica con más detalle en [§10.4](10_4_Codificando_una_Multifirma.md).
+* __Multifirma (Multisig)__ — Una transacción para un grupo de claves, como se explica con más detalle en [§10.4: Codificando una Multifirma](10_4_Codificando_una_Multifirma.md).
 * __Datos Nulos (Null Data)__ — Una transacción invencible (`OP_RETURN Data`).
 * __Pagar a Script Hash (Pay to Script Hash, P2SH)__ — Una transacción que paga a un script específico, como se explica con más detalle aqui.
 
@@ -19,7 +19,7 @@ Entonces, ¿cómo se escribe un script de Bitcoin más complejo? La respuesta es
 
 ## Entender el P2SH Script
 
-Ya vio una transacción P2SH cuando creó una firma múltiple en [§6.1: Envío de una Transacción a una Multifirma](06_1_Enviando_una_Transaccion_a_una_Direccion_Multifirma.md). Aunque multifirma es uno de los tipos de transacciones estándar, `bitcoin-cli` simplifica el uso de sus multifirmas al incrustarlas en transacciones P2SH, como se describe con más detalle en [§10.4: Scripting a Multisig](10_4_Codificando_una_Multifirma.md).
+Ya vio una transacción P2SH cuando creó una firma múltiple en [§6.1: Envío de una Transacción a una Multifirma](06_1_Enviando_una_Transaccion_a_una_Direccion_Multifirma.md). Aunque multifirma es uno de los tipos de transacciones estándar, `bitcoin-cli` simplifica el uso de sus multifirmas al incrustarlas en transacciones P2SH, como se describe con más detalle en [§10.4: Codificando una Multifirma](10_4_Codificando_una_Multifirma.md).
 
 Entonces, veamos una vez más el `scriptPubKey` de ese P2SH multifirma:
 ```
