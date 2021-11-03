@@ -1,5 +1,6 @@
 # Aprendendo Bitcoin pela Linha de Comando 2.0.1
 ### _por Christopher Allen e Shannon Appelcline_
+### _tradução por Namcios, Korea, Luke Pavsky e hgrams_
 
 ![](https://www.blockchaincommons.com/images/projects/lbtc-screen.png)
 
