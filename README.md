@@ -230,6 +230,18 @@ Additional contributions are listed below:
 | ***Reviewers:***    | Glen Willem [@gwillem](https://github.com/gwillem) |
 | ***Sponsors:***     | Blockstream Corporation                  |
 
+### Translation Credits
+
+Thanks to the volunteers who spent extensive time writing and reviewing other-language translations of the original English-language course.
+
+#### Portuguese Translation
+
+| Name              | Role                | Github                                            | 
+| ----------------- | ------------------- | ------------------------------------------------- | 
+| Namcios | Translator & Reviewer | [@namcios](https://github.com/namcios) | 
+| Korea | Translator & Reviewer | [@KoreaComK](https://github.com/KoreaComK) | 
+| Luke Pavsky | Translator & Reviewer | [@lukedevj](https://github.com/lukedevj) | 
+| hgrams | Translator & Reviewer | [@hgrams](https://github.com/hgrams) | 
 
 ## Responsible Disclosure
 
