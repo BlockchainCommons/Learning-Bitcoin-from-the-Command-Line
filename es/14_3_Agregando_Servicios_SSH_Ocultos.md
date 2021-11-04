@@ -57,7 +57,7 @@ Ahora que tiene Tor instalado y sabe cómo usarlo, puede agregar otros servicios
 
 ## ¿Que sigue?
 
-Continúe con "Uso de i2p" con el [Capítulo quince](15_0_Usando_i2p.md).
+Para un tipo diferente de privacidad pase a "Usando i2p" en el [Capítulo quince](15_0_Usando_i2p.md).
 
 O, si lo prefiere, hay dos caminos alternativos:
 
