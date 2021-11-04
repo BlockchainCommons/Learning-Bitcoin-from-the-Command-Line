@@ -291,7 +291,7 @@ La ejecución del script revela que las comprobaciones iniciales, por encima de 
 
 #### Comprenda los HTLCs
 
-Los HTLCs son bastante complejos y esta descripción general no intenta explicar todas sus complejidades. La [descripción general](https://rusty.ozlabs.org/?p=462) de Rusty Russell explica más y hay incluso más detalles en su artículo [Deployable Lightning](https://github.com/ElementsProject/lightning/blob/master/doc/deployable-lightning.pdf). Pero no se preocupe si algunas de las complejidades aún se le escapan, particularmente las interrelaciones de los dos guiones.
+Los HTLCs son bastante complejos y esta descripción general no intenta explicar todas sus complejidades. La [descripción general](https://rusty.ozlabs.org/?p=462) de Rusty Russell explica más, y hay incluso más detalles en su artículo [Deployable Lightning](https://github.com/ElementsProject/lightning/blob/master/doc/deployable-lightning.pdf). Pero no se preocupe si algunas de las complejidades aún se le escapan, particularmente las interrelaciones de los dos guiones.
 
 A los efectos de este tutorial, hay dos lecciones importantes para los HTLC:
 
