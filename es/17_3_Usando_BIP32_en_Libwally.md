@@ -7,7 +7,7 @@ En [§17.2](17_2_Usando_BIP39_en_Libwally.md), usted fue capaz de usar entropía
 ## Crear una raíz HD
 
 Para crear una dirección HD se requiere comenzar con una semilla, y luego ir hacía abajo por la jerarquía hasta el punto en el que se crean las direcciones:
-```
+```c
   unsigned char entropy[16];  
   randombytes_buf(entropy, 16);
 
@@ -26,7 +26,7 @@ Como puede ver, necesitará decirle qué versión de la clave devolver, en este 
 
 Siempre que tenga una llave en la mano, puede convertirla en claves xpub o xprv para distribución con el comando `bip32_key_to_base58`. Solo tiene que decirle si usted quiere una clave `PRIVATE` (xprv) o `PUBLIC` (xpub):
 
-```
+```c
   char *xprv;
   lw_response = bip32_key_to_base58(key_root, BIP32_FLAG_KEY_PRIVATE, &xprv);
 
@@ -61,25 +61,25 @@ Para generar una dirección, tiene que excavar a través de toda la jerarquía.
 ### Generar una clave de cuenta
 
 Una manera de hacer esto es usar la función `bip32_key_from_parent_path_alloc` para desplegar varios niveles de una jerarquía. Incrusta los niveles en una matriz:
-```
+```c
   uint32_t path_account[] = {BIP32_INITIAL_HARDENED_CHILD+84, BIP32_INITIAL_HARDENED_CHILD+1, BIP32_INITIAL_HARDENED_CHILD};
 ```
 Aquí veremos al descendiente endurecido a cero (esa es la cuenta) o al primer descendiente endurecido (eso es monedas de tesnet) del descendiente 84º endurecido (ese es el estándar BIP84): `[m/84'/1'/0']`.
 
 A continuación, puede utilizar esa ruta para generar una nueva clave a partir de su antigua clave:
-```
+```c
   struct ext_key *key_account;
   lw_response = bip32_key_from_parent_path_alloc(key_root,path_account,sizeof(path_account),BIP32_FLAG_KEY_PRIVATE,&key_account);
 ```
 Cada vez que tenga una nueva clave,usted  puede usarla para generar nuevas claves xprv y xpub, si lo desea:
-```
+```c
   lw_response = bip32_key_to_base58(key_account, BIP32_FLAG_KEY_PRIVATE, &a_xprv);
   lw_response = bip32_key_to_base58(key_account, BIP32_FLAG_KEY_PUBLIC, &a_xpub);
 ```
 ### Generar una clave de dirección
 
 Alternativamente, puede usar la función `bip32_key_from_parent_alloc`, que simplemente baja un nivel de la jerarquía a la vez. El siguiente ejemplo se reduce al descendiente 0º de la clave de cuenta (que es la dirección externa) y luego al descendiente 0º de la anterior. Esto sería útil porque entonces usted podría seguir generando la primera dirección, la segunda dirección, y así sucesivamente a partir de esa clave externa:
-```
+```c
   struct ext_key *key_external;  
   lw_response = bip32_key_from_parent_alloc(key_account,0,BIP32_FLAG_KEY_PRIVATE,&key_external);
 
@@ -91,7 +91,7 @@ Alternativamente, puede usar la función `bip32_key_from_parent_alloc`, que simp
 ### Generar una dirección
 
 Finalmente, usted esta listo para generar una dirección a partir de su clave final. Todo lo que hace es ejecutar `wally_bip32_to_addr_segwit` usando su clave final y una descripción del tipo de dirección que es.
-```
+```c
   char *segwit;
   lw_response = wally_bip32_key_to_addr_segwit(key_address,"tb",0,&segwit);
 
@@ -103,7 +103,7 @@ También hay una función `wally_bip32_key_to_address` que se puede utilizar par
 
 ## Prueba de código HD
 
-El código para este ejemplo de HD se puede encontrar, como de costumbre, en el [src directory](../src/17_3_genhd.c).
+El código para este ejemplo de HD se puede encontrar, como de costumbre, en el [src directory](https://github.com/BlockchainCommons/Learning-Bitcoin-from-the-Command-Line/tree/master/src/17_3_genhd.c).
 
 Puede compilarlo y probarlo:
 ```
