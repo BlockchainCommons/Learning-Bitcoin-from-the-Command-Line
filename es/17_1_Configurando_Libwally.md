@@ -182,7 +182,7 @@ Este curso sólo usará `libsodium` para un pequeño (¡pero crucial!) bit de ge
 
 ## Resumen: Configuración de Libwally
 
-Al instalar Libwally (y Libsodium) se incluyen dependencias, bibliotecas y obtiene acceso a una serie de funciones criptográficas y de cartera, que pueden complementar sus bibliotecas RPC y ZMG (o su línea de comandos `bitcoin-cli`).
+Al instalar Libwally (y Libsodium) se incluyen dependencias, bibliotecas y obtiene acceso a una serie de funciones criptográficas y de cartera, que pueden complementar sus bibliotecas RPC y ZMQ (o su línea de comandos `bitcoin-cli`).
 
 Entonces, ¿qué puede hacer ahora?   De eso es lo que se trata en el siguiente capítulo.
 
