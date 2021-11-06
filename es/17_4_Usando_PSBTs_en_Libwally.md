@@ -14,7 +14,7 @@ Convertir un PSBT en la estructura interna de Libwally es increíblemente fácil
 Sin embargo, es un poco más difícil lidiar con el resultado, porque Libwally lo convierte en una estructura muy compleja `wally_psbt` .
 
 Así es como se define en `/usr/include/wally_psbt.h`:
-```
+```c
 struct wally_psbt {
     unsigned char magic[5];
     struct wally_tx *tx;
@@ -54,7 +54,7 @@ struct wally_psbt_output {
 };
 ```
 Estos a su vez utilizan algunas estructuras de transacción definidas en `/usr/include/wally_transaction.h`:
-```
+```c
 struct wally_tx {
     uint32_t version;
     uint32_t locktime;
@@ -80,7 +80,8 @@ struct wally_tx_output {
 Obviamente, puede leer cualquier cosa de una estructura PSBT llamando a los elementos individuales de las diversas subestructuras. El siguiente es un breve resumen que muestra cómo tomar algunos de los elementos. 
 
 Aquí hay un ejemplo de la recuperación de los valores y `scriptPubKeys` de las entradas:
-```
+
+```c
   int inputs = psbt->num_inputs;
   printf("TOTAL INPUTS: %i\n",inputs);
 
@@ -97,7 +98,7 @@ Aquí hay un ejemplo de la recuperación de los valores y `scriptPubKeys` de las
 Este patrón de programación se utilizará en muchas partes del PSBT. Se observa el tamaño de la matriz de entradas, luego se pasa a través de él, recuperando lo que desea ver (en este caso, satoshis y scripts).
 
 Aquí hay un ejemplo similar para las salidas:
-```
+```c
   int outputs = psbt->num_outputs;
   printf("\nTOTAL OUTPUTS: %i\n",outputs);### Pruebe su lector PSBT
 
@@ -278,12 +279,12 @@ Como se discute en [§7.1](07_1_Creando_una_Transaccion_Bitcoin_Parcialmente_Fir
 El rol de creador se encarga de crear un PSBT con al menos una entrada.
 
 Un PSBT se crea con un uso simple de `wally_psbt_init_alloc`, indicándole cuántas entradas y salidas añadirá finalmente:
-```
+```c
   struct wally_psbt *psbt;
   lw_response = wally_psbt_init_alloc(0,1,1,0,&psbt);
 ```
 Pero lo que usted tiene todavía no es un PSBT legal, debido a la falta de insumos. Puede crearlos creando una transacción y estableciéndola como la transacción global en el PSBT, que actualiza todas las entradas y salidas:
-```
+```c
   struct wally_tx *gtx;
   lw_response = wally_tx_init_alloc(0,0,1,1,&gtx);
   lw_response = wally_psbt_set_global_tx(psbt,gtx);
