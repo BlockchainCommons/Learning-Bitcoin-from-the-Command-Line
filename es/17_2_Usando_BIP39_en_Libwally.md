@@ -82,7 +82,7 @@ Si ha hecho todo bien, debería recuperar una semilla de 64 bytes. (Esa es la va
 
 ## Prueba de código mnemónico
 
-El código completo para generar entropía, generar un mnemónico BIP39, validar el mnemónico y generar una semilla se puede encontrar en el directorio [src](../src/16_2_genmnemonic.c). Descargar y compilar:
+El código completo para generar entropía, generar un mnemónico BIP39, validar el mnemónico y generar una semilla se puede encontrar en el directorio [src](https://github.com/BlockchainCommons/Learning-Bitcoin-from-the-Command-Line/blob/master/src/17_2_genmnemonic.c). Descargar y compilar:
 ```
 $ cc genmnemonic.c -lwallycore -lsodium -o genmnemonic
 ```
@@ -98,7 +98,7 @@ BIP39 le permite generar un conjunto de 12-24 palabras mnemónicas a partir de u
 
 > :fire: ***Cuál es el poder de BIP39?*** Las semillas de bitcoin y las llaves privadas son propensas a todo tipo de pérdidas. Usted escribe mal un solo dígito, y su dinero se ha ido para siempre. Las palabras mnemónicas son una forma mucho más fácil de representar los mismos datos, pero debido a que son palabras en el idioma de elección del usuario, son menos propensas a errores. Asi que el poder de BIP39 es mejorar la accesibilidad, usabilidad y seguridad de Bitcoin.
 
-> :fire: ***Cuál es el poder del BIP39 en Libwally?*** Bitcoind actualmente no admite palabras mnemónicas, por lo que usar Libwally puede permitirte generar palabras mnemónicas junto con las direcciones mantenidas
+> :fire: ***Cuál es el poder del BIP39 en Libwally?*** Bitcoind actualmente no admite palabras mnemónicas, por lo que el uso de Libwally puede permitirle generar palabras mnemotécnicas junto con las direcciones contenidas en `bitcoind` (aunque, como veremos en §17.7, en la actualidad requiere alguna solución alterna para importar sus claves a Bitcoin Core).
 
 ## ¿Qué es lo siguiente?
 
