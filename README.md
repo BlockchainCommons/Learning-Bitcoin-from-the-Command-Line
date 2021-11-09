@@ -226,7 +226,7 @@ Additional contributions are listed below:
 
 | Role                | Names                                    |
 | ------------------- | ---------------------------------------- |
-| ***Contributors:*** | [gg2001](https://github.com/gg2001) (Go, Node.js sections), [gorazdko](https://github.com/gorazdko) (Rust section), [Javier Vargas](https://github.com/javiervargas) (C, Java, Lightning, Tor sections), [jodobear](https://github.com/jodobear) (Appendix: Compiling Bitcoin, Python section)                                   |
+| ***Contributors:*** | [gg2001](https://github.com/gg2001) (Go, Node.js sections), [gorazdko](https://github.com/gorazdko) (Rust section), [Javier Vargas](https://github.com/javiervargas) (C, Java, Lightning, Tor sections), [jodobear](https://github.com/jodobear) (Appendix: Compiling Bitcoin, Python section), [Prayank](    https://github.com/prayank23) (i2p sections)                               |
 | ***Reviewers:***    | Glen Willem [@gwillem](https://github.com/gwillem) |
 | ***Sponsors:***     | Blockstream Corporation                  |
 
