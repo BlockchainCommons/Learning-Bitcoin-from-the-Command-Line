@@ -206,7 +206,7 @@ In fact, both of the `vouts` use Bech32 addresses: your recipient and the automa
 
 But when we backtrack our `vin`, we discover that came from a legacy address. Because it doesn't matter:
 ```
-$ bitcoin-cli -named gettransaction txid="33173618421804343e8f6cc21316d97a24f7439137510249af39f01ee82113a7"
+$ bitcoin-cli -named gettransaction txid="33173618421804343e8f6cc21316d97a24f7439137510249af39f01ee82113a7" verbose=true
 {
   "amount": 0.01000000,
   "confirmations": 43,
