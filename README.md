@@ -11,8 +11,8 @@ _This tutorial assumes that you have some minimal background of how to use the c
 
 ## Translations
 
-* [Portuguese](https://github.com/BlockchainCommons/Learning-Bitcoin-from-the-Command-Line/tree/portuguese-translation/pt) — in process
-* [Spanish](https://github.com/BlockchainCommons/Learning-Bitcoin-from-the-Command-Line/tree/spanish-translation/es) - in process
+* [Portuguese](https://github.com/BlockchainCommons/Learning-Bitcoin-from-the-Command-Line/tree/portuguese-translation/pt/README.md) — v2.0.1 translation
+* [Spanish](https://github.com/BlockchainCommons/Learning-Bitcoin-from-the-Command-Line/tree/spanish-translation/es/README.md) - v2.0.1 translation
 
 If you'd like to make your own translation, please see [Contributing](https://github.com/BlockchainCommons/Learning-Bitcoin-from-the-Command-Line/tree/master#contributing), below.
 
@@ -242,6 +242,9 @@ Thanks to the volunteers who spent extensive time writing and reviewing other-la
 | Korea | Translator & Reviewer | [@KoreaComK](https://github.com/KoreaComK) | 
 | Luke Pavsky | Translator & Reviewer | [@lukedevj](https://github.com/lukedevj) | 
 | hgrams | Translator & Reviewer | [@hgrams](https://github.com/hgrams) | 
+
+#### Spanish Translation
+
 
 ## Responsible Disclosure
 
