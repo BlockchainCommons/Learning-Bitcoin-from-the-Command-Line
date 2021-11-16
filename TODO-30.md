@@ -24,3 +24,4 @@ The following TODO items are intended for a 3.0 version of Learning Bitcoin from
 1. Consider TIme Lock Discussion Improvements
    * Especially look at chart in https://prestwi.ch/bitcoin-time-locks/
 1. Taproot (August/November)
+   * First Successful Taproot Transactions (Peter W., Twitter)
