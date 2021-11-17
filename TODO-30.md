@@ -2,6 +2,11 @@
 
 The following TODO items are intended for a 3.0 version of Learning Bitcoin from the Command Line
 
+## Medium-Scale Updates
+
+The following updates involve updates or the creation of new chapters, but their additions are generally bounded and known.
+
+1. General Update: Consider replacing testnet with signet
 1. New Interlude: Creating QR Codes (after 3.3)
    * New Subsection: Creating a QR
    * New Subsection: Creating a Quick Connect QR
@@ -34,6 +39,54 @@ The following TODO items are intended for a 3.0 version of Learning Bitcoin from
    * 19.2: Using Swift with Bitcoin Lib [Wolf's library]
    * 19.3: Using Swift with Libwally [Wolf's shim]
 
+## Large-Scale Updates
+
+The following updates involve the large-scale work done on Schnorr and Taproot in Bitcoin Core 0.21 and 22. This represents a first cut at how to layout the work, but revision and expansion will likely be needed as everyone's understanding of these new technologies matures.
+
+**Chapter X: Expanding Bitcoin Transactions with Schnorr** (probably between chapters 6+7)
+
+* New Section X.1: Understanding Schnorr Signatures
+   * New Subsection: Understanding the Math of Schnorr
+      * Explanation: Add + subtract for one signature
+   * New Subsection: Supporting MuSig
+   * New Subsection: Understanding the Use of Adapter Signatures
+   * New Subsection: Knowing the Advantages of Schnorr
+      * Explanation: size, 64 bytes vs 72, better for multisigs
+      * Explanation: speed, linear, validate a million-sig multisig in 2 minutes
+      * Explanation: privacy, no difference between MuSig and sig, no detection of Lightning
+      * Explanation: also better security, non-malleability
+      * Reference: https://github.com/bitcoin/bips/blob/master/bip-0340.mediawiki
+* New Section X.2: Using Schnorr Signatures
+   * New Subsection: Signing with Schnorr
+   * New Subsection: Adding a Schnorr Signature
+   * New Subsection: Reading a Schnorr Signature    
+* Update Chapter 6 (Multisigs) to Integrate with Schnorr
+
+**Chapter Y: Improving Bitcoin Scripts with Taproot** (probably between chapters 13+14)
+
+* New Section Y.1: Understanding MAST
+   * New Subsection: Improving Privacy with MAST
+   * New Subsection: Laying out a Script in MAST
+   * New Subsection: Knowing the Advantages of MAST
+      * Explanation: larger scripts
+      * Explanation: hidden branches of scripts
+      * Explanation: fungibility
+      * https://github.com/bitcoin/bips/blob/master/bip-0114.mediawiki
+* New Section Y.2: Understanding Taproot
+   * New Subsection: Integrating MAST with Taproot
+      * Explanation: Expanding Segwit
+      * Explanation: Integrating Schnorr Signatures
+   * New Subsection: KNowing the Advantages of Taproot
+      * Explanation: even more privacy; scripts and other addresses are indistinbuishable
+      * Reference: https://github.com/bitcoin/bips/blob/master/bip-0341.mediawiki
+      * Reference: https://github.com/bitcoin/bips/blob/master/bip-0342.mediawiki
+* New Subsection Y.3: Creating a Taproot Script
+* New Subsection Y.4: Importing a tr Desciptor
+* New Subsection Y.5: Making a P2TR Payment
+* Update Chapter 9 to Integrate with Taproot
+   * Mention Taproot in 9.1 or 9.2
+   * Add New Section 9.6: Scripting a P2TR (mostly a pointer to Chapter Y)
+
 ## Further Updates
 
 The following updates could be part of v3.0 or could be further future, depending on interest and funding.
@@ -49,6 +102,3 @@ The following updates could be part of v3.0 or could be further future, dependin
       * Reference: https://diyhpl.us/wiki/transcripts/blockstream-webinars/2019-07-31-rusty-russell-getting-started-with-c-lightning/
       * Reference: https://twitter.com/roasbeef/status/1389649064753471488_
 
-9. Schnorr (2021)
-14. Taproot (August/November)
-   * First Successful Taproot Transactions (Peter W., Twitter)
