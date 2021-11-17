@@ -62,7 +62,7 @@ The following updates involve the large-scale work done on Schnorr and Taproot i
    * New Subsection: Reading a Schnorr Signature    
 * Update Chapter 6 (Multisigs) to Integrate with Schnorr
 
-**Chapter Y: Improving Bitcoin Scripts with Taproot** (probably between chapters 13+14)
+**Chapter Y: Improving Bitcoin Scripts with Taproot** (probably between chapters 13+14, possibly expanding to two chapters)
 
 * New Section Y.1: Understanding MAST
    * New Subsection: Improving Privacy with MAST
