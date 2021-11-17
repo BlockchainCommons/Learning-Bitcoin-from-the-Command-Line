@@ -160,6 +160,11 @@ v2.1.0 of **Learning Bitcoin from the Command Line** is feature complete and has
 We are also tentatively considering what we could include in a [v3.0](TODO-30.md) of the course. If you'd like to support work of that sort, become a [GitHub Sponsor](https://github.com/sponsors/BlockchainCommons) or support us at our [BTCPay Server](https://btcpay.blockchaincommons.com/), and let us know that **Learning Bitcoin** was the reason why.
 ### Version History
 
+#### 2.2.0 (November 17, 2021)
+
+* [Portuguese translation](https://github.com/BlockchainCommons/Learning-Bitcoin-from-the-Command-Line/tree/master/pt)
+* [Spanish translation](https://github.com/BlockchainCommons/Learning-Bitcoin-from-the-Command-Line/tree/master/es)
+
 #### 2.1.0 (October 12, 2021)
 
 * New chapter 15  (i2p).
