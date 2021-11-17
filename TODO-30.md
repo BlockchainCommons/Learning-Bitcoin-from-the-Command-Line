@@ -59,7 +59,8 @@ The following updates involve the large-scale work done on Schnorr and Taproot i
 * New Section X.2: Using Schnorr Signatures
    * New Subsection: Signing with Schnorr
    * New Subsection: Adding a Schnorr Signature
-   * New Subsection: Reading a Schnorr Signature    
+   * New Subsection: Reading a Schnorr Signature 
+   * New Subsection: Using Schnorr with Taproot   
 * Update Chapter 6 (Multisigs) to Integrate with Schnorr
 
 **Chapter Y: Improving Bitcoin Scripts with Taproot** (probably between chapters 13+14, possibly expanding to two chapters)
@@ -85,6 +86,7 @@ The following updates involve the large-scale work done on Schnorr and Taproot i
       * Explanation: Segwit v1, 32-byte program, not P2SH wrapped, leaf version is 0xc0
    * New Codes: OP_CHECKSIGADD and OP_SUCCESS
    * Cut Codes: OP_CHECKMULTISIG and OP_CHECKMULTISIGVERIFY
+   * Reference: https://twitter.com/pwuille/status/1459778730369368067
 * New Subsection Y.4: Importing a tr Desciptor
 * New Subsection Y.5: Using Taproot in Practice
    * New Subsection: Making a Taproot Payment
