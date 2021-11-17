@@ -1,5 +1,6 @@
 # Aprendiendo Bitcoin desde la Línea de Comandos 2.0.1
-*Por Christopher Allen and Shannon Appelcline*
+### por Christopher Allen and Shannon Appelcline
+### traducido por Ian Culp, Maxi Goyheneche, Said Rahal, César A. Vallero, and Javier Vargas
 
 ![alt text](https://www.blockchaincommons.com/images/projects/lbtc-screen.png)
 
