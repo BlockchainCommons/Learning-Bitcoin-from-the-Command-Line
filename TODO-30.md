@@ -81,8 +81,14 @@ The following updates involve the large-scale work done on Schnorr and Taproot i
       * Reference: https://github.com/bitcoin/bips/blob/master/bip-0341.mediawiki
       * Reference: https://github.com/bitcoin/bips/blob/master/bip-0342.mediawiki
 * New Subsection Y.3: Creating a Taproot Script
+   * New Subsection: Defining a Taproot Script
+      * Explanation: Segwit v1, 32-byte program, not P2SH wrapped, leaf version is 0xc0
+   * New Codes: OP_CHECKSIGADD and OP_SUCCESS
+   * Cut Codes: OP_CHECKMULTISIG and OP_CHECKMULTISIGVERIFY
 * New Subsection Y.4: Importing a tr Desciptor
-* New Subsection Y.5: Making a P2TR Payment
+* New Subsection Y.5: Using Taproot in Practice
+   * New Subsection: Making a Taproot Payment
+   * New Subsection: Validating a Taproot Script
 * Update Chapter 9 to Integrate with Taproot
    * Mention Taproot in 9.1 or 9.2
    * Add New Section 9.6: Scripting a P2TR (mostly a pointer to Chapter Y)
