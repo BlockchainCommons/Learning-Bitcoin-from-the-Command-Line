@@ -598,4 +598,4 @@ That last point, on creating a transaction on one machine and signing on another
 
 ## What's Next?
 
-Continue "Expanding Bitcoin Transactions with PSBTs" with [§7.3: Inegrating with Hardware Wallets](07_3_Integrating_with_Hardware_Wallets.md).
+Continue "Expanding Bitcoin Transactions with PSBTs" with [§7.3: Integrating with Hardware Wallets](07_3_Integrating_with_Hardware_Wallets.md).
