@@ -379,7 +379,7 @@ change_amt = float('%.8f'%((utxo_amt - recipient_amt) - miner_fee))
 
 > :warning: **WARNING:** Obviously a real program would make more sophisticated choices about what UTXO to use, what to do with the funds, and what miner's fee to pay.
 
-### 2. Create Raw Transacion
+### 2. Create Raw Transaction
 
 Now you have all the information to send a transaction, but before you can send one, you have to create a transaction. 
 
