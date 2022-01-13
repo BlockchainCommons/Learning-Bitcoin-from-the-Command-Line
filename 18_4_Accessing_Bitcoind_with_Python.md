@@ -218,7 +218,7 @@ pprint(utxos)
 print("------------------------------------------\n")
 ```
 
-In order to manipulate an array like the one returned from `listtransactions` or `listunpsent`, you just grab the appropriate item from the appropriate element of the array:
+In order to manipulate an array like the one returned from `listtransactions` or `listunspent`, you just grab the appropriate item from the appropriate element of the array:
 ```
 ## Select a UTXO - first one selected here
 utxo_txid = utxos[0]['txid']
