@@ -461,7 +461,8 @@ Learn more about "Talking to Bitcoin in Other Languages" in [18.5: Accessing Bit
 
 ## Variant: Build Python from Source
 
-If you need to install Python 3 from source, follow these instructions, then continue with ["Creating a BitcoinRPC Project"](17_4_Accessing_Bitcoind_with_Python.md#creating-a-bitcoinrpc-project).
+If you need to install Python 3 from source, follow these instructions, then continue with ["Create a BitcoinRPC Project"](18_4_Accessing_Bitcoind_with_Python.md#create-a-bitcoinrpc-project).
+
 
 ### 1. Install Dependencies
 ```sh
