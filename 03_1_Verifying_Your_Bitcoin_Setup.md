@@ -53,7 +53,7 @@ $ btcblock
 1804372/1804372
 ```
 
-> :link: **TESTNET vs MAINNET:** Remember that this tutorial generally assumes that you are using testnet. If you're using the mainnet instead, you can retrieve the current block height with: `wget -O - http://blockchain.info/q/getblockcount 2>/dev/null`. You can replace the latter half of the `btblock` alias (after `/`) with that.
+> :link: **TESTNET vs MAINNET:** Remember that this tutorial generally assumes that you are using testnet. If you're using the mainnet instead, you can retrieve the current block height with: `wget -O - http://blockchain.info/q/getblockcount 2>/dev/null`. You can replace the latter half of the `btcblock` alias (after `/`) with that.
 
 If you're not up-to-date, but your `getblockcount` is increasing, no problem. Total download time can take from an hour to several hours, depending on your setup.
 
