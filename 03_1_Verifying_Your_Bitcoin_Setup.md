@@ -46,7 +46,7 @@ You can do this by looking at a blocknet explorer, such as [the Blockcypher Test
 If you'd like an alias to look at everything at once, the following currently works for Testnet, but may disappear at some time in the future:
 ```
 $ cat >> ~/.bash_profile << EOF
-alias btcblock="echo \\\`bitcoin-cli getblockcount 2>&1\\\`/\\\`wget -O - https://blockstream.info/testnet/api/blocks/tip/height 2> /dev/null | cut -d : -f2 | rev | cut -c 1- | rev\\\`"
+alias btcblock="echo \\\`bitcoin-cli -testnet getblockcount 2>&1\\\`/\\\`wget -O - https://blockstream.info/testnet/api/blocks/tip/height 2> /dev/null | cut -d : -f2 | rev | cut -c 1- | rev\\\`"
 EOF
 $ source .bash_profile 
 $ btcblock
