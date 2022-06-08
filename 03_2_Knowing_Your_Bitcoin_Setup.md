@@ -16,7 +16,7 @@ The setup guides in [Chapter Two: Creating a Bitcoin-Core VPS](02_0_Setting_Up_a
 Moving back to your ~/.bitcoin directory, you'll find that the testnet3 directory contains all of the guts:
 ```
 $ ls ~/.bitcoin/testnet3
-banlist.dat   blocks	  debug.log	     mempool.dat	peers.dat
+banlist.json   blocks	  debug.log	     mempool.dat	peers.dat
 bitcoind.pid  chainstate  fee_estimates.dat  onion_private_key	wallets
 ```
 You shouldn't mess with most of these files and directories — particularly not the `blocks` and `chainstate` directories, which contain all of the blockchain data, and the information in your `wallets` directory, which contains your personal wallet. However, do take careful note of the `debug.log` file, which you should refer to if you ever have problems with your setup.
