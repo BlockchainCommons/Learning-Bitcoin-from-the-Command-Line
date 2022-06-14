@@ -10,6 +10,8 @@ Following are other setup methodologies that we are aware of:
 * *[Setting Up a Bitcoin Node on AWS](https://wolfmcnally.com/115/developer-notes-setting-up-a-bitcoin-node-on-aws/).* @wolfmcnally has written a step-by-step tutorial for setting up Bitcoin-Core with Amazon Web Services (AWS).
 * *[Setting Up a Bitcoin Node on a Raspberry Pi 3](https://medium.com/@meeDamian/bitcoin-full-node-on-rbp3-revised-88bb7c8ef1d1).* Damian Mee explains how to set up a headless full node on a Raspberry Pi 3.
 
+Be sure that you are installing on a current version of your OS, to avoid problems down the line. As of this writing, this course is tested on Debian 11.
+
 ## What's Next?
 
 Unless you want to return to one of the other methodologies for creating a Bitcoin-Core node, you should:
