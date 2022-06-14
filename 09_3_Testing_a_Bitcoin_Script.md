@@ -182,7 +182,7 @@ btcdeb> stack
 ```
 Using these commands can make it easier to see what's going on and where you are.
 
-> :warning: `btcdeb` is much more complex to use if you are trying to verify signatures. See [Signature Checking with btcdeb](https://github.com/bitcoin-core/btcdeb/blob/master/doc/btcdeb.md#signature-checking). This is true for any script testing, so we don't suggest it if you're trying to verify an `OP_CHECKSIG` or an `OP_CHECKMULTISIG`.
+> :warning: **WARNING:** `btcdeb` is much more complex to use if you are trying to verify signatures. See [Signature Checking with btcdeb](https://github.com/bitcoin-core/btcdeb/blob/master/doc/btcdeb.md#signature-checking). This is true for any script testing, so we don't suggest it if you're trying to verify an `OP_CHECKSIG` or an `OP_CHECKMULTISIG`.
 
 ## Test a Script Online
 
