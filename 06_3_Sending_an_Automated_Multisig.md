@@ -49,9 +49,9 @@ As noted in the previous section, it currently doesn't matter whether you use ad
 
 Afterward, the members of the multisig will still need to run `importaddress` to watch for funds received on the multisig address:
 ```
-machine1$ bitcoin-cli -named importaddress address=2Mzw7WBvh9RAQ4ssKqxyNyP7L9NAojLqSW8 rescan="false"
+machine1$ bitcoin-cli -named importaddress address=tb1q9as46kupwcxancdx82gw65365svlzdwmjal4uxs23t3zz3rgg3wqpqlhex rescan="false"
 
-machine2$ bitcoin-cli -named importaddress address=2Mzw7WBvh9RAQ4ssKqxyNyP7L9NAojLqSW8 rescan="false"
+machine2$ bitcoin-cli -named importaddress address=tb1q9as46kupwcxancdx82gw65365svlzdwmjal4uxs23t3zz3rgg3wqpqlhex rescan="false"
 ```
 
 ## Respend with an Automated Transaction
