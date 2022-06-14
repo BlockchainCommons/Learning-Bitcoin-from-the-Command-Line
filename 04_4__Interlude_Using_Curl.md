@@ -220,7 +220,7 @@ This is almost exactly the same output that you receive when you type `bitcoin-c
 
 After you know where your funds are, the next step in crafting a transaction is to get a change address. By now you've probably got the hang of this, and you know that for simple RPC commands, all you need to do is adjust the `method` is the `curl` command:
 ```
-$ curl --user StandUp:8eaf562eaf45c33c3328bc66008f2dd1 --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "getrawchangeaddress", "params": ["", "legacy"] }' -H 'content-type: text/plain;' http://127.0.0.1:18332/ | jq -r '.'
+$ curl --user StandUp:8eaf562eaf45c33c3328bc66008f2dd1 --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "getnewaddress", "params": ["", "legacy"] }' -H 'content-type: text/plain;' http://127.0.0.1:18332/ | jq -r '.'
 {
   "result": "mrSqN37TPs89GcidSZTvXmMzjxoJZ6RKoz",
   "error": null,
@@ -232,15 +232,15 @@ $ curl --user StandUp:8eaf562eaf45c33c3328bc66008f2dd1 --data-binary '{"jsonrpc"
 
 At this point, we can even revert to our standard practice of saving results to variables with additional help from `jq`:
 ```
-$ changeaddress=$(curl --user StandUp:8eaf562eaf45c33c3328bc66008f2dd1 --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "getrawchangeaddress", "params": ["", "legacy"] }' -H 'content-type: text/plain;' http://127.0.0.1:18332/ | jq -r '.result')
-$ echo $changeaddress
+$ newaddress=$(curl --user StandUp:8eaf562eaf45c33c3328bc66008f2dd1 --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "getnewaddress", "params": ["", "legacy"] }' -H 'content-type: text/plain;' http://127.0.0.1:18332/ | jq -r '.result')
+$ echo $newaddress
 mqdfnjgWr2r3sCCeuTDfe8fJ1CnycF2e6R
 ```
 No need to worry about the downloading info. It'll go to `STDERR` and be displayed on your screen, while the results go to `STDOUT` and are saved in your variable.
 
 ## Create a Transaction
 
-You're now ready to create a transaction with `curl`.
+You're now ready to create a transaction with `curl`, except using `getrawchangeaddress` instead of `getnewaddress`.
 
 ### Ready Your Variables
 
