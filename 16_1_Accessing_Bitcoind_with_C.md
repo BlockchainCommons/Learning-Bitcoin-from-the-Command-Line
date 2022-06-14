@@ -6,6 +6,8 @@ You've already seen one alternative way to access the Bitcoind's RPC ports: `cur
 
 ## Set Up libbitcoinrpc
 
+> :warning: **WARNING** It appears that `libbitcoinrpc` has been entirely abandoned. We have logged updating this to a new C library as an [issue](https://github.com/BlockchainCommons/Community/issues/140). In the meantime, the `libbitcoinrpc` library does not currently compile without intervention. As a result 16.1 and 16.2 is mainly viewable as pseudo-code that shows the process of integrating Bitcoin-Core with C. 
+ 
 To use `libbitcoinrpc`, you need to install a basic C setup and the dependent packages `libcurl`, `libjansson`, and `libuuid`. The following will do so on your Bitcoin Standup server (or any other Ubuntu server).
 ```
 $ sudo apt-get install make gcc libcurl4-openssl-dev libjansson-dev uuid-dev
