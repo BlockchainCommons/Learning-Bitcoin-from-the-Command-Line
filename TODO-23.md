@@ -29,7 +29,10 @@ See also [#575](https://github.com/BlockchainCommons/Learning-Bitcoin-from-the-C
    * If that's correctly, this would be a good 15.2, with the 15.0 chapter renamed "Using Other Privacy Options" or something like that
 * [ ] **RPC Changes**
    * The following RPC commands have had changes to their output and any examples should be rerun. If they are part of a sequence of commands (e.g., building out a transaction), then the whole sequence should be rerun.
-   * `createmultisig`, `addmultisigaddress`, `listunspent`, `getblockchaininfo`
+   * [ ] `createmultisig`, 
+   * [ ] `addmultisigaddress`, 
+   * [ ] `listunspent`, 
+   * [ ] `getblockchaininfo`
    * Updated RPCs may or may not exist in the text. The best way to find out is to search.
 
 ## 22.0 Updates
@@ -42,7 +45,12 @@ See [release notes](https://bitcoincore.org/en/releases/22.0/).
   * Any updates would go in [7.3](https://github.com/BlockchainCommons/Learning-Bitcoin-from-the-Command-Line/blob/master/07_3_Integrating_with_Hardware_Wallets.md).
 * [ ] **RPC Changes**
    * Again, these commands should be reoutput.
-   * `getpeerinfo`, `gettxout`, `getrawtransaction`, `decoderawtransaction`, `decodescript`, `getnodeaddresses`
+   * [ ] `getpeerinfo`, 
+   * [ ] `gettxout`, 
+   * [ ] `getrawtransaction`, 
+   * [ ] `decoderawtransaction`, 
+   * [ ] `decodescript`, 
+   * [ ] `getnodeaddresses`
 
 ## 0.21.0 Updates
 
@@ -53,4 +61,4 @@ See [release notes](https://bitcoincore.org/en/releases/0.21.0/).
    * The setup and explanation of networks appears in [3.1](https://github.com/BlockchainCommons/Learning-Bitcoin-from-the-Command-Line/blob/master/03_1_Verifying_Your_Bitcoin_Setup.md). That should be changed, and with the change of the alias there, we should mostly be used Signet. Then the rest of the course can be searched for any references to testnet.
 * [ ] **RPC Changes**
    * As usual, these may or may not be used, but if they are, outputs should be redone.
-   * `getpeerinfo`, `getnetworkinfo`
+   * [ ] `getnetworkinfo`
