@@ -1,6 +1,6 @@
 # Updates for v2.3 of LBTCftCL
 
-V2.2 of LBTCftCL was drafted in the summer of 2021 and up to date with V0.20 of Bitcoin Core. Bitcoin Core is now up to v23.0, and the course needs to be updated to best address these recent changes. What follows is a rough listing of updates that are likely to require changes to the course. They will all require investigation, and in some cases it might be determined that there's nothing to be done. Some of the main questions that will determine whether material should be included in the course are listed, as our ideas for where material might go in the course.
+V2.2 of LBTCftCL was drafted in the summer of 2021. The last major upgrade to the book came with the release of v0.20, but there is a smattering of content through 22.0. Bitcoin Core is now up to v23.0, and the course needs to be updated to best address these recent changes. What follows is a rough listing of updates that are likely to require changes to the course. They will all require investigation, and in some cases it might be determined that there's nothing to be done. Some of the main questions that will determine whether material should be included in the course are listed, as our ideas for where material might go in the course.
 
 ## Legacy Updates
 
@@ -30,3 +30,16 @@ See also [#575](https://github.com/BlockchainCommons/Learning-Bitcoin-from-the-C
 * **RPC Changes**
    * The following RPC commands have had changes to their output and any examples should be rerun. If they are part of a sequence of commands (e.g., building out a transaction), then the whole sequence should be rerun.
    * `createmultisig`, `addmultisigaddress`, `listunspent`, `getblockchaininfo`
+   * Updated RPCs may or may not exist in the text. The best way to find out is to search.
+
+## 22.0 Updates
+
+See [release notes](https://bitcoincore.org/en/releases/22.0/).
+
+* **New External Signer Commands**
+  * There are some new external signer commands: `enumeratesigners` and `displayaddress`. Are they relevant to what we're teaching? If so, should we add info on them.
+  * See https://github.com/bitcoin/bitcoin/blob/22.x/doc/external-signer.md
+  * Any updates would go in [7.3](https://github.com/BlockchainCommons/Learning-Bitcoin-from-the-Command-Line/blob/master/07_3_Integrating_with_Hardware_Wallets.md).
+* **RPC Changes**
+   * Again, these commands should be reoutput.
+   * `getpeerinfo`, `gettxout`, `getrawtransaction`, `decoderawtransaction`, `decodescript`, `getnodeaddresses`
