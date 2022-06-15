@@ -16,7 +16,8 @@ $
 
 Although Bitcoin Core won't create a new wallet for you, it will still load a top-level unnamed ("") wallet on startup by default. You can take advantage of this by creating a new unnamed wallet.
 ```
-$ bitcoin-cli createwallet ""
+$ bitcoin-cli -named createwallet wallet_name="" descriptors=false
+
 {
   "name": "",
   "warning": ""
@@ -32,6 +33,8 @@ database  db.log  wallet.dat
 > :book: ***What is a Bitcoin wallet?*** A Bitcoin wallet is the digital equivalent of a physical wallet on the Bitcoin network. It stores information on the amount of bitcoins you have and where it's located (addresses), as well as the ways you can use to spend it. Spending physical money is intuitive, but to spend bitcoins users need to provide the correct _private key_. We will explain this in more detail throughout the course, but what you should know for now is that this public-private key dynamic is part of what makes Bitcoin secure and trustless. Your key pair information is saved in the `wallet.dat` file, in addition to data about preferences and transactions. For the most part, you won't have to worry about that private key: `bitcoind` will use it when it's needed. However, this makes the `wallet.dat` file extremely important: if you lose it, you lose your private keys, and if you lose your private keys, you lose your funds!
 
 Sweet, now you have a Bitcoin wallet. But a wallet will be of little use for receiving bitcoins if you don't create an address first.
+
+> :warning: **VERSION WARNING:** Starting in Bitcoin Core v 23.0, descriptor wallets became the default. That's great, because descriptor wallets are very powerful, except they don't currently work with multisigs! So, we turn them off with the "descriptors=false" argument. See [§3.5](https://github.com/BlockchainCommons/Learning-Bitcoin-from-the-Command-Line/blob/master/03_5_Understanding_the_Descriptor.md) for more on descriptors.
 
 ## Create an Address
 
