@@ -258,7 +258,7 @@ You have a few options for what's next:
 
 ## Synopsis: Bitcoin Installation Types
 
-**Mainnet.** This will download the entirety of the Bitnet blockchain. That's 280G of data (and getting more every day). 
+**Mainnet.** This will download the entirety of the Bitcoin blockchain. That's 280G of data (and getting more every day). 
 
 **Pruned Mainnet.** This will cut the blockchain you're storing down to just the last 550 blocks. If you're not mining or running some other Bitcoin service, this should be plenty for validation.
 
