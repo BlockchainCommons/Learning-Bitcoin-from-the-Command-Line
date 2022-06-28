@@ -4,15 +4,21 @@ Creating a raw transaction revealed how more complex bitcoin-cli results can't e
 
 ## Install JQ
 
-JQ is available from a [Github repository](https://stedolan.github.io/jq/). Just download for Linux, OS X, or Windows, as appropriate.
+For modern versions of Debian, you should be able to install JQ using `apt-get`:
+```
+# apt-get install jq
+```
+> :book: ***What is JQ?*** The repository explains it best, saying "jq is like sed for JSON data - you can use it to slice and filter and map and transform structured data with the same ease that sed, awk, grep and friends let you play with text."
+
+If that works, you're done!
+
+Otherwise, you can download JQ from a [Github repository](https://stedolan.github.io/jq/). Just download a binary for Linux, OS X, or Windows, as appropriate.
 
 Once you've downloaded the binary, you can install it on your system. If you're working on a Debian VPS as we suggest, your installation will look like this:
 ```
 $ mv jq-linux64 jq
 $ sudo /usr/bin/install -m 0755 -o root -g root -t /usr/local/bin jq
 ```
-> :book: ***What is JQ?*** The repository explains it best, saying "jq is like sed for JSON data - you can use it to slice and filter and map and transform structured data with the same ease that sed, awk, grep and friends let you play with text."
-
 ## Use JQ to Access a JSON Object Value by Key
 
 **Usage Example:** _Capture the hex from a signed raw transaction._
