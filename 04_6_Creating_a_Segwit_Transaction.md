@@ -279,7 +279,7 @@ The big thing to note is that function has changed. It was previously `pkh`, whi
 
 There's really no complexity to creating SegWit transactions. Internally, they're structured differently from legacy transactions, but from the command line there's no difference: you just use an address with a different prefix. The only thing to watch for is that some people may not be able to send to a Bech32 address if they're using obsolete software.
 
-> :fire: ***What the power of sending coins with SegWit?***
+> :fire: ***What's the power of sending coins with SegWit?***
 
 > _The Advantages._ SegWit transactions are smaller, and so will be cheaper to send than legacy transactions due to lower fees. Bech32 doubles down on this advantage, and also creates addresses that are harder to foul up when transcribing — and that's pretty important, given that user error is one of the most likely ways to lose your bitcoins.
 
