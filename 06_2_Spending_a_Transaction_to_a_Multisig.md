@@ -8,7 +8,7 @@ To start with, you need to find your funds; your computer doesn't know to look f
 ```
 $ bitcoin-cli -named importaddress address=2NAGfA4nW6nrZkD5je8tSiAcYB9xL2xYMCz
 ```
-If you've got a pruned node (and you probably do), you'll instead need to tell it no to rescan:
+If you've got a pruned node (and you probably do), you'll instead need to tell it not to rescan:
 ```
 $ bitcoin-cli -named importaddress address=2NAGfA4nW6nrZkD5je8tSiAcYB9xL2xYMCz rescan="false"
 ```
