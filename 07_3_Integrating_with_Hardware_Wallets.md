@@ -130,7 +130,7 @@ You can watch for funds by importing addresses from your hardware wallet to your
 
 To use your hardware wallet with `bitcoin-cli`, you'll want to create a specific named wallet in Bitcoin Core, using the `createwallet` RPC, which is a command we haven't previously discussed.
 ```
-$ bitcoin-cli --named createwallet wallet_name="ledger" disable_private_keys="true"
+$ bitcoin-cli --named createwallet wallet_name="ledger" disable_private_keys="true" descriptors="false"
 {
   "name": "ledger",
   "warning": ""
