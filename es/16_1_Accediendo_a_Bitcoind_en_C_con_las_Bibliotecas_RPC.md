@@ -18,13 +18,13 @@ Need to get 358 kB of archives.
 After this operation, 1.696 kB of additional disk space will be used.
 Do you want to continue? [Y/n] y
 ```
-Puede descargar [libbitcoinrpc de Github](https://github.com/gitmarek/libbitcoinrpc/blob/master/README.md). Clónelo o tome un archivo zip, como prefiera.
+Puede descargar [libbitcoinrpc de Github](https://github.com/BlockchainCommons/libbitcoinrpc/blob/master/README.md). Clónelo o tome un archivo zip, como prefiera.
 ```
 $ sudo apt-get install git
-$ git clone https://github.com/gitmarek/libbitcoinrpc
+$ git clone https://github.com/BlockchainCommons/libbitcoinrpc
 ```
 
-> :warning: **ADVERTENCIA** Un cambio en el RPC de "signrawtransaction" provocó que la firma con `libbitcoinrpc` provocara un segfault para Bitcoin 0.17 o superior. [Se ha enviado un PR](https://github.com/gitmarek/libbitcoinrpc/pull/1/commits) para resolver el problema, pero si aún no se ha fusionado, puede hacer un simple cambio en el código fuente `src/bitcoinrpc_method.c` antes de compilar.
+> :warning: **ADVERTENCIA** Un cambio en el RPC de "signrawtransaction" provocó que la firma con `libbitcoinrpc` provocara un segfault para Bitcoin 0.17 o superior. [Se ha enviado un PR](https://github.com/gitmarek/libbitcoinrpc/pull/1) para resolver el problema, pero si aún no se ha fusionado, puede hacer un simple cambio en el código fuente `src/bitcoinrpc_method.c` antes de compilar.
 
 
 ### Compilar libbitcoinrpc
@@ -35,7 +35,7 @@ $ PATH="/sbin:$PATH"
 ```
 Para un sistema Ubuntu, también querrá ajustar el `INSTALL_LIBPATH` en el fichero `Makefile` de `libbitcoinrpc` para instalar en `/usr/lib` lugar de `/usr/local/lib`:
 ```
-$ emacs ~/libbitcoinrpc/Makefile 
+$ emacs ~/libbitcoinrpc/Makefile
 ...
 INSTALL_LIBPATH    := $(INSTALL_PREFIX)/usr/lib
 ```
@@ -70,7 +70,7 @@ ln -fs libbitcoinrpc.so.0 .lib/libbitcoinrpc.so
 Si eso funciona, puede instalar el paquete:
 ```
 $ sudo make install
-Installing to 
+Installing to
 install .lib/libbitcoinrpc.so.0.2 /usr/local/lib
 ldconfig  -n /usr/local/lib
 ln -fs libbitcoinrpc.so.0 /usr/local/lib/libbitcoinrpc.so
@@ -109,7 +109,7 @@ bitcoinrpc_global_init();
 ```
 Luego conéctese a su `bitcoind` con `bitcoinrpc_cl_init_params`. Los cuatro argumentos son  `bitcoinrpc_cl_init_params` son nombre de usuario, contraseña, dirección IP y puerto. Ya debería conocer toda esta información de su trabajo con [Curl](04_4_Interludio_Usando_Curl.md). Como recordará, la dirección IP 127.0.0.1 y el puerto 18332 deben ser correctos para la configuración estándar de testnet descrita en estos documentos, mientras que puede extraer el usuario y la contraseña de `~/.bitcoin/bitcoin.conf`.
 ```
-$ cat bitcoin.conf 
+$ cat bitcoin.conf
 server=1
 dbcache=1536
 par=1
@@ -153,7 +153,7 @@ El código de prueba se puede encontrar en el directorio src [16_1_testbitcoin.c
 Puede compilar y ejecutar esto de la siguiente manera:
 ```
 $ cc testbitcoin.c -lbitcoinrpc -ljansson -o testbitcoin
-$ ./testbitcoin 
+$ ./testbitcoin
 Successfully connected to server!
 ```
 
@@ -161,7 +161,7 @@ Successfully connected to server!
 
 ## Realizar una llamada RPC
 
-Para utilizar un método RPC con `libbitcoinrpc`, debe inicializar una variable de tipo `bitcoinrpc_method_t`. Lo hace con el valor apropiado para el método que desea utilizar, todos los cuales se enumeran en la [referencia bitcoinrpc](https://github.com/gitmarek/libbitcoinrpc/blob/master/doc/reference.md).
+Para utilizar un método RPC con `libbitcoinrpc`, debe inicializar una variable de tipo `bitcoinrpc_method_t`. Lo hace con el valor apropiado para el método que desea utilizar, todos los cuales se enumeran en la [referencia bitcoinrpc](https://github.com/BlockchainCommons/libbitcoinrpc/blob/master/doc/reference.md).
 ```
 bitcoinrpc_method_t *getmininginfo  = NULL;
 getmininginfo = bitcoinrpc_method_init(BITCOINRPC_METHOD_GETMININGINFO);
@@ -192,7 +192,7 @@ printf ("%s\n", json_dumps(j, JSON_INDENT(2)));
 ```
 Sin embargo, dado que ahora está escribiendo programas completos, probablemente desee hacer un trabajo más sutil, como extraer valores JSON individuales para un uso específico. La [referencia jansson](https://jansson.readthedocs.io/en/2.10/apiref.html) detalla cómo hacerlo.
 
-Al igual que cuando usaba [Curl](04_4_Interludio_Usando_Curl.md), encontrará que RPC devuelve un objeto JSON que contiene un `id`, un `error`, y, lo más importante, un objeto JSON de `result`. 
+Al igual que cuando usaba [Curl](04_4_Interludio_Usando_Curl.md), encontrará que RPC devuelve un objeto JSON que contiene un `id`, un `error`, y, lo más importante, un objeto JSON de `result`.
 
 La función `json_object_get` le permitirá recuperar un valor (como el `result`) de un objeto JSON por clave:
 ```
@@ -217,7 +217,7 @@ printf("Block Count: %d\n",blocks);
 Recupere el código de prueba del [directorio src](../src/16_1_getmininginfo.c).
 ```
 $ cc getmininginfo.c -lbitcoinrpc -ljansson -o getmininginfo
-$ ./getmininginfo 
+$ ./getmininginfo
 Full Response: {
   "result": {
     "blocks": 1804406,
@@ -261,7 +261,7 @@ json_array_append_new(params,json_string(tx_rawhex));
 ```
 Tenga en cuenta que hay dos variantes del comando append: `json_array_append_new`, que agrega una variable recién creada y `json_array_append`, que agrega una variable existente.
 
-Esta sencilla metodología `json_array_append_new` servirá para la mayoría de los comandos RPC con parámetros, pero algunos comandos RPC requieren entradas más complejas. En estos casos, es posible que deba crear objetos JSON subsidiarios o matrices JSON, que luego agregará a la matriz de parámetros como de costumbre. La siguiente sección contiene un ejemplo de cómo hacerlo usando  `createrawtransaction`, que contiene una matriz JSON de objetos JSON para las entradas, un objeto JSON para las salidas y el parámetro `locktime`. 
+Esta sencilla metodología `json_array_append_new` servirá para la mayoría de los comandos RPC con parámetros, pero algunos comandos RPC requieren entradas más complejas. En estos casos, es posible que deba crear objetos JSON subsidiarios o matrices JSON, que luego agregará a la matriz de parámetros como de costumbre. La siguiente sección contiene un ejemplo de cómo hacerlo usando  `createrawtransaction`, que contiene una matriz JSON de objetos JSON para las entradas, un objeto JSON para las salidas y el parámetro `locktime`.
 
 ### Asignar los parámetros
 

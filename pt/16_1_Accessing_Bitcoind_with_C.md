@@ -19,14 +19,14 @@ Need to get 358 kB of archives.
 After this operation, 1.696 kB of additional disk space will be used.
 Do you want to continue? [Y/n] y
 ```
-Agora, podemos baixar o [libbitcoinrpc no github](https://github.com/gitmarek/libbitcoinrpc/blob/master/readme.md). Vamos clonar ou pegar um arquivo zip, do jeito que preferir.
+Agora, podemos baixar o [libbitcoinrpc no github](https://github.com/BlockchainCommons/libbitcoinrpc/blob/master/readme.md). Vamos clonar ou pegar um arquivo zip, do jeito que preferir.
 
 ```
 $ sudo apt-get install git
-$ git clone https://github.com/gitmarek/libbitcoinrpc
+$ git clone https://github.com/BlockchainCommons/libbitcoinrpc
 ```
 
-> :warning: **ATENÇÃO** Uma alteração no RPC "signrawtransaction" causou uma assinatura com ``libbitcoinrpc`` para o segfault no Bitcoin 0.17 ou superior. O [Pull Request foi submetido](https://github.com/gitmarek/libbitcoinrpc/pull/1/commits) para resolver o problema, mas se ainda não tiver sido feito o merge, podemos simplesmente fazer uma simples mudança no código-fonte para ``src/bitcoinrpc_method.c`` antes de compilarmos.
+> :warning: **ATENÇÃO** Uma alteração no RPC "signrawtransaction" causou uma assinatura com ``libbitcoinrpc`` para o segfault no Bitcoin 0.17 ou superior. O [Pull Request foi submetido](https://github.com/gitmarek/libbitcoinrpc/pull/1) para resolver o problema, mas se ainda não tiver sido feito o merge, podemos simplesmente fazer uma simples mudança no código-fonte para ``src/bitcoinrpc_method.c`` antes de compilarmos.
 
 ### Compilando o libbitcoinrpc
 
@@ -38,7 +38,7 @@ $ PATH="/sbin:$PATH"
 Para o Ubuntu, também precisaremos ajustar o ``install_libpath`` no ``makefile`` do ``libbitcoinrpc`` para instalar no ``/usr/lib`` ao invés do ``/usr/local/lib``:
 
 ```
-$ emacs ~/libbitcoinrpc/Makefile 
+$ emacs ~/libbitcoinrpc/Makefile
 ...
 INSTALL_LIBPATH    := $(INSTALL_PREFIX)/usr/lib
 ```
@@ -75,7 +75,7 @@ ln -fs libbitcoinrpc.so.0 .lib/libbitcoinrpc.so
 Se tudo correr bem, podemos instalar o pacote:
 ```
 $ sudo make install
-Installing to 
+Installing to
 install .lib/libbitcoinrpc.so.0.2 /usr/local/lib
 ldconfig  -n /usr/local/lib
 ln -fs libbitcoinrpc.so.0 /usr/local/lib/libbitcoinrpc.so
@@ -116,7 +116,7 @@ bitcoinrpc_global_init();
 ```
 Em seguida, vamos conectar ao  ``Bitcoind`` com ``bitcoinrpc_cl_init_params``. Os quatro argumentos necessários para o ``bitcoinrpc_cl_init_params`` são o nome de usuário, a senha, o endereço IP e a porta. A esta altura, você deve saber todas essas informações, já que foram necessárias para realizar o trabalho com o [curl](04_4__interlude_using_curl.md). Apenas para recordar, o endereço de IP é 127.0.0.1 e a porta 18332 devem estar corretos para a configuração padrão da testenet descrita neste documento, enquanto podemos encontrar o usuário e a senha no arquivo ``~/.bitcoin/bitcoin.conf``.
 ```
-$ cat bitcoin.conf 
+$ cat bitcoin.conf
 server=1
 dbcache=1536
 par=1
@@ -160,7 +160,7 @@ O código de teste pode ser encontrado [no diretório src com o nome 16_1_testbi
 Podemos compilar e executar o código da seguinte maneira:
 ```
 $ cc testbitcoin.c -lbitcoinrpc -ljansson -o testbitcoin
-$ ./testbitcoin 
+$ ./testbitcoin
 Successfully connected to server!
 ```
 
@@ -168,7 +168,7 @@ Successfully connected to server!
 
 ## Fazendo uma Chamada ao RPC
 
-Para usarmos um método RPC usando ``libbitcoinrpc``, devemos inicializar uma variável do tipo ``bitcoinrpc_method_t``. Podemos fazer com o valor apropriado para o método que desejamos utilizar, que estão todos listados na [Referências do BitcoinRPC](https://github.com/gitmarek/libbitcoinrpc/blob/master/doc/reference.md).
+Para usarmos um método RPC usando ``libbitcoinrpc``, devemos inicializar uma variável do tipo ``bitcoinrpc_method_t``. Podemos fazer com o valor apropriado para o método que desejamos utilizar, que estão todos listados na [Referências do BitcoinRPC](https://github.com/BlockchainCommons/libbitcoinrpc/blob/master/doc/reference.md).
 ``` c
 bitcoinrpc_method_t *getmininginfo  = NULL;
 getmininginfo = bitcoinrpc_method_init(BITCOINRPC_METHOD_GETMININGINFO);
@@ -226,7 +226,7 @@ printf("Block Count: %d\n",blocks);
 Vamos recuperar o código de teste que está no [diretório src](../src/16_1_getmininginfo.c).
 ```
 $ cc getmininginfo.c -lbitcoinrpc -ljansson -o getmininginfo
-$ ./getmininginfo 
+$ ./getmininginfo
 Full Response: {
   "result": {
     "blocks": 1804406,
