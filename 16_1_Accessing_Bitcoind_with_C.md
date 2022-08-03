@@ -6,8 +6,8 @@ You've already seen one alternative way to access the Bitcoind's RPC ports: `cur
 
 ## Set Up libbitcoinrpc
 
-> :warning: **WARNING** It appears that `libbitcoinrpc` has been entirely abandoned. We have logged updating this to a new C library as an [issue](https://github.com/BlockchainCommons/Community/issues/140). In the meantime, the `libbitcoinrpc` library does not currently compile without intervention. As a result 16.1 and 16.2 is mainly viewable as pseudo-code that shows the process of integrating Bitcoin-Core with C. 
- 
+> :warning: **WARNING** It appears that `libbitcoinrpc` has been entirely abandoned. We have logged updating this to a new C library as an [issue](https://github.com/BlockchainCommons/Community/issues/140). In the meantime, the `libbitcoinrpc` library does not currently compile without intervention. As a result 16.1 and 16.2 is mainly viewable as pseudo-code that shows the process of integrating Bitcoin-Core with C.
+
 To use `libbitcoinrpc`, you need to install a basic C setup and the dependent packages `libcurl`, `libjansson`, and `libuuid`. The following will do so on your Bitcoin Standup server (or any other Ubuntu server).
 ```
 $ sudo apt-get install make gcc libcurl4-openssl-dev libjansson-dev uuid-dev
@@ -20,13 +20,13 @@ Need to get 358 kB of archives.
 After this operation, 1.696 kB of additional disk space will be used.
 Do you want to continue? [Y/n] y
 ```
-You can then download [libbitcoinrpc from Github](https://github.com/gitmarek/libbitcoinrpc/blob/master/README.md). Clone it or grab a zip file, as you prefer.
+You can then download [libbitcoinrpc from Github](https://github.com/BlockchainCommons/libbitcoinrpc/blob/master/README.md). Clone it or grab a zip file, as you prefer.
 ```
 $ sudo apt-get install git
 $ git clone https://github.com/BlockchainCommons/libbitcoinrpc.git
 ```
 
-> :warning: **WARNING** A change in the "signrawtransaction" RPC caused signing with `libbitcoinrpc` to segfault for Bitcoin 0.17 or higher. A [PR has been submitted](https://github.com/gitmarek/libbitcoinrpc/pull/1/commits) to resolve the problem, but if it hasn't yet been merged, you can just make the one simple change in the source code to `src/bitcoinrpc_method.c` before compiling.
+> :warning: **WARNING** A change in the "signrawtransaction" RPC caused signing with `libbitcoinrpc` to segfault for Bitcoin 0.17 or higher. A [PR has been submitted](https://github.com/gitmarek/libbitcoinrpc/pull/1) to resolve the problem, but if it hasn't yet been merged, you can just make the one simple change in the source code to `src/bitcoinrpc_method.c` before compiling.
 
 ### Compiling libbitcoinrpc
 
@@ -36,7 +36,7 @@ $ PATH="/sbin:$PATH"
 ```
 For an Ubuntu system, you'll also want to adjust the `INSTALL_LIBPATH` in the `libbitcoinrpc` `Makefile` to install to `/usr/lib` instead of `/usr/local/lib`:
 ```
-$ emacs ~/libbitcoinrpc/Makefile 
+$ emacs ~/libbitcoinrpc/Makefile
 ...
 INSTALL_LIBPATH    := $(INSTALL_PREFIX)/usr/lib
 ```
@@ -71,7 +71,7 @@ ln -fs libbitcoinrpc.so.0 .lib/libbitcoinrpc.so
 If that works, you can install the package:
 ```
 $ sudo make install
-Installing to 
+Installing to
 install .lib/libbitcoinrpc.so.0.2 /usr/local/lib
 ldconfig  -n /usr/local/lib
 ln -fs libbitcoinrpc.so.0 /usr/local/lib/libbitcoinrpc.so
@@ -110,7 +110,7 @@ bitcoinrpc_global_init();
 ```
 Then connect to your `bitcoind` with `bitcoinrpc_cl_init_params`. The four arguments for `bitcoinrpc_cl_init_params` are username, password, IP address, and port. You should already know all of this information from your work with [Curl](04_4__Interlude_Using_Curl.md). As you'll recall, the IP address 127.0.0.1 and port 18332 should be correct for the standard testnet setup described in these documents, while you can extract the user and password from `~/.bitcoin/bitcoin.conf`.
 ```
-$ cat bitcoin.conf 
+$ cat bitcoin.conf
 server=1
 dbcache=1536
 par=1
@@ -154,7 +154,7 @@ Test code can be found at [16_1_testbitcoin.c in the src directory](src/16_1_tes
 You can compile and run this as follows:
 ```
 $ cc testbitcoin.c -lbitcoinrpc -ljansson -o testbitcoin
-$ ./testbitcoin 
+$ ./testbitcoin
 Successfully connected to server!
 ```
 
@@ -162,7 +162,7 @@ Successfully connected to server!
 
 ## Make an RPC Call
 
-In order to use an RPC method using `libbitcoinrpc`, you must initialize a variable of type `bitcoinrpc_method_t`. You do so with the appropriate value for the method you want to use, all of which are listed in the [bitcoinrpc Reference](https://github.com/gitmarek/libbitcoinrpc/blob/master/doc/reference.md).
+In order to use an RPC method using `libbitcoinrpc`, you must initialize a variable of type `bitcoinrpc_method_t`. You do so with the appropriate value for the method you want to use, all of which are listed in the [bitcoinrpc Reference](https://github.com/BlockchainCommons/libbitcoinrpc/blob/master/doc/reference.md).
 ```
 bitcoinrpc_method_t *getmininginfo  = NULL;
 getmininginfo = bitcoinrpc_method_init(BITCOINRPC_METHOD_GETMININGINFO);
@@ -193,7 +193,7 @@ printf ("%s\n", json_dumps(j, JSON_INDENT(2)));
 ```
 However, since you're now writing complete programs, you probably want to do more subtle work, such as pulling out individual JSON values for specific usage. The [jansson Reference](https://jansson.readthedocs.io/en/2.10/apiref.html) details how to do so.
 
-Just as when you were using [Curl](04_4__Interlude_Using_Curl.md), you'll find that RPC returns a JSON object containing an `id`, an `error`, and most importantly a JSON object of the `result`. 
+Just as when you were using [Curl](04_4__Interlude_Using_Curl.md), you'll find that RPC returns a JSON object containing an `id`, an `error`, and most importantly a JSON object of the `result`.
 
 The `json_object_get` function will let you retrieve a value (such as the `result`) from a JSON object by key:
 ```
@@ -218,7 +218,7 @@ printf("Block Count: %d\n",blocks);
 Retrieve the test code from [the src directory](src/16_1_getmininginfo.c).
 ```
 $ cc getmininginfo.c -lbitcoinrpc -ljansson -o getmininginfo
-$ ./getmininginfo 
+$ ./getmininginfo
 Full Response: {
   "result": {
     "blocks": 1804406,
@@ -245,11 +245,11 @@ Block Count: 1804406
 ```
 ## Make an RPC Call with Arguments
 
-But what if your RPC call _did_ have arguments? 
+But what if your RPC call _did_ have arguments?
 
 ### Create a JSON Array
 
-To send parameters to your RPC call using `libbitcoinrpc` you have to wrap them in a JSON array. Since an array is just a simple listing of values, all you have to do is encode the parameters as ordered elements in the array. 
+To send parameters to your RPC call using `libbitcoinrpc` you have to wrap them in a JSON array. Since an array is just a simple listing of values, all you have to do is encode the parameters as ordered elements in the array.
 
 Create the JSON array using the `json_array` function from `jansson`:
 ```
@@ -262,7 +262,7 @@ json_array_append_new(params,json_string(tx_rawhex));
 ```
 Note that there are two variants to the append command: `json_array_append_new`, which appends a newly created variable, and `json_array_append`, which appends an existing variable.
 
-This simple `json_array_append_new` methodology will serve for the majority of RPC commands with parameters, but some RPC commands require more complex inputs. In these cases you may need to create subsidiary JSON objects or JSON arrays, which you will then append to the parameters array as usual. The next section contains an example of doing so using `createrawtransaction`, which contains a JSON array of JSON objects for the inputs, a JSON object for the outputs, and the `locktime` parameter. 
+This simple `json_array_append_new` methodology will serve for the majority of RPC commands with parameters, but some RPC commands require more complex inputs. In these cases you may need to create subsidiary JSON objects or JSON arrays, which you will then append to the parameters array as usual. The next section contains an example of doing so using `createrawtransaction`, which contains a JSON array of JSON objects for the inputs, a JSON object for the outputs, and the `locktime` parameter.
 
 ### Assign the Parameters
 
