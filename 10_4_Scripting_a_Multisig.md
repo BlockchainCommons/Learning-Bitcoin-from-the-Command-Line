@@ -99,7 +99,7 @@ These were generally problems with any sort of complex Bitcoin script, but they 
 
 ## Create a P2SH Multisig
 
-P2SH multisigs are the modern methodology for creating multisigs on the Blockchains. They can be created very simply, using the same process seen in the previous sections.
+P2SH multisigs are the modern methodology for creating multisigs on the Blockchain. They can be created very simply, using the same process seen in the previous sections.
 
 ### Create the Lock for the P2SH Multisig
 
