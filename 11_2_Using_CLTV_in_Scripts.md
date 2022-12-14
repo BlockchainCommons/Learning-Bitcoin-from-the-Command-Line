@@ -51,7 +51,7 @@ But we'll usually abtract it like this:
 
 The above explanation is sufficient to use and understand CLTV. However, [BIP 65](https://github.com/bitcoin/bips/blob/master/bip-0065.mediawiki) lays out all the details.
 
-A locking script will only allow a transaction to respend a UTXO locked with a CLTV if `OP_CHECKLOCKTIMEVALUE` verifies all of the following:
+A locking script will only allow a transaction to respend a UTXO locked with a CLTV if `OP_CHECKLOCKTIMEVERIFY` verifies all of the following:
 
 * The `nSequence` field must be set to less than 0xffffffff, usually 0xffffffff-1 to avoid confilcts with relative timelocks.
 * CLTV must pop an operand off the stack and it must be 0 or greater.
