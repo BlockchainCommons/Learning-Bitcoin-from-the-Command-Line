@@ -123,7 +123,7 @@ Lightning es un protocolo de capa 2 que interactúa con Bitcoin para permitir a 
 
 Lightning Network también es el enfoque secundario de este tutorial. Aunque se trata principalmente de interactuar directamente con Bitcoin (y el `bitcoind`), presta algo de atención a Lightning porque es una tecnología de próxima aparición que probablemente se convierta en una alternativa popular a Bitcoin en un futuro próximo. Este libro adopta el mismo enfoque para Lightning que para Bitcoin: enseña cómo interactuar directamente con un demonio Lightning confiable desde la línea de comandos.
 
-A diferencia de Bitcoin, en realidad existen varias variantes de Lightning. Este tutorial utiliza la implementación de [c-lightning](https://github.com/ElementsProject/lightning) compatible con el estándar como su servidor Lightning de confianza.
+A diferencia de Bitcoin, en realidad existen varias variantes de Lightning. Este tutorial utiliza la implementación de [core lightning](https://github.com/ElementsProject/lightning) compatible con el estándar como su servidor Lightning de confianza.
 
 **_Qué es un protocolo de capa 2?_** Un protocolo de Bitcoin de capa 2 funciona sobre Bitcoin. En este caso, Lightning funciona sobre Bitcoin, interactuando con este a través de contratos inteligentes.
 

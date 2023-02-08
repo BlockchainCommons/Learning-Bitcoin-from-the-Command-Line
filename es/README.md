@@ -135,8 +135,8 @@ Si le gustaría hacer su propia traducción, por favor, vea [Contribuyendo](#con
 **Estado:** Finalizado.
 
 * [19.0: Entendiendo Su Configuración Lightning](19_0_Entendiendo_Su_Configuracion_Lightning.md)
-  * [19.1: Verificando Su Configuración c-lightning](19_1_Verificando_Su_Configuracion_Lightning.md)
-  * [19.2: Conociendo Su Configuración c-lightning](19_2_Conociendo_Su_Configuracion_Lightning.md)
+  * [19.1: Verificando Su Configuración core lightning](19_1_Verificando_Su_Configuracion_Lightning.md)
+  * [19.2: Conociendo Su Configuración core lightning](19_2_Conociendo_Su_Configuracion_Lightning.md)
      * [Interludio: Accediendo a un Segundo Nodo Lightning](19_2_Interludio_Accediendo_a_un_Segundo_Nodo_Lightning.md)
   * [19.3: Creando un Canal en Lightning](19_3_Creando_un_Canal_en_Lightning.md)
 * [20.0: Usando Lightning](20_0_Usando_Lightning.md)

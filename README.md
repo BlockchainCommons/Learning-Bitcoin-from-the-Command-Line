@@ -134,8 +134,8 @@ If you'd like to make your own translation, please see [Contributing](https://gi
 **Status:** Finished.
 
 * [19.0: Understanding Your Lightning Setup](19_0_Understanding_Your_Lightning_Setup.md)
-  * [19.1: Verifying Your c-lightning Setup](19_1_Verifying_Your_Lightning_Setup.md)
-  * [19.2: Knowing Your c-lightning Setup](19_2_Knowing_Your_lightning_Setup.md)
+  * [19.1: Verifying Your core lightning Setup](19_1_Verifying_Your_Lightning_Setup.md)
+  * [19.2: Knowing Your core lightning Setup](19_2_Knowing_Your_lightning_Setup.md)
      * [Interlude: Accessing a Second Lightning Node](19_2__Interlude_Accessing_a_Second_Lightning_Node.md)
   * [19.3: Creating a Lightning Channel](19_3_Setting_Up_a_Channel.md)
 * [20.0: Using Lightning](20_0_Using_Lightning.md)
