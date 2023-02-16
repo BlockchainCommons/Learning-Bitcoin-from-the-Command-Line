@@ -18,7 +18,7 @@ Manipulate one number:
 
 Also see: `OP_0NOTEQUAL` (0x92)
 
-Manipulate two number mathematically:
+Manipulate two numbers mathematically:
 
 * OP_ADD (0x93) — Add two numbers
 * OP_SUB (0x94) — Subtract two numbers

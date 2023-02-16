@@ -63,7 +63,7 @@ Here's a comparison of our two examples:
 | Type | PubKeyHash | PubKey | Signature |
 |----------------|----------|-------------|---------|
 | SegWit | 92a0db923b3a13eb576a40c4b35515aa30206cba | 03839e6035b33e37597908c83a2f992ec835b093d65790f43218cb49ffe5538903 | 3044022064f633ccfc4e937ef9e3edcaa9835ea9a98d31fbea1622c1d8a38d4e7f8f6cb602204bffef45a094de1306f99da055bd5a603a15c277a59a48f40a615aa4f7e5038001 |
-| SegWit | 06b5c6ba5330cdf738a2ce91152bfd0e71f9ec39 | 0315a0aeb37634a71ede72d903acae4c6efa77f3423dcbcd6de3e13d9fd989438b | 04402201cc39005b076cb06534cd084fcc522e7bf937c4c9654c1c9dfba68b92cbab7d1022066f273178febc7a37568e2e9f4dec980a2e9a95441abe838c7ef64c39d85849c |
+| non-SegWit | 06b5c6ba5330cdf738a2ce91152bfd0e71f9ec39 | 0315a0aeb37634a71ede72d903acae4c6efa77f3423dcbcd6de3e13d9fd989438b | 04402201cc39005b076cb06534cd084fcc522e7bf937c4c9654c1c9dfba68b92cbab7d1022066f273178febc7a37568e2e9f4dec980a2e9a95441abe838c7ef64c39d85849c |
 
 So how does this work? It depends on old code interpreting this as a valid transaction and new code knowing to check the new "witness" information
 
@@ -96,7 +96,7 @@ script                                   |                                   sta
 ```
 Bitcoin Scripts are considered successful if there's something in the Stack, and it's non-zero, so SegWit scripts automatically succeed on old nodes as long as the `scriptPubKey` is correctly created with a non-zero pub-key hash. This is called an "anyone-can-spend" transaction, because old nodes verified them as correct without any need for signatures.
 
-> :book: ***What can't old nodes steal SegWit UTXOs?*** SegWit was enabled on the Bitcoin network when 95% of miners signalled that they were ready to start using it. That means that only 5% of nodes at that point might have registered anyone-can-spend SegWit transactions as valid without going through the proper work of checking the `txinwitness`. If they incorrectly incorporated an invalid anyone-can-spend UTXO into a block, the other 95% of nodes would refuse to validate that block, and so it would quickly be orphaned rather than being added to the "main" blockchain. (Certainly, 51% of nodes could choose to stop interpreting SegWit transactions correctly, but 51% of nodes can do anything on a consensus network like a blockchain.)
+> :book: ***Why can't old nodes steal SegWit UTXOs?*** SegWit was enabled on the Bitcoin network when 95% of miners signalled that they were ready to start using it. That means that only 5% of nodes at that point might have registered anyone-can-spend SegWit transactions as valid without going through the proper work of checking the `txinwitness`. If they incorrectly incorporated an invalid anyone-can-spend UTXO into a block, the other 95% of nodes would refuse to validate that block, and so it would quickly be orphaned rather than being added to the "main" blockchain. (Certainly, 51% of nodes could choose to stop interpreting SegWit transactions correctly, but 51% of nodes can do anything on a consensus network like a blockchain.)
 
 Because old nodes always see SegWit scripts as correct, they will always verify them, even without understanding their content.
 

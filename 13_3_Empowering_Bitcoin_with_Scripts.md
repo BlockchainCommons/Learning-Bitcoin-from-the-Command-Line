@@ -4,7 +4,7 @@ Bitcoin Scripts can go far beyond the relatively simple financial instruments de
 
 ## Lock for the Lightning Network
 
-The [Lightning Network](https://rusty.ozlabs.org/?p=450) is a payment channel that allows users to take funds off-chain and engage in numerous microtransactions before finalizing the payment channel and bringing the funds back into Bitcoin. Benefits include lower fees and faster transaction speeds. It's discussed in more detail, with examples of how to use it from the command line, starting [Chapter 18](18_0_Understanding_Your_Lightning_Setup.md).
+The [Lightning Network](https://rusty.ozlabs.org/?p=450) is a payment channel that allows users to take funds off-chain and engage in numerous microtransactions before finalizing the payment channel and bringing the funds back into Bitcoin. Benefits include lower fees and faster transaction speeds. It's discussed in more detail, with examples of how to use it from the command line, starting [Chapter 19](19_0_Understanding_Your_Lightning_Setup.md).
 
 [BIP 112](https://github.com/bitcoin/bips/blob/master/bip-0112.mediawiki) contains a few examples of how these off-chain transactions could be generated, using Bitcoin locking scripts.
 
@@ -270,7 +270,7 @@ Running through the script reveals that the initial checks, above the `IF`/`ELSE
 
 #### Understand HTLCs
 
-HTLCs are quite complex, and this overview doesn't try to explain all of their intricacies. Rusty Russell's [overview](https://rusty.ozlabs.org/?p=462) explains more. and there's even more detail in his [Deployable Lightning](https://github.com/ElementsProject/lightning/blob/master/doc/deployable-lightning.pdf) paper. But don't worry if some of the intricacies still escape you, particularly the interrelations of the two scripts.
+HTLCs are quite complex, and this overview doesn't try to explain all of their intricacies. Rusty Russell's [overview](https://rusty.ozlabs.org/?p=462) explains more, and there's even more detail in his [Deployable Lightning](https://github.com/ElementsProject/lightning/blob/master/doc/deployable-lightning.pdf) paper. But don't worry if some of the intricacies still escape you, particularly the interrelations of the two scripts.
 
 For the purposes of this tutorial, there are two important lessons for HTLCs:
 
@@ -291,6 +291,6 @@ Move on to "Using Tor" with [Chapter Fourteen: Using Tor](14_0_Using_Tor.md).
 
 Or, if you prefer, there are two alternate paths:
 
-If you want to stay focused on Bitcoin, move on to "Programming with RPC" with [Chapter Fifteen: Talking to Bitcoind with C](15_0_Talking_to_Bitcoind.md).
+If you want to stay focused on Bitcoin, move on to "Programming with RPC" with [Chapter Sixteen: Talking to Bitcoind with C](16_0_Talking_to_Bitcoind.md).
 
-Or, if you want to stay focused on the command-line because you're not a programmer, you can skip to [Chapter Eighteen: Understanding Your Lightning Seutp](https://github.com/BlockchainCommons/Learning-Bitcoin-from-the-Command-Line/blob/master/18_0_Understanding_Your_Lightning_Setup.md) to continue your command-line education with the Lightning Network.
+Or, if you want to stay focused on the command-line because you're not a programmer, you can skip to [Chapter Nineteen: Understanding Your Lightning Setup](19_0_Understanding_Your_Lightning_Setup.md) to continue your command-line education with the Lightning Network.

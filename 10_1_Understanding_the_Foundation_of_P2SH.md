@@ -8,8 +8,8 @@ Here's the gotcha for using Bitcoin Scripts: for security reasons, most Bitcoin 
 
 * __Pay to Public Key (P2PK)__ — An older, deprecated transaction (`<pubKey> OP_CHECKSIG`) that has been replaced by the better security of P2PKH.
 * __Pay to Public Key Hash (P2PKH)__ — A standard transaction (`OP_DUP OP_HASH160 <pubKeyHash> OP_EQUALVERIFY OP_CHECKSIG`) that pays to the hash of a public key.
-* __Pay to Witness Public Key hash (P2WPKH)__ — The newest sort of public-key transaction. It's just (`OP_0 <pubKeyHash`) because it depends on miner consensus to work, as described in [§9.5](09_5_Scripting_a_P2WPKH.md).
-* __Multisig__ — A transaction for a group of keys, as explained more fully in [§8.4](08_4_Scripting_a_Multisig.md).
+* __Pay to Witness Public Key hash (P2WPKH)__ — The newest sort of public-key transaction. It's just (`OP_0 <pubKeyHash>`) because it depends on miner consensus to work, as described in [§9.5](09_5_Scripting_a_P2WPKH.md).
+* __Multisig__ — A transaction for a group of keys, as explained more fully in [§10.4](10_4_Scripting_a_Multisig.md).
 * __Null Data__ — An unspendable transaction (`OP_RETURN Data`).
 * __Pay to Script Hash (P2SH)__ — A transaction that pays out to a specific script, as explained more fully here.
 
@@ -19,7 +19,7 @@ So how do you write a more complex Bitcoin Script? The answer is in that last so
 
 ## Understand the P2SH Script
 
-You already saw a P2SH transaction when you created a multisig in [§6.1: Sending a Transaction to a Multisig](06_1_Sending_a_Transaction_to_a_Multisig.md). Though multisig is one of the standard transaction types, `bitcoin-cli` simplifies the usage of its multisigs by embedding them into P2SH transactions, as described more fully in [§8.4: Scripting a Multisig](08_4_Scripting_a_Multisig.md).
+You already saw a P2SH transaction when you created a multisig in [§6.1: Sending a Transaction to a Multisig](06_1_Sending_a_Transaction_to_a_Multisig.md). Though multisig is one of the standard transaction types, `bitcoin-cli` simplifies the usage of its multisigs by embedding them into P2SH transactions, as described more fully in [§10.4: Scripting a Multisig](10_4_Scripting_a_Multisig.md).
 
 So, let's look one more time at the `scriptPubKey` of that P2SH multisig:
 ```

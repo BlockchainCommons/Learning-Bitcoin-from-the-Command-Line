@@ -4,15 +4,21 @@ Creating a raw transaction revealed how more complex bitcoin-cli results can't e
 
 ## Install JQ
 
-JQ is available from a [Github repository](https://stedolan.github.io/jq/). Just download for Linux, OS X, or Windows, as appropriate.
+For modern versions of Debian, you should be able to install JQ using `apt-get`:
+```
+# apt-get install jq
+```
+> :book: ***What is JQ?*** The repository explains it best, saying "jq is like sed for JSON data - you can use it to slice and filter and map and transform structured data with the same ease that sed, awk, grep and friends let you play with text."
+
+If that works, you're done!
+
+Otherwise, you can download JQ from a [Github repository](https://stedolan.github.io/jq/). Just download a binary for Linux, OS X, or Windows, as appropriate.
 
 Once you've downloaded the binary, you can install it on your system. If you're working on a Debian VPS as we suggest, your installation will look like this:
 ```
 $ mv jq-linux64 jq
 $ sudo /usr/bin/install -m 0755 -o root -g root -t /usr/local/bin jq
 ```
-> :book: ***What is JQ?*** The repository explains it best, saying "jq is like sed for JSON data - you can use it to slice and filter and map and transform structured data with the same ease that sed, awk, grep and friends let you play with text."
-
 ## Use JQ to Access a JSON Object Value by Key
 
 **Usage Example:** _Capture the hex from a signed raw transaction._
@@ -51,7 +57,7 @@ $ bitcoin-cli sendrawtransaction $signedtx
 
 Grabbing data out of a JSON object is easy, but what if that JSON object is in a JSON array? The `listunspent` command offers a great example, because it'll usually contain a number of different transactions. What if you want to capture specific information from _one_ of them?
 
-When working with a JSON array, the first thing you need to do is tell JQ which index to access. For example, you might have looked through your transactions in `listunspent` and decided that you wanted to work with the second of them. You use `'.[1]'` to access that first element. The `[]` says that we're referencing a JSON array and the `0` says we want the 0th index.
+When working with a JSON array, the first thing you need to do is tell JQ which index to access. For example, you might have looked through your transactions in `listunspent` and decided that you wanted to work with the second of them. You use `'.[1]'` to access that second element. The `[]` says that we're referencing a JSON array and the `1` says we want the 1st index.
 ```
 $ bitcoin-cli listunspent | jq -r '.[1]'
 {
@@ -68,7 +74,7 @@ $ bitcoin-cli listunspent | jq -r '.[1]'
   "safe": true
 }
 ```
-You can then capture an individual value from that selected array by (1) using a pipe _within_ the JQ arguments; and then (2) requesting the specific value afterward, as in the previous example. The following would capture the `txid` from the 0th JSON object in the JSON array produced by `listunspent`:
+You can then capture an individual value from that selected array by (1) using a pipe _within_ the JQ arguments; and then (2) requesting the specific value afterward, as in the previous example. The following would capture the `txid` from the 1st JSON object in the JSON array produced by `listunspent`:
 ```
 $ bitcoin-cli listunspent | jq -r '.[1] | .txid'
 91261eafae15ea53dedbea7c1db748c52bbc04a85859ffd0d839bda1421fda4c

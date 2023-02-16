@@ -4,11 +4,11 @@ Before we close out this overview of P2SH transactions, we're going to touch upo
 
 ## Use the Redeem Script
 
-As we saw in [§6.2: Spending a Transaction to a Multisig](06_2_Spending_a_Transaction_to_a_Multisig.md), spending a P2SH transaction is all about having that serialized version of the locking script, the so-called _redeemScript_. So, the first step in being able to spend a P2SH transaction is making sure that you save the _redeemScript_ before you give out the P2SH address to everyone. 
+As we saw in [§6.2: Spending a Transaction with a Multisig](06_2_Spending_a_Transaction_to_a_Multisig.md), spending a P2SH transaction is all about having that serialized version of the locking script, the so-called _redeemScript_. So, the first step in being able to spend a P2SH transaction is making sure that you save the _redeemScript_ before you give out the P2SH address to everyone. 
 
 ### Collect Your Variables
 
-Because P2SH addresses other than the special multisig and nested Segwit addresses aren't integrated into `bitcoin-cli` there will be no short-cuts for P2SH spending like you saw in [§6.3: Sending an Automated Multisig](6_3_Sending_an_Automated_Multisig.md). You're going to need to collect all the more complex variables on your own!
+Because P2SH addresses other than the special multisig and nested Segwit addresses aren't integrated into `bitcoin-cli` there will be no short-cuts for P2SH spending like you saw in [§6.3: Sending an Automated Multisig](06_3_Sending_an_Automated_Multisig.md). You're going to need to collect all the more complex variables on your own!
 
 This means that you need to collect:
 
@@ -33,7 +33,7 @@ $ bitcoin-cli -named signrawtransactionwithkey hexstring=$rawtxhex prevtxs='''[ 
 ```
 With any other sort of P2SH you're going to be including a different `redeemscript`, but otherwise the practice is exactly the same. The only difference is that after two chapters of work on Scripts you now understand what the `scriptPubKey` is and what the `redeemScript` is, so hopefully what were mysterious elements four chapters ago are now old hat.
 
-## Summary: Spending a Transaction with a Bitcoin Script
+## Summary: Spending a P2SH Transaction
 
 You already spent a P2SH back in Chapter 6, when you resent a multsig transaction the hard way, which required lining up the `scriptPubKey` and `redeemScript` information. Now you know that the `scriptPubKey` is a standardized P2SH locking script, while the `redeemScript` matches a hash in that locking script and that you need to be able to run it with the proper variables to receive a `True` result. But other than knowing more, there's nothing new in spending a P2SH transaction, because you already did it!
 

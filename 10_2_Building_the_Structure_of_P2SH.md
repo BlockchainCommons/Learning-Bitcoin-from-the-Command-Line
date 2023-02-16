@@ -6,7 +6,7 @@ In the previous section we overviewed the theory of how to create P2SH transacti
 
 Any P2SH transaction starts with a locking script. This is the subject of chapters 9 and 11-12. You can use any of the Bitcoin Script methods described therein to create any sort of locking script, as long as the resulting serialized `redeemScript` is 520 bytes or less. 
 
-> :book: ***Why are P2SH scripts limited to 520 bytes?*** As with many things in Bitcoin, the answer is backward compatibility: new functionality has to constantly be built within the old constraints of the system. Is this case, 520 bytes is the maximum that can be pushed onto the stack at once. Since the whole redeemScript is pushed onto the stack as part of the redemption process, it hits that limit.
+> :book: ***Why are P2SH scripts limited to 520 bytes?*** As with many things in Bitcoin, the answer is backward compatibility: new functionality has to constantly be built within the old constraints of the system. In this case, 520 bytes is the maximum that can be pushed onto the stack at once. Since the whole redeemScript is pushed onto the stack as part of the redemption process, it hits that limit.
 
 ## Serialize a Locking Script the Hard Way
 
@@ -67,7 +67,7 @@ To complete your serialization, you translate the hexcode into binary. On the co
 
 ## Run The Integer Conversion Script
 
-A complete script for changing an integer between -2147483647 and 2147483647 to a little-endian signed-magnitude representation in hex can be found in th e[src code directory](src/10_2_integer2lehex.sh). You can download it as `integeer2lehex.sh`.
+A complete script for changing an integer between -2147483647 and 2147483647 to a little-endian signed-magnitude representation in hex can be found in the [src code directory](src/10_2_integer2lehex.sh). You can download it as `integer2lehex.sh`.
 
 > :warning: **WARNING:** This script has not been robustly checked. If you are going to use it to create real locking scripts you should make sure to double-check and test your results.
 
@@ -171,7 +171,7 @@ Depending on your API, you might be able to enter this as an `asm`-style `script
 
 Note that the `hex scriptPubKey` for P2SH Script transaction will _always_ start with an `a914`, which is the `OP_HASH160` followed by an `OP_PUSHDATA` of 20 bytes (hex: `0x14`); and it will _always_ end with a `87`, which is an `OP_EQUAL`. So all you have to do is put your hashed redeem script in between those numbers.
 
-## Summary: Understanding the Foundation of P2SH
+## Summary: Building the Structure of P2SH
 
 Actually creating the P2SH locking script dives further into the guts of Bitcoin than you've ever gone before. Though it's helpful to know how all of this works at a very low level, it's most likely that you'll have an API taking care of all of the heavy-lifting for you. Your task will simply be to create the Bitcoin Script to do the locking ... which is the main topic of chapters 9 and 11-12.
 

@@ -1,0 +1,97 @@
+# Contributor License Agreement
+
+Version 1.0
+
+Name: SAID RAHAL
+
+E-Mail: HOLA@SAIDRAHAL.COM
+
+Legal Jurisdiction: MADRID, SPAIN
+
+Project: https://github.com/BlockchainCommons/Learning-Bitcoin-from-the-Command-Line
+
+Date: 11/11/2021
+
+## Purpose
+
+This agreement gives Blockchain Commons, LLC the permission it needs in order to accept my contributions into its open software project and to manage the intellectual property in that project over time.
+
+## License
+
+I hereby license Blockchain Commons, LLC to:
+
+1.  do anything with my contributions that would otherwise infringe my copyright in them
+
+2.  do anything with my contributions that would otherwise infringe patents that I can or become able to license
+
+3.  sublicense these rights to others on any terms they like
+
+## Reliability
+
+I understand that Blockchain Commons will rely on this license.  I may not revoke this license.
+
+## Awareness
+
+I promise that I am familiar with legal rules, like ["work made for hire" rules](http://worksmadeforhire.com), that can give employers and clients ownership of intellectual property in work that I do.  I am also aware that legal agreements I might sign, like confidential information and invention assignment agreements, will usually give ownership of intellectual property in my work to employers, clients, and companies that I found.  If someone else owns intellectual property in my work, I need their permission to license it.
+
+## Copyright Guarantee
+
+I promise not to offer contributions to the project that contain copyrighted work that I do not have legally binding permission to contribute under these terms.  When I offer a contribution with permission, I promise to document in the contribution who owns copyright in what work, and how they gave permission to contribute it.  If I later become aware that one of my contributions may have copyrighted work of others that I did not have permission to contribute, I will notify Blockchain Commons, in confidence, immediately.
+
+## Patent Guarantee
+
+I promise not to offer contributions to the project that I know infringe patents of others that I do not have permission to contribute under these terms.
+
+## Open Source Guarantee
+
+I promise not to offer contributions that contain or depend on the work of others, unless that work is available under a license that [Blue Oak Council rates bronze or better](https://blueoakconcil.org/list), such as the MIT License, two- or three-clause BSD License, the Apache License Version 2.0, or the Blue Oak Model License 1.0.0.  When I offer a contribution containing or depending on others' work, I promise to document in the contribution who licenses that work, along with copies of their license terms.
+
+## Disclaimers
+
+***As far as the law allows, my contributions come as is, without any warranty or condition.  Other than under [Copyright Guarantee](#copyright-guarantee), [Patent Guarantee](#patent-guarantee), or [Open Source Guarantee](#open-source-guarantee), I will not be liable to anyone for any damages related to my contributions or this contributor license agreement, under any kind of legal claim.***
+
+- ---
+
+To sign this Contributor License Agreement, fill in `$name`, `$email`, and `$date` above. Then sign using GPG using the following command `gpg --armor --clearsign --output ./signed-cla/CLA.YOURGITHUBNAME.YOURGPGFINGERPRINT.asc CLA.md`, then either submit your signed Contributor License Agreement to this repo as a GPG signed Pull Request or email it to [ChristopherA@BlockchainCommons.com](mailto:ChristopherA@BlockchainCommons.com).
+
+-----BEGIN PGP MESSAGE-----
+Version: Keybase OpenPGP v2.0.76
+
+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
+HA0=
+=/+Rt
+-----END PGP MESSAGE-----

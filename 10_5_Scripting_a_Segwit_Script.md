@@ -36,66 +36,70 @@ $ bitcoin-cli listunspent
     "safe": true
   }
 ```
-More importantly, there's a `redeemScript`, which decodes to `OP_0 OP_PUSHDATA (20 bytes) 3ab2a09a1a5f2feb6c799b5ab345069a96e1a0a`. The should look familiar, because it's an `OP_0` followed by 20-byte hexcode of a public key hash. In other words, a P2SH-SegWit is just a SegWit `scriptPubKey` jammed into a script. That's all there is to it. It precisely matches how modern multisigs are a multsig jammed into a P2SH, as discussed in [§10.4: Scripting a Multisig](10_4_Scripting_a_Multisig.md).
+More importantly, there's a `redeemScript`, which decodes to `OP_0 OP_PUSHDATA (20 bytes) 3ab2a09a1a5f2feb6c799b5ab345069a96e1a0a`. This should look familiar, because it's an `OP_0` followed by 20-byte hexcode of a public key hash. In other words, a P2SH-SegWit is just a SegWit `scriptPubKey` jammed into a script. That's all there is to it. It precisely matches how modern multisigs are a multsig placed inside a P2SH, as discussed in [§10.4: Scripting a Multisig](10_4_Scripting_a_Multisig.md).
 
-The raw transaction reveals a bit more when you look at the `vout` `1`:
+Conversely, when we spend this transaction, it looks exactly like a P2SH:
 ```
-$ hex=$(bitcoin-cli gettransaction "bb4362dec15e67d366088f5493c789f22fb4a604e767dae1f6a631687e2784aa" | jq -r '.hex')
-$ bitcoin-cli decoderawtransaction $hex
+$ bitcoin-cli getrawtransaction ed752673bfd4338ccf0995983086da846ad652ae0f28280baf87f9fd44b3c45f 1
 {
-  "txid": "bb4362dec15e67d366088f5493c789f22fb4a604e767dae1f6a631687e2784aa",
-  "hash": "6866490b16a92d68179e1cf04380fd08f16ec80bf66469af8d5e78ae624ff202",
+  "txid": "ed752673bfd4338ccf0995983086da846ad652ae0f28280baf87f9fd44b3c45f",
+  "hash": "aa4b1c2bde86ea446c9a9db2f77e27421316f26a8d88869f5b195f03b1ac4f23",
   "version": 2,
-  "size": 249,
-  "vsize": 168,
-  "weight": 669,
-  "locktime": 1780788,
+  "size": 247,
+  "vsize": 166,
+  "weight": 661,
+  "locktime": 1781316,
   "vin": [
     {
-      "txid": "4779bb137ddbcaf796f905e264554b1ec28c0f3ab4538ca02eac5099bfc3fc1e",
-      "vout": 0,
+      "txid": "59178b02cfcbdee51742a4b2658df35b63b51115a53cf802bc6674fd94fa593a",
+      "vout": 1,
       "scriptSig": {
-        "asm": "0014c4ea10874ae77d957e170bd43f2ee828a8e3bc71",
-        "hex": "160014c4ea10874ae77d957e170bd43f2ee828a8e3bc71"
+        "asm": "00149ef51fb1f5adb44e20eff758d34ae64fa781fa4f",
+        "hex": "1600149ef51fb1f5adb44e20eff758d34ae64fa781fa4f"
       },
       "txinwitness": [
-        "3044022025ee4fd38e6865125f7c315406c0b3a8139d482e3be333727d38868baa656d3d02204b35d9b5812cb85894541da611d5cec14c374ae7a7b8ba14bb44495747b5715301",
-        "033cae26cb3fa063c95e2c55a94bd04ab9cf173104555efe448b1bfc3a68c8f873"
+        "3044022069a23fcfc421b44c622d93b7639a2152f941dbfd031970b8cef69e6f8e97bd46022026cb801f38a1313cf32a8685749546a5825b1c332ee4409db82f9dc85d99086401",
+        "030aec1384ae0ef264718b8efc1ef4318c513403d849ea8466ef2e4acb3c5ccce6"
       ],
       "sequence": 4294967294
     }
   ],
   "vout": [
     {
-      "value": 0.00095000,
+      "value": 8.49029534,
       "n": 0,
       "scriptPubKey": {
-        "asm": "OP_DUP OP_HASH160 41d83eaffbf80f82dee4c152de59a38ffd0b6021 OP_EQUALVERIFY OP_CHECKSIG",
-        "hex": "76a91441d83eaffbf80f82dee4c152de59a38ffd0b602188ac",
+        "asm": "OP_HASH160 b4b656f4c4b14ee0d098299d1d6eb42d2e22adcd OP_EQUAL",
+        "hex": "a914b4b656f4c4b14ee0d098299d1d6eb42d2e22adcd87",
         "reqSigs": 1,
-        "type": "pubkeyhash",
+        "type": "scripthash",
         "addresses": [
-          "mmX7GUoXq2wVcbnrnFJrGKsGR14fXiGbD9"
+          "2N9ik3zihJ91VGNF55sZFe9GiCAXh2cVKKW"
         ]
       }
     },
     {
-      "value": 0.01063793,
+      "value": 0.00095000,
       "n": 1,
       "scriptPubKey": {
-        "asm": "OP_HASH160 b780fc2e945bea71b9ee2d8d2901f00914a25fbd OP_EQUAL",
-        "hex": "a914b780fc2e945bea71b9ee2d8d2901f00914a25fbd87",
+        "asm": "OP_HASH160 ee7aceea0865a05a29a28d379cf438ac5b6cd9c6 OP_EQUAL",
+        "hex": "a914ee7aceea0865a05a29a28d379cf438ac5b6cd9c687",
         "reqSigs": 1,
         "type": "scripthash",
         "addresses": [
-          "2N9yWARt5E3TQsX2RjsauxSZaEZVhinAS4h"
+          "2NEzBvokxh4ME4ahdT18NuSSoYvvhS7EnMU"
         ]
       }
     }
-  ]
+  ],
+  "hex": "020000000001013a59fa94fd7466bc02f83ca51511b5635bf38d65b2a44217e5decbcf028b175901000000171600149ef51fb1f5adb44e20eff758d34ae64fa781fa4ffeffffff029e299b320000000017a914b4b656f4c4b14ee0d098299d1d6eb42d2e22adcd87187301000000000017a914ee7aceea0865a05a29a28d379cf438ac5b6cd9c68702473044022069a23fcfc421b44c622d93b7639a2152f941dbfd031970b8cef69e6f8e97bd46022026cb801f38a1313cf32a8685749546a5825b1c332ee4409db82f9dc85d9908640121030aec1384ae0ef264718b8efc1ef4318c513403d849ea8466ef2e4acb3c5ccce6442e1b00",
+  "blockhash": "0000000069cbe44925fab2d472870608c7e1e241a1590fd78be10c63388ed6ee",
+  "confirmations": 282952,
+  "time": 1595360859,
+  "blocktime": 1595360859
 }
 ```
-This confirms that this is just a normal P2SH, locked by `"OP_DUP OP_HASH160 41d83eaffbf80f82dee4c152de59a38ffd0b6021 OP_EQUALVERIFY OP_CHECKSIG"`. It's when the redeem script is run that the magic occurs. Just as with a P2WPKH, an old node wil see `OP_0 OP_PUSHDATA (20 bytes) 3ab2a09a1a5f2feb6c799b5ab345069a96e1a0a` and verify it automatically, while a new node will see that, know it's a P2WPKH, and so go out to the `witnesses`. See [§9.5: Scripting a P2WPKH](09_5_Scripting_a_P2WPKH.md).
+Each `vout` is of the form `OP_HASH160 <HASH> OP_EQUAL`. That's a normal P2SH per [§10.2](https://github.com/BlockchainCommons/Learning-Bitcoin-from-the-Command-Line/blob/82ca897286aac612804ae849b260750229fa3a52/10_2_Building_the_Structure_of_P2SH.md), which means that it's only when the redeem script is run that the magic occurs. Just as with a P2WPKH, an old node wil see `OP_0 OP_PUSHDATA (20 bytes) 3ab2a09a1a5f2feb6c799b5ab345069a96e1a0a` in the redeem script and verify it automatically, while a new node will see that, know it's a P2WPKH, and so go out to the `witnesses`. See [§9.5: Scripting a P2WPKH](09_5_Scripting_a_P2WPKH.md).
 
 > :book: ***What are the disadvantages of nested Segwit transactions?*** They're bigger than native Segwit transactions, so you get some of advantages of Segwit, but not all of them.
 
@@ -114,7 +118,7 @@ This works just like a P2WPKH address, the only difference being that instead of
 
 There is also one more variant, a P2WSH script embedded in a P2SH script, which works much like the P2SH-Segwit described above, but for nested P2WSH scripts. (Whew!)
 
-## Summary: Scripting a Pay to Witness Public Key Hash
+## Summary: Scripting a Segwit Script
 
 There are two sorts of P2SH scripts that relate to Segwit. 
 

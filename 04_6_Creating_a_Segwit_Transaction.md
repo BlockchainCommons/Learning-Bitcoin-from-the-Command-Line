@@ -12,7 +12,7 @@ The catch? SegWit uses different addresses, some of which are compatible with ol
 
 ## Understand a SegWit Transaction
 
-In classic transactions, signature (witness) information was stored toward the middle of the transaction, while in SegWit transactions, it's at the bottom. This goes hand-in-hand with the blocksize increases that were introduced in the SegWit upgrade. The blocksize was increased from 1M to a variable amount based on how many SegWit transactions are in a block, starting as low as 1M (no SegWit transactions) and going as high as 4M (all SegWit transactions). This variable sized was created to accomodate classic nodes, so that everything remains backward compatible. If a classic node sees a SegWit transaction, it throws out the witness information (resulting in a smaller sized block, under the old 1M limit), while if a new node sees a SegWit transaction, it keeps the witness information (resulting in a larger sized block, up to the new 4M limit).
+In classic transactions, signature (witness) information was stored toward the middle of the transaction, while in SegWit transactions, it's at the bottom. This goes hand-in-hand with the blocksize increases that were introduced in the SegWit upgrade. The blocksize was increased from 1M to a variable amount based on how many SegWit transactions are in a block, starting as low as 1M (no SegWit transactions) and going as high as 4M (all SegWit transactions). This variable size was created to accomodate classic nodes, so that everything remains backward compatible. If a classic node sees a SegWit transaction, it throws out the witness information (resulting in a smaller sized block, under the old 1M limit), while if a new node sees a SegWit transaction, it keeps the witness information (resulting in a larger sized block, up to the new 4M limit).
 
 So that's the what and how of SegWit transactions. Not that you need to know any of it to use them. Most transactions on the Bitcoin network are now SegWit. They're what you're going to natively use for more transactions and receipts of money. The details are no more relevant at this point than the details of how most of Bitcoin works.
 
@@ -120,7 +120,7 @@ $ bitcoin-cli sendtoaddress tb1qw508d6qejxtdg4y5r3zarvary0c5xw7kxpjzsx 0.005
 ```
 If you look at your transaction, you can see the use of the Bech32 address:
 ```
-$ bitcoin-cli gettransaction txid="854a833b667049ac811b4cf1cad40fa7f8dce8b0f4c1018a58b84559b6e05f42" verbose=true
+$ bitcoin-cli -named gettransaction txid="854a833b667049ac811b4cf1cad40fa7f8dce8b0f4c1018a58b84559b6e05f42" verbose=true
 {
   "amount": -0.00500000,
   "fee": -0.00036600,
@@ -279,7 +279,7 @@ The big thing to note is that function has changed. It was previously `pkh`, whi
 
 There's really no complexity to creating SegWit transactions. Internally, they're structured differently from legacy transactions, but from the command line there's no difference: you just use an address with a different prefix. The only thing to watch for is that some people may not be able to send to a Bech32 address if they're using obsolete software.
 
-> :fire: ***What the power of sending coins with SegWit?***
+> :fire: ***What's the power of sending coins with SegWit?***
 
 > _The Advantages._ SegWit transactions are smaller, and so will be cheaper to send than legacy transactions due to lower fees. Bech32 doubles down on this advantage, and also creates addresses that are harder to foul up when transcribing — and that's pretty important, given that user error is one of the most likely ways to lose your bitcoins.
 

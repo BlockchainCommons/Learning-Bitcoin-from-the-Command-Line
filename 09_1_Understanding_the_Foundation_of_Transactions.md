@@ -4,20 +4,20 @@ The foundation of Bitcoin is the ability to protect transactions, something that
 
 ## Know the Parts of the Cryptographic Puzzle
 
-As described in [Chapter 1](01_0_Introducing_Bitcoin.md), the funds in each Bitcoin transaction are locked with a cryptographic puzzle. To be precise, we said that Bitcoin is made up of "a sequence of atomic transactions". We noted that: "Each transaction is authenticated by a sender with the solution to a previous cryptographic puzzle that was stored as a script. The new transaction is locked for the recipient with a new cryptographic puzzle that is also stored as a script." Those scripts, which lock and unlock transactions, are written in Bitcoin Script.
+As described in [Chapter 1](01_0_Introduction.md), the funds in each Bitcoin transaction are locked with a cryptographic puzzle. To be precise, we said that Bitcoin is made up of "a sequence of atomic transactions". We noted that: "Each transaction is authenticated by a sender with the solution to a previous cryptographic puzzle that was stored as a script. The new transaction is locked for the recipient with a new cryptographic puzzle that is also stored as a script." Those scripts, which lock and unlock transactions, are written in Bitcoin Script.
 
 > :book: ***What is Bitcoin Script?*** Bitcoin Script is a stack-based Forth-like language that purposefully avoids loops and so is not Turing-complete. It's made up of individual opcodes. Every single transaction in Bitcoin is locked with a Bitcoin Script; when the locking transaction for a UTXO is run with the correct inputs, that UTXO can then be spent.
 
 The fact that transactions are locked with scripts means that they can be locked in a variety of different ways, requiring a variety of different keys. In fact, we've met a number of different locking mechanisms to date, each of which used different opcodes:
 
-   * OP_CHECKSIG, which checks a public key against a signature, is the basis of the classic P2PKH address, as will be fully detailed in [§9.3: Scripting a P2PKH](09_3_Scripting_a_P2PKH.md).
+   * OP_CHECKSIG, which checks a public key against a signature, is the basis of the classic P2PKH address, as will be fully detailed in [§9.3: Scripting a P2PKH](09_4_Scripting_a_P2PKH.md).
    * OP_CHECKMULTISIG similarly checks multisigs, as will be fully detailed in [§10.4: Scripting a Multisig](10_4_Scripting_a_Multisig.md).
-   * OP_CHECKLOCKTIMEVERIFY and OP_SEQUENCEVERIFY form the basis of more complex Timelocks, as will be fully detailed in [§11.2: Using CLTV in Scripts](11_2_Using_CLTV_in_Scripts) and [§11.3: Using CSV in Scripts](11_3_Using_CSV_in_Scripts.md).
+   * OP_CHECKLOCKTIMEVERIFY and OP_SEQUENCEVERIFY form the basis of more complex Timelocks, as will be fully detailed in [§11.2: Using CLTV in Scripts](11_2_Using_CLTV_in_Scripts.md) and [§11.3: Using CSV in Scripts](11_3_Using_CSV_in_Scripts.md).
    * OP_RETURN is the mark of an unspendable transaction, which is why it's used to carry data, as was alluded to in [§8.2: Sending a Transaction with Data](08_2_Sending_a_Transaction_with_Data.md).
 
 ## Access Scripts In Your Transactions
 
-You may not realize it, but you've already seen these locking and unlocking scripts as part of the raw transactins you've been working with. The best way to look into these scripts in more depth is thus to create a raw transaction, then examine it.
+You may not realize it, but you've already seen these locking and unlocking scripts as part of the raw transactions you've been working with. The best way to look into these scripts in more depth is thus to create a raw transaction, then examine it.
 
 ### Create a Test Transaction
 

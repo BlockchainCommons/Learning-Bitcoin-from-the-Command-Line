@@ -11,7 +11,7 @@ After [setting up your Bitcoin-Core VPS](02_0_Setting_Up_a_Bitcoin-Core_VPS.md) 
 $ bitcoind -regtest -daemon -fallbackfee=1.0 -maxtxfee=1.1
 ```
 
-The argments `-fallbackfee=1.0 -maxtxfee=1.1` will prevent the `Fee estimation failed. Fallbackfee is disabled` error. 
+The arguments `-fallbackfee=1.0 -maxtxfee=1.1` will prevent the `Fee estimation failed. Fallbackfee is disabled` error. 
 
 On regtest, usually there are not enough transactions so bitcoind cannot give a reliable estimate and, without it, the wallet will not create transactions unless it is explicitly set the fee.
 
@@ -58,7 +58,7 @@ Because a block must have 100 confirmations before that reward can be spent, you
 
 The output is the block hash of every block generated.
 
-> :book: ***What is a coinbase transaction?*** A coinbase is the inputless transaction created when a new block is mined and given to the miner. It's how new bitcoins enter the ecosystem. The value of coinbase transactions decay over time. On the mainnet, it halves every 210,000 transactions and ends entirely with the 6,929,999th block, which is currently predicted for the 22nd century. As of May 2020, the coinbase reward is 6.25 BTC.
+> :book: ***What is a coinbase transaction?*** A coinbase is the inputless transaction created when a new block is mined and given to the miner. It's how new bitcoins enter the ecosystem. The value of coinbase transactions decay over time. On the mainnet, it halves every 210,000 blocks and ends entirely with the 6,929,999th block, which is currently predicted for the 22nd century. As of May 2020, the coinbase reward is 6.25 BTC.
 
 ### Verify Your Balance
 
@@ -135,11 +135,11 @@ $ bitcoin-cli -regtest -generate 6
 
 ## Test with NodeJS
 
-When you are on regtest, you are able to simulate edge cases and attacks that might happen in the real world, such  as double spend.
+When you are on regtest, you are able to simulate edge cases and attacks that might happen in the real world, such as double spend.
 
 As discussed elsewhere in this course, using software libraries might give you more sophisticated access to some RPC commands. In this case, [bitcointest by dgarage](https://github.com/dgarage/bitcointest) for NodeJS can be used to simulate a transaction from one wallet to another; you can check [their guide](https://www.npmjs.com/package/bitcointest) for more specific attack simulations, such as double spend.
 
-See [§17.3](17_3_Accessing_Bitcoind_with_NodeJS.md) for the most up-to-date info on install NodeJS, then add `bitcointest`:
+See [§18.3](18_3_Accessing_Bitcoind_with_NodeJS.md) for the most up-to-date info on install NodeJS, then add `bitcointest`:
 ```
 $ npm install -g bitcointest
 ```

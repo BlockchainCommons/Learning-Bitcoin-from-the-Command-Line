@@ -202,7 +202,7 @@ Contribuições adicionais estão listadas abaixo:
 
 | Função                | Nomes                                    |
 | ------------------- | ---------------------------------------- |
-| ***Contribuidores:*** | [gg2001](https://github.com/gg2001) (seções Go, Node.js), [gorazdko](https://github.com/gorazdko) (seção Rust), [Javier Vargas](https://github.com/javiervargas) (seções C, Java, Lightning, Tor), [jodobear](https://github.com/jodobear) (Apêndice: Compilando Bitcoin, seção Python)                                   |
+| ***Contribuidores:*** | [gg2001](https://github.com/gg2001) (seções Go, Node.js), [gorazdko](https://github.com/gorazdko) (seção Rust), [Javier Vargas](https://github.com/javiervargas) (seções C, Java, Lightning, Tor), [jodobear](https://github.com/jodobear) (Apêndice: Compilando Bitcoin, seção Python), [Prayank](    https://github.com/prayank23) (seções i2p)                            |
 | ***Revisores:***    | Glen Willem [@gwillem](https://github.com/gwillem) |
 | ***Patrocinadores:***     | Blockstream Corporation                  |
 

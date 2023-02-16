@@ -59,6 +59,8 @@ addnode=address.onion
 addnode=address.onion
 addnode=address.onion
 ```
+See [Bitcoin Onion Nodes](https://github.com/emmanuelrosa/bitcoin-onion-nodes) for a listing and an example of how to add them.
+
 Afterward, restart `tor` and `bitcoind`.
 
 You should now be communicating exlusively on Tor. But, unless you are in a hostile state, this level of anonymity is probably not required. It also is not particularly recommended: you might greatly decrease your number of potential peers, inviting problems of censorship or even correlation. You may also see lag. And, this setup may give you a false sense of anonymity that really doesn't exist on the Bitcoin network.

@@ -584,9 +584,11 @@ The methodology for managing it with PSBTs is exactly the same as you've seen in
 ```
 $ psbt=$(bitcoin-cli -named createpsbt inputs='''[ { "txid": "'$utxo_txid_1'", "vout": '$utxo_vout_1' }, { "txid": "'$utxo_txid_2'", "vout": '$utxo_vout_2' }, { "txid": "'$utxo_txid_3'", "vout": '$utxo_vout_3' } ]''' outputs='''{ "'$split1'": 1.7,"'$split2'": 0.93,"'$split3'": 1.4 }''')
 ```
-Each user puts in their own UTXO, and each one receives a corresponding output.
+Each user puts in their own UTXO, and each one receives a corresponding output. 
 
 The best way to manage a CoinJoin is to send out the base PSBT to all the parties (who could be numerous), and then have them each sign the PSBT and send back to a single party who will combine, finalize, and send.
+
+> :book: ***What is CoinJoin?*** CoinJoin is a methodology whereby a group of people can mix together their cryptocurrency, helping to reduce fungibility for all the coins. Each person puts in and takes out the same amount of coins (minus transaction fees) in a multi-person transaction that is simultaneously conducted by a _large_ number of people.  It's designed to be "trustless" so that the parties don't need to know or trust each other. A CoinJoin ultimately increases anonymity by making the coins hard to trace. The Wasabi Wallet and a number of "mixer" services support CoinJoin at the large-scale necessary for improved anonymity.
 
 ## Summary: Using a Partially Signed Bitcoin Transaction
 
@@ -598,4 +600,4 @@ That last point, on creating a transaction on one machine and signing on another
 
 ## What's Next?
 
-Continue "Expanding Bitcoin Transactions with PSBTs" with [§7.3: Inegrating with Hardware Wallets](07_3_Integrating_with_Hardware_Wallets.md).
+Continue "Expanding Bitcoin Transactions with PSBTs" with [§7.3: Integrating with Hardware Wallets](07_3_Integrating_with_Hardware_Wallets.md).

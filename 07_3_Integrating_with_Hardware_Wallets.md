@@ -2,7 +2,7 @@
 
 > :information_source: **NOTE:** This section has been recently added to the course and is an early draft that may still be awaiting review. Caveat reader.
 
-One of the greatest powers of PSBTs is the ability to hand transactions off to hardware wallets. This will be a great development tool for you if you continue to program with Bitcoin. However, you can't test it out now if you're using one of the configurations we suggest for this course — a VM on Linode per [§2.1](https://github.com/BlockchainCommons/Learning-Bitcoin-from-the-Command-Line/blob/master/02_1_Setting_Up_a_Bitcoin-Core_VPS_with_StackScript.md) or an even more farflung option such an AWS per [§2.2](https://github.com/BlockchainCommons/Learning-Bitcoin-from-the-Command-Line/blob/master/02_2_Setting_Up_Bitcoin_Core_Other.md) — because obviously you won't have any way to hook a hardware wallet up to your remote, virtual machine.
+One of the greatest powers of PSBTs is the ability to hand transactions off to hardware wallets. This will be a great development tool for you if you continue to program with Bitcoin. However, you can't test it out now if you're using one of the configurations we suggest for this course — a VM on Linode per [§2.1](https://github.com/BlockchainCommons/Learning-Bitcoin-from-the-Command-Line/blob/master/02_1_Setting_Up_a_Bitcoin-Core_VPS_with_StackScript.md) or an even more farflung option such as AWS per [§2.2](https://github.com/BlockchainCommons/Learning-Bitcoin-from-the-Command-Line/blob/master/02_2_Setting_Up_Bitcoin_Core_Other.md) — because obviously you won't have any way to hook a hardware wallet up to your remote, virtual machine.
 
 > :book: ***What is a Hardware Wallet?*** A hardware wallet is an electronic device that improves the security of a cryptocurrency by maintaining all the private keys on the device, rather than ever putting them on a computer directly connected to the internet. Hardware wallets have specific protocols for providing online interactions, usually managed by a program talking to the device through a USB port. In this chapter, we'll be managing a hardware wallet with `bitcoin-cli` and the `hwy.py` program.
 
@@ -22,7 +22,7 @@ There are alternate versions of the Bitcoin Standup script that you used to crea
 
 If you have MacOS, you can install [Bitcoin Standup MacOS](https://github.com/BlockchainCommons/Bitcoin-Standup-MacOS/blob/master/README.md).
 
-If you have a local Linux machine, you can install [Bitcoin Standup Linux Scripts](https://github.com/BlockchainCommons/Bitcoin-Standup-MacOS/blob/master/README.md).
+If you have a local Linux machine, you can install [Bitcoin Standup Linux Scripts](https://github.com/BlockchainCommons/Bitcoin-Standup-Scripts/blob/master/README.md).
 
 Once you've gotten Bitcoin Standup running on your local machine, you'll want to sync the "Testnet" blockchain, assuming that you're continuing to follow the standard methodlogy of this course.
 
@@ -91,7 +91,7 @@ HWI$ python3 setup.py install
 
 You'll want to create an alias here too, varied by your actual install location:
 ```
-$ alias hwi="~/Standup/HWI/hwi.py --testnet"
+$ alias hwi="~/Standup/HWI/hwi.py --chain test"
 ```
 Again, we've included a reference to testnet in this alias.
 
@@ -104,7 +104,7 @@ If you are working with Bitcoins on your Ledger, you probably won't need to do a
 To work with Testnet coins, as suggested by this course, you'll need to make a few updates:
 
 1. Go to Settings on your Ledger Live app (it's the gear), go to the "Experimental Features" tab, and turn on "Developer Mode".
-2. Go to the "Manager" and install "Bitcoin Test". The current version requires that you have "Bitcoin" and "Etereum" installed first.
+2. Go to the "Manager" and install "Bitcoin Test". The current version requires that you have "Bitcoin" installed first.
 3. Go to the "Manager", scroll to your new "Bitcoin Test", and "Add Account"
 
 ## Link to a Ledger
@@ -130,7 +130,7 @@ You can watch for funds by importing addresses from your hardware wallet to your
 
 To use your hardware wallet with `bitcoin-cli`, you'll want to create a specific named wallet in Bitcoin Core, using the `createwallet` RPC, which is a command we haven't previously discussed.
 ```
-$ bitcoin-cli --named createwallet wallet_name="ledger" disable_private_keys="true"
+$ bitcoin-cli --named createwallet wallet_name="ledger" disable_private_keys="true" descriptors="false"
 {
   "name": "ledger",
   "warning": ""
@@ -154,10 +154,10 @@ Because you've created a second wallet, some commands will now require a `-rpcwa
 
 You now have to import a watch-list of addresses from the hardware wallet. This is done with HWI's `getkeypool` command:
 ```
-$ hwi -f 9a1d520b getkeypool --wpkh 0 1000
+$ hwi -f 9a1d520b getkeypool 0 1000
 [{"desc": "wpkh([9a1d520b/84h/1h/0h]tpubDD7KTtoGzK9GuWUQcr1uTJazsAkqoXhdrwGXWVix6nPpNZmSbagZWD4QSaMsyK8YohAirGDPrWdRiEpKzTFB7DrTrqfzHCn7yi5EsqeR93S/0/*)#qttxy592", "range": [0, 1000], "timestamp": "now", "internal": false, "keypool": true, "active": true, "watchonly": true}, {"desc": "wpkh([9a1d520b/84h/1h/0h]tpubDD7KTtoGzK9GuWUQcr1uTJazsAkqoXhdrwGXWVix6nPpNZmSbagZWD4QSaMsyK8YohAirGDPrWdRiEpKzTFB7DrTrqfzHCn7yi5EsqeR93S/1/*)#3lw8ep4j", "range": [0, 1000], "timestamp": "now", "internal": true, "keypool": true, "active": true, "watchonly": true}]
 ```
-We address HWI with the `fingerprint` and ask for the first 1000 WPKH (native Segwit) addresses. In return, we receive two descriptors for the key pool: one for receiving addresses and one for change addresses.
+We address HWI with the `fingerprint` and ask for the first 1000 addresses. The WPKH (native Segwit) address type is used as a default. In return, we receive two descriptors for the key pool: one for receiving addresses and one for change addresses.
 
 > :book: ***What is a key pool?*** A key pool is a group of pregenerated keys. Modern HD wallets create key pools by continuing to determine new hierarchical addresses based on the original seed. The idea of key pools was originally implemented to ease the backup requirements of wallets. This allowed a user to generate a keypool and then backup the wallet immediately, rather than requiring backups after every new address was created. The concept has also proven very useful in the modern day since it allows the importing of a whole set of future addresses from one device to another.
 

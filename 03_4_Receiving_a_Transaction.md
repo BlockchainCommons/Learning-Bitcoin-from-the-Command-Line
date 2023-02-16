@@ -14,7 +14,7 @@ To use a faucet, you'll usually need to go to a URL and copy and paste in your a
 
 ## Verify Your Money
 
-After you've requested your money, you should be able to verify it with the 'bitcoin-cli getbalance' command:
+After you've requested your money, you should be able to verify it with the `bitcoin-cli getbalance` command:
 ```
 $ bitcoin-cli getbalance
 0.00000000
@@ -285,7 +285,7 @@ $ bitcoin-cli gettransaction "8e2ab10cabe9ec04ed438086a80b1ac72558cc05bb206e48fc
 ```
 Now you can see the full information on the transaction, including all of the inputs ("vin") and all the outputs ("vout). One of the interesting things to note is that although we received .01 BTC in the transaction, another .01010143 was sent to another address. That was probably a change address, a concept that is explored in the next section. It is quite typical for a transaction to have multiple inputs and/or multiple outputs.
 
-There is another command, `getrawtransaction`, which allows you to look at transactions that are not in your wallet. However, it requires you to have unpruned node and `txindex=1` in your `bitcoin.conf` file. Unless you have a serious need for information not in your wallet, it's probably just better to use a Bitcoin explorer for this sort of thing ...
+There is another command, `getrawtransaction`, which allows you to look at transactions that are not in your wallet. However, it requires you to have an unpruned node and `txindex=1` in your `bitcoin.conf` file. Unless you have a serious need for information not in your wallet, it's probably just better to use a Bitcoin explorer for this sort of thing ...
 
 ## Optional: Use a Block Explorer
 
