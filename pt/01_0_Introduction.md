@@ -1,8 +1,8 @@
-# Capítulo 1: Introdução à Aprendizagem do Bitcoin Core (& Lightning) pela Linha de Comando
+﻿# Capítulo 1: Introdução à Aprendizagem do Bitcoin Core (& Lightning) pela Linha de Comando
 
 ## Introdução
 
-Os modos como fazemos pagamentos por bens e serviços têm mudado drasticamente nas últimas décadas. Antigamente todas as transações eram realizadas utilizando dinheiro ou cheques, e atualmente os diversos métodos de pagamento eletrônico são à regra. Porém, a maioria dos pagamentos eletrônicos ainda ocorre utilizando sistemas centralizados, onde empresas de cartão de crédito, bancos ou até instituições financeiras baseadas apenas na Internet, como o PayPal, mantêm listas de transações longas e correlacionadas individualmente, tendo o poder de censurar as transações que não gostarem.
+As formas como fazemos pagamentos por bens e serviços têm mudado drasticamente nas últimas décadas. Onde antes todas as transações eram realizadas através de dinheiro ou cheques, agora vários métodos de pagamento eletrônico são a norma. No entanto, a maioria desses pagamentos eletrônicos ainda ocorre por meio de sistemas centralizados, onde empresas de cartão de crédito, bancos ou até mesmo instituições financeiras baseadas na Internet, como PayPal mantêm listas longas e individualmente correlacionadas de transações e têm o poder de censurar transações que não gostam.
 
 Esses riscos de centralização foram alguns dos catalisadores primordiais para a criação de criptomoedas, sendo a primeira e mais bem sucedida, o Bitcoin. O Bitcoin oferece pseudonímia; torna difícil correlacionar as transações; e torna a censura por entidades individuais, algo próximo do impossível. Essas vantagens fizeram dele uma das moedas mais rápidas do mundo. Esse crescimento, por sua vez, despertou o interesse dos empresários e desenvolvedores, ansiosos para criar novos serviços para a comunidade do Bitcoin.
 
