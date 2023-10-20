@@ -110,7 +110,7 @@ Las cadenas de bloques probablemente no serán útiles si:
 * Se requiere secreto:
   * por ejemplo: la información debe ser secreta.
   * por ejemplo: las transacciones deben ser secretas.
-  * por ejemplo: los Transactores deben ser secretos.
+  * por ejemplo: los participantes en la transacción deben ser secretos.
   * A menos que: Se considere, analice y pruebe cuidadosamente una metodología para el secreto criptográfico.
  * Los usuarios necesitan la finalidad instantánea de la transacción.
   * por ejemplo: en menos de 10 minutos en una red similar a Bitcoin, en menos de 2.5 minutos en una red similar a Litecoin, en menos de 15 segundos en una red similar a Ethereum
