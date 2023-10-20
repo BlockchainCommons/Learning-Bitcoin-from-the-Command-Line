@@ -56,7 +56,7 @@ Obviamente está trabajando en este curso porque está interesado en Bitcoin. Ad
 * Utilice el [área de discusión](https://github.com/BlockchainCommons/Community/discussions) de nuestra comunidad para hablar sobre carreras y habilidades. Blockchain Commons ocasionalmente ofrece pasantías, como se explica en nuestro repositorio de la comunidad.
 * Conviértase en un [patrocinador](https://github.com/sponsors/BlockchainCommons) si encuentra útil este curso o si desea ayudar a educar a la próxima generación de programadores de blockchain.
 
-# ¿Que Sigue?
+# ¿Qué Sigue?
 
 Si desea una introducción básica a Bitcoin, criptografía de clave pública, ECC, blockchains y Lightning, lea el interludio [Introduciendo Bitcoin.](01_1_Introduciendo_Bitcoin.md)
 
