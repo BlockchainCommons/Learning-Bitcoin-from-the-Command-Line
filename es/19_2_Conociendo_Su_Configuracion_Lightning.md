@@ -1,12 +1,12 @@
-# 19.2: Conocer la configuración de su nodo c-lightning
+# 19.2: Conocer la configuración de su nodo core lightning
 
 > :information_source: **NOTA:** Esta sección se ha agregado recientemente al curso y es un borrador inicial que aún puede estar pendiente de revisión. Lector de advertencias.
 
 Antes de comenzar a acceder a Lightning Network, debe comprender mejor su configuración.
 
-## Conozca su directorio de c-lightning
+## Conozca su directorio de core lightning
 
-Cuando se usa c-lightning, todo se guarda en el directorio `~/.lightning`.
+Cuando se usa core lightning, todo se guarda en el directorio `~/.lightning`.
 
 El directorio principal solo contiene directorios para las redes que estén configuradas, en este caso testnet:
 ```

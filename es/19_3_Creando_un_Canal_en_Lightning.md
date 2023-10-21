@@ -2,29 +2,29 @@
 
 > :information_source: **NOTA:** Esta sección se agregó recientemente al curso y es un borrador inicial que aún puede estar pendiente de revisión. Lector de advertencias.
 
-Ahora comprende los conceptos básicos de su configuración Lightning y, con suerte, ha creado o recibido información sobre un segundo nodo Lightning. Está listo para crear su primer canal Lightning Network. Por supuesto, deberá comprender qué es y cómo se crea utilizando c-lightning.
+Ahora comprende los conceptos básicos de su configuración Lightning y, con suerte, ha creado o recibido información sobre un segundo nodo Lightning. Está listo para crear su primer canal Lightning Network. Por supuesto, deberá comprender qué es y cómo se crea utilizando core lightning.
 
 > :book: ***¿Qué es un canal de lightning?*** Simplemente, un canal de iluminación es un tubo de dinero que permite transferencias de dinero rápidas, baratas y privadas sin enviar transacciones a la cadena de bloques. Más técnicamente, un canal es una transacción de Bitcoin en cadena con firmas múltiples 2 de 2 que establece una relación financiera sin confianza entre dos personas o dos agentes. Se deposita una cierta cantidad de dinero en el canal, cuando luego se mantiene una base de datos local con saldo de bitcoins para ambas partes, haciendo un seguimiento de cuánto dinero tiene cada uno de la cantidad inicial. Los dos usuarios pueden intercambiar bitcoins a través de su canal Lightning sin tener que escribir en la cadena de bloques de Bitcoin. Solo cuando quieren cerrar su canal, liquidan sus bitcoins en la cadena de bloques, en función de la división final de monedas.
 
 > :book: ***¿Cómo crean los canales Lightning una red Lightning?*** Aunque un canal Lightning solo permite el pago entre dos usuarios, los canales se pueden conectar entre sí para formar una red que permite pagos entre miembros que no tienen canal directo entre ellos. Esto crea una red entre varias personas construida a partir de conexiones por pares.
 
-En esta sección, continuaremos usando nuestra configuración de c-lightning como nuestro nodo principal.
+En esta sección, continuaremos usando nuestra configuración de core lightning como nuestro nodo principal.
 
 ## Crear un canal
 
 La creación de un canal Lightning requiere los siguientes pasos:
 
-* Financie su billetera c-lightning con algunos satoshis.
+* Financie su billetera core lightning con algunos satoshis.
 * Conéctese a un nodo remoto como un par.
 * Abre un canal.
 
-### Financiar su billetera c-lightning
+### Financiar su billetera core lightning
 
-Para mover fondos a un canal Lightning, primero se requiere financiar su billetera c-lightning.
+Para mover fondos a un canal Lightning, primero se requiere financiar su billetera core lightning.
 
-> :book: ***¿Qué es una billetera c-lightning?*** La implementación estándar de C-lightning viene con una billetera Bitcoin integrada que le permite enviar y recibir transacciones bitcoin en cadena. Esta billetera se utilizará para crear nuevos canales.
+> :book: ***¿Qué es una billetera core lightning?*** La implementación estándar de core lightning viene con una billetera Bitcoin integrada que le permite enviar y recibir transacciones bitcoin en cadena. Esta billetera se utilizará para crear nuevos canales.
 
-Lo primero que debe hacer es enviar algunos satoshis a su billetera c-lightning. Puede crear una nueva dirección usando el comando `lightning-cli newaddr`. Esto genera una nueva dirección que posteriormente se puede utilizar para financiar canales gestionados por el nodo c-lightning. Puede especificar el tipo de dirección deseada; si no se especifica, la dirección generada será un bech32.
+Lo primero que debe hacer es enviar algunos satoshis a su billetera core lightning. Puede crear una nueva dirección usando el comando `lightning-cli newaddr`. Esto genera una nueva dirección que posteriormente se puede utilizar para financiar canales gestionados por el nodo core lightning. Puede especificar el tipo de dirección deseada; si no se especifica, la dirección generada será un bech32.
 
 ```
 $ lightning-cli --testnet newaddr
@@ -76,15 +76,15 @@ Tenga en cuenta que el valor aparece en satoshis o microsatoshis, ¡no en Bitcoi
 
 > :book: ***¿Qué son los satoshis y msat?*** Ya conoció los satoshis en [§3.4](03_4_Recibiendo_una_Transaccion.md). Un satoshi es la cien millonésima parte de un bitcoin, por lo que 300.000 satoshi = 0,003 BTC. Un satoshi es la unidad monetaria más pequeña de la red Bitcoin. Pero, la red Lightning puede ser más pequeña, por lo que 1000 msat, o milisatoshis, equivalen a un satoshi. Eso significa que 1 msat es la cien mil millonésima parte de un bitcoin y 300.000.000 msat = 0,003 BTC.
 
-Ahora que ha financiado su billetera c-lightning, necesitará información sobre un nodo remoto para comenzar a crear el proceso de canal.
+Ahora que ha financiado su billetera core lightning, necesitará información sobre un nodo remoto para comenzar a crear el proceso de canal.
 
 ### Conectarse a un nodo remoto
 
 Lo siguiente que debe hacer es conectar su nodo a un par. Esto se hace con el comando `lightning-cli connect`. Recuerde que si desea obtener más información sobre este comando, debe escribir `lightning-cli help connect`.
 
-Para conectar su nodo a un par remoto, necesita su ID, que representa la clave pública del nodo de destino. Para su comodidad, `id` puede tener el formato `id@host` o `id@host:port`. Es posible que haya recuperado esto con `lightning-cli getinfo` (en c-lightning) o `lncli --network=testnet getinfo` (en LND) como se discutió en el [interludio anterior](19_2_Interludio_Accediendo_a_un_Segundo_Nodo_Lightning.md).
+Para conectar su nodo a un par remoto, necesita su ID, que representa la clave pública del nodo de destino. Para su comodidad, `id` puede tener el formato `id@host` o `id@host:port`. Es posible que haya recuperado esto con `lightning-cli getinfo` (en core lightning) o `lncli --network=testnet getinfo` (en LND) como se discutió en el [interludio anterior](19_2_Interludio_Accediendo_a_un_Segundo_Nodo_Lightning.md).
 
-Hemos seleccionado el nodo LND, `032a7572dc013b6382cde391d79f292ced27305aa4162ec3906279fc4334602543`, que se encuentra en la dirección IP `45.33.35.151`, a la que nos vamos a conectar desde nuestro nodo c-lightning:
+Hemos seleccionado el nodo LND, `032a7572dc013b6382cde391d79f292ced27305aa4162ec3906279fc4334602543`, que se encuentra en la dirección IP `45.33.35.151`, a la que nos vamos a conectar desde nuestro nodo core lightning:
 
 ```       
 $ lightning-cli --network=testnet connect 032a7572dc013b6382cde391d79f292ced27305aa4162ec3906279fc4334602543@45.33.35.151

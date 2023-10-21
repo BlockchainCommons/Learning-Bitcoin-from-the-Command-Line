@@ -1,12 +1,12 @@
-# 19.2: Knowing Your c-lightning Setup
+# 19.2: Knowing Your core lightning Setup
 
 > :information_source: **NOTE:** This section has been recently added to the course and is an early draft that may still be awaiting review. Caveat reader.
 
 Before you begin accessing the Lightning Network, you should come to a better understanding of your setup.
 
-## Know Your c-lightning Directory
+## Know Your core lightning Directory
 
-When using c-lightning, everything is kept in the `~/.lightning` directory.
+When using core lightning, everything is kept in the `~/.lightning` directory.
 
 The main directory just contains directories for whichever networks are configured, in this case testnet:
 ```
