@@ -19,7 +19,7 @@ In more recent years, Bitcoin Core has expanded to allow the manipulation of tim
 
 _They Are Opcodes._ Because they're opcodes, CLTV and CSV can be used as part of more complex redemption conditions. Most often they're linked with the conditionals described in the next chapter.
 
-_They Lock Outputs._ Because they're opcodes that are included in transactions as part of a `sigPubKey`, they just lock that single output. That means that the transactions are accepted onto the Bitcoin network and that the UTXOs used to fund those transactions are spent. There's no going back on a transaction timelocked with CLTV or CSV like there is with a bare `nLockTime`. Respending the resultant UTXO then requires that the timelock conditions be met.
+_They Lock Outputs._ Because they're opcodes that are included in transactions as part of a `scriptPubKey`, they just lock that single output. That means that the transactions are accepted onto the Bitcoin network and that the UTXOs used to fund those transactions are spent. There's no going back on a transaction timelocked with CLTV or CSV like there is with a bare `nLockTime`. Respending the resultant UTXO then requires that the timelock conditions be met.
 
 Here's one catch for using timelocks: _They're one-way locks._ Timelocks are designed so that they unlock funds at a certain time. They cannot then relock a fund: once a timelocked fund is available to spend, it remains available to spend.
 
