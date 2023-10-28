@@ -191,7 +191,7 @@ Aunque la imagen predeterminada de Debian 10 que estamos usando para su VPS ha s
 
 Su instalación de Bitcoin VPS es mínima y casi no permite ninguna comunicación. Esto se hace a través del sencillo firewall (`ufw`), que bloquea todo excepto las conexiones SSH. También es posible una seguridad adicional para sus puertos RPC, gracias a los servicios ocultos instalados por Tor.
 
-**Ajustando UFW.** ¡Probablemente debería dejar UFW en su etapa superprotegida! No debería utilizar una máquina Bitcoin para otros servicios, ¡porque todos aumentan su vulnerabilidad! Si decide lo contrario, hay varias [guías de UFW](https://www.digitalocean.com/community/tutorials/ufw-essentials-common-firewall-rules-and-commands) que le permitirán agregar servicios. Como se anuncia, no es complicado. Por ejemplo, agregar servicios de correo solo requeriría abrir el puerto de correo: `sudo ufw allow 25`. Pero en general no debería eso.
+**Ajustando UFW.** ¡Probablemente debería dejar UFW en su etapa superprotegida! No debería utilizar una máquina Bitcoin para otros servicios, ¡porque todos aumentan su vulnerabilidad! Si decide lo contrario, hay varias [guías de UFW](https://www.digitalocean.com/community/tutorials/ufw-essentials-common-firewall-rules-and-commands) que le permitirán agregar servicios. Como se anuncia, no es complicado. Por ejemplo, agregar servicios de correo solo requeriría abrir el puerto de correo: `sudo ufw allow 25`. Pero en general no debería hacer eso.
 
 **Ajuste de Tor.** Es posible que desee proteger mejor servicios tales como SSH. Consulte el [Capítulo 14: Usando Tor](14_0_Usando_Tor.md) para obtener más información sobre Tor.
 
@@ -216,7 +216,7 @@ Si por alguna razón quisiera cambiar esto (_no lo sugerimos_), puede hacer esto
 echo "unattended-upgrades unattended-upgrades/enable_auto_updates boolean false" | debconf-set-selections
 ```
 
-_Si desea saber más sobre lo que hace el stackscript de Bitcoin Standup, consulte el [Apéndice I: Entendiendo Bitcoin Standup] (A1_0_Entendiendo_la_Configuracion_Inicial_de_Bitcoin.md) ._
+_Si desea saber más sobre lo que hace el stackscript de Bitcoin Standup, consulte el [Apéndice I: Entendiendo Bitcoin Standup](A1_0_Entendiendo_Bitcoin_Standup.md) ._
 
 ## Jugando con Bitcoin
 
@@ -240,7 +240,7 @@ Aún así, podría ser hora de algunos expresos más. Pero muy pronto, su sistem
 La creación de un VPS de Bitcoin-Core con los scripts Standup hizo que todo el proceso fuera rápido, simple y (con suerte) sin contratiempos.
 
 
-## ¿Que sigue?
+## ¿Qué sigue?
 
 Tiene algunas opciones para lo que sigue:
 

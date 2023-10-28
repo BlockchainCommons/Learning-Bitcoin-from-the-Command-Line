@@ -20,7 +20,7 @@ El movimiento de direcciones entre carteras se solía centrar en `xpub` y` xprv`
 
 El hecho de que pueda tener una "secuencia completa de claves secundarias ..." revela el hecho de que "xpub" y "xprv" no son claves estándar como hemos estado hablando hasta ahora. En cambio, son claves jerárquicas que se pueden usar para crear familias completas de claves, basadas en la idea de HD Wallets.
 
-> :libro: ***¿Qué es una billetera HD?*** La mayoría de las billeteras modernas se basan en [BIP32: billeteras deterministas jerárquicas](https://github.com/bitcoin/bips/blob/master/bip-0032. mediawiki). Se trata de un diseño jerárquico en el que se puede utilizar una única semilla para generar una secuencia completa de claves. La billetera completa se puede restaurar a partir de esa semilla, en lugar de requerir la restauración de cada clave privada.
+> :libro: ***¿Qué es una billetera HD?*** La mayoría de las billeteras modernas se basan en [BIP32: billeteras deterministas jerárquicas](https://github.com/bitcoin/bips/blob/master/bip-0032.mediawiki). Se trata de un diseño jerárquico en el que se puede utilizar una única semilla para generar una secuencia completa de claves. La billetera completa se puede restaurar a partir de esa semilla, en lugar de requerir la restauración de cada clave privada.
 
 > :book: ***¿Qué es una ruta de derivación?*** Cuando tiene claves jerárquicas, necesita poder definir claves individuales como descendientes de una semilla. Por ejemplo, `[0]` es la clave 0, `[0/1]` es el primer hijo de la clave 0, `[1/0/1]` es el primer nieto del hijo cero de la primera clave. Algunas claves también contienen un `'` después del número, para mostrar que están endurecidas, lo que las protege de un ataque específico que se puede usar para derivar un `xprv` de un`xpub`. No necesita preocuparse por los detalles, aparte del hecho de que esos `'` s le causarán problemas de formato cuando trabaje desde la línea de comandos.
 
@@ -71,7 +71,7 @@ function([derivation-path]key)#checksum
 Esto es lo que todo eso significa:
 * **Función.** La función que se utiliza para crear una dirección a partir de esa tecla. En estos casos, es `pkh`, que es la dirección heredada P2PKH estándar que conoció en [§3.3: Configuración de su billetera](03_3_Configurando_Su_Billetera.md). De manera similar, una dirección P2WSH SegWit usaría `wsh` y una dirección P2WPKH usaría` wpkh`.
 * **Ruta de derivación.** Esto describe qué parte de una billetera HD se está exportando. En este caso, es una semilla con la huella digital `d6043800` y luego el hijo 18 del hijo 0 del hijo 0 (` 0'/ 0'/18'`) de esa semilla. También puede haber una derivación adicional después de la clave: `función ([ruta de derivación] clave / más-derivación) # suma de comprobación`
-   * Vale la pena señalar aquí que si alguna vez obtiene una ruta de derivación sin una huella digital, puede inventarla. Es solo que si hay uno existente, debe coincidir, porque si alguna vez regresa al dispositivo que creó la huella digital, deberá tener el mismo.
+   * Vale la pena señalar aquí que si alguna vez obtiene una ruta de derivación sin una huella digital, puede inventarla. Es solo que si hay una existente, debe coincidir, porque si alguna vez regresa al dispositivo que creó la huella digital, deberá tener la misma.
 * **Clave**. La clave o claves que se están transfiriendo. Esto podría ser algo tradicional como un `xpub` o` xprv`, podría ser simplemente una clave pública para una dirección, como en este caso, podría ser un conjunto de direcciones para una firma múltiple, o podría ser otra cosa. Estos son los datos centrales: la función explica qué hacer con ellos.
 * **Suma de comprobación**. Los descriptores están destinados a ser transferibles por humanos. Esta suma de comprobación asegura que lo haga bien.
 
@@ -90,7 +90,7 @@ $ bitcoin-cli getdescriptorinfo "pkh([d6043800/0'/0'/18']03efdee34c0009fd175f3b2
   "hasprivatekeys": false
 }
 ```
-Tenga en cuenta que devuelve una suma de comprobación. Si alguna vez le dan un descriptor sin una suma de verificación, puede aprenderlo con este comando:
+Tenga en cuenta que devuelve una suma de comprobación. Si alguna vez le dan un descriptor sin una suma de verificación, puede conocerlo con este comando:
 ```
 $ bitcoin-cli getdescriptorinfo "pkh([d6043800/0'/0'/18']03efdee34c0009fd175f3b20b5e5a5517fd5d16746f2e635b44617adafeaebc388)"
 {
@@ -152,6 +152,6 @@ Los descriptores le permiten pasar claves públicas y claves privadas entre bill
 
 Haremos un uso real de los descriptores en [§7.3](07_3_Integrando_con_Hardware_Wallets.md), cuando estemos importando direcciones desde una billetera de hardware.
 
-## ¿Que sigue?
+## ¿Qué sigue?
 
 Avance a través de "bitcoin-cli" con el [Capítulo cuatro: Enviando Transacciones Bitcoin](04_0_Enviando_Transacciones_Bitcoin.md).
