@@ -120,6 +120,6 @@ Puede usar un opcode OP_RETURN para almacenar hasta 80 bytes de datos en la cade
 
 Tenga en cuenta que existe cierta controversia sobre el uso de la cadena de bloques de Bitcoin de esta manera.
 
-## ¿Que sigue?
+## ¿Qué sigue?
 
 Pase a "Codificar con Bitcoin" en [Capítulo nueve: Introduciendo Bitcoin Scripts](09_0_Introduciendo_Bitcoin_Scripts.md).

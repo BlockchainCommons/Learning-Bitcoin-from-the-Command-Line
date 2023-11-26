@@ -44,7 +44,7 @@ $ [[ 0x$hexfirst -gt 0x7 ]] && hex="00"$hex
 ```
 En cuatro lugar, debe traducir el hex de big-endian (el byte menos significativo al final) a little-endian (el byte menos significativo primero). Puede hacer esto con el comando `tac`:
 ```
-$ lehex=$(echo $hex | tac -rs .. | echo "$(tr -d '\n')")
+$ lehex=$(echo $hex | tac -rs .. | tr -d '\n')
 $ echo $lehex
 9f7b2a5c
 ```
@@ -55,7 +55,7 @@ $ echo -n $lehex | wc -c | awk '{print $1/2}'
 ```
 Con todo ese procidimiento complejo, sabría que podría traducir el entero 1546288031 en un opcode `04` (para insertar cuatro bytes en la pila) seguido de `9f7b2a5c` (la representación hex little-endian de 1546288031).
 
-Si en cambio tuviera un número negativo, necesitaría (1) hacer sus cáclulos en el valor absoluto del número, luego (2) bit a bit o 0x80 para su resultado final de little-endian result. Por ejemplo, `9f7b2a5c`, que es 1546288031, se convertiría en `9f7b2adc`, que es -1546288031:
+Si en cambio tuviera un número negativo, necesitaría (1) hacer sus cálulos en el valor absoluto del número, luego (2) bit a bit o 0x80 para su resultado final de little-endian result. Por ejemplo, `9f7b2a5c`, que es 1546288031, se convertiría en `9f7b2adc`, que es -1546288031:
 ```
 $ neglehex=$(printf '%x\n' $((0x$lehex | 0x80)))
 $ echo $neglehex
@@ -175,6 +175,6 @@ Dependiendo de su API, es posible que pueda ingresar esto como un `scriptPubKey`
 
 En realidad, la creación del script de bloqueo P2SH se sumerge en las entrañas de Bitcoin más que nunca. Aunque es útil saber cómo funciona todo esto a un nivel muy bajo, lo más probable es que tenga una API que se encargue de todo el trabajo pesado por usted. Su tarea será simplemente crear el script de Bitcoin para hacer el bloqueo ... que es el tema principal de los capítulos 9 y 11-12.
 
-## ¿Que Sigue?
+## ¿Qué Sigue?
 
 Continúe "Incrustando Bitcoin Scripts" con [§10.3: Ejecución de un Bitcoin Script con P2SH](10_3_Ejecutando_un_Script_Bitcoin_con_P2SH.md).

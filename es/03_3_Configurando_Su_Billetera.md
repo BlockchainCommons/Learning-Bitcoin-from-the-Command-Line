@@ -4,7 +4,7 @@ Ahora está listo para comenzar a trabajar con Bitcoin. Para empezar, deberá cr
 
 ## Crear una billetera
 
-> :warning: **VERSION WARNING:** Las versiones más recientes de Bitcoin Core, a partir de la v0.21.0, ya no crearán automáticamente una billetera predeterminada al inicio. Por lo tanto, deberá crear uno manualmente. Pero si está ejecutando una versión anterior de Bitcoin Core, ya se ha creado una nueva billetera para usted, en cuyo caso puede pasar a [Crear una dirección] (#crear-una-dirección).
+> :warning: **VERSION WARNING:** Las versiones más recientes de Bitcoin Core, a partir de la v0.21.0, ya no crearán automáticamente una billetera predeterminada al inicio. Por lo tanto, deberá crear uno manualmente. Pero si está ejecutando una versión anterior de Bitcoin Core, ya se ha creado una nueva billetera para usted, en cuyo caso puede pasar a [Crear una dirección](#crear-una-dirección).
 
 Lo primero que debe hacer es crear una nueva billetera, lo que se puede hacer con el comando `bitcoin-cli createwallet`. Al crear una nueva billetera, creará su par de claves pública-privada. Su clave pública es la fuente a partir de la cual se crearán sus direcciones, y su clave privada es la que le permitirá gastar los fondos que reciba en sus direcciones. Bitcoin Core guardará automáticamente esa información en un archivo `wallet.dat` en su directorio `~/.bitcoin/testnet3/wallets`.
 
@@ -65,7 +65,7 @@ Sería un "2" para una dirección P2SH o un "tb1" para una dirección Bech32.
 
 Toma nota de la dirección. Deberá entregárselo a quien le envíe los fondos.
 
-> :book: ***¿Qué es una dirección Bitcoin?*** Una dirección de Bitcoin es, literalmente, donde recibe dinero. Es como una dirección de correo electrónico, pero para fondos. Técnicamente, es una clave pública, aunque diferentes esquemas de direcciones lo ajustan de diferentes maneras. Sin embargo, a diferencia de una dirección de correo electrónico, una dirección de Bitcoin debe considerarse de un solo uso: úsela para recibir fondos solo una vez . Cuando desee recibir fondos de otra persona o en otro momento, genere una nueva dirección. Esto se sugiere en gran parte para mejorar su privacidad. Toda la cadena de bloques es inmutable, lo que significa que los exploradores pueden observar largas cadenas de transacciones a lo largo del tiempo, lo que hace posible determinar estadísticamente quiénes son usted y sus contactos, sin importar cuán cuidadoso sea. Sin embargo, si sigue reutilizando la misma dirección, esto se vuelve aún más fácil.
+> :book: ***¿Qué es una dirección Bitcoin?*** Una dirección de Bitcoin es, literalmente, donde recibe dinero. Es como una dirección de correo electrónico, pero para fondos. Técnicamente, es una clave pública, aunque diferentes esquemas de direcciones lo ajustan de diferentes maneras. Sin embargo, a diferencia de una dirección de correo electrónico, una dirección de Bitcoin debe considerarse de un solo uso: úsela para recibir fondos solo una vez. Cuando desee recibir fondos de otra persona o en otro momento, genere una nueva dirección. Esto se sugiere en gran parte para mejorar su privacidad. Toda la cadena de bloques es inmutable, lo que significa que los exploradores pueden observar largas cadenas de transacciones a lo largo del tiempo, lo que hace posible determinar estadísticamente quiénes son usted y sus contactos, sin importar cuán cuidadoso sea. Sin embargo, si sigue reutilizando la misma dirección, esto se vuelve aún más fácil.
 
 Con una sola dirección en la mano, puede pasar directamente a la siguiente sección y comenzar a recibir fondos. Sin embargo, antes de llegar allí, discutiremos brevemente los otros tipos de direcciones que encontrará en el futuro y hablaremos sobre algunos otros comandos de billetera que quizás desee usar en el futuro.
 
@@ -169,6 +169,6 @@ _Ha estado escribiendo esa dirección Bitcoin que generó muchas veces, mientras
 
 Necesita crear una dirección para recibir fondos. Su dirección se almacena en una billetera, de la que puede hacer una copia de seguridad. También puede hacer mucho más con una dirección, como descargar su clave privada o usarla para firmar mensajes. Pero realmente, crear esa dirección es _todo_ lo que necesita hacer para recibir fondos de Bitcoin.
 
-## ¿Que sigue?
+## ¿Qué sigue?
 
 Aléjese de "Comprendiendo la configuración de Bitcoin" con [Interludio: Usando variables de la linea de comandos](03_3_Interludio_Usando_Variables_Linea_Comando.md)
