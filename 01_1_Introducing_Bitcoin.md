@@ -42,7 +42,7 @@ It's important to Bitcoin (and to most blockchain systems) because it's the basi
 
 **_What Is a Hash Function?_** A hash function is an algorithm frequently used with cryptography. It's a way to map a large, arbitrary amount of data to a small, fixed amount of data. Hash functions used in cryptography are one-way and collision-resistant, meaning that a hash can reliably be linked to the original data, but the original data can not be regenerated from the hash. Hashes thus allow the transmission of small amounts of data to represent large amounts of data, which can be important for efficiency and storage requirements.
 
-Bitcoin takes advantage of a hash's ability to disguise the original data, which allows concealment of a user's actual public key, making transactions resistant to quantum computing.
+Bitcoin takes advantage of a hash's ability to disguise the original data, which allows concealment of a user's actual private key, making transactions resistant to quantum computing.
 
 ### Public-Key Cryptography — In Short
 
