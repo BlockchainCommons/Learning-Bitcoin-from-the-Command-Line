@@ -42,7 +42,19 @@ Se avete diversi livelli di abilità o volete imparare cose diverse, potete pass
 * Se volete solo leggere dell'uso dei linguaggi di programmazione, saltate a [Capitolo Sedici: Parlare con Bitcoind](16_0_Parlare_con_Bitcoind.md).
 * Se invece non volete fare programmazione, saltate assolutamente i capitoli 15-17 durante la lettura e forse anche i capitoli 9-13. Il resto del corso dovrebbe avere senso anche senza di essi.
 * Se siete interessati solo a Lightning, fate un salto su [Capitolo dicianove: Comprendere La Configurazione Lightning](19_0_Comprendere_La_Configurazione_Lightning.md).
-* Se volete leggere i nuovi contenuti principali aggiunti per la v2 del corso (2020), dopo la v1 (2017), leggete [§3.5: Comprendere il Descriptor](03_5_Comprendere_il_Descriptor.md), [§4.6: Creare una Transazione Segwit](04_6_Creare_una_Transazione_Segwit.md), [Capitolo 7: Ampliare le Transazioni Bitcoin con PSBTs](07_0_Ampliare_le_Transazioni_Bitcoin_con_PSBTs.md), [§9.5: Programmare una P2WPKH](09_5_Programmare_una_P2WPKH.md), [§10.5: Scripting a SegWit Script](10_5_Scripting_a_Segwit_Script.md), [Chapter 14: Using Tor](14_0_Using_Tor.md), [Chapter 15: Using i2p](15_0_Using_i2p.md), [Chapter 16: Talking to Bitcoind with C](16_0_Talking_to_Bitcoind.md), [Chapter 17: Programming with Libwally](17_0_Programming_with_Libwally.md), [Chapter 18: Talking to Bitcoind with Other Languages](18_0_Talking_to_Bitcoind_Other.md), [Chapter 19: Understanding Your Lighting Setup](19_0_Understanding_Your_Lightning_Setup.md), and [Chapter 20: Using Lightning](20_0_Using_Lightning.md).
+* Se volete leggere i nuovi contenuti principali aggiunti per la v2 del corso (2020), dopo la v1 (2017), leggete
+[§3.5: Comprendere il Descriptor](03_5_Comprendere_il_Descriptor.md),
+[§4.6: Creare una Transazione Segwit](04_6_Creare_una_Transazione_Segwit.md),
+[Capitolo 7: Ampliare le Transazioni Bitcoin con PSBTs](07_0_Ampliare_le_Transazioni_Bitcoin_con_PSBTs.md),
+[§9.5: Programmare una P2WPKH](09_5_Programmare_una_P2WPKH.md),
+[§10.5: Programmare uno Script Segwit](10_5_Programmare_uno_Script_Segwit.md),
+[Capitolo 14: Usare Tor](14_0_Usare_Tor.md),
+[Capitolo 15: Usare i2p](15_0_Usare_i2p.md),
+[Capitolo 16: Parlare con Bitcoind](16_0_Parlare_con_Bitcoind.md),
+[Capitolo 17: Programmare Bitcoin con Libwally](17_0_Programmare_Bitcoin_con_Libwally.md),
+[Capitolo 18: Parlare a Bitcoind in Altri Linguaggi](18_0_Parlare_a_Bitcoind_in_Altri_Linguaggi.md),
+[Capitolo 19: Comprendere la Configurazione Lightning](19_0_Comprendere_la_Configurazione_Lightning.md), and
+[Capitolo 20: Usare Lightning](20_0_Usare_Lightning.md).
 
 ## Perché usare questo corso
 
@@ -59,4 +71,4 @@ Ovviamente, state seguendo questo corso perché siete interessati a Bitcoin. Olt
 
 Se desiderate un'introduzione di base a Bitcoin, alla crittografia a chiave pubblica, all'ECC, alle blockchain e a Lightning, leggete il documento [Introduzione a Bitcoin](01_1_Introduzione_a_Bitcoin.md) interludio. 
 
-Altrimenti, se siete pronti a immergervi nel corso, andate su [Configura una Bitcoin-Core VPS](02_0_Setting_Up_a_Bitcoin-Core_VPS.md).
+Altrimenti, se siete pronti a immergervi nel corso, andate su [Configurare Bitcoin-Core VPS](02_0_Configurare_Bitcoin-Core_VPS.md).
