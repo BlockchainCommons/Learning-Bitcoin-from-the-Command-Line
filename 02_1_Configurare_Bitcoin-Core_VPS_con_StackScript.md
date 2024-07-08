@@ -50,7 +50,7 @@ Ora sei pronto per creare un Nodo basato su Stackscript.
 3. Immettere la password per l'utente "standup".
 
 4. Scegli un tipo di installazione nelle opzioni avanzate.
-* **Tipo di installazione.** Probabilmente è "Mainnet" o "Pruned Mainnet" se stai impostando un nodo per l'utilizzo e "Testnet" o "Pruned Testnet" se stai solo giocando. La maggior parte di questo tutorial darà per scontato che tu abbia scelto "Pruned Testnet", ma dovresti comunque essere in grado di seguire altri tipi. Consulta la [Sinossi](#synopsis-bitcoin-installation-types) per maggiori informazioni su queste opzioni. (Nota che se hai intenzione di provare i capitoli Lightning, probabilmente vorrai usare un nodo Unpruned, non potato, poiché lavorare con nodi Pruned su Lightning è incerto. Consulta [§18.1](19_0_Comprendere_La_Configurazione_Lightning.md) per i dettagli.)
+* **Tipo di installazione.** Probabilmente è "Mainnet" o "Pruned Mainnet" se stai impostando un nodo per l'utilizzo e "Testnet" o "Pruned Testnet" se stai solo giocando. La maggior parte di questo tutorial darà per scontato che tu abbia scelto "Pruned Testnet", ma dovresti comunque essere in grado di seguire altri tipi. Consulta la [Sinossi](#sinossi-tipi-di-installazione-di-bitcoin) per maggiori informazioni su queste opzioni. (Nota che se hai intenzione di provare i capitoli Lightning, probabilmente vorrai usare un nodo Unpruned, non potato, poiché lavorare con nodi Pruned su Lightning è incerto. Consulta [§18.1](19_0_Comprendere_La_Configurazione_Lightning.md) per i dettagli.)
 
 
 
