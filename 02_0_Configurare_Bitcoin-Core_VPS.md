@@ -1,26 +1,26 @@
-# Chapter Two: Creating a Bitcoin-Core VPS
+# Capitolo Due: Instala Bitcoin-Core VPS
 
-To get started with Bitcoin, you first need to set up a machine running Bitcoin. The articles in this chapter describe how to do so, primarily by using a VPS (Virtual Private Server).
+Per iniziare con Bitcoin, è necessario configurare una macchina per avviare Bitcoin. Gli articoli di questo capitolo descrivono come fare, principalmente utilizzando un VPS (Virtual Private Server, Server Virtuale Privato).
 
-## Objectives for this Chapter
+## Obiettivi di questo capitolo:
 
-After working through this chapter, a developer will be able to:
+Al finalizzare questo capitolo uno svilupatore potra:
 
-   * Decide Between the Five Major Types of Bitcoin Nodes
-   * Create a Bitcoin Node for Development
-   * Create a Local Instance of the Bitcoin Blockchain
+   * Decidere tra le cinque piu importanti tipologie di nodi Bitcoin  
+   * Creare un Nodo Bitcoin per sviluppo
+   * Creare una blockchain temporanea di Bitcoin in locale
 
-Supporting objectives include the ability to:
+Gli obiettivi di sostegno includono:
 
-   * Understand the Basic Network Setup of the VPS
-   * Decide Which Security Priorities to Implement
-   * Understand the Difference between Pruned and Unpruned Nodes
-   * Understand the Difference between Mainnet, Testnet, and Regtest Nodes
-   * Interpret the Basics of the Bitcoin Configuration File
-   
-## Table of Contents
+   * Comprendere la configurazione della rete di base del VPS
+   * Decidere quali priorità di sicurezza implementare
+   * Comprendere la differenza tra nodi potati e non potati
+   * Comprendere la differenza tra nodi Mainnet, Testnet e Regtest
+   * Interpretare le basi del file di configurazione di Bitcoin
+ 
+## Indice
 
-You don't actually need to read this entire chapter. Decide if you want to run a StackScript to set a node up on a Linode VPS (§2.2); or you want to set up on a different environment, such as on an AWS machine or a Mac (§2.3). Then, jump to the appropriate section. Additional information on our suggested setups may also be found in [Appendix I](A1_0_Understanding_Bitcoin_Standup.md).
+In realtà non c'è bisogno di leggere l'intero capitolo. Decida se si desidera eseguire uno StackScript per impostare un nodo su un VPS Linode (§2.2); oppure si desidera avviare la configurazione in un ambiente diverso, ad esempio su una macchina AWS o su un Mac (Sezione 2.2). Quindi, vada alla sezione appropriata. Ulteriori informazioni sulle configurazioni suggerite sono disponibili anche nell' [Appendice I](A1_0_Comprendere_Bitcoin_Standup.md).
 
-   * [Section One: Setting Up a Bitcoin Core VPS with Bitcoin Standup](02_1_Setting_Up_a_Bitcoin-Core_VPS_with_StackScript.md)
-   * [Section Two: Setting Up a Bitcoin Core Machine via Other Means](02_2_Setting_Up_Bitcoin_Core_Other.md)
+   * [Sezione uno: Configurando Bitcoin Core VPS con Bitcoin Standup](02_1_Configurando_Bitcoin-Core_VPS_con_StackScript.md)
+   * [Sezione due: Configurando Bitcoin Core sul proprio hardware con altri mezzi](02_2_Configurando_Bitcoin_Core_Altri_Mezzi.md)
