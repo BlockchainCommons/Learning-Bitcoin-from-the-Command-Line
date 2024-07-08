@@ -16,4 +16,4 @@ Assicurati di installare su una versione corrente del tuo sistema operativo, per
 
 A meno che tu non voglia tornare a una delle altre metodologie per creare un nodo Bitcoin-Core, dovresti:
 
-* Passare a "bitcoin-cli" con [Capitolo 3: Comprendere le Configurazioni di Bitcoin](03_0_Comprendere_le_Configurazioni_di_Bitcoin.md).
+* Passare a "bitcoin-cli" con [Capitolo 3: Comprendere la Configurazione di Bitcoin](03_0_Comprendere_la_Configurazione_di_Bitcoin.md).
