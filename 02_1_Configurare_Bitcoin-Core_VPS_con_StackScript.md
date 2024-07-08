@@ -5,7 +5,7 @@ Questo documento spiega come configurare un VPS (Virtual Private Sever) per avvi
 > :warning: **Pericolo:** Non utilizzare un VPS per un portafoglio bitcoin con fondi reali significativi; Vedere [Perdere facilmente Bitcoin](http://blog.thestateofme.com/2012/03/03/lessons-to-be-learned-from-the-linode-bitcoin-incident/ ). È molto bello poter sperimentare con transazioni bitcoin reali su un nodo live senza vincolare un server proprio su una rete locale. È anche utile essere in grado di utilizzare un iPhone o un iPad per comunicare tramite SSH con il tuo VPS per svolgere alcune semplici attività bitcoin. Ma è necessario un livello di sicurezza più elevato per fondi significativi.
 
 * Se vuoi capire l'utilità di questo setup, leggi [Appendice I: Comprendere Bitcoin Standup.md](A1_0_Comprendere_Bitcoin_Standup.md) mentre procedi con l'installazione.
-* Se invece vuole eseguire la configurazione su una macchina diversa da un VPS Linode, come una macchina AWS o un Mac, vai a [§2.2: Configurare Bitcoin-Core con altri mezzi](02_2_Configurare_Bitcoin_Core_Altri_Mezzi.md)
+* Se invece vuole eseguire la configurazione su una macchina diversa da un VPS Linode, come una macchina AWS o un Mac, vai a [Capitolo 2.2: Configurare Bitcoin-Core con altri mezzi](02_2_Configurare_Bitcoin_Core_Altri_Mezzi.md)
 * Se hai già un nodo Bitcoin funzionando, vai a [Capitolo 3: Capire le configurazioni di Bitcoin](03_0_Comprendere_le_Configurazioni_di_Bitcoin.md).
 
 ## Iniziare con Linode
@@ -50,7 +50,7 @@ Ora sei pronto per creare un Nodo basato su Stackscript.
 3. Immettere la password per l'utente "standup".
 
 4. Scegli un tipo di installazione nelle opzioni avanzate.
-* **Tipo di installazione.** Probabilmente è "Mainnet" o "Pruned Mainnet" se stai impostando un nodo per l'utilizzo e "Testnet" o "Pruned Testnet" se stai solo giocando. La maggior parte di questo tutorial darà per scontato che tu abbia scelto "Pruned Testnet", ma dovresti comunque essere in grado di seguire altri tipi. Consulta la [Sinossi](#sinossi-tipi-di-installazione-di-bitcoin) per maggiori informazioni su queste opzioni. (Nota che se hai intenzione di provare i capitoli Lightning, probabilmente vorrai usare un nodo Unpruned, non potato, poiché lavorare con nodi Pruned su Lightning è incerto. Consulta [§18.1](19_0_Comprendere_La_Configurazione_Lightning.md) per i dettagli.)
+* **Tipo di installazione.** Probabilmente è "Mainnet" o "Pruned Mainnet" se stai impostando un nodo per l'utilizzo e "Testnet" o "Pruned Testnet" se stai solo giocando. La maggior parte di questo tutorial darà per scontato che tu abbia scelto "Pruned Testnet", ma dovresti comunque essere in grado di seguire altri tipi. Consulta la [Sinossi](#sinossi-tipi-di-installazione-di-bitcoin) per maggiori informazioni su queste opzioni. (Nota che se hai intenzione di provare i capitoli Lightning, probabilmente vorrai usare un nodo Unpruned, non potato, poiché lavorare con nodi Pruned su Lightning è incerto. Consulta [Capitolo 19](19_0_Comprendere_La_Configurazione_Lightning.md) per i dettagli.)
 
 
 
@@ -272,7 +272,7 @@ Hai alcune opzioni per cosa c'è dopo:
 
 * Leggi [StackScript](https://github.com/BlockchainCommons/Bitcoin-Standup-Scripts/blob/master/Scripts/LinodeStandUp.sh) per comprendere la tua configurazione.
 * Leggi cosa fa StackScript in [Appendice I](A1_0_Comprendere_Bitcoin_Standup.md).
-* Scegli una metodologia completamente alternativa in [§2.2: Configurare Bitcoin Core Altri Mezzi](02_2_Configurare_Bitcoin_Core_Altri_Mezzi.md). * Passa a "bitcoin-cli" con [Capitolo 3: Comprendere le Configurazioni di Bitcoin](03_0_Comprendere_le_Configurazioni_di_Bitcoin.md).
+* Scegli una metodologia completamente alternativa in [Capitolo 2.2: Configurare Bitcoin Core Altri Mezzi](02_2_Configurare_Bitcoin_Core_Altri_Mezzi.md). * Passa a "bitcoin-cli" con [Capitolo 3: Comprendere le Configurazioni di Bitcoin](03_0_Comprendere_le_Configurazioni_di_Bitcoin.md).
 
 ## Sinossi: Tipi di installazione di Bitcoin
 
