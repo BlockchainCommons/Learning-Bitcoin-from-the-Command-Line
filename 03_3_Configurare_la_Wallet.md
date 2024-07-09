@@ -56,39 +56,44 @@ Ora puoi creare un indirizzo. Puoi richiedere un indirizzo `legacy` con il secon
 
 ```
 $ bitcoin-cli getnewaddress -addresstype legacy
-moKVV6XEhfrBCE3QCYq6ppT7AaMF8KsZ1B
+moKVV6XEhfrITAnQCYq6ppT7AaliCOsZ1B
 ```
-Note that this address begins with an "m" (or sometimes an "n") to signify a testnet Legacy address. It would be a "2" for a P2SH address or a "tb1" for a Bech32 address.
 
-> :link: **TESTNET vs MAINNET:** The equivalent mainnet address would start with a "1" (for Legacy), "3" (for P2SH), or "bc1" (for Bech32).
+Tieni presente che questo indirizzo inizia con una "m" (o talvolta una "n") per indicare un indirizzo Legacy testnet. Sarebbe un "2" per un indirizzo P2SH o un "tb1" per un indirizzo Bech32.
 
-Take careful note of the address. You'll need to give it to whomever will be sending you funds.
+> :link: **TESTNET vs MAINNET:** L'indirizzo mainnet equivalente inizierebbe con "1" (per Legacy), "3" (per P2SH) o "bc1" (per Bech32).
 
-> :book: ***What is a Bitcoin address?*** A Bitcoin address is literally where you receive money. It's like an email address, but for funds. Technically, it's a public key, though different address schemes adjust that in different ways. However unlike an email address, a Bitcoin address should be considered single use: use it to receive funds just _once_. When you want to receive funds from someone else or at some other time, generate a new address. This is suggested in large part to improve your privacy. The whole blockchain is immutable, which means that explorers can look at long chains of transactions over time, making it possible to statistically determine who you and your contacts are, no matter how careful you are. However, if you keep reusing the same address, then this becomes even easier. By creating your first Bitcoin address, you've also begun to fill in your Bitcoin wallet. More precisely, you've begun to fill the `wallet.dat` file in your `~/.bitcoin/testnet3 /wallets` directory.
+Prendi nota attentamente dell'indirizzo. Dovrai darlo a chi ti invierà i fondi.
 
-With a single address in hand, you could jump straight to the next section and begin receiving funds. However, before we get there, we're going to briefly discuss the other sorts of addresses that you'll meet in the future and talk about a few other wallet commands that you might want to use in the future.
+> :book: ***Che cos'è un indirizzo Bitcoin?*** Un indirizzo Bitcoin è letteralmente il luogo in cui ricevi denaro. È come un indirizzo email, ma per i fondi. Tecnicamente, è una chiave pubblica, che viene adattata a seconda dei diversi schemi di indirizzi. Tuttavia, a differenza di un indirizzo email, un indirizzo Bitcoin dovrebbe essere considerato monouso: usalo per ricevere fondi solo _una volta_. Quando desideri ricevere fondi da qualcun altro o in un altro momento, genera un nuovo indirizzo. Questo è suggerito in gran parte per migliorare la tua privacy. L'intera blockchain è immutabile, il che significa che gli esploratori possono osservare lunghe catene di transazioni nel tempo, consentendo di determinare statisticamente chi sei tu e i tuoi contatti, non importa quanto tu sia attento. Tuttavia, se continui a riutilizzare lo stesso indirizzo, la cosa diventa ancora più semplice. Creando il tuo primo indirizzo Bitcoin, hai anche iniziato a riempire il tuo portafoglio Bitcoin. Più precisamente, hai iniziato a riempire il file `wallet.dat` nella tua directory `~/.bitcoin/testnet3 /wallets`.
 
-### Knowing Your Bitcoin Addresses
+Con un solo indirizzo in mano, puoi passare direttamente alla sezione successiva e iniziare a ricevere fondi. Tuttavia, prima di arrivare a questo, discuteremo brevemente degli altri tipi di indirizzi che incontrerai in futuro e parleremo di alcuni altri comandi della wallet che potresti voler utilizzare in futuro.
 
-There are three types of Bitcoin addresses that you can create with the `getnewaddress` RPC command. You'll be using a `legacy` (P2PKH) address here, while you'll move over to a SegWit (P2SH-SegWit) or Bech32 address in [§4.6: Creating a Segwit Transaction](04_6_Creating_a_Segwit_Transaction.md).
+### Conoscere i tuoi indirizzi Bitcoin
 
-As noted above, the foundation of a Bitcoin address is a public key: someone sends funds to your public key, and then you use your private key to redeem it. Easy? Except putting your public key out there isn't entirely secure. At the moment, if someone has your public key, then they can't retrieve your private key (and thus your funds); that's the basis of cryptography, which uses a trap-door function to ensure that you can only go from private to public key, and not vice-versa. But the problem is that we don't know what the future might bring. Except we do know that cryptography systems eventually get broken by the relentless advance of technology, so it's better not to put raw public keys on the 'net, to future-proof your transactions.
+Esistono tre tipi di indirizzi Bitcoin che puoi creare con il comando RPC `getnewaddress`. Qui utilizzerai un indirizzo "legacy" (P2PKH), mentre passerai a un indirizzo SegWit (P2SH-SegWit) o ​​Bech32 nel [Capitolo 4.6: Creare una Transazione Segwit](04_6_Creare_una_Transazione_Segwit.md).
 
-Classic Bitcoin transactions created P2PKH addresses that added an additional cryptographic step to protect public keys.
+Come notato sopra, la base di un indirizzo Bitcoin è una chiave pubblica: qualcuno invia fondi alla tua chiave pubblica e poi usi la tua chiave privata per riscattarla. Facile? Tranne che mettere la tua chiave pubblica là fuori non è del tutto sicuro. Al momento, se qualcuno ha la tua chiave pubblica, non può recuperare la tua chiave privata (e quindi i tuoi fondi); questa è la base della crittografia, che utilizza una funzione trap-door per garantire che si possa passare solo dalla chiave privata a quella pubblica e non viceversa. Ma il problema è che non sappiamo cosa ci riserverà il futuro. Solo che sappiamo che i sistemi di crittografia prima o poi vengono danneggiati dall'inarrestabile progresso della tecnologia, quindi è meglio non mettere chiavi pubbliche grezze in rete, per rendere le tue transazioni a prova di futuro.
 
-> :book: ***What is a Legacy (P2PKH) address?*** This is a Legacy address of the sort used by the early Bitcoin network. We'll be using it in examples for the next few sections. It's called a Pay to PubKey Hash (or P2PKH) address because the address is a 160-bit hash of a public key. Using a hash of your public key as your address creates a two-step process where to spend funds you need to reveal both the private key and the public key, and it increases future security accordingly. This sort of address remains important for receiving funds from people with out-of-date wallet software.
+Le transazioni Bitcoin classiche hanno creato indirizzi P2PKH che hanno aggiunto un ulteriore passaggio crittografico per proteggere le chiavi pubbliche.
 
-As described more fully in [§4.6: Creating a Segwit Transaction](04_6_Creating_a_Segwit_Transaction.md), the Block Size Wars of the late '10s resulted in a new sort of address: SegWit. This is the preferred sort of address currently, and should be fully integrated into Bitcoin-Core at this point, but nonetheless we're saving it for §4.6.
+> :book: ***Che cos'è un indirizzo Legacy (P2PKH)?*** Questo è un indirizzo Legacy del tipo utilizzato dalla prima rete Bitcoin. Lo useremo negli esempi per le prossime sezioni. Si chiama indirizzo _Pay to PubKey Hash_ (o P2PKH) perché l'indirizzo è un hash a 160 bit di una chiave pubblica. L'utilizzo di un hash della tua chiave pubblica come indirizzo crea un processo in due fasi in cui è necessario rivelare sia la chiave privata che quella pubblica per spendere i fondi, aumenta di conseguenza la sicurezza futura. Questo tipo di indirizzo rimane importante per ricevere fondi da persone con software wallet non aggiornato.
 
-SegWit simply means "segregated witness" and it's a way of separating the transaction signatures out from the rest of the transaction to reduce transaction size. Some SegWit addresses will sneak into some of our examples prior to §4.6 as change addresses, which you'll see as addresses that begin with "tb". This is fine because the `bitcoin-cli` entirely supports their usage. But we won't use them otherwise.
+Come descritto più dettagliatamente nel [Capitolo 4.6: Creare una Transazione Segwit](04_6_Creating_a_Segwit_Transaction.md), le guerre sulle dimensioni dei blocchi della fine degli anni 2010 hanno portato a un nuovo tipo di indirizzo: *SegWit*. Questo è il tipo di indirizzo preferito, oggi è completamente integrato in Bitcoin-Core, ma i dettagli li vedremo nel Capitolo 4.6.
 
-There are two addresses of this sort:
+SegWit significa semplicemente "testimone separato" ed è un modo per separare le firme delle transazioni dal resto della transazione per ridurre le dimensioni e il costo della transazione. Alcuni indirizzi SegWit si insinueranno in alcuni dei nostri esempi precedenti al Capitolo 4.6 come indirizzi di devoluzione del resto, "change", che vedrai come indirizzi che iniziano con "tb". Questo va bene perché `bitcoin-cli` supporta interamente il loro utilizzo. 
 
-> :book: ***What is a P2SH-SegWit (aka Nested SegWit) address?*** This is the first generation of SegWit. It wraps the SegWit address in a Script hash to ensure backward compatibility. The result creates transactions that are about 25%+ smaller (with corresponding reductions in transaction fees). 
+Esistono due indirizzi di questo tipo:
 
-> :book: ***What is a Bech32 (aka Native SegWit, aka P2WPKH) address?*** This is the second generation of SegWit. It's fully described in [BIP 173](https://en.bitcoin.it/wiki/BIP_0173). It creates transactions that are even smaller but more notably also has some advantages in creating addresses that are less prone to human error and have some implicit error-correction beyond that. It is *not* backward compatible like P2SH-SegWit was, and so some people may not be able to send to it.
+> :book: ***Che cos'è un indirizzo P2SH-SegWit (noto anche come Nested SegWit)?*** Questa è la prima generazione di SegWit. Avvolge l'indirizzo SegWit in un scripthash per garantire la compatibilità con le versioni precedenti. Il risultato crea transazioni più piccole di circa il 25% di Bytes in meno (con corrispondenti riduzioni delle commissioni di transazione).
 
-There are other sorts of Bitcoin addresses, such as P2PK (which paid to a bare public key, and is deprecated because of its future insecurity) and P2SH (which pays to a Script Hash, and which is used by the first-generation Nested SegWit addresses; we'll meet it more fully in a few chapters).
+> :book: ***Cos'è un indirizzo Bech32 (noto anche come Native SegWit, alias P2WPKH)?*** Questa è la seconda generazione di SegWit. È completamente descritto in [BIP 173](https://en.bitcoin.it/wiki/BIP_0173). Crea transazioni ancora più piccole ma, soprattutto, presenta anche alcuni vantaggi nella creazione di indirizzi meno soggetti a errori umani e con una correzione implicita degli errori oltre a ciò. Bech32 *Non* è compatibile con le versioni precedenti come lo era P2SH-SegWit, quindi alcune persone potrebbero non essere in grado di inviar sats a qesti indirizzi.
+
+Esistono altri tipi di indirizzi Bitcoin, come P2PK (che paga a una semplice chiave pubblica ed è deprecato a causa della sua futura insicurezza) e P2SH (che paga a uno Script Hash e che viene utilizzato dal Nested SegWit di prima generazione indirizzi; lo affronteremo più approfonditamente tra qualche capitolo).
+
+
+
+
 
 ## Optional: Sign a Message
 
