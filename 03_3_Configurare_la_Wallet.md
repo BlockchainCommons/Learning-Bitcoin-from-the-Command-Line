@@ -92,28 +92,27 @@ Esistono due indirizzi di questo tipo:
 Esistono altri tipi di indirizzi Bitcoin, come P2PK (che paga a una semplice chiave pubblica ed è deprecato a causa della sua futura insicurezza) e P2SH (che paga a uno Script Hash e che viene utilizzato dal Nested SegWit di prima generazione indirizzi; lo affronteremo più approfonditamente tra qualche capitolo).
 
 
+## Facoltativo: firma un messaggio
 
+A volte dovrai dimostrare di verificare un indirizzo Bitcoin (o meglio, di verificare la chiave privata). Questo è importante perché fa sapere alle persone che stanno inviando fondi alla persona giusta. Questo può essere fatto creando una firma con il comando `bitcoin-cli signmessage`, nella forma `bitcoin-cli signmessage [indirizzo] [messaggio]`. Per esempio:
 
-
-## Optional: Sign a Message
-
-Sometimes you'll need to prove that you control a Bitcoin address (or rather, that you control its private key). This is important because it lets people know that they're sending funds to the right person. This can be done by creating a signature with the `bitcoin-cli signmessage` command, in the form `bitcoin-cli signmessage [address] [message]`. For example:
 ```
 $ bitcoin-cli signmessage "moKVV6XEhfrBCE3QCYq6ppT7AaMF8KsZ1B" "Hello, World"
 HyIP0nzdcH12aNbQ2s2rUxLwzG832HxiO1vt8S/jw+W4Ia29lw6hyyaqYOsliYdxne70C6SZ5Utma6QY/trHZBI=
 ```
-You'll get the signature as a return.
+Riceverai la firma in cambio.
 
-> :book: ***What is a signature?*** A digital signature is a combination of a message and a private key that can then be unlocked with a public key. Since there's a one-to-one correspendence between the elements of a keypair, unlocking with a public key proves that the signer controlled the corresponding private key.
+> :book: ***Cos'è una firma?*** Una firma digitale è una combinazione di un messaggio e di una chiave privata che può poi essere sbloccata con una chiave pubblica. Poiché esiste una corrispondenza uno a uno tra gli elementi di una coppia di chiavi, lo sblocco con una chiave pubblica dimostra che il firmatario controllava la chiave privata corrispondente.
 
-Another person can then use the `bitcoin-cli verifymessage` command to verify the signature. He inputs the address in question, the signature, and the message:
+Un'altra persona può quindi utilizzare il comando "bitcoin-cli verifymessage" per verificare la firma. Inserisce l'indirizzo in questione, la firma e il messaggio:
+
 ```
 $ bitcoin-cli verifymessage "moKVV6XEhfrBCE3QCYq6ppT7AaMF8KsZ1B" "HyIP0nzdcH12aNbQ2s2rUxLwzG832HxiO1vt8S/jw+W4Ia29lw6hyyaqYOsliYdxne70C6SZ5Utma6QY/trHZBI=" "Hello, World"
 true
 ```
-If they all match up, then the other person knows that he can safely transfer funds to the person who signed the message by sending to the address.
+Se corrispondono tutti, l'altra persona sa che può trasferire in sicurezza i fondi alla persona che ha firmato il messaggio inviandolo all'indirizzo.
 
-If some black hat was making up signatures, this would instead produce a negative result:
+Se qualche black hat stesse inventando firme, ciò produrrebbe invece un risultato negativo:
 ```
 $ bitcoin-cli verifymessage "FAKEV6XEhfrBCE3QCYq6ppT7AaMF8KsZ1B" "HyIP0nzdcH12aNbQ2s2rUxLwzG832HxiO1vt8S/jw+W4Ia29lw6hyyaqYOsliYdxne70C6SZ5Utma6QY/trHZBI=" "Hello, World"
 error code: -3
@@ -121,19 +120,19 @@ error message:
 Invalid address
 ```
 
-## Optional: Dump Your Wallet
+## Opzionale: svuota il tuo portafoglio
 
-It might seem dangerous having all of your irreplaceable private keys in a single file. That's what `bitcoin-cli dumpwallet` is for. It lets you make a copy of your wallet.dat:
+Potrebbe sembrare pericoloso avere tutte le tue insostituibili chiavi private in un unico file. Ecco a cosa serve `bitcoin-cli dumpwallet`. Ti consente di creare una copia del tuo wallet.dat:
 ```
 $ bitcoin-cli dumpwallet ~/mywallet.txt
 ```
-The `mywallet.txt` file in your home directory will have a long list of private keys, addresses, and other information. Mind you, you'd never want to put this data out in a plain text file on a Bitcoin setup with real funds!
+Il file "mywallet.txt" nella tua directory home conterrà un lungo elenco di chiavi private, indirizzi e altre informazioni. Intendiamoci, non vorresti MAI inserire questi dati in un semplice file di testo su una configurazione Bitcoin con fondi reali!
 
-You can then recover it with `bitcoin-cli importwallet`.
+È quindi possibile recuperarlo con `bitcoin-cli importwallet`.
 ```
 $ bitcoin-cli importwallet ~/mywallet.txt
 ```
-But note this requires an unpruned node!
+Ma nota che questo richiede un nodo non potato!
 ```
 $ bitcoin-cli importwallet ~/mywallet.txt
 error code: -4
@@ -141,36 +140,37 @@ error message:
 Importing wallets is disabled when blocks are pruned
 ```
 
-## Optional: View Your Private Keys
+## Facoltativo: visualizza le tue chiavi private
 
-Sometimes, you might want to actually look at the private keys associated with your Bitcoin addresses. Perhaps you want to be able to sign a message or spend bitcoins from a different machine. Perhaps you just want to back up certain important private keys. You can also do this with your dump file, since it's human readable.
+A volte, potresti voler effettivamente guardare le chiavi private associate ai tuoi indirizzi Bitcoin. Forse vuoi poter firmare un messaggio o spendere bitcoin da una macchina diversa. Forse vuoi solo eseguire il backup di alcune importanti chiavi private. Puoi farlo anche con il tuo file di dump, poiché è leggibile dall'uomo.
 ```
 $ bitcoin-cli dumpwallet ~/mywallet.txt
 {
   "filename": "/home/standup/mywallet.txt"
 }
 ```
-More likely, you just want to look at the private key associated with a specific address. This can be done with the `bitcoin-cli dumpprivkey` command.
+Più probabilmente, vuoi solo guardare la chiave privata associata a un indirizzo specifico. Questo può essere fatto con il comando "bitcoin-cli dumpprivkey".
+
 ```
 $ bitcoin-cli dumpprivkey "moKVV6XEhfrBCE3QCYq6ppT7AaMF8KsZ1B"
 cTv75T4B3NsG92tdSxSfzhuaGrzrmc1rJjLKscoQZXqNRs5tpYhH
 ```
-You can then save that key somewhere safe, preferably somewhere not connected to the internet.
+Puoi quindi salvare la chiave in un posto sicuro, preferibilmente in un posto non connesso a Internet.
 
-You can also import any private key, from a wallet dump or an individual key dump, as follows:
+Puoi anche importare qualsiasi chiave privata, da dumpwallet o da un dump della chiave individuale, come segue:
 ```
 $ bitcoin-cli importprivkey cW4s4MdW7BkUmqiKgYzSJdmvnzq8QDrf6gszPMC7eLmfcdoRHtHh
 ```
-Again, expect this to require an unpruned node. Expect this to take a while, as `bitcoind` needs to reread all past transactions, to see if there are any new ones that it should pay attention to.
+Ancora una volta, aspettatevi che ciò richieda un nodo non potato. Aspettatevi che ciò richieda un po' di tempo, poiché "bitcoind" deve rileggere tutte le transazioni passate, per vedere se ce ne sono di nuove a cui prestare attenzione.
 
-> :information_source: **NOTE:** Many modern wallets prefer [mnemonic codes](https://github.com/bitcoin/bips/blob/master/bip-0039.mediawiki) to generate the seeds necessary to create the private keys. This methodology is not used `bitcoin-cli`, so you won't be able to generate handy word lists to remember your private keys.
+> :information_source: **NOTA:** Molti wallet moderni preferiscono [codici mnemonici](https://github.com/bitcoin/bips/blob/master/bip-0039.mediawiki) per generare i seed necessari per creare il privato chiavi. Questa metodologia non viene utilizzata "bitcoin-cli", quindi non sarai in grado di generare pratici elenchi di parole per ricordare le tue chiavi private.
 
-_You've been typing that Bitcoin address you generated a _lot_, while you were signing messages and now dumping keys. If you think it's a pain, we agree. It's also prone to errors, a topic that we'll address in the very next section._
+_Hai digitato quell'indirizzo Bitcoin e firmavi i messaggi e ora scaricavi le chiavi, è *troppo*. Se pensi che sia una seccatura, siamo d'accordo. Ed è anche soggetto a errori, un argomento che affronteremo nella sezione successiva._
 
-## Summary: Setting Up Your Wallet
+## Riepilogo: configurazione la wallet
 
-You need to create an address to receive funds. Your address is stored in a wallet, which you can back up. You can also do lots more with an address, like dumping its private key or using it to sign messages. But really, creating that address is _all_ you need to do in order to receive Bitcoin funds.
+È necessario creare un indirizzo per ricevere fondi. Il tuo indirizzo è memorizzato in un wallet di cui puoi eseguire il backup. Puoi anche fare molto di più con un indirizzo, come scaricare la sua chiave privata o usarlo per firmare messaggi. Ma in realtà, creare quell'indirizzo è _tutto_ ciò che devi fare per ricevere fondi Bitcoin.
 
-## What's Next?
+## E ora?
 
-Step back from "Understanding Your Bitcoin Setup" with [Interlude: Using Command-Line Variables](03_3__Interlude_Using_Command-Line_Variables.md).
+Prenditi un attimo e da un occhiata a le variabili nella linea di comando, qui: [Utilizzare Variabili nella Linea di Comando](03_3_Intermezzo_Utilizzare_Variabili_nella_Linea_di_Comando.md).
