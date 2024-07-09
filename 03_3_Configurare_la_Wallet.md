@@ -1,15 +1,3 @@
-# 3.3: Setting Up Your Wallet
-
-You're now ready to start working with Bitcoin. To begin with, you'll need to create a wallet for sending and receiving funds.
-
-## Create a Wallet
-
-> :warning: **VERSION WARNING:** Newer versions of Bitcoin Core, starting with v0.21.0, will no longer automatically create a default wallet on startup. So, you will need to manually create one. But if you're running an older version of Bitcoin Core, a new wallet has already been created for you, in which case you can skip ahead to [Create an Address](#create-an-address).
-
-The first thing you need to do is create a new wallet, which can be done with the `bitcoin-cli createwallet` command. By creating a new wallet, you'll be creating your public-private key pair. Your public key is the source from which your addresses will be created, and your private key is what will allow you to spend any funds you receive into your addresses. Bitcoin Core will automatically save that information into a `wallet.dat` file in your `~/.bitcoin/testnet3/wallets` directory.
-
-If you check your `wallets` directory, you'll see that it's currently empty.
-
 # 3.3: Configurare la Wallet
 
 Ora sei pronto per iniziare a lavorare con Bitcoin. Per cominciare, dovrai creare una wallet, un portafoglio digitale per inviare e ricevere fondi.
