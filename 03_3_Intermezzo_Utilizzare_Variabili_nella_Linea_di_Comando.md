@@ -1,39 +1,40 @@
-# Interlude: Using Command-Line Variables
+# Interludio: utilizzare le variabili nella riga di comando
 
-The previous section demonstrated a number of command-line commands used without obfuscation or interference. However, that's often not the best way to run Bitcoin from the command line. Because you're dealing with long, complex, and unreadable variables, it's easy to make a mistake if you're copying those variables around (or, satoshi forfend, if you're typing them in by hand). Because those variables can mean the difference between receiving and losing real money, you don't _want_ to make mistakes. For these reasons, we strongly suggest using command-line variables to save addresses, signatures, or other long strings of information whenever it's reasonable to do so.
+La sezione precedente ha dimostrato una serie di comandi della riga di comando utilizzati senza offuscamenti o interferenze. Tuttavia, spesso non è il modo migliore per eseguire Bitcoin dalla riga di comando. Poiché hai a che fare con variabili lunghe, complesse e illeggibili, è facile commettere un errore se le stai copiando (o, satoshi forfend, se le stai digitando a mano). Poiché queste variabili possono fare la differenza tra ricevere e perdere denaro reale, non vuoi commettere errori. Per questi motivi, consigliamo vivamente di utilizzare variabili della riga di comando per salvare indirizzi, firme o altre lunghe stringhe di informazioni ogni volta che è ragionevole farlo.
 
-If you're using `bash`, you can save information to a variable like this:
+Se utilizzi `bash`, puoi salvare le informazioni in una variabile come questa:
 ```
 $ VARIABLE=$(command)
 ```
-That's a simple command substitution, the equivalent to ``VARIABLE=`command` ``. The command inside the parentheses is run, then assigned to the VARIABLE.
+Questa è una semplice sostituzione di comando, l'equivalente di ``VARIABILE=`comando` ``. Viene eseguito il comando tra parentesi, quindi assegnato alla VARIABILE.
 
-To create a new address would then look like this:
+Per creare un nuovo indirizzo sarebbe quindi simile a questo:
 ```
 $ unset NEW_ADDRESS_1
 $ NEW_ADDRESS_1=$(bitcoin-cli getnewaddress "" legacy)
 ```
-These commands clear the NEW_ADDRESS_1 variable, just to be sure, then fill it with the results of the `bitcoin-cli getnewaddress` command.
+Questo comando cancella la variabile `NEW_ADDRESS_1` per sicurezza, quindi la riempiono con i risultati del comando `bitcoin-cli getnewaddress`.
 
-You can then use your shell's `echo` command to look at your (new) address:
+Dalla tua Shell puoi utilizzare il comando `echo` per controllare il tuo (nuovo) indirizzo:
+
 ```
 $ echo $NEW_ADDRESS_1
 mi25UrzHnvn3bpEfFCNqJhPWJn5b77a5NE
 ```
-Because you have your address in a variable, you can now easily sign a message for that address, without worrying about mistyping the address. You'll of course save that signature into a variable too!
+Poiché hai il tuo indirizzo in una variabile, ora puoi firmare facilmente un messaggio per quell'indirizzo, senza preoccuparti di digitarlo in modo errato. Ovviamente salverai anche quella firma in una variabile!
 ```
 $ NEW_SIG_1=$(bitcoin-cli signmessage $NEW_ADDRESS_1 "Hello, World")
 $ echo $NEW_SIG_1
 IPYIzgj+Rg4bxDwCyoPiFiNNcxWHYxgVcklhmN8aB2XRRJqV731Xu9XkfZ6oxj+QGCRmTe80X81EpXtmGUpXOM4=
 ```
-The rest of this tutorial will use this style of saving information to variables when it's practical.
+Per praticità nella tutorial utilizzeremo questo tipo di salvataggio delle informazioni nelle variabili.
 
-> :book: ***When is it not practical to use command-line variables?*** Command-line variables aren't practical if you need to use the information somewhere other than on the command line. For example, saving your signature may not actually be useful if you're just going to have to send it to someone else in an email. In addition, some future commands will output JSON objects instead of simple information, and variables can't be used to capture that information ... at least not without a _little_ more work.
+> :book: ***Quando non è pratico utilizzare le variabili della riga di comando?*** Le variabili della riga di comando non sono pratiche se è necessario utilizzare le informazioni in un posto diverso dalla riga di comando. Ad esempio, salvare la tua firma potrebbe non essere utile se devi semplicemente inviarla a qualcun altro tramite email. Inoltre, alcuni comandi futuri restituiranno oggetti JSON invece di semplici informazioni e le variabili non potranno essere utilizzate per acquisire tali informazioni... almeno non senza _poco_ lavoro in più.
 
-## Summary: Using Command-Line Variables
+## Riepilogo: utilizzare le variabili nella riga di comando
 
-Shell variables can be used to hold long Bitcoin strings, minimizing the chances of mistakes.
+Le variabili di shell possono essere utilizzate per contenere lunghe _Bitcoin strings_, riducendo al minimo le possibilità di errori.
 
-## What's Next?
+## Cosa viene dopo?
 
-Continue "Understanding Your Bitcoin Setup" with [§3.4: Receiving a Transaction](03_4_Receiving_a_Transaction.md).
+[Capitolo 3.4: Ricevere una Transazione](03_4_Ricevere_una_Transazione.md).
