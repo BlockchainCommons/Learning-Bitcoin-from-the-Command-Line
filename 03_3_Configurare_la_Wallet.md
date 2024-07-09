@@ -120,13 +120,13 @@ error message:
 Invalid address
 ```
 
-## Opzionale: svuota il tuo portafoglio
+## Opzionale: scarica il tuo portafoglio
 
 Potrebbe sembrare pericoloso avere tutte le tue insostituibili chiavi private in un unico file. Ecco a cosa serve `bitcoin-cli dumpwallet`. Ti consente di creare una copia del tuo wallet.dat:
 ```
 $ bitcoin-cli dumpwallet ~/mywallet.txt
 ```
-Il file "mywallet.txt" nella tua directory home conterrà un lungo elenco di chiavi private, indirizzi e altre informazioni. Intendiamoci, non vorresti MAI inserire questi dati in un semplice file di testo su una configurazione Bitcoin con fondi reali!
+Il file `mywallet.txt` nella tua directory home conterrà un lungo elenco di chiavi private, indirizzi e altre informazioni. Intendiamoci, non vorresti MAI inserire questi dati in un semplice file di testo su una configurazione Bitcoin con fondi reali!
 
 È quindi possibile recuperarlo con `bitcoin-cli importwallet`.
 ```
