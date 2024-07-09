@@ -26,6 +26,41 @@ You shouldn't mess with most of these files and directories — particularly not
 ## Know Your Bitcoin-cli Commands
 
 Most of your early work will be done with the `bitcoin-cli` command, which offers an easy interface to `bitcoind`. If you ever want more information on its usage, just run it with the `help` argument. Without any other arguments, it shows you every possible command:
+
+
+-------------------------------------------------
+# 3.2: Capire la configurazione di Bitcoin
+
+Prima di iniziare a giocare con Bitcoin, potresti sempre voler comprendere meglio la tua configurazione.
+
+## Conosci la tua directory Bitcoin
+
+Per cominciare, dovresti capire dove viene conservato tutto: la directory `~/.bitcoin`.
+
+La directory principale contiene solo il file di configurazione e la directory di testnet:
+```
+$ ls ~/.bitcoin
+bitcoin.conf testnet3
+```
+Le guide di configurazione nel [Capitolo 2: Configurare Bitcoin-Core VPS](02_0_Configurare_Bitcoin-Core_VPS.md) presentano un file di configurazione standardizzato. [Capitolo 3.1: 03_1 Verificare la configurazione Bitcoin](03_1_Verificare_la_configurazione_Bitcoin.md) ha suggerito come modificarlo per supportare configurazioni più avanzate. Se sei interessato a saperne di più sul file di configurazione, potresti consultare [Bitcoin Core Config Generator di Jameson Lopp](https://jlopp.github.io/bitcoin-core-config-generator/).
+
+Tornando alla directory ~/.bitcoin, scoprirai che la directory testnet3 contiene tutto il resto:
+```
+$ ls ~/.bitcoin/testnet3
+banlist.json   blocks	  debug.log	     mempool.dat	peers.dat
+bitcoind.pid  chainstate  fee_estimates.dat  onion_private_key	wallets
+```
+Non dovresti scherzare con la maggior parte di questi file e directory, in particolare non con le directory "blocks" e "chainstate", che contengono tutti i dati blockchain e le informazioni nella directory "wallets", che contiene il tuo portafoglio personale. Tuttavia, prendi attentamente nota del file `debug.log`, a cui dovresti fare riferimento se dovessi avere problemi con la tua configurazione.
+
+> :link: **TESTNET vs MAINNET:** Se stai utilizzando mainnet, allora _tutto_ verrà inserito nella directory principale `~/.bitcoin`. Queste varie configurazioni _si impilano_ in modo elegante, quindi se stai utilizzando mainnet, testnet e regtest, scoprirai che `~/.bitcoin` contiene il tuo file di configurazione e i tuoi dati mainnet, la directory `~/.bitcoin/testnet3` contiene i tuoi dati testnet e la directory "~/.bitcoin/regtest" contiene i tuoi dati regtest.
+
+## Conosci i comandi di Bitcoin-cli
+
+La maggior parte del tuo lavoro iniziale verrà svolto con il comando "bitcoin-cli", che offre un'interfaccia semplice per "bitcoind". Se desideri maggiori informazioni sul suo utilizzo, eseguilo semplicemente con l'argomento "aiuto". Senza altri argomenti, ti mostra tutti i comandi possibili:
+-------------------------------------------------
+
+
+
 ```
 $ bitcoin-cli help
 == Blockchain ==
@@ -178,12 +213,13 @@ walletprocesspsbt "psbt" ( sign "sighashtype" bip32derivs )
 == Zmq ==
 getzmqnotifications
 ```
-You can also type `bitcoin-cli help [command]` to get even more extensive info on that command. For example:
+Puoi anche scrivere `bitcoin-cli help [command]` per maggiori informazioni sul commando specifico. Per esempio:
 ```
 $ bitcoin-cli help getmininginfo
-...
-Returns a json object containing mining-related information.
-Result:
+```
+Restituisce un oggetto json contenente informazioni relative al mining.
+Risultato:
+```
 {                              (json object)
   "blocks" : n,                (numeric) The current block
   "currentblockweight" : n,    (numeric, optional) The block weight of the last assembled block (only present if a block was ever assembled)
@@ -194,18 +230,19 @@ Result:
   "chain" : "str",             (string) current network name (main, test, regtest)
   "warnings" : "str"           (string) any network and blockchain warnings
 }
-
-Examples:
+```
+Esempio:
+```
 > bitcoin-cli getmininginfo
 > curl --user myusername --data-binary '{"jsonrpc": "1.0", "id": "curltest", "method": "getmininginfo", "params": []}' -H 'content-type: text/plain;' http://127.0.0.1:8332/
 ```
-> :book: ***What is RPC?*** `bitcoin-cli` is just a handy interface that lets you send commands to the `bitcoind`. More specifically, it's an interface that lets you send RPC (or Remote Procedure Protocol) commands to the `bitcoind`. Often, the `bitcoin-cli` command and the RPC command have identical names and interfaces, but some `bitcoin-cli` commands instead provide shortcuts for more complex RPC requests. Generally, the `bitcoin-cli` interface is much cleaner and simpler than trying to send RPC commands by hand, using `curl` or some other method. However, it also has limitations as to what you can ultimately do.
+> :book: ***Cos'è RPC?*** `bitcoin-cli` è semplicemente una pratica interfaccia che ti consente di inviare comandi a `bitcoind`. Più specificamente, è un'interfaccia che ti consente di inviare comandi RPC (o Remote Procedure Protocol) a `bitcoind`. Spesso, il comando `bitcoin-cli` e il comando RPC hanno nomi e interfacce identici, ma alcuni comandi `bitcoin-cli` forniscono invece scorciatoie per richieste RPC più complesse. In generale, l'interfaccia `bitcoin-cli` è molto più pulita e semplice rispetto al tentativo di inviare comandi RPC manualmente, utilizzando "curl" o qualche altro metodo. Tuttavia, presenta anche dei limiti su ciò che puoi fare.
 
-## Optional: Know Your Bitcoin Info
+## Opzionale: conoscere le informazioni su Bitcoin
 
-A variety of bitcoin-cli commands can give you additional information on your bitcoin data. The most general ones are:
+Una varietà di comandi `bitcoin-cli` può fornirti ulteriori informazioni sui tuoi dati bitcoin. Quelli più generali sono:
 
-`bitcoin-cli -getinfo` returns information from different RPCs (user-friendly)
+`bitcoin-cli -getinfo` restituisce informazioni da diversi RPCs (user-friendly)
 
 ```diff
 $ bitcoin-cli -getinfo
@@ -233,8 +270,7 @@ Transaction fee rate (-paytxfee) (BTC/kvB): 0.00000000
 
 ```
 
-Other commands to get information about blockchain, mining, network, wallet etc.
-
+Altri comandi per ottenere informazioni su blockchain, mining, rete, portafoglio ecc.
 ```
 $ bitcoin-cli getblockchaininfo
 $ bitcoin-cli getmininginfo
@@ -242,7 +278,7 @@ $ bitcoin-cli getnetworkinfo
 $ bitcoin-cli getnettotals
 $ bitcoin-cli getwalletinfo
 ```
-For example `bitcoin-cli getnetworkinfo` gives you a variety of information on your setup and its access to various networks:
+Ad esempio `bitcoin-cli getnetworkinfo` ti fornisce una serie di informazioni sulla tua configurazione e sul suo accesso a varie reti:
 ```
 $ bitcoin-cli getnetworkinfo
 {
@@ -303,12 +339,12 @@ $ bitcoin-cli getnetworkinfo
   "warnings": "Warning: unknown new rules activated (versionbit 28)"
 }
 ```
-Feel free to reference any of these and to use "bitcoin-cli help" if you want more information on what any of them do.
+Sentiti libero di fare riferimento a uno di questi e di utilizzare `bitcoin-cli help` se desideri maggiori informazioni su cosa fanno.
 
-## Summary: Knowing Your Bitcoin Setup
+## Riepilogo: Capire la configurazione di Bitcoin
 
-The `~/.bitcoin` directory contains all of your files, while `bitcoin-cli help` and a variety of info commands can be used to get more information on how your setup and Bitcoin work.
+La directory `~/.bitcoin` contiene tutti i tuoi file, mentre `bitcoin-cli help` contiene e una varietà di comandi che puoi utilizzare per ottenere maggiori informazioni su come funzionano la tua configurazione e Bitcoin.
 
-## What's Next?
+## Ora cosa facciamo?
 
-Continue "Understanding Your Bitcoin Setup" with [§3.3: Setting Up Your Wallet](03_3_Setting_Up_Your_Wallet.md).
+Continua "Comprendere la configurazione di Bitcoin" con [Capitolo 3.3:Configurare la Wallet](03_3_Configurare_la_Wallet.md).
