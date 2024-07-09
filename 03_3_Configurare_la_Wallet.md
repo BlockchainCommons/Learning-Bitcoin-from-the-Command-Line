@@ -9,12 +9,25 @@ You're now ready to start working with Bitcoin. To begin with, you'll need to cr
 The first thing you need to do is create a new wallet, which can be done with the `bitcoin-cli createwallet` command. By creating a new wallet, you'll be creating your public-private key pair. Your public key is the source from which your addresses will be created, and your private key is what will allow you to spend any funds you receive into your addresses. Bitcoin Core will automatically save that information into a `wallet.dat` file in your `~/.bitcoin/testnet3/wallets` directory.
 
 If you check your `wallets` directory, you'll see that it's currently empty.
+
+# 3.3: Configurare la Wallet
+
+Ora sei pronto per iniziare a lavorare con Bitcoin. Per cominciare, dovrai creare una wallet, un portafoglio digitale per inviare e ricevere fondi.
+
+## Crea una wallet
+
+> :warning: **AVVERTIMENTO VERSIONE:** Le versioni più recenti di Bitcoin Core, a partire dalla v0.21.0, non creeranno più automaticamente un portafoglio predefinito all'avvio. Quindi, dovrai crearne uno manualmente. Ma se stai utilizzando una versione precedente di Bitcoin Core, è già stato creato un nuovo portafoglio per te, in quel caso puoi passare a [Creare un indirizzo](#Creare-un-indirizzo).
+
+La prima cosa che devi fare è creare un nuovo portafoglio, cosa che può essere fatta con il comando `bitcoin-cli createwallet`. Creando un nuovo portafoglio, creerai la tua coppia di chiavi pubblica-privata. La tua chiave pubblica è la fonte da cui verranno creati i tuoi indirizzi e la tua chiave privata è ciò che ti consentirà di spendere tutti i fondi che ricevi nei tuoi indirizzi. Bitcoin Core salverà automaticamente tali informazioni in un file `wallet.dat` nella tua directory `~/.bitcoin/testnet3/wallets`.
+
+Se controlli la directory `wallets`, vedrai che al momento è vuota.
+
 ```
 $ ls ~/.bitcoin/testnet3/wallets
 $
 ```
+Anche se Bitcoin Core non creerà un nuovo portafoglio per te, comunque caricherà all'avvio, per impostazione predefinita, una wallet senza nome (""). Quindi puoi trarne vantaggio creando un nuovo portafoglio senza nome.
 
-Although Bitcoin Core won't create a new wallet for you, it will still load a top-level unnamed ("") wallet on startup by default. You can take advantage of this by creating a new unnamed wallet.
 ```
 $ bitcoin-cli -named createwallet wallet_name="" descriptors=false
 
@@ -24,25 +37,26 @@ $ bitcoin-cli -named createwallet wallet_name="" descriptors=false
 }
 ```
 
-Now, your `wallets` directory should be populated.
+Ora, la tua directory  `wallets` si è riempito.
 ```
 $ ls ~/.bitcoin/testnet3/wallets
 database  db.log  wallet.dat
 ```
+> :book: ***Cos'è una wallet Bitcoin?*** Un portafoglio Bitcoin è l'equivalente digitale di un portafoglio fisico sulla rete Bitcoin. Memorizza informazioni sulla quantità di bitcoin che possiedi e dove si trovano (indirizzi), nonché i modi in cui puoi utilizzarli per spenderli. Spendere denaro fisico è intuitivo, ma per spendere bitcoin gli utenti devono fornire la _chiave privata_ corretta. Lo spiegheremo in modo più dettagliato piu avanti nel corso, ma quello che dovresti sapere per ora è che questa dinamica della chiave pubblica-privata fa parte di ciò che rende Bitcoin sicuro e senza bisogno di fiducia in terzi. Le informazioni sulla tua coppia di chiavi vengono salvate nel file `wallet.dat`, oltre ai dati sulle preferenze e sulle transazioni. Nella maggior parte dei casi, non dovrai preoccuparti della chiave privata: `bitcoind` la utilizzerà quando sarà necessaria. Tuttavia, questo rende il file `wallet.dat` estremamente importante: se lo perdi, perdi le tue chiavi private e se perdi le chiavi private, perdi i tuoi fondi!
 
-> :book: ***What is a Bitcoin wallet?*** A Bitcoin wallet is the digital equivalent of a physical wallet on the Bitcoin network. It stores information on the amount of bitcoins you have and where it's located (addresses), as well as the ways you can use to spend it. Spending physical money is intuitive, but to spend bitcoins users need to provide the correct _private key_. We will explain this in more detail throughout the course, but what you should know for now is that this public-private key dynamic is part of what makes Bitcoin secure and trustless. Your key pair information is saved in the `wallet.dat` file, in addition to data about preferences and transactions. For the most part, you won't have to worry about that private key: `bitcoind` will use it when it's needed. However, this makes the `wallet.dat` file extremely important: if you lose it, you lose your private keys, and if you lose your private keys, you lose your funds!
+Ottimo, ora hai un portafoglio Bitcoin. Ma un portafoglio sarà di scarsa utilità per ricevere bitcoin se prima non crei un indirizzo.
 
-Sweet, now you have a Bitcoin wallet. But a wallet will be of little use for receiving bitcoins if you don't create an address first.
+> :warning: **AVVERTIMENTO VERSIONE:** A partire da Bitcoin Core v 23.0, i portafogli `Descriptor` sono diventati l'impostazione predefinita. È fantastico, perché i portafogli descrittori sono molto potenti, tranne per il fatto che attualmente non funzionano con multisig! Quindi li disattiviamo con l'argomento `descrptor=false`. Vedi [Capitolo 3.5: Comprendere il Descriptor](03_5_Comprendere_il_Descriptor.md) per ulteriori informazioni.
 
-> :warning: **VERSION WARNING:** Starting in Bitcoin Core v 23.0, descriptor wallets became the default. That's great, because descriptor wallets are very powerful, except they don't currently work with multisigs! So, we turn them off with the "descriptors=false" argument. See [§3.5](https://github.com/BlockchainCommons/Learning-Bitcoin-from-the-Command-Line/blob/master/03_5_Understanding_the_Descriptor.md) for more on descriptors.
+## Creare un indirizzo
 
-## Create an Address
+La prossima cosa che devi fare è creare un indirizzo per ricevere i pagamenti. Questo viene fatto con il comando `bitcoin-cli getnewaddress`. Ricorda che se desideri maggiori informazioni su questo comando, devi digitare `bitcoin-cli help getnewaddress`. Attualmente esistono tre tipi di indirizzi: un tipo "legacy" , e due tipi SegWit, cioè "p2sh-segwit" e "bech32". Se non specifichi diversamente, otterrai il valore predefinito, che attualmente è "bech32".
 
-The next thing you need to do is create an address for receiving payments. This is done with the `bitcoin-cli getnewaddress` command. Remember that if you want more information on this command, you should type `bitcoin-cli help getnewaddress`. Currently, there are three types of addresses: `legacy` and the two types of SegWit address, `p2sh-segwit` and `bech32`. If you do not otherwise specify, you'll get the default, which is currently `bech32`.
+Tuttavia, nelle prossime sezioni utilizzeremo invece indirizzi "legacy", sia perché "bitcoin-cli" ha avuto alcuni problemi iniziali con le sue prime versioni degli indirizzi SegWit, sia perché altre persone potrebbero non essere in grado di inviare a indirizzi "bech32". È improbabile che tutto ciò costituisca un problema per te adesso, ma per il momento vogliamo iniziare con esempi di transazioni che sono (per lo più) garantiti per funzionare.
 
-However, for the next few sections we're instead going to be using `legacy` addresses, both because `bitcoin-cli` had some teething problems with its early versions of SegWit addresses, and because other people might not be able to send to `bech32` addresses. This is all unlikely to be a problem for you now, but for the moment we want to get your started with transaction examples that are (mostly) guaranteed to work.
+Innanzitutto, riavvia `bitcoind` in modo che il tuo nuovo portafoglio senza nome ("") venga impostato come predefinito e caricato automaticamente.
 
-First, restart `bitcoind` so your new unnamed wallet is set as default and automatically loaded.
+
 ```
 $ bitcoin-cli stop
 Bitcoin Core stopping # wait a minute so it stops completely
@@ -50,7 +64,8 @@ $ bitcoind -daemon
 Bitcoin Core starting # wait a minute so it starts completely
 ```
 
-You can now create an address. You can require `legacy` address either with the second argument to `getnewaddress` or with the named `addresstype` argument.
+Ora puoi creare un indirizzo. Puoi richiedere un indirizzo `legacy` con il secondo argomento di `getnewaddress` o con l'argomento denominato `addresstype`.
+
 ```
 $ bitcoin-cli getnewaddress -addresstype legacy
 moKVV6XEhfrBCE3QCYq6ppT7AaMF8KsZ1B
