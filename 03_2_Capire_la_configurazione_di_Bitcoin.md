@@ -1,34 +1,3 @@
-# 3.2: Knowing Your Bitcoin Setup
-
-Before you start playing with Bitcoin, you may always want to come to a better understanding of your setup.
-
-## Know Your Bitcoin Directory
-
-To start with, you should understand where everything is kept: the `~/.bitcoin` directory.
-
-The main directory just contains your config file and the testnet directory:
-```
-$ ls ~/.bitcoin
-bitcoin.conf  testnet3
-```
-The setup guides in [Chapter Two: Creating a Bitcoin-Core VPS](02_0_Setting_Up_a_Bitcoin-Core_VPS.md) laid out a standardized config file. [§3.1: Verifying Your Bitcoin Setup](03_1_Verifying_Your_Bitcoin_Setup.md) suggested how to change it to support more advanced setups. If you're interested in learning even more about the config file, you may wish to consult [Jameson Lopp's Bitcoin Core Config Generator](https://jlopp.github.io/bitcoin-core-config-generator/).
-
-Moving back to your ~/.bitcoin directory, you'll find that the testnet3 directory contains all of the guts:
-```
-$ ls ~/.bitcoin/testnet3
-banlist.json   blocks	  debug.log	     mempool.dat	peers.dat
-bitcoind.pid  chainstate  fee_estimates.dat  onion_private_key	wallets
-```
-You shouldn't mess with most of these files and directories — particularly not the `blocks` and `chainstate` directories, which contain all of the blockchain data, and the information in your `wallets` directory, which contains your personal wallet. However, do take careful note of the `debug.log` file, which you should refer to if you ever have problems with your setup.
-
-> :link: **TESTNET vs MAINNET:** If you're using mainnet, then _everything_ will instead be placed in the main `~/.bitcoin` directory. These various setups _do_ elegantly stack, so if you are using mainnet, testnet, and regtest, you'll find that `~/.bitcoin` contains your config file and your mainnet data, the `~/.bitcoin/testnet3` directory contains your testnet data, and the `~/.bitcoin/regtest` directory contains your regtest data.
-
-## Know Your Bitcoin-cli Commands
-
-Most of your early work will be done with the `bitcoin-cli` command, which offers an easy interface to `bitcoind`. If you ever want more information on its usage, just run it with the `help` argument. Without any other arguments, it shows you every possible command:
-
-
--------------------------------------------------
 # 3.2: Capire la configurazione di Bitcoin
 
 Prima di iniziare a giocare con Bitcoin, potresti sempre voler comprendere meglio la tua configurazione.
@@ -57,9 +26,6 @@ Non dovresti scherzare con la maggior parte di questi file e directory, in parti
 ## Conosci i comandi di Bitcoin-cli
 
 La maggior parte del tuo lavoro iniziale verrà svolto con il comando "bitcoin-cli", che offre un'interfaccia semplice per "bitcoind". Se desideri maggiori informazioni sul suo utilizzo, eseguilo semplicemente con l'argomento "aiuto". Senza altri argomenti, ti mostra tutti i comandi possibili:
--------------------------------------------------
-
-
 
 ```
 $ bitcoin-cli help
