@@ -1,30 +1,30 @@
-# Chapter Four: Sending Bitcoin Transactions
+# Capitolo quattro: Inviare transazioni Bitcoin
 
-This chapter describes three different methods for sending bitcoins to normal P2PKH addresses from the command line, using only the bitcoin-cli interface.
+Questo capitolo descrive tre diversi metodi per inviare bitcoin ai normali indirizzi P2PKH dalla riga di comando, utilizzando solo l'interfaccia bitcoin-cli.
 
-## Objectives for This Chapter
+## Obiettivi di questo capitolo
 
-After working through this chapter, a developer will be able to:
+Dopo aver letto questo capitolo, uno sviluppatore sarà in grado di:
 
-   * Decide How to Send Money Through Bitcoin
-   * Create a Raw Transaction
-   * Use Arithmetic to Calculate Fees
-   
-Supporting objectives include the ability to:
+ * Decidere come inviare denaro tramite Bitcoin
+ * Crea una transazione grezza "RAW"
+ * Utilizzare l'aritmetica per calcolare le fee,  comissioni di transazione
 
-   * Understand Transactions & Transaction Fees
-   * Understand Legacy & SegWit Transactions
-   * Use Basic Methods to Send Money
-   * Use Auto Fee Calculation Methods to Send Money
-   * Understand the Dangers of Raw Transactions
-   
-## Table of Contents
-  
-  * [Section One: Sending Coins the Easy Way](04_1_Sending_Coins_The_Easy_Way.md)
-  * [Section Two: Creating a Raw Transaction](04_2_Creating_a_Raw_Transaction.md)
-     * [Interlude: Using JQ](04_2__Interlude_Using_JQ.md)
-  * [Section Three: Creating a Raw Transaction with Named Arguments](04_3_Creating_a_Raw_Transaction_with_Named_Arguments.md)
-  * [Section Four: Sending Coins with Raw Transactions](04_4_Sending_Coins_with_a_Raw_Transaction.md)
-     * [Interlude: Using Curl](04_4__Interlude_Using_Curl.md)
-  * [Section Five: Sending Coins with Automated Raw Transactions](04_5_Sending_Coins_with_Automated_Raw_Transactions.md)
-  * [Section Six: Creating a SegWit Transaction](04_6_Creating_a_Segwit_Transaction.md)
+Gli obiettivi di supporto includono la capacità di:
+
+ * Comprendere le transazioni e le commissioni di transazione
+ * Comprendere le transazioni legacy e SegWit
+ * Utilizzare metodi di base per inviare denaro
+ * Utilizzare metodi di calcolo automatico delle commissioni per inviare denaro
+ * Comprendere i pericoli delle transazioni grezze
+
+## Sommario
+
+ * [Sezione 4.1: Inviare Monete Modo Semplice]04_1_Inviare_Monete_Modo_Semplice.md)
+ * [Sezione 4.2: Creare una Transazione Cruda](04_2_Creare_una_Transazione_Cruda.md)
+ * [Intermezzo: Usare JQ](04_2_Intermezzo_Usare_JQ.md)
+ * [Sezione 4.3: Creare una Transazione Cruda con Alias](04_3_Creare_una_Transazione_Cruda_con_Alias.md)
+ * [Sezione 4.4: Enviare Monete con Transazione Cruda](04_4_Enviare_Monete_con_Transazione_Cruda.md)
+ * [Intermezzo: Usare Curl](04_4_Intermezzo_Usare_Curl.md)
+ * [Sezione 4.5: Inviare Monete con Transazione Cruda Automatizzata](04_5_Inviare_Monete_con_Transazione_Cruda_Automatizzata.md)
+ * [Sezione 4.6: Creare una Transazione Segwit](04_6_Creare_una_Transazione_Segwit.md)
