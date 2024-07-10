@@ -1,65 +1,67 @@
-# 4.1: Sending Coins the Easy Way
+# 4.1: Inviare monete in modo semplice
 
-The `bitcoin-cli` offers three major ways to send coins: as a simple command; as a raw transaction; and as a raw transaction with calculation. Each has their own advantages and disadvantages. This first method for sending coins is also the simplest.
+Il comando `bitcoin-cli` offre tre modi principali per inviare monete: un comando semplice; una transazione grezza; e una transazione grezza con calcolo. Ogni modo ha i propri vantaggi e svantaggi. Questo primo metodo per inviare monete è anche il più semplice.
 
-## Set Your Transaction Fee
+## Imposta la commissione di transazione
 
-Before you send any money on the Bitcoin network, you should think about what transaction fees you're going to pay.
+Prima di inviare denaro sulla rete Bitcoin, dovresti pensare a quali commissioni di transazione pagherai.
 
-> :book: ***What is a transaction fee?*** There's no such thing as a free lunch. Miners incorporate transactions into blocks because they're paid to do so. Not only do they get paid by the network for making the block, but they also get paid by transactors for including their transactions. If you don't pay a fee, your transaction might get stuck ... forever (or, until saved by some of the tricks in [Chapter Five](05_0_Controlling_Bitcoin_Transactions.md)).
+> :book: ***Che cos'è una commissione di transazione?*** _Non esiste un pranzo gratis_. I minatori incorporano le transazioni nei blocchi perché sono pagati per farlo. Non solo vengono pagati dalla rete per effettuare il blocco, ma vengono anche pagati dagli utenti per includere le loro transazioni. Se non paghi una commissione, la tua transazione potrebbe rimanere bloccata... per sempre (o, fino a quando non verrà salvata da alcuni dei trucchi nel [Capitolo 5](05_0_Controllare_Transazioni_Bitcoin.md).
 
-When you're using the simple and automated methods for creating transactions, as outlined here and in [§4.5: Sending Coins with Automated Raw Transactions](04_5_Sending_Coins_with_Automated_Raw_Transactions.md), Bitcoin will calculate transaction fees for you. This is done using Floating Fees, where the `bitcoind` watches how long transactions are taking to confirm and automatically calculates for you what to spend.
+Quando utilizzi metodi semplici e automatizzati per creare transazioni, come delineato qui e nel [Capitolo 4.5: Inviare Monete con Transazione Cruda Automatizzata](04_5_Inviare_Monete_con_Transazione_Cruda_Automatizzata.md), Bitcoin calcolerà le commissioni di transazione per te. Questo viene fatto utilizzando le commissioni variabili, in cui "bitcoind" osserva quanto tempo impiegano le transazioni per essere confermate e calcola automaticamente quanto spendere.
 
-You can help control this by putting rational values into your `~/.bitcoin/bitcoin.conf`. The following low-cost values would ensure that there was a minimum transaction fee of 10,000 satoshis per kByte of data in your transaction and request that the floating fees figure out a good amount to get your transaction somewhere into the next six blocks.
+Puoi contribuire a controllarlo inserendo valori razionali nel tuo `~/.bitcoin/bitcoin.conf`. I seguenti valori a basso costo garantirebbero che ci fosse una commissione di transazione minima di 10.000 satoshi per kByte di dati nella transazione e richiederebbero che le commissioni variabili raggiungano un buon importo per portare la transazione da qualche parte nei successivi sei blocchi.
 ```
 mintxfee=0.0001
 txconfirmtarget=6
 ```
-However, under the theory that you don't want to wait around while working on a tutorial, we've adopted the following higher values:
+Tuttavia, partendo dal presupposto che non vuoi aspettare mentre lavori su un tutorial, abbiamo adottato i seguenti valori più alti:
 ```
 mintxfee=0.001
 txconfirmtarget=1
 ```
-You should enter these into `~/.bitcoin/bitcoin.conf`, in the main section, toward the top of the file or if you want to be sure you never use it elsewhere, under the `[test]` section.
+Dovresti inserirli in `~/.bitcoin/bitcoin.conf`, nella sezione principale, verso l'inizio del file o, se vuoi essere sicuro di non usarlo mai altrove, nella sezione `[test]`.
 
-In order to get through this tutorial, we're willing to spend 100,000 satoshis per kB on every transaction (about $10!), and we want to get each transaction into the next block! (To put that in perspective, a typical transaction runs between .25 kB and 1 kB, so you'll actually be paying more like $2.50 than $10 ... if this were real money.)
+Per completare questo tutorial, siamo disposti a spendere 100.000 satoshi per kB su ogni transazione (circa $ 10!) e vogliamo portare ogni transazione al blocco successivo! (Per metterlo in prospettiva, una transazione tipica è compresa tra 0,25 kB e 1 kB, quindi in realtà pagherai più di $ 2,50 circa $ 10... se fossero soldi veri.)
 
-After you've edited your bitcoin.conf file, you'll want to kill and restart bitcoind.
+Dopo aver modificato il tuo file `bitcoin.conf`, ti consigliamo di terminare e riavviare bitcoind.
+
+
 ```
 $ bitcoin-cli stop
 $ bitcoind -daemon
 ```
 
-## Get an Address
+## Ottieni un indirizzo
 
-You need somewhere to send your coins to. Usually, someone would send you an address, and perhaps give you a signature to prove they own that address. Alternatively, they might give you a QR code to scan, so that you can't make mistakes when typing in the address. In our case, we're going to send coins to `n2eMqTT929pb1RDNuqEnxdaLau1rxy3efi`, which is a return address for an old Tesetnet faucet.
+Hai bisogno di un posto dove inviare le tue monete. Di solito, qualcuno ti invia un indirizzo e magari ti dà una firma per dimostrare di possedere quell'indirizzo. In alternativa, potrebbero fornirti un codice QR da scansionare, in modo da non poter commettere errori durante la digitazione dell'indirizzo. Nel nostro caso, invieremo monete a `n2eMqTT929pb1RDNuqEnxdaLau1rxy3efi`, che è un indirizzo di ritorno per un vecchio faucet Tesetnet.
 
-> :book: ***What is a QR code?*** A QR code is just an encoding of a Bitcoin address. Many wallets will generate QR codes for you, while some sites will convert from an address to a QR code. Obviously, you should only accept a QR code from a site that you absolutely trust. A payer can use a bar-code scanner to read in the QR code, then pay to it.
+> :book: ***Cos'è un codice QR?*** Un codice QR è semplicemente la codifica di un indirizzo Bitcoin. Molti portafogli genereranno codici QR per te, mentre alcuni siti convertiranno un indirizzo in un codice QR (da evitare). Ovviamente, dovresti accettare solo un codice QR da un sito di cui ti fidi assolutamente (nessuno). Potrebbero alterare il codice e ricevere i soldi destinati a te.
 
-## Send the Coins
+## Invia le monete
 
-You're now ready to send some coins. This is actually quite simple via the command line. You just use `bitcoin-cli sendtoaddress [address] [amount]`. So, to send a little coinage to the address `n2eMqTT929pb1RDNuqEnxdaLau1rxy3efi` just requires:
+Ora sei pronto per inviare alcune monete. In realtà questo è abbastanza semplice tramite la riga di comando. Basta usare `bitcoin-cli sendtoaddress [address] [amount]`. Quindi, per inviare una piccola moneta all'indirizzo `n2eMqTT929pb1RDNuqEnxdaLau1rxy3efi` è sufficiente:
 ```
 $ txid=$(bitcoin-cli sendtoaddress n2eMqTT929pb1RDNuqEnxdaLau1rxy3efi 0.001)
 $ echo $txid
 93250d0cacb0361b8e21030ac65bc4c2159a53de1075425d800b2d7a8ab13ba8
 ```
+> 🙏 Per mantenere in vita i faucet testnet, prova a utilizzare l'indirizzo di ritorno dello stesso faucet che hai utilizzato nel capitolo precedente sulla ricezione delle transazioni.
 
-> 🙏 To help keep testnet faucets alive, try to use the return address of the same faucet you used in the previous chapter on receiving transactions. 
+Assicurati che l'indirizzo che scrivi sia quello dove vuoi che vadano i soldi. Controlla due volte. Se commetti errori in Bitcoin, non puoi tornare indietro.
 
-Make sure the address you write in is where you want the money to go. Make _double_ sure. If you make mistakes in Bitcoin, there's no going back.
+Riceverai un txid indietro quando eseguirai questo comando.
 
-You'll receive a txid back when you issue this command.
+> ❕ Potresti ritrovarti con un codice di errore se non disponi di fondi sufficienti nel tuo portafoglio per inviare la transazione. A seconda del tuo saldo attuale `bitcoin-cli getbalance` potresti dover modificare l'importo da inviare per tenere conto dell'importo inviato insieme alla commissione di transazione. Se il tuo saldo attuale è 0,001, potresti provare a inviare 0,0001. In alternativa, sarebbe meglio sottrarre la commissione prevista indicata nel messaggio di errore dal saldo attuale. Questa è una buona pratica poiché molti portafogli si aspettano che tu calcoli il tuo importo + le commissioni quando prelevi, anche tra gli exchange più popolari.
 
-> ❕ You may end up with an error code if you don't have enough funds in your wallet to send the transaction. Depending on your current balance `bitcoin-cli getbalance` you may need to adjust the amount to be sent to account for the amount being sent along with the transaction fee. If your current balance is 0.001, then you could try sending 0.0001. Alternatively, it would be better to instead subtract the expected fee given in the error message from your current balance. This is good practice as many wallets expect you to calculate your own amount + fees when withdrawing, even among popular exchanges. 
+> :warning: **AVVERTENZA:** Il comando `bitcoin-cli` genera effettivamente comandi JSON-RPC quando comunica con bitcoind. Possono essere davvero schizzinosi. Questo è un esempio: se elenchi l'importo del bitcoin senza lo zero iniziale (cioè ".1" invece di "0.1"), `bitcoin-cli fallirà` con un messaggio misterioso.
 
-> :warning: **WARNING:** The `bitcoin-cli` command actually generates JSON-RPC commands when it's talking to the bitcoind. They can be really picky. This is an example: if you list the bitcoin amount without the leading zero (i.e. ".1" instead of "0.1"), then bitcoin-cli will fail with a mysterious message.
+> :warning: **AVVERTENZA:** Anche se presti attenzione ai tuoi input, potresti visualizzare il messaggio `"Fee estimation failed. Fallbackfee is disabled." `(Stima della tariffa non riuscita. La tariffa di riserva è disabilitata). Fondamentalmente, ciò significa che il tuo `bitcoind` locale non dispone di informazioni sufficienti per stimare le commissioni. Non dovresti mai vederlo se hai aspettato che la tua blockchain si sincronizzi e configuri il tuo sistema con Bitcoin Standup. Ma se non sei completamente sincronizzato, potresti vedere questo. Potrebbe anche darsi che tu non stia utilizzando un `bitcoin.conf` standard: la voce `blocksonly=1` impedirà al tuo `bitcoind` di stimare le commissioni.
 
-> :warning: **WARNING:** Even if you're careful with your inputs, you could see "Fee estimation failed. Fallbackfee is disabled." Fundamentally, this means that your local `bitcoind` doesn't have enough information to estimate fees. You should really never see it if you've waited for your blockchain to sync and set up your system with Bitcoin Standup. But if you're not entirely synced, you may see this. It also could be that you're not using a standard `bitcoin.conf`: the entry `blocksonly=1` will cause your `bitcoind` to be unable to estimate fees.
+## Esamina la tua transazione
 
-## Examine Your Transaction
+Puoi controllare la tua transazione utilizzando il tuo ID transazione:
 
-You can look at your transaction using your transaction id:
 ```
 {
   "amount": -0.00100000,
@@ -85,20 +87,20 @@ You can look at your transaction using your transaction id:
   "hex": "0200000001e982921bb0189afc486e20bb05cc5825c71a0ba8868043ed04ece9ab0cb12a8e010000006a47304402200fc493a01c5c9d9574f7c321cee6880f7f1df847be71039e2d996f7f75c17b3d02203057f5baa48745ba7ab5f1d4eed11585bd8beab838b1ca03a4138516fe52b3b8012102fd5740996d853ea51a6904cf03257fc11204b0179f344c49739ec5b20b39c9bafeffffff02e8640d0000000000160014d37b6ae4a917bcc873f6395741155f565e2dc7c4a0860100000000001976a914e7c1345fc8f87c68170b3aa798a956c2fe6a9eff88ac780b1b00"
 }
 ```
-You can see not only the amount transferred (.001 BTC) but also a transaction fee (.000222 BTC), which is about a quarter of the .001 BTC/kB minimum fee that was set, which suggests that the transaction was about a quarter of a kB in size.
+Puoi vedere non solo l'importo trasferito (.001 BTC) ma anche una commissione di transazione (.000222 BTC), che è circa un quarto della commissione minima di .001 BTC/kB impostata, il che suggerisce che la transazione è stata di circa un dimensione di un quarto di kB.
 
-While you are waiting for this transaction to clear, you'll note that `bitcoin-cli getbalance` shows that all of your money is gone (or, at least, all of your money from a single incoming transaction). Similarly, `bitcoin-cli listunspent` will show that an entire transaction is gone, even if it was more than what you wanted to send. There's a reason for this: whenever you get money in, you have to send it _all_ out together, and you have to perform some gymnastics if you actually want to keep some of it! Once again, `sendtoaddress` takes care of this all for you, which means you don't have to worry about making change until you send a raw transaction. In this case, a new transaction will appear with your change when your spend is incorporated into a block.
+Mentre aspetti che questa transazione venga cancellata, noterai che `bitcoin-cli getbalance` mostra che tutti i tuoi soldi sono spariti (o, almeno, tutti i tuoi soldi da una singola transazione in entrata). Allo stesso modo, `bitcoin-cli listunspent` mostrerà che un'intera transazione è andata perduta, anche se era superiore a quello che volevi inviare. C'è una ragione per questo: ogni volta che ricevi soldi, devi mandarli tutti insieme, e devi fare un po' di ginnastica se vuoi davvero tenerne una parte! Ancora una volta, `sendtoaddress` si prende cura di tutto questo per te, il che significa che non devi preoccuparti di apportare modifiche finché non invii una transazione grezza. In questo caso, una nuova transazione apparirà con la tua modifica quando la tua spesa verrà incorporata in un blocco.
 
-## Summary: Sending Coins the Easy Way
+## Riepilogo: inviare monete in modo semplice
 
-To send coins the easy way, make sure your transaction defaults are rationale, get an address, and send coins there. That's why they call it easy!
+Per inviare monete nel modo più semplice, assicurati che le impostazioni predefinite della transazione siano logiche, ottieni un indirizzo e invia le monete lì. Ecco perché lo chiamano facile!
 
-> :fire: ***What is the power of sending coins the easy way?***
+> :fire: ***Qual è il potere di inviare monete in modo semplice?***
 
-> _The advantages._ It's easy. You don't have to worry about arcane things like UTXOs. You don't have to calculate transaction fees by hand, so you're not likely to make mistakes that cost you large amounts of money. If your sole goal is to sit down at your computer and send some money, this is the way to go.
+> _I vantaggi._ È facile. Non devi preoccuparti di cose arcane come gli UTXO. Non è necessario calcolare manualmente le commissioni di transazione, quindi non è probabile che tu commetta errori che ti costeranno ingenti somme di denaro. Se il tuo unico obiettivo è sederti al computer e inviare denaro, questa è la strada da percorrere.
 
-> _The disadvantages._ It's high level. You have very little control over what's happening, and you can't do anything fancy. If you're planning to write more complex Bitcoin software or want a deeper understanding of how Bitcoin works, then the easy way is just a dull diversion before you get to the real stuff.
+> _Gli svantaggi._ Il livello è alto. Hai pochissimo controllo su ciò che sta accadendo e non puoi fare nulla di speciale. Se hai intenzione di scrivere un software Bitcoin più complesso o desideri una comprensione più profonda di come funziona Bitcoin, allora il modo più semplice è solo un noioso diversivo prima di arrivare alle cose vere.
 
-## What's Next?
+## Con cosa andiamo avanti?
 
-Continue "Sending Bitcoin Transactions" with [§4.2 Creating a Raw Transaction](04_2_Creating_a_Raw_Transaction.md).
+Andiamo avanti col'invio di transazioni Bitcoin con [Enviare Monete con Transazione Grezza](04_4_Enviare_Monete_con_Transazione_Grezza.md).
