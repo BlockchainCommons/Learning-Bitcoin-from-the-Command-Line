@@ -20,7 +20,7 @@ Gli obiettivi di supporto includono la capacità di:
 
 ## Sommario
 
- * [Sezione 4.1: Inviare Monete Modo Semplice]04_1_Inviare_Monete_Modo_Semplice.md)
+ * [Sezione 4.1: Inviare Monete Modo Semplice](04_1_Inviare_Monete_Modo_Semplice.md)
  * [Sezione 4.2: Creare una Transazione Cruda](04_2_Creare_una_Transazione_Cruda.md)
  * [Intermezzo: Usare JQ](04_2_Intermezzo_Usare_JQ.md)
  * [Sezione 4.3: Creare una Transazione Cruda con Alias](04_3_Creare_una_Transazione_Cruda_con_Alias.md)
