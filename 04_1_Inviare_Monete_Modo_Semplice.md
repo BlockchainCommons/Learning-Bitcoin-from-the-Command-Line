@@ -103,4 +103,4 @@ Per inviare monete nel modo più semplice, assicurati che le impostazioni predef
 
 ## Con cosa andiamo avanti?
 
-Andiamo avanti col'invio di transazioni Bitcoin con [Enviare Monete con Transazione Grezza](04_4_Enviare_Monete_con_Transazione_Grezza.md).
+Andiamo avanti col'invio di transazioni Bitcoin con [inviare Monete con Transazione Grezza](04_4_inviare_Monete_con_Transazione_Grezza.md).
