@@ -1,20 +1,20 @@
-# 4.2 Creating a Raw Transaction
+# 4.2 Creazione di una transazione grezza
 
-You're now ready to create Bitcoin raw transactions. This allows you to send money but to craft the transactions as precisely as you want. This first section focuses on a simple one-input, one-output transaction. This sort of transaction _isn't_ actually that useful, because you're rarely going to want to send all of your money to one person (unless you're actually just forwarding it on, such as if you're moving things from one wallet to another). Thus, we don't label this section as a way to send money. It's just a foundational stepping stone to _actually_ sending money with a raw transaction.
+Ora sei pronto per creare transazioni grezze (raw) su Bitcoin. Ciò ti consente di inviare denaro ma di elaborare le transazioni con la precisione che desideri. Questa prima sezione si concentra su una semplice transazione one-input, one-output. Questo tipo di transazione _non_ è in realtà così utile, perché raramente vorrai inviare tutto il tuo denaro a una persona (a meno che tu non lo stia semplicemente inoltrando, ad esempio se stai spostando denaro da un portafoglio a un altro). Pertanto, non etichettiamo questa sezione come un modo per inviare denaro. È solo un trampolino di lancio fondamentale per _inviare effettivamente_ denaro con una transazione grezza.
 
-## Understand the Bitcoin Transaction
+## Comprendere la transazione Bitcoin
 
-Before you dive into actually creating raw transactions, you should make sure you understand how a Bitcoin transaction works. It's all about the UTXOs.
+Prima di immergerti nella creazione effettiva di transazioni grezze, dovresti assicurarti di comprendere come funziona una transazione Bitcoin. Riguarda tutto gli UTXO.
 
-> :book: ***What is a UTXO?*** When you receive cash in your Bitcoin wallet, it appears as an individual transaction. Each of these transactions is called a Unspent Transaction Output (UTXO). It doesn't matter if various payments were made to the same address or to multiple addresses: each incoming transaction remains distinct in your wallet as a UTXO.
+> :book: ***Cos'è un UTXO?*** Quando ricevi denaro nel tuo portafoglio Bitcoin, appare come una transazione individuale. Ognuna di queste transazioni è chiamata *Unspent Transaction Output* (UTXO). Non importa se vari pagamenti sono stati effettuati allo stesso indirizzo o a più indirizzi: ogni transazione in entrata rimane distinta nel tuo portafoglio come UTXO.
 
-When you create a new outgoing transaction, you gather together one or more UTXOs, each of which represents a blob of money that you received. You use these as inputs for a new transaction. Together their amount must equal what you want to spend _or more_. Then, you generate one or more outputs, which give the money represented by the inputs to one or more people. This creates new UTXOs for the recipients, which may then use _those_ to fund future transactions.
+Quando crei una nuova transazione in uscita, raccogli uno o più UTXO, ognuno dei quali rappresenta una moneta che hai ricevuto. Li usi come input per una nuova transazione. Insieme, il loro importo deve essere uguale a quanto vuoi spendere _o più_. Quindi, generi uno o più output, che danno il denaro rappresentato dagli input a una o più persone. Questo crea nuovi UTXO per i destinatari, che possono quindi utilizzare _quelli_ per finanziare transazioni future.
 
-Here's the trick: _all of the UTXOs that you gather are spent in full!_ That means that if you want to send just part of the money in a UTXO to someone else, then you also have to generate an additional output that sends the rest back to you! For now, we won't worry about that, but the use of a change address will be vital when moving on from the theory of this chapter to more practical transactions.
+Ecco il trucco: _tutti gli UTXO che raccogli vengono spesi per intero!_ Ciò significa che se vuoi inviare solo una parte del denaro in un UTXO a qualcun altro, allora devi anche generare un output aggiuntivo che ti rispedisca il resto! Per ora, non ci preoccuperemo di questo, ma l'uso di un indirizzo di cambio sarà fondamentale quando passeremo dalla teoria alla pratica.
 
-## List Your Unspent Transactions
+## Elenca le tue transazioni non spese
 
-In order to create a new raw transaction, you must know what UTXOs you have on-hand to spend. You can determine this information with the `bitcoin-cli listunspent` command:
+Per creare una nuova transazione raw (grezza), devi sapere quali UTXO hai a disposizione da spendere. Puoi determinare questa informazione con il comando `bitcoin-cli listunspent`:
 ```
 $ bitcoin-cli listunspent
 [
@@ -60,33 +60,35 @@ $ bitcoin-cli listunspent
 ]
 
 ```
-This listing shows three different UTXOs, worth .0001, .0005 and .00022 BTC. Note that each has its own distinct txid and remains distinct in the wallet, even the last two, which were sent to the same address.
 
-When you want to spend a UTXO, it's not sufficient to just know the transaction id. That's because each transaction can have multiple outputs! Remember that first chunk of money that the faucet sent us? In the transaction, some money went to us and some went to someone else. The `txid` refers to the overall transaction, while a `vout` says which of multiple outputs you've received. In this list, each of these transactions is the 0th `vout` of a previous transaction, but _that doesn't have to be the case_.
+Questo elenco mostra tre UTXO diversi, del valore di 10000, 50000 e 22000 satoshi. Nota che ognuno ha il suo `txid` distinto e rimane distinto nel portafoglio, anche gli ultimi due, che sono stati inviati allo stesso indirizzo.
 
-So, txid+vout=UTXO. This will be the foundation of any raw transaction.
+Quando vuoi spendere un UTXO, non è sufficiente conoscere solo l'ID della transazione. Questo perché ogni transazione può avere più output! Ricordi quella prima moneta che il faucet ci ha inviato? Nella transazione, parte del denaro è andata a noi e parte a qualcun altro. Il `txid` si riferisce alla transazione complessiva, mentre un `vout` indica quale dei più output hai ricevuto. In questo elenco, ciascuna di queste transazioni è il `vout` 0 di una transazione precedente, ma _non deve essere necessariamente così_.
 
-## Write a Raw Transaction with One Output
+Quindi, txid+vout=UTXO. Questa sarà la base di qualsiasi transazione raw.
 
-You're now ready to write a simple, example raw transaction that shows how to send the entirety of a UTXO to another party. As noted, this is not necessarily a very realistic real-world case.
+## Scrivi una transazione raw con un output
 
-> :warning: **WARNING:** It is very easy to lose money with a raw transaction. Consider all instructions on sending bitcoins via raw transactions to be _very_, _very_ dangerous. Whenever you're actually sending real money to other people, you should instead use one of the other methods explained in this chapter. Creating raw transactions is extremely useful if you're writing bitcoin programs, but _only_ when you're writing bitcoin programs. (For example: in writing this example for one version of this tutorial, we accidentally spent the wrong transaction, even though it had about 10x as much value. Almost all of that was lost to the miners.)
+Ora sei pronto a scrivere una semplice transazione raw di esempio che mostra come inviare l'intero UTXO a un'altra parte. Come notato, questo non è necessariamente un caso reale molto realistico.
 
-### Prepare the Raw Transaction
+> :warning: **WARNING:** È molto facile perdere soldi con una transazione raw. Considera tutte le istruzioni sull'invio di bitcoin tramite transazioni raw come _molto_, _molto_ pericolose. Ogni volta che invii effettivamente denaro reale ad altre persone, dovresti invece utilizzare uno degli altri metodi spiegati in questo capitolo. Creare transazioni raw è estremamente utile se stai scrivendo programmi bitcoin, ma _solo_ quando stai scrivendo programmi bitcoin. (Ad esempio: scrivendo questo esempio per una versione di questo tutorial, abbiamo speso accidentalmente la transazione sbagliata, anche se aveva circa 10 volte tanto valore. Quasi tutto è andato perso dai minatori.)
 
-For best practices, we'll start out each transaction by carefully recording the txids and vouts that we'll be spending.
+### Prepara la transazione grezza
 
-In this case, we're going to spend the one worth .00050000 BTC because it's the only one with a decent value.
+Per le best practice, inizieremo ogni transazione registrando attentamente i txid e i vout che spenderemo.
+
+In questo caso, spenderemo quella dal valore di 50000 satoshio perché è l'unica con un valore decente.
 ```
 $ utxo_txid="61f3b7016bf1ecc3987b8805207e79362e4de8026682e149107999b779426e3a"
 $ utxo_vout="1"
 ```
 
-You should similarly record your recipient address, to make sure you have it right. We're again sending some money back to the TP faucet:
+Dovresti registrare in modo simile l'indirizzo del destinatario, per assicurarti di averlo scritto correttamente. Stiamo di nuovo inviando del denaro al faucet:
 ```
 $ recipient="n2eMqTT929pb1RDNuqEnxdaLau1rxy3efi"
 ```
-As always, check your variables carefully, to make sure they're what you expect!
+Come sempre, controlla attentamente le tue variabili per assicurarti che siano quelle che ti aspetti!
+
 ```
 $ echo $utxo_txid
 61f3b7016bf1ecc3987b8805207e79362e4de8026682e149107999b779426e3a
@@ -95,27 +97,27 @@ $ echo $utxo_vout
 $ echo $recipient
 n2eMqTT929pb1RDNuqEnxdaLau1rxy3efi
 ```
-That recipient is particularly important, because if you mess it up, your money is _gone_! (And as we already saw, choosing the wrong transaction can result in lost money!) So triple check it all.
+Quel destinatario è particolarmente importante, perché se sbagli, i tuoi soldi sono _andati_! (E come abbiamo già visto, scegliere la transazione sbagliata può comportare la perdita di denaro!) Quindi controlla tutto tre volte.
 
-### Understand the Transaction Fee
+### Comprendi la commissione di transazione, la fee
 
-Each transaction has a fee associated with. It's _implicit_ when you send a raw transaction: the amount that you will pay as a fee is always equal to the amount of your input minus the amount of your output. So, you have to decrease your output a little bit from your input to make sure that your transaction goes out.
+Ogni transazione ha una commissione associata. È _implicita_ quando invii una transazione raw: l'importo che pagherai come commissione è sempre uguale all'importo del tuo input meno l'importo del tuo output. Quindi, devi diminuire un po' il tuo output rispetto al tuo input per assicurarti che la tua transazione venga eseguita.
 
-> :warning: **WARNING:** This is the very dangerous part of raw transactions!! Because you automatically expend all of the amount in the UTXOs that you use, it's critically important to make sure that you know: (1) precisely what UTXOs you're using; (2) exactly how much money they contain; (3) exactly how much money you're sending out; and (4) what the difference is. If you mess up and you use the wrong UTXO (with more money than you thought) or if you send out too little money, the excess is lost. Forever. Don't make that mistake! Know your inputs and outputs _precisely_. Or better, don't use raw transactions except as part of a carefully considered and triple-checked program.
+> :warning: **ATTENZIONE:** Questa è la parte molto pericolosa delle transazioni raw!! Poiché spendi automaticamente tutto l'importo negli UTXO che utilizzi, è di fondamentale importanza assicurarti di sapere: (1) esattamente quali UTXO stai utilizzando; (2) esattamente quanti soldi contengono; (3) esattamente quanti soldi stai inviando; e (4) qual è la differenza. Se sbagli e usi l'UTXO sbagliato (con più soldi di quanto pensavi) o se invii troppo poco denaro, l'eccesso è perso. Per sempre. Non commettere questo errore! Conosci i tuoi input e output _precisamente_. O meglio, non usare transazioni raw se non come parte di un programma attentamente ponderato e verificato tre volte.
 
-> :book: ***How much should you spend on transaction fees?*** [Bitcoin Fees](https://bitcoinfees.21.co/) has a nice live assessment. It says that the "fastest and cheapest transaction fee is currently 42 satoshis/byte" and that "For the median transaction size of 224 bytes, this results in a fee of 9,408 satoshis".
+> :book: ***Quanto dovresti spendere in fees?*** [Bitcoin Fees](https://bitcoinfees.net/) ha una bella valutazione in tempo reale. Dice che "la commissione di transazione più veloce ed economica è attualmente di 42 satoshi/byte" e che "per la dimensione media della transazione di 224 byte, ciò si traduce in una commissione di 9408 satoshi".
 
-Currently Bitcoin Fees suggests a transaction fee of about 10,000 satoshis, which is the same as .0001 BTC. Yes, that's for the mainnet, not the testnet, but we want to test out things realistically, so that's what we're going to use.
+Attualmente Bitcoin Fees suggerisce una commissione di transazione di circa 10000 satoshi, (0,0001 BTC). Sì, è per la mainnet, non per la testnet, ma vogliamo testare le cose in modo realistico, quindi è quello che useremo.
 
-In this case, that means taking the .0005 BTC in the UTXO we're selected, reducing it by .0001 BTC for the transaction fee, and sending the remaining .0004 BTC. (And this is an example of why micropayments don't work on the Bitcoin network, because a $1 or so transaction fee is pretty expensive when you're sending $4, let alone if you were trying to make a micropayment of $0.50. But that's always why we have Lightning.)
+In questo caso, significa prendere 50000 BTC nell'UTXO che siamo selezionati, ridurli di 10000 BTC per la fee e inviare i restanti 40000 BTC. (E questo è un esempio del perché i micropagamenti non funzionano sulla rete Bitcoin, perché una commissione di transazione di circa 1$ è piuttosto costosa quando si inviano 4$, figuriamoci se si stava cercando di effettuare un micropagamento di 0,50$. Ma è sempre per questo che abbiamo Lightning.)
 
-> :warning: **WARNING:** The lower that you set your transaction fee, the longer before your transaction is built into a block. The Bitcoin Fees site lists expected times, from an expected 0 blocks, to 22. Since blocks are built on average every 10 minutes, that's the difference between a few minutes and a few hours! So, choose a transaction fee that's appropriate for what you're sending. Note that you should never drop below the minimum relay fee, which is .0001 BTC.
+> :warning: **ATTENZIONE:** Più bassa è la commissione di transazione impostata, più tempo ci vorrà prima che la transazione venga incorporata in un blocco. Il sito [Bitcoin Fees](https://bitcoinfees.net/) elenca i tempi previsti, da circa 0 blocchi a 22 blocchi. Poiché i blocchi vengono creati in media ogni 10 minuti, questa è la differenza tra pochi minuti e poche ore! Quindi, scegli una commissione di transazione appropriata per ciò che stai inviando. Nota che non dovresti mai scendere sotto la commissione di inoltro minima, che è 10000 BTC.
 
-### Write the Raw Transaction
+### Scrivi la transazione raw
 
-You're now ready to create the raw transaction. This uses the `createrawtransaction` command, which might look a little intimidating. That's because the `createrawtransaction` command doesn't entirely shield you from the JSON RPC that the bitcoin-cli uses. Instead, you are going to input a JSON array to list the UTXOs that you're spending and a JSON object to list the outputs.
+Ora sei pronto per creare la transazione raw. Per questo utilizza il comando `createrawtransaction`, che potrebbe sembrare un po' intimidatorio. Questo perché il comando `createrawtransaction` non ti protegge completamente dal `JSON RPC` che usa `bitcoin-cli`. Invece, inserirai un array `JSON` per elencare gli `UTXO` che stai spendendo e un oggetto `JSON` per elencare gli output.
 
-Here's the standard format:
+Ecco il formato standard:
 ```
 $ bitcoin-cli createrawtransaction
 '''[
@@ -128,18 +130,18 @@ $ bitcoin-cli createrawtransaction
    "'$your_recipient'": bitcoin_amount
  }'''
  ```
- Yeah, there are all kinds of crazy quotes there, but trust that they'll do the right thing. Use `'''` to mark the start and end of the JSON array and the JSON object. Protect normal words like `"this"`, but you don't need to protect normal numbers: `0`. If they're variables, insert single quotes, like `"'$this_word'"` and `'$this_num'`. (Whew. You'll get used to it.)
+Eh sì, ci sono tutti i tipi di virgolette folli lì, ma fidati che faranno la cosa giusta. Usa `'''` per contrassegnare l'inizio e la fine dell'array JSON e dell'oggetto JSON. Proteggi parole normali come `"this"`, ma non devi proteggere numeri normali: `0`. Se sono variabili, inserisci virgolette singole, come `"'$this_word'"` e `'$this_num'`. (Uffa. Ti ci abituerai.)
 
- Here's a command that creates a raw transaction to send your $utxo to your $recipient
+Ecco un comando che crea una transazione raw per inviare il tuo $utxo al tuo $recipient
  ```
 $ rawtxhex=$(bitcoin-cli createrawtransaction '''[ { "txid": "'$utxo_txid'", "vout": '$utxo_vout' } ]''' '''{ "'$recipient'": 0.0004 }''')
 $ echo $rawtxhex
 02000000013a6e4279b799791049e1826602e84d2e36797e2005887b98c3ecf16b01b7f3610100000000ffffffff01409c0000000000001976a914e7c1345fc8f87c68170b3aa798a956c2fe6a9eff88ac00000000
 ```
 
-### Verify Your Raw Transaction
+### Verifica la tua transazione raw
 
-You should next verify your rawtransaction with `decoderawtransaction` to make sure that it will do the right thing.
+Dovresti quindi verificare la tua transazione raw con `decoderawtransaction` per assicurarti che faccia la cosa giusta.
 ```
 $ bitcoin-cli decoderawtransaction $rawtxhex
 {
@@ -179,15 +181,16 @@ $ bitcoin-cli decoderawtransaction $rawtxhex
 }
 ```
 
-Check the `vin`. Are you spending the right transaction? Does it contain the expected amount of money? (Check with `bitcoin-cli gettransaction` and be sure to look at the right `vout`.) Check your `vout`. Are you sending the right amount? Is it going to the right address? Finally, do the math to make sure the money balances. Does the value of the UTXO minus the amount being spent equal the expected transaction fee?
+Controlla il `vin`. Stai spendendo la transazione giusta? Contiene l'importo di denaro previsto? (Controlla con `bitcoin-cli gettransaction` e assicurati di guardare il `vout` giusto.) Controlla il tuo `vout`. Stai inviando l'importo giusto? Va all'indirizzo giusto? Infine, fai i calcoli per assicurarti che il denaro sia in pareggio. Il valore dell'UTXO meno l'importo speso è uguale alla commissione di transazione prevista?
 
-> :information_source:  **NOTE - SEQUENCE:** You may note that each input has a sequence number, set here to  4294967295, which is 0xFFFFFFFF. This is the last frontier of Bitcoin transactions, because it's a standard field in transactions that was originally intended for a specific purpose, but was never fully implemented. So now there's this integer sitting around in transactions that could be repurposed for other uses. And, in fact, it has been. As of this writing there are three different uses for the variable that's called `nSequence` in the Bitcoin Core code: it enables RBF, `nLockTime`, and relative timelocks. If there's nothing weird going on, `nSequence` will be set to 4294967295. Setting it to a lower value signals that special stuff is going on.
+> :information_source: **NOTA - SEQUENZA:** Potresti notare che ogni input ha un numero di sequenza, impostato qui su 4294967295, che è 0xFFFFFFFF. Questa è l'ultima frontiera delle transazioni Bitcoin, perché è un campo standard nelle transazioni che era originariamente destinato a uno scopo specifico, ma non è mai stato completamente implementato. Quindi ora c'è questo intero in giro nelle transazioni che potrebbe essere riutilizzato per altri usi. E, in effetti, lo è stato. Al momento in cui scrivo, ci sono tre diversi utilizzi per la variabile chiamata `nSequence` nel codice Bitcoin Core: abilita RBF, `nLockTime` e timelock relativi. Se non succede nulla di strano, `nSequence` verrà impostato su 4294967295. Impostandolo su un valore inferiore, si segnala che sta succedendo qualcosa di speciale.
 
-### Sign the Raw Transaction
+### Firma la transazione raw
 
-To date, your raw transaction is just something theoretical: you _could_ send it, but nothing has been promised. You have to do a few things to get it out onto the network.
+A oggi, la tua transazione raw è solo qualcosa di teorico: potresti inviarla, ma non ti è stato promesso nulla. Devi fare alcune cose per farla uscire sulla rete.
 
-First, you need to sign your raw transaction:
+Per prima cosa, devi firmare la tua transazione raw:
+
 ```
 
 $ bitcoin-cli signrawtransactionwithwallet $rawtxhex
@@ -197,16 +200,18 @@ $ bitcoin-cli signrawtransactionwithwallet $rawtxhex
 }
 $ signedtx="02000000013a6e4279b799791049e1826602e84d2e36797e2005887b98c3ecf16b01b7f361010000006a4730440220335d15a2a2ca3ce6a302ce041686739d4a38eb0599a5ea08305de71965268d05022015f77a33cf7d613015b2aba5beb03088033625505ad5d4d0624defdbea22262b01210278608b54b8fb0d8379d3823d31f03a7c6ab0adffb07dd3811819fdfc34f8c132ffffffff01409c0000000000001976a914e7c1345fc8f87c68170b3aa798a956c2fe6a9eff88ac00000000"
 ```
-Note that we captured the signed hex by hand, rather than trying to parse it out of the JSON object. A software package called "JQ" could do better, as we'll explain in an upcoming interlude.
+Nota che abbiamo catturato manualmente l'esadecimale firmato, anziché cercare di analizzarlo dall'oggetto JSON. Un pacchetto software chiamato "JQ" potrebbe fare di meglio, come spiegheremo in un prossimo interludio.
 
-### Send the Raw Transaction
+### Invia la transazione raw
 
-You've now got a ready-to-go raw transaction, but it doesn't count until you actually put it on the network, which you do with the `sendrawtransaction` command. You'll get back a txid:
+Ora hai una transazione raw pronta all'uso, ma non conta finché non la metti effettivamente in rete, cosa che fai con il comando `sendrawtransaction`. Riceverai un txid:
+
 ```
 $ bitcoin-cli sendrawtransaction $signedtx
 a1fd550d1de727eccde6108c90d4ffec11ed83691e96e119d842b3f390e2f19a
 ```
-You'll immediately see that the UTXO and its money have been removed from your wallet:
+
+Vedrai immediatamente che l'UTXO e il suo denaro sono stati rimossi dal tuo portafoglio:
 ```
 $ bitcoin-cli listunspent
 [
@@ -241,7 +246,8 @@ $ bitcoin-cli listunspent
 $ bitcoin-cli getbalance
 0.00032000
 ```
-Soon `listtransactions` should show a confirmed transaction of category 'send".
+
+Presto `listtransactions` dovrebbe mostrare una transazione confermata della categoria `send`.
 ```
  {
     "address": "n2eMqTT929pb1RDNuqEnxdaLau1rxy3efi",
@@ -260,14 +266,14 @@ Soon `listtransactions` should show a confirmed transaction of category 'send".
     "abandoned": false
   }
 ```
-You can see that it matches the `txid` and the `recipient` address. Not only does it show the `amount` sent, but it also shows the transaction `fee`. And, it's already received a confirmation, because we offered a fee that would get it swept up into a block quickly.
+Puoi vedere che corrisponde all'indirizzo `txid` e `recipient`. Non solo mostra l'`importo` inviato, ma mostra anche la `commissione` della transazione. E ha già ricevuto una conferma, perché abbiamo offerto una commissione che lo avrebbe rapidamente inserito in un blocco.
 
-Congratulations! You're now a few satoshis poorer!
+Congratulazioni! Ora sei più povero di qualche satoshi!
 
-## Summary: Creating a Raw Transaction
+## Riepilogo: creazione di una transazione raw
 
-When money comes into your Bitcoin wallet, it remains as distinct amounts, called UTXOs. When you create a raw transaction to send that money back out, you use one or more UTXOs to fund it. You then can create a raw transaction, sign it, and send it on the Bitcoin network. However, this is just a foundation: you'll usually need to create a raw transaction with multiple outputs to actually send something on the bitcoin network!
+Quando le monete entrano nel tuo portafoglio Bitcoin, rimangono come importi distinti, chiamati UTXO. Quando crei una transazione raw per inviare quel denaro, utilizzi uno o più UTXO per pagare (come fondere le monete d'oro e ricomporle a seconda del bisogno). Puoi quindi creare una transazione raw, firmarla e inviarla sulla rete Bitcoin. Tuttavia, questa è solo una base: di solito dovrai creare una transazione raw con più output per inviare effettivamente qualcosa sulla rete Bitcoin!
 
-## What's Next?
+## Cosa c'è dopo?
 
-Step Back from "Sending Bitcoin Transactions" with [Interlude: Using JQ](04_2__Interlude_Using_JQ.md).
+Ne vale la pena impiegare qualche minuto per capire meglio come [usare JQ](04_2_Intermezzo_Usare_JQ.md).
