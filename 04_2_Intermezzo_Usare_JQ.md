@@ -32,7 +32,7 @@ $ bitcoin-cli signrawtransactionwithwallet $rawtxhex
   "complete": true
 }
 ```
-Fortunately, JQ can easily capture data of that sort!
+Fortunatamente, JQ può facilmente acquisire dati di questo tipo!
 
 Per utilizzare JQ, esegui `jq` nel backend di una pipe `|` e utilizza sempre l'invocazione standard di `jq -r`. La `-r` dice a JQ di produrre un output grezzo, raw, che funzionerà per le variabili della riga di comando, mentre il `.` dice a jq di produrre l'output. Proteggiamo questo argomento in `' '` perché avremo bisogno di quella protezione in seguito quando le nostre chiamate a `'jq` diventeranno più complesse.
 
