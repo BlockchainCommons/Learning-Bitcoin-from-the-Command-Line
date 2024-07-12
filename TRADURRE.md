@@ -1,113 +1,114 @@
-# Translating Learning Bitcoin from the Command Line
+# Tradurre Impara Bitcoin dalla riga di comando
 
-Thank you for your interest in translating Learning Bitcoin from the Command Line! What follows is our standard procedure for doing so. If you have any questions, please file an Issue.
+Grazie per il tuo interesse nella traduzione di Learning Bitcoin dalla riga di comando! Quella che segue è la nostra procedura standard per farlo. In caso di domande, inviare un problema.
 
-1. **Please Follow Our Normal Contributor Procedure.**
-   * Read over [CONTRIBUTING.md](https://github.com/BlockchainCommons/Learning-Bitcoin-from-the-Command-Line/blob/master/CONTRIBUTING.md).
-   * Fill out a [Contributor License Agreement](https://github.com/BlockchainCommons/Learning-Bitcoin-from-the-Command-Line/blob/master/CLA.md), sign it with GPG, and submit it as a PR. Be sure this is done for everyone who contributes to the translation.
-1. **Choose a Release.**  
-   * Choose a [Release](https://github.com/BlockchainCommons/Learning-Bitcoin-from-the-Command-Line/releases) as the basis of your translation. We generally suggest the latest release. This will ensure the consistency of all the files in your translation, will insulate you from any changes we make, and will make it easy to see what has changed when we create a new release. 
-   * If it looks like there hasn't been a new Release in a while, file an Issue saying you're interested in starting a new translation, and asking if it would make sense for there to be a new Release milestone before you do so. If there's been anything notable, and we're not in the middle of things, we'll likely create a new patch or minor version. If we're in the middle of things, we'll just suggest you use the previous Release.
-   * Label your table of contents and each chapter or section with the release used.
-1. **Request a Branch.**
-   * File an [Issue](https://github.com/BlockchainCommons/Learning-Bitcoin-from-the-Command-Line/issues) requesting a new branch for your translation.
-   * This will be the master place for us to collect work on the translation over time.
-   * We will create a top-level directory for your complete translation using the [ISO 639-1 language code](https://en.wikipedia.org/wiki/List_of_ISO_639-1_codes), for example `es` (Spanish), `fr` (French), or `pt` (Portuguese). Work should be done in that directory.
-1. **Fork the Branch.**
-   * Once we've created a translation branch, you'll then want to fork that into your own GitHub account.
-   * Generally, we suggest that you create one working branch off that translation branch for each separate chapter. This will allow you to work through the process of write/review/revise for each individual chapter without it getting tangled up with your new content for future chapters, and will allow us to merge the chapters as they're completed, which is our preference, and will help everyone to keep track of where things our.
-   * Make sure you [sign your commits](https://docs.github.com/en/github/authenticating-to-github/managing-commit-signature-verification/signing-commits).
-1. **Submit PRs a Chapter at a Time.**
-   * Submit your PRs for the translation from your working fork to our translation branch in batches of no more than a single chapter at a time.
-   * Submit in smaller batches if it makes sense, for example because different people are writing different sections.
-   * Again, we suggest that there be a branch for each chapter, so when you submit your PR for one chapter, you'll usually then create a branch for the next chapter.
-1. **Request Approval from a Native Speaker.**
-   * No one can ever do a great edit of their own work, so we require each section to be approved by someone other than the original translator.
+1. **Si prega di seguire la nostra normale procedura per i collaboratori.**
+ * Leggi [CONTRIBUTING.md](https://github.com/BlockchainCommons/Learning-Bitcoin-from-the-Command-Line/blob/master/CONTRIBUTING.md).
+ * Compila un [Contratto di licenza per collaboratore](https://github.com/BlockchainCommons/Learning-Bitcoin-from-the-Command-Line/blob/master/CLA.md), firmalo con GPG e invialo come un PR. Assicurati che ciò venga fatto per tutti coloro che contribuiscono alla traduzione.
+1. **Scegli una versione.**
+ * Scegli una [Versione](https://github.com/BlockchainCommons/Learning-Bitcoin-from-the-Command-Line/releases) come base della tua traduzione. Generalmente suggeriamo l'ultima versione. Ciò garantirà la coerenza di tutti i file nella tua traduzione, ti isolerà da eventuali modifiche apportate e renderà più facile vedere cosa è cambiato quando creiamo una nuova versione.
+ * Se sembra che non ci sia una nuova versione da un po', invia un problema dicendo che sei interessato a iniziare una nuova traduzione e chiedendo se avrebbe senso che ci sia una nuova pietra miliare di rilascio prima di farlo . Se c'è stato qualcosa di degno di nota, e non siamo nel mezzo delle cose, probabilmente creeremo una nuova patch o una versione minore. Se siamo nel bel mezzo del lavoro, ti suggeriremo semplicemente di utilizzare la versione precedente.
+ * Etichetta il tuo sommario e ogni capitolo o sezione con la versione utilizzata.
+1. **Richiedi una filiale.**
+ * Presenta un [problema](https://github.com/BlockchainCommons/Learning-Bitcoin-from-the-Command-Line/issues) richiedendo un nuovo ramo per la tua traduzione.
+ * Questo sarà per noi il luogo principale in cui raccoglieremo il lavoro sulla traduzione nel tempo.
+ * Creeremo una directory di primo livello per la tua traduzione completa utilizzando il [codice lingua ISO 639-1](https://en.wikipedia.org/wiki/List_of_ISO_639-1_codes), ad esempio `es` (spagnolo), "fr" (francese) o "pt" (portoghese). Il lavoro dovrebbe essere svolto in quella directory.
+     
+1. **Biforca il ramo.**
+ * Una volta creato un ramo di traduzione, ti consigliamo di inserirlo nel tuo account GitHub.
+ * Generalmente, suggeriamo di creare un ramo di lavoro da quel ramo di traduzione per ogni capitolo separato. Ciò ti consentirà di affrontare il processo di scrittura/revisione/revisione per ogni singolo capitolo senza che questo rimanga intrappolato con i tuoi nuovi contenuti per i capitoli futuri e ci consentirà di unire i capitoli man mano che vengono completati, che è la nostra preferenza , e aiuterà tutti a tenere traccia di dove si trovano le cose.
+ * Assicurati di [firmare i tuoi commit](https://docs.github.com/en/github/authenticating-to-github/managing-commit-signature-verification/signing-commits).
+1. **Invia i PR un capitolo alla volta.**
+ * Invia i tuoi PR per la traduzione dal tuo work fork al nostro ramo di traduzione in lotti di non più di un singolo capitolo alla volta.
+ * Invia in gruppi più piccoli se ha senso, ad esempio perché persone diverse scrivono sezioni diverse.
+ * Ancora una volta, suggeriamo che ci sia un ramo per ogni capitolo, quindi quando invii il tuo PR per un capitolo, di solito creerai un ramo per il capitolo successivo.
+1. **Richiedi l'approvazione da parte di un madrelingua.**
+ * Nessuno potrà mai apportare una modifica eccezionale al proprio lavoro, quindi richiediamo che ogni sezione sia approvata da qualcuno diverso dal traduttore originale.
 
-   * This fundamentally means that any translation team _should_ contain at least two members, either one translator and one editor or else two people who trade off roles of translator and editor. If your team doesn't have a second member, we can put out a call for an editor/approver when you submit a PR, but it's possible that we won't be able to find one, and your hard work will languish, so it's s better to have one up front.
+ * Ciò significa fondamentalmente che qualsiasi team di traduzione _dovrebbe_ contenere almeno due membri, un traduttore e un redattore oppure due persone che si scambiano i ruoli di traduttore e redattore. Se il tuo team non ha un secondo membro, possiamo chiamare un redattore/approvatore quando invii un PR, ma è possibile che non saremo in grado di trovarne uno e il tuo duro lavoro languirà, quindi è meglio averne uno in anticipo.
 
-   * To make the editing and reviewing process easier, independent, and streamlined, we suggest that you and the reviewer [request access to each other's forks](https://docs.github.com/en/enterprise-server@3.0/github/setting-up-and-managing-your-github-user-account/managing-access-to-your-personal-repositories/inviting-collaborators-to-a-personal-repository). Once invited, the _reviewer_ can then:
+ * Per rendere il processo di modifica e revisione più semplice, indipendente e ottimizzato, suggeriamo a te e al revisore di [richiedere l'accesso ai rispettivi fork](https://docs.github.com/en/enterprise-server@3.0/github /configurazione-e-gestione-del-tuo-account-utente-github/gestione-dell'accesso-ai-tui-repository-personali/invito-dei-collaboratori-a-un-repository-personale). Una volta invitato, il _revisore_ può quindi:
 
-     1. Easily checkout the PR into their local machine with [GitHub CLI](https://cli.github.com/) by doing `gh pr checkout <pr-number>`. This will automatically create a branch with the PR code for the reviewer to work on.
+ 1. Effettua facilmente il checkout del PR nel computer locale con [GitHub CLI](https://cli.github.com/) eseguendo `gh pr checkout <pr-number>`. Ciò creerà automaticamente un ramo con il codice PR su cui il revisore potrà lavorare.
 
-     2. Then, perform their changes with signed commits.
+ 2. Quindi, esegui le modifiche con commit firmati.
 
-     3. And do `git push` after finishing the review to have the changes reflected in the PR.
-1. **Request Approval from the Blockchain Commons Team.**
-   * Once a chapter or section has been approved by a native speaker, request approval from someone on the Blockchain Commons team: currently [@shannona](https://github.com/shannona).
-1. **Continue!**
-   * Continue through the process, no more than one chapter at a time, until you have a full book.
-   * Be aware of the scope of the overall project. As of v2.01, Learning Bitcoin from the Command Line is 120,000 words in length. As a book, that'd be 250-400 pages, depending on the format and layout. (About 90,000 words of that is text to translate, with the remainder being code.) You want to make sure you have the time for that level of commitment before getting started.
-1. **Let Us Know When You're Done.**
-   * When you've completed your translation, file an issue to let us know that the translation branch is ready to be merged into the master.
-   * This will also let us know to announce the completed translation and link it into the master README
-1. **Update Your Translation with New Releases**
-   * It is our hope that translations will stay up to day with new releases, particularly major and minor releases, which are likely to include new content and updates. Currently, these only occur ever few years
-   * If you have decided to stop updating a translation, please let us know in an Issue, so that we can let the community know that we are looking for a new translator to continue updating a translation.
+ 3. Esegui "git push" dopo aver terminato la revisione per far sì che le modifiche si riflettano nel PR.
+1. **Richiedi l'approvazione al Blockchain Commons Team.**
+ * Una volta che un capitolo o una sezione sono stati approvati da un madrelingua, richiedi l'approvazione a qualcuno del team Blockchain Commons: attualmente [@shannona](https://github.com/shannona).
+1. **Continua!**
+ * Continua il processo, non più di un capitolo alla volta, finché non avrai un libro completo.
+ * Essere consapevoli della portata del progetto complessivo. A partire dalla versione 2.01, Imparare Bitcoin dalla riga di comando ha una lunghezza di 120.000 parole. Come libro, sarebbero 250-400 pagine, a seconda del formato e del layout. (Circa 90.000 parole di questo sono testo da tradurre, mentre il resto è codice.) Vuoi assicurarti di avere il tempo per quel livello di impegno prima di iniziare.
+1. **Facci sapere quando hai finito.**
+ * Una volta completata la traduzione, invia un problema per farci sapere che il ramo di traduzione è pronto per essere unito al master.
+ * Questo ci permetterà anche di annunciare la traduzione completata e di collegarla al file README principale
+1. **Aggiorna la tua traduzione con le nuove versioni**
+ * Ci auguriamo che le traduzioni restino aggiornate con le nuove versioni, in particolare quelle maggiori e secondarie, che probabilmente includeranno nuovi contenuti e aggiornamenti. Attualmente, questi si verificano solo ogni pochi anni
+ * Se hai deciso di interrompere l'aggiornamento di una traduzione, faccelo sapere in un numero, in modo che possiamo far sapere alla comunità che stiamo cercando un nuovo traduttore per continuare ad aggiornare una traduzione.
 
-### WORKFLOW EXAMPLE
+### ESEMPIO DI FLUSSO DI LAVORO
 
-Chapter 3 has 7 subsections: 3.0, 3.1, 3.2, 3.3, Interlude 3.3, 3.4 and 3.5.
-Suppose you want to translate it to french.
+Il capitolo 3 ha 7 sottosezioni: 3.0, 3.1, 3.2, 3.3, Interludio 3.3, 3.4 e 3.5.
+Supponiamo che tu voglia tradurlo in francese.
 
-One approach to its translation would be to create a branch `french-3` from
-`french-translation` branch (created in the previous step). Then create a
-translation file for the 3.0 subsection. When you think that chapter 3.0 is
-ready for review you commit your changes and continue with the next file,
-subsection 3.1. Repeat the same process for this file and all the following.
-After this, your branch `french-3` will diverge from the base branch
-(`french-translation` in this case) by 7 different commits, one for each
-subsection, plus some more commits if you forgot to make some changes or need
-to correct others.  At this point you are ready to push your changes to your
-fork and open a pull request to the original repository.
+Un approccio alla sua traduzione potrebbe essere quello di creare un ramo "francese-3" da
+ramo "francese-traduzione" (creato nel passaggio precedente). Quindi crea un file
+file di traduzione per la sottosezione 3.0. Quando pensi che il capitolo 3.0 sia
+pronto per la revisione, applichi le modifiche e continui con il file successivo,
+sottosezione 3.1. Ripeti la stessa procedura per questo file e tutti i successivi.
+Successivamente, il tuo ramo "francese-3" divergerà dal ramo base
+("traduzione francese" in questo caso) da 7 diversi commit, uno per ciascuno
+sottosezione, oltre ad alcuni altri commit se hai dimenticato di apportare alcune modifiche o necessità
+per correggere gli altri. A questo punto sei pronto per applicare le modifiche al tuo
+fork e aprire una richiesta pull al repository originale.
 
-In the review process you will discuss some decisions with your reviewer and
-introduce new changes in the form of commits if you have to change some parts
-of your modifications.  Don't forget to commit those changes in meaningful
-chunks and push them to your fork.  After polishing your changes, your reviewer
-will accept your changes and it will request the merge of those changes on the
-`french-translation` branch.  Note that you can also push your changes and
-create your pull request after your first commit. This will allow the reviewer
-to start reviewing before you finish all chapter translation.
+Nel processo di revisione discuterai alcune decisioni con il tuo revisore e
+introdurre nuove modifiche sotto forma di commit se è necessario modificare alcune parti
+delle tue modifiche. Non dimenticare di rendere significative queste modifiche
+pezzi e spingerli sulla forchetta. Dopo aver perfezionato le modifiche, il tuo revisore
+accetterà le tue modifiche e richiederà l'unione di tali modifiche sul file
+ramo "traduzione francese". Tieni presente che puoi anche inviare le modifiche e
+crea la tua richiesta pull dopo il tuo primo commit. Ciò consentirà al revisore
+per iniziare la revisione prima di terminare la traduzione di tutti i capitoli.
 
-You can track the state of the translation of that particular chapter in the 
-body of the pull request, with the following template:
+Puoi tenere traccia dello stato della traduzione di quel particolare capitolo nel file
+corpo della richiesta pull, con il seguente modello:
 
 ```
-This pull request creates the <translated_language> version of the chapter
-<chapter_number> of Learning-Bitcoin-from-the-Command-Line.
+Questa richiesta pull crea la versione <translated_lingual> del capitolo
+<numero_capitolo> di Imparare Bitcoin dalla riga di comando.
 
-Things to check:
-- Respect filenames and chapter names from translated [README](local/path/to/README).
-- Correct translation.
-- Term consistency: review ["translation memory"](local/path/to/file) file.
-- Good punctuation.
-- Correct linking.
-- Nice formatting.
+Cose da controllare:
+- Rispettare i nomi dei file e dei capitoli da [README] tradotto (locale/percorso/a/README).
+- Traduzione corretta.
+- Coerenza dei termini: revisione del file ["memoria di traduzione"](locale/percorso/del/file).
+- Buona punteggiatura.
+- Collegamento corretto.
+- Bella formattazione.
 
-| Sub chapter   |       Translated        |         Reviewed        |          Done           |
-| ------------- |   :--------------:      |    :--------------:     |    :--------------:     |
-| _0_           | <ul><li> [ ] </li></ul> | <ul><li> [ ] </li></ul> | <ul><li> [ ] </li></ul> |
-| _1_           | <ul><li> [ ] </li></ul> | <ul><li> [ ] </li></ul> | <ul><li> [ ] </li></ul> |
-| _2_           | <ul><li> [ ] </li></ul> | <ul><li> [ ] </li></ul> | <ul><li> [ ] </li></ul> |
-| _3_           | <ul><li> [ ] </li></ul> | <ul><li> [ ] </li></ul> | <ul><li> [ ] </li></ul> |
-| _etc_         | <ul><li> [ ] </li></ul> | <ul><li> [ ] </li></ul> | <ul><li> [ ] </li></ul> |
+| Sottocapitolo | Tradotto | Recensito | Fatto |
+| ------------- | :--------------: | :--------------: | :--------------: |
+| _0_ | <ul><li> [ ] </li></ul> | <ul><li> [ ] </li></ul> | <ul><li> [ ] </li></ul> |
+| _1_ | <ul><li> [ ] </li></ul> | <ul><li> [ ] </li></ul> | <ul><li> [ ] </li></ul> |
+| _2_ | <ul><li> [ ] </li></ul> | <ul><li> [ ] </li></ul> | <ul><li> [ ] </li></ul> |
+| _3_ | <ul><li> [ ] </li></ul> | <ul><li> [ ] </li></ul> | <ul><li> [ ] </li></ul> |
+| _ecc_ | <ul><li> [ ] </li></ul> | <ul><li> [ ] </li></ul> | <ul><li> [ ] </li></ul> |
 ```
 
-### FINAL SUGGESTIONS:
-- _Keep lines under 80 characters_. Markdown parser will format them right
-  (double check that) and the review process will be easier.
-- _Translate `README.md` file first_ and use it as reference for the translation
-  of all the following chapter names, filenames and link names.  The README
-  represents the state of the master branch at the moment of begin the
-  translation process. It will be consulted by all translators to know how to
-  translate file and chapter names. Try to reach an agreement with the other
-  translators about those names before writing any chapter and keep further
-  changes of this file to minimum.
-- _Create a "translation memory" file_ with special words that could have
-  multiple translations under the same contexts and the translation chosen for
-  them. Good candidates to be in this list would be domain specific words,
-  like: multisig, input, output, script, timelock, locktime, hash, etc.
+### SUGGERIMENTI FINALI:
+- _Mantenere le righe inferiori a 80 caratteri_. Il parser Markdown li formatterà correttamente
+ (ricontrollalo) e il processo di revisione sarà più semplice.
+- _Traduci prima il file `README.md`_ e usalo come riferimento per la traduzione
+ di tutti i seguenti nomi di capitoli, nomi di file e nomi di collegamenti. Il README
+ rappresenta lo stato del ramo master al momento dell'inizio del
+ processo di traduzione. Verrà consultato da tutti i traduttori per sapere come fare
+ tradurre i nomi di file e capitoli. Cercare di raggiungere un accordo con l'altro
+ traduttori su quei nomi prima di scrivere qualsiasi capitolo e proseguire oltre
+ modifiche di questo file al minimo.
+- _Crea un file di "memoria di traduzione"_ con le parole speciali che potresti avere
+ più traduzioni negli stessi contesti e la traduzione scelta per
+ loro. I buoni candidati per essere in questo elenco sarebbero parole specifiche del dominio,
+ come: multisig, input, output, script, timelock, locktime, hash, ecc.
 
 
-Again, thank you!
+Grazie ancora!
