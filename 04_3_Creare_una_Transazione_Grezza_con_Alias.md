@@ -1,40 +1,41 @@
-# 4.3 Creating a Raw Transaction with Named Arguments
+# 4.3 Creare una transazione raw con alias
 
-It can sometimes be daunting to figure out the right order for the arguments to a bitcoin-cli command. Fortunately, you can use _named arguments_ as an alternative.
+A volte può essere scoraggiante capire l'ordine giusto per gli argomenti di un comando bitcoin-cli. Fortunatamente, puoi usare _Named Arguments_ come alternativa.
 
-> :warning: **VERSION WARNING:** This is an innovation from Bitcoin Core v 0.14.0. If you used our setup scripts, that's what you should have, but double-check your version if you have any problems. There is also a bug in the `createrawtransaction` command's use of named arguments that will presumably be fixed in 0.14.1.
+> :avviso: **AVVERTIMENTO VERSIONE:** Questa è un'innovazione di Bitcoin Core v 0.14.0. Se hai utilizzato i nostri script di installazione, questo è ciò che dovresti avere, ma ricontrolla la tua versione in caso di problemi. C'è anche un bug nell'uso degli argomenti con nome da parte del comando `createrawtransaction` che sarà presumibilmente corretto nella versione 0.14.1.
 
-## Create a Named Argument Alias
+## Crea un alias
 
-To use a named argument you must run `bitcoin-cli` with the `-named` argument. If you plan to do this regularly, you'll probably want to create an alias:
+Per utilizzare un alias devi eseguire `bitcoin-cli` con l'argomento `-named`. Se prevedi di farlo regolarmente, probabilmente vorrai creare un alias:
 ```
 alias bitcoin-cli="bitcoin-cli -named"
 ```
-As usual, that's for your ease of use, but we'll continue using the whole commands  to maintain clarity.
+Come al solito, è per la tua facilità d'uso, ma continueremo a utilizzare tutti i comandi per mantenerne la chiarezza.
 
-## Test Out a Named Argument
+## Prova un alias
 
-To learn what the names are for the arguments of a command, consult `bitcoin-cli help`. It will list the arguments in their proper order, but will now also give names for each of them.
+Per sapere quali sono i nomi degli argomenti di un comando, consulta `bitcoin-cli help`. Elencherà gli argomenti nel loro ordine corretto, ma ora fornirà anche i nomi per ciascuno di essi.
 
-For example, `bitcoin-cli help getbalance` lists these arguments:
+Ad esempio, `bitcoin-cli help getbalance` elenca questi argomenti:
 
    1. dummy [used to be account]
    2. minconf
    3. include_watchonly
    4. avoid_reuse
-   
-The following shows a traditional, unintuitive usage of `getbalance` using the minimum confirmation argument:
+
+Quanto segue mostra un utilizzo tradizionale e non intuitivo di "getbalance" utilizzando l'argomento di conferma minima:
 ```
 $ bitcoin-cli getbalance "*" 1
 ```
-With named arguments, you can clarify what you're doing, which also minimizes mistakes:
+Con gli argomenti con nome è piu chiaro vedere cosa stai facendo, e cosi riduci al minimo gli errori:
 ```
 $ bitcoin-cli -named getbalance minconf=1
 ```
 
-## Test Out a Raw Transaction
+## Prova una transazione raw
 
-Here's what the commands for sending a raw transaction would look like with named arguments:
+Ecco come apparirebbero i comandi per l'invio di una transazione grezza con argomenti denominati:
+
 ```
 $ utxo_txid=$(bitcoin-cli listunspent | jq -r '.[0] | .txid') 
 $ utxo_vout=$(bitcoin-cli listunspent | jq -r '.[0] | .vout')
@@ -82,16 +83,17 @@ $ signedtx=$(bitcoin-cli -named signrawtransactionwithwallet hexstring=$rawtxhex
 $ bitcoin-cli -named sendrawtransaction hexstring=$signedtx
 e70dd2aa13422d12c222481c17ca21a57071f92ff86bdcffd7eaca71772ba172
 ```
-Voila! You've sent out another raw transaction, but this time using named arguments for clarity and to reduce errors.
+Ecco! Hai inviato un'altra transazione grezza utilizzando alias `-named`, ma questa volta in modo piu chiaro e riducendo errori.
 
-> :warning: **VERSION WARNING:** There is where the bug in Bitcoin Core 0.14 shows up: the 'inputs' argument for 'createrawtransaction' is misnamed 'transactions'. So, if you're on Bitcoin Core 0.14.0, substitute the named argument 'inputs' with 'transactions' for this and future examples. However, as of Bitcoin Core 0.14.1, this code should work as shown.
+> :warning: **AVVERTIMENTO VERSIONE:** È qui che si manifesta il bug in Bitcoin Core 0.14: l'argomento `inputs` per `createrawtransaction` è chiamato erroneamente `transactions`. Quindi, se utilizzi Bitcoin Core 0.14.0, sostituisci l'argomento denominato `inputs` con `transazioni` per questo e gli esempi futuri. Tuttavia, a partire da Bitcoin Core 0.14.1, questo codice dovrebbe funzionare come mostrato.
+> **UPDATE** Ormai siamo a luglio del 2024 e abbiamo la versione Bitcoin Core 27.0, funziona tutto.
 
-## Summary: Creating a Raw Transaction with Named Arguments
+## Riepilogo: creazione di una transazione grezza con alias
 
-By running `bitcoin-cli` with the `-named` flag, you can use named arguments rather than depending on ordered arguments. `bitcoin-cli help` will always show you the right name for each argument. This can result in more robust, easier-to-read, less error-prone code.
+Eseguendo `bitcoin-cli` con il flag `-named`, puoi utilizzare alias anziché dipendere da argomenti ordinati. `bitcoin-cli help` qui vedrai sempre il nome giusto per ogni argomento. Ciò può comportare un codice più robusto, più facile da leggere e meno soggetto a errori.
 
-_These docs will use named arguments for all future examples, for clarity and to establish best practices. However, it will also show all arguments in the correct order. So, if you prefer not to use named args, just strip out the '-named' flag and all of the "name="s and the examples should continue to work correctly._
+_Questi documenti utilizzeranno alias per tutti gli esempi futuri, per chiarezza e per stabilire le migliori pratiche. Tuttavia, mostrerà anche tutti gli argomenti nell'ordine corretto. Quindi, se preferisci non utilizzare argomenti con nome, rimuovi semplicemente il flag '-named' e tutti i "name=" e gli esempi dovrebbero continuare a funzionare correttamente._
 
-## What's Next?
+## Con cosa andiamo avanti?
 
-Continue "Sending Bitcoin Transactions" with [§4.4: Sending Coins with Raw Transactions](04_4_Sending_Coins_with_a_Raw_Transaction.md).
+Continua a inviare bitcoin, guarda come farlo con una transazione raw qui: [Capitolo 4.4 Inviare Monete con Transazione Grezza](04_4_Inviare_Monete_con_Transazione_Grezza.md).
