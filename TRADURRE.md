@@ -1,4 +1,4 @@
-# Tradurre Impara Bitcoin dalla riga di comando
+# Tradurre: Impara Bitcoin dalla riga di comando
 
 Grazie per il tuo interesse nella traduzione di Learning Bitcoin dalla riga di comando! Quella che segue è la nostra procedura standard per farlo. In caso di domande, inviare un problema.
 
