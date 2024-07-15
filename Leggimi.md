@@ -45,114 +45,113 @@ Se desideri effettuare la tua traduzione, guarda qui [Contribuire](CONTRIBUIRE.m
   * [04_2 Creare una Transazione Grezza](04_2_Creare_una_Transazione_Grezza.md)
      * [04_2 Intermezzo Usare JQ](04_2_Intermezzo_Usare_JQ.md)
   * [04_3 Creare una Transazione Grezza con Alias ](04_3_Creare_una_Transazione_Grezza_con_Alias.md)
-  * [04_4_Inviare_Monete_con_Transazione_Grezza](04_4_Inviare_Monete_con_Transazione_Grezza.md)
-     * [04_4_Intermezzo_Usare_Curl.md](04_4_Intermezzo_Usare_Curl.md)
-  * [04_5_Inviare_Monete_con_Transazione_Grezza_Automatizzata](04_5_Inviare_Monete_con_Transazione_Grezza_Automatizzata)
-  * [04_6_Creare_una_Transazione_Segwit.md](04_6_Creare_una_Transazione_Segwit.md)
-* [5.0: Controlling Bitcoin Transactions](05_0_Controlling_Bitcoin_Transactions.md)
-  * [5.1 Watching for Stuck Transactions](05_1_Watching_for_Stuck_Transactions.md)
-  * [5.2: Resending a Transaction with RBF](05_2_Resending_a_Transaction_with_RBF.md)
-  * [5.3: Funding a Transaction with CPFP](05_3_Funding_a_Transaction_with_CPFP.md)
-* [6.0: Expanding Bitcoin Transactions with Multisigs](06_0_Expanding_Bitcoin_Transactions_Multisigs.md)
-  * [6.1: Sending a Transaction with a Multisig](06_1_Sending_a_Transaction_to_a_Multisig.md)
-  * [6.2: Spending a Transaction with a Multisig](06_2_Spending_a_Transaction_to_a_Multisig.md)
-  * [6.3: Sending & Spending an Automated Multisig](06_3_Sending_an_Automated_Multisig.md)
-* [7.0: Expanding Bitcoin Transactions with PSBTs](07_0_Expanding_Bitcoin_Transactions_PSBTs.md)
-  * [7.1: Creating a Partially Signed Bitcoin Transaction](07_1_Creating_a_Partially_Signed_Bitcoin_Transaction.md)
-  * [7.2: Using a Partially Signed Bitcoin Transaction](07_2_Using_a_Partially_Signed_Bitcoin_Transaction.md)
-  * [7.3: Integrating with Hardware Wallets](07_3_Integrating_with_Hardware_Wallets.md)
-* [8.0: Expanding Bitcoin Transactions in Other Ways](08_0_Expanding_Bitcoin_Transactions_Other.md)
-  * [8.1: Sending a Transaction with a Locktime](08_1_Sending_a_Transaction_with_a_Locktime.md)
-  * [8.2: Sending a Transaction with Data](08_2_Sending_a_Transaction_with_Data.md)
-
+  * 04_4_Inviare_Monete_con_Transazione_Grezza.md
+  * 04_4_Intermezzo_Usare_Curl.md
+  * 04_5_Inviare_Monete_con_Transazione_Grezza_Automatizzata.md
+  * 04_6_Creare_una_Transazione_Segwit.md
+* 05_0_Controllare_Transazioni_Bitcoin.md
+  * 05_1_Guardare_le_Transazioni_Ferme.md
+  * 05_2_Rinviare_le_Transazioni_con_RBF.md
+  * 05_3_Pagare_una_Transaccion_con_CPFP.md
+* 06_0_Ampliare_le_Transazioni_Bitcoin_con_Multifirme.md
+  * 06_1_Inviare_una_Transazione_a_un_Indirizzo_Multifirma.md
+  * 06_2_Spendere_una_Transazione_con_un_Indirizzo_Multifirma.md
+  * 06_3_Enviare_una_Multifirma_Automatizzata.md
+  * 07_0_Ampliare_le_Transazioni_Bitcoin_con_PSBTs.md
+  * 07_1_Creare_una_Transazione_Bitcoin_Parzialmente_Firmata.md
+  * 07_2_Usare_una_Transazione_Bitcoin_Parzialmente_Firmata.md
+  * 07_3_Integrazione_con_Hardware_Wallets.md
+* 08_0_Ampliare_Altre_Transazioni_Bitcoin.md
+  * 08_1_Inviare_una_Transazione_con_Blocco_temporale.md
+  * 08_2_Inviare_una_Transazione_con_Dati.md
+  
 ### TERZA PARTE: BITCOIN SCRIPTING
 
 **Status:** Da fare...
 
-* [9.0: Introducing Bitcoin Scripts](09_0_Introducing_Bitcoin_Scripts.md)
-  * [9.1: Understanding the Foundation of Transactions](09_1_Understanding_the_Foundation_of_Transactions.md)
-  * [9.2: Running a Bitcoin Script](09_2_Running_a_Bitcoin_Script.md)
-  * [9.3: Testing a Bitcoin Script](09_3_Testing_a_Bitcoin_Script.md)
-  * [9.4: Scripting a P2PKH](09_4_Scripting_a_P2PKH.md)
-  * [9.5: Scripting a P2WPKH](09_5_Scripting_a_P2WPKH.md)
-* [10.0: Embedding Bitcoin Scripts in P2SH Transactions](10_0_Embedding_Bitcoin_Scripts_in_P2SH_Transactions.md)
-  * [10.1: Understanding the Foundation of P2SH](10_1_Understanding_the_Foundation_of_P2SH.md)
-  * [10.2: Building the Structure of P2SH](10_2_Building_the_Structure_of_P2SH.md)
-  * [10.3: Running a Bitcoin Script with P2SH](10_3_Running_a_Bitcoin_Script_with_P2SH.md)
-  * [10.4: Scripting a Multisig](10_4_Scripting_a_Multisig.md)
-  * [10.5: Scripting a Segwit Script](10_5_Scripting_a_Segwit_Script.md)
-  * [10.6: Spending a P2SH Transaction](10_6_Spending_a_P2SH_Transaction.md)
-* [11.0: Empowering Timelock with Bitcoin Scripts](11_0_Empowering_Timelock_with_Bitcoin_Scripts.md)
-  * [11.1: Understanding Timelock Options](11_1_Understanding_Timelock_Options.md)
-  * [11.2: Using CLTV in Scripts](11_2_Using_CLTV_in_Scripts.md)
-  * [11.3: Using CSV in Scripts](11_3_Using_CSV_in_Scripts.md)
-* [12.0: Expanding Bitcoin Scripts](12_0_Expanding_Bitcoin_Scripts.md)
-  * [12.1: Using Script Conditionals](12_1_Using_Script_Conditionals.md)
-  * [12.2: Using Other Script Commands](12_2_Using_Other_Script_Commands.md)
-* [13.0: Designing Real Bitcoin Scripts](13_0_Designing_Real_Bitcoin_Scripts.md)
-  * [13.1: Writing Puzzles Scripts](13_1_Writing_Puzzle_Scripts.md)
-  * [13.2: Writing Complex Multisig Scripts](13_2_Writing_Complex_Multisig_Scripts.md)
-  * [13.3: Empowering Bitcoin with Scripts](13_3_Empowering_Bitcoin_with_Scripts.md)
+* 09_0_Introduzione_script_di_Bitcoin.md
+  * 09_1_Le_basi_delle_transazioni.md
+  * 09_2_Eseguire_uno_Script_di_Bitcoin.md
+  * 09_3_Provare_uno_Script_Bitcoin.md
+  * 09_4_Programmare_una_P2PKH.md
+  * 09_5_Programmare_una_P2WPKH.md
+* 10_0_Inserire_Scripts_di_Bitcoin_in_Transazioni_P2SH.md
+  * 10_1_Comprendere_la_Base_di_P2SH.md
+  * 10_2_Construire_la_Struttura_di_P2SH.md
+  * 10_3_Eseguire_uno_Script_Bitcoin_con_P2SH.md
+  * 10_4_Programmare_una_Multifirma.md
+  * 10_5_Programmare_uno_Script_Segwit.md
+  * 10_6_Spendere_una_Transazione_P2SH.md
+* 11_0_Potenziare_Blocchi_Temporali_con_Scripts_di_Bitcoin.md
+  * 11_1_Comprendere_le_Opzioni_dei_Blocchi_Temporali.md
+  * 11_2_Usare_CLTV_negli_Scripts.md
+  * 11_3_Usare_CSV_negli_Scripts.md
+* 12_0_Ampliando_Scripts_di_Bitcoin.md
+  * 12_1_Usare_Script_Condizionati.md
+  * 12_2_Usare_Altri_Comandi_di_Scripting.md
+* 13_0_Disegnare_Scripts_di_Bitcoin_Reali.md
+  * 13_1_Scrivere_Scripts_Puzzle.md
+  * 13_2_Scrivere_Scripts_Multifirma_Complessi.md
+  * 13_3_Potenziare_Bitcoin_con_Scripts.md    
 
 ### QUARTA PARTE: RISERVATEZZA
 
 **Status:** Da fare...
 
-* [14.0: Using Tor](14_0_Using_Tor.md)
-  * [14.1: Verifying Your Tor Setup](14_1_Verifying_Your_Tor_Setup.md)
-  * [14.2: Changing Your Bitcoin Hidden Services](14_2_Changing_Your_Bitcoin_Hidden_Services.md)
-  * [14.3: Adding SSH Hidden Services](14_3_Adding_SSH_Hidden_Services.md)
-
-* [15.0: Using i2p](15_0_Using_i2p.md)
-  * [15.1: Bitcoin Core as an I2P (Invisible Internet Project) service](15_1_i2p_service.md)
+* 14_0_Usare_Tor.md
+  * 14_1_Verificare_la_Configurazione_Tor.md
+  * 14_2_Cambiare_Bitcoin_Hidden_Services.md
+  * 14_3_Aggiungere_SSH_Hidden_Services.md
+* 15_0_Usare_i2p.md
+  * 15_1_Servizi_i2p.md
 
 ### QUINTA PARTE: PROGRAMMARE CON RPC
 
 **Status:** Da fare...
 
-* [16.0: Talking to Bitcoind with C](16_0_Talking_to_Bitcoind.md)
-  * [16.1: Accessing Bitcoind in C with RPC Libraries](16_1_Accessing_Bitcoind_with_C.md)
-  * [16.2: Programming Bitcoind in C with RPC Libraries](16_2_Programming_Bitcoind_with_C.md)
-  * [16.3: Receiving Notifications in C with ZMQ Libraries](16_3_Receiving_Bitcoind_Notifications_with_C.md)
-* [17.0: Programming Bitcoin with Libwally](17_0_Programming_with_Libwally.md)
-   * [17.1: Setting Up Libwally](17_1_Setting_Up_Libwally.md)
-   * [17.2: Using BIP39 in Libwally](17_2_Using_BIP39_in_Libwally.md)
-   * [17.3: Using BIP32 in Libwally](17_3_Using_BIP32_in_Libwally.md)
-   * [17.4: Using PSBTs in Libwally](17_4_Using_PSBTs_in_Libwally.md)
-   * [17.5: Using Scripts in Libwally](17_5_Using_Scripts_in_Libwally.md)
-   * [17.6: Using Other Functions in Libwally](17_6_Using_Other_Functions_in_Libwally.md)
-   * [17.7: Integrating Libwally and Bitcoin-CLI](17_7_Integrating_Libwally_and_Bitcoin-CLI.md)
-* [18.0: Talking to Bitcoind with Other Languages](18_0_Talking_to_Bitcoind_Other.md)
-  * [18.1: Accessing Bitcoind with Go](18_1_Accessing_Bitcoind_with_Go.md)
-  * [18.2: Accessing Bitcoind with Java](18_2_Accessing_Bitcoind_with_Java.md)
-  * [18.3: Accessing Bitcoind with Node JS](18_3_Accessing_Bitcoind_with_NodeJS.md)
-  * [18.4: Accessing Bitcoind with Python](18_4_Accessing_Bitcoind_with_Python.md)
-  * [18.5: Accessing Bitcoind with Rust](18_5_Accessing_Bitcoind_with_Rust.md)
-  * [18.6: Accessing Bitcoind with Swift](18_6_Accessing_Bitcoind_with_Swift.md)
+* 16_0_Parlare_con_Bitcoind.md
+  * 16_1_Accedere_a_Bitcoind_con_Librerie_RPC.md
+  * 16_2_Programare_Bitcoind_in_C_con_Librerie_RPC.md
+  * 16_3_Ricevere_Notifiche_di_Bitcoind_in_C_tramite_Librerie_ZMQ.md
+* 17_0_Programmare_Bitcoin_con_Libwally.md
+  * 17_1_Configurare_Libwally.md
+  * 17_2_Usare_BIP39_in_Libwally.md
+  * 17_3_Usare_BIP32_in_Libwally.md
+  * 17_4_Usare_PSBTs_in_Libwally.md
+  * 17_5_Usare_Scripts_in_Libwally.md
+  * 17_6_Usare_Altre_Funzioni_in_Libwally.md
+  * 17_7_Integrare_Libwally_e_Bitcoin-CLI.md
+* 18_0_Parlare_a_Bitcoind_in_Altri_Linguaggi.md
+  * 18_1_Accedere_a_Bitcoind_con_Go.md
+  * 18_2_Accedere_a_Bitcoind_con_Java.md
+  * 18_3_Accedere_a_Bitcoind_con_NodeJS.md
+  * 18_4_Accedere_a_Bitcoind_con_Python.md
+  * 18_5_Accedere_a_Bitcoind_con_Rust.md
+  * 18_6_Accedere_a_Bitcoind_con_Swift.md
 
 ### SESTA PARTE: USARE LIGHTNING-CLI
 
 **Status:** Da Fare...
 
-* [19.0: Understanding Your Lightning Setup](19_0_Understanding_Your_Lightning_Setup.md)
-  * [19.1: Verifying Your c-lightning Setup](19_1_Verifying_Your_Lightning_Setup.md)
-  * [19.2: Knowing Your c-lightning Setup](19_2_Knowing_Your_lightning_Setup.md)
-     * [Interlude: Accessing a Second Lightning Node](19_2__Interlude_Accessing_a_Second_Lightning_Node.md)
-  * [19.3: Creating a Lightning Channel](19_3_Setting_Up_a_Channel.md)
-* [20.0: Using Lightning](20_0_Using_Lightning.md)
-  * [20.1: Generating a Payment Request](20_1_Generate_a_Payment_Request.md)
-  * [20.2: Paying an Invoice](20_2_Paying_a_Invoice.md)
-  * [20.3: Closing a Lighnting Channel]((20_3_Closing_a_Channel.md))
-  * [20.4: Expanding the Lightning Network](20_4_Lightning_Network_Review.md)
+* 19_0_Comprendere_La_Configurazione_Lightning.md
+  * 19_1_Verificare_la_Configurazione_Lightning.md
+  * 19_2_Comprendere_la_Configurazione_Lightning.md
+  * 19_2_Intermezzo_Accedere_ad_un_Secondo_Nodo_Lightning.md
+  * 19_3_Creare_un_Canale_in_Lightning.md
+* 20_0_Usare_Lightning.md
+  * 20_1_Generare_una_Richiesta_di_Pagamento.md
+  * 20_2_Pagare_una_Fattura.md
+  * 20_3_Chiudere_un_Canale_Lightning.md
+  * 20_4_Espandere_la_Rete_Lightning.md
 
 ### APENDICE
 
 **Status:** Da fare
 
-* [Appendices](A0_Appendices.md)
-  * [Appendix I: Understanding Bitcoin Standup](A1_0_Understanding_Bitcoin_Standup.md)
-  * [Appendix II: Compiling Bitcoin from Source](A2_0_Compiling_Bitcoin_from_Source.md)
-  * [Appendix III: Using Bitcoin Regtest](A3_0_Using_Bitcoin_Regtest.md)
+* A0_Appendici.md
+  * A1_0_Comprendere_Bitcoin_Standup.md
+  * A2_0_Compilare_Bitcoin_dal_Codice_Fonte.md
+  * A3_0_Usare_Bitcoin_Regtest.md
 
 ## Status - Beta
 
@@ -163,7 +162,8 @@ Stiamo anche valutando in via provvisoria cosa potremmo includere in una [v3.0](
 ### Lo storico delle revisioni
 
 #### 2.2.0 (Luglio 2024)
-
+* [Traduzione in Italiano, lavori in corso](https://github.com/lutxoitalico/Learning-Bitcoin-from-the-Command-Line)
+  
 #### 2.2.0 (17 Novembre, 2021)
 
 * [Traduzione in Portogese](https://github.com/BlockchainCommons/Learning-Bitcoin-from-the-Command-Line/tree/master/pt)
