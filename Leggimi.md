@@ -1,53 +1,54 @@
-# Learning Bitcoin from the Command Line 2.2.0
+# Imparare Bitcoin dalla riga di comando 2.2.0
 ### _by Christopher Allen and Shannon Appelcline_
 
 ![](https://www.blockchaincommons.com/images/projects/lbtc-screen.png)
 
-Learning Bitcoin from the Command Line is a tutorial for working with Bitcoin (and Lightning) that teaches direct interaction with the servers themselves, as the most robust and secure way to begin cryptocurrency work.
+Learning Bitcoin from the Command Line è un tutorial per lavorare con Bitcoin (e Lightning) che insegna l'interazione diretta con i server stessi, come il modo più robusto e sicuro per iniziare a lavorare con le criptovalute.
 
-> NOTE: This is a draft in progress, so that I can get some feedback from early reviewers. It is not yet ready for use.
+> NOTA: questa è una bozza in lavorazione, in modo da poter ricevere feedback dai primi revisori. Non è ancora pronta per l'uso.
 
-_This tutorial assumes that you have some minimal background of how to use the command line interface. If not, there are many tutorials available, and I have one for Mac users at https://github.com/ChristopherA/intro-mac-command-line._
+_Questo tutorial presuppone che tu abbia una minima conoscenza di base su come usare l'interfaccia della riga di comando. In caso contrario, sono disponibili molti tutorial e ne ho uno per utenti Mac su https://github.com/ChristopherA/intro-mac-command-line._
 
-## Translations
-* [English](https://github.com/BlockchainCommons/Learning-Bitcoin-from-the-Command-Line) — v2.0.1 translation
-* [Portuguese](https://github.com/BlockchainCommons/Learning-Bitcoin-from-the-Command-Line/tree/portuguese-translation/pt/README.md) — v2.0.1 translation
-* [Spanish](https://github.com/BlockchainCommons/Learning-Bitcoin-from-the-Command-Line/tree/spanish-translation/es/README.md) - v2.0.1 translation
+## Traduzioni
+* [English](https://github.com/BlockchainCommons/Learning-Bitcoin-from-the-Command-Line) - Traduzione v2.0.1
+* [Portuguese](https://github.com/BlockchainCommons/Learning-Bitcoin-from-the-Command-Line/tree/portuguese-translation/pt/README.md) - Traduzione v2.0.1 
+* [Spanish](https://github.com/BlockchainCommons/Learning-Bitcoin-from-the-Command-Line/tree/spanish-translation/es/README.md) - Traduzione v2.0.1 
+* [Italiano](https://github.com/lutxoitalico/Learning-Bitcoin-from-the-Command-Line/blob/master/Leggimi.md) - Traduzione da v2.2.0
 
-If you'd like to make your own translation, please see [Contributing](https://github.com/BlockchainCommons/Learning-Bitcoin-from-the-Command-Line/tree/master#contributing), below.
+Se desideri effettuare la tua traduzione, guarda qui [Contribuire](CONTRIBUIRE.md).
 
-## Table of Contents
+## Indice di contenuti
 
-### PART ONE: PREPARING FOR BITCOIN
+### PRIMA PARTE: PREPARATI PER BITCOIN
 
-**Status:** Finished. Updated for 0.20.
+**Status:** Prima traduzione, da revisionare.
 
-* [1.0: Introduction to Programming with Bitcoin Core and Lightning](01_0_Introduction.md)
-    * [Interlude: Introducing Bitcoin](01_1_Introducing_Bitcoin.md)
-* [2.0: Setting Up a Bitcoin-Core VPS](02_0_Setting_Up_a_Bitcoin-Core_VPS.md)
-  * [2.1: Setting Up a Bitcoin-Core VPS with Bitcoin Standup](02_1_Setting_Up_a_Bitcoin-Core_VPS_with_StackScript.md)
-  * [2.2: Setting Up a Bitcoin-Core Machine via Other Means](02_2_Setting_Up_Bitcoin_Core_Other.md)
+* [01_0: Introduzione alla programmazione con Bitcoin Core e Lightning](01_0_Introduzione.md)
+  * [01_1 Introduzione a Bitcoin](01_1_Introduzione_a_Bitcoin.md)
+* [02_0 Configurare Bitcoin-Core VPS](02_0_Configurare_Bitcoin-Core_VPS.md)
+  * [02_1 Configurare Bitcoin-Core_VPS in un colpo con StackScript](02_1_Configurare_Bitcoin-Core_VPS_con_StackScript.md)
+  * [02_2 Configurare Bitcoin Core con Altri Mezzi](02_2_Configurare_Bitcoin_Core_Altri_Mezzi.md)
 
-### PART TWO: USING BITCOIN-CLI
+### SECONDA PARTE: USARE BITCOIN-CLI
 
-**Status:** Finished. Updated for 0.20.
+**Status:** Prima traduzione parziale, da revisionare.
 
-* [3.0: Understanding Your Bitcoin Setup](03_0_Understanding_Your_Bitcoin_Setup.md)
-  * [3.1: Verifying Your Bitcoin Setup](03_1_Verifying_Your_Bitcoin_Setup.md)
-  * [3.2: Knowing Your Bitcoin Setup](03_2_Knowing_Your_Bitcoin_Setup.md)
-  * [3.3: Setting Up Your Wallet](03_3_Setting_Up_Your_Wallet.md)
-    * [Interlude: Using Command-Line Variables](03_3__Interlude_Using_Command-Line_Variables.md)
-  * [3.4: Receiving a Transaction](03_4_Receiving_a_Transaction.md)
-  * [3.5: Understanding the Descriptor](03_5_Understanding_the_Descriptor.md)
-* [4.0: Sending Bitcoin Transactions](04_0_Sending_Bitcoin_Transactions.md)
-  * [4.1: Sending Coins the Easy Way](04_1_Sending_Coins_The_Easy_Way.md)
-  * [4.2: Creating a Raw Transaction](04_2_Creating_a_Raw_Transaction.md)
-     * [Interlude: Using JQ](04_2__Interlude_Using_JQ.md)
-  * [4.3: Creating a Raw Transaction with Named Arguments](04_3_Creating_a_Raw_Transaction_with_Named_Arguments.md)
-  * [4.4: Sending Coins with Raw Transactions](04_4_Sending_Coins_with_a_Raw_Transaction.md)
-     * [Interlude: Using Curl](04_4__Interlude_Using_Curl.md)
-  * [4.5: Sending Coins with Automated Raw Transactions](04_5_Sending_Coins_with_Automated_Raw_Transactions.md)
-  * [4.6: Creating a Segwit Transaction](04_6_Creating_a_Segwit_Transaction.md)
+* [3_0 Comprendere la Configurazione di Bitcoin](03_0_Comprendere_la_Configurazione_di_Bitcoin.md)
+  * [03_1 Verificare la configurazione Bitcoin](03_1_Verificare_la_configurazione_Bitcoin.md)
+  * [03_2 Capire la Configurazione di Bitcoin](03_2_Capire_la_configurazione_di_Bitcoin.md)
+  * [03_3 Configurare la Wallet](03_3_Configurare_la_Wallet.md)
+    * [03_3 Intermezzo Utilizzare Variabili nella Linea di Comando ](03_3_Intermezzo_Utilizzare_Variabili_nella_Linea_di_Comando.md)
+  * [03_4 Ricevere una Transazione](03_4_Ricevere_una_Transazione.md)
+  * [03_5 Comprendere il Descriptor](003_5_Comprendere_il_Descriptor.md)
+* [04_0 Inviare Transazioni Bitcoin](04_0_Inviare_Transazioni_Bitcoin.md)
+  * [04_1 Inviare Monete Modo Semplice](04_1_Inviare_Monete_Modo_Semplice.md)
+  * [04_2 Creare una Transazione Grezza](04_2_Creare_una_Transazione_Grezza.md)
+     * [04_2 Intermezzo Usare JQ](04_2_Intermezzo_Usare_JQ.md)
+  * [04_3 Creare una Transazione Grezza con Alias ](04_3_Creare_una_Transazione_Grezza_con_Alias.md)
+  * [04_4_Inviare_Monete_con_Transazione_Grezza](04_4_Inviare_Monete_con_Transazione_Grezza.md)
+     * [04_4_Intermezzo_Usare_Curl.md](04_4_Intermezzo_Usare_Curl.md)
+  * [04_5_Inviare_Monete_con_Transazione_Grezza_Automatizzata](04_5_Inviare_Monete_con_Transazione_Grezza_Automatizzata)
+  * [04_6_Creare_una_Transazione_Segwit.md](04_6_Creare_una_Transazione_Segwit.md)
 * [5.0: Controlling Bitcoin Transactions](05_0_Controlling_Bitcoin_Transactions.md)
   * [5.1 Watching for Stuck Transactions](05_1_Watching_for_Stuck_Transactions.md)
   * [5.2: Resending a Transaction with RBF](05_2_Resending_a_Transaction_with_RBF.md)
@@ -64,9 +65,9 @@ If you'd like to make your own translation, please see [Contributing](https://gi
   * [8.1: Sending a Transaction with a Locktime](08_1_Sending_a_Transaction_with_a_Locktime.md)
   * [8.2: Sending a Transaction with Data](08_2_Sending_a_Transaction_with_Data.md)
 
-### PART THREE: BITCOIN SCRIPTING
+### TERZA PARTE: BITCOIN SCRIPTING
 
-**Status:** Finished. Updated for 0.20 and btcdeb.
+**Status:** Da fare...
 
 * [9.0: Introducing Bitcoin Scripts](09_0_Introducing_Bitcoin_Scripts.md)
   * [9.1: Understanding the Foundation of Transactions](09_1_Understanding_the_Foundation_of_Transactions.md)
@@ -93,9 +94,9 @@ If you'd like to make your own translation, please see [Contributing](https://gi
   * [13.2: Writing Complex Multisig Scripts](13_2_Writing_Complex_Multisig_Scripts.md)
   * [13.3: Empowering Bitcoin with Scripts](13_3_Empowering_Bitcoin_with_Scripts.md)
 
-### PART FOUR: PRIVACY
+### QUARTA PARTE: RISERVATEZZA
 
-**Status:** Finished.
+**Status:** Da fare...
 
 * [14.0: Using Tor](14_0_Using_Tor.md)
   * [14.1: Verifying Your Tor Setup](14_1_Verifying_Your_Tor_Setup.md)
@@ -105,9 +106,9 @@ If you'd like to make your own translation, please see [Contributing](https://gi
 * [15.0: Using i2p](15_0_Using_i2p.md)
   * [15.1: Bitcoin Core as an I2P (Invisible Internet Project) service](15_1_i2p_service.md)
 
-### PART FIVE: PROGRAMMING WITH RPC
+### QUINTA PARTE: PROGRAMMARE CON RPC
 
-**Status:** Finished.
+**Status:** Da fare...
 
 * [16.0: Talking to Bitcoind with C](16_0_Talking_to_Bitcoind.md)
   * [16.1: Accessing Bitcoind in C with RPC Libraries](16_1_Accessing_Bitcoind_with_C.md)
@@ -129,9 +130,9 @@ If you'd like to make your own translation, please see [Contributing](https://gi
   * [18.5: Accessing Bitcoind with Rust](18_5_Accessing_Bitcoind_with_Rust.md)
   * [18.6: Accessing Bitcoind with Swift](18_6_Accessing_Bitcoind_with_Swift.md)
 
-### PART SIX: USING LIGHTNING-CLI
+### SESTA PARTE: USARE LIGHTNING-CLI
 
-**Status:** Finished.
+**Status:** Da Fare...
 
 * [19.0: Understanding Your Lightning Setup](19_0_Understanding_Your_Lightning_Setup.md)
   * [19.1: Verifying Your c-lightning Setup](19_1_Verifying_Your_Lightning_Setup.md)
@@ -144,9 +145,9 @@ If you'd like to make your own translation, please see [Contributing](https://gi
   * [20.3: Closing a Lighnting Channel]((20_3_Closing_a_Channel.md))
   * [20.4: Expanding the Lightning Network](20_4_Lightning_Network_Review.md)
 
-### APPENDICES
+### APENDICE
 
-**Status:** Finished.
+**Status:** Da fare
 
 * [Appendices](A0_Appendices.md)
   * [Appendix I: Understanding Bitcoin Standup](A1_0_Understanding_Bitcoin_Standup.md)
@@ -155,27 +156,30 @@ If you'd like to make your own translation, please see [Contributing](https://gi
 
 ## Status - Beta
 
-v2.1.0 of **Learning Bitcoin from the Command Line** is feature complete and has undergone full editing and integration. It is ready for learning
+La versione v2.1.0 di **Learning Bitcoin from the Command Line** è completa e ha subito modifiche e integrazioni. È pronta per l'uso
 
-We are also tentatively considering what we could include in a [v3.0](TODO-30.md) of the course. If you'd like to support work of that sort, become a [GitHub Sponsor](https://github.com/sponsors/BlockchainCommons) or support us at our [BTCPay Server](https://btcpay.blockchaincommons.com/), and let us know that **Learning Bitcoin** was the reason why.
-### Version History
+Stiamo anche valutando in via provvisoria cosa potremmo includere in una [v3.0](TODO-30.md) del corso. Se desideri supportare un lavoro di questo tipo, diventa uno [sponsor GitHub](https://github.com/sponsors/BlockchainCommons) o supportaci sul nostro [BTCPay Server](https://btcpay.blockchaincommons.com/) e facci sapere che **Learning Bitcoin** è stato il motivo.
 
-#### 2.2.0 (November 17, 2021)
+### Lo storico delle revisioni
 
-* [Portuguese translation](https://github.com/BlockchainCommons/Learning-Bitcoin-from-the-Command-Line/tree/master/pt)
-* [Spanish translation](https://github.com/BlockchainCommons/Learning-Bitcoin-from-the-Command-Line/tree/master/es)
+#### 2.2.0 (Luglio 2024)
 
-#### 2.1.0 (October 12, 2021)
+#### 2.2.0 (17 Novembre, 2021)
 
-* New chapter 15  (i2p).
-* Added fixes to wallet usage from 0.21
-* Updated install to new Bitcoin Scripts for 22.0
-* Incorporated numerous fixes revealed by first translation projects
+* [Traduzione in Portogese](https://github.com/BlockchainCommons/Learning-Bitcoin-from-the-Command-Line/tree/master/pt)
+* [Traduzione in Spagnolo](https://github.com/BlockchainCommons/Learning-Bitcoin-from-the-Command-Line/tree/master/es)
+
+#### 2.1.0 (12 Ottobre, 2021)
+
+* Nuovo capitolo 15 (i2p).
+* Aggiunte correzioni all'utilizzo del portafoglio da 0.21
+* Aggiornata l'installazione ai nuovi script Bitcoin per 22.0
+* Incorporate numerose correzioni rivelate dai primi progetti di traduzione
 
 #### 2.0.1 (June 15, 2021)
 
-* Numerous small patches following 2.0
-* Intended as baseline for translations (2.2.0), but 2.1.0 material on i2p slipped in
+* Numerose piccole correzioni successive alla 2.0  
+* Pensate come base per le traduzioni (2.2.0), ma è scivolato dentro anche il materiale 2.1.0 su i2p 
 
 #### 2.0.0 (November 3, 2020)
 
