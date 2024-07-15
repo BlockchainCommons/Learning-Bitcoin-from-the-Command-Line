@@ -176,50 +176,49 @@ Stiamo anche valutando in via provvisoria cosa potremmo includere in una [v3.0](
 * Aggiornata l'installazione ai nuovi script Bitcoin per 22.0
 * Incorporate numerose correzioni rivelate dai primi progetti di traduzione
 
-#### 2.0.1 (June 15, 2021)
+#### 2.0.1 (15 Giugno, 2021)
 
 * Numerose piccole correzioni successive alla 2.0  
 * Pensate come base per le traduzioni (2.2.0), ma è scivolato dentro anche il materiale 2.1.0 su i2p 
 
-#### 2.0.0 (November 3, 2020)
+#### 2.0.0 (3 novembre 2020)
 
-* Second major release of Learning Bitcoin
-* Added material on Segwit, Tor, hardware wallets, lightning, regtest
-* Completely previous unfinished work on programming using a variety of languages
+* Seconda versione importante di Learning Bitcoin
+* Aggiunto materiale su Segwit, Tor, portafogli hardware, lightning, regtest
+* Lavoro completamente incompiuto precedente sulla programmazione utilizzando una varietà di linguaggi
 
 #### 1.0.0 (pre-2020)
 
-* Original, extensive but incomplete version
-* Contained comprehensive sections on setup, bitcoin-cli, and scripting
+* Versione originale, estesa ma incompleta
+* Conteneva sezioni complete su setup, bitcoin-cli e scripting
 
-## Origin, Authors, Copyright & Licenses
+## Origine, autori, copyright e licenze
+Salvo diversa indicazione (in questo file [Leggimi](Leggimi.md) o nei commenti dell'intestazione del file), i contenuti di questo repository sono coperti da Copyright © 2020 di Blockchain Commons, LLC e sono concessi in licenza con [CC-BY](./LICENSE-CC-BY-4.0.md).
 
-Unless otherwise noted (either in this [/README.md](./README.md) or in the file's header comments) the contents of this repository are Copyright © 2020 by Blockchain Commons, LLC, and are licensed under  [CC-BY](./LICENSE-CC-BY-4.0.md).
+## Supporto finanziario
 
-## Financial Support
+*Learning Bitcoin from the Command Line* è un progetto di [Blockchain Commons](https://www.blockchaincommons.com/). Siamo orgogliosamente una società di beneficenza sociale "senza scopo di lucro" impegnata nell'open source e nello sviluppo aperto. Il nostro lavoro è finanziato interamente da donazioni e partnership collaborative con persone come te. Ogni contributo verrà speso per creare strumenti, tecnologie e tecniche aperte che sostengano e facciano progredire l'infrastruttura di sicurezza blockchain e Internet e promuovano un web aperto.
 
-*Learning Bitcoin from the Command Line* is a project of [Blockchain Commons](https://www.blockchaincommons.com/). We are proudly a "not-for-profit" social benefit corporation committed to open source & open development. Our work is funded entirely by donations and collaborative partnerships with people like you. Every contribution will be spent on building open tools, technologies, and techniques that sustain and advance blockchain and internet security infrastructure and promote an open web.
+Per supportare finanziariamente l'ulteriore sviluppo di *Learning Bitcoin from the Command Line* e altri progetti, ti preghiamo di considerare di diventare un Patreon di Blockchain Commons tramite un patrocinio mensile continuo come [Sponsor GitHub](https://github.com/sponsors/BlockchainCommons). Puoi anche supportare Blockchain Commons con bitcoin sul nostro [BTCPayServer](https://btcpay.blockchaincommons.com/).
 
-To financially support further development of *Learning Bitcoin from the Command Line* and other projects, please consider becoming a Patron of Blockchain Commons through ongoing monthly patronage as a [GitHub Sponsor](https://github.com/sponsors/BlockchainCommons). You can also support Blockchain Commons with bitcoins at our [BTCPay Server](https://btcpay.blockchaincommons.com/).
+## Contribuire
 
-## Contributing
+Incoraggiamo i contributi pubblici tramite issues e pull request! Si prega di rivedere [CONTRIBUIRE.md](CONTRIBUIRE.md) per i dettagli sul nostro processo di sviluppo. Tutti i contributi a questo repository richiedono un [Contributor License Agreement](./CLA.md) firmato GPG.
 
-We encourage public contributions through issues and pull requests! Please review [CONTRIBUTING.md](./CONTRIBUTING.md) for details on our development process. All contributions to this repository require a GPG signed [Contributor License Agreement](./CLA.md).
+se si desidera fornire una traduzione di Learning Bitcoin in un'altra lingua, si prega di consultare anche [TRADURRE.md](TRADURRE.md).
 
-if you would like to provide a translation of Learning Bitcoin into another language, please additionally see [TRANSLATING.md](./TRANSLATING.md).
+### Discussioni
 
-### Discussions
+Il posto migliore per parlare di Blockchain Commons e dei suoi progetti è nelle nostre aree di discussione GitHub.
 
-The best place to talk about Blockchain Commons and its projects is in our GitHub Discussions areas.
-
-[**Blockchain Commons Discussions**](https://github.com/BlockchainCommons/Community/discussions). For developers, interns, and patrons of Blockchain Commons, please use the discussions area of the [Community repo](https://github.com/BlockchainCommons/Community) to talk about general Blockchain Commons issues, the intern program, or topics other than those covered by the [Gordian Developer Community](https://github.com/BlockchainCommons/Gordian-Developer-Community/discussions) or the 
+[**Discussioni su Blockchain Commons**](https://github.com/BlockchainCommons/Community/discussions). Per sviluppatori, stagisti e utenti di Blockchain Commons, si prega di utilizzare l'area discussioni del [repository della community](https://github.com/BlockchainCommons/Community) per parlare di problemi generali di Blockchain Commons, del programma di tirocinio o di argomenti diversi da quelli trattati dalla [Gordian Developer Community](https://github.com/BlockchainCommons/Gordian-Developer-Community/discussions) o dalla
 [Gordian User Community](https://github.com/BlockchainCommons/Gordian/discussions).'
 
-### Other Questions & Problems
+### Altre domande e problemi
 
-As an open-source, open-development community, Blockchain Commons does not have the resources to provide direct support of our projects. Please consider the discussions area as a locale where you might get answers to questions. Alternatively, please use this repository's [issues](../../issues) feature. Unfortunately, we can not make any promises on response time.
+In quanto community open source e open-development, Blockchain Commons non ha le risorse per fornire supporto diretto ai nostri progetti. Si prega di considerare l'area discussioni come un luogo in cui è possibile ottenere risposte alle domande. In alternativa, si prega di utilizzare la funzionalità [issues](../../issues) di questo repository. Purtroppo, non possiamo fare promesse sui tempi di risposta.
 
-If your company requires support to use our projects, please feel free to contact us directly about options. We may be able to offer you a contract for support from one of our contributors, or we might be able to point you to another entity who can offer the contractual support that you need.
+Se la tua azienda ha bisogno di supporto per utilizzare i nostri progetti, non esitare a contattarci direttamente per conoscere le opzioni. Potremmo essere in grado di offrirti un contratto per il supporto da uno dei nostri collaboratori, oppure potremmo essere in grado di indirizzarti a un'altra entità che può offrirti il ​​supporto contrattuale di cui hai bisogno.
 
 ### Credits
 
