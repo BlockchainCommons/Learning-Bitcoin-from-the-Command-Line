@@ -1,16 +1,16 @@
 # Tradurre: Impara Bitcoin dalla riga di comando
 
-Grazie per il tuo interesse nella traduzione di Learning Bitcoin dalla riga di comando! Quella che segue è la nostra procedura standard per farlo. In caso di domande, inviare un problema.
+Grazie per il tuo interesse nella traduzione di Learning Bitcoin dalla riga di comando! Quella che segue è la nostra procedura standard per farlo. In caso di domande, contattaci.
 
 1. **Si prega di seguire la nostra normale procedura per i collaboratori.**
- * Leggi [CONTRIBUTING.md](https://github.com/BlockchainCommons/Learning-Bitcoin-from-the-Command-Line/blob/master/CONTRIBUTING.md).
- * Compila un [Contratto di licenza per collaboratore](https://github.com/BlockchainCommons/Learning-Bitcoin-from-the-Command-Line/blob/master/CLA.md), firmalo con GPG e invialo come un PR. Assicurati che ciò venga fatto per tutti coloro che contribuiscono alla traduzione.
+ * Leggi [CONTRIBUIRE](CONTRIBUIRE.md).
+ * Compila un [Contratto di licenza per collaboratore](https://github.com/BlockchainCommons/Learning-Bitcoin-from-the-Command-Line/blob/master/CLA.md), firmalo con GPG e invialo come un Pull Request. Assicurati che ciò venga fatto per tutti coloro che contribuiscono alla traduzione.
 1. **Scegli una versione.**
- * Scegli una [Versione](https://github.com/BlockchainCommons/Learning-Bitcoin-from-the-Command-Line/releases) come base della tua traduzione. Generalmente suggeriamo l'ultima versione. Ciò garantirà la coerenza di tutti i file nella tua traduzione, ti isolerà da eventuali modifiche apportate e renderà più facile vedere cosa è cambiato quando creiamo una nuova versione.
- * Se sembra che non ci sia una nuova versione da un po', invia un problema dicendo che sei interessato a iniziare una nuova traduzione e chiedendo se avrebbe senso che ci sia una nuova pietra miliare di rilascio prima di farlo . Se c'è stato qualcosa di degno di nota, e non siamo nel mezzo delle cose, probabilmente creeremo una nuova patch o una versione minore. Se siamo nel bel mezzo del lavoro, ti suggeriremo semplicemente di utilizzare la versione precedente.
+ * Scegli una [Versione](https://github.com/BlockchainCommons/Learning-Bitcoin-from-the-Command-Line/releases) come base della tua traduzione. Generalmente suggeriamo l'ultima versione. Ciò garantirà la coerenza di tutti i file nella tua traduzione, ti isolera di eventuali modifiche che potremmo apportare e renderà più facile vedere cosa cambia quando creiamo una nuova versione.
+ * Se sembra che non ci sia una nuova versione da un po', invia un issue dicendo che sei interessato a iniziare una nuova traduzione e chiedendo se avrebbe senso che ci sia un nuovo rilascio importante prima di farlo. Se c'è stato qualcosa di degno di nota, e non siamo nel mezzo delle cose, probabilmente creeremo una nuova patch o una versione minore. Se siamo nel bel mezzo del lavoro, ti suggeriremo semplicemente di utilizzare la versione precedente.
  * Etichetta il tuo sommario e ogni capitolo o sezione con la versione utilizzata.
-1. **Richiedi una filiale.**
- * Presenta un [problema](https://github.com/BlockchainCommons/Learning-Bitcoin-from-the-Command-Line/issues) richiedendo un nuovo ramo per la tua traduzione.
+1. **Richiedi un Branch.**
+ * Presenta un [Issue](https://github.com/BlockchainCommons/Learning-Bitcoin-from-the-Command-Line/issues) richiedendo un nuovo branch per la tua traduzione.
  * Questo sarà per noi il luogo principale in cui raccoglieremo il lavoro sulla traduzione nel tempo.
  * Creeremo una directory di primo livello per la tua traduzione completa utilizzando il [codice lingua ISO 639-1](https://en.wikipedia.org/wiki/List_of_ISO_639-1_codes), ad esempio `es` (spagnolo), "fr" (francese) o "pt" (portoghese). Il lavoro dovrebbe essere svolto in quella directory.
      
@@ -29,7 +29,7 @@ Grazie per il tuo interesse nella traduzione di Learning Bitcoin dalla riga di c
 
  * Per rendere il processo di modifica e revisione più semplice, indipendente e ottimizzato, suggeriamo a te e al revisore di [richiedere l'accesso ai rispettivi fork](https://docs.github.com/en/enterprise-server@3.0/github /configurazione-e-gestione-del-tuo-account-utente-github/gestione-dell'accesso-ai-tui-repository-personali/invito-dei-collaboratori-a-un-repository-personale). Una volta invitato, il _revisore_ può quindi:
 
- 1. Effettua facilmente il checkout del PR nel computer locale con [GitHub CLI](https://cli.github.com/) eseguendo `gh pr checkout <pr-number>`. Ciò creerà automaticamente un ramo con il codice PR su cui il revisore potrà lavorare.
+ 1. Effettuare facilmente il checkout del PR nel computer locale con [GitHub CLI](https://cli.github.com/) eseguendo `gh pr checkout <pr-number>`. Ciò creerà automaticamente un ramo con il codice PR su cui il revisore potrà lavorare.
 
  2. Quindi, esegui le modifiche con commit firmati.
 
@@ -38,13 +38,13 @@ Grazie per il tuo interesse nella traduzione di Learning Bitcoin dalla riga di c
  * Una volta che un capitolo o una sezione sono stati approvati da un madrelingua, richiedi l'approvazione a qualcuno del team Blockchain Commons: attualmente [@shannona](https://github.com/shannona).
 1. **Continua!**
  * Continua il processo, non più di un capitolo alla volta, finché non avrai un libro completo.
- * Essere consapevoli della portata del progetto complessivo. A partire dalla versione 2.01, Imparare Bitcoin dalla riga di comando ha una lunghezza di 120.000 parole. Come libro, sarebbero 250-400 pagine, a seconda del formato e del layout. (Circa 90.000 parole di questo sono testo da tradurre, mentre il resto è codice.) Vuoi assicurarti di avere il tempo per quel livello di impegno prima di iniziare.
+ * Sii consapevole della portata complessiva del progetto. A partire dalla versione 2.01, Imparare Bitcoin dalla riga di comando ha una lunghezza di 120.000 parole. Come libro, sarebbero 250-400 pagine, a seconda del formato e del layout. (Circa 90.000 parole di questo sono testo da tradurre, mentre il resto è codice.) Vuoi assicurarti di avere il tempo per quel livello di impegno prima di iniziare.
 1. **Facci sapere quando hai finito.**
  * Una volta completata la traduzione, invia un problema per farci sapere che il ramo di traduzione è pronto per essere unito al master.
  * Questo ci permetterà anche di annunciare la traduzione completata e di collegarla al file README principale
 1. **Aggiorna la tua traduzione con le nuove versioni**
  * Ci auguriamo che le traduzioni restino aggiornate con le nuove versioni, in particolare quelle maggiori e secondarie, che probabilmente includeranno nuovi contenuti e aggiornamenti. Attualmente, questi si verificano solo ogni pochi anni
- * Se hai deciso di interrompere l'aggiornamento di una traduzione, faccelo sapere in un numero, in modo che possiamo far sapere alla comunità che stiamo cercando un nuovo traduttore per continuare ad aggiornare una traduzione.
+ * Se hai deciso di interrompere l'aggiornamento di una traduzione, faccelo sapere, in modo che possiamo far sapere alla comunità che stiamo cercando un nuovo traduttore per continuare ad aggiornare una traduzione.
 
 ### ESEMPIO DI FLUSSO DI LAVORO
 
@@ -65,7 +65,7 @@ fork e aprire una richiesta pull al repository originale.
 Nel processo di revisione discuterai alcune decisioni con il tuo revisore e
 introdurre nuove modifiche sotto forma di commit se è necessario modificare alcune parti
 delle tue modifiche. Non dimenticare di rendere significative queste modifiche
-pezzi e spingerli sulla forchetta. Dopo aver perfezionato le modifiche, il tuo revisore
+e fare un PR nel Fork. Dopo aver perfezionato le modifiche, il tuo revisore
 accetterà le tue modifiche e richiederà l'unione di tali modifiche sul file
 ramo "traduzione francese". Tieni presente che puoi anche inviare le modifiche e
 crea la tua richiesta pull dopo il tuo primo commit. Ciò consentirà al revisore
@@ -75,7 +75,7 @@ Puoi tenere traccia dello stato della traduzione di quel particolare capitolo ne
 corpo della richiesta pull, con il seguente modello:
 
 ```
-Questa richiesta pull crea la versione <translated_lingual> del capitolo
+Questo pull request crea la versione <translated_lingual> del capitolo
 <numero_capitolo> di Imparare Bitcoin dalla riga di comando.
 
 Cose da controllare:
@@ -83,7 +83,7 @@ Cose da controllare:
 - Traduzione corretta.
 - Coerenza dei termini: revisione del file ["memoria di traduzione"](locale/percorso/del/file).
 - Buona punteggiatura.
-- Collegamento corretto.
+- Links corretti.
 - Bella formattazione.
 
 | Sottocapitolo | Tradotto | Recensito | Fatto |
