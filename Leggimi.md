@@ -220,9 +220,9 @@ In quanto community open source e open-development, Blockchain Commons non ha le
 
 Se la tua azienda ha bisogno di supporto per utilizzare i nostri progetti, non esitare a contattarci direttamente per conoscere le opzioni. Potremmo essere in grado di offrirti un contratto per il supporto da uno dei nostri collaboratori, oppure potremmo essere in grado di indirizzarti a un'altra entità che può offrirti il ​​supporto contrattuale di cui hai bisogno.
 
-### Credits
+### Crediti
 
-The following people directly contributed to this repository. You can add your name here by getting involved. The first step is learning how to contribute from our [CONTRIBUTING.md](./CONTRIBUTING.md) documentation.
+Le seguenti persone hanno contribuito direttamente a questo repository. Puoi aggiungere il tuo nome qui partecipando. Il primo passo è imparare come contribuire dalla nostra documentazione [CONTRIBUTING.md](./CONTRIBUTING.md).
 
 
 | Name              | Role                | Github                                            | Email                                 | GPG Fingerprint                                    |
@@ -231,7 +231,7 @@ The following people directly contributed to this repository. You can add your n
 | Shannon Appelcline |  Lead Author | [@shannona](https://github.com/shannona) | \<shannon.appelcline@gmail.com\> | 7EC6 B928 606F 27AD |
 
 
-Additional contributions are listed below:
+Di seguito sono elencati altri collaboratori:
 
 | Role                | Names                                    |
 | ------------------- | ---------------------------------------- |
@@ -239,22 +239,22 @@ Additional contributions are listed below:
 | ***Reviewers:***    | Glen Willem [@gwillem](https://github.com/gwillem) |
 | ***Sponsors:***     | Blockstream Corporation                  |
 
-### Translation Credits 
+### Crediti di traduzione
 
-Thanks to the volunteers who spent extensive time writing and reviewing other-language translations of the original English-language course.
+Grazie ai volontari che hanno dedicato molto tempo alla scrittura e alla revisione delle traduzioni in altre lingue del corso originale in lingua inglese.
 
-#### Portuguese Translation
+#### Traduzione in portoghese
 
-| Name              | Role                | Github                                            | 
+| Name              | Role                | Github                                            |
 | ----------------- | ------------------- | ------------------------------------------------- | 
 | Namcios | Translator & Reviewer | [@namcios](https://github.com/namcios) | 
 | Korea | Translator & Reviewer | [@KoreaComK](https://github.com/KoreaComK) | 
 | Luke Pavsky | Translator & Reviewer | [@lukedevj](https://github.com/lukedevj) | 
 | hgrams | Translator & Reviewer | [@hgrams](https://github.com/hgrams) | 
 
-#### Spanish Translation
+#### Traduzione in Spagnolo
 
- Name | Role | GitHub |
+| Name              | Role                | Github                                            | 
 | ---------- | -------- | ------------ |
 | Ian Culp | Translator & Reviewer | [@icculp](https://github.com/icculp) |
 | Maxi Goyheneche | Translator | [@maxcrowar](https://github.com/maxcrowar) |
@@ -262,20 +262,24 @@ Thanks to the volunteers who spent extensive time writing and reviewing other-la
 | César A. Vallero | Translator & Reviewer | [@csralvall](https://github.com/csralvall) |
 | Javier Vargas | Translator & Reviewer | [@javiervargas](https://github.com/javiervargas) |
 
-## Responsible Disclosure
+| Name              | Role                | Github                                            | 
+| ---------- | -------- | ------------ |
+| Lutxo | Translator | [@lutxoitalico](https://github.com/lutxoitalico) |
 
-We want to keep all of our software safe for everyone. If you have discovered a security vulnerability, we appreciate your help in disclosing it to us in a responsible manner. We are unfortunately not able to offer bug bounties at this time.
+## Divulgazione responsabile
 
-We do ask that you offer us good faith and use best efforts not to leak information or harm any user, their data, or our developer community. Please give us a reasonable amount of time to fix the issue before you publish it. Do not defraud our users or us in the process of discovery. We promise not to bring legal action against researchers who point out a problem provided they do their best to follow the these guidelines.
+Vogliamo mantenere tutti i nostri software sicuri per tutti. Se hai scoperto una vulnerabilità di sicurezza, apprezziamo il tuo aiuto nel segnalarcela in modo responsabile. Purtroppo al momento non siamo in grado di offrire bug bounty.
 
-### Reporting a Vulnerability
+Ti chiediamo di offrirci buona fede e di fare del tuo meglio per non far trapelare informazioni o danneggiare alcun utente, i suoi dati o la nostra community di sviluppatori. Ti preghiamo di darci un ragionevole lasso di tempo per risolvere il problema prima di pubblicarlo. Non frodare i nostri utenti o noi nel processo di scoperta. Ti promettiamo di non intraprendere azioni legali contro i ricercatori che segnalano un problema, a condizione che facciano del loro meglio per seguire queste linee guida.
 
-Please report suspected security vulnerabilities in private via email to ChristopherA@BlockchainCommons.com (do not use this email for support). Please do NOT create publicly viewable issues for suspected security vulnerabilities.
+### Segnalazione di una vulnerabilità
 
-The following keys may be used to communicate sensitive information to developers:
+Segnala sospette vulnerabilità di sicurezza in privato tramite e-mail a ChristopherA@BlockchainCommons.com (non utilizzare questa e-mail per supporto). Ti preghiamo di NON creare problemi visibili pubblicamente per sospette vulnerabilità di sicurezza.
+
+Le seguenti chiavi possono essere utilizzate per comunicare informazioni sensibili agli sviluppatori:
 
 | Name              | Fingerprint                                        |
 | ----------------- | -------------------------------------------------- |
 | Christopher Allen | FDFE 14A5 4ECB 30FC 5D22  74EF F8D3 6C91 3574 05ED |
 
-You can import a key by running the following command with that individual’s fingerprint: `gpg --recv-keys "<fingerprint>"` Ensure that you put quotes around fingerprints that contain spaces.
+Puoi importare una chiave eseguendo il seguente comando con l'impronta digitale individuale: `gpg --recv-keys "<fingerprint>"` Assicurati di mettere le virgolette attorno alle impronte digitali che contengono spazi.
