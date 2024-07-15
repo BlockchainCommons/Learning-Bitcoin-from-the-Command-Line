@@ -239,7 +239,7 @@ Additional contributions are listed below:
 | ***Reviewers:***    | Glen Willem [@gwillem](https://github.com/gwillem) |
 | ***Sponsors:***     | Blockstream Corporation                  |
 
-### Translation Credits
+### Translation Credits 
 
 Thanks to the volunteers who spent extensive time writing and reviewing other-language translations of the original English-language course.
 
