@@ -262,6 +262,8 @@ Grazie ai volontari che hanno dedicato molto tempo alla scrittura e alla revisio
 | César A. Vallero | Translator & Reviewer | [@csralvall](https://github.com/csralvall) |
 | Javier Vargas | Translator & Reviewer | [@javiervargas](https://github.com/javiervargas) |
 
+#### Traduzione in Italiano
+
 | Name              | Role                | Github                                            | 
 | ---------- | -------- | ------------ |
 | Lutxo | Translator | [@lutxoitalico](https://github.com/lutxoitalico) |
