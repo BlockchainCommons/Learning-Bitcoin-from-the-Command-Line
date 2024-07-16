@@ -318,5 +318,4 @@ Ma ci sono ancora ragioni per cui dovresti usare `curl` invece di `bitcoin-cli`:
 _Qual è il potere di curl?_ Ovviamente, `curl` elimina un livello di indiretto. Invece di lavorare con `bitcoin-cli` che invia comandi RPC a `bitcoind`, invii questi comandi RPC direttamente. Ciò consente una programmazione più solida, perché non devi preoccuparti di quali cose inaspettate potrebbe fare "bitcoin-cli" o di come potrebbe cambiare nel tempo. Tuttavia, stai anche muovendo i primi passi verso l'utilizzo di un linguaggio di programmazione più completo rispetto alle scarse opzioni offerte da uno script di shell. Come vedrai negli ultimi capitoli di questo, potresti effettivamente vedere che le librerie curl sono altre funzioni per accedere ai comandi RPC in una varietà di linguaggi di programmazione: ma è ancora molto lontano.
 
 ## Qual è il prossimo passo?
-
 Scopri un altro modo per "Inviare transazioni Bitcoin" qui: [Capitolo 4.5: InviareMonete con Transazione Grezza Automatizzata][04_5_Inviare_Monete_con_Transazione_Grezza_Automatizzata.md).
