@@ -1,18 +1,18 @@
 # Interludio: Usare Curl
 
-`bitcoin-cli` è in definitiva solo un wrapper. È un modo per interfacciarsi con "bitcoind" dalla riga di comando, fornendo un accesso semplificato ai suoi numerosi comandi RPC. Naturalmente è possibile accedere direttamente a RPC. Ecco di cosa tratta questo interludio: connettersi direttamente a RPC con il comando `curl`.
+`bitcoin-cli` è in definitiva solo un wrapper. È un modo per interfacciarsi con `bitcoind` dalla riga di comando, fornendo un accesso semplificato ai suoi numerosi comandi RPC. Naturalmente è possibile accedere direttamente a RPC. Ecco di cosa tratta questo interludio: connettersi direttamente a RPC con il comando `curl`.
 
 Non verrà utilizzato molto nei capitoli futuri, ma è un elemento importante che puoi vedere come un accesso alternativo a `bitcoind` se preferisci.
 
 ## Capire CURL
 
-`curl`, abbreviazione di "vedi URL", è uno strumento da riga di comando che ti consente di accedere direttamente agli URL in modo programmatico. È un modo semplice per interagire con server come "bitcoind" che ascoltano le porte su Internet e che parlano una varietà di protocolli. Curl è disponibile anche come libreria per molti linguaggi di programmazione, come C, Java, PHP e Python. Quindi, una volta che sai come lavorare con Curl, avrai una solida base per utilizzare molte API diverse.
+`curl`, abbreviazione di `vedi URL`, è uno strumento da riga di comando che ti consente di accedere direttamente agli URL in modo programmatico. È un modo semplice per interagire con server come `bitcoind` che ascoltano le porte su Internet e che parlano una varietà di protocolli. Curl è disponibile anche come libreria per molti linguaggi di programmazione, come C, Java, PHP e Python. Quindi, una volta che sai come lavorare con Curl, avrai una solida base per utilizzare molte API diverse.
 
-Per utilizzare "curl" con "bitcoind", devi conoscere tre cose: il formato standard, il nome utente e la password e la porta corretta.
+Per utilizzare `curl` con `bitcoind`, devi conoscere tre cose: il formato standard, il nome utente e la password e la porta corretta.
 
 ### Capire il format
 
-I comandi "bitcoin-cli" sono tutti collegati ai comandi RPC in "bitcoind". Ciò rende molto semplice la transizione dall'utilizzo di `bitcoin-cli` all'utilizzo di `curl`. Infatti, se guardi una qualsiasi delle pagine di aiuto di `bitcoin-cli`, vedrai che elencano non solo i comandi `bitcoin-cli`, ma anche i comandi paralleli `curl`. Ad esempio, ecco `bitcoin-cli help getmininginfo`:
+I comandi `bitcoin-cli` sono tutti collegati ai comandi RPC in `bitcoind`. Ciò rende molto semplice la transizione dall'utilizzo di `bitcoin-cli` all'utilizzo di `curl`. Infatti, se guardi una qualsiasi delle pagine di aiuto di `bitcoin-cli`, vedrai che elencano non solo i comandi `bitcoin-cli`, ma anche i comandi paralleli `curl`. Ad esempio, ecco `bitcoin-cli help getmininginfo`:
 ```
 $ bitcoin-cli aiuta a ottenere informazioni sul mining
 getmininginfo
@@ -21,29 +21,29 @@ Restituisce un oggetto json contenente informazioni relative al mining.
 Risultato:
 
 {                              (json object)
-  "blocks" : n,                (numeric) The current block
-  "currentblockweight" : n,    (numeric, optional) The block weight of the last assembled block (only present if a block was ever assembled)
-  "currentblocktx" : n,        (numeric, optional) The number of block transactions of the last assembled block (only present if a block was ever assembled)
-  "difficulty" : n,            (numeric) The current difficulty
-  "networkhashps" : n,         (numeric) The network hashes per second
-  "pooledtx" : n,              (numeric) The size of the mempool
-  "chain" : "str",             (string) current network name (main, test, regtest)
-  "warnings" : "str"           (string) any network and blockchain warnings
+  `blocks` : n,                (numeric) The current block
+  `currentblockweight` : n,    (numeric, optional) The block weight of the last assembled block (only present if a block was ever assembled)
+  `currentblocktx` : n,        (numeric, optional) The number of block transactions of the last assembled block (only present if a block was ever assembled)
+  `difficulty` : n,            (numeric) The current difficulty
+  `networkhashps` : n,         (numeric) The network hashes per second
+  `pooledtx` : n,              (numeric) The size of the mempool
+  `chain` : `str`,             (string) current network name (main, test, regtest)
+  `warnings` : `str`           (string) any network and blockchain warnings
 }
 
 Esempi:
 > bitcoin-cli getmininginfo 
 > curl --user myusername --data-binary '{"jsonrpc": "1.0", "id": "curltest", "method": "getmininginfo", "params": []}' -H 'content-type: text/plain;' http://127.0.0.1:8332/
 ```
-Ecco il comando `curl`, alla fine della schermata di aiuto! Questo comando piuttosto lungo è composto da quattro parti principali: (1) il tuo nome utente; (2) un flag "--data-binary"; (3) un oggetto JSON che dice a "bitcoind" cosa fare, incluso un array di parametri JSON; e (4) un'intestazione HTTP che include l'URL "bitcoind".
+Ecco il comando `curl`, alla fine della schermata di aiuto! Questo comando piuttosto lungo è composto da quattro parti principali: (1) il tuo nome utente; (2) un flag `--data-binary`; (3) un oggetto JSON che dice a `bitcoind` cosa fare, incluso un array di parametri JSON; e (4) un'intestazione HTTP che include l'URL `bitcoind`.
 
-Quando lavori con "curl", la maggior parte degli argomenti di "curl" rimarranno gli stessi da comando a comando; in genere cambieranno solo le voci "method" e "params" nell'array JSON. Tuttavia, devi sapere come inserire il tuo nome utente e il tuo indirizzo URL per farlo funzionare in primo luogo!
+Quando lavori con `curl`, la maggior parte degli argomenti di `curl` rimarranno gli stessi da comando a comando; in genere cambieranno solo le voci `method` e `params` nell'array JSON. Tuttavia, devi sapere come inserire il tuo nome utente e il tuo indirizzo URL per farlo funzionare in primo luogo!
 
 _Ogni volta che non sei sicuro su come eseguire il curling di un comando RPC, guarda la guida di bitcoin-cli e vai da lì._
 
 ### Conosci il tuo nome utente
 
-Per parlare co'l porto `bitcoind`, hai bisogno di un nome utente e una password. Questi sono stati creati come parte della configurazione iniziale di Bitcoin e possono essere trovati in "~/.bitcoin/bitcoin.conf".
+Per parlare co'l porto `bitcoind`, hai bisogno di un nome utente e una password. Questi sono stati creati come parte della configurazione iniziale di Bitcoin e possono essere trovati in `~/.bitcoin/bitcoin.conf`.
 
 Ad esempio, ecco la nostra configurazione attuale:
 ```
@@ -71,7 +71,7 @@ rpcport=8332
 rpcbind=127.0.0.1
 rpcport=18443
 ```
-Il nostro nome utente è "StandUp" e la tua password è "8eaf562eaf45c33c3328bc66008f2dd1".
+Il nostro nome utente è `StandUp` e la tua password è `8eaf562eaf45c33c3328bc66008f2dd1`.
 
 > **ATTENZIONE:** Chiaramente non è molto sicuro avere queste informazioni in un file di testo. A partire da Bitcoin Core 0.12, puoi invece omettere `rpcpassword` dal tuo file `bitcoin.conf` e fare in modo che `bitcoind` generi un nuovo cookie ogni volta che si avvia. Lo svantaggio è che rende più difficile l'uso dei comandi RPC da parte di altre applicazioni, come quelle descritte in questo capitolo. Quindi per ora ci atterremo alle semplici informazioni `rpcuser` e `rpcpassword`, ma per il software di produzione, considera il passaggio ai cookie.
 
@@ -95,9 +95,9 @@ $ curl --user StandUp:8eaf562eaf45c33c3328bc66008f2dd1 --data-binary '{"jsonrpc"
 
 Con tutto questo in mano, sei pronto per inviare comandi RPC standard con `curl`... ma devi ancora sapere come incorporare i due elementi che tendono a cambiare nel comando `curl`.
 
-Il primo è "metodo", ovvero il metodo RPC utilizzato. In genere dovrebbe corrispondere ai nomi dei comandi che hai inserito in "bitcoin-cli" per anni.
+Il primo è `metodo`, ovvero il metodo RPC utilizzato. In genere dovrebbe corrispondere ai nomi dei comandi che hai inserito in `bitcoin-cli` per anni.
 
-Il secondo è "params", che è un array di parametri JSON. Questi sono gli stessi argomenti (o argomenti denominati) che hai utilizzato. Costituiscono anche la parte più confusa di `curl`, in gran parte perché sono un array strutturato anziché un semplice elenco.
+Il secondo è `params`, che è un array di parametri JSON. Questi sono gli stessi argomenti (o argomenti denominati) che hai utilizzato. Costituiscono anche la parte più confusa di `curl`, in gran parte perché sono un array strutturato anziché un semplice elenco.
 
 Ecco come appariranno alcuni array di parametri:
 
@@ -110,13 +110,13 @@ Ecco come appariranno alcuni array di parametri:
 
 ## Ottenere informazioni
 
-Ora puoi inviare il tuo primo comando "curl" accedendo all'RPC "getmininginfo":
+Ora puoi inviare il tuo primo comando `curl` accedendo all'RPC `getmininginfo`:
 ```
 $ curl --user StandUp:8eaf562eaf45c33c3328bc66008f2dd1 --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "getmininginfo", "params": [] }' -H 'content-type: text/plain;' http://127.0.0.1:18332/
 {"result":{"blocks":1772428,"difficulty":10178811.40698772,"networkhashps":91963587385939.06,"pooledtx":61,"chain":"test","warnings":"Warning: unknown new rules activated (versionbit 28)"},"error":null,"id":"curltest"}
 ```
 
-Tieni presente che abbiamo fornito il metodo, "getmininginfo", e il parametro, '[]', ma tutto il resto era la riga di comando "curl" standard.
+Tieni presente che abbiamo fornito il metodo, `getmininginfo`, e il parametro, '[]', ma tutto il resto era la riga di comando `curl` standard.
 
 > **ATTENZIONE:** Se ottieni un risultato come "Impossibile connettersi alla porta 127.0.0.1 8332: connessione rifiutata", assicurati che una riga come `rpcallowip=127.0.0.1` sia nel tuo ~/.bitcoin/bitcoin .conf. Se le cose continuano a non funzionare, assicurati di consentire l'accesso alla porta 18332 (o 8332) da localhost. La nostra configurazione standard del [Capitolo due: Configurare Bitcoin-Core VPS](02_0_Configurare_Bitcoin-Core_VPS.md) dovrebbe fare tutto questo.
 
@@ -139,11 +139,11 @@ $ curl --user StandUp:8eaf562eaf45c33c3328bc66008f2dd1 --data-binary '{"jsonrpc"
   "id": "curltest"
 }
 ```
-Vedrai un po' di report sulla connettività man mano che i dati vengono scaricati, quindi quando i dati raggiungono "jq", tutto verrà visualizzato in un formato con rientro corretto. (Negli esempi futuri ometteremo le informazioni di download.)
+Vedrai un po' di report sulla connettività man mano che i dati vengono scaricati, quindi quando i dati raggiungono `jq`, tutto verrà visualizzato in un formato con rientro corretto. (Negli esempi futuri ometteremo le informazioni di download.)
 
 ## Maneggiare il tuo portafoglio
 
-Anche se accedi direttamente a "bitcoind", avrai comunque accesso alle funzionalità del portafoglio, perché sono in gran parte archiviate in "bitcoind" stesso.
+Anche se accedi direttamente a `bitcoind`, avrai comunque accesso alle funzionalità del portafoglio, perché sono in gran parte archiviate in `bitcoind` stesso.
 
 ### Cercare indirizzi
 
@@ -175,7 +175,7 @@ $ curl --user StandUp:8eaf562eaf45c33c3328bc66008f2dd1 --data-binary '{"jsonrpc"
   "id": "curltest"
 }
 ```
-Questo è il nostro primo esempio di parametro reale, `""`. Questo è il parametro "label" richiesto per "getaddressesbylabel", ma tutti i nostri indirizzi sono sotto l'etichetta predefinita, quindi qui non è stato richiesto nulla di speciale.
+Questo è il nostro primo esempio di parametro reale, `""`. Questo è il parametro `label` richiesto per `getaddressesbylabel`, ma tutti i nostri indirizzi sono sotto l'etichetta predefinita, quindi qui non è stato richiesto nulla di speciale.
 
 Il risultato è un elenco di tutti gli indirizzi che sono stati utilizzati da questo portafoglio... alcuni dei quali presumibilmente contengono fondi.
 
@@ -216,7 +216,7 @@ $ curl --user StandUp:8eaf562eaf45c33c3328bc66008f2dd1 --data-binary '{"jsonrpc"
   "id": "curltest"
 }
 ```
-Questo è quasi esattamente lo stesso output che ricevi quando digiti "bitcoin-cli listunspent", mostrando quanto siano strettamente legate le due interfacce. Se non è necessaria alcuna pulizia o ulteriore aiuto, `bitcoin-cli` restituisce semplicemente l'RPC. Facile!
+Questo è quasi esattamente lo stesso output che ricevi quando digiti `bitcoin-cli listunspent`, mostrando quanto siano strettamente legate le due interfacce. Se non è necessaria alcuna pulizia o ulteriore aiuto, `bitcoin-cli` restituisce semplicemente l'RPC. Facile!
 
 ### Crea un indirizzo
 
@@ -230,7 +230,7 @@ $ curl --user StandUp:8eaf562eaf45c33c3328bc66008f2dd1 --data-binary '{"jsonrpc"
 }
 ```
 
-> **AVVERTENZA:** L'ordine dei parametri è importante quando si inviano comandi RPC utilizzando curl. C'è solo un argomento per "getrawchangeaddress", ma considera il suo cugino stretto "getnewaddress". Richiede due argomenti: prima etichetta, poi tipo. Se inviassimo lo stesso `"params": ["legacy"]` invece di `"params": ["", "legacy"]`, otterremmo un indirizzo `bech32` con l'etichetta `"legacy"` invece di un indirizzo `legacy`, quindi presta attenzione all'ordine!
+> **AVVERTENZA:** L'ordine dei parametri è importante quando si inviano comandi RPC utilizzando curl. C'è solo un argomento per `getrawchangeaddress`, ma considera il suo cugino stretto `getnewaddress`. Richiede due argomenti: prima etichetta, poi tipo. Se inviassimo lo stesso `"params": ["legacy"]` invece di `"params": ["", "legacy"]`, otterremmo un indirizzo `bech32` con l'etichetta `"legacy"` invece di un indirizzo `legacy`, quindi presta attenzione all'ordine!
 
 A questo punto, possiamo anche tornare alla nostra pratica standard di salvare i risultati in variabili con l'aiuto aggiuntivo di `jq`:
 
@@ -239,15 +239,15 @@ $ newaddress=$(curl --user StandUp:8eaf562eaf45c33c3328bc66008f2dd1 --data-binar
 $ echo $newaddress
 mqdfnjgWr2r3sCCeuTDfe8fJ1CnycF2e6R
 ```
-Non è necessario preoccuparsi delle informazioni di download. Andrà su "STDERR" e verrà visualizzato sullo schermo, mentre i risultati andranno su "STDOUT" e verranno salvati nella tua variabile.
+Non è necessario preoccuparsi delle informazioni di download. Andrà su `STDERR` e verrà visualizzato sullo schermo, mentre i risultati andranno su `STDOUT` e verranno salvati nella tua variabile.
 
 ## Crea una transazione
 
-Ora sei pronto per creare una transazione con "curl".
+Ora sei pronto per creare una transazione con `curl`.
 
 ### Prepara le tue variabili
 
-Proprio come con `bitcoin-cli`, per creare una transazione eseguendo i comandi RPC, dovresti prima salvare le tue variabili. L'unico cambiamento qui è che 'curl' crea un oggetto JSON che include un valore-chiave "result", quindi devi sempre reindirizzare il tag ".result" prima di fare qualsiasi altra cosa.
+Proprio come con `bitcoin-cli`, per creare una transazione eseguendo i comandi RPC, dovresti prima salvare le tue variabili. L'unico cambiamento qui è che 'curl' crea un oggetto JSON che include un valore-chiave `result`, quindi devi sempre reindirizzare il tag `.result` prima di fare qualsiasi altra cosa.
 
 Questo esempio imposta le nostre variabili per utilizzare 1,2985 BTC nei fondi elencati nella prima transazione non spesa sopra:
 
@@ -284,9 +284,9 @@ Tieni presente che l'intero `params` è alloggiato in `[]` per contrassegnare l'
 
 Abbiamo anche variato le citazioni rispetto a come funzionavano le cose in `bitcoin-cli`, per iniziare e terminare ogni array e oggetto all'interno dell'array `params` con `''`  invece del nostro tradizionale `'''`. Questo perché l'intero set di argomenti JSON è già racchiuso da un `'`. Come al solito, basta dare un'occhiata alla bizzarra citazione della shell e abituarsi.
 
-Tuttavia, c'è un'ultima cosa degna di nota in questo esempio, e può essere _esasperante_ se te la perdi. Quando hai eseguito un comando `createrawtransaction` con `bitcoin-cli`, l'array JSON degli input e l'oggetto JSON degli output erano parametri distinti, quindi erano separati da uno spazio. Ora, poiché fanno parte dell'array JSON `params`, sono separati da una virgola (`,`). Perdilo e otterrai un "errore di analisi" senza molte informazioni aggiuntive.
+Tuttavia, c'è un'ultima cosa degna di nota in questo esempio, e può essere _esasperante_ se te la perdi. Quando hai eseguito un comando `createrawtransaction` con `bitcoin-cli`, l'array JSON degli input e l'oggetto JSON degli output erano parametri distinti, quindi erano separati da uno spazio. Ora, poiché fanno parte dell'array JSON `params`, sono separati da una virgola (`,`). Perdilo e otterrai un `errore di analisi` senza molte informazioni aggiuntive.
 
-> **ATTENZIONE:** Hai mai avuto problemi con il debug del tuo `curl`? Aggiungi l'argomento `--trace-ascii /tmp/foo`. Le informazioni complete su ciò che viene inviato al server verranno salvate in "/tmp/foo" (o qualunque nome di file fornisca).
+> **ATTENZIONE:** Hai mai avuto problemi con il debug del tuo `curl`? Aggiungi l'argomento `--trace-ascii /tmp/foo`. Le informazioni complete su ciò che viene inviato al server verranno salvate in `/tmp/foo` (o qualunque nome di file fornisca).
 
 Dopo aver verificato che le cose funzionino, probabilmente vorrai salvare il codice esadecimale in una variabile:
 
@@ -297,7 +297,7 @@ $ hexcode=$(curl --user StandUp:8eaf562eaf45c33c3328bc66008f2dd1 --data-binary '
 
 ### Firma e invia
 
-Firmare e inviare la transazione utilizzando "curl" è un facile utilizzo dell'RPC "signrawtransactionwithwallet" e "sendrawtransaction":
+Firmare e inviare la transazione utilizzando `curl` è un facile utilizzo dell'RPC `signrawtransactionwithwallet` e `sendrawtransaction`:
 
 ```
 $ signedhex=$(curl --user StandUp:8eaf562eaf45c33c3328bc66008f2dd1 --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "signrawtransactionwithwallet", "params": ["'$hexcode'"] }' -H 'content-type: text/plain;' http://127.0.0.1:18332/ | jq -r '.result | .hex')
@@ -311,11 +311,11 @@ $ curl --user StandUp:8eaf562eaf45c33c3328bc66008f2dd1 --data-binary '{"jsonrpc"
 ```
 ## Riepilogo: accesso a Bitcoind con Curl
 
-Dopo aver terminato questa sezione, potresti pensare che accedere a `bitcoind` tramite `curl` sia molto simile ad accedervi tramite `bitcoin-cli`... ma più complicato. E avresti ragione. `bitcoin-cli` ha funzionalità RPC piuttosto complete, quindi tutto ciò che fai tramite `curl` probabilmente puoi farlo tramite `bitcoin-cli`. Ecco perché continueremo a concentrarci su "bitcoin-cli" dopo questa digressione.
+Dopo aver terminato questa sezione, potresti pensare che accedere a `bitcoind` tramite `curl` sia molto simile ad accedervi tramite `bitcoin-cli`... ma più complicato. E avresti ragione. `bitcoin-cli` ha funzionalità RPC piuttosto complete, quindi tutto ciò che fai tramite `curl` probabilmente puoi farlo tramite `bitcoin-cli`. Ecco perché continueremo a concentrarci su `bitcoin-cli` dopo questa digressione.
 
 Ma ci sono ancora ragioni per cui dovresti usare `curl` invece di `bitcoin-cli`:
 
-_Qual è il potere di curl?_ Ovviamente, `curl` elimina un livello di indiretto. Invece di lavorare con `bitcoin-cli` che invia comandi RPC a `bitcoind`, invii questi comandi RPC direttamente. Ciò consente una programmazione più solida, perché non devi preoccuparti di quali cose inaspettate potrebbe fare "bitcoin-cli" o di come potrebbe cambiare nel tempo. Tuttavia, stai anche muovendo i primi passi verso l'utilizzo di un linguaggio di programmazione più completo rispetto alle scarse opzioni offerte da uno script di shell. Come vedrai negli ultimi capitoli di questo, potresti effettivamente vedere che le librerie curl sono altre funzioni per accedere ai comandi RPC in una varietà di linguaggi di programmazione: ma è ancora molto lontano.
+_Qual è il potere di curl?_ Ovviamente, `curl` elimina un livello di indiretto. Invece di lavorare con `bitcoin-cli` che invia comandi RPC a `bitcoind`, invii questi comandi RPC direttamente. Ciò consente una programmazione più solida, perché non devi preoccuparti di quali cose inaspettate potrebbe fare `bitcoin-cli` o di come potrebbe cambiare nel tempo. Tuttavia, stai anche muovendo i primi passi verso l'utilizzo di un linguaggio di programmazione più completo rispetto alle scarse opzioni offerte da uno script di shell. Come vedrai negli ultimi capitoli di questo, potresti effettivamente vedere che le librerie curl sono altre funzioni per accedere ai comandi RPC in una varietà di linguaggi di programmazione: ma è ancora molto lontano.
 
 ## Qual è il prossimo passo?
 Scopri un altro modo per "Inviare transazioni Bitcoin" qui: [Capitolo 4.5: InviareMonete con Transazione Grezza Automatizzata](04_5_Inviare_Monete_con_Transazione_Grezza_Automatizzata.md).
