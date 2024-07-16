@@ -9,6 +9,18 @@ We can now put those together and actually send funds using a raw transaction.
 Our sample raw transaction in section §4.2 was very simplistic: we sent the entirety of a UTXO to a new address. More frequently, you'll want to send someone an amount of money that doesn't match a UTXO. But, you'll recall that the excess money from a UTXO that's not sent to your recipient just becomes a transaction fee. So, how do you send someone just part of a UTXO, while keeping the rest for yourself?
 
 The solution is to _send_ the rest of the funds to a second address, a change address that you've created in your wallet specifically to receive them:
+# 4.4: Inviare monete con transazioni grezze
+
+Come notato all'inizio di questo capitolo, l'interfaccia `bitcoin-cli` offre tre modi principali per inviare monete. [Capitolo 4.1](04_1_Inviare_Monete_Modo_Semplice.md) ha parlato dell'invio nel primo modo, utilizzando il comando `sendtoaddress`. Da allora, abbiamo sviluppato dettagli su come inviare monete in un secondo modo, con transazioni grezze. [Capitolo 4.2](04_2_Creare_una_Transazione_Grezza.md) ha insegnato come creare una transazione non elaborata, nel [Interludio](04_2_Intermezzo_Usare_JQ.md) è stato spiegato JQ e nel[Capitolo 4.3](04_3_Creare_una_Transazione_Grezza_con_Alias.md) è stato spiegato come usare alias.
+
+Ora possiamo metterli insieme e inviare effettivamente fondi utilizzando una transazione grezza.
+
+## Crea un indirizzo di resto
+
+La nostra transazione grezza di esempio nella sezione §4.2 era molto semplicistica: abbiamo inviato l'intero UTXO a un nuovo indirizzo. Più frequentemente, vorrai inviare a qualcuno una somma di denaro che non corrisponde a un UTXO. Ma ricorderai che il denaro in eccesso da un UTXO che non viene inviato al destinatario diventa semplicemente una commissione di transazione. Quindi, come puoi inviare a qualcuno solo una parte di un UTXO, mantenendo il _resto_ per te?
+
+La soluzione è _inviare_ il resto dei fondi a un secondo indirizzo, un indirizzo di resto che hai creato nel tuo portafoglio appositamente per riceverli:
+
 ```
 $ changeaddress=$(bitcoin-cli getrawchangeaddress legacy)
 $ echo $changeaddress
