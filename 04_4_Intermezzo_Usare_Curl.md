@@ -1,24 +1,25 @@
-# Interlude: Using Curl
+# Interludio: Usare Curl
 
-`bitcoin-cli` is ultimately just a wrapper. It's a way to interface with `bitcoind` from the command line, providing simplified access to its many RPC commands. But RPC can, of course, be accessed directly. That's what this interlude is about: directly connecting to RPC with the `curl` command.
+`bitcoin-cli` è in definitiva solo un wrapper. È un modo per interfacciarsi con "bitcoind" dalla riga di comando, fornendo un accesso semplificato ai suoi numerosi comandi RPC. Naturalmente è possibile accedere direttamente a RPC. Ecco di cosa tratta questo interludio: connettersi direttamente a RPC con il comando `curl`.
 
-It won't be used much in the future chapters, but it's an important building block that you can see as an alternative access to `bitcoind` is you so prefer.
+Non verrà utilizzato molto nei capitoli futuri, ma è un elemento importante che puoi vedere come un accesso alternativo a `bitcoind` se preferisci.
 
-## Know Your Curl
+## Capire CURL
 
-`curl`, short for "see URL", is a command-line tool that allows you to directly access URLs in a programmatic way. It's an easy way to interact with servers like `bitcoind` that listen to ports on the internet and that speak a variety of protocols. Curl is also available as a library for many programming languages, such as C, Java, PHP, and Python. So, once you know how to work with Curl, you'll have a strong foundation for using a lot of different API.
+`curl`, abbreviazione di "vedi URL", è uno strumento da riga di comando che ti consente di accedere direttamente agli URL in modo programmatico. È un modo semplice per interagire con server come "bitcoind" che ascoltano le porte su Internet e che parlano una varietà di protocolli. Curl è disponibile anche come libreria per molti linguaggi di programmazione, come C, Java, PHP e Python. Quindi, una volta che sai come lavorare con Curl, avrai una solida base per utilizzare molte API diverse.
 
-In order to use `curl` with `bitcoind`, you must know three things: the standard format, the user name and password, and the correct port.
+Per utilizzare "curl" con "bitcoind", devi conoscere tre cose: il formato standard, il nome utente e la password e la porta corretta.
 
-### Know Your Format
+### Capire il format
 
-The `bitcoin-cli` commands are all linked to RPC commands in `bitcoind`. That makes the transition from using `bitcoin-cli` to using `curl` very simple. In fact, if you look at any of the help pages for `bitcoin-cli`, you'll see that they list not only the `bitcoin-cli` commands, but also parallel `curl` commands. For example, here is `bitcoin-cli help getmininginfo`:
+I comandi "bitcoin-cli" sono tutti collegati ai comandi RPC in "bitcoind". Ciò rende molto semplice la transizione dall'utilizzo di `bitcoin-cli` all'utilizzo di `curl`. Infatti, se guardi una qualsiasi delle pagine di aiuto di `bitcoin-cli`, vedrai che elencano non solo i comandi `bitcoin-cli`, ma anche i comandi paralleli `curl`. Ad esempio, ecco `bitcoin-cli help getmininginfo`:
 ```
-$ bitcoin-cli help getmininginfo
+$ bitcoin-cli aiuta a ottenere informazioni sul mining
 getmininginfo
 
-Returns a json object containing mining-related information.
-Result:
+Restituisce un oggetto json contenente informazioni relative al mining.
+Risultato:
+
 {                              (json object)
   "blocks" : n,                (numeric) The current block
   "currentblockweight" : n,    (numeric, optional) The block weight of the last assembled block (only present if a block was ever assembled)
@@ -30,21 +31,21 @@ Result:
   "warnings" : "str"           (string) any network and blockchain warnings
 }
 
-Examples:
+Esempi:
 > bitcoin-cli getmininginfo 
 > curl --user myusername --data-binary '{"jsonrpc": "1.0", "id": "curltest", "method": "getmininginfo", "params": []}' -H 'content-type: text/plain;' http://127.0.0.1:8332/
 ```
-And there's the `curl` command, at the end of the help screen! This somewhat lengthy command has four major parts: (1) a listing of your user name; (2) a `--data-binary` flag; (3) a JSON object that tells `bitcoind` what to do, including a JSON array of parameters; and (4) an HTTP header that includes the `bitcoind` URL.
+Ecco il comando `curl`, alla fine della schermata di aiuto! Questo comando piuttosto lungo è composto da quattro parti principali: (1) il tuo nome utente; (2) un flag "--data-binary"; (3) un oggetto JSON che dice a "bitcoind" cosa fare, incluso un array di parametri JSON; e (4) un'intestazione HTTP che include l'URL "bitcoind".
 
-When you are working with `curl`, most of these arguments to `curl` will stay the same from command to command; only the `method` and `params` entries in the JSON array will typically change. However, you need to know how to fill in your username and your URL address in order to make it work in the first place!
+Quando lavori con "curl", la maggior parte degli argomenti di "curl" rimarranno gli stessi da comando a comando; in genere cambieranno solo le voci "method" e "params" nell'array JSON. Tuttavia, devi sapere come inserire il tuo nome utente e il tuo indirizzo URL per farlo funzionare in primo luogo!
 
-_Whenever you're unsure about how to curl an RPC command, just look at the bitcoin-cli help and go from there._
+_Ogni volta che non sei sicuro su come eseguire il curling di un comando RPC, guarda la guida di bitcoin-cli e vai da lì._
 
-### Know Your User Name
+### Conosci il tuo nome utente
 
-In order to speak with the `bitcoind` port, you need a user name and password. These were created as part of your initial Bitcoin setup, and can be found in `~/.bitcoin/bitcoin.conf`.
+Per parlare co'l porto `bitcoind`, hai bisogno di un nome utente e una password. Questi sono stati creati come parte della configurazione iniziale di Bitcoin e possono essere trovati in "~/.bitcoin/bitcoin.conf".
 
-For example, here's our current setup:
+Ad esempio, ecco la nostra configurazione attuale:
 ```
 $ cat ~/.bitcoin/bitcoin.conf
 server=1
@@ -70,55 +71,56 @@ rpcport=8332
 rpcbind=127.0.0.1
 rpcport=18443
 ```
-Our user name is `StandUp` and our password is `8eaf562eaf45c33c3328bc66008f2dd1`.
+Il nostro nome utente è "StandUp" e la tua password è "8eaf562eaf45c33c3328bc66008f2dd1".
 
-> **WARNING:** Clearly, it's not very secure to have this information in a plain text file. As of Bitcoin Core 0.12, you can instead omit the `rpcpassword` from your `bitcoin.conf` file, and have `bitcoind` generate a new cookie whenever it starts up. The downside of this is that it makes use of RPC commands by other applications, such as the ones detailed in this chapter, more difficult. So, we're going to stick with the plain `rpcuser` and `rpcpassword` information for now, but for production software, consider moving to cookies.
+> **ATTENZIONE:** Chiaramente non è molto sicuro avere queste informazioni in un file di testo. A partire da Bitcoin Core 0.12, puoi invece omettere `rpcpassword` dal tuo file `bitcoin.conf` e fare in modo che `bitcoind` generi un nuovo cookie ogni volta che si avvia. Lo svantaggio è che rende più difficile l'uso dei comandi RPC da parte di altre applicazioni, come quelle descritte in questo capitolo. Quindi per ora ci atterremo alle semplici informazioni `rpcuser` e `rpcpassword`, ma per il software di produzione, considera il passaggio ai cookie.
 
-The secure way to RPC with `bitcoind` is as follows:
+Il modo sicuro per RPC con `bitcoind` è il seguente:
+
 ```
 $ curl --user StandUp --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "getmininginfo", "params": [] }' -H 'content-type: text/plain;' http://127.0.0.1:18332/
 Enter host password for user 'bitcoinrpc':
 ```
-As noted, you will be prompted for your password.
+Come notato, ti verrà richiesta la password.
 
-> :link: **TESTNET vs MAINNET:** Testnet uses a URL with port 18332 and mainnet uses a URL with port 8332. Take a look in your `bitcoin.conf`, it's all laid out there.
+> :link: **TESTNET vs MAINNET:** Testnet utilizza un URL con porta 18332 e mainnet utilizza un URL con porta 8332. Dai un'occhiata al tuo `bitcoin.conf`, è tutto disposto lì.
 
-The insecure way to do so is as follows:
+Il modo non sicuro per farlo è il seguente:
 ```
 $ curl --user StandUp:8eaf562eaf45c33c3328bc66008f2dd1 --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "getmininginfo", "params": [] }' -H 'content-type: text/plain;' http://127.0.0.1:18332/
 ```
-> **WARNING:** Entering your password on the command line may put your password into the process table and/or save it into a history. This is even less recommended than putting it in a file, except for testing on testnet. If you want to do it anywhere else, make sure you know what you're doing!
+> **ATTENZIONE:** L'immissione della password sulla riga di comando potrebbe inserire la password nella tabella dei processi e/o salvarla in una cronologia. Questo è ancora meno consigliato che inserirlo in un file, tranne che per i test su testnet. Se vuoi farlo altrove, assicurati di sapere cosa stai facendo!
 
-### Know Your Command & Parameters
+### Conosere comandi e parametri
 
-With all of that in hand, you're ready to send off standard RPC commands with `curl` ... but you still need to know how to incorporate the two elements that tend to change in the `curl` command.
+Con tutto questo in mano, sei pronto per inviare comandi RPC standard con `curl`... ma devi ancora sapere come incorporare i due elementi che tendono a cambiare nel comando `curl`.
 
-The first is `method`, which is the RPC method being used. This should generally match the command names you've been feeding into `bitcoin-cli` for ages.
+Il primo è "metodo", ovvero il metodo RPC utilizzato. In genere dovrebbe corrispondere ai nomi dei comandi che hai inserito in "bitcoin-cli" per anni.
 
-The second is `params`, which is a JSON array of parameters. These are the same as the arguments (or named arguments) that you've been using. They're also the most confusing part of `curl`, in large part because they're a structured array rather than a simple list.
+Il secondo è "params", che è un array di parametri JSON. Questi sono gli stessi argomenti (o argomenti denominati) che hai utilizzato. Costituiscono anche la parte più confusa di `curl`, in gran parte perché sono un array strutturato anziché un semplice elenco.
 
-Here's what some parameter arrays will look like:
+Ecco come appariranno alcuni array di parametri:
 
-  * `[]` — An empty array
-  * `["000b4430a7a2ba60891b01b718747eaf9665cb93fbc0c619c99419b5b5cf3ad2"]` — An array with data
-  * `["'$signedhex'"]` — An array with a variable
-  * `[6, 9999999]` — An array with two parameters
-  * `{}` - An empty object
-  * `[''[ { "txid": "'$utxo_txid'", "vout": '$utxo_vout' } ]'', ''{ "'$recipient'": 0.298, "'$changeaddress'": 1.0}'']` — An array with an array containing an object and a bare object
+  * `[]` - An empty array
+  * `["000b4430a7a2ba60891b01b718747eaf9665cb93fbc0c619c99419b5b5cf3ad2"]` - Un array con dati
+  * `["'$signedhex'"]` - Un array con una variabile
+  * `[6, 9999999]` - Un array con due parametri
+  * `{}` - Un oggetto vuoto
+  * `[''[ { "txid": "'$utxo_txid'", "vout": '$utxo_vout' } ]'', ''{ "'$recipient'": 0.298, "'$changeaddress'": 1.0}'']` - Un array con un array contenente un oggetto e un oggetto semplice
 
-## Get Information
+## Ottenere informazioni
 
-You can now send your first `curl` command by accessing the `getmininginfo` RPC:
+Ora puoi inviare il tuo primo comando "curl" accedendo all'RPC "getmininginfo":
 ```
 $ curl --user StandUp:8eaf562eaf45c33c3328bc66008f2dd1 --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "getmininginfo", "params": [] }' -H 'content-type: text/plain;' http://127.0.0.1:18332/
 {"result":{"blocks":1772428,"difficulty":10178811.40698772,"networkhashps":91963587385939.06,"pooledtx":61,"chain":"test","warnings":"Warning: unknown new rules activated (versionbit 28)"},"error":null,"id":"curltest"}
 ```
 
-Note that we provided the method, `getmininginfo`, and the parameter, `[]`, but that everything else was the standard `curl` command line.
+Tieni presente che abbiamo fornito il metodo, "getmininginfo", e il parametro, "[]", ma tutto il resto era la riga di comando "curl" standard.
 
-> **WARNING:** If you get a result like "Failed to connect to 127.0.0.1 port 8332: Connection refused", be sure that a line like `rpcallowip=127.0.0.1` is in your ~/.bitcoin/bitcoin.conf. If things still don't work, be sure that you're allowing access to port 18332 (or 8332) from localhost. Our standard setup from [Chapter Two: Creating a Bitcoin-Core VPS](02_0_Setting_Up_a_Bitcoin-Core_VPS.md) should do all of this.
+> **ATTENZIONE:** Se ottieni un risultato come "Impossibile connettersi alla porta 127.0.0.1 8332: connessione rifiutata", assicurati che una riga come `rpcallowip=127.0.0.1` sia nel tuo ~/.bitcoin/bitcoin .conf. Se le cose continuano a non funzionare, assicurati di consentire l'accesso alla porta 18332 (o 8332) da localhost. La nostra configurazione standard del [Capitolo due: Creazione di un Bitcoin-Core VPS](02_0_Setting_Up_a_Bitcoin-Core_VPS.md) dovrebbe fare tutto questo.
 
-The result is another JSON array, which is unfortunately ugly to read if you're using `curl` by hand. Fortunately, you can clean it up  simply by piping it through `jq`:
+Il risultato è un altro array JSON, che sfortunatamente è brutto da leggere se usi `curl` manualmente. Fortunatamente, puoi ripulirlo semplicemente collegandolo tramite `jq`:
 ```
 $ curl --user StandUp:8eaf562eaf45c33c3328bc66008f2dd1 --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "getmininginfo", "params": [] }' -H 'content-type: text/plain;' http://127.0.0.1:18332/ | jq -r '.'
   % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
