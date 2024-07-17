@@ -1,35 +1,36 @@
-# 4.5: Sending Coins with Automated Raw Transactions
+# 4.5: Inviare monete con transazioni grezze automatizzate
 
-This chapter lays out three ways to send funds via Bitcoin's cli interface. [§4.1](04_1_Sending_Coins_The_Easy_Way.md) described how to do so with a simple command, and [§4.4](04_4_Sending_Coins_with_a_Raw_Transaction.md) detailed how to use a more dangerous raw transaction. This final section splits the difference by showing how to make raw transactions simpler and safer. 
+Questo capitolo illustra tre modi per inviare fondi tramite l'interfaccia CLI di Bitcoin. [Capitolo 4.1](04_1_Inviare_Monete_Modo_Semplice.md) ha descritto come farlo con un semplice comando e [Capitolo 4.4](04_4_Inviare_Monete_con_Transazione_Grezza.md) ha spiegato in dettaglio come utilizzare una transazione grezza più pericolosa. Questa sezione finale risolve la differenza mostrando come rendere le transazioni grezze più semplici e sicure.
 
-## Let Bitcoin Calculate For You
+## Lascia che Bitcoin calcoli per te
 
-The methodology for automated raw transactions is simple: you create a raw transaction, but you use the `fundrawtransaction` command to ask the bitcoind to run the calculations for you.
+La metodologia per le transazioni grezze automatizzate è semplice: crei una transazione grezza, ma usi il comando "fundrawtransaction" per chiedere a bitcoind di eseguire i calcoli per te.
 
-In order to use this command, you'll need to ensure that your ~/.bitcoin/bitcoin.conf file contains rational variables for calculating transaction fees. Please see [§4.1: Sending Coins The Easy Way](04_1_Sending_Coins_The_Easy_Way.md) for more information on this.
+Per utilizzare questo comando, dovrai assicurarti che il tuo file ~/.bitcoin/bitcoin.conf contenga variabili razionali per il calcolo delle commissioni di transazione. Consulta [Capitolo 4.1: Inviare Monete Modo Semplice](04_1_Inviare_Monete_Modo_Semplice.md) per ulteriori informazioni a riguardo.
 
-For very conservative numbers, we suggested adding the following to the `bitcoin.conf`:
+Per numeri molto conservativi, abbiamo suggerito di aggiungere quanto segue a `bitcoin.conf`:
 ```
 mintxfee=0.0001
 txconfirmtarget=6
 ```
-To keep the tutorial moving along (and more generally to move money fast) we suggested the following:
+Per far avanzare il tutorial (e più in generale per spostare velocemente il denaro) abbiamo suggerito quanto segue:
 ```
 mintxfee=0.001
 txconfirmtarget=1
 ```
 
-## Create a Bare Bones Raw Transaction
+## Crea una transazione grezza semplice semplice
 
-To use `fundrawtransaction` you first need to create a bare-bones raw transaction that lists _no_ inputs and _no_ change address. You'll just list your recipient and how much you want to send them, in this case `$recipient` and `0.0002` BTC.
+Per utilizzare `fundrawtransaction` devi prima creare una transazione semplice che elenchi _no_ input e _no_ cambi di indirizzo. Elencherai semplicemente il destinatario e l'importo che desideri inviargli, in questo caso `$recipient` e `0.00020000` BTC.
 ```
 $ recipient=n2eMqTT929pb1RDNuqEnxdaLau1rxy3efi
 $ unfinishedtx=$(bitcoin-cli -named createrawtransaction inputs='''[]''' outputs='''{ "'$recipient'": 0.0002 }''')
 ```
 
-## Fund Your Bare Bones Transaction
+## Finanzia la tua transazione semplice
 
-You then tell `bitcoin-cli` to fund that bare-bones transaction:
+Quindi dici a 'bitcoin-cli' di finanziare quella transazione semplice:
+
 ```
 $ bitcoin-cli -named fundrawtransaction hexstring=$unfinishedtx
 {
@@ -38,15 +39,16 @@ $ bitcoin-cli -named fundrawtransaction hexstring=$unfinishedtx
   "changepos": 1
 }
 ```
-That provides a lot of useful information, but once you're confident with how it works, you'll want to use JQ to save your hex to a variable, as usual:
+Ciò fornisce molte informazioni utili, ma una volta che sei sicuro di come funziona, ti consigliamo di utilizzare JQ per salvare il tuo esadecimale in una variabile, come al solito:
 ```
 $ rawtxhex3=$(bitcoin-cli -named fundrawtransaction hexstring=$unfinishedtx | jq -r '.hex')
 ```
-## Verify Your Funded Transaction
+## Verifica la tua transazione finanziata
 
-It seems like magic, so the first few times you use `fundrawtransaction`, you'll probably want to verify it.
+Sembra una magia, quindi le prime volte che usi `fundrawtransaction`, probabilmente vorrai verificarlo.
 
-Running `decoderawtransaction` will show that the raw transaction is now laid out correctly, using one or more of your UTXOs and sending excess funds back to a change address:
+L'esecuzione di `decoderawtransaction` mostrerà che la transazione grezza è ora strutturata correttamente, utilizzando uno o più dei tuoi UTXO e inviando i fondi in eccesso a un indirizzo di resto:
+
 ```
 $ bitcoin-cli -named decoderawtransaction hexstring=$rawtxhex3
 {
@@ -98,14 +100,15 @@ $ bitcoin-cli -named decoderawtransaction hexstring=$rawtxhex3
   ]
 }
 ```
-One thing of interest here is the change address, which is the second `vout`. Note that it's a `tb1` address, which means that it's Bech32; when we gave Bitcoin Core the total ability to manage our change, it did so using its default address type, Bech32, and it worked fine. That's why our change to SegWit addresses in [§4.6](04_6_Creating_a_Segwit_Transaction.md) really isn't that big of a deal, but there are some gotchas for wider usage, which we'll talk about there.
+La cosa interessante qui è l'indirizzo di resto, che è il secondo "vout". Nota che è un indirizzo "tb1", il che significa che è Bech32; quando abbiamo dato a Bitcoin Core la totale capacità di gestire il nostro resto, lo ha fatto utilizzando il suo tipo di indirizzo predefinito, Bech32, e ha funzionato bene. Ecco perché il nostro indirizzo di resto non è un grosso problema, come vedrai nel [Capitolo 4.6](04_6_Creare_una_Transazione_Segwit.md) , ma ci sono alcuni trucchi per un utilizzo più ampio, di cui parleremo lì.
 
-Though we saw the fee in the `fundrawtransaction` output, it's not visible here. However, you can verify it with the `txfee-calc.sh` JQ script created in the [JQ Interlude](https://github.com/BlockchainCommons/Learning-Bitcoin-from-the-Command-Line/blob/master/04_2__Interlude_Using_JQ.md):
+Sebbene abbiamo visto la commissione nell'output di `fundrawtransaction`, non è visibile qui. Tuttavia, puoi verificarlo con lo script JQ `txfee-calc.sh` creato in [JQ Interludio](04_2_Intermezzo_Usare_JQ.md):
 ```
 $ ~/txfee-calc.sh $rawtxhex3
 .000222
 ```
-Finally, you can use `getaddressinfo` to see that the generated change address really belongs to you:
+Infine, puoi utilizzare `getaddressinfo` per vedere che l'indirizzo di modifica generato appartiene davvero a te:
+
 ```
 $ bitcoin-cli -named getaddressinfo address=tb1q57p0f3hpuad9kf8n6e6adugmt6lnkg2zzr592r
 {
@@ -129,17 +132,18 @@ $ bitcoin-cli -named getaddressinfo address=tb1q57p0f3hpuad9kf8n6e6adugmt6lnkg2z
   ]
 }
 ```
-Note the `ismine` results.
+Nota i risultati di `ismine`.
 
-## Send Your Funded Transaction
+## Invia la tua transazione finanziata
 
-At this point you can sign and send the transaction as usual.
+A questo punto potrai firmare e inviare la transazione come di consueto.
+
 ```
 $ signedtx3=$(bitcoin-cli -named signrawtransactionwithwallet hexstring=$rawtxhex3 | jq -r '.hex')
 $ bitcoin-cli -named sendrawtransaction hexstring=$signedtx3
 8b9dd66c999966462a3d88d6ac9405d09e2aa409c0aa830bdd08dbcbd34a36fa
 ```
-In several minutes, you'll have your change back:
+In pochi minuti avrai indietro il resto:
 ```
 $ bitcoin-cli listunspent
 [
@@ -158,17 +162,17 @@ $ bitcoin-cli listunspent
 ]
 ```
 
-## Summary: Sending Coins with Automated Raw Transactions
+## Riepilogo: invio di monete con transazioni grezze automatizzate
 
-If you must send funds with raw transactions then `fundrawtransaction` gives you a nice alternative where fees, inputs, and outputs are calculated for you, so you don't accidentally lose a bunch of money.
+Se devi inviare fondi con transazioni grezze, allora "fundrawtransaction" ti offre una bella alternativa in cui commissioni, input e output vengono calcolati per te, in modo da non perdere accidentalmente un sacco di soldi.
 
-> :fire: ***What is the power of sending coins with automated raw transactions?***
+> :fire: ***Qual è il potere di inviare monete con transazioni grezze automatizzate?***
 
-> _The advantages._ It provides a nice balance. If you're sending funds by hand and `sendtoaddress` doesn't offer enough control for whatever reason, you can get some of the advantages of raw transactions without the dangers. This methodology should be used whenever possible if you're sending raw transactions by hand.
+> _I vantaggi._ Fornisce un buon equilibrio. Se invii fondi manualmente e "sendtoaddress" non offre un controllo sufficiente per qualsiasi motivo, puoi ottenere alcuni dei vantaggi delle transazioni grezze senza i pericoli. Questa metodologia dovrebbe essere utilizzata quando possibile se si inviano transazioni grezze manualmente.
 
-> _The disadvantages._ It's a hodge-podge. Though there are a few additional options for the `fundrawtransaction` command that weren't mentioned here, your control is still limited. You'd probably never want to use this method if you were writing a program where the whole goal is to know exactly what's going on.
+> _Gli svantaggi._ È un miscuglio. Sebbene esistano alcune opzioni aggiuntive per il comando "fundrawtransaction" che non sono state menzionate qui, il tuo controllo è comunque limitato. Probabilmente non vorrai mai utilizzare questo metodo se stessi scrivendo un programma in cui l'obiettivo è sapere esattamente cosa sta succedendo.
 
-## What's Next?
+## Qual è il prossimo argomento?
 
-Complete your "Sending of Bitcoin Transactions" with [§4.6: Creating a Segwit Transaction](04_6_Creating_a_Segwit_Transaction.md).
+Completa il tuo "Invio di transazioni Bitcoin" con [Capitolo 4.6: Creare una Transazione Segwit](04_6_Creare_una_Transazione_Segwit.md).
 
