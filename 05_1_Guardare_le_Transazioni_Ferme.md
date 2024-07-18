@@ -1,12 +1,13 @@
-# 5.1: Watching for Stuck Transactions
+# 5.1: Guardare le transazioni ferme
 
-Sometimes a Bitcoin transaction can get stuck. Usually it's because there wasn't sufficient transaction fee, but it can also be because of a one-time network or software glitch.
+A volte una transazione Bitcoin può fermarsi. Di solito è perché non c'erano commissioni di transazione sufficienti, ma può anche essere a causa di un problema tecnico della rete o del software.
 
-## Watch Your Transactions
+## Controllare le transazioni
 
-You should _always_ watch to ensure that your transactions go out. `bitcoin-cli listtransactions` will show all of your incoming and outgoing transactions, while `bitcoin-cli gettransaction` with a txid will show a specific transaction. 
+Dovresti _sempre_ vigilare per assicurarti che le tue transazioni vadano a buon fine. `bitcoin-cli listtransactions` mostrerà tutte le transazioni in entrata e in uscita, mentre `bitcoin-cli gettransaction` con un txid mostrerà una transazione specifica.
 
-The following shows a transaction that has not been put into a block. You can tell this because it has no confirmations. 
+Di seguito viene mostrata una transazione che non è stata inserita in un blocco. Puoi dirlo perché non ha conferme.
+
 ```
 $ bitcoin-cli -named gettransaction txid=fa2ddf84a4a632586d435e10880a2921db6310dfbd6f0f8f583aa0feacb74c8e
 {
@@ -32,28 +33,28 @@ $ bitcoin-cli -named gettransaction txid=fa2ddf84a4a632586d435e10880a2921db6310d
   ],
   "hex": "02000000014cda1f42a1bd39d8d0ff5958a804bc2bc548b71d7ceadbde53ea15aeaf1e2691000000006a473044022016a7a9f045a0f6a52129f48adb7da35c2f54a0741d6614e9d55b8a3bc3e1490a0220391e9085a3697bc790e94bb924d5310e16f23489d9c600864a32674e871f523c01210278608b54b8fb0d8379d3823d31f03a7c6ab0adffb07dd3811819fdfc34f8c132ffffffff02204e000000000000160014751e76e8199196d454941c45d1b3a323f1433bd6e8030000000000001600146c45d3afa8762086c4bd76d8a71ac7c976e1919600000000"
 ```
-A transaction can be considered stuck if it stays in this state for an extended amount of time. Not too many years ago, you could be sure that every transaction would go out _eventually_. But, that's no longer the case due to the increased usage of Bitcoin. Now, if a transaction is stuck too long, it will drop out of the mempool and then be lost from the Bitcoin network.
+Una transazione può essere considerata bloccata o ferma se rimane in questo stato per un periodo di tempo prolungato. Non molti anni fa, potevi essere sicuro che ogni transazione sarebbe andata a buon fine _una volta..._. Ma non è più così a causa del crescente utilizzo di Bitcoin. Ora, se una transazione rimane bloccata troppo a lungo, uscirà dalla mempool e verrà persa dalla rete Bitcoin.
 
-> :book: ***What is mempool?*** Mempool (or Memory Pool) is a pool of all unconfirmed transactions at a bitcoin node. These are the transactions that a node has received from the p2p network which are not yet included in a block. Each bitcoin node can have a slightly different set of transactions in its mempool: different transactions might have propogated to a specific node. This depends on when the node was last started and also its limits on how much it's willing to store. When a miner makes a block, he uses transactions from his mempool. Then, when a block is verified, all the miners remove the transactions it contains from their pools. As of Bitcoin 0.12, unconfirmed transactions can also expire from mempools if they're old enough, typically, 72 hours, and as of version 0.14.0 eviction time was increased to 2 weeks. Mining pools might have their own mempool-management mechanisms.
+> :book: ***Cos'è la mempool?*** Mempool (o Memory Pool) è una piscina (pool in inglese) che contiene tutte le transazioni non confermate su un nodo bitcoin. Sono le transazioni che un nodo ha ricevuto dalla rete p2p e che non sono ancora incluse in un blocco. Ogni nodo bitcoin può avere un insieme di transazioni leggermente diverso nel suo mempool: transazioni diverse potrebbero essersi propagate a un nodo specifico. Ciò dipende da quando il nodo è stato avviato l'ultima volta e anche dai suoi limiti su quanto è disposto a memorizzare. Quando un minatore effettua un blocco, utilizza le transazioni dal suo mempool. Quindi, quando un blocco viene verificato, tutti i minatori rimuovono le transazioni in esso contenute dai propri pool. A partire da Bitcoin 0.12, anche le transazioni non confermate possono scadere dai mempool se sono abbastanza vecchie, in genere 72 ore, e a partire dalla versione 0.14.0 il tempo di sfratto è stato aumentato a 2 settimane. I pool minerari potrebbero avere i propri meccanismi di gestione della mempool.
 
-This list of all [unconfirmed transactions](https://blockchain.info/unconfirmed-transactions) might not match any individual machine's mempool, but it should (mostly) be a superset of them.
+Questo elenco di tutte le [transazioni non confermate](https://blockchain.info/unconfirmed-transactions) potrebbe non corrispondere al mempool di nessuna singola macchina, ma dovrebbe (principalmente) essere un superset di essi.
 
-## Decide What to Do
+## Decidere cosa fare
 
-If your transaction is stuck longer than you want, you can typically do one of four things:
+Se la transazione rimane bloccata più a lungo del previsto, in genere puoi fare una di queste tre cose:
 
-**1. Wait Until it Clears.** If you sent your transaction with a low or medium fee, it should eventually go through. As shown at [Mempool Space](https://mempool.space), those with lower fees _will_ get delayed. (Take a look at the leftmost transaction, and see how long it's been waiting and how much it paid for its fee.)
+**1. Attendi finché non viene cancellato.** Se hai inviato la transazione con una commissione bassa o media, alla fine dovrebbe andare a buon fine. Come mostrato su [Mempool Space](https://mempool.space), quelli con tariffe inferiori subiranno ritardi. (Dai un'occhiata alla transazione più a sinistra e guarda quanto tempo è rimasta in attesa e quanto ha pagato per la sua commissione.)
 
-**2. Wait Until it Expires.** If you accidentally sent with no transaction fee, or if any number or other conditions are met, then your transaction might never go through. However, your coins aren't lost. As long as you don't have a wallet that purposefully resends unconfirmed transactions, it should clear from the mempool in three days or so, and then you can try again.
+**2. Attendi la scadenza.** Se hai inviato accidentalmente senza alcuna commissione di transazione o se vengono soddisfatti alcuni numeri o altre condizioni, la transazione potrebbe non andare mai a buon fine. Tuttavia, le tue monete non andranno perse. Finché non disponi di un portafoglio che rinvia intenzionalmente transazioni non confermate, dovrebbe essere cancellato dal mempool entro tre giorni circa, quindi puoi riprovare.
 
-**3. Use RBF as the Sender.** If you are the sender of the transaction, and you opted-in to RBF (Replace-By-Fee), then you can try again with a higher fee. See [§5.2: Resending a Transaction with RBF](05_2_Resending_a_Transaction_with_RBF.md).
+**3. Come mitente utilizza RBF.** Se sei il mittente della transazione e hai aderito a RBF (Replace-By-Fee), puo riprovare con una commissione più alta. Vedere [Capitolo 5.2: Rinviare le Transazioni con RBF](05_2_Rinviare_le_Transazioni_con_RBF.md).
 
-**4. Use CPFP as the Receiver.** Alternatively, if you are the receiver of the transaction, you can use CPFP (Child-pays-for-parent) to use the unconfirmed transaction as an input to a new transaction. See [§5.3: Funding a Transaction with CPFP](05_3_Funding_a_Transaction_with_CPFP.md).
+**4. Come destinatario utilizza CPFP.** In alternativa, se sei il destinatario della transazione, puoi utilizzare CPFP (Child-pays-for-parent) per utilizzare la transazione non confermata come input per una nuova transazione. Vedi [Capitolo 5.3: 05_3 Pagare una Transaccion con CPFP](05_3_Pagare_una_Transaccion_con_CPFP.md).
 
-## Summary: Watching for Stuck Transactions
+## Riepilogo: Guardare le transazioni ferme
 
-This is an introduction to the power of Bitcoin transactions. If you know that a transaction is stuck, then you can decide to free it up with features like RBF or CPFP.
+Questa è un'introduzione al potere delle transazioni Bitcoin. Se sai che una transazione è ferma, puoi decidere di liberarla con funzionalità come RBF o CPFP.
 
-## What's Next?
+## Cosa viene dopo?
 
-Continue "Controlling Bitcoin Transactions" with [§5.2: Resending a Transaction with RBF](05_2_Resending_a_Transaction_with_RBF.md).  
+Continua "Controllo delle transazioni Bitcoin" con [Capitolo 5.2 Rinviare le Transazioni con RBF](05_2_Rinviare_le_Transazioni_con_RBF.md).
