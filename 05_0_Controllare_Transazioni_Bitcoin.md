@@ -1,23 +1,23 @@
-# Chapter Five: Controlling Bitcoin Transactions
+# Capitolo cinque: Controllare le transazioni Bitcoin
 
-Sending a transaction isn't always the end of the story. Using the RBF (replace-by-fee) and CPFP (child-pays-for-parent) protocols, a developer can continue to control the transaction after it's been sent, to improve efficiency or to recover transactions that get stuck. These methods will begin to spotlight the true power of Bitcoin.
+L'invio di una transazione non è sempre la fine della storia. Utilizzando i protocolli RBF (replace-by-fee) e CPFP (child-pays-for-parent), uno sviluppatore può continuare a controllare la transazione dopo che è stata inviata, per migliorare l'efficienza o recuperare transazioni bloccate. Questi metodi inizieranno a mettere in luce il vero potere di Bitcoin.
 
-## Objectives for This Section
+## Obiettivi di questa sezione
 
-After working through this chapter, a developer will be able to:
+Dopo aver letto questo capitolo, uno sviluppatore sarà in grado di:
 
-   * Decide Whether RBF or CPFP Might Help a Transaction
-   * Create Replacement Transaction Using RBF
-   * Create New Transactions Using CPFP
-   
-Supporting objectives include the ability to:
+ * Decidere se RBF o CPFP potrebbero aiutare in una transazione
+ * Creare una transazione sostitutiva utilizzando RBF
+ * Creare una nuova transazione utilizzando CPFP
 
-   * Understand the Mempool
-   * Understand the Difference Between RBF and CPFP
-   * Plan for the Power of RBF
-   
-## Table of Contents
-   
-   * [Section One: Watching for Stuck Transactions](05_1_Watching_for_Stuck_Transactions.md)
-   * [Section Two: Resending a Transaction with RBF](05_2_Resending_a_Transaction_with_RBF.md)
-   * [Section Three: Funding a Transaction with CPFP](05_3_Funding_a_Transaction_with_CPFP.md)
+Gli obiettivi di supporto includono la capacità di:
+
+ * Comprendere la Mempool
+ * Comprendere la differenza tra RBF e CPFP
+ * Pianificare il potenziale di RBF
+
+## Sommario
+
+ * [Capitolo 5.1:Guardare le Transazioni Ferme](05_1_Guardare_le_Transazioni_Ferme.md)
+ * [Capitolo 5.2: Rinviare le Transazioni con RBF](05_2_Rinviare_le_Transazioni_con_RBF.md)
+ * [Capitolo 5.3: Pagare una Transaccion con CPFP](05_3_Pagare_una_Transaccion_con_CPFP.md)
