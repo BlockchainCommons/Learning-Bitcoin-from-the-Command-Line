@@ -1,21 +1,21 @@
-# Chapter Six: Expanding Bitcoin Transactions with Multisigs
+# Capitolo sei: Ampliare le transazioni Bitcoin con Multisig
 
-Basic bitcoin transactions: (1) send funds; (2) to a single P2PKH or SegWit recipient; (3) from a single machine; (4) immediately. However, all four parts of this definition can be expanded using more complex Bitcoin transactions. This first chapter on "Expansion" shows how to vary points (2) and (3) by sending money to an address that represents multiple recipients (or at least, multiple signers).
+Transazioni Bitcoin di base: (1) inviare fondi; (2) a un singolo destinatario P2PKH o SegWit; (3) da una singola macchina; (4) immediatamente. Tuttavia, tutte e quattro le parti di questa definizione possono essere ampliate utilizzando transazioni Bitcoin più complesse. Questo primo capitolo sulla "Espansione" mostra come cambiare i punti (2) e (3) inviando denaro a un indirizzo che rappresenta più destinatari (o almeno, più firmatari).
 
-## Objectives for This Section
+## Obiettivi di questa sezione
 
-After working through this chapter, a developer will be able to:
+Dopo aver completato questo capitolo, uno sviluppatore sarà in grado di:
 
-   * Create Multisignature Bitcoin Addresses Using Bitcoin Fundamentals
-   * Create Multisignature Bitcoin Addresses Using Easier Mechanisms
-   
-Supporting objectives include the ability to:
+* Creare indirizzi Bitcoin multifirma utilizzando i fondamenti di Bitcoin
+* Creare indirizzi Bitcoin multifirma utilizzando meccanismi più semplici
 
-   * Understand How to Spend Funds Sent to a Multisignature
-   * Plan for the Power of Multisignatures
-   
-## Table of Contents
+Gli obiettivi di supporto includono la capacità di:
 
-   * [Section One: Sending a Transaction with a Multsig](06_1_Sending_a_Transaction_to_a_Multisig.md)
-   * [Section Two: Spending a Transaction with a Multsig](06_2_Spending_a_Transaction_to_a_Multisig.md)
-   * [Section Three: Sending & Spending an Automated Multisig](06_3_Sending_an_Automated_Multisig.md)
+* Comprendere come spendere i fondi inviati a un multifirma
+* Pianificare la potenza delle transazioni multifirma
+
+## Indice
+
+* [Capitolo 6.1: Inviare una Transazione a un Indirizzo Multifirma](06_1_Inviare_una_Transazione_a_un_Indirizzo_Multifirma.md)
+* [Capitolo 6.2: Spendere una Transazione con un Indirizzo Multifirma](06_2_Spendere_una_Transazione_con_un_Indirizzo_Multifirma.md)
+* [Capitolo 6.3: Inviare e Ricevere una Multifirma Automatizzata](06_3_Inviare_e_Ricevere_una_Multifirma_Automatizzata.md)
