@@ -1,24 +1,25 @@
-# 5.3: Funding a Transaction with CPFP
+# 5.3: Pagare una transazione con CPFP
 
-If your Bitcoin transaction is stuck, and you're the _recipient_, you can clear it using CPFP (child-pays-for-parent). This is alternative to the _sender's_ ability to do so with RBF.
+Se la tua transazione Bitcoin è bloccata e sei il _destinatario_, puoi compensarla usando CPFP (child-pays-for-parent). Questa è un'alternativa alla possibilità del _mittente_ di farlo con RBF.
 
-> :warning: **VERSION WARNING:** This is an innovation from Bitcoin Core v 0.13.0, which again means that most people should be using it by now.
+> :warning: **AVVISO DI VERSIONE:** Questa è un'innovazione di Bitcoin Core v 0.13.0, il che significa che la maggior parte delle persone dovrebbe già usarla.
 
-## Understand How CPFP Works
+## Capire come funziona CPFP
 
-RBF was all about the sender. He messed up and needed to increase the fee, or he wanted to be smart and combine transactions for a variety of reasons. It was a powerful sender-oriented feature. In some ways, CPFP is RBF's opposite, because it empowers the recipient who knows that his money hasn't arrived yet and wants to speed it up. However, it's also a much simpler feature, with less wide applicability. 
+RBF era tutto incentrato sul mittente. Ha sbagliato e ha dovuto aumentare la commissione, oppure voleva essere intelligente e combinare le transazioni per una serie di motivi. Era una potente funzionalità orientata al mittente. In un certo senso, CPFP è l'opposto di RBF, perché dà potere al destinatario che sa che i suoi soldi non sono ancora arrivati ​​e vuole accelerare il processo. Tuttavia, è anche una funzionalità molto più semplice, con un'applicabilità meno ampia.
 
-Basically, the idea of CPFP is that a recipient has a transaction that hasn't been confirmed in a block that he wants to spend. So, he includes that unconfirmed transaction in a new transaction and pays a high-enough fee to encourage a miner to include both the original (parent) transaction and the new (child) transaction in a block. As a result, the parent and child transactions clear simultaneously.
+Fondamentalmente, l'idea di CPFP è che un destinatario ha una transazione che vuole spendere e non è stata confermata in un blocco. Quindi, include quella transazione non confermata in una nuova transazione e paga una commissione sufficientemente alta da incoraggiare un miner a includere sia la transazione originale (madre) che la nuova transazione (figlia) in un blocco. Di conseguenza, le transazioni madre e figlia vengono cancellate simultaneamente.
 
-It should be noted that CPFP is not a new protocol feature, like RBF. It's just a new incentivization scheme that can be used for transaction selection by miners. This also means that it's not as reliable as a protocol change like RBF: there might be reasons that the child is not selected to be put into a block, and that will prevent the parent from ever being put into a block.
+Va notato che CPFP non è una nuova funzionalità del protocollo, come RBF. È solo un nuovo schema di incentivazione che può essere utilizzato per la selezione delle transazioni da parte dei miner. Ciò significa anche che non è affidabile come una modifica del protocollo come RBF: potrebbero esserci motivi per cui la figlia non viene selezionata per essere inserita in un blocco e ciò impedirà alla madre di essere inserita in un blocco.
 
-## Spend Unconfirmed UTXOs
+## Spendi UTXO non confermati
 
-Funding a transaction with CPFP is a very simple process using the methods you're already familiar with:
+Finanziare di una transazione con CPFP è un processo molto semplice che utilizza i metodi con cui hai già familiarità:
 
-   1. Find the `txid` and `vout` of the unconfirmed transaction. This may be the trickiest part, as `bitcoin-cli` generally tries to protect you from unconfirmed transactions. The sender might be able to send you this info; even with just the `txid`, you should be able to figure out the `vout` in a blockchain explorer.
+   1. Trova `txid` e `vout` della transazione non confermata. Questa potrebbe essere la parte più complicata, poiché `bitcoin-cli` in genere cerca di proteggerti dalle transazioni non confermate. Il mittente potrebbe essere in grado di inviarti queste informazioni; anche solo con il `txid`, dovresti essere in grado di capire il `vout` in un blockchain explorer.
+
+Hai un'altra opzione: usa `bitcoin-cli getrawmempool`, che può essere usato per elencare il contenuto dell'intero mempool, dove si troveranno le transazioni non confermate. Potresti doverle esaminare più volte se il mempool è particolarmente occupato. Puoi quindi ottenere maggiori informazioni su una transazione specifica con `bitcoin-cli getrawtransaction` con il flag verbose impostato su `true`:
    
-   You do have one other option: use `bitcoin-cli getrawmempool`, which can be used to list the contents of your entire mempool, where the unconfirmed transactions will be. You may have to dig through several if the mempool is particularly busy. You can then get more information on a specific transaction with `bitcoin-cli getrawtransaction` with the verbose flag set to `true`:
    ```
 $ bitcoin-cli getrawmempool
 [
@@ -80,17 +81,19 @@ $ bitcoin-cli getrawtransaction 95d51e813daeb9a861b2dcdddf1da8c198d06452bbbecfd8
   "hex": "0200000000010124757e206d7c55bc9e6f6d4f1044b9a55f16f94fa0c43a427d2400234778017a0000000017160014334f3a112df0f22e743ad97eec8195a00faa59a0feffffff0240420f000000000017a914f079f77f2ef0ef1187093379d128ec28d0b4bf768742a727000000000017a9148799be12fb9eae6644659d95b9602ddfbb4b2aff870247304402207966aa87db340841d76d3c3596d8b4858e02aed1c02d87098dcedbc60721d8940220218aac9d728c9a485820b074804a8c5936fa3145ce68e24dcf477024b19e88ae012103574b1328a5dc2d648498fc12523cdf708efd091c28722a422d122f8a0db8daa9dd0e1b00"
 }
 ```
-Look through the `vout` array. Find the object that matches your address. (Here, it's the only one.) The `n` value is your `vout`. You now have everything you need to create a new CPFP transaction.
+Guarda l'array `vout`. Trova l'oggetto che corrisponde al tuo indirizzo. (Qui, è l'unico.) Il valore `n` è il tuo `vout`. Ora hai tutto ciò che ti serve per creare una nuova transazione CPFP.
+
 ```
 $ utxo_txid=2NFAkGiwnp8wvCodRBx3smJwxncuG3hndn5
 $ utxo_vout=0
 $ recipient2=$(bitcoin-cli getrawchangeaddress)
 ```
+   2. Crea una transazione raw usando la tua transazione non confermata come input.
 
-   2. Create a raw transaction using your unconfirmed transaction as an input.
-   3. Double the transaction fees (or more).
-   
-When you take these steps, everything should look totally normal, despite the fact that you're working with an unconfirmed transaction. To verify that all was well, we even looked at the results of our signature before we saved off the information to a variable:
+   3. Raddoppia le commissioni di transazione (o di più).
+
+Quando esegui questi passaggi, il tutto dovrebbe apparire normale, nonostante tu stia lavorando con una transazione non confermata. Per verificare che tutto andasse bene, abbiamo persino esaminato i risultati della nostra firma prima di salvare le informazioni in una variabile:
+
 ```
 $ rawtxhex=$(bitcoin-cli -named createrawtransaction inputs='''[ { "txid": "'$utxo_txid'", "vout": '$utxo_vout' } ]''' outputs='''{ "'$recipient2'": 0.03597 }''')
 
@@ -102,26 +105,26 @@ $ bitcoin-cli -named sendrawtransaction hexstring=$signedtx
 6a184a2f07fa30189f4831d6f041d52653a103b3883d2bec2f79187331fd7f0e
 ```
 
-   4. Crossing your fingers is not needed. You have verified your data is correct. From this point on, things are out of your hands.
-   
-Your transactions may go through quickly. They may not. It all depends on whether the miners who are randomly generating the current blocks have the CPFP patch or not. But you've given your transactions the best chance.
+   4. Non è necessario incrociare le dita. Hai verificato che i tuoi dati siano corretti. Da questo punto in poi, le cose sono fuori dal tuo controllo.
 
-That's really all there is to it.
+Le tue transazioni potrebbero essere eseguite rapidamente. Potrebbero non esserlo. Tutto dipende dal fatto che i minatori che generano casualmente i blocchi correnti abbiano o meno la patch CPFP. Ma hai dato alle tue transazioni la migliore possibilità.
 
-### Be Aware of Nuances
+Questo è tutto.
 
-Though CPFP is usually described as being about a recipient using a new transaction to pay for an old one that hasn't been confirmed, there's nuance to this.
+### Fai attenzione alle sfumature
 
-A _sender_ could use CPFP to free up a transaction if he received change from it. He would just use that change as his input, and the resultant use of CPFP would free up the entire transaction. Mind you, he'd do better to use RBF as long as it was enabled, as the total fees would then be lower.
+Sebbene CPFP sia solitamente descritto come un destinatario che utilizza una nuova transazione per pagare una vecchia transazione che non è stata confermata, c'è una sfumatura in questo.
 
-A _recipient_ could use CPFP even if he wasn't planning on immediately spending the money, for example if he's worried that the funds may not be resent if the transaction expires. In this case, he just creates a child transaction that sends all the money (minus a transaction fee) to a change address. That's what we did in our example, above.
+Un _mittente_ potrebbe utilizzare CPFP per liberare una transazione se ricevesse il resto da essa. Utilizzerebbe semplicemente quel resto come input e l'uso risultante di CPFP libererebbe l'intera transazione. Tieni presente che farebbe meglio a utilizzare RBF finché fosse abilitato, poiché le commissioni totali sarebbero quindi inferiori.
 
-## Summary: Funding a Transaction with CPFP
+Un _destinatario_ potrebbe usare CPFP anche se non ha intenzione di spendere immediatamente i soldi, ad esempio se teme che i fondi non possano essere rispediti se la transazione scade. In questo caso, crea semplicemente una transazione secondaria che invia tutti i soldi (meno una commissione di transazione) a un indirizzo di resto. È quello che abbiamo fatto sopra nel nostro esempio.
 
-You can take advantage of the CPFP incentives to free up funds that have been sent to you but have not been confirmed. Just use the unconfirmed transaction as UTXO and pay a higher-than-average transaction fee.
+## Riepilogo: Pagare una transazione con CPFP
 
-> :fire: ***What is the power of CPFP?*** Mostly, CPFP is just useful to get funds unstuck when you're the recipient and the sender isn't being helpful for whatever reason. It doesn't have the more powerful possibilities of RBF, but is an alternatve way to exert control over a transaction after it's been placed in the mempool, but before it's confirmed in a block.
+Puoi sfruttare gli incentivi CPFP per liberare i fondi che ti sono stati inviati ma non sono stati confermati. Usa semplicemente la transazione non confermata come UTXO e paga una commissione di transazione superiore alla media.
 
-## What's Next?
+> :fire: ***Qual è il potere di CPFP?*** Principalmente, CPFP è utile solo per sbloccare i fondi quando sei il destinatario e il mittente non puo aiutare per qualsiasi motivo. Non ha le possibilità più potenti di RBF, ma è un modo alternativo per esercitare il controllo su una transazione dopo che è stata inserita nel mempool, ma prima che venga confermata in un blocco.
 
-Advance through "bitcoin-cli" with [Chapter Six: Expanding Bitcoin Transactions with Multisigs](06_0_Expanding_Bitcoin_Transactions_Multisigs.md).
+## Cosa c'è dopo?
+
+Vai attraverso "bitcoin-cli" con [Capitolo 6: Ampliare le Transazioni Bitcoin con Multifirme](06_0_Ampliare_le_Transazioni_Bitcoin_con_Multifirme.md).
