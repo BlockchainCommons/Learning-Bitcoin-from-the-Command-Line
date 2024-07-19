@@ -45,14 +45,14 @@ Se desideri effettuare la tua traduzione, guarda qui [Contribuire](CONTRIBUIRE.m
   * [04_2 Creare una Transazione Grezza](04_2_Creare_una_Transazione_Grezza.md)
      * [04_2 Intermezzo Usare JQ](04_2_Intermezzo_Usare_JQ.md)
   * [04_3 Creare una Transazione Grezza con Alias ](04_3_Creare_una_Transazione_Grezza_con_Alias.md)
-  * 04_4_Inviare_Monete_con_Transazione_Grezza.md
-  * 04_4_Intermezzo_Usare_Curl.md
-  * 04_5_Inviare_Monete_con_Transazione_Grezza_Automatizzata.md
-  * 04_6_Creare_una_Transazione_Segwit.md
-* 05_0_Controllare_Transazioni_Bitcoin.md
-  * 05_1_Guardare_le_Transazioni_Ferme.md
-  * 05_2_Rinviare_le_Transazioni_con_RBF.md
-  * 05_3_Pagare_una_Transaccion_con_CPFP.md
+  * [04_4 Inviare Monete con Transazione Grezza](04_4_Inviare_Monete_con_Transazione_Grezza.md)
+  * [04_4 Intermezzo_Usare Curl](04_4_Intermezzo_Usare_Curl.md)
+  * [04_5 Inviare Monete con Transazione Grezza Automatizzata](04_5_Inviare_Monete_con_Transazione_Grezza_Automatizzata.md)
+  * [04_6 Creare una Transazione Segwit](04_6_Creare_una_Transazione_Segwit.md)
+* [05_0 Controllare Transazioni Bitcoin](05_0_Controllare_Transazioni_Bitcoin.md)
+  * [05_1 Guardare le Transazioni Ferme](05_1_Guardare_le_Transazioni_Ferme.md)
+  * [05_2 Rinviare le Transazioni con RBF](05_2_Rinviare_le_Transazioni_con_RBF.md)
+  * [05_3 Pagare una Transaccion con CPFP](05_3_Pagare_una_Transaccion_con_CPFP.md)
 * 06_0_Ampliare_le_Transazioni_Bitcoin_con_Multifirme.md
   * 06_1_Inviare_una_Transazione_a_un_Indirizzo_Multifirma.md
   * 06_2_Spendere_una_Transazione_con_un_Indirizzo_Multifirma.md
