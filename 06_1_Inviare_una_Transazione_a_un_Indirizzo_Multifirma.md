@@ -1,44 +1,44 @@
-# 6.1: Sending a Transaction with a Multisig
+# 6.1: Inviare di una transazione con un Multisig
 
-The first way to vary how you send a basic transaction is to use a multisig. This gives you the ability to require that multiple people (or at least multiple private keys) authorize the use of funds.
+Il primo modo per variare la modalità di invio di una transazione di base è utilizzare un multisig. Ciò ti dà la possibilità di richiedere che più persone (o almeno più chiavi private) autorizzino l'uso dei fondi.
 
-## Understand How Multisigs Work
+## Come funziona il Multisig:
 
-In a typical P2PKH or SegWit transaction, bitcoins are sent to an address based on your public key, which in turn means that the related private key is required to unlock the transaction, solving the cryptographic puzzle and allowing you to reuse the funds. But what if you could instead lock a transaction with _multiple_ private keys? This would effectively allow funds to be sent to a group of people, where those people all have to agree to reuse the funds.
+In una tipica transazione P2PKH o SegWit, i bitcoin vengono inviati a un indirizzo basato sulla tua chiave pubblica, il che a sua volta significa che è necessaria la relativa chiave privata per sbloccare la transazione, risolvendo il puzzle crittografico e permettendoti di riutilizzare i fondi. Ma cosa succederebbe se potessi invece bloccare una transazione con chiavi private _multiple_? Ciò consentirebbe effettivamente di inviare fondi a un gruppo di persone, dove tutte queste persone devono accettare di riutilizzare i fondi.
 
-> :book: ***What is a multisignature?*** A multisignature is a methodology that allows more than one person to jointly create a digital signature. It's a general technique for the cryptographic use of keys that goes far beyond Bitcoin.
+> :book: ***Cos'è una multifirma?*** Una multifirma è una metodologia che consente a più di una persona di creare congiuntamente una firma digitale. È una tecnica generale per l'uso crittografico delle chiavi che va ben oltre Bitcoin.
 
-Technically, a multisignature cryptographic puzzle is created by Bitcoin using the OP_CHECKMULTISIG command, and typically that's encapsulated in a P2SH address. [§10.4: Scripting a Multisig](10_4_Scripting_a_Multisig.md) will detail how that works more precisely. For now, all you need to know is that you can use `bitcoin-cli` command to create multisignature addresses; funds can be sent to these addresses just like any normal P2PKH or Segwit address, but multiple private keys will be required for the redemption of the funds.
+Tecnicamente, un puzzle crittografico multifirma viene creato da Bitcoin utilizzando il comando `OP_CHECKMULTISIG` e in genere è incapsulato in un indirizzo P2SH. [Capitolo 10.4 Programmare una Multifirma](10_4_Programmare_una_Multifirma.md) spiegherà in dettaglio come funziona in modo più preciso. Per ora, tutto ciò che devi sapere è che puoi utilizzare il comando `bitcoin-cli` per creare indirizzi multifirma; i fondi possono essere inviati a questi indirizzi proprio come qualsiasi normale indirizzo P2PKH o Segwit, ma saranno necessarie più chiavi private per il riscatto dei fondi.
 
-> :book: ***What is a multisignature transaction?*** A multisignature transaction is a Bitcoin transaction that has been sent to a multisignature address, thus requiring the signatures of certain people from the multisignature group to reuse the funds.
+> :book: ***Cos'è una transazione multifirma?*** Una transazione multifirma è una transazione Bitcoin che è stata inviata a un indirizzo multifirma, richiedendo quindi le firme di alcune persone del gruppo multifirma per riutilizzare i fondi.
 
-Simple multisignatures require everyone in the group to sign the UTXO when it's spent. However, there's more complexity possible. Multisignatures are generally described as being "m of n". That means that the transaction is locked with a group of "n" keys, but only "m" of them are required to unlock the transaction. 
+Le multifirme semplici richiedono che tutti i membri del gruppo firmino l'UTXO quando è speso. Tuttavia, è possibile una maggiore complessità. Le multifirme sono generalmente descritte come "m di n". Ciò significa che la transazione è bloccata con un gruppo di "n" chiavi, ma solo "m" di esse sono necessarie per sbloccare la transazione.
 
-> :book: ***What is a m-of-n multisignature?*** In a multisignature, "m" signatures out of a group of "n" are required to form the signature, where "m ≤ n".
+> :book: ***Cos'è una multifirma m-di-n?*** In una multifirma, sono richieste "m" firme da un gruppo di "n" per formare la firma, dove "m ≤ n".
 
-## Create a Multisig Address
+## Crea un indirizzo multisig
 
-In order to lock a UTXO with multiple private keys, you must first create a multisignature address. The examples used here show the creation (and usage) of a 2-of-2 multisignature.
+Per bloccare un UTXO con più chiavi private, devi prima creare un indirizzo multifirma. Gli esempi qui utilizzati mostrano la creazione (e l'utilizzo) di una multifirma 2 su 2.
 
-### Create the Addresses
+### Creare gli indirizzi
 
-To create a multisignature address, you must first ready the addresses that the multisig will combine. Best practice suggests that you always create new addresses. This means that the participants will each run the `getnewaddress` command on their own machine:
+Per creare un indirizzo multifirma, devi prima preparare gli indirizzi che il multisig combinerà. La best practice suggerisce di creare sempre nuovi indirizzi. Ciò significa che i partecipanti eseguiranno ciascuno il comando `getnewaddress` sul proprio computer:
 ```
 machine1$ address1=$(bitcoin-cli getnewaddress)
 ```
-And:
+e:
 ```
 machine2$ address2=$(bitcoin-cli getnewaddress)
 ```
-Afterwards, one of the recipients (or perhaps some third party) will need to combine the addresses. 
+Successivamente, uno dei destinatari (o forse una terza parte) dovrà combinare gli indirizzi.
 
-#### Collect Public Keys
+#### Raccogli le chiavi pubbliche
 
-However, you can't create a multi-sig with the addresses, as those are the hashes of public keys: you instead need the public keys themselves.
+Tuttavia, non è possibile creare un multi-sig con gli indirizzi, poiché questi sono gli hash delle chiavi pubbliche: sono invece necessarie le chiavi pubbliche stesse.
 
-This information is readily available with the `getaddressinfo` command.
+Queste informazioni sono facilmente disponibili con il comando "getaddressinfo".
 
-Over on the remote machine, which we assume here is `machine2`, you can get the information out of the listing. 
+Sulla macchina remota, che qui presumiamo sia "macchina2", puoi ottenere le informazioni dall'elenco. 
 ```
 machine2$ bitcoin-cli -named getaddressinfo address=$address2
 {
@@ -63,20 +63,20 @@ machine2$ bitcoin-cli -named getaddressinfo address=$address2
   ]
 }
 ```
-The `pubkey` address (`02bfde48be4aa8f4bf76c570e98a8d287f9be5638412ab38dede8e78df82f33fa3`) is what's required. Copy it over to your local machine by whatever means you find most efficient and _least error prone_.
+L'indirizzo `pubkey` (`02bfde48be4aa8f4bf76c570e98a8d287f9be5638412ab38dede8e78df82f33fa3`) è ciò che è richiesto. Copialo sul tuo computer locale con qualunque mezzo ritieni più efficiente e _meno soggetto a errori_.
 
-This process needs to be undertaken for _every_ address from a machine other than the one where the multisig is being built. Obviously, if some third-party is creating the address, then you'll need to do this for every address.
+Questo processo deve essere intrapreso per _ogni_ indirizzo da una macchina diversa da quella su cui viene costruito il multisig. Ovviamente, se qualche terza parte sta creando l'indirizzo, dovrai farlo per ogni indirizzo.
 
-> :warning: **WARNING:** Bitcoin's use of public-key hashes as addresses, instead of public keys, actually represents an additional layer of security. Thus, sending a public key slightly increases the vulnerability of the associated address, for some far-future possibility of a compromise of the elliptic curve. You shouldn't worry about having to occasionally send out a public key for a usage such as this, but you should be aware that the public-key hashes represent security, and so the actual public keys should not be sent around willy nilly.
+> :avviso: **ATTENZIONE:** l'uso da parte di Bitcoin di hash di chiave pubblica come indirizzi, invece di chiavi pubbliche, rappresenta in realtà un ulteriore livello di sicurezza. Pertanto, l'invio di una chiave pubblica aumenta leggermente la vulnerabilità dell'indirizzo associato, per qualche possibilità futura di compromissione della curva ellittica. Non dovresti preoccuparti di dover inviare occasionalmente una chiave pubblica per un utilizzo come questo, ma dovresti essere consapevole che gli hash della chiave pubblica rappresentano la sicurezza e quindi le chiavi pubbliche effettive non dovrebbero essere inviate in giro, volenti o nolenti.
 
-If one of the addresses was created on your local machine, which we assume here is `machine1`, you can just dump the `pubkey` address into a new variable.
+Se uno degli indirizzi è stato creato sul tuo computer locale, che qui presumiamo sia `machine1`, puoi semplicemente scaricare l'indirizzo `pubkey` in una nuova variabile.
 ```
 machine1$ pubkey1=$(bitcoin-cli -named getaddressinfo address=$address1 | jq -r '.pubkey')
 ```
 
-### Create the Address
+### Crea l'indirizzo
 
-A multisig can now be created with the `createmultisig` command:
+Ora è possibile creare un indirizzo multisig con il comando `createmultisig`:
 ```
 machine1$ bitcoin-cli -named createmultisig nrequired=2 keys='''["'$pubkey1'","02bfde48be4aa8f4bf76c570e98a8d287f9be5638412ab38dede8e78df82f33fa3"]'''
 {
@@ -85,38 +85,38 @@ machine1$ bitcoin-cli -named createmultisig nrequired=2 keys='''["'$pubkey1'","0
   "descriptor": "sh(multi(2,02da2f10746e9778dd57bd0276a4f84101c4e0a711f9cfd9f09cde55acbdd2d191,02bfde48be4aa8f4bf76c570e98a8d287f9be5638412ab38dede8e78df82f33fa3))#0pazcr4y"
 }
 ```
-> :warning: **VERSION WARNING:** Some versions of `createmultisig` have allowed entry of public keys or addresses, some have required public keys only. Currently, either one seems to be allowed.
+> :warning: **AVVERTIMENTO VERSIONE:** Alcune versioni di `createmultisig` consentono l'immissione di chiavi o indirizzi pubblici, altre richiedono solo chiavi pubbliche. Attualmente, sembra che entrambi siano consentiti.
 
-When creating the multisignature address, you list how many signatures are required with the `nrequired` argument (that's "m" in a "m-of-n" multisignature), then you list the total set of possible signatures with the `keys` argument (that's "n"). Note that the the `keys` entries likely came from different places. In this case, we included `$pubkey1` from the local machine and `02bfde48be4aa8f4bf76c570e98a8d287f9be5638412ab38dede8e78df82f33fa3` from a remote machine. 
+Quando crei l'indirizzo multifirma, elenchi quante firme sono richieste con l'argomento `nrequired` (ovvero "m" in una multifirma "m-of-n"), quindi elenchi l'insieme totale di firme possibili con le `keys` argomento (che è "n"). Tieni presente che le voci "chiavi" probabilmente provengono da luoghi diversi. In questo caso, abbiamo incluso `$pubkey1` dal computer locale e `02bfde48be4aa8f4bf76c570e98a8d287f9be5638412ab38dede8e78df82f33fa3` da un computer remoto.
 
-> :information_source: **NOTE — M-OF-N VS N-OF-N:** This example shows the creation of a simple 2-of-2 multisig. If you instead want to create an m-of-n signature where "m < n", you adjust the `nrequired` field and/or the number of signatures in the `keys` JSON object. For a 1-of-2 multisig, you'd set `nrequired=1` and also list two keys, while for a 2-of-3 multisig, you'd leave `nrequired=2`, but add one more public key to the `keys` listing.
+> :information_source: **NOTA — M-OF-N VS N-OF-N:** Questo esempio mostra la creazione di un semplice multisig 2 di 2. Se invece desideri creare una firma m-of-n dove "m < n", modifica il campo `nrequired` e/o il numero di firme nell'oggetto JSON `keys`. Per un multisig 1 su 2, imposteresti `nrequired=1` ed elencheresti anche due chiavi, mentre per un multisig 2 su 3, lasceresti `nrequired=2`, ma aggiungerai un'altra chiave pubblica all'elenco delle "chiavi".
 
-When used correctly, `createmultisig` returns three results, all of which are critically important.
+Se utilizzato correttamente, `createmultisig` restituisce tre risultati, tutti di fondamentale importanza.
 
-The _address_ is what you'll give out to people who want to send funds. You'll notice that it has a new prefix of `2`, exactly like those P2SH-SegWit addresses. That's because, like them, `createmultisig` is actually creating a totally new type of address called a P2SH address. It works exactly like a standard P2PKH address for sending funds, but since this one has been built to require multiple addresses, you'll need to do a little more work to spend them. 
+L'_indirizzo_ è ciò che darai alle persone che vogliono inviare fondi. Noterai che ha un nuovo prefisso "2", esattamente come gli indirizzi P2SH-SegWit. Questo perché, come loro, `createmultisig` sta in realtà creando un tipo di indirizzo totalmente nuovo chiamato indirizzo P2SH. Funziona esattamente come un indirizzo P2PKH standard per l'invio di fondi, ma poiché questo è stato creato per richiedere più indirizzi, dovrai fare un po' più di lavoro per spenderli.
 
-> :link: **TESTNET vs MAINNET:** On testnet, the prefix for P2SH addresses is `2`, while on mainnet, it's `3`.
+> :link: **TESTNET vs MAINNET:** Su testnet, il prefisso per gli indirizzi P2SH è "2", mentre su mainnet è "3".
 
-The _redeemScript_ is what you need to redeem the funds (along with the private keys for "m" of the "n" addresses). This script is another special feature of P2SH addresses and will be fully explained in [§10.3: Running a Bitcoin Script with P2SH](10_3_Running_a_Bitcoin_Script_with_P2SH.md). For now, just be aware that it's a bit of data that's required to get your money.
+Il _redeemScript_ è ciò di cui hai bisogno per riscattare i fondi (insieme alle chiavi private per "m" degli "n" indirizzi). Questo script è un'altra caratteristica speciale degli indirizzi P2SH e verrà spiegato completamente nel [Capitolo 10.3 Eseguire un Script Bitcoin con P2SH](10_3_Eseguire_un_Script_Bitcoin_con_P2SH.md). Per ora, tieni presente che sono necessari alcuni dati per ottenere i tuoi soldi.
 
-The _descriptor_ is the standardized description for an address that we met in [§3.5: Understanding the Descriptor](03_5_Understanding_the_Descriptor.md). It provides one way that you could import this address back to the other machine, using the `importmulti` RPC.
+Il _descrittore_ è la descrizione standardizzata di un indirizzo che abbiamo incontrato nel [Capitolo 3.5 Comprendere il Descriptor](03_5_Comprendere_il_Descriptor.md). Fornisce un modo per importare nuovamente questo indirizzo sull'altra macchina, utilizzando l'RPC "importmulti".
 
-> :book: ***What is a P2SH address?*** P2SH stands for Pay-to-script-hash. It's a different type of recipient than a standard P2PKH address or even a Bech32, used for funds whose redemption are based on more complex Bitcoin Scripts. `bitcoin-cli` uses P2SH encapsulation to help standardize and simplify its multisigs as "P2SH multisigs", just like P2SH-SegWit was using P2SH to standardize its SegWit addresses and make them fully backward compatible.
+> :book: ***Cos'è un indirizzo P2SH?*** P2SH sta per Pay-to-script-hash. Si tratta di un tipo di destinatario diverso da un indirizzo P2PKH standard o anche da un Bech32, utilizzato per fondi il cui riscatto si basa su script Bitcoin più complessi. `bitcoin-cli` utilizza l'incapsulamento P2SH per aiutare a standardizzare e semplificare i suoi multisig come `multisig P2SH`, proprio come P2SH-SegWit utilizzava P2SH per standardizzare i suoi indirizzi SegWit e renderli completamente compatibili con le versioni precedenti.
 
-> :warning: **WARNING:** P2SH multisig addresses, like the ones created by `bitcoin-cli`, have a limit for "m" and "n" in multisigs based on the maximum size of the redeem script, which is currently 520 bytes. Practically, you won't hit this unless you're doing something excessive.
+> :avviso: **ATTENZIONE:** Gli indirizzi multisig P2SH, come quelli creati da `bitcoin-cli`, hanno un limite per "m" e "n" in multisig in base alla dimensione massima dello script di riscatto, che è attualmente 520 byte. In pratica, non lo raggiungerai a meno che tu non stia facendo qualcosa di eccessivo.
 
-### Save Your Work
+### Salva il tuo lavoro
 
-Here's an important caveat: nothing about your multisig is saved into your wallet using these basic techniques. In order to later redeem money sent to this multisignature address, you're going to need to retain two crucial bits of information:
+Ecco un avvertimento importante: nulla del tuo multisig viene salvato nel tuo portafoglio utilizzando queste tecniche di base. Per riscattare successivamente il denaro inviato a questo indirizzo multifirma, dovrai conservare due informazioni cruciali:
 
-   * A list of the Bitcoin addresses used in the multisig.
-   * The `redeemScript` output by `createmultsig`.
-   
-Technically, the `redeemScript` can be recreated by rerunning `createmultisig` with the complete list of public keys _in the same order_ and with the right m-of-n count. But, it's better to hold onto it and save yourself stress and grief.
+ * Un elenco degli indirizzi Bitcoin utilizzati nel multisig.
+ * L'output `redeemScript` di `createmultsig`.
 
-### Watch the Order
+Tecnicamente, `redeemScript` può essere ricreato eseguendo nuovamente `createmultisig` con l'elenco completo delle chiavi pubbliche _nello stesso ordine_ e con il conteggio m-of-n corretto. Ma è meglio conservarlo e risparmiarti stress e dolore.
 
-Here's one thing to be very wary of: _order matters_. The order of keys used to create a multi-sig creates a unique hash, which is to say if you put the keys in a different order, they'll produce a different address, as shown:
+### Guarda l'Ordine
+
+C'è una cosa di cui essere molto cauti: _l'ordine conta_. L'ordine delle chiavi utilizzate per creare un multi-sig crea un hash univoco, vale a dire se inserisci le chiavi in ​​un ordine diverso, produrranno un indirizzo diverso, come mostrato:
 ```
 $ bitcoin-cli -named createmultisig nrequired=2 keys='''["'$pubkey1'","'$pubkey2'"]'''
 {
@@ -124,28 +124,28 @@ $ bitcoin-cli -named createmultisig nrequired=2 keys='''["'$pubkey1'","'$pubkey2
   "redeemScript": "52210342b306e410283065ffed38c3139a9bb8805b9f9fa6c16386e7ea96b1ba54da0321039cd6842869c1bfec13cfdbb7d8285bc4c501d413e6633e3ff75d9f13424d99b352ae",
   "descriptor": "sh(multi(2,0342b306e410283065ffed38c3139a9bb8805b9f9fa6c16386e7ea96b1ba54da03,039cd6842869c1bfec13cfdbb7d8285bc4c501d413e6633e3ff75d9f13424d99b3))#8l6hvjsk"
 }
-standup@btctest20:~$ bitcoin-cli -named createmultisig nrequired=2 keys='''["'$pubkey2'","'$pubkey1'"]'''
+$ bitcoin-cli -named createmultisig nrequired=2 keys='''["'$pubkey2'","'$pubkey1'"]'''
 {
   "address": "2N5bC4Yc5Pqept1y8nPRqvWmFSejkVeRb1k",
   "redeemScript": "5221039cd6842869c1bfec13cfdbb7d8285bc4c501d413e6633e3ff75d9f13424d99b3210342b306e410283065ffed38c3139a9bb8805b9f9fa6c16386e7ea96b1ba54da0352ae",
   "descriptor": "sh(multi(2,039cd6842869c1bfec13cfdbb7d8285bc4c501d413e6633e3ff75d9f13424d99b3,0342b306e410283065ffed38c3139a9bb8805b9f9fa6c16386e7ea96b1ba54da03))#audl88kg"
 }
 ```
-More notably, each ordering creates a different _redeemScript_. That means that if you used these basic techniques and failed to save the redeemScript as you were instructed, you'll have to walk through an ever-increasing number of variations to find the right one when you try and spend your funds!
+Più in particolare, ogni ordinamento crea un _redeemScript_ diverso. Ciò significa che se hai utilizzato queste tecniche di base e non sei riuscito a salvare il _redeemScript_ come ti è stato detto, dovrai passare attraverso un numero sempre crescente di varianti per trovare quella giusta quando provi a spendere i tuoi fondi!
 
-[BIP67](https://github.com/bitcoin/bips/blob/master/bip-0067.mediawiki) suggests a way to lexicographically order keys, so that they always generate the same multisignatures. ColdCard and Electrum are among the wallets that already support this. Of course, this can cause troubles on its own if you don't know if a multisig address was created with sorted or unsorted keys. Once more, [descriptors](03_5_Understanding_the_Descriptor.md) come to the rescue. If a multisig is unsorted, it's built with the function `multi` and if it's sorted it's built with the function `sortedmulti`.
+[BIP67](https://github.com/bitcoin/bips/blob/master/bip-0067.mediawiki) suggerisce un modo per ordinare lessicograficamente le chiavi, in modo che generino sempre le stesse multifirme. ColdCard ed Electrum sono tra i portafogli che già lo supportano. Naturalmente, questo può causare problemi di per sé se non si sa se un indirizzo multisig è stato creato con chiavi ordinate o non ordinate. Ancora una volta, il [descriptor](03_5_Comprendere_il_Descriptor.md) viene in soccorso. Se un multisig non è ordinato, viene creato con la funzione "multi" e se è ordinato viene creato con la funzione "sortedmulti".
 
-If you look at the `desc`riptor for the multisig that you created above, you'll see that Bitcoin Core doesn't currently sort its multisigs:
+Se guardi il `descriptor` per il multisig che hai creato sopra, vedrai che Bitcoin Core attualmente non ordina i suoi multisig:
 ```
-  "descriptor": "sh(multi(2,02da2f10746e9778dd57bd0276a4f84101c4e0a711f9cfd9f09cde55acbdd2d191,02bfde48be4aa8f4bf76c570e98a8d287f9be5638412ab38dede8e78df82f33fa3))#0pazcr4y"
+ "descrittore": "sh(multi(2,02da2f10746e9778dd57bd0276a4f84101c4e0a711f9cfd9f09cde55acbdd2d191,02bfde48be4aa8f4bf76c570e98a8d287f9be5638412ab38dede8e 78df82f33fa3))#0pazcr4y"
 ```
-However, if it imports an address with type `sortedmulti`, it'll do the right thing, which is the whole point of descriptors!
+Tuttavia, se importa un indirizzo con tipo `sortedmulti`, farà la cosa giusta, che è il punto centrale dei descrittori!
 
-> :warning: **VERSION WARNING:** Bitcoin Core only understands the `sortedmulti` descriptor function beginning with v 0.20.0. Try and access the descriptor on an earlier version of Bitcoin Core and you'll get an error such as `A function is needed within P2WSH`.
+> :warning: **AVVISO VERSIONE:** Bitcoin Core comprende la funzione del descrittore `sortedmulti` dalla versione v 0.20.0 in poi. Prova ad accedere al descrittore su una versione precedente di Bitcoin Core e riceverai un errore come "È necessaria una funzione all'interno di P2WSH".
 
-## Send to a Multisig Address
+## Inviare a un indirizzo multisig
 
-If you've got a multisignature in a convenient P2SH format, like the one generated by `bitcoin-cli`, it can be sent to exactly like a normal address.
+Se hai una multifirma in un comodo formato P2SH, come quello generato da `bitcoin-cli`, può essere inviata esattamente come un normale indirizzo.
 ```
 $ utxo_txid=$(bitcoin-cli listunspent | jq -r '.[0] | .txid') 
 $ utxo_vout=$(bitcoin-cli listunspent | jq -r '.[0] | .vout')
@@ -193,14 +193,14 @@ $ signedtx=$(bitcoin-cli -named signrawtransactionwithwallet hexstring=$rawtxhex
 $ bitcoin-cli -named sendrawtransaction hexstring=$signedtx
 b164388854f9701051809eed166d9f6cedba92327e4296bf8a265a5da94f6521
 ```
-As you can see, there was nothing unusual in the creation of the transaction, and it looked entirely normal, albeit with an address with a different prefix than normal (`2N8MytPW2ih27LctLjn6LfLFZZb1PFSsqBr`). No surprise, as we similarly saw no difference when we sent to Bech32 addresses for the first time in [§4.6](04_6_Creating_a_Segwit_Transaction.md).
+Come puoi vedere, non c'era nulla di insolito nella creazione della transazione, e sembrava del tutto normale, anche se con un indirizzo con un prefisso diverso dal normale (`2N8MytPW2ih27LctLjn6LfLFZZb1PFSsqBr`). Nessuna sorpresa, poiché allo stesso modo non abbiamo notato alcuna differenza quando abbiamo inviato per la prima volta agli indirizzi Bech32 nel [Capitolo 4.6](04_6_Creare_una_Transazione_Segwit.md).
 
-## Summary: Sending a Transaction with a Multisig
+## Riepilogo: inviare una transazione a un indirizzo Multisig
 
-Multisig addresses lock funds to multiple private keys — possibly requiring all of those private keys for redemption, and possibly requiring just some from the set. They're easy enough to create with `bitcoin-cli` and they're entirely normal to send to. This ease is due in large part to the invisible use of P2SH (pay-to-script-hash) addresses, a large topic that we've touched upon twice now, with P2SH-SegWit and multisig addresses, and one that will get more coverage in the future.
+Gli indirizzi Multisig bloccano i fondi su più chiavi private, possibilmente richiedendo tutte quelle chiavi private per il riscatto e forse richiedendone solo alcune dal set. Sono abbastanza facili da creare con `bitcoin-cli` ed è del tutto normale inviarli. Questa facilità è dovuta in gran parte all'uso invisibile degli indirizzi P2SH (pay-to-script-hash), un argomento ampio che abbiamo toccato due volte, con gli indirizzi P2SH-SegWit e multisig, e che otterrà di più copertura in futuro.
 
-> :fire: ***What is the power of multisignatures?*** Multisignatures allow the modeling of a variety of financial arrangements such as corporations, partnerships, committees, and other groups. A 1-of-2 multisig might be a married couple's joint bank account, while a 2-of-2 multisig might be used for large expenditures by a Limited Liability Partnership. Multisignatures also form one of the bases of Smart Contracts. For example, a real estate deal could be closed with a 2-of-3 multisig, where the signatures are submitted by the buyer, the seller, and a licensed escrow agent. Once the escrow agent agrees that all of the conditions have been met, he frees up the funds for the seller; or alternatively, the buyer and seller can jointly free the funds.
+> :fire: ***Qual è il potere delle multifirme?*** Le multifirme consentono la modellazione di una varietà di accordi finanziari come società, partenariati, comitati e altri gruppi. Un multisig 1 su 2 potrebbe essere il conto bancario congiunto di una coppia sposata, mentre un multisig 2 su 2 potrebbe essere utilizzato per grandi spese da parte di una società a responsabilità limitata. Le multifirme costituiscono anche una delle basi degli Smart Contracts. Ad esempio, un affare immobiliare potrebbe essere chiuso con un multisig 2 su 3, in cui le firme vengono inviate dall'acquirente, dal venditore e da un agente di deposito a garanzia autorizzato. Una volta che l'agente di deposito a garanzia concorda che tutte le condizioni sono state soddisfatte, libera i fondi per il venditore; o in alternativa, l'acquirente e il venditore possono liberare congiuntamente i fondi.
 
-## What's Next?
+## Cosa viene dopo?
 
-Continue "Expanding Bitcoin Transactions" with [§6.2: Spending a Transaction with a Multisig](06_2_Spending_a_Transaction_to_a_Multisig.md).
+Continua "Espansione delle transazioni Bitcoin" con [Capitolo 6.2: Spendere una Transazione Multifirma.md](06_2_Spendere_una_Transazione_con_un_Indirizzo_Multifirma.md).
