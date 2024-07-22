@@ -1,25 +1,24 @@
-# Chapter Seven: Expanding Bitcoin Transactions with PSBTs
+# Capitolo sette: Ampliare le transazioni Bitcoin con PSBT 
 
-The previous chapter discussed how to use multisigs to collaboratively determine consent among multiple parties. It's not the only way to collaborate in the creation of Bitcoin transactions. PSBTs are a much newer technology that allow you to collaborate at a variety of stages, including the creation, funding, and authentication of a Bitcoin transaction. 
+Nel capitolo precedente è stato discusso come utilizzare multisig per determinare in modo collaborativo il consenso tra più parti. Non è l'unico modo per collaborare alla creazione di transazioni Bitcoin. I PSBT sono una tecnologia molto più recente che ti consente di collaborare in una varietà di fasi, tra cui la creazione, il finanziamento e l'autenticazione di una transazione Bitcoin.
 
-## Objectives for This Section
+## Obiettivi di questa sezione
 
-After working through this chapter, a developer will be able to:
+Dopo aver letto questo capitolo, uno sviluppatore sarà in grado di:
 
-   * Create Transactions with PSBTs
-   * Use Command Line Tools to Complete PSBTs
-   * Use HWI to Interact with a Hardware Wallet
-   
-Supporting objectives include the ability to:
+ * Creare transazioni PSBT (Partially Signed Bitcoin Transaction)(Transazioni bitcoin parzialmente firmate)
+ * Utilizzare gli strumenti dalla riga di comando per completare le PSBT
+ * Utilizza HWI per interagire con un portafoglio hardware
 
-   * Understand How PSBTs Differ from Multisignatures
-   * Understand the Full Workflow of Working with PSBTs
-   * Plan for the Power of PSBTs
-   * Understand The Use of a Hardware Wallet
-   
-## Table of Contents
+Gli obiettivi di supporto includono la capacità di:
 
-   * [Section One: Creating a Partially Signed Bitcoin Transaction](07_1_Creating_a_Partially_Signed_Bitcoin_Transaction.md)
-   * [Section Two: Using a Partially Signed Bitcoin Transaction](07_2_Using_a_Partially_Signed_Bitcoin_Transaction.md)
-   * [Section Three: Integrating with Hardware Wallets](07_3_Integrating_with_Hardware_Wallets.md)
-   
+ * Capire come le PSBT differiscono dalle multifirme
+ * Capire l'intero flusso di lavoro con le PSBT
+ * Pianificare l'usopotenziale delle PSBT
+ * Comprendere l'uso di un portafoglio hardware
+
+## Sommario
+
+ * [Capitolo 7.1: Creare una Transazione Bitcoin Parzialmente Firmata](07_1_Creare_una_Transazione_Bitcoin_Parzialmente_Firmata.md)
+ * [Capitolo 7.2: Usare una Transazione Bitcoin Parzialmente Firmata](07_2_Usare_una_Transazione_Bitcoin_Parzialmente_Firmata.md)
+ * [Capitolo 7.3: Integrazione con Hardware Wallets](07_3_Integrazione_con_Hardware_Wallets.md)
