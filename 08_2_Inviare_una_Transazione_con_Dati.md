@@ -1,24 +1,24 @@
-# 8.2: Sending a Transaction with Data
+# 8.2: Inviare una transazione con dati
 
-The final way to vary how you send a basic transaction is to use the transaction to send data instead of funds (or really, in addition to funds). This gives you the ability to embed information in the blockchain. It is done through a special `OP_RETURN` command.
+L'ultimo modo per variare la modalità di invio di una transazione di base è utilizzare la transazione per inviare dati anziché fondi (o, in realtà, in aggiunta di fondi). Questo ti dà la possibilità di incorporare informazioni nella blockchain. Viene eseguito tramite uno speciale comando `OP_RETURN`.
 
-The catch? You can only store 80 bytes at a time!
+Il limite? Puoi memorizzare solo 80 byte alla volta!
 
-## Create Your Data
+## Crea i tuoi dati
 
-The first thing you need to do is create the 80 bytes (or less) of data that you'll be recording in your `OP_RETURN`. This might be as simple as preparing a message or you might be hashing existing data. For example, `sha256sum` produces 256 bits of data, which is 32 bytes, well under the limits:
+La prima cosa che devi fare è creare gli 80 byte (o meno) di dati che registrerai nel tuo `OP_RETURN`. Potrebbe essere semplice come preparare un messaggio oppure potresti eseguire l'hashing dei dati esistenti. Ad esempio, "sha256sum" produce 256 bit di dati, ovvero 32 byte, ben al di sotto dei limiti:
 ```
-$ sha256sum contract.jpg
-b9f81a8919e5aba39aeb86145c684010e6e559b580a85003ae25d78237a12e75  contract.jpg
+$ sha256sum contratto.jpg
+b9f81a8919e5aba39aeb86145c684010e6e559b580a85003ae25d78237a12e75 contratto.jpg
 $ op_return_data="b9f81a8919e5aba39aeb86145c684010e6e559b580a85003ae25d78237a12e75"
 ```
-> :book: _What is an OP_RETURN?_ All Bitcoin transactions are built upon opcode scripts that we'll meet in the next chapter. The `OP_RETURN` is a simple  opcode that defines an OUTPUT as invalid. Convention has resulted in it being used to embed data on the blockchain.
+> :book: _Che cos'è un OP_RETURN?_ Tutte le transazioni Bitcoin sono basate su script opcode che incontreremo nel prossimo capitolo. `OP_RETURN` è un semplice codice operativo che definisce un OUTPUT come non valido. La convenzione ha portato al suo utilizzo per incorporare dati nella blockchain.
 
-## Prepare Some Money
+## Prepara dei soldi
 
-Your purpose in creating a data transaction isn't to send money to anyone, it's to put data into the blockchain. However, you _must_ send money to do so. You just need to use a change address as your _only_ recipient. Then you can identify a UTXO and send that to your change address, minus a transaction fee, while also using the same transaction to create an OP_RETURN.
+Il tuo scopo nel creare una transazione di dati non è inviare denaro a nessuno, ma inserire i dati nella blockchain. Tuttavia, devi_ inviare denaro per farlo. Devi solo utilizzare un indirizzo di resto come _unico_ destinatario. Quindi puoi identificare un UTXO e inviarlo al tuo indirizzo di modifica, meno una commissione di transazione, utilizzando anche la stessa transazione per creare un OP_RETURN.
 
-Here's the standard setup:
+Ecco la configurazione standard:
 ```
 $ bitcoin-cli listunspent
 [
@@ -41,15 +41,15 @@ $ utxo_vout=$(bitcoin-cli listunspent | jq -r '.[0] | .vout')
 $ changeaddress=$(bitcoin-cli getrawchangeaddress)
 ```
 
-## Write A Raw Transaction
+## Scrivi una transazione grezza
 
-You can now write a new rawtransaction with two outputs: one is your change address to get back (most of) your money, the other is a data address, which is the `bitcoin-cli` term for an OP_RETURN.
+Ora puoi scrivere una nuova transazione grezza con due output: uno è il tuo indirizzo di resto per recuperare (la maggior parte) dei tuoi soldi, l'altro è un idata address, che è il termine `bitcoin-cli` per un OP_RETURN.
 ```
 rawtxhex=$(bitcoin-cli -named createrawtransaction inputs='''[ { "txid": "'$utxo_txid'", "vout": '$utxo_vout' } ]''' outputs='''{ "data": "'$op_return_data'", "'$changeaddress'": 0.0146 }''')
 ```
 
 
-Here's what that transaction actually looks like:
+Ecco come appare effettivamente la transazione:
 ```
 {
   "txid": "a600148ac3b05f0c774b8687a71c545077ea5dfb9677e5c6d708215053d892e8",
@@ -97,27 +97,27 @@ Here's what that transaction actually looks like:
 }
 
 ```
-As you can see, this sends the majority of the money straight back to the change address (`tb1qnx9fkrksw6aaaswc3kj0gademhn4ud3q7cz4fm`) minus a small transaction fee. More importantly, the first output shows an OP_RETURN with the data (`b9f81a8919e5aba39aeb86145c684010e6e559b580a85003ae25d78237a12e75`) right after it.
+Come puoi vedere, questo rimanda la maggior parte del denaro direttamente all'indirizzo modificato (`tb1qnx9fkrksw6aaaswc3kj0gademhn4ud3q7cz4fm`) meno una piccola commissione di transazione. Ancora più importante, il primo output mostra un OP_RETURN con i dati (`b9f81a8919e5aba39aeb86145c684010e6e559b580a85003ae25d78237a12e75`) subito dopo.
 
-## Send A Raw Transaction
+## Invia la transazione grezza
 
-Sign your raw transaction and send it, and soon that OP_RETURN will be embedded in the blockchain!
+Firma la tua transazione grezza e inviala, e presto OP_RETURN sarà incorporato nella blockchain!
 
-## Check Your OP_RETURN
+## Controlla il tuo OP_RETURN
 
-Again, remember that you can look at this transaction using a blockchain explorer: 
-[https://live.blockcypher.com/btc-testnet/tx/a600148ac3b05f0c774b8687a71c545077ea5dfb9677e5c6d708215053d892e8/](https://live.blockcypher.com/btc-testnet/tx/a600148ac3b05f0c774b8687a71c545077ea5dfb9677e5c6d708215053d892e8/)
+Ancora una volta, ricorda che puoi guardare questa transazione usando un blockchain explorer:
+[https://live.blockcypher.com/btc-testnet/tx/a600148ac3b05f0c774b8687a71c545077ea5dfb9677e5c6d708215053d892e8/](https://live.blockcypher.com/btc-testnet/tx/a600148ac3b05f0c7 74b8687a71c545077ea5dfb9677e5c6d708215053d892e8/)
 
-You may note a warning about the data being in an "unknown protocol". If you were designing some regular use of `OP_RETURN` data, you'd probably mark it with a special prefix, to mark that protocol. Then, the actual OP_RETURN data might be something like "CONTRACTS3b110a164aa18d3a5ab064ba93fdce62". This example didn't use a prefix to avoid muddying the data space.
+Potresti notare un avviso relativo ai dati che si trovano in un "protocollo sconosciuto". Se stessi progettando un uso regolare dei dati `OP_RETURN`, probabilmente lo contrassegneresti con un prefisso speciale, per contrassegnare quel protocollo. Quindi, i dati OP_RETURN effettivi potrebbero essere qualcosa come "CONTRACTS3b110a164aa18d3a5ab064ba93fdce62". In questo esempio non è stato utilizzato un prefisso per evitare di confondere lo spazio dati.
 
-## Summary: Sending a Transaction with Data
+## Riepilogo: invio di una transazione con dati
 
-You can use an `OP_RETURN` opcode to store up to 80 bytes of data on the blockchain. You do this with the `data` codeword for a `vout`. You still have to send money along too, but you just send it back to a change address, minus a transaction fee.
+Puoi utilizzare un codice operativo `OP_RETURN` per archiviare fino a 80 byte di dati sulla blockchain. Puoi farlo con la parola in codice `data` per un `vout`. Devi comunque inviare anche del denaro, ma devi semplicemente rispedirlo a un indirizzo diverso, meno una commissione di transazione.
 
-> :fire: _What is the Power of OP_RETURN?_ The OP_RETURN opens up whole new possibilities for the blockchain, because you can embed data that proves that certain things happened at certain times. Various organizations have used OP_RETURNs for proof of existence, for copyright, for colored coins, and [for other purposes](https://en.bitcoin.it/wiki/OP_RETURN). Though 80 bytes might not seem a lot, it can be quite effective if OP_RETURNs are used to store hashes of the actual data. Then, you can prove the existence of your digital data by demonstrating that the hash of it matches the hash on the blockchain.
+> :fire: _Qual è il potere di OP_RETURN?_ OP_RETURN apre possibilità completamente nuove per la blockchain, perché puoi incorporare dati che dimostrano che determinate cose sono accadute in determinati momenti. Varie organizzazioni hanno utilizzato OP_RETURN per provare l'esistenza, per il copyright, per monete colorate e [per altri scopi](https://en.bitcoin.it/wiki/OP_RETURN). Anche se 80 byte potrebbero non sembrare molti, possono essere abbastanza efficaci se si utilizzano OP_RETURN per archiviare gli hash dei dati effettivi. Quindi, puoi dimostrare l'esistenza dei tuoi dati digitali dimostrando che il loro hash corrisponde all'hash sulla blockchain.
 
-Note that there is some controversy over using the Bitcoin blockchain in this way.
+Tieni presente che c'è qualche controversia sull'utilizzo della blockchain Bitcoin in questo modo.
 
-## What's Next?
+## Qual è il prossimo argomento?
 
-Move on to "Bitcoin Scripting" with [Chapter Nine: Introducing Bitcoin Scripts](09_0_Introducing_Bitcoin_Scripts.md).
+Passa a "Bitcoin Scripting" nel [Capitolo 9: Introduzione script di Bitcoin](09_0_Introduzione_script_di_Bitcoin.md).
