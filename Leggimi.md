@@ -21,7 +21,7 @@ Se desideri effettuare la tua traduzione, guarda qui [Contribuire](CONTRIBUIRE.m
 
 ### PRIMA PARTE: PREPARATI PER BITCOIN
 
-**Status:** Prima traduzione, da revisionare.
+**Status:** Prima traduzione completa, da revisionare.
 
 * [01_0: Introduzione alla programmazione con Bitcoin Core e Lightning](01_0_Introduzione.md)
   * [01_1 Introduzione a Bitcoin](01_1_Introduzione_a_Bitcoin.md)
@@ -53,14 +53,14 @@ Se desideri effettuare la tua traduzione, guarda qui [Contribuire](CONTRIBUIRE.m
   * [05_1 Guardare le Transazioni Ferme](05_1_Guardare_le_Transazioni_Ferme.md)
   * [05_2 Rinviare le Transazioni con RBF](05_2_Rinviare_le_Transazioni_con_RBF.md)
   * [05_3 Pagare una Transaccion con CPFP](05_3_Pagare_una_Transaccion_con_CPFP.md)
-* 06_0_Ampliare_le_Transazioni_Bitcoin_con_Multifirme.md
-  * 06_1_Inviare_una_Transazione_a_un_Indirizzo_Multifirma.md
-  * 06_2_Spendere_una_Transazione_con_un_Indirizzo_Multifirma.md
-  * 06_3_Enviare_una_Multifirma_Automatizzata.md
-  * 07_0_Ampliare_le_Transazioni_Bitcoin_con_PSBTs.md
-  * 07_1_Creare_una_Transazione_Bitcoin_Parzialmente_Firmata.md
-  * 07_2_Usare_una_Transazione_Bitcoin_Parzialmente_Firmata.md
-  * 07_3_Integrazione_con_Hardware_Wallets.md
+* [06_0 Ampliare le Transazioni Bitcoin con Multifirme](06_0_Ampliare_le_Transazioni_Bitcoin_con_Multifirme.md)
+  * [06_1 Inviare una Transazione a un Indirizzo Multifirma](06_1_Inviare_una_Transazione_a_un_Indirizzo_Multifirma.md)
+  * [06_2 Spendere una Transazione con un Indirizzo Multifirma](06_2_Spendere_una_Transazione_con_un_Indirizzo_Multifirma.md)
+  * [06_3 Inviare e Ricevere una Multifirma Automatizzata](06_3_Inviare_e_Ricevere_una_Multifirma_Automatizzata.md)
+* [07_0 Ampliare le Transazioni Bitcoin con PSBTs](07_0_Ampliare_le_Transazioni_Bitcoin_con_PSBTs.md)
+  * [07_1 Creare una Transazione Bitcoin Parzialmente Firmata](07_1_Creare_una_Transazione_Bitcoin_Parzialmente_Firmata.md)
+  * [07_2 Usare una Transazione Bitcoin Parzialmente Firmata](07_2_Usare_una_Transazione_Bitcoin_Parzialmente_Firmata.md)
+  * [07_3 Integrazione con Hardware Wallets](07_3_Integrazione_con_Hardware_Wallets.md)
 * 08_0_Ampliare_Altre_Transazioni_Bitcoin.md
   * 08_1_Inviare_una_Transazione_con_Blocco_temporale.md
   * 08_2_Inviare_una_Transazione_con_Dati.md
