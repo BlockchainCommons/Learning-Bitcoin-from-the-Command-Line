@@ -1,52 +1,52 @@
-# 8.1: Sending a Transaction with a Locktime
+# 8.1: Invio di una transazione con un Locktime
 
-The previous chapters showed two different ways to send funds from multiple machines and to multiple recipients. But there are two other ways to fundamentally change basic transactions. The first of these is to vary time by choosing a locktime. This gives you the ability to send raw transactions at some time in the future.
+I capitoli precedenti hanno mostrato due modi diversi per inviare fondi da più macchine e a più destinatari. Ma ci sono altri due modi per modificare radicalmente le transazioni di base. Il primo di questi è variare il tempo scegliendo un tempo di attessa, _locktime_. Ciò ti dà la possibilità di inviare transazioni grezze in un momento futuro.
 
-## Understand How Locktime Works
+## Comprendere come funziona Locktime
 
-When you create a locktime transaction, you lock it with a number that represents either a block height (if it's a small number) or a UNIX timestamp (if it's a big number). This tells the Bitcoin network that the transaction may not be put into a block until either the specified time has arrived or the blockchain has reached the specified height. 
+Quando crei una transazione locktime, la fermi con un numero che rappresenta l'altezza del blocco ( (se è un numero piccolo) o un timestamp UNIX (se è un numero grande). Questo dice alla rete Bitcoin che la transazione non può essere inserita in un blocco finché non è arrivato il momento specificato o finché la blockchain non ha raggiunto l'altezza specificata.
 
-> :book: **_What is block height?_** It's the total count of blocks in the chain, going back to the genesis block for Bitcoin. 
+> :book: **_Che cos'è l'altezza del blocco?_** `block height` è il conteggio totale dei blocchi nella catena, risalendo al blocco numero 1 cioè il blocco genesi di Bitcoin.
 
-When a locktime transaction is waiting to go into a block, it can be cancelled. This means that it is far, far from finalized. In fact, the ability to cancel is the whole purpose of a locktime transaction.
+Quando una transazione locktime è in attesa di entrare in un blocco, può essere annullata. Ciò significa che è tutt’altro che finalizzato. In effetti, lo scopo principale di una transazione locktime è avere la possibilità di annullarla.
 
-> :book: **_What is nLockTime?_** It's the same thing as locktime. More specifically, it's what locktime is called internal to the Bitcoin Core source code.
+> :book: **_Cos'è nLockTime?_** È la stessa cosa di locktime. Più specificamente, è ciò che viene chiamato locktime interno al codice sorgente di Bitcoin Core.
 
-> :book: **_What is Timelock?_** Locktime is just one way to lock Bitcoin transactions until some point in the future; collectively these methods are called timelocks. Locktime is the most basic timelock method. It locks an entire transaction with an absolute time, and it's available through `bitcoin-cli` (which is why it's the only timelock covered in this section). A parallel method, which locks a transaction with a relative time, is defined in [BIP 68](https://github.com/bitcoin/bips/blob/master/bip-0068.mediawiki) and covered in [§11.3: Using CSV in Scripts](11_3_Using_CSV_in_Scripts.md). 
+> :book: **_Che cos'è Timelock?_** Locktime è solo un modo per trattenere le transazioni Bitcoin fino a un certo punto nel futuro; collettivamente questi metodi sono chiamati timelock. Locktime è il metodo di blocco temporale più semplice. Blocca un'intera transazione con un tempo assoluto ed è disponibile tramite `bitcoin-cli` (motivo per cui è l'unico blocco temporale trattato in questa sezione). Un metodo parallelo, che blocca una transazione con un tempo relativo, è definito nel [BIP 68](https://github.com/bitcoin/bips/blob/master/bip-0068.mediawiki) e trattato nel [Capitolo 11.3: Utilizzo di CSV negli script](11_3_Using_CSV_in_Scripts.md).
 
-> Bitcoin Script further empowers both sorts of timelocks, allowing for the locking of individual outputs instead of entire transactions. Absolute timelocks (such as Locktime) are linked to the Script opcode OP_CHECKLOCKTIMEVERIFY, which is defined in [BIP 65](https://github.com/bitcoin/bips/blob/master/bip-0065.mediawiki) and covered in [§11.2: Using CLTV in Scripts](11_2_Using_CLTV_in_Scripts.md), while relative timelocks (such as Timelock) are linked to the Script opcode OP_CHECKSEQUENCEVERIFY, which is defined in [BIP 112](https://github.com/bitcoin/bips/blob/master/bip-0112.mediawiki) and also covered in [§11.3](11_3_Using_CSV_in_Scripts.md).
+> Bitcoin Script potenzia ulteriormente entrambi i tipi di blocchi temporali, consentendo il blocco di singoli output anziché di intere transazioni. I timelock assoluti (come Locktime) sono collegati al codice operativo dello script OP_CHECKLOCKTIMEVERIFY, che è definito in [BIP 65](https://github.com/bitcoin/bips/blob/master/bip-0065.mediawiki) e trattato in [ §11.2: Using CLTV in Scripts](11_2_Usare_CLTV_negli_Scripts.md), mentre i timelock relativi (come Timelock) sono collegati al codice operativo dello script `OP_CHECKSEQUENCEVERIFY`, che è definito nel [BIP 112](https://github.com/bitcoin/bips/blob/master/bip-0112.mediawiki) e trattato anche nel [Capitolo11.3](11_3_Usare_CSV_negli_Scripts.md).
 
-## Create a Locktime Transaction
+## Creare una transazione Locktime
 
-In order to create a locktime transaction, you need to first determine what you will set the locktime to.
+Per creare una transazione `locktime`, devi prima determinare su cosa imposterai il locktime.
 
-### Figure Out Your Locktime By UNIX Timestamp
+### Scopri il tuo orario di blocco tramite timestamp UNIX
 
-Most frequently you will set the locktime to a UNIX timestamp representing a specific date and time. You can calculate a UNIX timestamp at a web site like [UNIX Time Stamp](http://www.unixtimestamp.com/) or [Epoch Convertor](https://www.epochconverter.com/). However, it would be better to [write your own script](https://www.epochconverter.com/#code) on your local machine, so that you know the UNIX timestamp you receive is accurate. If you don't do that, at least double check on two different sites.
+Molto spesso imposterai il locktime su un timestamp UNIX che rappresenta una data e un'ora specifiche. È possibile calcolare un timestamp UNIX in un sito Web come [UNIX Time Stamp](http://www.unixtimestamp.com/) o [Epoch Converter](https://www.epochconverter.com/). Tuttavia, sarebbe meglio [scrivere il proprio script](https://www.epochconverter.com/#code) sul computer locale, in modo da sapere che il timestamp UNIX ricevuto è accurato. Se non lo fai, almeno ricontrolla su due siti diversi.
 
-> :book: **_Why Would I Use a UNIX Timestamp?_** Using a UNIX timestamp makes it easy to definitively link a transaction to a specific time, without worrying about whether the speed of block creation might change at some point. Particularly if you're creating a locktime that's far in the future, it's the safer thing to do. But, beyond that, it's just more intuitive, creating a direct correlation between some calendar date and the time when the transaction can be mined.
+> :book: **_Perché dovrei utilizzare un timestamp UNIX?_** L'uso di un timestamp UNIX rende semplice collegare definitivamente una transazione a un'ora specifica, senza preoccuparsi se la velocità di creazione del blocco potrebbe cambiare ad un certo punto. Soprattutto se stai creando un locktime lontano nel futuro, è la cosa più sicura da fare. Ma, oltre a ciò, è semplicemente più intuitivo, poiché crea una correlazione diretta tra una data di calendario e l'ora in cui la transazione può essere estratta.
 
-> :warning: **WARNING:** Locktime with UNIX timestamps has a bit of wriggle room: the release of blocks isn't regular and block times can be two hours ahead of real time, so a locktime actually means "within a few hours of this time, plus or minus".
+> :avviso: **ATTENZIONE:** Il locktime con i timestamp UNIX ha un po' di margine di manovra: il rilascio dei blocchi non è regolare e gli orari dei blocchi possono essere due ore avanti rispetto al tempo reale, quindi un locktime in realtà significa "entro pochi ore di questo tempo, più o meno".
 
-### Figure Out Your Locktime By Block Height
+### Determina il tempo di chiusura in base all'altezza del blocco
 
-Alternatively, you can set the locktime to a smaller number representing a block height. To calculate your future block height, you need to first know what the current block height is. `bitcoin-cli getblockcount` will tell you what your local machine thinks the block height is. You may want to double-check with a Bitcoin explorer.
+In alternativa, puoi impostare il tempo di blocco su un numero più piccolo che rappresenta l'altezza del blocco. Per calcolare l'altezza futura del blocco, devi prima sapere qual è l'altezza attuale del blocco. `bitcoin-cli getblockcount` ti dirà quale è l'altezza del blocco secondo la tua macchina locale. Potresti voler ricontrollare con un esploratore Bitcoin.
 
-Once you've figured out the current height, you can decide how far in the future to set your locktime to. Remember that on average a new block will be created every 10 minutes. So, for example, if you wanted to set the locktime to a week in the future, you'd choose a block height that is 6 x 24 x 7 = 1,008 blocks in advance of the current one.
+Una volta determinata l'altezza attuale, puoi decidere fino a che punto nel futuro impostare il tempo di blocco. Ricorda che in media verrà creato un nuovo blocco ogni 10 minuti. Quindi, ad esempio, se volessi impostare il tempo di blocco su una settimana nel futuro, sceglieresti un'altezza del blocco pari a 6 x 24 x 7 = 1.008 blocchi dopo rispetto a quella attuale.
 
-> :book: **_Why Would I Use a Blockheight?_** Unlike with timestamps, there's no fuzziness for blockheights. If you set a blockheight of 120,000 for your locktime, then there's absolutely no way for it to go into block 119,999. This can make it easier to algorithmically control your locktimed transaction. The downside is that you can't be as sure of when precisely the locktime will be.
+> :book: **_Perché dovrei usare un Blockheight?_** A differenza dei timestamp, non c'è confusione per i blockheight. Se imposti un'altezza del blocco di 120.000 per il tuo locktime, non c'è assolutamente alcun modo per farlo entrare nel blocco 119.999. Ciò può rendere più semplice il controllo algoritmico della transazione bloccata. Lo svantaggio è che non puoi essere sicuro di quando sarà esattamente l'ora di blocco.
 
-> :warning: **WARNING:** If you want to set a block-height locktime, you must set the locktime to less than 500 million. If you set it to 500 million or over, your number will instead be interpreted as a timestamp. Since the UNIX timestamp of 500 million was November 5, 1985, that probably means that your transaction will be put into a block at the miners' first opportunity.
+> :warning: **AVVISO:** Se vuoi impostare un block-height locktime, devi impostare il tempo di blocco su un valore inferiore a 500 milioni. Se lo imposti su 500 milioni o più, il tuo numero verrà invece interpretato come un timestamp. Poiché il timestamp UNIX di 500 milioni era il 5 novembre 1985, ciò probabilmente significa che la tua transazione verrà bloccata alla prima occasione dei minatori.
 
-## Write Your Transaction
+## Scrivere la transazione
 
-Once you have figured out your locktime, all you need to do is write up a typical raw transaction, with a third variable for `locktime`:
+Una volta stabilito il tempo di blocco, tutto ciò che devi fare è scrivere una tipica transazione grezza, con una terza variabile per `locktime`:
 ```
 $ rawtxhex=$(bitcoin-cli -named createrawtransaction inputs='''[ { "txid": "'$utxo_txid'", "vout": '$utxo_vout' } ]''' outputs='''{ "'$recipient'": 0.001, "'$changeaddress'": 0.00095 }''' locktime=1774650)
 ```
-Note that this usage of `locktime` is under 500 million, which means that it defines a block height. In this case, it's just a few blocks past the current block height at the time of this writing, meant to exemplify how locktime works without sitting around for a long time to wait and see what happens.
+Tieni presente che questo utilizzo di `locktime` è inferiore a 500 milioni, il che significa che definisce l'altezza del blocco. In questo caso, sono solo pochi blocchi oltre l'altezza del blocco attuale al momento della stesura di questo articolo, pensato per esemplificare come funziona il locktime senza stare a lungo ad aspettare e vedere cosa succede.
 
-Here's what the created transaction looks like:
+Ecco come appare la transazione creata:
 ```
 $ bitcoin-cli -named decoderawtransaction hexstring=$rawtxhex 
 {
@@ -98,15 +98,15 @@ $ bitcoin-cli -named decoderawtransaction hexstring=$rawtxhex
   ]
 }
 ```
-Note that the sequence number (`4294967294`) is less than `0xffffffff`. This is necessary signalling to show that the transaction includes a locktime. It's also done automatically by `bitcoin-cli`. If the sequence number is instead set to `0xffffffff`, your locktime will be ignored.
+Tieni presente che il numero di sequenza (`4294967294`) è inferiore a `0xffffffff`. Questa è una segnalazione necessaria per mostrare che la transazione include un locktime. Viene eseguito anche automaticamente da `bitcoin-cli`. Se il numero di sequenza è invece impostato su `"0xffffffff`, il tempo di blocco verrà ignorato.
 
-> :information_source: **NOTE — SEQUENCE:** This is the second use of the `nSequence` value in Bitcoin. As with RBF, `nSequence` is again used as an opt-in, this time for the use of locktime. 0xffffffff-1 (4294967294) is the preferred value for signalling locktime because it purposefully disallows the use of both RBF (which requires `nSequence < 0xffffffff-1`) and relative timelock (which requires `nSequence < 0xf0000000`), the other two uses of the `nSequence` value. If you set `nSequence` lower than `0xf0000000`, then you will also relative timelock your transaction, which is probably not what you want.
+> :information_source: **NOTA — SEQUENCE:** Questo è il secondo utilizzo del valore `nSequence` in Bitcoin. Come con RBF, `nSequence` viene nuovamente utilizzato come opt-in, questa volta per l'utilizzo di locktime. 0xffffffff-1 (4294967294) è il valore preferito per segnalare locktime perché non consente intenzionalmente l'uso sia di RBF (che richiede `nSequence < 0xffffffff-1`) che di timelock relativo (che richiede `nSequence < 0xf0000000`), gli altri due usano del valore "nSequence". Se imposti "nSequence" su un valore inferiore a "0xf0000000", bloccherai anche la transazione, il che probabilmente non è quello che desideri.
 
-> :warning: **WARNING:** If you are creating a locktime raw transaction by some other means than `bitcoin-cli`, you will have to set the sequence to less than `0xffffffff` by hand.
+> :avviso: **AVVISO:** Se stai creando una transazione grezza locktime con un mezzo diverso da `bitcoin-cli`, dovrai impostare manualmente la sequenza su un valore inferiore a `0xffffffff`.
 
-## Send Your Transaction
+## Invia la tua transazione
 
-By now you're probably well familiar with finishing things up:
+Ormai probabilmente hai già familiarità con il completamento finale delle transazioni:
 ```
 $ signedtx=$(bitcoin-cli -named signrawtransactionwithwallet hexstring=$rawtxhex | jq -r '.hex')
 $ bitcoin-cli -named sendrawtransaction hexstring=$signedtx
@@ -114,22 +114,22 @@ error code: -26
 error message:
 non-final
 ```
-Whoop! What's that error!?
+Oops! Cos'è quell'errore!?
 
-Since 2013, you generally can't place the timelocked transaction into the mempool until its lock has expired. However, you can still hold the transaction, occasionally resending it to the Bitcoin network until it's accepted into the mempool. Alternatively, you could send the signed transaction (`$signedtx`) to the recipient, so that he could place it in the mempool when the locktime has expired. 
+Dal 2013, generalmente non è possibile inserire la transazione bloccata nel mempool finché il suo blocco non è scaduto. Tuttavia, puoi comunque trattenere la transazione, inviandola occasionalmente alla rete Bitcoin finché non viene accettata nel mempool. In alternativa, potresti inviare la transazione firmata (`$signedtx`) al destinatario, in modo che possa inserirla nel mempool una volta scaduto il locktime.
 
-Once the locktime is past, anyone can send that signed transaction to the network, and the recipient will receive the money as intended ... provided that the transaction hasn't been cancelled.
+Una volta trascorso il tempo di blocco, chiunque può inviare la transazione firmata alla rete e il destinatario riceverà il denaro come previsto... a condizione che la transazione non sia stata annullata.
 
-## Cancel a Locktime Transaction
+## Annullare una transazione Locktime
 
-Cancelling a locktime transaction is _very_ simple: you send a new transactions using at least one of the same UTXOs.
+Annullare una transazione locktime è _molto_ semplice: invii una nuova transazione utilizzando almeno uno degli stessi UTXO.
 
-## Summary: Sending a Transaction with a Locktime
+## Riepilogo: invio di una transazione con un locktime
 
-Locktime offers a way to create a transaction that _should_ not be relayable to the network and that _will_ not be accepted into a block until the appropriate time has arrived. In the meantime, it can be cancelled simply by reusing a UTXO.
+Locktime offre un modo per creare una transazione che _dovrebbe_ non essere inoltrabile alla rete e che _non_ sarà_ accettata in un blocco finché non sarà arrivato il momento appropriato. Nel frattempo è possibile annullarlo semplicemente riutilizzando un UTXO.
 
-> :fire: **_What is the Power of Locktime?_** The power of locktime may not be immediately obvious because of the ability to cancel it so easily. However, it's another of the bases of Smart Contracts: it has a lot of utility in a variety of custodial or contractual applications. For example, consider a situation where a third party is holding your bitcoins. In order to guarantee the return of your bitcoins if the custodian ever disappeared, they could produce a timelock transaction to return the coins to you, then update that every once in a while with a new one, further in the future. If they ever failed to update, then the coins would return to you when the current timelock expired. Locktime could similarly be applied to a payment network, where the network holds coins while they're being exchanged by network participants. Finally, a will offers an example of a more complex contract, where payments are sent out to a number of people. These payments would be built on locktime transactions, and would be continually updated as long as the owner continues to show signs of life. (The unifying factor of all of these applications is, of course, _trust_. Simple locktime transactions only work if the holder of the coins can be trusted to send them out under the appropriate conditions.)
+> :fire: **_Qual è il potere di Locktime?_** Il potere di Locktime potrebbe non essere immediatamente evidente a causa della possibilità di annullarlo così facilmente. Tuttavia, è un'altra delle basi degli Smart Contracts: ha molta utilità in una varietà di applicazioni custodiali o contrattuali. Ad esempio, considera una situazione in cui una terza parte detiene i tuoi bitcoin. Per garantire la restituzione dei tuoi bitcoin nel caso in cui il custode scomparisse, potrebbe produrre una transazione con blocco temporale per restituirti le monete, quindi aggiornarla di tanto in tanto con una nuova, più avanti in futuro. Se mai non riuscissero ad aggiornarsi, le monete ti verranno restituite allo scadere del blocco temporale corrente. Allo stesso modo Locktime potrebbe essere applicato a una rete di pagamento, in cui la rete trattiene monete mentre vengono scambiate dai partecipanti alla rete. Infine, un testamento offre un esempio di contratto più complesso, in cui i pagamenti vengono inviati a un numero di persone. Questi pagamenti verrebbero basati su transazioni bloccate e verrebbero continuamente aggiornati finché il proprietario continua a mostrare segni di vita. (Il fattore unificante di tutte queste applicazioni è, ovviamente, la _fiducia_. Le semplici transazioni locktime funzionano solo se ci si può fidare del detentore delle monete per inviarle alle condizioni appropriate.)
 
-## What's Next?
+## Qual è il prossimo argomento?
 
-Continue "Expanding Bitcoin Transactions" with [§8.2: Sending a Transaction with Data](08_2_Sending_a_Transaction_with_Data.md).
+Continua con "Espansione delle transazioni Bitcoin" nel [Capitolo 8.2: Inviare una Transazione con Dati](08_2_Inviare_una_Transazione_con_Dati.md).
