@@ -1,21 +1,21 @@
-# Chapter Eight: Expanding Bitcoin Transactions in Other Ways
+# Capitolo otto: Ampliare le transazioni Bitcoin in altri modi
 
-The definition of basic transactions back in [Chapter Six](06_0_Expanding_Bitcoin_Transactions_Multisigs.md) said that they sent _funds_ _immediately_, but those are both elements that can be changed. This final section on Expanding Bitcoin Transactions talks about how to send things other than cash and how to do it at a time other than now.
+La definizione di transazioni di base nel [Capitolo 6](06_0_Ampliare_le_Transazioni_Bitcoin_con_Multifirme.md) affermava che venivano inviati _"fondi"_ _"immediatamente"_, ma questi sono due elementi che possono essere modificati. Questa sezione finale sull'espansione delle transazioni Bitcoin parla di come inviare cose diverse dal contanti e come farlo in un momento diverso da quello attuale.
 
-## Objectives for This Section
+## Obiettivi di questa sezione
 
-After working through this chapter, a developer will be able to:
+Dopo aver letto questo capitolo, uno sviluppatore sarà in grado di:
 
-   * Create Transactions with Locktimes
-   * Create Transactions with Data
-   
-Supporting objectives include the ability to:
+ * Creare transazioni con Locktimes
+ * Creare transazioni con Dati
 
-   * Understand the Different Sorts of Timelocks
-   * Plan for the Power of Locktime
-   * Plan for the Power of OP_RETURN
-   
-## Table of Contents
+Gli obiettivi di supporto includono la capacità di:
 
-   * [Section One: Sending a Transaction with a Locktime](08_1_Sending_a_Transaction_with_a_Locktime.md)
-   * [Section Two: Sending a Transaction with Data](08_2_Sending_a_Transaction_with_Data.md)
+ * Comprendere i diversi tipi di Timelocks, blocchi temporali
+ * Pianificare la potenza di Locktime
+ * Pianificare la potenza di OP_RETURN
+
+## Sommario
+
+ * [Capitolo 8.1: Inviare una Transazione con Blocco temporale](08_1_Inviare_una_Transazione_con_Blocco_temporale.md)
+ * [Capitolo 8.2: Inviare una Transazione con Dati](08_2_Inviare_una_Transazione_con_Dati.md)
