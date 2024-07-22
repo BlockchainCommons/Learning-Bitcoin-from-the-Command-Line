@@ -1,134 +1,135 @@
-# 7.3: Integrating with Hardware Wallets
+# 7.3: Integrazione con hardware wallet
 
-> :information_source: **NOTE:** This section has been recently added to the course and is an early draft that may still be awaiting review. Caveat reader.
+> :information_source: **NOTA:** Questa sezione è stata aggiunta di recente al corso ed è una bozza iniziale che potrebbe essere ancora in attesa di revisione. Lettore avvisato.
 
-One of the greatest powers of PSBTs is the ability to hand transactions off to hardware wallets. This will be a great development tool for you if you continue to program with Bitcoin. However, you can't test it out now if you're using one of the configurations we suggest for this course — a VM on Linode per [§2.1](https://github.com/BlockchainCommons/Learning-Bitcoin-from-the-Command-Line/blob/master/02_1_Setting_Up_a_Bitcoin-Core_VPS_with_StackScript.md) or an even more farflung option such as AWS per [§2.2](https://github.com/BlockchainCommons/Learning-Bitcoin-from-the-Command-Line/blob/master/02_2_Setting_Up_Bitcoin_Core_Other.md) — because obviously you won't have any way to hook a hardware wallet up to your remote, virtual machine.
+Uno dei maggiori poteri dei PSBT è la capacità di trasferire le transazioni ai portafogli hardware. Questo sarà un ottimo strumento di sviluppo per te se continui a programmare con Bitcoin. Tuttavia, non puoi testarlo ora se stai utilizzando una delle configurazioni che suggeriamo per questo corso: una VM su Linode secondo il [Capitolo 2.1](02_1_Configurare_Bitcoin-Core_VPS_con_StackScript.md) o un'opzione ancora più remota come AWS vista nel [Capitolo 2.2](02_2_Configurare_Bitcoin_Core_Altri_Mezzi.md) - perché ovviamente non avrai alcun modo di collegare un portafoglio hardware alla tua macchina virtuale remota.
 
-> :book: ***What is a Hardware Wallet?*** A hardware wallet is an electronic device that improves the security of a cryptocurrency by maintaining all the private keys on the device, rather than ever putting them on a computer directly connected to the internet. Hardware wallets have specific protocols for providing online interactions, usually managed by a program talking to the device through a USB port. In this chapter, we'll be managing a hardware wallet with `bitcoin-cli` and the `hwy.py` program.
+> :book: ***Che cos'è un portafoglio hardware?*** Un portafoglio hardware è un dispositivo elettronico che migliora la sicurezza di una criptovaluta mantenendo tutte le chiavi private sul dispositivo, anziché metterle mai su un computer direttamente collegato a Internet. I portafogli hardware dispongono di protocolli specifici per fornire interazioni online, solitamente gestiti da un programma che comunica con il dispositivo tramite una porta USB. In questo capitolo gestiremo un portafoglio hardware con `bitcoin-cli` e il programma `hwy.py`.
 
-You have three options for moving through this chapter on hardware wallets: (1) read along without testing the code; (2) install Bitcoin on a local machine to fully test these commands; or (3) skip straight ahead to [Chapter 8: Expanding Bitcoin Transactions in Other Ways](08_0_Expanding_Bitcoin_Transactions_Other.md). We suggest option #1, but if you really want to get your hands dirty we'll also give some support for #2 by talking about using a Macintosh (a hardware-platform supported by [Bitcoin Standup](https://github.com/BlockchainCommons/Bitcoin-Standup)) for testing.
+Hai tre opzioni per muoverti in questo capitolo sui portafogli hardware: (1) leggere senza testare il codice; (2) installa Bitcoin su un computer locale per testare completamente questi comandi; oppure (3) vai direttamente al [Capitolo 8: Ampliare Altre Transazioni Bitcoin](08_0_Ampliare_Altre_Transazioni_Bitcoin.md). Suggeriamo l'opzione n. 1, ma se vuoi davvero sporcarti le mani ti forniremo supporto anche per la n.2 parlando dell'utilizzo di un Macintosh (una piattaforma hardware supportata da 
+[Bitcoin Standup](https://github.com/BlockchainCommons/Bitcoin-Standup)) per i test.
 
-> :warning: **VERSION WARNING:** PSBTs are an innovation from Bitcoin Core v 0.17.0. Earlier versions of Bitcoin Core will not be able to work with the PSBT while it is in progress (though they will still be able to recognize the final transaction). The HWI interface appeared in Bitcoin Core v 0.18.0, but as long as you are using our suggested setup with Bitcoin Standup, it should work.
+> :avviso: **AVVISO di VERSIONE:** Le PSBT sono un'innovazione di Bitcoin Core v 0.17.0. Le versioni precedenti di Bitcoin Core non saranno in grado di funzionare con il PSBT mentre è in corso (sebbene saranno comunque in grado di riconoscere la transazione finale). L'interfaccia HWI è apparsa in Bitcoin Core v 0.18.0, ma finché utilizzi la nostra configurazione suggerita con Bitcoin Standup, dovrebbe funzionare.
 
-The methodology described in this chapter for integrating with a hardware wallet depends on the [Bitcoin Hardware Wallet Interface](https://github.com/bitcoin-core/HWI) released through Bitcoin Core and builds on the [installation](https://github.com/bitcoin-core/HWI/blob/master/README.md) and [usage](https://hwi.readthedocs.io) instructions found there.
+La metodologia descritta in questo capitolo per l'integrazione con un portafoglio hardware dipende dall'[Bitcoin Hardware Wallet Interface](https://github.com/bitcoin-core/HWI) rilasciata tramite Bitcoin Core e si basa sull'[installazione](https://github.com/bitcoin-core/HWI/blob/master/README.md) e le istruzioni d'[utilizzo](https://hwi.readthedocs.io) si trovano lì.
 
-> :warning: **FRESHNESS WARNING:** The HWI interface is very new and raw around the edges as of Bitcoin Core v 0.20.0. It may be hard to install correctly, and it may have unintuitive errors. What follows is a description of a working setup, but it took several tries to get it right, and your setup may vary.
+> :avviso: **AVVISO:** L'interfaccia HWI è molto nuova e grezza a partire da Bitcoin Core v 0.20.0. Potrebbe essere difficile installarlo correttamente e potrebbero essere presenti errori non intuitivi. Quella che segue è una descrizione di una configurazione funzionante, ma sono stati necessari diversi tentativi per ottenerla correttamente e la configurazione potrebbe variare.
 
-## Install Bitcoin Core on a Local Machine
+## Installa Bitcoin Core nel tuo PC
 
-_If you just plan to read over this section and not test out these commands until some future date when you have a local development environment, you can skip this subsection, which is about creating a Bitcoin Core installation on a local machine such as a Mac or Linux machine._
+_Se hai intenzione di leggere semplicemente questa sezione e di non testare questi comandi fino a una data futura quando disponi di un ambiente di sviluppo locale, puoi saltare questa sottosezione, che riguarda la creazione di un'installazione Bitcoin Core su una macchina locale come un Mac o meglio una Macchina Linux._
 
-There are alternate versions of the Bitcoin Standup script that you used to create your VM that will install on a MacOS or on a non-Linode Linux machine.
+Esistono versioni alternative dello script Bitcoin Standup che hai utilizzato per creare la tua VM che verrà installata su un MacOS o su una macchina Linux non Linode.
 
-If you have MacOS, you can install [Bitcoin Standup MacOS](https://github.com/BlockchainCommons/Bitcoin-Standup-MacOS/blob/master/README.md).
+Se disponi di MacOS, puoi installare [Bitcoin Standup MacOS](https://github.com/BlockchainCommons/Bitcoin-Standup-MacOS/blob/master/README.md).
 
-If you have a local Linux machine, you can install [Bitcoin Standup Linux Scripts](https://github.com/BlockchainCommons/Bitcoin-Standup-Scripts/blob/master/README.md).
+Se disponi di una macchina Linux locale, puoi installare [Bitcoin Standup Linux Scripts](https://github.com/BlockchainCommons/Bitcoin-Standup-Scripts/blob/master/README.md).
 
-Once you've gotten Bitcoin Standup running on your local machine, you'll want to sync the "Testnet" blockchain, assuming that you're continuing to follow the standard methodlogy of this course.
+Una volta che Bitcoin Standup è in esecuzione sul tuo computer locale, ti consigliamo di sincronizzare la blockchain `Testnet`, supponendo che tu continui a seguire la metodologia standard di questo corso.
 
-We will be using a Macintosh and Testnet for the examples in this section.
+Utilizzeremo un Macintosh e Testnet per gli esempi in questa sezione.
 
-### Create an Alias for Bitcoin-CLI
+### Crea un alias per Bitcoin-CLI
 
-Create an alias that runs `bitcoin-cli` from the correct directory with any appropriate flags.
+Crea un alias che esegua `bitcoin-cli` dalla directory corretta con eventuali flag appropriati.
 
-Here's an example alias from a Mac:
+Ecco un esempio di alias da un Mac:
 ```
 $ alias bitcoin-cli="~/StandUp/BitcoinCore/bitcoin-0.20.0/bin/bitcoin-cli -testnet"
 ```
-You'll note it not only gives us the full path, but also ensures that we stay on Testnet.
+Noterai che non solo ci fornisce il percorso completo, ma garantisce anche che rimaniamo su Testnet.
 
-## Install HWI on a Local Machine
+## Installa HWI su un computer locale
 
-_The following instructions again assume a Mac, and you can again skip this subsection if you're just reading through this chapter._
+_Le seguenti istruzioni presuppongono nuovamente un Mac e puoi saltare questa sottosezione se stai solo leggendo questo capitolo._
 
-HWI is a Bitcoin Core program available in python that can be used to interact with hardware wallets.
+HWI è un programma Bitcoin Core disponibile in Python che può essere utilizzato per interagire con i portafogli hardware.
 
-### Install Python
+### Installa Python
 
-Because HWI  is written in `python`, you'll need to install that as well as a few auxilliary programs.
+Poiché HWI è scritto in `python`, dovrai installarlo insieme ad alcuni programmi ausiliari.
 
-If you don't already have the `xcode` command line tools, you'll need them:
+Se non disponi già degli strumenti da riga di comando "xcode", ti serviranno:
 ```
 $ xcode-select --install
 ```
 
-If you don't already have the Homebrew package manager, you should install that too. Current instructions are available at the [Homebrew site](https://brew.sh/). As of this writing, you simply need to:
+Se non hai già il gestore pacchetti Homebrew, dovresti installare anche quello. Le istruzioni attuali sono disponibili sul [sito Homebrew](https://brew.sh/). Al momento della stesura di questo articolo, devi semplicemente farlo:
 ```
 $ /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)"
 ```
 
-For a first-time installation, you should also make sure your `/usr/local/Frameworks` directory is created correctly:
+Per la prima installazione, dovresti anche assicurarti che la tua directory `/usr/local/Frameworks` sia creata correttamente:
 ```
 $ sudo mkdir /usr/local/Frameworks
 $ sudo chown $(whoami):admin /usr/local/Frameworks
 ```
 
-If you've got all of that in place, you can finally install Python:
+Se hai tutto a posto, puoi finalmente installare Python:
 ```
 $ brew install python
 $ brew install libusb
 ```
 
-### Install HWI
+### Installa l'HWI
 
-You're now ready to install HWI, which requires cloning a GitHub repo and running an install script.
+Ora sei pronto per installare HWI, che richiede la clonazione di un repository GitHub e l'esecuzione di uno script di installazione.
 
-If you don't have `git` already installed on your Mac, you can do so just by trying to run it: `git --version`.
+Se non hai `git` già installato sul tuo Mac, puoi farlo semplicemente provando a eseguirlo: `git --version`.
 
-You can then clone the HWI repo:
+È quindi possibile clonare il repository HWI:
 ```
 $ cd ~/StandUp
 $ git clone https://github.com/bitcoin-core/HWI.git
 ```
-Afterward, you need to install the package and its dependencies:
+Successivamente, è necessario installare il pacchetto e le sue dipendenze:
 ```
 $ cd HWI
 HWI$ python3 setup.py install
 ```
 
-### Create an Alias for HWI
+### Crea un alias per HWI
 
-You'll want to create an alias here too, varied by your actual install location:
+Ti consigliamo di creare un alias anche qui, variato in base alla posizione di installazione effettiva:
 ```
 $ alias hwi="~/Standup/HWI/hwi.py --chain test"
 ```
-Again, we've included a reference to testnet in this alias.
+Ancora una volta, abbiamo incluso un riferimento a testnet in questo alias.
 
-## Prepare Your Ledger
+## Prepara il tuo Ledger
 
-_We had to choose a hardware-wallet platform too, for this HWI demonstration. Our choice was the Ledger, which has long been our testbed for hardware wallets. Please see [HWI's device support info](https://github.com/bitcoin-core/HWI/blob/master/README.md#device-support) for a list of other supported devices. If you use a device other than a Ledger, you'll need to assess your own solutions for preparing it for usage on the Testnet, but otherwise you should be able to continue with the course as written._
+_Anche noi abbiamo dovuto scegliere una piattaforma hardware-wallet per questa dimostrazione HWI. La nostra scelta è ricaduta sul Ledger, che è stato a lungo il nostro banco di prova per i portafogli hardware. Consulta le [informazioni sul supporto del dispositivo HWI](https://github.com/bitcoin-core/HWI/blob/master/README.md#device-support) per un elenco di altri dispositivi supportati. Se utilizzi un dispositivo diverso da Ledger, dovrai valutare le tue soluzioni per prepararlo all'utilizzo su Testnet, ma per il resto dovresti essere in grado di continuare con il corso come scritto._
 
-If you are working with Bitcoins on your Ledger, you probably won't need to do anything. (But we don't suggest that for use with this course). 
+Se stai lavorando con Bitcoin sul tuo Ledger, probabilmente non dovrai fare nulla. (Ma non lo suggeriamo per l'uso con questo corso).
 
-To work with Testnet coins, as suggested by this course, you'll need to make a few updates:
+Per lavorare con le monete Testnet, come suggerito da questo corso, dovrai apportare alcuni aggiornamenti:
 
-1. Go to Settings on your Ledger Live app (it's the gear), go to the "Experimental Features" tab, and turn on "Developer Mode".
-2. Go to the "Manager" and install "Bitcoin Test". The current version requires that you have "Bitcoin" installed first.
-3. Go to the "Manager", scroll to your new "Bitcoin Test", and "Add Account"
+1. Vai su Impostazioni sulla tua app Ledger Live (è l'attrezzatura), vai alla scheda "Funzionalità sperimentali" e attiva "Modalità sviluppatore".
+2. Vai su "Manager" e installa "Bitcoin Test". La versione attuale richiede che tu abbia prima installato "Bitcoin".
+3. Vai su "Manager", scorri fino al tuo nuovo "Bitcoin Test" e "Aggiungi account"
 
-## Link to a Ledger
+## Collegamento a un registro
 
-In order for a Ledger to be accessible, you must login with your PIN and then call up the app that you want to use, in this case the "Bitcoin Test" app. You may need to repeat this from time to time if your Ledger falls asleep.
+Affinché un Ledger sia accessibile, devi effettuare il login con il tuo PIN e poi richiamare l'app che desideri utilizzare, in questo caso l'app "Bitcoin Test". Potrebbe essere necessario ripeterlo di tanto in tanto se il tuo Ledger si addormenta.
 
-Once you've done that, you can ask for HWI to access the Ledger with the `enumerate` command:
+Dopo averlo fatto, puoi chiedere a HWI di accedere al Ledger con il comando "enumerate".:
 ```
 $ hwi enumerate
 [{"type": "ledger", "model": "ledger_nano_s", "path": "IOService:/AppleACPIPlatformExpert/PCI0@0/AppleACPIPCI/XHC1@14/XHC1@14000000/HS05@14100000/Nano S@14100000/Nano S@0/IOUSBHostHIDDevice@14100000,0", "fingerprint": "9a1d520b", "needs_pin_sent": false, "needs_passphrase_sent": false}]
 ```
-If you receive information on your device, you're set! As you can see, it verifies your hardware-wallet type, provides other identifying information, and tells you how to communicate with the device. The `fingerprint` (`9a1d520b`) is what you should pay particular attention to, because all interactions with your hardware wallet will require it.
+Se ricevi informazioni sul tuo dispositivo, sei a posto! Come puoi vedere, verifica il tuo tipo di portafoglio hardware, fornisce altre informazioni identificative e ti dice come comunicare con il dispositivo. L'impronta digitale (`9a1d520b`) è ciò a cui dovresti prestare particolare attenzione, perché tutte le interazioni con il tuo portafoglio hardware la richiederanno.
 
-If you instead got `[]`, then either (1) you didn't get your Ledger device ready by entering your PIN and choosing the correct application, or (2) there's something wrong with your Python setup, probably a missing dependency: you should consider `uninstall`ing it and trying from scratch.
+Se invece hai ottenuto "[]", allora (1) non hai preparato il tuo dispositivo Ledger inserendo il PIN e scegliendo l'applicazione corretta, oppure (2) c'è qualcosa di sbagliato nella configurazione di Python, probabilmente una dipendenza mancante: dovresti considerare di disinstallarlo e provare da zero.
 
-## Import Addresses
+## Importa indirizzi
 
-Interacting with a hardware wallet usually comes in two parts: watching for funds and spending funds. 
+L'interazione con un portafoglio hardware di solito avviene in due parti: ricerca di fondi e spesa di fondi.
 
-You can watch for funds by importing addresses from your hardware wallet to your full node, using HWI and `bitcoin-cli`.
+Puoi controllare i fondi importando gli indirizzi dal tuo portafoglio hardware al tuo nodo completo, utilizzando HWI e `bitcoin-cli`.
 
-### Create a Wallet
+### Crea un portafoglio
 
-To use your hardware wallet with `bitcoin-cli`, you'll want to create a specific named wallet in Bitcoin Core, using the `createwallet` RPC, which is a command we haven't previously discussed.
+Per utilizzare il tuo portafoglio hardware con `bitcoin-cli`, ti consigliamo di creare un portafoglio con nome specifico in Bitcoin Core, utilizzando l'RPC `createwallet`, che è un comando di cui non abbiamo discusso in precedenza.
 ```
 $ bitcoin-cli --named createwallet wallet_name="ledger" disable_private_keys="true" descriptors="false"
 {
@@ -136,11 +137,11 @@ $ bitcoin-cli --named createwallet wallet_name="ledger" disable_private_keys="tr
   "warning": ""
 }
 ```
-In this case, you are creating a new wallet `ledger` without private keys (since those will be over on the Ledger device).
+In questo caso, stai creando un nuovo portafoglio `ledger` senza chiavi private (poiché queste saranno presenti sul dispositivo Ledger).
 
-> :book: ***Why Name Wallets?*** To date, this course has used the default ("") wallet in Bitcoin Core. This is fine for many purposes, but is inadequate if you have a more complex situation, such as when you're watching keys from a hardware wallet. Here, we want to be able to differentiate from the locally owned keys (which are kept in the "" wallet) and the remotely owned keys (which are kept in the "ledger" wallet).
+> :book: ***Perché nominare i portafogli?*** Fino ad oggi, questo corso ha utilizzato il portafoglio predefinito (` "" `) in Bitcoin Core. Questo va bene per molti scopi, ma è inadeguato se hai una situazione più complessa, come quando guardi le chiavi da un portafoglio hardware. Qui, vogliamo essere in grado di distinguere dalle chiavi possedute localmente (che sono conservate nel portafoglio ` "" ` ) e dalle chiavi possedute in remoto (che sono conservate nel portafoglio "ledger").
 
-You can now see that the new wallet is in your wallets list:
+Ora puoi vedere che il nuovo portafoglio è nell'elenco dei tuoi portafogli:
 ```
 $ bitcoin-cli listwallets
 [
@@ -148,22 +149,22 @@ $ bitcoin-cli listwallets
   "ledger"
 ]
 ```
-Because you've created a second wallet, some commands will now require a `-rpcwallet=` flag, to specify which one you're using
+Poiché hai creato un secondo portafoglio, alcuni comandi ora richiederanno un flag `-rpcwallet=`, per specificare quale stai utilizzando
 
-### Import the Keys
+### Importa le chiavi
 
-You now have to import a watch-list of addresses from the hardware wallet. This is done with HWI's `getkeypool` command:
+Ora devi importare una watchlist di indirizzi dal portafoglio hardware. Questo viene fatto con il comando `getkeypool` di HWI:
 ```
 $ hwi -f 9a1d520b getkeypool 0 1000
 [{"desc": "wpkh([9a1d520b/84h/1h/0h]tpubDD7KTtoGzK9GuWUQcr1uTJazsAkqoXhdrwGXWVix6nPpNZmSbagZWD4QSaMsyK8YohAirGDPrWdRiEpKzTFB7DrTrqfzHCn7yi5EsqeR93S/0/*)#qttxy592", "range": [0, 1000], "timestamp": "now", "internal": false, "keypool": true, "active": true, "watchonly": true}, {"desc": "wpkh([9a1d520b/84h/1h/0h]tpubDD7KTtoGzK9GuWUQcr1uTJazsAkqoXhdrwGXWVix6nPpNZmSbagZWD4QSaMsyK8YohAirGDPrWdRiEpKzTFB7DrTrqfzHCn7yi5EsqeR93S/1/*)#3lw8ep4j", "range": [0, 1000], "timestamp": "now", "internal": true, "keypool": true, "active": true, "watchonly": true}]
 ```
-We address HWI with the `fingerprint` and ask for the first 1000 addresses. The WPKH (native Segwit) address type is used as a default. In return, we receive two descriptors for the key pool: one for receiving addresses and one for change addresses.
+Indirizziamo HWI con l'impronta digitale e chiediamo i primi 1000 indirizzi. Per impostazione predefinita viene utilizzato il tipo di indirizzo WPKH (nativo Segwit). In cambio riceviamo due descrittori per il key pool: uno per ricevere gli indirizzi e uno per cambiare gli indirizzi.
 
-> :book: ***What is a key pool?*** A key pool is a group of pregenerated keys. Modern HD wallets create key pools by continuing to determine new hierarchical addresses based on the original seed. The idea of key pools was originally implemented to ease the backup requirements of wallets. This allowed a user to generate a keypool and then backup the wallet immediately, rather than requiring backups after every new address was created. The concept has also proven very useful in the modern day since it allows the importing of a whole set of future addresses from one device to another.
+> :book: ***Che cos'è un pool di chiavi?*** Un pool di chiavi è un gruppo di chiavi pregenerate. I moderni portafogli HD creano pool di chiavi continuando a determinare nuovi indirizzi gerarchici basati sul seed originale. L’idea dei pool di chiavi è stata originariamente implementata per facilitare i requisiti di backup dei portafogli. Ciò ha consentito a un utente di generare un pool di chiavi e quindi eseguire immediatamente il backup del portafoglio, anziché richiedere backup dopo la creazione di ogni nuovo indirizzo. Il concetto si è rivelato molto utile anche ai giorni nostri poiché consente di importare un intero set di indirizzi futuri da un dispositivo all'altro.
 
-The values returned by `getkeypool` are the same sorts of descriptors that we learned about in [§3.5: Understanding the Descriptor](03_5_Understanding_the_Descriptor.md). At the time, we said that they were most useful for moving addresses among different machines. Here's the real-life example: moving addresses from a hardware wallet to Bitcoin Core node, so that our net-connected machine will be able to watch over the keys owned by the offline hardware wallet.
+I valori restituiti da `getkeypool` sono lo stesso tipo di descrittori di cui abbiamo appreso nel [Capitolo3.5: Comprendere il descrittore](03_5_Comprendere_il_Descriptor.md). All'epoca dicevamo che erano utilissimi per spostare indirizzi tra macchine diverse. Ecco l'esempio della vita reale: spostare gli indirizzi da un portafoglio hardware al nodo Bitcoin Core, in modo che la nostra macchina connessa alla rete sia in grado di sorvegliare le chiavi possedute dal portafoglio hardware offline.
 
-Just as you learned in [§3.5](03_5_Understanding_the_Descriptor.md), you can examine these descriptors with the `getdescriptorinfo` RPC:
+Proprio come hai imparato nel [Capitolo 3.5](03_5_Comprendere_il_Descriptor.md), puoi esaminare questi descrittori con l'RPC `getdescriptorinfo`:
 ```
 $ bitcoin-cli getdescriptorinfo "wpkh([9a1d520b/84h/1h/0h]tpubDD7KTtoGzK9GuWUQcr1uTJazsAkqoXhdrwGXWVix6nPpNZmSbagZWD4QSaMsyK8YohAirGDPrWdRiEpKzTFB7DrTrqfzHCn7yi5EsqeR93S/0/*)#qttxy592"
 {
@@ -174,9 +175,9 @@ $ bitcoin-cli getdescriptorinfo "wpkh([9a1d520b/84h/1h/0h]tpubDD7KTtoGzK9GuWUQcr
   "hasprivatekeys": false
 }
 ```
-As you'd expect, we do _not_ have `privatekeys`, because hardware wallets hold on to those.
+Come ci si aspetterebbe, _non_ hai le "chiavi private", perché i portafogli hardware le conservano.
 
-With the descriptors in hand, you can import the keys into your new `ledger` wallet using the `importmulti` RPC that you also met in [§3.5](03_5_Understanding_the_Descriptor.md). In this case, just put the entire response you got back from HWI in `'`s.
+Con il descrittore in mano, puoi importare le chiavi nel tuo nuovo portafoglio `ledger` utilizzando l'RPC `importmulti` che hai incontrato anche nel [Capitolo 3.5](03_5_Comprendere_il_Descriptor.md). In questo caso, inserisci semplicemente l'intera risposta ricevuta da HWI in `'`.
 ```
 $ bitcoin-cli -rpcwallet=ledger importmulti '[{"desc": "wpkh([9a1d520b/84h/1h/0h]tpubDD7KTtoGzK9GuWUQcr1uTJazsAkqoXhdrwGXWVix6nPpNZmSbagZWD4QSaMsyK8YohAirGDPrWdRiEpKzTFB7DrTrqfzHCn7yi5EsqeR93S/0/*)#qttxy592", "range": [0, 1000], "timestamp": "now", "internal": false, "keypool": true, "active": true, "watchonly": true}, {"desc": "wpkh([9a1d520b/84h/1h/0h]tpubDD7KTtoGzK9GuWUQcr1uTJazsAkqoXhdrwGXWVix6nPpNZmSbagZWD4QSaMsyK8YohAirGDPrWdRiEpKzTFB7DrTrqfzHCn7yi5EsqeR93S/1/*)#3lw8ep4j", "range": [0, 1000], "timestamp": "now", "internal": true, "keypool": true, "active": true, "watchonly": true}]'
 [
@@ -188,9 +189,10 @@ $ bitcoin-cli -rpcwallet=ledger importmulti '[{"desc": "wpkh([9a1d520b/84h/1h/0h
   }
 ]
 ```
-(Note that HWI helpfully output the derivation path with `h`s to show hardened derivations rather than `'`s, and calculated its checksum accordingly, so that we don't have to do massive quoting like we did in §3.5.)
+(Si noti che HWI restituisce utilmente il percorso di derivazione con `h` per mostrare le derivazioni rafforzate anziché `'` e calcola il suo checksum di conseguenza, in modo da non dover fare citazioni massicce come abbiamo fatto nel Capitolo 3.5.)
 
-You _could_ now list all of the watch-only addresses that you received using the `getaddressesbylabel` command. All 1000 of the receive addresses are right there, in the `ledger` wallet!
+Ora _potresti_ elencare tutti gli indirizzi di watch-okly che hai ricevuto utilizzando il comando `getaddressesbylabel`. Tutti i 1000 indirizzi di ricezione sono proprio lì, nel portafoglio `ledger`!
+
 ```
 $ bitcoin-cli -rpcwallet=ledger getaddressesbylabel "" | more
 {
@@ -203,16 +205,16 @@ $ bitcoin-cli -rpcwallet=ledger getaddressesbylabel "" | more
 ...
 }
 ```
-## Receive a Transaction
+## Ricevi una transazione
 
-Obviously, receiving a transaction is simple. You use `getnewaddress` to request one of those imported addresses:
+Ovviamente, ricevere una transazione è semplice. Utilizzi "getnewaddress" per richiedere uno di quegli indirizzi importati:
 ```
 $ bitcoin-cli -rpcwallet=ledger getnewaddress
 tb1qqqvnezljtmc9d7x52udpc0m9zgl9leugd2ur7y
 ```
-Then you send money to it.
+Quindi gli invii denaro.
 
-The power of HWI is that you can watch the payments from your Bitcoin Core node, rather than having to plug in your hardware wallet and query it.
+Il potere di HWI è che puoi guardare i pagamenti dal tuo nodo Bitcoin Core, invece di dover collegare il tuo portafoglio hardware e interrogarlo.
 ```
 $ bitcoin-cli -rpcwallet=ledger listunspent
 [
@@ -244,11 +246,11 @@ $ bitcoin-cli -rpcwallet=ledger listunspent
   }
 ]
 ```
-## Create a Transaction with PSBT
+## Crea una transazione con PSBT
 
-Watching and receiving payments is just half the battle. You may also want to make payments using accounts held by your hardware wallet. This is the fourth real-life example for using PSBTs, per the process outlined in [§7.1: Creating a Partially Signed Bitcoin Transaction](7_1_Creating_a_Partially_Signed_Bitcoin_Transaction.md). 
+Controllare e ricevere pagamenti è solo metà dell'opera. Potresti anche voler effettuare pagamenti utilizzando gli account detenuti dal tuo portafoglio hardware. Questo è il quarto esempio di vita reale per l'utilizzo di PSBT, secondo il processo delineato in [Capitolo 7.1: Creare una transazione Bitcoin parzialmente firmata](07_1_Creare_una_Transazione_Bitcoin_Parzialmente_Firmata.md).
 
-The commands work exactly the same. In this case, use `walletcreatefundedpsbt` to form your PSBT because this is a situation where you don't care what UTXOs are used:
+I comandi funzionano esattamente allo stesso modo. In questo caso, usa `walletcreatefundedpsbt` per formare il tuo PSBT perché questa è una situazione in cui non ti interessa quali UTXO vengono utilizzati:
 ```
 $ bitcoin-cli -named -rpcwallet=ledger walletcreatefundedpsbt inputs='''[]''' outputs='''[{"tb1qcaedd724gts3aug73m78c7nfsv9d8zs9q6h2kd":0.015}]'''
 {
@@ -258,7 +260,8 @@ $ bitcoin-cli -named -rpcwallet=ledger walletcreatefundedpsbt inputs='''[]''' ou
 }
 ```
 
-You can take a look at the PSBT and verify that it looks rational:
+Puoi dare un'occhiata al PSBT e verificare che sembri razionale:
+
 ```
 $ psbt="cHNidP8BAJoCAAAAAri6BLjKQZGO9Y1iVIYbxlxBJ2kqsTPWnxGaH4HrSjxbAAAAAAD+////leV0hwJ0fO40RmhuFVIYtO16ktic2J4vJFLAsT5TM8cBAAAAAP7///8CYOMWAAAAAAAWABTHctb5VULhHvEejvx8emmDCtOKBU+gBwAAAAAAFgAU9Ojd5ds3CJi1fIRWbj92CYhQgX0AAAAAAAEBH0BCDwAAAAAAFgAUABk8i/Je8Fb41FcaHD9lEj5f54giBgMBaNlILisC1wJ/tKie3FStqhrfcJM09kfQobBTOCiuxRiaHVILVAAAgAEAAIAAAACAAAAAADkCAAAAAQEfQEIPAAAAAAAWABQtTxOfqohTBNFWFqFm0tUVdK9KXSIGAqATz5xLX1aJ2SUwNqPkd8+YaJYm94FMlPCScm8Rt0GrGJodUgtUAACAAQAAgAAAAIAAAAAAAAAAAAAAIgID2UK1nupSfXC81nmB65XZ+pYlJp/W6wNk5FLt5ZCSx6kYmh1SC1QAAIABAACAAAAAgAEAAAABAAAAAA=="
 
@@ -377,7 +380,7 @@ $ bitcoin-cli decodepsbt $psbt
   "fee": 0.00000209
 }
 ```
-And as usual, `analyzepsbt` will show how far you've gotten:
+E come al solito, `analyzepsbt` mostrerà quanto lontano sei arrivato:
 ```
 $ bitcoin-cli analyzepsbt $psbt
 {
@@ -409,20 +412,21 @@ $ bitcoin-cli analyzepsbt $psbt
   "next": "signer"
 }
 ```
-Because you imported that keypool, `bitcoin-cli` has all the information it needs to fill in the inputs, it just can't sign because the private keys are held on the hardware wallet.
+Poiché hai importato quel pool di chiavi, `bitcoin-cli` ha tutte le informazioni necessarie per compilare gli input, semplicemente non può firmare perché le chiavi private sono conservate nel portafoglio hardware.
 
-That's where HWI comes in, with the `signtx` command. You just send along the PSBT:
+È qui che entra in gioco HWI, con il comando `signtx`. Basta inviare lungo il PSBT:
 ```
 $ hwi -f 9a1d520b signtx $psbt
 ```
-Expect to have to do some fiddling with your hardware wallet at this point. The device will probably ask you to confirm the inputs, the outputs, and the fee. When you're done, it should return a new PSBT.
+Aspettatevi di dover armeggiare con il vostro portafoglio hardware a questo punto. Probabilmente il dispositivo ti chiederà di confermare gli ingressi, le uscite e la tariffa. Al termine, dovrebbe restituire un nuovo PSBT.
 
 ```
 {"psbt": "cHNidP8BAJoCAAAAAri6BLjKQZGO9Y1iVIYbxlxBJ2kqsTPWnxGaH4HrSjxbAAAAAAD+////leV0hwJ0fO40RmhuFVIYtO16ktic2J4vJFLAsT5TM8cBAAAAAP7///8CYOMWAAAAAAAWABTHctb5VULhHvEejvx8emmDCtOKBU+gBwAAAAAAFgAU9Ojd5ds3CJi1fIRWbj92CYhQgX0AAAAAAAEBH0BCDwAAAAAAFgAUABk8i/Je8Fb41FcaHD9lEj5f54giAgMBaNlILisC1wJ/tKie3FStqhrfcJM09kfQobBTOCiuxUcwRAIgAxkQlk2fqEMxvP54WWyiFhlfSul9sd4GzKDhfGpmlewCIHYej3zXWWMgWI6rixxQw9yzGozDaFPqQNNIvcFPk+lfASIGAwFo2UguKwLXAn+0qJ7cVK2qGt9wkzT2R9ChsFM4KK7FGJodUgtUAACAAQAAgAAAAIAAAAAAOQIAAAABAR9AQg8AAAAAABYAFC1PE5+qiFME0VYWoWbS1RV0r0pdIgICoBPPnEtfVonZJTA2o+R3z5holib3gUyU8JJybxG3QatHMEQCIH5t6T2yufUP7glYZ8YH0/PhDFpotSmjgZUhvj6GbCFIAiBcgXzyYl7IjYuaF3pJ7AgW1rLYkjeCJJ2M9pVUrq5vFwEiBgKgE8+cS19WidklMDaj5HfPmGiWJveBTJTwknJvEbdBqxiaHVILVAAAgAEAAIAAAACAAAAAAAAAAAAAACICA9lCtZ7qUn1wvNZ5geuV2fqWJSaf1usDZORS7eWQksepGJodUgtUAACAAQAAgAAAAIABAAAAAQAAAAA="}
 $ psbt_f="cHNidP8BAJoCAAAAAri6BLjKQZGO9Y1iVIYbxlxBJ2kqsTPWnxGaH4HrSjxbAAAAAAD+////leV0hwJ0fO40RmhuFVIYtO16ktic2J4vJFLAsT5TM8cBAAAAAP7///8CYOMWAAAAAAAWABTHctb5VULhHvEejvx8emmDCtOKBU+gBwAAAAAAFgAU9Ojd5ds3CJi1fIRWbj92CYhQgX0AAAAAAAEBH0BCDwAAAAAAFgAUABk8i/Je8Fb41FcaHD9lEj5f54giAgMBaNlILisC1wJ/tKie3FStqhrfcJM09kfQobBTOCiuxUcwRAIgAxkQlk2fqEMxvP54WWyiFhlfSul9sd4GzKDhfGpmlewCIHYej3zXWWMgWI6rixxQw9yzGozDaFPqQNNIvcFPk+lfASIGAwFo2UguKwLXAn+0qJ7cVK2qGt9wkzT2R9ChsFM4KK7FGJodUgtUAACAAQAAgAAAAIAAAAAAOQIAAAABAR9AQg8AAAAAABYAFC1PE5+qiFME0VYWoWbS1RV0r0pdIgICoBPPnEtfVonZJTA2o+R3z5holib3gUyU8JJybxG3QatHMEQCIH5t6T2yufUP7glYZ8YH0/PhDFpotSmjgZUhvj6GbCFIAiBcgXzyYl7IjYuaF3pJ7AgW1rLYkjeCJJ2M9pVUrq5vFwEiBgKgE8+cS19WidklMDaj5HfPmGiWJveBTJTwknJvEbdBqxiaHVILVAAAgAEAAIAAAACAAAAAAAAAAAAAACICA9lCtZ7qUn1wvNZ5geuV2fqWJSaf1usDZORS7eWQksepGJodUgtUAACAAQAAgAAAAIABAAAAAQAAAAA="
 ```
 
-When you analyze this, you'll see that it's ready to be finalized:
+Quando lo analizzi, vedrai che è pronto per essere finalizzato:
+
 ```
 $ bitcoin-cli analyzepsbt $psbt_f
 {
@@ -445,7 +449,7 @@ $ bitcoin-cli analyzepsbt $psbt_f
 }
 ```
 
-At this point you're back into standard territory:
+A questo punto sei di nuovo nel territorio standard:
 ```
 $ bitcoin-cli finalizepsbt $psbt_f
 {
@@ -456,21 +460,21 @@ $ hex=02000000000102b8ba04b8ca41918ef58d6254861bc65c4127692ab133d69f119a1f81eb4a
 $ bitcoin-cli sendrawtransaction $hex
 45f996d4ff8c9e9ab162f611c5b6ad752479ede9780f9903bdc80cd96619676d
 ```
-You've successfully sent funds using the private keys held on your hardware wallet!
+Hai inviato fondi con successo utilizzando le chiavi private conservate nel tuo portafoglio hardware!
 
-## Learn Other HWI Commands
+## Scopri altri comandi HWI
 
-There are a variety of other commands available for use with HWI. At the time of this writing, they are:
+Sono disponibili numerosi altri comandi da utilizzare con HWI. Al momento in cui scrivo, ci sono:
 ```
 numerate,getmasterxpub,signtx,getxpub,signmessage,getkeypool,getdescriptors,displayaddress,setup,wipe,restore,backup,promptpin,togglepassphrase,sendpin
 ```
 
-## Summary: Integrating with Hardware Wallets
+## Riepilogo: Integrazione con hardware wallet
 
-Hardware wallets can offer better protection by keeping your private keys offline, protected in the hardware. Fortunately, there's still a way to interact with them using `bitcoin-cli`. You just install HWI and it will then allow you to (1) import public keys to watch them; and (2) sign transactions using your hardware wallet.
+I hardware wallet possono offrire una migliore protezione mantenendo le tue chiavi private offline, protette nell'hardware. Fortunatamente, c'è ancora un modo per interagire con loro utilizzando "bitcoin-cli". Basta installare HWI e ti consentirà quindi di (1) importare chiavi pubbliche e guardarle; e (2) firmare le transazioni utilizzando il tuo hardware wallet.
 
-> :fire: ***What's the power of HWI?*** HWI lets you interact with hardware wallets using all of the commands of `bitcoin-cli` that you've learned to date. You can make raw transactions of any sort, then send PSBTs to  hardware wallets for signing. Thus, you have all of the power of Bitcoin Core, but you also have the security of a hardware device.
+> :fire: ***Qual è il potere di HWI?*** HWI ti consente di interagire con i portafogli hardware utilizzando tutti i comandi di `bitcoin-cli` che hai imparato fino ad oggi. Puoi effettuare transazioni grezze di qualsiasi tipo, quindi inviare PSBT ai portafogli hardware per la firma. Pertanto, hai tutta la potenza di Bitcoin Core, ma hai anche la sicurezza di un dispositivo hardware.
 
-## What's Next?
+## Qual è il prossimoargomento?
 
-Expand Bitcoin Transactions more with [Chapter Eight: Expanding Bitcoin Transactions in Other Ways](08_0_Expanding_Bitcoin_Transactions_Other.md).
+Espandi maggiormente le transazioni Bitcoin con il [Capitolo 8: Ampliare Altre Transazioni Bitcoin](08_0_Ampliare_Altre_Transazioni_Bitcoin.md).
