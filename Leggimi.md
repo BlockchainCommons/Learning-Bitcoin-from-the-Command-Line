@@ -31,7 +31,7 @@ Se desideri effettuare la tua traduzione, guarda qui [Contribuire](CONTRIBUIRE.m
 
 ### SECONDA PARTE: USARE BITCOIN-CLI
 
-**Status:** Prima traduzione parziale, da revisionare.
+**Status:** Prima traduzione completa, da revisionare.
 
 * [3_0 Comprendere la Configurazione di Bitcoin](03_0_Comprendere_la_Configurazione_di_Bitcoin.md)
   * [03_1 Verificare la configurazione Bitcoin](03_1_Verificare_la_configurazione_Bitcoin.md)
@@ -61,13 +61,13 @@ Se desideri effettuare la tua traduzione, guarda qui [Contribuire](CONTRIBUIRE.m
   * [07_1 Creare una Transazione Bitcoin Parzialmente Firmata](07_1_Creare_una_Transazione_Bitcoin_Parzialmente_Firmata.md)
   * [07_2 Usare una Transazione Bitcoin Parzialmente Firmata](07_2_Usare_una_Transazione_Bitcoin_Parzialmente_Firmata.md)
   * [07_3 Integrazione con Hardware Wallets](07_3_Integrazione_con_Hardware_Wallets.md)
-* 08_0_Ampliare_Altre_Transazioni_Bitcoin.md
-  * 08_1_Inviare_una_Transazione_con_Blocco_temporale.md
-  * 08_2_Inviare_una_Transazione_con_Dati.md
+* [08_0 Ampliare Altre Transazioni Bitcoin](08_0_Ampliare_Altre_Transazioni_Bitcoin.md)
+  * [08_1 Inviare una Transazione con Blocco temporale](08_1_Inviare_una_Transazione_con_Blocco_temporale.md)
+  * [08_2 Inviare una Transazione con Dati](08_2_Inviare_una_Transazione_con_Dati.md)
   
 ### TERZA PARTE: BITCOIN SCRIPTING
 
-**Status:** Da fare...
+**Status:** Prima traduzione parziale, da revisionare...
 
 * 09_0_Introduzione_script_di_Bitcoin.md
   * 09_1_Le_basi_delle_transazioni.md
