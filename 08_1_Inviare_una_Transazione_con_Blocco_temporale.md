@@ -26,7 +26,7 @@ Molto spesso imposterai il locktime su un timestamp UNIX che rappresenta una dat
 
 > :book: **_Perché dovrei utilizzare un timestamp UNIX?_** L'uso di un timestamp UNIX rende semplice collegare definitivamente una transazione a un'ora specifica, senza preoccuparsi se la velocità di creazione del blocco potrebbe cambiare ad un certo punto. Soprattutto se stai creando un locktime lontano nel futuro, è la cosa più sicura da fare. Ma, oltre a ciò, è semplicemente più intuitivo, poiché crea una correlazione diretta tra una data di calendario e l'ora in cui la transazione può essere estratta.
 
-> :avviso: **ATTENZIONE:** Il locktime con i timestamp UNIX ha un po' di margine di manovra: il rilascio dei blocchi non è regolare e gli orari dei blocchi possono essere due ore avanti rispetto al tempo reale, quindi un locktime in realtà significa "entro pochi ore di questo tempo, più o meno".
+> :warning: **ATTENZIONE:** Il locktime con i timestamp UNIX ha un po' di margine di manovra: il rilascio dei blocchi non è regolare e gli orari dei blocchi possono essere due ore avanti rispetto al tempo reale, quindi un locktime in realtà significa "entro pochi ore di questo tempo, più o meno".
 
 ### Determina il tempo di chiusura in base all'altezza del blocco
 
@@ -102,7 +102,7 @@ Tieni presente che il numero di sequenza (`4294967294`) è inferiore a `0xffffff
 
 > :information_source: **NOTA — SEQUENCE:** Questo è il secondo utilizzo del valore `nSequence` in Bitcoin. Come con RBF, `nSequence` viene nuovamente utilizzato come opt-in, questa volta per l'utilizzo di locktime. 0xffffffff-1 (4294967294) è il valore preferito per segnalare locktime perché non consente intenzionalmente l'uso sia di RBF (che richiede `nSequence < 0xffffffff-1`) che di timelock relativo (che richiede `nSequence < 0xf0000000`), gli altri due usano del valore "nSequence". Se imposti "nSequence" su un valore inferiore a "0xf0000000", bloccherai anche la transazione, il che probabilmente non è quello che desideri.
 
-> :avviso: **AVVISO:** Se stai creando una transazione grezza locktime con un mezzo diverso da `bitcoin-cli`, dovrai impostare manualmente la sequenza su un valore inferiore a `0xffffffff`.
+> :warning: **AVVISO:** Se stai creando una transazione grezza locktime con un mezzo diverso da `bitcoin-cli`, dovrai impostare manualmente la sequenza su un valore inferiore a `0xffffffff`.
 
 ## Invia la tua transazione
 
