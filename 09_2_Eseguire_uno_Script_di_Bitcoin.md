@@ -105,7 +105,7 @@ Stack: [ True ]
 ```
 Questa astrazione non è del tutto accurata: per motivi di sicurezza, viene eseguito `scriptSig`, quindi il contenuto dello stack viene trasferito per l'esecuzione di `scriptPubKey`, ma è sufficientemente accurato per comprendere come si inserisce la chiave di `scriptSig` il blocco di `scriptPubKey`.
 
-> :warning: **AAVVISO** Quanto sopra è un tipo di transazione non standard. In realtà non sarebbe accettato dai nodi che eseguono Bitcoin Core con le impostazioni standard. [Capitolo 10.1:Comprendere la Base di P2SH](10_1_Comprendere_la_Base_di_P2SH.md) spiega come effettivamente _potresti_ eseguire uno script Bitcoin come questo, utilizzando la potenza di P2SH.
+> :warning: **AVVISO** Quanto sopra è un tipo di transazione non standard. In realtà non sarebbe accettato dai nodi che eseguono Bitcoin Core con le impostazioni standard. [Capitolo 10.1:Comprendere la Base di P2SH](10_1_Comprendere_la_Base_di_P2SH.md) spiega come effettivamente _potresti_ eseguire uno script Bitcoin come questo, utilizzando la potenza di P2SH.
 
 ### Ottieni i risultati
 
