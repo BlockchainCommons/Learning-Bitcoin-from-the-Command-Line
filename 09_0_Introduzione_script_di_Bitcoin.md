@@ -1,27 +1,27 @@
-# Chapter 9: Introducing Bitcoin Scripts
+# Capitolo 9: Introduzione agli script Bitcoin
 
-To date, we've been interacting with Bitcoin at a relatively high level of abstraction. The `bitcoin-cli` program offers access to a variety of RPC commands that support the creation and control of raw Bitcoin transactions that include funds, data, timelocks, and multisigs.
+Finora, abbiamo interagito con Bitcoin a un livello di astrazione relativamente elevato. Il programma `bitcoin-cli` offre accesso a una varietà di comandi RPC che supportano la creazione e il controllo di transazioni Bitcoin raw che includono fondi, dati, timelock e multisig.
 
-However, Bitcoin offers much more complexity than that. It includes a simple scripting language that can be used to create even more complex redemption conditions. If multisigs and timelocks provided the basis of Smart Contracts, then Bitcoin Script builds high on that foundation. It's the next step in empowering Bitcoin.
+Tuttavia, Bitcoin offre molta più complessità di così. Include un semplice linguaggio di scripting che può essere utilizzato per creare condizioni di riscatto ancora più complesse. Se multisig e timelock hanno fornito la base degli Smart Contract, allora Bitcoin Script si fondamenta su quella base. È il passo successivo per potenziare Bitcoin.
 
-## Objectives for This Chapter
+## Obiettivi di questo capitolo
 
-After working through this chapter, a developer will be able to:
+Dopo aver completato questo capitolo, uno sviluppatore sarà in grado di:
 
-   * Design a Bitcoin Script
-   * Apply a Bitcoin Script
-   
-Supporting objectives include the ability to:
+* Progettare uno script Bitcoin
+* Applicare uno script Bitcoin
 
-   * Understand the Purpose of Bitcoin Scripts
-   * Understand the P2PKH Script
-   * Understand How P2WPKH Works with Scripting
-   * Understand the Needs for Bitcoin Script Testing
-   
-## Table of Contents
+Gli obiettivi di supporto includono la capacità di:
 
-* [Section One: Understanding the Foundation of Transactions](09_1_Understanding_the_Foundation_of_Transactions.md)
-* [Section Two: Running a Bitcoin Script](09_2_Running_a_Bitcoin_Script.md)
-* [Section Three: Testing a Bitcoin Script](09_3_Testing_a_Bitcoin_Script.md)
-* [Section Four: Scripting a P2PKH](09_4_Scripting_a_P2PKH.md)
-* [Section Five: Scripting a P2WPKH](09_5_Scripting_a_P2WPKH.md)
+* Comprendere lo scopo degli script Bitcoin
+* Comprendere lo script P2PKH
+* Comprendere come funziona P2WPKH con lo scripting
+* Comprendere le esigenze per il test degli script Bitcoin
+
+## Indice
+
+* [Capitolo 9.1: Le basi delle transazioni](09_1_Le_basi_delle_transazioni.md)
+* [Capitolo 9.2: Eseguire uno Script di Bitcoin](09_2_Eseguire_uno_Script_di_Bitcoin.md)
+* [Capitolo 9.3: Provare uno Script Bitcoin](09_3_Provare_uno_Script_Bitcoin.md)
+* [Capitolo 9.4: Programmare una 2PKH](09_4_Programmare_una_P2PKH.md)
+* [Capitolo 9.5: Programmare una P2WPKH](09_5_Programmare_una_P2WPKH.md)
