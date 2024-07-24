@@ -1,26 +1,26 @@
-# Chapter 10: Embedding Bitcoin Scripts in P2SH Transactions
+# Capitolo 10: Inserire script Bitcoin nelle transazioni P2SH
 
-Bitcoin Script moves down several levels of abstraction, allowing you to minutely control the redemption conditions of Bitcoin funds. But, how do you actually incorporate those Bitcoin Scripts into the transactions you've been building to date? The answer is a new sort of Bitcoin transaction, the P2SH.
+Bitcoin Script scende su diversi livelli di astrazione, consentendoti di controllare minuziosamente le condizioni di riscatto dei fondi Bitcoin. Ma come puoi effettivamente incorporare questi script Bitcoin nelle transazioni che hai costruito fino ad oggi? La risposta è un nuovo tipo di transazione Bitcoin, la P2SH.
 
-## Objectives for This Chapter
+## Obiettivi di questo capitolo
 
-After working through this chapter, a developer will be able to:
+Dopo aver letto questo capitolo, uno sviluppatore sarà in grado di:
 
-   * Design a P2SH Transaction
-   * Apply a P2SH Bitcoin Script
-   
-Supporting objectives include the ability to:
+ * Progettare una transazione P2SH
+ * Applicare uno script Bitcoin P2SH
 
-   * Understand the P2SH Script
-   * Understand the Multisig Script
-   * Understand the Various Segwit Variations of Scripts
-   * Understand How to Spend Funds Sent to a P2SH
-   
-## Table of Contents
+Gli obiettivi di supporto includono la capacità di:
 
-* [Section One: Understanding the Foundation of P2SH](10_1_Understanding_the_Foundation_of_P2SH.md)
-* [Section Two: Building the Structure of P2SH](10_2_Building_the_Structure_of_P2SH.md)  
-* [Section Three: Running a Bitcoin Script with P2SH](10_3_Running_a_Bitcoin_Script_with_P2SH.md)
-* [Section Four: Scripting a Multisig](10_4_Scripting_a_Multisig.md)
-* [Section Five: Scripting a Segwit Script](10_5_Scripting_a_Segwit_Script.md)
-* [Section Six: Spending a P2SH Transaction](10_6_Spending_a_P2SH_Transaction.md)
+ * Comprendere lo script P2SH
+ * Comprendere lo script Multisig
+ * Comprendere le diverse variazioni Segwit degli script
+ * Comprendere come spendere i fondi inviati a un P2SH
+
+## Sommario
+
+* [Capitolo 10.1: Comprendere la Base di P2SH](10_1_Comprendere_la_Base_di_P2SH.md)
+* [Capitolo 10.2: Construire la Struttura di P2SH](10_2_Construire_la_Struttura_di_P2SH.md)
+* [Capitolo 10.3: Eseguire un Script Bitcoin con P2SH](10_3_Eseguire_un_Script_Bitcoin_con_P2SH.md)
+* [Capitolo 10.4: Programmare una Multifirma](10_4_Programmare_una_Multifirma.md)
+* [Capitolo 10.5: Programmare uno Script Segwit](10_5_Programmare_uno_Script_Segwit.md)
+* [Capitolo 10.6: Spendere una Transazione P2SH](10_6_Spendere_una_Transazione_P2SH.md)
