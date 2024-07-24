@@ -69,13 +69,13 @@ Se desideri effettuare la tua traduzione, guarda qui [Contribuire](CONTRIBUIRE.m
 
 **Status:** Prima traduzione parziale, da revisionare...
 
-* 09_0_Introduzione_script_di_Bitcoin.md
-  * 09_1_Le_basi_delle_transazioni.md
-  * 09_2_Eseguire_uno_Script_di_Bitcoin.md
-  * 09_3_Provare_uno_Script_Bitcoin.md
-  * 09_4_Programmare_una_P2PKH.md
-  * 09_5_Programmare_una_P2WPKH.md
-* 10_0_Inserire_Scripts_di_Bitcoin_in_Transazioni_P2SH.md
+* [09_0 Introduzione script di Bitcoin](09_0_Introduzione_script_di_Bitcoin.md)
+  * [09_1 Le basi delle transazioni](09_1_Le_basi_delle_transazioni.md)
+  * [09_2 Eseguire uno Script di Bitcoin](09_2_Eseguire_uno_Script_di_Bitcoin.md)
+  * [09_3 Provare uno Script Bitcoin](09_3_Provare_uno_Script_Bitcoin.md)
+  * [09_4 Programmare una P2PKH](09_4_Programmare_una_P2PKH.md)
+  * [09_5 Programmare una P2WPKH](09_5_Programmare_una_P2WPKH.md)
+* [10_0_Inserire Scripts di Bitcoin in Transazioni P2SH](10_0_Inserire_Scripts_di_Bitcoin_in_Transazioni_P2SH.md)
   * 10_1_Comprendere_la_Base_di_P2SH.md
   * 10_2_Construire_la_Struttura_di_P2SH.md
   * 10_3_Eseguire_uno_Script_Bitcoin_con_P2SH.md
