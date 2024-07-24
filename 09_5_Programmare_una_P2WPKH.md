@@ -1,12 +1,12 @@
-# 9.5: Scripting a P2WPKH
+# 9.5: Script di un P2WPKH
 
-> :information_source: **NOTE:** This section has been recently added to the course and is an early draft that may still be awaiting review. Caveat reader.
+> :information_source: **NOTA:** Questa sezione è stata aggiunta di recente al corso ed è una bozza iniziale che potrebbe essere ancora in attesa di revisione. Lettor avvisato.
 
-P2PKHs are fine for explaining the fundamental way that Bitcoin Scripts work, but what about native SegWit P2WPKH scripts, which are increasingly becoming the majority of Bitcoin transactions? As it turns out, P2WPKH addresses don't use Bitcoin Scripts like traditional Bitcoin addresses do, and so this section is really a digression from the scripting of this chapter — but an important one, because it outlines the _other_ major way in which Bitcoins can be transacted.
+I P2PKH vanno bene per spiegare il modo fondamentale in cui funzionano gli script Bitcoin, ma che dire degli script nativi SegWit P2WPKH, che stanno diventando sempre più la maggior parte delle transazioni Bitcoin? A quanto pare, gli indirizzi P2WPKH non utilizzano script Bitcoin come fanno gli indirizzi Bitcoin tradizionali, quindi questa sezione è in realtà una digressione dallo scripting di questo capitolo, ma importante, perché delinea l'_altro_ modo principale in cui i Bitcoin possono essere transati.
 
-## View a P2WPKH Script
+## Visualizzare uno script P2WPKH
 
-It's easy enough to see what a P2WPKH script looks like. The following raw transaction was created by spending a P2WPKH UTXO and then sending the money on to a P2WPKH change address — just as we did with a legacy address in [§9.1](09_1_Understanding_the_Foundation_of_Transactions.md).
+È abbastanza facile vedere come appare uno script P2WPKH. La seguente transazione grezza è stata creata spendendo un UTXO P2WPKH e quindi inviando il denaro a un indirizzo di resto P2WPKH, proprio come abbiamo fatto con un indirizzo legacy nel [Capitolo 9.1](09_1_Le_basi_delle_transazioni.md).
 ```
 $ bitcoin-cli -named decoderawtransaction hexstring=$signedtx
 {
@@ -51,25 +51,26 @@ $ bitcoin-cli -named decoderawtransaction hexstring=$signedtx
 ```
 There are probably two surprising things here: (1) There's no `scriptSig` to unlock the previous transaction; and (2) the `scriptPubKey` to lock the new transaction is just `0 92a0db923b3a13eb576a40c4b35515aa30206cb`.
 
-That's, quite simply, because P2WPKH works differently!
+Questo è molto semplice perché P2WPKH funziona diversamente!
 
-## Understand a P2WPKH Transaction
+## Comprendere una transazione P2WPKH
 
-A P2WPKH transaction contains all the same information as a classic P2PKH transaction, but it places it in weird places, not within a traditional Bitcoin Script — and, that's the exact point of SegWit transactions, to pull the "witness" information, which is to say the public keys and signatures, out of the transaction to support a change to block size. 
+Una transazione P2WPKH contiene tutte le stesse informazioni di una transazione P2PKH classica, ma le colloca in posti strani, non all'interno di un tradizionale Bitcoin Script - e, questo è lo scopo esatto delle transazioni SegWit, per estrarre le informazioni `testimone`, cioè chiavi pubbliche e firme, fuori dalla transazione.
 
-But, if you look carefully, you'll see that the empty `scriptSig` has been replaced with two entries in a new `txinwitness` section. If you examine their sizes and formatting, they should seem familiar: they're a signature and public key. Similarly, if you look in the `scriptPubKey`, you'll see that it's made up of a `0` (actually: `OP_0`, it's the SegWit version number) and another long number, which is the public-key hash.
+Ma, se guardi attentamente, vedrai che il vuoto `scriptSig` è stato sostituito con due voci in una nuova sezione `txinwitness`. Se ne esamini le dimensioni e la formattazione, dovrebbero sembrarti familiari: sono una firma e una chiave pubblica. Allo stesso modo, se guardi "scriptPubKey", vedrai che è composto da uno "0" (in realtà: "OP_0", è il numero di versione di SegWit) e un altro numero lungo, che è l'hash della chiave pubblica.
 
-Here's a comparison of our two examples:
+Ecco un confronto tra i nostri due esempi:
+
 | Type | PubKeyHash | PubKey | Signature |
 |----------------|----------|-------------|---------|
 | SegWit | 92a0db923b3a13eb576a40c4b35515aa30206cba | 03839e6035b33e37597908c83a2f992ec835b093d65790f43218cb49ffe5538903 | 3044022064f633ccfc4e937ef9e3edcaa9835ea9a98d31fbea1622c1d8a38d4e7f8f6cb602204bffef45a094de1306f99da055bd5a603a15c277a59a48f40a615aa4f7e5038001 |
 | non-SegWit | 06b5c6ba5330cdf738a2ce91152bfd0e71f9ec39 | 0315a0aeb37634a71ede72d903acae4c6efa77f3423dcbcd6de3e13d9fd989438b | 04402201cc39005b076cb06534cd084fcc522e7bf937c4c9654c1c9dfba68b92cbab7d1022066f273178febc7a37568e2e9f4dec980a2e9a95441abe838c7ef64c39d85849c |
 
-So how does this work? It depends on old code interpreting this as a valid transaction and new code knowing to check the new "witness" information
+Allora come funziona? Dipende dal vecchio codice che lo interpreta come una transazione valida e dal nuovo codice che sa controllare le nuove informazioni "testimone".
 
-### Read a SegWit Script on an Old Machine
+### Leggere uno script SegWit su un nodo non aggiornato
 
-If a node has not been upgraded to support SegWit, then it does its usual trick of concatenating the `scriptSig` and the `scriptPubKey`. This produces: `0 92a0db923b3a13eb576a40c4b35515aa30206cba` (because there's only a `scriptPubKey`). Running that will produce a stack with everything on it in reverse order:
+Se un nodo non è stato aggiornato per supportare SegWit, esegue il solito trucco di concatenare `scriptSig` e `scriptPubKey`. Questo produce: `0 92a0db923b3a13eb576a40c4b35515aa30206cba` (perché c'è solo uno `scriptPubKey`). L'esecuzione produrrà una pila con tutto ciò che contiene in ordine inverso:
 ```
 $ btcdeb '[0 92a0db923b3a13eb576a40c4b35515aa30206cba]'
 btcdeb 0.2.19 -- type `btcdeb -h` for start up options
@@ -94,26 +95,26 @@ script                                   |                                   sta
                                          | 92a0db923b3a13eb576a40c4b35515aa30206cba
                                          | 0x
 ```
-Bitcoin Scripts are considered successful if there's something in the Stack, and it's non-zero, so SegWit scripts automatically succeed on old nodes as long as the `scriptPubKey` is correctly created with a non-zero pub-key hash. This is called an "anyone-can-spend" transaction, because old nodes verified them as correct without any need for signatures.
+Gli script Bitcoin sono considerati riusciti se c'è qualcosa nello stack ed è diverso da zero, quindi gli script SegWit riescono automaticamente sui vecchi nodi purché `scriptPubKey` venga creato correttamente con un hash pub-key diverso da zero. Questa è chiamata transazione "chiunque può spendere", perché i vecchi nodi le hanno verificate come corrette senza bisogno di firme.
 
-> :book: ***Why can't old nodes steal SegWit UTXOs?*** SegWit was enabled on the Bitcoin network when 95% of miners signalled that they were ready to start using it. That means that only 5% of nodes at that point might have registered anyone-can-spend SegWit transactions as valid without going through the proper work of checking the `txinwitness`. If they incorrectly incorporated an invalid anyone-can-spend UTXO into a block, the other 95% of nodes would refuse to validate that block, and so it would quickly be orphaned rather than being added to the "main" blockchain. (Certainly, 51% of nodes could choose to stop interpreting SegWit transactions correctly, but 51% of nodes can do anything on a consensus network like a blockchain.)
+> :book: ***Perché i vecchi nodi non possono rubare gli UTXO SegWit?*** SegWit è stato abilitato sulla rete Bitcoin quando il 95% dei minatori ha segnalato di essere pronto per iniziare a utilizzarlo. Ciò significa che solo il 5% dei nodi a quel punto avrebbe potuto registrare come valide le transazioni SegWit “chiunque può spendere” senza passare attraverso il lavoro adeguato di controllo del `txinwitness`. Se incorporassero erroneamente un UTXO non valido che chiunque può spendere in un blocco, il restante 95% dei nodi si rifiuterebbe di convalidare quel blocco, e quindi rimarrebbe rapidamente orfano anziché essere aggiunto alla blockchain "principale". (Certamente, il 51% dei nodi potrebbe scegliere di smettere di interpretare correttamente le transazioni SegWit, ma il 51% dei nodi può fare qualsiasi cosa su una rete di consenso come una blockchain.)
 
-Because old nodes always see SegWit scripts as correct, they will always verify them, even without understanding their content.
+Poiché i vecchi nodi vedono sempre gli script SegWit come corretti, li verificheranno sempre, anche senza comprenderne il contenuto.
 
-### Read a SegWit Script on a New Machine
+### Leggere uno script SegWit su un nodo aggiornato
 
-A machine that understands how SegWit work does the exact same things that it would with an old P2PKH script, but it doesn't use a script per se: it just knows that it needs to hash the public key in the `txinwitness`, check that against the hashed key after the version number in the `scriptPubKey` and then run `OP_CHECKSIG` on the signature and public key in the `txinwitness`.
+Un nodo che capisce come funziona SegWit fa esattamente le stesse cose che farebbe con un vecchio script P2PKH, ma non usa uno script di per sé: sa solo che deve eseguire l'hashing della chiave pubblica nel `txinwitness`, controlla quello contro la chiave con hash dopo il numero di versione in "scriptPubKey" e quindi eseguire "OP_CHECKSIG" sulla firma e sulla chiave pubblica in "txinwitness".
 
-So, it's another way of doing the same thing, but without having the scripts built into the transactions. (The process is built into the node software instead.)
+Quindi, è un altro modo di fare la stessa cosa, ma senza avere gli script integrati nelle transazioni. (Il processo è invece integrato nel software del nodo.)
 
-## Summary: Scripting a Pay to Witness Public Key Hash
+## Riepilogo: Programmare un transazione Pay to Witness Public Key Hash
 
-To a large extent you _don't_ script a P2WPKH. Instead, Bitcoin Core creates the transaction in a different way, placing the witness information in a different place rather than a traditional `scriptSig`. That means that P2WPKHs are a digression from the Bitcoin Scripts of this part of the book, because they're an expansion of Bitcoin that steps away from traditional Scripting.
+In larga misura _non_ scrivi un P2WPKH. Invece, Bitcoin Core crea la transazione in un modo diverso, posizionando le informazioni del testimone in un posto diverso rispetto al tradizionale `scriptSig`. Ciò significa che i P2WPKH sono una digressione dagli script Bitcoin di questa parte del libro, perché sono un'espansione di Bitcoin che si allontana dagli script tradizionali.
 
-However, SegWit was also a clever usage of Bitcoin Scripts. Knowing that there would be nodes that didn't upgrade and needing to stay backward compatible, the developers created the P2WPKH format so that it generated a script that always validated on old nodes (while still having that script provide information to new nodes in the form of a version number and a hashed public key).
+Tuttavia, SegWit è stato anche un uso intelligente degli script Bitcoin. Sapendo che ci sarebbero stati nodi che non si sarebbero aggiornati e che avrebbero dovuto rimanere compatibili con le versioni precedenti, gli sviluppatori hanno creato il formato P2WPKH in modo da generare uno script sempre convalidato sui vecchi nodi (pur mantenendo lo script che fornisce informazioni ai nuovi nodi nel formato di un numero di versione e una chiave pubblica hashata).
 
-When you're programming from the command line, you fundamentally don't have to worry about this, other than knowing that you won't find traditional scripts in raw SegWit transactions (which, again, was the point).
+Quando programmi dalla riga di comando, fondamentalmente non devi preoccuparti di questo, a parte sapere che non troverai script tradizionali nelle transazioni SegWit grezze (che, ancora una volta, era il punto).
 
-## What's Next?
+## Che segue ?
 
-Continue "Bitcoin Scripting" with [Chapter 10: Embedding Bitcoin Scripts in P2SH Transactions](10_0_Embedding_Bitcoin_Scripts_in_P2SH_Transactions.md).
+Continua "Programmando Bitcoin" col [Capitolo 10: Inserire Scripts di Bitcoin in Transazioni P2SH](10_0_Inserire_Scripts_di_Bitcoin_in_Transazioni_P2SH.md).
