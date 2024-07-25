@@ -1,42 +1,43 @@
-# 10.6: Spending a P2SH Transaction
+# 10.6: Spendere una Transazione P2SH
 
-Before we close out this overview of P2SH transactions, we're going to touch upon how to spend them. This section is mainly an overview, referring back to a previous section where we _already_ spent a P2SH transaction.
+Prima di concludere questa panoramica sulle transazioni P2SH, toccheremo come spenderle. Questa sezione è principalmente una panoramica, facendo riferimento a una sezione precedente in cui abbiamo _già_ speso una transazione P2SH.
 
-## Use the Redeem Script
+## Usa il Redeem Script
 
-As we saw in [§6.2: Spending a Transaction with a Multisig](06_2_Spending_a_Transaction_to_a_Multisig.md), spending a P2SH transaction is all about having that serialized version of the locking script, the so-called _redeemScript_. So, the first step in being able to spend a P2SH transaction is making sure that you save the _redeemScript_ before you give out the P2SH address to everyone. 
+Come abbiamo visto in [Capitolo 6.2: Spendere una Transazione con un Indirizzo Multifirma](06_2_Spendere_una_Transazione_con_un_Indirizzo_Multifirma.md), spendere una transazione P2SH riguarda tutto l'avere quella versione serializzata dello script di blocco, il cosiddetto _redeemScript_. Quindi, il primo passo per poter spendere una transazione P2SH è assicurarsi di salvare il _redeemScript_ prima di distribuire l'indirizzo P2SH a tutti.
 
-### Collect Your Variables
+### Raccogli le Tue Variabili
 
-Because P2SH addresses other than the special multisig and nested Segwit addresses aren't integrated into `bitcoin-cli` there will be no short-cuts for P2SH spending like you saw in [§6.3: Sending an Automated Multisig](06_3_Sending_an_Automated_Multisig.md). You're going to need to collect all the more complex variables on your own!
+Poiché gli indirizzi P2SH, diversi dagli indirizzi multisig speciali e dagli indirizzi Segwit annidati, non sono integrati in `bitcoin-cli`, non ci saranno scorciatoie per spendere P2SH come hai visto in [Capitolo 6.3: Inviare e Ricevere una Multifirma Automatizzata](06_3_Inviare_e_Ricevere_una_Multifirma_Automatizzata.md). Dovrai raccogliere tutte le variabili più complesse da solo!
 
-This means that you need to collect:
+Questo significa che devi raccogliere:
 
-   * The `hex` of the `scriptPubKey` for the transaction you're spending 
-   * The serialized `redeemScript`
-   * Any private keys, since you'll be signing by hand
-   * All of the regular `txids`, `vouts`, and `addresses` that you'd need
+   * L'`hex` dello `scriptPubKey` per la transazione che stai spendendo
+   * Il `redeemScript` serializzato
+   * Qualsiasi chiave privata, poiché firmerai manualmente
+   * Tutti i normali `txids`, `vouts` e `addresses` di cui avresti bisogno
 
-## Create the Transaction
+## Creare la Transazione
 
-As we saw in §6.2, the creation of a transaction is pretty standard:
+Come abbiamo visto in §6.2, la creazione di una transazione è abbastanza standard:
+
 ```
 $ rawtxhex=$(bitcoin-cli -named createrawtransaction inputs='''[ { "txid": "'$utxo_txid'", "vout": '$utxo_vout' } ]''' outputs='''{ "'$recipient'": 0.00005}''')
 $ echo $rawtxhex
 020000000121654fa95d5a268abf96427e3292baed6c9f6d16ed9e80511070f954883864b10000000000ffffffff0188130000000000001600142c48d3401f6abed74f52df3f795c644b4398844600000000
 ```
-However, signing requires entering extra information for the (1) `scriptPubKey`; (2) the `redeemScript`; and (3) any required private keys.
+Tuttavia, firmare richiede l'inserimento di informazioni extra per (1) `scriptPubKey`; (2) il `redeemScript`; e (3) qualsiasi chiave privata necessaria.
 
-Here's the example of doing so for that P2SH-embedded multisig in §6.2:
+Ecco l'esempio di farlo per quel multisig incorporato in P2SH nel Capitolo6.2:
 ```
 $ bitcoin-cli -named signrawtransactionwithkey hexstring=$rawtxhex prevtxs='''[ { "txid": "'$utxo_txid'", "vout": '$utxo_vout', "scriptPubKey": "'$utxo_spk'", "redeemScript": "'$redeem_script'" } ]''' privkeys='["cNPhhGjatADfhLD5gLfrR2JZKDE99Mn26NCbERsvnr24B3PcSbtR"]'
 ```
-With any other sort of P2SH you're going to be including a different `redeemscript`, but otherwise the practice is exactly the same. The only difference is that after two chapters of work on Scripts you now understand what the `scriptPubKey` is and what the `redeemScript` is, so hopefully what were mysterious elements four chapters ago are now old hat.
+Con qualsiasi altro tipo di P2SH includerai un diverso `redeemscript`, ma per il resto la pratica è esattamente la stessa. L'unica differenza è che dopo due capitoli di lavoro sugli Script ora capisci cos'è lo `scriptPubKey` e cos'è il `redeemScript`, quindi spero che quelli che erano elementi misteriosi quattro capitoli fa siano ora familiari.
 
-## Summary: Spending a P2SH Transaction
+## Riepilogo: Spendere una Transazione P2SH
 
-You already spent a P2SH back in Chapter 6, when you resent a multsig transaction the hard way, which required lining up the `scriptPubKey` and `redeemScript` information. Now you know that the `scriptPubKey` is a standardized P2SH locking script, while the `redeemScript` matches a hash in that locking script and that you need to be able to run it with the proper variables to receive a `True` result. But other than knowing more, there's nothing new in spending a P2SH transaction, because you already did it!
+Hai già speso una P2SH nel Capitolo 6, quando hai reinviato una transazione multisig nel modo difficile, che richiedeva di allineare le informazioni `scriptPubKey` e `redeemScript`. Ora sai che lo `scriptPubKey` è uno script di blocco P2SH standardizzato, mentre il `redeemScript` corrisponde a un hash in quello script di blocco e che devi essere in grado di eseguirlo con le variabili appropriate per ottenere un risultato `True`. Ma oltre a sapere di più, non c'è nulla di nuovo nello spendere una transazione P2SH, perché lo hai già fatto!
 
-## What's Next?
+## Cosa c'è Dopo?
 
-Advance through "Bitcoin Scripting" with [Chapter Eleven: Empowering Timelock with Bitcoin Scripts](11_0_Empowering_Timelock_with_Bitcoin_Scripts.md).
+Avanza attraverso "Bitcoin Scripting" con [Capitolo 11: Potenziare Blocchi Temporali con Scripts di Bitcoin](11_0_Potenziare_Blocchi_Temporali_con_Scripts_di_Bitcoin.md). 
