@@ -1,3 +1,4 @@
+16_0_Parlare_a_Bitcoind_con_C.md
 # Chapter 16: Talking to Bitcoind with C
 
 While working with Bitcoin Scripts, we hit the boundaries of what's possible with `bitcoin-cli`: it can't currently be used to generate transactions containing unusual scripts. Shell scripts also aren't great for some things, such as creating listener programs that are constantly polling. Fortunately, there are other ways to access the Bitcoin network: programming APIs.
