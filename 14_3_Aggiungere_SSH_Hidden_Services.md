@@ -1,12 +1,13 @@
-# Chapter 14.3: Adding SSH Hidden Services
+# Capitolo 14.3: Aggiunta di Servizi Nascosti SSH
 
-> :information_source: **NOTE:** This section has been recently added to the course and is an early draft that may still be awaiting review. Caveat reader.
+> :information_source: **NOTA:** Questa sezione è stata recentemente aggiunta al corso ed è una bozza iniziale che potrebbe essere ancora in attesa di revisione. Attenzione lettore.
 
-To date, you've used Tor with your Bitcoin services, but you can also use it to protect other services on your machine, improving their security and privacy. This section demonstrates how by introducing an `ssh` hidden service to login remotely using Tor. 
+Fino ad oggi, hai usato Tor con i tuoi servizi Bitcoin, ma puoi anche usarlo per proteggere altri servizi sulla tua macchina, migliorandone la sicurezza e la privacy. Questa sezione dimostra come fare introducendo un servizio nascosto `ssh` per accedere in remoto utilizzando Tor.
 
-## Create SSH Hidden Services
+## Creare Servizi Nascosti SSH
 
-New services are created by adding them to the `/etc/tor/torrc` file:
+I nuovi servizi vengono creati aggiungendoli al file `/etc/tor/torrc`:
+:
 ```
 $ su 
 # cat >> /etc/tor/torrc << EOF
@@ -15,17 +16,20 @@ HiddenServicePort 22 127.0.0.1:22
 EOF
 # exit
 ```
-Here's what that means:
+Ecco cosa significa:
 
-* HiddenServiceDir: Indicates that you have a hidden service directory with the necessary configuration at this path.
-* HiddenServicePort: Indicates the tor port to be used; in the case of SSH, this is usually 22.
+* HiddenServiceDir: Indica che hai una directory di servizi nascosti con la configurazione necessaria in questo percorso.
+* HiddenServicePort: Indica la porta tor da utilizzare; nel caso di SSH, questa è solitamente 22.
 
-After you add the appropriate lines to your `torrc` file, you will need to restart Tor:
+Dopo aver aggiunto le righe appropriate al tuo file `torrc`, dovrai riavviare Tor:
+
 ```
 $ sudo /etc/init.d/tor restart
 ```
 
-After the restart, your `HiddenServiceDir` should have new files as follows:
+
+Dopo il riavvio, la tua `HiddenServiceDir` dovrebbe avere nuovi file come segue:
+
 ```
 $ sudo ls -l /var/lib/tor/hidden-service-ssh
 total 16
@@ -34,12 +38,12 @@ drwx--S--- 2 debian-tor debian-tor 4096 Jul 22 14:55 authorized_clients
 -rw------- 1 debian-tor debian-tor   64 Jul 22 14:55 hs_ed25519_public_key
 -rw------- 1 debian-tor debian-tor   96 Jul 22 14:55 hs_ed25519_secret_key
 ```
-The file `hostname` in this directory contains your new onion ID:
+Il file `hostname` in questa directory contiene il tuo nuovo ID onion:
 ```
 $ sudo cat /var/lib/tor/hidden-service-ssh/hostname
 qwkemc3vusd73glx22t3sglf7izs75hqodxsgjqgqlujemv73j73qpid.onion
 ```
-You can connect to the `ssh` hidden service using `torify` and that address:
+Puoi connetterti al servizio nascosto `ssh` utilizzando `torify` e quell'indirizzo:
 ```
 $ torify ssh standup@qwkemc3vusd73glx22t3sglf7izs75hqodxsgjqgqlujemv73j73qpid.onion
 The authenticity of host 'qwkemc3vusd73glx22t3sglf7izs75hqodxsgjqgqlujemv73j73qpid.onion (127.42.42.0)' can't be established.
@@ -48,12 +52,12 @@ Are you sure you want to continue connecting (yes/no)? yes
 Warning: Permanently added 'qwkemc3vusd73glx22t3sglf7izs75hqodxsgjqgqlujemv73j73qpid.onion' (ECDSA) to the list of known hosts.
 standup@qwkemc3vusd73glx22t3sglf7izs75hqodxsgjqgqlujemv73j73qpid.onion's password: 
 ```
-## Summary: Adding SSH Hidden Services
+## Sommario: Aggiunta di Servizi Nascosti SSH
 
-Now that you've got Tor installed and know how to use it, you can add other services to Tor. You just add lines to your `torrc` (on your server), then connect with `torify` (on your client).
+Ora che hai installato Tor e sai come usarlo, puoi aggiungere altri servizi a Tor. Basta aggiungere righe al tuo `torrc` (sul tuo server), quindi connettersi con `torify` (sul tuo client).
 
-> :fire: ***What's the power of Other Hidden Services?*** Every time you access a service on your server remotely, you leave footprints on the network. Even if the data is encrypted by something like SSH (or TLS), lurkers on the network can see where you're connecting from, where you're connecting to, and what service you're using. Does this matter? This is the question you have to ask. But if the answer is "Yes", you can protect the connection with a hidden service.
+> :fire: ***Qual è il potere di Altri Servizi Nascosti?*** Ogni volta che accedi a un servizio sul tuo server da remoto, lasci tracce sulla rete. Anche se i dati sono crittografati da qualcosa come SSH (o TLS), gli osservatori sulla rete possono vedere da dove ti connetti, dove ti connetti e quale servizio stai usando. Questo importa? Questa è la domanda che devi farti. Ma se la risposta è "Sì", puoi proteggere la connessione con un servizio nascosto.
 
-## What's Next?
+## Cosa succede dopo?
 
-For a different sort of privacy, move on to "Using i2p" with [Chapter Fifteen: Using i2p](15_0_Using_i2p.md).
+Per un tipo diverso di privacy, passa a "Usare i2p" con [Capitolo 15: Usare i2p](15_0_Usare_i2p.md).
