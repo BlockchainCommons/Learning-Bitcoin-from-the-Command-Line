@@ -37,7 +37,7 @@ $ bitcoin-cli listunspent
     "safe": true
   }
 ```
-Più importante, c'è un `redeemScript`, che si decodifica in `OP_0 OP_PUSHDATA (20 bytes) 3ab2a09a1a5f2feb6c799b5ab345069a96e1a0a`. Questo dovrebbe sembrare familiare, perché è un `OP_0` seguito da un codice esadecimale a 20 byte di un hash di chiave pubblica. In altre parole, un P2SH-SegWit è solo uno `scriptPubKey` SegWit inserito in uno script. Questo è tutto. Corrisponde esattamente a come i multisig moderni sono un multisig inserito in un P2SH, come discusso in [§10.4: Scripting di un Multisig](10_4_Scripting_a_Multisig.md).
+Più importante, c'è un `redeemScript`, che si decodifica in `OP_0 OP_PUSHDATA (20 bytes) 3ab2a09a1a5f2feb6c799b5ab345069a96e1a0a`. Questo dovrebbe sembrare familiare, perché è un `OP_0` seguito da un codice esadecimale a 20 byte di un hash di chiave pubblica. In altre parole, un P2SH-SegWit è solo uno `scriptPubKey` SegWit inserito in uno script. Questo è tutto. Corrisponde esattamente a come i multisig moderni sono un multisig inserito in un P2SH, come discusso nel [Capitolo 10.4: Programmare una Multisig](10_4_Programmare_una_Multifirma.md).
 
 Al contrario, quando spendiamo questa transazione, sembra esattamente come un P2SH:
 
