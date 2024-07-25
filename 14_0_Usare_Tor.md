@@ -1,21 +1,22 @@
-# Chapter 14: Using Tor
+# Capitolo 14: Utilizzare Tor
 
-Tor is one of the standard programs installed by [Bitcoin Standup](https://github.com/BlockchainCommons/Bitcoin-Standup-Scripts). It will help to keep your server secure, which is critically important when you're dealing with cryptocurrency. This chapter digresses momentarily from Bitcoin to help you understand this core security infrastructure.
+Tor è uno dei programmi standard installati da [Bitcoin Standup](https://github.com/BlockchainCommons/Bitcoin-Standup-Scripts). Aiuterà a mantenere il tuo server sicuro, il che è di fondamentale importanza quando si ha a che fare con la criptovaluta. Questo capitolo si discosta momentaneamente da Bitcoin per aiutarti a comprendere questa infrastruttura di sicurezza di base.
 
-## Objectives for This Chapter
+## Obiettivi di Questo Capitolo
 
-After working through this chapter, a developer will be able to:
+Dopo aver lavorato su questo capitolo, uno sviluppatore sarà in grado di:
 
-  * Use a Tor Setup
-  * Perform Tor Maintenance
+  * Utilizzare una Configurazione Tor
+  * Eseguire la Manutenzione di Tor
   
-Supporting objectives include the ability to:
+Gli obiettivi di supporto includono la capacità di:
 
-  * Understand the Tor Network
-  * Understand Bitcoin's Various Ports
+  * Comprendere la Rete Tor
+  * Comprendere le Varie Porte di Bitcoin
   
-## Table of Contents
+## Indice
 
-* [Section One: Verifying Your Tor Setup](14_1_Verifying_Your_Tor_Setup.md)
-* [Section Two: Changing Your Bitcoin Hidden Services](14_2_Changing_Your_Bitcoin_Hidden_Services.md)
-* [Section Three: Adding SSH Hidden Services](14_3_Adding_SSH_Hidden_Services.md)
+* [Capitolo 14.1: Verificare la Configurazione Tor](14_1_Verificare_la_Configurazione_Tor.md)
+* [Capitolo 14.2: Cambiare Bitcoin Hidden Services](14_2_Cambiare_Bitcoin_Hidden_Services.md)
+* [Capitolo 14.3: Aggiungere SSH Hidden Services](14_3_Aggiungere_SSH_Hidden_Services.md)
+
