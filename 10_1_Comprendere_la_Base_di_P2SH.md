@@ -1,99 +1,101 @@
-# 10.1: Understanding the Foundation of P2SH
+# 10.1: Comprendere le Basi di P2SH
 
-You know that Bitcoin Scripts can be used to control the redemption of UTXOs. The next step is creating Scripts of your own ... but that requires a very specific technique.
+Sai che gli Script di Bitcoin possono essere utilizzati per controllare il riscatto degli UTXO. Il prossimo passo è creare i tuoi Script... ma ciò richiede una tecnica molto specifica.
 
-## Know the Bitcoin Standards
+## Conoscere gli Standard di Bitcoin
 
-Here's the gotcha for using Bitcoin Scripts: for security reasons, most Bitcoin nodes will only accept six types of "standard" Bitcoin transactions.
+Ecco la questione per l'uso degli Script di Bitcoin: per motivi di sicurezza, la maggior parte dei nodi Bitcoin accetterà solo sei tipi di transazioni Bitcoin "standard".
 
-* __Pay to Public Key (P2PK)__ — An older, deprecated transaction (`<pubKey> OP_CHECKSIG`) that has been replaced by the better security of P2PKH.
-* __Pay to Public Key Hash (P2PKH)__ — A standard transaction (`OP_DUP OP_HASH160 <pubKeyHash> OP_EQUALVERIFY OP_CHECKSIG`) that pays to the hash of a public key.
-* __Pay to Witness Public Key hash (P2WPKH)__ — The newest sort of public-key transaction. It's just (`OP_0 <pubKeyHash>`) because it depends on miner consensus to work, as described in [§9.5](09_5_Scripting_a_P2WPKH.md).
-* __Multisig__ — A transaction for a group of keys, as explained more fully in [§10.4](10_4_Scripting_a_Multisig.md).
-* __Null Data__ — An unspendable transaction (`OP_RETURN Data`).
-* __Pay to Script Hash (P2SH)__ — A transaction that pays out to a specific script, as explained more fully here.
+* __Pay to Public Key (P2PK)__ — Una transazione più vecchia, deprecata (`<pubKey> OP_CHECKSIG`) che è stata sostituita dalla maggiore sicurezza di P2PKH.
+* __Pay to Public Key Hash (P2PKH)__ — Una transazione standard (`OP_DUP OP_HASH160 <pubKeyHash> OP_EQUALVERIFY OP_CHECKSIG`) che paga l'hash di una chiave pubblica.
+* __Pay to Witness Public Key hash (P2WPKH)__ — Il più recente tipo di transazione a chiave pubblica. È semplicemente (`OP_0 <pubKeyHash>`) perché dipende dal consenso dei minatori per funzionare, come descritto in [§9.5](09_5_Scripting_a_P2WPKH.md).
+* __Multisig__ — Una transazione per un gruppo di chiavi, come spiegato più dettagliatamente in [§10.4](10_4_Scripting_a_Multisig.md).
+* __Null Data__ — Una transazione non spendibile (`OP_RETURN Data`).
+* __Pay to Script Hash (P2SH)__ — Una transazione che paga a uno script specifico, come spiegato più dettagliatamente qui.
 
-So how do you write a more complex Bitcoin Script? The answer is in that last sort of standard transaction, the P2SH. You can put any sort of long and complex script into a P2SH transaction, and as long as you follow the standard rules for embedding your script and for redeeming the funds, you'll get the full benefits of Bitcoin Scripting.
+Quindi come si scrive uno Script Bitcoin più complesso? La risposta è in quell'ultimo tipo di transazione standard, il P2SH. Puoi inserire qualsiasi tipo di script lungo e complesso in una transazione P2SH, e finché segui le regole standard per incorporare il tuo script e per riscattare i fondi, otterrai tutti i benefici degli Script Bitcoin.
 
-> :warning: **VERSION WARNING:** Arbitrary P2SH scripts only became standard as of Bitcoin Core 0.10.0. Before that, only P2SH Multisigs were allowed.
+> :warning: **AVVISO SULLA VERSIONE:** Gli script P2SH arbitrari sono diventati standard solo a partire da Bitcoin Core 0.10.0. Prima di allora, erano consentiti solo i P2SH Multisig.
 
-## Understand the P2SH Script
+## Comprendere lo Script P2SH
 
-You already saw a P2SH transaction when you created a multisig in [§6.1: Sending a Transaction to a Multisig](06_1_Sending_a_Transaction_to_a_Multisig.md). Though multisig is one of the standard transaction types, `bitcoin-cli` simplifies the usage of its multisigs by embedding them into P2SH transactions, as described more fully in [§10.4: Scripting a Multisig](10_4_Scripting_a_Multisig.md).
+Hai già visto una transazione P2SH quando hai creato un multisig in [§6.1: Inviare una Transazione a un Multisig](06_1_Sending_a_Transaction_to_a_Multisig.md). Sebbene il multisig sia uno dei tipi di transazione standard, `bitcoin-cli` semplifica l'uso dei suoi multisig incorporandoli in transazioni P2SH, come descritto più dettagliatamente in [§10.4: Scripting a Multisig](10_4_Scripting_a_Multisig.md).
 
-So, let's look one more time at the `scriptPubKey` of that P2SH multisig:
-```
-      "scriptPubKey": {
-        "asm": "OP_HASH160 a5d106eb8ee51b23cf60d8bd98bc285695f233f3 OP_EQUAL",
-        "hex": "a914a5d106eb8ee51b23cf60d8bd98bc285695f233f387",
-        "reqSigs": 1,
-        "type": "scripthash",
-        "addresses": [
-          "2N8MytPW2ih27LctLjn6LfLFZZb1PFSsqBr"
-        ]
-      }
-```
-The locking script is quite simple looking: `OP_HASH160 a5d106eb8ee51b23cf60d8bd98bc285695f233f3 OP_EQUAL`. As usual, there's a big chunk of data in the middle. This is a hash of another, hidden locking script (`redeemScript`) that will only be revealed when the funds are redeemed. In other words, the standard locking script for a P2SH address is: `OP_HASH160 <redeemScriptHash> OP_EQUAL`.
+Quindi, guardiamo ancora una volta lo `scriptPubKey` di quel multisig P2SH:
+  "scriptPubKey": {
+    "asm": "OP_HASH160 a5d106eb8ee51b23cf60d8bd98bc285695f233f3 OP_EQUAL",
+    "hex": "a914a5d106eb8ee51b23cf60d8bd98bc285695f233f387",
+    "reqSigs": 1,
+    "type": "scripthash",
+    "addresses": [
+      "2N8MytPW2ih27LctLjn6LfLFZZb1PFSsqBr"
+    ]
+  }
+  Lo script di blocco è piuttosto semplice: `OP_HASH160 a5d106eb8ee51b23cf60d8bd98bc285695f233f3 OP_EQUAL`. Come al solito, c'è un grosso pezzo di dati nel mezzo. Questo è un hash di un altro script di blocco nascosto (`redeemScript`) che sarà rivelato solo quando i fondi saranno riscattati. In altre parole, lo script di blocco standard per un indirizzo P2SH è: `OP_HASH160 <redeemScriptHash> OP_EQUAL`.
 
-> :book: ***What is a redeemScript?*** Each P2SH transaction carries the fingerprint of a hidden locking script within it as a 20-byte hash. When a P2SH transaction is redeemed, the full (unhashed) `redeemScript` is included as part of the `scriptSig`. Bitcoin will make sure the `redeemScript` matches the hash; then it actually runs the `redeemScript` to see if the funds can be spent (or not).
+> :book: ***Cos'è un redeemScript?*** Ogni transazione P2SH porta con sé l'impronta di uno script di blocco nascosto sotto forma di un hash di 20 byte. Quando una transazione P2SH viene riscattata, il `redeemScript` completo (non hashato) è incluso come parte del `scriptSig`. Bitcoin verificherà che il `redeemScript` corrisponda all'hash; poi eseguirà effettivamente il `redeemScript` per vedere se i fondi possono essere spesi (o no).
 
-One of the interesting elements of P2SH transactions is that neither the sender nor the Blockchain actually knows what the `redeemScript` is! A sender just sends to a standardized P2SH address marked with a "2" prefix and they don't worry about how the recipient is going to retrieve the funds at the end.
+Uno degli elementi interessanti delle transazioni P2SH è che né il mittente né la Blockchain sanno effettivamente cosa sia il `redeemScript`! Un mittente invia semplicemente a un indirizzo P2SH standardizzato contrassegnato con un prefisso "2" e non si preoccupa di come il destinatario recupererà i fondi alla fine.
 
-> :link: **TESTNET vs MAINNET:** on testnet, the prefix for P2SH addresses is `2`, while on mainnet, it's `3`.
+> :link: **TESTNET vs MAINNET:** su testnet, il prefisso per gli indirizzi P2SH è `2`, mentre su mainnet è `3`.
 
-## Understand How to Build a P2SH Script
+## Comprendere Come Costruire uno Script P2SH
 
-Since the visible locking script for a P2SH transaction is so simple, creating a transaction of this sort is quite simple too. In theory. All you need to do is create a transaction whose locking script includes a 20-byte hash of the `redeemScript`. That hashing is done with Bitcoin's standard `OP_HASH160`.
+Poiché lo script di blocco visibile per una transazione P2SH è così semplice, creare una transazione di questo tipo è piuttosto semplice anche. In teoria. Tutto quello che devi fare è creare una transazione il cui script di blocco includa un hash di 20 byte del `redeemScript`. Questo hashing viene effettuato con il `OP_HASH160` standard di Bitcoin.
 
-> :book: ***What is OP_HASH160?*** The standard hash operation for Bitcoin performs a SHA-256 hash, then a RIPEMD-160 hash.
+> :book: ***Cos'è OP_HASH160?*** L'operazione hash standard per Bitcoin esegue un hash SHA-256, poi un hash RIPEMD-160.
 
-Overall, four steps are required:
+In generale, sono necessari quattro passaggi:
 
-1. Create an arbitrary locking script with Bitcoin Script.
-2. Create a serialized version of that locking script.
-3. Perform a SHA-256 hash on those serialized bytes.
-4. Perform a RIPEMD-160 hash on the results of that SHA-256 hash.
+1. Crea uno script di blocco arbitrario con Bitcoin Script.
+2. Crea una versione serializzata di quello script di blocco.
+3. Esegui un hash SHA-256 su quei byte serializzati.
+4. Esegui un hash RIPEMD-160 sui risultati di quell'hash SHA-256.
 
-Each of those steps of course takes some work on its own, and some of them can be pretty intricate. The good news is that you don't really have to worry about them, because they're sufficiently complex that you'll usually have an API take care of it all for you. 
+Ciascuno di questi passaggi ovviamente richiede del lavoro a sé, e alcuni di essi possono essere piuttosto intricati. La buona notizia è che non devi davvero preoccuparti di essi, perché sono sufficientemente complessi da far sì che di solito un'API si occupi di tutto per te.
 
-So for now, we'll just provide you with an overview, so that you understand the general methodology. In [§10.2: Building the Structure of P2SH](10_2_Building_the_Structure_of_P2SH.md) we'll provide a more in-depth look at script creation, in case you ever want to understand the guts of this process.
+Quindi, per ora, ti forniremo solo una panoramica, in modo che tu possa comprendere la metodologia generale. In [§10.2: Costruire la Struttura di P2SH](10_2_Building_the_Structure_of_P2SH.md) forniremo uno sguardo più approfondito alla creazione di script, nel caso tu voglia mai capire i dettagli di questo processo.
 
-## Understand How to Send a P2SH Script Transaction
+## Comprendere Come Inviare una Transazione Script P2SH
 
-So how do you actually send your P2SH transaction? Again, the theory is very simple:
+Quindi, come invii effettivamente la tua transazione P2SH? Di nuovo, la teoria è molto semplice:
 
-1. Embed your hash in a `OP_HASH160 <redeemScriptHash> OP_EQUAL` script.
-2. Translate that into hexcode.
-3. Use that hex as your `scriptPubKey`. 
-4. Create the rest of the transaction.
+1. Incorpora il tuo hash in uno script `OP_HASH160 <redeemScriptHash> OP_EQUAL`.
+2. Traduci questo in codice esadecimale.
+3. Usa quel codice esadecimale come tuo `scriptPubKey`. 
+4. Crea il resto della transazione.
 
-Unfortunately, this is another place where you're going to need to fall back to APIs, in large part because `bitcoin-cli` doesn't provide any support for creating P2SH transactions. (It can redeem them just fine.)
+Purtroppo, questo è un altro caso in cui dovrai fare affidamento sulle API, in gran parte perché `bitcoin-cli` non fornisce alcun supporto per la creazione di transazioni P2SH. (Può riscattarle senza problemi.)
 
-## Understand How to Unlock a P2SH Script Transaction
+## Comprendere Come Sbloccare una Transazione Script P2SH
 
-The trick to redeeming a P2SH transaction is that the recipient must have saved the secret serialized locking script that was hashed to create the P2SH address. This is called a `redeemScript` because it's what the recipient needs to redeem his funds. 
+Il trucco per riscattare una transazione P2SH è che il destinatario deve aver salvato lo script di blocco serializzato segreto che è stato hashato per creare l'indirizzo P2SH. Questo è chiamato `redeemScript` perché è ciò che il destinatario deve avere per riscattare i suoi fondi.
 
-An unlocking `scriptSig` for a P2SH transaction is formed as: `... data ... <redeemScript>`. The `data` must _solely_ be data that is pushed onto the stack, not operators. ([BIP 16](https://github.com/bitcoin/bips/blob/master/bip-0016.mediawiki) calls them signatures, but that's not an actual requirement.)
+Uno `scriptSig` di sblocco per una transazione P2SH è formato come: `... dati ... <redeemScript>`. I `dati` devono essere _solamente_ dati che vengono spinti nello stack, non operatori. ([BIP 16](https://github.com/bitcoin/bips/blob/master/bip-0016.mediawiki) li chiama firme, ma non è un requisito reale.)
 
-> :warning: **WARNING:** Though signatures are not a requirement, a P2SH script actually isn't very secure if it doesn't require at least one signature in its inputs. The reasons for this are described in [§13.1: Writing Puzzle Scripts](13_1_Writing_Puzzle_Scripts.md).
+> :warning: **AVVERTENZA:** Sebbene le firme non siano un requisito, uno script P2SH in realtà non è molto sicuro se non richiede almeno una firma nei suoi input. I motivi di ciò sono descritti in [§13.1: Scrivere Script Enigmi](13_1_Writing_Puzzle_Scripts.md).
 
-When a UTXO is redeemed, it runs in two rounds of verification:
+Quando un UTXO viene riscattato, viene eseguito in due round di verifica:
 
-1. First, the `redeemScript` in the `scriptSig` is hashed and compared to the hashed script in the `scriptPubKey`. 
-2. If they match, then a second round of verification begins.
-3. Second, the `redeemScript` is run using the prior data that was pushed on the stack. 
-4. If that second round of verification _also_ succeeds, the UTXO is unlocked.
+1. Innanzitutto, il `redeemScript` nel `scriptSig` viene hashato e confrontato con lo script hashato nel `scriptPubKey`. 
+2. Se corrispondono, inizia un secondo round di verifica.
+3. In secondo luogo, il `redeemScript` viene eseguito utilizzando i dati precedenti che sono stati spinti nello stack. 
+4. Se anche quel secondo round di verifica ha successo, l'UTXO viene sbloccato.
 
-Whereas you can't easily create a P2SH transaction without an API, you should be able to easily redeem a P2SH transaction with `bitcoin-cli`. In fact, you already did in [§6.2: Sending a Transaction to a Multisig](06_2_Spending_a_Transaction_to_a_Multisig.md). The exact process is described in [§10.6: Spending a P2SH Transaction](10_6_Spending_a_P2SH_Transaction.md), after we've finished with all the intricacies of P2SH transaction creation.
+Mentre non puoi facilmente creare una transazione P2SH senza un'API, dovresti essere in grado di riscattare facilmente una transazione P2SH con `bitcoin-cli`. In effetti, lo hai già fatto in [§6.2: Inviare una Transazione a un Multisig](06_2_Spending_a_Transaction_to_a_Multisig.md). Il processo esatto è descritto in [§10.6: Spendere una Transazione P2SH](10_6_Spending_a_P2SH_Transaction.md), dopo che avremo finito con tutte le complessità della creazione di transazioni P2SH.
 
-> :warning: **WARNING:** You can create a perfectly valid transaction with a correcly hashed redeemScript, but if the redeemScript doesn't run, or doesn't run correctly, your funds are lost forever. That's why it is so important to test your Scripts, as discussed in [§9.3: Testing a Bitcoin Script](09_3_Testing_a_Bitcoin_Script.md).
+> :warning: **AVVERTENZA:** Puoi creare una transazione perfettamente valida con un redeemScript hashato correttamente, ma se il redeemScript non viene eseguito, o non viene eseguito correttamente, i tuoi fondi sono persi per sempre. Ecco perché è così importante testare i tuoi Script, come discusso in [§9.3: Testare uno Script Bitcoin](09_3_Testing_a_Bitcoin_Script.md).
 
-## Summary: Understanding the Foundation of P2SH
+## Riepilogo: Comprendere le Basi di P2SH
 
-Arbitrary Bitcoin Scripts are non-standard in Bitcoin. However, you can incorporate them into standard transactions by using the P2SH address type. You just hash your script as part of the locking script, then you reveal and run it as part of the unlocking script. As long as you can also satisfy the `redeemScript`, the UTXO can be spent. 
+Gli Script Bitcoin arbitrari non sono standard in Bitcoin. Tuttavia, puoi incorporarli in transazioni standard utilizzando il tipo di indirizzo P2SH. Basta hashare il tuo script come parte dello script di blocco, poi rivelarlo ed eseguirlo come parte dello script di sblocco. Finché puoi anche soddisfare il `redeemScript`, l'UTXO può essere speso.
 
-> :fire: ***What is the power of P2SH?*** You already know the power of Bitcoin Script, which allows you to create more complex Smart Contracts of all sorts. P2SH is what actually unleashes that power by letting you include arbitrary Bitcoin Script in standard Bitcoin transactions.
+> :fire: ***Qual è il potere di P2SH?*** Conosci già il potere dello Script Bitcoin, che ti consente di creare contratti intelligenti più complessi di ogni tipo. P2SH è ciò che sblocca effettivamente quel potere permettendoti di includere Script Bitcoin arbitrari nelle transazioni Bitcoin standard.
 
-## What's Next?
+## Cosa Succede Dopo?
 
-Continue "Embedding Bitcoin Scripts" with [§10.2: Building the Structure of P2SH](10_2_Building_the_Structure_of_P2SH.md).
+Continua "Incorporare gli Script Bitcoin" con [§10.2: Costruire la Struttura di P2SH](10_2_Building_the_Structure_of_P2SH.md).
+
+
+
+
