@@ -1,81 +1,87 @@
-# 10.2: Building the Structure of P2SH
+# 10.2: Costruire la Struttura di P2SH
 
-In the previous section we overviewed the theory of how to create P2SH transactions to hold Bitcoin Scripts. The actual practice of doing so is _much more difficult_, but for the sake of completeness, we're going to look at it here. This is probably not something you'd ever do without an API, so if it gets too intimidating, be aware that we'll be returning to pristine, high-level Scripts in a moment.
+Nella sezione precedente abbiamo presentato la teoria su come creare transazioni P2SH per contenere Script Bitcoin. La pratica effettiva è _molto più difficile_, ma per completezza, la esamineremo qui. Probabilmente non è qualcosa che faresti mai senza un'API, quindi se diventa troppo intimidatorio, sappi che torneremo a Script di alto livello tra un momento.
 
-## Create a Locking Script
+## Creare uno Script di Blocco
 
-Any P2SH transaction starts with a locking script. This is the subject of chapters 9 and 11-12. You can use any of the Bitcoin Script methods described therein to create any sort of locking script, as long as the resulting serialized `redeemScript` is 520 bytes or less. 
+Qualsiasi transazione P2SH inizia con uno script di blocco. Questo è l'argomento dei capitoli 9 e 11-12. Puoi usare uno qualsiasi dei metodi di Bitcoin Script descritti in quei capitoli per creare qualsiasi tipo di script di blocco, purché il `redeemScript` serializzato risultante sia di 520 byte o meno.
 
-> :book: ***Why are P2SH scripts limited to 520 bytes?*** As with many things in Bitcoin, the answer is backward compatibility: new functionality has to constantly be built within the old constraints of the system. In this case, 520 bytes is the maximum that can be pushed onto the stack at once. Since the whole redeemScript is pushed onto the stack as part of the redemption process, it hits that limit.
+> :book: ***Perché gli script P2SH sono limitati a 520 byte?*** Come per molte cose in Bitcoin, la risposta è la retrocompatibilità: la nuova funzionalità deve essere costantemente costruita entro i vecchi vincoli del sistema. In questo caso, 520 byte è il massimo che può essere spinto nello stack in una volta. Poiché l'intero redeemScript viene spinto nello stack come parte del processo di riscatto, raggiunge quel limite.
 
-## Serialize a Locking Script the Hard Way
+## Serializzare uno Script di Blocco nel Modo Difficile
 
-After you create a locking script, you need to serialize it before it can be input into Bitcoin. This is a two-part process. First, you must turn it into hexcode, then you must transform that hex into binary.
+Dopo aver creato uno script di blocco, devi serializzarlo prima che possa essere inserito in Bitcoin. Questo è un processo in due parti. Prima devi trasformarlo in codice esadecimale, poi devi trasformare quel codice esadecimale in binario.
 
-### Create the Hex Code
+### Creare il Codice Esadecimale
 
-Creating the hexcode that is necessary to serialize a script is both a simple translation and something that is complex enough that it goes beyond any shell script that you're likely to write. This step is one of the main reasons that you need an API to create P2SH transactions.
+Creare il codice esadecimale necessario per serializzare uno script è sia una semplice traduzione sia qualcosa di abbastanza complesso da andare oltre qualsiasi script shell che probabilmente scriverai. Questo passaggio è uno dei motivi principali per cui hai bisogno di un'API per creare transazioni P2SH.
 
-You create hexcode by stepping through your locking script and turning each element into one-byte hex command, possibly followed by additional data, per the guide at the [Bitcoin Wiki Script page](https://en.bitcoin.it/wiki/Script):
+Crei il codice esadecimale passando attraverso il tuo script di blocco e trasformando ciascun elemento in un comando esadecimale di un byte, eventualmente seguito da dati aggiuntivi, secondo la guida alla [pagina del Bitcoin Wiki Script](https://en.bitcoin.it/wiki/Script):
 
-* Operators are translated to the matching byte for that opcode
-* The constants 1-16 are translated to opcodes 0x51 to 0x61 (OP_1 to OP_16)
-* The constant -1 is translate to opcode 0x4f (OP_1NEGATE)
-* Other constants are preceded by opcodes 0x01 to 0x4e (OP_PUSHDATA, with the number specifying how many bytes to push)
-   * Integers are translated into hex using little-endian signed-magnitude notation
+* Gli operatori sono tradotti nel byte corrispondente per quell'opcode
+* Le costanti 1-16 sono tradotte negli opcode 0x51 a 0x61 (OP_1 a OP_16)
+* La costante -1 è tradotta nell'opcode 0x4f (OP_1NEGATE)
+* Altre costanti sono precedute dagli opcode 0x01 a 0x4e (OP_PUSHDATA, con il numero che specifica quanti byte spingere)
+   * Gli interi sono tradotti in esadecimale usando la notazione a segno e magnitudine a little-endian
 
-### Translate Integers
+### Tradurre gli Interi
 
-The integers are the most troublesome part of a locking-script translation.
+Gli interi sono la parte più problematica della traduzione di uno script di blocco.
 
-First, you should verify that your number falls between -2147483647 and 2147483647, the range of four-byte integers when the most significant byte is used for signing.
+Per prima cosa, dovresti verificare che il tuo numero rientri tra -2147483647 e 2147483647, l'intervallo degli interi a quattro byte quando il byte più significativo è usato per la firma.
 
-Second, you need to translate the decimal value into hexadecimal and pad it out to an even number of digits. This can be done with the `printf` command:
+In secondo luogo, devi tradurre il valore decimale in esadecimale e riempirlo fino a ottenere un numero pari di cifre. Questo può essere fatto con il comando `printf`:
+
 ```
 $ integer=1546288031
 $ hex=$(printf '%08x\n' $integer | sed 's/^\(00\)*//')
 $ echo $hex
 5c2a7b9f
 ```
-Third, you need to add an additional leading byte of `00` if the top digit is "8" or greater, so that the number is not interpreted as negative.
+In terzo luogo, devi aggiungere un byte aggiuntivo di `00` se la cifra superiore è "8" o maggiore, in modo che il numero non sia interpretato come negativo.
+
 ```
 $ hexfirst=$(echo $hex | cut -c1)
 $ [[ 0x$hexfirst -gt 0x7 ]] && hex="00"$hex
 ```
-Fourth, you need to translate the hex from big-endian (least significant byte last) to little-endian (least significant byte first). You can do this with the `tac` command:
+In quarto luogo, devi tradurre l'esadecimale da big-endian (byte meno significativo per ultimo) a little-endian (byte meno significativo per primo). Puoi fare questo con il comando `tac`:
+
 ```
 $ lehex=$(echo $hex | tac -rs .. | echo "$(tr -d '\n')")
 $ echo $lehex
 9f7b2a5c
 ```
-In addition, you always need to know the size of any data that you put on the stack, so that you can precede it with the proper opcode. You can just remember that every two hexadecimal characters is one byte. Or, you can use `echo -n` piped to `wc -c`, and divide that in half:
+Inoltre, devi sempre conoscere la dimensione di qualsiasi dato che metti nello stack, in modo da poterlo precedere con l'opcode corretto. Puoi semplicemente ricordare che ogni due caratteri esadecimali è un byte. Oppure, puoi usare `echo -n` pipato a `wc -c`, e dividere per due:
+
 ```
 $ echo -n $lehex | wc -c | awk '{print $1/2}'
 4
 ```
-With that whole rigamarole, you'd know that you could translate the integer 1546288031 into an `04` opcode (to push four bytes onto the stack) followed by `9f7b2a5c` (the little-endian hex representation of 1546288031).
+Con tutta questa trafila, sapresti che potresti tradurre l'intero 1546288031 in un opcode `04` (per spingere quattro byte nello stack) seguito da `9f7b2a5c` (la rappresentazione esadecimale a little-endian di 1546288031).
 
-If you instead had a negative number, you would need to (1) do your calculations on the absolute value of the number, then (2) bitwise-or 0x80 to your final, little-endian result. For example, `9f7b2a5c`, which is 1546288031, would become `9f7b2adc`, which is -1546288031:
+Se invece avessi un numero negativo, dovresti (1) fare i tuoi calcoli sul valore assoluto del numero, poi (2) fare un or bit a 0x80 sul tuo risultato finale a little-endian. Ad esempio, `9f7b2a5c`, che è 1546288031, diventerebbe `9f7b2adc`, che è -1546288031:
+
 ```
 $ neglehex=$(printf '%x\n' $((0x$lehex | 0x80)))
 $ echo $neglehex
 9f7b2adc
 ```
-### Transform the Hex to Binary
+### Trasformare l'Esadecimale in Binario
 
-To complete your serialization, you translate the hexcode into binary. On the command line, this just requires a simple invocation of `xxd -r -p`. However, you probably want to do that as part of a a single pipe that will also hash the script ...
+Per completare la tua serializzazione, devi tradurre il codice esadecimale in binario. Da riga di comando, questo richiede solo una semplice invocazione di `xxd -r -p`. Tuttavia, probabilmente vorrai farlo come parte di una singola pipe che hasherà anche lo script...
 
-## Run The Integer Conversion Script
+## Eseguire lo Script di Conversione degli Interi
 
-A complete script for changing an integer between -2147483647 and 2147483647 to a little-endian signed-magnitude representation in hex can be found in the [src code directory](src/10_2_integer2lehex.sh). You can download it as `integer2lehex.sh`.
+Uno script completo per cambiare un intero tra -2147483647 e 2147483647 in una rappresentazione a segno e magnitudine a little-endian in esadecimale può essere trovato nella [directory del codice sorgente](src/10_2_integer2lehex.sh). Puoi scaricarlo come `integer2lehex.sh`.
 
-> :warning: **WARNING:** This script has not been robustly checked. If you are going to use it to create real locking scripts you should make sure to double-check and test your results.
+> :warning: **AVVERTENZA:** Questo script non è stato controllato in modo robusto. Se hai intenzione di usarlo per creare veri script di blocco dovresti assicurarti di ricontrollare e testare i tuoi risultati.
 
-Be sure the permissions on the script are right:
+Assicurati che i permessi sullo script siano corretti:
+
 ```
 $ chmod 755 integer2lehex.sh
 ```
-You can then run the script as follows:
+Puoi quindi eseguire lo script come segue:
 ```
 $ ./integer2lehex.sh 1546288031
 Integer: 1546288031
@@ -90,31 +96,35 @@ Length: 4 bytes
 Hexcode: 049f7b2adc
 ```
 
-## Analyze a P2SH Multisig
 
-To better understand this process, we will reverse-engineer the P2SH multisig that we created in [§6.1: Sending a Transaction to a Multisig](06_1_Sending_a_Transaction_to_a_Multisig.md). Take a look at the `redeemScript` that you used, which you now know is the hex-serialized version of the locking script:
+## Analizzare un Multisig P2SH
+
+Per capire meglio questo processo, esamineremo il multisig P2SH che abbiamo creato in [Capitolo 6.1: Inviare una Transazione a un IndirizzoMultifirma](06_1_Inviare_una_Transazione_a_un_Indirizzo_Multifirma.md). Dai un'occhiata al `redeemScript` che hai usato, che ora sai essere la versione esadecimale serializzata dello script di blocco:
+
 ```
 522102da2f10746e9778dd57bd0276a4f84101c4e0a711f9cfd9f09cde55acbdd2d1912102bfde48be4aa8f4bf76c570e98a8d287f9be5638412ab38dede8e78df82f33fa352ae
 ```
-You can translate this back to Script by hand using the [Bitcoin Wiki Script page](https://en.bitcoin.it/wiki/Script) as a reference. Just look at one byte (two hex characters) of data at a time, unless you're told to look at more by an OP_PUSHDATA command (an opcode in the range of 0x01 to 0x4e).
+Puoi tradurlo di nuovo in Script manualmente usando la [pagina del Bitcoin Wiki Script](https://en.bitcoin.it/wiki/Script) come riferimento. Basta guardare un byte (due caratteri esadecimali) di dati alla volta, a meno che non ti venga detto di guardare di più da un comando OP_PUSHDATA (un opcode nell'intervallo da 0x01 a 0x4e).
 
-The whole Script will break apart as follows:
+L'intero script si scomporrà come segue:
+
 ```
 52 / 21 / 02da2f10746e9778dd57bd0276a4f84101c4e0a711f9cfd9f09cde55acbdd2d191 / 21 / 02bfde48be4aa8f4bf76c570e98a8d287f9be5638412ab38dede8e78df82f33fa3 / 52 / ae
 ```
-Here's what the individual parts mean:
+Ecco cosa significano le singole parti:
 
 * 0x52 = OP_2
 * 0x21 = OP_PUSHDATA 33 bytes (hex: 0x21)
-* 0x02da2f10746e9778dd57bd0276a4f84101c4e0a711f9cfd9f09cde55acbdd2d191 = the next 33 bytes (public-key hash)
+* 0x02da2f10746e9778dd57bd0276a4f84101c4e0a711f9cfd9f09cde55acbdd2d191 = i prossimi 33 byte (public-key hash)
 * 0x21 = OP_PUSHDATA 33 bytes (hex: 0x21)
-* 0x02bfde48be4aa8f4bf76c570e98a8d287f9be5638412ab38dede8e78df82f33fa3 = the next 33 bytes (public-key hash)
+* 0x02bfde48be4aa8f4bf76c570e98a8d287f9be5638412ab38dede8e78df82f33fa3 = i prossimi 33 byte (public-key hash)
 * 0x52 = OP_2
 * 0xae = OP_CHECKMULTISIG
 
-In other words, that `redeemScript` was a translation of of `2 02da2f10746e9778dd57bd0276a4f84101c4e0a711f9cfd9f09cde55acbdd2d191 02bfde48be4aa8f4bf76c570e98a8d287f9be5638412ab38dede8e78df82f33fa3 2 OP_CHECKMULTISIG`. We'll return to this script in [§10.4: Scripting a Multisig](10_4_Scripting_a_Multisig.md) when we detail exactly how multisigs work within the P2SH paradigm.
+In altre parole, quel `redeemScript` era una traduzione di `2 02da2f10746e9778dd57bd0276a4f84101c4e0a711f9cfd9f09cde55acbdd2d191 02bfde48be4aa8f4bf76c570e98a8d287f9be5638412ab38dede8e78df82f33fa3 2 OP_CHECKMULTISIG`. Torneremo su questo script nel [Capitolo 10.4:Scripting a Multisig](10_4_Scripting_a_Multisig.md) quando dettaglieremo esattamente come funzionano i multisig all'interno del paradigma P2SH.
 
-If you'd like a mechanical hand with this sort of translation in the future, you can use `bitcoin-cli decodescript`:
+Se desideri un aiuto meccanico con questo tipo di traduzione in futuro, puoi usare `bitcoin-cli decodescript`:
+
 ```
 $ bitcoin-cli -named decodescript hexstring=522102da2f10746e9778dd57bd0276a4f84101c4e0a711f9cfd9f09cde55acbdd2d1912102bfde48be4aa8f4bf76c570e98a8d287f9be5638412ab38dede8e78df82f33fa352ae
 {
@@ -138,43 +148,47 @@ $ bitcoin-cli -named decodescript hexstring=522102da2f10746e9778dd57bd0276a4f841
   }
 }
 ```
-It's especially helpful for checking your work when you're serializing.
+È particolarmente utile per controllare il tuo lavoro quando stai serializzando.
 
-## Serialize a Locking Script the Easy Way
+## Serializzare uno Script di Blocco nel Modo Facile
 
-When you installed `btcdeb` in [§9.3](09_3_Testing_a_Bitcoin_Script.md) you also installed `btcc` which can be used to serialize Bitcoin scripts:
+Quando hai installato `btcdeb` nel [Capitolo 9.3](09_3_Provare_uno_Script_Bitcoin.md) hai anche installato `btcc` che può essere usato per serializzare gli script Bitcoin:
+
 ```
 $ btcc 2 02da2f10746e9778dd57bd0276a4f84101c4e0a711f9cfd9f09cde55acbdd2d191 02bfde48be4aa8f4bf76c570e98a8d287f9be5638412ab38dede8e78df82f33fa3 2 OP_CHECKMULTISIG
 warning: ambiguous input 2 is interpreted as a numeric value; use OP_2 to force into opcode
 warning: ambiguous input 2 is interpreted as a numeric value; use OP_2 to force into opcode
 522102da2f10746e9778dd57bd0276a4f84101c4e0a711f9cfd9f09cde55acbdd2d1912102bfde48be4aa8f4bf76c570e98a8d287f9be5638412ab38dede8e78df82f33fa352ae
 ```
-That's a lot easier than figuring that out by hand!
+È molto più facile che capirlo a mano!
 
-Also consider the Python [Transaction Script Compiler](https://github.com/Kefkius/txsc), which translates back and forth.
+Considera anche il [Transaction Script Compiler](https://github.com/Kefkius/txsc) di Python, che traduce avanti e indietro.
 
-## Hash a Serialized Script
+## Hashare uno Script Serializzato
 
-After you've created a locking script and serialized it, the third step in creating a P2SH transaction is to hash the locking script. As previously noted, a 20-byte OP_HASH160 hash is created through a combination of a SHA-256 hash and a RIPEMD-160 hash. Hashing a serialized script thus takes two commands: `openssl dgst -sha256 -binary` does the SHA-256 hash and outputs a binary to be sent through the pipe, then `openssl dgst -rmd160` takes that binary stream, does a RIPEMD-160 hash, and finally outputs a human-readable hexcode.
+Dopo aver creato uno script di blocco e serializzato, il terzo passaggio nella creazione di una transazione P2SH è hashare lo script di blocco. Come notato in precedenza, un hash OP_HASH160 di 20 byte è creato attraverso una combinazione di un hash SHA-256 e un hash RIPEMD-160. Hashare uno script serializzato richiede quindi due comandi: `openssl dgst -sha256 -binary` esegue l'hash SHA-256 e produce un binario da inviare tramite pipe, poi `openssl dgst -rmd160` prende quel flusso binario, esegue un hash RIPEMD-160 e infine produce un codice esadecimale leggibile.
 
-Here's the whole pipe, including the previous transformation of the hex-serialized script into binary:
+Ecco l'intera pipe, inclusa la precedente trasformazione dello script serializzato esadecimale in binario:
+
 ```
 $ redeemScript="522102da2f10746e9778dd57bd0276a4f84101c4e0a711f9cfd9f09cde55acbdd2d1912102bfde48be4aa8f4bf76c570e98a8d287f9be5638412ab38dede8e78df82f33fa352ae"
 $ echo -n $redeemScript | xxd -r -p | openssl dgst -sha256 -binary | openssl dgst -rmd160
 (stdin)= a5d106eb8ee51b23cf60d8bd98bc285695f233f3
 ```
-## Create a P2SH Transaction
+## Creare una Transazione P2SH
 
-Creating your 20-byte hash just gives you the hash at the center of a P2SH locking script. You still need to put it together with the other opcodes that create a standard P2SH transaction: `OP_HASH160 a5d106eb8ee51b23cf60d8bd98bc285695f233f3 OP_EQUAL`.
+Creare il tuo hash di 20 byte ti dà solo l'hash al centro di uno script di blocco P2SH. Devi ancora metterlo insieme agli altri opcode che creano una transazione P2SH standard: `OP_HASH160 a5d106eb8ee51b23cf60d8bd98bc285695f233f3 OP_EQUAL`.
 
-Depending on your API, you might be able to enter this as an `asm`-style `scriptPubKey` for your transaction, or you might have to translate it to `hex` code as well. If you have to translate, use the same methods described above for "Creating the Hex Code" (or use `btcc`), resulting in `a914a5d106eb8ee51b23cf60d8bd98bc285695f233f387`.
+A seconda della tua API, potresti essere in grado di inserire questo come un `scriptPubKey` in stile `asm` per la tua transazione, oppure potresti doverlo tradurre anche in codice `hex`. Se devi tradurre, usa gli stessi metodi descritti sopra per "Creare il Codice Esadecimale" (oppure usa `btcc`), risultando in `a914a5d106eb8ee51b23cf60d8bd98bc285695f233f387`.
 
-Note that the `hex scriptPubKey` for P2SH Script transaction will _always_ start with an `a914`, which is the `OP_HASH160` followed by an `OP_PUSHDATA` of 20 bytes (hex: `0x14`); and it will _always_ end with a `87`, which is an `OP_EQUAL`. So all you have to do is put your hashed redeem script in between those numbers.
+Nota che il `scriptPubKey` esadecimale per una transazione Script P2SH inizierà _sempre_ con un `a914`, che è l'`OP_HASH160` seguito da un `OP_PUSHDATA` di 20 byte (hex: `0x14`); e terminerà _sempre_ con un `87`, che è un `OP_EQUAL`. Quindi tutto ciò che devi fare è mettere il tuo redeem script hashato tra quei numeri.
 
-## Summary: Building the Structure of P2SH
+## Riepilogo: Costruire la Struttura di P2SH
 
-Actually creating the P2SH locking script dives further into the guts of Bitcoin than you've ever gone before. Though it's helpful to know how all of this works at a very low level, it's most likely that you'll have an API taking care of all of the heavy-lifting for you. Your task will simply be to create the Bitcoin Script to do the locking ... which is the main topic of chapters 9 and 11-12.
+Creare effettivamente lo script di blocco P2SH ti porta più a fondo nel cuore di Bitcoin di quanto tu abbia mai fatto prima. Sebbene sia utile sapere come funziona tutto questo a un livello molto basso, è molto probabile che avrai un'API che si occuperà di tutto il lavoro pesante per te. Il tuo compito sarà semplicemente creare il Bitcoin Script per fare il blocco... che è l'argomento principale dei capitoli 9 e 11-12.
 
-## What's Next?
+## Cosa c'è Dopo?
 
-Continue "Embedding Bitcoin Scripts" with [§10.3: Running a Bitcoin Script with P2SH](10_3_Running_a_Bitcoin_Script_with_P2SH.md).
+Continua "Incorporare Bitcoin Scripts" con [Capitolo 10.3: Eseguire uno Script Bitcoin con P2SH](10_3_Eseguire_uno_Script_Bitcoin_con_P2SH.md).
+
+
