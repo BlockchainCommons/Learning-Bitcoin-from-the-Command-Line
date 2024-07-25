@@ -1,54 +1,58 @@
-# Chapter 14.2: Changing Your Bitcoin Hidden Services
+# Capitolo 14.2: Cambiare_Bitcoin_Hidden_Services
 
-> :information_source: **NOTE:** This section has been recently added to the course and is an early draft that may still be awaiting review. Caveat reader.
+> :information_source: **NOTA:** Questa sezione è stata recentemente aggiunta al corso ed è una bozza iniziale che potrebbe essere ancora in attesa di revisione. Lettore avvisato.
 
-You've got a working Tor service, but over time you may wish to reset or otherwise adjust it.
+Hai un servizio Tor funzionante, ma nel tempo potresti volerlo resettare o modificarlo in altro modo.
 
-## Secure Your Hidden Services
+## Mettere in Sicurezza i tuoi Servizi Nascosti
 
-Tor allows you to limit which clients talk to your hidden services. If you did not already authorize your client during your server setup, at the earliest opportunity you should do the following:
+Tor ti consente di limitare quali client possono comunicare con i tuoi servizi nascosti. Se non hai già autorizzato il tuo client durante la configurazione del server, alla prima opportunità dovresti fare quanto segue:
 
-1. Request your Tor V3 Authentication Public Key from your client. (In [GordianWallet](https://github.com/BlockchainCommons/GordianWallet-iOS), it's available under the settings menu.)
-2. Go to the appropriate subdirectory for your Bitcoin hidden service, which if you used Bitcoin Standup is `/var/lib/tor/standup/`.
-3. Go to the `authorized_clients` subdirectory.
-4. Add a file called `[anything].auth`. The `[anything]` can really be anything.
-5. Place the public key (and nothing else) in the file.
+1. Richiedi la tua Chiave Pubblica di Autenticazione Tor V3 dal tuo client. (In [GordianWallet](https://github.com/BlockchainCommons/GordianWallet-iOS), è disponibile nel menu delle impostazioni.)
+2. Vai alla sottodirectory appropriata per il servizio nascosto di Bitcoin, che se hai utilizzato Bitcoin Standup è `/var/lib/tor/standup/`.
+3. Vai alla sottodirectory `authorized_clients`.
+4. Aggiungi un file chiamato `[qualsiasi_nome].auth`. `[qualsiasi_nome]` può essere davvero qualsiasi cosa.
+5. Inserisci la chiave pubblica (e nient'altro) nel file.
 
-Once you've added an `.auth` file to the `authorized_client` subdirectory, then only authorized clients will be able to communicate with that hidden service. You can add ~330 different public keys to enable different clients.
+Una volta aggiunto un file `.auth` alla sottodirectory `authorized_client`, solo i client autorizzati potranno comunicare con quel servizio nascosto. Puoi aggiungere circa 330 diverse chiavi pubbliche per abilitare client diversi.
 
-## Reset Your `bitcoind` Onion Address
+## Resettare l'Indirizzo Onion di `bitcoind`
 
-If you ever want to reset your onion address for `bitcoind`, just remove the `onion_private_key` in your data directory, such as `~/.bitcoin/testnet`:
+Se mai desideri resettare il tuo indirizzo onion per `bitcoind`, rimuovi semplicemente la `onion_private_key` nella tua directory dei dati, come `~/.bitcoin/testnet`:
+
 ```
 $ cd ~/.bitcoin/testnet
 $ rm onion_private_key 
 ```
-When you restart, a new onion address will be generated:
+Quando riavvii, verrà generato un nuovo indirizzo onion:
 ```
 2020-07-22T23:52:27Z tor: Got service ID pyrtqyiqbwb3rhe7, advertising service pyrtqyiqbwb3rhe7.onion:18333
 2020-07-22T23:52:27Z tor: Cached service private key to /home/standup/.bitcoin/testnet3/onion_private_key
 ```
 
-## Reset Your RPC Onion Address
+## Resettare l'Indirizzo Onion dell'RPC
 
-If you want to reset your onion address for RPC access, you similarly delete the appropriate `HiddenServiceDirectory` and restart Tor:
+Se desideri resettare il tuo indirizzo onion per l'accesso RPC, cancella allo stesso modo la `HiddenServiceDirectory` appropriata e riavvia Tor:
+
 ```
 $ sudo rm -rf /var/lib/tor/standup/
 $ sudo /etc/init.d/tor restart
 ```
 
-> :warning: **WARNING:** Reseting your RPC onion address will disconnect any mobile wallets or other services that you've connected using the Quicklink API. Do this with extreme caution.
 
-## Force `bitcoind` to Use Tor
+> :warning: **ATTENZIONE:** Resettare il tuo indirizzo onion dell'RPC disconnetterà eventuali portafogli mobili o altri servizi che hai connesso utilizzando l'API Quicklink. Fai questo con estrema cautela.
 
-Finally, you can force `bitcoind` to use onion by adding the following to your `bitcoin.conf`:
+## Forzare `bitcoind` a Usare Tor
+
+Infine, puoi forzare `bitcoind` a usare onion aggiungendo quanto segue al tuo `bitcoin.conf`:
+
 ```
 proxy=127.0.0.1:9050
 listen=1
 bind=127.0.0.1
 onlynet=onion
 ```
-You will then need to add onion-based seed nodes or other nodes to your setup, once more by editing the `bitcoin.conf`:
+Dovrai quindi aggiungere nodi seed basati su onion o altri nodi alla tua configurazione, ancora una volta modificando il `bitcoin.conf`:
 ```
 seednode=address.onion
 seednode=address.onion
@@ -59,18 +63,18 @@ addnode=address.onion
 addnode=address.onion
 addnode=address.onion
 ```
-See [Bitcoin Onion Nodes](https://github.com/emmanuelrosa/bitcoin-onion-nodes) for a listing and an example of how to add them.
+Consulta [Bitcoin Onion Nodes](https://github.com/emmanuelrosa/bitcoin-onion-nodes) per un elenco e un esempio su come aggiungerli.
 
-Afterward, restart `tor` and `bitcoind`.
+Successivamente, riavvia `tor` e `bitcoind`.
 
-You should now be communicating exlusively on Tor. But, unless you are in a hostile state, this level of anonymity is probably not required. It also is not particularly recommended: you might greatly decrease your number of potential peers, inviting problems of censorship or even correlation. You may also see lag. And, this setup may give you a false sense of anonymity that really doesn't exist on the Bitcoin network.
+Ora dovresti comunicare esclusivamente su Tor. Ma, a meno che tu non ti trovi in uno stato ostile, questo livello di anonimato probabilmente non è necessario. Inoltre, non è particolarmente raccomandato: potresti ridurre notevolmente il numero dei tuoi peer potenziali, invitando problemi di censura o addirittura di correlazione. Potresti anche sperimentare ritardi. E, questa configurazione potrebbe darti un falso senso di anonimato che in realtà non esiste sulla rete Bitcoin.
 
-> :warning: **WARNING:** This setup is untested! Use at your own risk!
+> :warning: **ATTENZIONE:** Questa configurazione non è testata! Usala a tuo rischio e pericolo!
 
-## Summary: Changing Your Bitcoin Hidden Services
+## Riepilogo: Cambiare Bitcoin Hidden Services
 
-You probably won't need to fool with your Onion services once you've verified them, but in case you do, here's how to reset a Tor address that has become compromised or to move over to exclusive-Tor use for your `bitcoind`.
+Probabilmente non avrai bisogno di modificare i tuoi servizi Onion una volta verificati, ma in caso di necessità, ecco come resettare un indirizzo Tor che è stato compromesso o come passare all'uso esclusivo di Tor per il tuo `bitcoind`.
 
-## What's Next?
+## Cosa Viene Dopo?
 
-Continue "Understanding Tor" with [14.3: Adding SSH Hidden Services](14_3_Adding_SSH_Hidden_Services.md).
+Continua a "Comprendere Tor" col [Capitolo 14.3: Aggiungere SSH Hidden Services](14_3_Aggiungere_SSH_Hidden_Services.md).
