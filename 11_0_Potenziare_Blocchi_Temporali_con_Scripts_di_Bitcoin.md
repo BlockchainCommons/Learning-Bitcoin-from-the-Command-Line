@@ -1,23 +1,24 @@
-# Chapter 11: Empowering Timelock with Bitcoin Scripts
+# Capitolo 11: Potenziare il Timelock con Bitcoin Scripts
 
-The `nLockTime` feature from [§8.1](08_1_Sending_a_Transaction_with_a_Locktime.md) was just the beginning of Timelocks. When you start writing Bitcoin Scripts, two timelocking opcodes become available.
+La funzione `nLockTime` vista nel [Capitolo 8.1](08_1_Inviare_una_Transazione_con_Blocco_temporale.md) era solo l'inizio dei Timelocks. Quando inizi a scrivere Bitcoin Scripts, diventano disponibili due opcode di timelocking.
 
-## Objectives for This Chapter
+## Obiettivi di Questo Capitolo
 
-After working through this chapter, a developer will be able to:
+Dopo aver lavorato su questo capitolo, uno sviluppatore sarà in grado di:
 
-   * Decide which Timelock to Use
-   * Create Scripts with CLTV
-   * Create Scripts with CSV
+   * Decidere quale Timelock Utilizzare
+   * Creare Script con CLTV
+   * Creare Script con CSV
    
-Supporting objectives include the ability to:
+Gli obiettivi di supporto includono la capacità di:
 
-   * Understand the Differences Between the Different Timelocks
-   * Generate Relative Times
+   * Comprendere le Differenze tra i Diversi Timelocks
+   * Generare Tempi Relativi
    
-## Table of Contents
+## Indice
 
-* [Section One: Understanding Timelock Options](11_1_Understanding_Timelock_Options.md)
-* [Section Two: Using CLTV in Scripts](11_2_Using_CLTV_in_Scripts.md)
-* [Section Three: Using CSV in Scripts](11_3_Using_CSV_in_Scripts.md)
+* [Capitolo 11.1: Comprendere le Opzioni dei Blocchi Temporali](11_1_Comprendere_le_Opzioni_dei_Blocchi_Temporali.md)
+* [Capitolo 11.2: Usare CLTV negli Scripts](11_2_Usare_CLTV_negli_Scripts.md)
+* [Capitolo 11.3: Usare CSV negli Scripts](11_3_Usare_CSV_negli_Scripts.md)
+
 
