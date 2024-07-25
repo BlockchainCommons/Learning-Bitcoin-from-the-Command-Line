@@ -1,74 +1,77 @@
-# 14.1: Verifying Your Tor Setup
+# 14.1: Verificare la Configurazione di Tor
 
-> :information_source: **NOTE:** This section has been recently added to the course and is an early draft that may still be awaiting review. Caveat reader.
+> :information_source: **NOTA:** Questa sezione è stata recentemente aggiunta al corso ed è una bozza preliminare che potrebbe essere ancora in attesa di revisione. Lettore avvisato.
 
-If you did a standard installation with [Bitcoin Standup](https://github.com/BlockchainCommons/Bitcoin-Standup) then you should have Tor set up as part of your Bitcoin node: Tor is installed and has created hidden services for the Bitcoin RPC ports; while an onion address has also been created for `bitcoind`. This section talks about what all of that is and what to do with it.
+Se hai effettuato un'installazione standard con [Bitcoin Standup](https://github.com/BlockchainCommons/Bitcoin-Standup), dovresti avere Tor configurato come parte del tuo nodo Bitcoin: Tor è installato e ha creato servizi nascosti per le porte RPC di Bitcoin; mentre un indirizzo `onion` è stato creato anche per `bitcoind`. Questa sezione parla di cosa sia tutto questo e cosa fare con esso.
 
-> :book: ***What is Tor?*** Tor is a low-latency anonymity and overlay network based on onion routing and path-building design for enabling anonymous communication. It's free and open-source software with the name derived from the acronym for the original software project name: "The Onion Router".
+> :book: ***Cos'è Tor?*** Tor è una rete di anonimato a bassa latenza e sovrapposizione basata sul routing a cipolla e sulla progettazione di costruzione del percorso per consentire la comunicazione anonima. È un software libero e open-source il cui nome deriva dall'acronimo del nome del progetto software originale: "The Onion Router".
 
-> :book: ***Why Use Tor for Bitcoin?*** The Bitcoin network is a peer-to-peer network that listens for transactions and propagates them using a public IP address.  When connecting to the network not using Tor, you would share your IP address, which could expose your location, your uptime, and others details to third parties — which is an undesirable privacy practice. To protect yourself online you should use tools like Tor to hide your connection details. Tor allows you to improve your privacy online as your data is cryptographically encoded and goes through different nodes, each one decoding a single layer (hence the onion metaphor).
+> :book: ***Perché Usare Tor per Bitcoin?*** La rete Bitcoin è una rete peer-to-peer che ascolta le transazioni e le propaga utilizzando un indirizzo IP pubblico. Quando ci si connette alla rete senza usare Tor, si condividerebbe il proprio indirizzo IP, il che potrebbe esporre la propria posizione, il tempo di attività e altri dettagli a terze parti — una pratica di privacy indesiderabile. Per proteggerti online dovresti usare strumenti come Tor per nascondere i dettagli della tua connessione. Tor ti consente di migliorare la tua privacy online poiché i tuoi dati sono crittograficamente codificati e passano attraverso diversi nodi, ciascuno dei quali decodifica un singolo strato (da qui la metafora della cipolla).
 
-## Understand Tor
+## Comprendere Tor
 
-So how does Tor work?
+Quindi, come funziona Tor?
 
-When a user wants to connect to an Internet server, Tor tries to build a path formed by at least three Tor relay nodes, called Guard, Middle, and Exit. While building this path, symmetric encryption keys are negotiated; when a message moves along the path, each relay then strips off its layer of encryption. In this way, the message arrives at the final destination in its original form, and each party only knows the previous and the next hop and cannot determine origin or destination.
+Quando un utente vuole connettersi a un server Internet, Tor cerca di costruire un percorso formato da almeno tre nodi di relay Tor, chiamati Guard, Middle e Exit. Durante la costruzione di questo percorso, vengono negoziate chiavi di crittografia simmetriche; quando un messaggio si sposta lungo il percorso, ogni relay rimuove il proprio strato di crittografia. In questo modo, il messaggio arriva alla destinazione finale nella sua forma originale, e ogni parte conosce solo l'hop precedente e successivo e non può determinare l'origine o la destinazione.
 
-Here's what a connection looks like without Tor:
+Ecco come appare una connessione senza Tor:
 ```
 20:58:03.804787 IP bitcoin.36300 > lb-140-82-114-25-iad.github.com.443: Flags [P.], seq 1:30, ack 25, win 501, options [nop,nop,TS val 3087919981 ecr 802303366], length 29
 ```
-Contrariwise, with Tor much less information about the actual machines is transmitted:
+Al contrario, con Tor viene trasmessa molta meno informazione sulle macchine effettive:
 ```
 21:06:52.744602 IP bitcoin.58776 > 195-xxx-xxx-x.rev.pxxxxxm.eu.9999: Flags [P.], seq 264139:265189, ack 3519373, win 3410, options [nop,nop,TS val 209009853 ecr 3018177498], length 1050
 21:06:52.776968 IP 195-xxx-xxx-x.rev.pxxxxxm.eu.9999 > bitcoin.58776: Flags [.], ack 265189, win 501, options [nop,nop,TS val 3018177533 ecr 209009853], length 0
 ```
-Bottom line: Tor encrypts your data in such a way that it hides your origin, your destination, and what services you're using, whereas a standard encryption protocol like TLS *only* protects what your data contains.
+Conclusione: Tor crittografa i tuoi dati in modo tale da nascondere la tua origine, la tua destinazione e quali servizi stai utilizzando, mentre un protocollo di crittografia standard come TLS *protegge solo* il contenuto dei tuoi dati.
 
-### Understand the Tor Network Architecture
+### Comprendere l'Architettura della Rete Tor
 
-The basic architecture of the Tor network is made up of the following components:
+L'architettura di base della rete Tor è composta dai seguenti componenti:
 
-* **Tor Client (OP or Onion Proxy).** A Tor client installs local software that acts as an onion proxy. It packages application data into cells that are all the same size (512 bytes), which it then sends to the Tor network. A cell is the basic unit of Tor transmission.
-* **Onion Node (OR or Onion Router).** An onion node transmits cells coming from the Tor client and from online servers. There are three types of onion nodes: input (Guard), intermediate nodes (Middle), and output nodes (Exit).
-*  **Directory Server.** A Directory server stores information about onion routers and onion servers (hidden services), such as their public keys.
-*  **Onion Server (hidden server).** An onion server supports TCP applications such as web pages or IRC as services.
+* **Tor Client (OP o Onion Proxy).** Un client Tor installa software locale che funge da onion proxy. Esso impacchetta i dati dell'applicazione in celle tutte della stessa dimensione (512 byte), che poi invia alla rete Tor. Una cella è l'unità base di trasmissione di Tor.
+* **Onion Node (OR o Onion Router).** Un onion node trasmette celle provenienti dal client Tor e dai server online. Ci sono tre tipi di onion node: input (Guard), intermediate nodes (Middle) e output nodes (Exit).
+*  **Directory Server.** Un server di directory memorizza informazioni sugli onion routers e sugli onion servers (servizi nascosti), come le loro chiavi pubbliche.
+*  **Onion Server (hidden server).** Un onion server supporta applicazioni TCP come pagine web o IRC come servizi.
 
-### Understand the Limitations of Tor
+### Comprendere le Limitazioni di Tor
 
-Tor isn't a perfect tool. Because information from the Tor network is decrypted at the exit nodes before being sent to its final destinations, theoretically an observer could collect sufficient metadata to compromise anonymity and potentially identify users.
+Tor non è uno strumento perfetto. Poiché le informazioni dalla rete Tor vengono decrittate ai nodi di uscita prima di essere inviate alle destinazioni finali, teoricamente un osservatore potrebbe raccogliere metadati sufficienti per compromettere l'anonimato e potenzialmente identificare gli utenti.
 
-There are also studies that suggest that possible exploits of Bitcoin's anti-DoS protection could allow an attacker to force other users who use Tor to connect exclusively through his Tor Exit nodes or to his Bitcoin peers,  isolating the client from the rest of the Bitcoin network and exposing them to censorship, correlation, and other attacks.
+Ci sono anche studi che suggeriscono che possibili exploit della protezione anti-DoS di Bitcoin potrebbero consentire a un attaccante di costringere altri utenti che usano Tor a connettersi esclusivamente tramite i suoi nodi di uscita Tor o ai suoi peer Bitcoin, isolando il client dal resto della rete Bitcoin ed esponendoli a censura, correlazione e altri attacchi.
 
-Similarly, Bitcoin Tor users could be fingerprint-attacked by setting an address cookie on their nodes. This would also allow correlation and thus deanonymization.
+Allo stesso modo, gli utenti Bitcoin Tor potrebbero essere attaccati con fingerprint impostando un cookie di indirizzo sui loro nodi. Ciò consentirebbe anche la correlazione e quindi la deanonymization.
 
-Meanwhile, even over Tor, Bitcoin is only a pseudoanonymous service due to the many dangers of correlation that stem from the permanent ledger itself. This means that Bitcoin usage over Tor is actually more likely to be _deanonymized_ than other services (and could lead to the deanonymization of other activities).
+Nel frattempo, anche su Tor, Bitcoin è solo un servizio pseudonimo a causa dei molti pericoli di correlazione derivanti dal ledger permanente stesso. Ciò significa che l'uso di Bitcoin su Tor è in realtà più probabile essere _deanonimizzato_ rispetto ad altri servizi (e potrebbe portare alla deanonymization di altre attività).
 
-With that said, Tor is generally considered safer than the alternative, which is non-anonymous browsing.
+Detto questo, Tor è generalmente considerato più sicuro dell'alternativa, che è la navigazione non anonima.
 
-## Verify Your Tor Setup
+## Verificare la Configurazione di Tor
 
-So how do you verify that you've enabled Tor? If you installed with Bitcoin Standup, the following will verify that Tor is running on your system
+Quindi, come verifichi di aver abilitato Tor? Se hai installato con Bitcoin Standup, quanto segue verificherà che Tor sia in esecuzione sul tuo sistema:
+
 ```
 $ sudo -u debian-tor tor --verify-config
 ```
 
-If Tor is installed correctly you should output like this:
+
+Se Tor è installato correttamente, dovresti ottenere un output simile a questo:
 ```
 Jun 26 21:52:09.230 [notice] Tor 0.4.3.5 running on Linux with Libevent 2.0.21-stable, OpenSSL 1.0.2n, Zlib 1.2.11, Liblzma 5.2.2, and Libzstd N/A.
 Jun 26 21:52:09.230 [notice] Tor can't help you if you use it wrong! Learn how to be safe at https://www.torproject.org/download/download#warning
 Jun 26 21:52:09.230 [notice] Read configuration file "/etc/tor/torrc".
 Configuration was valid
 ```
-> :warning: **WARNING:** This just means that Tor is running, not that its being used for all (or any) connections.
+> :warning: **ATTENZIONE:** Questo significa solo che Tor è in esecuzione, non che sia utilizzato per tutte (o qualsiasi) connessioni.
 
-### Verify Your Tor Setup for RPC
+### Verificare la Configurazione di Tor per RPC
 
-The most important purpose of Tor, as installed by Bitcoin Standup, is to offer hidden services for the RPC ports that are used to send command-line style commands to `bitcoind`.
+Lo scopo più importante di Tor, come installato da Bitcoin Standup, è offrire servizi nascosti per le porte RPC che vengono utilizzate per inviare comandi in stile linea di comando a `bitcoind`.
 
-> :book: ***What is a Tor Hidden Service?*** A hidden service (aka "an onion service") is a service that is accessible via Tor. Connection made to that service _using the Onion Network_ will be anonymized.
+> :book: ***Cos'è un Servizio Nascosto di Tor?*** Un servizio nascosto (alias "onion service") è un servizio accessibile tramite Tor. La connessione effettuata a quel servizio _utilizzando la Rete Onion_ sarà anonima.
 
-The Tor config file is found at `/etc/tor/torrc`. If you look at it, you should see the following services to protect your RPC ports:
+Il file di configurazione di Tor si trova in `/etc/tor/torrc`. Se lo guardi, dovresti vedere i seguenti servizi per proteggere le tue porte RPC:
+
 ```
 HiddenServiceDir /var/lib/tor/standup/
 HiddenServiceVersion 3
@@ -76,43 +79,46 @@ HiddenServicePort 1309 127.0.0.1:18332
 HiddenServicePort 1309 127.0.0.1:18443
 HiddenServicePort 1309 127.0.0.1:8332
 ```
-> :link: **TESTNET vs MAINNET:** Mainnet RPC is run on port 8332, testnet on port 18332.
+> :link: **TESTNET vs MAINNET:** L'RPC del Mainnet è eseguito sulla porta 8332, quello del testnet sulla porta 18332.
 
-> :information_source: **NOTE:** The `HiddenServiceDir` is where all the files are kept for this particular service. If you need to lookup your onion address, access keys, or add authorized clients, this is where to do so!
+> :information_source: **NOTA:** La `HiddenServiceDir` è dove sono conservati tutti i file per questo particolare servizio. Se hai bisogno di cercare il tuo indirizzo onion, le chiavi di accesso o aggiungere client autorizzati, questo è il posto dove farlo!
 
-The easy way to test your RPC Hidden Service is to use the [QuickConnect API](https://github.com/BlockchainCommons/Bitcoin-Standup/blob/master/Docs/Quick-Connect-API.md) built into Bitcoin Standup. Just download the QR code found at `/qrcode.png` and scan it using a wallet or node that support QuickConnect, such as [The Gordian Wallet](https://github.com/BlockchainCommons/FullyNoded-2). When you scan the QR, you should see the wallet sync up with your node; it's doing so using the RPC hidden services.
+Il modo semplice per testare il tuo Servizio Nascosto RPC è utilizzare l'[API QuickConnect](https://github.com/BlockchainCommons/Bitcoin-Standup/blob/master/Docs/Quick-Connect-API.md) integrata in Bitcoin Standup. Basta scaricare il codice QR trovato in `/qrcode.png` e scansionarlo utilizzando un wallet o un nodo che supporti QuickConnect, come [The Gordian Wallet](https://github.com/BlockchainCommons/FullyNoded-2). Quando scansionerai il QR, dovresti vedere il wallet sincronizzarsi con il tuo nodo; sta facendo ciò utilizzando i servizi nascosti RPC.
 
-The hard way to test your RPC Hidden Service is to send a `bitcoin-cli` command with `torify`, which allows you to translate a normal UNIX command to a Tor-protected command. It's difficult because you need to grab three pieces of information.
+Il modo difficile per testare il tuo Servizio Nascosto RPC è inviare un comando `bitcoin-cli` con `torify`, che ti consente di tradurre un comando UNIX normale in un comando protetto da Tor. È difficile perché devi raccogliere tre pezzi di informazioni.
 
-1. **Your Hidden Service Port.** This comes from `/etc/tor/torrc/`. By default, it's port 1309.
-2. **Your Tor Address.** This is in the `hostname` file in the `HiddenServiceDir` directory defined in `/etc/tor/torrc`. By default the file is thus `/var/lib/tor/standup/hostname`. It's protected, so you'll need to `sudo` to access it:
+1. **La Porta del Servizio Nascosto.** Questo proviene da `/etc/tor/torrc/`. Per impostazione predefinita, è la porta 1309.
+2. **Il Tuo Indirizzo Tor.** Questo si trova nel file `hostname` nella directory `HiddenServiceDir` definita in `/etc/tor/torrc`. Per impostazione predefinita, il file è quindi `/var/lib/tor/standup/hostname`. È protetto, quindi dovrai usare `sudo` per accedervi:
+
 ```
 $ sudo more /var/lib/tor/standup/hostname
 mgcym6je63k44b3i5uachhsndayzx7xi4ldmwrm7in7yvc766rykz6yd.onion
 ```
-3. **Your RPC Password.** This is in `~/.bitcoin/bitcoin.conf`
+3. **La Tua Password RPC.** Questa si trova in `~/.bitcoin/bitcoin.conf`
 
-When you have all of that information you can issue a `bitcoin-cli` command using `torify` and specifying the `-rpcconnect` as your onion address, the `-rpcport` as your hidden service port, and the `-rpcpassword` as your password:
+Quando hai tutte queste informazioni, puoi emettere un comando `bitcoin-cli` utilizzando `torify` e specificando il `-rpcconnect` come il tuo indirizzo onion, il `-rpcport` come la tua porta del servizio nascosto e il `-rpcpassword` come la tua password:
 ```
 $ torify bitcoin-cli -rpcconnect=mgcym6je63k44b3i5uachhsndayzx7xi4ldmwrm7in7yvc766rykz6yd.onion -rpcport=1309 -rpcuser=StandUp -rpcpassword=685316cc239c24ba71fd0969fa55634f getblockcount
 ```
 
-### Verify Your Tor Setup for Bitcoind
 
-Bitcoin Standup also ensures that your `bitcoind` is set up to optionally communicate on an onion address.
+### Verificare la Configurazione di Tor per Bitcoind
 
-You can verify the initial setup of Tor for `bitcoind` by grepping for "tor" in the `debug.log` in your data directory:
+Bitcoin Standup garantisce anche che il tuo `bitcoind` sia configurato per comunicare opzionalmente su un indirizzo onion.
+
+Puoi verificare la configurazione iniziale di Tor per `bitcoind` cercando "tor" nel `debug.log` nella tua directory dei dati:
+
 ```
 $ grep "tor:" ~/.bitcoin/testnet3/debug.log
 2021-06-09T14:07:04Z tor: ADD_ONION successful
 2021-06-09T14:07:04Z tor: Got service ID vazr3k6bgnfafmdpcmbegoe5ju5kqyz4tk7hhntgaqscam2qupdtk2yd, advertising service vazr3k6bgnfafmdpcmbegoe5ju5kqyz4tk7hhntgaqscam2qupdtk2yd.onion:18333
 2021-06-09T14:07:04Z tor: Cached service private key to /home/standup/.bitcoin/testnet3/onion_v3_private_key
 ```
-> :information_source: **NOTE:** Bitcoin Core does not support v2 addresses anymore. Tor v2 support was removed in [#22050](https://github.com/bitcoin/bitcoin/pull/22050)
+> :information_source: **NOTA:** Bitcoin Core non supporta più gli indirizzi v2. Il supporto per Tor v2 è stato rimosso in [#22050](https://github.com/bitcoin/bitcoin/pull/22050)
 
-> **TESTNET vs MAINNET:** Mainnet `bitcoind` responds on port 8333, testnet on port 18333.
+> **TESTNET vs MAINNET:** Il `bitcoind` del Mainnet risponde sulla porta 8333, quello del testnet sulla porta 18333.
 
-You can verify that a Tor hidden service has been created for Bitcoin with the `getnetworkinfo` RPC call:
+Puoi verificare che sia stato creato un servizio nascosto Tor per Bitcoin con la chiamata RPC `getnetworkinfo`:
 
 ```
 $ bitcoin-cli getnetworkinfo
@@ -136,11 +142,12 @@ $ bitcoin-cli getnetworkinfo
   ],
 ...
 ```
-This shows three addresses to access your Bitcoin server, an IPv4 address (`173.255.245.83`), an IPv6 address (`2600:3c01::f03c:92ff:fe86:f26`), and a Tor address (`vazr3k6bgnfafmdpcmbegoe5ju5kqyz4tk7hhntgaqscam2qupdtk2yd.onion`).
+Questo mostra tre indirizzi per accedere al tuo server Bitcoin, un indirizzo IPv4 (`173.255.245.83`), un indirizzo IPv6 (`2600:3c01::f03c:92ff:fe86:f26`) e un indirizzo Tor (`vazr3k6bgnfafmdpcmbegoe5ju5kqyz4tk7hhntgaqscam2qupdtk2yd.onion`).
 
-> :warning: **WARNING:** Obviously: never reveal your Tor address in a way that's associated with your name or other PII!
+> :warning: **ATTENZIONE:** Ovviamente: non rivelare mai il tuo indirizzo Tor in modo associato al tuo nome o altri dati personali!
 
-You can see similar information with `getnetworkinfo`.
+Puoi vedere informazioni simili con `getnetworkinfo`.
+
 ```
  bitcoin-cli getnetworkinfo
 {
@@ -201,18 +208,21 @@ You can see similar information with `getnetworkinfo`.
   "warnings": ""
 }
 ```
-This hidden service will allow anonymous connections to your `bitcoind` over the Bitcoin Network.
+Questo servizio nascosto consentirà connessioni anonime al tuo `bitcoind` sulla rete Bitcoin.
 
-> :warning: **WARNING:** Running Tor and having a Tor hidden service doesn't force either you or your peers to use Tor.
+> :warning: **ATTENZIONE:** Eseguire Tor e avere un servizio nascosto Tor non obbliga né te né i tuoi peer a usare Tor.
 
-### Verify Your Tor Setup for Peers
+### Verificare la Configurazione di Tor per i Peer
 
-Using the RPC command `getpeerinfo`, you can see what nodes are connected to your node and check whether they are connected with Tor.
+Utilizzando il comando RPC `getpeerinfo`, puoi vedere quali nodi sono connessi al tuo nodo e verificare se sono connessi con Tor.
+
+.
 
 ```
 $ bitcoin-cli getpeerinfo
 ```
-Some might be connected via Tor:
+Alcuni potrebbero essere connessi tramite Tor:
+
 ```
 ...
 {
@@ -278,7 +288,7 @@ Some might be connected via Tor:
   }
 ...
 ```
-Some might not, such as this IPv6 connection:
+Alcuni potrebbero non esserlo, come questa connessione IPv6:
 ```
 ...
   {
@@ -350,16 +360,17 @@ Some might not, such as this IPv6 connection:
   }
 ...
 ```
-Having a Tor address for your `bitcoind` is probably somewhat less useful than having a Tor address for your RPC connections. That's in part because it's not recommended to try and send all your Bitcoin connections via Tor, and in part because protecting your RPC commands is really what's important: you're much more likely to be doing that remotely, from a software wallet like The Gordian Wallet, while your server itself is more likely to be sitting in your office, basement, or bunker.
+Avere un indirizzo Tor per il tuo `bitcoind` è probabilmente un po' meno utile che avere un indirizzo Tor per le tue connessioni RPC. Questo in parte perché non è consigliato cercare di inviare tutte le tue connessioni Bitcoin tramite Tor, e in parte perché proteggere i tuoi comandi RPC è davvero ciò che è importante: è molto più probabile che tu stia facendo ciò da remoto, da un wallet software come The Gordian Wallet, mentre il tuo server stesso è più probabilmente seduto nel tuo ufficio, seminterrato o bunker.
 
-Nonetheless, there are ways to make `bitcoind` use Tor more, as discussed in the next section.
+Tuttavia, ci sono modi per far usare Tor di più a `bitcoind`, come discusso nella prossima sezione.
 
-## Summary: Verifying Your Tor Setup
+## Riepilogo: Verificare la Configurazione di Tor
 
-Tor is a software package installed at part of Bitcoin Standup that allows you to exchange communications anonymously. It will protect both your RPC ports (8332 or 18332) and your `bitcoind` ports (8333 or 18333) — but you have to actively connect to the onion address to use them! Tor is a building stone of privacy and security for your Bitcoin setup, and you can verify it's available and linked to Bitcoin with a few simple commands.
+Tor è un pacchetto software installato come parte di Bitcoin Standup che ti consente di scambiare comunicazioni in modo anonimo. Proteggerà sia le tue porte RPC (8332 o 18332) che le tue porte `bitcoind` (8333 o 18333) — ma devi collegarti attivamente all'indirizzo onion per usarle! Tor è una pietra miliare della privacy e della sicurezza per il tuo setup Bitcoin, e puoi verificare che sia disponibile e collegato a Bitcoin con pochi semplici comandi.
 
-> :fire: ***What is the power of Tor?*** Many attacks on Bitcoin users depend on knowing who the victim is and that they're transacting Bitcoins. Tor can protect you from that by hiding both where you are and what you're doing. It's particularly important if you want to connect to your own node remotely via a software wallet, and can be crucial if you do so in some country where you might not feel that your Bitcoin usage is appreciated or protected. If you must take your Bitcoin services on the road, make sure that your wallet fully supports Tor and exchanges all RPC commands with your server using that protocol.
+> :fire: ***Qual è il potere di Tor?*** Molti attacchi agli utenti Bitcoin dipendono dal sapere chi è la vittima e che stanno transando Bitcoin. Tor può proteggerti da ciò nascondendo sia dove ti trovi che cosa stai facendo. È particolarmente importante se vuoi connetterti al tuo nodo da remoto tramite un wallet software, e può essere cruciale se lo fai in qualche paese dove potresti non sentirti che il tuo utilizzo di Bitcoin sia apprezzato o protetto. Se devi portare i tuoi servizi Bitcoin in viaggio, assicurati che il tuo wallet supporti pienamente Tor e scambi tutti i comandi RPC con il tuo server utilizzando quel protocollo.
 
-## What's Next?
+## Cosa c'è Dopo?
 
-Continue "Understanding Tor" with [§14.2: Changing Your Bitcoin Hidden Services](14_2_Changing_Your_Bitcoin_Hidden_Services.md).
+Continua "Comprendere Tor" con [Capitolo 14.2: Cambiare Bitcoin Hidden Services](14_2_Cambiare_Bitcoin_Hidden_Services.md).
+
