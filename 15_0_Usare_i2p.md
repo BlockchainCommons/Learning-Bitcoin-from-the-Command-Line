@@ -1,20 +1,24 @@
-# Chapter 15: Using I2P
+# Capitolo 15: Usare i2P
 
-There are alternatives to Tor. One is the Invisible Internet Project (I2P), a fully encrypted private network layer. It uses a distributed [network database](https://geti2p.net/en/docs/how/network-database) and encrypted unidirectional tunnels between peers. The biggest difference between Tor and I2P is that Tor is fundamentally a proxy network that offers internet services in a private form, while I2P is fundamentally a sequestered network that offers I2P services only to the I2P network, creating a "network within a network". However, you might just want it as an alternative, so that you're not dependent solely on Tor.
+Ci sono alternative a Tor. Una è il Progetto Internet Invisibile (i2P), uno strato di rete privata completamente crittografato. Utilizza un [database di rete](https://geti2p.net/en/docs/how/network-database) distribuito e tunnel unidirezionali crittografati tra i peer. La differenza più grande tra Tor e I2P è che Tor è fondamentalmente una rete proxy che offre servizi internet in forma privata, mentre I2P è fondamentalmente una rete segregata che offre servizi I2P solo alla rete I2P, creando una "rete nella rete". Tuttavia, potresti volerlo solo come alternativa, in modo da non dipendere esclusivamente da Tor.
 
-I2P is not currently installed by [Bitcoin Standup](https://github.com/BlockchainCommons/Bitcoin-Standup-Scripts), as I2P support was recently added in Bitcoin Core. However, this chapter explains how to manually install it.
+I2P non è attualmente installato da [Bitcoin Standup](https://github.com/BlockchainCommons/Bitcoin-Standup-Scripts), poiché il supporto I2P è stato recentemente aggiunto in Bitcoin Core. Tuttavia, questo capitolo spiega come installarlo manualmente.
 
-## Objectives for This Chapter
+## Obiettivi di Questo Capitolo
 
-After working through this chapter, a developer will be able to:
+Dopo aver lavorato su questo capitolo, un sviluppatore sarà in grado di:
 
-  * Run Bitcoin Core as an I2P (Invisible Internet Project) service
+  * Eseguire Bitcoin Core come servizio I2P (Invisible Internet Project)
 
-Supporting objectives include the ability to:
+Gli obiettivi di supporto includono la capacità di:
 
-  * Understand the I2P Network
-  * Learn the difference between Tor and I2P
+  * Comprendere la Rete I2P
+  * Imparare la differenza tra Tor e I2P
 
-## Table of Contents
+## Indice
 
-* [Section One: Bitcoin Core as an I2P (Invisible Internet Project) service](15_1_i2p_service.md)
+* [Capitolo 15.1: Servizi i2P (Invisible Internet Project)](15_1_Servizi_i2p.md)
+
+
+
+
