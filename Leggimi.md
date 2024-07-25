@@ -96,18 +96,14 @@ Se desideri effettuare la tua traduzione, guarda qui [Contribuire](CONTRIBUIRE.m
 
 ### QUARTA PARTE: RISERVATEZZA
 
-**Status:** Da fare...
+**Status:** Prima traduzione parziale, da revisionare...
 
 * [14_0 Usare Tor](14_0_Usare_Tor.md)
   * [14_1 Verificare la Configurazione Tor](14_1_Verificare_la_Configurazione_Tor.md)
   * [14_2 Cambiare Bitcoin Hidden Services](14_2_Cambiare_Bitcoin_Hidden_Services.md)
   * [14_3 Aggiungere SSH Hidden Services](14_3_Aggiungere_SSH_Hidden_Services.md)
-  * 14_0_Usare_Tor.md
-  * 14_1_Verificare_la_Configurazione_Tor.md
-  * 14_2_Cambiare_Bitcoin_Hidden_Services.md
-  * 14_3_Aggiungere_SSH_Hidden_Services.md
-* 15_0_Usare_i2p.md
-  * 15_1_Servizi_i2p.md
+* [15_0 Usare i2p](15_0_Usare_i2p.md)
+  * [15_1 Servizi i2p](15_1_Servizi_i2p.md)
 
 ### QUINTA PARTE: PROGRAMMARE CON RPC
 
