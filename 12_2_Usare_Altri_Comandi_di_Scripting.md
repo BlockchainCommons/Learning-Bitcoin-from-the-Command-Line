@@ -82,4 +82,4 @@ Bitcoin Script include una vasta gamma di opcode aritmetici, di stack e crittogr
 
 ## Cosa Succede Dopo?
 
-Avanza attraverso "Bitcoin Scripting" col [Capitolo 13: Progettare veri Scripts di Bitcoin](13_0_Progettare_veri_Scripts_di_Bitcoin.md).
+Avanza attraverso "Bitcoin Scripting" col [Capitolo 13: Progettare Scripts di Bitcoin reali](13_0_Progettare_Scripts_di_Bitcoin_reali.md).
