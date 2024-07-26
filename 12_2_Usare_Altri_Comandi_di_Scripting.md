@@ -1,65 +1,65 @@
-# 12.2: Using Other Script Commands
+# 12.2: Utilizzo di Altri Comandi degli Script
 
-You may already have in hand most of the Bitcoin Script opcodes that you'll be using in most scripts. However, Bitcoin Script offers a lot more options, which might be exactly what you need to create the financial instrument of your dreams.
+Probabilmente hai già a portata di mano la maggior parte degli opcode di Bitcoin Script che utilizzerai nella maggior parte degli script. Tuttavia, Bitcoin Script offre molte più opzioni, che potrebbero essere esattamente ciò di cui hai bisogno per creare lo strumento finanziario dei tuoi sogni.
 
-You should consult the [Bitcoin Script page](https://en.bitcoin.it/wiki/Script) for a more thorough look at all of these and many other commands. This section only highlights the most notable opcodes.
+Dovresti consultare la [pagina Bitcoin Script](https://en.bitcoin.it/wiki/Script) per uno sguardo più approfondito a tutti questi e molti altri comandi. Questa sezione evidenzia solo gli opcode più notevoli.
 
-## Understand Arithmetic Opcodes
+## Comprendere gli Opcode Aritmetici
 
-Arithmetic opcodes manipulate or test numbers.
+Gli opcode aritmetici manipolano o testano i numeri.
 
-Manipulate one number:
+Manipolare un numero:
 
-* OP_1ADD	(0x8b) — Increment by one
-* OP_1SUB	(0x8c)	 — Decrement by one
-* OP_NEGATE	(0x8f)	— Flip the sign of the number
-* OP_ABS	(0x90)	— Make the number positive
-* OP_NOT (0x91) — Flips 1 and 0, else 0
+* OP_1ADD	(0x8b) — Incrementa di uno
+* OP_1SUB	(0x8c)	 — Decrementa di uno
+* OP_NEGATE	(0x8f)	— Inverte il segno del numero
+* OP_ABS	(0x90)	— Rende il numero positivo
+* OP_NOT (0x91) — Inverte 1 e 0, altrimenti 0
 
-Also see: `OP_0NOTEQUAL` (0x92)
+Vedi anche: `OP_0NOTEQUAL` (0x92)
 
-Manipulate two numbers mathematically:
+Manipolare due numeri matematicamente:
 
-* OP_ADD (0x93) — Add two numbers
-* OP_SUB (0x94) — Subtract two numbers
-* OP_MIN (0xa3) — Return the smaller of two numbers
-* OP_MAX (0xa4) — Return the larger of two numbers
+* OP_ADD (0x93) — Somma due numeri
+* OP_SUB (0x94) — Sottrae due numeri
+* OP_MIN (0xa3) — Restituisce il minore di due numeri
+* OP_MAX (0xa4) — Restituisce il maggiore di due numeri
 
-Manipulate two numbers logically:
+Manipolare due numeri logicamente:
 
-* OP_BOOLAND (0x9a)	— 1 if both numbers are not 0, else 0
-* OP_BOOLOR	(0x9b) — 1 if either number is not 0, else 0
+* OP_BOOLAND (0x9a)	— 1 se entrambi i numeri non sono 0, altrimenti 0
+* OP_BOOLOR	(0x9b) — 1 se uno dei due numeri non è 0, altrimenti 0
 
-Test two numbers:
+Testare due numeri:
 
-* OP_NUMEQUAL	(0x9c) — 1 if both numbers are equal, else 0
-* OP_LESSTHAN	(0x9f) — 1 if first number is less than second, else 0
-* OP_GREATERTHAN (0xa0) — 1 if first number is greater than second, else 0
-* OP_LESSTHANOREQUAL (0xa1) — 1 if first number is less than or equal to second, else 0
-* OP_GREATERTHANOREQUAL (0xa2) — 1 if first number is greater than or equal to second, else 0
+* OP_NUMEQUAL	(0x9c) — 1 se entrambi i numeri sono uguali, altrimenti 0
+* OP_LESSTHAN	(0x9f) — 1 se il primo numero è minore del secondo, altrimenti 0
+* OP_GREATERTHAN (0xa0) — 1 se il primo numero è maggiore del secondo, altrimenti 0
+* OP_LESSTHANOREQUAL (0xa1) — 1 se il primo numero è minore o uguale al secondo, altrimenti 0
+* OP_GREATERTHANOREQUAL (0xa2) — 1 se il primo numero è maggiore o uguale al secondo, altrimenti 0
 
-Also see: `OP_NUMEQUALVERIFY` (0x9d), `OP_NUMNOTEQUAL` (0x9e)
+Vedi anche: `OP_NUMEQUALVERIFY` (0x9d), `OP_NUMNOTEQUAL` (0x9e)
 
-Test three numbers:
+Testare tre numeri:
 
-* OP_WITHIN	(0xa5) — 1 if a number is in the range of two other numbers
+* OP_WITHIN	(0xa5) — 1 se un numero è nell'intervallo di due altri numeri
 
-## Understand Stack Opcodes
+## Comprendere gli Opcode dello Stack
 
-There are a shocking number of stack opcodes, but other than `OP_DROP`, `OP_DUP`, and sometimes `OP_SWAP` they're generally not necessary if you're careful about stack ordering. Nonetheless, here are a few of the more interesting ones:
+Ci sono un numero sorprendente di opcode dello stack, ma a parte `OP_DROP`, `OP_DUP` e talvolta `OP_SWAP`, generalmente non sono necessari se sei attento all'ordinamento dello stack. Tuttavia, ecco alcuni dei più interessanti:
 
-* OP_DEPTH (0x74) — Pushes the size of the stack
-* OP_DROP	(0x75) — Pops the top stack item
-* OP_DUP	(0x76) — Duplicates the top stack item
-* OP_PICK (0x79) — Duplicates the nth stack item as the top of the stack
-* OP_ROLL (0x7a) — Moves the nth stack item to the top of the stack
-* OP_SWAP (0x7c) — Swaps the top two stack items
+* OP_DEPTH (0x74) — Inserisce la dimensione dello stack
+* OP_DROP	(0x75) — Rimuove l'elemento in cima allo stack
+* OP_DUP	(0x76) — Duplica l'elemento in cima allo stack
+* OP_PICK (0x79) — Duplica l'elemento n dello stack come cima dello stack
+* OP_ROLL (0x7a) — Sposta l'elemento n dello stack in cima allo stack
+* OP_SWAP (0x7c) — Scambia i primi due elementi dello stack
 
-Also see: `OP_TOALTSTACK` (0x6b), `OP_FROMALTSTACK` (0x6c), `OP_2DROP` (0x6d), `OP_2DUP` (0x6e), `OP_3DUP` (0x6f), `OP_2OVER` (0x70), `OP_2ROT` (0x71), `OP_2SWAP` (0x72), `OP_IFDUP` (0x73), `OP_NIP` (0x77), `OP_OVER` (0x78), `OP_ROT` (0x7b), and `OP_TUCK` (0x7d).
+Vedi anche: `OP_TOALTSTACK` (0x6b), `OP_FROMALTSTACK` (0x6c), `OP_2DROP` (0x6d), `OP_2DUP` (0x6e), `OP_3DUP` (0x6f), `OP_2OVER` (0x70), `OP_2ROT` (0x71), `OP_2SWAP` (0x72), `OP_IFDUP` (0x73), `OP_NIP` (0x77), `OP_OVER` (0x78), `OP_ROT` (0x7b) e `OP_TUCK` (0x7d).
 
-## Understand Cryptographic Opcodes
+## Comprendere gli Opcode Crittografici
 
-Finally, a variety of opcodes support hashing and signature checking:
+Infine, una varietà di opcode supporta l'hashing e il controllo delle firme:
 
 Hash:
 
@@ -69,17 +69,17 @@ Hash:
 * OP_HASH160	(0xa9)	— SHA-256 + RIPEMD-160
 * OP_HASH256	(0xaa)	— SHA-256 + SHA-256
 
-Check Signatures:
+Controllo delle Firme:
 
-* OP_CHECKSIG (0xac) — Check a signature
-* OP_CHECKMULTISIG (0xae) — Check a m-of-n multisig
+* OP_CHECKSIG (0xac) — Controlla una firma
+* OP_CHECKMULTISIG (0xae) — Controlla una multisig m-di-n
 
-Also see: `OP_CODESEPARATOR` (0xab), `OP_CHECKSIGVERIFY` (0xad), and `OP_CHECKMULTISIGVERIFY` (0xaf).
+Vedi anche: `OP_CODESEPARATOR` (0xab), `OP_CHECKSIGVERIFY` (0xad) e `OP_CHECKMULTISIGVERIFY` (0xaf).
 
-## Summary: Using Other Script Commands
+## Riepilogo: Utilizzo di Altri Comandi degli Script
 
-Bitcoin Script includes a wide array of arithemetic, stack, and cryptographic opcodes. Most of these additional opcodes are probably not as common as the ones discussed in previous sections, but nonetheless they're available if they're just what you need to write your Script!
+Bitcoin Script include una vasta gamma di opcode aritmetici, di stack e crittografici. La maggior parte di questi opcode aggiuntivi probabilmente non è comune come quelli discussi nelle sezioni precedenti, ma sono comunque disponibili se sono esattamente ciò di cui hai bisogno per scrivere il tuo Script!
 
-## What's Next?
+## Cosa Succede Dopo?
 
-Advance through "Bitcoin Scripting" with [Chapter Thirteen: Designing Real Bitcoin Scripts](13_0_Designing_Real_Bitcoin_Scripts.md).
+Avanza attraverso "Bitcoin Scripting" col [Capitolo 13: Progettare veri Scripts di Bitcoin](13_0_Progettare_veri_Scripts_di_Bitcoin.md).
