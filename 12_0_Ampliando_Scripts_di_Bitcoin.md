@@ -1,20 +1,20 @@
-# Chapter 12: Expanding Bitcoin Scripts
+# Capitolo 12: Espandere gli Script Bitcoin
 
-There's still a little more to Bitcoin Scripts. Conditionals give you full access to flow control, while a variety of other opcodes can expand your possibilities.
+C'è ancora un po' da scoprire sugli Script Bitcoin. I condizionali ti danno pieno accesso al controllo del flusso, mentre una varietà di altri opcode può espandere le tue possibilità.
 
-## Objectives for This Chapter
+## Obiettivi per Questo Capitolo
 
-After working through this chapter, a developer will be able to:
+Dopo aver lavorato su questo capitolo, uno sviluppatore sarà in grado di:
 
-   * Decide How to Use Script Conditionals
-   * Decide How to Use Other Script Opcodes
+   * Decidere Come Usare i Condizionali negli Script
+   * Decidere Come Usare Altri Opcode degli Script
    
-Supporting objectives include the ability to:
+Gli obiettivi di supporto includono la capacità di:
 
-   * Understand the Full Range of Scripting Possibilities
-   * Identify How to Learn More about Opcodes
+   * Comprendere l'Intera Gamma di Possibilità degli Script
+   * Identificare Come Imparare di Più sugli Opcode
 
-## Table of Contents
+## Indice dei Contenuti
 
-* [Section One: Using Script Conditionals](12_1_Using_Script_Conditionals.md)
-* [Section Two: Using Other Script Commands](12_2_Using_Other_Script_Commands.md)
+* [Capitolo 12.1 Usare Script Condizionati](12_1_Usare_Script_Condizionati.md)
+* [Capitolo 12.2 Usare Altri Comandi di Scripting](12_2_Usare_Altri_Comandi_di_Scripting.md)
