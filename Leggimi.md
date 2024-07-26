@@ -75,17 +75,17 @@ Se desideri effettuare la tua traduzione, guarda qui [Contribuire](CONTRIBUIRE.m
   * [09_3 Provare uno Script Bitcoin](09_3_Provare_uno_Script_Bitcoin.md)
   * [09_4 Programmare una P2PKH](09_4_Programmare_una_P2PKH.md)
   * [09_5 Programmare una P2WPKH](09_5_Programmare_una_P2WPKH.md)
-* [10_0_Inserire Scripts di Bitcoin in Transazioni P2SH](10_0_Inserire_Scripts_di_Bitcoin_in_Transazioni_P2SH.md)
-  * 10_1_Comprendere_la_Base_di_P2SH.md
-  * 10_2_Construire_la_Struttura_di_P2SH.md
-  * 10_3_Eseguire_uno_Script_Bitcoin_con_P2SH.md
-  * 10_4_Programmare_una_Multifirma.md
-  * 10_5_Programmare_uno_Script_Segwit.md
-  * 10_6_Spendere_una_Transazione_P2SH.md
-* 11_0_Potenziare_Blocchi_Temporali_con_Scripts_di_Bitcoin.md
-  * 11_1_Comprendere_le_Opzioni_dei_Blocchi_Temporali.md
-  * 11_2_Usare_CLTV_negli_Scripts.md
-  * 11_3_Usare_CSV_negli_Scripts.md
+* [10_0 Inserire Scripts di Bitcoin in Transazioni P2SH](10_0_Inserire_Scripts_di_Bitcoin_in_Transazioni_P2SH.md)
+  * [10_1 Comprendere la Base di P2SH](10_1_Comprendere_la_Base_di_P2SH.md)
+  * [10_2 Construire la Struttura di P2SH](10_2_Construire_la_Struttura_di_P2SH.md)
+  * [10_3 Eseguire uno Script Bitcoin con P2SH](10_3_Eseguire_uno_Script_Bitcoin_con_P2SH.md)
+  * [10_4 Programmare una Multifirma](10_4_Programmare_una_Multifirma.md)
+  * [10_5 Programmare uno Script Segwit](10_5_Programmare_uno_Script_Segwit.md)
+  * [10_6 Spendere una Transazione P2SH](10_6_Spendere_una_Transazione_P2SH.md)
+* [11_0 Potenziare Blocchi Temporali con Scripts di Bitcoin](11_0_Potenziare_Blocchi_Temporali_con_Scripts_di_Bitcoin.md)
+  * [11_1 Comprendere le Opzioni dei BlocchiTemporali](11_1_Comprendere_le_Opzioni_dei_Blocchi_Temporali.md)
+  * [11_2 Usare CLTV negli Scripts](11_2_Usare_CLTV_negli_Scripts.md)
+  * [11_3 Usare CSV negli Scripts](11_3_Usare_CSV_negli_Scripts.md])
 * 12_0_Ampliando_Scripts_di_Bitcoin.md
   * 12_1_Usare_Script_Condizionati.md
   * 12_2_Usare_Altri_Comandi_di_Scripting.md
