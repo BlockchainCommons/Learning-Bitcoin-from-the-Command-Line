@@ -1,120 +1,121 @@
-# 11.3: Using CSV in Scripts
+# 11.3: Utilizzo di CSV negli Script
 
-`nLockTime` and `OP_CHECKLOCKTIMEVERIFY` (or CLTV) are just one side of the timelock equation. On the other side are `nSequence` and `OP_CHECKSEQUENCEVERIFY`, which can be used to check against relative times rather than absolute times.
+`nLockTime` e `OP_CHECKLOCKTIMEVERIFY` (o CLTV) sono solo una faccia dell'equazione del timelock. Dall'altra parte ci sono `nSequence` e `OP_CHECKSEQUENCEVERIFY`, che possono essere utilizzati per controllare i tempi relativi piuttosto che i tempi assoluti.
 
-> :warning: **VERSION WARNING:** CSV became available with Bitcoin Core 0.12.1, in spring 2016.
+> :warning: **AVVISO VERSIONE:** CSV è diventato disponibile con Bitcoin Core 0.12.1, nella primavera del 2016.
 
-## Understand nSequence
+## Comprendere nSequence
 
-Every input into a transaction has an `nSequence` (or if you prefer `sequence`) value. It's been a prime tool for Bitcoin expansions as discussed previously in [§5.2: Resending a Transaction with RBF](05_2_Resending_a_Transaction_with_RBF.md) and [§8.1 Sending a Transaction with a Locktime](08_1_Sending_a_Transaction_with_a_Locktime.md), where it was used to signal RBF and `nLockTime`, respectively. However, there's one more use for `nSequence`, described by [BIP 68](https://github.com/bitcoin/bips/blob/master/bip-0068.mediawiki): you can use it to create a relative timelock on a transaction.
+Ogni input in una transazione ha un valore `nSequence` (o se preferisci `sequence`). È stato uno strumento primario per le espansioni di Bitcoin come discusso in precedenza nel [Capitolo 5.2 Rinviare le Transazioni con RBF](05_2_Rinviare_le_Transazioni_con_RBF.md) e nel [Capitolo 8.1 Inviare una Transazione con Blocco temporale](08_1_Inviare_una_Transazione_con_Blocco_temporale.md), dove è stato utilizzato per segnalare RBF e `nLockTime`, rispettivamente. Tuttavia, c'è un altro uso per `nSequence`, descritto da [BIP 68](https://github.com/bitcoin/bips/blob/master/bip-0068.mediawiki): puoi usarlo per creare un timelock relativo su una transazione.
 
-A relative timelock is a lock that's placed on a specific input of a transaction and that's calculated in relation to the mining date of the UTXO being used in the input. For example, if a UTXO was mined at block #468260 and a transaction was created where the input for that UTXO was given an `nSequence` of 100, then the new transaction could not be mined until at least block #468360.
+Un timelock relativo è un blocco che viene posto su un input specifico di una transazione e che viene calcolato in relazione alla data di mining dell'UTXO utilizzato nell'input. Ad esempio, se un UTXO è stato minato al blocco #468260 e una transazione è stata creata dove l'input per quell'UTXO è stato dato un `nSequence` di 100, allora la nuova transazione non potrebbe essere minata fino almeno al blocco #468360.
 
-Easy!
+Facile!
 
-> :information_source: **NOTE — SEQUENCE:** This is the third use of the `nSequence` value in Bitcoin. Any `nSequence` value without the 32nd bit set (1<<31), so 0x00000001 to 0x7ffffffff, will be interpreted as a relative timelock if `nVersion ≥ 2` (which is the default starting in Bitcoin Core 0.14.0). You should be careful to ensure that relative timelocks don't conflict with the other two uses of `nSequence`, for signalling `nTimeLock` and RBF. `nTimeLock` usually sets a value of 0xffffffff-1, where a relative timelock is disallowed; and RBF usually sets a value of "1", where a relative timelock is irrelevent, because it defines a timelock of 1 block. 
+> :information_source: **NOTA — SEQUENCE:** Questo è il terzo utilizzo del valore `nSequence` in Bitcoin. Qualsiasi valore `nSequence` senza il 32° bit impostato (1<<31), quindi da 0x00000001 a 0x7ffffffff, sarà interpretato come un timelock relativo se `nVersion ≥ 2` (che è il valore predefinito a partire da Bitcoin Core 0.14.0). Dovresti fare attenzione per garantire che i timelock relativi non confliggano con gli altri due usi di `nSequence`, per segnalare `nTimeLock` e RBF. `nTimeLock` di solito imposta un valore di 0xffffffff-1, dove un timelock relativo è disattivato; e RBF di solito imposta un valore di "1", dove un timelock relativo è irrilevante, perché definisce un timelock di 1 blocco.
 
-> In general, remember: with a `nVersion` value of 2, a `nSequence` value of 0x00000001 to 0x7fffffff allows relative timelock, RBF, and `nTimeLock`; a `nSequence` value of 0x7fffffff to 0xffffffff-2 allows RBF and `nTimeLock`; a `nSequence` value of 0xffffffff-1 allows only `nTimeLock`; a `nSequence` value of 0xffffffff allows none; and `nVersion` can be set to 1 to disallow relative timelocks for any value of `nSequence`. Whew!
+> In generale, ricorda: con un valore `nVersion` di 2, un valore `nSequence` da 0x00000001 a 0x7fffffff consente timelock relativi, RBF e `nTimeLock`; un valore `nSequence` da 0x7fffffff a 0xffffffff-2 consente RBF e `nTimeLock`; un valore `nSequence` di 0xffffffff-1 consente solo `nTimeLock`; un valore `nSequence` di 0xffffffff non consente nessuno; e `nVersion` può essere impostato a 1 per disabilitare i timelock relativi per qualsiasi valore di `nSequence`. Uff!
 
-### Create a CSV Relative Block Time
+### Creare un Tempo Relativo a Blocchi CSV
 
-The format for using `nSequence` to represent relative time locks is defined in [BIP 68](https://github.com/bitcoin/bips/blob/master/bip-0068.mediawiki) and is slightly more complex than just inputting a number, like you did for `nTimeLock`. Instead, the BIP specifications breaks up the four byte number into three parts:
+Il formato per utilizzare `nSequence` per rappresentare i timelock relativi è definito in [BIP 68](https://github.com/bitcoin/bips/blob/master/bip-0068.mediawiki) ed è leggermente più complesso del semplice inserimento di un numero, come hai fatto per `nTimeLock`. Invece, le specifiche BIP dividono il numero a quattro byte in tre parti:
 
-* The first two bytes are used to specify a relative locktime.
-* The 23rd bit is used to positively signal if the lock refers to a time rather than a blockheight.
-* The 32nd bit is used to positively signal if relative timelocks are deactivated.
+* I primi due byte vengono utilizzati per specificare un locktime relativo.
+* Il 23° bit viene utilizzato per segnalare positivamente se il lock si riferisce a un tempo anziché a un'altezza di blocco.
+* Il 32° bit viene utilizzato per segnalare positivamente se i timelock relativi sono disattivati.
 
-With that said, the construction of a block-based relative timelock is still quite easy, because the two flagged bits are set to `0`, so you just set `nSequence` to a value between 1 and 0xffff (65535). The new transaction can be mined that number of blocks after the associated UTXO was mined.
+Detto ciò, la costruzione di un timelock relativo basato su blocchi è ancora abbastanza semplice, perché i due bit segnalati sono impostati a `0`, quindi imposti semplicemente `nSequence` a un valore tra 1 e 0xffff (65535). La nuova transazione può essere minata quel numero di blocchi dopo che l'UTXO associato è stato minato.
 
-### Create a CSV Relative Time
+### Creare un Tempo Relativo CSV
 
-You can instead set `nSequence` as a relative time, where the lock lasts for 512 seconds times the value of `nSequence`.
+Puoi invece impostare `nSequence` come un tempo relativo, dove il lock dura per 512 secondi moltiplicato per il valore di `nSequence`.
 
-In order to do that:
+Per fare ciò:
 
-1. Decide how far in the future to set your relative timelock.
-2. Convert that to seconds.
-3. Divide by 512.
-4. Round that value up or down and set it as `nSequence`.
-5. Set the 23rd bit to true.
+1. Decidi quanto in avanti impostare il tuo timelock relativo.
+2. Converti quel tempo in secondi.
+3. Dividi per 512.
+4. Arrotonda quel valore in su o in giù e impostalo come `nSequence`.
+5. Imposta il 23° bit a true.
 
-To set a time 6 months n the future, you must first calculate as follows:
+Per impostare un tempo 6 mesi nel futuro, devi prima calcolare come segue:
 ```
 $ seconds=$((6*30*24*60*60))
 $ nvalue=$(($seconds/512))
 ```
-Then, turn it into hex:
+Poi, trasformalo in hex:
 ```
 $ hexvalue=$(printf '%x\n' $nvalue)
 ```
-Finally, bitwise-or the 23rd bit into the hex value you created:
+Infine, esegui un'operazione bitwise-or sul 23° bit nel valore hex che hai creato:
 ```
 $ relativevalue=$(printf '%x\n' $((0x$hexvalue | 0x400000)))
 $ echo $relativevalue
 4224679
 ```
-If you convert that back you'll see that 4224679 = 10000000111011010100111. The 23rd digit is set to a "1"; meanwhile the first 2 bytes, 0111011010100111, convert to 76A7 in hex or 30375 in decimal. Multiply that by 512 and you get 15.55 million seconds, which indeed is 180 days.
+Se converti nuovamente, vedrai che 4224679 = 10000000111011010100111. Il 23° bit è impostato a "1"; nel frattempo, i primi 2 byte, 0111011010100111, si convertono in 76A7 in hex o 30375 in decimale. Moltiplicalo per 512 e ottieni 15,55 milioni di secondi, che sono effettivamente 180 giorni.
 
-## Create a Transaction with a Relative Timelock
+## Creare una Transazione con un Timelock Relativo
 
-So you want to create a simple transaction with a relative timelock? All you have to do is issue a transaction where the `nSequence` in an input is set as shown above: with the `nSequence` for that input set such that the first two bytes define the timelock, the 23rd bit defines the type of timelock, and the 32nd bit is set to false. 
+Quindi vuoi creare una semplice transazione con un timelock relativo? Tutto ciò che devi fare è emettere una transazione dove il `nSequence` in un input è impostato come mostrato sopra: con il `nSequence` per quell'input impostato in modo che i primi due byte definiscano il timelock, il 23° bit definisca il tipo di timelock e il 32° bit sia impostato a falso.
 
-Issue the transaction and you'll see that it can't legally be mined until enough blocks or enough time has passed beyond the time that the UTXO was mined.
+Emetti la transazione e vedrai che non può essere legalmente minata fino a quando non saranno passati abbastanza blocchi o abbastanza tempo oltre il momento in cui l'UTXO è stato minato.
 
-Except pretty much no one does this. The [BIP 68](https://github.com/bitcoin/bips/blob/master/bip-0068.mediawiki) definitions for `nSequence` were incorporated into Bitcoin Core at the same time as [BIP 112](https://github.com/bitcoin/bips/blob/master/bip-0112.mediawiki). which describes the CSV opcode, the `nSequence` equivalent to the CLTV opcode. Just like CLTV, CSV offers increased capabilities. So, almost all usage of relative timelocks has been with the CSV opcode, not with the raw `nSequence` value on its own.
+Tranne che praticamente nessuno lo fa. Le definizioni di [BIP 68](https://github.com/bitcoin/bips/blob/master/bip-0068.mediawiki) per `nSequence` sono state incorporate in Bitcoin Core allo stesso tempo di [BIP 112](https://github.com/bitcoin/bips/blob/master/bip-0112.mediawiki), che descrive l'opcode CSV, l'equivalente di `nSequence` dell'opcode CLTV. Proprio come CLTV, CSV offre capacità aumentate. Quindi, quasi tutto l'uso dei timelock relativi è stato con l'opcode CSV, non con il valore grezzo `nSequence` da solo.
 
-|                      | Absolute Timelock | Relative Timelock |
+|                      | Timelock Assoluto | Timelock Relativo |
 |:--------------------:|-------------------|-------------------|
-| **Lock Transaction** | nTimeLock         | nSequence         |
-| **Lock Output**      | OP_CHECKLOCKTIMEVERIFY| OP_CHECKSEQUENCEVERIFY |
+| **Blocco Transazione** | nTimeLock         | nSequence         |
+| **Blocco Output**      | OP_CHECKLOCKTIMEVERIFY| OP_CHECKSEQUENCEVERIFY |
 
-## Understand the CSV Opcode
+## Comprendere l'Opcode CSV
 
-`OP_SEQUENCEVERIFY` in Bitcoin Scripts works pretty much like `OP_LOCKTIMEVERIFY`. 
+`OP_SEQUENCEVERIFY` negli Script Bitcoin funziona praticamente come `OP_LOCKTIMEVERIFY`.
 
-You might require a UTXO be held for a hundred blocks past its mining:
+Potresti richiedere che un UTXO sia mantenuto per cento blocchi dopo il suo mining:
+
 ```
 100 OP_CHECKSEQUENCEVERIFY
 ```
-Or your might make a more complex calculation to require that a UTXO be held for six months, in which case you'll end up with a more complex number:
+Oppure potresti fare un calcolo più complesso per richiedere che un UTXO sia mantenuto per sei mesi, nel qual caso finirai con un numero più complesso:
 ```
 4224679 OP_CHECKSEQUENCEVERIFY
 ```
-In this case we'll use a shorthand:
+In questo caso useremo una scorciatoia:
 ```
 <+6Months> OP_CHECKSEQUENCEVERIFY
 ```
+> :warning: **AVVISO:** Ricorda che un timelock relativo è un intervallo di tempo dal mining dell'UTXO utilizzato come input. Non è un intervallo di tempo dopo che crei la transazione. Se utilizzi un UTXO che è già stato confermato cento volte e applichi un timelock relativo di 100 blocchi, sarà idoneo per il mining immediatamente. I timelock relativi hanno alcuni usi molto specifici, ma probabilmente non si applicano se il tuo unico obiettivo è determinare un tempo specifico nel futuro.
 
-> :warning: **WARNING:** Remember that a relative timelock is a time span since the mining of the UTXO used as an input. It is _not_ a timespan after you create the transaction. If you use a UTXO that's already been confirmed a hundred times, and you place a relative timelock of 100 blocks on it, it will be eligible for mining immediately. Relative timelocks have some very specific uses, but they probably don't apply if your only goal is to determine some set time in the future.
+### Comprendere Come Funziona Davvero CSV
 
-### Understand How CSV Really Works
+CSV ha molte delle stesse sottigliezze nell'uso di CLTV:
 
-CSV has many of the same subtleties in usage as CLTV:
+* Il campo `nVersion` deve essere impostato a 2 o più.
+* Il campo `nSequence` deve essere impostato a meno di 0x80000000.
+* Quando CSV viene eseguito, ci deve essere un operando sullo stack che sia compreso tra 0 e 0xf0000000-1.
+* Sia l'operando dello stack che `nSequence` devono avere lo stesso valore nel 23° bit.
+* Il `nSequence` deve essere maggiore o uguale all'operando dello stack.
 
-* The `nVersion` field must be set to 2 or more.
-* The `nSequence` field must be set to less than 0x80000000.
-* When CSV is run, there must be an operand on the stack that's between 0 and 0xf0000000-1.
-* Both the stack operand and `nSequence` must have the same value on the 23rd bit.
-* The `nSequence` must be greater than or equal to the stack operand.
+Proprio come con CLTV, quando stai spendendo nuovamente un UTXO con un CSV nelle sue condizioni di blocco, devi impostare `nSequence` per abilitare la transazione. Di solito lo imposterai al valore esatto nello script di blocco.
 
-Just as with CLTV, when you are respending a UTXO with a CSV in its locking conditions, you must set the `nSequence` to enable the transaction. You'll usually set it to the exact value in the locking script.
+## Scrivere uno Script CSV
 
-## Write a CSV Script
+Proprio come `OP_CHECKLOCKTIMEVERIFY`, `OP_CHECKSEQUENCEVERIFY` include un implicito `OP_VERIFY` e lascia i suoi argomenti sullo stack, richiedendo un `OP_DROP` quando hai finito.
 
-Just like `OP_CHECKLOCKTIMEVERIFY`, `OP_CHECKSEQUENCEVERIFY` includes an implicit `OP_VERIFY` and leaves its arguments on the stack, requiring an `OP_DROP` when you're all done.
-
-A script that would lock funds until six months had passed following the mining of the input, and that would then require a standard P2PKH-style signature would look as follows:
+Uno script che bloccherebbe i fondi fino a sei mesi dopo il mining dell'input e che richiederebbe quindi una firma in stile P2PKH standard sarebbe il seguente:
 ```
 <+6Months> OP_CHECKSEQUENCEVERIFY OP_DROP OP_DUP OP_HASH160 <pubKeyHash> OP_EQUALVERIFY OP_CHECKSIG
 ```
 
-### Encode a CSV Script
+#
+### Codificare uno Script CSV
 
-When you encode a CSV script, be careful how you encode the integer value for the relative locktime. It should be passed as a 3-byte integer, which means that you're ignoring the top byte, which could inactivate the relative locktime. Since it's an integer, be sure you convert it to little-endian.
+Quando codifichi uno script CSV, fai attenzione a come codifichi il valore intero per il timelock relativo. Dovrebbe essere passato come un intero a 3 byte, il che significa che stai ignorando il byte superiore, che potrebbe disattivare il timelock relativo. Poiché è un intero, assicurati di convertirlo in little-endian.
 
-This can be done with the `integer2lehex.sh` shell script from the previous chapter.
+Questo può essere fatto con lo script `integer2lehex.sh` dalla capitolo precedente.
 
-For a relative time of 100 blocks:
+Per un tempo relativo di 100 blocchi:
 ```
 $ ./integer2lehex.sh 100
 Integer: 100
@@ -122,9 +123,10 @@ LE Hex: 64
 Length: 1 bytes
 Hexcode: 0164
 ```
-Though that should be padded out to `000064`, requiring a code of `03000064`.
+Anche se dovrebbe essere completato a `000064`, richiedendo un codice di `03000064`.
 
-For a relative time of 6 months:
+Per un tempo relativo di 6 mesi:
+
 ```
 $ ./integer2lehex.sh 4224679
 Integer: 4224679
@@ -133,16 +135,17 @@ Length: 3 bytes
 Hexcode: 03a77640
 ```
 
-## Spend a CSV UTXO
 
-To spend a UTXO locked with a CSV script, you must set the `nSequence` of that input to a value greater than the requirement in the script, but less than the time between the UTXO and the present block. Yes, this means that you need to know the exact requirement in the locking script ... but you have a copy of the `redeemScript`, so if you don't know the requirements, you deserialize it, and then set the `nSequence` to the number that's shown there.
+## Spendere un UTXO CSV
 
-## Summary: Using CSV in Scripts
+Per spendere un UTXO bloccato con uno script CSV, devi impostare il `nSequence` di quell'input a un valore maggiore del requisito nello script, ma inferiore al tempo tra l'UTXO e il blocco presente. Sì, questo significa che devi conoscere il requisito esatto nello script di blocco... ma hai una copia del `redeemScript`, quindi se non conosci i requisiti, lo deserializzi e poi imposti il `nSequence` al numero mostrato lì.
 
-`nSequence` and CSV offer an alternative to `nLockTime` and CLTV where you lock a transaction based on a relative time since the input was mined, rather than basing the lock on a set time in the future. They work almost identically, other than the fact that the `nSequence` value is encoded slightly differently than the `nLockTime` value, with specific bits meaning specific things.
+## Riepilogo: Utilizzo di CSV negli Script
 
-> :fire: ***What is the power of CSV?*** CSV isn't just a lazy way to lock, when you don't want to calculate a time in the future. Instead, it's a totally different paradigm, a lock that you would use if it was important to create a specific minimum duration between when a transaction is mined and when its funds can be respent. The most obvious usage is (once more) for an escrow, when you want a precise time between the input of funds and their output. However, it has much more powerful possibilities in off-chain transactions, including payment channels. These applications are by definition built on transactions that are not actually put onto the blockchain, which means that if they are later put on the blockchain an enforced time-lapse can be very helpful. [Hashed Timelock Contracts](https://en.bitcoin.it/wiki/Hashed_Timelock_Contracts) have been one such implementation, empowering the Lightning payment network. They're discussed in [§13.3: Empowering Bitcoin with Scripts](13_3_Empowering_Bitcoin_with_Scripts.md).
+`nSequence` e CSV offrono un'alternativa a `nLockTime` e CLTV dove blocchi una transazione basata su un tempo relativo da quando l'input è stato minato, anziché basare il blocco su un tempo stabilito nel futuro. Funzionano quasi in modo identico, a parte il fatto che il valore `nSequence` è codificato in modo leggermente diverso dal valore `nLockTime`, con bit specifici che significano cose specifiche.
 
-## What's Next?
+> :fire: ***Qual è il potere di CSV?*** CSV non è solo un modo pigro per bloccare, quando non vuoi calcolare un tempo nel futuro. Invece, è un paradigma totalmente diverso, un blocco che useresti se fosse importante creare una durata minima specifica tra quando una transazione è minata e quando i suoi fondi possono essere spesi nuovamente. L'uso più ovvio è (ancora una volta) per un escrow, quando vuoi un tempo preciso tra l'input dei fondi e il loro output. Tuttavia, ha possibilità molto più potenti nelle transazioni off-chain, inclusi i canali di pagamento. Queste applicazioni sono per definizione basate su transazioni che non sono effettivamente inserite nella blockchain, il che significa che se sono successivamente inserite nella blockchain, un intervallo di tempo forzato può essere molto utile. [Contratti Hashed Timelock](https://en.bitcoin.it/wiki/Hashed_Timelock_Contracts) sono stati una di queste implementazioni, potenziando la rete di pagamenti Lightning. Sono discussi nel[Capitolo 13.3: Potenziare Bitcoin con Scripts](13_3_Potenziare_Bitcoin_con_Scripts.md).
 
-Advance through "Bitcoin Scripting" with [Chapter Twelve: Expanding Bitcoin Scripts](12_0_Expanding_Bitcoin_Scripts.md).
+## Cosa Succede Dopo?
+
+Avanza attraverso "Bitcoin Scripting" col [Capitolo 12: Ampliando Scripts di Bitcoin](12_0_Ampliando_Scripts_di_Bitcoin.md).
