@@ -86,9 +86,9 @@ Se desideri effettuare la tua traduzione, guarda qui [Contribuire](CONTRIBUIRE.m
   * [11_1 Comprendere le Opzioni dei BlocchiTemporali](11_1_Comprendere_le_Opzioni_dei_Blocchi_Temporali.md)
   * [11_2 Usare CLTV negli Scripts](11_2_Usare_CLTV_negli_Scripts.md)
   * [11_3 Usare CSV negli Scripts](11_3_Usare_CSV_negli_Scripts.md])
-* 12_0_Ampliando_Scripts_di_Bitcoin.md
-  * 12_1_Usare_Script_Condizionati.md
-  * 12_2_Usare_Altri_Comandi_di_Scripting.md
+* [12_0 Ampliando Scripts di Bitcoin](12_0_Ampliando_Scripts_di_Bitcoin.md)
+  * [12_1 Usare Script Condizionati](12_1_Usare_Script_Condizionati.md)
+  * [12_2 Usare Altri Comandi di Scripting](12_2_Usare_Altri_Comandi_di_Scripting.md)
 * 13_0_Disegnare_Scripts_di_Bitcoin_Reali.md
   * 13_1_Scrivere_Scripts_Puzzle.md
   * 13_2_Scrivere_Scripts_Multifirma_Complessi.md
