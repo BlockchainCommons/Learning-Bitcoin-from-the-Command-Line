@@ -1,109 +1,99 @@
-# 12.1: Using Script Conditionals
+# 12.1: Utilizzo dei Condizionali negli Script
 
-There's one final aspect of Bitcoin Scripting that's crucial to unlocking its true power: conditionals allow you create various paths of execution.
+C'è un ultimo aspetto degli Script Bitcoin che è cruciale per sbloccare il loro vero potere: i condizionali ti permettono di creare vari percorsi di esecuzione.
 
-## Understand Verify
+## Comprendere Verify
 
-You've already seen one conditional in scripts: `OP_VERIFY` (0x69). It pops the top item on the stack and sees if it's true; if not _it ends execution of the script_. 
+Hai già visto un condizionale negli script: `OP_VERIFY` (0x69). Estrae l'elemento in cima allo stack e verifica se è vero; in caso contrario _termina l'esecuzione dello script_.
 
-Verify is usually incorporated into other opcodes. You've already seen `OP_EQUALVERIFY` (0xad), `OP_CHECKLOCKTIMEVERIFY` (0xb1), and `OP_CHECKSEQUENCEVERIFY` (0xb2). Each of these opcodes does its core action (equal, checklocktime, or checksequence) and then does a verify afterward. The other verify opcodes that you haven't seen are: `OP_NUMEQUALVERIFY` (0x9d), `OP_CHECKSIGVERIFY` (0xad), and `OP_CHECKMULTISIGVERIFY` (0xaf).
+Verify è solitamente incorporato in altri opcode. Hai già visto `OP_EQUALVERIFY` (0xad), `OP_CHECKLOCKTIMEVERIFY` (0xb1) e `OP_CHECKSEQUENCEVERIFY` (0xb2). Ciascuno di questi opcode esegue la sua azione principale (equal, checklocktime o checksequence) e poi esegue un verify successivamente. Gli altri opcode verify che non hai visto sono: `OP_NUMEQUALVERIFY` (0x9d), `OP_CHECKSIGVERIFY` (0xad) e `OP_CHECKMULTISIGVERIFY` (0xaf).
 
-So how is `OP_VERIFY` a conditional? It's the most powerful sort of conditional. Using `OP_VERIFY`, _if_ a condition is true, the Script continues executing, _else_ the Script exits. This is how you check conditions that are absolutely required for a Script to succeed. For example, the P2PKH script (`OP_DUP OP_HASH160 <pubKeyHash> OP_EQUALVERIFY OP_CHECKSIG`) has two required conditions: (1) that the supplied public key match the public-key hash; and (2) that the supplied signature match that public key. An `OP_EQUALVERIFY` is used for the comparison of the hashed public key and the public-key hash because it's an absolutely required condition. You don't _want_ the script to continue on if that fails.
+Quindi come è `OP_VERIFY` un condizionale? È il tipo più potente di condizionale. Usando `OP_VERIFY`, _se_ una condizione è vera, lo Script continua l'esecuzione, _altrimenti_ lo Script termina. Questo è il modo in cui controlli le condizioni che sono assolutamente necessarie affinché uno Script abbia successo. Ad esempio, lo script P2PKH (`OP_DUP OP_HASH160 <pubKeyHash> OP_EQUALVERIFY OP_CHECKSIG`) ha due condizioni richieste: (1) che la chiave pubblica fornita corrisponda all'hash della chiave pubblica; e (2) che la firma fornita corrisponda a quella chiave pubblica. Un `OP_EQUALVERIFY` è usato per il confronto dell'hash della chiave pubblica perché è una condizione assolutamente necessaria. Non vuoi che lo script continui se ciò fallisce.
 
-You may notice there's no `OP_VERIFY` at the end of this (or most any) script, despite the final condition being required as well. That's because Bitcoin effectively does an `OP_VERIFY` at the very end of each Script, to ensure that the final stack result is true. You don't _want_ to do an `OP_VERIFY` before the end of the script, because you need to leave something on the stack to be tested!
+Potresti notare che non c'è `OP_VERIFY` alla fine di questo (o della maggior parte degli) script, nonostante la condizione finale sia richiesta. Questo perché Bitcoin effettua effettivamente un `OP_VERIFY` alla fine di ogni Script, per garantire che il risultato finale dello stack sia vero. Non vuoi fare un `OP_VERIFY` prima della fine dello script, perché devi lasciare qualcosa nello stack da verificare!
 
-## Understand If/Then
+## Comprendere If/Then
 
-The other major conditional in Bitcoin Script is the classic `OP_IF` (0x63) / `OP_ELSE` (0x67) / `OP_ENDIF` (0x68). This is typical flow control: if `OP_IF` detects a true statement, it executes the block under it; otherwise, if there's an `OP_ELSE`, it executes that; and `OP_ENDIF` marks the end of the final block.
+L'altro principale condizionale in Bitcoin Script è il classico `OP_IF` (0x63) / `OP_ELSE` (0x67) / `OP_ENDIF` (0x68). Questo è il controllo di flusso tipico: se `OP_IF` rileva una dichiarazione vera, esegue il blocco sotto di esso; altrimenti, se c'è un `OP_ELSE`, esegue quello; e `OP_ENDIF` segna la fine del blocco finale.
 
-> :warning: **WARNING:** These conditionals are technically opcodes too, but as with small numbers, we're going to leave the `OP_` prefix off for brevity and clarity. Thus we'll write `IF`, `ELSE`, and `ENDIF` instead of `OP_IF`, `OP_ELSE`, and `OP_ENDIF`.
+> :warning: **ATTENZIONE:** Questi condizionali sono tecnicamente anche opcode, ma come per i numeri piccoli, lasceremo il prefisso `OP_` per brevità e chiarezza. Quindi scriveremo `IF`, `ELSE` e `ENDIF` invece di `OP_IF`, `OP_ELSE` e `OP_ENDIF`.
 
-### Understand If/Then Ordering
+### Comprendere l'Ordine di If/Then
 
-There are two big catches to conditionals. They make it harder to read and assess scripts if you're not careful.
+Ci sono due grandi problemi nei condizionali. Rendono più difficile leggere e valutare gli script se non stai attento.
 
-First, the `IF` conditional checks the truth of what's _before it_ (which is to say what's in the stack), not what's after it. 
+Primo, il condizionale `IF` controlla la verità di ciò che è _prima di esso_ (cioè ciò che è nello stack), non ciò che è dopo di esso.
 
-Second, the `IF` conditional tends to be in the locking script and what it's checking tends to be in the unlocking script.
+Secondo, il condizionale `IF` tende a essere nello script di blocco e ciò che sta controllando tende a essere nello script di sblocco.
 
-Of course, you might say, that's how Bitcoin Script works. Conditionals use reverse Polish notation and they adopt the standard unlocking/locking paradigm, just like _everything else_ in Bitcoin Scripting. That's all true, but it also goes contrary to the standard way we read IF/ELSE conditionals in other programming languages; thus, it's easy to unconsciously read Bitcoin conditionals wrong.
+Certo, potresti dire, è così che funziona Bitcoin Script. I condizionali usano la notazione polacca inversa e adottano il paradigma standard di sblocco/blocco, proprio come _tutto il resto_ nel Bitcoin Scripting. Tutto ciò è vero, ma va anche contro il modo standard in cui leggiamo i condizionali IF/ELSE in altri linguaggi di programmazione; quindi, è facile leggere inconsciamente i condizionali Bitcoin in modo errato.
 
-Consider the following code: `IF OP_DUP OP_HASH160 <pubKeyHashA> ELSE OP_DUP OP_HASH160 <pubKeyHashB> ENDIF OP_EQUALVERIFY OP_CHECKSIG `. 
+Considera il seguente codice: `IF OP_DUP OP_HASH160 <pubKeyHashA> ELSE OP_DUP OP_HASH160 <pubKeyHashB> ENDIF OP_EQUALVERIFY OP_CHECKSIG`.
 
-Looking at conditionals in prefix notation might lead you to read this as:
+Guardando i condizionali in notazione prefissa potresti leggere questo come::
 ```
 IF (OP_DUP) THEN
-
     OP_HASH160 
     OP_PUSHDATA <pubKeyHashA> 
-
 ELSE 
-
     OP_DUP 
     OP_HASH160 
     OP_PUSHDATA <pubKeyHashB> 
-
 ENDIF 
- 
  OP_EQUALVERIFY 
  OP_CHECKSIG
 ```
-So, you might think, if the `OP_DUP` is successful, then we get to do the first block, else the second. But that doesn't make any sense! Why wouldn't the `OP_DUP` succeed?!
+Quindi, potresti pensare, se `OP_DUP` ha successo, allora eseguiamo il primo blocco, altrimenti il secondo. Ma ciò non ha senso! Perché `OP_DUP` non dovrebbe avere successo?!
 
-And, indeed, it doesn't make any sense, because we accidentally read the statement using the wrong notation. The correct reading of this is:
+E, infatti, non ha senso, perché abbiamo letto accidentalmente l'affermazione usando la notazione sbagliata. La lettura corretta di questo è:
+
 ```
 IF 
-  
     OP_DUP
     OP_HASH160 
     OP_PUSHDATA <pubKeyHashA> 
-
 ELSE 
-
     OP_DUP 
     OP_HASH160 
     OP_PUSHDATA <pubKeyHashB> 
-
 ENDIF 
- 
  OP_EQUALVERIFY 
  OP_CHECKSIG
 ```
-The statement that will evaluate to `True` or `False` is placed on the stack _prior_ to running the `IF`, then the correct block of code is run based on that result.
+L'affermazione che sarà valutata come `True` o `False` è posta nello stack _prima_ di eseguire l'`IF`, quindi il blocco di codice corretto viene eseguito in base a quel risultato.
 
-This particular example code is intended as a poor man's 1-of-2 multisignature. The owner of `<privKeyA>` would put `<signatureA> <pubKeyA> True` in his unlocking script, while the owner of `<privKeyB>` would put `<signatureB> <pubKeyB> False` in her unlocking script. That trailing `True` or `False` is what's checked by the `IF`/`ELSE` statement.  It tells the script which public-key hash to check against, then the `OP_EQUALVERIFY` and the `OP_CHECKSIG` at the end do the real work. 
+Questo esempio di codice è inteso come una multisignature 1-di-2 di basso livello. Il proprietario di `<privKeyA>` metterebbe `<signatureA> <pubKeyA> True` nel suo script di sblocco, mentre il proprietario di `<privKeyB>` metterebbe `<signatureB> <pubKeyB> False` nel suo script di sblocco. Quel `True` o `False` finale è ciò che viene controllato dall'istruzione `IF`/`ELSE`. Dice allo script quale hash della chiave pubblica controllare, quindi `OP_EQUALVERIFY` e `OP_CHECKSIG` alla fine fanno il lavoro reale.
 
-### Run an If/Then Multisig
+### Eseguire una Multisig If/Then
 
-With a core understanding of Bitcoin conditionals in hand, we're now ready to run through a script. We're going to do so by creating a slight variant of our poor man's 1-of-2 multisignature where our users don't have to remember if they're `True` or `False`. Instead, if need be, the script checks both public-key hashes, just requiring one success:
+Con una comprensione di base dei condizionali Bitcoin, siamo ora pronti a eseguire uno script. Creeremo una leggera variante della nostra multisignature 1-di-2 di basso livello dove i nostri utenti non devono ricordare se sono `True` o `False`. Invece, se necessario, lo script controlla entrambi gli hash delle chiavi pubbliche, richiedendo solo un successo:
+
 ```
 OP_DUP OP_HASH160 <pubKeyHashA> OP_EQUAL
 IF
-
     OP_CHECKSIG
-
 ELSE
-
     OP_DUP OP_HASH160 <pubKeyHashB> OP_EQUALVERIFY OP_CHECKSIG
-    
 ENDIF
-
 ```
-Remember your reverse Polish notation! That `IF` statement if referring to the `OP_EQUAL` before it, not the `OP_CHECKSIG` after it!
+Ricorda la notazione polacca inversa! Quell'istruzione `IF` si riferisce all'`OP_EQUAL` prima di essa, non all'`OP_CHECKSIG` dopo di essa!
 
-#### Run the True Branch
+#### Eseguire il Ramo True
 
-Here's how it actally runs if unlocked with `<signatureA> <pubKeyA>`:
+Ecco come funziona effettivamente se sbloccato con `<signatureA> <pubKeyA>`:
+
 ```
 Script: <signatureA> <pubKeyA> OP_DUP OP_HASH160 <pubKeyHashA> OP_EQUAL IF OP_CHECKSIG ELSE OP_DUP OP_HASH160 <pubKeyHashB> OP_EQUALVERIFY OP_CHECKSIG ENDIF
 Stack: [ ]
 ```
-First, we put constants on the stack:
+Per prima cosa, mettiamo le costanti nello stack:
+
 ```
 Script: OP_DUP OP_HASH160 <pubKeyHashA> OP_EQUAL IF OP_CHECKSIG ELSE OP_DUP OP_HASH160 <pubKeyHashB> OP_EQUALVERIFY OP_CHECKSIG ENDIF
 Stack: [ <signatureA> <pubKeyA> ]
 ```
-Then we run the first few, obvious commands, `OP_DUP` and `OP_HASH160` and push another constant:
+Poi eseguiamo i primi comandi ovvi, `OP_DUP` e `OP_HASH160`, e mettiamo un'altra costante:
+
 ```
 Script: OP_HASH160 <pubKeyHashA> OP_EQUAL IF OP_CHECKSIG ELSE OP_DUP OP_HASH160 <pubKeyHashB> OP_EQUALVERIFY OP_CHECKSIG ENDIF
 Running: <pubKeyA> OP_DUP
@@ -116,37 +106,38 @@ Stack: [ <signatureA> <pubKeyA> <pubKeyHashA> ]
 Script: OP_EQUAL IF OP_CHECKSIG ELSE OP_DUP OP_HASH160 <pubKeyHashB> OP_EQUALVERIFY OP_CHECKSIG ENDIF
 Stack: [ <signatureA> <pubKeyA> <pubKeyHashA> <pubKeyHashA> ]
 ```
-Next we run the `OP_EQUAL`, which is what's going to feed the `IF`:
+Successivamente, eseguiamo l'`OP_EQUAL`, che è ciò che alimenterà l'`IF`:
 ```
 Script: IF OP_CHECKSIG ELSE OP_DUP OP_HASH160 <pubKeyHashB> OP_EQUALVERIFY OP_CHECKSIG ENDIF
 Running: <pubKeyHashA> <pubKeyHashA> OP_EQUAL
 Stack: [ <signatureA> <pubKeyA> True ]
 ```
-Now the `IF` runs, and since there's a `True`, it only runs the first block, eliminating all the rest:
+Ora l'`IF` viene eseguito e, poiché c'è un `True`, esegue solo il primo blocco, eliminando tutto il resto:
 ```
 Script: OP_CHECKSIG
 Running: True IF
 Stack: [ <signatureA> <pubKeyA> ]
 ```
-And the `OP_CHECKSIG` will end up `True` as well:
+E l'`OP_CHECKSIG` risulterà `True`:
 ```
 Script: 
 Running: <signatureA> <pubKeyA> OP_CHECKSIG
 Stack: [ True ]
 ```
-#### Run the False Branch
+##### Eseguire il Ramo False
 
-Here's how it actally runs if unlocked with `<signatureB> <pubKeyB>`:
+Ecco come funziona effettivamente se sbloccato con `<signatureB> <pubKeyB>`:
+
 ```
 Script: <signatureB> <pubKeyB> OP_DUP OP_HASH160 <pubKeyHashA> OP_EQUAL IF OP_CHECKSIG ELSE OP_DUP OP_HASH160 <pubKeyHashB> OP_EQUALVERIFY OP_CHECKSIG ENDIF
 Stack: [ ]
 ```
-First, we put constants on the stack:
+Per prima cosa, mettiamo le costanti nello stack:
 ```
 Script: OP_DUP OP_HASH160 <pubKeyHashA> OP_EQUAL IF OP_CHECKSIG ELSE OP_DUP OP_HASH160 <pubKeyHashB> OP_EQUALVERIFY OP_CHECKSIG ENDIF
 Stack: [ <signatureB> <pubKeyB> ]
 ```
-Then we run the first few, obvious commands, `OP_DUP` and `OP_HASH160` and push another constant:
+Poi eseguiamo i primi comandi ovvi, `OP_DUP` e `OP_HASH160`, e mettiamo un'altra costante:
 ```
 Script: OP_HASH160 <pubKeyHashA> OP_EQUAL IF OP_CHECKSIG ELSE OP_DUP OP_HASH160 <pubKeyHashB> OP_EQUALVERIFY OP_CHECKSIG ENDIF
 Running: <pubKeyB> OP_DUP
@@ -159,19 +150,19 @@ Stack: [ <signatureB> <pubKeyB> <pubKeyHashB> ]
 Script: OP_EQUAL IF OP_CHECKSIG ELSE OP_DUP OP_HASH160 <pubKeyHashB> OP_EQUALVERIFY OP_CHECKSIG ENDIF
 Stack: [ <signatureB> <pubKeyB> <pubKeyHashB> <pubKeyHashA> ]
 ```
-Next we run the `OP_EQUAL`, which is what's going to feed the `IF`:
+Successivamente, eseguiamo l'`OP_EQUAL`, che è ciò che alimenterà l'`IF`:
 ```
 Script: IF OP_CHECKSIG ELSE OP_DUP OP_HASH160 <pubKeyHashB> OP_EQUALVERIFY OP_CHECKSIG ENDIF
 Running: <pubKeyHashB> <pubKeyHashA> OP_EQUAL
 Stack: [ <signatureB> <pubKeyB> False ]
 ```
-Whoop! The result was `False` because `<pubKeyHashB>` does not equal `<pubKeyHashA>`. Now when the `IF` runs, it collapses down to just the `ELSE` statement:
+Ops! Il risultato è stato `False` perché `<pubKeyHashB>` non è uguale a `<pubKeyHashA>`. Ora quando l'`IF` viene eseguito, si riduce solo all'istruzione `ELSE`:
 ```
 Script: OP_DUP OP_HASH160 <pubKeyHashB> OP_EQUALVERIFY OP_CHECKSIG
 Running: False IF
 Stack: [ <signatureB> <pubKeyB> ]
 ```
-Afterward, we go through the whole rigamarole again, starting with another `OP_DUP`, but eventually testing against the other `pubKeyHash`:
+Successivamente, rifacciamo tutto il processo, iniziando con un altro `OP_DUP`, ma alla fine testando contro l'altro `pubKeyHash`:
 ```
 Script: OP_HASH160 <pubKeyHashB> OP_EQUALVERIFY OP_CHECKSIG
 Running: <pubKeyB> OP_DUP
@@ -192,22 +183,22 @@ Script:
 Running: <signatureB> <pubKeyB> OP_CHECKSIG
 Stack: [ True ]
 ```
-This probably isn't nearly as efficient as a true Bitcoin multisig, but it's a good example of how results pushed onto the stack by previous tests can be used to feed future conditionals. In this case, it's the failure of the first signature which tells the conditional that it should go check the second one. 
+TQuesto probabilmente non è altrettanto efficiente come una vera multisignature di Bitcoin, ma è un buon esempio di come i risultati inseriti nello stack dai test precedenti possono essere utilizzati per alimentare i condizionali futuri. In questo caso, è il fallimento della prima firma che dice al condizionale che dovrebbe controllare la seconda.
 
-## Understand Other Conditionals
+## Comprendere Altri Condizionali
 
-There are a few other conditionals of note. The big one is `OP_NOTIF` (0x64), which is the opposite of `OP_IF`: it executes the following block if the top item is `False`. An `ELSE` can be placed with it, which as usual is executed if the first block is not executed. You still end with `OP_ENDIF`.
+Ci sono alcuni altri condizionali degni di nota. Il più importante è `OP_NOTIF` (0x64), che è l'opposto di `OP_IF`: esegue il blocco successivo se l'elemento in cima è `False`. Un `ELSE` può essere inserito con esso, che come al solito viene eseguito se il primo blocco non viene eseguito. Si termina ancora con `OP_ENDIF`.
 
-There's also an `OP_IFDUP` (0x73), which duplicates the top stack item only if it's not 0.
+C'è anche un `OP_IFDUP` (0x73), che duplica l'elemento in cima allo stack solo se non è 0.
 
-These options are used much less often than the main `IF`/`ELSE`/`ENDIF` construction.
+Queste opzioni sono usate molto meno spesso della costruzione principale `IF`/`ELSE`/`ENDIF`.
 
-## Summary: Using Script Conditionals
+## Riepilogo: Utilizzo dei Condizionali negli Script
 
-Conditionals in Bitcoin Script allow you to halt the script (using `OP_VERIFY`) or to choose different branches of execution (using `OP_IF`). However, reading `OP_IF` can be a bit tricky. Remember that it's the item pushed onto the stack _before_ the `OP_IF` is run that controls its execution; that item will typically be part of the unlocking script (or else a direct result of items in the unlocking script).
+I condizionali in Bitcoin Script ti permettono di fermare lo script (usando `OP_VERIFY`) o di scegliere diversi rami di esecuzione (usando `OP_IF`). Tuttavia, leggere `OP_IF` può essere un po' complicato. Ricorda che è l'elemento inserito nello stack _prima_ che l'`OP_IF` venga eseguito a controllarne l'esecuzione; quell'elemento sarà tipicamente parte dello script di sblocco (o altrimenti un risultato diretto degli elementi nello script di sblocco).
 
-> :fire: ***What is the power of conditionals?*** Script Conditionals are the final major building block in Bitcoin Script. They're what are required to turn simple, static Bitcoin Scripts into complex, dynamic Bitcoin Scripts that can evaluate differently based on different times, different circumstances, or different user inputs. In other words, they're the final basis of smart contracts.
+> :fire: ***Qual è il potere dei condizionali?*** I Condizionali degli Script sono l'ultimo grande blocco costitutivo negli Script Bitcoin. Sono ciò che è necessario per trasformare semplici Script Bitcoin statici in Script Bitcoin complessi e dinamici che possono essere valutati in modo diverso in base a tempi diversi, circostanze diverse o input diversi degli utenti. In altre parole, sono la base finale dei contratti intelligenti.
 
-## What's Next?
+## Cosa Succede Dopo?
 
-Continue "Expanding Bitcoin Scripts" with [§12.2: Using Other Script Commands](12_2_Using_Other_Script_Commands.md).
+Continua a "Espandere gli Script Bitcoin" col [Capitolo 12.2Usare Altri Comandi di Scripting](12_2_Usare_Altri_Comandi_di_Scripting.md).
