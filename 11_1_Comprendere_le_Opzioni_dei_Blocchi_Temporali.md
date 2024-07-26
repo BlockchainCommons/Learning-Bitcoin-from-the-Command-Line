@@ -1,49 +1,49 @@
-# 11.1: Understanding Timelock Options
+# 11.1: Comprendere le Opzioni di Timelock
 
-In [§8.1: Sending a Transaction with a Locktime](08_1_Sending_a_Transaction_with_a_Locktime.md), `nLocktime` offered a great first option for locking transactions so that they couldn't be spent until some point in the future — based either on time or blockheight. But, that's not the only way to put a timelock on a transaction.
+Nel [Capitolo 8.1: Inviare una Transazione con Blocco temporale](08_1_Inviare_una_Transazione_con_Blocco_temporale.md), `nLocktime` ha offerto una grande prima opzione per bloccare le transazioni in modo che non potessero essere spese fino a un certo punto nel futuro — basato sia sul tempo che sull'altezza del blocco. Ma, non è l'unico modo per mettere un timelock su una transazione.
 
-## Understand the Limitations of nLockTime
+## Comprendere i Limiti di nLockTime
 
-`nLockTime` is a simple and powerful way to lock a transaction, but it has some limitations:
+`nLockTime` è un modo semplice e potente per bloccare una transazione, ma ha alcuni limiti:
 
-1. **No Divisions.** `nLocktime` locks the entire transaction.
-2. **No Networking.** Most modern nodes won't accept a `nLockTime` into the mempool until it's almost ready to finalize.
-3. **No Scripts.** The original, simple use of `nLockTime` didn't allow it to be used in Scripts.
-4. **No Protection.** `nLockTime` allows the funds to be spent with a different, non-locked transaction.
+1. **Nessuna Divisione.** `nLocktime` blocca l'intera transazione.
+2. **Nessun Networking.** La maggior parte dei nodi moderni non accetteranno un `nLockTime` nella mempool fino a quando non è quasi pronto per essere finalizzato.
+3. **Nessuno Script.** L'uso originale e semplice di `nLockTime` non permetteva che fosse usato negli Script.
+4. **Nessuna Protezione.** `nLockTime` permette ai fondi di essere spesi con una transazione diversa, non bloccata.
 
-The last item was often the dealbreaker for `nLockTime`. It prevented a transaction from being spent, but it didn't prevent the funds from being used in a different transaction. So, it had uses, but they all depended on trust.
+L'ultimo punto è stato spesso il punto di rottura per `nLockTime`. Impediva che una transazione venisse spesa, ma non impediva che i fondi fossero usati in una transazione diversa. Quindi, aveva usi, ma tutti dipendevano dalla fiducia.
 
-## Understand the Possibilities of Timelock Scripts
+## Comprendere le Possibilità degli Script Timelock
 
-In more recent years, Bitcoin Core has expanded to allow the manipulation of timelocks at the opcode level with _OP_CHECKLOCKTIMEVERIFY_ (CLTV) and _OP_CHECKSEQUENCEVERIFY_ (CSV). These both work under a new methodology that further empowers Bitcoin.
+Negli anni più recenti, Bitcoin Core si è espanso per permettere la manipolazione dei timelock a livello di opcode con _OP_CHECKLOCKTIMEVERIFY_ (CLTV) e _OP_CHECKSEQUENCEVERIFY_ (CSV). Entrambi funzionano con una nuova metodologia che potenzia ulteriormente Bitcoin.
 
-_They Are Opcodes._ Because they're opcodes, CLTV and CSV can be used as part of more complex redemption conditions. Most often they're linked with the conditionals described in the next chapter.
+_Sono Opcode._ Poiché sono opcode, CLTV e CSV possono essere usati come parte di condizioni di riscatto più complesse. Molto spesso sono collegati con le condizioni descritte nel prossimo capitolo.
 
-_They Lock Outputs._ Because they're opcodes that are included in transactions as part of a `sigPubKey`, they just lock that single output. That means that the transactions are accepted onto the Bitcoin network and that the UTXOs used to fund those transactions are spent. There's no going back on a transaction timelocked with CLTV or CSV like there is with a bare `nLockTime`. Respending the resultant UTXO then requires that the timelock conditions be met.
+_Bloccano gli Output._ Poiché sono opcode che sono inclusi nelle transazioni come parte di un `sigPubKey`, bloccano solo quell'output singolo. Ciò significa che le transazioni sono accettate sulla rete Bitcoin e che gli UTXO usati per finanziare quelle transazioni sono spesi. Non si può tornare indietro su una transazione bloccata con CLTV o CSV come si può fare con un semplice `nLockTime`. Spendere nuovamente l'UTXO risultante richiede quindi che le condizioni del timelock siano soddisfatte.
 
-Here's one catch for using timelocks: _They're one-way locks._ Timelocks are designed so that they unlock funds at a certain time. They cannot then relock a fund: once a timelocked fund is available to spend, it remains available to spend.
+Ecco un'avvertenza per l'uso dei timelock: _Sono blocchi unidirezionali._ I timelock sono progettati in modo da sbloccare i fondi in un certo momento. Non possono quindi ri-bloccare un fondo: una volta che un fondo bloccato nel tempo è disponibile per essere speso, rimane disponibile per essere speso.
 
-### Understand the Possibilities of CLTV
+### Comprendere le Possibilità di CLTV
 
-_OP_CHECKLOCKTIMEVERIFY_ or CLTV is a match for the classic `nLockTime` feature, but in the new opcode-based paradigm. It allows a UTXO to become accessible at a certain time or at a certain blockheight. 
+_OP_CHECKLOCKTIMEVERIFY_ o CLTV è una corrispondenza per la caratteristica classica `nLockTime`, ma nel nuovo paradigma basato su opcode. Permette a un UTXO di diventare accessibile in un certo momento o a una certa altezza di blocco.
 
-CLTV was first detailed in [BIP 65](https://github.com/bitcoin/bips/blob/master/bip-0065.mediawiki).
+CLTV è stato dettagliato per la prima volta in [BIP 65](https://github.com/bitcoin/bips/blob/master/bip-0065.mediawiki).
 
-### Understand the Possibilities of CSV
+### Comprendere le Possibilità di CSV
 
-_OP_CHECKSEQUENCEVERIFY_ or CSV depends on a new sort of "relative locktime", which is set in the transaction's _nSequence_ field. As usual, it can be set as either a time or a blockheight. If it's set as a time, "n", then a relative-timelocked transaction is spendable "n x 512" seconds after its UTXO was mined, and if it's set as a block, "n", then a relative-timelocked transaction is spendable "n" blocks after its UTXO was mined.
+_OP_CHECKSEQUENCEVERIFY_ o CSV dipende da un nuovo tipo di "relative locktime", che è impostato nel campo _nSequence_ della transazione. Come di consueto, può essere impostato come tempo o come altezza del blocco. Se è impostato come tempo, "n", allora una transazione bloccata nel tempo relativa è spendibile "n x 512" secondi dopo che il suo UTXO è stato minato, e se è impostato come blocco, "n", allora una transazione bloccata nel tempo relativa è spendibile "n" blocchi dopo che il suo UTXO è stato minato.
 
-The use of `nSequence` for a relative timelock was first detailed in [BIP 68](https://github.com/bitcoin/bips/blob/master/bip-0068.mediawiki), then the CSV opcode was added in [BIP 112](https://github.com/bitcoin/bips/blob/master/bip-0112.mediawiki).
+L'uso di `nSequence` per un timelock relativo è stato dettagliato per la prima volta in [BIP 68](https://github.com/bitcoin/bips/blob/master/bip-0068.mediawiki), poi l'opcode CSV è stato aggiunto in [BIP 112](https://github.com/bitcoin/bips/blob/master/bip-0112.mediawiki).
 
-## Summary: Understanding Timelock Options
+## Riepilogo: Comprendere le Opzioni di Timelock
 
-You now have four options for Timelock:
+Ora hai quattro opzioni per Timelock:
 
-* `nLockTime` to keep a transaction off the blockchain until a specific time.
-* `nSequence` to keep a transaction off the blockchain until a relative time.
-* CLTV to make a UTXO unspendable until a specific time.
-* CSV to make a UTXO unspendable until a relative time.
+* `nLockTime` per tenere una transazione fuori dalla blockchain fino a un momento specifico.
+* `nSequence` per tenere una transazione fuori dalla blockchain fino a un tempo relativo.
+* CLTV per rendere un UTXO non spendibile fino a un momento specifico.
+* CSV per rendere un UTXO non spendibile fino a un tempo relativo.
 
-## What's Next?
+## Cosa Succede Dopo?
 
-Continue "Empowering Timelock" with [§11.2: Using CLTV in Scripts](11_2_Using_CLTV_in_Scripts.md). 
+Continua a "Potenziare Timelock" nel [Capitolo 11.2: Usare CLTV negli Scripts](11_2_Usare_CLTV_negli_Scripts.md).
