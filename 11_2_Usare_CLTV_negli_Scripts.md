@@ -1,94 +1,103 @@
-# 11.2: Using CLTV in Scripts
+# 11.2: Utilizzo di CLTV negli Script
 
-`OP_CHECKLOCKTIMEVERIFY` (or CLTV) is the natural complement to `nLockTime`. It moves the idea of locking transactions by an absolute time or blockheight into the realm of opcodes, allowing for the locking of individual UTXOs.
+`OP_CHECKLOCKTIMEVERIFY` (o CLTV) è il complemento naturale di `nLockTime`. Porta l'idea di bloccare le transazioni per un tempo assoluto o altezza di blocco nel regno degli opcode, permettendo il blocco di singoli UTXO.
 
-> :warning: **VERSION WARNING:** CLTV became available with Bitcoin Core 0.11.2, but should be fairly widely deployed at this time.
+> :warning: **AVVISO VERSIONE:** CLTV è diventato disponibile con Bitcoin Core 0.11.2, ma dovrebbe essere abbastanza ampiamente distribuito a questo punto.
 
-## Remember nLockTime
+## Ricorda nLockTime
 
-Before digging into CLTV, we should first recall how `nLockTime` works.
+Prima di approfondire CLTV, dovremmo prima ricordare come funziona `nLockTime`.
 
-As detailed in [§8.1: Sending a Transaction with a Locktime](08_1_Sending_a_Transaction_with_a_Locktime.md), locktime is enabled by setting two variables, `nLockTime` and the `nSequence`. The `nSequence` must be set to less than 0xffffffff (usually: 0xffffffff-1), then the `nLockTime` is interpreted as follows:
+Come dettagliato in [§8.1: Invio di una Transazione con un Locktime](08_1_Sending_a_Transaction_with_a_Locktime.md), il locktime è abilitato impostando due variabili, `nLockTime` e `nSequence`. Il `nSequence` deve essere impostato a meno di 0xffffffff (di solito: 0xffffffff-1), poi il `nLockTime` è interpretato come segue:
 
-* If the `nLockTime` is less than 500 million, it is interpreted as a blockheight.
-* If the `nLockTime` is 500 million or more, it is interpreted as a UNIX timestamp.
+* Se il `nLockTime` è inferiore a 500 milioni, è interpretato come altezza di blocco.
+* Se il `nLockTime` è 500 milioni o più, è interpretato come un timestamp UNIX.
 
-A transaction with `nLockTime` set cannot be spent (or even put on the block chain) until either the blockheight or time is reached. In the meantime, the transaction can be cancelled by respending any of the UTXOs that make up the transaction.
+Una transazione con `nLockTime` impostato non può essere spesa (o anche inserita nella blockchain) fino a quando non viene raggiunta l'altezza del blocco o il tempo. Nel frattempo, la transazione può essere annullata spendendo nuovamente uno qualsiasi degli UTXO che compongono la transazione.
 
-## Understand the CLTV Opcode
+## Comprendere l'Opcode CLTV
 
-`OP_CHECKLOCKTIMEVERIFY` works within the same paradigm of absolute blockheights or absolute UNIX times, but it runs as part of a Bitcoin Script. It reads one argument, which can be a blockheight or an absolute UNIX time. Through a somewhat convoluted methodology, it compares that argument to the current time. If it's too early, the script fails; if the time condition has been met, the script carries on. 
+`OP_CHECKLOCKTIMEVERIFY` funziona nello stesso paradigma delle altezze di blocco assolute o dei tempi UNIX assoluti, ma viene eseguito come parte di uno Script Bitcoin. Legge un argomento, che può essere un'altezza di blocco o un tempo UNIX assoluto. Attraverso una metodologia alquanto complicata, confronta quell'argomento con il tempo corrente. Se è troppo presto, lo script fallisce; se la condizione temporale è stata soddisfatta, lo script continua.
 
-Because CLTV is just part of a script (and presumably part of a P2SH transaction), a CLTV transaction is not kept out of the mempool like an `nLockTime` transaction is; as soon as it's verified, it goes onto the blockchain, and the funds are considered spent. The trick is that all the outputs that were locked with the CLTV aren't available for _respending_ until the CLTV allows it.
+Poiché CLTV è solo parte di uno script (e presumibilmente parte di una transazione P2SH), una transazione CLTV non è tenuta fuori dalla mempool come una transazione `nLockTime`; non appena viene verificata, entra nella blockchain e i fondi sono considerati spesi. Il trucco è che tutti gli output bloccati con il CLTV non sono disponibili per _spendere nuovamente_ fino a quando il CLTV non lo consente.
 
-### Understand a CLTV Absolute Time
+### Comprendere un Tempo Assoluto CLTV
 
-This is how `OP_CHECKLOCKTIMEVERIFY` would be used to check against May 24, 2017:
+Ecco come `OP_CHECKLOCKTIMEVERIFY` sarebbe usato per verificare contro il 24 maggio 2017:
+
 ```
 1495652013 OP_CHECKLOCKTIMEVERIFY
 ```
-But we'll usually depict this in an abstraction like this:
+Ma di solito lo rappresenteremo in un'astrazione così:
 ```
 <May24> OP_CHECKLOCKTIMEVERIFY
 ```
-Or this:
+O cosi:
 ```
 <AbsoluteTime> OP_CHECKLOCKTIMEVERIFY
 ```
 
-### Understand a CLTV Absolute Block Height
 
-This is how `OP_CHECKLOCKTIMEVERIFY` would check against a blockheight that was reached on May 24, 2017:
+### Comprendere un'Altezza di Blocco Assoluta CLTV
+
+Ecco come `OP_CHECKLOCKTIMEVERIFY` verificherebbe contro un'altezza di blocco raggiunta il 24 maggio 2017:
+
 ```
 467951 OP_CHECKLOCKTIMEVERIFY
 ```
-But we'll usually abtract it like this:
+
+Ma di solito lo astrarremo così:
+
 ```
 <AbsoluteBlockHeight> OP_CHECKLOCKTIMEVERIFY
 ```
 
-### Understand How CLTV Really Works
 
-The above explanation is sufficient to use and understand CLTV. However, [BIP 65](https://github.com/bitcoin/bips/blob/master/bip-0065.mediawiki) lays out all the details.
+### Comprendere Come Funziona Davvero CLTV
 
-A locking script will only allow a transaction to respend a UTXO locked with a CLTV if `OP_CHECKLOCKTIMEVERIFY` verifies all of the following:
+La spiegazione sopra è sufficiente per usare e comprendere CLTV. Tuttavia, [BIP 65](https://github.com/bitcoin/bips/blob/master/bip-0065.mediawiki) espone tutti i dettagli.
 
-* The `nSequence` field must be set to less than 0xffffffff, usually 0xffffffff-1 to avoid confilcts with relative timelocks.
-* CLTV must pop an operand off the stack and it must be 0 or greater.
-* Both the stack operand and `nLockTime` must either be above or below 500 million, to depict the same sort of absolute timelock.
-* The `nLockTime` value must be greater than or equal to the stack operand.
+Uno script di blocco permetterà di spendere nuovamente un UTXO bloccato con un CLTV solo se `OP_CHECKLOCKTIMEVERIFY` verifica tutte le seguenti condizioni:
 
-So the first thing to note here is that `nLockTime` is still used with CLTV. To be precise, it's required in the transaction that tries to _respend_ a CLTV-timelocked UTXO. That means that it's not a part of the script's requirements. It's just the timer that's used to release the funds, _as defined in the script_. 
+* Il campo `nSequence` deve essere impostato a meno di 0xffffffff, di solito 0xffffffff-1 per evitare conflitti con i timelock relativi.
+* CLTV deve estrarre un operando dallo stack e deve essere 0 o maggiore.
+* Sia l'operando dello stack che il valore di `nLockTime` devono essere sopra o sotto i 500 milioni, per rappresentare lo stesso tipo di timelock assoluto.
+* Il valore di `nLockTime` deve essere maggiore o uguale all'operando dello stack.
 
-This is managed through a clever understanding of how `nLockTime` works: a value for `nLockTime` must always be chosen that is less than or equal to the present time (or blockheight), so that the respending transaction can be put on the blockchain. However, due to CLTV's requirements, a value must also be chosen that is greater than or equal to CLTV's operand. The union of these two sets is `NULL` until the present time matches the CLTV operand. Afterward, any value can be chosen between CLTV's operand and the present time. Usually, you'd just set it to the present time (or block).
+Quindi la prima cosa da notare qui è che `nLockTime` è ancora usato con CLTV. Per essere precisi, è richiesto nella transazione che cerca di _spendere nuovamente_ un UTXO bloccato con CLTV. Ciò significa che non fa parte dei requisiti dello script. È solo il timer usato per rilasciare i fondi, _come definito nello script_.
 
-## Write a CLTV Script
+Questo è gestito attraverso una comprensione intelligente di come funziona `nLockTime`: un valore per `nLockTime` deve sempre essere scelto che sia inferiore o uguale al tempo presente (o altezza del blocco), in modo che la transazione di spesa possa essere inserita nella blockchain. Tuttavia, a causa dei requisiti di CLTV, deve anche essere scelto un valore maggiore o uguale all'operando di CLTV. L'unione di questi due insiemi è `NULL` fino a quando il tempo presente non corrisponde all'operando di CLTV. Successivamente, può essere scelto qualsiasi valore tra l'operando di CLTV e il tempo presente. Di solito, lo imposteresti semplicemente al tempo presente (o al blocco).
 
-`OP_CHECKLOCKTIMEVERIFY` includes an `OP_VERIFY`, which means that it will immediately halt the script if its verification does not succeed. It has one other quirk: unlike most "verify" commands, it leaves what it's testing on the stack (just in case you want to make any other checks against the time). This means that an `OP_CHECKLOCKTIMEVERIFY` is usually followed by an `OP_DROP` to clear the stack.
+## Scrivere uno Script CLTV
 
-The following simple locking script could be used to transform a P2PKH output to a timelocked-P2PKH transaction:
+`OP_CHECKLOCKTIMEVERIFY` include un `OP_VERIFY`, il che significa che interromperà immediatamente lo script se la sua verifica non riesce. Ha un'altra peculiarità: a differenza della maggior parte dei comandi "verify", lascia ciò che sta testando sullo stack (nel caso in cui tu voglia fare altri controlli contro il tempo). Ciò significa che un `OP_CHECKLOCKTIMEVERIFY` è di solito seguito da un `OP_DROP` per pulire lo stack.
+
+Il seguente semplice script di blocco potrebbe essere usato per trasformare un output P2PKH in una transazione P2PKH bloccata nel tempo:
+
 ```
 <NextYear> OP_CHECKLOCKTIMEVERIFY OP_DROP OP_DUP OP_HASH160 <pubKeyHash> OP_EQUALVERIFY OP_CHECKSIG
 ```
 
-### Encode a CLTV Script
 
-Of course, as with any complex Bitcoin Scripts, this CLTV script would actually be encoded in a P2SH script, as explained in [§10.1: Understanding the Foundation of P2SH](10_1_Understanding_the_Foundation_of_P2SH.md) and [§10.2: Building the Structure of P2SH](10_2_Building_the_Structure_of_P2SH.md). 
+### Codificare uno Script CLTV
 
-Assuming that `<NextYear>` were the integer "1546288031" (little-endian hex: 0x9f7b2a5c) and `<pubKeyHash>` were "371c20fb2e9899338ce5e99908e64fd30b789313", this `redeemScript` would be built as:
+Ovviamente, come per qualsiasi script Bitcoin complesso, questo script CLTV sarebbe effettivamente codificato in uno script P2SH, come spiegato in [§10.1: Comprendere le Basi di P2SH](10_1_Understanding_the_Foundation_of_P2SH.md) e [§10.2: Costruire la Struttura di P2SH](10_2_Building_the_Structure_of_P2SH.md).
+
+Supponendo che `<NextYear>` fosse l'intero "1546288031" (hex little-endian: 0x9f7b2a5c) e `<pubKeyHash>` fosse "371c20fb2e9899338ce5e99908e64fd30b789313", questo `redeemScript` sarebbe costruito come:
+
 ```
 OP_PUSHDATA (4 bytes) 0x9f7b2a5c OP_CHECKLOCKTIMEVERIFY OP_DROP OP_DUP OP_HASH160 OP_PUSHDATA (20 bytes) 0x371c20fb2e9899338ce5e99908e64fd30b789313 OP_EQUALVERIFY OP_CHECKSIG
 ```
-Which translates into hex as:
+Che si traduce in hex come:
 ```
 04 9f7b2a5c b1 75 76 a9 14 371c20fb2e9899338ce5e99908e64fd30b789313 88 ac
 ```
-Or if you prefer:
+Oppure, se preferisci:
 ```
 $ btcc 0x9f7b2a5c OP_CHECKLOCKTIMEVERIFY OP_DROP OP_DUP OP_HASH160 0x371c20fb2e9899338ce5e99908e64fd30b789313 OP_EQUALVERIFY OP_CHECKSIG
 049f7b2a5cb17576a914371c20fb2e9899338ce5e99908e64fd30b78931388ac
 ```
-The `decodescript` RPC can verify that we got it right:
+L'RPC `decodescript` può verificare che abbiamo fatto tutto correttamente:
 ```
 {
   "asm": "1546288031 OP_CHECKLOCKTIMEVERIFY OP_DROP OP_DUP OP_HASH160 371c20fb2e9899338ce5e99908e64fd30b789313 OP_EQUALVERIFY OP_CHECKSIG",
@@ -107,49 +116,53 @@ The `decodescript` RPC can verify that we got it right:
 }
 ```
 
-We're not going to continuously show how all Bitcoin Scripts are encoded into P2SH transactions, but will instead offer these shorthands: when we describe a script, it will be a `redeemScript`, which would normally be serialized and hashed in a locking script and serialized in the unlocking script; when we show an unlocking procedure, it will be the second round of validation, following the confirmation of the locking script hash.
 
-## Spend a CLTV UTXO
+Non mostreremo continuamente come tutti gli Script Bitcoin vengono codificati in transazioni P2SH, ma offriremo invece queste abbreviazioni: quando descriviamo uno script, sarà un `redeemScript`, che sarebbe normalmente serializzato e hashato in uno script di blocco e serializzato nello script di sblocco; quando mostriamo una procedura di sblocco, sarà il secondo turno di convalida, dopo la conferma dell'hash dello script di blocco.
 
-In order to spend a UTXO that is locked with a CLTV, you must set `nLockTime` on your new transaction. Usually, you just want to set it to the present time or the present block, as appropriate. As long the CLTV time or blockheight is in the past, and as long as you supply any other data required by the unlocking script, you'll be able to process the UTXO.
+## Spendere un UTXO CLTV
 
-In the case of the above example, the following unlocking script would suffice, provided that `nLockTime` was set to somewhere in advance of the `<NextYear>` date, and provided it was indeed at least `<NextYear>`:
+Per spendere un UTXO bloccato con un CLTV, è necessario impostare `nLockTime` sulla nuova transazione. Di solito, vuoi solo impostarlo al tempo presente o al blocco presente, come appropriato. Finché il tempo CLTV o l'altezza del blocco è nel passato, e finché fornisci tutti gli altri dati richiesti dallo script di sblocco, sarai in grado di elaborare l'UTXO.
+
+Nel caso dell'esempio sopra, il seguente script di sblocco sarebbe sufficiente, a condizione che `nLockTime` fosse impostato a un momento successivo alla data `<NextYear>`, e a condizione che fosse effettivamente almeno `<NextYear>`:
+
 ```
 <signature> <pubKey>
 ```
 
-### Run a CLTV Script
 
-To run the Script, you would first concatenate the unlocking and locking scripts:
+### Eseguire uno Script CLTV
+
+Per eseguire lo Script, dovresti prima concatenare gli script di sblocco e blocco:
+
 ```
 Script: <signature> <pubKey> <NextYear> OP_CHECKLOCKTIMEVERIFY OP_DROP OP_DUP OP_HASH160 <pubKeyHash> OP_EQUALVERIFY OP_CHECKSIG
 Stack: [ ]
 ```
-The three constants would be pushed onto the stack:
+I tre costanti verrebbero spinti nello stack:
 ```
 Script: OP_CHECKLOCKTIMEVERIFY OP_DROP OP_DUP OP_HASH160 <pubKeyHash> OP_EQUALVERIFY OP_CHECKSIG
 Stack: [ <signature> <pubKey> <NextYear> ]
 ```
-Then, `OP_CHECKLOCKTIMEVERIFY` runs. It finds something on the stack and verifies that `nSequence` isn't 0xffffffff. Finally, it compares `<NextYear>` with `nLockTime`. If they are both the same sort of representation and if `nLockTime ≥ <NextYear>`, then it successfully processes (else, it ends the script):
+Poi, `OP_CHECKLOCKTIMEVERIFY` viene eseguito. Trova qualcosa nello stack e verifica che `nSequence` non sia 0xffffffff. Infine, confronta `<NextYear>` con `nLockTime`. Se sono entrambi dello stesso tipo di rappresentazione e se `nLockTime ≥ <NextYear>`, allora viene elaborato con successo (altrimenti, termina lo script):
 ```
 Script: OP_DROP OP_DUP OP_HASH160 <pubKeyHash> OP_EQUALVERIFY OP_CHECKSIG
 Running: <NextYear> OP_CHECKLOCKTIMEVERIFY
 Stack: [ <signature> <pubKey> <NextYear> ]
 ```
-Then, `OP_DROP` gets rid of that `<NextYear>` left around:
+Poi, `OP_DROP` elimina quel `<NextYear>` rimasto:
 ```
 Script: OP_DUP OP_HASH160 <pubKeyHash> OP_EQUALVERIFY OP_CHECKSIG
 Running: <NextYear> OP_DROP
 Stack: [ <signature> <pubKey> ]
 ```
-Finally, the remainder of the script runs, which is a normal check of a signature and public key.
+FInfine, il resto dello script viene eseguito, che è un controllo normale di una firma e una chiave pubblica.
 
-## Summary: Using CLTV in Scripts
+## Riepilogo: Utilizzo di CLTV negli Script
 
-`OP_CHECKLOCKTIMEVERIFY` is a simple opcode that looks at a single argument, interprets it as a blockheight or UNIX timestamp, and only allows its UTXO to be unlocked if that blockheight or UNIX timestamp is in the past. Setting `nLockTime` on the spending transaction is what allows Bitcoin to make this calculation.
+`OP_CHECKLOCKTIMEVERIFY` è un semplice opcode che guarda un singolo argomento, lo interpreta come un'altezza di blocco o un timestamp UNIX, e permette solo che il suo UTXO venga sbloccato se quell'altezza di blocco o timestamp UNIX è nel passato. Impostare `nLockTime` sulla transazione di spesa è ciò che permette a Bitcoin di fare questo calcolo.
 
-> :fire: ***What is the Power of CLTV?*** You've already seem that simple locktimes were one of the bases of Smart Contracts. CLTV takes the next step. Now you can both guarantee that a UTXO can't be spent before a certain time _and_ guarantee that it won't be spent either. In its simplest form, this could be used to create a trust that someone could only access when they reached 18 or a retirement fund that they could only access when they turned 50. However its true power comes when combined with conditionals, where the CLTV only activates in certain situations.
+> :fire: ***Qual è il Potere di CLTV?*** Hai già visto che i semplici locktime erano una delle basi dei Contratti Intelligenti. CLTV fa il passo successivo. Ora puoi sia garantire che un UTXO non possa essere speso prima di un certo momento _sia_ garantire che non venga speso diversamente. Nella sua forma più semplice, questo potrebbe essere usato per creare un trust che qualcuno potrebbe accedere solo quando raggiunge i 18 anni o un fondo pensione che potrebbe essere accessibile solo quando compie 50 anni. Tuttavia, il suo vero potere si manifesta quando combinato con i condizionali, dove il CLTV si attiva solo in determinate situazioni.
 
-## What's Next?
+## Cosa Succede Dopo?
 
-Continue "Empowering Timelock" with [§11.3: Using CSV in Scripts](11_3_Using_CSV_in_Scripts.md). 
+Continua a "Potenziare Timelock" col [Capitolo 11.3: Usare CSV negli Scripts](11_3_Usare_CSV_negli_Scripts.md).
