@@ -17,4 +17,4 @@ Gli obiettivi di supporto includono la capacità di:
 ## Indice dei Contenuti
   * [Capitolo 13.1 Scrivere Scripts Puzzle](13_1_Scrivere_Scripts_Puzzle.md)
   * [Capitolo 13.2 Scrivere Scripts Multifirma Complessi](13_2_Scrivere_Scripts_Multifirma_Complessi.md) 
-  * [Capitolo 13.3 Potenziare_Bitcoin_con_Scripts](13_3_Potenziare_Bitcoin_con_Scripts.md)
+  * [Capitolo 13.3 Potenziare Bitcoin con Scripts](13_3_Potenziare_Bitcoin_con_Scripts.md)
