@@ -1,42 +1,43 @@
-# 16.2: Programming Bitcoind in C with RPC Libraries
+# 16.2: Programmare Bitcoind in C con Librerie RPC
 
-> :information_source: **NOTE:** This section has been recently added to the course and is an early draft that may still be awaiting review. Caveat reader.
+> :information_source: **NOTA:** Questa sezione è stata recentemente aggiunta al corso ed è una bozza iniziale che potrebbe essere ancora in attesa di revisione. Lettore avvisato.
 
-[§16.1](16_1_Accessing_Bitcoind_with_C.md) laid out the methodology for creating C programs using RPC and JSON libraries. We're now going to show the potential of those C libraries by laying out a simplistic, first cut of an actual Bitcoin program.
+Il [Capitolo 16.1](16_1_Accedere_a_Bitcoind_con_Librerie_RPC.md) ha delineato la metodologia per creare programmi in C utilizzando librerie RPC e JSON. Ora mostreremo il potenziale di queste librerie C delineando una versione semplificata di un vero programma Bitcoin.
 
-## Plan for Your Code
+## Pianifica il Tuo Codice
 
-This section will create a simplistic first cut version of `sendtoaddress`, which will allow a user to send money to an address as long as he has a big enough UTXO. Here's what we need to do:
+Questa sezione creerà una prima versione semplificata di `sendtoaddress`, che permetterà a un utente di inviare denaro a un indirizzo purché abbia un UTXO abbastanza grande. Ecco cosa dobbiamo fare:
 
-  1. Request an address and an amount
-  2. Set an arbitrary fee
-  3. Prepare Your RPC
-  4. Find a UTXO that's large enough for the amount + the fee
-  5. Create a change address
-  6. Create a raw transaction that sends from the UTXO to the address and the change address
-  7. Sign the transaction
-  8. Send the transaction
+  1. Richiedere un indirizzo e un importo
+  2. Impostare una commissione arbitraria
+  3. Preparare il Tuo RPC
+  4. Trovare un UTXO abbastanza grande per l'importo + la commissione
+  5. Creare un indirizzo di resto
+  6. Creare una transazione grezza che invia dall'UTXO all'indirizzo e all'indirizzo di resto
+  7. Firmare la transazione
+  8. Inviare la transazione
   
-### Plan for Your Future
+### Pianifica il Tuo Futuro
 
-Since this is your first functional C program, we're going to try and keep it simple (KISS). If we were producing an actual production program, we'd at least want to do the following:
+Dato che questo è il tuo primo programma funzionale in C, cercheremo di mantenerlo semplice (KISS). Se stessimo producendo un vero programma di produzione, vorremmo almeno fare quanto segue:
 
-   1. Test and/or sanitize the inputs
-   2. Calculate a fee automatically
-   3. Think logically about which valid UTXO to use
-   4. Combine multiple UTXOs if necessary
-   5. Watch for more errors in the `libbitcoinrpc` or `jansson` commands
-   6. Watch for errors in the RPC responses
+   1. Testare e/o sanitizzare gli input
+   2. Calcolare automaticamente una commissione
+   3. Pensare logicamente a quale UTXO valido utilizzare
+   4. Combinare più UTXO se necessario
+   5. Controllare più errori nei comandi `libbitcoinrpc` o `jansson`
+   6. Controllare errori nelle risposte RPC
    
-If you want to continue to expand this example, addressing the inadequacies of this example program would be a great place to start.
+Se vuoi continuare a espandere questo esempio, affrontare le carenze di questo programma esemplare sarebbe un ottimo punto di partenza.
 
-## Write Your Transaction Software
+## Scrivi il Tuo Software di Transazione
 
-Your now ready to undertake that plan step by step
+Ora sei pronto a intraprendere questo piano passo dopo passo.
 
-### Step 1: Request an Address and an Amount
+### Passo 1: Richiedere un Indirizzo e un Importo
 
-Inputting the information is easy enough via command line arguments:
+Inserire le informazioni è abbastanza facile tramite gli argomenti della riga di comando:
+:
 ```
 if (argc != 3) {
 
@@ -51,37 +52,44 @@ float tx_amount = atof(argv[2]);
 printf("Sending %4.8f BTC to %s\n",tx_amount,tx_recipient);
 ```
 
-> :warning: **WARNING:** A real program would need much better sanitization of these variables. 
 
-### Step 2: Set an Arbitrary Fee
+> :warning: **AVVERTENZA:** Un vero programma avrebbe bisogno di una sanificazione molto migliore di queste variabili. 
 
-This example just an arbitrary 0.0005 BTC fee to ensure that the test transactions goes through quickly:
+### Passo 2: Impostare una Commissione Arbitraria
+
+Questo esempio imposta una commissione arbitraria di 0,0005 BTC per assicurarsi che le transazioni di test vadano a buon fine rapidamente:
+
 ```
 float tx_fee = 0.0005;
 float tx_total = tx_amount + tx_fee;
 ```
 
-> :warning: **WARNING:** A real program would calculate a fee that minimized cost while ensuring the speed was sufficient for the sender. 
 
-### Step 3: Prepare Your RPC 
+> :warning: **AVVERTENZA:** Un vero programma calcolerebbe una commissione che minimizza il costo garantendo al contempo che la velocità sia sufficiente per il mittente. 
 
-Obviously, you're going to need to get all of your variables ready again, as discussed in [§16.1: Accessing Bitcoind with C](16_1_Accessing_Bitcoind_with_C.md). You also need to initialize your library, connect your RPC client, and prepare your response object:
+### Passo 3: Preparare il Tuo RPC 
+
+Ovviamente, dovrai preparare di nuovo tutte le tue variabili, come discusso in [§16.1: Accesso a Bitcoind con C](16_1_Accessing_Bitcoind_with_C.md). Devi anche inizializzare la tua libreria, connettere il tuo client RPC e preparare il tuo oggetto di risposta:
+
 ```
 bitcoinrpc_global_init();
 rpc_client = bitcoinrpc_cl_init_params ("bitcoinrpc", "YOUR-RPC-PASSWD", "127.0.0.1", 18332);
 btcresponse = bitcoinrpc_resp_init();
 ```
 
-### Step 4: Find a UTXO
 
-To find a UTXO you must call the `listunspent` RPC:
+### Passo 4: Trovare un UTXO
+
+Per trovare un UTXO devi chiamare l'RPC `listunspent`:
+:
 ```
 rpc_method = bitcoinrpc_method_init(BITCOINRPC_METHOD_LISTUNSPENT);
 bitcoinrpc_call(rpc_client, rpc_method, btcresponse, &btcerror);
 ```
-However, the real work comes in decoding the response. The previous section noted that the `jansson` library was "somewhat clunky" and this is why: you have to create (and clear) a very large set of `json_t` objects in order to dig down to what you want.
+Tuttavia, il vero lavoro consiste nel decodificare la risposta. La sezione precedente ha notato che la libreria `jansson` era "un po' ingombrante" e questo è il motivo: devi creare (e cancellare) un gran numero di oggetti `json_t` per scavare fino a ciò che desideri.
 
-First, you must retrieve the `result` field from JSON:
+Innanzitutto, devi recuperare il campo `result` dal JSON:
+
 ```
 json_t *lu_response = NULL;
 json_t *lu_result = NULL;
@@ -90,9 +98,11 @@ lu_response = bitcoinrpc_resp_get (btcresponse);
 lu_result = json_object_get(lu_response,"result");
 ```
 
-> :warning: **WARNING:** You only get a result if there wasn't an error. Here's another place for better error checking for production code.
 
-Then, you go into a loop, examining each unspent transaction, which appears as an element in your JSON result array:
+> :warning: **AVVERTENZA:** Ottieni un risultato solo se non c'è stato un errore. Ecco un altro punto per un controllo degli errori migliore per il codice di produzione.
+
+Poi, entri in un ciclo, esaminando ogni transazione non spesa, che appare come un elemento nel tuo array di risultati JSON:
+
 ```
 int i;
 
@@ -109,9 +119,10 @@ for (i = 0 ; i < json_array_size(lu_result) ; i++) {
   lu_value = json_object_get(lu_data,"amount");
   tx_value = json_real_value(lu_value);
 ```
-Is the UTXO large enough to pay out your transaction? If so, grab it!
+L'UTXO è abbastanza grande da pagare la tua transazione? Se sì, prendilo!
 
-> :warning: **WARNING:** A real-world program would think more carefully about which UTXO to grab, based on size and other factors. It probably wouldn't just grab the first thing it saw that worked.
+> :warning: **AVVERTENZA:** Un programma del mondo reale penserebbe più attentamente a quale UTXO prendere, in base alle dimensioni e ad altri fattori. Probabilmente non prenderebbe solo la prima cosa che vede che funziona.
+
 
 ```
   if (tx_value > tx_total) {
@@ -132,7 +143,7 @@ Is the UTXO large enough to pay out your transaction? If so, grab it!
 
   } 
 ```
-You should clear your main JSON elements as well:
+Dovresti anche cancellare i tuoi elementi JSON principali:
 ```
 }
 
@@ -140,9 +151,11 @@ json_decref(lu_result);
 json_decref(lu_response);
 ```      
 
-> :warning: **WARNING:** A real-world program would also make sure the UTXOs were `spendable`.
 
-If you didn't find any large-enough UTXOs, you'll have to report that sad fact to the user ... and perhaps suggest that they should use a better program that will correctly merge UTXOs.
+> :warning: **AVVERTENZA:** Un programma del mondo reale si assicurerebbe anche che gli UTXO siano `spendibili`.
+
+Se non hai trovato UTXO abbastanza grandi, dovrai riferire questo triste fatto all'utente... e forse suggerire che dovrebbe usare un programma migliore che unirà correttamente gli UTXO.
+
 ```
 if (!tx_id) {
 
@@ -151,11 +164,13 @@ if (!tx_id) {
 }
 ```
 
-> **WARNING:** A real program would use subroutines for this sort of lookup, so that you could confidentally call various RPCs from a library of C functions. We're just going to blob it all into `main` as part of our KISS philosophy of simple examples.
 
-### Step 5: Create a Change Address
+> **AVVERTENZA:** Un vero programma utilizzerebbe subroutine per questo tipo di ricerca, in modo da poter chiamare varie RPC da una libreria di funzioni C con fiducia. Stiamo solo ammassando tutto in `main` come parte della nostra filosofia KISS di esempi semplici.
 
-Repeat the standard RPC-lookup methodology to get a change address:
+### Passo 5: Creare un Indirizzo di Resto
+
+Ripeti la metodologia standard di ricerca RPC per ottenere un indirizzo di resto:
+
 ```
 rpc_method = bitcoinrpc_method_init(BITCOINRPC_METHOD_GETRAWCHANGEADDRESS);
 
@@ -180,24 +195,26 @@ lu_response = bitcoinrpc_resp_get (btcresponse);
 lu_result = json_object_get(lu_response,"result");
 char *changeaddress = strdup(json_string_value(lu_result));
 ```
-The only difference is in what particular information is extracted from the JSON object.
+L'unica differenza sta in quale particolare informazione viene estratta dall'oggetto JSON.
 
-> :warning: **WARNING:** Here's a place that a subroutine would be really nice: to abstract out the whole RPC method initialization and call.
+> :warning: **AVVERTENZA:** Ecco un punto in cui una subroutine sarebbe molto utile: per astrarre l'intera inizializzazione del metodo RPC e la chiamata.
 
-### Step 6: Create a Raw Transaction
+### Passo 6: Creare una Transazione Grezza
 
-Creating the actual raw transaction is the other tricky part of programming your `sendtoaddress` replacement. That's because it requires the creation of a complex JSON object as a paramter.
+Creare la transazione grezza effettiva è l'altra parte complicata della programmazione del tuo sostituto `sendtoaddress`. Questo perché richiede la creazione di un oggetto JSON complesso come parametro.
 
-To correctly create these parameters, you'll need to review what the `createrawtransaction` RPC expects. Fortunately, this is easy to determine using the `bitcoin-cli help` functionality:
+Per creare correttamente questi parametri, dovrai rivedere cosa si aspetta l'RPC `createrawtransaction`. Fortunatamente, questo è facile da determinare utilizzando la funzionalità `bitcoin-cli help`:
+
 ```
 $ bitcoin-cli help createrawtransaction
 createrawtransaction [{"txid":"id","vout":n},...] {"address":amount,"data":"hex",...} ( locktime )
 ```
-To review, your inputs will be a JSON array containing one JSON object for each UTXO. Then the outputs will all be in one JSON object. It's easiest to create these JSON elements from the inside out, using `jansson` commands. 
+Per riassumere, i tuoi input saranno un array JSON contenente un oggetto JSON per ciascun UTXO. Poi tutti gli output saranno in un unico oggetto JSON. È più facile creare questi elementi JSON dall'interno verso l'esterno, utilizzando i comandi `jansson`. 
 
-#### Step 6.1: Create the Input Parameters
+#### Passo 6.1: Creare i Parametri di Input
 
-To create the input object for your UTXO, use `json_object`, then fill it with key-values using either `json_object_set_new` (for newly created references) or `json_object_set` (for existing references):
+Per creare l'oggetto input per il tuo UTXO, usa `json_object`, quindi riempilo con coppie chiave-valore utilizzando `json_object_set_new` (per riferimenti di nuova creazione) o `json_object_set` (per riferimenti esistenti):
+
 ```
 json_t *inputtxid = NULL;
 inputtxid = json_object();
@@ -205,18 +222,21 @@ inputtxid = json_object();
 json_object_set_new(inputtxid,"txid",json_string(tx_id));
 json_object_set_new(inputtxid,"vout",json_integer(tx_vout));
 ```
-You'll note that you again have to translate each C variable type into a JSON variable type using the appropriate function, such as `json_string` or `json_integer`.
+Noterai che devi di nuovo tradurre ciascun tipo di variabile C in un tipo di variabile JSON utilizzando la funzione appropriata, come `json_string` o `json_integer`.
 
-To create the overall input array for all your UTXOs, use `json_array`, then fill it up with objects using `json_array_append`:
+Per creare l'array di input generale per tutti i tuoi UTXO, usa `json_array`, quindi riempilo con oggetti utilizzando `json_array_append`:
+
 ```
 json_t *inputparams = NULL;
 inputparams = json_array();
 json_array_append(inputparams,inputtxid);
 ```
 
-#### Step 6.2: Create the Output Parameters
 
-To create the output array for your transaction, follow the same format, creating a JSON object with `json_object`, then filling it with `json_object_set`:
+#### Passo 6.2: Creare i Parametri di Output
+
+Per creare l'array di output per la tua transazione, segui lo stesso formato, creando un oggetto JSON con `json_object`, quindi riempiendolo con `json_object_set`:
+
 ```
 json_t *outputparams = NULL;
 outputparams = json_object();
@@ -230,24 +250,27 @@ json_object_set(outputparams, tx_recipient, json_string(tx_amount_string));
 json_object_set(outputparams, changeaddress, json_string(tx_change_string));
 ```
 
-> :warning: **WARNING:** You might expect to input your Bitcoin values as numbers, using `json_real`. Unfortunately, this exposes one of the major problems with integrating the `jansson` library and Bitcoin. Bitcoin is only valid to eight significant digits past the decimal point. You might recall that .00000001 BTC is a satoshi, and that's the smallest possible division of a Bitcoin. Doubles in C offer more significant digits than that, though they're often imprecise out past eight decimals. If you try to convert straight from your double value in C (or a float value, for that matter) to a Bitcoin value, the imprecision will often create a Bitcoin value with more than eight significant digits. Before Bitcoin Core 0.12 this appears to work, and you could use `json_real`. But as of Bitcoin Core 0.12, if you try to give `createrawtransaction` a Bitcoin value with too many significant digits, you'll instead get an error and the transaction will not be created. As a result, if the Bitcoin value has _ever_ become a double or float, you must reformat it to eight significant digits past the digit before feeding it in as a string. This is obviously a kludge, so you should make sure it continues to work in future versions of Bitcoin Core.
 
-#### Step 6.3: Create the Parameter Array
+> :warning: **AVVISO:** Potresti aspettarti di inserire i tuoi valori Bitcoin come numeri, utilizzando `json_real`. Sfortunatamente, questo espone uno dei principali problemi con l'integrazione della libreria `jansson` e Bitcoin. Bitcoin è valido solo fino a otto cifre significative dopo il punto decimale. Ricorderai che .00000001 BTC è un satoshi, e questa è la divisione più piccola possibile di un Bitcoin. I doppi in C offrono più cifre significative di così, anche se spesso sono imprecisi oltre otto decimali. Se provi a convertire direttamente il tuo valore doppio in C (o un valore float, per quella materia) in un valore Bitcoin, l'imprecisione creerà spesso un valore Bitcoin con più di otto cifre significative. Prima di Bitcoin Core 0.12 questo sembra funzionare, e potresti usare `json_real`. Ma a partire da Bitcoin Core 0.12, se provi a dare a `createrawtransaction` un valore Bitcoin con troppe cifre significative, riceverai invece un errore e la transazione non sarà creata. Di conseguenza, se il valore Bitcoin è _mai_ diventato un doppio o un float, devi riformattarlo a otto cifre significative dopo la cifra prima di inserirlo come stringa. Questo è ovviamente un trucco, quindi dovresti assicurarti che continui a funzionare nelle future versioni di Bitcoin Core.
 
-To finish creating your parameters, simply bundle them all up in a JSON array:
+#### Passo 6.3: Creare l'Array dei Parametri
+
+Per finire di creare i tuoi parametri, basta racchiuderli tutti in un array JSON:
+
 ```
 json_t *params = NULL;
 params = json_array();
 json_array_append(params,inputparams);
 json_array_append(params,outputparams);
 ```
-#### Step 6.4 Make the RPC Call
+#### Passo 6.4: Effettuare la Chiamata RPC
 
-Use the normal method to create your RPC call:
+Usa il metodo normale per creare la tua chiamata RPC:
+
 ```
 rpc_method = bitcoinrpc_method_init(BITCOINRPC_METHOD_CREATERAWTRANSACTION);
 ```
-However, now you must feed it your parameters. This simply done with `bitcoinrpc_method_set_params`:
+Tuttavia, ora devi fornire i tuoi parametri. Questo viene fatto semplicemente con `bitcoinrpc_method_set_params`:
 ```
 if (bitcoinrpc_method_set_params(rpc_method, params) != BITCOINRPCE_OK) {
 
@@ -255,7 +278,7 @@ if (bitcoinrpc_method_set_params(rpc_method, params) != BITCOINRPCE_OK) {
 
 }
 ```
-Afterward, run the RPC and get the results as usual:
+Successivamente, esegui l'RPC e ottieni i risultati come al solito:
 ```
 bitcoinrpc_call(rpc_client, rpc_method, btcresponse, &btcerror);
 
@@ -264,14 +287,15 @@ lu_result = json_object_get(lu_response,"result");
 
 char *tx_rawhex = strdup(json_string_value(lu_result));
 ```
-### Step 7. Sign the Transaction
+### Passo 7: Firmare la Transazione
 
-It's a lot easier to assign a simple parameter to a function. You just create a JSON array, then assign the parameter to the array:
+È molto più facile assegnare un semplice parametro a una funzione. Basta creare un array JSON, quindi assegnare il parametro all'array:
+
 ```
 params = json_array();
 json_array_append_new(params,json_string(tx_rawhex));
 ```
-Sign the transaction by following the typical rigamarole for creating an RPC call:
+Firma la transazione seguendo la solita tiritera per creare una chiamata RPC:
 ```
 rpc_method = bitcoinrpc_method_init(BITCOINRPC_METHOD_SIGNRAWTRANSACTION);
 if (bitcoinrpc_method_set_params(rpc_method, params) != BITCOINRPCE_OK) {
@@ -285,7 +309,8 @@ json_decref(params);
 bitcoinrpc_call(rpc_client, rpc_method, btcresponse, &btcerror);
 lu_response = bitcoinrpc_resp_get(btcresponse);
 ```
-Again, using `jansson` to access the output can be a little tricky. Here you have to remember that `hex` is part of a JSON object, not a standalone result, as was the case when you created the raw transaction. Of course, you can always access this information from command line help: `bitcoin-cli help signrawtransaction`:
+Ancora una volta, usare `jansson` per accedere all'output può essere un po' complicato. Qui devi ricordare che `hex` è parte di un oggetto JSON, non un risultato autonomo, come era il caso quando hai creato la transazione grezza. Naturalmente, puoi sempre accedere a queste informazioni dall'aiuto della riga di comando: `bitcoin-cli help signrawtransaction`:
+
 ```
 lu_result = json_object_get(lu_response,"result");
 json_t *lu_signature = json_object_get(lu_result,"hex");
@@ -293,11 +318,13 @@ char *tx_signrawhex = strdup(json_string_value(lu_signature));
 json_decref(lu_signature);
 ```
 
-> :warning: ***WARNING:*** A real-world program would obviously carefully test the response of every RPC command to make sure there were no errors. That's especially true for `signrawtransaction`, because you might end up with a partially signed transaction. Worse, if you don't check the errors in the JSON object, you'll just see the `hex` and not realize that it's either unsigned or partially signed. 
 
-### Step 8. Send the Transaction
+> :warning: **AVVERTENZA:** Un programma del mondo reale ovviamente testerebbe attentamente la risposta di ogni comando RPC per assicurarsi che non ci siano errori. Questo è particolarmente vero per `signrawtransaction`, perché potresti finire con una transazione parzialmente firmata. Peggio ancora, se non controlli gli errori nell'oggetto JSON, vedrai solo l'`hex` e non ti renderai conto che è non firmato o parzialmente firmato. 
 
-You can now send your transaction, using all of the previous techniques:
+### Passo 8: Inviare la Transazione
+
+Ora puoi inviare la tua transazione, usando tutte le tecniche precedenti:
+
 ```
 params = json_array();
 json_array_append_new(params,json_string(tx_signrawhex));
@@ -320,28 +347,29 @@ char *tx_newid = strdup(json_string_value(lu_result));
 
 printf("Txid: %s\n",tx_newid);
 ```
-The entire code, with a _little_ more error-checking appears in the Appendix.
+L'intero codice, con un _po' di_ controllo degli errori in più, appare nell'Appendice.
 
-## Test Your Code
+## Testare il Tuo Codice
 
-The complete code can be found in the [src directory](src/16_2_sendtoaddress.c).
+Il codice completo può essere trovato nella [directory src](src/16_2_sendtoaddress.c).
 
-Compile this as usual:
+Compila questo come al solito:
+
 ```
 $ cc sendtoaddress.c -lbitcoinrpc -ljansson -o sendtoaddress
 ```
-You can then use it to send funds to an address:
+Puoi quindi usarlo per inviare fondi a un indirizzo:
 
 ```
 ./sendtoaddress tb1qynx7f8ulv4sxj3zw5gqpe56wxleh5dp9kts7ns .001
 Txid: b93b19396f8baa37f5f701c7ca59d3128144c943af5294aeb48e3eb4c30fa9d2
 ```
-You can see information on this transaction that we sent [here](https://live.blockcypher.com/btc-testnet/tx/b93b19396f8baa37f5f701c7ca59d3128144c943af5294aeb48e3eb4c30fa9d2/). 
+Puoi vedere le informazioni su questa transazione che abbiamo inviato [qui](https://live.blockcypher.com/btc-testnet/tx/b93b19396f8baa37f5f701c7ca59d3128144c943af5294aeb48e3eb4c30fa9d2/).
 
-## Summary: Programming Bitcoind with C
+## Riepilogo: Programmare Bitcoind con C
 
-With access to a C library, you can create much more fully featured programs than it was reasonable to do so with shell scripts. But, it can take a lot of work! Even at 316 lines of code, `sendtoaddress.c` doesn't cover nearly all of the intricacies requires to safely and intelligently transact bitcoins.
+Con l'accesso a una libreria C, puoi creare programmi molto più completi di quanto fosse ragionevole fare con script di shell. Ma può richiedere molto lavoro! Anche con 316 linee di codice, `sendtoaddress.c` non copre quasi tutte le complessità necessarie per transare bitcoin in modo sicuro e intelligente.
 
-## What's Next?
+## Cosa Succede Dopo?
 
-Learn more about "Talking to Bitcoind with C" in [16.3: Receiving Notifications in C with ZMQ Libraries](16_3_Receiving_Bitcoind_Notifications_with_C.md).
+Scopri di più su "Parlare con Bitcoind in C" nel [Capitolo 16.3: Ricevere Notifiche di Bitcoind in C tramite Librerie ZMQ](16_3_Ricevere_Notifiche_di_Bitcoind_in_C_tramite_Librerie_ZMQ.md).
