@@ -1,21 +1,20 @@
-# Chapter 13: Designing Real Bitcoin Scripts
+# Capitolo 13: Progettare Veri Script Bitcoin
 
-Our Bitcoin Scripts to date have been largely theoretical examples, because we've still been putting together the puzzle pieces. Now, with the full Bitcoin Script repetoire in hand, we're ready to dig into several real-world Bitcoin Scripts and see how they work.
+I nostri Script Bitcoin fino ad oggi sono stati in gran parte esempi teorici, perché abbiamo ancora messo insieme i pezzi del puzzle. Ora, con il repertorio completo degli Script Bitcoin a portata di mano, siamo pronti a esplorare diversi Script Bitcoin del mondo reale e vedere come funzionano.
 
-## Objectives for This Chapter
+## Obiettivi per Questo Capitolo
 
-After working through this chapter, a developer will be able to:
+Dopo aver lavorato su questo capitolo, uno sviluppatore sarà in grado di:
 
-   * Assess Real-World Bitcoin Scripts
-   * Create Real-World Bitcoin Scripts
+   * Valutare Script Bitcoin del Mondo Reale
+   * Creare Script Bitcoin del Mondo Reale
    
-Supporting objectives include the ability to:
+Gli obiettivi di supporto includono la capacità di:
 
-   * Understand Existing Bitcoin Scripts
-   * Understand the Importance of Signatures
+   * Comprendere gli Script Bitcoin Esistenti
+   * Comprendere l'Importanza delle Firme
 
-## Table of Contents
-
-  * [Section One: Writing Puzzles Scripts](13_1_Writing_Puzzle_Scripts.md)
-  * [Section Two: Writing Complex Multisig Scripts](13_2_Writing_Complex_Multisig_Scripts.md) 
-  * [Section Three: Empowering Bitcoin with Scripts](13_3_Empowering_Bitcoin_with_Scripts.md)
+## Indice dei Contenuti
+  * [Capitolo 13.1 Scrivere Scripts Puzzle](13_1_Scrivere_Scripts_Puzzle.md)
+  * [Capitolo 13.2 Scrivere Scripts Multifirma Complessi](13_2_Scrivere_Scripts_Multifirma_Complessi.md) 
+  * [Capitolo 13.3 Potenziare_Bitcoin_con_Scripts](13_3_Potenziare_Bitcoin_con_Scripts.md)
