@@ -1,19 +1,19 @@
-# 16.3 Receiving Notifications in C with ZMQ  Libraries
+# 16.3 Ricevere Notifiche in C con Librerie ZMQ
 
-> :information_source: **NOTE:** This section has been recently added to the course and is an early draft that may still be awaiting review. Caveat reader.
+> :information_source: **NOTA:** Questa sezione è stata recentemente aggiunta al corso ed è una bozza iniziale che potrebbe essere ancora in attesa di revisione. Lettore avvisato.
 
-[§16.1](16_1_Accessing_Bitcoind_with_C.md) and [§16.2](16_2_Programming_Bitcoind_with_C.md) introduced RPC and JSON libraries for C, and in doing so showed one of the advantages of accessing Bitcoin's RPC commands through a programming language: the ability to reasonably create much more complex programs. This chapter introduces a third library, for [ZMQ](http://zeromq.org/), and in doing so reveals another advantage: the ability to monitor for notifications. It will use that for coding a blockchain listener.
+Nel [Capitolo 16.1](16_1_Accedere_a_Bitcoind_con_Librerie_RPC.md) e nel [Capitolo 16.2](16_2_Programare_Bitcoind_in_C_con_Librerie_RPC.md) hanno introdotto le librerie RPC e JSON per C, e in tal modo hanno mostrato uno dei vantaggi di accedere ai comandi RPC di Bitcoin attraverso un linguaggio di programmazione: la possibilità di creare ragionevolmente programmi molto più complessi. Questo capitolo introduce una terza libreria, per [ZMQ](http://zeromq.org/), e in tal modo rivela un altro vantaggio: la possibilità di monitorare le notifiche. Lo utilizzeremo per codificare un ascoltatore di blockchain.
 
-> :book: ***What is ZMQ?*** ZeroMQ (ZMQ)is a high-performance asynchronous messaging library that provides a message queue.  ZeroMQ supports common messaging patterns (pub/sub, request/reply, client/server, and others) over a variety of transports (TCP, in-process, inter-process, multicast, WebSocket, and more), making inter-process messaging as simple as inter-thread messaging. You can find more details about ZMQ notifications and others kind of messages in [this repo](https://github.com/Actinium-project/ChainTools/blob/master/docs/chainlistener.md).
+> :book: ***Che cos'è ZMQ?*** ZeroMQ (ZMQ) è una libreria di messaggistica asincrona ad alte prestazioni che fornisce una coda di messaggi. ZeroMQ supporta modelli di messaggistica comuni (pub/sub, request/reply, client/server e altri) su una varietà di trasporti (TCP, in-process, inter-process, multicast, WebSocket e altro), rendendo la messaggistica inter-processo semplice come la messaggistica inter-thread. Puoi trovare ulteriori dettagli sulle notifiche ZMQ e altri tipi di messaggi in [questo repository](https://github.com/Actinium-project/ChainTools/blob/master/docs/chainlistener.md).
 
-## Set Up ZMQ
+## Configura ZMQ
 
-Before you can create a blockchain listener, you will need to configure `bitcoind` to allow ZMQ notifications, and then you'll need to install a ZMQ library to take advantage of those notifications.
+Prima di poter creare un ascoltatore di blockchain, dovrai configurare `bitcoind` per consentire le notifiche ZMQ e poi dovrai installare una libreria ZMQ per sfruttare queste notifiche.
 
-### Configure `bitcoind` for ZMQ
+### Configurare `bitcoind` per ZMQ
 
-Bitcoin Core is ZMQ-ready, but you must specify ZMQ endpoints. ZeroMQ publish-sockets prepend each data item with an arbitrary topic
-prefix that allows subscriber clients to request only those items with a matching prefix. There are currently four topics supported by `bitcoind`:
+Bitcoin Core è pronto per ZMQ, ma devi specificare gli endpoint ZMQ. I socket di pubblicazione di ZeroMQ premettono a ogni elemento di dati un prefisso di argomento arbitrario che consente ai client abbonati di richiedere solo quegli elementi con un prefisso corrispondente. Attualmente ci sono quattro argomenti supportati da `bitcoind`:
+:
 ```
 $ bitcoind --help | grep zmq | grep address
   -zmqpubhashblock=<address>
@@ -21,13 +21,15 @@ $ bitcoind --help | grep zmq | grep address
   -zmqpubrawblock=<address>
   -zmqpubrawtx=<address>
 ```
-You can run `bitcoind` with command-line arguments for ZMQ endpoints, as shown above, but you can also make an endpoint accessible by adding appropriate lines to your `~/.bitcoin/bitcoin.conf` file and restarting your daemon.    
+Puoi eseguire `bitcoind` con argomenti da riga di comando per gli endpoint ZMQ, come mostrato sopra, ma puoi anche rendere accessibile un endpoint aggiungendo le righe appropriate al tuo file `~/.bitcoin/bitcoin.conf` e riavviando il tuo demone.    
+
 
 ```
 zmqpubrawblock=tcp://127.0.0.1:28332
 zmqpubrawtx=tcp://127.0.0.1:28333
 ```
-You can then test your endpoints are working using the `getzmqnotifications` RPC:
+Puoi quindi testare se i tuoi endpoint stanno funzionando utilizzando l'RPC `getzmqnotifications`:
+
 
 ```
 $ bitcoin-cli getzmqnotifications
@@ -44,24 +46,26 @@ $ bitcoin-cli getzmqnotifications
   }
 ]
 ```
-Your `bitcoind` will now issue ZMQ notifications
+Il tuo `bitcoind` ora emetterà notifiche ZMQ.
 
-### Install ZMQ
+### Installare ZMQ
 
-To take advantage of those notifications, you need a ZMQ library to go with C; we'll thus be using a new ZMQ library instead of the `libbitcoinrpc` library in this section, but when you're experimenting in the future, you'll of course be able to combine them. 
+Per sfruttare queste notifiche, hai bisogno di una libreria ZMQ da utilizzare con C; in questa sezione useremo quindi una nuova libreria ZMQ invece della libreria `libbitcoinrpc`, ma quando sperimenterai in futuro, potrai ovviamente combinarle. 
 
-Fortunately, ZMQ libraries are available through standard Debian packages:
+Fortunatamente, le librerie ZMQ sono disponibili tramite pacchetti standard Debian:
+
 ```
 $ sudo apt-get install libzmq3-dev
 $ sudo apt-get install libczmq-dev
 ```
-You're now ready to code!
+Ora sei pronto per programmare!
 
-## Write Your Notification Program
+## Scrivi il Tuo Programma di Notifica
 
-The following C program is a simple client that subscribes to a ZMQ connection point served by `bitcoind` and reads incoming messages.  
+Il seguente programma C è un semplice client che si abbona a un punto di connessione ZMQ servito da `bitcoind` e legge i messaggi in arrivo.  
 
-The program requires two parameters: the first parameter is the "server", which is the TCP connection point exposed by `bitcoind`; and the second is the "topic", which is currently `zmqpubhashblock`, `zmqpubhashtx`, `zmqpubrawblock`, or `zmqpubrawtx`. The topic must be supported through the `bitcoin.conf` and the server's IP address and port must match what's defined there.
+Il programma richiede due parametri: il primo parametro è il "server", che è il punto di connessione TCP esposto da `bitcoind`; e il secondo è l'argomento, che attualmente è `zmqpubhashblock`, `zmqpubhashtx`, `zmqpubrawblock` o `zmqpubrawtx`. L'argomento deve essere supportato tramite il `bitcoin.conf` e l'indirizzo IP e la porta del server devono corrispondere a quanto definito lì.
+
 
 ``` c
 #include <czmq.h>
@@ -78,12 +82,13 @@ int main(int argc, char ** argv) {
     topic = argv[2];
   }
 ```
-You will open a ZMQ socket to the defined server for the defined topic:
+
+Aprirai un socket ZMQ al server definito per l'argomento definito:
 ``` c
   zsock_t *socket = zsock_new_sub(zmqserver, topic);
   assert(socket);
 ```
-After that, you wait:
+Dopodiché, aspetti:
 ```
   while(1) {
     zmsg_t *msg;
@@ -108,20 +113,20 @@ After that, you wait:
     sleep(1);
  }
 ```
-While, waiting, you watch for messages on the ZMQ socket. Whenever you receive a message, you will `pop` it off the stack and report out its number, its length, and most importantly the data.
+Durante l'attesa, guardi i messaggi sul socket ZMQ. Ogni volta che ricevi un messaggio, lo estrai dallo stack e riporti il suo numero, la sua lunghezza e, soprattutto, i dati.
 
-That's it!
+Questo è tutto!
 
-Of course when you're done, you should clean up:
+Ovviamente, quando hai finito, dovresti pulire:
 ```
   zsock_destroy(&socket);
   return 0;
 }
 ```
+### Testare il Codice di Notifica
 
-### Test the Notification Code
+Il codice sorgente è nella [directory src](src/16_3_chainlistener.c) come al solito. Dovresti compilarlo:
 
-The source code is in the [src directory](src/16_3_chainlistener.c) as usual. You should compile it:
 ```
 $ cc -o chainlistener chainlistener.c -I/usr/local/include -L/usr/local/lib -lzmq -lczmq
 ```
@@ -142,17 +147,19 @@ Data: 0200000000010137527957C9AD6CFF0C9A74597E6EFCD7E1EBD53E942AB2FA34A831046CA1
 No: 70
 .......
 ```
+Dopodiché, puoi eseguirlo con gli argomenti e gli indirizzi che hai definito nel tuo `bitcoin.conf`:
 
-### Summary Receiving Bitcoind Notifications with C.md
+--------------------------
 
-By using the ZMQ framework, you can easily receive notifications by subscribing to a connection point exposed by `bitcoind` through its configuration file.
+### Riepilogo: Ricevere Notifiche di Bitcoind con C
 
-> :fire: ***What is the Power of Notifications?*** With notifications, you're no longer entirely dependent upon users to issue commands. Instead, you can create programs that monitor the Bitcoin blockchain and take appropriate actions when certain things occur. This in turn could be merged with the RPC commands that you programmed in previous sections. This is also a big step beyond what you could do with shell scripts: certainly, you can create infinite-loop listener shell scripts, but programming languages tend to be a better tool for that task.
+Utilizzando il framework ZMQ, puoi facilmente ricevere notifiche collegandoti a un punto di connessione esposto da `bitcoind` attraverso il suo file di configurazione.
 
-## What's Next?
+> :fire: ***Qual è il Potere delle Notifiche?*** Con le notifiche, non dipendi più completamente dagli utenti per emettere comandi. Invece, puoi creare programmi che monitorano la blockchain di Bitcoin e prendono le azioni appropriate quando si verificano determinate cose. Questo potrebbe a sua volta essere integrato con i comandi RPC che hai programmato nelle sezioni precedenti. Questo è anche un grande passo avanti rispetto a ciò che potresti fare con gli script di shell: certamente, puoi creare script di shell ascoltatori con loop infiniti, ma i linguaggi di programmazione tendono a essere uno strumento migliore per quel compito.
 
-Learn more about "Programming with RPC" in [Chapter 17: Programming Bitcoin with Libwally](17_0_Programming_with_Libwally.md).
+## Cosa Succede Dopo?
 
+Scopri di più su "Programmazione con RPC" in [Capitolo 17: Programmare Bitcoin con Libwally](17_0_Programmare_Bitcoin_con_Libwally.md).
 
 
 
