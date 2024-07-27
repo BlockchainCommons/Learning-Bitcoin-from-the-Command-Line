@@ -113,10 +113,7 @@ Se desideri effettuare la tua traduzione, guarda qui [Contribuire](CONTRIBUIRE.m
   * [16_2 Programare Bitcoind in C con Librerie RPC](16_2_Programare_Bitcoind_in_C_con_Librerie_RPC.md)
   * [13_3 Ricevere Notifiche di Bitcoind in C tramite Librerie ZMQ](16_3_Ricevere_Notifiche_di_Bitcoind_in_C_tramite_Librerie_ZMQ.md)
   
-* 16_0_Parlare_con_Bitcoind.md
-  * 16_1_Accedere_a_Bitcoind_con_Librerie_RPC.md
-  * 16_2_Programare_Bitcoind_in_C_con_Librerie_RPC.md
-  * 16_3_Ricevere_Notifiche_di_Bitcoind_in_C_tramite_Librerie_ZMQ.md
+
 * 17_0_Programmare_Bitcoin_con_Libwally.md
   * 17_1_Configurare_Libwally.md
   * 17_2_Usare_BIP39_in_Libwally.md
