@@ -1,26 +1,30 @@
 16_0_Parlare_a_Bitcoind_con_C.md
-# Chapter 16: Talking to Bitcoind with C
+# Capitolo 16: Parlare con Bitcoind in C
 
-While working with Bitcoin Scripts, we hit the boundaries of what's possible with `bitcoin-cli`: it can't currently be used to generate transactions containing unusual scripts. Shell scripts also aren't great for some things, such as creating listener programs that are constantly polling. Fortunately, there are other ways to access the Bitcoin network: programming APIs.
+Durante il lavoro con gli Script Bitcoin, abbiamo raggiunto i limiti di ciò che è possibile fare con `bitcoin-cli`: attualmente non può essere utilizzato per generare transazioni contenenti script inusuali. Gli script di shell non sono nemmeno ideali per alcune cose, come la creazione di programmi ascoltatori che controllano costantemente. Fortunatamente, ci sono altri modi per accedere alla rete Bitcoin: le API di programmazione.
 
-This section focuses on three different libraries that can be used as the foundation of sophisticated C programming: an RPC library and a JSON library together allow you to recreate a lot of what you did in shell scripts, but now using C; while a ZMQ library links you in to notifications, something you haven't been able to previously access. (The next chapter will cover an even more sophisticated library called Libwally, to finish out this introductory look at programming Bitcoin with C.)
+Questa sezione si concentra su tre diverse librerie che possono essere utilizzate come base per una programmazione sofisticata in C: una libreria RPC e una libreria JSON insieme ti permettono di ricreare molte delle operazioni che hai fatto con gli script di shell, ma ora utilizzando C; mentre una libreria ZMQ ti collega alle notifiche, qualcosa a cui non sei stato in grado di accedere precedentemente. (Il prossimo capitolo coprirà una libreria ancora più sofisticata chiamata Libwally, per completare questa introduzione alla programmazione di Bitcoin con C.)
 
-## Objectives for This Chapter
+## Obiettivi per Questo Capitolo
 
-After working through this chapter, a developer will be able to:
+Dopo aver lavorato su questo capitolo, uno sviluppatore sarà in grado di:
 
-   * Create C Programs that use RPC to Talk to the Bitcoind
-   * Create C Programs that use ZMQ to Talk to the Bitcoind
+   * Creare Programmi in C che utilizzano RPC per Parlare con Bitcoind
+   * Creare Programmi in C che utilizzano ZMQ per Parlare con Bitcoind
    
-Supporting objectives include the ability to:
+Obiettivi di supporto includono la capacità di:
 
-   * Understand how to use an RPC library
-   * Understand how to use a JSON library
-   * Understand the capabilities of ZMQ
-   * Understand how to use a ZMQ library
+   * Comprendere come utilizzare una libreria RPC
+   * Comprendere come utilizzare una libreria JSON
+   * Comprendere le capacità di ZMQ
+   * Comprendere come utilizzare una libreria ZMQ
+   
+## Indice
+
    
 ## Table of Contents
 
-  * [Section One: Accessing Bitcoind in C with RPC Libraries](16_1_Accessing_Bitcoind_with_C.md)
-  * [Section Two: Programming Bitcoind in C with RPC Libraries](16_2_Programming_Bitcoind_with_C.md)
-  * [Section Three: Receiving Notifications in C with ZMQ Libraries](16_3_Receiving_Bitcoind_Notifications_with_C.md)
+  * [Capitolo 16.1: Accedere a Bitcoind con Librerie RPC](16_1_Accedere_a_Bitcoind_con_Librerie_RPC.md)
+  * [Capitolo 16.2: Programare Bitcoind in C con Librerie RPC](16_2_Programare_Bitcoind_in_C_con_Librerie_RPC.md)
+  * [Capitolo 16.3: Ricevere Notifiche di Bitcoind in C tramite Librerie ZMQ](16_3_Ricevere_Notifiche_di_Bitcoind_in_C_tramite_Librerie_ZMQ.md)
+  
