@@ -1,24 +1,25 @@
- # 13.1: Writing Puzzle Scripts
+# 13.1: Scrivere Script Enigmatici
 
-Bitcoin Scripts _don't_ actually have to depend on the knowledge of a secret key. They can instead be puzzles of any sort. 
+Gli Script Bitcoin _non_ devono necessariamente dipendere dalla conoscenza di una chiave segreta. Possono invece essere enigmi di qualsiasi tipo.
 
-## Write Simple Algebra Scripts
+## Scrivere Script di Algebra Semplici
 
-Our first real Script, from [§9.2: Running a Bitcoin Script](09_2_Running_a_Bitcoin_Script.md) was an alegbraic puzzle. That Bitcoin Script, `OP_ADD 99 OP_EQUAL`, could have been alternatively described as `x + y = 99`.
+Il nostro primo vero script, dal [Capitolo 9.2: Eseguire uno Script di Bitcoin](009_2_Eseguire_uno_Script_di_Bitcoin.md), era un enigma algebrico. Quello script Bitcoin, `OP_ADD 99 OP_EQUAL`, potrebbe essere descritto alternativamente come `x + y = 99`.
 
-This sort of Script doesn't have a lot of applicability in the real world, as it's too easy to claim the funds. But, a puzzle-solving contest giving out Bitcoin dust might offer it as a fun entertainment.
+Questo tipo di script non ha molta applicabilità nel mondo reale, poiché è troppo facile rivendicare i fondi. Tuttavia, un concorso di risoluzione di enigmi che distribuisce piccole quantità di Bitcoin potrebbe proporlo come un intrattenimento divertente.
 
-More notably, creating alegebraic puzzles gives you a nice understanding of how the arithmetic functions in Bitcoin Script work.
+Più precisamente, creare enigmi algebrici ti dà una buona comprensione di come funzionano le funzioni aritmetiche negli script Bitcoin.
 
-### Write a Multiplier Script
+### Scrivere uno Script Moltiplicatore
 
-Bitcoin Script has a number of opcodes that were disabled to maintain the security of the system. One of the is `OP_MUL`, which would have allowed multiplication ... but is instead disabled.
+Bitcoin Script ha un certo numero di opcode che sono stati disabilitati per mantenere la sicurezza del sistema. Uno di questi è `OP_MUL`, che avrebbe permesso la moltiplicazione... ma è invece disabilitato.
 
-So, how would you write an algebraic function like `3x + 7 = 13`?
+Quindi, come scriveresti una funzione algebrica come `3x + 7 = 13`?
 
-The most obvious answer is to `OP_DUP` the number input from the locking script twice. Then you can push the `7` and keep adding until you get your total. The full locking script would look like this: `OP_DUP OP_DUP 7 OP_ADD OP_ADD OP_ADD 13 OP_EQUAL`.
+La risposta più ovvia è `OP_DUP` il numero di input dallo script di blocco due volte. Poi puoi aggiungere `7` e continuare ad aggiungere fino a ottenere il totale. Lo script di blocco completo sarebbe così: `OP_DUP OP_DUP 7 OP_ADD OP_ADD OP_ADD 13 OP_EQUAL`.
 
-Here's how it would run if executed with the correct unlocking script of `2`:
+Ecco come verrebbe eseguito se eseguito con lo script di sblocco corretto di `2`:
+
 ```
 Script: 2 OP_DUP OP_DUP 7 OP_ADD OP_ADD OP_ADD 13 OP_EQUAL
 Stack: [ ]
@@ -56,7 +57,7 @@ Script:
 Running: 13 13 OP_EQUAL
 Stack: [ True ]
 ```
-Or if you prefer `btcdeb`:
+Oppure se preferisci `btcdeb`:
 ```
 $ btcdeb '[2 OP_DUP OP_DUP 7 OP_ADD OP_ADD OP_ADD 13 OP_EQUAL]'
 btcdeb 0.2.19 -- type `btcdeb -h` for start up options
@@ -173,13 +174,14 @@ script   |  stack
 ---------+--------
          | 01
 ```
-### Write an Equation System
+### Scrivere un Sistema di Equazioni
 
-What if you wanted to instead write an equation system, such as `x + y = 3`, `y + z = 5`, and `x + z = 4`? A bit of algebra tells you that the answers come out to `x = 1`, `y = 2`, and `z = 3`. But, how do you script it?
+E se volessi invece scrivere un sistema di equazioni, come `x + y = 3`, `y + z = 5` e `x + z = 4`? Un po' di algebra ti dice che le risposte sono `x = 1`, `y = 2` e `z = 3`. Ma come lo scripti?
 
-Most obviously, after the redeemer inputs the three numbers, you're going to need two copies of each number, since each number goes into two different equations. `OP_3DUP` takes care of that and results in `x y z x y z` being on the stack. Popping off two items at a time will give you `y z`, `z x`, and `x y`. Voila! That's the three equations, so you just need to add them up and test them in the right order! Here's the full script: `OP_3DUP OP_ADD 5 OP_EQUALVERIFY OP_ADD 4 OP_EQUALVERIFY OP_ADD 3 OP_EQUAL`.
+Ovviamente, dopo che il redentore ha inserito i tre numeri, avrai bisogno di due copie di ogni numero, poiché ogni numero entra in due equazioni diverse. `OP_3DUP` si occupa di questo e risulta in `x y z x y z` sullo stack. Eliminando due elementi alla volta otterrai `y z`, `z x` e `x y`. Voilà! Queste sono le tre equazioni, quindi devi solo sommarle e testarle nell'ordine giusto! Ecco lo script completo: `OP_3DUP OP_ADD 5 OP_EQUALVERIFY OP_ADD 4 OP_EQUALVERIFY OP_ADD 3 OP_EQUAL`.
 
-Here's how it runs with the correct unlocking script of `1 2 3`:
+Ecco come funziona con lo script di sblocco corretto di `1 2 3`:
+
 ```
 Script: 1 2 3 OP_3DUP OP_ADD 5 OP_EQUALVERIFY OP_ADD 4 OP_EQUALVERIFY OP_ADD 3 OP_EQUAL
 Stack: [ ]
@@ -224,7 +226,7 @@ Script:
 Running: 3 3 OP_EQUAL
 Stack: [ True ]
 ```
-Here it is in `btcdeb`:
+Ecco in `btcdeb`:
 ```
 $ btcdeb '[1 2 3 OP_3DUP OP_ADD 5 OP_EQUALVERIFY OP_ADD 4 OP_EQUALVERIFY OP_ADD 3 OP_EQUAL]'
 btcdeb 0.2.19 -- type `btcdeb -h` for start up options
@@ -421,17 +423,18 @@ script         |  stack
                | 01
 ```
 
-> :warning: **WARNING** `btcdeb` isn't just useful for providing visualization of these scripts, but to also double-check the results. Sure enough, we got this one wrong the first time, testing the equations in the wrong order. That's how easy it is to make a financially fatal mistake in a Bitcoin Script, and that's why every script must be tested.
+> :warning: **ATTENZIONE** `btcdeb` non è solo utile per fornire una visualizzazione di questi script, ma anche per controllare i risultati. Sicuramente, abbiamo sbagliato la prima volta, testando le equazioni nell'ordine sbagliato. È così facile commettere un errore finanziario fatale in uno script Bitcoin, ed è per questo che ogni script deve essere testato.
 
-## Write Simple Computational Scripts
+## Scrivere Script Computazionali Semplici
 
-Though puzzle scripts are trivial, they can actually have real-world usefulness if you want to crowdsource a computation. You simply create a script that requires the answer to the computation and you send funds to the P2SH address as a reward. It'll stay there until someone comes up with the answer.
+Anche se gli script enigmatici sono banali, possono effettivamente avere un'utilità nel mondo reale se vuoi fare crowdsourcing di un calcolo. Crei semplicemente uno script che richiede la risposta al calcolo e invii fondi all'indirizzo P2SH come ricompensa. Rimarrà lì fino a quando qualcuno non troverà la risposta.
 
-For example, Peter Todd [offered rewards](https://bitcointalk.org/index.php?topic=293382.0) for solving equations that demonstrate collisions for standard cryptographic algorithms. Here was his script for confirming a SHA1 collision: `OP_2DUP OP_EQUAL OP_NOT OP_VERIFY OP_SHA1 OP_SWAP OP_SHA1 OP_EQUAL`. It requires two inputs, which will be the two numbers that collide.
+Ad esempio, Peter Todd ha [offerto ricompense](https://bitcointalk.org/index.php?topic=293382.0) per risolvere equazioni che dimostrano collisioni per algoritmi crittografici standard. Ecco il suo script per confermare una collisione SHA1: `OP_2DUP OP_EQUAL OP_NOT OP_VERIFY OP_SHA1 OP_SWAP OP_SHA1 OP_EQUAL`. Richiede due input, che saranno i due numeri che collidono.
 
-Here's how it runs with correct answers.
+Ecco come funziona con le risposte corrette.
 
-First, we fill in our stack:
+Per prima cosa, riempiamo il nostro stack:
+
 ```
 Script: <numA> <numB> OP_2DUP OP_EQUAL OP_NOT OP_VERIFY OP_SHA1 OP_SWAP OP_SHA1 OP_EQUAL
 Stack: [ ]
@@ -443,7 +446,7 @@ Script: OP_EQUAL OP_NOT OP_VERIFY OP_SHA1 OP_SWAP OP_SHA1 OP_EQUAL
 Running: <numA> <numB> OP_2DUP
 Stack: [ <numA> <numB> <numA> <numB> ]
 ```
-Then, we make sure the two numbers aren't equal, exiting if they are:
+Poi, ci assicuriamo che i due numeri non siano uguali, uscendo se lo sono:
 ```
 Script: OP_NOT OP_VERIFY OP_SHA1 OP_SWAP OP_SHA1 OP_EQUAL
 Running: <numA> <numB> OP_EQUAL
@@ -457,7 +460,7 @@ Script: OP_SHA1 OP_SWAP OP_SHA1 OP_EQUAL
 Running: True OP_VERIFY
 Stack: [ <numA> <numB> ] — Does Not Exit
 ```
-We now create two SHAs:
+Ora creiamo due SHA:
 ```
 Script: OP_SWAP OP_SHA1 OP_EQUAL
 Running: <numB> OP_SHA1
@@ -471,39 +474,40 @@ Script: OP_EQUAL
 Running: <numA> OP_SHA1
 Stack: [ <hashB> <hashA> ]
 ```
-Finally, we see if they match.
+Infine, vediamo se corrispondono.
 ```
 Script: 
 Running: <hashB> <hashA> OP_EQUAL
 Stack: [ True ]
 ```
-This is a nice script because it shows careful use of logic (with the `OP_NOT` and the `OP_VERIFY`) and good use of stack functions (with the `OP_SWAP`). It's all around a great example of a real-world function. And it is very real-world.  When [SHA-1 was broken](https://shattered.io/), 2.48 BTC were quickly liberated from the address, with a total value of about $3,000 at the time.
+Questo è un buon script perché mostra un uso attento della logica (con `OP_NOT` e `OP_VERIFY`) e un buon uso delle funzioni stack (con `OP_SWAP`). È tutto sommato un ottimo esempio di una funzione del mondo reale. Ed è davvero del mondo reale. Quando [SHA-1 è stato violato](https://shattered.io/), 2.48 BTC sono stati rapidamente liberati dall'indirizzo, con un valore totale di circa $3,000 all'epoca.
 
-`btcdeb` can be run to prove the collision (and the script):
+`btcdeb` può essere eseguito per dimostrare la collisione (e lo script):
+
 ```
 $ btcdeb '[255044462d312e330a25e2e3cfd30a0a0a312030206f626a0a3c3c2f57696474682032203020522f4865696768742033203020522f547970652034203020522f537562747970652035203020522f46696c7465722036203020522f436f6c6f7253706163652037203020522f4c656e6774682038203020522f42697473506572436f6d706f6e656e7420383e3e0a73747265616d0affd8fffe00245348412d3120697320646561642121212121852fec092339759c39b1a1c63c4c97e1fffe017f46dc93a6b67e013b029aaa1db2560b45ca67d688c7f84b8c4c791fe02b3df614f86db1690901c56b45c1530afedfb76038e972722fe7ad728f0e4904e046c230570fe9d41398abe12ef5bc942be33542a4802d98b5d70f2a332ec37fac3514e74ddc0f2cc1a874cd0c78305a21566461309789606bd0bf3f98cda8044629a1 255044462d312e330a25e2e3cfd30a0a0a312030206f626a0a3c3c2f57696474682032203020522f4865696768742033203020522f547970652034203020522f537562747970652035203020522f46696c7465722036203020522f436f6c6f7253706163652037203020522f4c656e6774682038203020522f42697473506572436f6d706f6e656e7420383e3e0a73747265616d0affd8fffe00245348412d3120697320646561642121212121852fec092339759c39b1a1c63c4c97e1fffe017346dc9166b67e118f029ab621b2560ff9ca67cca8c7f85ba84c79030c2b3de218f86db3a90901d5df45c14f26fedfb3dc38e96ac22fe7bd728f0e45bce046d23c570feb141398bb552ef5a0a82be331fea48037b8b5d71f0e332edf93ac3500eb4ddc0decc1a864790c782c76215660dd309791d06bd0af3f98cda4bc4629b1 OP_2DUP OP_EQUAL OP_NOT OP_VERIFY OP_SHA1 OP_SWAP OP_SHA1 OP_EQUAL]'
 ```
 
-Peter Todd's other [bounties](https://bitcointalk.org/index.php?topic=293382.0) remain unclaimed at the time of this writing. They're all written in the same manner as the SHA-1 example above.
+Le altre [ricompense](https://bitcointalk.org/index.php?topic=293382.0) di Peter Todd rimangono non rivendicate al momento della scrittura. Sono tutte scritte nello stesso modo dell'esempio SHA-1 sopra.
 
-## Understand the Limitations of Puzzle Scripts
+## Comprendere le Limitazioni degli Script Enigmatici
 
-Puzzle scripts are great to further examine Bitcoin Scripting, but you'll only see them in real-world use if they're holding small amounts of funds or if they're intended for redemption by very skilled users. There's a reason for this: they aren't secure. 
+Gli script enigmatici sono ottimi per esaminare ulteriormente la Scrittura Bitcoin, ma li vedrai nel mondo reale solo se contengono piccole quantità di fondi o se sono destinati a essere riscattati da utenti molto abili. C'è una ragione per questo: non sono sicuri.
 
-Here's where the security falls down:
+Ecco dove la sicurezza cade:
 
-First, anyone can redeem them without knowing much of a secret. They do have to have the `redeemScript`, which offers some protection, but once they do, that's probably the only secret that's necessary — unless your puzzle is _really_ tough, such as a computational puzzle.
+Innanzitutto, chiunque può riscattarli senza sapere molto di un segreto. Devono avere lo `script di riscatto`, che offre una certa protezione, ma una volta che lo hanno, probabilmente è l'unico segreto necessario — a meno che il tuo enigma non sia _davvero_ difficile, come un enigma computazionale.
 
-Second, the actual redemption isn't secure. Normally, a Bitcoin transaction is protected by the signature. Because the signature covers the transaction, no one on the network can rewrite that transaction to instead send to their address without invalidating the signature (and thus the transaction). That isn't true with a transactions whose inputs are just numbers. Anyone could grab the transaction and rewrite it to allow them to steal the funds. If they can get their transaction into a block before yours, they win, and you don't get the puzzle money. There are solutions for this, but they involve mining the block yourself or having a trusted pool mine it, and neither of those options is rational for an average Bitcoin user. 
+In secondo luogo, il riscatto effettivo non è sicuro. Normalmente, una transazione Bitcoin è protetta dalla firma. Poiché la firma copre la transazione, nessuno sulla rete può riscrivere quella transazione per inviarla al proprio indirizzo senza invalidare la firma (e quindi la transazione). Questo non è vero con una transazione i cui input sono solo numeri. Chiunque potrebbe prendere la transazione e riscriverla per consentire loro di rubare i fondi. Se riescono a far entrare la loro transazione in un blocco prima della tua, vincono e tu non ottieni i soldi dell'enigma. Ci sono soluzioni per questo, ma coinvolgono il mining del blocco da soli o avere un pool di fiducia che lo mini, e nessuna di queste opzioni è razionale per un utente Bitcoin medio.
 
-Yet, Peter Todd's cryptographic bounties prove that puzzle scripts do have some real-world application.
+Eppure, le ricompense crittografiche di Peter Todd dimostrano che gli script enigmatici hanno qualche applicazione nel mondo reale.
 
-## Summary: Writing Puzzle Scripts
+## Riepilogo: Scrivere Script Enigmatici
 
-Puzzles scripts are a great introduction to more realistic and complex Bitcoin Scripts. They demonstrate the power of the mathematical and stack functions in Bitcoin Script and how they can be carefully combined to create questions that require very specific answers. However, their real-world usage is also limited by the security issues inherent in non-signed Bitcoin transactions.
+Gli script enigmatici sono una grande introduzione a script Bitcoin più realistici e complessi. Dimostrano la potenza delle funzioni matematiche e di stack in Bitcoin Script e come possono essere combinati con cura per creare domande che richiedono risposte molto specifiche. Tuttavia, il loro uso nel mondo reale è limitato dai problemi di sicurezza inerenti alle transazioni Bitcoin non firmate.
 
-> :fire: ***What is the power of puzzle script?*** Despite their limitations, puzzles scripts have been used in the real world as the prizes for computational bounties. Anyone who can figure out a complex puzzle, whose solution presumably has some real-world impact, can win the bounty. Whether they get to actually keep it is another question.
+> :fire: ***Qual è la potenza degli script enigmatici?*** Nonostante le loro limitazioni, gli script enigmatici sono stati usati nel mondo reale come premi per ricompense computazionali. Chiunque riesca a risolvere un enigma complesso, la cui soluzione presumibilmente ha un impatto nel mondo reale, può vincere la ricompensa. Se riescono a tenerla realmente è un'altra questione.
 
-## What's Next?
+## Cosa c'è dopo?
 
-Continue "Designing Real Bitcoin Scripts" with [§13.2: Writing Complex Multisig Scripts](13_2_Writing_Complex_Multisig_Scripts.md).
+Continua "Progettare Veri Script Bitcoin" con [Capitolo 13.2: Scrivere Scripts Multifirma Complessi](13_2_Scrivere_Scripts_Multifirma_Complessi.md). 
