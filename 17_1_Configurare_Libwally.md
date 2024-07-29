@@ -1,38 +1,39 @@
-# 17.1: Setting Up Libwally
+# 17.1: Configurare Libwally
 
-> :information_source: **NOTE:** This section has been recently added to the course and is an early draft that may still be awaiting review. Caveat reader.
+> :information_source: **NOTA:** Questa sezione è stata recentemente aggiunta al corso ed è una bozza iniziale che potrebbe ancora essere in attesa di revisione. Lettore avvisato.
 
-This first section will explain how to download the Libwally C Library and get it working.
+Questa prima sezione spiegherà come scaricare la libreria C Libwally e farla funzionare.
 
-> :book: ***What is Libwally?*** Libwally is a library of primitives helpful for the creation of wallets that is cross-platform and cross-language, so that the same functions can be used everywhere. There are [online docs](https://wally.readthedocs.io/en/latest/). Libwally is made available as part of Blockstream's [Elements Project](https://github.com/ElementsProject).
+> :book: ***Cos'è Libwally?*** Libwally è una libreria di primitive utili per la creazione di portafogli che è cross-platform e cross-language, così che le stesse funzioni possano essere utilizzate ovunque. Ci sono [documenti online](https://wally.readthedocs.io/en/latest/). Libwally è resa disponibile come parte del [Elements Project](https://github.com/ElementsProject) di Blockstream.
 
-## Install Libwally
+## Installare Libwally
 
-As usual, you'll need some packages on your system:
+Come al solito, avrai bisogno di alcuni pacchetti sul tuo sistema:
+
 ```
 $ sudo apt-get install git
 $ sudo apt-get install dh-autoreconf
 ```
-You can then download Libwally from its Git repo:
+Puoi quindi scaricare Libwally dal suo repository Git:
 ```
 $ git clone https://github.com/ElementsProject/libwally-core
 ```
-Afterward, you can begin the configuration process:
+Successivamente, puoi iniziare il processo di configurazione:
 ```
 $ ./tools/autogen.sh
 ```
-As with `libbitcoinrpc`, you may wish to install this in `/usr/include` and `/usr/lib` for ease of usage. Just modify the appropriate line in the `configure` program:
+Come con `libbitcoinrpc`, potresti voler installarlo in `/usr/include` e `/usr/lib` per facilità di utilizzo. Basta modificare la linea appropriata nel programma `configure`:
 ```
 < ac_default_prefix=/usr
 ---
 > ac_default_prefix=/usr/local
 ```
-Afterward you can finish your prep:
+Successivamente, puoi completare la preparazione:
 ```
 $ ./configure
 $ make
 ```
-You can then verify that tests are working:
+Puoi quindi verificare che i test funzionino:
 ```
 $ make check
 Making check in src
@@ -84,18 +85,20 @@ make[1]: Entering directory '/home/standup/libwally-core'
 make[1]: Nothing to be done for 'check-am'.
 make[1]: Leaving directory '/home/standup/libwally-core'
 ```
-Finally, you can install:
+Infine, puoi installare:
 ```
 $ sudo make install
 ```
 
-## Prepare for Libwally
 
-So how do you use Libwally in a program? As usual, you'll need to include appropriate files and link appropriate libraries for your code.
+## Prepararsi per Libwally
 
-### Include the Files
+Quindi, come si usa Libwally in un programma? Come al solito, dovrai includere i file appropriati e collegare le librerie appropriate per il tuo codice.
 
-There are a considerable number of possible include files:
+### Includere i File
+
+Ci sono un numero considerevole di file di inclusione possibili:
+
 
 ```
 $ ls /usr/include/wally*
@@ -103,67 +106,74 @@ $ ls /usr/include/wally*
 /usr/include/wally_bip32.h    /usr/include/wally_core.h    /usr/include/wally.hpp	  /usr/include/wally_symmetric.h
 /usr/include/wally_bip38.h    /usr/include/wally_crypto.h  /usr/include/wally_psbt.h	  /usr/include/wally_transaction.h
 ```
-Fortunately, the file names largely match the sections in the [docs](https://wally.readthedocs.io/en/latest/), so you should be able to include the correct files based on what you're doing, after including the ubiquitous `wally_core.h`.
+Fortunatamente, i nomi dei file corrispondono in gran parte alle sezioni nei [documenti](https://wally.readthedocs.io/en/latest/), quindi dovresti essere in grado di includere i file corretti in base a ciò che stai facendo, dopo aver incluso l'onnipresente `wally_core.h`.
 
-### Link the Libraries
+### Collegare le Librerie
 
-You also will need to link appropriate libraries:
+Dovrai anche collegare le librerie appropriate:
+
 ```
 $ ls /usr/lib/libsecp* /usr/lib/libwally*
 /usr/lib/libsecp256k1.a   /usr/lib/libwallycore.la  /usr/lib/libwallycore.so.0
 /usr/lib/libsecp256k1.la  /usr/lib/libwallycore.so  /usr/lib/libwallycore.so.0.0.0
 ```
-Mostly, you'll be using `libwallycore`.
+Principalmente, utilizzerai `libwallycore`.
 
-## Set Up a Libwally Program
+## Configurare un Programma Libwally
 
-Compared to some of the previous libraries, Libwally is ridiculously easy to initialize:
+Rispetto ad alcune delle librerie precedenti, Libwally è ridicolmente facile da inizializzare:
+
 ```
 lw_response = wally_init(0);
 ```
-And then when you're done, there's a handy function to clean up any allocated memory:
+E poi, quando hai finito, c'è una comoda funzione per ripulire tutta la memoria allocata:
 ```
 wally_cleanup(0);
 ```
-In both cases, the argument is for flags, but is currently set to `0`.
+In entrambi i casi, l'argomento è per i flag, ma è attualmente impostato su `0`.
 
-## Test a Test Libwally Program
+## Testare un Programma di Test Libwally
 
-The src directory contains [testwally.c](src/17_1_testwally.c), which just shows how the initialize and cleanup functions work.
+La directory src contiene [testwally.c](src/17_1_testwally.c), che mostra semplicemente come funzionano le funzioni di inizializzazione e pulizia.
 
-You can compile it as follows:
+Puoi compilarlo come segue:
+
 ```
 $ cc testwally.c -lwallycore -o testwally
 ```
-Afterward you can run it:
+Dopo puoi eseguirlo:
 ```
 $ ./testwally
 Startup: 0
 ```
-The "Startup" value is the return from `wally_init`. The `0` value may initially appear discouraging, but it's's what you want to see:
+Il valore "Startup" è il ritorno di `wally_init`. Il valore `0` può inizialmente sembrare scoraggiante, ma è quello che vuoi vedere:
 ```
 include/wally_core.h:#define WALLY_OK      0 /** Success */
 ```
 
 ## Install Libsodium
 
-You should also install Libsodium to get access to a high quality random number generator for testing purposes.
 
-> :warning: **WARNING:** The generation of random numbers can be one of the greatest points of vulnerability in any Bitcoin software. If you do it wrong, you expose your users to attacks because they end up with insecure Bitcoin keys, and this isn't a [theoretical problem](https://github.com/BlockchainCommons/SmartCustodyBook/blob/master/manuscript/03-adversaries.md#adversary-systemic-key-compromise). BlockchainInfo once incorrectly generated 0.0002% of their keys, which resulted in the temporary loss of 250 Bitcoins. Bottom line: make sure you're totally comfortable with your random number generation. It might be Libsodium, or it might be an even more robust TRNG method.
+## Installare Libsodium
 
-You can download a [Libsodium tarball](https://download.libsodium.org/libsodium/releases/) and then follow the instructions at [Libsodium installation](https://doc.libsodium.org/installation) to install.
+Dovresti anche installare Libsodium per avere accesso a un generatore di numeri casuali di alta qualità per scopi di test.
 
-First, untar:
+> :warning: **ATTENZIONE:** La generazione di numeri casuali può essere uno dei maggiori punti di vulnerabilità in qualsiasi software Bitcoin. Se lo fai male, esponi i tuoi utenti ad attacchi perché finiscono con chiavi Bitcoin non sicure, e questo non è un [problema teorico](https://github.com/BlockchainCommons/SmartCustodyBook/blob/master/manuscript/03-adversaries.md#adversary-systemic-key-compromise). BlockchainInfo una volta generò erroneamente lo 0,0002% delle loro chiavi, il che portò alla perdita temporanea di 250 Bitcoin. In breve: assicurati di essere completamente a tuo agio con la generazione dei numeri casuali. Potrebbe essere Libsodium, o potrebbe essere un metodo TRNG ancora più robusto.
+
+Puoi scaricare un [tarball Libsodium](https://download.libsodium.org/libsodium/releases/) e poi seguire le istruzioni su [installazione di Libsodium](https://doc.libsodium.org/installation) per installarlo.
+
+Prima, decomprimi:
+
 ```
 $ tar xzfv /tmp/libsodium-1.0.18-stable.tar.gz 
 ```
-Then, adjust the `configure` file exactly as you have the other libraries to date:
+Poi, aggiusta il file `configure` esattamente come hai fatto con le altre librerie finora:
 ```
 < ac_default_prefix=/usr
 ---
 > ac_default_prefix=/usr/local
 ```
-Finally, `make`, `check`, and `install`:
+Infine, `make`, `check` e `install`:
 ```
 $ make
 $ make check
@@ -182,16 +192,16 @@ Testsuite summary for libsodium 1.0.18
 ...
 $ sudo make install
 ```
-This course will only use `libsodium` for one small (but crucial!) bit of entropy generation, but watch for it in the next section.
+Questo corso userà `libsodium` solo per un piccolo (ma cruciale!) bit di generazione di entropia, ma tienilo d'occhio nella sezione successiva.
 
-## Summary: Setting Up Libwally
+## Riepilogo: Configurare Libwally
 
-By installing the Libwally (and Libsodium) includes and libraries, you gain access to a number of cryptographic and wallet functions, which can complement your RPC and ZMQ libraries (or your command-line `bitcoin-cli`).
+Installando gli include e le librerie Libwally (e Libsodium), ottieni accesso a un numero di funzioni crittografiche e di portafoglio, che possono completare le tue librerie RPC e ZMQ (o il tuo `bitcoin-cli` da riga di comando).
 
-So what precisely can you do now? That's what the rest of this chapter is about.
+Quindi, cosa puoi fare esattamente ora? È di questo che tratta il resto di questo capitolo.
 
-## What's Next?
+## Cosa c'è dopo?
 
-Learn more about "Programming Bitcoin with Libwally" in [17.2: Using BIP39 in Libwally](17_2_Using_BIP39_in_Libwally.md).
+Scopri di più su "Programmare Bitcoin con Libwally" nel [Capitolo 17.2: Usare BIP39 in Libwally](17_2_Usare_BIP39_in_Libwally.md).
 
 
