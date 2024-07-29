@@ -1,20 +1,21 @@
-# 13.2: Writing Complex Multisig Scripts
+# 13.2: Scrivere Script Multisig Complessi
 
-To date, the multisigs described in these documents have been entirely simple, of the m-of-n or n-of-n form. However, you might desire more complex multisigs, where cosigners vary or where different options might become available over time. 
+Finora, i multisig descritti in questi documenti sono stati completamente semplici, della forma m-di-n o n-di-n. Tuttavia, potresti desiderare multisig più complessi, dove i cosigner variano o dove diverse opzioni potrebbero diventare disponibili nel tempo.
 
-## Write a Variable Multisig
+## Scrivere un Multisig Variabile
 
-A variable multisig requires different numbers of people to sign depending on who is signing.
+Un multisig variabile richiede numeri diversi di persone per firmare a seconda di chi sta firmando.
 
-### Write a Multisig with a Single Signer or Co-Signers
+### Scrivere un Multisig con un Singolo Firmatario o Co-Firmatari
 
-Imagine a corporation where either the president or two-out-of-three vice presidents could agree to the usage of funds.
+Immagina una corporazione dove sia il presidente o due dei tre vice-presidenti potrebbero concordare l'uso dei fondi.
 
-You can write this by creating an `IF`/`ELSE`/`ENDIF` statement that has two blocks, one for the president and his one-of-one signature and one for the vice-presidents and their two-of-three signatures. You can then determine which block to use based on how many signatures are in the unlocking script. Using `OP_DEPTH 1 OP_EQUAL` will tell you if there is one item on the stack, and you then go from there.
+Puoi scriverlo creando un'istruzione `IF`/`ELSE`/`ENDIF` che ha due blocchi, uno per il presidente e la sua firma uno-di-uno e uno per i vice-presidenti e le loro firme due-di-tre. Puoi quindi determinare quale blocco usare in base a quante firme ci sono nello script di sblocco. Usare `OP_DEPTH 1 OP_EQUAL` ti dirà se c'è un elemento nello stack, e da lì procedi.
 
-The full locking script would be `OP_DEPTH 1 OP_EQUAL IF <pubKeyPres> OP_CHECKSIGNATURE ELSE 2 <pubKeyVPA> <pubKeyVPB> <pubKeyVPC> 3 OP_CHECKMULTISIG ENDIF`
+Lo script di blocco completo sarebbe `OP_DEPTH 1 OP_EQUAL IF <pubKeyPres> OP_CHECKSIGNATURE ELSE 2 <pubKeyVPA> <pubKeyVPB> <pubKeyVPC> 3 OP_CHECKMULTISIG ENDIF`
 
-If run by the president, it would look like this:
+Se eseguito dal presidente, apparirebbe così:
+
 ```
 Script: <sigPres> OP_DEPTH 1 OP_EQUAL IF <pubKeyPres> OP_CHECKSIGNATURE ELSE 2 <pubKeyVPA> <pubKeyVPB> <pubKeyVPC> 3 OP_CHECKMULTISIG ENDIF
 Stack: [ ]
@@ -33,7 +34,7 @@ Script: IF <pubKeyPres> OP_CHECKSIGNATURE ELSE 2 <pubKeyVPA> <pubKeyVPB> <pubKey
 Running: 1 1 OP_EQUAL
 Stack: [ <sigPres> True ]
 ```
-Because the result is `True`, the Script now collapses to the `IF` statement:
+Poiché il risultato è `True`, lo Script ora si riduce all'istruzione `IF`:
 ```
 Script: <pubKeyPres> OP_CHECKSIGNATURE
 Running: True IF
@@ -46,7 +47,7 @@ Script:
 Running: <sigPres> <pubKeyPres> OP_CHECKSIGNATURE
 Stack: [ True ]
 ```
-If run by two vice-presidents, it would look like this:
+Se eseguito da due vice-presidenti, apparirebbe così:
 ```
 Script: 0 <sigVPA> <sigVPB> OP_DEPTH 1 OP_EQUAL IF <pubKeyPres> OP_CHECKSIGNATURE ELSE 2 <pubKeyVPA> <pubKeyVPB> <pubKeyVPC> 3 OP_CHECKMULTISIG ENDIF
 Stack: [ ]
@@ -65,7 +66,7 @@ Script: IF <pubKeyPres> OP_CHECKSIGNATURE ELSE 2 <pubKeyVPA> <pubKeyVPB> <pubKey
 Running: 3 1 OP_EQUAL
 Stack: [ 0 <sigVPA> <sigVPB> False ]
 ```
-Because the result is `False`, the Script now collapses to the `ELSE` statement:
+Poiché il risultato è `False`, lo Script ora si riduce all'istruzione `ELSE`:
 ```
 Script: 2 <pubKeyVPA> <pubKeyVPB> <pubKeyVPC> 3 OP_CHECKMULTISIG
 Running: False IF
@@ -78,15 +79,16 @@ Script:
 Running: 0 <sigVPA> <sigVPB> 2 <pubKeyVPA> <pubKeyVPB> <pubKeyVPC> 3 OP_CHECKMULTISIG
 Stack: [ ]
 ```
-You might notice that the President's signature just uses a simple `OP_CHECKSIGNATURE` rather than the more complex code usually required for a P2PKH. We can get away with including the public key in the locking script, obviating the usual rigamarole, because it's hashed and won't be revealed (through the `redeemScript`) until the transaction is unlocked. This also allows for all of the possible signers to sign using the same methodology.
+Potresti notare che la firma del Presidente utilizza solo un semplice `OP_CHECKSIGNATURE` piuttosto che il codice più complesso solitamente richiesto per un P2PKH. Possiamo permetterci di includere la chiave pubblica nello script di blocco, evitando la solita trafila, perché è hashata e non sarà rivelata (attraverso il `redeemScript`) fino a quando la transazione non sarà sbloccata. Questo consente anche a tutti i firmatari possibili di firmare utilizzando la stessa metodologia.
 
-The only possible problem is if the President is absent-minded and accidentally signs a transaction with one of his VPs, because he remembers this being a 2-of-3 multisig. One option is to decide that's an acceptable failure condition, because the President is using the multsig incorrectly. Another option is to turn the 2-of-3 multisig into a 2-of-4 multisig, just in case the President doesn't tolerate failure: `OP_DEPTH 1 OP_EQUAL IF <pubKeyPres> OP_CHECKSIGNATURE ELSE 2 <pubKeyVPA> <pubKeyVPB> <pubKeyVPC> <pubKeyPres> 4 OP_CHECKMULTISIG ENDIF`. This would allow the President to mistakenly sign with any Vice President, but wouldn't impact things if two Vice Presidents wanted to (correctly) sign.
+L'unico possibile problema è se il Presidente è smemorato e firma accidentalmente una transazione con uno dei suoi Vice-Presidenti, perché ricorda che si tratta di un multisig 2-di-3. Un'opzione è decidere che è una condizione di errore accettabile, perché il Presidente sta usando il multisig in modo errato. Un'altra opzione è trasformare il multisig 2-di-3 in un multisig 2-di-4, nel caso in cui il Presidente non tolleri errori: `OP_DEPTH 1 OP_EQUAL IF <pubKeyPres> OP_CHECKSIGNATURE ELSE 2 <pubKeyVPA> <pubKeyVPB> <pubKeyVPC> <pubKeyPres> 4 OP_CHECKMULTISIG ENDIF`. Questo permetterebbe al Presidente di firmare erroneamente con qualsiasi Vice-Presidente, ma non influirebbe se due Vice-Presidenti volessero (correttamente) firmare.
 
-### Write a Multisig with a Required Signer
+### Scrivere un Multisig con un Firmatario Richiesto
 
-Another multisig possibility involves have a m-of-n multisig where one of the signers is required. This can usually be managed by breaking the multisig down into multiple m of n-1 multisigs. For example, a 2-of-3 multisig where one of the signers is required would actually be two 2-of-2 multisigs, each including the required signer.
+Un'altra possibilità multisig prevede un multisig m-di-n dove uno dei firmatari è richiesto. Questo può solitamente essere gestito scomponendo il multisig in più multisig m di n-1. Ad esempio, un multisig 2-di-3 dove uno dei firmatari è richiesto sarebbe in realtà due multisig 2-di-2, ciascuno includendo il firmatario richiesto.
 
-Here's a simple way to script that:
+Ecco un modo semplice per scriverlo:
+
 ```
 OP_3DUP
 2 <pubKeyRequired> <pubKeyA> 2  OP_CHECKMULTISIG
@@ -96,21 +98,22 @@ NOTIF
 
 ENDIF
 ```
-The unlocking script would be either `0 <pubKeyRequired> <pubKeyA>` or `0 <pubKeyRequired> <pubKeyB>`.
+Lo script di sblocco sarebbe `0 <pubKeyRequired> <pubKeyA>` o `0 <pubKeyRequired> <pubKeyB>`.
 
-First the Script would check the signatures against `<pubKeyRequired> <pubKeyA>`. If that fails, it would check against `<pubKeyRequired> <pubKeyB>`.
+Prima lo Script controllerebbe le firme contro `<pubKeyRequired> <pubKeyA>`. Se fallisce, controllerebbe contro `<pubKeyRequired> <pubKeyB>`.
 
-The result of the final `OP_CHECKMULTISIG` that was run will be left on the top of the stack (though there will be cruft below it if the first one succeeded).
+Il risultato dell'ultimo `OP_CHECKMULTISIG` che è stato eseguito sarà lasciato in cima allo stack (anche se ci sarà spazzatura sotto di esso se il primo è riuscito).
 
-## Write an Escrow Multisig
+## Scrivere un Multisig Escrow
 
-We've talked a lot about escrows. Complex multisigs combined with timelocks offer an automated way to create them in a robust manner.
+Abbiamo parlato molto di escrow. I multisig complessi combinati con i timelock offrono un modo automatizzato per crearli in modo robusto.
 
-Imagine home buyer Alice and home seller Bob who are working with an escrow agent. The easy way to script this would be as a multisig where any two of the three parties could release the money: either the seller and buyer agree or the escrow agent takes over and agrees with one of the parties: `2 <pubKeyA> <pubKeyB> <pubKeyEscrow> 3 OP_CHECKMULTISG`.
+Immagina l'acquirente di una casa Alice e il venditore della casa Bob che lavorano con un agente escrow. Il modo semplice per scrivere questo sarebbe come un multisig dove qualsiasi due delle tre parti potrebbero rilasciare il denaro: o il venditore e l'acquirente sono d'accordo o l'agente escrow prende il controllo e concorda con una delle parti: `2 <pubKeyA> <pubKeyB> <pubKeyEscrow> 3 OP_CHECKMULTISIG`.
 
-However, this weakens the power of the escrow agent and allows the seller and buyer to accidentally make a bad decision between themselves — which is one of the things an escrow system is designed to avoid. So it could be that what we really want is the system that we just laid out, where the escrow agent is a required party in the 2-of-3 multisig: `OP_3DUP 2 <pubKeyEscrow> <pubKeyA> 2  OP_CHECKMULTISIG NOTIF 2 <pubKeyEscrow> <pubKeyB> 2  OP_CHECKMULTISIG ENDIF`.
+Tuttavia, questo indebolisce il potere dell'agente escrow e consente al venditore e all'acquirente di prendere accidentalmente una decisione sbagliata tra loro — che è una delle cose che un sistema escrow è progettato per evitare. Quindi potrebbe essere che ciò che vogliamo veramente è il sistema che abbiamo appena esposto, dove l'agente escrow è una parte richiesta nel multisig 2-di-3: `OP_3DUP 2 <pubKeyEscrow> <pubKeyA> 2 OP_CHECKMULTISIG NOTIF 2 <pubKeyEscrow> <pubKeyB> 2 OP_CHECKMULTISIG ENDIF`.
 
-However, this doesn't pass the walk-in-front-of-a-bus test. If the escrow agent dies or flees to the Bahamas during the escrow, the buyer and seller are out a lot of money. This is where a timelock comes in. You can create an additional test that will only be run if we've passed the end of our escrow period. In this situation, you allow the buyer and seller to sign together:
+Tuttavia, questo non passa il test del "camminare davanti a un autobus". Se l'agente escrow muore o fugge alle Bahamas durante l'escrow, l'acquirente e il venditore perderanno molti soldi. Qui entra in gioco un timelock. Puoi creare un test aggiuntivo che verrà eseguito solo se abbiamo superato il periodo di escrow. In questa situazione, permetti all'acquirente e al venditore di firmare insieme:
+
 ```
 OP_3DUP
 2 <pubKeyEscrow> <pubKeyA> 2 OP_CHECKMULTISIG
@@ -126,11 +129,12 @@ NOTIF
   ENDIF
 ENDIF
 ```
-First, you test a signature for the buyer and the escrow agent, then a signature for the seller and the escrow agent. If both of those fail and 30 days have passed, then you also allow a signature for the buyer and seller.
+Prima, testi una firma per l'acquirente e l'agente escrow, poi una firma per il venditore e l'agente escrow. Se entrambe falliscono e sono passati 30 giorni, permetti anche una firma per l'acquirente e il venditore.
 
-### Write a Buyer-Centric Escrow Multisig
+### Scrivere un Multisig Escrow Centrato sull'Acquirente
 
-[BIP 112](https://github.com/bitcoin/bips/blob/master/bip-0112.mediawiki#Escrow_with_Timeout) offers a different example of this sort of escrow that doesn't have the extra protections to prevent going around the escrow agent, but which does give Alice total control if the escrow fails.
+[BIP 112](https://github.com/bitcoin/bips/blob/master/bip-0112.mediawiki#Escrow_with_Timeout) offre un esempio diverso di questo tipo di escrow che non ha le protezioni extra per evitare di aggirare l'agente escrow, ma che dà ad Alice il controllo totale se l'escrow fallisce.
+
 ```
 IF
 
@@ -143,18 +147,18 @@ ELSE
 
 ENDIF
 ```
-Here, any two of the three signers can release the money at any time, but after 30 days Alice can retrieve her money on her own.
+Qui, qualsiasi due dei tre firmatari possono rilasciare il denaro in qualsiasi momento, ma dopo 30 giorni Alice può recuperare i suoi soldi da sola.
 
-Note that this Script requires a `True` or `False` to be passed in to identify which branch is being used. This is a simpler, less computationally intensive way to support branches in a Bitcoin Script; it's fairly common.
+Nota che questo Script richiede un `True` o `False` da passare per identificare quale ramo viene utilizzato. Questo è un modo più semplice e meno intensivo dal punto di vista computazionale per supportare i rami in un Bitcoin Script; è abbastanza comune.
 
-Early on, the following `sigScript` would be allowed: `0 <signer1> <signer2> True`. After 30 days, Alice could produce a `sigScript` like this: `<sigA> False`.
+All'inizio, il seguente `sigScript` sarebbe consentito: `0 <signer1> <signer2> True`. Dopo 30 giorni, Alice potrebbe produrre un `sigScript` come questo: `<sigA> False`.
 
-## Summary: Writing Complex Multisig Scripts
+## Riepilogo: Scrivere Script Multisig Complessi
 
-More complex multisignatures can typically be created by combining signatures or multisignatures with conditionals and tests. The resulting multisigs can be variable, requiring different numbers of signers based on who they are and when they're signing. 
+Le multisignature più complesse possono essere solitamente create combinando firme o multisignature con condizionali e test. I multisig risultanti possono essere variabili, richiedendo numeri diversi di firmatari in base a chi sono e quando stanno firmando.
 
-> :fire: ***What is the power of complex multisig scripts?*** More than anything we've seen to date, complex multisig scripts are truly smart contracts. They can be very precise in who is allowed to sign and when. Multi-level corporations, partnerships, and escrows alike can be supported. Using other powerful features like timelocks can further protect these funds, allowing them to be released or even returned at certain times.
+> :fire: ***Qual è la potenza degli script multisig complessi?*** Più di qualsiasi cosa vista finora, gli script multisig complessi sono veri e propri contratti intelligenti. Possono essere molto precisi su chi è autorizzato a firmare e quando. Possono supportare corporazioni multi-livello, partnership e escrow. Usare altre funzionalità potenti come i timelock può ulteriormente proteggere questi fondi, permettendo che siano rilasciati o addirittura restituiti in determinati momenti.
 
-## What's Next?
+## Cosa c'è dopo?
 
-Continue "Designing Real Bitcoin Scripts" with [§13.3: Empowering Bitcoin with Scripts](13_3_Empowering_Bitcoin_with_Scripts.md).
+Continua con "Progettare Script Bitcoin Reali" col [Capitolo 13.3: Potenziare Bitcoin con Scripts](13_3_Potenziare_Bitcoin_con_Scripts.md).
