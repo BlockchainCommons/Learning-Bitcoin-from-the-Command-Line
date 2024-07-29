@@ -114,14 +114,14 @@ Se desideri effettuare la tua traduzione, guarda qui [Contribuire](CONTRIBUIRE.m
   * [13_3 Ricevere Notifiche di Bitcoind in C tramite Librerie ZMQ](16_3_Ricevere_Notifiche_di_Bitcoind_in_C_tramite_Librerie_ZMQ.md)
   
 
-* 17_0_Programmare_Bitcoin_con_Libwally.md
-  * 17_1_Configurare_Libwally.md
-  * 17_2_Usare_BIP39_in_Libwally.md
-  * 17_3_Usare_BIP32_in_Libwally.md
-  * 17_4_Usare_PSBTs_in_Libwally.md
-  * 17_5_Usare_Scripts_in_Libwally.md
-  * 17_6_Usare_Altre_Funzioni_in_Libwally.md
-  * 17_7_Integrare_Libwally_e_Bitcoin-CLI.md
+* [17_0 Programmare Bitcoin con Libwally](17_0_Programmare_Bitcoin_con_Libwally.md)
+  * [17_1 Configurare Libwally](17_1_Configurare_Libwally.md)
+  * [17_2 Usare BIP39 in Libwally](17_2_Usare_BIP39_in_Libwally.md)
+  * [17_3 Usare BIP32 in Libwally](17_3_Usare_BIP32_in_Libwally.md)
+  * [17_4 Usare PSBTs in Libwally](17_4_Usare_PSBTs_in_Libwally.md)
+  * [17_5 Usare Scripts in Libwally](17_5_Usare_Scripts_in_Libwally.md)
+  * [17_6 Usare Altre Funzioni in Libwally](17_6_Usare_Altre_Funzioni_in_Libwally.md)
+  * [17_7 Integrare Libwally e Bitcoin-CLI](17_7_Integrare_Libwally_e_Bitcoin-CLI.md)
 * 18_0_Parlare_a_Bitcoind_in_Altri_Linguaggi.md
   * 18_1_Accedere_a_Bitcoind_con_Go.md
   * 18_2_Accedere_a_Bitcoind_con_Java.md
