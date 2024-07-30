@@ -1,89 +1,89 @@
-# 17.6: Using Other Functions in Libwally
+# 17.6: Usare Altre Funzioni in Libwally
 
-> :information_source: **NOTE:** This section has been recently added to the course and is an early draft that may still be awaiting review. Caveat reader.
+> :information_source: **NOTA:** Questa sezione è stata recentemente aggiunta al corso ed è una bozza preliminare che potrebbe essere ancora in attesa di revisione. Attenzione lettore.
 
-Libwally is an extensive library that provides a considerable amount of wallet-related functionality, much of it not available through `bitcoin-cli`. Following is an overview of some functionality not previously covered in this chapter.
+Libwally è una libreria estesa che offre una notevole quantità di funzionalità relative ai wallet, molte delle quali non sono disponibili tramite `bitcoin-cli`. Di seguito è fornita una panoramica di alcune funzionalità non trattate precedentemente in questo capitolo.
 
-## Use Cryptographic Functions
+## Utilizzare Funzioni Criptografiche
 
-A number of cryptographic functions can be directly accessed from Libwally:
+Un certo numero di funzioni crittografiche possono essere accessibili direttamente da Libwally:
 
-   * `wally_aes` — Use AES encryption or decryption
-   * `wally_aes_cbc` — Use AES encryption or decryption in CBC mode
-   * `wally_hash160` — Use RIPEMD-160(SHA-256) hash
-   * `wally_scrypt` — Use Scrypt key derivation
-   * `wally_sha256` — Use SHA256 hash
-   * `wally_sha256_midstate` — Use SHA256 to hash only the first chunk of data
-   * `wally_sha256d` — Conduct a SHA256 double-hash
-   * `wally_sha512` — Use SHA512 hash
+   * `wally_aes` — Utilizzare la crittografia o decrittografia AES
+   * `wally_aes_cbc` — Utilizzare la crittografia o decrittografia AES in modalità CBC
+   * `wally_hash160` — Utilizzare l'hash RIPEMD-160(SHA-256)
+   * `wally_scrypt` — Utilizzare la derivazione della chiave Scrypt
+   * `wally_sha256` — Utilizzare l'hash SHA256
+   * `wally_sha256_midstate` — Utilizzare SHA256 per fare hash solo del primo blocco di dati
+   * `wally_sha256d` — Effettuare un doppio hash SHA256
+   * `wally_sha512` — Utilizzare l'hash SHA512
 
-There are also HMAC functions for the two SHA hashes, which are used generate message-authentication-codes based on the hashes. They're used in [BIP32](https://en.bitcoin.it/wiki/BIP_0032), among other places.
+Ci sono anche funzioni HMAC per gli hash SHA, utilizzate per generare codici di autenticazione dei messaggi basati sugli hash. Sono usate in [BIP32](https://en.bitcoin.it/wiki/BIP_0032), tra le altre cose.
 
    * `wally_hmac_sha256`
    * `wally_hmac_sha512`
    
-Additional functions cover PBKDF2 key derivation and elliptic-curve math.
+Funzioni aggiuntive coprono la derivazione della chiave PBKDF2 e la matematica delle curve ellittiche.
 
-## Use Address Functions
+## Utilizzare Funzioni per gli Indirizzi
 
-Libwally contains a number of functions that can be used to import, export, and translate Bitcoin addresses.
+Libwally contiene un certo numero di funzioni che possono essere utilizzate per importare, esportare e tradurre gli indirizzi Bitcoin.
 
-Some convert back and forth between addresses and `scriptPubKey` bytes:
+Alcune convertono tra indirizzi e bytes `scriptPubKey`:
 
-   * `wally_addr_segwit_from_bytes` — Convert a witness program (in bytes) into a Segwit address
-   * `wally_addr_segwit_to_bytes` — Convert a Segwit address into a `scriptPubKey` (in bytes)
-   * `wally_address_to_scriptpubkey` — Convert a legacy address into a `scriptPubKey`(in bytes)
-   * `wally_scriptpubkey_to_address` — Convert a `scriptPubKey` (in bytes) into a legacy address
+   * `wally_addr_segwit_from_bytes` — Convertire un programma witness (in bytes) in un indirizzo Segwit
+   * `wally_addr_segwit_to_bytes` — Convertire un indirizzo Segwit in un `scriptPubKey` (in bytes)
+   * `wally_address_to_scriptpubkey` — Convertire un indirizzo legacy in un `scriptPubKey` (in bytes)
+   * `wally_scriptpubkey_to_address` — Convertire un `scriptPubKey` (in bytes) in un indirizzo legacy
    
-Some relate to the wallet import format (WIF):
+Alcuni riguardano il formato di importazione del wallet (WIF):
 
-   * `wally_wif_from_bytes` — Convert a private key (in bytes) to a WIF
-   * `wally_wif_is_uncompressed` — Determines if a WIF is uncompressed
-   * `wally_wif_to_address` — Derive a P2PKH address from a WIF
-   * `wally_wif_to_bytes` — Convert a WIF to a private key (in bytes)
-   * `wally_wif_to_public_key` — Derive a public key (in bytes) from a WIF
+   * `wally_wif_from_bytes` — Convertire una chiave privata (in bytes) in un WIF
+   * `wally_wif_is_uncompressed` — Determina se un WIF è non compresso
+   * `wally_wif_to_address` — Derivare un indirizzo P2PKH da un WIF
+   * `wally_wif_to_bytes` — Convertire un WIF in una chiave privata (in bytes)
+   * `wally_wif_to_public_key` — Derivare una chiave pubblica (in bytes) da un WIF
    
-## Use BIP32 Functions
+## Utilizzare Funzioni BIP32
 
-There are additional BIP32 HD-wallet functions, beyond what was covered in [§17.3: Using BIP32 in Libwally](17_3_Using_BIP32_in_Libwally.md).
+Ci sono ulteriori funzioni HD-wallet BIP32, oltre a quelle trattate nel [Capitolo 17.3: Usare BIP32 in Libwally](17_3_Usare_BIP32_in_Libwally.md).
 
-   * `bip32_key_get_fingerprint` — Generate a BIP32 fingerprint for an extended key
-   * `bip32_key_serialize` — Transform an extended key into serialized bytes
-   * `bip32_key_strip_private_key` — Convert an extended private key to an extended public key
-   * `bip32_key_unserialize` — Transform serialized bytes into an extended key
+   * `bip32_key_get_fingerprint` — Generare un'impronta BIP32 per una chiave estesa
+   * `bip32_key_serialize` — Trasformare una chiave estesa in bytes serializzati
+   * `bip32_key_strip_private_key` — Convertire una chiave privata estesa in una chiave pubblica estesa
+   * `bip32_key_unserialize` — Trasformare bytes serializzati in una chiave estesa
 
-There are also numerous various depending on whether you want to allocate memory or have Libwally do the `_alloc` for you.
+Ci sono anche numerose altre a seconda che tu voglia allocare memoria o far fare a Libwally l'_alloc_ per te.
 
-## Use BIP38 Functions
+## Utilizzare Funzioni BIP38
 
-[BIP38](https://github.com/bitcoin/bips/blob/master/bip-0038.mediawiki) allows for the creation of password-protected private key. We do not teach it because we consider inserting this sort of human factor into key management dangerous. See [#SmartCustody](https://www.smartcustody.com/index.html).
+[BIP38](https://github.com/bitcoin/bips/blob/master/bip-0038.mediawiki) consente la creazione di chiavi private protette da password. Non lo insegniamo perché consideriamo pericoloso inserire questo tipo di fattore umano nella gestione delle chiavi. Vedi [#SmartCustody](https://www.smartcustody.com/index.html).
 
-The main functions are:
+Le principali funzioni sono:
 
-   * `bip38_from_private_key` — Encode a private key using BIP38
-   * `bip38_to_private_key` — Decode a private key using BIP38
+   * `bip38_from_private_key` — Codificare una chiave privata utilizzando BIP38
+   * `bip38_to_private_key` — Decodificare una chiave privata utilizzando BIP38
    
-## Use BIP39 Functions
+## Utilizzare Funzioni BIP39
 
-A few BIP39 mnemonic-word functions were just overviewed in [§17.2: Using BIP39 in Libwally](17_2_Using_BIP39_in_Libwally.md):
+Alcune funzioni mnemoniche BIP39 sono state appena accennate nel [Capitolo 17.2: Usare BIP39 in Libwally](17_2_Usare_BIP39_in_Libwally.md):
 
-   * `bip39_get_languages` — See a list of supported languages
-   * `bit39_get_word` — Retrieve a specific word from a language's word list
-   * `bip39_get_wordlist` — See a list of words for a language
+   * `bip39_get_languages` — Vedere un elenco delle lingue supportate
+   * `bit39_get_word` — Recuperare una parola specifica dall'elenco delle parole di una lingua
+   * `bip39_get_wordlist` — Vedere un elenco di parole per una lingua
    
-## Use PSBT Functions
+## Utilizzare Funzioni PSBT
 
-Listings of most PSBT functions can be found in [17.4: Using PSBTs in Libwally](17_4_Using_PSBTs_in_Libwally.md).
+L'elenco della maggior parte delle funzioni PSBT può essere trovato nel [Capitolo 17.4: Usare PSBTs in Libwally](17_4_Using_PSBTs_in_Libwally.md).
 
-## Use Script Functions
+## Utilizzare Funzioni per gli Script
 
-[§17.5: Using Scripts in Libwally](17_5_Using_Scripts_in_Libwally.md) just barely touched upon Libwally's Scripts functions.
+[Capitolo 17.5: Usare Scripts in Libwally](17_5_Usare_Scripts_in_Libwally.md) ha appena accennato alle funzioni degli Script di Libwally.
 
-There's another function that lets you determine the sort of script found in a transaction:
+C'è un'altra funzione che ti permette di determinare il tipo di script trovato in una transazione:
 
-   * `wally_scriptpubkey_get_type` — Determine a transaction's script type.
+   * `wally_scriptpubkey_get_type` — Determinare il tipo di script di una transazione.
 
-Then there are a slew of functions that create `scriptPubKey` from bytes, `scriptSig` from signatures, and Witnesses from bytes or signatures.
+Poi ci sono una serie di funzioni che creano `scriptPubKey` da bytes, `scriptSig` da firme e Witnesses da bytes o firme.
 
    * `wally_script_push_from_bytes`
    * `wally_scriptpubkey_csv_2of2_then_1_from_bytes`
@@ -100,28 +100,26 @@ Then there are a slew of functions that create `scriptPubKey` from bytes, `scrip
    * `wally_witness_p2wpkh_from_sig`
    * `wally_witness_program_from_bytes`
 
-## Use Transaction Functions
+## Utilizzare Funzioni per le Transazioni
 
-We also just barely touched upon the functions that can be used to create and convert functions in [§17.5](17_5_Using_Scripts_in_Libwally.md).
+Abbiamo appena accennato alle funzioni che possono essere utilizzate per creare e convertire transazioni nel [Capitolo 17.5: Usare Scripts in Libwally](17_5_Usare_Scripts_in_Libwally.md).
 
-There are numerous informational functions, some of the more interesting of which are:
+Ci sono numerose funzioni informative, alcune delle più interessanti sono:
 
    * `wally_tx_get_length`
    * `wally_tx_get_total_output_satoshi`
    * `wally_tx_get_weight`
    
-There also are functions that affect a `wally_tx`, a `wally_tx_input`, a `wally_tx_output`, or a `wally_tx_witness_stack` and that create signatures.
+Ci sono anche funzioni che influenzano un `wally_tx`, un `wally_tx_input`, un `wally_tx_output`, o uno `stack di testimoni` e che creano firme.
 
-## Use Elements Functions
+## Utilizzare Funzioni Elements
 
-Libwally can be compiled to be used with Blockstream's Elements, which includes access to its assets functions.
+Libwally può essere compilato per essere utilizzato con Elements di Blockstream, che include l'accesso alle sue funzioni per gli asset.
 
-## Summary: Using Other Functions in Libwally
+## Riepilogo: Utilizzare Altre Funzioni in Libwally
 
-There is much more that you can do with Libwally, more than can be covered in this chapter or even listed in this section. Notably, you can perform cryptographic functions, encode private keys, build complete transactions, and use Elements. The [Libwally docs](https://wally.readthedocs.io/en/latest/) are the place to go for more information, though as of this writing they are both limited and out-of-date. The Libwally header files are a backup if the docs are incomplete or wrong.
+C'è molto di più che puoi fare con Libwally, più di quanto possa essere trattato in questo capitolo o persino elencato in questa sezione. In particolare, puoi eseguire funzioni crittografiche, codificare chiavi private, costruire transazioni complete e utilizzare Elements. La [documentazione di Libwally](https://wally.readthedocs.io/en/latest/) è il posto giusto per ulteriori informazioni, anche se al momento della scrittura sono sia limitate che obsolete. I file di intestazione di Libwally sono una riserva se la documentazione è incompleta o errata.
 
-## What's Next?
+## Cosa c'è dopo?
 
-Finish learning about "Programming Bitcoin with Libwally" in [§17.7: Integrating Libwally and Bitcoin-CLI](17_7_Integrating_Libwally_and_Bitcoin-CLI.md).  
-
-
+Continua a imparare su "Programmazione Bitcoin con Libwally" nel [Capitolo 17.7: Integrare Libwally e Bitcoin-CLI](17_7_Integrare_Libwally_e_Bitcoin-CLI.md)
