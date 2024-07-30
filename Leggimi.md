@@ -10,6 +10,7 @@ Learning Bitcoin from the Command Line è un tutorial per lavorare con Bitcoin (
 _Questo tutorial presuppone che tu abbia una minima conoscenza di base su come usare l'interfaccia della riga di comando. In caso contrario, sono disponibili molti tutorial e ne ho uno per utenti Mac su https://github.com/ChristopherA/intro-mac-command-line._
 
 ## Traduzioni
+
 * [English](https://github.com/BlockchainCommons/Learning-Bitcoin-from-the-Command-Line) - Traduzione v2.0.1
 * [Portuguese](https://github.com/BlockchainCommons/Learning-Bitcoin-from-the-Command-Line/tree/portuguese-translation/pt/README.md) - Traduzione v2.0.1 
 * [Spanish](https://github.com/BlockchainCommons/Learning-Bitcoin-from-the-Command-Line/tree/spanish-translation/es/README.md) - Traduzione v2.0.1 
@@ -96,7 +97,7 @@ Se desideri effettuare la tua traduzione, guarda qui [Contribuire](CONTRIBUIRE.m
 
 ### QUARTA PARTE: RISERVATEZZA
 
-**Status:** Prima traduzione parziale, da revisionare...
+**Status:** Prima traduzione, da revisionare...
 
 * [14_0 Usare Tor](14_0_Usare_Tor.md)
   * [14_1 Verificare la Configurazione Tor](14_1_Verificare_la_Configurazione_Tor.md)
@@ -107,7 +108,8 @@ Se desideri effettuare la tua traduzione, guarda qui [Contribuire](CONTRIBUIRE.m
 
 ### QUINTA PARTE: PROGRAMMARE CON RPC
 
-**Status:** Da fare...
+**Status:** Prima traduzione, da revisionare...
+
 * [16 0 Parlare a Bitcoind con C](16_0_Parlare_a_Bitcoind_con_C.md)
   * [16_1 Accedere a Bitcoind con Librerie RPC](16_1_Accedere_a_Bitcoind_con_Librerie_RPC.md)
   * [16_2 Programare Bitcoind in C con Librerie RPC](16_2_Programare_Bitcoind_in_C_con_Librerie_RPC.md)
@@ -122,13 +124,14 @@ Se desideri effettuare la tua traduzione, guarda qui [Contribuire](CONTRIBUIRE.m
   * [17_5 Usare Scripts in Libwally](17_5_Usare_Scripts_in_Libwally.md)
   * [17_6 Usare Altre Funzioni in Libwally](17_6_Usare_Altre_Funzioni_in_Libwally.md)
   * [17_7 Integrare Libwally e Bitcoin-CLI](17_7_Integrare_Libwally_e_Bitcoin-CLI.md)
-* 18_0_Parlare_a_Bitcoind_in_Altri_Linguaggi.md
-  * 18_1_Accedere_a_Bitcoind_con_Go.md
-  * 18_2_Accedere_a_Bitcoind_con_Java.md
-  * 18_3_Accedere_a_Bitcoind_con_NodeJS.md
-  * 18_4_Accedere_a_Bitcoind_con_Python.md
-  * 18_5_Accedere_a_Bitcoind_con_Rust.md
-  * 18_6_Accedere_a_Bitcoind_con_Swift.md
+
+* [18_0 Parlare a Bitcoind in Altri Linguaggi](18_0_Parlare_a_Bitcoind_in_Altri_Linguaggi.md)
+  * [18_1 Accedere a Bitcoind con Go](18_1_Accedere_a_Bitcoind_con_Go.md)
+  * [18_2 Accedere a Bitcoind con Java](18_2_Accedere_a_Bitcoind_con_Java.md)
+  * [18_3 Accedere a Bitcoind con NodeJS](18_3_Accedere_a_Bitcoind_con_NodeJS.md)
+  * [18_4 Accedere a Bitcoind con Python](18_4_Accedere_a_Bitcoind_con_Python.md)
+  * [18_5 Accedere a Bitcoind con Rust](18_5_Accedere_a_Bitcoind_con_Rust.md)
+  * [18_6 Accedere a Bitcoind con Swift](18_6_Accedere_a_Bitcoind_con_Swift.md)
 
 ### SESTA PARTE: USARE LIGHTNING-CLI
 
