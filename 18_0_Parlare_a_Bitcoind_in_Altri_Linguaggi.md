@@ -1,26 +1,27 @@
-# Chapter 18: Talking to Bitcoind with Other Languages
+# Capitolo 18: Parlare con Bitcoind con Altri Linguaggi
 
-You should now have a solid foundation for working with Bitcoin in C, not only using RPC, JSON, and ZMQ libraries to directly interact with `bitcoind`, but also utilizing the Libwally libraries to complement that work. And C is a great language for prototyping and abstraction — but it's probably not what you're programming in. This chapter thus takes a whirlwind tour of six other programming languages, demonstrating the barest Bitcoin functionality in each and allowing you to expand the lessons of the command line and C to the programming language of your choice.
+Ora dovresti avere una solida base per lavorare con Bitcoin in C, non solo utilizzando le librerie RPC, JSON e ZMQ per interagire direttamente con `bitcoind`, ma anche sfruttando le librerie Libwally per complementare quel lavoro. E C è un ottimo linguaggio per prototipare e astrarre — ma probabilmente non è il linguaggio in cui programmi. Questo capitolo quindi offre un rapido tour di sei altri linguaggi di programmazione, dimostrando le funzionalità base di Bitcoin in ciascuno e permettendoti di espandere le lezioni della riga di comando e di C al linguaggio di programmazione di tua scelta.
 
-Each of the sections contains approximately the same information, focused on: creating an RPC connection; examining the wallet; creating a new address, and creating a transaction. However, there's some variety among the languages, showing off different aspects of Bitcoin's RPC commands in different examples. In particular, some languages use the easy methodology of `sendtoaddress` while others use the hard methodology of creating a raw transaction from scratch.
+Ogni sezione contiene informazioni approssimativamente uguali, focalizzate su: creare una connessione RPC; esaminare il portafoglio; creare un nuovo indirizzo e creare una transazione. Tuttavia, c'è una certa varietà tra i linguaggi, mostrando diversi aspetti dei comandi RPC di Bitcoin in esempi differenti. In particolare, alcuni linguaggi usano la metodologia semplice di `sendtoaddress` mentre altri usano la metodologia complessa di creare una transazione raw da zero.
 
-## Objectives for This Chapter
+## Obiettivi di Questo Capitolo
 
-After working through this chapter, a developer will be able to:
+Dopo aver lavorato attraverso questo capitolo, uno sviluppatore sarà in grado di:
 
-   * Prepare Bitcoin Development Environments for a Variety of Languages
-   * Use Wallet Functions in a Variety of Languages
-   * Use Transaction Functions in a Variety of Languages
-   
-Supporting objectives include the ability to:
+   * Preparare Ambienti di Sviluppo Bitcoin per una Varietà di Linguaggi
+   * Utilizzare Funzioni del Portafoglio in una Varietà di Linguaggi
+   * Utilizzare Funzioni delle Transazioni in una Varietà di Linguaggi
 
-  * Understand More about Bitcoin RPC through Interactions with a Variety of Languages
-   
-## Table of Contents
+Gli obiettivi di supporto includono la capacità di:
 
-  * [Section One: Accessing Bitcoind with Go](18_1_Accessing_Bitcoind_with_Go.md)
-  * [Section Two: Accessing Bitcoind with Java](18_2_Accessing_Bitcoind_with_Java.md)
-  * [Section Three: Accessing Bitcoind with NodeJS](18_3_Accessing_Bitcoind_with_NodeJS.md)
-  * [Section Four: Accessing Bitcoind with Python](18_4_Accessing_Bitcoind_with_Python.md)
-  * [Section Five: Accessing Bitcoind with Rust](18_5_Accessing_Bitcoind_with_Rust.md)
-  * [Section Six: Accessing Bitcoind with Swift](18_6_Accessing_Bitcoind_with_Swift.md)
+  * Comprendere Maggiori Aspetti di Bitcoin RPC attraverso Interazioni con una Varietà di Linguaggi
+
+## Indice
+  
+  * [Capitolo 18.1 Accedere a Bitcoind con Go](18_1_Accedere_a_Bitcoind_con_Go.md)
+  * [Capitolo 18.2 Accedere a Bitcoind con Java](18_2_Accedere_a_Bitcoind_con_Java.md)
+  * [Capitolo 18.3 Accedere a Bitcoind con NodeJS](18_3_Accedere_a_Bitcoind_con_NodeJS.md)
+  * [Capitolo 18.4 Accedere a Bitcoind con Python](18_4_Accedere_a_Bitcoind_con_Python.md)
+  * [Capitolo 18.5 Accedere a Bitcoind con Rust](18_5_Accedere_a_Bitcoind_con_Rust.md)
+  * [Capitolo 18.6 Accedere a Bitcoind con Swift](18_6_Accedere_a_Bitcoind_con_Swift.md)
+
