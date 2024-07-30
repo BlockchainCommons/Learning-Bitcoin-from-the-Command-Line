@@ -1,134 +1,147 @@
-# 17.5: Using Scripts in Libwally
+# 17.5: Utilizzare gli Script in Libwally
 
-> :information_source: **NOTE:** This section has been recently added to the course and is an early draft that may still be awaiting review. Caveat reader.
+> :information_source: **NOTA:** Questa sezione è stata recentemente aggiunta al corso ed è una bozza preliminare che potrebbe essere ancora in attesa di revisione. Attenzione lettore.
 
-Way back in Part 3, while introducing Scripts, we said that you were likely to actually create transactions using scripts with an API, and marked it as a topic for the future. Well, the future has now arrived.
+Molto tempo fa, nella Parte 3, mentre introducevamo gli Script, abbiamo detto che era probabile che tu creassi effettivamente transazioni utilizzando script con un'API, e l'avevamo segnato come un argomento per il futuro. Ebbene, il futuro è arrivato.
 
-## Create the Script
+## Crea lo Script
 
-Creating the script is the _easiest_ thing to do in Libwally. Take the following example, a simple [Puzzle Script](/13_1_Writing_Puzzle_Scripts.md) that we've returned to from time to time:
+Creare lo script è la _cosa più facile_ da fare in Libwally. Prendi il seguente esempio, un semplice [Puzzle Script](/13_1_Writing_Puzzle_Scripts.md) al quale siamo tornati di tanto in tanto:
+
 ```
 OP_ADD 99 OP_EQUAL
 ```
-Using `btcc`, we can serialize that. 
+Utilizzando `btcc`, possiamo serializzarlo. 
 ```
 $ btcc OP_ADD 99 OP_EQUAL
 warning: ambiguous input 99 is interpreted as a numeric value; use 0x99 to force into hexadecimal interpretation
 93016387
 ```
-Previously we built the standard P2SH script by hand, but Libwally can actually do that for you.
+In precedenza avevamo costruito lo script standard P2SH a mano, ma Libwally può effettivamente farlo per te.
 
-First, Libwally has to convert the hex into bytes, since bytes are most of what it works with:
+Innanzitutto, Libwally deve convertire l'hex in byte, poiché i byte sono la maggior parte di quello con cui lavora:
 ```
   int script_length = strlen(script)/2;
   unsigned char bscript[script_length];
     
   lw_response = wally_hex_to_bytes(script,bscript,script_length,&written);
 ```
-Then, you run `wally_scriptpubkey_p2sh_from_bytes` with your bytes, telling Libwally to also `HASH160` it for you:
+Poi, esegui `wally_scriptpubkey_p2sh_from_bytes` con i tuoi byte, dicendo a Libwally di fare anche `HASH160` per te:
 ```
   unsigned char p2sh[WALLY_SCRIPTPUBKEY_P2SH_LEN];
   			  
   lw_response = wally_scriptpubkey_p2sh_from_bytes(bscript,sizeof(bscript),WALLY_SCRIPT_HASH160,p2sh,WALLY_SCRIPTPUBKEY_P2SH_LEN,&written);
 ```
-If you looked at the results of `p2sh`, you'd see it was:
+Se guardi i risultati di `p2sh`, vedrai che era:
 ```
 a9143f58b4f7b14847a9083694b9b3b52a4cea2569ed87
 ```
-Which [you may recall](10_2_Building_the_Structure_of_P2SH.md) breaks apart to:
+
+[Potresti ricordare](10_2_Construire_la_Struttura_di_P2SH.md) che si divide cosi:
+
 ```
 a9 / 14 / 3f58b4f7b14847a9083694b9b3b52a4cea2569ed / 87
 ```
-That's our old friend `OP_HASH160 3f58b4f7b14847a9083694b9b3b52a4cea2569ed OP_EQUAL`.
+Questo è il nostro vecchio amico `OP_HASH160 3f58b4f7b14847a9083694b9b3b52a4cea2569ed OP_EQUAL`.
 
-Basically, Libwally took your serialized redeem script, hashed it for you with SHA-256 and RIPEMD-160, and the applied the standard framing to turn it into a proper P2SH; You did similar work in [§10.2](10_2_Building_the_Structure_of_P2SH.md), but with an excess of shell commands.
+Fondamentalmente, Libwally ha preso il tuo script di rimborso serializzato, l'ha hashato per te con SHA-256 e RIPEMD-160, e poi ha applicato il framing standard per trasformarlo in un vero P2SH; Hai fatto un lavoro simile nel [Capitolo 10.2](10_2_Construire_la_Struttura_di_P2SH.md), ma con un eccesso di comandi shell.
 
-In fact, you can double-check your work using the same commands from §10.2:
+Infatti, puoi ricontrollare il tuo lavoro utilizzando gli stessi comandi di §10.2:
+
 ```
 $ redeemScript="93016387"
 $ echo -n $redeemScript | xxd -r -p | openssl dgst -sha256 -binary | openssl dgst -rmd160
 (stdin)= 3f58b4f7b14847a9083694b9b3b52a4cea2569ed
 ```
 
-## Create a Transaction
 
-In order to make use of that `pubScriptKey` that you just created, you need to create a transaction and embed the `pubScriptKey` within (and this is the big change from `bitcoin-cli`: you can actually hand create a transaction with a P2SH script).
+## Crea una Transazione
 
-The process of creating a transaction in Libwally is very intensive, just like the process for creating a PSBT, and so we're just going to outline it, taking one major shortcut, and then leave a method without shortcuts for future investigation.
+Per utilizzare quel `pubScriptKey` che hai appena creato, devi creare una transazione e incorporare il `pubScriptKey` al suo interno (e questo è il grande cambiamento rispetto a `bitcoin-cli`: puoi effettivamente creare manualmente una transazione con uno script P2SH).
 
-Creating a transaction itself is easy enough: you just need to tell `wally_tx_init_alloc` your version number, your locktime, and your number of inputs and outputs:
+Il processo di creazione di una transazione in Libwally è molto intenso, proprio come il processo per creare un PSBT, quindi lo delineeremo solo, prendendo una scorciatoia principale, e poi lasceremo un metodo senza scorciatoie per ulteriori indagini.
+
+Creare una transazione stessa è abbastanza semplice: devi solo dire a `wally_tx_init_alloc` il tuo numero di versione, il tuo locktime e il numero di input e output:
+
 ```
   struct wally_tx *tx;
   lw_response = wally_tx_init_alloc(2,0,1,1,&tx);
 ```
 
-Filling in those inputs and outputs is where things get tricky!
 
-### Create a Transaction Output
+Compilare quegli input e output è dove le cose diventano complicate!
 
-To create an output, you tell `wally_tx_output_init_alloc` how many satoshis you're spending and you hand it the locking script:
+### Crea un Output della Transazione
+
+Per creare un output, dici a `wally_tx_output_init_alloc` quanti satoshi stai spendendo e gli fornisci lo script di blocco:
 ```
   struct wally_tx_output *tx_output;
   lw_response = wally_tx_output_init_alloc(95000,p2sh,sizeof(p2sh),&tx_output);
 ```
-That part actually wasn't hard at all, and it allowed you to at long-last embed a P2SH in a `vout`.
+Quella parte in realtà non è stata affatto difficile, e ti ha permesso finalmente di incorporare un P2SH in un `vout`.
 
-One more command adds it to your transaction:
+Un comando in più lo aggiunge alla tua transazione:
+
 ```
   lw_response = wally_tx_add_output(tx,tx_output);
 ```
 
-### Create a Transaction Input
 
-Creating the input is much harder because you have to pile information into the creation routines, not all of which is intuitively accessible when you're using Libwally. So, rather than going that deep into the weeds, here's where we take our shortcut. We write our code so that it's passed the hex code for a transaction that's already been created, and then we just reuse the input.
+### Crea un Input della Transazione
 
-The conversion from the hex code is done with `wally_tx_from_hex`:
+Creare l'input è molto più difficile perché devi accumulare informazioni nelle routine di creazione, non tutte delle quali sono intuitivamente accessibili quando usi Libwally. Quindi, piuttosto che entrare così a fondo nei dettagli, ecco dove prendiamo la nostra scorciatoia. Scriviamo il nostro codice in modo che venga passato il codice hex di una transazione già creata, e poi riutilizziamo semplicemente l'input.
+
+La conversione dal codice hex è fatta con `wally_tx_from_hex`:
+
 ```
   struct wally_tx *utxo;
   lw_response = wally_tx_from_hex(utxo_hex,0,&utxo);
 ```
-Then you can plunder the inputs from your hexcode to create an input with Libwally:
+Poi puoi saccheggiare gli input dal tuo codice hex per creare un input con Libwally:
 ```
   struct wally_tx_input *tx_input;
   lw_response = wally_tx_input_init_alloc(utxo->inputs[0].txhash,sizeof(utxo->inputs[0].txhash),utxo->inputs[0].index,0,utxo->inputs[0].script,utxo->inputs[0].script_len,utxo->inputs[0].witness,&tx_input);
   assert(lw_response == WALLY_OK);						
 ```
-As you might expect, you then add that input to your transaction:
+Come ti aspetti, poi aggiungi quell'input alla tua transazione:
 ```
   lw_response = wally_tx_add_input(tx,tx_input);
 ```
 
-> **NOTE** Obviously, you'll want to be able to create your own inputs if you're using Libwally for real applications, but this is intended as a first step. And, it can actually be useful for integrating with `bitcoin-cli`, as we'll see in [§16.7](17_7_Integrating_Libwally_and_Bitcoin-CLI.md).
 
-### Print a Transaction
+> **NOTA** Ovviamente, vorrai essere in grado di creare i tuoi input se stai usando Libwally per applicazioni reali, ma questo è inteso come un primo passo. E, può essere effettivamente utile per integrarsi con `bitcoin-cli`, come vedremo Nel prossimo [Capitolo 17.7](17_7_Integrare_Libwally_e_Bitcoin-CLI.md).
 
-You theoretically could sign and send this transaction from your C program built on Libwally, but in keeping with the idea that we're just using a simple C program to substitute in a P2SH, we're going to print out the new hex. This is done with the help of `wally_tx_to_hex`:
+### Stampa una Transazione
+
+Teoricamente potresti firmare e inviare questa transazione dal tuo programma C costruito su Libwally, ma in linea con l'idea che stiamo solo utilizzando un semplice programma C per sostituire un P2SH, stamperemo il nuovo hex. Questo è fatto con l'aiuto di `wally_tx_to_hex`:
+
 ```
   char *tx_hex;
   lw_response = wally_tx_to_hex(tx,0, &tx_hex);
 
   printf("%s\n",tx_hex);
 ```
-We'll show how to make use of that in §16.7.
+Mostreremo come utilizzarlo in §16.7.
 
-## Test Your Replacement Script
+## Testa il Tuo Script di Sostituzione
 
-You can grab the test code from the [src directory](src/17_5_replacewithscript.c) and compile it:
+Puoi prendere il codice di test dalla [directory src](src/17_5_replacewithscript.c) e compilarlo:
+
 ```
 $  cc replacewithscript.c -lwallycore -o replacewithscript
 ```
-Afterward, prepare a hex transaction and a serialized hex script:
+Successivamente, prepara una transazione hex e uno script hex serializzato:
 ```
 hex=020000000001019527cebb072524a7961b1ba1e58fc18dd7c6fc58cd6c1c45d7e1d8fc690b006e0000000017160014cc6e8522f0287b87b7d0a83629049c2f2b0e972dfeffffff026f8460000000000017a914ba421212a629a840492acb2324b497ab95da7d1e87306f0100000000001976a914a2a68c5f9b8e25fdd1213c38d952ab2be2e271be88ac02463043021f757054fa61cfb75b64b17230b041b6d73f25ff9c018457cf95c9490d173fb4022075970f786f24502290e8a5ed0f0a85a9a6776d3730287935fb23aa817791c01701210293fef93f52e6ce8be581db62229baf116714fcb24419042ffccc762acc958294e6921b00
 
 script=93016387
 ```
-You can then run the replacement program:
+Poi puoi eseguire il programma di sostituzione:
 ```
 $ ./replacewithscript $hex $script
 02000000019527cebb072524a7961b1ba1e58fc18dd7c6fc58cd6c1c45d7e1d8fc690b006e0000000017160014cc6e8522f0287b87b7d0a83629049c2f2b0e972d0000000001187301000000000017a9143f58b4f7b14847a9083694b9b3b52a4cea2569ed8700000000
 ```
-You can then see the results with `bitcoin-cli`:
+Puoi poi vedere i risultati con `bitcoin-cli`:
 ```
 $ bitcoin-cli decoderawtransaction $newhex
 {
@@ -167,14 +180,14 @@ $ bitcoin-cli decoderawtransaction $newhex
   ]
 }
 ```
-The `vin` should just match the input you substituted in, but it's the `vout` that's exciting: you've created a transaction with a `scripthash`!
+Il `vin` dovrebbe semplicemente corrispondere all'input che hai sostituito, ma è il `vout` che è entusiasmante: hai creato una transazione con uno `scripthash`!
 
-## Summary: Using Scripts in Libwally
+## Sommario: Utilizzare gli Script in Libwally
 
-Creating transactions in Libwally is another topic that could take up a whole chapter, but the great thing is that once you make this leap, you can introduce a P2SH `scriptPubKey`, and that part alone is pretty easy. Though the methodology detailed in this chapter requires you to have a transaction hex already in hand (probably created with `bitcoin-cli`) if you dig further into Libwally, you can do it all yourself.
+Creare transazioni in Libwally è un altro argomento che potrebbe occupare un intero capitolo, ma la cosa fantastica è che una volta fatto questo salto, puoi introdurre uno `scriptPubKey` P2SH, e quella parte da sola è abbastanza semplice. Anche se la metodologia dettagliata in questo capitolo richiede di avere già in mano un hex di transazione (probabilmente creato con `bitcoin-cli`) se esplori ulteriormente Libwally, puoi fare tutto da solo.
 
-> :fire: ***What is the Power of Scripts in Libwally?*** Quite simply, you can do something you couldn't before: create a transaction locked with an arbitrary P2SH.
+> :fire: ***Qual è il Potere degli Script in Libwally?*** Semplicemente, puoi fare qualcosa che non potevi fare prima: creare una transazione bloccata con un arbitrario P2SH.
 
-## What's Next?
+## Cosa c'è dopo?
 
-Learn more about "Programming Bitcoin with Libwally" in [§17.6: Using Other Functions in Libwally](17_6_Using_Other_Functions_in_Libwally.md).
+Scopri di più su "Programmazione Bitcoin con Libwally" nel [Capitolo 17.6: Usare Altre Funzioni in Libwally](17_6_Usare_Altre_Funzioni_in_Libwally.md).
