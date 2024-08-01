@@ -22,23 +22,30 @@ Whether you used an existing Python or built it from source, you're now ready to
 ```
 $ pip3 install python-bitcoinrpc
 ```
+
 If you don't have `pip` installed, you'll need to run the following:
+
 ```
 $ sudo apt install python3-pip
 ```
+
 (Then repeat the `pip3 install python-bitcoinrpc` instructions.)
 
 ### Create a BitcoinRPC Project
 
 You'll generally need to include appropriate declarations from `bitcoinrpc` in your Bitcoin projects in Python. The following will give you access to the RPC based commands:
-```py
+
+```
 from bitcoinrpc.authproxy import AuthServiceProxy, JSONRPCException
 ```
+
 You may also find the following useful:
-```py
+
+```
 from pprint import pprint
 import logging
 ```
+
 `pprint` will pretty print the `json` response from `bitcoind`.
 
 `logging` will print out the call you make to `bitcoind` and `bitcoind`'s respose, which is useful when you make a bunch of calls together. If you don't want the excessive output in the terminal just comment out the `logging` block.
@@ -47,7 +54,7 @@ import logging
 
 You are now ready to start interacting with `bitcoind` by establishing a connection. Create a file called `btcrpc.py` and type the following:
 
-```py
+```
 logging.basicConfig()
 logging.getLogger("BitcoinRPC").setLevel(logging.DEBUG)
 # rpc_user and rpc_password are set in the bitcoin.conf file
@@ -69,7 +76,7 @@ In order to use an RPC method from `python-bitcoinrpc`, you'll use `rpc_client` 
 
 For example, the following will retrieve the blockcount of your node:
 
-```py
+```
 block_count = rpc_client.getblockcount()
 print("---------------------------------------------------------------")
 print("Block Count:", block_count)
@@ -78,25 +85,28 @@ print("---------------------------------------------------------------\n")
 
 You should see the following output with `logging` enabled :
 
-```sh
+```
 DEBUG:BitcoinRPC:-3-> getblockcount []
 DEBUG:BitcoinRPC:<-3- 1773020
 ---------------------------------------------------------------
 Block Count: 1773020
 ---------------------------------------------------------------
 ```
+
 ### Make an RPC Call with Arguments
 
 You can use that blockcount as an argument to retrieve the blockhash of a block and also to retrieve details of that block.
 
 This is done by send your `rpc_client` object commands with an argument:
-```py
+
+```
 blockhash = rpc_client.getblockhash(block_count)
 block = rpc_client.getblock(blockhash)
 ```
 
 The `getblockhash` will return a single value, while the `getblock` will return an associative array of information about the block, which includes an array under `block['tx']` providing details on each transaction within the block:
-```py
+
+```
 nTx = block['nTx']
 if nTx > 10:
     it_txs = 10
@@ -126,6 +136,7 @@ print("---------------------------------------------------------------\n")
 ### Run Your Code
 
 You can retrieve [the src code](src/18_4_getinfo.py) and run it with `python3`:
+
 ```
 $ python3 getinfo.py
 ---------------------------------------------------------------
@@ -160,7 +171,7 @@ First 10 transactions:
 
 You can similarly retrieve your wallet's information with the `getwalletinfo` RPC:
 
-```py
+```
 wallet_info = rpc_client.getwalletinfo()
 print("---------------------------------------------------------------")
 print("Wallet Info:")
@@ -171,9 +182,9 @@ print("---------------------------------------------------------------\n")
 
 You should have an output similar to the following with `logging` disabled:
 
-```sh
+```
 ---------------------------------------------------------------
-Wallet Info:
+#Wallet Info:
 -----------
 {'avoid_reuse': False,
  'balance': Decimal('0.07160443'),
@@ -191,6 +202,7 @@ Wallet Info:
  'walletversion': 169900}
 ---------------------------------------------------------------
 ```
+
 Other informational commands such as `getblockchaininfo`, `getnetworkinfo`, `getpeerinfo`, and `getblockchaininfo` will work similarly.
 
 Other commands can give you specific information on select elements within your wallet.
@@ -199,7 +211,7 @@ Other commands can give you specific information on select elements within your 
 
 The `listtransactions` RPC allows you to look at the most recent 10 transactions on your system (or some arbitrary set of transactions using the `count` and `skip` arguments). It shows how an RPC command can return an easy-to-manipulate array:
 
-```py
+```
 tx_list = rpc_client.listtransactions()
 pprint(tx_list)
 ```
@@ -208,7 +220,7 @@ pprint(tx_list)
 
 You can similarly use `listunspent` to get an array of UTXOs on your system:
 
-```py
+```
 print("Exploring UTXOs")
 ## List UTXOs
 utxos = rpc_client.listunspent()
@@ -219,6 +231,7 @@ print("------------------------------------------\n")
 ```
 
 In order to manipulate an array like the one returned from `listtransactions` or `listunspent`, you just grab the appropriate item from the appropriate element of the array:
+
 ```
 ## Select a UTXO - first one selected here
 utxo_txid = utxos[0]['txid']
@@ -228,9 +241,7 @@ For `listunspent`, you get a `txid`. You can retrieve information about it with 
 
 ```
 utxo_hex = rpc_client.gettransaction(utxo_txid)['hex']
-
 utxo_tx_details = rpc_client.decoderawtransaction(utxo_hex)
-
 print("Details of Utxo with txid:", utxo_txid)
 print("---------------------------------------------------------------")
 print("UTXO Details:")
@@ -244,7 +255,7 @@ This code is available at [walletinfo.py](src/18_4_walletinfo.py).
 ```
 $ python3 walletinfo.py 
 ---------------------------------------------------------------
-Wallet Info:
+#Wallet Info:
 -----------
 {'avoid_reuse': False,
  'balance': Decimal('0.01031734'),
@@ -337,10 +348,12 @@ UTXO Details:
 ## Create an Address
 
 Creating a new address with Python 3 just requires the use of an RPC like `getnewaddress` or `getrawchangeaddress`.
+
 ```
 new_address = rpc_client.getnewaddress("Learning-Bitcoin-from-the-Command-Line")
 new_change_address = rpc_client.getrawchangeaddress()
 ```
+
 In this example, you give the `getnewaddress` command an argument: the `Learning-Bitcoin-from-the-Command-Line` label.
 
 ## Send a Transaction
@@ -359,7 +372,7 @@ There are five steps:
 
 In the folowing code snippet you first select the UTXO which we want to spend. Then you get its address, transaction id, and the vector index of the output. 
 
-```py
+```
 utxos = rpc_client.listunspent()
 selected_utxo = utxos[0]  # again, selecting the first utxo here
 utxo_address = selected_utxo['address']
@@ -369,7 +382,7 @@ utxo_amt = float(selected_utxo['amount'])
 ```
 Next, you also retrieve the recipient address to which you want to send the bitcoins, calculate the amount of bitcoins you want to send, and calculate the miner fee and the change amount. Here, the amount is arbitrarily split in two and a miner fee is arbitrarily set.
 
-```py
+```
 recipient_address = new_address
 recipient_amt = utxo_amt / 2  # sending half coins to recipient
 miner_fee = 0.00000300        # choose appropriate fee based on your tx size
@@ -383,11 +396,12 @@ change_amt = float('%.8f'%((utxo_amt - recipient_amt) - miner_fee))
 
 Now you have all the information to send a transaction, but before you can send one, you have to create a transaction. 
 
-```py
+```
 txids_vouts = [{"txid": utxo_txid, "vout": utxo_vout}]
 addresses_amts = {f"{recipient_address}": recipient_amt, f"{change_address}": change_amt}
 unsigned_tx_hex = rpc_client.createrawtransaction(txids_vouts, addresses_amts)
 ```
+
 Remember that the format of the `createrawtransaction` command is:
 
 `$ bitcoin-cli createrawtransaction '[{"txid": <utxo_txid>, "vout": <vector_id>}]' '{"<address>": <amount>}'`
@@ -399,26 +413,32 @@ If you want to see more about the details of the transaction that you've created
 ### 3. Sign Raw Transaction
 
 Signing a transaction is often the trickiest part of sending a transaction programmatically. Here you retrieve a private key from an address with `dumpprivkey` and place it in an array:
-```py
+
+```
 address_priv_key = []  # list of priv keys of each utxo
 address_priv_key.append(rpc_client.dumpprivkey(utxo_address))
 ```
+
 You can then use that array (which should contain the private keys of every UTXO that is being spent) to sign your `unsigned_tx_hex`:
-```py
+
+```
 signed_tx = rpc_client.signrawtransactionwithkey(unsigned_tx_hex, address_priv_key)
 ```
+
 This returns a JSON object with the signed transaction's hex, and whether it was signed completely or not:
 
 ### 4. Broadcast Transaction
 
 Finally, you are ready to broadcast the signed transaction on the bitcoin network:
 
-```py
+```
 send_tx = rpc_client.sendrawtransaction(signed_tx['hex'])
 ```
+
 ### Run Your Code
 
 The [sample code](src/18_4_sendtx.py) is full of `print` statements to demonstrate all of the data available at every point:
+
 ```
 $ python3 sendtx.py 
 Creating a Transaction
@@ -465,19 +485,22 @@ If you need to install Python 3 from source, follow these instructions, then con
 
 
 ### 1. Install Dependencies
-```sh
+
+```
 $ sudo apt-get install build-essential checkinstall
 $ sudo apt-get install libreadline-gplv2-dev libncursesw5-dev libssl-dev libsqlite3-dev tk-dev libgdbm-dev libc6-dev libbz2-dev libffi-dev zlib1g-dev
 ```
 
 ### 2. Download & Extract Python
-```sh
+
+```
 $ wget https://www.python.org/ftp/python/3.8.3/Python-3.8.3.tgz
 $ tar -xzf Python-3.8.3.tgz
 ```
 
 ### 3. Compile Python Source & Check Installation:
-```sh
+
+```
 $ cd Python-3.8.3
 $ sudo ./configure --enable-optimizations
 $ sudo make -j 8  # enter the number of cores of your system you want to use to speed up the build process.
@@ -487,6 +510,6 @@ $ python3.8 --version
 
 After you get the version output, remove the source file:
 
-```sh
+```
 $ rm Python-3.8.3.tgz
 ```
