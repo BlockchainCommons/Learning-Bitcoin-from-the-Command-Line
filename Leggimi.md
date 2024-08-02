@@ -136,12 +136,11 @@ Se desideri effettuare la tua traduzione, guarda qui [Contribuire](CONTRIBUIRE.m
 ### SESTA PARTE: USARE LIGHTNING-CLI
 
 **Status:** Da Fare...
-
-* 19_0_Comprendere_La_Configurazione_Lightning.md
-  * 19_1_Verificare_la_Configurazione_Lightning.md
-  * 19_2_Comprendere_la_Configurazione_Lightning.md
-  * 19_2_Intermezzo_Accedere_ad_un_Secondo_Nodo_Lightning.md
-  * 19_3_Creare_un_Canale_in_Lightning.md
+* [19_0_Comprendere_La_Configurazione_Lightning.md](19_0_Comprendere_La_Configurazione_Lightning.md)
+  * [19_1: Verificare la Configurazione Lightning](19_1_Verificare_la_Configurazione_Lightning.md)
+  * [19_2 Comprendere la Configurazione Lightning](19_2_Comprendere_la_Configurazione_Lightning.md)
+    * [19_2 Intermezzo_Accedere_ad_un_Secondo_Nodo_Lightning](19_2_Intermezzo_Accedere_ad_un_Secondo_Nodo_Lightning.md)
+  * [19_3 Creare un Canale in Lightning](19_3_Creare_un_Canale_in_Lightning.md)
 * 20_0_Usare_Lightning.md
   * 20_1_Generare_una_Richiesta_di_Pagamento.md
   * 20_2_Pagare_una_Fattura.md
