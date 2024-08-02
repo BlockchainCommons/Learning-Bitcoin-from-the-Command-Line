@@ -1,51 +1,52 @@
-# Appendix I: Understanding Bitcoin Standup
+# Appendice I: Comprendere Bitcoin Standup
 
-[§2.1: Setting Up a Bitcoin Core VPS with StackScript](02_1_Setting_Up_a_Bitcoin-Core_VPS_with_StackScript.md) explains the process of creating a Bitcoin node using [Bitcoin-Standup-Scripts](https://github.com/BlockchainCommons/Bitcoin-Standup-Scripts). The following appendix explains what the major sections of the script do. You may wish to follow along in [Linode Standup](https://github.com/BlockchainCommons/Bitcoin-Standup-Scripts/blob/master/Scripts/LinodeStandUp.sh) in another window.
+Il [Capitolo 2.1: Configurare Bitcoin Core VPS con StackScript](02_1_Configurare_Bitcoin-Core_VPS_con_StackScript.md) spiega il processo di creazione di un nodo Bitcoin utilizzando i [Bitcoin-Standup-Scripts](https://github.com/BlockchainCommons/Bitcoin-Standup-Scripts). La seguente appendice spiega cosa fanno le principali sezioni dello script. Potresti voler seguire in [Linode Standup](https://github.com/BlockchainCommons/Bitcoin-Standup-Scripts/blob/master/Scripts/LinodeStandUp.sh) in un'altra finestra.
 
-## Step 1: Hostname
+## Passo 1: Nome Host
 
-Your host's name is stored in `/etc/hostname` and set with the `hostname` command. It also appears in `/etc/hosts`.
+Il nome del tuo host è memorizzato in `/etc/hostname` e impostato con il comando `hostname`. Appare anche in `/etc/hosts`.
 
-## Step 2: Timezone
+## Passo 2: Fuso Orario
 
-Your host's timezone is stored in `/etc/timezone`, then an appropriate file from `/usr/share/zoneinfo/` is copied to `/etc/localtime`
+Il fuso orario del tuo host è memorizzato in `/etc/timezone`, poi un file appropriato da `/usr/share/zoneinfo/` viene copiato in `/etc/localtime`.
 
-## Step 3: Updating Debian
+## Passo 3: Aggiornamento di Debian
 
-The `apt-get` package manager is used to bring your machine up to date and to install `gnupg`, the random-number generator `haveged`, and the uncomplicated firewall `ufw`. 
+Il gestore di pacchetti `apt-get` viene utilizzato per aggiornare la tua macchina e per installare `gnupg`, il generatore di numeri casuali `haveged` e il firewall non complicato `ufw`.
 
-Your machine is setup to automatically stay up to date with `echo "unattended-upgrades unattended-upgrades/enable_auto_updates boolean true" | debconf-set-selections`.
+La tua macchina è configurata per rimanere automaticamente aggiornata con `echo "unattended-upgrades unattended-upgrades/enable_auto_updates boolean true" | debconf-set-selections`.
 
-## Step 4: Setting Up a User
+## Passo 4: Configurazione di un Utente
 
-A `standup` user is created, which will be used for your Bitcoin applications. It also has `sudo` permissions, allowing you to take privileged actions with this account.
+Viene creato un utente `standup`, che sarà utilizzato per le tue applicazioni Bitcoin. Ha anche permessi `sudo`, permettendoti di eseguire azioni privilegiate con questo account.
 
-If you supplied an SSH key, it will allow you access to this account (otherwise, you must use the password you created in setup).
+Se hai fornito una chiave SSH, ti permetterà di accedere a questo account (altrimenti, devi usare la password creata durante la configurazione).
 
-If you supplied an IP address, `ssh` access will be limited to that address, per `/etc/hosts.allow`.
+Se hai fornito un indirizzo IP, l'accesso `ssh` sarà limitato a tale indirizzo, per `/etc/hosts.allow`.
 
-## Step 5: Setting Up Tor
+## Passo 5: Configurazione di Tor
 
-Tor is installed to provide protected (hidden) services to access Bitcoin's RPC commands through your server. See [§14.1: Verifying Your Tor Setup](14_1_Verifying_Your_Tor_Setup.md) for more information on your Tor Setup.
+Tor è installato per fornire servizi protetti (nascosti) per accedere ai comandi RPC di Bitcoin attraverso il tuo server. Vedi il [Capitolo 14.1: Verificare la Configurazione Tor](14_1_Verificare_la_Configurazione_Tor.md) per ulteriori informazioni sulla tua Configurazione Tor.
 
-If you supplied an authorized client for the hidden services, access will be limited to that key, per `/var/lib/tor/standup/authorized_clients`. If you did not, [§14.2](14_2_Changing_Your_Bitcoin_Hidden_Services.md) explains how to do so at a later date.
+Se hai fornito un client autorizzato per i servizi nascosti, l'accesso sarà limitato a quella chiave, per `/var/lib/tor/standup/authorized_clients`. Se non lo hai fatto, il [Capitolo 14.2](14_2_Cambiare_Bitcoin_Hidden_Services.md) spiega come farlo in un secondo momento.
 
-## Step 6: Installing Bitcoin
+## Passo 6: Installazione di Bitcoin
 
-Bitcoin is installed in `~standup/.bitcoin`. Your configuration is stored in `~standup/.bitcoin/bitcoin.conf`.
+Bitcoin è installato in `~standup/.bitcoin`. La tua configurazione è memorizzata in `~standup/.bitcoin/bitcoin.conf`.
 
-Be sure that the checksums verified per [§2.1](02_1_Setting_Up_a_Bitcoin-Core_VPS_with_StackScript.md), otherwise you could be exposed to a supply-chain attack.
+Assicurati che i checksum siano verificati per il [Capitolo 2.1: Configurare Bitcoin Core VPS con StackScript](02_1_Configurare_Bitcoin-Core_VPS_con_StackScript.md), altrimenti potresti essere esposto a un attacco alla catena di approvvigionamento.
 
-## Step 7: Installing QR Encoder
+## Passo 7: Installazione di QR Encoder
 
-To keep everything compatible with [GordianSystem](https://github.com/BlockchainCommons/GordianSystem) a QR code is created at `/qrcode.png`. This can be read from a QuickConnect client such as [GordianWallet](https://github.com/BlockchainCommons/GordianWallet-iOS).
+Per mantenere tutto compatibile con [GordianSystem](https://github.com/BlockchainCommons/GordianSystem) viene creato un codice QR in `/qrcode.png`. Questo può essere letto da un client QuickConnect come [GordianWallet](https://github.com/BlockchainCommons/GordianWallet-iOS).
 
-## Conclusion — Understanding Bitcoin Standup
+## Conclusione — Comprendere Bitcoin Standup
 
-Bitcoin Standup uses scripts to try and match much of the functionality of a [GordianNode](https://github.com/BlockchainCommons/GordianNode-macOS). It should provide you with a secure Bitcoin environment built on a foundation of Bitcoin Core and Tor for RPC communications.
+Bitcoin Standup utilizza script per cercare di eguagliare gran parte della funzionalità di un [GordianNode](https://github.com/BlockchainCommons/GordianNode-macOS). Dovrebbe fornirti un ambiente Bitcoin sicuro costruito su una base di Bitcoin Core e Tor per le comunicazioni RPC.
 
-## What's Next?
+## Cosa c'è di prossimo?
 
-If you were in the process of creating a Bitcoin node for use in this course, you should return to [§2.1](02_1_Setting_Up_a_Bitcoin-Core_VPS_with_StackScript.md).
+Se eri nel processo di creazione di un nodo Bitcoin per l'uso in questo corso, dovresti tornare al[Capitolo 2.1: Configurare Bitcoin Core VPS con StackScript](02_1_Configurare_Bitcoin-Core_VPS_con_StackScript.md).
 
-If you are reading through the appendices, continue with [Appendix II: Compiling Bitcoin from Source](A2_0_Compiling_Bitcoin_from_Source.md).
+Se stai leggendo le appendici, continua con [Appendice A2: Compilare Bitcoin dal Codice Fonte](A2_0_Compilare_Bitcoin_dal_Codice_Fonte.md).
+
