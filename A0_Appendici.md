@@ -1,22 +1,22 @@
-# Appendices
+# Appendici
 
-The main body of this course suggests a fairly standard setup for Bitcoin testing. What follows in these appendices are a better explanation of that setup and some options for alternatives.
+Il corpo principale di questo corso suggerisce una configurazione piuttosto standard per il testing di Bitcoin. Quello che segue in queste appendici è una spiegazione migliore di quella configurazione e alcune opzioni per alternative.
 
-## Objectives for This Section
+## Obiettivi per Questa Sezione
 
-After working through these appendices, a developer will be able to:
+Dopo aver lavorato su queste appendici, uno sviluppatore sarà in grado di:
 
-   * Decide among Multiple Methods for Creating a Bitcoin Blockchain
+   * Decidere tra Diversi Metodi per Creare una Blockchain Bitcoin
    
-Supporting objectives include the ability to:
+Obiettivi di supporto includono la capacità di:
 
-   * Understand the Bitcoin Standup Setup
-   * Perform a Compilation of Bitcoin by Hand
-   * Understand the Power of Regtest
-   * Use a Regtest Environment
+   * Comprendere la Configurazione di Bitcoin Standup
+   * Eseguire una Compilazione di Bitcoin Manualmente
+   * Comprendere la Potenza di Regtest
+   * Utilizzare un Ambiente Regtest
    
-## Table of Contents
+## Indice dei Contenuti
 
-   * [Appendix One: Understanding Bitcoin Standup](A1_0_Understanding_Bitcoin_Standup.md)
-   * [Appendix Two: Compiling Bitcoin from Source](A2_0_Compiling_Bitcoin_from_Source.md)
-   * [Appendix Three: Using Bitcoin Regtest](A3_0_Using_Bitcoin_Regtest.md)
+  [Appendice A1_0 Comprendere Bitcoin Standup](A1_0_Comprendere_Bitcoin_Standup.md)
+  [Appendice A2_0 Compilare Bitcoin dal Codice Fonte](A2_0_Compilare_Bitcoin_dal_Codice_Fonte.md)
+  [Appendice A3_0 Usare Bitcoin Regtest](A3_0_Usare_Bitcoin_Regtest.md)
