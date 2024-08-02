@@ -1,75 +1,80 @@
 # 18.6: Accessing Bitcoind with Swift
 
-> :information_source: **NOTE:** This section has been recently added to the course and is an early draft that may still be awaiting review. Caveat reader.
+> :information_source: **NOTA:** Questa sezione è stata recentemente aggiunta al corso ed è una bozza iniziale che potrebbe ancora essere in attesa di revisione. Attenzione lettore.
 
-This section explains how to interact with `bitcoind` using the Swift programming language and your own RPC client.
+Questa sezione spiega come interagire con `bitcoind` utilizzando il linguaggio di programmazione Swift e il proprio client RPC.
 
-## Set Up Swift on Your Mac
+## Configurare Swift sul tuo Mac
 
-To date, you've built all of your alternative-programming-language development environments on your Debian virtual node. However, that's not the best platform for Swift. Though there is a version of Swift available for Ubuntu platforms, it's not fully featured, and it works somewhat differently from the Mac-native Swift. A "variant" at the bottom of this section explains how to set it up, but be warned that you'll be in uncharted territory.
+Fino ad oggi, hai creato tutti i tuoi ambienti di sviluppo in linguaggi alternativi sul tuo nodo virtuale Debian. Tuttavia, quella non è la piattaforma migliore per Swift. Anche se esiste una versione di Swift disponibile per le piattaforme Ubuntu, non è completamente funzionale e funziona in modo leggermente diverso rispetto alla versione nativa di Swift per Mac. Una "variante" alla fine di questa sezione spiega come configurarla, ma attenzione, sarai in territorio inesplorato.
 
-Instead, we suggest creating an optimal Swift environment on a Mac. There are four major steps in doing so.
+Invece, suggeriamo di creare un ambiente Swift ottimale su un Mac. Ci sono quattro passaggi principali per farlo.
 
-### 1. Install Xcode
+### 1. Installa Xcode
 
-You're going to need `Xcode`, the integrated development enviroment for Swift and Objective-C. That can be easily installed by going to the Mac App Store and `Get`ting Xcode.
+Avrai bisogno di `Xcode`, l'ambiente di sviluppo integrato per Swift e Objective-C. Questo può essere facilmente installato andando al Mac App Store e selezionando `Get` per Xcode.
 
-#### Alternative: Install by Hand
+#### Alternativa: Installare Manualmente
 
-Some people advise against an App Store install because it's somewhat all-or-nothing; it also won't work if you're still using Mojave because you want to avoid Catalina's incompatibilities. In that case you can download directly from the [Developer Area](https://developer.apple.com/download/more/) at Apple.
+Alcuni consigliano di evitare l'installazione dall'App Store perché è un po' tutto o niente; inoltre, non funzionerà se stai ancora utilizzando Mojave perché vuoi evitare le incompatibilità di Catalina. In tal caso, puoi scaricare direttamente dall'[Area Sviluppatori](https://developer.apple.com/download/more/) di Apple.
 
-If you're using Mojave, you'll need the `xip` file for Xcode 10.3.1. Otherwise, get the newest one.
+Se stai utilizzando Mojave, avrai bisogno del file `xip` per Xcode 10.3.1. Altrimenti, prendi l'ultima versione disponibile.
 
-Once it's downloaded, you can click on the `xip` to extract it, then move the Xcode app to your Applications folder.
+Una volta scaricato, puoi fare clic sul file `xip` per estrarlo, quindi spostare l'app Xcode nella tua cartella Applicazioni.
 
-(Either way, you should have Xcode installed in your Applications folder at the end of this step.)
+(In entrambi i casi, alla fine di questo passaggio dovresti avere Xcode installato nella tua cartella Applicazioni.)
 
-### 2. Install the Gordian Server
+### 2. Installa il Gordian Server
 
-You're also going to need a Bitcoin node on your Mac, so that you can communicate with it. Technically, you could use a remote node and access it with the RPC login and password over the net. However, we suggest you instead install a full node directly on your Mac, because that's the safest and cleanest setup, ensuring that none of your communications leave your machine.
+Avrai anche bisogno di un nodo Bitcoin sul tuo Mac, così da poter comunicare con esso. Tecnicamente, potresti usare un nodo remoto e accedervi con il login e la password RPC su internet. Tuttavia, suggeriamo invece di installare un nodo completo direttamente sul tuo Mac, perché è l'installazione più sicura e pulita, garantendo che nessuna delle tue comunicazioni lasci il tuo dispositivo.
 
-To easily install a full node on your Mac, use Blockchain Commons' [GordianServer for MacOS](https://github.com/BlockchainCommons/GordianServer-macOS). See the [installation instructions](https://github.com/BlockchainCommons/GordianServer-macOS#installation-instructions) in the README, but generally all you have to do is download the current `dmg` file, open it, and install that app in your Applications directory too.
+Per installare facilmente un nodo completo sul tuo Mac, usa il [GordianServer per MacOS](https://github.com/BlockchainCommons/GordianServer-macOS) di Blockchain Commons. Vedi le [istruzioni di installazione](https://github.com/BlockchainCommons/GordianServer-macOS#installation-instructions) nel README, ma generalmente tutto quello che devi fare è scaricare il file `dmg` corrente, aprirlo e installare l'app nella tua directory Applicazioni.
 
-Afterward, run the GordianServer App, and tell it to `Start` Testnet. 
+Dopo, esegui l'App GordianServer e digli di `Start` Testnet.
 
-> :link: **TESTNET vs. MAINNET:** Or `Start` Mainnet.
+> :link: **TESTNET vs. MAINNET:** O `Start` Mainnet.
 
-#### 3. Make Your Gordian bitcoin-cli Accessible
+#### 3. Rendi Accessibile il Tuo bitcoin-cli di Gordian
 
-When you want to access the `bitcoin-cli` created by GordianServer on your local Mac, you can find it at  `~/.standup/BitcoinCore/bitcoin-VERSION/bin/bitcoin-cli`, for example  `~/.standup/BitcoinCore/bitcoin-0.20.1/bin/bitcoin-cli`. 
+Quando desideri accedere al `bitcoin-cli` creato da GordianServer sul tuo Mac locale, puoi trovarlo in `~/.standup/BitcoinCore/bitcoin-VERSION/bin/bitcoin-cli`, ad esempio `~/.standup/BitcoinCore/bitcoin-0.20.1/bin/bitcoin-cli`.
 
-You may wish to create an alias for that:
+Potresti voler creare un alias per questo:
+
 ```
 alias bitcoin-cli="~/.standup/BitcoinCore/bitcoin-0.20.1/bin/bitcoin-cli -testnet"
 ```
 
-> :link: **TESTNET vs. MAINNET:** Obviously, the `-testnet` parameter is only required if you're running on testnet.
+> :link: **TESTNET vs. MAINNET:** Ovviamente, il parametro `-testnet` è richiesto solo se stai eseguendo su testnet.
 
-### 4. Find Your GordianServer Info
+### 4. Trova le Informazioni di GordianServer
 
-Finally, you'll need your `rpcuser` and `rpcpassword` information. That's in `~/Library/Application Support/Bitcoin/bitcoin.conf` by default under Gordian.
+Infine, avrai bisogno delle informazioni su `rpcuser` e `rpcpassword`. Questo si trova di default in `~/Library/Application Support/Bitcoin/bitcoin.conf` sotto Gordian.
+
 ```
 $ grep rpc ~/Library/Application\ Support/Bitcoin/bitcoin.conf
 rpcuser=oIjA53JC2u
 rpcpassword=ebVCeSyyM0LurvgQyi0exWTqm4oU0rZU
 ...
 ```
-## Build Your Connection by Hand
 
-At the time of this writing, there isn't an up-to-date, simple-to-use Bitcoin RPC Library that's specific for Swift, something that you can drop in and immediately start using. Thus, you're're going to do something you're never done before: build an RPC connection by hand.
+## Costruisci la Tua Connessione Manualmente
 
-### Write the RPC Transmitter
+Al momento della scrittura, non esiste una libreria Bitcoin RPC aggiornata e facile da usare specifica per Swift, qualcosa che puoi semplicemente integrare e iniziare a usare immediatamente. Quindi, farai qualcosa che non hai mai fatto prima: costruire una connessione RPC manualmente.
 
-This just requires writing a function that passes RPC commands on to `bitcoind` in the correct format:
+### Scrivi il Trasmettitore RPC
+
+Questo richiede solo la scrittura di una funzione che passa i comandi RPC a `bitcoind` nel formato corretto:
+
 ```
 func makeCommand(method: String, param: Any, completionHandler: @escaping (Any?) -> Void) -> Void {
 ```
 
-RPC connections to `bitcoind` use the HTML protocol, which means that you need to do three things: create a URL; make a URLRequest; and initiate a URLSession.
+Le connessioni RPC a `bitcoind` usano il protocollo HTML, il che significa che devi fare tre cose: creare un URL; fare una URLRequest; e iniziare una URLSession.
 
-#### 1. Create a URL
+#### 1. Crea un URL
 
-Within the function, you need to create a URL from your IP, port, `rpcuser`, `rpcpassword`, and wallet:
+All'interno della funzione, devi creare un URL dal tuo IP, porta, `rpcuser`, `rpcpassword` e wallet:
+
 ```
     let testnetRpcPort = "18332"
     let nodeIp = "127.0.0.1:\(testnetRpcPort)"
@@ -77,21 +82,27 @@ Within the function, you need to create a URL from your IP, port, `rpcuser`, `rp
     let rpcpassword = "ebVCeSyyM0LurvgQyi0exWTqm4oU0rZU"
     let walletName = ""
 ```
-The actual RPC connection to Bitcoin Core is built using a URL of the format "http://rpcusername:rpcpassword@nodeIp/walletName":
+
+La connessione RPC effettiva a Bitcoin Core è costruita usando un URL del formato "http://rpcusername:rpcpassword@nodeIp/walletName":
+
 ```
     let walletUrl = "http://\(rpcusername):\(rpcpassword)@\(nodeIp)/\(walletName)"
 
     let url = URL(string: walletUrl)
 ```
-This means that your sample variables result in the following URL:
+
+Questo significa che le tue variabili di esempio risultano nel seguente URL:
+
 ```
 http://oIjA53JC2u:ebVCeSyyM0LurvgQyi0exWTqm4oU0rZU@127.0.0.1:18332/
 ```
-Which should look a lot like the URL used in some of the previous sections for RPC connections.
 
-#### 2. Create a URLRequest
+Che dovrebbe assomigliare molto all'URL usato in alcune delle sezioni precedenti per le connessioni RPC.
 
-With that URL in you hand, you can now create a URLRequest, with the `POST` method and the `text/plain` content type. The HTTP body is then the familiar JSON object that you've been sending whenever you connect directly to Bitcoin Core's RPC ports, as first demonstrated when using Curl in [§4.4](04_4__Interlude_Using_Curl.md).
+#### 2. Crea una URLRequest
+
+Con quell'URL in mano, puoi ora creare una URLRequest, con il metodo `POST` e il tipo di contenuto `text/plain`. Il corpo HTTP è poi il consueto oggetto JSON che hai inviato ogni volta che ti connetti direttamente alle porte RPC di Bitcoin Core, come dimostrato per la prima volta utilizzando Curl nel [Capitolo 4.4](04_4_Intermezzo_Usare_Curl.md).
+
 ```
     var request = URLRequest(url: url!)
     request.httpMethod = "POST"
@@ -99,14 +110,18 @@ With that URL in you hand, you can now create a URLRequest, with the `POST` meth
     request.httpBody = "{\"jsonrpc\":\"1.0\",\"id\":\"curltest\",\"method\":\"\(method)\",\"params\":[\(param)]}".data(using: .utf8)
 ```
 
-#### 3. Create a URLSession
+#### 3. Crea una URLSession
 
-Finally, you're ready to build a URLSession around your URLRequest.
+Infine, sei pronto per costruire una URLSession attorno alla tua URLRequest.
+
 ```
     let session = URLSession(configuration: .default)
     let task = session.dataTask(with: request as URLRequest) { data, response, error in
 ```
-The completion handler for `dataTask` needs to check for errors:
+
+Il completion handler per `dataTask` deve controllare gli errori:
+
+
 ```
         do {
 
@@ -116,7 +131,11 @@ The completion handler for `dataTask` needs to check for errors:
                     
             } else {
 ```
-And then parse the data that you're receiving. Here, you're pulling the JSON results into an `NSDictionary`:
+
+
+E poi analizzare i dati che stai ricevendo. Qui, stai estraendo i risultati JSON in un `NSDictionary`:
+
+
 ```
                 if let urlContent = data {
                         
@@ -124,7 +143,11 @@ And then parse the data that you're receiving. Here, you're pulling the JSON res
                             
                         let json = try JSONSerialization.jsonObject(with: urlContent, options: JSONSerialization.ReadingOptions.mutableLeaves) as! NSDictionary
 ```
-After that, there's more error handling and more error handling and then you can eventually return the dictionary `result` using the `completionHandler` that you defined for the new `makeCommand` function:
+
+
+Dopo di che, ci sono ulteriori gestioni degli errori e poi puoi eventualmente restituire il `result` dictionary utilizzando il `completionHandler` che hai definito per la nuova funzione `makeCommand`:
+
+
 ```
                         if let errorCheck = json["error"] as? NSDictionary {
                                                                 
@@ -148,17 +171,24 @@ After that, there's more error handling and more error handling and then you can
                             
                     }
 ```
-Of course you eventually have to tell the `task` to start:
+
+
+Ovviamente, alla fine devi dire al `task` di iniziare:
+
+
 ```
     task.resume()
 ```
-And that's "all" there is to doing that RPC interaction by hand using a programming language such as Swift.
 
-> :pray: **THANKS:** Thanks to @Fonta1n3 who provided the [main code](https://github.com/BlockchainCommons/Learning-Bitcoin-from-the-Command-Line/issues/137) for our RPC Transmitter.
+E questo è "tutto" quello che c'è da fare per realizzare quell'interazione RPC manualmente usando un linguaggio di programmazione come Swift.
 
-### Make An RPC Call
+> :pray: **GRAZIE:** Grazie a @Fonta1n3 che ha fornito il [codice principale](https://github.com/BlockchainCommons/Learning-Bitcoin-from-the-Command-Line/issues/137) per il nostro Trasmettitore RPC.
 
-Having written the `makeCommand` RPC function, you can send an RPC call by running it. Here's `getblockchaininfo`:
+### Esegui una Chiamata RPC
+
+Avendo scritto la funzione RPC `makeCommand`, puoi inviare una chiamata RPC eseguendola. Ecco `getblockchaininfo`:
+
+
 ```
 let method = "getblockchaininfo"
 let param = ""
@@ -169,9 +199,11 @@ makeCommand(method: method,param: param) { result in
 
 }
 ```
-### Make an RPC Call with Arguments
 
-You could similarly grab the current block count from that info and use that to (reduntantly) get the hash of the current block, by using the `param` parameter:
+### Esegui una Chiamata RPC con Argomenti
+
+Allo stesso modo potresti ottenere il numero del blocco corrente da quelle informazioni e usarlo per (ridondantemente) ottenere l'hash del blocco corrente, utilizzando il parametro `param`:
+
 ```
 let method = "getblockchaininfo"
 let param = ""
@@ -189,9 +221,10 @@ makeCommand(method: method,param: param) { result in
 }
 ```
 
-### Run Your Code
+### Esegui il Codice
 
-The complete code is available in the [src directory](src/18_6_getinfo.playground). Load it into your Xcode playground and then "Editor -> Run Playground" and you should get results like:
+Il codice completo è disponibile nella [directory src](src/18_6_getinfo.playground). Caricalo nel tuo playground di Xcode e poi seleziona "Editor -> Run Playground" e dovresti ottenere risultati come:
+
 ```
 {
     bestblockhash = 00000000000000069725608ebc5b59e520572a8088cbc57ffa5ba87b7f300ac7;
@@ -237,9 +270,10 @@ The complete code is available in the [src directory](src/18_6_getinfo.playgroun
 Blockhash for 1836745 is 00000000000000069725608ebc5b59e520572a8088cbc57ffa5ba87b7f300ac7
 ```
 
-## Look Up Funds
+## Controlla i Fondi
 
-With your new `makeCommand` for RPC functions, you can similarly run a command like `getwalletinfo` or `getbalance`:
+Con il tuo nuovo `makeCommand` per le funzioni RPC, puoi eseguire comandi simili a `getwalletinfo` o `getbalance`:
+
 ```
 var method = "getwalletinfo"
 var param = ""
@@ -258,7 +292,9 @@ makeCommand(method: method,param: param) { result in
 
 }
 ```
-Which returns:
+
+Che restituisce:
+
 ```
 Balance is 0.01
 {
@@ -278,11 +314,13 @@ Balance is 0.01
     walletversion = 169900;
 }
 ```
-## Create an Address
 
-Creating an address is simple enough, but what about creating a legacy address with a specific label? That requires two parameters in your RPC call.
+## Crea un Indirizzo
 
-Since the simplistic `makeCommand` function in this section just passes on its `param`s as the guts of a JSON Object, all you have to do is correctly format those guts. Here's one way to do so:
+Creare un indirizzo è abbastanza semplice, ma che dire di creare un indirizzo legacy con una specifica etichetta? Questo richiede due parametri nella tua chiamata RPC.
+
+Dato che la funzione `makeCommand` in questa sezione passa semplicemente i suoi `param` come il contenuto di un oggetto JSON, tutto ciò che devi fare è formattare correttamente quel contenuto. Ecco un modo per farlo:
+
 ```
 method = "getnewaddress"
 param = "\"learning-bitcoin\", \"legacy\""
@@ -293,11 +331,15 @@ makeCommand(method: method,param: param) { result in
     print(address)
 }
 ```
-Running this in the Xcode playground produces a result:
+
+Eseguendo questo nel playground di Xcode ottieni un risultato:
+
 ```
 mt3ZRsmXHVMMqYQPJ8M74QjF78bmqrdHZF
 ```
-That result is obviously a Legacy address; its label can then be checked from the command line:
+
+Quel risultato è ovviamente un indirizzo Legacy; la sua etichetta può essere quindi controllata dalla riga di comando:
+
 ```
 $ bitcoin-cli getaddressesbylabel "learning-bitcoin"
 {
@@ -306,25 +348,27 @@ $ bitcoin-cli getaddressesbylabel "learning-bitcoin"
   }
 }
 ```
-Success!
 
-> :information_source: **NOTE:** As we often say in these coding examples, a real-world program would be much more sophisticated. In particular, you'd want to be able to send an actual JSON Object as a parameter, and then have your `makeCommand` program parse it and input it to the URLSession appropriately. What we have here maximizes readability and simplicity without focusing on ease of use.
+Successo!
 
-## Send a Transaction
+> :information_source: **NOTA:** Come diciamo spesso in questi esempi di codifica, un programma del mondo reale sarebbe molto più sofisticato. In particolare, vorresti essere in grado di inviare un vero oggetto JSON come parametro, e poi avere il tuo programma `makeCommand` che lo analizza e lo immette nella URLSession in modo appropriato. Quello che abbiamo qui massimizza la leggibilità e la semplicità senza concentrarsi sulla facilità d'uso.
 
-As usual, sending a transaction (the hard way) is a multi-step process:
+## Invia una Transazione
 
-0. Generate or receive a receiving address
-1. Find an unspent UTXO
-2. Create a raw transaction
-3. Sign the raw transaction
-4. Send the raw transaction
+Come al solito, inviare una transazione (nel modo difficile) è un processo a più fasi:
 
-You'll use the `address` that you generated in the previous step as your recipient.
+0. Generare o ricevere un indirizzo di ricezione
+1. Trovare un UTXO non speso
+2. Creare una transazione raw
+3. Firmare la transazione raw
+4. Inviare la transazione raw
 
-### 1. Find an Unspent UTXO
+Userai l'indirizzo che hai generato nel passaggio precedente come destinatario.
 
-The `listunspent` RPC lets you find your UTXO:
+### 1. Trova un UTXO Non Speso
+
+Il comando `listunspent` RPC ti permette di trovare il tuo UTXO:
+
 ```
     method = "listunspent"
     param = ""
@@ -339,13 +383,15 @@ The `listunspent` RPC lets you find your UTXO:
         let amount = utxo["amount"] as! NSNumber
         let new_amount = amount.floatValue - 0.0001
 ```
-As in other examples, you're going to arbitrarily grab the 0th UTXO, and pull the `txid`, `vout`, and `amount` from it.
 
-> :information_source **NOTE:** Once again, a real-life program would be much more sophisticated.
+Come in altri esempi, prenderai arbitrariamente il primo UTXO, e estrarrai da esso il `txid`, `vout` e l'importo `amount`.
 
-### 2. Create a Raw Transaction
+> :information_source **NOTA:** Ancora una volta, un programma reale sarebbe molto più sofisticato.
 
-Creating a raw transaction is the trickiest thing because you need to get all of your JSON objects, arrays, and quotes right. Here's how to do so in Swift, using the transmitter's very basic `param` formatting:
+### 2. Crea una Transazione Raw
+
+Creare una transazione raw è la cosa più difficile perché devi mettere a punto tutti i tuoi oggetti JSON, array e virgolette. Ecco come farlo in Swift, utilizzando la formattazione molto basilare dei parametri del trasmettitore:
+
 ```
         method = "createrawtransaction"
         param="[ { \"txid\": \"\(txid)\", \"vout\": \(vout) } ], { \"\(address)\": \(new_amount)}"
@@ -353,22 +399,25 @@ Creating a raw transaction is the trickiest thing because you need to get all of
 
             let hex = result as! NSString
 ```
-### 3. Sign the Raw Transaction
 
-Signing your transaction just requires you to run the `signrawtransactionwithwallet` RPC, using your new `hex`:
+### 3. Firma la Transazione Raw
+
+Firmare la tua transazione richiede solo di eseguire il comando `signrawtransactionwithwallet` RPC, utilizzando il tuo nuovo `hex`:
+
 ```
             method = "signrawtransactionwithwallet"
             param = "\"\(hex)\""
-            
+           
             makeCommand(method: method,param: param) { result in
 
                 let signedhexinfo = result as! NSDictionary
                 let signedhex = signedhexinfo["hex"] as! NSString
 ```
 
-### 4. Send the Raw Transaction
+### 4. Invia la Transazione Raw
 
-Sending your transaction is equally simple:
+Inviare la tua transazione è altrettanto semplice:
+
 ```
                 method = "sendrawtransaction"
                 param = "\"\(signedhex)\""
@@ -385,56 +434,68 @@ Sending your transaction is equally simple:
 }
 ```
 
-The code for this transaction sender can be found in the [src directory](src/18_6_sendtx.playground).
+Il codice per questo invio di transazione può essere trovato nella [directory src](src/18_6_sendtx.playground).
 
-## Use Swift in Other Ways
+## Utilizza Swift in Altri Modi
 
-That covers our usual discussions of programming Bitcoin RPC in a language, but Swift is a particularly important language since it can be deployed on mobile devices, one of the prime venues for wallets. As such, you may wish to consider a few other libraries:
+Questo copre le nostre solite discussioni sulla programmazione di Bitcoin RPC in un linguaggio, ma Swift è un linguaggio particolarmente importante poiché può essere utilizzato su dispositivi mobili, uno dei luoghi principali per i wallet. Pertanto, potresti considerare alcune altre librerie:
 
-* The Blockchain Commons [ios-Bitcoin framework](https://github.com/BlockchainCommons/iOS-Bitcoin) converts the Libbitcoin library from C++ to Swift
-* [Libwally Swift](https://github.com/blockchain/libwally-swift) is a Swift wrapper for Libwally
+* Il framework [ios-Bitcoin](https://github.com/BlockchainCommons/iOS-Bitcoin) di Blockchain Commons converte la libreria Libbitcoin da C++ a Swift
+* [Libwally Swift](https://github.com/blockchain/libwally-swift) è un wrapper Swift per Libwally
 
-## Summary: Accessing Bitcoind with Swift
+## Sommario: Accesso a Bitcoind con Swift
 
-Swift is a robust modern programming language that unfortunately doesn't yet have any easy-to-use RPC libraries ... which just gave us the opportunity to write an RPC-access function of our own. With that in hand, you can interact with `bitcoind` on a Mac or build companion applications over on an iPhone, which is a perfect combination for airgapped Bitcoin work.
+Swift è un linguaggio di programmazione moderno e robusto che purtroppo non ha ancora librerie RPC facili da usare ... il che ci ha appena dato l'opportunità di scrivere una funzione di accesso RPC da soli. Con questa a disposizione, puoi interagire con `bitcoind` su un Mac o costruire applicazioni companion su un iPhone, che è una combinazione perfetta per lavori Bitcoin airgapped.
 
-## What's Next?
+## E ora?
 
-Learn about Lightning in [Chapter 19: Understanding Your Lightning Setup](19_0_Understanding_Your_Lightning_Setup.md).
+Scopri Lightning in [Capitolo 19: Comprendere la Configurazione Lightning](19_0_Comprendere_la_Configurazione_Lightning.md).
 
-## Variant: Deploy Swift on Ubuntu
+## Variante: Distribuire Swift su Ubuntu
 
-If you prefer to deploy Swift on Ubuntu, you can do so, though the functionality isn't the same. Some of the code in this chapter will likely generate errors that you'll need to resolve, and you'll also need to do more work to link in C libraries.
+Se preferisci distribuire Swift su Ubuntu, puoi farlo, anche se la funzionalità non è la stessa. Alcuni dei codici in questo capitolo probabilmente genereranno errori che dovrai risolvere, e dovrai anche fare più lavoro per collegare le librerie C.
 
-To get started, install some required Debian libraries:
+Per iniziare, installa alcune librerie Debian richieste:
+
+
+
 ```
 $ sudo apt-get install clang
 $ sudo apt-get install libcurl4 libpython2.7 libpython2.7-dev
 ```
-If you're using Debian 10 or higher (and you really should be), you'll also need to backdate a few libraries to get older versions:
+
+Se stai usando Debian 10 o superiore (e dovresti farlo), dovrai anche aggiornare alcune librerie per ottenere versioni più vecchie:
+
 ```
 $ sudo apt-get install libtinfo5 libncurses5
 ```
-Afteward you can download and install Swift:
+
+Dopo puoi scaricare e installare Swift:
+
 ```
 $ wget https://swift.org/builds/swift-5.1.3-release/ubuntu1804/swift-5.1.3-RELEASE/swift-5.1.3-RELEASE-ubuntu18.04.tar.gz
 $ tar xzfv swift-5.1.3-RELEASE-ubuntu18.04.tar.gz 
 $ sudo mv swift-5.1.3-RELEASE-ubuntu18.04 /usr/share/swift
 ```
-To be able to use your new Swift setup, you need to update your `PATH` in your `.bashrc`:
+
+Per poter usare la tua nuova installazione di Swift, devi aggiornare il tuo `PATH` nel tuo `.bashrc`:
+
 ```
 $ echo "export PATH=/usr/share/swift/usr/bin:$PATH" >> ~/.bashrc
 $ source ~/.bashrc
 ```
-You can now test Swift out with the `--version` argument:
+
+Ora puoi testare Swift con l'argomento `--version`:
+
 ```
 $ swift --version
 Swift version 5.1.3 (swift-5.1.3-RELEASE)
 Target: x86_64-unknown-linux-gnu
 ```
 
-### Create a Project
-Once you've installed Swift on your Ubuntu machine, you can create projects with the `package init` command:
+### Crea un Progetto
+Una volta installato Swift sulla tua macchina Ubuntu, puoi creare progetti con il comando `package init`:
+
 ```
 $ mkdir swift-project
 $ cd swift-project/
@@ -451,15 +512,19 @@ Creating Tests/swift-projectTests/
 Creating Tests/swift-projectTests/swift_projectTests.swift
 Creating Tests/swift-projectTests/XCTestManifests.swift
 ```
-You'll then edit `Sources/.../main.swift` and when you're ready to compile, you can use the `build` command:
+
+Modificherai quindi `Sources/.../main.swift` e quando sei pronto per compilare, puoi usare il comando `build`:
+
 ```
 $ swift build
 [4/4] Linking swift-project
 ```
-Finally, you'll be able to run the program from the `.build/debug` directory:
+
+Infine, sarai in grado di eseguire il programma dalla directory `.build/debug`:
+
 ```
 $ .build/debug/swift-project
 Hello, world!
 ```
-Good luck!
 
+Good luck!
