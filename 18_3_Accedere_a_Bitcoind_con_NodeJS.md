@@ -1,14 +1,14 @@
-# 18.3: Accessing Bitcoind with NodeJS
+# 18.3: Accedere a Bitcoind con NodeJS
 
-> :information_source: **NOTE:** This section has been recently added to the course and is an early draft that may still be awaiting review. Caveat reader.
+> :information_source: **NOTA:** Questa sezione è stata aggiunta di recente al corso ed è una bozza iniziale che potrebbe essere ancora in attesa di revisione. Lettore avvisato.
 
-This section explains how to interact with `bitcoind` using the NodeJS programming language and the [BCRPC package](https://github.com/dgarage/bcrpc).
+Questa sezione spiega come interagire con `bitcoind` utilizzando il linguaggio di programmazione NodeJS e il [pacchetto BCRPC](https://github.com/dgarage/bcrpc).
 
 ## Set Up Node.js
 
-BCRPC is built on node.js. Thus, you'll first need to install the `node.js` and `npm` (the node package manager) packages for your system. 
+BCRPC è costruito su node.js. Pertanto, dovrai prima installare i pacchetti `node.js` e `npm` (il gestore di pacchetti node) per il tuo sistema.
 
-If you're using a Ubuntu machine, you can run the following commands to get a new version of `node.js` (as opposed to the horribly out-of-date version in the Ubuntu package system).
+Se stai usando una macchina Ubuntu, puoi eseguire i seguenti comandi per ottenere una nuova versione di `node.js` (invece della versione molto datata nel sistema di pacchetti di Ubuntu).
 
 ```
 $ curl -sL https://deb.nodesource.com/setup_14.x | sudo bash -
@@ -16,9 +16,9 @@ $ sudo apt-get install -y nodejs
 $ sudo npm install mocha -g
 ```
 
-### Set Up BCRPC
+### Configurare BCRPC
 
-You can now clone the BCRPC package from GitHub and install its dependencies.
+Ora puoi clonare il pacchetto BCRPC da GitHub e installare le sue dipendenze.
 
 ```
 $ git clone https://github.com/dgarage/bcrpc.git
@@ -26,7 +26,7 @@ $ cd bcrpc
 $ npm install
 ```
 
-To test the BCRPC package, you must first set environmental variables for your rpcuser and rpcpassword. As usual, these come from `~/.bitcoin/bitcoin.conf`. You must also set the RPC port to 18332 which should be correct for the standard testnet setup described in these documents.
+Per testare il pacchetto BCRPC, devi prima impostare le variabili ambientali per il tuo rpcuser e rpcpassword. Come al solito, questi provengono da `~/.bitcoin/bitcoin.conf`. Devi anche impostare la porta RPC a 18332, che dovrebbe essere corretta per la configurazione standard del testnet descritta in questi documenti.
 
 ```
 $ export BITCOIND_USER=StandUp
@@ -34,11 +34,11 @@ $ export BITCOIND_PASS=d8340efbcd34e312044c8431c59c792c
 $ export BITCOIND_PORT=18332
 ```
 
-> :warning: **WARNING:** Obviously, you'd never put your password in an environmental variable in a production environment.
+> :warning: **WARNING:** Ovviamente, non metteresti mai la tua password in una variabile ambientale in un ambiente di produzione.
 
-> :link: **MAINNET VS TESTNET:** The port would be 8332 for a mainnet setup.
+> :link: **MAINNET VS TESTNET:** La porta sarebbe 8332 per una configurazione mainnet.
 
-You can now verify everything is working correctly:
+Ora puoi verificare che tutto funzioni correttamente:
 
 ```
 $ npm test
@@ -51,11 +51,11 @@ $ npm test
   2 passing (36ms)
 ```
 
-Congratulations, you now have a Bitcoin-ready RPC wrapper for Node.js that is working with your Bitcoin setup.
+Congratulazioni, ora hai un wrapper RPC pronto per Bitcoin per Node.js che funziona con la tua configurazione di Bitcoin.
 
-### Create a BCRPC Project
+### Creare un Progetto BCRPC 
 
-You can now create a new Node.js project and install BCRPC via npm.
+Ora puoi creare un nuovo progetto Node.js e installare BCRPC tramite npm.
 
 ```
 $ cd ~
@@ -66,24 +66,24 @@ $ npm init
 $ npm install bcrpc
 ```
 
-## Build Your Connection
+## Costruire la Tua Connessione
 
-In your ```myproject``` directory, create a `.js` file where you JavaScript code will be executed. 
+Nella tua directory ```myproject```, crea un file `.js` dove verrà eseguito il tuo codice JavaScript.
 
-You can initiate an RPC connection by creating an `RpcAgent`:
+Puoi iniziare una connessione RPC creando un `RpcAgent`:
 
 ```
 const RpcAgent = require('bcrpc');
 agent = new RpcAgent({port: 18332, user: 'StandUp', pass: 'd8340efbcd34e312044c8431c59c792c'});
 ```
 
-Obviously, your `user` and `pass` should again match what's in your `~/.bitcoin/bitcoin.conf`, and you use `port 18332` if you're on testnet.
+Ovviamente, il tuo `user` e `pass` dovrebbero corrispondere nuovamente a quelli presenti nel tuo `~/.bitcoin/bitcoin.conf`, e usi `port 18332` se sei su testnet.
 
-### Make an RPC Call
+### Effettuare una Chiamata RPC
 
-Using BCRPC, you can use the same RPC commands you would usually use via `bitcoin-cli` with your `RpcAgent`, except they need to be in camelCase. For example, `getblockhash` would be `getBlockHash` instead.
+Utilizzando BCRPC, puoi utilizzare gli stessi comandi RPC che useresti di solito tramite `bitcoin-cli` con il tuo `RpcAgent`, tranne che devono essere in camelCase. Ad esempio, `getblockhash` diventerebbe `getBlockHash`.
 
-To print the newest block number, you just call `getBlockCount` thourgh your `RpcAgent`:
+Per stampare il numero del blocco più recente, basta chiamare `getBlockCount` tramite il tuo `RpcAgent`:
 
 ```
 agent.getBlockCount(function (err, blockCount) {
@@ -93,9 +93,9 @@ agent.getBlockCount(function (err, blockCount) {
 });
 ```
 
-### Make an RPC Call with Arguments
+### Effettuare una Chiamata RPC con Argomenti
 
-The BCRPC functions can accept arguments. For example, `getBlockHash` takes `blockCount.result` as an input. 
+Le funzioni BCRPC possono accettare argomenti. Ad esempio, `getBlockHash` prende `blockCount.result` come input.
 
 ```  
   agent.getBlockHash(blockCount.result, function (err, hash) {
@@ -105,11 +105,11 @@ The BCRPC functions can accept arguments. For example, `getBlockHash` takes `blo
   })
 ```
 
-The result of the BCRPC functions is a JSON object containing information about any errors and the id of the request. When accessing your result, you add `.result` to the end of it to specify that you are interested in the actual result, not information about errors. 
+Il risultato delle funzioni BCRPC è un oggetto JSON contenente informazioni su eventuali errori e l'id della richiesta. Quando accedi al tuo risultato, aggiungi `.result` alla fine per specificare che sei interessato al risultato effettivo, non alle informazioni sugli errori.
 
-### Run Your Code
+### Eseguire il Codice
 
-You can find the `getinfo` code in [the src directory](src/18_3_getinfo.js).
+Puoi trovare il codice `getinfo` nella [directory src](src/18_3_getinfo.js).
 
 ```
 $ node getinfo.js
@@ -117,7 +117,8 @@ $ node getinfo.js
 00000000000002bf8b522a830180ad3a93b8eed33121f54b3842d8838580a53c
 ```
 
-This is what output of the above example would look like if you replaced `console.log(blockCount.result);` and `console.log(hash.result);` with `console.log(blockCount);` and `console.log(hash);`, respectively:
+Questo è l'aspetto che avrebbe l'output dell'esempio sopra se sostituissi `console.log(blockCount.result);` e `console.log(hash.result);` con
+`console.log(blockCount);` e `console.log(hash);`, rispettivamente:
 
 ```
 { result: 1774686, error: null, id: null }
@@ -128,9 +129,9 @@ This is what output of the above example would look like if you replaced `consol
 }
 ```
 
-## Look Up Funds
+## Cercare Fondi
 
-It's useful when accepting Bitcoin to check the received Bitcoin on a specific address in your wallet. For example, if you were running an online store accepting Bitcoin, for each payment from a customer, you would generate a new address, show that address to the customer, then check the balance of the address after some time, to make sure the correct amount has been received:
+È utile, quando si accetta Bitcoin, controllare i Bitcoin ricevuti su un indirizzo specifico nel tuo portafoglio. Ad esempio, se gestissi un negozio online che accetta Bitcoin, per ogni pagamento da un cliente, genereresti un nuovo indirizzo, mostreresti quell'indirizzo al cliente, quindi controlleresti il saldo dell'indirizzo dopo un po' di tempo, per assicurarti che l'importo corretto sia stato ricevuto:
 
 ```
 agent.getReceivedByAddress('mpGpCMX6SuUimDZKiVViuhd7EGyVxkNnha', function (err, addressInfo) {
@@ -140,9 +141,9 @@ agent.getReceivedByAddress('mpGpCMX6SuUimDZKiVViuhd7EGyVxkNnha', function (err, 
 });
 ```
 
-> :information_source: **NOTE:** Obviously, you'll need to enter an address recognized by your machine.
+> :information_source: **NOTE:** Ovviamente, dovrai inserire un indirizzo riconosciuto dalla tua macchina.
 
-By default this functions checks the transactions that have been confirmed once, however you can increase this to a higher number such as 6:
+Per impostazione predefinita, questa funzione controlla le transazioni che sono state confermate una volta, tuttavia puoi aumentare questo numero a un numero più alto come 6:
 
 ```
 agent.getReceivedByAddress('mpGpCMX6SuUimDZKiVViuhd7EGyVxkNnha', 6, function (err, addressInfo) {
@@ -152,9 +153,9 @@ agent.getReceivedByAddress('mpGpCMX6SuUimDZKiVViuhd7EGyVxkNnha', 6, function (er
 });
 ```
 
-### Look Up Wallet Information
+### Cercare informazione sul Wallet
 
-You can also look up additional information about your wallet and view your balance, transaction count, et cetera:
+Puoi anche cercare informazioni aggiuntive sul tuo portafoglio e visualizzare il tuo saldo, il conteggio delle transazioni, eccetera:
 
 ```
 agent.getWalletInfo(function (err, walletInfo) {
@@ -164,7 +165,7 @@ agent.getWalletInfo(function (err, walletInfo) {
 });
 ```
 
-The source is available as [walletinfo.js](src/18_3_walletinfo.js).
+Il codice sorgente è disponibile come [walletinfo.js](src/18_3_walletinfo.js).
 
 ```
 $ node walletinfo.js
@@ -187,11 +188,11 @@ $ node walletinfo.js
 }
 ```
 
-Instead of printing all the details associated with your wallet, you can print specific information, such as your balance. Since a JSON object is being accessed, this can be done by changing the line `console.log(walletInfo.result);` to `console.log(walletInfo.result.balance);`:
+Invece di stampare tutti i dettagli associati al tuo portafoglio, puoi stampare informazioni specifiche, come il tuo saldo. Poiché viene accesso un oggetto JSON, questo può essere fatto cambiando la riga `console.log(walletInfo.result);` in `console.log(walletInfo.result.balance);`:
 
-## Create an Address
+## Creare un Indirizzo
 
-You can also pass additional arguments to RPC commands. For example, the following generates a new legacy address, with the `-addresstype` flag.
+Puoi anche passare argomenti aggiuntivi ai comandi RPC. Ad esempio, il seguente genera un nuovo indirizzo legacy, con il flag `-addresstype`.
 
 ```
 agent.getNewAddress('-addresstype', 'legacy', function (err, newAddress) {
@@ -201,18 +202,18 @@ agent.getNewAddress('-addresstype', 'legacy', function (err, newAddress) {
 });
 ```
 
-This is the same as running the following from the command line:
+Questo è lo stesso che eseguire il seguente comando dal terminale:
 
 ```
 $ bitcoin-cli getnewaddress -addresstype legacy
 mtGPcBvRPZFEHo2YX8un9qqPBydhG82uuZ
 ```
 
-In BCRPC, you can generally use the same flags as in `bitcoin-cli` in BCRPC. Though you use camelCase (`getNewAddress`) for the methods, the flags, which are normally separated by spaces on the command line, are instead placed in strings and separated by commas.
+In BCRPC, puoi generalmente usare gli stessi flag di `bitcoin-cli` in BCRPC. Sebbene tu usi camelCase (`getNewAddress`) per i metodi, i flag, che sono normalmente separati da spazi sulla riga di comando, sono invece posti in stringhe e separati da virgole.
 
-## Send a Transaction
+## Inviare una Transazione
 
-You can send coins to an address most easily using the `sendToAddress` function:
+Puoi inviare monete a un indirizzo più facilmente utilizzando la funzione `sendToAddress`:
 
 ```
 agent.sendToAddress(newAddress.result, 0.00001, function(err, txid) {
@@ -222,15 +223,15 @@ agent.sendToAddress(newAddress.result, 0.00001, function(err, txid) {
 });
 ```
 
-This should print the txid of the transaction:
+Questo dovrebbe stampare il txid della transazione:
 
 ```
 1679bee019c61608340b79810377be2798efd4d2ec3ace0f00a1967af70666b9
 ```
 
-### Look Up a Transaction
+### Cercare una Transazione
 
-You may now wish to view a transaction, such as the one you just sent.
+Potresti ora voler visualizzare una transazione, come quella che hai appena inviato.
 
 ```
 agent.getTransaction(txid.result, function (err, transaction) {
@@ -240,7 +241,7 @@ agent.getTransaction(txid.result, function (err, transaction) {
 });
 ```
 
-You should get an output similar to this:
+Dovresti ottenere un output simile a questo:
 
 ```
 {
@@ -267,13 +268,13 @@ You should get an output similar to this:
 }
 ```
 
-The full code is available as [sendtx.js](src/18_3_sendtx.js).
+Il codice completo è disponibile come [sendtx.js](src/18_3_sendtx.js).
 
-## Summary: Accessing Bitcoind with Node
+## Sommario: Accesso a Bitcoind con Node
 
-With BCRPC you can access all the RPC commands available through `bitcoin-cli`, in JavaScript. The [BCRPC README](https://github.com/dgarage/bcrpc) has some examples which use promises (the examples in this document use callbacks). The [JavaScript behind it](https://github.com/dgarage/bcrpc/blob/master/index.js) is short and readable. 
+Con BCRPC puoi accedere a tutti i comandi RPC disponibili tramite `bitcoin-cli`, in JavaScript. Il [README di BCRPC](https://github.com/dgarage/bcrpc) ha alcuni esempi che usano promesse (gli esempi in questo documento usano callback). Il [JavaScript dietro di esso](https://github.com/dgarage/bcrpc/blob/master/index.js) è breve e leggibile.
 
-Based on these examples you should be able to incorporate Bitcoin in a Node.js project and do things like sending and receiving coins.
+Sulla base di questi esempi, dovresti essere in grado di incorporare Bitcoin in un progetto Node.js e fare cose come inviare e ricevere monete.
 
 ## What's Next?
 
