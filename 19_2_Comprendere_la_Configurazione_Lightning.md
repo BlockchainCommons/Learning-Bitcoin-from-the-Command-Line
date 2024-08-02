@@ -1,32 +1,41 @@
-# 19.2: Knowing Your c-lightning Setup
+# 19.2: Comprendere la Configurazione Lightning
 
-> :information_source: **NOTE:** This section has been recently added to the course and is an early draft that may still be awaiting review. Caveat reader.
+> :information_source: **NOTA:** Questa sezione è stata recentemente aggiunta al corso ed è una bozza iniziale che potrebbe essere ancora in attesa di revisione. Lettore attenzione.
 
-Before you begin accessing the Lightning Network, you should come to a better understanding of your setup.
+Prima di iniziare ad accedere alla Lightning Network, dovresti avere una migliore comprensione del tuo setup.
 
-## Know Your c-lightning Directory
+## Conosci la tua Directory di c-lightning
 
-When using c-lightning, everything is kept in the `~/.lightning` directory.
+Quando utilizzi c-lightning, tutto è conservato nella directory `~/.lightning`.
 
-The main directory just contains directories for whichever networks are configured, in this case testnet:
+La directory principale contiene solo le directory per le reti configurate, in questo caso testnet:
+
+
+
 ```
 $ ls ~/.lightning
 testnet
 ```
 
-The `~/.lightning/testnet directory` will then contains the guts of your setup:
+
+La directory `~/.lightning/testnet` conterrà quindi il nucleo del tuo setup:
+
+
 ```
 $ ls ~/.lightning/testnet3
 config  gossip_store  hsm_secret  lightningd.sqlite3  lightningd.sqlite3-journal  lightning-rpc
 ```
 
-> :link: **TESTNET vs MAINNET:** If you're using mainnet, then _everything_ will instead be placed in the main `~/.lightning/bitcoin` directory. These various setups _do_ elegantly stack, so if you are using mainnet, testnet, and regtest, you'll find that `~/.lightning/bitcoin` contains your config file and your mainnet data, the `~/.lightning/testnet` directory contains your testnet data, and the `~/.lightning/regtest` directory contains your regtest data.
 
-## Know Your lightning-cli Commands
+> :link: **TESTNET vs MAINNET:** Se stai usando mainnet, allora _tutto_ sarà invece posizionato nella directory principale `~/.lightning/bitcoin`. Questi vari setup si sovrappongono elegantemente, quindi se stai usando mainnet, testnet e regtest, troverai che `~/.lightning/bitcoin` contiene il tuo file di configurazione e i dati del mainnet, la directory `~/.lightning/testnet` contiene i tuoi dati del testnet e la directory `~/.lightning/regtest` contiene i tuoi dati del regtest.
 
-Most of your early work will be done with the `lightning-cli` command, which offers an easy interface to `lightningd`, just like `bitcoin-cli` does.
+## Conosci i tuoi Comandi di lightning-cli
 
-You've already seen that the `help` command will gives you a list of other commands:
+La maggior parte del tuo lavoro iniziale sarà fatto con il comando `lightning-cli`, che offre un'interfaccia semplice a `lightningd`, proprio come fa `bitcoin-cli`.
+
+Hai già visto che il comando `help` ti fornisce un elenco di altri comandi:
+
+
 ```
 $ lightning-cli help
 lightning-cli: WARNING: default network changing in 2020: please set network=testnet in config!
@@ -228,9 +237,11 @@ dev-rescan-outputs
 run `lightning-cli help <command>` for more information on a specific command
 ```
 
-## Know your Lightning Info
+## Conosci le tue Informazioni su Lightning
 
-A variety of `lightning-cli` commands can give you additional information on your lightning node. The most general ones are:
+Una varietà di comandi `lightning-cli` può fornirti ulteriori informazioni sul tuo nodo Lightning. I più generali sono:
+
+
 ```
 $ lightning-cli --testnet listconfigs
 $ lightning-cli --testnet listfunds
@@ -238,13 +249,16 @@ $ lightning-cli --testnet listtransactions
 $ lightning-cli --testnet listinvoices
 $ lightning-cli --testnet listnodes   
 ```
-* listconfigs:  The `listconfigs` RPC command lists all configuration options.
-* listfunds: The `listfunds` RPC command displays all funds available, either in unspent outputs (UTXOs) in the internal wallet or funds locked in currently open channels.
-* listtransactions: The `listtransactions` RPC command returns transactions tracked in the wallet. This includes deposits, withdrawals, and transactions related to channels.
-* listinvoices: The `listinvoices` RPC command retrieves the status of a specific invoice, if it exists, or the status of all invoices if given no argument.
-* listnodes: The `listnodes` RPC command returns nodes that your server has learned about via gossip messages, or a single one if the node id was specified.
 
-For example `lightning-cli listconfigs` gives you a variety of information on your setup:
+* listconfigs: Il comando RPC `listconfigs` elenca tutte le opzioni di configurazione.
+* listfunds: Il comando RPC `listfunds` visualizza tutti i fondi disponibili, sia in output non spesi (UTXOs) nel portafoglio interno, sia i fondi bloccati nei canali attualmente aperti.
+* listtransactions: Il comando RPC `listtransactions` restituisce le transazioni tracciate nel portafoglio. Questo include depositi, prelievi e transazioni relative ai canali.
+* listinvoices: Il comando RPC `listinvoices` recupera lo stato di una specifica fattura, se esiste, o lo stato di tutte le fatture se non viene fornito alcun argomento.
+* listnodes: Il comando RPC `listnodes` restituisce i nodi che il tuo server ha appreso tramite messaggi di gossip, o un singolo nodo se è stato specificato l'ID del nodo.
+
+Ad esempio, `lightning-cli listconfigs` ti fornisce una varietà di informazioni sul tuo setup:
+
+
 ```
 c$ lightning-cli --testnet listconfigs
 {
@@ -327,13 +341,12 @@ c$ lightning-cli --testnet listconfigs
    "log-prefix": "lightningd"
 }
 ```
+## Sommario: Conoscere il Tuo Setup Lightning
 
-## Summary: Knowing Your lightning Setup
+La directory `~/.lightning` contiene tutti i tuoi file, mentre `lightning-cli help` e una varietà di comandi informativi possono essere utilizzati per ottenere maggiori informazioni su come funziona il tuo setup e la Lightning Network.
 
-The `~/.lightning` directory contains all of your files, while `lightning-cli help` and a variety of info commands can be used to get more information on how your setup and Lightning Network work.
+## Cosa Fare Dopo?
 
-## What's Next?
+Avrai bisogno di un secondo nodo Linode per testare il pagamento effettivo delle fatture. Se hai bisogno di supporto per configurarlo, leggi [Interludio: Intermezzo Accedere ad un Secondo Nodo Lightning](19_2_Intermezzo_Accedere_ad_un_Secondo_Nodo_Lightning.mdd).
 
-You're going to need to have a second Linode node to test out the actual payment of invoices. If you need support in setting one up, read [Interlude: Accessing a Second Lightning Node](19_2__Interlude_Accessing_a_Second_Lightning_Node.md).
-
-Otherwise, continue "Understanding Your Lightning Setup" with [§19.3: Setting Up_a_Channel](19_3_Setting_Up_a_Channel.md).
+Altrimenti, continua col argomento "Comprendere il Tuo Setup Lightning" nel [Capitolo 19.3: Creare un Canale in Lightning](19_3_Creare_un_Canale_in_Lightning.md).
