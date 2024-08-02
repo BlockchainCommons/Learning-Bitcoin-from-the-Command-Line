@@ -1,46 +1,62 @@
-# Appendix III: Using Bitcoin Regtest 
+# Appendice 3: Usare Bitcoin Regtest
 
-> :information_source: **NOTE:** This section has been recently added to the course and is an early draft that may still be awaiting review. Caveat reader.
+> :information_source: **NOTA:** Questa sezione è stata recentemente aggiunta al corso ed è una bozza iniziale che potrebbe essere ancora in attesa di revisione. Lettore avvisato.
 
-The majority of this course presumes that you will either use the Mainnet or Testnet. However, those aren't the only choices. While developing Bitcoin applications, you might want to keep your applications isolated from these public blockchains. To do so, you can create a blockchain from scratch using the Regtest, which has one other major advantage over Testnet: you choose when to create new blocks, so you have complete control over the environment.
+La maggior parte di questo corso presume che tu utilizzi Mainnet o Testnet. Tuttavia, queste non sono le uniche opzioni. Durante lo sviluppo di applicazioni Bitcoin, potresti voler mantenere le tue applicazioni isolate da queste blockchain pubbliche. Per farlo, puoi creare una blockchain da zero utilizzando Regtest, che ha un altro grande vantaggio rispetto a Testnet: puoi scegliere quando creare nuovi blocchi, quindi hai il controllo completo sull'ambiente.
 
-## Start Bitcoind on Regtest
+## Avviare Bitcoind su Regtest
 
-After [setting up your Bitcoin-Core VPS](02_0_Setting_Up_a_Bitcoin-Core_VPS.md) or [compiling from source](A2_0_Compiling_Bitcoin_from_Source.md), you are now able to use regtest. To start your `bitcoind` on regtest and create a private Blockchain, use the following command:
+Dopo aver [configurato Bitcoin-Core VPS](02_0_Configurare_Bitcoin-Core_VPS.md) o [compilato dal codice sorgente](A2_0_Compilare_Bitcoin_dal_Codice_Fonte.md), sei ora in grado di usare regtest. Per avviare il tuo `bitcoind` su regtest e creare una blockchain privata, usa il seguente comando:
+
+
+
 ```
 $ bitcoind -regtest -daemon -fallbackfee=1.0 -maxtxfee=1.1
 ```
 
-The arguments `-fallbackfee=1.0 -maxtxfee=1.1` will prevent the `Fee estimation failed. Fallbackfee is disabled` error. 
+Gli argomenti `-fallbackfee=1.0 -maxtxfee=1.1` eviteranno l'errore `Fee estimation failed. Fallbackfee is disabled`.
 
-On regtest, usually there are not enough transactions so bitcoind cannot give a reliable estimate and, without it, the wallet will not create transactions unless it is explicitly set the fee.
+Su regtest, di solito non ci sono abbastanza transazioni quindi bitcoind non può fornire una stima affidabile e, senza di essa, il wallet non creerà transazioni a meno che non venga esplicitamente impostata la tariffa.
 
-### Reset the Regtest Blockchain
+### Resettare la Blockchain Regtest
 
-If you wish, you can later restart your Regtest with a new blockchain. 
+Se lo desideri, puoi in seguito riavviare il tuo Regtest con una nuova blockchain.
 
-Regtest wallets and blockchain state (chainstate) are saved in the regtest subdirectory of the Bitcoin configuration directory:
+I wallet regtest e lo stato della blockchain (chainstate) sono salvati nella sottodirectory regtest della directory di configurazione di Bitcoin:
+
+
 ```
 user@mybtc:~/.bitcoin# ls
 bitcoin.conf  regtest  testnet3
 ```
 
-To start a brand new Blockchain using regtest, all you have to do is delete the `regtest` folder and restart the Bitcoind:
+
+Per iniziare una nuova Blockchain usando regtest, tutto ciò che devi fare è eliminare la cartella `regtest` e riavviare Bitcoind:
+
+
 ```
 $ rm -rf regtest
 ```
-## Generate Regtest Wallet
 
-Before generating blocks, it is necessary to load a wallet using `loadwallet` or create a new one with `createwallet`. Since version 0.21, Bitcoin Core does not automatically create new wallets on startup.
+## Generare un Wallet Regtest
 
-The argument `descriptors=true` creates a native descriptor wallet, that stores scriptPubKey information using output descriptors. If it is `false`, it will create a legacy wallet, where keys are used to implicitly generate scriptPubKeys and addresses.
+Prima di generare blocchi, è necessario caricare un wallet utilizzando `loadwallet` o crearne uno nuovo con `createwallet`. Dalla versione 0.21, Bitcoin Core non crea automaticamente nuovi wallet all'avvio.
+
+L'argomento `descriptors=true` crea un wallet descrittore nativo, che memorizza le informazioni scriptPubKey utilizzando descrittori di output. Se è `false`, creerà un wallet legacy, dove le chiavi sono usate per generare implicitamente scriptPubKeys e indirizzi.
+
+
+
 ```
 $ bitcoin-cli -regtest -named createwallet wallet_name="regtest_desc_wallet" descriptors=true
 ```
 
-## Generate Blocks
 
-You can generate (mine) new blocks on a regtest chain using the RPC method `generate` with an argument for how many blocks to generate. It only makes sense to use this method on regtest; due to the high difficulty it's very unlikely that it will yield to new blocks on the mainnet or testnet:
+## Generare Blocchi
+
+Puoi generare (minare) nuovi blocchi su una catena regtest utilizzando il metodo RPC `generate` con un argomento per quanti blocchi generare. Ha senso utilizzare questo metodo solo su regtest; a causa dell'alta difficoltà è molto improbabile che produca nuovi blocchi su mainnet o testnet:
+
+
+
 ```
 $ bitcoin-cli -regtest -generate 101
 [
@@ -51,36 +67,43 @@ $ bitcoin-cli -regtest -generate 101
   "20cb2e815c3d42d6a117a204a0b5e726ab641c826e441b5b3417aca33f2aba48"
 ]
 ```
+> :warning: AVVISO. Nota che devi aggiungere l'argomento `-regtest` dopo ogni comando `bitcoin-cli` per accedere correttamente al tuo ambiente Regtest. Se preferisci, puoi includere un comando `regtest=1` nel tuo file `~/.bitcoin/bitcoin.conf`.
 
-> :warning: WARNING. Note that you must add the `-regtest` argument after each `bitcoin-cli` command to correctly access your Regtest environment. If you prefer, you can include a `regtest=1` command in your `~/.bitcoin/bitcoin.conf` file.
+Poiché un blocco deve avere 100 conferme prima che quella ricompensa possa essere spesa, generi 101 blocchi, fornendo accesso alla transazione coinbase dal blocco #1. Poiché questa è una nuova blockchain che utilizza le regole predefinite di Bitcoin, i primi blocchi pagano una ricompensa di blocco di 50 bitcoin. A differenza di mainnet, in modalità regtest solo i primi 150 blocchi pagano una ricompensa di 50 bitcoin. La ricompensa si dimezza dopo 150 blocchi, quindi paga 25, 12,5, e così via...
 
-Because a block must have 100 confirmations before that reward can be spent, you generate 101 blocks, providing access to the coinbase transaction from block #1. Because this is a new blockchain using Bitcoin’s default rules, the first blocks pay a block reward of 50 bitcoins. Unlike mainnet, in regtest mode only the first 150 blocks pay a reward of 50 bitcoins. The reward halves after 150 blocks, so it pays 25, 12.5, and so on...
+L'output è l'hash del blocco di ogni blocco generato.
 
-The output is the block hash of every block generated.
+> :book: ***Cos'è una transazione coinbase?*** Una coinbase è la transazione senza input creata quando un nuovo blocco viene minato e data al minatore. È così che nuovi bitcoin entrano nell'ecosistema. Il valore delle transazioni coinbase diminuisce nel tempo. Su mainnet, si dimezza ogni 210.000 blocchi e termina completamente con il 6.929.999° blocco, attualmente previsto per il 22° secolo. A partire da maggio 2020, la ricompensa coinbase è di 6,25 BTC.
 
-> :book: ***What is a coinbase transaction?*** A coinbase is the inputless transaction created when a new block is mined and given to the miner. It's how new bitcoins enter the ecosystem. The value of coinbase transactions decay over time. On the mainnet, it halves every 210,000 blocks and ends entirely with the 6,929,999th block, which is currently predicted for the 22nd century. As of May 2020, the coinbase reward is 6.25 BTC.
+### Verificare il Tuo Bilancio
 
-### Verify Your Balance
+Dopo aver minato blocchi e ottenuto le ricompense, puoi verificare il bilancio sul tuo wallet:
 
-After mining blocks and getting the rewards, you can verify the balance on your wallet:
+
+
 ```
 $ bitcoin-cli -regtest getbalance
 50.00000000
 ```
 
-## Use the Regtest
+## Usare il Regtest
 
-Now you should be able to use this balance for any type of interaction on your private Blockchain, such as sending Bitcoin transactions according to [Chapter 4]((04_0_Sending_Bitcoin_Transactions.md)).
+Ora dovresti essere in grado di utilizzare questo saldo per qualsiasi tipo di interazione sulla tua Blockchain privata, come inviare transazioni Bitcoin secondo [Capitolo 4](04_0_Inviare_Transazioni_Bitcoin.md).
 
-It is important to note that for any transactions to complete, you will have to generate (mine) new blocks, so that the transactions can be included.
+È importante notare che per completare qualsiasi transazione, dovrai generare (minare) nuovi blocchi, in modo che le transazioni possano essere incluse.
 
-For example, to create a transaction and include it in a block, you should first use the `sendtoaddress` command:
+Ad esempio, per creare una transazione e includerla in un blocco, dovresti prima usare il comando `sendtoaddress`:
+
+
 ```
 $ bitcoin-cli -regtest sendtoaddress [address] 15.1
 e834a4ac6ef754164c8e3f0be4f34531b74b768199ffb244ab9f6cb1bbc7465a
 ```
 
-The output is the transaction hash included in the blockchain. You can verify the details using the `gettransaction`:
+
+L'output è l'hash della transazione inclusa nella blockchain. Puoi verificare i dettagli utilizzando il `gettransaction`:
+
+
 ```
 $ bitcoin-cli -regtest gettransaction e834a4ac6ef754164c8e3f0be4f34531b74b768199ffb244ab9f6cb1bbc7465a
 {
@@ -118,8 +141,12 @@ $ bitcoin-cli -regtest gettransaction e834a4ac6ef754164c8e3f0be4f34531b74b768199
 }
 ```
 
-However, you must now finalize it by creating blocks on the blockchain.
-Most applications require six block confirmations to consider the transaction as irreversible. If that is your case, you can mine additional six blocks into your regtest chain:
+
+Tuttavia, devi ora finalizzarla creando blocchi sulla blockchain.
+La maggior parte delle applicazioni richiede sei conferme di blocchi per considerare la transazione come irreversibile. Se questo è il tuo caso, puoi minare altri sei blocchi nella tua catena regtest:
+
+
+
 ```
 $ bitcoin-cli -regtest -generate 6
 [
@@ -133,19 +160,26 @@ $ bitcoin-cli -regtest -generate 6
 ```
 
 
-## Test with NodeJS
 
-When you are on regtest, you are able to simulate edge cases and attacks that might happen in the real world, such as double spend.
+## Test con NodeJS
 
-As discussed elsewhere in this course, using software libraries might give you more sophisticated access to some RPC commands. In this case, [bitcointest by dgarage](https://github.com/dgarage/bitcointest) for NodeJS can be used to simulate a transaction from one wallet to another; you can check [their guide](https://www.npmjs.com/package/bitcointest) for more specific attack simulations, such as double spend.
+Quando sei su regtest, sei in grado di simulare casi limite e attacchi che potrebbero verificarsi nel mondo reale, come il double spend.
 
-See [§18.3](18_3_Accessing_Bitcoind_with_NodeJS.md) for the most up-to-date info on install NodeJS, then add `bitcointest`:
+Come discusso altrove in questo corso, l'uso di librerie software potrebbe darti accesso più sofisticato ad alcuni comandi RPC. In questo caso, [bitcointest di dgarage](https://github.com/dgarage/bitcointest) per NodeJS può essere utilizzato per simulare una transazione da un wallet all'altro; puoi controllare [la loro guida](https://www.npmjs.com/package/bitcointest) per simulazioni di attacchi più specifiche, come il double spend.
+
+Vedi il [Capitolo 18.3](18_3_Accedere_a_Bitcoind_con_NodeJS.md) per le informazioni più aggiornate sull'installazione di NodeJS, poi aggiungi `bitcointest`:
+
+
+
 ```
 $ npm install -g bitcointest
 ```
 
-After installing `bitcointest`, you can create a `test.js` file with the following content:
-```javascript
+
+Dopo aver installato `bitcointest`, puoi creare un file `test.js` con il seguente contenuto:
+
+
+```
 file: test.js
 
 const { BitcoinNet, BitcoinGraph } = require('bitcointest');
@@ -182,7 +216,10 @@ try {
 }
 ```
 
-As shown, this will generate blocks and a transaction:
+
+Come mostrato, questo genererà blocchi e una transazione:
+
+
 ```
 $ node test.js
 Launching nodes...
@@ -194,14 +231,15 @@ n2.after (before) = 100
 
 ```
 
-## Summary: Using Bitcoin Regtest
 
-A regtest environment for Bitcoin works just like any testnet environment, except for the fact that you have the ability to easily and quickly generate blocks.
+## Riepilogo: Usare Bitcoin Regtest
 
-> :fire: ***What is the power of regtest?*** The biggest power of regtest is that you can quickly mine blocks, allowing you to rush the blockchain along, to test transactions, timelocks, and other features that you'd otherwise have to sit around and wait on. However, the other power is that you can run it privately, without connecting to a public blockchain, allowing you to test our proprietary ideas before releasing them into the world.
+Un ambiente regtest per Bitcoin funziona proprio come qualsiasi ambiente testnet, tranne per il fatto che hai la possibilità di generare blocchi rapidamente e facilmente.
 
-## What's Next?
+> :fire: ***Qual è il potere del regtest?*** Il più grande potere del regtest è che puoi minare blocchi rapidamente, permettendoti di accelerare la blockchain, per testare transazioni, timelocks e altre funzionalità su cui altrimenti dovresti aspettare a lungo. Tuttavia, l'altro potere è che puoi eseguirlo privatamente, senza connetterti a una blockchain pubblica, permettendoti di testare idee proprietarie prima di rilasciarle nel mondo.
 
-If you visited this Appendix while working on some other part of the course, you should get back there.
+## Cosa viene dopo?
 
-But otherwise, you've reached the end! Other people who have worked their way through this course have become professional Bitcoin developers and engineers, including some of whom have contributed to [Blockchain Commons](https://www.blockchaincommons.com/). We encourage you to do the same! Just get out there are start working on some of your own Bitcoin code with what you learned.
+Se hai visitato questa Appendice mentre lavoravi su un'altra parte del corso, dovresti tornarci.
+
+Altrimenti, hai raggiunto la fine! Altre persone che hanno seguito questo corso sono diventate sviluppatori ed ingegneri Bitcoin professionisti, inclusi alcuni che hanno contribuito a [Blockchain Commons](https://www.blockchaincommons.com/). Ti incoraggiamo a fare lo stesso! Basta iniziare a lavorare su un po' di codice Bitcoin con ciò che hai imparato.
