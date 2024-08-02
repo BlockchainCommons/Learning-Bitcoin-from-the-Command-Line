@@ -1,4 +1,4 @@
-# Appendice I: Comprendere Bitcoin Standup
+# Appendice 1: Comprendere Bitcoin Standup
 
 Il [Capitolo 2.1: Configurare Bitcoin Core VPS con StackScript](02_1_Configurare_Bitcoin-Core_VPS_con_StackScript.md) spiega il processo di creazione di un nodo Bitcoin utilizzando i [Bitcoin-Standup-Scripts](https://github.com/BlockchainCommons/Bitcoin-Standup-Scripts). La seguente appendice spiega cosa fanno le principali sezioni dello script. Potresti voler seguire in [Linode Standup](https://github.com/BlockchainCommons/Bitcoin-Standup-Scripts/blob/master/Scripts/LinodeStandUp.sh) in un'altra finestra.
 
