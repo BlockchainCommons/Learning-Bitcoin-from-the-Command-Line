@@ -1,4 +1,4 @@
-# 18.6: Accessing Bitcoind with Swift
+# 18.6: Accedere a Bitcoind con Swift
 
 > :information_source: **NOTA:** Questa sezione è stata recentemente aggiunta al corso ed è una bozza iniziale che potrebbe ancora essere in attesa di revisione. Attenzione lettore.
 
