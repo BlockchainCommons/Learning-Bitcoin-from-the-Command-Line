@@ -1,26 +1,27 @@
-# Chapter 19: Understanding Your Lighting Setup
+# Capitolo 19: Comprendere la Tua Configurazione Lightning
 
-> :information_source: **NOTE:** This is a draft in progress, so that I can get some feedback from early reviewers. It is not yet ready for learning.
+> :information_source: **NOTA:** Questa è una bozza in corso, per raccogliere feedback dai primi revisori. Non è ancora pronta per l'apprendimento.
 
-The previous chapter concluded our work with Bitcoin proper, through CLI, scripting, and programming languages. However, there are many other utilities within the Bitcoin ecosystem: this chapter and the next cover what may be the biggest and most important: the Lightning Network. Here you'll begin work with the `lightning-cli` command-line interface, understanding a c-lightning setup and its features, including some examples and basic configuration.
+Il capitolo precedente ha concluso il nostro lavoro con Bitcoin in senso stretto, tramite CLI, scripting e linguaggi di programmazione. Tuttavia, ci sono molte altre utilità all'interno dell'ecosistema Bitcoin: questo capitolo e il prossimo coprono ciò che potrebbe essere il più grande e importante: il Lightning Network. Qui inizierai a lavorare con l'interfaccia a riga di comando `lightning-cli`, comprendendo una configurazione c-lightning e le sue funzionalità, inclusi alcuni esempi e configurazioni di base.
 
-## Objectives for This Chapter
+## Obiettivi per Questo Capitolo
 
-After working through this chapter, a developer will be able to:
+Dopo aver lavorato su questo capitolo, un sviluppatore sarà in grado di:
 
-   * Assess that a c-lightning Node is Installed and Up-to-date
-   * Perform Basic Lightning Wallet Commands
-   * Create a LIghtning Channel
+   * Valutare che un Nodo c-lightning sia Installato e Aggiornato
+   * Eseguire Comandi di Base del Portafoglio Lightning
+   * Creare un Canale Lightning
    
-Supporting objectives include the ability to:
+Obiettivi di supporto includono la capacità di:
 
-   * Understand the Basic Lightning Configuration
-   * Understand the Interaction of Lightning Peers
-   * Understand How to Lightning
+   * Comprendere la Configurazione Base di Lightning
+   * Comprendere l'Interazione tra Peer di Lightning
+   * Comprendere Come Funziona Lightning
 
-## Table of Contents
+## Indice dei Contenuti
 
-* [Section One: Verifying Your c-lightning Setup](19_1_Verifying_Your_Lightning_Setup.md)
-* [Section Two: Knowing Your c-lightning Setup](19_2_Knowing_Your_lightning_Setup.md)
-   * [Interlude: Accessing a Second Lightning Node](19_2__Interlude_Accessing_a_Second_Lightning_Node.md)
-* [Section Three: Creating a Lightning Channel](19_3_Setting_Up_a_Channel.md)
+* [Capitolo 19.1: Verificare la Configurazione Lightning](19_1_Verificare_la_Configurazione_Lightning.md)
+* [Capitolo 19.2 Comprendere la Configurazione Lightning](19_2_Comprendere_la_Configurazione_Lightning.md)
+  * [Capitolo 19.2 Intermezzo_Accedere_ad_un_Secondo_Nodo_Lightning](19_2_Intermezzo_Accedere_ad_un_Secondo_Nodo_Lightning.md)
+* [Capitolo 19.3 Creare un Canale in Lightning](19_3_Creare_un_Canale_in_Lightning.md)
+
