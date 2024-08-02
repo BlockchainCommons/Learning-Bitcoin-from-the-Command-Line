@@ -1,4 +1,4 @@
-# 18.5: Accessing Bitcoind with Rust
+# 18.5 Accedere a Bitcoind con Rust
 
 > :information_source: **NOTA:** Questa sezione è stata aggiunta recentemente al corso ed è una bozza iniziale che potrebbe essere ancora in attesa di revisione. Attenzione lettore.
 
