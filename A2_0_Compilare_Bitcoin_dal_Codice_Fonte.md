@@ -1,4 +1,4 @@
-# Appendice II: Compilare Bitcoin dal Codice Sorgente
+# Appendice 2: Compilare Bitcoin dal Codice Sorgente
 
 Questo corso presuppone che tu utilizzi uno script per creare un ambiente Bitcoin, utilizzando Bitcoin Standup per Linode per [§2.1](02_1_Setting_Up_a_Bitcoin-Core_VPS_with_StackScript.md), o tramite altri mezzi per [§2.2](02_2_Setting_Up_Bitcoin_Core_Other.md). Tuttavia, potresti preferire compilare Bitcoin manualmente.
 
