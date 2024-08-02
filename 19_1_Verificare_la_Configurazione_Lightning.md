@@ -322,7 +322,7 @@ C'è anche un file di configurazione generale (predefinito: `~/.lightning/config
 
 Il tuo setup potrebbe non avere effettivamente file di configurazione: c-lightning funzionerà con un buon setup predefinito senza di essi.
 
-## Summary: Verifying your Lightning setup
+## Sommario: Verificare la Configurazione Lightning
 
 Prima di iniziare a giocare con lightning, dovresti assicurarti che i tuoi alias siano impostati, che il tuo `lightningd` sia in esecuzione e che il tuo nodo sia sincronizzato. Potresti anche voler configurare qualche accesso a setup di lightning alternativi, su altre reti.
 
