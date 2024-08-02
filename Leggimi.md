@@ -149,18 +149,18 @@ Se desideri effettuare la tua traduzione, guarda qui [Contribuire](CONTRIBUIRE.m
 
 ### APENDICE
 
-**Status:** Da fare
+**Status:** Da fare...
 
-* A0_Appendici.md
-  * A1_0_Comprendere_Bitcoin_Standup.md
-  * A2_0_Compilare_Bitcoin_dal_Codice_Fonte.md
-  * A3_0_Usare_Bitcoin_Regtest.md
+* [Appendici](A0_Appendici.md)
+  * [A1_0 Comprendere Bitcoin Standup](A1_0_Comprendere_Bitcoin_Standup.md)
+  * [A2_0 Compilare Bitcoin dal Codice Fonte](A2_0_Compilare_Bitcoin_dal_Codice_Fonte.md)
+  * [A3_0 Usare Bitcoin Regtest](A3_0_Usare_Bitcoin_Regtest.md)
 
 ## Status - Beta
 
 La versione v2.1.0 di **Learning Bitcoin from the Command Line** è completa e ha subito modifiche e integrazioni. È pronta per l'uso
 
-Stiamo anche valutando in via provvisoria cosa potremmo includere in una [v3.0](TODO-30.md) del corso. Se desideri supportare un lavoro di questo tipo, diventa uno [sponsor GitHub](https://github.com/sponsors/BlockchainCommons) o supportaci sul nostro [BTCPay Server](https://btcpay.blockchaincommons.com/) e facci sapere che **Learning Bitcoin** è stato il motivo.
+Stiamo anche valutando in via provvisoria cosa potremmo includere in una [v3.0](TODO-30.md) del corso. Se desideri supportare un lavoro di questo tipo, diventa uno [sponsor GitHub](https://github.com/sponsors/BlockchainCommons) o supportaci sul nostro [BTCPay Server](https://btcpay.blockchaincommons.com/) e facci sapere che **Learning Bitcoin** ti ha spinto a collaborare.
 
 ### Lo storico delle revisioni
 
