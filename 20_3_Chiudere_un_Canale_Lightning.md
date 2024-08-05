@@ -1,14 +1,15 @@
-# 20.3: Closing a Channel
+# 20.3: Chiudere un Canale Lightning
 
-> :information_source: **NOTE:** This section has been recently added to the course and is an early draft that may still be awaiting review. Caveat reader.
+> :information_source: **NOTE:** Questa sezione è stata recentemente aggiunta al corso ed è una bozza iniziale che potrebbe essere ancora in attesa di revisione. Attenzione lettore.
 
-In this chapter you'll learn how to close a channel using `lightning-cli close` command-line interface. Closing a channel means you and your counterparty will send their agreed-upon channel balance to the blockchain, whereby you must pay blockchain transaction fees and wait for the transaction to be mined. A closure can be cooperative or non-cooperative, but it works either way.
+In questo capitolo imparerai come chiudere un canale utilizzando l'interfaccia a riga di comando `lightning-cli close`. Chiudere un canale significa che tu e la tua controparte invierete il saldo concordato del canale alla blockchain, per cui dovrai pagare le commissioni di transazione della blockchain e aspettare che la transazione venga minata. Una chiusura può essere cooperativa o non cooperativa, ma funziona in entrambi i casi.
 
-In order to close a channel, you first need to know the ID of the remote node; you can retrieve it in one of two ways. 
+Per chiudere un canale, devi prima conoscere l'ID del nodo remoto; puoi recuperarlo in uno dei due modi.
 
-## Find your Channels by Funds
+## Trova i tuoi Canali per Fondi
 
-You can use the `lightning-cli listfunds` command to see your channels.  This RPC command displays all funds available, either in unspent `outputs` (UTXOs) in the internal wallet or locked up in currently open `channels`.
+Puoi usare il comando `lightning-cli listfunds` per vedere i tuoi canali. Questo comando RPC visualizza tutti i fondi disponibili, sia in `outputs` non spesi (UTXO) nel wallet interno sia bloccati in canali attualmente aperti.
+
 ```
 c$ lightning-cli --testnet listfunds
 {
@@ -54,26 +55,29 @@ c$ lightning-cli --testnet listfunds
 }
 ```
 
+Puoi recuperare l'ID del primo canale in una variabile in questo modo:
 
-You could retrieve the ID of the 0th channel into a variable like this:
 ```
 c$ nodeidremote=$(lightning-cli --testnet listfunds | jq '.channels[0] | .peer_id')
 ```
 
-## Find your Channels with JQ
 
-The other way to find channels to close is to the use the `listchannels` command. It returns data on channels that are known to the node. Because channels may be bidirectional, up to two nodes will be returned for each channel (one for each direction). 
+## Trova i tuoi Canali con JQ
 
-However, Lightning's gossip network is very effective, and so in a short time you will come to know about thousands of channels. That's great for sending payments across the Lightning Network, but less useful for discovering your own channels. To do so requires a bit of `jq` work.
+L'altro modo per trovare i canali da chiudere è utilizzare il comando `listchannels`. Restituisce dati sui canali noti al nodo. Poiché i canali possono essere bidirezionali, fino a due nodi verranno restituiti per ogni canale (uno per ogni direzione).
 
-First, you need to know your own node ID, which can be retrieved with `getinfo`:
+Tuttavia, la rete di gossip di Lightning è molto efficace, e quindi in breve tempo conoscerai migliaia di canali. Questo è ottimo per inviare pagamenti attraverso la rete Lightning, ma meno utile per scoprire i tuoi canali. Per farlo è necessario un po' di lavoro con `jq`.
+
+Prima di tutto, devi conoscere il tuo ID nodo, che può essere recuperato con `getinfo`:
+
 ```
 c$ nodeid=$(lightning-cli --testnet getinfo | jq .id)
 c$ echo $nodeid
 "03240a4878a9a64aea6c3921a434e573845267b86e89ab19003b0c910a86d17687"
 c$
 ```
-You can then use that to look through `listchannels` for any channels where your node is either the source or the destination:
+Puoi quindi usarlo per cercare in `listchannels` tutti i canali in cui il tuo nodo è sia la sorgente che la destinazione:
+
 ```
 c$ lightning-cli --testnet listchannels | jq '.channels[] | select(.source == '$nodeid' or .destination == '$nodeid')'
 {
@@ -95,16 +99,20 @@ c$ lightning-cli --testnet listchannels | jq '.channels[] | select(.source == '$
   "features": ""
 }
 ```
-There's our old favorite `032a7572dc013b6382cde391d79f292ced27305aa4162ec3906279fc4334602543` again, as the destination.
+Ecco di nuovo il nostro vecchio amico `032a7572dc013b6382cde391d79f292ced27305aa4162ec3906279fc4334602543`, come destinazione.
 
-Once you know what you've got, you can store it in a variable:
+Una volta che sai cosa hai, puoi memorizzarlo in una variabile:
+
 ```
 c$ nodeidremote=$(lightning-cli --testnet listchannels | jq '.channels[] | select(.source == '$nodeid' or .destination == '$nodeid') | .destination')
 ```
 
-## Close a Channel
 
-Now that you have a remote node ID, you're ready to use the `lightning-cli close` command to close a channel. By default, it will attempt to close the channel cooperatively with the peer;  if you want to close it unilaterally set the `unilateraltimeout` argument with the number of seconds to wait. (If you set it to 0 and the peer is online, a mutual close is still attempted.) For this example, you will attempt a mutual close.
+## Chiudi un Canale
+
+Ora che hai un ID nodo remoto, sei pronto per usare il comando `lightning-cli close` per chiudere un canale. Per impostazione predefinita, tenterà di chiudere il canale cooperativamente con il peer; se vuoi chiuderlo unilateralmente, imposta l'argomento `unilateraltimeout` con il numero di secondi di attesa. (Se lo imposti a 0 e il peer è online, verrà comunque tentata una chiusura mutuale). In questo esempio, tenterai una chiusura mutuale.
+
+
 
 ```
 c$ lightning-cli --testnet close $nodeidremote 0
@@ -114,9 +122,10 @@ c$ lightning-cli --testnet close $nodeidremote 0
    "type": "mutual"
 }
 ```
-The closing transaction on-chain is [f68de52d80a1076e36c677ef640539c50e3d03f77f9f9db4f13048519489593f](https://blockstream.info/testnet/tx/f68de52d80a1076e36c677ef640539c50e3d03f77f9f9db4f13048519489593f).
+La transazione di chiusura on-chain è [f68de52d80a1076e36c677ef640539c50e3d03f77f9f9db4f13048519489593f](https://blockstream.info/testnet/tx/f68de52d80a1076e36c677ef640539c50e3d03f77f9f9db4f13048519489593f).
 
-It's this closing transaction that actually disburses the funds that were traded back and forth through Lightning transactions. This can be seen by examining the transaction:
+È questa transazione di chiusura che effettivamente distribuisce i fondi scambiati tramite transazioni Lightning. Questo può essere visto esaminando la transazione:
+
 ```
 $ bitcoin-cli --named getrawtransaction txid=f68de52d80a1076e36c677ef640539c50e3d03f77f9f9db4f13048519489593f verbose=1
 {
@@ -179,9 +188,10 @@ $ bitcoin-cli --named getrawtransaction txid=f68de52d80a1076e36c677ef640539c50e3
   "blocktime": 1602713519
 }
 ```
-The input of the transaction is `66694d23ca15efe379e5f4a71d9be1a2d65e383b89ee3abe126ee36a12f23c1d`, which was the funding transaction in [§19.3](19_3_Setting_Up_a_Channel.md). The transaction then has two outputs, one for the remote node and the other for the local c-lightning wallet. The output on index 0 corresponds to the remote node with a value of 0.00010012 BTC; and the output on index 1 corresponds to the local node with a value of 0.00089804 BTC.
+L'input della transazione è `66694d23ca15efe379e5f4a71d9be1a2d65e383b89ee3abe126ee36a12f23c1d`, che era la transazione di finanziamento nel [Capitolo 19.3](19_3_Creare_un_Canale_in_Lightning.md). La transazione ha quindi due output, uno per il nodo remoto e l'altro per il wallet locale c-lightning. L'output all'indice 0 corrisponde al nodo remoto con un valore di 0.00010012 BTC; e l'output all'indice 1 corrisponde al nodo locale con un valore di 0.00089804 BTC.
 
-Lightning will similarly show 89804 satoshis returned as a new UTXO in its wallet:
+Lightning mostrerà allo stesso modo 89804 satoshi restituiti come un nuovo UTXO nel suo wallet:
+
 ```
 $ lightning-cli --network=testnet listfunds
 {
@@ -227,21 +237,22 @@ $ lightning-cli --network=testnet listfunds
 
 ```
 
-### Understand the Types of Closing Channels.
+### Comprendere i Tipi di Chiusura dei Canali
 
-The `close` RPC command attempts to close a channel cooperatively with its peer or unilaterally after the `unilateraltimeout` argument expires. This bears some additional discussion, as it goes to the heart of Lightning's trustless design:
+Il comando `close` RPC tenta di chiudere un canale cooperativamente con il suo peer o unilateralmente dopo che l'argomento `unilateraltimeout` è scaduto. Questo merita una discussione aggiuntiva, poiché va al cuore del design senza fiducia di Lightning:
 
-Each participant of a channel is able to create as many Lightning payments to their counterparty as their funds allow.  Most of the time there will be no disagreements between the participants, so there will only be two on-chain transactions, one opening and the other closing the channel. However, there may be scenarios in which one peer is not online or does not agree with the final state of the channel or where someone tries to steal funds from the other party. This is why there are both cooperative and forced closes.
+Ogni partecipante di un canale è in grado di creare quante più transazioni Lightning al proprio controparte consentite dai loro fondi. La maggior parte delle volte non ci saranno disaccordi tra i partecipanti, quindi ci saranno solo due transazioni on-chain, una di apertura e l'altra di chiusura del canale. Tuttavia, potrebbero esserci scenari in cui un peer non è online o non è d'accordo con lo stato finale del canale o dove qualcuno cerca di rubare fondi all'altra parte. Questo è il motivo per cui ci sono sia chiusure cooperative che forzate.
 
-#### Cooperative Close
+#### Chiusura Cooperativa
 
-In the case of a cooperative close, both channel participants agree to close the channel and settle the final state to the blockchain. Both participants must be online; the close is performed by broadcasting an unconditional spend of the funding transaction with an output to each peer. 
+Nel caso di una chiusura cooperativa, entrambi i partecipanti al canale concordano di chiudere il canale e regolare lo stato finale sulla blockchain. Entrambi i partecipanti devono essere online; la chiusura viene eseguita trasmettendo una spesa incondizionata della transazione di finanziamento con un output per ciascun peer.
 
-#### Force Close
+#### Chiusura Forzata
 
-In the case of a force close, only one participant is online or the participants disagree on the final state of the channel. In this situation, one peer can perform an unilateral close of the channel without the cooperation of the other node.  It's performed by broadcasting a commitment transaction that commits to a previous channel state that both parties have agreed upon. This commitment transaction contains the channel state divided in two parts: the balance for each participant and all the pending payments (HTLCs).
+Nel caso di una chiusura forzata, solo un partecipante è online o i partecipanti non sono d'accordo sullo stato finale del canale. In questa situazione, un peer può eseguire una chiusura unilaterale del canale senza la cooperazione dell'altro nodo. Viene eseguita trasmettendo una transazione di impegno che si impegna a uno stato precedente del canale concordato da entrambe le parti. Questa transazione di impegno contiene lo stato del canale diviso in due parti: il saldo per ciascun partecipante e tutti i pagamenti pendenti (HTLC).
 
-To perform this kind of close, you must specify an `unilateraltimeout` argument. If this value is not zero, the close command will unilaterally close the channel when that number of seconds is reached:
+Per eseguire questo tipo di chiusura, devi specificare un argomento `unilateraltimeout`. Se questo valore non è zero, il comando di chiusura chiuderà unilateralmente il canale quando viene raggiunto quel numero di secondi:
+
 ```
 c$ lightning-cli --network=testnet close $newidremote 60
 {
@@ -251,10 +262,11 @@ c$ lightning-cli --network=testnet close $newidremote 60
 }
 
 ```
-## Summary: Closing a Channel
+## Sommario: Chiudere un Canale
 
-When you close a channel you perform an on-chain transaction ending your financial relationship with the remote node  To close a channel, you must take into account its status and the type of closure you want to execute.
+Quando chiudi un canale esegui una transazione on-chain terminando il tuo rapporto finanziario con il nodo remoto. Per chiudere un canale, devi tenere conto del suo stato e del tipo di chiusura che vuoi eseguire.
 
-## What's Next?
+## Cosa Succede Dopo?
 
-Continue "Using Lightning" with [§20.4: Expanding the Lightning Network](20_4_Lightning_Network_Review.md).
+Continua a "Using Lightning" col [Capitolo 20.4:Espandere la Rete Lightning](20_4_Espandere_la_Rete_Lightning.md).
+
