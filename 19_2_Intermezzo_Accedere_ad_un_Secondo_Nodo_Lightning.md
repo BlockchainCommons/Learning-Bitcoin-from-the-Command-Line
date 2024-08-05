@@ -1,16 +1,19 @@
-# Interlude: Accessing a Second Lightning Node
+# Intermezzo: Accedere ad un Secondo Nodo Lightning
 
-> :information_source: **NOTE:** This section has been recently added to the course and is an early draft that may still be awaiting review. Caveat reader.
+> :information_source: **NOTE:** Questa sezione è stata recentemente aggiunta al corso ed è una bozza iniziale che potrebbe essere ancora in attesa di revisione. Attenzione lettore.
 
-When you played with Bitcoin you were accessing an existing network, and that made it relatively easy to work with: you just turned on `bitcoind` and you were immediately interacting with the network. That's now how Lightning works: it's fundamentally a peer-to-peer network, built up from the connections between any two individual nodes. In other words, to interact with the Lightning Network, you'll need to first find a node to connect to.
+Quando hai giocato con Bitcoin, stavi accedendo a una rete esistente, e questo ha reso relativamente facile lavorarci: basta accendere `bitcoind` e interagisci immediatamente con la rete. Questo non è il modo in cui funziona Lightning: è fondamentalmente una rete peer-to-peer, costruita dalle connessioni tra due nodi individuali. In altre parole, per interagire con la rete Lightning, devi prima trovare un nodo a cui connetterti.
 
-There are four ways to do so (the first three of which are possible for your first connection):
+Ci sono quattro modi per farlo (i primi tre dei quali sono possibili per la tua prima connessione):
 
-## Ask for Information on a Node
+## Chiedere Informazioni su un Nodo
 
-If someone else already has a Lightning node on the network of your choice, just ask them for their ID. 
+Se qualcun altro ha già un nodo Lightning sulla rete di tua scelta, chiedi loro il loro ID.
 
-If they are are running c-lightning, they just need to use the `getinfo` command:
+Se stanno eseguendo c-lightning, devono solo usare il comando `getinfo`:
+
+
+
 ```
 $ lightning-cli getinfo
 lightning-cli: WARNING: default network changing in 2020: please set network=testnet in config!
@@ -48,79 +51,114 @@ lightning-cli: WARNING: default network changing in 2020: please set network=tes
    "lightning-dir": "/home/standup/.lightning/testnet"
 }
 ```
-They can then tell you their `id` (`03240a4878a9a64aea6c3921a434e573845267b86e89ab19003b0c910a86d17687`). They will also need to tell you their IP address (`74.207.240.32`) and port (`9735`).
 
-## Create a New c-lightning Node
+Poi possono dirti il loro `id` (`03240a4878a9a64aea6c3921a434e573845267b86e89ab19003b0c910a86d17687`). Dovranno anche dirti il loro indirizzo IP (`74.207.240.32`) e la porta (`9735`).
 
-However, for testing purposes, you probably want to have a second node under you own control. The easiest way to do so is to create a second c-lightning node on a new machine, using either Bitcoin Standup, per [§2.1](02_1_Setting_Up_a_Bitcoin-Core_VPS_with_StackScript.md) or compiling it by hand, per [§19.1](19_1_Verifying_Your_Lightning_Setup.md).
+## Creare un Nuovo Nodo c-lightning
 
-Once you have your node running, you can run `getinfo` to retrieve your information, as shown above.
+Tuttavia, per scopi di test, probabilmente vorrai avere un secondo nodo sotto il tuo controllo. Il modo più semplice per farlo è creare un secondo nodo c-lightning su una nuova macchina, utilizzando Bitcoin Standup, vedi il [Capitolo 2.1](02_1_Configurare_Bitcoin-Core_VPS_con_StackScript.md) o compilandolo a mano, vedi il [Capitolo 19.1](19_1_Verificare_la_Configurazione_Lightning.md).
 
-## Create a New LND Node
+Una volta che il tuo nodo è in esecuzione, puoi eseguire `getinfo` per recuperare le tue informazioni, come mostrato sopra.
 
-However, for our examples in the next chapter, we're instead going to create an LND node. This will allow us to demonstrate a bit of the depth of the Lightning ecosystem by showing how similar commands work on the two different platforms.
+## Creare un Nuovo Nodo LND
 
-One way to create an LND node is to run the Bitcoin Standup Scripts again on a new machine, but this time to choose LND, per [§2.1](2_1_Setting_Up_a_Bitcoin-Core_VPS_with_StackScript.md).
+Tuttavia, per i nostri esempi nel prossimo capitolo, creeremo invece un nodo LND. Questo ci permetterà di dimostrare un po' della profondità dell'ecosistema Lightning mostrando come funzionano comandi simili sulle due diverse piattaforme.
 
-Another is to compile LND from source code on a machine where you'rea already running a Bitcoin node, as follows.
+Un modo per creare un nodo LND è eseguire di nuovo gli Script Bitcoin Standup su una nuova macchina, ma questa volta scegliere LND, vedi il [Capitolo 2.1](02_1_Configurare_Bitcoin-Core_VPS_con_StackScript.md).
 
-### Compile the LND Source Code 
+Un altro modo è compilare LND dal codice sorgente su una macchina dove stai già eseguendo un nodo Bitcoin, come segue.
 
-First, you need to download and install Go:
+### Compilare il Codice Sorgente di LND
+
+Prima, devi scaricare e installare Go:
+
+
 ```
 $ wget --progress=bar:force https://dl.google.com/go/"go1.14.4"."linux"-"amd64".tar.gz -O ~standup/"go1.14.4"."linux"-"amd64".tar.gz
 $ /bin/tar xzf ~standup/"go1.14.4"."linux"-"amd64".tar.gz -C ~standup
 $ sudo mv ~standup/go /usr/local
 ```
-Be sure that the Go version is the most up to date (it's `go1.14.4` at the current time), and the platform and architecture are right for your machine. (The above will work for Debian.)
 
-Update your path:
+
+Assicurati che la versione di Go sia la più aggiornata (è `go1.14.4` al momento attuale), e che la piattaforma e l'architettura siano corrette per la tua macchina. (Quanto sopra funzionerà per Debian.)
+
+Aggiorna il tuo percorso:
+
+
 ```
 $ export GOPATH=~standup/gocode
 $ export PATH="$PATH":/usr/local/go/bin:"$GOPATH"/bin
 ```
-Then be sure that `go` works:
+
+
+Poi assicurati che `go` funzioni:
+
+
 ```
 $ go version
 go version go1.14.4 linux/amd64
 ```
-You'll also need `git` and `make`:
+
+
+Avrai anche bisogno di `git` e `make`:
+
+
 ```
 $ sudo apt-get install git
 $ sudo apt-get install build-essential
 ```
-You're now ready to retrieve LND. Be sure to get the current verison (currently `v0.11.0-beta.rc4`).
+
+
+Ora sei pronto per recuperare LND. Assicurati di ottenere la versione corrente (attualmente `v0.11.0-beta.rc4`).
+
+
 ```
 $ go get -d github.com/lightningnetwork/lnd
 ```
-And now you can compile:
+
+
+E ora puoi compilare:
+
+
 ```
 $ cd "$GOPATH"/src/github.com/lightningnetwork/lnd
 $ git checkout v0.11.0-beta.rc4
 $ make
 $ make install
-```
-This will install to `~/gocode/bin`, which is `$GOPATH/bin`.
 
-You should move it to global directories:
+```
+Questo verrà installato in `~/gocode/bin`, che è `$GOPATH/bin`.
+
+Dovresti spostarlo nelle directory globali:
+
+
+
 ```
 $ sudo cp $GOPATH/bin/lnd $GOPATH/bin/lncli /usr/bin
 ```
 
-### Create an LND Config File
 
-Unlike with c-lightning, you will need to create a default config file for LND.
+### Creare un File di Configurazione LND
 
-However first, you need to enable ZMQ on your Bitcoind, if you didn't already in [§16.3](16_3_Receiving_Bitcoind_Notifications_with_C.md).
+A differenza di c-lightning, dovrai creare un file di configurazione predefinito per LND.
 
-This requires adding the following to your `~/.bitcoin/bitcoin.conf` file if it's not already there:
+Tuttavia, prima, devi abilitare ZMQ sul tuo Bitcoind, se non l'hai già fatto nel [Capitolo 16.3](16_3_Ricevere_Notifiche_di_Bitcoind_in_C_tramite_Librerie_ZMQ.md).
+
+Questo richiede di aggiungere il seguente al tuo file `~/.bitcoin/bitcoin.conf` se non è già lì:
+
+
+
 ```
 zmqpubrawblock=tcp://127.0.0.1:28332
 zmqpubrawtx=tcp://127.0.0.1:28333
 ```
-If you're using a Bitcoin config file from Standup or some other specialized `conf`, be sure you're putting your new commands in the correct section. Ideally, they should go near the top of the file, otherwise in the `[test]` section (assuming, as usual, that you're testing on testnet).
 
-You must then restart bitcoin (or just reboot your machine). You can test that it's working as follows:
+
+Se stai usando un file di configurazione Bitcoin da Standup o un altro `conf` specializzato, assicurati di mettere i tuoi nuovi comandi nella sezione corretta. Idealmente, dovrebbero andare vicino alla parte superiore del file, altrimenti nella sezione `[test]` (supponendo, come al solito, che stai testando su testnet).
+
+Devi quindi riavviare bitcoin (o semplicemente riavviare la tua macchina). Puoi testare che stia funzionando come segue:
+
+
 ```
 $ bitcoin-cli getzmqnotifications
 [
@@ -136,17 +174,26 @@ $ bitcoin-cli getzmqnotifications
   }
 ]
 ```
-Now you're ready to create a config file.
 
-First, you need to retrieve your rpcuser and rpcpassword. Here's an automated way to do so:
+
+Ora sei pronto per creare un file di configurazione.
+
+Prima, devi recuperare il tuo rpcuser e rpcpassword. Ecco un modo automatico per farlo:
+
+
+
 ```
 $ BITCOINRPC_USER=$(cat ~standup/.bitcoin/bitcoin.conf | grep rpcuser | awk -F = '{print $2}')
 $ BITCOINRPC_PASS=$(cat ~standup/.bitcoin/bitcoin.conf | grep rpcpassword | awk -F = '{print $2}')
 ```
 
-> :warning: **WARNING:** Obviously, never store your RPC password in a shell variable in a production environment.
 
-Then, you can write the file:
+> :warning: **WARNING:** Ovviamente, non memorizzare mai la tua password RPC in una variabile di shell in un ambiente di produzione.
+
+Poi, puoi scrivere il file:
+
+
+
 ```
 $ mkdir ~/.lnd
 $ cat > ~/.lnd/lnd.conf << EOF
@@ -170,9 +217,13 @@ bitcoind.zmqpubrawtx=tcp://127.0.0.1:28333
 EOF
 ```
 
-### Create an LND Service
 
-Finally, you can create an LND service to automatically run `lnd`:
+### Creare un Servizio LND
+
+Infine, puoi creare un servizio LND per eseguire automaticamente `lnd`:
+
+
+
 ```
 $ cat > ~/lnd.service << EOF
 # It is not recommended to modify this file in-place, because it will
@@ -202,30 +253,53 @@ RestartSec=60
 WantedBy=multi-user.target
 EOF
 ```
-You'll then need to install that and start things up:
+> (Non è consigliato modificare questo file sul posto, perché verrà
+sovrascritto durante gli aggiornamenti dei pacchetti. Se vuoi aggiungere ulteriori
+opzioni o sovrascrivere quelle esistenti, utilizza
+$ systemctl edit lnd.service
+Vedi "man systemd.service" per dettagli.
+Nota che quasi tutte le opzioni del demone potrebbero essere specificate in
+/etc/lnd/lnd.conf, eccetto quelle esplicitamente specificate come argomenti)
+
+
+Poi devi installarlo e avviarlo:
+
+
 ```
 $ sudo cp ~/lnd.service /etc/systemd/system
 $ sudo systemctl enable lnd
 $ sudo systemctl start lnd
 ```
-(Expect this to take a minute the first time.)
+(Prevedi che questo richieda un minuto la prima volta.)
 
-### Enable Remote Connections
+### Abilitare Connessioni Remote
 
-Just as with c-lightning, you're going to need to make LND accessible to other nodes. Here's how to do so if you use `ufw`, as per the Bitcoin Standup setups:
+Proprio come con c-lightning, dovrai rendere LND accessibile ad altri nodi. Ecco come farlo se usi `ufw`, come nei setup Bitcoin Standup:
+
+
+
 ```
 $ sudo ufw allow 9735
 ```
 
-### Create a Wallet
 
-The first time you run LND, you must create a wallet:
+### Creare un Wallet
+
+La prima volta che esegui LND, devi creare un wallet:
+
+
+
 ```
 $ lncli --network=testnet create
 ```
-LND will ask you for a password and then ask if you want to enter an existing mnemonic (just hit `n` for the latter one).
 
-You should now have a functioning `lnd`, which you can verify with `getinfo`:
+
+LND ti chiederà una password e poi se vuoi inserire una mnemonic esistente (basta premere `n` per quest'ultima).
+
+Ora dovresti avere un `lnd` funzionante, che puoi verificare con `getinfo`:
+
+
+
 ```
 $ lncli --network=testnet getinfo
 {
@@ -291,11 +365,16 @@ $ lncli --network=testnet getinfo
     }
 }
 ```
-This node's ID is `032a7572dc013b6382cde391d79f292ced27305aa4162ec3906279fc4334602543`. Although this command doesn't show you the IP address and port, they should be the IP address for your machine and port `9735`. 
 
-## Listen to Gossip
 
-If you were already connected to the Lightning Network, and were "gossipping" with peers, you might also be able to find information on peers automatically, through the `listpeers` command:
+L'ID di questo nodo è `032a7572dc013b6382cde391d79f292ced27305aa4162ec3906279fc4334602543`. Sebbene questo comando non mostri l'indirizzo IP e la porta, dovrebbero essere l'indirizzo IP della tua macchina e la porta `9735`.
+
+## Ascoltare i Gossip
+
+Se eri già connesso alla rete Lightning e stavi "spettegolando" con i peer, potresti anche essere in grado di trovare informazioni sui peer automaticamente, tramite il comando `listpeers`:
+
+
+
 ```       
 c$ lightning-cli --network=testnet listpeers
 {
@@ -312,14 +391,17 @@ c$ lightning-cli --network=testnet listpeers
    ]
 }
 ```       
-However, that definitely won't be the case for your first interaction with the Lightning Network.
 
-## Summary: Accessing a Second Lightning Node
 
-You always need two Lightning nodes to form a channel. If you don't have someone else who is testing things out with you, you're going to need to create a second one, either using c-lightning or (as we will in our examples) LND.
+Tuttavia, sicuramente non sarà il caso della tua prima interazione con la rete Lightning.
 
-## What's Next?
+## Sommario: Accesso a un Secondo Nodo Lightning
 
-Though you've possibly created an LND, c-lightning will remain the heart of our examples until we need to start using both of them, in [Chapter 19](19_0_Understanding_Your_Lightning_Setup.md).
+Hai sempre bisogno di due nodi Lightning per formare un canale. Se non hai qualcun altro che sta testando con te, dovrai creare un secondo nodo, utilizzando c-lightning o (come faremo nei nostri esempi) LND.
 
-Continue "Understanding Your Lightning Setup" with [§19.3: Setting Up_a_Channel](19_3_Setting_Up_a_Channel.md).
+## Cosa Succede Dopo?
+
+Anche se hai eventualmente creato un LND, c-lightning rimarrà il cuore dei nostri esempi fino a quando non sarà necessario usare entrambi, in [Capitolo 19](19_0_Understanding_Your_Lightning_Setup.md).
+
+Continua a "Understanding Your Lightning Setup" nel [Capitolo 19.3: Creare un Canale in Lightning](19_3_Creare_un_Canale_in_Lightning.md).
+
