@@ -1,4 +1,4 @@
-# 20.1: Generating a Payment Request
+# 20.1: Generare una Richiesta di Pagamento
 
 > :information_source: **NOTE:** Questa sezione è stata recentemente aggiunta al corso ed è una bozza iniziale che potrebbe essere ancora in attesa di revisione. Attenzione lettore.
 
