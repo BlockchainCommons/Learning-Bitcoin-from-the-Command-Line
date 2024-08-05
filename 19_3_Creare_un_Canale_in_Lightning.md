@@ -1,30 +1,32 @@
 # 19.3: Creating a Lightning Channel
 
-> :information_source: **NOTE:** This section has been recently added to the course and is an early draft that may still be awaiting review. Caveat reader.
+> :information_source: **NOTE:** Questa sezione è stata recentemente aggiunta al corso ed è una bozza iniziale che potrebbe essere ancora in attesa di revisione. Attenzione lettore.
 
-You now understand the basics of your Lightning setup, and hopefully have either created or been given info on a second Lightning node. You're ready to create your first Lightning Network channel. Of course, you'll need to understand what is, and how it's created using c-lightning.
+Ora comprendi le basi della tua configurazione Lightning e, si spera, hai creato o ricevuto informazioni su un secondo nodo Lightning. Sei pronto per creare il tuo primo canale della rete Lightning. Ovviamente, dovrai capire cos'è e come viene creato utilizzando c-lightning.
 
-> :book: ***What is a Lighting Channel?*** Simply, a lightning channel is a money tube that allows fast, cheap and private transfers of money without sending transactions to the blockchain.  More technically a channel is a 2-of-2 multisignature on-chain Bitcoin transaction that establishes a trustless financial relationship between two people or two agents. A certain amount of money is deposited into the channel, when then mantains a local database with bitcoin balance for both parties, keeping track of how much money they each have from the initial amount. The two users can then exchange bitcoins through their Lightning channel without ever writing to the Bitcoin blockchain. Only when they want to close out their channel do they settle their bitcoins to the blockchain, based on the final division of coins.
+> :book: ***Cos'è un Canale Lightning?*** In poche parole, un canale lightning è un tubo di denaro che consente trasferimenti di denaro veloci, economici e privati senza inviare transazioni alla blockchain. Più tecnicamente, un canale è una transazione Bitcoin multisignatura 2-of-2 on-chain che stabilisce una relazione finanziaria senza fiducia tra due persone o due agenti. Una certa quantità di denaro viene depositata nel canale, che poi mantiene un database locale con il saldo bitcoin per entrambe le parti, tenendo traccia di quanto denaro ciascuno ha dall'importo iniziale. I due utenti possono quindi scambiarsi bitcoin attraverso il loro canale Lightning senza mai scrivere sulla blockchain di Bitcoin. Solo quando vogliono chiudere il loro canale regolano i loro bitcoin sulla blockchain, in base alla divisione finale delle monete.
 
-> :book: ***How do Lightning Channels Create a Lightning Network?*** Although a Lightning channel only allows payment between two users, channels can be connected together to form a network that allows payments between members that doesn't have a direct channel between them. This creates a network among multiple people built from pairwise connections.
+> :book: ***Come Creano i Canali Lightning una Rete Lightning?*** Anche se un canale Lightning consente il pagamento solo tra due utenti, i canali possono essere collegati insieme per formare una rete che consente pagamenti tra membri che non hanno un canale diretto tra loro. Questo crea una rete tra più persone costruita da connessioni a coppie.
 
-In this section, we will continue using our c-lightning setup as our primary node.
+In questa sezione, continueremo a utilizzare la nostra configurazione c-lightning come nodo principale.
 
-## Create a Channel
+## Creare un Canale
 
-Creating a Lightning channel requires the following steps:
+Creare un canale Lightning richiede i seguenti passaggi:
 
-* Fund your c-lightning wallet with some satoshis.
-* Connect to a remote node as a peer.
-* Open a channel.
+* Finanziare il tuo wallet c-lightning con alcuni satoshi.
+* Connettersi a un nodo remoto come peer.
+* Aprire un canale.
 
-### Fund Your c-lightning Wallet
+### Finanziare il Tuo Wallet c-lightning
 
-In order to move funds to a Lightning channel first requires funding your c-lightning wallet.
+Per spostare fondi su un canale Lightning è necessario prima finanziare il tuo wallet c-lightning.
 
-> :book: ***What is a c-lightning wallet?*** C-lightning's standard implementation comes with a integrated Bitcoin wallet that allows you send and receive on-chain bitcoin transactions. This wallet will be used to create new channels.
+> :book: ***Cos'è un wallet c-lightning?*** L'implementazione standard di c-lightning viene fornita con un wallet Bitcoin integrato che ti consente di inviare e ricevere transazioni bitcoin on-chain. Questo wallet verrà utilizzato per creare nuovi canali.
 
-The first thing you need to do is send some satoshis to your c-lightning wallet. You can create a new address using  `lightning-cli newaddr` command. This generates a new address that can subsequently be used to fund channels managed by the c-lightning node. You can specify the type of address wanted; if not specified, the address generated will be a bech32.
+La prima cosa che devi fare è inviare alcuni satoshi al tuo wallet c-lightning. Puoi creare un nuovo indirizzo usando il comando `lightning-cli newaddr`. Questo genera un nuovo indirizzo che può successivamente essere utilizzato per finanziare i canali gestiti dal nodo c-lightning. Puoi specificare il tipo di indirizzo desiderato; se non specificato, l'indirizzo generato sarà un bech32.
+
+
 
 ```
 $ lightning-cli --testnet newaddr
@@ -32,14 +34,17 @@ $ lightning-cli --testnet newaddr
    "address": "tb1qefule33u7ukfuzkmxpz02kwejl8j8dt5jpgtu6",
    "bech32": "tb1qefule33u7ukfuzkmxpz02kwejl8j8dt5jpgtu6"
 }
-```       
-You can then send funds to this address using `bitcoin-cli sendtoaddress` (or any other methodlogy you prefer). For this example, we have done so in the transaction [11094bb9ac29ce5af9f1e5a0e4aac2066ae132f25b72bff90fcddf64bf2feb02](https://blockstream.info/testnet/tx/11094bb9ac29ce5af9f1e5a0e4aac2066ae132f25b72bff90fcddf64bf2feb02).
+```
 
-This transaction is called the [funding transaction](https://github.com/lightningnetwork/lightning-rfc/blob/master/03-transactions.md#funding-transaction-output), and it needs to be confirmed before funds can be used.  
+Puoi quindi inviare fondi a questo indirizzo utilizzando `bitcoin-cli sendtoaddress` (o qualsiasi altra metodologia preferita). Per questo esempio, lo abbiamo fatto nella transazione [11094bb9ac29ce5af9f1e5a0e4aac2066ae132f25b72bff90fcddf64bf2feb02](https://blockstream.info/testnet/tx/11094bb9ac29ce5af9f1e5a0e4aac2066ae132f25b72bff90fcddf64bf2feb02).
 
-> :book: ***What is a Funding Transaction?*** A funding transaction is a Bitcoin transaction that places money into a Lightning channel. It may be single-funded (by one participant) or dual-funded (by both). From there on, Lightning transactions are all about reallocating the ownership of the funding transaction, but they only settle to the blockchain when the channel is closed.
+Questa transazione è chiamata [transazione di finanziamento](https://github.com/lightningnetwork/lightning-rfc/blob/master/03-transactions.md#funding-transaction-output), e deve essere confermata prima che i fondi possano essere utilizzati.  
 
-To check you local balance you should use `lightning-cli listfunds` command:
+> :book: ***Cos'è una Transazione di Finanziamento?*** Una transazione di finanziamento è una transazione Bitcoin che deposita denaro in un canale Lightning. Può essere finanziata singolarmente (da un partecipante) o congiuntamente (da entrambi). Da lì in poi, le transazioni Lightning riguardano tutte il riassegnare la proprietà della transazione di finanziamento, ma si regolano sulla blockchain solo quando il canale viene chiuso.
+
+Per controllare il tuo saldo locale dovresti usare il comando `lightning-cli listfunds`:
+
+
 
 ```       
 c$ lightning-cli --testnet listfunds
@@ -49,7 +54,9 @@ c$ lightning-cli --testnet listfunds
 }
 ```       
 
-Since the funds do not yet have six confirmations, there is no balance available. After six confirmations you should see a balance:
+
+Poiché i fondi non hanno ancora sei conferme, non c'è alcun saldo disponibile. Dopo sei conferme dovresti vedere un saldo:
+
 ```       
 c$ lightning-cli --testnet listfunds
 {
@@ -70,19 +77,21 @@ c$ lightning-cli --testnet listfunds
 }
 
 ```      
-Note that the value is listed in satoshis or microsatoshis, not Bitcoin! 
+Nota che il valore è elencato in satoshi o microsatoshi, non Bitcoin! 
 
-> :book: ***What are satoshis and msat?*** You already met satoshis way back in [§3.4](03_4_Receiving_a_Transaction.md). One satoshi is one hundred millionth of a bitcoin, so 300,000 satoshi = 0.003 BTC. A satoshi is the smallest unit of currency on the Bitcoin network. But, the Lightning network can go smaller, so 1,000 msat, or millisatoshis, equal one satoshi. That means that 1 msat is one hundred billionth of a bitcoin, and 300,000,000 msat = 0.003 BTC.
+> :book: ***Cosa sono i satoshi e gli msat?*** Hai già incontrato i satoshi molto tempo fa nel [Capitolo 3.4](03_4_Ricevere_una_Transazione.md). Un satoshi è un centomilionesimo di bitcoin, quindi 300.000 satoshi = 0,003 BTC. Un satoshi è la più piccola unità di valuta sulla rete Bitcoin. Ma, la rete Lightning può andare oltre, quindi 1.000 msat, o millisatoshi, equivalgono a un satoshi. Ciò significa che 1 msat è un centomiliardesimo di bitcoin, e 300.000.000 msat = 0,003 BTC.
 
-Now that you have funded your c-lightning wallet you will need information about a remote node to start creating channel process. 
+Ora che hai finanziato il tuo wallet c-lightning avrai bisogno di informazioni su un nodo remoto per iniziare il processo di creazione del canale. 
 
-### Connect to a Remote Node
+### Connettersi a un Nodo Remoto
 
-The next thing you need to do is connect your node to a peer. This is done with the `lightning-cli connect` command. Remember that if you want more information on this command, you should type `lightning-cli help connect`.
+La prossima cosa che devi fare è connettere il tuo nodo a un peer. Questo viene fatto con il comando `lightning-cli connect`. Ricorda che se vuoi maggiori informazioni su questo comando, dovresti digitare `lightning-cli help connect`.
 
-To connect your node to a remote peer you need its id, which represents the target node’s public key. As a convenience, `id` may be of the form `id@host` or `id@host:port`.  You may have retrieved this with `lightning-cli getinfo` (on c-lightning) or `lncli --network=testnet getinfo` (on LND) as discussed in the [previous interlude](19_2__Interlude_Accessing_a_Second_Lightning_Node.md). 
+Per connettere il tuo nodo a un peer remoto hai bisogno del suo id, che rappresenta la chiave pubblica del nodo di destinazione. Per comodità, `id` può essere della forma `id@host` o `id@host:port`. Potresti averlo recuperato con `lightning-cli getinfo` (su c-lightning) o `lncli --network=testnet getinfo` (su LND) come discusso nel [precedente interludio](19_2_Intermezzo_Accedere_ad_un_Secondo_Nodo_Lightning.md). 
 
-We've selected the LND node, `032a7572dc013b6382cde391d79f292ced27305aa4162ec3906279fc4334602543`, which is located at IP address `45.33.35.151`, which we're going to connect to from our c-lightning node:
+Abbiamo selezionato il nodo LND, `032a7572dc013b6382cde391d79f292ced27305aa4162ec3906279fc4334602543`, che si trova all'indirizzo IP `45.33.35.151`, a cui ci connetteremo dal nostro nodo c-lightning:
+
+
 
 ```       
 $ lightning-cli --network=testnet connect 032a7572dc013b6382cde391d79f292ced27305aa4162ec3906279fc4334602543@45.33.35.151
@@ -92,18 +101,21 @@ $ lightning-cli --network=testnet connect 032a7572dc013b6382cde391d79f292ced2730
 }
 ```     
 
-### Open a Channel
 
-The fundchannel RPC command opens a payment channel with a peer by committing a funding transaction to the blockchain.  You should use `lightning-cli fundchannel` command to do so, with the following parameters:
+### Aprire un Canale
 
-* **id** is the peer id return from connect.
-* **amount** is the amount in satoshis taken from the internal wallet to fund the channel.  The value cannot be less than the dust limit, currently set to 546, nor more than 16.777.215 satoshi (unless large channels were negotiated with the peer).
-* **feerate** is an optional feerate used for the opening transaction and as initial feerate for commitment and HTLC transactions. 
-* **announce** is an optional flag that triggers whether to announce this channel or not. It defaults to true. If you want to create an unannounced private channel set it to false.
-* **minconf** specifies the minimum number of confirmations that used outputs on the channel opening processe should have. Default is 1.
-* **utxos** specifies the utxos to be used to fund the channel, as an array of “txid:vout”.
+Il comando RPC fundchannel apre un canale di pagamento con un peer impegnando una transazione di finanziamento sulla blockchain. Dovresti usare il comando `lightning-cli fundchannel` per farlo, con i seguenti parametri:
 
-Now you can open the channel like this:
+* **id** è l'id del peer restituito dalla connessione.
+* **amount** è l'importo in satoshi preso dal wallet interno per finanziare il canale. Il valore non può essere inferiore al limite di polvere, attualmente impostato a 546, né superiore a 16.777.215 satoshi (a meno che i canali grandi non siano stati negoziati con il peer).
+* **feerate** è una tariffa facoltativa utilizzata per la transazione di apertura e come tariffa iniziale per le transazioni di impegno e HTLC. 
+* **announce** è un flag facoltativo che determina se annunciare o meno questo canale. Il valore predefinito è true. Se desideri creare un canale privato non annunciato, impostalo su false.
+* **minconf** specifica il numero minimo di conferme che devono avere gli output utilizzati nel processo di apertura del canale. Il valore predefinito è 1.
+* **utxos** specifica gli utxos da utilizzare per finanziare il canale, come array di “txid:vout”.
+
+Ora puoi aprire il canale in questo modo:
+
+
 
 ```
 $ lightning-cli --testnet fundchannel 032a7572dc013b6382cde391d79f292ced27305aa4162ec3906279fc4334602543 100000 urgent true 1
@@ -114,7 +126,8 @@ $ lightning-cli --testnet fundchannel 032a7572dc013b6382cde391d79f292ced27305aa4
    "outnum": 0
 }
 ```
-To confirm channel status use `lightning-cli listfunds` command:
+Per confermare lo stato del canale usa il comando `lightning-cli listfunds`:
+
 
 ```
 c$ lightning-cli --testnet listfunds
@@ -158,28 +171,31 @@ c$ lightning-cli --testnet listfunds
 }
 
 ```
-While this new channel with 100,000 satoshis is unconfirmed, its state will be `CHANNELD_AWAITING_LOCKIN`. Note that unconfirmed change of `99847` satoshis is also showing as a new transaction in the wallet. After all six confirmations are completed, the channel will change to `CHANNELD_NORMAL` state,  which will be its permanent state. At this time, a `short_channel_id` will also appear, such as:
+Mentre questo nuovo canale con 100.000 satoshi è non confermato, il suo stato sarà `CHANNELD_AWAITING_LOCKIN`. Nota che anche il cambio non confermato di `99847` satoshi appare come una nuova transazione nel wallet. Dopo che tutte le sei conferme sono completate, il canale cambierà allo stato `CHANNELD_NORMAL`, che sarà il suo stato permanente. A questo punto, apparirà anche un `short_channel_id`, come:
+
 ```
          "short_channel_id": "1862856x29x0",
 ```
-These values denote where the funding transaction can be found on the blockchain. It appears in the form `block x txid x vout`.
 
-In this case, `1862856x29x0` means:
+Questi valori indicano dove si trova la transazione di finanziamento sulla blockchain. Si presenta nella forma `block x txid x vout`.
 
-* Created on the 1862856th block;
-* with a `txid` of 29; and
-* an `vout` of 0.
+In questo caso, `1862856x29x0` significa:
 
-You may need to use this `short_channel_id` for certain commands in Lightning.
+* Creato nel blocco 1862856;
+* con un `txid` di 29; e
+* un `vout` di 0.
 
-This funding transaction can also be found onchain at [66694d23ca15efe379e5f4a71d9be1a2d65e383b89ee3abe126ee36a12f23c1d](https://blockstream.info/testnet/tx/66694d23ca15efe379e5f4a71d9be1a2d65e383b89ee3abe126ee36a12f23c1d)
+Potresti aver bisogno di utilizzare questo `short_channel_id` per determinati comandi in Lightning.
 
-> :book: ***What is Channel Capacity?*** In a Lightning Channel, both sides of the channel own a portion of its capacity. The amount on your side of the channel is called *local balance* and the amount on your peer’s side is called *remote balance*. Both balances can be updated many times without closing the channel (when the final balance is sent to the blockchain), but the channel capacity cannot change without closing or splicing it. The total capacity of a channel is the sum of the balance held by each participant in the channel.
+Questa transazione di finanziamento può anche essere trovata onchain su [66694d23ca15efe379e5f4a71d9be1a2d65e383b89ee3abe126ee36a12f23c1d](https://blockstream.info/testnet/tx/66694d23ca15efe379e5f4a71d9be1a2d65e383b89ee3abe126ee36a12f23c1d)
 
-## Summary: Setting up a channel
+> :book: ***Cos'è la Capacità del Canale?*** In un canale Lightning, entrambe le parti del canale possiedono una parte della sua capacità. L'importo sul tuo lato del canale è chiamato *saldo locale* e l'importo sul lato del tuo peer è chiamato *saldo remoto*. Entrambi i saldi possono essere aggiornati molte volte senza chiudere il canale (quando il saldo finale viene inviato alla blockchain), ma la capacità del canale non può cambiare senza chiuderlo o modificarlo. La capacità totale di un canale è la somma del saldo detenuto da ciascun partecipante nel canale.
 
-You need to create a channel with a remote node to be able to receive and send money over the Lightning Network.   
+## Sommario: Creazione di un Canale
 
-## What's Next?
+Devi creare un canale con un nodo remoto per poter ricevere e inviare denaro sulla rete Lightning.   
 
-You're ready to go! Move on to [Chapter 20: Using Lightning](20_0_Using_Lightning.md).
+## Cosa Succede Dopo?
+
+Sei pronto per partire! Continua col [Capitolo 20: Usare Lightning](20_0_Usare_Lightning.md).
+
