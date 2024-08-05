@@ -1,61 +1,60 @@
 # 20.4: Expanding the Lightning Network
 
-> :information_source: **NOTE:** This section has been recently added to the course and is an early draft that may still be awaiting review. Caveat reader.
+> :information_source: **NOTE:** Questa sezione è stata recentemente aggiunta al corso ed è una bozza iniziale che potrebbe essere ancora in attesa di revisione. Attenzione lettore.
 
-These two chapters have covered just a few of the most important activities with Lightning. There's lots more that can be done, and lots of variety possible. What follows are some pointers forward.
+Questi due capitoli hanno coperto solo alcune delle attività più importanti con Lightning. C'è molto altro che si può fare e molta varietà possibile. Di seguito sono riportati alcuni suggerimenti per andare avanti.
 
-## Use c-lightning Plugins
+## Usa i Plugin di c-lightning
 
-c-lightning is a lightweight, highly customizable, and standard compliant implementation of the Lightning Network protocol. It extends it functionality using Plugins.  Mainly, these are subprocesses that are initiated by the `lightningd` daemon and can interact with `lightningd` in a variety of ways:
+c-lightning è un'implementazione leggera, altamente personalizzabile e conforme agli standard del protocollo Lightning Network. Estende le sue funzionalità utilizzando i Plugin. Principalmente, questi sono sottoprocessi che vengono avviati dal demone `lightningd` e possono interagire con `lightningd` in vari modi:
 
-* Command line options allow plugins to register their own command line arguments, which are then exposed through `lightningd`.
-* JSON-RPC command passthrough allows plugins to add their own commands to the JSON-RPC interface.
-* Event stream subscriptions provide plugins with a push-based notification mechanism for `lightnind`.
-* Hooks are a primitive option that allows plugins to be notified about events in the `lightningd` daemon and modify its behavior or pass on custom behaviors.
+* Le opzioni della riga di comando consentono ai plugin di registrare i propri argomenti della riga di comando, che vengono quindi esposti tramite `lightningd`.
+* Il passaggio dei comandi JSON-RPC consente ai plugin di aggiungere i propri comandi all'interfaccia JSON-RPC.
+* Le sottoscrizioni allo stream di eventi forniscono ai plugin un meccanismo di notifica push per `lightnind`.
+* Gli hooks sono un'opzione primitiva che consente ai plugin di essere notificati sugli eventi nel demone `lightningd` e modificare il suo comportamento o trasmettere comportamenti personalizzati.
 
-A plugin may be written in any language and can communicate with `lightningd` through the plugin's stdin and stdout. JSON-RPCv2 is used as protocol on top of the two streams, with the plugin acting as server and `lightningd` acting as client. 
+Un plugin può essere scritto in qualsiasi linguaggio e può comunicare con `lightningd` attraverso stdin e stdout del plugin. JSON-RPCv2 è utilizzato come protocollo sopra i due stream, con il plugin che agisce come server e `lightningd` che agisce come client.
 
-The `lightningd` GitHub repo maintains a updated list of [plugins](https://github.com/lightningd/plugins) available.
+Il repository GitHub di `lightningd` mantiene un elenco aggiornato di [plugin](https://github.com/lightningd/plugins) disponibili.
 
-## Use Mobile Wallets
+## Usa Wallet Mobile
 
-We currently know of two mobile lightning wallets that support the c-lightning implementation.
+Attualmente conosciamo due wallet Lightning mobili che supportano l'implementazione di c-lightning.
 
-For iOS devices FullyNoded is an open-source iOS Bitcoin wallet that connects via Tor V3 authenticated service to your own full node. FullyNoded  functionality is currently under active development and in early beta testing phase.
+Per i dispositivi iOS FullyNoded è un wallet Bitcoin open-source per iOS che si connette tramite Tor V3 authenticated service al tuo nodo completo. La funzionalità di FullyNoded è attualmente in fase di sviluppo attivo e in fase di beta testing iniziale.
 
-*  [FullyNoded](https://github.com/Fonta1n3/FullyNoded/blob/master/Docs/Lightning.md)
+* [FullyNoded](https://github.com/Fonta1n3/FullyNoded/blob/master/Docs/Lightning.md)
 
-SparkWallet is a minimalistic wallet GUI for c-lightning, accessible over the web or through mobile and desktop apps for Android. 
+SparkWallet è un wallet GUI minimalista per c-lightning, accessibile via web o tramite app mobili e desktop per Android.
 
-*  [SparkWallet](https://github.com/shesek/spark-wallet)
+* [SparkWallet](https://github.com/shesek/spark-wallet)
 
-## Use Different Lightning Implementations
+## Usa Diverse Implementazioni di Lightning
 
-c-lightning isn't your only option. Today there are three widely used implementations of the Lightning Network. All of them follow the [Basis of Lightning Technology (BOLT) documents](https://github.com/lightningnetwork/lightning-rfc), which describe a layer-2 protocol for off-chain bitcoin transfers. The specifications are currently a work-in-progress that is still being drafted.
+c-lightning non è la tua unica opzione. Oggi ci sono tre implementazioni ampiamente utilizzate del Lightning Network. Tutte seguono i documenti [Basis of Lightning Technology (BOLT)](https://github.com/lightningnetwork/lightning-rfc), che descrivono un protocollo di livello 2 per i trasferimenti di bitcoin off-chain. Le specifiche sono attualmente in corso di stesura.
 
-| Name  | Description | BitcoinStandup | Language | Repository |
+| Nome | Descrizione | BitcoinStandup | Linguaggio | Repository |
 | ------------- | ------------- | :---: | ------------- | ------------- |
-| C-lighting  | Blockstream  | X | C | [Download](https://github.com/ElementsProject/lightning) |
-| LND  | Lightning Labs  | X | Go | [Download](https://github.com/lightningnetwork/lnd) |
-| Eclair  | ACINQ  | - | Scala | [Download](https://github.com/ACINQ/eclair) |
+| C-lightning | Blockstream | X | C | [Download](https://github.com/ElementsProject/lightning) |
+| LND | Lightning Labs | X | Go | [Download](https://github.com/lightningnetwork/lnd) |
+| Eclair | ACINQ | - | Scala | [Download](https://github.com/ACINQ/eclair) |
 
-## Maintain Backups
+## Mantieni Backup
 
-Your Lightning node needs to be online all the time, otherwise your counterparty could send a previous channel status and steal your funds.  However, there is another scenario in which funds can be lost, and that is when a hardware failure occurs that prevents the node from establishing a cooperative closure with the counterparty. This will probably mean that if you do not have an exact copy of the state of the channel before the failure, you will have an invalid state that could cause the other node to assume it as an attempted fraud and use the penalty transaction. In this case, all funds will be lost. To avoid this undesirable situation a solution based on the high availability of postgresQL database [exists](https://github.com/gabridome/docs/blob/master/c-lightning_with_postgresql_reliability.md).
+Il tuo nodo Lightning deve essere online tutto il tempo, altrimenti la tua controparte potrebbe inviare uno stato precedente del canale e rubare i tuoi fondi. Tuttavia, c'è un altro scenario in cui i fondi possono essere persi, ed è quando si verifica un guasto hardware che impedisce al nodo di stabilire una chiusura cooperativa con la controparte. Questo probabilmente significherà che se non hai una copia esatta dello stato del canale prima del guasto, avrai uno stato non valido che potrebbe portare l'altro nodo a considerarlo un tentativo di frode e utilizzare la transazione di penalità. In questo caso, tutti i fondi andranno persi. Per evitare questa situazione indesiderata, esiste una soluzione basata sull'alta disponibilità del database postgresQL [esiste](https://github.com/gabridome/docs/blob/master/c-lightning_with_postgresql_reliability.md).
 
-We haven't tested this solution.
+Non abbiamo testato questa soluzione.
 
-## Summary: Expanding the Lightning Network
+## Sommario: Espandere il Lightning Network
 
-You can use different implementations, plugins, mobile wallets, or backups to expand your Lightning experience. 
+Puoi utilizzare diverse implementazioni, plugin, wallet mobili o backup per espandere la tua esperienza con Lightning.
 
-## What's Next?
+## Cosa Succede Dopo?
 
-You've completed Learning Bitcoin from the Command Line, though if you never visited the [Appendices](A0_Appendices.md) of alternate setups, you can do so now.
+Hai completato Learning Bitcoin from the Command Line, anche se se non hai mai visitato gli [Appendici](A0_Appendices.md) di configurazioni alternative, puoi farlo ora.
 
-Otherwise, we encourage you to join developer communities, to program, and to put your new knowledge to work.
+Altrimenti, ti incoraggiamo a unirti alle comunità di sviluppatori, a programmare e a mettere in pratica le tue nuove conoscenze.
 
-You can also help us here at Blockchain Commons with Issues or PRs for Learning Bitcoin or for any of our other repos, or you can even become a [Sponsor](https://github.com/sponsors/BlockchainCommons). You can also help out by spreading the word: let people on social media know about the course and what you learned from it!
+Puoi anche aiutarci qui a Blockchain Commons con Issues o PR per Learning Bitcoin o per uno qualsiasi dei nostri altri repository, o puoi persino diventare un [Sponsor](https://github.com/sponsors/BlockchainCommons). Puoi anche aiutare spargendo la voce: fai sapere alle persone sui social media del corso e di cosa hai imparato!
 
-Now get out there and make the Blockchain community a better place!
-
+Ora vai là fuori e rendi la comunità Blockchain un posto migliore!
