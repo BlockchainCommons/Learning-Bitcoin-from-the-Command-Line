@@ -1,25 +1,25 @@
 # Chapter 20: Using Lightning
 
-> :information_source: **NOTE:** This is a draft in progress, so that I can get some feedback from early reviewers. It is not yet ready for learning.
+> :information_source: **NOTE:** Questo è una bozza in corso, per ottenere feedback dai primi revisori. Non è ancora pronto per l'apprendimento.
 
-In this chapter you'll continue work with the `lightning-cli` command-line interface. You'll create invoices, perform payments, and close channels — all of the major activities for using Lightning.
+In questo capitolo continuerai a lavorare con l'interfaccia a riga di comando `lightning-cli`. Creerai fatture, eseguirai pagamenti e chiuderai canali, tutte le principali attività per l'utilizzo di Lightning.
 
-## Objectives for This Chapter
+## Obiettivi per Questo Capitolo
 
-After working through this chapter, a developer will be able to:
+Dopo aver lavorato attraverso questo capitolo, uno sviluppatore sarà in grado di:
 
-   * Perform payments on the Lightning Network.
-   * Apply closure to a Lightning channel.
+   * Eseguire pagamenti sulla rete Lightning.
+   * Applicare la chiusura a un canale Lightning.
    
-Supporting objectives include the ability to:
+Gli obiettivi di supporto includono la capacità di:
 
-   * Understand the format of invoices.
-   * Understand the life cycle of Lightning Network payments.
-   * Know how to expand the Lightning Network.
+   * Comprendere il formato delle fatture.
+   * Comprendere il ciclo di vita dei pagamenti della rete Lightning.
+   * Sapere come espandere la rete Lightning.
    
-## Table of Contents
+## Sommario
 
-* [Section One: Generating a Payment Request](20_1_Generate_a_Payment_Request.md)
-* [Section Two: Paying an Invoice](20_2_Paying_a_Invoice.md)
-* [Section Three: Closing a Lightning Channel](20_3_Closing_a_Channel.md)
-* [Section Four: Expanding the Lightning Network](20_4_Lightning_Network_Review.md)
+   * [Capitolo 20.1: Generare una Richiesta di Pagamento](20_1_Generare_una_Richiesta_di_Pagamento.md)
+   * [Capitolo 20.2: Pagare una Fattura](20_2_Pagare_una_Fattura.md)
+   * [Capitolo 20.3: Chiudere un Canale Lightning](20_3_Chiudere_un_Canale_Lightning.md)
+   * [Capitolo 20.4: Espandere la Rete Lightning](20_4_Espandere_la_Rete_Lightning.md)
