@@ -1,12 +1,14 @@
-# 20.2: Paying an Invoice
+# 20.2: Pagare una Fattura
 
-> :information_source: **NOTE:** This section has been recently added to the course and is an early draft that may still be awaiting review. Caveat reader.
+> :information_source: **NOTE:** Questa sezione è stata recentemente aggiunta al corso ed è una bozza iniziale che potrebbe essere ancora in attesa di revisione. Attenzione lettore.
 
-In this chapter you will learn how to pay an invoice using `lightning-cli pay` command. It assumes that you've already looked over the invoice, per [§20.1](20_1_Generate_a_Payment_Request.md) and determined it was valid.
+In questo capitolo imparerai come pagare una fattura utilizzando il comando `lightning-cli pay`. Si presume che tu abbia già esaminato la fattura, come descritto nel [Capitolo 20.1](20_1_Generare_una_Richiesta_di_Pagamento.md) e determinato che fosse valida.
 
-## Check your Balance
+## Controlla il tuo Saldo
 
-Obviously, the first thing you need to do is make sure that you have enough funds to pay an invoice. In this case, the channel set up previously with `032a7572dc013b6382cde391d79f292ced27305aa4162ec3906279fc4334602543` contains 100,000 satoshis. This will be the channel used to pay the invoice.
+Ovviamente, la prima cosa che devi fare è assicurarti di avere abbastanza fondi per pagare una fattura. In questo caso, il canale configurato in precedenza con `032a7572dc013b6382cde391d79f292ced27305aa4162ec3906279fc4334602543` contiene 100.000 satoshi. Questo sarà il canale utilizzato per pagare la fattura.
+
+
 
 ```
 c$ lightning-cli --testnet listfunds
@@ -40,11 +42,16 @@ c$ lightning-cli --testnet listfunds
    ]
 }
 ```
-If you didn't have enough funds, you'd need to create a new channel.
 
-## Pay Your Invoice
 
-You use `lightning-cli pay` command to pay an invoice. It will attempt to find a route to the given destination and send the funds requested. Here that's very simple because there's a direct channel between the payer and the recipient:
+Se non avessi abbastanza fondi, dovresti creare un nuovo canale.
+
+## Paga la tua Fattura
+
+Usi il comando `lightning-cli pay` per pagare una fattura. Tenterà di trovare un percorso verso la destinazione indicata e inviare i fondi richiesti. Qui è molto semplice perché c'è un canale diretto tra il pagatore e il destinatario:
+
+
+
 ```
 c$ lightning-cli --testnet pay lntb100u1p0cwnqtpp5djkdahy4hz0wc909y39ap9tm3rq2kk9320hw2jtntwv4x39uz6asdr5ge5hyum5ypxyugzsv9uk6etwwssz6gzvv4shymnfdenjqsnfw33k76twypskuepqf35kw6r5de5kueeqveex7mfqw35x2gzrdakk6ctwvssxc6twv5hqcqzpgsp5a9ryqw7t23myn9psd36ra5alzvp6lzhxua58609teslwqmdljpxs9qy9qsq9ee7h500jazef6c306psr0ncru469zgyr2m2h32c6ser28vrvh5j4q23c073xsvmjwgv9wtk2q7j6pj09fn53v2vkrdkgsjv7njh9aqqtjn3vd
 {
@@ -60,13 +67,18 @@ c$ lightning-cli --testnet pay lntb100u1p0cwnqtpp5djkdahy4hz0wc909y39ap9tm3rq2kk
    "status": "complete"
 }
 ```
-Note that here all the amounts are in `msats`, not `sats`!
 
-### Pay Your Invoice Across the Network
 
-However, you do _not_ need to have a channel with a node in order to pay them. There just needs to be a reasonable route across the Lightning Network.
+Nota che qui tutti gli importi sono in `msat`, non `sat`!
 
-Imagine that you received this teeny payment request for 11,111 msat:
+### Paga la tua Fattura Attraverso la Rete
+
+Tuttavia, _non_ è necessario avere un canale con un nodo per pagarlo. Deve solo esserci un percorso ragionevole attraverso la rete Lightning.
+
+Immagina di aver ricevuto questa piccola richiesta di pagamento per 11.111 msat:
+
+
+
 ```
 c$ lightning-cli --testnet decodepay lntb111110p1p0cw43ppp5u0ngjytlw6ywec3x784jale4xd7h058g9u4mthcaf9rl2f7g8zxsdp2t9hh2gr0wajjqmt9ypnx7u3qv35kumn9wgs8gmm0yyxqyjw5qcqp2sp5kj4xhrthmfgcgyl84zaqpl9vvdjwm5x368kr09fu5nym74setw4s9qy9qsq8hxjr73ee77vat0ay603e4w9aa8ag9sa2n55xznk5lsfrjffxxdj2k0wznvcfa98l4a57s80j7dhg0cc03vwqdwehkujlzxgm0xyynqqslwhvl
 {
@@ -84,7 +96,11 @@ c$ lightning-cli --testnet decodepay lntb111110p1p0cw43ppp5u0ngjytlw6ywec3x784ja
    "signature": "304402203dcd21fa39cfbcceadfd269f1cd5c5ef4fd4161d54e9430a76a7e091c929319b02202559ee14d984f4a7fd7b4f40ef979b743f187c58e035d9bdb92f88c8dbcc424c"
 }
 ```
-If you tried to pay it, and you didn't have a route to the recipient through the Lightning Network, you could expect an error like this:
+
+
+Se provassi a pagarlo e non avessi un percorso verso il destinatario attraverso la rete Lightning, potresti aspettarti un errore come questo:
+
+
 ```
 c$ lightning-cli --testnet pay lntb111110p1p0cw43ppp5u0ngjytlw6ywec3x784jale4xd7h058g9u4mthcaf9rl2f7g8zxsdp2t9hh2gr0wajjqmt9ypnx7u3qv35kumn9wgs8gmm0yyxqyjw5qcqp2sp5kj4xhrthmfgcgyl84zaqpl9vvdjwm5x368kr09fu5nym74setw4s9qy9qsq8hxjr73ee77vat0ay603e4w9aa8ag9sa2n55xznk5lsfrjffxxdj2k0wznvcfa98l4a57s80j7dhg0cc03vwqdwehkujlzxgm0xyynqqslwhvl
 {
@@ -99,9 +115,14 @@ c$ lightning-cli --testnet pay lntb111110p1p0cw43ppp5u0ngjytlw6ywec3x784jale4xd7
       },
 ...
 ```
-But what if a host that you had a channel with opened a channel with the intended recipient?
 
-In that case, when you go to pay the invoice, it will _automatically work_!
+
+Ma cosa succederebbe se un host con cui avevi un canale aprisse un canale con il destinatario previsto?
+
+In tal caso, quando vai a pagare la fattura, funzionerà automaticamente!
+
+
+
 ```
 c$ lightning-cli --testnet pay lntb111110p1p0cw43ppp5u0ngjytlw6ywec3x784jale4xd7h058g9u4mthcaf9rl2f7g8zxsdp2t9hh2gr0wajjqmt9ypnx7u3qv35kumn9wgs8gmm0yyxqyjw5qcqp2sp5kj4xhrthmfgcgyl84zaqpl9vvdjwm5x368kr09fu5nym74setw4s9qy9qsq8hxjr73ee77vat0ay603e4w9aa8ag9sa2n55xznk5lsfrjffxxdj2k0wznvcfa98l4a57s80j7dhg0cc03vwqdwehkujlzxgm0xyynqqslwhvl
 {
@@ -117,17 +138,19 @@ c$ lightning-cli --testnet pay lntb111110p1p0cw43ppp5u0ngjytlw6ywec3x784jale4xd7
    "status": "complete"
 }
 ```
-That's the true beauty of the Lightning Network there: with no effort from the peer-to-peer participants, their individual channels become a network!
+Questa è la vera bellezza della rete Lightning: senza alcuno sforzo da parte dei partecipanti peer-to-peer, i loro singoli canali diventano una rete!
 
-> :book: ***How Do Payments Work Across the Network?*** Say that node A has a channel open with node B, node B has a channel open with node C, and node A receives an invoice from node C for 11,111 msat. Node A pays node B the 11,111 msat, plus a small fee, and then node B pays the 11,111 msat to node C. Easy enough. Except remember that all channels actually are just records of who owns how much of the Funding Transaction. So what really happens is 11,111 msat of the Funding Transaction on channel A-B shifts from A to B, and then 11,111 msat of the Funding Transaction on channel B-C shifts from B to C. This means that two things are required for this payment to work: first, each channel must have sufficient capacity for the payment; and second, the payer on each channel must own enough of the capacity to make the payment.  
+> :book: ***Come Funzionano i Pagamenti sulla Rete?*** Supponiamo che il nodo A abbia un canale aperto con il nodo B, il nodo B abbia un canale aperto con il nodo C e il nodo A riceva una fattura dal nodo C per 11.111 msat. Il nodo A paga al nodo B i 11.111 msat, più una piccola commissione, e poi il nodo B paga i 11.111 msat al nodo C. Abbastanza facile. Tranne ricordare che tutti i canali sono in realtà solo record di chi possiede quanto della transazione di finanziamento. Quindi, ciò che realmente accade è che 11.111 msat della transazione di finanziamento sul canale A-B passa da A a B, e poi 11.111 msat della transazione di finanziamento sul canale B-C passa da B a C. Ciò significa che sono richieste due cose affinché questo pagamento funzioni: in primo luogo, ogni canale deve avere una capacità sufficiente per il pagamento; e in secondo luogo, il pagatore su ogni canale deve possedere abbastanza capacità per effettuare il pagamento.
 
-Note that in this example, 12,111 msat were sent to pay an invoice of 11,111 msat: the extra being a very small, flat fee (not a percentage) that was paid to the intermediary.
+Nota che in questo esempio sono stati inviati 12.111 msat per pagare una fattura di 11.111 msat: l'extra è una piccola commissione, molto ridotta, (non una percentuale) che è stata pagata all'intermediario.
 
-## Check your Balance
+## Controlla il tuo Saldo
 
-Having successfully made a payment, you should see that your funds have changed accordingly.
+Dopo aver effettuato un pagamento, dovresti vedere che i tuoi fondi sono cambiati di conseguenza.
 
-Here's what funds looked like for the paying node following the initial payment of 10,000 satoshis:
+Ecco come apparivano i fondi per il nodo pagatore dopo il pagamento iniziale di 10.000 satoshi:
+
+
 ```
 c$ lightning-cli --testnet listfunds
 {
@@ -160,9 +183,11 @@ c$ lightning-cli --testnet listfunds
    ]
 }
 ```
-Note that the channel capacity remains at 100,000 satoshis (it never changes!), but that `our_amount` is now just 90,000 satoshis (or 90,000,000 msat).
 
-After paying the second invoice, for 11,111 msat, the funds change again accordingly:
+Nota che la capacità del canale rimane a 100.000 satoshi (non cambia mai!), ma che `our_amount` è ora solo 90.000 satoshi (o 90.000.000 msat).
+
+Dopo aver pagato la seconda fattura, per 11.111 msat, i fondi cambiano di conseguenza:
+
 ```
 $ lightning-cli --testnet listfunds
 {
@@ -195,12 +220,15 @@ $ lightning-cli --testnet listfunds
    ]
 }
 ```
-`our_amount` is now just 89,987 satoshis, having paid 11,111 msat plus a 1,000 msat fee.
 
-## Summary: Paying a Invoice
 
-Once you've got an invoice, it's easy enough to pay with a single command in Lightning. Even if you don't have a channel to a recipient, payment is that simple, provided that there's a route between you and the destination node.
+`our_amount` è ora solo 89.987 satoshi, avendo pagato 11.111 msat più una commissione di 1.000 msat.
 
-## What's Next?
+## Sommario: Pagare una Fattura
 
-Continue "Using Lighting" with [§20.3: Closing a Channel](20_3_Closing_a_Channel.md).
+Una volta che hai una fattura, è abbastanza facile pagarla con un solo comando in Lightning. Anche se non hai un canale con un destinatario, il pagamento è così semplice, a condizione che ci sia un percorso tra te e il nodo di destinazione.
+
+## Cosa Succede Dopo?
+
+Continua a "Usare Lighting" col [Capitolo 20.3: Chiudere un Canale Lightning](20_3_Chiudere_un_Canale_Lightning.md).
+
