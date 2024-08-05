@@ -26,6 +26,7 @@ Se desideri effettuare la tua traduzione, guarda qui [Contribuire](CONTRIBUIRE.m
 
 * [01_0: Introduzione alla programmazione con Bitcoin Core e Lightning](01_0_Introduzione.md)
   * [01_1 Introduzione a Bitcoin](01_1_Introduzione_a_Bitcoin.md)
+
 * [02_0 Configurare Bitcoin-Core VPS](02_0_Configurare_Bitcoin-Core_VPS.md)
   * [02_1 Configurare Bitcoin-Core_VPS in un colpo con StackScript](02_1_Configurare_Bitcoin-Core_VPS_con_StackScript.md)
   * [02_2 Configurare Bitcoin Core con Altri Mezzi](02_2_Configurare_Bitcoin_Core_Altri_Mezzi.md)
@@ -41,6 +42,7 @@ Se desideri effettuare la tua traduzione, guarda qui [Contribuire](CONTRIBUIRE.m
     * [03_3 Intermezzo Utilizzare Variabili nella Linea di Comando ](03_3_Intermezzo_Utilizzare_Variabili_nella_Linea_di_Comando.md)
   * [03_4 Ricevere una Transazione](03_4_Ricevere_una_Transazione.md)
   * [03_5 Comprendere il Descriptor](003_5_Comprendere_il_Descriptor.md)
+
 * [04_0 Inviare Transazioni Bitcoin](04_0_Inviare_Transazioni_Bitcoin.md)
   * [04_1 Inviare Monete Modo Semplice](04_1_Inviare_Monete_Modo_Semplice.md)
   * [04_2 Creare una Transazione Grezza](04_2_Creare_una_Transazione_Grezza.md)
@@ -50,18 +52,22 @@ Se desideri effettuare la tua traduzione, guarda qui [Contribuire](CONTRIBUIRE.m
   * [04_4 Intermezzo_Usare Curl](04_4_Intermezzo_Usare_Curl.md)
   * [04_5 Inviare Monete con Transazione Grezza Automatizzata](04_5_Inviare_Monete_con_Transazione_Grezza_Automatizzata.md)
   * [04_6 Creare una Transazione Segwit](04_6_Creare_una_Transazione_Segwit.md)
+
 * [05_0 Controllare Transazioni Bitcoin](05_0_Controllare_Transazioni_Bitcoin.md)
   * [05_1 Guardare le Transazioni Ferme](05_1_Guardare_le_Transazioni_Ferme.md)
   * [05_2 Rinviare le Transazioni con RBF](05_2_Rinviare_le_Transazioni_con_RBF.md)
   * [05_3 Pagare una Transaccion con CPFP](05_3_Pagare_una_Transaccion_con_CPFP.md)
+
 * [06_0 Ampliare le Transazioni Bitcoin con Multifirme](06_0_Ampliare_le_Transazioni_Bitcoin_con_Multifirme.md)
   * [06_1 Inviare una Transazione a un Indirizzo Multifirma](06_1_Inviare_una_Transazione_a_un_Indirizzo_Multifirma.md)
   * [06_2 Spendere una Transazione con un Indirizzo Multifirma](06_2_Spendere_una_Transazione_con_un_Indirizzo_Multifirma.md)
   * [06_3 Inviare e Ricevere una Multifirma Automatizzata](06_3_Inviare_e_Ricevere_una_Multifirma_Automatizzata.md)
+
 * [07_0 Ampliare le Transazioni Bitcoin con PSBTs](07_0_Ampliare_le_Transazioni_Bitcoin_con_PSBTs.md)
   * [07_1 Creare una Transazione Bitcoin Parzialmente Firmata](07_1_Creare_una_Transazione_Bitcoin_Parzialmente_Firmata.md)
   * [07_2 Usare una Transazione Bitcoin Parzialmente Firmata](07_2_Usare_una_Transazione_Bitcoin_Parzialmente_Firmata.md)
   * [07_3 Integrazione con Hardware Wallets](07_3_Integrazione_con_Hardware_Wallets.md)
+
 * [08_0 Ampliare Altre Transazioni Bitcoin](08_0_Ampliare_Altre_Transazioni_Bitcoin.md)
   * [08_1 Inviare una Transazione con Blocco temporale](08_1_Inviare_una_Transazione_con_Blocco_temporale.md)
   * [08_2 Inviare una Transazione con Dati](08_2_Inviare_una_Transazione_con_Dati.md)
@@ -76,6 +82,7 @@ Se desideri effettuare la tua traduzione, guarda qui [Contribuire](CONTRIBUIRE.m
   * [09_3 Provare uno Script Bitcoin](09_3_Provare_uno_Script_Bitcoin.md)
   * [09_4 Programmare una P2PKH](09_4_Programmare_una_P2PKH.md)
   * [09_5 Programmare una P2WPKH](09_5_Programmare_una_P2WPKH.md)
+
 * [10_0 Inserire Scripts di Bitcoin in Transazioni P2SH](10_0_Inserire_Scripts_di_Bitcoin_in_Transazioni_P2SH.md)
   * [10_1 Comprendere la Base di P2SH](10_1_Comprendere_la_Base_di_P2SH.md)
   * [10_2 Construire la Struttura di P2SH](10_2_Construire_la_Struttura_di_P2SH.md)
@@ -83,13 +90,16 @@ Se desideri effettuare la tua traduzione, guarda qui [Contribuire](CONTRIBUIRE.m
   * [10_4 Programmare una Multifirma](10_4_Programmare_una_Multifirma.md)
   * [10_5 Programmare uno Script Segwit](10_5_Programmare_uno_Script_Segwit.md)
   * [10_6 Spendere una Transazione P2SH](10_6_Spendere_una_Transazione_P2SH.md)
+
 * [11_0 Potenziare Blocchi Temporali con Scripts di Bitcoin](11_0_Potenziare_Blocchi_Temporali_con_Scripts_di_Bitcoin.md)
   * [11_1 Comprendere le Opzioni dei BlocchiTemporali](11_1_Comprendere_le_Opzioni_dei_Blocchi_Temporali.md)
   * [11_2 Usare CLTV negli Scripts](11_2_Usare_CLTV_negli_Scripts.md)
   * [11_3 Usare CSV negli Scripts](11_3_Usare_CSV_negli_Scripts.md])
+
 * [12_0 Ampliando Scripts di Bitcoin](12_0_Ampliando_Scripts_di_Bitcoin.md)
   * [12_1 Usare Script Condizionati](12_1_Usare_Script_Condizionati.md)
   * [12_2 Usare Altri Comandi di Scripting](12_2_Usare_Altri_Comandi_di_Scripting.md)
+
 * [13_0 Progettare Scripts di Bitcoin reali](13_0_Progettare_Scripts_di_Bitcoin_reali.md)
   * [Capitolo 13.1 Scrivere Scripts Puzzle](13_1_Scrivere_Scripts_Puzzle.md)
   * [Capitolo 13.2 Scrivere Scripts Multifirma Complessi](13_2_Scrivere_Scripts_Multifirma_Complessi.md) 
@@ -115,7 +125,6 @@ Se desideri effettuare la tua traduzione, guarda qui [Contribuire](CONTRIBUIRE.m
   * [16_2 Programare Bitcoind in C con Librerie RPC](16_2_Programare_Bitcoind_in_C_con_Librerie_RPC.md)
   * [13_3 Ricevere Notifiche di Bitcoind in C tramite Librerie ZMQ](16_3_Ricevere_Notifiche_di_Bitcoind_in_C_tramite_Librerie_ZMQ.md)
   
-
 * [17_0 Programmare Bitcoin con Libwally](17_0_Programmare_Bitcoin_con_Libwally.md)
   * [17_1 Configurare Libwally](17_1_Configurare_Libwally.md)
   * [17_2 Usare BIP39 in Libwally](17_2_Usare_BIP39_in_Libwally.md)
@@ -135,21 +144,23 @@ Se desideri effettuare la tua traduzione, guarda qui [Contribuire](CONTRIBUIRE.m
 
 ### SESTA PARTE: USARE LIGHTNING-CLI
 
-**Status:** Da Fare...
+**Status:** Prima traduzione, da revisionare...
+
 * [19_0_Comprendere_La_Configurazione_Lightning.md](19_0_Comprendere_La_Configurazione_Lightning.md)
   * [19_1: Verificare la Configurazione Lightning](19_1_Verificare_la_Configurazione_Lightning.md)
   * [19_2 Comprendere la Configurazione Lightning](19_2_Comprendere_la_Configurazione_Lightning.md)
     * [19_2 Intermezzo_Accedere_ad_un_Secondo_Nodo_Lightning](19_2_Intermezzo_Accedere_ad_un_Secondo_Nodo_Lightning.md)
   * [19_3 Creare un Canale in Lightning](19_3_Creare_un_Canale_in_Lightning.md)
-* 20_0_Usare_Lightning.md
-  * 20_1_Generare_una_Richiesta_di_Pagamento.md
-  * 20_2_Pagare_una_Fattura.md
-  * 20_3_Chiudere_un_Canale_Lightning.md
-  * 20_4_Espandere_la_Rete_Lightning.md
+    
+* [20_0 Usare Lightning](20_0_Usare_Lightning.md)
+  * [20_1 Generare una Richiesta di Pagamento](20_1_Generare_una_Richiesta_di_Pagamento.md)
+  * [20_2 Pagare una Fattura](20_2_Pagare_una_Fattura.md)
+  * [20_3 Chiudere un Canale Lightning](20_3_Chiudere_un_Canale_Lightning.md)
+  * [20_4 Espandere la Rete Lightning](20_4_Espandere_la_Rete_Lightning.md)
 
 ### APENDICE
 
-**Status:** Da fare...
+**Status:** Prima traduzione, da revisionare...
 
 * [Appendici](A0_Appendici.md)
   * [A1_0 Comprendere Bitcoin Standup](A1_0_Comprendere_Bitcoin_Standup.md)
