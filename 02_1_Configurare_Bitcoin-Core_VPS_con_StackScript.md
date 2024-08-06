@@ -4,7 +4,7 @@ Questo documento spiega come configurare un VPS (Virtual Private Sever) per avvi
 
 > :warning: **Pericolo:** Non utilizzare un VPS per un portafoglio bitcoin con fondi reali significativi; Vedere [Perdere facilmente Bitcoin](http://blog.thestateofme.com/2012/03/03/lessons-to-be-learned-from-the-linode-bitcoin-incident/ ). È molto bello poter sperimentare con transazioni bitcoin reali su un nodo live senza vincolare un server proprio su una rete locale. È anche utile essere in grado di utilizzare un iPhone o un iPad per comunicare tramite SSH con il tuo VPS per svolgere alcune semplici attività bitcoin. Ma è necessario un livello di sicurezza più elevato per fondi significativi.
 
-* Se vuoi capire l'utilità di questo setup, leggi [Appendice I: Comprendere Bitcoin Standup.md](A1_0_Comprendere_Bitcoin_Standup.md) mentre procedi con l'installazione.
+* Se vuoi capire l'utilità di questo setup, leggi [Appendice 1: Comprendere Bitcoin Standup.md](A1_0_Comprendere_Bitcoin_Standup.md) mentre procedi con l'installazione.
 * Se invece vuole eseguire la configurazione su una macchina diversa da un VPS Linode, come una macchina AWS o un Mac, vai a [Capitolo 2.2: Configurare Bitcoin-Core con altri mezzi](02_2_Configurare_Bitcoin_Core_Altri_Mezzi.md)
 * Se hai già un nodo Bitcoin funzionando, vai a [Capitolo 3: Capire le configurazioni di Bitcoin](03_0_Comprendere_la_Configurazione_di_Bitcoin.md).
   
@@ -272,7 +272,7 @@ Creare un VPS Bitcoin-Core con gli script Standup ha reso l'intero processo rapi
 Hai alcune opzioni per cosa c'è dopo:
 
 * Leggi [StackScript](https://github.com/BlockchainCommons/Bitcoin-Standup-Scripts/blob/master/Scripts/LinodeStandUp.sh) per comprendere la tua configurazione.
-* Leggi cosa fa StackScript in [Appendice I](A1_0_Comprendere_Bitcoin_Standup.md).
+* Leggi cosa fa StackScript in [Appendice 1](A1_0_Comprendere_Bitcoin_Standup.md).
 * Scegli una metodologia completamente alternativa in [Capitolo 2.2: Configurare Bitcoin Core Altri Mezzi](02_2_Configurare_Bitcoin_Core_Altri_Mezzi.md). * Passa a "bitcoin-cli" con [Capitolo 3: Comprendere le Configurazioni di Bitcoin](03_0_Comprendere_la_Configurazione_di_Bitcoin.md).
 
 ## Sinossi: Tipi di installazione di Bitcoin
