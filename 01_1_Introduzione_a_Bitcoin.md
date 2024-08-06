@@ -145,4 +145,4 @@ Bitcoin è un sistema peer-to-peer che consente il trasferimento di fondi attrav
 
 ## Cosa viene dopo?
 
-Prosegui nella "Preparatevi per Bitcoin" con il [Capitolo due: Configurare Bitcoin Core VPS](02_0_Configurare_Bitcoin-Core_VPS.md).
+Prosegui nella "Preparatevi per Bitcoin" col [Capitolo 2: Configurare Bitcoin Core VPS](02_0_Configurare_Bitcoin-Core_VPS.md).
