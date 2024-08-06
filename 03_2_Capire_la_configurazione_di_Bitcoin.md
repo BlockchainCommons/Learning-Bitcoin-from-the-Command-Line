@@ -11,7 +11,7 @@ La directory principale contiene solo il file di configurazione e la directory d
 $ ls ~/.bitcoin
 bitcoin.conf testnet3
 ```
-Le guide di configurazione nel [Capitolo 2: Configurare Bitcoin-Core VPS](02_0_Configurare_Bitcoin-Core_VPS.md) presentano un file di configurazione standardizzato. [Capitolo 3.1: 03_1 Verificare la configurazione Bitcoin](03_1_Verificare_la_configurazione_Bitcoin.md) ha suggerito come modificarlo per supportare configurazioni più avanzate. Se sei interessato a saperne di più sul file di configurazione, potresti consultare [Bitcoin Core Config Generator di Jameson Lopp](https://jlopp.github.io/bitcoin-core-config-generator/).
+Le guide di configurazione nel [Capitolo 2: Configurare Bitcoin-Core VPS](02_0_Configurare_Bitcoin-Core_VPS.md) presentano un file di configurazione standardizzato. [Capitolo 3.1: Verificare la configurazione Bitcoin](03_1_Verificare_la_configurazione_Bitcoin.md) ha suggerito come modificarlo per supportare configurazioni più avanzate. Se sei interessato a saperne di più sul file di configurazione, potresti consultare [Bitcoin Core Config Generator di Jameson Lopp](https://jlopp.github.io/bitcoin-core-config-generator/).
 
 Tornando alla directory ~/.bitcoin, scoprirai che la directory testnet3 contiene tutto il resto:
 ```
@@ -313,4 +313,4 @@ La directory `~/.bitcoin` contiene tutti i tuoi file, mentre `bitcoin-cli help` 
 
 ## Ora cosa facciamo?
 
-Continua "Comprendere la configurazione di Bitcoin" con [Capitolo 3.3:Configurare la Wallet](03_3_Configurare_la_Wallet.md).
+Continua "Comprendere la configurazione di Bitcoin" col [Capitolo 3.3: Configurare la Wallet](03_3_Configurare_la_Wallet.md).
