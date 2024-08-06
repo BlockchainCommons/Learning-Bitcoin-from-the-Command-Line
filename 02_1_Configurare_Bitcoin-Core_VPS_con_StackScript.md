@@ -6,7 +6,8 @@ Questo documento spiega come configurare un VPS (Virtual Private Sever) per avvi
 
 * Se vuoi capire l'utilità di questo setup, leggi [Appendice I: Comprendere Bitcoin Standup.md](A1_0_Comprendere_Bitcoin_Standup.md) mentre procedi con l'installazione.
 * Se invece vuole eseguire la configurazione su una macchina diversa da un VPS Linode, come una macchina AWS o un Mac, vai a [Capitolo 2.2: Configurare Bitcoin-Core con altri mezzi](02_2_Configurare_Bitcoin_Core_Altri_Mezzi.md)
-* Se hai già un nodo Bitcoin funzionando, vai a [Capitolo 3: Capire le configurazioni di Bitcoin](03_0_Comprendere_le_Configurazioni_di_Bitcoin.md).
+* Se hai già un nodo Bitcoin funzionando, vai a [Capitolo 3: Capire le configurazioni di Bitcoin](03_0_Comprendere_la_Configurazione_di_Bitcoin.md).
+  
 
 ## Iniziare con Linode
 
@@ -272,7 +273,7 @@ Hai alcune opzioni per cosa c'è dopo:
 
 * Leggi [StackScript](https://github.com/BlockchainCommons/Bitcoin-Standup-Scripts/blob/master/Scripts/LinodeStandUp.sh) per comprendere la tua configurazione.
 * Leggi cosa fa StackScript in [Appendice I](A1_0_Comprendere_Bitcoin_Standup.md).
-* Scegli una metodologia completamente alternativa in [Capitolo 2.2: Configurare Bitcoin Core Altri Mezzi](02_2_Configurare_Bitcoin_Core_Altri_Mezzi.md). * Passa a "bitcoin-cli" con [Capitolo 3: Comprendere le Configurazioni di Bitcoin](03_0_Comprendere_le_Configurazioni_di_Bitcoin.md).
+* Scegli una metodologia completamente alternativa in [Capitolo 2.2: Configurare Bitcoin Core Altri Mezzi](02_2_Configurare_Bitcoin_Core_Altri_Mezzi.md). * Passa a "bitcoin-cli" con [Capitolo 3: Comprendere le Configurazioni di Bitcoin](03_0_Comprendere_la_Configurazione_di_Bitcoin.md).
 
 ## Sinossi: Tipi di installazione di Bitcoin
 
