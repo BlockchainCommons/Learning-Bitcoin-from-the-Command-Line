@@ -20,7 +20,7 @@ Gli obiettivi di sostegno includono:
  
 ## Indice
 
-In realtà non c'è bisogno di leggere l'intero capitolo. Decida se si desidera eseguire uno StackScript per impostare un nodo su un VPS Linode (§2.2); oppure si desidera avviare la configurazione in un ambiente diverso, ad esempio su una macchina AWS o su un Mac (Sezione 2.2). Quindi, vada alla sezione appropriata. Ulteriori informazioni sulle configurazioni suggerite sono disponibili anche nell' [Appendice I](A1_0_Comprendere_Bitcoin_Standup.md).
+In realtà non c'è bisogno di leggere l'intero capitolo. Decida se si desidera eseguire uno StackScript per impostare un nodo su un VPS Linode (§2.2); oppure si desidera avviare la configurazione in un ambiente diverso, ad esempio su una macchina AWS o su un Mac (Sezione 2.2). Quindi, vada alla sezione appropriata. Ulteriori informazioni sulle configurazioni suggerite sono disponibili anche nell' [Appendice 1](A1_0_Comprendere_Bitcoin_Standup.md).
 
-   * [Sezione uno: Configurando Bitcoin Core VPS con Bitcoin StackScript](02_1_Configurare_Bitcoin-Core_VPS_con_StackScript.md)
-   * [Sezione due: Configurando Bitcoin Core sul proprio hardware con altri mezzi](02_2_Configurare_Bitcoin_Core_Altri_Mezzi.md)
+   * [Capitolo 2.1: Configurando Bitcoin Core VPS con Bitcoin StackScript](02_1_Configurare_Bitcoin-Core_VPS_con_StackScript.md)
+   * [Capitolo 2.2: Configurando Bitcoin Core sul proprio hardware con altri mezzi](02_2_Configurare_Bitcoin_Core_Altri_Mezzi.md)
