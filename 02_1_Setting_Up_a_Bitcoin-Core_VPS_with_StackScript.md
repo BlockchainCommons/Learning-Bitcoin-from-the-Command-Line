@@ -72,7 +72,7 @@ If you want to instead have a non-Pruned Mainnet in a VPS, you'll need to instal
 
 The following chart shows minimum requirements
 
-| Setup | Memory | Storage | Linnode |
+| Setup | Memory | Storage | Linode  |
 |-------|--------|---------|---------|
 | Mainnet | 2G | 280G | Linode 16GB |
 | Pruned Mainnet | 2G | ~5G | Linode 4GB |
