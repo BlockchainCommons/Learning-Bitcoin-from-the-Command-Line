@@ -178,7 +178,7 @@ $ bitcoin-cli --named getrawtransaction txid=f68de52d80a1076e36c677ef640539c50e3
   "blocktime": 1602713519
 }
 ```
-La entrada de la transacción es `66694d23ca15efe379e5f4a71d9be1a2d65e383b89ee3abe126ee36a12f23c1d`, que era la transacción de financiación en [§19.3](19_3_Creando_un_Canal_en_Lightning.md). La transacción tiene dos salidas, una para el nodo remoto y la otra para la billetera c-lightning local. La salida en el índice 0 corresponde al nodo remoto con un valor de 0.00010012 BTC; y la salida en el índice 1 corresponde al nodo local con un valor de 0.00089804 BTC.
+La entrada de la transacción es `66694d23ca15efe379e5f4a71d9be1a2d65e383b89ee3abe126ee36a12f23c1d`, que era la transacción de financiación en [§19.3](19_3_Creando_un_Canal_en_Lightning.md). La transacción tiene dos salidas, una para el nodo remoto y la otra para la billetera core lightning local. La salida en el índice 0 corresponde al nodo remoto con un valor de 0.00010012 BTC; y la salida en el índice 1 corresponde al nodo local con un valor de 0.00089804 BTC.
 
 Lightning mostrará de manera similar 89804 satoshis devueltos como un nuevo UTXO en su billetera:
 ```

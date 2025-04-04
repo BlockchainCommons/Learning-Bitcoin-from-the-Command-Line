@@ -1,12 +1,12 @@
-# 19.2: Conhecendo Nossa Configuração da c-lightning
+# 19.2: Conhecendo Nossa Configuração da core lightning
 
 > :information_source: **NOTA:** Esta seção foi adicionada recentemente ao curso e é um rascunho inicial que ainda pode estar aguardando revisão.
 
 Antes de começar a acessar a Lightning Network, devemos compreender melhor a nossa configuração.
 
-## Conhecendo o Diretório da c-lightning
+## Conhecendo o Diretório da core lightning
 
-Ao usar a c-lightning, tudo será mantindo dentro do diretório `~/.lightning`.
+Ao usar a core lightning, tudo será mantindo dentro do diretório `~/.lightning`.
 
 O diretório principal contém apenas os diretórios para as redes configuradas, neste caso da Testnet:
 ```
@@ -329,7 +329,7 @@ c$ lightning-cli --testnet listconfigs
 }
 ```
 
-## Resumo: Conhecendo Nossa Configuração da c-lightning
+## Resumo: Conhecendo Nossa Configuração da core lightning
 
 O diretório `~/.lightning` contém todos os arquivos, enquanto o comando `lightning-cli help` mostra uma variedade de informações dos comandos que podem ser usados para obter mais informações sobre a configuração e o funcionamento da Lightning Network.
 

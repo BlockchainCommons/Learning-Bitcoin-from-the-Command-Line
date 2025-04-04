@@ -2,15 +2,15 @@
 
 > :information_source: **NOTA:** Esta seção foi adicionada recentemente ao curso e é um rascunho inicial que ainda pode estar aguardando revisão.
 
-Esta seção descreve como os pagamentos funcionam na Lightning Network, como criar uma solicitação de pagamento (ou _invoice_) e, finalmente, como entendê-la. A emissão de invoices depende de termos um segundo node Lightning, conforme descrito na seção [Acessando um Segundo Node Lightning](19_2__Interlude_Accessing_a_Second_Lightning_Node.md). Esses exemplos usarão um node LND como nosso node secundário, para demonstrar ainda mais as possibilidades da Lightning Network. Para diferenciar entre os nodes nestes exemplos, os prompts serão mostrados como `c $` para o node c-lightning e `lnd $` para o node LND. Se quisermos reproduzir essas etapas, devemos [instalar nosso próprio node LND secundário](19_2__Interlude_Accessing_a_Second_Lightning_Node.md#Creating-a-new-lnd-node).
+Esta seção descreve como os pagamentos funcionam na Lightning Network, como criar uma solicitação de pagamento (ou _invoice_) e, finalmente, como entendê-la. A emissão de invoices depende de termos um segundo node Lightning, conforme descrito na seção [Acessando um Segundo Node Lightning](19_2__Interlude_Accessing_a_Second_Lightning_Node.md). Esses exemplos usarão um node LND como nosso node secundário, para demonstrar ainda mais as possibilidades da Lightning Network. Para diferenciar entre os nodes nestes exemplos, os prompts serão mostrados como `c $` para o node core lightning e `lnd $` para o node LND. Se quisermos reproduzir essas etapas, devemos [instalar nosso próprio node LND secundário](19_2__Interlude_Accessing_a_Second_Lightning_Node.md#Creating-a-new-lnd-node).
 
 > :book: ***O que é um invoice?*** Quase todos os pagamentos feitos na Lightning Network exigem um invoice, que nada mais é do que um **pedido de pagamento** feito pelo destinatário do dinheiro e enviado por qualquer meio para o usuário que irá pagar. Todos os invoices são de uso único. Os invoices da Lightning usam a codificação bech32, que já é usada pela Segregated Witness para Bitcoin.
 
 ## Criando um Invoice
 
-Para criar um novo invoice na c-lightning, usaríamos o comando `lightning-cli --testnet invoice`.
+Para criar um novo invoice na core lightning, usaríamos o comando `lightning-cli --testnet invoice`.
 
-Vamos ver como funcionaria com o c-lightning, usando argumentos de um valor (em milisats), um rótulo e uma descrição.
+Vamos ver como funcionaria com o core lightning, usando argumentos de um valor (em milisats), um rótulo e uma descrição.
 ```
 c$ lightning-cli --testnet invoice 100000 joe-payment "The money you owe me for dinner"
 {
@@ -21,7 +21,7 @@ c$ lightning-cli --testnet invoice 100000 joe-payment "The money you owe me for 
    "warning_mpp_capacity": "The total incoming capacity is still insufficient even if the payer had MPP capability."
 }
 ```
-No entanto, para este exemplo, vamos gerar um invoice em um node LND e, em seguida, pagá-lo no node c-lightning. Isso requer o comando `addinvoice` ligeiramente diferente na LND. Podemos usar o argumento `--amt` para indicar a quantia a ser paga (em milisats) e adicionar uma descrição usando o argumento `--memo`.
+No entanto, para este exemplo, vamos gerar um invoice em um node LND e, em seguida, pagá-lo no node core lightning. Isso requer o comando `addinvoice` ligeiramente diferente na LND. Podemos usar o argumento `--amt` para indicar a quantia a ser paga (em milisats) e adicionar uma descrição usando o argumento `--memo`.
 
 ```
 lnd$ lncli -n testnet addinvoice --amt 10000 --memo "First LN Payment - Learning Bitcoin and Lightning from the Command line."
