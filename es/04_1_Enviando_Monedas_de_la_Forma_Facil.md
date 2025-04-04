@@ -10,7 +10,7 @@ Antes de enviar dinero en la red Bitcoin, debe pensar en las comisiones por tran
 
 Cuando se utilizan los métodos simples y automatizados para crear transacciones, como se indica aquí y en [§4.5: Enviando Monedas con Transacciones Automatizadas en Crudo](04_5_Enviando_Monedas_con_Transacciones_Crudas_Automatizadas.md), Bitcoin calculará las tasas de transacción por usted. Esto se hace utilizando tasas flotantes, donde `bitcoind` observa el tiempo que tardan las transacciones en confirmarse y calcula automáticamente lo que se debe gastar.
 
-Puede controlar esto colocando valores racionales en su fichero `~/.bitcoin/bitcoin.conf`. Los siguientes valores de bajos costes se asegurarían que haya una tasa mínima de 10,000 satoshis de comisión por kByte de data en su trasacción y solicitarían que las tasas flotantes se calcularan con una cantidad atractiva para que la transacción sea procesada en los siguientes seis bloques. 
+Puede controlar esto colocando valores racionales en su fichero `~/.bitcoin/bitcoin.conf`. Los siguientes valores de bajos costes se asegurarían que haya una tasa mínima de 10,000 satoshis de comisión por kByte de data en su transacción y solicitarían que las tasas flotantes se calcularan con una cantidad atractiva para que la transacción sea procesada en los siguientes seis bloques. 
 ```
 mintxfee=0.0001
 txconfirmtarget=6

@@ -12,7 +12,7 @@ Técnicamente, un rompecabezas criptográfico multifirma es creado por Bitcoin u
 
 > :book: ***¿Qué es una transacción multifirma?*** Una transacción mutifirma es una transacción de Bitcoin que ha sido enviada a una dirección multifirma, requiriendo así la firma de ciertas personas del grupo multifirma para reutilizar los fondos.
 
-Multifirmas simples requieren que todos en el grupo firmen el UTXO cuando sea gastado. Sin embargo, es posible una mayor complejidad. Las multifirmas son descriptas generalmente como "m de n". Esto significa que la transacción está bloqueada con un grupo de "n" claves, pero sólo "m" de ellas son requeridas para desbloquear la transacción. 
+Multifirmas simples requieren que todos en el grupo firmen el UTXO cuando sea gastado. Sin embargo, es posible una mayor complejidad. Las multifirmas son descritas generalmente como "m de n". Esto significa que la transacción está bloqueada con un grupo de "n" claves, pero sólo "m" de ellas son requeridas para desbloquear la transacción. 
 
 > :book: ***¿Qué es una multifirma m-de-n?*** En una multifirma, "m" firmas de un grupo de "n" son requeridas para formar la firma, donde "m ≤ n".
 

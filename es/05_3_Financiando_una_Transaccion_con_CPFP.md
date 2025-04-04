@@ -1,6 +1,6 @@
 # 5.3: Financiación de una Transación con CPFP
 
-Si su transacción de Bitocin está atascada y usted es el _receptor_, puede borrarla usando CPFP (child-pays-for-parent o el niño paga por el padre). Esta es una alternativa a la capacidad del _remitente_ para hacerlo con RBF.
+Si su transacción de Bitcoin está atascada y usted es el _receptor_, puede borrarla usando CPFP (child-pays-for-parent o el hijo paga por el padre). Esta es una alternativa a la capacidad del _remitente_ para hacerlo con RBF.
 
 > :warning: **ADVERTENCIA DE VERSIÓN:** Esta es una innovación de Bitcoin Core v 0.13.0, lo que nuevamente significa que la mayoría de la gente ya debería estar usándolo.
 
@@ -10,15 +10,16 @@ RBF se trataba del remitente. Se equivocó y necesitaba aumentar la tarifa, o qu
 
 Básicamente, la idea de CPFP es que un destinatario tiene una transacción que no ha sido confirmada en un bloque que quiere gastar. Entonces, incluye esa transacción no confirmada en una nueva transacción y paga una tarifa lo suficientemente alta como para alentar a un minero a incluir tanto la transacción original (principal) como la nueva transacción (secundaria) en un bloque. Como resultado, las transacciones principales y secundarias se borran simultáneamnete.
 
-Cabe señalar que CPFP no es una función de protocolo nueva como RBF.  Es solo un nuevo esquema de incentivos que los mineros pueden usar para la selección de transacciones. Esto también significa que no es tan confiable como un cambio de protocolo como RBF: puede haber razones por las que la secundaria no sea seleccionado para ser colocado en un bloque, y eso evitará que el principal sea colocado en un bloque.
+Cabe señalar que CPFP no es una función de protocolo nueva como RBF. Es solo un nuevo esquema de incentivos que los mineros pueden usar para la selección de transacciones. Esto también significa que no es tan confiable como un cambio de protocolo como RBF: puede haber razones por las que la secundaria no sea seleccionada para ser colocada en un bloque, y eso evitará que la principal sea colocada en un bloque.
 
 ## Gastar UTXOs No Confirmadas
 Financiar una transacción con CPFP es un proceso muy simple que utiliza los métodos con los que ya está familiarizado:
 
    1. Busque el `txid` y `vout` de la transacción no confirmada. Esta puede ser la parte más complicada, ya que `bitcoin-cli` generalmente intenta protegerlo de transaciones no confirmadas. Es posible que el remitente pueda enviarle esta información; incluso con solo el `txid`, debería poder averigular el `vout` en un explorador de blockchain.
    
-   Tiene otra opción: use `bitcoin-cli getrawmempool`, que se puede usar para enumerar el contenido de su mempool completo, donde se encontrarán las transacciones no confirmadas. Es posible que tenga que buscar en varios se el mempool está particularmente ocupado. A continuación, puede obtener más información sobre una transacción especifica con `bitcoin-cli getrawtransaction` con el indicador detallado en `true`:
-   ```
+   Tiene otra opción: use `bitcoin-cli getrawmempool`, que se puede usar para enumerar el contenido de su mempool completo, donde se encontrarán las transacciones no confirmadas. Es posible que tenga que buscar en varios si el mempool está particularmente ocupado. A continuación, puede obtener más información sobre una transacción especifica con `bitcoin-cli getrawtransaction` con el indicador detallado en `true`:
+
+```
 $ bitcoin-cli getrawmempool
 [
   "95d51e813daeb9a861b2dcdddf1da8c198d06452bbbecfd827447881ff79e061"
@@ -121,6 +122,6 @@ Puede aprovechar los incentivos de CPFP para liberar fondos que le han sido envi
 
 > :fire: ***¿Cuál es el Poder de CPFP?*** Principalmente, CPFP es útil para que los fondos se despeguen cuando usted es el destinatario y el remitente no está siendo útil por cualquier motivo. No tiene las posibilidades más poderosas de RBF, pero es una forma alternativa de ejercer control sobre una transacción después de que se haya colocado en el mempool, pero antes de que se confirme en un bloque.
 
-## Que Sigue?
+## ¿Qué Sigue?
 
 Avance a través de "bitcoin-cli" con [Capitulo seis: Expandiendo las Transacciones Bitcoin con Multifirmas](06_0_Expandiendo_las_Transacciones_Bitcoin_con_Multifirmas.md).
