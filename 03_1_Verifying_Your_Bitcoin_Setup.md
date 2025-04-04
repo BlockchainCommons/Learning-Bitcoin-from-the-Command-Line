@@ -15,7 +15,14 @@ alias bd="bitcoind"
 alias btcinfo='bitcoin-cli getwalletinfo | egrep "\"balance\""; bitcoin-cli getnetworkinfo | egrep "\"version\"|connections"; bitcoin-cli getmininginfo | egrep "\"blocks\"|errors"'
 EOF
 ```
-After you enter these aliases you can either `source .bash_profile` to input them or just log out and back in.
+After you enter these aliases you can either `source .bash_profile` to input them or just log out and back in. If the latter doesn't work, add a small script at the end of `.bashrc` to load `.bash_profile` by default.
+```
+cat >> ~/.bashrc <<EOF
+if [ -f ~/.bash_profile ]; then
+  . ~/.bash_profile
+fi
+EOF
+```
 
 Note that these aliases includes shortcuts for running `bitcoin-cli`, for running `bitcoind`, and for going to the Bitcoin directory. These aliases are mainly meant to make your life easier. We suggest you create other aliases to ease your use of frequent commands (and arguments) and to minimize errors. Aliases of this sort can be even more useful if you have a complex setup where you regularly run commands associated with Mainnet, with Testnet, _and_ with Regtest, as explained further below.
 
