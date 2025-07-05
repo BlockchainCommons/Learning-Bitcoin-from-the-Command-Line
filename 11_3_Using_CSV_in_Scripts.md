@@ -12,19 +12,19 @@ A relative timelock is a lock that's placed on a specific input of a transaction
 
 Easy!
 
-> :information_source: **NOTE — SEQUENCE:** This is the third use of the `nSequence` value in Bitcoin. Any `nSequence` value without the 32nd bit set (1<<31), so 0x00000001 to 0x7ffffffff, will be interpreted as a relative timelock if `nVersion ≥ 2` (which is the default starting in Bitcoin Core 0.14.0). You should be careful to ensure that relative timelocks don't conflict with the other two uses of `nSequence`, for signalling `nTimeLock` and RBF. `nTimeLock` usually sets a value of 0xffffffff-1, where a relative timelock is disallowed; and RBF usually sets a value of "1", where a relative timelock is irrelevent, because it defines a timelock of 1 block. 
+> :information_source: **NOTE — SEQUENCE:** This is the third use of the `nSequence` value in Bitcoin. Any `nSequence` value without the 32nd bit set (1<<31), so 0x00 00 00 01 to 0x7f ff ff ff, will be interpreted as a relative timelock if `nVersion ≥ 2` (which is the default starting in Bitcoin Core 0.14.0). You should be careful to ensure that relative timelocks don't conflict with the other two uses of `nSequence`, for signalling `nLockTime` and RBF. `nLockTime` usually sets a value of 0xff ff ff ff-1, where a relative timelock is disallowed; and RBF usually sets a value of "1", where a relative timelock is irrelevent, because it defines a timelock of 1 block. 
 
-> In general, remember: with a `nVersion` value of 2, a `nSequence` value of 0x00000001 to 0x7fffffff allows relative timelock, RBF, and `nTimeLock`; a `nSequence` value of 0x7fffffff to 0xffffffff-2 allows RBF and `nTimeLock`; a `nSequence` value of 0xffffffff-1 allows only `nTimeLock`; a `nSequence` value of 0xffffffff allows none; and `nVersion` can be set to 1 to disallow relative timelocks for any value of `nSequence`. Whew!
+> In general, remember: with a `nVersion` value of 2, a `nSequence` value of 0x00 00 00 01 to 0x7f ff ff ff allows relative timelock, RBF, and `nLockTime`; a `nSequence` value of 0x7f ff ff ff to 0xff ff ff ff-2 allows RBF and `nLockTime`; a `nSequence` value of 0xff ff ff ff-1 allows only `nLockTime`; a `nSequence` value of 0xff ff ff ff allows none; and `nVersion` can be set to 1 to disallow relative timelocks for any value of `nSequence`. Whew!
 
 ### Create a CSV Relative Block Time
 
-The format for using `nSequence` to represent relative time locks is defined in [BIP 68](https://github.com/bitcoin/bips/blob/master/bip-0068.mediawiki) and is slightly more complex than just inputting a number, like you did for `nTimeLock`. Instead, the BIP specifications breaks up the four byte number into three parts:
+The format for using `nSequence` to represent relative time locks is defined in [BIP 68](https://github.com/bitcoin/bips/blob/master/bip-0068.mediawiki) and is slightly more complex than just inputting a number, like you did for `nLockTime`. Instead, the BIP specifications breaks up the four byte number into three parts:
 
 * The first two bytes are used to specify a relative locktime.
 * The 23rd bit is used to positively signal if the lock refers to a time rather than a blockheight.
 * The 32nd bit is used to positively signal if relative timelocks are deactivated.
 
-With that said, the construction of a block-based relative timelock is still quite easy, because the two flagged bits are set to `0`, so you just set `nSequence` to a value between 1 and 0xffff (65535). The new transaction can be mined that number of blocks after the associated UTXO was mined.
+With that said, the construction of a block-based relative timelock is still quite easy, because the two flagged bits are set to `0`, so you just set `nSequence` to a value between 1 and 0xff ff (65535). The new transaction can be mined that number of blocks after the associated UTXO was mined.
 
 ### Create a CSV Relative Time
 
@@ -65,7 +65,7 @@ Except pretty much no one does this. The [BIP 68](https://github.com/bitcoin/bip
 
 |                      | Absolute Timelock | Relative Timelock |
 |:--------------------:|-------------------|-------------------|
-| **Lock Transaction** | nTimeLock         | nSequence         |
+| **Lock Transaction** | nLockTime         | nSequence         |
 | **Lock Output**      | OP_CHECKLOCKTIMEVERIFY| OP_CHECKSEQUENCEVERIFY |
 
 ## Understand the CSV Opcode
@@ -93,7 +93,7 @@ CSV has many of the same subtleties in usage as CLTV:
 
 * The `nVersion` field must be set to 2 or more.
 * The `nSequence` field must be set to less than 0x80000000.
-* When CSV is run, there must be an operand on the stack that's between 0 and 0xf0000000-1.
+* When CSV is run, there must be an operand on the stack that's between 0 and 0xf0 00 00 00-1.
 * Both the stack operand and `nSequence` must have the same value on the 23rd bit.
 * The `nSequence` must be greater than or equal to the stack operand.
 
