@@ -51,6 +51,8 @@ Finally, bitwise-or the 23rd bit into the hex value you created:
 ```
 $ relativevalue=$(printf '%x\n' $((0x$hexvalue | 0x400000)))
 $ echo $relativevalue
+4076a7
+$ printf "%d\n" "0x$relativevalue"
 4224679
 ```
 If you convert that back you'll see that 4224679 = 10000000111011010100111. The 23rd digit is set to a "1"; meanwhile the first 2 bytes, 0111011010100111, convert to 76A7 in hex or 30375 in decimal. Multiply that by 512 and you get 15.55 million seconds, which indeed is 180 days.
