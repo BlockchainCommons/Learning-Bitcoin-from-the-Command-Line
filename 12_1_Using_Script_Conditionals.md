@@ -89,7 +89,7 @@ ELSE
 ENDIF
 
 ```
-Remember your reverse Polish notation! That `IF` statement if referring to the `OP_EQUAL` before it, not the `OP_CHECKSIG` after it!
+Remember your reverse Polish notation! That `IF` statement is referring to the `OP_EQUAL` before it, not the `OP_CHECKSIG` after it!
 
 #### Run the True Branch
 
@@ -136,7 +136,7 @@ Stack: [ True ]
 ```
 #### Run the False Branch
 
-Here's how it actally runs if unlocked with `<signatureB> <pubKeyB>`:
+Here's how it actually runs if unlocked with `<signatureB> <pubKeyB>`:
 ```
 Script: <signatureB> <pubKeyB> OP_DUP OP_HASH160 <pubKeyHashA> OP_EQUAL IF OP_CHECKSIG ELSE OP_DUP OP_HASH160 <pubKeyHashB> OP_EQUALVERIFY OP_CHECKSIG ENDIF
 Stack: [ ]

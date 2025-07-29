@@ -242,7 +242,7 @@ tb1qutkcj34pw0aq7n9wgp3ktmz780szlycwddfmza
 
 ### Decode an Address
 
-Creating an address took a look extra work, in specifying the appropiate chain. Using an address also will because you'll have to decode it prior to use. 
+Creating an address took a little extra work, in specifying the appropriate chain. Using an address also will because you'll have to decode it prior to use. 
 
 The means that you'll have to import both the ```"github.com/btcsuite/btcutil"``` and ```"github.com/btcsuite/btcd/chaincfg"``` libraries.
    * ```btcutil``` allows for a Bitcoin address to be decoded in a way that the`rpcclient` can understand. This is necessary when working with addresses in `rpcclient`. 

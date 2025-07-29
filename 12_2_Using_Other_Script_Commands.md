@@ -78,7 +78,7 @@ Also see: `OP_CODESEPARATOR` (0xab), `OP_CHECKSIGVERIFY` (0xad), and `OP_CHECKMU
 
 ## Summary: Using Other Script Commands
 
-Bitcoin Script includes a wide array of arithemetic, stack, and cryptographic opcodes. Most of these additional opcodes are probably not as common as the ones discussed in previous sections, but nonetheless they're available if they're just what you need to write your Script!
+Bitcoin Script includes a wide array of arithmetic, stack, and cryptographic opcodes. Most of these additional opcodes are probably not as common as the ones discussed in previous sections, but nonetheless they're available if they're just what you need to write your Script!
 
 ## What's Next?
 

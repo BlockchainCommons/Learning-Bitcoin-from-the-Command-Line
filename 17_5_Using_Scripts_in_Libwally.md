@@ -41,7 +41,7 @@ a9 / 14 / 3f58b4f7b14847a9083694b9b3b52a4cea2569ed / 87
 ```
 That's our old friend `OP_HASH160 3f58b4f7b14847a9083694b9b3b52a4cea2569ed OP_EQUAL`.
 
-Basically, Libwally took your serialized redeem script, hashed it for you with SHA-256 and RIPEMD-160, and the applied the standard framing to turn it into a proper P2SH; You did similar work in [§10.2](10_2_Building_the_Structure_of_P2SH.md), but with an excess of shell commands.
+Basically, Libwally took your serialized redeem script, hashed it for you with SHA-256 and RIPEMD-160, and then applied the standard framing to turn it into a proper P2SH; You did similar work in [§10.2](10_2_Building_the_Structure_of_P2SH.md), but with an excess of shell commands.
 
 In fact, you can double-check your work using the same commands from §10.2:
 ```
