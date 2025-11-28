@@ -63,7 +63,7 @@ See [Bitcoin Onion Nodes](https://github.com/emmanuelrosa/bitcoin-onion-nodes) f
 
 Afterward, restart `tor` and `bitcoind`.
 
-You should now be communicating exlusively on Tor. But, unless you are in a hostile state, this level of anonymity is probably not required. It also is not particularly recommended: you might greatly decrease your number of potential peers, inviting problems of censorship or even correlation. You may also see lag. And, this setup may give you a false sense of anonymity that really doesn't exist on the Bitcoin network.
+You should now be communicating exclusively on Tor. But, unless you are in a hostile state, this level of anonymity is probably not required. It also is not particularly recommended: you might greatly decrease your number of potential peers, inviting problems of censorship or even correlation. You may also see lag. And, this setup may give you a false sense of anonymity that really doesn't exist on the Bitcoin network.
 
 > :warning: **WARNING:** This setup is untested! Use at your own risk!
 

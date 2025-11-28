@@ -20,7 +20,7 @@ int main(int argc, char *argv[]) {
 
   struct wally_psbt *psbt;
   
-  lw_response = wally_psbt_from_base64(psbt_64,&psbt);
+  lw_response = wally_psbt_from_base64(psbt_64,WALLY_PSBT_PARSE_FLAG_STRICT,&psbt);
 
   if (lw_response) {
 

@@ -279,7 +279,7 @@ The creator role is tasked with creating a PSBT with at least one input.
 A PSBT is created with a simple use of `wally_psbt_init_alloc`, telling it how many inputs and outputs you will eventually add:
 ```
   struct wally_psbt *psbt;
-  lw_response = wally_psbt_init_alloc(0,1,1,0,&psbt);
+  lw_response = wally_psbt_init_alloc(0,1,1,0,0,&psbt);
 ```
 But what you have is not yet a legal PSBT, because of the lack of inputs. You can create those by creating a transaction and setting it as the global transaction in the PSBT, which updates all the inputs and outputs:
 ```

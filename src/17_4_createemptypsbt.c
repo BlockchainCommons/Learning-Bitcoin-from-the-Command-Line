@@ -11,7 +11,7 @@ int main(void) {
 					     
   char *psbt_64;
   
-  lw_response = wally_psbt_init_alloc(0,1,1,0,&psbt);
+  lw_response = wally_psbt_init_alloc(0,1,1,0,0,&psbt);
 
   if (lw_response) {
 

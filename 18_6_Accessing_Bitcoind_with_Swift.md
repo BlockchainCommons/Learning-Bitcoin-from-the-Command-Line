@@ -56,7 +56,7 @@ rpcpassword=ebVCeSyyM0LurvgQyi0exWTqm4oU0rZU
 ```
 ## Build Your Connection by Hand
 
-At the time of this writing, there isn't an up-to-date, simple-to-use Bitcoin RPC Library that's specific for Swift, something that you can drop in and immediately start using. Thus, you're're going to do something you're never done before: build an RPC connection by hand.
+At the time of this writing, there isn't an up-to-date, simple-to-use Bitcoin RPC Library that's specific for Swift, something that you can drop in and immediately start using. Thus, you're going to do something you're never done before: build an RPC connection by hand.
 
 ### Write the RPC Transmitter
 
