@@ -9,7 +9,7 @@ Learning Bitcoin from the Command Line is a tutorial for working with Bitcoin (a
 
 _This tutorial assumes that you have some minimal background of how to use the command line interface. If not, there are many tutorials available, and I have one for Mac users at https://github.com/ChristopherA/intro-mac-command-line._
 
-_You may also be interested in our newer [Learning FROST from the Command Line course](https://github.com/BlockchainCommons/Learning-FROST-from-the-Command-Line/blob/main/README.md)._
+_You may also be interested in our newer [Learning FROST from the Command Line course](https://learningfrost.blockchaincommons.com/)._
 
 ## Translations
 
