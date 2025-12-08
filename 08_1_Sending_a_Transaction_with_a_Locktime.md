@@ -42,7 +42,7 @@ Once you've figured out the current height, you can decide how far in the future
 
 Once you have figured out your locktime, all you need to do is write up a typical raw transaction, with a third variable for `locktime`:
 ```
-$ rawtxhex=$(bitcoin-cli -named createrawtransaction inputs='''[ { "txid": "'$utxo_txid'", "vout": '$utxo_vout' } ]''' outputs='''{ "'$recipient'": 0.001, "'$changeaddress'": 0.00095 }''' locktime=1774650)
+$ rawtxhex=$(bitcoin-cli -named createrawtransaction inputs='''[ { "txid": "'$utxo_txid'", "vout": '$utxo_vout' } ]''' outputs='''[{ "'$recipient'": 0.001, "'$changeaddress'": 0.00095 }]''' locktime=1774650)
 ```
 Note that this usage of `locktime` is under 500 million, which means that it defines a block height. In this case, it's just a few blocks past the current block height at the time of this writing, meant to exemplify how locktime works without sitting around for a long time to wait and see what happens.
 
