@@ -316,7 +316,6 @@ $ bitcoin-cli getaddressesbylabel "LibwallyWO"
     "purpose": "receive"
   }
 }
-}
 ```
 
 ## Summary: Integrating Libwally and Bitcoin-CLI

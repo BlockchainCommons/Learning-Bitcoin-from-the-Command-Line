@@ -1,6 +1,6 @@
 #!/bin/bash
 
-if [ -z $1 ];
+if [ -z "$1" ];
 then
     echo "You must include the raw transaction hex as an argument.";
     exit;
