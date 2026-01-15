@@ -1,6 +1,6 @@
 # 10.6: Gastando una Transacción P2SH
 
-Antes de cerrar esta descripcion general de las transacciones P2SH, veremos cómo gastarlas. Esta sección es principalmente una descripción general, que hace referencia a una sección anterior en la que _ya_ gastamos una transacción P2SH.
+Antes de cerrar esta descripción general de las transacciones P2SH, veremos cómo gastarlas. Esta sección es principalmente una descripción general, que hace referencia a una sección anterior en la que _ya_ gastamos una transacción P2SH.
 
 ## Utilice el Guión de Canjear
 
@@ -15,7 +15,7 @@ Esto significa que debe recopilar:
    * El `hex` de la `scriptPubKey` para la transacción que está gastando
    * El `redeemScript` serializado
    * Cualquier clave privada, ya que estará firmando a mano
-   * Todos los `txids`, `vouts`, y `direcciones` regulares que necesitaría
+   * Todos los `txids`, `vouts`, y `addresses` regulares que necesitaría
 
 ## Crear la Transacción
 
@@ -31,12 +31,12 @@ Este es el ejemplo de cómo hacerlo para esa multifirma incrustada en P2SH en §
 ```
 $ bitcoin-cli -named signrawtransactionwithkey hexstring=$rawtxhex prevtxs='''[ { "txid": "'$utxo_txid'", "vout": '$utxo_vout', "scriptPubKey": "'$utxo_spk'", "redeemScript": "'$redeem_script'" } ]''' privkeys='["cNPhhGjatADfhLD5gLfrR2JZKDE99Mn26NCbERsvnr24B3PcSbtR"]'
 ```
-Con cualquier otro tipo de P2SH, incluirá un `redeemscript` diferente, pero por lo demás, la práctica es exactamente la misma. La única diferencia es que después de dos capítulos de trabajo en Scripts, ahora comprende qué es el `scriptPubKey` y qué es el `redeemScript`, así que con suerte lo que eran elementos misteriosos hace cuatro capítulos ahora es viejo sombrero.
+Con cualquier otro tipo de P2SH, incluirá un `redeemscript` diferente, pero por lo demás, la práctica es exactamente la misma. La única diferencia es que después de dos capítulos de trabajo en Scripts, ahora comprende qué es el `scriptPubKey` y qué es el `redeemScript`, así que con suerte lo que eran elementos misteriosos hace cuatro capítulos ahora no son ninguna novedad.
 
 ## Resumen: Gastar una Transacción P2SH
 
-Ya gastó un P2SH en el Capítulo 6, cuando reenvió una transacción multifirma de la manera difícil, lo que requirió alinear la información de `scriptPubKey` y `redeemScript`. Ahora sabe que el `scriptPubKey` es un script de bloqueo P2SH estandarizado, mientras que el `redeemScript` coincide con un hash en ese script de bloqueo y que necesita poder ejecutarlo con las variables adecuadas para recibir un resultado `True`. Pero aparte de saber más, no hay nada nuevo en gastar una transacciónn P2SH, porque ya lo hizo!
+Ya gastó un P2SH en el Capítulo 6, cuando reenvió una transacción multifirma de la manera difícil, lo que requirió alinear la información de `scriptPubKey` y `redeemScript`. Ahora sabe que el `scriptPubKey` es un script de bloqueo P2SH estandarizado, mientras que el `redeemScript` coincide con un hash en ese script de bloqueo y que necesita poder ejecutarlo con las variables adecuadas para recibir un resultado `True`. Pero aparte de saber más, no hay nada nuevo en gastar una transacciónn P2SH, ¡porque ya lo hizo!
 
-## Que Sigue?
+## ¿Qué Sigue?
 
 Avanzar a través de "Bitcoin Scripting" con el [Capítulo Once: Potenciando Bloqueos de Tiempo con Bitcoin Scripts](11_0_Potenciando_Bloqueos_de_Tiempo_con_Bitcoin_Scripts.md).

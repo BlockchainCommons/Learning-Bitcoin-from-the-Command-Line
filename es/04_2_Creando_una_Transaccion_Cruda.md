@@ -118,17 +118,22 @@ Ahora está listo para crear la transacción en crudo. Esto utiliza el comando `
 
 Este es el formato estándar:
 ```
-$ bitcoin-cli createrawtransaction
-'''[
-     {
-       "txid": "'$your_txid'",
-       "vout": '$your_vout'
-      }
-]'''
-'''{
-   "'$your_recipient'": bitcoin_amount
+$ bitcoin-cli createrawtransaction \
+'''[ \
+     { \
+       "txid": "'$your_txid'", \
+       "vout": '$your_vout' \
+      } \
+]''' \
+'''{ \
+   "'$your_recipient'": bitcoin_amount \
  }'''
  ```
+
+ standup@mybtctest:~$ utxo_txid="379341f85991ba1453aa5ea959128efb64b89bc0b1320e064dd50e2c26b9b1f7"
+standup@mybtctest:~$ utxo_vout="0"
+standup@mybtctest:~$ recipient="n2eMqTT929pb1RDNuqEnxdaLau1rxy3efi"
+
 Sí, hay todo tipo de comillas locas ahí, pero confíe en que harán lo correcto. Use `'''` para marcar el inicio y el final del array JSON y del objeto JSON. Protege las palabras normales como `"this"`, pero no necesita proteger los números normales: `0`. Si son variables, inserta comillas simples, como `"'$this_word'"` y `'$this_num'`. (Ya se acostumbrá).
 
  Aquí hay un comando que crea una transacción en crudo para enviar su $utxo a su $recipient

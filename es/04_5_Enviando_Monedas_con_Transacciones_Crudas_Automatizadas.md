@@ -6,7 +6,7 @@ Este capítulo expone tres formas de enviar fondos a través de la interfaz cli 
 
 La metodología para automatizar las transacciones en crudo es sencilla: usted crea una transacción en crudo, pero utiliza el comando `fundrawtransaction` para pedir a bitcoind que realice los cálculos por usted.
 
-Para utilizar este comando, tendrá que asegurarse de que tu archivo ~/.bitcoin/bitcoin.conf contiene variables racionales para calcular las tasas de las transacciones. Por favor, consulta [§4.1: Enviando Monedas de la Forma Fácil](04_1_Enviando_Monedas_de_la_Forma_Facil.md) para más información al respecto.
+Para utilizar este comando, tendrá que asegurarse de que su archivo ~/.bitcoin/bitcoin.conf contiene variables racionales para calcular las tasas de las transacciones. Por favor, consulte [§4.1: Enviando Monedas de la Forma Fácil](04_1_Enviando_Monedas_de_la_Forma_Facil.md) para más información al respecto.
 
 Para números muy conservadores, sugerimos añadir lo siguiente al `bitcoin.conf`:
 ```

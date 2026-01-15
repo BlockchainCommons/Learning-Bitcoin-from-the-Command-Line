@@ -34,9 +34,9 @@ $ bitcoin-cli -named gettransaction txid=fa2ddf84a4a632586d435e10880a2921db6310d
 ```
 Una transacción puede considerarse bloqueada si permanece en este estado durante un período de temipo prolongado. No hace muchos años, podía estar seguro do que todas las transacciones saldrían _eventualmente_. Pero, ese ya no es el caso debido al mayor uso de Bitcoin. Ahora, si una transacción se atasca demasiado tiempo, saldrá del mempool y luego se perderá de la red Bitcoin.
 
-> :book: ***Que es mempool?*** Mempool (o Pool de Memoria) es un grupo de todas las transacciones no confirmadas en un nodo bitcoin. Estas son las transacciones que un nodo ha recibido de la red p2p que aún no están incluidas en un bloque. Cada nodo de bitcoin puede tener un conjunto de transacctiones ligeramente diferente en su mempool: diferentes transacciones pueden haberse propagado a un nodo específico. Esto depende de cuándo se inició el nodo por última vez y también de sus límites sobre cuánto está dispuesto a almacenar. Cuando un minero hace un bloqueo, usa transacciones de su mempool. Luego cuando se verifica un bloque, todos los mineros eliminan las transacciones que contiene de sus grupos. A partir de Bitcoin 0.12, las transacciones no confirmadas también pueden vencer de la mempool si tienen la antigüedad suficiente, por lo general, 72 horas, y a partir de la versión 0.14.0, el tiempo de desalojo se incrementó a 2 semanas. Los grupos de minería pueden tener sus propios mecanismos de gestión de mempool.
+> :book: ***Que es mempool?*** Mempool (o Pool de Memoria) es un grupo de todas las transacciones no confirmadas en un nodo bitcoin. Estas son las transacciones que un nodo ha recibido de la red p2p que aún no están incluidas en un bloque. Cada nodo de bitcoin puede tener un conjunto de transacciones ligeramente diferente en su mempool: diferentes transacciones pueden haberse propagado a un nodo específico. Esto depende de cuándo se inició el nodo por última vez y también de sus límites sobre cuánto está dispuesto a almacenar. Cuando un minero hace un bloque, usa transacciones de su mempool. Luego cuando se verifica un bloque, todos los mineros eliminan las transacciones que contiene de sus grupos. A partir de Bitcoin 0.12, las transacciones no confirmadas también pueden vencer de la mempool si tienen la antigüedad suficiente, por lo general, 72 horas, y a partir de la versión 0.14.0, el tiempo de desalojo se incrementó a 2 semanas. Los grupos de minería pueden tener sus propios mecanismos de gestión de mempool.
 
-Es posible que esta lista de todos las [transacciones no confirmadas](https://blockchain.info/unconfirmed-transactions) no coincida con el mempool de ninguna máquina individual, pero debería (en su mayoría) ser un superconjunto de ellas.
+Es posible que esta lista de todas las [transacciones no confirmadas](https://blockchain.info/unconfirmed-transactions) no coincida con el mempool de ninguna máquina individual, pero debería (en su mayoría) ser un superconjunto de ellas.
 
 ## Decidir Que Hacer
 
@@ -44,16 +44,16 @@ Si su transacción se atasca más de lo que deseas, normalmente puede hacer una 
 
 **1. Espere Hasta Que Se Aclare.** Se envió su transacción con una tarifa baja o media, eventualmente debería pasar. Como se muestra en [Mempool Space](https://mempool.space), aquellos con tarifas más bajas _se retrasarán_. (Eche un vistazo a la transacción más a la izquierda y vea cuánto tiempo ha estado esperando y cuánto pagó por su tarifa)
 
-**2. Espere Hasta Que Expire.** Se envió accidentalmente sin tarifa de transacción, o si se cumplen otras condiciones, es posible que su transacción nunca se realice. Sin embargo, sus monedas no se pierden. Siempre que no tenga una billetera que reenvíe intencionalmente las transacciones no confirmadas, debería borrarse del mempool en aproximadamente tres días, y luego puede volver a intentarlo.
+**2. Espere Hasta Que Expire.** Se envió accidentalmente sin tarifa de transacción, o si se cumplen otras condiciones, es posible que su transacción nunca se realice. Sin embargo, sus monedas no se pierden. Siempre que no tenga una billetera que reenvíe intencionalmente las transacciones no confirmadas, debería borrarse de la mempool en aproximadamente tres días, y luego puede volver a intentarlo.
 
-**3. Utilice RBF Como Remitente.** Si usted es el remitente de la transacción y se inscribió en RBF (Replace by fee / Reemplazar Por Tarifa), puede volver a intentarlo con una tarifa más alta. Consulte [§5.2: Reenviando una Transacción con RBF](05_2_Reenviando_a_Transaccion_con_RBF.md).
+**3. Utilice RBF Como Remitente.** Si usted es el remitente de la transacción y se inscribió en RBF (Replace By Fee / Reemplazar Por Tarifa), puede volver a intentarlo con una tarifa más alta. Consulte [§5.2: Reenviando una Transacción con RBF](05_2_Reenviando_a_Transaccion_con_RBF.md).
 
-**4. Us CPFP Como La Receptora.** Alternativeamente, si usted es el receptor de la transacción, puede usar CPFP (Child-pays-for-parent / nino-paga-por-el-padre) para usar la transacción no confirmada como entrada para una nueva transacción. Consulte [§5.3: Financiando una Transacción con CPFP](05_3_Financiando_una_Transaccion_con_CPFP.md).
+**4. Use CPFP Como La Receptora.** Alternativeamente, si usted es el receptor de la transacción, puede usar CPFP (Child-Pays-For-Parent / Hijo-Paga-Por-el-Padre) para usar la transacción no confirmada como entrada para una nueva transacción. Consulte [§5.3: Financiando una Transacción con CPFP](05_3_Financiando_una_Transaccion_con_CPFP.md).
 
 ## Resumen: Observación de Transacciones Atascadas
 
 Esta es una introducción al poder de las transacciónes de Bitcoin. Si lo sabe que una transacción está atascada, puede decidir liberarla con funciones como RBF o CPFP.
 
-## Que Sigue?
+## ¿Qué Sigue?
 
 Continúe "Controlando las Transacciones de Bitcoin" con [§5.2: Reenviando una Transacción con RBF](05_2_Reenviando_a_Transaccion_con_RBF.md).  

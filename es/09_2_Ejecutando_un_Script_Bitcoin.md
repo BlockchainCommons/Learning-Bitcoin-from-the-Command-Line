@@ -18,7 +18,7 @@ Por ejemplo, si estuviera sumando "1" y "2", su script de Bitcoin para eso serí
 
 En realidad, no es del todo correcto decir que un operador se aplica a las entradas anteriores. Realmente, un operador aplica a las entradas superiores en la pila de Bitcoin.
 
->:book: ***¿Qué es una pila?*** Una pila es una estructura de datos LIFO (último en entrar, primero en salir). Tiene dos funciones de acceso: Empujar y quitar. Empujar (push) coloca un nuevo objeto en la parte superior de la pila, empujando hacia abajo todo lo que está debajo. Y la fuunció de quitar (Pop) elimina el objeto superior de la pila.
+>:book: ***¿Qué es una pila?*** Una pila es una estructura de datos LIFO (último en entrar, primero en salir). Tiene dos funciones de acceso: Empujar y quitar. Empujar (push) coloca un nuevo objeto en la parte superior de la pila, empujando hacia abajo todo lo que está debajo. Y la función de quitar (Pop) elimina el objeto superior de la pila.
 
 Siempre que Bitcoin Script encuentra una constante, la empuja a la pila. Entonces, el ejemplo anterior de `1 2 OP_ADD` en realidad se vería así cuando se procesó:
 

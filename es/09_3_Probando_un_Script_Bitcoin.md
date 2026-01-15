@@ -205,6 +205,6 @@ _Independientemente_ de los otros métodos de prueba que haya utilizado, probar 
 
 Debería instalar `btcdeb` como una herramienta de línea de comandos para probar sus scripts de Bitcoin. En el momento de escribir este artículo, produce resultados precisos que pueden recorrer todo el proceso de creación de scripts. También puede buscar en algunos sitios en línea para obtener una representación más visual. Cuando haya terminado, deberá ir a testnet para asegurarse de que todo funciona correctamente, antes de implementarlo de manera más general.
 
-## ¿Que sigue?
+## ¿Qué sigue?
 
 Continue con "Introduciendo Bitcoin Scripts" con nuestro primer ejemplo de la vida real: [§9.4: Codificando una P2PKH](09_4_Codificando_una_P2PKH.md).

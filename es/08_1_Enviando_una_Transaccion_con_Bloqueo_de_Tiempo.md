@@ -29,7 +29,7 @@ Con mayor frecuencia, establecerá el tiempo de bloqueo en una marca de tiempo d
 >tiempo de bloqueo que está muy alejado en el futuro, es lo más seguro que puede hacer. Pero, más allá de eso, es más intuitivo, ya que crea una 
 >correlación directa entre alguna fecha del calendario y el momento en que se puede extraer la transacción.
 
->:warning: **ADVERTENCIA:** El tiempo de bloqueo con marcas de tiempo de UNIX tiene poco margen de maniobra: la liberación de bloques no es regular y los tiempos de bloqueo pueden adelantarse dos horas al tiempo real, por lo que un tiempo de bloqueo en realidad significa "dentro de unas pocos horas de este tiempo, más o menos".
+>:warning: **ADVERTENCIA:** El tiempo de bloqueo con marcas de tiempo de UNIX tiene poco margen de maniobra: la liberación de bloques no es regular y los tiempos de bloqueo pueden adelantarse dos horas al tiempo real, por lo que un tiempo de bloqueo en realidad significa "dentro de unas pocas horas de este tiempo, más o menos".
 
 ### Calcule su tiempo de bloqueo por altura de bloque
 
@@ -134,6 +134,6 @@ Locktime ofrece una forma de crear una transacción que _debería_ no ser retran
 
 >:fire: _¿Cuál es el poder del tiempo de bloqueo?_ El poder del tiempo de bloqueo puede no ser inmediatamente obvio debido a la capacidad de cancelarlo tan fácilmente. Sin embargo, es otra de las bases de los contratos inteligentes: tienen mucha utilidad en una variedad de aplicaciones de custodia o contractuales. Por ejemplo, considere una situación en la que un tercero tiene sus bitcoins. Para garantizar la devolución de sus bitcoins si el custodio alguna vez desapareciera, podrían producir una transacción de bloqueo de tiempo para devolverle las monedas y luego actualizarlas de vez en cuando con una nueva, en el futuro. Si alguna vez no se actualizaran, las monedas le regresarían cuando expirara el bloqueo de tiempo actual. El tiempo de bloqueo podría aplicarse de manera similar a una red de pago, donde la red contiene monedas mientras los participantes de la red las intercambian. Finalmente, un testamento ofrece un ejemplo de un contrato más complejo, en el que los pagos se envían a varias personas. Estos pagos se basarían en transacciones de tiempo de bloqueo y se actualizarían continuamente siempre que el propietario continúe mostrando signos de vida. (El factor unificador de todas estas aplicaciones es por supuesto, la _confianza_. Las transacciones simples de tiempo de bloqueo solo funcionan si se puede confiar en que el poseedor de las monedas las enviará en las condiciones adecuadas).
 
-## ¿Que sigue?
+## ¿Qué sigue?
 
 Continúe "Expandiendo transacciones de Bitcoin" con [§8.2: Enviando una Transacción con Datos](08_2_Enviando_una_Transaccion_con_Datos.md).
