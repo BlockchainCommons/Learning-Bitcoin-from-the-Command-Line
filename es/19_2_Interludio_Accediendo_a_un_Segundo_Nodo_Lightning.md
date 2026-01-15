@@ -10,7 +10,7 @@ Hay cuatro maneras de hacerlo (las tres primeras son posibles para su primera co
 
 Si alguien más ya tiene un nodo Lightning en la red de su elección, simplemente pídale su ID. 
 
-Si están ejecutando c-lightning, solo necesitan usar el comando `getinfo`:
+Si están ejecutando core lightning, solo necesitan usar el comando `getinfo`:
 
 ```
 $ lightning-cli getinfo
@@ -51,9 +51,9 @@ lightning-cli: WARNING: default network changing in 2020: please set network=tes
 ```
 A continuación, pueden decirle su `id` (`03240a4878a9a64aea6c3921a434e573845267b86e89ab19003b0c910a86d17687`). También tendrán que indicarle su dirección IP (`74.207.240.32`) y su puerto (`9735`).
 
-## Crear un nuevo nodo c-lightning
+## Crear un nuevo nodo core lightning
 
-Sin embargo, para fines de prueba, es probable que desee tener un segundo nodo bajo su propio control. La forma más fácil de hacerlo es crear un segundo nodo c-lightning en una máquina nueva, usando Bitcoin Standup, por [§2.1](02_1_Configurando_un_Bitcoin-Core_VPS_con_StackScript.md) o compilándolo a mano, por [§19.1](19_1_Verificando_Su_Configuracion_Lightning.md).
+Sin embargo, para fines de prueba, es probable que desee tener un segundo nodo bajo su propio control. La forma más fácil de hacerlo es crear un segundo nodo core lightning en una máquina nueva, usando Bitcoin Standup, por [§2.1](02_1_Configurando_un_Bitcoin-Core_VPS_con_StackScript.md) o compilándolo a mano, por [§19.1](19_1_Verificando_Su_Configuracion_Lightning.md).
 
 Una vez que tenga su nodo en ejecución, puede ejecutar `getinfo` para recuperar su información, como se muestra arriba.
 
@@ -109,7 +109,7 @@ $ sudo cp $GOPATH/bin/lnd $GOPATH/bin/lncli /usr/bin
 ```
 ### Crear un archivo de configuración de LND
 
-A diferencia de c-lightning, necesitará crear un archivo de configuración predeterminado para LND.
+A diferencia de core lightning, necesitará crear un archivo de configuración predeterminado para LND.
 
 Sin embargo, usted primero necesita habilitar ZMQ en su Bitcoind, si no lo hizo ya en [§16.3](16_3_Recibiendo_Notificaciones_de_Bitcoind_en_C_con_las_Bibliotecas_ZMQ.md).
 
@@ -211,7 +211,7 @@ $ sudo systemctl start lnd
 
 ### Habilitar conexiones remotas
 
-Al igual que con c-lightning, va a tener que hacer LND accesible a otros nodos. He aquí cómo hacerlo si utiliza `ufw`, según las configuraciones de Bitcoin Standup:
+Al igual que con core lightning, va a tener que hacer LND accesible a otros nodos. He aquí cómo hacerlo si utiliza `ufw`, según las configuraciones de Bitcoin Standup:
 ```
 $ sudo ufw allow 9735
 ```
@@ -315,10 +315,10 @@ Sin embargo, eso definitivamente no será el caso para su primera interacción c
 
 ## Resumen: Acceso a un segundo nodo de rayos
 
-Siempre necesitará dos nodos Lightning para formar un canal. Si no tiene a alguien más que esté probando las cosas con usted, va a necesitar crear un segundo nodo, ya sea usando c-lightning o (como haremos en nuestros ejemplos) LND.
+Siempre necesitará dos nodos Lightning para formar un canal. Si no tiene a alguien más que esté probando las cosas con usted, va a necesitar crear un segundo nodo, ya sea usando core lightning o (como haremos en nuestros ejemplos) LND.
 
 ## ¿Qué es lo siguiente?
 
-Aunque posiblemente haya creado un LND, c-lightning seguirá siendo el corazón de nuestros ejemplos hasta que necesitemos empezar a usar ambos, en el [Capítulo 19](19_0_Entendiendo_Su_Configuracion_Lightning.md).
+Aunque posiblemente haya creado un LND, core lightning seguirá siendo el corazón de nuestros ejemplos hasta que necesitemos empezar a usar ambos, en el [Capítulo 19](19_0_Entendiendo_Su_Configuracion_Lightning.md).
 
 Continuar "Comprender la configuración de nodo Lightning" con [§19.3: Creando un Canal en Lightning](19_3_Creando_un_Canal_en_Lightning.md).

@@ -124,7 +124,7 @@ A Lightning é um protocolo de segunda camada que interage com o Bitcoin para pe
 
 A Lightning também é um dos focos deste tutorial. Embora o ponto principal seja sobre a interação direta com o Bitcoin (e o `bitcoind`), vamos falar um pouco sobre a Lightning e o porque é uma tecnologia que está prestes a se tornar uma alternativa popular ao Bitcoin, em um futuro próximo. Este livro tem a mesma abordagem para a Lightning e para o Bitcoin: Ele ensina como interagir diretamente com a Lightning de maneira confiável à partir da linha de comando.
 
-Ao contrário do Bitcoin, existem várias variantes da Lightning. Este tutorial usa a implementação compatível do padrão [c-lightning](https://github.com/ElementsProject/lightning) como sendo seu servidor Lightning confiável.
+Ao contrário do Bitcoin, existem várias variantes da Lightning. Este tutorial usa a implementação compatível do padrão [core lightning](https://github.com/ElementsProject/lightning) como sendo seu servidor Lightning confiável.
 
 **_O que é um protocolo de segunda camada?_** Um protocolo de segunda camada no Bitcoin funciona tendo como base o Bitcoin. Nesse caso, a Lightning trabalha em cima do Bitcoin, interagindo com ele por meio de contratos inteligentes.
 

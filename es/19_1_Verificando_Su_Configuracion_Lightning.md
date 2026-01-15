@@ -1,14 +1,14 @@
-# 19.1: Creación de una configuración de c-lightning
+# 19.1: Creación de una configuración de core lightning
 
 > :information_source: **NOTA :** Esta sección se agregó recientemente al curso y es un borrador inicial que aún puede estar pendiente de revisión. Lectura con advertencias.
 
-En esta sección, instalará y verificará c-lightning, su utilidad para acceder a Lightning Network.
+En esta sección, instalará y verificará core lightning, su utilidad para acceder a Lightning Network.
 
 > :book: ***¿Qué es Lightning Network?*** Lightning Network es una red descentralizada que utiliza la funcionalidad de contrato inteligente de la cadena de bloques de Bitcoin para permitir pagos instantáneos a través de una red de participantes. Lightning está construido como un protocolo de capa 2 que interactúa con Bitcoin para permitir a los usuarios intercambiar sus bitcoins "fuera de la cadena".
 
 > :book: ***¿Qué es un protocolo de capa 2?*** La capa 2 se refiere a un protocolo secundario construido sobre el sistema de cadena de bloques de Bitcoin. El objetivo principal de estos protocolos es resolver la velocidad de transacción y las dificultades de escalado que están presentes en Bitcoin: Bitcoin no es capaz de procesar miles de transacciones por segundo (TPS), por lo que se han creado protocolos de capa 2 para resolver el problema de escalabilidad de blockchain. Estas soluciones también se conocen como soluciones de escalado "fuera de la cadena".
 
-## Instalar C-Lightning
+## Instalar Core Lightning
 
 Si utilizó [Bitcoin Standup Scripts](https://github.com/BlockchainCommons/Bitcoin-Standup-Scripts), es posible que ya haya instalado Lightning al comienzo de este curso. Puede probar esto viendo si `lightningd` se está ejecutando:
 
@@ -29,15 +29,15 @@ standup  32072  0.0  0.0   6208   888 pts/0    S+   15:50   0:00 grep -i lightni
 
 Si no es así, deberá instalarlo ahora. Desafortunadamente, si está utilizando Debian, deberá instalarlo a mano, compilando el código fuente, pero aún así debería ser bastante simple si sigue estas instrucciones. Si se encuentra en un sistema Ubuntu estándar, intente [Instalar desde Ubuntu ppa](#variant-install-from-ubuntu-ppa), y siempre puede intentar [Instalar binarios precompilados](#variant-install-binarios precompilados).
 
-> :book: ***¿Qué es c-lightning?*** Hay tres implementaciones diferentes de Lightning en la actualidad: c-lightning, LND y Eclair. Todos deben ser funcionalmente compatibles, basados ​​en las mismas [RFC de BOLT](https://github.com/lightningnetwork/lightning-rfc/blob/master/00-introduction.md), pero sus detalles de implementación pueden ser diferentes. Hemos elegido c-lightning como base de nuestro curso porque también es parte del mismo [Elements Project](https://github.com/ElementsProject) que también contiene Libwally.
+> :book: ***¿Qué es core lightning?*** Hay tres implementaciones diferentes de Lightning en la actualidad: core lightning, LND y Eclair. Todos deben ser funcionalmente compatibles, basados ​​en las mismas [RFC de BOLT](https://github.com/lightningnetwork/lightning-rfc/blob/master/00-introduction.md), pero sus detalles de implementación pueden ser diferentes. Hemos elegido core lightning como base de nuestro curso porque también es parte del mismo [Elements Project](https://github.com/ElementsProject) que también contiene Libwally.
 
-### Compilar el código fuente de c-lightning
+### Compilar el código fuente de core lightning
 
 La instalación de Lightning desde el código fuente debería ser bastante simple si sigue estas instrucciones.
 
 _Probablemente_ desea hacer esto en un nodo sin podar, ya que trabajar con nodos podados en Lightning puede causar problemas con la instalación y el uso. Si configuró su nodo al principio de este curso para podarlo, es posible que desee reemplazarlo con un nodo sin podar ahora. (Si está usando testnet, debería poder usar el mismo tipo de máquina que usó para su nodo podado).
 
-> :warning:**ADVERTENCIA:** En realidad, puede ejecutar c-lightning en un nodo podado. Sin embargo, como señala el [repositorio Lightning](https://github.com/ElementsProject/lightning#pruning), puede haber problemas. Para que funcione, debe asegurarse de que su nodo Lightning solo intente actualizar la información de los bloques que su nodo Bitcoin no ha eliminado. Para hacerlo, debe asegurarse de (1) que su nodo Bitcoin esté completamente actualizado antes de iniciar su nodo Lightning por primera vez; y (2) que su nodo Lightning nunca se quede muy atrás de su nodo Bitcoin (para una poda estándar de 550 bloques, nunca se puede apagar durante 4 o más días). Entonces, puede hacerlo, pero presenta cierto peligro, lo cual no es una buena idea si está ejecutando un servicio de producción.
+> :warning:**ADVERTENCIA:** En realidad, puede ejecutar core lightning en un nodo podado. Sin embargo, como señala el [repositorio Lightning](https://github.com/ElementsProject/lightning#pruning), puede haber problemas. Para que funcione, debe asegurarse de que su nodo Lightning solo intente actualizar la información de los bloques que su nodo Bitcoin no ha eliminado. Para hacerlo, debe asegurarse de (1) que su nodo Bitcoin esté completamente actualizado antes de iniciar su nodo Lightning por primera vez; y (2) que su nodo Lightning nunca se quede muy atrás de su nodo Bitcoin (para una poda estándar de 550 bloques, nunca se puede apagar durante 4 o más días). Entonces, puede hacerlo, pero presenta cierto peligro, lo cual no es una buena idea si está ejecutando un servicio de producción.
 
 Con eso, está listo para instalar Lightning:
 
@@ -87,7 +87,7 @@ Puede confirmar que ha instalado lightningd correctamente usando el parámetro `
 
 Comenzará su exploración de la red Lightning con el comando `lightning-cli`. Sin embargo, `lightningd` _ debe_ estar ejecutándose para usar` lightning-cli`, ya que `lightning-cli` envía comandos JSON-RPC al` lightningd` (todo igual que con `bitcoin-cli` y` bitcoind`).
 
-Si instaló `c-lightning` a mano, ahora deberá iniciarlo:
+Si instaló `core lightning` a mano, ahora deberá iniciarlo:
 
 ```
 $ nohup lightningd --testnet &
@@ -199,13 +199,13 @@ bitcoin-cli -testnet getblock 0000000000000559febee77ab6e0be1b8d0bef0f971c7a4bee
 
 ## Crear alias
 
-Sugerimos crear algunos alias para facilitar el uso de c-lightning.
+Sugerimos crear algunos alias para facilitar el uso de core lightning.
 
 Puede hacerlo colocándolos en su `.bash_profile`.
 
 ```
 cat >> ~/.bash_profile <<EOF
-alias lndir="cd ~/.lightning/" #linux default c-lightning path
+alias lndir="cd ~/.lightning/" #linux default core lightning path
 alias lnc="lightning-cli"
 alias lnd="lightningd"
 alias lninfo='lightning-cli getinfo'
@@ -214,9 +214,9 @@ EOF
 
 Después de ingresar estos alias, puede `source ~/.bash_profile` para ingresarlos o simplemente cerrar sesión y volver a ingresar.
 
-Tenga en cuenta que estos alias incluyen atajos para ejecutar `lightning-cli`, para ejecutar` lightningd` y para ir al directorio c-lightning. Estos alias están destinados principalmente a facilitarle la vida. Le sugerimos que cree otros alias para facilitar el uso de comandos frecuentes (y argumentos) y minimizar los errores. Los alias de este tipo pueden ser aún más útiles si tiene una configuración compleja en la que ejecuta regularmente comandos asociados con Mainnet, con Testnet, _y_ con Regtest, como se explica más adelante.
+Tenga en cuenta que estos alias incluyen atajos para ejecutar `lightning-cli`, para ejecutar` lightningd` y para ir al directorio core lightning. Estos alias están destinados principalmente a facilitarle la vida. Le sugerimos que cree otros alias para facilitar el uso de comandos frecuentes (y argumentos) y minimizar los errores. Los alias de este tipo pueden ser aún más útiles si tiene una configuración compleja en la que ejecuta regularmente comandos asociados con Mainnet, con Testnet, _y_ con Regtest, como se explica más adelante.
 
-Dicho esto, el uso de estos alias en _este_ documento podría oscurecer accidentalmente las lecciones centrales que se enseñan sobre c-lightning, por lo que continuaremos mostrando los comandos completos; ajuste para su propio uso según corresponda.
+Dicho esto, el uso de estos alias en _este_ documento podría oscurecer accidentalmente las lecciones centrales que se enseñan sobre core lightning, por lo que continuaremos mostrando los comandos completos; ajuste para su propio uso según corresponda.
 
 ## Opcional: Modifique sus tipos de servidor
 
@@ -231,7 +231,7 @@ Cuando se inicia lightningd, generalmente lee un archivo de configuración cuya 
 
 También hay un archivo de configuración general (predeterminado: `~/.lightning/config`). Si desea ejecutar varios tipos diferentes de nodos simultáneamente, debe dejar el indicador testnet (o regtest) fuera de este archivo de configuración. A continuación, debe elegir si está utilizando la red principal, la red de prueba o su registro cada vez que ejecute `lightningd` o` lightning-cli`.
 
-Es posible que su configuración no tenga ningún archivo de configuración: c-lightning se ejecutará con una buena configuración predeterminada sin ellos.
+Es posible que su configuración no tenga ningún archivo de configuración: core lightning se ejecutará con una buena configuración predeterminada sin ellos.
 
 ## Resumen: Verificación de su configuración Lightning
 
@@ -243,7 +243,7 @@ Continúe "Comprender su configuración Lightning" con [§19.2: Conocer su confi
 
 ## Variante: instalar desde Ubuntu ppa
 
-Si está usando una versión de Ubuntu que no sea Debian, puede instalar c-lightning usando [Ubuntu ppa](https://launchpad.net/~lightningnetwork/+archive/ubuntu/ppa):
+Si está usando una versión de Ubuntu que no sea Debian, puede instalar core lightning usando [Ubuntu ppa](https://launchpad.net/~lightningnetwork/+archive/ubuntu/ppa):
 
 ```
 $ sudo apt-get install -y software-properties-common
