@@ -14,7 +14,7 @@ Easy!
 
 > :information_source: **NOTE — SEQUENCE:** This is the third use of the `nSequence` value in Bitcoin. Any `nSequence` value without the 32nd bit set (1<<31), so 0x00000001 to 0x7ffffffff, will be interpreted as a relative timelock if `nVersion ≥ 2` (which is the default starting in Bitcoin Core 0.14.0). You should be careful to ensure that relative timelocks don't conflict with the other two uses of `nSequence`, for signalling `nTimeLock` and RBF. `nTimeLock` usually sets a value of 0xffffffff-1, where a relative timelock is disallowed; and RBF usually sets a value of "1", where a relative timelock is irrelevent, because it defines a timelock of 1 block. 
 
-> In general, remember: with a `nVersion` value of 2, a `nSequence` value of 0x00000001 to 0x7fffffff allows relative timelock, RBF, and `nTimeLock`; a `nSequence` value of 0x7fffffff to 0xffffffff-2 allows RBF and `nTimeLock`; a `nSequence` value of 0xffffffff-1 allows only `nTimeLock`; a `nSequence` value of 0xffffffff allows none; and `nVersion` can be set to 1 to disallow relative timelocks for any value of `nSequence`. Whew!
+> In general, remember: with a `nVersion` value of 2, a `nSequence` value of 0x00000001 to 0x7ffffff allows relative timelock, RBF, and `nTimeLock`; a `nSequence` value of 0x7fffffff to 0xffffffff-2 allows RBF and `nTimeLock`; a `nSequence` value of 0xffffffff-1 allows only `nTimeLock`; a `nSequence` value of 0xffffffff allows none; and `nVersion` can be set to 1 to disallow relative timelocks for any value of `nSequence`. Whew!
 
 ### Create a CSV Relative Block Time
 
