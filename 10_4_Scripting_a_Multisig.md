@@ -4,17 +4,19 @@ Before we close out this intro to P2SH scripting, it's worth examining a more re
 
 ## Understand the Multisig Code
 
-Multisig transactions are created in Bitcoin using the `OP_CHECKMULTISIG` code. `OP_CHECKMULTISIG` expects a long string of arguments that looks like this: `0 ... sigs ... <m> ... addresses ... <n> OP_CHECKMULTISIG`. When `OP_CHECKMULTISIG` is run, it does the following:
+Multisig transactions are created in Bitcoin using the `OP_CHECKMULTISIG` code. `OP_CHECKMULTISIG` expects a long string of arguments that looks like this: `0 ... sigs ... <m> ... public keys ... <n> OP_CHECKMULTISIG`. When `OP_CHECKMULTISIG` is run, it does the following:
 
 1. Pop the first value from the stack (`<n>`).
-2. Pop "n" values from the stack as Bitcoin addresses (hashed public keys).
+2. Pop "n" values from the stack as public keys.
 3. Pop the next value from the stack (`<m>`).
 4. Pop "m" values from the stack as potential signatures.
 5. Pop a `0` from the stack due to a mistake in the original coding.
-6. Compare the signatures to the Bitcoin adddresses.
+6. Compare the signatures to the public keys.
 7. Push a `True` or `False` depending on the result.
 
-The operands of `OP_MULTISIG` are typically divided, with the `0` and the signatures coming from the unlocking script and the "m", "n", and addresses being detailed by the locking script.
+The operands of `OP_MULTISIG` are typically divided, with the `0` and
+the signatures coming from the unlocking script and the "m", "n", and
+public keys being detailed by the locking script.
 
 The requirement for that `0` as the first operand for `OP_CHECKMULTISIG` is a consensus rule. Because the original version of `OP_CHECKMULTISIG` accidentally popped an extra item off the stack, Bitcoin must forever follow that standard, lest complex redemption scripts from that time period accidentally be broken, rendering old funds unredeemable. 
 
@@ -24,11 +26,11 @@ The requirement for that `0` as the first operand for `OP_CHECKMULTISIG` is a co
 
 As discussed in [§10.1: Understanding the Foundation of P2SH](10_1_Understanding_the_Foundation_of_P2SH.md), multisigs are one of the standard Bitcoin transaction types. A transaction can be created with a locking script that uses the raw `OP_CHECKMULTISIG` command, and it will be accepted into a block. This is the classic methodology for using multisigs in Bitcoin.
 
-As an example, we will revisit the multisig created in [§6.1](06_1_Sending_a_Transaction_to_a_Multisig.md) one final time and build a new locking script for it using this methodology. As you may recall, that was a 2-of-2 multisig built from `$address1` and `$address2`. 
+As an example, we will revisit the multisig created in [§6.1](06_1_Sending_a_Transaction_to_a_Multisig.md) one final time and build a new locking script for it using this methodology. As you may recall, that was a 2-of-2 multisig built from `$pubkey1` and `$pubkey2`. 
 
-As `OP_CHECKMULTISIG` locking script requires the "m" (`2`), the addresses, and the "n" (`2`), you could write the following `scriptPubKey`:
+As `OP_CHECKMULTISIG` locking script requires the "m" (`2`), the public keys, and the "n" (`2`), you could write the following `scriptPubKey`:
 ```
-2 $address1 $address2 2 OP_CHECKMULTISIG
+2 $pubkey1 $pubkey2 2 OP_CHECKMULTISIG
 ```
 If this looks familiar, that's because it's the multisig that you deserialized in [§10.2: Building the Structure of P2SH](10_2_Building_the_Structure_of_P2SH.md).
 ```
@@ -48,20 +50,20 @@ The `scriptSig` for a standard multisig address must then submit the missing ope
 
 In order to spend a multisig UTXO, you run the `scriptSig` and `scriptPubKey` as follows:
 ```
-Script: 0 $signature1 $signature2 2 $address1 $address2 2 OP_CHECKMULTISIG
+Script: 0 $signature1 $signature2 2 $pubkey1 $pubkey2 2 OP_CHECKMULTISIG
 Stack: [ ]
 ```
 First, you place all the constants on the stack:
 ```
 Script: OP_CHECKMULTISIG
-Stack: [ 0 $signature1 $signature2 2 $address1 $address2 2 ]
+Stack: [ 0 $signature1 $signature2 2 $pubkey1 $pubkey2 2 ]
 ```
 Then, the `OP_CHECKMULTISIG` begins to run. First, the "2" is popped:
 ```
 Running: OP_CHECKMULTISIG
-Stack: [ 0 $signature1 $signature2 2 $address1 $address2 ]
+Stack: [ 0 $signature1 $signature2 2 $pubkey1 $pubkey2 ]
 ```
-Then, the "2" tells `OP_CHECKMULTISIG `to pop two addresses:
+Then, the "2" tells `OP_CHECKMULTISIG `to pop two public keys:
 ```
 Running: OP_CHECKMULTISIG
 Stack: [ 0 $signature1 $signature2 2 ]
@@ -81,7 +83,7 @@ Then, one more item is mistakenly popped:
 Running: OP_CHECKMULTISIG
 Stack: [ ]
 ```
-Then, `OP_CHECKMULTISIG` completes its operation by comparing the "m" signatures to the "n" addresses:
+Then, `OP_CHECKMULTISIG` completes its operation by comparing the "m" signatures to the "n" public keys:
 ```
 Script:
 Stack: [ True ]
@@ -105,7 +107,7 @@ P2SH multisigs are the modern methodology for creating multisigs on the Blockcha
 
 To create a P2SH multisig, follow the standard steps for creating a P2SH locking script:
 
-1. Serialize `2 $address1 $address2 2 OP_CHECKMULTISIG`.
+1. Serialize `2 $pubkey1 $pubkey2 2 OP_CHECKMULTISIG`.
    1. `<serializedMultiSig>` = "522102da2f10746e9778dd57bd0276a4f84101c4e0a711f9cfd9f09cde55acbdd2d1912102bfde48be4aa8f4bf76c570e98a8d287f9be5638412ab38dede8e78df82f33fa352ae"
 2. Save `<serializedMultiSig>` for future reference as the redeemScript.
    1. `<redeemScript>` = "522102da2f10746e9778dd57bd0276a4f84101c4e0a711f9cfd9f09cde55acbdd2d1912102bfde48be4aa8f4bf76c570e98a8d287f9be5638412ab38dede8e78df82f33fa352ae"
@@ -133,9 +135,9 @@ To unlock the P2SH multisig, first confirm the script:
 
 Then, run the multisig script:
 
-1. Deserialize `<serializedMultiSig>` to `2 $address1 $address2 2 OP_CHECKMULTISIG`.
+1. Deserialize `<serializedMultiSig>` to `2 $pubkey1 $pubkey2 2 OP_CHECKMULTISIG`.
 2. Concatenate that with the earlier operands in the unlocking script, `0 $signature1 $signature2`.
-3. Validate `0 $signature1 $signature2 2 $address1 $address2 2 OP_CHECKMULTISIG`.
+3. Validate `0 $signature1 $signature2 2 $pubkey1 $pubkey2 2 OP_CHECKMULTISIG`.
 4. Succeed if the operands fulfill the deserialized `redeemScript`.
 
 Now you know how the multisig transaction in [§6.1](06_1_Sending_a_Transaction_to_a_Multisig.md) was actually created, how it was  validated for spending, and why that `redeemScript` was so important.
