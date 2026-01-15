@@ -12,6 +12,7 @@ The following updates involve updates or the creation of new chapters, but their
    * New Subsection: Creating a Quick Connect QR
 1. Revise Section: Understanding the Descriptor (3.5)
    * New Content: Descriptor Wallets
+   * Possibly also remove legacy wallets (3.3) and replace them entire with descriptors
    * New Content: Complex Descriptors
    * Consider: Breaking into Two Sections
 1. New Interlude: Creating Animated QR Codes (after 7.1)
