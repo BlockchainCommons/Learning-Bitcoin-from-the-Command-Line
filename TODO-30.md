@@ -7,6 +7,10 @@ The following TODO items are intended for a 3.0 version of Learning Bitcoin from
 The following updates involve updates or the creation of new chapters, but their additions are generally bounded and known.
 
 1. General Update: Consider replacing testnet with signet
+1. Big changes to defaults
+   * Signet
+   * SEGWIT
+   * Descriptor Wallets
 1. New Interlude: Creating QR Codes (after 3.3)
    * New Subsection: Creating a QR
    * New Subsection: Creating a Quick Connect QR
