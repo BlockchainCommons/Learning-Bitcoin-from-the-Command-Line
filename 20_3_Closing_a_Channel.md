@@ -179,7 +179,7 @@ $ bitcoin-cli --named getrawtransaction txid=f68de52d80a1076e36c677ef640539c50e3
   "blocktime": 1602713519
 }
 ```
-The input of the transaction is `66694d23ca15efe379e5f4a71d9be1a2d65e383b89ee3abe126ee36a12f23c1d`, which was the funding transaction in [§19.3](19_3_Setting_Up_a_Channel.md). The transaction then has two outputs, one for the remote node and the other for the local c-lightning wallet. The output on index 0 corresponds to the remote node with a value of 0.00010012 BTC; and the output on index 1 corresponds to the local node with a value of 0.00089804 BTC.
+The input of the transaction is `66694d23ca15efe379e5f4a71d9be1a2d65e383b89ee3abe126ee36a12f23c1d`, which was the funding transaction in [§19.3](19_3_Setting_Up_a_Channel.md). The transaction then has two outputs, one for the remote node and the other for the local core lightning wallet. The output on index 0 corresponds to the remote node with a value of 0.00010012 BTC; and the output on index 1 corresponds to the local node with a value of 0.00089804 BTC.
 
 Lightning will similarly show 89804 satoshis returned as a new UTXO in its wallet:
 ```

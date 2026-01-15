@@ -2,15 +2,15 @@
 
 > :information_source: **NOTE:** This section has been recently added to the course and is an early draft that may still be awaiting review. Caveat reader.
 
-This section describes how payments work on the Lightning Network, how to create a payment request (or _invoice_), and finally how to make sense of it. Issuing invoices depends on your having a second Lightning node, as described in [Accessing a Second Lightning Node](19_2__Interlude_Accessing_a_Second_Lightning_Node.md). These examples will use an LND node as their secondary node, to further demonstrate the possibilities of the Lightning Network. To differentiate between the nodes in these examples, the prompts will be shown as `c$` for the c-lightning node and `lnd$` as the LND node. If you want to reproduce this steps, you should [install your own secondary LND node](19_2__Interlude_Accessing_a_Second_Lightning_Node.md#creating-a-new-lnd-node).
+This section describes how payments work on the Lightning Network, how to create a payment request (or _invoice_), and finally how to make sense of it. Issuing invoices depends on your having a second Lightning node, as described in [Accessing a Second Lightning Node](19_2__Interlude_Accessing_a_Second_Lightning_Node.md). These examples will use an LND node as their secondary node, to further demonstrate the possibilities of the Lightning Network. To differentiate between the nodes in these examples, the prompts will be shown as `c$` for the core lightning node and `lnd$` as the LND node. If you want to reproduce this steps, you should [install your own secondary LND node](19_2__Interlude_Accessing_a_Second_Lightning_Node.md#creating-a-new-lnd-node).
 
 > :book: ***What is an Invoice?** Almost all payments made on the Lightning Network require an invoice, which is nothing more than a **request for payment** made by the recipient of the money and sent by variety of means to the paying user.  All payment requests are single use. Lightning invoices use bech32 encoding, which is already used by Segregated Witness for Bitcoin.
 
 ## Create an Invoice
 
-To create a new invoice on c-lightning you would use the `lightning-cli --testnet invoice` command.
+To create a new invoice on core lightning you would use the `lightning-cli --testnet invoice` command.
 
-Here's how it would work with c-lightning, using arguments of an amount (in millisatoshis), a label, and a description.
+Here's how it would work with core lightning, using arguments of an amount (in millisatoshis), a label, and a description.
 ```
 c$ lightning-cli --testnet invoice 100000 joe-payment "The money you owe me for dinner"
 {
@@ -21,7 +21,7 @@ c$ lightning-cli --testnet invoice 100000 joe-payment "The money you owe me for 
    "warning_mpp_capacity": "The total incoming capacity is still insufficient even if the payer had MPP capability."
 }
 ```
-However, for this example we're going to instead generate an invoice on an LND node, and then pay it on the c-lightning node. This requires LND's slightly different `addinvoice` command.  You can use `--amt` argument to indicate amount to be paid (in millisatoshis) and add a description using the `--memo` argument.
+However, for this example we're going to instead generate an invoice on an LND node, and then pay it on the core lightning node. This requires LND's slightly different `addinvoice` command.  You can use `--amt` argument to indicate amount to be paid (in millisatoshis) and add a description using the `--memo` argument.
 
 ```
 lnd$ lncli -n testnet addinvoice --amt 10000 --memo "First LN Payment - Learning Bitcoin and Lightning from the Command line."
@@ -63,7 +63,7 @@ The human readable part is `ln` + `tb` + `100u`.
 
 ### Read the Data Invoice Part
 
-The rest of the invoice (`1p0cwnqtpp5djkdahy4hz0wc909y39ap9tm3rq2kk9320hw2jtntwv4x39uz6asdr5ge5hyum5ypxyugzsv9uk6etwwssz6gzvv4shymnfdenjqsnfw33k76twypskuepqf35kw6r5de5kueeqveex7mfqw35x2gzrdakk6ctwvssxc6twv5hqcqzpgsp5a9ryqw7t23myn9psd36ra5alzvp6lzhxua58609teslwqmdljpxs9qy9qsq9ee7h500jazef6c306psr0ncru469zgyr2m2h32c6ser28vrvh5j4q23c073xsvmjwgv9wtk2q7j6pj09fn53v2vkrdkgsjv7njh9aqqtjn3vd`) contains a timestamp, specifically tagged data, and a signature. You obviously can't read it yourself, but you can ask c-lightning's `lightning-cli` to do so with the `decodepay` command:
+The rest of the invoice (`1p0cwnqtpp5djkdahy4hz0wc909y39ap9tm3rq2kk9320hw2jtntwv4x39uz6asdr5ge5hyum5ypxyugzsv9uk6etwwssz6gzvv4shymnfdenjqsnfw33k76twypskuepqf35kw6r5de5kueeqveex7mfqw35x2gzrdakk6ctwvssxc6twv5hqcqzpgsp5a9ryqw7t23myn9psd36ra5alzvp6lzhxua58609teslwqmdljpxs9qy9qsq9ee7h500jazef6c306psr0ncru469zgyr2m2h32c6ser28vrvh5j4q23c073xsvmjwgv9wtk2q7j6pj09fn53v2vkrdkgsjv7njh9aqqtjn3vd`) contains a timestamp, specifically tagged data, and a signature. You obviously can't read it yourself, but you can ask core lightning's `lightning-cli` to do so with the `decodepay` command:
 ```
 c$ lightning-cli --testnet decodepay lntb100u1p0cwnqtpp5djkdahy4hz0wc909y39ap9tm3rq2kk9320hw2jtntwv4x39uz6asdr5ge5hyum5ypxyugzsv9uk6etwwssz6gzvv4shymnfdenjqsnfw33k76twypskuepqf35kw6r5de5kueeqveex7mfqw35x2gzrdakk6ctwvssxc6twv5hqcqzpgsp5a9ryqw7t23myn9psd36ra5alzvp6lzhxua58609teslwqmdljpxs9qy9qsq9ee7h500jazef6c306psr0ncru469zgyr2m2h32c6ser28vrvh5j4q23c073xsvmjwgv9wtk2q7j6pj09fn53v2vkrdkgsjv7njh9aqqtjn3vd
 {

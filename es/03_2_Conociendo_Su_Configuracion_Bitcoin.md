@@ -310,6 +310,6 @@ No dude en hacer referencia a cualquiera de estos y utilizar el comando "bitcoin
 
 El directorio `~/.bitcoin` contiene todos sus archivos, mientras que `bitcoin-cli help` se puede usar con una variedad de comandos informativos para obtener más información sobre cómo funcionan su configuración y Bitcoin.
 
-## ¿Que sigue?
+## ¿Qué sigue?
 
 Continúe "Entendiendo su configuracion de Bitcoin" en [§3.3: Configurando su billetera](03_3_Configurando_Su_Billetera.md).

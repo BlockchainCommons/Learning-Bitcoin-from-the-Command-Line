@@ -82,7 +82,7 @@ $ bitcoin-cli getrawtransaction 95d51e813daeb9a861b2dcdddf1da8c198d06452bbbecfd8
 ```
 Look through the `vout` array. Find the object that matches your address. (Here, it's the only one.) The `n` value is your `vout`. You now have everything you need to create a new CPFP transaction.
 ```
-$ utxo_txid=2NFAkGiwnp8wvCodRBx3smJwxncuG3hndn5
+$ utxo_txid=95d51e813daeb9a861b2dcdddf1da8c198d06452bbbecfd827447881ff79e061
 $ utxo_vout=0
 $ recipient2=$(bitcoin-cli getrawchangeaddress)
 ```

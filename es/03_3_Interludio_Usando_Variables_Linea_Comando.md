@@ -41,6 +41,6 @@ El resto de este tutorial utilizará este estilo de guardar información en vari
 
 Las variables de la línea de comandos se pueden usar para contener cadenas largas de Bitcoin, lo que minimiza las posibilidades de errores.
 
-## ¿Que sigue?
+## ¿Qué sigue?
 
 Continúe "Comprendiendo la configuración de Bitcoin" en [§3.4: Recibiendo una transacción](03_4_Recibiendo_una_Transaccion.md).

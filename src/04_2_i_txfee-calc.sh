@@ -6,9 +6,9 @@ then
     exit;
 fi
 
-mapfile -t usedtxid < <(bitcoin-cli decoderawtransaction "$1" | jq -r '.vin | .[] | .txid')
-mapfile -t usedvout < <(bitcoin-cli decoderawtransaction "$1" | jq -r '.vin | .[] | .vout')
-btcin=$(for ((i=0; i<${#usedtxid[*]}; i++)); do txid=${usedtxid[i]}; vout=${usedvout[i]}; bitcoin-cli listunspent | jq -r '.[] | select (.txid | contains("'"${txid}"'")) | select(.vout | contains('"$vout"')) | .amount'; done | awk '{s+=$1} END {printf "%.8f\n, s}')
-btcout=$(bitcoin-cli decoderawtransaction "$1" | jq -r '.vout  [] | .value' | awk '{s+=$1} END {printf "%.8f\n, s}')
-btcout_f=$(awk -v btcout="$btcout" 'BEGIN { printf("%.8f\n", btcout) }' </dev/null)
-echo "$btcin-$btcout_f"| /usr/bin/bc
+usedtxid=($(bitcoin-cli decoderawtransaction $1 | jq -r '.vin | .[] | .txid'))
+usedvout=($(bitcoin-cli decoderawtransaction $1 | jq -r '.vin | .[] | .vout'))
+btcin=$(for ((i=0; i<${#usedtxid[*]}; i++)); do txid=${usedtxid[i]}; vout=${usedvout[i]}; bitcoin-cli listunspent | jq -r '.[] | select (.txid | contains("'${txid}'")) | select(.vout | contains('$vout')) | .amount'; done | awk '{s+=$1} END {print s}')
+btcout=$(bitcoin-cli decoderawtransaction $1 | jq -r '.vout  [] | .value' | awk '{s+=$1} END {print s}')
+btcout_f=$(awk -v btcout="$btcout" 'BEGIN { printf("%f\n", btcout) }' </dev/null)
+echo $(printf '%.8f-%.8f' $btcin $btcout_f) | /usr/bin/bc

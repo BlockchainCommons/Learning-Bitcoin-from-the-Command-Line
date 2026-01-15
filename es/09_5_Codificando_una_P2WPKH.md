@@ -118,6 +118,6 @@ Sin embargo, SegWit también fue un uso inteligente de los scripts de Bitcoin. S
 
 Cuando está programando desde la línea de comandos, fundamentalmente no tiene que preocuparse por esto, aparte de saber que no encontrará scripts tradicionales en transacciones SegWit sin procesar (que, nuevamente, era el punto).
 
-## ¿Que sigue?
+## ¿Qué sigue?
 
 Continúe "Codificando Bitcoin" con el [Capítulo 10: Embebiendo Bitcoin Scripts en Transacciones P2SH](10_0_Embebiendo_Bitcoin_Scripts_en_Transacciones_P2SH.md).

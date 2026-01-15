@@ -7,11 +7,11 @@ Sabe que los scripts de Bitcoin se pueden usar para controlar el canje de UTXOs.
 Aquí está la trampa para usar los scripts de Bitcoin: por razones de seguridad, la mayoría de los nodos de Bitcoin solo aceptarán seis tipos de transacciones de Bitcoin "estándar".
 
 * __Pagar a Clave Pública (Pay to Public Key, P2PK)__ — Una transacción antigua y obsoleta (`<pubKey> OP_CHECKSIG`) que ha sido reemplazada por la mejor seguridad de P2PKH.
-* __Pagar al Testigo del Hash de la Clave Pública (Pay to Public Key Hash, P2PKH)__ — Una transacción (`OP_DUP OP_HASH160 <pubKeyHash> OP_EQUALVERIFY OP_CHECKSIG`) que paga el hash de una clave pública.
-* __Pagar Para Ser Testigo de Hash de Clave Pública (Pay to Witness Public Key Hash, P2WPKH)__ — El tipo más nuevo de transacción de clave pública. Es solo (`OP_0 <pubKeyHash`) porque depende del consenso del minero para funcionar, como se describe en [§9.5](09_5_Codificando_una_P2WPKH.md).
+* __Pagar al Hash de la Clave Pública (Pay to Public Key Hash, P2PKH)__ — Una transacción estandard (`OP_DUP OP_HASH160 <pubKeyHash> OP_EQUALVERIFY OP_CHECKSIG`) que paga el hash de una clave pública.
+* __Pagar Para Ser Testigo del Hash de Clave Pública (Pay to Witness Public Key Hash, P2WPKH)__ — El tipo más nuevo de transacción de clave pública. Es solo (`OP_0 <pubKeyHash`) porque depende del consenso del minero para funcionar, como se describe en [§9.5](09_5_Codificando_una_P2WPKH.md).
 * __Multifirma (Multisig)__ — Una transacción para un grupo de claves, como se explica con más detalle en [§10.4: Codificando una Multifirma](10_4_Codificando_una_Multifirma.md).
 * __Datos Nulos (Null Data)__ — Una transacción invencible (`OP_RETURN Data`).
-* __Pagar a Script Hash (Pay to Script Hash, P2SH)__ — Una transacción que paga a un script específico, como se explica con más detalle aqui.
+* __Pagar a Script Hash (Pay to Script Hash, P2SH)__ — Una transacción que paga a un script específico, como se explica con más detalle aquí.
 
 Entonces, ¿cómo se escribe un script de Bitcoin más complejo? La respuesta está en ese último tipo de transacción estándar, el P2SH. Puede poner cualquier tipo de script largo y complejo en una transacción P2SH, y siempre que siga las reglas estándar para incrustar su script y canjear los fondos, obtendrá todos los beneficios de Bitcoin Scripting.
 
