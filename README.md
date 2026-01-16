@@ -1,4 +1,4 @@
-# Learning Bitcoin from the Command Line 2.2.0
+# Learning Bitcoin from the Command Line 2.2.1
 ### _by Christopher Allen and Shannon Appelcline_
 
 ![](https://www.blockchaincommons.com/images/projects/lbtc-screen.png)
@@ -161,6 +161,10 @@ v2.1.0 of **Learning Bitcoin from the Command Line** is feature complete and has
 
 We are also tentatively considering what we could include in a [v3.0](TODO-30.md) of the course. If you'd like to support work of that sort, become a [GitHub Sponsor](https://github.com/sponsors/BlockchainCommons) or support us at our [BTCPay Server](https://btcpay.blockchaincommons.com/), and let us know that **Learning Bitcoin** was the reason why.
 ### Version History
+
+#### 2.2.1 (January 15, 2026)
+
+* Incorporation of PRs and Issues, to close out previous iteration of course, in prep for big 3.0 update.
 
 #### 2.2.0 (November 17, 2021)
 
