@@ -2,52 +2,49 @@
 
 The following TODO items are intended for a 3.0 version of Learning Bitcoin from the Command Line
 
-## Medium-Scale Updates
+## Immediate TODO (for 1/29)
+
+1. Update Stackscripts to support/default signet
+2. Update non-Linode script too
+3. Revise §2.1 for newest Stackscript
+4. Puzzle out organization for overall project
+5. Change testnet to signet + list out network options
+
+## Revisions
 
 The following updates involve updates or the creation of new chapters, but their additions are generally bounded and known.
 
-1. General Update: Consider replacing testnet with signet
 1. Big changes to defaults
    * Signet
    * SEGWIT
       * Talk about address types: https://www.unchained.com/blog/bitcoin-address-types-compared
    * Descriptor Wallets
-1. New Interlude: Creating QR Codes (after 3.3)
-   * New Subsection: Creating a QR
-   * New Subsection: Creating a Quick Connect QR
 1. Revise Section: Understanding the Descriptor (3.5)
    * New Content: Descriptor Wallets
    * Possibly also remove legacy wallets (3.3) and replace them entire with descriptors
    * New Content: Complex Descriptors
    * Consider: Breaking into Two Sections
+1. Revise Section: Understanding Timelock Options (11.1)
+   * Explanation: Better distinguish differences
+   * Reference: consider chart at in https://prestwi.ch/bitcoin-time-locks/
+1. Revise 4.5
+   * freezing coins
+  
+The next step in revisions is:
+
+1. Run through entire course & make sure all commands & responses are still accurate (likely redoing them all).
+
+## Additions
+
+The following updates involve the large-scale work done on Schnorr and Taproot in Bitcoin Core 0.21 and 22. This represents a first cut at how to layout the work, but revision and expansion will likely be needed as everyone's understanding of these new technologies matures.
+
+1. New Interlude: Creating QR Codes (after 3.3)
+   * New Subsection: Creating a QR
+   * New Subsection: Creating a Quick Connect QR
 1. New Interlude: Creating Animated QR Codes (after 7.1)
    * New Subsection: Understanding Uniform Resources
    * New Subsection: Creating an Animated QR
    * New Subsection: Creating an Animated QR of a PSBT
-1. New Chapter: Using Other Command-Line Tools (between 8+9)
-   * 9.1: Using seedtool
-   * 9.2: Using keytool
-   * 9.3: Using bytewords-cli
-1. Revise Section: Understanding Timelock Options (11.1)
-   * Explanation: Better distinguish differences
-   * Reference: consider chart at in https://prestwi.ch/bitcoin-time-locks/
-1. New Chapter: Using Miniscript Command-Line Tools (between 13+14)
-   * 15.1: Using miniscript
-   * 15.2: Using Bitcoin Dev Kit (BDK)
-   * 15.3: Planning for the Future
-1. New Content: Expand the PSBT Libwally Content (17.4) into Two Sections
-   * 17.4: Signing PSBTs in Libwally
-      * Explanation: Contains the current info on importing a PSBT, and shows how to sign it
-   * 17.5: Creating PSBTs in Libwally
-      * Explanation: Contains the current info on creating a PSBT, and shows how to export it
-1. New Chapter: Talking to Bitcoind with Swift (between 17+18)
-   * 19.1: Accessing Bitcoind with Swift (existing section)
-   * 19.2: Using Swift with Bitcoin Lib [Wolf's library]
-   * 19.3: Using Swift with Libwally [Wolf's shim]
-
-## Large-Scale Updates
-
-The following updates involve the large-scale work done on Schnorr and Taproot in Bitcoin Core 0.21 and 22. This represents a first cut at how to layout the work, but revision and expansion will likely be needed as everyone's understanding of these new technologies matures.
 
 **Chapter X: Expanding Bitcoin Transactions with Schnorr** (probably between chapters 6+7)
 
@@ -103,10 +100,24 @@ The following updates involve the large-scale work done on Schnorr and Taproot i
 
 ## Further Updates
 
-The following updates could be part of v3.0 or could be further future, depending on interest and funding.
+The following updates could be part of v3.0 or could be further future, depending on how long the above takes.
 
 1. New Graphics: Animated GIFs for key demos.
    * Reference: https://github.com/faressoft/terminalizer
+1. New Chapter: Using Other Command-Line Tools (between 8+9)
+   * 9.1: Using seedtool
+   * 9.2: Using keytool
+   * 9.3: Using bytewords-cli
+   * 9.4: Using envelope
+1. New Chapter: Using Miniscript Command-Line Tools (between 13+14)
+   * 15.1: Using miniscript
+   * 15.2: Using Bitcoin Dev Kit (BDK)
+   * 15.3: Planning for the Future
+
+## Lightning Updates
+
+The Lightning content _may_ be moved to a separate document. That decision would be made before the following potential updates happen.
+
 1. New Chapter: Talking to Lightningd with C (after chapter 20)
    * 22.1: Creating a Lightning Channel with C
    * 22.2: Creating a Payment Request with C
@@ -116,6 +127,20 @@ The following updates could be part of v3.0 or could be further future, dependin
       * Reference: https://diyhpl.us/wiki/transcripts/blockstream-webinars/2019-07-31-rusty-russell-getting-started-with-c-lightning/
       * Reference: https://twitter.com/roasbeef/status/1389649064753471488_
 
+## Software Updates
+
+The software work _may_ be deprecated or moved to a separate docment. That decision would be made before the following potential updates happen.
+
+1. New Content: Expand the PSBT Libwally Content (17.4) into Two Sections
+   * 17.4: Signing PSBTs in Libwally
+      * Explanation: Contains the current info on importing a PSBT, and shows how to sign it
+   * 17.5: Creating PSBTs in Libwally
+      * Explanation: Contains the current info on creating a PSBT, and shows how to export it
+1. New Chapter: Talking to Bitcoind with Swift (between 17+18)
+   * 19.1: Accessing Bitcoind with Swift (existing section)
+   * 19.2: Using Swift with Bitcoin Lib [Wolf's library]
+   * 19.3: Using Swift with Libwally [Wolf's shim]
+  
 --
 
 ## Listing of Updates
@@ -204,14 +229,6 @@ See [release notes](https://bitcoincore.org/en/releases/22.0/).
   * There are some new external signer commands: `enumeratesigners` and `displayaddress`. Are they relevant to what we're teaching? If so, should we add info on them.
   * See https://github.com/bitcoin/bitcoin/blob/22.x/doc/external-signer.md
   * Any updates would go in [7.3](https://github.com/BlockchainCommons/Learning-Bitcoin-from-the-Command-Line/blob/master/07_3_Integrating_with_Hardware_Wallets.md).
-* [ ] **RPC Changes**
-   * Again, these commands should be reoutput.
-   * [ ] `getpeerinfo`, 
-   * [ ] `gettxout`, 
-   * [ ] `getrawtransaction`, 
-   * [ ] `decoderawtransaction`, 
-   * [ ] `decodescript`, 
-   * [ ] `getnodeaddresses`
 
 ## 0.21.0 Updates
 
@@ -220,6 +237,3 @@ See [release notes](https://bitcoincore.org/en/releases/0.21.0/).
 * [ ] **Signet**
    * Signet is considered more controlled and reliable than testnet, and so should be used as our test network, along with an explanation of what it is and how it differs from other networks.
    * The setup and explanation of networks appears in [3.1](https://github.com/BlockchainCommons/Learning-Bitcoin-from-the-Command-Line/blob/master/03_1_Verifying_Your_Bitcoin_Setup.md). That should be changed, and with the change of the alias there, we should mostly be used Signet. Then the rest of the course can be searched for any references to testnet.
-* [ ] **RPC Changes**
-   * As usual, these may or may not be used, but if they are, outputs should be redone.
-   * [ ] `getnetworkinfo`
