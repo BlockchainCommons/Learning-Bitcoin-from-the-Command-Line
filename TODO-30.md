@@ -1,7 +1,3 @@
-# Updates for v2.3 of LBTCftCL
-
-V2.2 of LBTCftCL was drafted in the summer of 2021. The last major upgrade to the book came with the release of v0.20, but there is a smattering of content through 22.0. Bitcoin Core is now up to v23.0, and the course needs to be updated to best address these recent changes. What follows is a rough listing of updates that are likely to require changes to the course. They will all require investigation, and in some cases it might be determined that there's nothing to be done. Some of the main questions that will determine whether material should be included in the course are listed, as our ideas for where material might go in the course.
-
 # Todo List for v3.0 of Learning Bitcoin
 
 The following TODO items are intended for a 3.0 version of Learning Bitcoin from the Command Line
