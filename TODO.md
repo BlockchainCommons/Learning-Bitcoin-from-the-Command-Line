@@ -7,7 +7,7 @@ The following TODO items are intended for a 3.0 version of Learning Bitcoin from
 1. Update Stackscripts to support/default signet
 2. Update non-Linode script too
 3. Revise §2.1 for newest Stackscript
-4. Puzzle out organization for overall project
+4. Puzzle out organization for overall project (largely based on updates below and remaining Issues)
 5. Change testnet to signet + list out network options
 
 ## Revisions
