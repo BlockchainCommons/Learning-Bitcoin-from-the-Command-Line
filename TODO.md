@@ -10,6 +10,7 @@ The following updates involve updates or the creation of new chapters, but their
 1. Big changes to defaults
    * Signet
    * SEGWIT
+      * Talk about address types: https://www.unchained.com/blog/bitcoin-address-types-compared
    * Descriptor Wallets
 1. New Interlude: Creating QR Codes (after 3.3)
    * New Subsection: Creating a QR
