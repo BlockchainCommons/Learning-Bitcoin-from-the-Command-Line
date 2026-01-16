@@ -131,6 +131,25 @@ The following updates could be part of v3.0 or could be further future, dependin
    * There was some question of if `mintxfee` is still current, or if `paytxfee` should be used. I haven't seen any evidence of obsolence, but it'd be good to check this and make sure we're still on the best practices.
    * This is discussed in [4.1](https://github.com/BlockchainCommons/Learning-Bitcoin-from-the-Command-Line/blob/master/04_1_Sending_Coins_The_Easy_Way.md)
 
+## 30.0 Updates
+
+See [release notes](https://bitcoincore.org/en/releases/30.0/)
+
+* [ ] Huge OP_RETURN update: 100,000 bytes, multiple OP_RETURN outputs
+
+## 29.0 Updates
+
+See [release notes](https://bitcoincore.org/en/releases/29.0/)
+
+* RBF now absolute standard
+
+## 28.0 Updates
+
+See [release notes](https://bitcoincore.org/en/releases/28.0/).
+
+* testnet4
+* [ ] CPFP updates with P2A
+
 ## 27.0 Updates
 
 * v2 transport becomes default
