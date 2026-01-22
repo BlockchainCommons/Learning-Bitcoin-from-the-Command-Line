@@ -4,13 +4,13 @@ You're now ready to receive some money at the new address you set up.
 
 ## Get Some Money
 
-To do anything more, you need to get some money. On testnet this is done through faucets. Since the money is all pretend, you just go to a faucet, request some money, and it will be sent over to you. We suggest using the faucet at https://testnet-faucet.mempool.co/, https://bitcoinfaucet.uo1.net/, or https://testnet.coinfaucet.eu/en/. If they're not available for some reason, search for "bitcoin testnet faucet", and you should find others.
+To do anything more, you need to get some money. On signet this is done through faucets. Since the money is all pretend, you just go to a faucet, request some money, and it will be sent over to you. We suggest using the faucet at [https://signetfaucet.com/](https://signetfaucet.com/) or [https://signet257.bublina.eu.org/](https://signet257.bublina.eu.org/). If they're not available for some reason, search for "bitcoin signet faucet", and you should find others.
 
 To use a faucet, you'll usually need to go to a URL and copy and paste in your address. Note that this is one of those cases where you won't be able to use command-line variables, alas. Afterward, a transaction will be created that sends money from the faucet to you.
 
 > :book: ***What is a transaction?*** A transaction is a bitcoin exchange. The owner of some bitcoins uses his private key to access those coins, then locks the transaction using the recipient's public key.
 
-> :link: **TESTNET vs MAINNET:** Sadly, there are no faucets in real life. If you were playing on the mainnet, you'd need to go and actually buy bitcoins at a bitcoin exchange or ATM, or you'd need to get someone to send them to you. Testnet life is much easier.
+> :link: **SIGNET vs MAINNET:** Sadly, there are no faucets in real life. If you were playing on the mainnet, you'd need to go and actually buy bitcoins at a bitcoin exchange or ATM, or you'd need to get someone to send them to you. Signet life is much easier.
 
 ## Verify Your Money
 
@@ -49,7 +49,7 @@ $  bitcoin-cli getbalance "*" 2
 ```
 Obviously, every ten minutes or so this depth will increase.
 
-Of course, on the testnet, no one is that worried about how reliable your funds are. You'll be able to spend your money as soon as it's confirmed.
+Of course, on the signet, no one is that worried about how reliable your funds are. You'll be able to spend your money as soon as it's confirmed.
 
 ## Verify Your Wallet
 
@@ -155,7 +155,7 @@ $ bitcoin-cli listunspent
 ```
 Note that bitcoins are not just a homogeneous mess of cash jammed into your pocket. Each individual transaction that you receive or that you send is placed into the immutable blockchain ledger, in a block. You can see these individual transactions when you look at your unspent money. This means that bitcoin spending isn't quite as anonymous as you'd think. Though the addresses are fairly private, transactions can be examined as they go in and out of addresses. This makes privacy vulnerable to statistical analysis. It also introduces some potential non-fungibility to bitcoins, as you can track back through series of transactions, even if you can't track a specific "bitcoin".
 
-> :book: ***Why are all of these bitcoin amounts in fractions?*** Bitcoins are produced slowly, and so there are relatively few in circulation. As a result, each bitcoin over on the mainnet is worth quite a bit (~ $9,000 at the time of this writing). This means that people usually work in fractions. In fact, the .0101 in Testnet coins would be worth about $100 if they were on the mainnet. For this reason, names have appeared for smaller amounts of bitcoins, including millibitcoins or mBTCs (one-thousandth of a bitcoin), microbitcoins or bits or μBTCs (one-millionth of a bitcoin), and satoshis (one hundred millionth of a bitcoin).
+> :book: ***Why are all of these bitcoin amounts in fractions?*** Bitcoins are produced slowly, and so there are relatively few in circulation. As a result, each bitcoin over on the mainnet is worth quite a bit (~ $9,000 at the time of this writing). This means that people usually work in fractions. In fact, the .0101 in Signet coins would be worth about $9000 if they were on the mainnet. For this reason, names have appeared for smaller amounts of bitcoins, including millibitcoins or mBTCs (one-thousandth of a bitcoin), microbitcoins or bits or μBTCs (one-millionth of a bitcoin), and satoshis (one hundred millionth of a bitcoin).
 
 ## Examine Your Transaction
 
@@ -291,15 +291,15 @@ There is another command, `getrawtransaction`, which allows you to look at trans
 
 Even looking at the verbose information for a transaction can be a little intimidating. The main goal of this tutorial is to teach how to deal with raw transactions from the command line, but we're happy to talk about other tools when they're applicable. One of those tools is a block explorer, which you can use to look at transactions from a web browser in a much friendlier format.
 
-Currently, our preferred block explorer is [https://live.blockcypher.com/](https://live.blockcypher.com/).
+Currently, our preferred block explorer is [https://mempool.space/](https://mempool.space/), which has options for mainnet, signet, testnet3, and testnet4.
 
 You can use it to look up transactions for an address:
 
-[https://live.blockcypher.com/btc-testnet/address/mi25UrzHnvn3bpEfFCNqJhPWJn5b77a5NE/](https://live.blockcypher.com/btc-testnet/address/mi25UrzHnvn3bpEfFCNqJhPWJn5b77a5NE/)
+[https://mempool.space/signet/address/tb1pffsyra2t3nut94yvdae9evz3feg7tel843pfcv76vt5cwewavtesl3gsph](https://mempool.space/signet/address/tb1pffsyra2t3nut94yvdae9evz3feg7tel843pfcv76vt5cwewavtesl3gsph)
 
 You can also use it to look at individual transactions:
 
-[https://live.blockcypher.com/btc-testnet/tx/8e2ab10cabe9ec04ed438086a80b1ac72558cc05bb206e48fc9a18b01b9282e9/](https://live.blockcypher.com/btc-testnet/tx/8e2ab10cabe9ec04ed438086a80b1ac72558cc05bb206e48fc9a18b01b9282e9/)
+[https://mempool.space/signet/tx/e5b8940b2dd5a1bbb032228dedd85cd8c21f0ce5cf4b76c959f71d967de626b3](https://mempool.space/signet/tx/e5b8940b2dd5a1bbb032228dedd85cd8c21f0ce5cf4b76c959f71d967de626b3)
 
 A block explorer doesn't generally provide any more information than a command line look at a raw transaction; it just does a good job of highlighting the important information and putting together the puzzle pieces, including the transaction fees behind a transaction — another concept that we'll be covering in future sections.
 
