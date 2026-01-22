@@ -1,3 +1,6 @@
+TODO:
+   * Remove legacy wallets (3.3) and replace them entire with descriptors
+
 # 3.3: Setting Up Your Wallet
 
 You're now ready to start working with Bitcoin. To begin with, you'll need to create a wallet for sending and receiving funds.
