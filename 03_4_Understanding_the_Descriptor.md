@@ -1,3 +1,10 @@
+TODO:
+
+1. Revise Section: Understanding the Descriptor (3.5)
+   * New Content: Descriptor Wallets
+   * New Content: Complex Descriptors
+   * Consider: Breaking into Two Sections
+
 # 3.5: Understanding the Descriptor
 
 > :information_source: **NOTE:** This section has been recently added to the course and is an early draft that may still be awaiting review. Caveat reader.
