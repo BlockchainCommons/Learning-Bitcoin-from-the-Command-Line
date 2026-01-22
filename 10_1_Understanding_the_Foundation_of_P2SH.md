@@ -39,7 +39,7 @@ The locking script is quite simple looking: `OP_HASH160 a5d106eb8ee51b23cf60d8bd
 
 One of the interesting elements of P2SH transactions is that neither the sender nor the Blockchain actually knows what the `redeemScript` is! A sender just sends to a standardized P2SH address marked with a "2" prefix and they don't worry about how the recipient is going to retrieve the funds at the end.
 
-> :link: **TESTNET vs MAINNET:** on testnet, the prefix for P2SH addresses is `2`, while on mainnet, it's `3`.
+> :link: **SIGNET vs MAINNET:** on signet (and testnet), the prefix for P2SH addresses is `2`, while on mainnet, it's `3`.
 
 ## Understand How to Build a P2SH Script
 
