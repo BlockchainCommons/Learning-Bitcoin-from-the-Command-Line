@@ -39,6 +39,7 @@ If you'd like to make your own translation, please see [Contributing](https://gi
   * [3.2: Knowing Your Bitcoin Setup](03_2_Knowing_Your_Bitcoin_Setup.md)
   * [3.3: Setting Up Your Wallet](03_3_Setting_Up_Your_Wallet.md)
     * [Interlude: Using Command-Line Variables](03_3__Interlude_Using_Command-Line_Variables.md)
+    * [Interlude: Creating QR Codes](03_3b_Interlude_Creating_QR_Codes.md)
   * [3.4: Receiving a Transaction](03_4_Receiving_a_Transaction.md)
   * [3.5: Understanding the Descriptor](03_5_Understanding_the_Descriptor.md)
 * [4.0: Sending Bitcoin Transactions](04_0_Sending_Bitcoin_Transactions.md)
