@@ -18,15 +18,15 @@ Once you've added an `.auth` file to the `authorized_client` subdirectory, then 
 
 ## Reset Your `bitcoind` Onion Address
 
-If you ever want to reset your onion address for `bitcoind`, just remove the `onion_private_key` in your data directory, such as `~/.bitcoin/testnet`:
+If you ever want to reset your onion address for `bitcoind`, just remove the `onion_v3_private_key` in your data directory, such as `~/.bitcoin/signet`:
 ```
-$ cd ~/.bitcoin/testnet
-$ rm onion_private_key 
+$ cd ~/.bitcoin/signet
+$ rm onion_v3_private_key 
 ```
 When you restart, a new onion address will be generated:
 ```
 2020-07-22T23:52:27Z tor: Got service ID pyrtqyiqbwb3rhe7, advertising service pyrtqyiqbwb3rhe7.onion:18333
-2020-07-22T23:52:27Z tor: Cached service private key to /home/standup/.bitcoin/testnet3/onion_private_key
+2020-07-22T23:52:27Z tor: Cached service private key to /home/standup/.bitcoin/signet/onion_v3_private_key
 ```
 
 ## Reset Your RPC Onion Address
