@@ -28,6 +28,8 @@ Once you've gotten Bitcoin Standup running on your local machine, you'll want to
 
 We will be using a Macintosh and Testnet for the examples in this section.
 
+(Currently, MacOS only support Testnet, not Signet; this should be updated.)
+
 ### Create an Alias for Bitcoin-CLI
 
 Create an alias that runs `bitcoin-cli` from the correct directory with any appropriate flags.
