@@ -1,3 +1,6 @@
+TODO:
+* Freezing coins
+  
 # 4.4: Sending Coins with Raw Transactions
 
 As noted at the start of this chapter, the `bitcoin-cli` interface offers three major ways to send coins. [§4.1](04_1_Sending_Coins_The_Easy_Way.md) talked about sending them the first way, using the `sendtoaddress` command. Since then, we've been building details on how to send coins a second way, with raw transactions. [§4.2](04_2_Creating_a_Raw_Transaction.md) taught how to create a raw transaction, an [Interlude](04_2__Interlude_Using_JQ.md) explained JQ, and [§4.3](04_3_Creating_a_Raw_Transaction_with_Named_Arguments.md) demonstrated named arguments.
