@@ -9,19 +9,20 @@ To start with, you should understand where everything is kept: the `~/.bitcoin` 
 The main directory just contains your config file and the testnet directory:
 ```
 $ ls ~/.bitcoin
-bitcoin.conf  testnet3
+bitcoin.conf  signet
 ```
 The setup guides in [Chapter Two: Creating a Bitcoin-Core VPS](02_0_Setting_Up_a_Bitcoin-Core_VPS.md) laid out a standardized config file. [§3.1: Verifying Your Bitcoin Setup](03_1_Verifying_Your_Bitcoin_Setup.md) suggested how to change it to support more advanced setups. If you're interested in learning even more about the config file, you may wish to consult [Jameson Lopp's Bitcoin Core Config Generator](https://jlopp.github.io/bitcoin-core-config-generator/).
 
-Moving back to your ~/.bitcoin directory, you'll find that the testnet3 directory contains all of the guts:
+Moving back to your ~/.bitcoin directory, you'll find that the signet directory contains all of the guts:
 ```
-$ ls ~/.bitcoin/testnet3
-banlist.json   blocks	  debug.log	     mempool.dat	peers.dat
-bitcoind.pid  chainstate  fee_estimates.dat  onion_private_key	wallets
+$ ls ~/.bitcoin/signet
+banlist.json  chainstate         onion_v3_private_key  wallets
+bitcoind.pid  debug.log          peers.dat
+blocks        fee_estimates.dat  settings.json
 ```
 You shouldn't mess with most of these files and directories — particularly not the `blocks` and `chainstate` directories, which contain all of the blockchain data, and the information in your `wallets` directory, which contains your personal wallet. However, do take careful note of the `debug.log` file, which you should refer to if you ever have problems with your setup.
 
-> :link: **TESTNET vs MAINNET:** If you're using mainnet, then _everything_ will instead be placed in the main `~/.bitcoin` directory. These various setups _do_ elegantly stack, so if you are using mainnet, testnet, and regtest, you'll find that `~/.bitcoin` contains your config file and your mainnet data, the `~/.bitcoin/testnet3` directory contains your testnet data, and the `~/.bitcoin/regtest` directory contains your regtest data.
+> :link: **SIGNET vs MAINNET:** If you're using mainnet, then _everything_ will instead be placed in the main `~/.bitcoin` directory. These various setups _do_ elegantly stack, so if you are using mainnet, signet, testnet, and regtest, you'll find that `~/.bitcoin` contains your config file and your mainnet data, the `~/.bitcoin/signet` directory contains your signet data, the `~/.bitcoin/testnet3` directory contains your testnet data, and the `~/.bitcoin/regtest` directory contains your regtest data.
 
 ## Know Your Bitcoin-cli Commands
 
