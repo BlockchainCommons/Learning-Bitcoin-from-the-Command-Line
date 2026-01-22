@@ -72,11 +72,12 @@ The Tor config file is found at `/etc/tor/torrc`. If you look at it, you should 
 ```
 HiddenServiceDir /var/lib/tor/standup/
 HiddenServiceVersion 3
+HiddenServicePort 1309 127.0.0.1:38332
 HiddenServicePort 1309 127.0.0.1:18332
 HiddenServicePort 1309 127.0.0.1:18443
 HiddenServicePort 1309 127.0.0.1:8332
 ```
-> :link: **TESTNET vs MAINNET:** Mainnet RPC is run on port 8332, testnet on port 18332.
+> :link: **SIGNET vs MAINNET:** Mainnet RPC is run on port 8332, testnet on port 18332, regtest on port 18443, signet on port 38332.
 
 > :information_source: **NOTE:** The `HiddenServiceDir` is where all the files are kept for this particular service. If you need to lookup your onion address, access keys, or add authorized clients, this is where to do so!
 
@@ -103,14 +104,14 @@ Bitcoin Standup also ensures that your `bitcoind` is set up to optionally commun
 
 You can verify the initial setup of Tor for `bitcoind` by grepping for "tor" in the `debug.log` in your data directory:
 ```
-$ grep "tor:" ~/.bitcoin/testnet3/debug.log
+$ grep "tor:" ~/.bitcoin/signet/debug.log
 2021-06-09T14:07:04Z tor: ADD_ONION successful
-2021-06-09T14:07:04Z tor: Got service ID vazr3k6bgnfafmdpcmbegoe5ju5kqyz4tk7hhntgaqscam2qupdtk2yd, advertising service vazr3k6bgnfafmdpcmbegoe5ju5kqyz4tk7hhntgaqscam2qupdtk2yd.onion:18333
-2021-06-09T14:07:04Z tor: Cached service private key to /home/standup/.bitcoin/testnet3/onion_v3_private_key
+2021-06-09T14:07:04Z tor: Got service ID vazr3k6bgnfafmdpcmbegoe5ju5kqyz4tk7hhntgaqscam2qupdtk2yd, advertising service vazr3k6bgnfafmdpcmbegoe5ju5kqyz4tk7hhntgaqscam2qupdtk2yd.onion:38333
+2021-06-09T14:07:04Z tor: Cached service private key to /home/standup/.bitcoin/signet/onion_v3_private_key
 ```
 > :information_source: **NOTE:** Bitcoin Core does not support v2 addresses anymore. Tor v2 support was removed in [#22050](https://github.com/bitcoin/bitcoin/pull/22050)
 
-> **TESTNET vs MAINNET:** Mainnet `bitcoind` responds on port 8333, testnet on port 18333.
+> **TESTNET vs MAINNET:** Mainnet `bitcoind` responds on port 8333, testnet on port 18333, signet on 38333.
 
 You can verify that a Tor hidden service has been created for Bitcoin with the `getnetworkinfo` RPC call:
 
