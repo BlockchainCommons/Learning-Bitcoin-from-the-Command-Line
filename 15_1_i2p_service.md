@@ -94,7 +94,7 @@ The following will run Bitcoin Core I2P services:
 
 7. Confirm `i2p_private_key` was created in the Bitcoin Core data directory. The first time Bitcoin Core connects to the I2P router, its I2P address (and corresponding private key) will be automatically generated and saved in a file named *i2p_private_key*:
    ```
-   ~/.bitcoin/testnet3$ ls
+   ~/.bitcoin/signet$ ls
 
    anchors.dat  chainstate         i2p_private_key  settings.json
    banlist.dat  debug.log          mempool.dat      wallets
