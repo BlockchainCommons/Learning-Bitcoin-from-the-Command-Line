@@ -85,7 +85,7 @@ If you'd like to make your own translation, please see [Contributing](https://gi
   * [10.5: Scripting a Segwit Script](10_5_Scripting_a_Segwit_Script.md)
   * [10.6: Spending a P2SH Transaction](10_6_Spending_a_P2SH_Transaction.md)
 * [11.0: Empowering Timelock with Bitcoin Scripts](11_0_Empowering_Timelock_with_Bitcoin_Scripts.md)
-  * [11.1: Understanding Timelock Options](11_1_Understanding_Timelock_Options.md)
+  * [11.1: Understanding Timelock Options](11_1_Understanding_Timelock_Options.md) [**TO UPDATE**]
   * [11.2: Using CLTV in Scripts](11_2_Using_CLTV_in_Scripts.md)
   * [11.3: Using CSV in Scripts](11_3_Using_CSV_in_Scripts.md)
 * [12.0: Expanding Bitcoin Scripts](12_0_Expanding_Bitcoin_Scripts.md)
