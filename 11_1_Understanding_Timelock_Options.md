@@ -1,3 +1,8 @@
+TODO:
+
+* Explanation: Better distinguish differences
+* Reference: consider chart at in https://prestwi.ch/bitcoin-time-locks/
+
 # 11.1: Understanding Timelock Options
 
 In [§8.1: Sending a Transaction with a Locktime](08_1_Sending_a_Transaction_with_a_Locktime.md), `nLocktime` offered a great first option for locking transactions so that they couldn't be spent until some point in the future — based either on time or blockheight. But, that's not the only way to put a timelock on a transaction.
