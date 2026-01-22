@@ -12,7 +12,9 @@ Your host's timezone is stored in `/etc/timezone`, then an appropriate file from
 
 ## Step 3: Updating Debian
 
-The `apt-get` package manager is used to bring your machine up to date and to install `gnupg`, the random-number generator `haveged`, and the uncomplicated firewall `ufw`. 
+The `apt-get` package manager is used to bring your machine up to date and to install `gnupg`, `git`, the random-number generators `haveged` and `xxd`,  and the uncomplicated firewall `ufw`. 
+
+The `apt-get` commands are run with `-y`, which should force all questions to be answered "yes", and allow the script to be run without interaction (e.g., as a StackScript). That failed with the Debian 13 update, with some questions going unanswered and locking up the script, so the `-o Dpkg::Options::="--force-confdef" -o Dpkg::Options::="--force-confold"` options were added to say, "We're really serious, no questions!"
 
 Your machine is setup to automatically stay up to date with `echo "unattended-upgrades unattended-upgrades/enable_auto_updates boolean true" | debconf-set-selections`.
 
@@ -20,7 +22,7 @@ Your machine is setup to automatically stay up to date with `echo "unattended-up
 
 A `standup` user is created, which will be used for your Bitcoin applications. It also has `sudo` permissions, allowing you to take privileged actions with this account.
 
-If you supplied an SSH key, it will allow you access to this account (otherwise, you must use the password you created in setup).
+If you supplied a Standup SSH key, it will allow you access to this account (otherwise, you must use the password you created in setup).
 
 If you supplied an IP address, `ssh` access will be limited to that address, per `/etc/hosts.allow`.
 
