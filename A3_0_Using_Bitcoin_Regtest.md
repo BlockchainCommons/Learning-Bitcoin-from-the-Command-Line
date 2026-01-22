@@ -2,7 +2,7 @@
 
 > :information_source: **NOTE:** This section has been recently added to the course and is an early draft that may still be awaiting review. Caveat reader.
 
-The majority of this course presumes that you will either use the Mainnet or Testnet. However, those aren't the only choices. While developing Bitcoin applications, you might want to keep your applications isolated from these public blockchains. To do so, you can create a blockchain from scratch using the Regtest, which has one other major advantage over Testnet: you choose when to create new blocks, so you have complete control over the environment.
+The majority of this course presumes that you will either use the Mainnet or Testnet. However, those aren't the only choices. While developing Bitcoin applications, you might want to keep your applications isolated from these public blockchains. To do so, you can create a blockchain from scratch using the Regtest, which has one other major advantage over Signet and Testnet: you choose when to create new blocks, so you have complete control over the environment.
 
 ## Start Bitcoind on Regtest
 
@@ -22,7 +22,7 @@ If you wish, you can later restart your Regtest with a new blockchain.
 Regtest wallets and blockchain state (chainstate) are saved in the regtest subdirectory of the Bitcoin configuration directory:
 ```
 user@mybtc:~/.bitcoin# ls
-bitcoin.conf  regtest  testnet3
+bitcoin.conf  regtest  signet
 ```
 
 To start a brand new Blockchain using regtest, all you have to do is delete the `regtest` folder and restart the Bitcoind:
@@ -40,7 +40,7 @@ $ bitcoin-cli -regtest -named createwallet wallet_name="regtest_desc_wallet" des
 
 ## Generate Blocks
 
-You can generate (mine) new blocks on a regtest chain using the RPC method `generate` with an argument for how many blocks to generate. It only makes sense to use this method on regtest; due to the high difficulty it's very unlikely that it will yield to new blocks on the mainnet or testnet:
+You can generate (mine) new blocks on a regtest chain using the RPC method `generate` with an argument for how many blocks to generate. It only makes sense to use this method on regtest; due to the high difficulty it's very unlikely that it will yield new blocks on the mainnet, signet, or testnet:
 ```
 $ bitcoin-cli -regtest -generate 101
 [
@@ -196,7 +196,7 @@ n2.after (before) = 100
 
 ## Summary: Using Bitcoin Regtest
 
-A regtest environment for Bitcoin works just like any testnet environment, except for the fact that you have the ability to easily and quickly generate blocks.
+A regtest environment for Bitcoin works just like any testing environment, except for the fact that you have the ability to easily and quickly generate blocks.
 
 > :fire: ***What is the power of regtest?*** The biggest power of regtest is that you can quickly mine blocks, allowing you to rush the blockchain along, to test transactions, timelocks, and other features that you'd otherwise have to sit around and wait on. However, the other power is that you can run it privately, without connecting to a public blockchain, allowing you to test our proprietary ideas before releasing them into the world.
 
