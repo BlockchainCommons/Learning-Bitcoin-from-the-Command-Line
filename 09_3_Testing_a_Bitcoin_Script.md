@@ -196,11 +196,11 @@ Assume that these debuggers have the nice advantage of showing things visually a
 
 Even with a great tool like `btcdeb` or transient resources like the various online script testers, you're not working with the real thing. You can't guarantee that they follow Bitcoin's consensus rules, which means you can't guarantee their results. For example, the Script Playground explicitly says that it ignores a bug that's implicit in Bitcoin multisignatures. This means that any multisig code that you successfully test on the Script Playground will break in the real world.
 
-So the only way to _really_ test Bitcoin Scripts is to try them out on Testnet.
+So the only way to _really_ test Bitcoin Scripts is to try them out on Signet.
 
 And how do you do that? As it happens that's the topic of [chapter 10](10_0_Embedding_Bitcoin_Scripts_in_P2SH_Transactions.md), which looks into introducing these abstract scripts to the real world of Bitcoin by embedding them in P2SH transactions. (But even then, you will probably need an API to push your P2SH transaction onto the Bitcoin network, so full testing will still be a ways in the future.)
 
-_Whatever_ other testing methods you've used, testing a script on Testnet should be your final test _before_ you put your Script on Mainnet. Don't trust that your code is right; don't just eyeball it. Don't even trust whatever simulators or debuggers you've been using. Doing so is another great way to lose funds on Bitcoin.
+_Whatever_ other testing methods you've used, testing a script on Signet should be your final test _before_ you put your Script on Mainnet. Don't trust that your code is right; don't just eyeball it. Don't even trust whatever simulators or debuggers you've been using. Doing so is another great way to lose funds on Bitcoin.
 
 ## Summary: Testing a Bitcoin Script
 
