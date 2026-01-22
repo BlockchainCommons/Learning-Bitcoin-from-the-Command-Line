@@ -104,7 +104,7 @@ First, initialize the library:
 ```
 bitcoinrpc_global_init();
 ```
-Then connect to your `bitcoind` with `bitcoinrpc_cl_init_params`. The four arguments for `bitcoinrpc_cl_init_params` are username, password, IP address, and port. You should already know all of this information from your work with [Curl](04_4__Interlude_Using_Curl.md). As you'll recall, the IP address 127.0.0.1 and port 18332 should be correct for the standard testnet setup described in these documents, while you can extract the user and password from `~/.bitcoin/bitcoin.conf`.
+Then connect to your `bitcoind` with `bitcoinrpc_cl_init_params`. The four arguments for `bitcoinrpc_cl_init_params` are username, password, IP address, and port. You should already know all of this information from your work with [Curl](04_4__Interlude_Using_Curl.md). As you'll recall, the IP address 127.0.0.1 and port 38332 should be correct for the standard signet setup described in these documents, while you can extract the user and password from `~/.bitcoin/bitcoin.conf`.
 ```
 $ cat bitcoin.conf
 server=1
@@ -117,7 +117,7 @@ rpcpassword=6305f1b2dbb3bc5a16cd0f4aac7e1eba
 rpcallowip=127.0.0.1
 debug=tor
 prune=550
-testnet=1
+signet=1
 [test]
 rpcbind=127.0.0.1
 rpcport=18332
@@ -134,7 +134,7 @@ bitcoinrpc_cl_t *rpc_client;
 rpc_client = bitcoinrpc_cl_init_params("StandUp", "6305f1b2dbb3bc5a16cd0f4aac7e1eba", "127.0.0.1", 18332);
 ```
 
-> **MAINNET VS TESTNET:** The port would be 8332 for a mainnet setup.
+> **MAINNET VS SIGNET:** The port would be 8332 for a mainnet setup.
 
 If `rpc_client` is successfully initialized, you'll be able to send off RPC commands.
 
