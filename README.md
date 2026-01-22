@@ -157,7 +157,7 @@ If you'd like to make your own translation, please see [Contributing](https://gi
 
 ## Status - Beta
 
-v2.2.2 of **Learning Bitcoin from the Command Line** is feature complete and has undergone full editing and integration. It is ready for learning. However, it is out-of-date, focused on Bitcoin Core 22.0. We are currently working on [v3.0](TODO-30.md) of the course, for release toward the end of 2026. If you'd like to support work of that sort, become a [GitHub Sponsor](https://github.com/sponsors/BlockchainCommons) or support us at our [BTCPay Server](https://btcpay.blockchaincommons.com/), and let us know that **Learning Bitcoin** was the reason why.
+v2.2.2 of **Learning Bitcoin from the Command Line** is feature complete and has undergone full editing and integration. It is ready for learning. However, it is out-of-date, focused on Bitcoin Core 22.0. We are currently working on [v3.0](TODO.md) of the course, for release toward the end of 2026. If you'd like to support work of that sort, become a [GitHub Sponsor](https://github.com/sponsors/BlockchainCommons) or support us at our [BTCPay Server](https://btcpay.blockchaincommons.com/), and let us know that **Learning Bitcoin** was the reason why.
 
 ### Version History
 
