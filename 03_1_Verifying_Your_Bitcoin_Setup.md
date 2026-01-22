@@ -17,7 +17,7 @@ EOF
 ```
 After you enter these aliases you can either `source .bash_profile` to input them or just log out and back in.
 
-Note that these aliases includes shortcuts for running `bitcoin-cli`, for running `bitcoind`, and for going to the Bitcoin directory. These aliases are mainly meant to make your life easier. We suggest you create other aliases to ease your use of frequent commands (and arguments) and to minimize errors. Aliases of this sort can be even more useful if you have a complex setup where you regularly run commands associated with Mainnet, with Testnet, _and_ with Regtest, as explained further below.
+Note that these aliases includes shortcuts for running `bitcoin-cli`, for running `bitcoind`, and for going to the Bitcoin directory. These aliases are mainly meant to make your life easier. We suggest you create other aliases to ease your use of frequent commands (and arguments) and to minimize errors. Aliases of this sort can be even more useful if you have a complex setup where you regularly run commands associated with Mainnet, with Testnet, with Signet, _and_ with Regtest, as explained further below.
 
 With that said, use of these aliases in _this_ document might accidentally obscure the core lessons being taught about Bitcoin, so the only alias directly used here is `btcinfo` because it encapsulates  much longer and more complex command. Otherwise, we show the full commands; adjust for your own use as appropriate.
 
@@ -41,25 +41,30 @@ That tells you what's loaded; you'll then need to check that against an online s
 
 > :book: ***What is Block Height?*** Block height is the the distance that a particular block is removed from the genesis block. The current block height is the block height of the newest block added to a blockchain.
 
-You can do this by looking at a blocknet explorer, such as [the Blockcypher Testnet explorer](https://live.blockcypher.com/btc-testnet/). Does its most recent number match your `getblockcount`? If so, you're up to date.
+You can do this by looking at a blocknet explorer, such as [the Mempool Signet explorer](https://mempool.space/signet). Does its most recent number match your `getblockcount`? If so, you're up to date.
 
 If you'd like an alias to look at everything at once, the following currently works for Testnet, but may disappear at some time in the future:
 ```
-$ echo "alias btcblock='echo \$(bitcoin-cli -testnet getblockcount)/\$(curl -s https://blockstream.info/testnet/api/blocks/tip/height)'" >> .bash_profile
+$ echo "alias btcblock='echo \$(bitcoin-cli -signet getblockcount)/\$(curl -s https://blockstream.info/signet/api/blocks/tip/height)'" >> .bash_profile
 $ source .bash_profile 
 $ btcblock
-1804372/1804372
+288200/288200
 ```
 
-> :link: **TESTNET vs MAINNET:** Remember that this tutorial generally assumes that you are using testnet. If you're using the mainnet instead, you can retrieve the current block height with: `curl -s https://blockchain.info/q/getblockcount`. You can replace the latter half of the `btcblock` alias (after `/\$(`) with that.
+> :link: **SIGNET vs MAINNET:** Remember that this tutorial generally assumes that you are using signet. If you're using the mainnet instead, you can retrieve the current block height with: `curl -s https://blockchain.info/q/getblockcount`. You can replace the latter half of the `btcblock` alias (after `/\$(`) with that.
 
 If you're not up-to-date, but your `getblockcount` is increasing, no problem. Total download time can take from an hour to several hours, depending on your setup.
 
 ## Optional: Know Your Server Types
 
-> **TESTNET vs MAINNET:** When you set up your node, you choose to create it as either a Mainnet, Testnet, or Regtest node. Though this document presumes a testnet setup, it's worth understanding how you might access and use the other setup types — even all on the same machine! But, if you're a first-time user, skip on past this, as it's not necessary for a basic setup.
+> **SIGNET vs MAINNET:** When you set up your node, you choose to create it as either a Mainnet, Testnet, Signet, or Regtest node. Though this document presumes a signet setup, it's worth understanding how you might access and use the other setup types — even all on the same machine! But, if you're a first-time user, skip on past this, as it's not necessary for a basic setup.
 
-The type of setup is mainly controlled through the ~/.bitcoin/bitcoin.conf file. If you're running testnet, it probably contains this line:
+The type of setup is mainly controlled through the ~/.bitcoin/bitcoin.conf file. 
+If you're running signet, it probably contains this line:
+```
+signet=1
+```
+If you're running testnet, it probably contains this line:
 ```
 testnet=1
 ```
@@ -67,24 +72,28 @@ If you're running regtest, it probably contains this line:
 ```
 regtest=1
 ```
-However, if you want to run several different sorts of nodes simultaneously, you should leave the testnet (or regtest) flag out of your configuration file. You can then choose whether you're using the mainnet, the testnet, or your regtest every time you run bitcoind or bitcoin-cli.
+However, if you want to run several different sorts of nodes simultaneously, you should leave the signet (or testnet or regtest) flag out of your configuration file. You can then choose whether you're using the mainnet, the signet, the testnet, or your regtest every time you run bitcoind or bitcoin-cli.
 
-Here's a set of aliases that would make that easier by creating a specific alias for starting and stopping the bitcoind, for going to the bitcoin directory, and for running bitcoin-cli, for each of the mainnet (which has no extra flags), the testnet (which is -testnet), or your regtest (which is -regtest).
+Here's a set of aliases that would make that easier by creating a specific alias for starting and stopping the bitcoind, for going to the bitcoin directory, and for running bitcoin-cli, for each of the mainnet (which has no extra flags), the signet (which is -signet), the testnet (which is -testnet), or your regtest (which is -regtest).
 ```
 cat >> ~/.bash_profile <<EOF
 alias bcstart="bitcoind -daemon"
+alias bsstart="bitcoind -signet -daemon"
 alias btstart="bitcoind -testnet -daemon"
 alias brstart="bitcoind -regtest -daemon"
 
 alias bcstop="bitcoin-cli stop"
+alias bsstop="bitcoin-cli -signet stop"
 alias btstop="bitcoin-cli -testnet stop"
 alias brstop="bitcoin-cli -regtest stop"
 
 alias bcdir="cd ~/.bitcoin/" #linux default bitcoin path
+alias bsdir="cd ~/.bitcoin/signet" #linux default bitcoin signet path
 alias btdir="cd ~/.bitcoin/testnet" #linux default bitcoin testnet path
 alias brdir="cd ~/.bitcoin/regtest" #linux default bitcoin regtest path
 
 alias bc="bitcoin-cli"
+alias bs="bitcoin-cli -signet"
 alias bt="bitcoin-cli -testnet"
 alias br="bitcoin-cli -regtest"
 EOF
