@@ -61,6 +61,7 @@ If you'd like to make your own translation, please see [Contributing](https://gi
   * [6.3: Sending & Spending an Automated Multisig](06_3_Sending_an_Automated_Multisig.md)
 * [7.0: Expanding Bitcoin Transactions with PSBTs](07_0_Expanding_Bitcoin_Transactions_PSBTs.md)
   * [7.1: Creating a Partially Signed Bitcoin Transaction](07_1_Creating_a_Partially_Signed_Bitcoin_Transaction.md)
+     * [Interlude: Creating Animated QR Codes](07_1a_Creating_Animated_QR_Codes.md) [**TO WRITE**]
   * [7.2: Using a Partially Signed Bitcoin Transaction](07_2_Using_a_Partially_Signed_Bitcoin_Transaction.md)
   * [7.3: Integrating with Hardware Wallets](07_3_Integrating_with_Hardware_Wallets.md)
 * [8.0: Expanding Bitcoin Transactions in Other Ways](08_0_Expanding_Bitcoin_Transactions_Other.md)
