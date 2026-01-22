@@ -47,7 +47,7 @@ If you'd like to make your own translation, please see [Contributing](https://gi
   * [4.2: Creating a Raw Transaction](04_2_Creating_a_Raw_Transaction.md)
      * [Interlude: Using JQ](04_2__Interlude_Using_JQ.md)
   * [4.3: Creating a Raw Transaction with Named Arguments](04_3_Creating_a_Raw_Transaction_with_Named_Arguments.md)
-  * [4.4: Sending Coins with Raw Transactions](04_4_Sending_Coins_with_a_Raw_Transaction.md)
+  * [4.4: Sending Coins with Raw Transactions](04_4_Sending_Coins_with_a_Raw_Transaction.md) [**TO UPDATE**]
      * [Interlude: Using Curl](04_4__Interlude_Using_Curl.md)
   * [4.5: Sending Coins with Automated Raw Transactions](04_5_Sending_Coins_with_Automated_Raw_Transactions.md)
   * [4.6: Creating a Segwit Transaction](04_6_Creating_a_Segwit_Transaction.md)
