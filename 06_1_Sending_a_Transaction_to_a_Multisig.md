@@ -95,7 +95,7 @@ When used correctly, `createmultisig` returns three results, all of which are cr
 
 The _address_ is what you'll give out to people who want to send funds. You'll notice that it has a new prefix of `2`, exactly like those P2SH-SegWit addresses. That's because, like them, `createmultisig` is actually creating a totally new type of address called a P2SH address. It works exactly like a standard P2PKH address for sending funds, but since this one has been built to require multiple addresses, you'll need to do a little more work to spend them. 
 
-> :link: **SIGNET vs MAINNET:** On testnetsignet the prefix for P2SH addresses is `2`, while on mainnet, it's `3`.
+> :link: **SIGNET vs MAINNET:** On signet (or testnet) the prefix for P2SH addresses is `2`, while on mainnet, it's `3`.
 
 The _redeemScript_ is what you need to redeem the funds (along with the private keys for "m" of the "n" addresses). This script is another special feature of P2SH addresses and will be fully explained in [§10.3: Running a Bitcoin Script with P2SH](10_3_Running_a_Bitcoin_Script_with_P2SH.md). For now, just be aware that it's a bit of data that's required to get your money.
 
