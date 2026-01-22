@@ -29,7 +29,9 @@ With a seed in hand, you can then generate a master extended key with the `bip32
 ```
 As you can see, you'll need to tell it what version of the key to return, in this case `BIP32_VER_TEST_PRIVATE`, a private testnet key.
 
-> :link: **TESTNET vs MAINNET:** On mainnet, you'd instead ask for `BIP32_VER_MAIN_PRIVATE`.
+> :link: **SIGNET vs MAINNET:** On mainnet, you'd instead ask for `BIP32_VER_MAIN_PRIVATE`.
+
+(Libwally has fallen out of date, and there does not seem to be a Signet option.)
 
 ### Generate xpub & xprv
 
@@ -51,14 +53,14 @@ However, for HD wallets, each of those levels of the hierachy is used in a very 
 Altogether, a BIP32 derivation path is defined to have five levels:
 
 1. **Purpose.** This is usually set to `44'` or `84'`, depending on the BIP that is being followed.
-2. **Coin.** For Mainnet bitcoins, this is `0'`, for testnet it's `1'`.
+2. **Coin.** For Mainnet bitcoins, this is `0'`, for signet, regtest, or testnet it's `1'`.
 3. **Account.** A wallet can contain multiple, discrete accounts, starting with `0'`.
 4. **Change.** External addresses (for distribution) are set to `0`, while internal addresses (for change) are set to `1`.
 5. **Index.** The nth address for the hierarchy, starting with `0`.
 
-So on testnet, the zeroth adddress for an external address for the zeroth account for testnet coins using the BIP84 standards is `[m/84'/1'/0'/0/0]`. That's the address you'll be creating momentarily.
+So on signet (or any of the other testing networks), the zeroth adddress for an external address for the zeroth account for testnet coins using the BIP84 standards is `[m/84'/1'/0'/0/0]`. That's the address you'll be creating momentarily.
 
-> :link: **TESTNET vs MAINNET:** For mainnet, that'd be `[m/84'/0'/0'/0/0]`
+> :link: **SIGNET vs MAINNET:** For mainnet, that'd be `[m/84'/0'/0'/0/0]`
 
 ### Understand the Hierarchary in Bitcoin Core
 
@@ -74,7 +76,7 @@ One way to do this is to use the `bip32_key_from_parent_path_alloc` function to 
 ```c
   uint32_t path_account[] = {BIP32_INITIAL_HARDENED_CHILD+84, BIP32_INITIAL_HARDENED_CHILD+1, BIP32_INITIAL_HARDENED_CHILD};
 ```
-Here we'll be looking at the zeroth hardened child (that's the account) or the first hardened child (that's testnet coins) of the 84th hardened child (that's the BIP84 standard): `[m/84'/1'/0']`.
+Here we'll be looking at the zeroth hardened child (that's the account) or the first hardened child (that's testing coins) of the 84th hardened child (that's the BIP84 standard): `[m/84'/1'/0']`.
 
 You can then use that path to generate a new key from your old key:
 ```c
@@ -109,7 +111,7 @@ Finally, you're ready to generate an address from your final key. All you do is 
   printf("[m/84'/1'/0'/0/0]: %s\n",segwit);
 ```  
 
-> :link: **TESTNET vs MAINNET:** The `tb` argument defines a testnet address. For mainnet instead use `bc`.
+> :link: **TESTNET vs MAINNET:** The `tb` argument defines a signet or testnet address. For mainnet instead use `bc`.
 
 There is also a `wally_bip32_key_to_address` function, which can be used to generate a legacy address or a nested Segwit address.
 
