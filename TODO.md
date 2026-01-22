@@ -2,28 +2,31 @@
 
 The following TODO items are intended for a 3.0 version of Learning Bitcoin from the Command Line
 
-## Immediate TODO (for 1/29)
+## Immediate TODO (for 2/5): Descriptor Wallets
 
-1. Update Stackscripts to support/default signet
-2. Update non-Linode script too
-3. Revise §2.1 for newest Stackscript
+1. Edit §3.1-3.2, esp. for any references to legacy addresses
+2. Update §3.3 to use a descriptor wallet instead of a legacy wallet
+3. Update use of legacy wallet throughout course
+4. Thoroughly rewrite §3.4 for new focus on descriptors, possibly expanding to two sections.
+5. Update §3.5 to fit into new flow
+
+## Immediate TODO (for 1/22): Signet
+
+1. <strike>Update Stackscripts to support/default signet</strike>
+2. <strike>Update non-Linode script too</strike>
+3. <strike>Revise §2.1 for newest Stackscript</strike>
 4. Puzzle out organization for overall project (largely based on updates below and remaining Issues)
-5. Change testnet to signet + list out network options
+5. <strike>Change testnet to signet + list out network options</strike>
 
 ## Revisions
 
 The following updates involve updates or the creation of new chapters, but their additions are generally bounded and known.
 
 1. Big changes to defaults
-   * Signet
+   * <strike>Signet</strike>
    * SEGWIT
       * Talk about address types: https://www.unchained.com/blog/bitcoin-address-types-compared
    * Descriptor Wallets
-1. Revise Section: Understanding the Descriptor (3.5)
-   * New Content: Descriptor Wallets
-   * Possibly also remove legacy wallets (3.3) and replace them entire with descriptors
-   * New Content: Complex Descriptors
-   * Consider: Breaking into Two Sections
 1. Revise Section: Understanding Timelock Options (11.1)
    * Explanation: Better distinguish differences
    * Reference: consider chart at in https://prestwi.ch/bitcoin-time-locks/
@@ -38,9 +41,6 @@ The next step in revisions is:
 
 The following updates involve the large-scale work done on Schnorr and Taproot in Bitcoin Core 0.21 and 22. This represents a first cut at how to layout the work, but revision and expansion will likely be needed as everyone's understanding of these new technologies matures.
 
-1. New Interlude: Creating QR Codes (after 3.3)
-   * New Subsection: Creating a QR
-   * New Subsection: Creating a Quick Connect QR
 1. New Interlude: Creating Animated QR Codes (after 7.1)
    * New Subsection: Understanding Uniform Resources
    * New Subsection: Creating an Animated QR
