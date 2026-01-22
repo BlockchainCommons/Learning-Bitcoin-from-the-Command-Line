@@ -18,7 +18,7 @@ The following TODO items are intended for a 3.0 version of Learning Bitcoin from
 4. Puzzle out organization for overall project (largely based on updates below and remaining Issues)
 5. <strike>Change testnet to signet + list out network options</strike>
 
-## Revisions
+## Longer-Term TODO (Small Tasks)
 
 The following updates involve updates or the creation of new chapters, but their additions are generally bounded and known.
 
@@ -27,24 +27,23 @@ The following updates involve updates or the creation of new chapters, but their
    * SEGWIT
       * Talk about address types: https://www.unchained.com/blog/bitcoin-address-types-compared
    * Descriptor Wallets
+1. Revise 4.4
+   * freezing coins
+1. New Interlude: Creating Animated QR Codes (after 7.1)
+   * New Subsection: Understanding Uniform Resources
+   * New Subsection: Creating an Animated QR
+   * New Subsection: Creating an Animated QR of a PSBT
 1. Revise Section: Understanding Timelock Options (11.1)
    * Explanation: Better distinguish differences
    * Reference: consider chart at in https://prestwi.ch/bitcoin-time-locks/
-1. Revise 4.5
-   * freezing coins
   
 The next step in revisions is:
 
 1. Run through entire course & make sure all commands & responses are still accurate (likely redoing them all).
 
-## Additions
+## Longer-Longer-Term TODO (Big Tasks)
 
 The following updates involve the large-scale work done on Schnorr and Taproot in Bitcoin Core 0.21 and 22. This represents a first cut at how to layout the work, but revision and expansion will likely be needed as everyone's understanding of these new technologies matures.
-
-1. New Interlude: Creating Animated QR Codes (after 7.1)
-   * New Subsection: Understanding Uniform Resources
-   * New Subsection: Creating an Animated QR
-   * New Subsection: Creating an Animated QR of a PSBT
 
 **Chapter X: Expanding Bitcoin Transactions with Schnorr** (probably between chapters 6+7)
 
