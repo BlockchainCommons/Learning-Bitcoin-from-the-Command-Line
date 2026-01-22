@@ -204,7 +204,7 @@ _Whatever_ other testing methods you've used, testing a script on Signet should 
 
 ## Summary: Testing a Bitcoin Script
 
-You should install `btcdeb` as a command-line tool to test out your Bitcoin Scripts. As of this writing, it produces accurate results that can step through the entire scripting process. You can also look at some online sites for a more visual representation. When you're all done, you're going to need to go to testnet to make sure things are working accurately, before you deploy more generally.
+You should install `btcdeb` as a command-line tool to test out your Bitcoin Scripts. As of this writing, it produces accurate results that can step through the entire scripting process. You can also look at some online sites for a more visual representation. When you're all done, you're going to need to go to signet to make sure things are working accurately, before you deploy more generally.
 
 ## What's Next?
 
