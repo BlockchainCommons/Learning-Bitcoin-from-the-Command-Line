@@ -45,7 +45,7 @@ $ echo $txid
 93250d0cacb0361b8e21030ac65bc4c2159a53de1075425d800b2d7a8ab13ba8
 ```
 
-> 🙏 To help keep testnet faucets alive, try to use the return address of the same faucet you used in the previous chapter on receiving transactions. 
+> 🙏 To help keep signet faucets alive, try to use the return address of the same faucet you used in the previous chapter on receiving transactions. 
 
 Make sure the address you write in is where you want the money to go. Make _double_ sure. If you make mistakes in Bitcoin, there's no going back.
 
