@@ -1,3 +1,7 @@
+TODO:
+* Update to non-legayc addresses
+* Also add args parameter
+  
 # 4.3 Creating a Raw Transaction with Named Arguments
 
 It can sometimes be daunting to figure out the right order for the arguments to a bitcoin-cli command. Fortunately, you can use _named arguments_ as an alternative.
