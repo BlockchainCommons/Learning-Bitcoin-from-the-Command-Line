@@ -1,3 +1,5 @@
+TODO: This is now a default per updates in 24, 29. You don't need to verify any more. (Check that works, and redocument)
+
 # 5.2: Resending a Transaction with RBF
 
 If your Bitcoin transaction is stuck, and you're the sender, you can resend it using RBF (replace-by-fee). However, that's not all that RBF can do: it's generally a powerful and multipurpose feature that allows Bitcoin senders to recreate transactions for a variety of reasons.
