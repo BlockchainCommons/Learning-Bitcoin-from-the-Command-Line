@@ -1,3 +1,7 @@
+TODO:
+* There are some new external signer commands: enumeratesigners and displayaddress. Are they relevant to what we're teaching? If so, should we add info on them.
+* Might be a new 6.4? or included here
+  
  # 6.3: Sending & Spending an Automated Multisig
 
 The standard technique for creating multisignature addresses and for spending their funds is complex, but it's a worthwhile exercise for understanding a bit more about how they work, and how you can manipulate them at a relatively low level. However, Bitcoin Core has made multisigs a little bit easier in new releases. 
