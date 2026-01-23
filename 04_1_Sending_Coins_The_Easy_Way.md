@@ -1,3 +1,7 @@
+TODO:
+* Obviously, this is where the Segwit work starts.
+* Also: Fees. There was some question of if mintxfee is still current, or if paytxfee should be used. I haven't seen any evidence of obsolence, but it'd be good to check this and make sure we're still on the best practices. 
+
 # 4.1: Sending Coins the Easy Way
 
 The `bitcoin-cli` offers three major ways to send coins: as a simple command; as a raw transaction; and as a raw transaction with calculation. Each has their own advantages and disadvantages. This first method for sending coins is also the simplest.
