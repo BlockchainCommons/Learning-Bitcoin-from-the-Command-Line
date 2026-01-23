@@ -67,6 +67,10 @@ If you'd like to make your own translation, please see [Contributing](https://gi
 * [8.0: Expanding Bitcoin Transactions in Other Ways](08_0_Expanding_Bitcoin_Transactions_Other.md)
   * [8.1: Sending a Transaction with a Locktime](08_1_Sending_a_Transaction_with_a_Locktime.md)
   * [8.2: Sending a Transaction with Data](08_2_Sending_a_Transaction_with_Data.md)
+* [9.0: Expanding Bitcoin Transactions with Schnorr](09_0_Expanding_Bitcoin_Transactions_with_Schnorr.md) [**TO WRITE**]
+  * [9.1: Understanding Schnorr Signatures](09_1_Understanding_Schnorr_Signatures.md) [**TO WRITE**]
+  * [9.2: Sending Basic Taproot Transactions](09_2_Sending_Basic_Taproot_Transactions.md) [**TO WRITE**]
+  * [9.3: Using FROST Signatures with Bitcoin](09_3_Using_FROST_Signatures_with_Bitcoin.md) [**TO WRITE**]
 
 ### PART THREE: BITCOIN SCRIPTING
 
