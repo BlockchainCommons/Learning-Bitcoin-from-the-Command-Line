@@ -22,8 +22,6 @@ If you'd like to make your own translation, please see [Contributing](https://gi
 
 ### PART ONE: PREPARING FOR BITCOIN
 
-**Status:** Finished. Updated for 0.20.
-
 * [1.0: Introduction to Programming with Bitcoin Core and Lightning](01_0_Introduction.md)
     * [Interlude: Introducing Bitcoin](01_1_Introducing_Bitcoin.md)
 * [2.0: Setting Up a Bitcoin-Core VPS](02_0_Setting_Up_a_Bitcoin-Core_VPS.md)
@@ -31,8 +29,6 @@ If you'd like to make your own translation, please see [Contributing](https://gi
   * [2.2: Setting Up a Bitcoin-Core Machine via Other Means](02_2_Setting_Up_Bitcoin_Core_Other.md)
 
 ### PART TWO: USING BITCOIN-CLI
-
-**Status:** Finished. Updated for 0.20.
 
 * [3.0: Understanding Your Bitcoin Setup](03_0_Understanding_Your_Bitcoin_Setup.md)
   * [3.1: Verifying Your Bitcoin Setup](03_1_Verifying_Your_Bitcoin_Setup.md)
@@ -72,55 +68,55 @@ If you'd like to make your own translation, please see [Contributing](https://gi
   * [9.2: Sending Basic Taproot Transactions](09_2_Sending_Basic_Taproot_Transactions.md) [**TO WRITE**]
   * [9.3: Using FROST Signatures with Bitcoin](09_3_Using_FROST_Signatures_with_Bitcoin.md) [**TO WRITE**]
 
-### PART THREE: BITCOIN SCRIPTING
+### PART THREE: SCRIPTING WITH BITCOIN
 
-**Status:** Finished. Updated for 0.20 and btcdeb.
+* [10.0: Introducing Bitcoin Scripts](10_0_Introducing_Bitcoin_Scripts.md)
+  * [10.1: Understanding the Foundation of Transactions](10_1_Understanding_the_Foundation_of_Transactions.md)
+  * [10.2: Running a Bitcoin Script](10_2_Running_a_Bitcoin_Script.md)
+  * [10.3: Testing a Bitcoin Script](10_3_Testing_a_Bitcoin_Script.md)
+  * [10.4: Scripting a P2PKH](10_4_Scripting_a_P2PKH.md)
+  * [10.5: Scripting a P2WPKH](10_5_Scripting_a_P2WPKH.md)
+* [11.0: Embedding Bitcoin Scripts in P2SH Transactions](11_0_Embedding_Bitcoin_Scripts_in_P2SH_Transactions.md)
+  * [11.1: Understanding the Foundation of P2SH](11_1_Understanding_the_Foundation_of_P2SH.md)
+  * [11.2: Building the Structure of P2SH](11_2_Building_the_Structure_of_P2SH.md)
+  * [11.3: Running a Bitcoin Script with P2SH](11_3_Running_a_Bitcoin_Script_with_P2SH.md)
+  * [11.4: Scripting a Multisig](11_4_Scripting_a_Multisig.md)
+  * [11.5: Scripting a Segwit Script](11_5_Scripting_a_Segwit_Script.md)
+  * [11.6: Spending a P2SH Transaction](11_6_Spending_a_P2SH_Transaction.md)
+* [12.0: Empowering Timelock with Bitcoin Scripts](12_0_Empowering_Timelock_with_Bitcoin_Scripts.md)
+  * [12.1: Understanding Timelock Options](12_1_Understanding_Timelock_Options.md) [**TO UPDATE**]
+  * [12.2: Using CLTV in Scripts](12_2_Using_CLTV_in_Scripts.md)
+  * [12.3: Using CSV in Scripts](12_3_Using_CSV_in_Scripts.md)
+* [13.0: Expanding Bitcoin Scripts](13_0_Expanding_Bitcoin_Scripts.md)
+  * [13.1: Using Script Conditionals](13_1_Using_Script_Conditionals.md)
+  * [13.2: Using Other Script Commands](13_2_Using_Other_Script_Commands.md)
+* [14.0: Designing Real Bitcoin Scripts](14_0_Designing_Real_Bitcoin_Scripts.md)
+  * [14.1: Writing Puzzles Scripts](14_1_Writing_Puzzle_Scripts.md)
+  * [14.2: Writing Complex Multisig Scripts](14_2_Writing_Complex_Multisig_Scripts.md)
+  * [14.3: Empowering Bitcoin with Scripts](14_3_Empowering_Bitcoin_with_Scripts.md)
 
-* [9.0: Introducing Bitcoin Scripts](09_0_Introducing_Bitcoin_Scripts.md)
-  * [9.1: Understanding the Foundation of Transactions](09_1_Understanding_the_Foundation_of_Transactions.md)
-  * [9.2: Running a Bitcoin Script](09_2_Running_a_Bitcoin_Script.md)
-  * [9.3: Testing a Bitcoin Script](09_3_Testing_a_Bitcoin_Script.md)
-  * [9.4: Scripting a P2PKH](09_4_Scripting_a_P2PKH.md)
-  * [9.5: Scripting a P2WPKH](09_5_Scripting_a_P2WPKH.md)
-* [10.0: Embedding Bitcoin Scripts in P2SH Transactions](10_0_Embedding_Bitcoin_Scripts_in_P2SH_Transactions.md)
-  * [10.1: Understanding the Foundation of P2SH](10_1_Understanding_the_Foundation_of_P2SH.md)
-  * [10.2: Building the Structure of P2SH](10_2_Building_the_Structure_of_P2SH.md)
-  * [10.3: Running a Bitcoin Script with P2SH](10_3_Running_a_Bitcoin_Script_with_P2SH.md)
-  * [10.4: Scripting a Multisig](10_4_Scripting_a_Multisig.md)
-  * [10.5: Scripting a Segwit Script](10_5_Scripting_a_Segwit_Script.md)
-  * [10.6: Spending a P2SH Transaction](10_6_Spending_a_P2SH_Transaction.md)
-* [11.0: Empowering Timelock with Bitcoin Scripts](11_0_Empowering_Timelock_with_Bitcoin_Scripts.md)
-  * [11.1: Understanding Timelock Options](11_1_Understanding_Timelock_Options.md) [**TO UPDATE**]
-  * [11.2: Using CLTV in Scripts](11_2_Using_CLTV_in_Scripts.md)
-  * [11.3: Using CSV in Scripts](11_3_Using_CSV_in_Scripts.md)
-* [12.0: Expanding Bitcoin Scripts](12_0_Expanding_Bitcoin_Scripts.md)
-  * [12.1: Using Script Conditionals](12_1_Using_Script_Conditionals.md)
-  * [12.2: Using Other Script Commands](12_2_Using_Other_Script_Commands.md)
-* [13.0: Designing Real Bitcoin Scripts](13_0_Designing_Real_Bitcoin_Scripts.md)
-  * [13.1: Writing Puzzles Scripts](13_1_Writing_Puzzle_Scripts.md)
-  * [13.2: Writing Complex Multisig Scripts](13_2_Writing_Complex_Multisig_Scripts.md)
-  * [13.3: Empowering Bitcoin with Scripts](13_3_Empowering_Bitcoin_with_Scripts.md)
+### PART FOUR: MAINTAINING PRIVACY
 
-### PART FOUR: PRIVACY
+* [15.0: Using Tor](15_0_Using_Tor.md)
+  * [15.1: Verifying Your Tor Setup](15_1_Verifying_Your_Tor_Setup.md)
+  * [15.2: Changing Your Bitcoin Hidden Services](15_2_Changing_Your_Bitcoin_Hidden_Services.md)
+  * [15.3: Adding SSH Hidden Services](15_3_Adding_SSH_Hidden_Services.md)
 
-**Status:** Finished.
+* [16.0: Using i2p](16_0_Using_i2p.md)
+  * [16.1: Bitcoin Core as an I2P (Invisible Internet Project) service](16_1_i2p_service.md)
 
-* [14.0: Using Tor](14_0_Using_Tor.md)
-  * [14.1: Verifying Your Tor Setup](14_1_Verifying_Your_Tor_Setup.md)
-  * [14.2: Changing Your Bitcoin Hidden Services](14_2_Changing_Your_Bitcoin_Hidden_Services.md)
-  * [14.3: Adding SSH Hidden Services](14_3_Adding_SSH_Hidden_Services.md)
+---
 
-* [15.0: Using i2p](15_0_Using_i2p.md)
-  * [15.1: Bitcoin Core as an I2P (Invisible Internet Project) service](15_1_i2p_service.md)
+_Everything over this line is on the backburner currently; files are being labeled P1, P2, P3, and L1, L2 and we'll figure out what to do with them later._
 
 ### PART FIVE: PROGRAMMING WITH RPC
 
 **Status:** Finished.
 
-* [16.0: Talking to Bitcoind with C](16_0_Talking_to_Bitcoind.md)
-  * [16.1: Accessing Bitcoind in C with RPC Libraries](16_1_Accessing_Bitcoind_with_C.md)
-  * [16.2: Programming Bitcoind in C with RPC Libraries](16_2_Programming_Bitcoind_with_C.md)
-  * [16.3: Receiving Notifications in C with ZMQ Libraries](16_3_Receiving_Bitcoind_Notifications_with_C.md)
+* [P1.0: Talking to Bitcoind with C](P1_0_Talking_to_Bitcoind.md)
+  * [P1.1: Accessing Bitcoind in C with RPC Libraries](P1_1_Accessing_Bitcoind_with_C.md)
+  * [P1.2: Programming Bitcoind in C with RPC Libraries](P1_2_Programming_Bitcoind_with_C.md)
+  * [P1.3: Receiving Notifications in C with ZMQ Libraries](P1_3_Receiving_Bitcoind_Notifications_with_C.md)
 * [17.0: Programming Bitcoin with Libwally](17_0_Programming_with_Libwally.md)
    * [17.1: Setting Up Libwally](17_1_Setting_Up_Libwally.md)
    * [17.2: Using BIP39 in Libwally](17_2_Using_BIP39_in_Libwally.md)
