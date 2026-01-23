@@ -112,6 +112,8 @@ If you'd like to make your own translation, please see [Contributing](https://gi
 * [18.0: Using i2p](18_0_Using_i2p.md)
   * [18.1: Bitcoin Core as an I2P (Invisible Internet Project) service](18_1_i2p_service.md)
 
+[TODO: CONSIDER IF CJDNS Network FITS IN HERE, possibly as 18.2, with the section renamed "Other Privacy Options" or something]
+
 ---
 
 _Everything over this line is on the backburner currently; files are being labeled P1, P2, P3, and L1, L2 and we'll figure out what to do with them later._
