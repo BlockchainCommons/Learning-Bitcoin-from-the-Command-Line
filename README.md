@@ -66,7 +66,8 @@ If you'd like to make your own translation, please see [Contributing](https://gi
 * [9.0: Expanding Bitcoin Transactions with Schnorr](09_0_Expanding_Bitcoin_Transactions_with_Schnorr.md) [**TO WRITE**]
   * [9.1: Understanding Schnorr & Taproot](09_1_Understanding_Schnorr_Taproot.md) [**TO WRITE**]
   * [9.2: Sending Schnorr Signed Transactions](09_2_Sending_Schnorr_Signed_Transactions.md) [**TO WRITE**]
-  * [9.3: Sending FROST Signed Transactions](09_3_Sending_FROST_Signed_Transactions.md) [**TO WRITE**]
+  * [9.3: Sending a Schnorr Multisig](09_3_Sending_a_Schnorr_Multisig.md) [**TO WRITE**]    
+  * [9.4: Sending FROST Signed Transactions](09_4_Sending_FROST_Signed_Transactions.md) [**TO WRITE**]
 * [10.0: Expanding Bitcoin Transactions with Taproot](10_0_Expanding_Bitcoin_Transactions_with_Taproot.md) [**TO WRITE**]
   * [10.1: Sending Basic Taproot Transactions](10_1_Sending_Basic_Taproot_Transactions.md) [**TO WRITE**]
   * [10.2: Sending Advanced Taproot Transactions](10_2_Sending_Advanced_Taproot_Transactions.md) [**TO WRITE**]
@@ -95,20 +96,20 @@ If you'd like to make your own translation, please see [Contributing](https://gi
   * [14.2: Using Other Script Commands](14_2_Using_Other_Script_Commands.md)
 * [15.0: Improving Bitcoin Scripts with Taproot](15_0_Improving_Bitcoin_Scripts_with_Taproot.md) [**TO WRITE**]
    * SECTIONS TBD, BASED ON WHAT'S IN NEW CHAPTERS 9 + 10
-* [15.0: Designing Real Bitcoin Scripts](15_0_Designing_Real_Bitcoin_Scripts.md)
-  * [15.1: Writing Puzzles Scripts](15_1_Writing_Puzzle_Scripts.md)
-  * [15.2: Writing Complex Multisig Scripts](15_2_Writing_Complex_Multisig_Scripts.md)
-  * [15.3: Empowering Bitcoin with Scripts](15_3_Empowering_Bitcoin_with_Scripts.md)
+* [16.0: Designing Real Bitcoin Scripts](16_0_Designing_Real_Bitcoin_Scripts.md)
+  * [16.1: Writing Puzzles Scripts](16_1_Writing_Puzzle_Scripts.md)
+  * [16.2: Writing Complex Multisig Scripts](16_2_Writing_Complex_Multisig_Scripts.md)
+  * [16.3: Empowering Bitcoin with Scripts](16_3_Empowering_Bitcoin_with_Scripts.md)
 
 ### PART FOUR: MAINTAINING PRIVACY
 
-* [16.0: Using Tor](16_0_Using_Tor.md)
-  * [16.1: Verifying Your Tor Setup](16_1_Verifying_Your_Tor_Setup.md)
-  * [16.2: Changing Your Bitcoin Hidden Services](16_2_Changing_Your_Bitcoin_Hidden_Services.md)
-  * [16.3: Adding SSH Hidden Services](16_3_Adding_SSH_Hidden_Services.md)
+* [17.0: Using Tor](16_0_Using_Tor.md)
+  * [17.1: Verifying Your Tor Setup](17_1_Verifying_Your_Tor_Setup.md)
+  * [17.2: Changing Your Bitcoin Hidden Services](17_2_Changing_Your_Bitcoin_Hidden_Services.md)
+  * [17.3: Adding SSH Hidden Services](17_3_Adding_SSH_Hidden_Services.md)
 
-* [17.0: Using i2p](17_0_Using_i2p.md)
-  * [17.1: Bitcoin Core as an I2P (Invisible Internet Project) service](17_1_i2p_service.md)
+* [18.0: Using i2p](18_0_Using_i2p.md)
+  * [18.1: Bitcoin Core as an I2P (Invisible Internet Project) service](18_1_i2p_service.md)
 
 ---
 
