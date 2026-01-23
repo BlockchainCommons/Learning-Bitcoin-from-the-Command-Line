@@ -267,7 +267,7 @@ You have a few options for what's next:
 
 **Pruned Signet.** The last 550 blocks of Signet.
 
-**Testnet.** The older testing network, still useful to some for the ability for miners to force block reorgs (and likely for other specific testing purposes). It's currently `testnet3`, but we expect it to be updated to `testnet4` in the near future (which should drop down the current large size of the blockchain).
+**Testnet.** The older testing network, still useful to some for the ability for miners to force block reorgs (and likely for other specific testing purposes). There are two versions: `testnet3` and `testnet4`.
 
 **Pruned Testnet.** This is just the last 550 blocks of Testnet ... because the Testnet blockchain is pretty big now too.
 
