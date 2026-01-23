@@ -5,18 +5,20 @@ The following TODO items are intended for a 3.0 version of Learning Bitcoin from
 ## Immediate TODO (for 2/5): Descriptor Wallets
 
 1. Edit §3.1-3.2, esp. for any references to legacy addresses
-2. Update §3.3 to use a descriptor wallet instead of a legacy wallet
-3. Update use of legacy wallet throughout course
+2. Update §3.3 to use a descriptor wallet 
+3. Update any mentions of classic wallets
 4. Thoroughly rewrite §3.4 for new focus on descriptors, possibly expanding to two sections.
 5. Update §3.5 to fit into new flow
+6. Remove all references to things appearing at certain versions (they're all pretty standardized now)
+7. But write a note early on about potential missing features
 
-## Immediate TODO (for 1/22): Signet
+## Immediate TODO (for 2/19): Segwit
 
-1. <strike>Update Stackscripts to support/default signet</strike>
-2. <strike>Update non-Linode script too</strike>
-3. <strike>Revise §2.1 for newest Stackscript</strike>
-4. Puzzle out organization for overall project (largely based on updates below and remaining Issues)
-5. <strike>Change testnet to signet + list out network options</strike>
+1. Change §4.1-4.5 to use Bech32 (incorporate existing §4.6)
+2. Create a new chapter §4.6
+   * Lay out new table of all the address types
+   * Demonstrate how to send legacy & wrapped Segwit transactions
+3. Remove legacy address references from the rest of the course
 
 ## Longer-Term TODO (Small Tasks)
 
@@ -99,7 +101,7 @@ The following updates involve the large-scale work done on Schnorr and Taproot i
 
 ## Further Updates (TIME PERMITTING)
 
-The following updates could be part of v3.0 or could be further future, depending on how long the above takes.
+The following updates could be part of v3.0 or could be further future, depending on how long the above takes. My guess is that they'll get incorporated come late spring or summer.
 
 1. New Graphics: Animated GIFs for key demos.
    * Reference: https://github.com/faressoft/terminalizer
@@ -236,3 +238,14 @@ See [release notes](https://bitcoincore.org/en/releases/0.21.0/).
 * [ ] **Signet**
    * Signet is considered more controlled and reliable than testnet, and so should be used as our test network, along with an explanation of what it is and how it differs from other networks.
    * The setup and explanation of networks appears in [3.1](https://github.com/BlockchainCommons/Learning-Bitcoin-from-the-Command-Line/blob/master/03_1_Verifying_Your_Bitcoin_Setup.md). That should be changed, and with the change of the alias there, we should mostly be used Signet. Then the rest of the course can be searched for any references to testnet.
+     
+---
+
+
+## Immediate TODO (for 1/22): Signet
+
+1. <strike>Update Stackscripts to support/default signet</strike>
+2. <strike>Update non-Linode script too</strike>
+3. <strike>Revise §2.1 for newest Stackscript</strike>
+4. <strike>Puzzle out organization for overall project (largely based on updates below and remaining Issues)</strike>
+5. <strike>Change testnet to signet + list out network options</strike>
