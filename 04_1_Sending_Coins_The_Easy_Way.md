@@ -1,6 +1,7 @@
 TODO:
 * Obviously, this is where the Segwit work starts.
-* Also: Fees. There was some question of if mintxfee is still current, or if paytxfee should be used. I haven't seen any evidence of obsolence, but it'd be good to check this and make sure we're still on the best practices. 
+* Also: Fees. There was some question of if mintxfee is still current, or if paytxfee should be used. I haven't seen any evidence of obsolence, but it'd be good to check this and make sure we're still on the best practices.
+* Also: sendall as an alternative
 
 # 4.1: Sending Coins the Easy Way
 
