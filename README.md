@@ -64,9 +64,12 @@ If you'd like to make your own translation, please see [Contributing](https://gi
   * [8.1: Sending a Transaction with a Locktime](08_1_Sending_a_Transaction_with_a_Locktime.md)
   * [8.2: Sending a Transaction with Data](08_2_Sending_a_Transaction_with_Data.md)
 * [9.0: Expanding Bitcoin Transactions with Schnorr](09_0_Expanding_Bitcoin_Transactions_with_Schnorr.md) [**TO WRITE**]
-  * [9.1: Understanding Schnorr Signatures](09_1_Understanding_Schnorr_Signatures.md) [**TO WRITE**]
-  * [9.2: Sending Basic Taproot Transactions](09_2_Sending_Basic_Taproot_Transactions.md) [**TO WRITE**]
-  * [9.3: Using FROST Signatures with Bitcoin](09_3_Using_FROST_Signatures_with_Bitcoin.md) [**TO WRITE**]
+  * [9.1: Understanding Schnorr & Taproot](09_1_Understanding_Schnorr_Taproot.md) [**TO WRITE**]
+  * [9.2: Sending Schnorr Signed Transactions](09_2_Sending_Schnorr_Signed_Transactions.md) [**TO WRITE**]
+  * [9.3: Sending FROST Signed Transactions](09_3_Sending_FROST_Signed_Transactions.md) [**TO WRITE**]
+* [10.0: Expanding Bitcoin Transactions with Taproot](10_0_Expanding_Bitcoin_Transactions_with_Taproot.md) [**TO WRITE**]
+  * [10.1: Sending Basic Taproot Transactions](10_1_Sending_Basic_Taproot_Transactions.md) [**TO WRITE**]
+  * [10.2: Sending Advanced Taproot Transactions](10_2_Sending_Advanced_Taproot_Transactions.md) [**TO WRITE**]
 
 ### PART THREE: SCRIPTING WITH BITCOIN
 
