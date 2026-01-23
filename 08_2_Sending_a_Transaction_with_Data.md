@@ -1,3 +1,5 @@
+TODO: Talk about big expansion (30.0)
+
 # 8.2: Sending a Transaction with Data
 
 The final way to vary how you send a basic transaction is to use the transaction to send data instead of funds (or really, in addition to funds). This gives you the ability to embed information in the blockchain. It is done through a special `OP_RETURN` command.
