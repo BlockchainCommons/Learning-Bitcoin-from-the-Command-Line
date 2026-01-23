@@ -93,6 +93,8 @@ If you'd like to make your own translation, please see [Contributing](https://gi
 * [14.0: Expanding Bitcoin Scripts](14_0_Expanding_Bitcoin_Scripts.md)
   * [14.1: Using Script Conditionals](14_1_Using_Script_Conditionals.md)
   * [14.2: Using Other Script Commands](14_2_Using_Other_Script_Commands.md)
+* [15.0: Improving Bitcoin Scripts with Taproot](15_0_Improving_Bitcoin_Scripts_with_Taproot.md) [**TO WRITE**]
+   * SECTIONS TBD, BASED ON WHAT'S IN NEW CHAPTERS 9 + 10
 * [15.0: Designing Real Bitcoin Scripts](15_0_Designing_Real_Bitcoin_Scripts.md)
   * [15.1: Writing Puzzles Scripts](15_1_Writing_Puzzle_Scripts.md)
   * [15.2: Writing Complex Multisig Scripts](15_2_Writing_Complex_Multisig_Scripts.md)
