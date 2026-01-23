@@ -45,7 +45,7 @@ The next step in revisions is:
 
 The following updates involve the large-scale work done on Schnorr and Taproot in Bitcoin Core 0.21 and 22. This represents a first cut at how to layout the work, but revision and expansion will likely be needed as everyone's understanding of these new technologies matures.
 
-**Chapter X: Expanding Bitcoin Transactions with Schnorr** (probably between chapters 6+7)
+**Chapter X: Expanding Bitcoin Transactions with Schnorr** (currently new chapters 9+10, with revised TOC)
 
 * New Section X.1: Understanding Schnorr Signatures
    * New Subsection: Understanding the Math of Schnorr
@@ -65,7 +65,7 @@ The following updates involve the large-scale work done on Schnorr and Taproot i
    * New Subsection: Using Schnorr with Taproot   
 * Update Chapter 6 (Multisigs) to Integrate with Schnorr
 
-**Chapter Y: Improving Bitcoin Scripts with Taproot** (probably between chapters 13+14, possibly expanding to two chapters)
+**Chapter Y: Improving Bitcoin Scripts with Taproot** (currently new chapter 15, with plans to revise TOC)
 
 * New Section Y.1: Understanding MAST
    * New Subsection: Improving Privacy with MAST
@@ -97,7 +97,7 @@ The following updates involve the large-scale work done on Schnorr and Taproot i
    * Mention Taproot in 9.1 or 9.2
    * Add New Section 9.6: Scripting a P2TR (mostly a pointer to Chapter Y)
 
-## Further Updates
+## Further Updates (TIME PERMITTING)
 
 The following updates could be part of v3.0 or could be further future, depending on how long the above takes.
 
