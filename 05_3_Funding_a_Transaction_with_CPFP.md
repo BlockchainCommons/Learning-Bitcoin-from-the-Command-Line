@@ -2,8 +2,6 @@
 
 If your Bitcoin transaction is stuck, and you're the _recipient_, you can clear it using CPFP (child-pays-for-parent). This is alternative to the _sender's_ ability to do so with RBF.
 
-> :warning: **VERSION WARNING:** This is an innovation from Bitcoin Core v 0.13.0, which again means that most people should be using it by now.
-
 ## Understand How CPFP Works
 
 RBF was all about the sender. He messed up and needed to increase the fee, or he wanted to be smart and combine transactions for a variety of reasons. It was a powerful sender-oriented feature. In some ways, CPFP is RBF's opposite, because it empowers the recipient who knows that his money hasn't arrived yet and wants to speed it up. However, it's also a much simpler feature, with less wide applicability. 

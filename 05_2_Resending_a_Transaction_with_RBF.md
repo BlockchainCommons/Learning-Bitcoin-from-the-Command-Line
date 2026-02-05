@@ -4,8 +4,6 @@ TODO: This is now a default per updates in 24, 29. You don't need to verify any 
 
 If your Bitcoin transaction is stuck, and you're the sender, you can resend it using RBF (replace-by-fee). However, that's not all that RBF can do: it's generally a powerful and multipurpose feature that allows Bitcoin senders to recreate transactions for a variety of reasons.
 
-> :warning: **VERSION WARNING:** This is an innovation from Bitcoin Core v 0.12.0, that reached full maturity in the Bitcoin Core wallet with Bitcoin Core v 0.14.0. Obviously, most people should be using it by now.
-
 ## Opt-In for RBF
 
 RBF is an opt-in Bitcoin feature. Transactions are only eligible for using RBF if they've been created with a special RBF flag. This is done by setting any of the transaction's UTXO sequence numbers (which are typically set automatically), so that it's more than 0 and less than 0xffffffff-1 (4294967294).
@@ -49,8 +47,6 @@ The `bip125-replaceable` flag will stay `yes` until the transaction receives con
 ### Optional: Always Opt-In for RBF
 
 If you prefer, you can _always_ opt in for RBF. Do so by running your `bitcoind` with the `-walletrbf` command. Once you've done this (and restarted your `bitcoind`), then all UTXOs should have a lower sequence number and the transaction should be marked as `bip125-replaceable`.
-
-> :warning: **VERSION WARNING:** The walletrbf flag require Bitcoin Core v.0.14.0.
 
 ## Understand How RBF Works
 
@@ -201,8 +197,6 @@ $ bitcoin-cli -named gettransaction txid=75208c5c8cbd83081a0085cd050fc7a4064d87c
   "hex": "02000000014e843e22cb8ee522fbf4d8a0967a733685d2ad92697e63f52ce41bec8f7c8ac0020000006b48304502210094e54afafce093008172768d205d99ee2e9681b498326c077f0b6a845d9bbef702206d90256d5a2edee3cab1017b9b1c30b302530b0dd568e4af6f2d35380bbfaa280121029f39b2a19943fadbceb6697dbc859d4a53fcd3f9a8d2c8d523df2037e7c32a71010000000280969800000000001976a914e7c1345fc8f87c68170b3aa798a956c2fe6a9eff88ac38f25c05000000001976a914c101d8c34de7b8d83b3f8d75416ffaea871d664988ac00000000"
 }
 ```
-
-> :warning: **VERSION WARNING:** The `bumpfee` RPC requires Bitcoin Core v.0.14.0.
 
 ## Summary: Resending a Transaction with RBF
 

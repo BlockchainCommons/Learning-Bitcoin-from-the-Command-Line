@@ -2,8 +2,6 @@
 
 `nLockTime` and `OP_CHECKLOCKTIMEVERIFY` (or CLTV) are just one side of the timelock equation. On the other side are `nSequence` and `OP_CHECKSEQUENCEVERIFY`, which can be used to check against relative times rather than absolute times.
 
-> :warning: **VERSION WARNING:** CSV became available with Bitcoin Core 0.12.1, in spring 2016.
-
 ## Understand nSequence
 
 Every input into a transaction has an `nSequence` (or if you prefer `sequence`) value. It's been a prime tool for Bitcoin expansions as discussed previously in [§5.2: Resending a Transaction with RBF](05_2_Resending_a_Transaction_with_RBF.md) and [§8.1 Sending a Transaction with a Locktime](08_1_Sending_a_Transaction_with_a_Locktime.md), where it was used to signal RBF and `nLockTime`, respectively. However, there's one more use for `nSequence`, described by [BIP 68](https://github.com/bitcoin/bips/blob/master/bip-0068.mediawiki): you can use it to create a relative timelock on a transaction.

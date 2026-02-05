@@ -6,8 +6,6 @@ TODO:
 
 The standard technique for creating multisignature addresses and for spending their funds is complex, but it's a worthwhile exercise for understanding a bit more about how they work, and how you can manipulate them at a relatively low level. However, Bitcoin Core has made multisigs a little bit easier in new releases. 
 
-> :warning: **VERSION WARNING:** The `addmultisigaddress` command is available in Bitcoin Core v 0.10 or higher.
-
 ## Create a Multisig Address in Your Wallet
 
 In order to make funds sent to multisig addresses easier to spend, you just need to do some prep using the `addmultisigaddress` command. It's probably not what you'd want to do if you were writing multisig wallet programs, but if you were just trying to receive some funds by hand, it might save you some hair-pulling.

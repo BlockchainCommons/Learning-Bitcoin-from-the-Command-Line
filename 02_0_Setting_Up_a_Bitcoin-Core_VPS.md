@@ -2,6 +2,9 @@
 
 To get started with Bitcoin, you first need to set up a machine running Bitcoin. The articles in this chapter describe how to do so, primarily by using a VPS (Virtual Private Server).
 
+> :warning: **VERSION WARNING:** This version of the course was built
+with Bitcoin Core 30.2 (January 2026). 
+
 ## Objectives for this Chapter
 
 After working through this chapter, a developer will be able to:

@@ -7,9 +7,21 @@ You're now ready to start working with Bitcoin. To begin with, you'll need to cr
 
 ## Create a Wallet
 
-> :warning: **VERSION WARNING:** Newer versions of Bitcoin Core, starting with v0.21.0, will no longer automatically create a default wallet on startup. So, you will need to manually create one. But if you're running an older version of Bitcoin Core, a new wallet has already been created for you, in which case you can skip ahead to [Create an Address](#create-an-address).
-
-The first thing you need to do is create a new wallet, which can be done with the `bitcoin-cli createwallet` command. By creating a new wallet, you'll be creating your public-private key pair. Your public key is the source from which your addresses will be created, and your private key is what will allow you to spend any funds you receive into your addresses. Bitcoin Core will automatically save that information into a `wallet.dat` file in your `~/.bitcoin/signet/wallets` directory.
+> :warning: **VERSION WARNING:** Bitcoin Core is constantly
+evolving. To reflect this, previous versions of this course offered
+"VERSION WARNING"s for features that had been recently introduced. For
+example, Bitcoin Core v0.21.0 (January 2021) stopped creating wallets
+by default and introduced experimental descriptor wallets, which then
+became default with Bitcoin v23.0 (April 2022). These WARNINGS have
+largely been removed, as they quickly become out of date. The
+exception is for interoperable features that may or may not have been
+adopted by remote nodes (e.g., new address types). But for your own
+machine, just make sure you are using at least the version of Bitcoin
+Core that is flagged in [Chapter
+2](02_0_Setting_Up_a_Bitcoin-Core_VPS.md) and you'll have access to
+all the functions herein. (Though be aware that sometimes functions
+are deprecated and removed, so if you are using a newer version
+there's a small chance that something may no longer be available.)
 
 If you check your `wallets` directory, you'll see that it's currently empty.
 ```
@@ -36,8 +48,6 @@ database  db.log  wallet.dat
 > :book: ***What is a Bitcoin wallet?*** A Bitcoin wallet is the digital equivalent of a physical wallet on the Bitcoin network. It stores information on the amount of bitcoins you have and where it's located (addresses), as well as the ways you can use to spend it. Spending physical money is intuitive, but to spend bitcoins users need to provide the correct _private key_. We will explain this in more detail throughout the course, but what you should know for now is that this public-private key dynamic is part of what makes Bitcoin secure and trustless. Your key pair information is saved in the `wallet.dat` file, in addition to data about preferences and transactions. For the most part, you won't have to worry about that private key: `bitcoind` will use it when it's needed. However, this makes the `wallet.dat` file extremely important: if you lose it, you lose your private keys, and if you lose your private keys, you lose your funds!
 
 Sweet, now you have a Bitcoin wallet. But a wallet will be of little use for receiving bitcoins if you don't create an address first.
-
-> :warning: **VERSION WARNING:** Starting in Bitcoin Core v 23.0, descriptor wallets became the default. That's great, because descriptor wallets are very powerful, except they don't currently work with multisigs! So, we turn them off with the "descriptors=false" argument. See [§3.5](https://github.com/BlockchainCommons/Learning-Bitcoin-from-the-Command-Line/blob/master/03_5_Understanding_the_Descriptor.md) for more on descriptors.
 
 ## Create an Address
 

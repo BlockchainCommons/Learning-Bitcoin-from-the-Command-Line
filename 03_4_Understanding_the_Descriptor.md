@@ -11,8 +11,6 @@ TODO:
 
 You may have noticed a weird `desc:` field in the `listunspent` command of the previous section. Here's what's all about (and how it can be used to transfer addresses).
 
-> :warning: **VERSION WARNING:** This is an innovation from Bitcoin Core v 0.17.0 that had continued to be expanded through Bitcoin Core 0.20.0. Most of the commands in this section are from 0.17.0, but the updated `importmulti` that support descriptors is from 0.18.0.
-
 ## Know about Transferring Addresses
 
 Most of this course presumes that you're working entirely from a single node where you manage your own wallet, sending and receiving payments with the addresses created by that wallet. However, that's not necessarily how the larger Bitcoin ecosystem works. There, you're more likely to be moving addresses between wallets and even setting up wallets to watch over funds controlled by different wallets. 
