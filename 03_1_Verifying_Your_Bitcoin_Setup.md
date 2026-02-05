@@ -43,21 +43,22 @@ That tells you what's loaded; you'll then need to check that against an online s
 
 You can do this by looking at a blocknet explorer, such as [the Mempool Signet explorer](https://mempool.space/signet). Does its most recent number match your `getblockcount`? If so, you're up to date.
 
-If you'd like an alias to look at everything at once, the following currently works for Testnet, but may disappear at some time in the future:
+If you'd like an alias to look at everything at once, the following currently works for Signet, but may disappear at some time in the future:
 ```
 $ echo "alias btcblock='echo \$(bitcoin-cli -signet getblockcount)/\$(curl -s https://blockstream.info/signet/api/blocks/tip/height)'" >> .bash_profile
 $ source .bash_profile 
 $ btcblock
+
 288200/288200
 ```
 
-> :link: **SIGNET vs MAINNET:** Remember that this tutorial generally assumes that you are using signet. If you're using the mainnet instead, you can retrieve the current block height with: `curl -s https://blockchain.info/q/getblockcount`. You can replace the latter half of the `btcblock` alias (after `/\$(`) with that.
+> :link: **SIGNET vs MAINNET:** Remember that this tutorial generally assumes that you are using signet. If you're using the mainnet instead, you can retrieve the current block height with: `curl -s https://blockchain.info/q/getblockcount`. You can replace the latter half of the `btcblock` alias (between `/\$(` and `)'"`) with that.
 
 If you're not up-to-date, but your `getblockcount` is increasing, no problem. Total download time can take from an hour to several hours, depending on your setup.
 
 ## Optional: Know Your Server Types
 
-> **SIGNET vs MAINNET:** When you set up your node, you choose to create it as either a Mainnet, Testnet, Signet, or Regtest node. Though this document presumes a signet setup, it's worth understanding how you might access and use the other setup types — even all on the same machine! But, if you're a first-time user, skip on past this, as it's not necessary for a basic setup.
+> **SIGNET vs MAINNET:** When you set up your node, you choose to create it as either a Mainnet, Testnet, Signet, or Regtest node. Though this document presumes a Signet setup, it's worth understanding how you might access and use the other setup types — even all on the same machine! But, if you're a first-time user, skip on past this, as it's not necessary for a basic setup.
 
 The type of setup is mainly controlled through the ~/.bitcoin/bitcoin.conf file. 
 If you're running signet, it probably contains this line:
