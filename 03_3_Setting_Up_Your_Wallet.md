@@ -95,6 +95,28 @@ The next thing you need to do is create an address for receiving payments. This 
 $ bitcoin-cli getnewaddress
 tb1q05ua6g7njnjrtsjc0t9w3jc6g2leeznasf4ny9
 ```
+You can keep typing the command you'll get a different address each time:
+```
+$ bitcoin-cli getnewaddress
+tb1q0psqqqgy0fv5928wmk86ntu7hlax8dva7nl82p
+$ bitcoin-cli getnewaddress
+tb1q9f8j03uywqsxuxjefz68g7x4kduer2ky6shsf4
+```
+You can later look up the addresses you've generated with `bitcoin-cli getaddressesbylabel`, with the label being `""` unless you set one:
+```
+$ bitcoin-cli getaddressesbylabel ""
+{
+  "tb1q9f8j03uywqsxuxjefz68g7x4kduer2ky6shsf4": {
+    "purpose": "receive"
+  },
+  "tb1q0psqqqgy0fv5928wmk86ntu7hlax8dva7nl82p": {
+    "purpose": "receive"
+  },
+  "tb1q05ua6g7njnjrtsjc0t9w3jc6g2leeznasf4ny9": {
+    "purpose": "receive"
+  }
+}
+```
 Note that this address begins with an "tb1", which [means](https://en.bitcoin.it/wiki/List_of_address_prefixes) that it's a Bech32 address on either signet or testnet. The discussion of different address types in §4.1 will also talk about all of their identifying prefixes.
 
 > :link: **SIGNET vs MAINNET vs TESTNET:** The equivalent mainnet address would start with a "bc1".
