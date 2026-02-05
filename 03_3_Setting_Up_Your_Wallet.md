@@ -93,7 +93,7 @@ The next thing you need to do is create an address for receiving payments. This 
 
 ```
 $ bitcoin-cli getnewaddress
-tb1q480435stq22qx0npkfsl54j8v38r0fyz6w2zsu
+tb1q05ua6g7njnjrtsjc0t9w3jc6g2leeznasf4ny9
 ```
 Note that this address begins with an "tb1", which [means](https://en.bitcoin.it/wiki/List_of_address_prefixes) that it's a Bech32 address on either signet or testnet. The discussion of different address types in §4.1 will also talk about all of their identifying prefixes.
 
