@@ -5,7 +5,11 @@ TODO:
    * New Content: Complex Descriptors
    * Consider: Breaking into Two Sections
 
-# 3.5: Understanding the Descriptor
+Legacy Wallets vs Descriptor Wallets
+
+Legacy wallets are wallet files in the BDB file format, created by old versions of Bitcoin Core (and can still be opened by new versions, for now). They're contrasted with descriptor wallets, which use the SQLite file format, which are created by newer versions of Bitcoin Core.
+
+# 3.4: Understanding the Descriptor
 
 > :information_source: **NOTE:** This section has been recently added to the course and is an early draft that may still be awaiting review. Caveat reader.
 
