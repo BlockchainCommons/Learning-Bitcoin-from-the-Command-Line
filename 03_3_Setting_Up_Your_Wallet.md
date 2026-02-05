@@ -7,16 +7,20 @@ evolving. To reflect this, previous versions of this course offered
 "VERSION WARNING"s for features that had been recently introduced. For
 example, Bitcoin Core v0.21.0 (January 2021) stopped creating wallets
 by default and introduced experimental descriptor wallets, which then
-became default with Bitcoin v23.0 (April 2022). These WARNINGS have
-largely been removed, as they quickly become out of date. The
+became default with Bitcoin v23.0 (April 2022).
+>
+> These WARNINGS have
+largely been removed in recent versions of this course, as they quickly become out of date. The
 exception is for interoperable features that may or may not have been
 adopted by remote nodes (e.g., new address types). But for your own
 machine, just make sure you are using at least the version of Bitcoin
 Core that is flagged in [Chapter
 2](02_0_Setting_Up_a_Bitcoin-Core_VPS.md) and you'll have access to
-all the functions herein. (Though be aware that sometimes functions
+all the functions herein.
+>
+> Be aware that sometimes functions
 are deprecated and removed, so if you are using a newer version
-there's a small chance that something may no longer be available.)
+there's a small chance that something may no longer be available.
 
 ## Create a Wallet
 
