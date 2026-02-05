@@ -9,8 +9,8 @@ The following TODO items are intended for a 3.0 version of Learning Bitcoin from
 3. Update any mentions of classic wallets
 4. Thoroughly rewrite §3.4 for new focus on descriptors, possibly expanding to two sections.
 5. Update §3.5 to fit into new flow
-6. Remove all references to things appearing at certain versions (they're all pretty standardized now)
-7. But write a note early on about potential missing features
+6. <strike>Remove all references to things appearing at certain versions (they're all pretty standardized now)</strike>
+7. <strike>But write a note early on about potential missing features</strike>
 
 ## Immediate TODO (for 2/19): Segwit
 
