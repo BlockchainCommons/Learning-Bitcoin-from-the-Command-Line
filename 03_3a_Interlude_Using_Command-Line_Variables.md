@@ -10,25 +10,18 @@ That's a simple command substitution, the equivalent to ``VARIABLE=`command` ``.
 
 To create a new address would then look like this:
 ```
-$ unset NEW_ADDRESS_1
-$ NEW_ADDRESS_1=$(bitcoin-cli getnewaddress "" legacy)
+$ NEW_ADDRESS_1=$(bitcoin-cli getnewaddress)
 ```
-These commands clear the NEW_ADDRESS_1 variable, just to be sure, then fill it with the results of the `bitcoin-cli getnewaddress` command.
+This commands fills the NEW_ADDRESS_1 variable with the results of the `bitcoin-cli getnewaddress` command.
 
 You can then use your shell's `echo` command to look at your (new) address:
 ```
 $ echo $NEW_ADDRESS_1
-mi25UrzHnvn3bpEfFCNqJhPWJn5b77a5NE
+tb1q0psqqqgy0fv5928wmk86ntu7hlax8dva7nl82p
 ```
-Because you have your address in a variable, you can now easily sign a message for that address, without worrying about mistyping the address. You'll of course save that signature into a variable too!
-```
-$ NEW_SIG_1=$(bitcoin-cli signmessage $NEW_ADDRESS_1 "Hello, World")
-$ echo $NEW_SIG_1
-IPYIzgj+Rg4bxDwCyoPiFiNNcxWHYxgVcklhmN8aB2XRRJqV731Xu9XkfZ6oxj+QGCRmTe80X81EpXtmGUpXOM4=
-```
-The rest of this tutorial will use this style of saving information to variables when it's practical.
+You can then use this variable in other commands which require the address (or do similar for any other complex output). The rest of this tutorial will use this style of saving information to variables when it's practical.
 
-> :book: ***When is it not practical to use command-line variables?*** Command-line variables aren't practical if you need to use the information somewhere other than on the command line. For example, saving your signature may not actually be useful if you're just going to have to send it to someone else in an email. In addition, some future commands will output JSON objects instead of simple information, and variables can't be used to capture that information ... at least not without a _little_ more work.
+> :book: ***When is it not practical to use command-line variables?*** Command-line variables aren't practical if you need to use the information somewhere other than on the command line. For example, saving an address may not actually be useful if you're just going to have to send it to someone else in an email. In addition, some future commands will output JSON objects instead of simple information, and variables can't be used to capture that information ... at least not without a _little_ more work.
 
 ## Summary: Using Command-Line Variables
 
@@ -36,4 +29,4 @@ Shell variables can be used to hold long Bitcoin strings, minimizing the chances
 
 ## What's Next?
 
-Continue "Understanding Your Bitcoin Setup" with [§3.4: Receiving a Transaction](03_4_Receiving_a_Transaction.md).
+See how to store information in a different way with [Interlude: Creating QR Codes](03_3b_Interlude_Creating_QR_Codes.md).
