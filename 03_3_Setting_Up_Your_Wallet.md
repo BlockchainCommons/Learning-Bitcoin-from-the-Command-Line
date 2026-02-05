@@ -86,7 +86,7 @@ The next thing you need to do is create an address for receiving payments. This 
 
 ```
 $ bitcoin-cli getnewaddress
-tb1qjjjasex3yzv640pczlwamzmwe0ut42vwvwcrey
+tb1qhlcqx0rmqctujw94l2rw9r8umx7keerp38lc06
 ```
 Note that this address begins with an "tb1", which [means](https://en.bitcoin.it/wiki/List_of_address_prefixes) that it's a Bech32 address on either signet or testnet. The discussion of different address types in §4.1 will also talk about all of their identifying prefixes.
 
@@ -96,7 +96,7 @@ Take careful note of the address. You'll need to give it to whomever will be sen
 
 > :book: ***What is a Bitcoin address?*** A Bitcoin address is literally where you receive money. It's like an email address, but for funds. It's based on a public key, though different address schemes adjust that in different ways. However unlike an email address, a Bitcoin address should be considered single use: use it to receive funds just _once_. When you want to receive funds from someone else or at some other time, generate a new address. This is suggested in large part to improve your privacy. The whole blockchain is immutable, which means that explorers can look at long chains of transactions over time, making it possible to statistically determine who you and your contacts are, no matter how careful you are. If you keep reusing the same address, then this becomes even easier.
 
-By creating your first Bitcoin address, you've also begun to fill in your Bitcoin wallet. More precisely, you've begun to fill the `wallet.dat` file in your `~/.bitcoin/signet /wallets/{walletname}` directory. With a single address in hand, you could jump straight [§3.5: Receiving a Transaction](03_5_Receiving_a_Transaction.md) and begin receiving funds. However, before we get there, we're going to briefly discuss backing up your wallet and a few optional wallet commands that you might want to use in the future.
+By creating your first Bitcoin address, you've also begun to fill in your Bitcoin wallet. More precisely, you've begun to fill the `wallet.dat` file in your `~/.bitcoin/signet /wallets/{walletname}/` directory. With a single address in hand, you could jump straight [§3.5: Receiving a Transaction](03_5_Receiving_a_Transaction.md) and begin receiving funds. However, before we get there, we're going to briefly discuss backing up your wallet and a few optional wallet commands that you might want to use in the future.
 
 ## Backup Your Wallet
 
@@ -111,7 +111,7 @@ Just having a single backup will be enough to recover your wallet, because it'll
 
 ## Optional: Encrypt Your Wallet
 
-You can choose to encrypt your wallet. (It actually just encrypts the private information in your wallet, such as your private keys.) This is done with the `bitcoin-cli encryptwallet` command. Note that this will reset your seed and keys, so *only do it on a fresh wallet*:
+You can choose to encrypt your wallet. (It actually just encrypts the private information in your wallet, such as your private keys.) This is done with the `bitcoin-cli encryptwallet` command. 
 ```
 $ bitcoin-cli encryptwallet "your-great-password"
 wallet encrypted; The keypool has been flushed and a new HD seed was generated. You need to make a new backup with the backupwallet RPC.
@@ -129,83 +129,15 @@ If you want to lock your wallet back up earlier than that, you can use `bitcoin-
 $ bitcoin-cli walletlock
 ```
 
-## Optional: View Your Private Keys
+## Optional: Proving Control
 
-Sometimes, you might want to actually look at the private keys associated with your Bitcoin addresses. Perhaps you want to be able to sign a message or spend bitcoins from a different machine. Perhaps you just want to back up certain important private keys. You can also do this with your dump file, since it's human readable.
-```
-$ bitcoin-cli dumpwallet ~/mywallet.txt
-{
-  "filename": "/home/standup/mywallet.txt"
-}
-```
-More likely, you just want to look at the private key associated with a specific address. This can be done with the `bitcoin-cli dumpprivkey` command.
-```
-$ bitcoin-cli dumpprivkey "moKVV6XEhfrBCE3QCYq6ppT7AaMF8KsZ1B"
-cTv75T4B3NsG92tdSxSfzhuaGrzrmc1rJjLKscoQZXqNRs5tpYhH
-```
-You can then save that key somewhere safe, preferably somewhere not connected to the internet.
+In previous versions of Bitcoin Core, you used to be able to prove control of an address with the `bicoin-cli signmessage` command. This is generally a nice feature because it allows you to assure someone sending you funds that they're sending to a place where you will definitely be able to retrieve the funds. Because of the advent of descriptor wallets, which we'll talk about in the next section, this is no longer possible. You still _can_ prove control of an address by deriving a WIF-format private key from the descriptor for a particular address and then using `bitcoin-cli signmessagewithprivkey` with that specific key, but it's a complex process that goes beyond the scope of this course.
 
-You can also import any private key, from a wallet dump or an individual key dump, as follows:
-```
-$ bitcoin-cli importprivkey cW4s4MdW7BkUmqiKgYzSJdmvnzq8QDrf6gszPMC7eLmfcdoRHtHh
-```
-Again, expect this to require an unpruned node. Expect this to take a while, as `bitcoind` needs to reread all past transactions, to see if there are any new ones that it should pay attention to.
-
-> :information_source: **NOTE:** Many modern wallets prefer [mnemonic codes](https://github.com/bitcoin/bips/blob/master/bip-0039.mediawiki) to generate the seeds necessary to create the private keys. This methodology is not used `bitcoin-cli`, so you won't be able to generate handy word lists to remember your private keys.
-
-## Optional: Sign a Message
-
-Sometimes you'll need to prove that you control a Bitcoin address (or rather, that you control its private key). This is important because it lets people know that they're sending funds to the right person. This can be done by creating a signature with the `bitcoin-cli signmessage` command, in the form `bitcoin-cli signmessage [address] [message]`. For example:
-```
-$ bitcoin-cli signmessage "moKVV6XEhfrBCE3QCYq6ppT7AaMF8KsZ1B" "Hello, World"
-HyIP0nzdcH12aNbQ2s2rUxLwzG832HxiO1vt8S/jw+W4Ia29lw6hyyaqYOsliYdxne70C6SZ5Utma6QY/trHZBI=
-```
-You'll get the signature as a return.
-
-> :book: ***What is a signature?*** A digital signature is a combination of a message and a private key that can then be unlocked with a public key. Since there's a one-to-one correspendence between the elements of a keypair, unlocking with a public key proves that the signer controlled the corresponding private key.
-
-Another person can then use the `bitcoin-cli verifymessage` command to verify the signature. He inputs the address in question, the signature, and the message:
-```
-$ bitcoin-cli verifymessage "moKVV6XEhfrBCE3QCYq6ppT7AaMF8KsZ1B" "HyIP0nzdcH12aNbQ2s2rUxLwzG832HxiO1vt8S/jw+W4Ia29lw6hyyaqYOsliYdxne70C6SZ5Utma6QY/trHZBI=" "Hello, World"
-true
-```
-If they all match up, then the other person knows that he can safely transfer funds to the person who signed the message by sending to the address.
-
-If some black hat was making up signatures, this would instead produce a negative result:
-```
-$ bitcoin-cli verifymessage "FAKEV6XEhfrBCE3QCYq6ppT7AaMF8KsZ1B" "HyIP0nzdcH12aNbQ2s2rUxLwzG832HxiO1vt8S/jw+W4Ia29lw6hyyaqYOsliYdxne70C6SZ5Utma6QY/trHZBI=" "Hello, World"
-error code: -3
-error message:
-Invalid address
-```
-
-## Optional: Dump Your Wallet
-
-It might seem dangerous having all of your irreplaceable private keys in a single file. That's what `bitcoin-cli dumpwallet` is for. It lets you make a copy of your wallet.dat:
-```
-$ bitcoin-cli dumpwallet ~/mywallet.txt
-```
-The `mywallet.txt` file in your home directory will have a long list of private keys, addresses, and other information. Mind you, you'd never want to put this data out in a plain text file on a Bitcoin setup with real funds!
-
-You can then recover it with `bitcoin-cli importwallet`.
-```
-$ bitcoin-cli importwallet ~/mywallet.txt
-```
-But note this requires an unpruned node!
-```
-$ bitcoin-cli importwallet ~/mywallet.txt
-error code: -4
-error message:
-Importing wallets is disabled when blocks are pruned
-```
-
-
-
-_You've been typing that Bitcoin address you generated a _lot_, while you were signing messages and now dumping keys. If you think it's a pain, we agree. It's also prone to errors, a topic that we'll address in the very next section._
+Just keep in mind for the moment that proof of control is a nice feature if you can manage it.
 
 ## Summary: Setting Up Your Wallet
 
-You need to create an address to receive funds. Your address is stored in a wallet, which you can back up. You can also do lots more with an address, like dumping its private key or using it to sign messages. But really, creating that address is _all_ you need to do in order to receive Bitcoin funds.
+You need to create an address to receive funds. That address is stored in a wallet, which you can back up. But, there's more to both the wallet and the address: they're supported by an interoperable description system called descriptors. Understanding that will be the topic of the next chapter, before we finally get some funds. We'll also be seeing lots more wallet commands in the future, but they'll be things like checking your balance, which require you to have those funds!
 
 ## What's Next?
 
