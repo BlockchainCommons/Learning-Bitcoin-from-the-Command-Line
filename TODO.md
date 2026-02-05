@@ -4,7 +4,7 @@ The following TODO items are intended for a 3.0 version of Learning Bitcoin from
 
 ## Immediate TODO (for 2/5): Descriptor Wallets
 
-1. Edit §3.1-3.2, esp. for any references to legacy addresses
+1. <strike>Edit §3.1-3.2, esp. for any references to legacy addresses</strike> (Still need to update `bitcoin-cli -getinfo` command) 
 2. Update §3.3 to use a descriptor wallet 
 3. Update any mentions of classic wallets
 4. Thoroughly rewrite §3.4 for new focus on descriptors, possibly expanding to two sections.
