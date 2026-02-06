@@ -9,8 +9,9 @@ For this and future chapters, we presume that you have a VPS with Bitcoin instal
 After working through this chapter, a developer will be able to:
 
    * Demonstrate that Their Bitcoin Node is Installed and Up-to-date
-   * Create an Address to Receive Bitcoin Funds
+   * Create Bitcoin Wallets
    * Use Basic Wallet Commands
+   * Create an Address to Receive Bitcoin Funds
    * Create an Address from a Descriptor
    
 Supporting objectives include the ability to:
@@ -19,7 +20,7 @@ Supporting objectives include the ability to:
    * Use Basic Informational Commands
    * Understand What a Bitcoin Address Is
    * Understand What a Wallet Is
-   * Understand How to Import Addresses
+   * Recognize Common Types of Bitcoin Wallets
    
 ## Table of Contents
 
