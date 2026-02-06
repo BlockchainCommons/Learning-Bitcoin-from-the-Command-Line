@@ -257,53 +257,49 @@ error message:
 'cow([e18dae20/84h/1h/0h]tpubDC4ujMbsd9REzpGk3gnTjkrfJFw1NnvCpx6QBbLj3CHBzcLmVzssTVP8meRAM1WW4pZnK6SCCPGyzi9eMfzSXoeFMNprqtgxG71VRXTmetu/0/*)' is not a valid descriptor function
 ```
 
----
-
 ## Derive Addresses by Hand
 
-One of the powers of a descriptor is being able to derive an address in a regular way. This is done with the `deriveaddresses` RPC.
+One of the powers of a descriptor is being able to derive an address in a regular way. This is done with the `deriveaddresses` command.
 ```
-$ bitcoin-cli deriveaddresses "pkh([d6043800/0'/0'/18']03efdee34c0009fd175f3b20b5e5a5517fd5d16746f2e635b44617adafeaebc388)#4ahsl9pk"
+$ bitcoin-cli deriveaddresses "wpkh([e18dae20/84h/1h/0h]tpubDC4ujMbsd9REzpGk3gnTjkrfJFw1NnvCpx6QBbLj3CHBzcLmVzssTVP8meRAM1WW4pZnK6SCCPGyzi9eMfzSXoeFMNprqtgxG71VRXTmetu/0/*)#3658f8sn" 2
 [
-  "ms7ruzvL4atCu77n47dStMb3of6iScS8kZ"
+  "tb1q05ua6g7njnjrtsjc0t9w3jc6g2leeznasf4ny9",
+  "tb1q0psqqqgy0fv5928wmk86ntu7hlax8dva7nl82p",
+  "tb1q9f8j03uywqsxuxjefz68g7x4kduer2ky6shsf4"
 ]
 ```
-You'll note it loops back to the address we started with (as it should).
+This example shows the derivation of addresses from the BIP-84 ranged descriptor up through index "2". If you check this against the addresses created in [§3.3](03_3_Setting_Up_Your_Wallet.md), you'll see they're just the same. Which is of course the whole point of descriptors! They deterministically are derived in the same way every time. The main purpose of this function would be to export addresses to other services (for example, if you wanted to "watch" an address for when it was funded).
+
+> :book: ***What is a watch-only address?*** A watch-only address allows you to watch for transactions related to an address (or to a whole family of addresses if you used a ranged descriptor), but not to spend funds on those addresses.
 
 ## Import a Descriptor
 
-But, the really important thing about a descriptor is that you can take it to another (remote) machine and import it. This is done with the `importmulti` RPC using the `desc` option:
+But, the really important thing about a descriptor is that you can take it to another (remote) machine and import it. This is done with the `importdescriptors` command. The following example shows the import of the private-key version of our BIP-84 ranged descriptor into another wallet:
 ```
-remote$ bitcoin-cli importmulti '[{"desc": "pkh([d6043800/0'"'"'/0'"'"'/18'"'"']03efdee34c0009fd175f3b20b5e5a5517fd5d16746f2e635b44617adafeaebc388)#4ahsl9pk", "timestamp": "now", "watchonly": true}]'
+$ bitcoin-cli importdescriptors '[{ "desc": "wpkh(tprv8ZgxMBicQKsPd1dP4NpsFDpsLUCnZ7oyn4UEbYLw7if1EDVCxMgfSzAwP3aCr1YeRvX9GtGvHsCLdrM7zaDyh33jEj7joQoEeNEyJaSYm5p/84h/1h/0h/0/*)#grdqnase", "timestamp":1770329126, "active": true, "range": [0,10] }]'
 [
   {
     "success": true
   }
 ]
 ```
-First, you'll note our first really ugly use of quotes. Every `'` in the derivation path had to be replaced with `'"'"'`. Just expect to have to do that if you're manipulating a descriptor that contains a derivation path. (The other option is to exchange the `'` with a `h` for hardened, but that will change you checksum, so if you prefer that for its ease of use, you'll need to get a new checksum with `getdescriptorinfo`.)
-
-Second, you'll note that we flagged this as `watchonly`. That's because we know that it's a public key, so we can't spend with it. If we'd failed to enter this flag, `importmulti` would helpfully have told us something like: `Some private keys are missing, outputs will be considered watchonly. If this is intentional, specify the watchonly flag.`.
-
-> :book: ***What is a watch-only address?*** A watch-only address allows you to watch for transactions related to an address (or to a whole family of addresses if you used an `xpub`), but not to spend funds on those addresses.
-
-Using `getaddressesbylabel`, we can now see that our address has correctly been imported into our remote machine!
+You'll note that this is a much more complex `bitcoin-cli` command than anything we've used before. It requires the input of a JSON array with a variety of different variables. The `desc` is that private-key descriptor, the `timestamp` says how much of the blockchain to rescan, the `range` says how much of the range to import, and the `active` says that this descriptor can be used to create new addresses. After importing it, if I create three new addresses, they're all familiar, as they should be:
 ```
-remote$ bitcoin-cli getaddressesbylabel ""
-{
-  "ms7ruzvL4atCu77n47dStMb3of6iScS8kZ": {
-    "purpose": "receive"
-  }
-}
+$ bitcoin-cli getnewaddress
+tb1q05ua6g7njnjrtsjc0t9w3jc6g2leeznasf4ny9
+$ bitcoin-cli getnewaddress
+tb1q0psqqqgy0fv5928wmk86ntu7hlax8dva7nl82p
+$ bitcoin-cli getnewaddress
+tb1q9f8j03uywqsxuxjefz68g7x4kduer2ky6shsf4
 ```
+We've now unlocked the full power of descriptors by both importing and exporting addresses!
+
 ## Summary: Understanding the Descriptor
 
-Descriptors let you pass public keys and private keys among wallets, but more than that, they allow you to precisely and correctly to define addresses and to derive addresses of a lot of different sorts from a standardized description format.
+Descriptors let you pass public keys and private keys among wallets, but more than that, they allow you to precisely and correctly to define addresses and to derive addresses of a lot of different sorts from a standardized description format. They're the heart of Bitcoin Core's descriptor wallets.
 
-> :fire: ***What is the power of descriptors?*** Descriptors allow you to import and export seeds and keys. That's great if you want to move between different wallets. As a developer, they also allow you to build up the precise sort of addresses that you're interested in creating. For example, we use it in [FullyNoded 2](https://github.com/BlockchainCommons/FullyNoded-2/blob/master/Docs/How-it-works.md) to generate a multi-sig from three seeds. 
-
-We'll make real use of descriptors in [§7.3](07_3_Integrating_with_Hardware_Wallets.md), when we're importing addresses from a hardware wallet.
+> :fire: ***What is the power of descriptors?*** Descriptors allow you to import and export keys and addresses. That's great if you want to move between different wallets. As a developer, they also allow you to build up the precise sort of addresses that you're interested in creating.
 
 ## What's Next?
 
-Advance through "bitcoin-cli" with [Chapter Four: Sending Bitcoin Transactions](04_0_Sending_Bitcoin_Transactions.md).
+Continue "Understanding Your Bitcoin Setup" with [§3.5: Receiving a Transaction](03_5_Receiving_a_Transaction.md).
