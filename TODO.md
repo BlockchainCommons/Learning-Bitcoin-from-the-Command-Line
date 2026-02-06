@@ -14,11 +14,12 @@ The following TODO items are intended for a 3.0 version of Learning Bitcoin from
 
 ## Immediate TODO (for 2/19): Segwit
 
-1. Change §4.1-4.5 to use Bech32 (incorporate existing §4.6)
-2. Create a new chapter §4.6
+1. Write QR Code Interlude (§3.3b)
+2. Change §4.1-4.5 to use Bech32 (incorporate existing §4.6)
+3. Create a new chapter §4.6 (4.1?)
    * Lay out new table of all the address types
    * Demonstrate how to send legacy & wrapped Segwit transactions
-3. Remove legacy address references from the rest of the course
+4. Remove legacy address references from the rest of the course
 
 ## Longer-Term TODO (Small Tasks)
 
@@ -28,7 +29,7 @@ The following updates involve updates or the creation of new chapters, but their
    * <strike>Signet</strike>
    * SEGWIT
       * Talk about address types: https://www.unchained.com/blog/bitcoin-address-types-compared
-   * Descriptor Wallets
+   * <strike>Descriptor Wallets</strike>
 1. Revise 4.4
    * freezing coins
 1. New Interlude: Creating Animated QR Codes (after 7.1)
