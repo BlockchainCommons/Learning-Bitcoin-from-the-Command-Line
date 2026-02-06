@@ -2,24 +2,15 @@
 
 The following TODO items are intended for a 3.0 version of Learning Bitcoin from the Command Line
 
-## Immediate TODO (for 2/5): Descriptor Wallets
-
-1. <strike>Edit §3.1-3.2, esp. for any references to legacy addresses</strike> (Still need to update `bitcoin-cli -getinfo` command) 
-2. <strike>Update §3.3 to use a descriptor wallet</strike> 
-3. Update any mentions of classic wallets
-4. Thoroughly rewrite §3.4 for new focus on descriptors, possibly expanding to two sections.
-5. Update §3.5 to fit into new flow
-6. <strike>Remove all references to things appearing at certain versions (they're all pretty standardized now)</strike>
-7. <strike>But write a note early on about potential missing features</strike>
-
 ## Immediate TODO (for 2/19): Segwit
 
-1. Write QR Code Interlude (§3.3b)
-2. Change §4.1-4.5 to use Bech32 (incorporate existing §4.6)
-3. Create a new chapter §4.6 (4.1?)
+1. Update §3.5 to fit into new flow
+2. Write QR Code Interlude (§3.3b)
+3. Change §4.1-4.5 to use Bech32 (incorporate existing §4.6)
+4. Create a new chapter §4.6 (4.1?)
    * Lay out new table of all the address types
    * Demonstrate how to send legacy & wrapped Segwit transactions
-4. Remove legacy address references from the rest of the course
+5. Remove legacy address references from the rest of the course
 
 ## Longer-Term TODO (Small Tasks)
 
@@ -242,6 +233,17 @@ See [release notes](https://bitcoincore.org/en/releases/0.21.0/).
      
 ---
 
+# Progress Log
+
+## Immediate TODO (for 2/5): Descriptor Wallets
+
+1. <strike>Edit §3.1-3.2, esp. for any references to legacy addresses</strike> (Still need to update `bitcoin-cli -getinfo` command) 
+2. <strike>Update §3.3 to use a descriptor wallet</strike> 
+3. <strike>Update any mentions of classic wallets</strike> (done for this section, need to watch in other sections)
+4. <strike>Thoroughly rewrite §3.4 for new focus on descriptors, possibly expanding to two sections.</strike>
+6. <strike>Remove all references to things appearing at certain versions (they're all pretty standardized now)</strike>
+7. <strike>But write a note early on about potential missing features</strike>
+
 
 ## Immediate TODO (for 1/22): Signet
 
@@ -250,3 +252,10 @@ See [release notes](https://bitcoincore.org/en/releases/0.21.0/).
 3. <strike>Revise §2.1 for newest Stackscript</strike>
 4. <strike>Puzzle out organization for overall project (largely based on updates below and remaining Issues)</strike>
 5. <strike>Change testnet to signet + list out network options</strike>
+
+## Initial TODO (for 1/15): Setup
+
+1. <strike>Update Standup Script for BTC 30.2 & Debian 13</strike>
+2. <strike>Work through PRs & Issues</strike>
+3. <strike>Tag 2.2.1 and Branched 3.0</strike>
+4. <strike>Log relevant updates for Bitcoin Core up to 30.2</strike>
