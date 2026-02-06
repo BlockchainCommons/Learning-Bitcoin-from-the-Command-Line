@@ -41,6 +41,163 @@ Enter, at last, the descriptor wallet. A descriptor wallet collects together "ou
 
 The derivation path allows you to calculate the right key from the master extended keys, but it's the introduction of functions into descriptors that makes them particularly powerful, because it allows them to serve a number of different types of past, present, and future address (which we'll meet in the next chapter).
 
+## Examine Your Wallet's Descriptors
+
+You can look at all of the descriptors contained in your wallet with `bitcoin-cli listdescriptors`:
+```
+$ bitcoin-cli listdescriptors
+{
+  "wallet_name": "",
+  "descriptors": [
+    {
+      "desc": "pkh([e18dae20/44h/1h/0h]tpubDCsocyjrtJLXKJ3atFwKf6FiPheuVNV27B1swsGiNvk4cuPhVTsCDvusSNcH8thnS68FPFotgHqo9FHNGrvhtx6ZqdbWBQTWrCgK9xous17/0/*)#5q6np9at",
+      "timestamp": 1770329126,
+      "active": true,
+      "internal": false,
+      "range": [
+        0,
+        999
+      ],
+      "next": 0,
+      "next_index": 0
+    },
+    {
+      "desc": "pkh([e18dae20/44h/1h/0h]tpubDCsocyjrtJLXKJ3atFwKf6FiPheuVNV27B1swsGiNvk4cuPhVTsCDvusSNcH8thnS68FPFotgHqo9FHNGrvhtx6ZqdbWBQTWrCgK9xous17/1/*)#95ljusdn",
+      "timestamp": 1770329126,
+      "active": true,
+      "internal": true,
+      "range": [
+        0,
+        999
+      ],
+      "next": 0,
+      "next_index": 0
+    },
+    {
+      "desc": "sh(wpkh([e18dae20/49h/1h/0h]tpubDCmuiGVie2yYNXiwi6ymC2qamb7RdEXKeo8HZtkLAtaCcLHFGvHBY4W3Fx9rTjxYdxkb1kvkLp86oDvdxmYjvrVXpcVG2XptmYu8rYsAirP/0/*))#jdj8slnk",
+      "timestamp": 1770329126,
+      "active": true,
+      "internal": false,
+      "range": [
+        0,
+        999
+      ],
+      "next": 0,
+      "next_index": 0
+    },
+    {
+      "desc": "sh(wpkh([e18dae20/49h/1h/0h]tpubDCmuiGVie2yYNXiwi6ymC2qamb7RdEXKeo8HZtkLAtaCcLHFGvHBY4W3Fx9rTjxYdxkb1kvkLp86oDvdxmYjvrVXpcVG2XptmYu8rYsAirP/1/*))#8vu3gqxf",
+      "timestamp": 1770329127,
+      "active": true,
+      "internal": true,
+      "range": [
+        0,
+        999
+      ],
+      "next": 0,
+      "next_index": 0
+    },
+    {
+      "desc": "tr([e18dae20/86h/1h/0h]tpubDC5ZrtRv5CURANE3oWS1cK7mE9t93KnZfUApDs3dg8xxDuGMsuSejCLeh4yKeqkvHknRboWEctS2BSGQxXhsCx1dgPCTCwjF4a9mgq999Af/0/*)#h4xmum5n",
+      "timestamp": 1770329126,
+      "active": true,
+      "internal": false,
+      "range": [
+        0,
+        999
+      ],
+      "next": 0,
+      "next_index": 0
+    },
+    {
+      "desc": "tr([e18dae20/86h/1h/0h]tpubDC5ZrtRv5CURANE3oWS1cK7mE9t93KnZfUApDs3dg8xxDuGMsuSejCLeh4yKeqkvHknRboWEctS2BSGQxXhsCx1dgPCTCwjF4a9mgq999Af/1/*)#xpr6pwyt",
+      "timestamp": 1770329127,
+      "active": true,
+      "internal": true,
+      "range": [
+        0,
+        999
+      ],
+      "next": 0,
+      "next_index": 0
+    },
+    {
+      "desc": "wpkh([e18dae20/84h/1h/0h]tpubDC4ujMbsd9REzpGk3gnTjkrfJFw1NnvCpx6QBbLj3CHBzcLmVzssTVP8meRAM1WW4pZnK6SCCPGyzi9eMfzSXoeFMNprqtgxG71VRXTmetu/0/*)#3658f8sn",
+      "timestamp": 1770329126,
+      "active": true,
+      "internal": false,
+      "range": [
+        0,
+        1001
+      ],
+      "next": 3,
+      "next_index": 3
+    },
+    {
+      "desc": "wpkh([e18dae20/84h/1h/0h]tpubDC4ujMbsd9REzpGk3gnTjkrfJFw1NnvCpx6QBbLj3CHBzcLmVzssTVP8meRAM1WW4pZnK6SCCPGyzi9eMfzSXoeFMNprqtgxG71VRXTmetu/1/*)#qw3x5jqt",
+      "timestamp": 1770329127,
+      "active": true,
+      "internal": true,
+      "range": [
+        0,
+        999
+      ],
+      "next": 0,
+      "next_index": 0
+    }
+  ]
+}
+```
+Wow, that's a lot! But it's really just a listing of eight descriptors (`desc`) with a bunch of additional information on each. As it happens, that's descriptors for four different types of addresses (which we'll meet in chapter 4) with both an external address (for sending to other people) and an internal address (for sending change back yourself). (And we'll talk about change in chapter 4 too!)
+
+With that understood, we can look more closely at one of them:
+```
+{
+  "desc": "wpkh([e18dae20/84h/1h/0h]tpubDC4ujMbsd9REzpGk3gnTjkrfJFw1NnvCpx6QBbLj3CHBzcLmVzssTVP8meRAM1WW4pZnK6SCCPGyzi9eMfzSXoeFMNprqtgxG71VRXTmetu/0/*)#3658f8sn",
+  "timestamp": 1770329126,
+  "active": true,
+  "internal": false,
+  "range": [
+    0,
+    1001
+  ],
+  "next": 3,
+  "next_index": 3
+},
+```
+This contains:
+* **`desc`:** The descriptor.
+* **`timestamp`:** When the descriptor was created.
+* **`active`:** Is the descriptor still in use for creating new addresses. (It could have been superseded by a new master extended key, for example when encrypting the wallet.
+* **`internal`:** Is this a descriptor for internal addresses (for change).
+* **`range`:** For ranged descriptors, what's the range?
+* **`next`, `next_index`:** What is the next address to create for this descriptor. In this example, the next one `3` because we already created three addresses from this descriptor (`0`, `1`, and `2`) in [§3.3](3_3_Setting_Up_Your_Wallet.md).
+
+Clearly the heart of that is the descriptor itself. The command `bitcoin-cli getdescriptor` info breaks it down a little further:
+```
+$ bitcoin-cli getdescriptorinfo "wpkh([e18dae20/84h/1h/0h]tpubDC4ujMbsd9REzpGk3gnTjkrfJFw1NnvCpx6QBbLj3CHBzcLmVzssTVP8meRAM1WW4pZnK6SCCPGyzi9eMfzSXoeFMNprqtgxG71VRXTmetu/0/*)#3658f8sn"
+{
+  "descriptor": "wpkh([e18dae20/84h/1h/0h]tpubDC4ujMbsd9REzpGk3gnTjkrfJFw1NnvCpx6QBbLj3CHBzcLmVzssTVP8meRAM1WW4pZnK6SCCPGyzi9eMfzSXoeFMNprqtgxG71VRXTmetu/0/*)#3658f8sn",
+  "checksum": "3658f8sn",
+  "isrange": true,
+  "issolvable": true,
+  "hasprivatekeys": false
+}
+```
+It shows you that the values after the `#` are a checksum (`3658f8sn`) and confirms that it's a ranged descriptor (`isrange`), that our wallet has the private key (`issolvable`) and that the private key isn't included in the descriptor and that there's instead a public key (`hasprivatekeys`). As for the descriptor itself, let's break that down further:
+
+* **Function: `wpkh`.** The function that is used to create an address from that key. In this cases it's `wpkh`. That standards for "Witness Public Key Hash," which is one of the methods used to unlock a Bech32 address.
+* **Fingerprint: `e18dae20`.** This is a fingerprint of the master extended public key. It tells you which secret is used to generate this address. It is *not* necessary to generate the keys and address for this derivation, it's just helpful for you to go back and find the secret that generated your extended keys.
+* **Derivation Path: `/84h/1h/0h`.** This describes what part of an HD wallet is being exported. This is the 0th child key of the 1st child of the 84th child in the HD tree. These various levels have very specific meanings: `/purpose'/ coin_type'/ account'/`. The purpose of this derivation path is "84", which means that it follows [BIP-84](https://github.com/bitcoin/bips/blob/master/bip-0084.mediawiki), which describes WPKH derivation. The coin type is "1", which means testnet or signet coin. (A mainnet could would be "0") The account is "0", as it's the only account in our wallet.
+* **Key: `tpubDC4ujMbsd9REzpGk3gnTjkrfJFw1NnvCpx6QBbLj3CHBzcLmVzssTVP8meRAM1WW4pZnK6SCCPGyzi9eMfzSXoeFMNprqtgxG71VRXTmetu`.** This is the signet or testnet extended master public key that was used to generate this derived key. (A private key could be here instead. With just a public key in place, it demonstrates how to watch this series of addresses, and with a private key in place, it show show to control them)
+* **Range: `/0/*`.** These are actually the final two parts of the derivation path, which are defined as `change / address_index`. The "0" says it's an external address. (An internal or change address would be "1".) The `*` says it's a ranged address, which means that it's defining a whole set of WPKH addresses that could be created.
+* **`#3658f8sn"`.** As noted, this is a checksum showing the descriptor isn't corrupted.
+
+So that's what everything means in a descriptor. Though they might seem somewhat complex, keep in mind that they take the place of a potentially infinite number of addresses. With this one descriptor, or these eight descriptors as the case might be, you can regenerate every key and addresse that you might have used for these four address types. That's a huge boon for backups (when you want to protect your funds) and for moving control of your funds from one machine to another.
+
+Note that you can also run `bitcoin-cli listdescriptors true` if you want your descriptor list to include the private keys instead of the public keys.
+
+## Examine an Address' Descriptor
 
 ## Capture a Descriptor
 
