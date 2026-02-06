@@ -1,14 +1,3 @@
-TODO:
-
-1. Revise Section: Understanding the Descriptor (3.5)
-   * New Content: Descriptor Wallets
-   * New Content: Complex Descriptors
-   * Consider: Breaking into Two Sections
-
-Legacy Wallets vs Descriptor Wallets
-
-Legacy wallets are wallet files in the BDB file format, created by old versions of Bitcoin Core (and can still be opened by new versions, for now). They're contrasted with descriptor wallets, which use the SQLite file format, which are created by newer versions of Bitcoin Core.
-
 # 3.4: Understanding the Descriptor
 
 You've got your wallet set up, but before we go further we're going to take a moment to really understand it.
@@ -41,6 +30,8 @@ Enter, at last, the descriptor wallet. A descriptor wallet collects together "ou
 
 The derivation path allows you to calculate the right key from the master extended keys, but it's the introduction of functions into descriptors that makes them particularly powerful, because it allows them to serve a number of different types of past, present, and future address (which we'll meet in the next chapter).
 
+> :warning: **VERSION WARNING:** Modern Bitcoin wallets use descriptor wallets stores in SQLite. Older, "classic" wallets were instead bags of keys, stored in BDB (Berkeley Database) format. The classic files can currently still be opened by `bitcoin-cli` but you wouldn't want to create something new in that format.
+> 
 ## Examine Your Wallet's Descriptors
 
 You can look at all of the descriptors contained in your wallet with `bitcoin-cli listdescriptors`:
@@ -173,18 +164,7 @@ This contains:
 * **`range`:** For ranged descriptors, what's the range?
 * **`next`, `next_index`:** What is the next address to create for this descriptor. In this example, the next one `3` because we already created three addresses from this descriptor (`0`, `1`, and `2`) in [§3.3](3_3_Setting_Up_Your_Wallet.md).
 
-Clearly the heart of that is the descriptor itself. The command `bitcoin-cli getdescriptor` info breaks it down a little further:
-```
-$ bitcoin-cli getdescriptorinfo "wpkh([e18dae20/84h/1h/0h]tpubDC4ujMbsd9REzpGk3gnTjkrfJFw1NnvCpx6QBbLj3CHBzcLmVzssTVP8meRAM1WW4pZnK6SCCPGyzi9eMfzSXoeFMNprqtgxG71VRXTmetu/0/*)#3658f8sn"
-{
-  "descriptor": "wpkh([e18dae20/84h/1h/0h]tpubDC4ujMbsd9REzpGk3gnTjkrfJFw1NnvCpx6QBbLj3CHBzcLmVzssTVP8meRAM1WW4pZnK6SCCPGyzi9eMfzSXoeFMNprqtgxG71VRXTmetu/0/*)#3658f8sn",
-  "checksum": "3658f8sn",
-  "isrange": true,
-  "issolvable": true,
-  "hasprivatekeys": false
-}
-```
-It shows you that the values after the `#` are a checksum (`3658f8sn`) and confirms that it's a ranged descriptor (`isrange`), that our wallet has the private key (`issolvable`) and that the private key isn't included in the descriptor and that there's instead a public key (`hasprivatekeys`). As for the descriptor itself, let's break that down further:
+As for the descriptor itself, let's break that down further:
 
 * **Function: `wpkh`.** The function that is used to create an address from that key. In this cases it's `wpkh`. That standards for "Witness Public Key Hash," which is one of the methods used to unlock a Bech32 address.
 * **Fingerprint: `e18dae20`.** This is a fingerprint of the master extended public key. It tells you which secret is used to generate this address. It is *not* necessary to generate the keys and address for this derivation, it's just helpful for you to go back and find the secret that generated your extended keys.
@@ -199,74 +179,87 @@ Note that you can also run `bitcoin-cli listdescriptors true` if you want your d
 
 ## Examine an Address' Descriptor
 
-## Capture a Descriptor
-
-Descriptors are visible in several commands such as `listunspent` and `getaddressinfo`:
+You can look at the descriptor for an individual address with `bitcoin-cli getaddressinfo`:
 ```
-$ bitcoin-cli getaddressinfo ms7ruzvL4atCu77n47dStMb3of6iScS8kZ
+$ bitcoin-cli getaddressinfo tb1q9f8j03uywqsxuxjefz68g7x4kduer2ky6shsf4
 {
-  "address": "ms7ruzvL4atCu77n47dStMb3of6iScS8kZ",
-  "scriptPubKey": "76a9147f437379bcc66c40745edc1891ea6b3830e1975d88ac",
+  "address": "tb1q9f8j03uywqsxuxjefz68g7x4kduer2ky6shsf4",
+  "scriptPubKey": "00142a4f27c78470206e1a5948b47478d5b37991aac4",
   "ismine": true,
   "solvable": true,
-  "desc": "pkh([d6043800/0'/0'/18']03efdee34c0009fd175f3b20b5e5a5517fd5d16746f2e635b44617adafeaebc388)#4ahsl9pk",
+  "desc": "wpkh([e18dae20/84h/1h/0h/0/2]02040bf9b12e48bbbcbf72ef5197bc18067db378411ae6220f1d0a77da2ee7dbba)#dqt0983r",
+  "parent_desc": "wpkh([e18dae20/84h/1h/0h]tpubDC4ujMbsd9REzpGk3gnTjkrfJFw1NnvCpx6QBbLj3CHBzcLmVzssTVP8meRAM1WW4pZnK6SCCPGyzi9eMfzSXoeFMNprqtgxG71VRXTmetu/0/*)#3658f8sn",
   "iswatchonly": false,
   "isscript": false,
-  "iswitness": false,
-  "pubkey": "03efdee34c0009fd175f3b20b5e5a5517fd5d16746f2e635b44617adafeaebc388",
-  "iscompressed": true,
+  "iswitness": true,
+  "witness_version": 0,
+  "witness_program": "2a4f27c78470206e1a5948b47478d5b37991aac4",
+  "pubkey": "02040bf9b12e48bbbcbf72ef5197bc18067db378411ae6220f1d0a77da2ee7dbba",
   "ischange": false,
-  "timestamp": 1592335136,
-  "hdkeypath": "m/0'/0'/18'",
-  "hdseedid": "fdea8e2630f00d29a9d6ff2af7bf5b358d061078",
-  "hdmasterfingerprint": "d6043800",
+  "timestamp": 1770329126,
+  "hdkeypath": "m/84h/1h/0h/0/2",
+  "hdseedid": "0000000000000000000000000000000000000000",
+  "hdmasterfingerprint": "e18dae20",
   "labels": [
     ""
   ]
 }
 ```
-Here the descriptor is `pkh([d6043800/0'/0'/18']03efdee34c0009fd175f3b20b5e5a5517fd5d16746f2e635b44617adafeaebc388)#4ahsl9pk`.
-
-## Understand a Descriptor
-
-A descriptor is broken into several parts:
+That reveals:
 ```
-function([derivation-path]key)#checksum
+  "desc": "wpkh([e18dae20/84h/1h/0h/0/2]02040bf9b12e48bbbcbf72ef5197bc18067db378411ae6220f1d0a77da2ee7dbba)#dqt0983r",
 ```
-Here's what that all means:
-* **Function.** The function that is used to create an address from that key. In this cases it's `pkh`, which is the standard P2PKH legacy address that you met in [§3.3: Setting Up Your Wallet](03_3_Setting_Up_Your_Wallet.md). Similarly, a P2WSH SegWit address would use `wsh` and a P2WPKH address would use `wpkh`.
-* **Derivation Path.** This describes what part of an HD wallet is being exported. In this case it's a seed with the fingerprint `d6043800` and then the 18th child of the 0th child of the 0th child (`0'/0'/18'`) of that seed. There may also be a further derivation after the key: `function([derivation-path]key/more-derivation)#checksum`
-   * It's worth noting here that if you ever get a derivation path without a fingerprint, you can make it up. It's just that if there's an existing one, you should match it, because if you ever go back to the device that created the fingerprint, you'll need to have the same one.
-* **Key**. The key or keys that are being transferred. This could be something traditional like an `xpub` or `xprv`, it could just be a public key for an address as in this case, it could be a set of addresses for a multi-signature, or it could be something else. This is the core data: the function explains what to do with it.
-* **Checksum**. Descriptors are meant to be human transferrable. This checksum makes sure you got it right.
-
-See [Bitcoin Core's Info on Descriptor Support](https://github.com/bitcoin/bitcoin/blob/master/doc/descriptors.md) for more information.
-
-## Examine a Descriptor
-
-You can look at a descriptor with the `getdescriptorinfo` RPC:
+Which you can compare to the ranged descriptor we just looked at:
 ```
-$ bitcoin-cli getdescriptorinfo "pkh([d6043800/0'/0'/18']03efdee34c0009fd175f3b20b5e5a5517fd5d16746f2e635b44617adafeaebc388)#4ahsl9pk"
+  "desc": "wpkh([e18dae20/84h/1h/0h]tpubDC4ujMbsd9REzpGk3gnTjkrfJFw1NnvCpx6QBbLj3CHBzcLmVzssTVP8meRAM1WW4pZnK6SCCPGyzi9eMfzSXoeFMNprqtgxG71VRXTmetu/0/*)#3658f8sn",
+```
+They're in slightly different formats as the non-ranged address has the derivation path all together. But other than that, there are just two changes:
+* The wallet has a ranged of addresses `0/*`, while the address is one specific index in that range `0/2`.
+* The checksums are different, as you'd expect due to the differences in the index number.
+
+That's the only difference between a descriptor in the wallet and a descriptor for a specific address!
+
+You will see descriptors throughout Bitcoin commands! They're a vital element of not just the wallet, but of each address that is used to transfer funds.
+
+## Examine Descriptors Again
+
+Descriptors can be looked at via another command, `bitcoin-cli getdescriptorinfo`:
+```
+$ bitcoin-cli getdescriptorinfo "wpkh([e18dae20/84h/1h/0h]tpubDC4ujMbsd9REzpGk3gnTjkrfJFw1NnvCpx6QBbLj3CHBzcLmVzssTVP8meRAM1WW4pZnK6SCCPGyzi9eMfzSXoeFMNprqtgxG71VRXTmetu/0/*)#3658f8sn"
 {
-  "descriptor": "pkh([d6043800/0'/0'/18']03efdee34c0009fd175f3b20b5e5a5517fd5d16746f2e635b44617adafeaebc388)#4ahsl9pk",
-  "checksum": "4ahsl9pk",
-  "isrange": false,
+  "descriptor": "wpkh([e18dae20/84h/1h/0h]tpubDC4ujMbsd9REzpGk3gnTjkrfJFw1NnvCpx6QBbLj3CHBzcLmVzssTVP8meRAM1WW4pZnK6SCCPGyzi9eMfzSXoeFMNprqtgxG71VRXTmetu/0/*)#3658f8sn",
+  "checksum": "3658f8sn",
+  "isrange": true,
   "issolvable": true,
   "hasprivatekeys": false
 }
 ```
-Note that it returns a checksum. If you're ever given a descriptor without a checksum, you can learn it with this command:
+This is a pretty sparse description that includes the descriptor and confirms that it's a ranged descriptor (`isrange`), that our wallet has the private key (`issolvable`) and that the private key isn't included in the descriptor and that there's instead a public key (`hasprivatekeys`). Beyond that information, `getdescriptorinfo` services two other purposes:
+
+1. If you don't have the checksum (which is required for other descriptor-related `bitcoin-cli` commands), you can enter the descriptor without it, and it'll be calculated for you.
+
 ```
-$ bitcoin-cli getdescriptorinfo "pkh([d6043800/0'/0'/18']03efdee34c0009fd175f3b20b5e5a5517fd5d16746f2e635b44617adafeaebc388)"
+$ bitcoin-cli getdescriptorinfo "wpkh([e18dae20/84h/1h/0h]tpubDC4ujMbsd9REzpGk3gnTjkrfJFw1NnvCpx6QBbLj3CHBzcLmVzssTVP8meRAM1WW4pZnK6SCCPGyzi9eMfzSXoeFMNprqtgxG71VRXTmetu/0/*)"
 {
-  "descriptor": "pkh([d6043800/0'/0'/18']03efdee34c0009fd175f3b20b5e5a5517fd5d16746f2e635b44617adafeaebc388)#4ahsl9pk",
-  "checksum": "4ahsl9pk",
-  "isrange": false,
+  "descriptor": "wpkh([e18dae20/84h/1h/0h]tpubDC4ujMbsd9REzpGk3gnTjkrfJFw1NnvCpx6QBbLj3CHBzcLmVzssTVP8meRAM1WW4pZnK6SCCPGyzi9eMfzSXoeFMNprqtgxG71VRXTmetu/0/*)#3658f8sn",
+  "checksum": "3658f8sn",
+  "isrange": true,
   "issolvable": true,
   "hasprivatekeys": false
 }
 ```
-Besides giving you the checksum, this command also verifies the validity of the descriptor and provides useful information like whether a descriptor contains private keys.
+
+2. If your descriptor is invalid, `getdescriptorinfo` will tell you:
+```
+$ bitcoin-cli getdescriptorinfo "cow([e18dae20/84h/1h/0h]tpubDC4ujMbsd9REzpGk3gnTjkrfJFw1NnvCpx6QBbLj3CHBzcLmVzssTVP8meRAM1WW4pZnK6SCCPGyzi9eMfzSXoeFMNprqtgxG71VRXTmetu/0/*)"
+error code: -5
+error message:
+'cow([e18dae20/84h/1h/0h]tpubDC4ujMbsd9REzpGk3gnTjkrfJFw1NnvCpx6QBbLj3CHBzcLmVzssTVP8meRAM1WW4pZnK6SCCPGyzi9eMfzSXoeFMNprqtgxG71VRXTmetu/0/*)' is not a valid descriptor function
+```
+
+---
+
+## Derive Addresses by Hand
 
 One of the powers of a descriptor is being able to derive an address in a regular way. This is done with the `deriveaddresses` RPC.
 ```
