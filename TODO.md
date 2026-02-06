@@ -95,6 +95,9 @@ The following updates involve the large-scale work done on Schnorr and Taproot i
 
 The following updates could be part of v3.0 or could be further future, depending on how long the above takes. My guess is that they'll get incorporated come late spring or summer.
 
+1. New Graphics
+   * Mermaid or Mermaid-like diagrams.
+   * For example in §3.4 could diagram HD keys, derivation of seed phrase to seed to key, etc
 1. New Graphics: Animated GIFs for key demos.
    * Reference: https://github.com/faressoft/terminalizer
 1. New Chapter: Using Other Command-Line Tools (between 8+9)
