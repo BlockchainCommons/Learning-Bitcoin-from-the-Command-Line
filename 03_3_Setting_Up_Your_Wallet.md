@@ -89,7 +89,7 @@ You now have a Bitcoin wallet. But you can't receive funds with a wallet. For th
 
 ## Create an Address
 
-The next thing you need to do is create an address for receiving payments. This is done with the `bitcoin-cli getnewaddress` command. Remember that if you want more information on this command, you should type `bitcoin-cli help getnewaddress`. There are a variety of types of addresses, due to Bitcoin's evolution over the years. [§3.5](03_5_Understanding_the_Address.md) covers them all. For now, though we're just going to create an address of the default type, which is Bech32.
+The next thing you need to do is create an address for receiving payments. This is done with the `bitcoin-cli getnewaddress` command. Remember that if you want more information on this command, you should type `bitcoin-cli help getnewaddress`. There are a variety of types of addresses, due to Bitcoin's evolution over the years. [§3.5](03_5_Understanding_the_Address.md) covers them all. For now, though we're just going to create an address of the default type, which is a Bech32 P2WPKH address.
 
 ```
 $ bitcoin-cli getnewaddress
@@ -117,7 +117,7 @@ $ bitcoin-cli getaddressesbylabel ""
   }
 }
 ```
-Note that this address begins with an "tb1", which [means](https://en.bitcoin.it/wiki/List_of_address_prefixes) that it's a Bech32 address on either signet or testnet. The discussion of different address types in [§3.5](03_5_Understanding_the_Address.md) will also talk about all of their identifying prefixes.
+Note that this address begins with an "tb1", which [means](https://en.bitcoin.it/wiki/List_of_address_prefixes) that it's a Bech32-encoded address on either signet or testnet. The discussion of different address types in [§3.5](03_5_Understanding_the_Address.md) will also talk about all of their identifying prefixes.
 
 > :link: **SIGNET vs MAINNET vs TESTNET:** The equivalent mainnet address would start with a "bc1".
 
