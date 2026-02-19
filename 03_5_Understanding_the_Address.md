@@ -73,6 +73,38 @@ The following chart lists out the prefixes and encoding methods for each address
 | P2WSH | bc1q... | tb1q...| bech32 |
 | P2TR | bc1p... | tb1p...| bech32m |
 
+## Create More Addresses
+
+Though you'll stick with the default P2PWKH addresses most of the time, you may want to create other sorts of addresses. The `getnewaddress` RPC actually offers four types:
+
+| Flag | Type | Notes |
+|------|------|-------|
+| bech32 | P2PKH | Default |
+| bech32m | P2TR | |
+| legacy | P2PK | Deprecated |
+| p2sh-segwit | P2SH-PWPKH | Deprecated |
+
+Missing from this is P2WSH, but that's because it has its own methods for creation, as are described later in the book.
+
+The following commands use `getnewaddress` to generate an address with no label `""` for each of the four types:
+```
+$ bitcoin-cli getnewaddress "" bech32
+tb1quqv4shd6ts0t6ew5l8kcqvvxgvr8drtr7ajew2
+
+$ bitcoin-cli getnewaddress "" bech32m
+tb1pps29f3evn5lscg82a2wceyl8p6s0wckjvp3zllw2myn6xg6xxvxqcekkxd
+
+$ bitcoin-cli getnewaddress "" legacy
+mueEcK86JTvMrge7qibsRdMes6ET5oAGgd
+
+$ bitcoin-cli getnewaddress "" p2sh-segwit
+2NAzFNuopaor2YnqVA2QC4KYme6HxWTk7jq
+```
+Note that the address prefixes match each of the expected types, with `p2sh-segwit` revealing itself as actually being a P2SH transaction.
+
+It seems likely that the `legacy` and `p2sh-segwit` flags will be sunset some time in the future, as they were added to support the transition to SegWit that began in 2017.
+
+
 ## Summary: Understanding the Address
 
 Addresses come in many types, and there have been several over the history of Bitcoin. However, you really only need to know about three:
