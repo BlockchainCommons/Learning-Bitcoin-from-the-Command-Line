@@ -33,8 +33,8 @@ Don't be overwhelmed by this list! If it looks like too much, just scan the ✅ 
 The addresseses commonly in use for Bitcoin today are:
 
 * **✅ P2WPKH (Pay to Witness Public Hash).** P2WPKH is a SegWit address that can be unlocked with a single key. This is the default address type for Bitcoin core, and what you'll mostly be using. P2WPKH deprecates P2PKH.
-* **✅ P2WSH (Pay to Witness Script Hash).** P2WSH is a SegWit address that can be unlocked a script (rather than one or more private keys doing so). Scripts are described in [Chapter 11](11_0_Introducing_Bitcoin_Scripts.md) (and afterward). P2WSH deprecates P2SH
-* **✅ P2TR.** Taproot is the newest Bitcoin address type, but it was soft forked back in 2021, so it should have wide acceptance at this point. It's considered the next iteration of SegWit. It can produce smaller transactions for multisigs, has privacy advantages, and can also combine singular signatures with scripts. It hasn't been widely adopted yet.
+* **✅ P2WSH (Pay to Witness Script Hash).** P2WSH is a SegWit address that can be unlocked a script (rather than one or more private keys doing so). Scripts are described in [Chapter 11](11_0_Introducing_Bitcoin_Scripts.md) (and afterward). P2WSH deprecates P2SH.
+* **✅ P2TR.** Taproot is the newest Bitcoin address type, but it was soft forked back in 2021, so it should have wide acceptance at this point. It's considered the next iteration of SegWit. It can produce smaller transactions for multisigs, has privacy advantages, and can also combine singular signatures with scripts. It hasn't been widely adopted yet. We'll examing Taproot transcations starting in [Chapter 9](09_0_Expanding_Bitcoin_Transactions_with_Schnorr.md).
 
 The addresses that have been deprecated are:
 
@@ -71,3 +71,16 @@ The following chart lists out the prefixes and encoding methods for each address
 | P2WPKH | bc1q... | tb1q...| bech32 |
 | P2WSH | bc1q... | tb1q...| bech32 |
 | P2TR | bc1p... | tb1p...| bech32m |
+
+## Summary: Understanding the Address
+
+Addresses come in many types, and there have been several over the history of Bitcoin. However, you really only need to know about three:
+
+* **P2WPKH.** Pay to Witness Public Key Hash. A SegWit v0 Bech32 address. This is the standard address for receiving funds, and what you'll use through most of this course.
+* **P2WSH.** Pay to Witness Script Hash. A SegWit v0 Bech32 address. This is an address for receiving more complex transactions that can be spent by meeting the conditions of a script.
+* **P2TR.** Pay to Tap Root. A Segwit v1 Bech32m address. Besides using Schnorr signatures, this is a sort of hybrid script that allows both single signing and the use of a Merkelized Alternative Script Tree.
+
+## What's Next?
+
+Continue "Understanding Your Bitcoin Setup" with [§3.6: Creating QR Codes for Addresses](03_6_Creating_QR_Codes_for_Addresses.md).
+
