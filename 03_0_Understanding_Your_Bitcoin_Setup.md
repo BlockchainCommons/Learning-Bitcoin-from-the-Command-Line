@@ -19,7 +19,7 @@ Supporting objectives include the ability to:
    * Understand the Basic Bitcoin File Layout
    * Use Basic Informational Commands
    * Understand What a Bitcoin Address Is
-   * Understand What a Wallet Is
+   * Understand What a Descriptor Wallet Is
    * Recognize Common Types of Bitcoin Wallets
    
 ## Table of Contents
@@ -28,5 +28,6 @@ Supporting objectives include the ability to:
 * [Section Two: Knowing Your Bitcoin Setup](03_2_Knowing_Your_Bitcoin_Setup.md)
 * [Section Three: Setting Up Your Wallet](03_3_Setting_Up_Your_Wallet.md)
    * [Interlude: Using Command-Line Variables](03_3__Interlude_Using_Command-Line_Variables.md)
-* [Section Four: Receiving a Transaction](03_4_Receiving_a_Transaction.md)
-* [Section Five: Understanding the Descriptor](03_5_Understanding_the_Descriptor.md)
+* [Section Four: Understanding the Descriptor](03_4_Understanding_the_Descriptor.md)
+* [Section Five: Understanding the Address](03_5_Understanding_the_Address.md)
+* [Section Six: Receiving a Transaction](03_6_Receiving_a_Transaction.md)
