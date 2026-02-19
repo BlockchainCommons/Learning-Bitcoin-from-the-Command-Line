@@ -47,6 +47,7 @@ The addresses that have been deprecated are:
 [Unchained Capital](https://www.unchained.com/blog/bitcoin-address-types-compared) has conducted a survey of address types that they most recently updated in 2025. Besides giving more details on all of address types, it also listed how much of the Bitcoin supply was held in each address type. Though some deprecated addresses (mainly P2PKH) still hold large amounts of Bitcoin, that's a historic artifact. Some funds may be forever lost (due to lost keys) while others may be being held for the long term.
 
 | Type | Description | Fund % |
+|------|-------------|--------|
 | P2PK | Pay to Public Key | 9% |
 | P2MS | Pay to Multisig | 0%+ |
 | P2PKH | Pay to Public Key Hash | 43% |
