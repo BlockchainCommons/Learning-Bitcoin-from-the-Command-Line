@@ -2,7 +2,7 @@
 
 You've got your wallet set up, but before we go further we're going to take a moment to really understand it.
 
-## Know about HD Wallets
+## Understand HD Wallets
 
 Private keys are what make the Bitcoin world go round. They're used to generate public keys, which are the foundation of addresses, and they're also used to control those addresses. One private key creates one public key which creates one address. Once upon a time, the Bitcoin Core wallet managed this by holding on to a "bag of keys". A new, unrelated private key would be created every time a new address was desired. But a bags of keys are big, inefficient, and prone to loss. That's where the HD wallet came in.
 
@@ -10,7 +10,7 @@ The HD wallet, which is short for the Hierarchical Deterministic Wallet, was def
 
 > :book: ***What is a BIP?*** A BIP is a Bitcoin Improvement Proposal. It's an in-depth suggestion for a change to the Bitcoin Core code. Often, when a BIP has been sufficiently discussed and updated, it will become an actual part of the Bitcoin Core code. BIP-32 is one of many examples.
 
-## Know about Descriptor Wallets
+## Understand Descriptor Wallets
 
 Most of this course presumes that you're working entirely from a single node where you manage your own wallet, sending and receiving payments with the addresses created by that wallet. However, that's not necessarily how the larger Bitcoin ecosystem works. There, you're more likely to be moving addresses between wallets (often on different devices) and even setting up wallets to watch over funds controlled by different wallets. 
 
