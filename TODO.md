@@ -6,10 +6,8 @@ The following TODO items are intended for a 3.0 version of Learning Bitcoin from
 
 1. <strike>Reorg of Chapter 3</strike>
 2. <strike>Edit Updated Content in §3.3+3.4</strike>
-2. Write New Chapter §3.5
-3. Write QR Code Interlude (§3.6)
-   * Lay out new table of all the address types
-   * Demonstrate how to send legacy & wrapped Segwit transactions
+2. <strike>Write new Understanding Addresses (§3.5)</strike>
+3. Write new QR Code Interlude (§3.6)
 4. Update §3.7 to fit into new flow
 5. Change §4.1-4.5 to use Bech32 (incorporate existing §4.6)
 6. Remove legacy address references from the rest of the course
