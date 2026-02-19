@@ -63,7 +63,7 @@ Each different type of address is formed in a different way. An address can be d
 The following chart lists out the prefixes and encoding methods for each address type:
 
 | Type | Mainnet | Testnet | Encoding |
-|------|-------------|--------|
+|------|-------------|--------|----|
 | P2PK | N/A | N/A | public key |
 | P2MS | N/A | N/A | public keys |
 | P2PKH | 1... | m...<br>n...| base58 |
