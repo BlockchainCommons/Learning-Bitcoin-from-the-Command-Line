@@ -4,13 +4,14 @@ The following TODO items are intended for a 3.0 version of Learning Bitcoin from
 
 ## Immediate TODO (for 2/19): Segwit
 
-1. Update §3.5 to fit into new flow
-2. Write QR Code Interlude (§3.3b)
-3. Change §4.1-4.5 to use Bech32 (incorporate existing §4.6)
-4. Create a new chapter §4.6 (4.1?)
+1. <strike>Reorg of Chapter 3</strike>
+2. Write New Chapter §3.5
+3. Write QR Code Interlude (§3.5a)
    * Lay out new table of all the address types
    * Demonstrate how to send legacy & wrapped Segwit transactions
-5. Remove legacy address references from the rest of the course
+4. Update §3.6 to fit into new flow
+5. Change §4.1-4.5 to use Bech32 (incorporate existing §4.6)
+6. Remove legacy address references from the rest of the course
 
 ## Longer-Term TODO (Small Tasks)
 
