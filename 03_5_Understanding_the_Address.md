@@ -6,7 +6,7 @@ You understand your wallet now, but there's still the question of the addresses 
 
 As you know, each Bitcoin address is a storage area for Bitcoin funds. Funds are sent from one address to another address as a _transaction_; the transaction matches the address that it was sent from. But an address is more than just a storage area: it's a lockbox. The specifics of the address define how that lockbox is actually opened up. The default is to use a private key associated with the public key that was used to create the address, but that's not the only way that Bitcoin addresses work.
 
-Different types of Bitcoin addresses cause changes in all of this. In general they may change:
+Different types of Bitcoin addresses change all of this. In general they may change:
 
 * How the Bitcoin address is derived from the public key.
 * How the Bitcoin address is encoded.
@@ -45,8 +45,6 @@ The addresses that have been deprecated are:
 * **❌ P2SH-P2WPKH and ❌P2SH-P2WSH.** When SegWit was being deployed, people wanted to send to it even before their wallets had been upgraded. These two "Nested Segwit" or "Wrapped Address" types offered the opportunity to do so by using a classic P2SH (scripting) address to incorporate the SegWit mechanics. These are actually just P2SH addresses with specific scripts, not a proper address type, and they're no longer needed since the SegWit upgrade is long past.
 
 [Unchained Capital](https://www.unchained.com/blog/bitcoin-address-types-compared) has conducted a survey of address types that they most recently updated in 2025. Besides giving more details on all of address types, it also listed how much of the Bitcoin supply was held in each address type. Though some deprecated addresses (mainly P2PKH) still hold large amounts of Bitcoin, that's a historic artifact. Some funds may be forever lost (due to lost keys) while others may be being held for the long term.
-
-<center>
   
 | Type | Description | Fund % |
 |------|-------------|--------|
@@ -58,7 +56,18 @@ The addresses that have been deprecated are:
 | P2WSH | Pay to Witness Script Hash | 4% |
 | P2TR | Pay to Taproot | 0.1% |
 
-</center>
-
 ## Understand Address Prefixes
 
+Each different type of address is formed in a different way. An address can be derived in a different way, encoded in a different way, or formatted in a different way. As a result, addresses have different lengths and look different. Part of that formatting tends to be a prefix, which helps to identify an address type at a glance. Sometimes that prefix is different for mainnet and for the various testing networks (signet, testnet, regtest) so that you don't confuse fake funds and real funds.
+
+The following chart lists out the prefixes and encoding methods for each address type:
+
+| Type | Mainnet | Testnet | Encoding |
+|------|-------------|--------|
+| P2PK | N/A | N/A | public key |
+| P2MS | N/A | N/A | public keys |
+| P2PKH | 1... | m...<br>n...| base58 |
+| P2SH<br>P2SH-P2WPKH<br>P2SH-P2WSH | 3... | 2... | base58 |
+| P2WPKH | bc1q... | tb1q...| bech32 |
+| P2WSH | bc1q... | tb1q...| bech32 |
+| P2TR | bc1p... | tb1p...| bech32m |
