@@ -5,6 +5,7 @@ The following TODO items are intended for a 3.0 version of Learning Bitcoin from
 ## Immediate TODO (for 2/19): Segwit
 
 1. <strike>Reorg of Chapter 3</strike>
+2. Edit Updated Content in §3.3+3.4
 2. Write New Chapter §3.5
 3. Write QR Code Interlude (§3.5a)
    * Lay out new table of all the address types
