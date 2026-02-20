@@ -1,4 +1,4 @@
-# 3.6: Receiving a Transaction
+# 3.7: Receiving a Transaction
 
 You're now ready to receive some money at an address you created.
 
