@@ -48,7 +48,7 @@ Working with digital currency means never trusting anything. That's because ther
 
 First, decode it and see what it really says. This can often be done with a mobile device: scan the code and most modern devices should show you what it says:
 
-<img src="/images/03-qraddress-photo.jpg" width=150>
+<a href="/images/03-qraddress-photo.jpg"><img src="/images/03-qraddress-photo.jpg" width=250></a>
 
 Second, check the text of the QR with the person who sent it to you. For addresses, checking the first several and last several addresses can be enough. In this case the QR sender could check the address against his wallet with `getaddressesbylabel` and see that `tb1qguyxx...93xk3nhu` is indeed in there.
 
