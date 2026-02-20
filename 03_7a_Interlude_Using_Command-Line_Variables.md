@@ -1,6 +1,6 @@
 # Interlude: Using Command-Line Variables
 
-The previous section demonstrated a number of command-line commands used without obfuscation or interference. However, that's often not the best way to run Bitcoin from the command line. Because you're dealing with long, complex, and unreadable variables, it's easy to make a mistake if you're copying those variables around (or, satoshi forfend, if you're typing them in by hand). Because those variables can mean the difference between receiving and losing real money, you don't _want_ to make mistakes. For these reasons, we strongly suggest using command-line variables to save addresses, signatures, or other long strings of information whenever it's reasonable to do so.
+This chapter demonstrated a number of command-line commands used without obfuscation or interference. However, that's often not the best way to run Bitcoin from the command line. Because you're dealing with long, complex, non-human-readable variables, it's easy to make a mistake if you're copying those variables around (or, satoshi forfend, if you're typing them in by hand). Because those variables can mean the difference between receiving and losing real money, you don't _want_ to make mistakes. For these reasons, we strongly suggest using command-line variables to save addresses, signatures, or other long strings of information whenever it's reasonable to do so.
 
 If you're using `bash`, you can save information to a variable like this:
 ```
@@ -17,7 +17,7 @@ This commands fills the NEW_ADDRESS_1 variable with the results of the `bitcoin-
 You can then use your shell's `echo` command to look at your (new) address:
 ```
 $ echo $NEW_ADDRESS_1
-tb1q0psqqqgy0fv5928wmk86ntu7hlax8dva7nl82p
+tb1qhed3ausdjr6crntypcqjv6l2n2vtv2qv7dednu
 ```
 You can then use this variable in other commands which require the address (or do similar for any other complex output). The rest of this tutorial will use this style of saving information to variables when it's practical.
 
@@ -29,4 +29,4 @@ Shell variables can be used to hold long Bitcoin strings, minimizing the chances
 
 ## What's Next?
 
-See how to store information in a different way with [Interlude: Creating QR Codes](03_3b_Interlude_Creating_QR_Codes.md).
+Continue on to [Chapter Four: Sending Bitcoin Transactions](04_0_Sending_Bitcoin_Transactions.md).
