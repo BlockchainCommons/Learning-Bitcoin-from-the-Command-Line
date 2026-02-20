@@ -40,7 +40,7 @@ $ ls -la newaddress.jpg
 ```
 Here's what that code looks like:
 
-![](/images/3-qraddress.jpg)
+![](/images/03-qraddress.jpg)
 
 ## Test Every QR
 
@@ -48,7 +48,7 @@ Working with digital currency means never trusting anything. That's because ther
 
 First, decode it and see what it really says. This can often be done with a mobile device: scan the code and most modern devices should show you what it says:
 
-![](/images/3-qraddress-photo.jpg)
+![](/images/03-qraddress-photo.jpg)
 
 
 
