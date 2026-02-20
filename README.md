@@ -36,8 +36,8 @@ If you'd like to make your own translation, please see [Contributing](https://gi
   * [3.3: Setting Up Your Wallet](03_3_Setting_Up_Your_Wallet.md) 
   * [3.4: Understanding the Descriptor](03_4_Understanding_the_Descriptor.md)
   * [3.5: Understanding the Address](03_5_Understanding_the_Address.md) 
-  * [3.6: Creating QR Codes for Addresses](03_6_Creating_QR_Codes_for_Addresses.md) [**TO WRITE**]
-  * [3.7: Receiving a Transaction](03_7_Receiving_a_Transaction.md) [**TO REVISE**]
+  * [3.6: Creating QR Codes for Addresses](03_6_Creating_QR_Codes_for_Addresses.md)
+  * [3.7: Receiving a Transaction](03_7_Receiving_a_Transaction.md)
     * [Interlude: Using Command-Line Variables](03_7a_Interlude_Using_Command-Line_Variables.md)
 * [4.0: Sending Bitcoin Transactions](04_0_Sending_Bitcoin_Transactions.md) [**TO UPDATE FOR SEGWIT**]
   * [4.1: Sending Coins the Easy Way](04_1_Sending_Coins_The_Easy_Way.md) [**TO UPDATE FOR SEGWIT**]
@@ -47,8 +47,8 @@ If you'd like to make your own translation, please see [Contributing](https://gi
   * [4.4: Sending Coins with Raw Transactions](04_4_Sending_Coins_with_a_Raw_Transaction.md) [**TO UPDATE**]
      * [Interlude: Using Curl](04_4a_Interlude_Using_Curl.md)
   * [4.5: Sending Coins with Automated Raw Transactions](04_5_Sending_Coins_with_Automated_Raw_Transactions.md) [**TO UPDATE FOR SEGWIT**]
-  * [4.6: Creating a Segwit Transaction](04_6_Creating_a_Segwit_Transaction.md) [**TO REMOVE MAYBE**]
-  * [4.6: Sending Other Types of Transactions](04_6_Sending_Other_Types_of_Transactions.md) [**TO WRITE**]
+  * [4.6: Creating a Segwit Transaction](04_6_Creating_a_Segwit_Transaction.md) [**TO REMOVE**]
+  * [4.6: Sending Other Types of Transactions](04_6_Sending_Other_Types_of_Transactions.md) [**TO WRITE MAYBE**]
 * [5.0: Controlling Bitcoin Transactions](05_0_Controlling_Bitcoin_Transactions.md)
   * [5.1 Watching for Stuck Transactions](05_1_Watching_for_Stuck_Transactions.md)
   * [5.2: Resending a Transaction with RBF](05_2_Resending_a_Transaction_with_RBF.md) [**TO UPDATE**]
