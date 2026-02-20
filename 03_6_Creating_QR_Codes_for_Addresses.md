@@ -50,5 +50,46 @@ First, decode it and see what it really says. This can often be done with a mobi
 
 ![](/images/03-qraddress-photo.jpg)
 
+Second, check the text of the QR with the person who sent it to you. For addresses, checking the first several and last several addresses can be enough. In this case the QR sender could check the address against his wallet with `getaddressesbylabel` and see that `tb1qguyxx...93xk3nhu` is indeed in there.
+
+```
+$ bitcoin-cli getaddressesbylabel ""
+{
+  "mueEcK86JTvMrge7qibsRdMes6ET5oAGgd": {
+    "purpose": "receive"
+  },
+  "2NAzFNuopaor2YnqVA2QC4KYme6HxWTk7jq": {
+    "purpose": "receive"
+  },
+  "tb1qguyxx0e50kvsc8a73dh2tpatk4kqlg93xk3nhu": {
+    "purpose": "receive"
+  },
+  "tb1quqv4shd6ts0t6ew5l8kcqvvxgvr8drtr7ajew2": {
+    "purpose": "receive"
+  },
+  "tb1pps29f3evn5lscg82a2wceyl8p6s0wckjvp3zllw2myn6xg6xxvxqcekkxd": {
+    "purpose": "receive"
+  }
+}
+```
+
+## Other Uses for QRs
+
+QRs can have other uses in Bitcoin work. 
+
+The [Quick Connect](https://developer.blockchaincommons.com/quickconnect/) protocol allows a network coordinator (that's the `bitcoin-cli` or other server that actually talks to the Bitcoin network) to securely link to a Seed Vault (that's the airgapped hardware device where seeds or keys are actually stored. Though we'll be doing a lot of work in this course where we're just passing variables around on the command line, a real-world Bitcoin setup has much more sophisticated separation of data of this sort.
+
+QRs can also be used to pass complex transactions called PSBTs among multiple members of a multisig. However, QRs are very large, so they require a different sort of QR called [animated QRs](https://developer.blockchaincommons.com/animated-qrs/). There's more on PSBTs and animated QRs in [chapter 7](07_0_Expanding_Bitcoin_Transactions_PSBTs.md).
+
+Fundamentally, any time you have non-human-readable data that you want to transmit between two devices without a direct connection, a QR Code is a great option. (But, one that we largely won't see again in this course, because we're of course working on the _command line_.)
+
+## Summary: Creating QR Code for Addresses
+
+You won't be creating more QR Codes in this course (except when we briefly touch upon Animated QR Codes). However, QR Codes are a vital part of the largely Bitcoin ecosystem because they allow you to transmit data across airgaps, which could be important for distributing addresses to people sending you money or for colelcting together signatures for a PSBT. And, as it happens, you can create them right from the command line with the `qrencode` tool.
+
+## What's Next?
+
+Conclude "Understanding Your Bitcoin Setup" with [§3.7: Receiving a Transaction](03_7_Receiving_a_Transaction.md).
+
 
 
