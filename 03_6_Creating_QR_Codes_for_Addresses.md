@@ -41,3 +41,14 @@ $ ls -la newaddress.jpg
 Here's what that code looks like:
 
 ![](/images/3-qraddress.jpg)
+
+## Test Every QR
+
+Working with digital currency means never trusting anything. That's because there are no take-backs. If you make a mistake, no one can correct it for you. Often that means that you lose funds. For that reason, you should always be sure of any QR code you're given.
+
+First, decode it and see what it really says. This can often be done with a mobile device: scan the code and most modern devices should show you what it says:
+
+![](/images/3-qraddress-photo.jpg)
+
+
+
