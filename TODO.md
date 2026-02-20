@@ -2,28 +2,19 @@
 
 The following TODO items are intended for a 3.0 version of Learning Bitcoin from the Command Line
 
-## Immediate TODO (for 2/19): Segwit
+## Immediate TODO (for 2/19): Sending Transactions
 
-1. <strike>Reorg of Chapter 3</strike>
-2. <strike>Edit Updated Content in §3.3+3.4</strike>
-2. <strike>Write new Understanding Addresses (§3.5)</strike>
-3. <strike>Write new QR Code Interlude (§3.6)</strike>
-4. Update §3.7 to fit into new flow
-5. Update §3.7a to fit into new flow
-6. Change §4.1-4.5 to use Bech32 (incorporate existing §4.6)
-7. Remove legacy address references from the rest of the course
+1. Change §4.1-4.5 to use P2WPKH (incorporate existing §4.6)
+2. Remove legacy address references from the rest of the course
+3. Add Freezing Coins to §4.4
+4. Remove §4.6 on Segwit
+5. Add Info On Sending to Other Addresses (no biggie)
+6. Full Review of §4.1-4.5
 
 ## Longer-Term TODO (Small Tasks)
 
 The following updates involve updates or the creation of new chapters, but their additions are generally bounded and known.
 
-1. Big changes to defaults
-   * <strike>Signet</strike>
-   * SEGWIT
-      * Talk about address types: https://www.unchained.com/blog/bitcoin-address-types-compared
-   * <strike>Descriptor Wallets</strike>
-1. Revise 4.4
-   * freezing coins
 1. New Interlude: Creating Animated QR Codes (after 7.1)
    * New Subsection: Understanding Uniform Resources
    * New Subsection: Creating an Animated QR
@@ -239,6 +230,15 @@ See [release notes](https://bitcoincore.org/en/releases/0.21.0/).
 
 # Progress Log
 
+## Immediate TODO (for 2/19): Segwit
+
+1. <strike>Reorg of Chapter 3</strike>
+2. <strike>Edit Updated Content in §3.3+3.4</strike>
+3. <strike>Write new Understanding Addresses (§3.5)</strike>
+4. <strike>Write new QR Code Interlude (§3.6)</strike>
+5. <strike>Update §3.7 to fit into new flow</strike>
+6. <strike>Update §3.7a to fit into new flow</strike>
+
 ## Immediate TODO (for 2/5): Descriptor Wallets
 
 1. <strike>Edit §3.1-3.2, esp. for any references to legacy addresses</strike> (Still need to update `bitcoin-cli -getinfo` command) 
@@ -247,7 +247,6 @@ See [release notes](https://bitcoincore.org/en/releases/0.21.0/).
 4. <strike>Thoroughly rewrite §3.4 for new focus on descriptors, possibly expanding to two sections.</strike>
 6. <strike>Remove all references to things appearing at certain versions (they're all pretty standardized now)</strike>
 7. <strike>But write a note early on about potential missing features</strike>
-
 
 ## Immediate TODO (for 1/22): Signet
 
