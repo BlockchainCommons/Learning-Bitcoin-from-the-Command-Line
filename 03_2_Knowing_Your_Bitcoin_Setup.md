@@ -194,7 +194,6 @@ walletprocesspsbt "psbt" ( sign "sighashtype" bip32derivs finalize )
 
 == Zmq ==
 getzmqnotifications
-
 ```
 You can also type `bitcoin-cli help [command]` to get even more extensive info on that command. For example:
 ```
