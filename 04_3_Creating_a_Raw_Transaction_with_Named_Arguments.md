@@ -1,7 +1,3 @@
-TODO:
-* Update to non-legayc addresses
-* Also add args parameter
-  
 # 4.3 Creating a Raw Transaction with Named Arguments
 
 It can sometimes be daunting to figure out the right order for the arguments to a bitcoin-cli command. Fortunately, you can use _named arguments_ as an alternative.
@@ -16,7 +12,7 @@ As usual, that's for your ease of use, but we'll continue using the whole comman
 
 ## Test Out a Named Argument
 
-To learn what the names are for the arguments of a command, consult `bitcoin-cli help`. It will list the arguments in their proper order, but will now also give names for each of them.
+To learn what the names are for the arguments of a command, consult `bitcoin-cli help` for that command. It will list the arguments in their proper order, but will now also give names for each of them.
 
 For example, `bitcoin-cli help getbalance` lists these arguments:
 
@@ -25,7 +21,7 @@ For example, `bitcoin-cli help getbalance` lists these arguments:
    3. include_watchonly
    4. avoid_reuse
    
-The following shows a traditional, unintuitive usage of `getbalance` using the minimum confirmation argument:
+The following shows a traditional, unintuitive usage of `getbalance` using the minimum confirmation argument to only show the balance for transactions with at least one confirmation:
 ```
 $ bitcoin-cli getbalance "*" 1
 ```
@@ -40,41 +36,39 @@ Here's what the commands for sending a raw transaction would look like with name
 ```
 $ utxo_txid=$(bitcoin-cli listunspent | jq -r '.[0] | .txid') 
 $ utxo_vout=$(bitcoin-cli listunspent | jq -r '.[0] | .vout')
-$ recipient="n2eMqTT929pb1RDNuqEnxdaLau1rxy3efi"
+$ recipient="tb1qlw280hk7cf7r97sm896s83wysat4vrqzpalm7e"
 
-$ rawtxhex=$(bitcoin-cli -named createrawtransaction inputs='''[ { "txid": "'$utxo_txid'", "vout": '$utxo_vout' } ]''' outputs='''{ "'$recipient'": 0.00001 }''')
+$ rawtxhex=$(bitcoin-cli -named createrawtransaction inputs='''[ { "txid": "'$utxo_txid'", "vout": '$utxo_vout' } ]''' outputs='''{ "'$recipient'": 0.01895 }''')
 $ bitcoin-cli -named decoderawtransaction hexstring=$rawtxhex 
 {
-  "txid": "2b59c31bc232c0399acee4c2a381b564b6fec295c21044fbcbb899ffa56c3da5",
-  "hash": "2b59c31bc232c0399acee4c2a381b564b6fec295c21044fbcbb899ffa56c3da5",
+  "txid": "615813d052e48b9761afed8732b78ff67f3ee26390de9e1274418629bd80e45c",
+  "hash": "615813d052e48b9761afed8732b78ff67f3ee26390de9e1274418629bd80e45c",
   "version": 2,
-  "size": 85,
-  "vsize": 85,
-  "weight": 340,
+  "size": 82,
+  "vsize": 82,
+  "weight": 328,
   "locktime": 0,
   "vin": [
     {
-      "txid": "ca4898d8f950df03d6bfaa00578bd0305d041d24788b630d0c4a32debcac9f36",
+      "txid": "f67ffd9acd5e264c3fcce9b96f4f713e56adf99e65c1a9a55353d9b9706629fd",
       "vout": 0,
       "scriptSig": {
         "asm": "",
         "hex": ""
       },
-      "sequence": 4294967295
+      "sequence": 4294967293
     }
   ],
   "vout": [
     {
-      "value": 0.00001000,
+      "value": 0.01895000,
       "n": 0,
       "scriptPubKey": {
-        "asm": "OP_DUP OP_HASH160 e7c1345fc8f87c68170b3aa798a956c2fe6a9eff OP_EQUALVERIFY OP_CHECKSIG",
-        "hex": "76a914e7c1345fc8f87c68170b3aa798a956c2fe6a9eff88ac",
-        "reqSigs": 1,
-        "type": "pubkeyhash",
-        "addresses": [
-          "n2eMqTT929pb1RDNuqEnxdaLau1rxy3efi"
-        ]
+        "asm": "0 f1ad72d46aa89d5e622e42bbbb75064eebd9d101",
+        "desc": "addr(tb1q7xkh94r24zw4uc3wg2amkagxfm4an5gpwrgsnl)#tn6nft96",
+        "hex": "0014f1ad72d46aa89d5e622e42bbbb75064eebd9d101",
+        "address": "tb1q7xkh94r24zw4uc3wg2amkagxfm4an5gpwrgsnl",
+        "type": "witness_v0_keyhash"
       }
     }
   ]
@@ -82,15 +76,31 @@ $ bitcoin-cli -named decoderawtransaction hexstring=$rawtxhex
 
 $ signedtx=$(bitcoin-cli -named signrawtransactionwithwallet hexstring=$rawtxhex | jq -r '.hex')
 $ bitcoin-cli -named sendrawtransaction hexstring=$signedtx
-e70dd2aa13422d12c222481c17ca21a57071f92ff86bdcffd7eaca71772ba172
+615813d052e48b9761afed8732b78ff67f3ee26390de9e1274418629bd80e45c
 ```
 Voila! You've sent out another raw transaction, but this time using named arguments for clarity and to reduce errors.
+
+## Undestand Args Parameters
+
+Many RPC commands also have one or more variables designated as "args", which allows them to be input into a `-named` command in the proper order without requiring the name.
+
+For example, where traditionally you'd type this to designate the first two variables for `getbalance`:
+```
+$ bitcoin-cli -named getbalance dummy="*" minconf=1
+```
+You can instead type:
+```
+$ bitcoin-cli -named getbalance "*" minconf=1
+```
+Because the `dummy` variable is (somewhat inexplicably) defined as an `args` variable.
+
+This technique will _not_ be used in this course because it obfuscates what you're doing and requires lookups in the documents to see what variables you're referring to.
 
 ## Summary: Creating a Raw Transaction with Named Arguments
 
 By running `bitcoin-cli` with the `-named` flag, you can use named arguments rather than depending on ordered arguments. `bitcoin-cli help` will always show you the right name for each argument. This can result in more robust, easier-to-read, less error-prone code.
 
-_These docs will use named arguments for all future examples, for clarity and to establish best practices. However, it will also show all arguments in the correct order. So, if you prefer not to use named args, just strip out the '-named' flag and all of the "name="s and the examples should continue to work correctly._
+_These docs will use named arguments for all future examples, for clarity and to establish best practices. However, it will also show all arguments in the correct order. So, if you prefer not to use named args, just strip out the '-named' flag and all of the "name="s and the examples should continue to work correctly, except in cases where we've skipped arguments._
 
 ## What's Next?
 
