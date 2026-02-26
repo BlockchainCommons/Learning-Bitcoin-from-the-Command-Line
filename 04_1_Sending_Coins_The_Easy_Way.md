@@ -1,32 +1,7 @@
 TODO:
-* Obviously, this is where the Segwit work starts.
 * Also: Fees. There was some question of if mintxfee is still current, or if paytxfee should be used. I haven't seen any evidence of obsolence, but it'd be good to check this and make sure we're still on the best practices.
 * Also: sendall as an alternative
 
-==
-UNDERSTANDING ADDRESSES MIGHT BE A WHOLE NEW SECTION
-==
-### Knowing Your Bitcoin Addresses
-
-There are three types of Bitcoin addresses that you can create with the `getnewaddress` RPC command. You'll be using a `legacy` (P2PKH) address here, while you'll move over to a SegWit (P2SH-SegWit) or Bech32 address in [§4.6: Creating a Segwit Transaction](04_6_Creating_a_Segwit_Transaction.md).
-
-As noted above, the foundation of a Bitcoin address is a public key: someone sends funds to your public key, and then you use your private key to redeem it. Easy? Except putting your public key out there isn't entirely secure. At the moment, if someone has your public key, then they can't retrieve your private key (and thus your funds); that's the basis of cryptography, which uses a trap-door function to ensure that you can only go from private to public key, and not vice-versa. But the problem is that we don't know what the future might bring. Except we do know that cryptography systems eventually get broken by the relentless advance of technology, so it's better not to put raw public keys on the 'net, to future-proof your transactions.
-
-Classic Bitcoin transactions created P2PKH addresses that added an additional cryptographic step to protect public keys.
-
-> :book: ***What is a Legacy (P2PKH) address?*** This is a Legacy address of the sort used by the early Bitcoin network. We'll be using it in examples for the next few sections. It's called a Pay to PubKey Hash (or P2PKH) address because the address is a 160-bit hash of a public key. Using a hash of your public key as your address creates a two-step process where to spend funds you need to reveal both the private key and the public key, and it increases future security accordingly. This sort of address remains important for receiving funds from people with out-of-date wallet software.
-
-As described more fully in [§4.6: Creating a Segwit Transaction](04_6_Creating_a_Segwit_Transaction.md), the Block Size Wars of the late '10s resulted in a new sort of address: SegWit. This is the preferred sort of address currently, and should be fully integrated into Bitcoin-Core at this point, but nonetheless we're saving it for §4.6.
-
-SegWit simply means "segregated witness" and it's a way of separating the transaction signatures out from the rest of the transaction to reduce transaction size. Some SegWit addresses will sneak into some of our examples prior to §4.6 as change addresses, which you'll see as addresses that begin with "tb". This is fine because the `bitcoin-cli` entirely supports their usage. But we won't use them otherwise.
-
-There are two addresses of this sort:
-
-> :book: ***What is a P2SH-SegWit (aka Nested SegWit) address?*** This is the first generation of SegWit. It wraps the SegWit address in a Script hash to ensure backward compatibility. The result creates transactions that are about 25%+ smaller (with corresponding reductions in transaction fees). 
-
-> :book: ***What is a Bech32 (aka Native SegWit, aka P2WPKH) address?*** This is the second generation of SegWit. It's fully described in [BIP 173](https://en.bitcoin.it/wiki/BIP_0173). It creates transactions that are even smaller but more notably also has some advantages in creating addresses that are less prone to human error and have some implicit error-correction beyond that. It is *not* backward compatible like P2SH-SegWit was, and so some people may not be able to send to it.
-
-There are other sorts of Bitcoin addresses, such as P2PK (which paid to a bare public key, and is deprecated because of its future insecurity) and P2SH (which pays to a Script Hash, and which is used by the first-generation Nested SegWit addresses; we'll meet it more fully in a few chapters).
 ==
 
 # 4.1: Sending Coins the Easy Way
@@ -41,19 +16,46 @@ Before you send any money on the Bitcoin network, you should think about what tr
 
 When you're using the simple and automated methods for creating transactions, as outlined here and in [§4.5: Sending Coins with Automated Raw Transactions](04_5_Sending_Coins_with_Automated_Raw_Transactions.md), Bitcoin will calculate transaction fees for you. This is done using Floating Fees, where the `bitcoind` watches how long transactions are taking to confirm and automatically calculates for you what to spend.
 
-You can help control this by putting rational values into your `~/.bitcoin/bitcoin.conf`. The following low-cost values would ensure that there was a minimum transaction fee of 10,000 satoshis per kByte of data in your transaction and request that the floating fees figure out a good amount to get your transaction somewhere into the next six blocks.
+You can help control how Floating Fees determines your transaction fees by putting rational values into your `~/.bitcoin/bitcoin.conf`. This is done by setting up to four values. They would usually be placed in the top of your file, but they could be placed in a `[test]`, `[regtest]`, or `[signet]` section if you want to place higher values for your testing (when you're waiting around), but lower values for actual payments on a real network.
+
+| Variable | Default | Explanation |
+|----------|---------|-------------|
+| `maxtxfee` | .1 | Maximum total BTC to pay for a transaction |
+| `mintxfee` | 0.00001 | Minimum BTC to pay per kvB of transaction size |
+| `paytxfee` | 0 | Precise BTC to pay per kvB of transaction size (deprecated) |
+| `txconfirmtarget` | 6 | Average confirmations for automated fee calculation |
+
+Since the `paytxfee` has been deprecated, you'll mostly be depending on `mintxfee` and `txconfirmtarget`, which work like this:
+
+1. If `paytxfee` is set, Floating Fees is not used.
+2. Otherwise, Floating Fees sees how much fee is required for your transaction to be accepted within `txconfirmtarget` blocks.
+3. Floating Fees sets the transaction fee for your transaction to that value.
+4. Floating Fees sees if that value is lower than `mintxfee`, if so it increases your fee to the value of `mintxfee`.
+5. Floating Fees sees if the total value would be higher than `maxtxfee`, if so it decreases your fee to the value of `maxtxfee`.
+
+As shown, the default value for `mintxfee` is 0.00001 BTC/kvB or one-one hundredth of a BTC for every virtual kB of data in your transaction. That's the equivalent to 1,000 Satoshis per kvB or (more simply) 1 Satoshi per virtual Byte. The sats/vB or sat/B measure is what most wallets and explorers use nowadays, because small numbers in the range of .1 sat/vB to 10 sat/vB are much easier to understand than values such as 0.000001 BTC or 0.0001 BTC. However, Bitcoin Core continues to use the older measures.
+
+> :book: ***What is a virtual byte or virtual kilobyte?*** Transactions fees used to be measured as BTC/kB, but following the block size wars and the adoption of Segwit, the value was changed to BTC/kvB or sat/vB. The "v" stands for virtual and it reflects the fact that the size of Segwit transactions are "discounted" because their signatures are placed in block space that didn't previously exist. So a virtual byte (or virtual kilobyte) isn't the _actual_ size of a transaction, but the size that you're required to pay for, including discounts.
+
+To put this all in perspective, the average size of a transaction runs as low as 226 bytes for a legacy P2PKH transaction, which discounts down to 144 virtual bytes for a modern P2WPKH transaction. Precise size depends on how many inputs in your transactions, how many outputs, what type of Signature system you're using, and how many signatures you have. But assuming an average transaction, here's what it cost if Bitcoin has a current value of $100,000 USD/BTC:
+
+| Transaction Type | Size | `mintxfee` | sat/vB | Satoshi Cost | USD Cost |
+|------------------|------|------------|--------|--------------|----------|
+| Legacy, 2-output | 226 B | 0.00001 | 1 | 226 | $.23 |
+| Legacy, 2-output | 226 B | 0.00003 | 3 | 678 | $.68 |
+| Legacy, 2-output | 226 B | 0.0001 | 10 | 2260 | $2.26 |
+| SegWit, 2-output | 144 B | 0.00001 | 1 | 144 | $.15 |
+| SegWit, 2-output | 144 B | 0.00003 | 1 | 432 | $.43 |
+| SegWit, 2-output | 144 B | 0.0001 | 1 | 1440 | $1.44 |
+
+The default values (`mintxfee=0.00001` and `txconfirmtarget=6`) would be fine for most real-world use as of this writing, where fees tend to average 1 sat/vB except over short periods (usually hours) of high usage. And of course those values are just the starting point for the Floating Fees calculation: they'll go higher if the calculations suggest that you need to pay more money to get a transaction in the next 6 blocks. 
+
+For testing, where a more immediate response is more important, you may want to push the values up, however, perhaps to:
 ```
 mintxfee=0.0001
-txconfirmtarget=6
-```
-However, under the theory that you don't want to wait around while working on a tutorial, we've adopted the following higher values:
-```
-mintxfee=0.001
 txconfirmtarget=1
 ```
-You should enter these into `~/.bitcoin/bitcoin.conf`, in the main section, toward the top of the file or if you want to be sure you never use it elsewhere, under the `[test]` section.
-
-In order to get through this tutorial, we're willing to spend 100,000 satoshis per kB on every transaction (about $10!), and we want to get each transaction into the next block! (To put that in perspective, a typical transaction runs between .25 kB and 1 kB, so you'll actually be paying more like $2.50 than $10 ... if this were real money.)
+In order to get through this tutorial, we're willing to spend 10,000 satoshis per kB on every transaction (about a buck and a half for common SegWit transactions), and we want to get each transaction into the next block! (Not recommended for real money!)
 
 After you've edited your bitcoin.conf file, you'll want to kill and restart bitcoind.
 ```
