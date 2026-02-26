@@ -39,8 +39,8 @@ If you'd like to make your own translation, please see [Contributing](https://gi
   * [3.6: Creating QR Codes for Addresses](03_6_Creating_QR_Codes_for_Addresses.md)
   * [3.7: Receiving a Transaction](03_7_Receiving_a_Transaction.md)
     * [Interlude: Using Command-Line Variables](03_7a_Interlude_Using_Command-Line_Variables.md)
-* [4.0: Sending Bitcoin Transactions](04_0_Sending_Bitcoin_Transactions.md) [**TO UPDATE FOR SEGWIT**]
-  * [4.1: Sending Coins the Easy Way](04_1_Sending_Coins_The_Easy_Way.md) [**TO UPDATE FOR SEGWIT**]
+* [4.0: Sending Bitcoin Transactions](04_0_Sending_Bitcoin_Transactions.md) 
+  * [4.1: Sending Coins the Easy Way](04_1_Sending_Coins_The_Easy_Way.md) 
   * [4.2: Creating a Raw Transaction](04_2_Creating_a_Raw_Transaction.md) [**TO UPDATE FOR SEGWIT**]
      * [Interlude: Using JQ](04_2a_Interlude_Using_JQ.md) [**TO UPDATE FOR SEGWIT**]
   * [4.3: Creating a Raw Transaction with Named Arguments](04_3_Creating_a_Raw_Transaction_with_Named_Arguments.md) [**TO UPDATE FOR SEGWIT**]
