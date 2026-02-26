@@ -1,5 +1,4 @@
 TODO:
-* Also: Fees. There was some question of if mintxfee is still current, or if paytxfee should be used. I haven't seen any evidence of obsolence, but it'd be good to check this and make sure we're still on the best practices.
 * Also: sendall as an alternative
 
 ==
@@ -20,18 +19,20 @@ You can help control how Floating Fees determines your transaction fees by putti
 
 | Variable | Default | Explanation |
 |----------|---------|-------------|
-| `maxtxfee` | .1 | Maximum total BTC to pay for a transaction |
-| `mintxfee` | 0.00001 | Minimum BTC to pay per kvB of transaction size |
-| `paytxfee` | 0 | Precise BTC to pay per kvB of transaction size (deprecated) |
-| `txconfirmtarget` | 6 | Average confirmations for automated fee calculation |
+| `fallbackfee` | 0 | Precise BTC/kvB for transaction if Floating Fees fails |
+| `maxtxfee` | .1 | Maximum total BTC for transaction using Floating Fees |
+| `mintxfee` | 0.00001 | Minimum BTC/kvB for transaction using Floating Fees |
+| `paytxfee` | 0 | Precise BTC/kvB of transaction size without Floating Fees (deprecated) |
+| `txconfirmtarget` | 6 | Average confirmations for automated fee calculation using Floating Fees |
 
 Since the `paytxfee` has been deprecated, you'll mostly be depending on `mintxfee` and `txconfirmtarget`, which work like this:
 
 1. If `paytxfee` is set, Floating Fees is not used.
-2. Otherwise, Floating Fees sees how much fee is required for your transaction to be accepted within `txconfirmtarget` blocks.
-3. Floating Fees sets the transaction fee for your transaction to that value.
-4. Floating Fees sees if that value is lower than `mintxfee`, if so it increases your fee to the value of `mintxfee`.
-5. Floating Fees sees if the total value would be higher than `maxtxfee`, if so it decreases your fee to the value of `maxtxfee`.
+2. If there is insufficient data for Floating Fees, use `fallbackfee`.
+3. Otherwise, Floating Fees sees how much fee is required for your transaction to be accepted within `txconfirmtarget` blocks.
+4. Floating Fees sets the transaction fee for your transaction to that value.
+5. Floating Fees sees if that value is lower than `mintxfee`, if so it increases your fee to the value of `mintxfee`.
+6. Floating Fees sees if the total value would be higher than `maxtxfee`, if so it decreases your fee to the value of `maxtxfee`.
 
 As shown, the default value for `mintxfee` is 0.00001 BTC/kvB or one-one hundredth of a BTC for every virtual kB of data in your transaction. That's the equivalent to 1,000 Satoshis per kvB or (more simply) 1 Satoshi per virtual Byte. The sats/vB or sat/B measure is what most wallets and explorers use nowadays, because small numbers in the range of .1 sat/vB to 10 sat/vB are much easier to understand than values such as 0.000001 BTC or 0.0001 BTC. However, Bitcoin Core continues to use the older measures.
 
@@ -50,8 +51,9 @@ To put this all in perspective, the average size of a transaction runs as low as
 
 The default values (`mintxfee=0.00001` and `txconfirmtarget=6`) would be fine for most real-world use as of this writing, where fees tend to average 1 sat/vB except over short periods (usually hours) of high usage. And of course those values are just the starting point for the Floating Fees calculation: they'll go higher if the calculations suggest that you need to pay more money to get a transaction in the next 6 blocks. 
 
-For testing, where a more immediate response is more important, you may want to push the values up, however, perhaps to:
+For testing, where a more immediate response is more important, and where you might not have enough data to calculate Floating Fees, you may want to push the values up, however, perhaps to:
 ```
+fallbackfee=0.0001
 mintxfee=0.0001
 txconfirmtarget=1
 ```
@@ -65,30 +67,28 @@ $ bitcoind -daemon
 
 ## Get an Address
 
-You need somewhere to send your coins to. Usually, someone would send you an address, and perhaps give you a signature to prove they own that address. Alternatively, they might give you a QR code to scan, so that you can't make mistakes when typing in the address. In our case, we're going to send coins to `n2eMqTT929pb1RDNuqEnxdaLau1rxy3efi`, which is a return address for an old Tesetnet faucet.
-
-> :book: ***What is a QR code?*** A QR code is just an encoding of a Bitcoin address. Many wallets will generate QR codes for you, while some sites will convert from an address to a QR code. Obviously, you should only accept a QR code from a site that you absolutely trust. A payer can use a bar-code scanner to read in the QR code, then pay to it.
+You need somewhere to send your coins to. Usually, someone would send you an address, and perhaps give you a signature to prove they own that address. Alternatively, they might give you a [QR code](03_6_Creating_QR_Codes_for_Addresses.md) to scan, so that you can't make mistakes when typing in the address. In our case, we're going to send coins to `tb1qg3lau83hm9e9tdvzr5k7aqtw3uv0dwkfct4xdn`, which is a return address for one of the Signet faucets.
 
 ## Send the Coins
 
-You're now ready to send some coins. This is actually quite simple via the command line. You just use `bitcoin-cli sendtoaddress [address] [amount]`. So, to send a little coinage to the address `n2eMqTT929pb1RDNuqEnxdaLau1rxy3efi` just requires:
+You're now ready to send some coins. This is actually quite simple via the command line. You just use `bitcoin-cli sendtoaddress [address] [amount]`. So, to send a little coinage to the address `tb1qg3lau83hm9e9tdvzr5k7aqtw3uv0dwkfct4xdn` just requires:
 ```
-$ txid=$(bitcoin-cli sendtoaddress n2eMqTT929pb1RDNuqEnxdaLau1rxy3efi 0.001)
+$ txid=$(bitcoin-cli sendtoaddress tb1qg3lau83hm9e9tdvzr5k7aqtw3uv0dwkfct4xdn 0.001)
 $ echo $txid
-93250d0cacb0361b8e21030ac65bc4c2159a53de1075425d800b2d7a8ab13ba8
+cb48282e86c846b8357374d74e9ea24deeaeb48cf447634a8b951c98cfc559c5
 ```
-
-> 🙏 To help keep signet faucets alive, try to use the return address of the same faucet you used in the previous chapter on receiving transactions. 
 
 Make sure the address you write in is where you want the money to go. Make _double_ sure. If you make mistakes in Bitcoin, there's no going back.
 
+> 🙏 **Save the Faucets!** To help keep signet faucets alive, try to use the return address of a Signet faucet if one is provided, once you're done testing with coins.
+
 You'll receive a txid back when you issue this command.
 
-> ❕ You may end up with an error code if you don't have enough funds in your wallet to send the transaction. Depending on your current balance `bitcoin-cli getbalance` you may need to adjust the amount to be sent to account for the amount being sent along with the transaction fee. If your current balance is 0.001, then you could try sending 0.0001. Alternatively, it would be better to instead subtract the expected fee given in the error message from your current balance. This is good practice as many wallets expect you to calculate your own amount + fees when withdrawing, even among popular exchanges. 
+> ⚠️ **WARNING: Picky Input.** The `bitcoin-cli` command actually generates JSON-RPC commands when it's talking to the bitcoind. JSON-RPC can be really picky. This is an example: if you list the bitcoin amount without the leading zero (i.e. ".001" instead of "0.001"), then bitcoin-cli will fail with a mysterious message, currently `error: Error parsing JSON: .001`.
 
-> :warning: **WARNING:** The `bitcoin-cli` command actually generates JSON-RPC commands when it's talking to the bitcoind. They can be really picky. This is an example: if you list the bitcoin amount without the leading zero (i.e. ".1" instead of "0.1"), then bitcoin-cli will fail with a mysterious message.
+> ⚠️ **WARNING: Insufficient Funds.** You may end up with an error code if you don't have enough funds in your wallet to send the transaction. This may be non-intuitive, because you may see you have the funds to cover a transaction, but you could be forgetting about the transaction fee that `sendtoaddress` automatically calculates for you. Depending on your current balance of `bitcoin-cli getbalance`, you may therefore need to adjust the amount to be sent to account for the amount being sent along with the transaction fee.
 
-> :warning: **WARNING:** Even if you're careful with your inputs, you could see "Fee estimation failed. Fallbackfee is disabled." Fundamentally, this means that your local `bitcoind` doesn't have enough information to estimate fees. You should really never see it if you've waited for your blockchain to sync and set up your system with Bitcoin Standup. But if you're not entirely synced, you may see this. It also could be that you're not using a standard `bitcoin.conf`: the entry `blocksonly=1` will cause your `bitcoind` to be unable to estimate fees.
+> ⚠️ **WARNING: Insufficient Blocks.** If you see the error "Fee estimation failed. Fallbackfee is disabled" that means that your `bitcoind` doesn't have enough data to estimate fees, probably because the blockchain isn't synced yet. If so, set the `fallbackfee` value noted above, restart your `bitcoind` and try again.
 
 ## Examine Your Transaction
 
