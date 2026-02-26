@@ -6,11 +6,12 @@ The following TODO items are intended for a 3.0 version of Learning Bitcoin from
 
 1. <strike>Rewrite transaction fees in §4.1 to talk about vB, et al</strike>
 2. <strike>Add sendall RPC to §4.1</strike>
-2. Change §4.1-4.5 to use P2WPKH
-4. Add Freezing Coins to §4.4
-5. Remove §4.6 on Segwit
-6. Add Info On Sending to Other Addresses (no biggie)
-7. Full Review of §4.1-4.5
+3. <strike>Add args variable option to §4.3</strike>
+4. Change §4.1-4.5 to use P2WPKH
+5. Add Freezing Coins to §4.4
+6. Remove §4.6 on Segwit
+7. Add Info On Sending to Other Addresses (no biggie)
+8. Full Review of §4.1-4.5
 
 ## Longer-Term TODO (Small Tasks)
 
