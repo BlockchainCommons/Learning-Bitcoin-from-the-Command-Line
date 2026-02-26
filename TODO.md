@@ -4,12 +4,13 @@ The following TODO items are intended for a 3.0 version of Learning Bitcoin from
 
 ## Immediate TODO (for 2/26): Sending Transactions
 
-1. Change §4.1-4.5 to use P2WPKH (incorporate existing §4.6)
-2. Remove legacy address references from the rest of the course
-3. Add Freezing Coins to §4.4
-4. Remove §4.6 on Segwit
-5. Add Info On Sending to Other Addresses (no biggie)
-6. Full Review of §4.1-4.5
+1. <strike>Rewrite transaction fees in §4.1 to talk about vB, et al</strike>
+2. Change §4.1-4.5 to use P2WPKH (incorporate existing §4.6)
+3. Remove legacy address references from the rest of the course
+4. Add Freezing Coins to §4.4
+5. Remove §4.6 on Segwit
+6. Add Info On Sending to Other Addresses (no biggie)
+7. Full Review of §4.1-4.5
 
 ## Longer-Term TODO (Small Tasks)
 
