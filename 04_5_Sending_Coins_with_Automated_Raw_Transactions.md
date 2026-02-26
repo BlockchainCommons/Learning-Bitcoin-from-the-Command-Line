@@ -158,6 +158,10 @@ $ bitcoin-cli listunspent
 ]
 ```
 
+## Freeze Your Coins
+
+[towrite]
+
 ## Summary: Sending Coins with Automated Raw Transactions
 
 If you must send funds with raw transactions then `fundrawtransaction` gives you a nice alternative where fees, inputs, and outputs are calculated for you, so you don't accidentally lose a bunch of money.
