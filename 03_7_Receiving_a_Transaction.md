@@ -4,7 +4,7 @@ You're now ready to receive some money at an address you created.
 
 ## Get Some Money
 
-To do anything more, you need to get some money. On signet this is done through faucets. Since the money is all pretend, you just go to a faucet, request some money, and it will be sent over to you. We suggest using the faucet at [https://signetfaucet.com/](https://signetfaucet.com/) or [https://signet257.bublina.eu.org/](https://signet257.bublina.eu.org/). If they're not available for some reason, search for "bitcoin signet faucet", and you should find others.
+To do anything more, you need to get some money. On signet this is done through faucets. Since the money is all pretend, you just go to a faucet, request some money, and it will be sent over to you. We suggest using the faucet at [https://faucet.coinbin.org/](https://faucet.coinbin.org/) or [https://signet257.bublina.eu.org/](https://signet257.bublina.eu.org/). If they're not available for some reason, search for "bitcoin signet faucet", and you should find others.
 
 To use a faucet, you'll usually need to go to a URL and copy and paste in your address. Afterward, a transaction will be created that sends money from the faucet to you.
 
