@@ -2,7 +2,7 @@
 
 The following TODO items are intended for a 3.0 version of Learning Bitcoin from the Command Line
 
-## Immediate TODO (for 2/19): Sending Transactions
+## Immediate TODO (for 2/26): Sending Transactions
 
 1. Change §4.1-4.5 to use P2WPKH (incorporate existing §4.6)
 2. Remove legacy address references from the rest of the course
