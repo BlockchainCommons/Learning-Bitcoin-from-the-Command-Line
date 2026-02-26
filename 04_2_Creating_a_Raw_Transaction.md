@@ -19,81 +19,68 @@ In order to create a new raw transaction, you must know what UTXOs you have on-h
 $ bitcoin-cli listunspent
 [
   {
-    "txid": "ca4898d8f950df03d6bfaa00578bd0305d041d24788b630d0c4a32debcac9f36",
+    "txid": "f67ffd9acd5e264c3fcce9b96f4f713e56adf99e65c1a9a55353d9b9706629fd",
     "vout": 0,
-    "address": "mi25UrzHnvn3bpEfFCNqJhPWJn5b77a5NE",
-    "label": "",
-    "scriptPubKey": "76a9141b72503639a13f190bf79acf6d76255d772360b788ac",
-    "amount": 0.00010000,
-    "confirmations": 20,
+    "address": "tb1qr2yek5wu6ce245uexcf624laphdwwu4qlhhggm",
+    "scriptPubKey": "00141a899b51dcd632aad3993613a557fd0ddae772a0",
+    "amount": 0.01895537,
+    "confirmations": 1,
     "spendable": true,
     "solvable": true,
-    "desc": "pkh([d6043800/0'/0'/1']02fd5740996d853ea51a6904cf03257fc11204b0179f344c49739ec5b20b39c9ba)#62rud39c",
+    "desc": "wpkh([b8309bae/84h/1h/0h/1/1]03c548187125947845c252fb14726ff3ce688d1b977235e9b8506c4ad64dfe1ea3)#dutca0cf",
+    "parent_descs": [
+      "wpkh([b8309bae/84h/1h/0h]tpubDDpSvPDUjstxFUEWzHkaL4qykf8vjNCspm8SZ26Z1wgPFbd63AdYrn4bDpEGPT1giJ6gcLW8Xou8fnhi35DJrUza9ikgu5dg2mDkd8jQpA6/1/*)#eeegkjmk"
+    ],
     "safe": true
   },
   {
-    "txid": "61f3b7016bf1ecc3987b8805207e79362e4de8026682e149107999b779426e3a",
+    "txid": "f67ffd9acd5e264c3fcce9b96f4f713e56adf99e65c1a9a55353d9b9706629fd",
     "vout": 1,
-    "address": "mjehC2KHzXcBDcwTd4LhZ2GzyzrZ3Kd3ff",
+    "address": "tb1q8lpqzydarurhsqttvw2qkf2qjxrwdv0kkej2ux",
     "label": "",
-    "scriptPubKey": "76a9142d573900aa357a38afd741fbf24b075d263ea6e088ac",
-    "amount": 0.00050000,
-    "confirmations": 3,
+    "scriptPubKey": "00143fc20111bd1f0778016b63940b25409186e6b1f6",
+    "amount": 0.00100000,
+    "confirmations": 1,
     "spendable": true,
     "solvable": true,
-    "desc": "pkh([d6043800/0'/0'/3']0278608b54b8fb0d8379d3823d31f03a7c6ab0adffb07dd3811819fdfc34f8c132)#nhjc3f8y",
-    "safe": true
-  },
-  {
-    "txid": "91261eafae15ea53dedbea7c1db748c52bbc04a85859ffd0d839bda1421fda4c",
-    "vout": 0,
-    "address": "mjehC2KHzXcBDcwTd4LhZ2GzyzrZ3Kd3ff",
-    "label": "",
-    "scriptPubKey": "76a9142d573900aa357a38afd741fbf24b075d263ea6e088ac",
-    "amount": 0.00022000,
-    "confirmations": 3,
-    "spendable": true,
-    "solvable": true,
-    "desc": "pkh([d6043800/0'/0'/3']0278608b54b8fb0d8379d3823d31f03a7c6ab0adffb07dd3811819fdfc34f8c132)#nhjc3f8y",
+    "desc": "wpkh([b8309bae/84h/1h/0h/0/4]02b412b4329e450c854293c4c4f9d6e716aa9b6f7c7aa622500ddb15f28f215e04)#av5hsrfr",
+    "parent_descs": [
+      "wpkh([b8309bae/84h/1h/0h]tpubDDpSvPDUjstxFUEWzHkaL4qykf8vjNCspm8SZ26Z1wgPFbd63AdYrn4bDpEGPT1giJ6gcLW8Xou8fnhi35DJrUza9ikgu5dg2mDkd8jQpA6/0/*)#gduft8tw"
+    ],
     "safe": true
   }
 ]
-
 ```
-This listing shows three different UTXOs, worth .0001, .0005 and .00022 BTC. Note that each has its own distinct txid and remains distinct in the wallet, even the last two, which were sent to the same address.
-
-When you want to spend a UTXO, it's not sufficient to just know the transaction id. That's because each transaction can have multiple outputs! Remember that first chunk of money that the faucet sent us? In the transaction, some money went to us and some went to someone else. The `txid` refers to the overall transaction, while a `vout` says which of multiple outputs you've received. In this list, each of these transactions is the 0th `vout` of a previous transaction, but _that doesn't have to be the case_.
-
-So, txid+vout=UTXO. This will be the foundation of any raw transaction.
+This listing shows two different UTXOs, worth .01895537 and .00100000 BTC. Each UTXO will be distinct in your wallet. Most will have different transaction IDs (`txid`), though in this case the funds came from the same transaction, but they're different outputs (`vout`). In other words `txid`+`vout`=UTXO. You'll need to know both of them to spend a transaction.
 
 ## Write a Raw Transaction with One Output
 
 You're now ready to write a simple, example raw transaction that shows how to send the entirety of a UTXO to another party. As noted, this is not necessarily a very realistic real-world case.
 
-> :warning: **WARNING:** It is very easy to lose money with a raw transaction. Consider all instructions on sending bitcoins via raw transactions to be _very_, _very_ dangerous. Whenever you're actually sending real money to other people, you should instead use one of the other methods explained in this chapter. Creating raw transactions is extremely useful if you're writing bitcoin programs, but _only_ when you're writing bitcoin programs. (For example: in writing this example for one version of this tutorial, we accidentally spent the wrong transaction, even though it had about 10x as much value. Almost all of that was lost to the miners.)
+> ⚠️ **WARNING: Raw Transactions are Dangerous!** It is very easy to lose money with a raw transaction. Consider all instructions on sending Bitcoins via raw transactions to be _very_, _very_ dangerous. Whenever you're actually sending real money to other people, you should instead use one of the other methods explained in this chapter. Creating raw transactions is extremely useful if you're writing Bitcoin programs, but _only_ when you're writing Bitcoin programs. (For example: in writing this example for one version of this tutorial, we accidentally spent the wrong transaction, even though it had about 10x as much value. Almost all of that was lost to the miners.)
 
 ### Prepare the Raw Transaction
 
 For best practices, we'll start out each transaction by carefully recording the txids and vouts that we'll be spending.
 
-In this case, we're going to spend the one worth .00050000 BTC because it's the only one with a decent value.
+In this case, we're going to be spending the UTXO worth 0.00100000 BTC. 
 ```
-$ utxo_txid="61f3b7016bf1ecc3987b8805207e79362e4de8026682e149107999b779426e3a"
+$ utxo_txid="f67ffd9acd5e264c3fcce9b96f4f713e56adf99e65c1a9a55353d9b9706629fd"
 $ utxo_vout="1"
 ```
 
-You should similarly record your recipient address, to make sure you have it right. We're again sending some money back to the TP faucet:
+You should similarly record your recipient address, to make sure you have it right. This will send the funds to a new address:
 ```
-$ recipient="n2eMqTT929pb1RDNuqEnxdaLau1rxy3efi"
+$ recipient="tb1q7xkh94r24zw4uc3wg2amkagxfm4an5gpwrgsnl"
 ```
 As always, check your variables carefully, to make sure they're what you expect!
 ```
 $ echo $utxo_txid
-61f3b7016bf1ecc3987b8805207e79362e4de8026682e149107999b779426e3a
+f67ffd9acd5e264c3fcce9b96f4f713e56adf99e65c1a9a55353d9b9706629fd
 $ echo $utxo_vout
 1
 $ echo $recipient
-n2eMqTT929pb1RDNuqEnxdaLau1rxy3efi
+tb1q7xkh94r24zw4uc3wg2amkagxfm4an5gpwrgsnl
 ```
 That recipient is particularly important, because if you mess it up, your money is _gone_! (And as we already saw, choosing the wrong transaction can result in lost money!) So triple check it all.
 
@@ -101,19 +88,25 @@ That recipient is particularly important, because if you mess it up, your money 
 
 Each transaction has a fee associated with. It's _implicit_ when you send a raw transaction: the amount that you will pay as a fee is always equal to the amount of your input minus the amount of your output. So, you have to decrease your output a little bit from your input to make sure that your transaction goes out.
 
-> :warning: **WARNING:** This is the very dangerous part of raw transactions!! Because you automatically expend all of the amount in the UTXOs that you use, it's critically important to make sure that you know: (1) precisely what UTXOs you're using; (2) exactly how much money they contain; (3) exactly how much money you're sending out; and (4) what the difference is. If you mess up and you use the wrong UTXO (with more money than you thought) or if you send out too little money, the excess is lost. Forever. Don't make that mistake! Know your inputs and outputs _precisely_. Or better, don't use raw transactions except as part of a carefully considered and triple-checked program.
+> ⚠️ **WARNING: Dangerous Calculations Ahead.** Calculating the transaction fee is a very dangerous part of raw transactions!! Because you automatically expend all of the amount in the UTXOs that you use, it's critically important to make sure that you know: (1) precisely what UTXOs you're using; (2) exactly how much money they contain; (3) exactly how much money you're sending out; and (4) what the difference is. If you mess up and you use the wrong UTXO (with more money than you thought) or if you send out too little money, the excess is lost. Forever. Don't make that mistake! Know your inputs and outputs _precisely_. Or better, don't use raw transactions except as part of a carefully considered and triple-checked program.
 
-> :book: ***How much should you spend on transaction fees?*** [Bitcoin Fees](https://bitcoinfees.21.co/) has a nice live assessment. It says that the "fastest and cheapest transaction fee is currently 42 satoshis/byte" and that "For the median transaction size of 224 bytes, this results in a fee of 9,408 satoshis".
+> 📖 ***How much should you spend on transaction fees?*** [§4.1](04_1_Sending_Coins_The_Easy_Way.md#set-your-transaction-fee) contains extensive discussions of transaction fees. The TL;DR is that 1 sat/vB is usually sufficient in the modern day, though this course tends to use 10 sat/vB just to ensure that you don't have to sit around waiting for transactions to come back. A Bitcoin Explorer such as the [mempool explorer](https://mempool.space/) can alternatively show you what fees are currently being paid.
 
-Currently Bitcoin Fees suggests a transaction fee of about 10,000 satoshis, which is the same as .0001 BTC. Yes, that's for the mainnet, not signet or testnet, but we want to test out things realistically, so that's what we're going to use.
+Assuming a fee of 1 sat/vB and a SegWit transaction that's less than 250 Bytes would mean a fee of 250 satoshis, or 0.0000025 BTC, which would be a quarter if Bitcoin were worth $100,000 each. Not bad! (But we're going to move that up to 0.00001 for quick testing purposes.)
 
-In this case, that means taking the .0005 BTC in the UTXO we're selected, reducing it by .0001 BTC for the transaction fee, and sending the remaining .0004 BTC. (And this is an example of why micropayments don't work on the Bitcoin network, because a $1 or so transaction fee is pretty expensive when you're sending $4, let alone if you were trying to make a micropayment of $0.50. But that's always why we have Lightning.)
+You should either enter the amount you're going to be sending into a `$btc` variable or else install `bc` to run the calculation (and it's always better to let the computer do the calculation, as long as you're using a reliable calculator and not AI). Note that you'll probably have to engage in some `awk` tomfoolery to make sure your number has a leading `0`, because `bitcoin-cli` will choke otherwise.
+```
+$ sudo apt-get install bc
+$ btc=$(echo "0.001-0.00001" | bc -l | awk '{printf "%.5f\n", $0}')
+$ echo $btc
+.00099
+```
 
-> :warning: **WARNING:** The lower that you set your transaction fee, the longer before your transaction is built into a block. The Bitcoin Fees site lists expected times, from an expected 0 blocks, to 22. Since blocks are built on average every 10 minutes, that's the difference between a few minutes and a few hours! So, choose a transaction fee that's appropriate for what you're sending. Note that you should never drop below the minimum relay fee, which is .0001 BTC.
+> :warning: **WARNING: Fee Slowdowns.** The lower that you set your transaction fee, the longer before your transaction is built into a block. Since blocks are built on average every 10 minutes, that could be the difference between a few minutes, a few hours, and never! So, choose a transaction fee that's appropriate for what you're sending. 
 
 ### Write the Raw Transaction
 
-You're now ready to create the raw transaction. This uses the `createrawtransaction` command, which might look a little intimidating. That's because the `createrawtransaction` command doesn't entirely shield you from the JSON RPC that the bitcoin-cli uses. Instead, you are going to input a JSON array to list the UTXOs that you're spending and a JSON object to list the outputs.
+You're now ready to create the raw transaction. This uses the `createrawtransaction` command, which might look a little intimidating. That's because the `createrawtransaction` command doesn't entirely shield you from the JSON RPC that the bitcoin-cli uses (and that we've touched on from time to time). This time, you're going to have to input a JSON array (`[]`) of objects (`{}`) to list the UTXOs that you're spending and a JSON object (`{}`) to list the outputs.
 
 Here's the standard format:
 ```
@@ -128,13 +121,13 @@ $ bitcoin-cli createrawtransaction
    "'$your_recipient'": bitcoin_amount
  }'''
  ```
- Yeah, there are all kinds of crazy quotes there, but trust that they'll do the right thing. Use `'''` to mark the start and end of the JSON array and the JSON object. Protect normal words like `"this"`, but you don't need to protect normal numbers: `0`. If they're variables, insert single quotes, like `"'$this_word'"` and `'$this_num'`. (Whew. You'll get used to it.)
+Yeah, there are all kinds of crazy quotes there, but trust that they'll do the right thing. Use `'''` to mark the start and end of the JSON array and the JSON object. Protect normal words like `"this"`, but you don't need to protect normal numbers: `0`. If they're variables, also insert single quotes, like `"'$this_word'"` and `'$this_num'`. (Whew. You'll get used to it.)
 
  Here's a command that creates a raw transaction to send your $utxo to your $recipient
  ```
-$ rawtxhex=$(bitcoin-cli createrawtransaction '''[ { "txid": "'$utxo_txid'", "vout": '$utxo_vout' } ]''' '''{ "'$recipient'": 0.0004 }''')
+$ rawtxhex=$(bitcoin-cli createrawtransaction '''[ { "txid": "'$utxo_txid'", "vout": '$utxo_vout' } ]''' '''{ "'$recipient'": '$btc' }''')
 $ echo $rawtxhex
-02000000013a6e4279b799791049e1826602e84d2e36797e2005887b98c3ecf16b01b7f3610100000000ffffffff01409c0000000000001976a914e7c1345fc8f87c68170b3aa798a956c2fe6a9eff88ac00000000
+0200000001fd296670b9d95353a5a9c1659ef9ad563e714f6fb9e9cc3f4c265ecd9afd7ff60100000000fdffffff01b882010000000000160014f1ad72d46aa89d5e622e42bbbb75064eebd9d10100000000
 ```
 
 ### Verify Your Raw Transaction
@@ -143,36 +136,34 @@ You should next verify your rawtransaction with `decoderawtransaction` to make s
 ```
 $ bitcoin-cli decoderawtransaction $rawtxhex
 {
-  "txid": "dcd2d8f0ec5581b806a1fbe00325e1680c4da67033761b478a26895380cc1298",
-  "hash": "dcd2d8f0ec5581b806a1fbe00325e1680c4da67033761b478a26895380cc1298",
+  "txid": "8a0d9ab73d81a1ce043d1ede0e737136e6d3352d3e0bc9590f9e8bbd91036dc2",
+  "hash": "8a0d9ab73d81a1ce043d1ede0e737136e6d3352d3e0bc9590f9e8bbd91036dc2",
   "version": 2,
-  "size": 85,
-  "vsize": 85,
-  "weight": 340,
+  "size": 82,
+  "vsize": 82,
+  "weight": 328,
   "locktime": 0,
   "vin": [
     {
-      "txid": "61f3b7016bf1ecc3987b8805207e79362e4de8026682e149107999b779426e3a",
+      "txid": "f67ffd9acd5e264c3fcce9b96f4f713e56adf99e65c1a9a55353d9b9706629fd",
       "vout": 1,
       "scriptSig": {
         "asm": "",
         "hex": ""
       },
-      "sequence": 4294967295
+      "sequence": 4294967293
     }
   ],
   "vout": [
     {
-      "value": 0.00040000,
+      "value": 0.00099000,
       "n": 0,
       "scriptPubKey": {
-        "asm": "OP_DUP OP_HASH160 e7c1345fc8f87c68170b3aa798a956c2fe6a9eff OP_EQUALVERIFY OP_CHECKSIG",
-        "hex": "76a914e7c1345fc8f87c68170b3aa798a956c2fe6a9eff88ac",
-        "reqSigs": 1,
-        "type": "pubkeyhash",
-        "addresses": [
-          "n2eMqTT929pb1RDNuqEnxdaLau1rxy3efi"
-        ]
+        "asm": "0 f1ad72d46aa89d5e622e42bbbb75064eebd9d101",
+        "desc": "addr(tb1q7xkh94r24zw4uc3wg2amkagxfm4an5gpwrgsnl)#tn6nft96",
+        "hex": "0014f1ad72d46aa89d5e622e42bbbb75064eebd9d101",
+        "address": "tb1q7xkh94r24zw4uc3wg2amkagxfm4an5gpwrgsnl",
+        "type": "witness_v0_keyhash"
       }
     }
   ]
@@ -181,7 +172,7 @@ $ bitcoin-cli decoderawtransaction $rawtxhex
 
 Check the `vin`. Are you spending the right transaction? Does it contain the expected amount of money? (Check with `bitcoin-cli gettransaction` and be sure to look at the right `vout`.) Check your `vout`. Are you sending the right amount? Is it going to the right address? Finally, do the math to make sure the money balances. Does the value of the UTXO minus the amount being spent equal the expected transaction fee?
 
-> :information_source:  **NOTE - SEQUENCE:** You may note that each input has a sequence number, set here to  4294967295, which is 0xFFFFFFFF. This is the last frontier of Bitcoin transactions, because it's a standard field in transactions that was originally intended for a specific purpose, but was never fully implemented. So now there's this integer sitting around in transactions that could be repurposed for other uses. And, in fact, it has been. As of this writing there are three different uses for the variable that's called `nSequence` in the Bitcoin Core code: it enables RBF, `nLockTime`, and relative timelocks. If there's nothing weird going on, `nSequence` will be set to 4294967295. Setting it to a lower value signals that special stuff is going on.
+> ℹ️  **NOTE: Sequence:** You may note that each input has a sequence number, set here to `4294967293`, which is `0xFFFFFFFF-2`. This is the last frontier of Bitcoin transactions, because it's a standard field in transactions that was originally intended for a specific purpose, but was never fully implemented. So now there's this integer sitting around in transactions that could be repurposed for other uses. And, in fact, it has been. As of this writing there are three different uses for the variable that's called `nSequence` in the Bitcoin Core code: it enables RBF, `nLockTime`, and relative timelocks. It used to always be set to `4294967295` (`0xFFFFFFFF`), which meant "nothing special", but nowadays it's set to  `4294967293` (`0xFFFFFFFF-2`), which means "allow Replace-by-Fee by default", which is explained in [§5.2](05_2_Resending_a_Transaction_with_RBF.md). Other values mean other things.
 
 ### Sign the Raw Transaction
 
@@ -192,10 +183,11 @@ First, you need to sign your raw transaction:
 
 $ bitcoin-cli signrawtransactionwithwallet $rawtxhex
 {
-  "hex": "02000000013a6e4279b799791049e1826602e84d2e36797e2005887b98c3ecf16b01b7f361010000006a4730440220335d15a2a2ca3ce6a302ce041686739d4a38eb0599a5ea08305de71965268d05022015f77a33cf7d613015b2aba5beb03088033625505ad5d4d0624defdbea22262b01210278608b54b8fb0d8379d3823d31f03a7c6ab0adffb07dd3811819fdfc34f8c132ffffffff01409c0000000000001976a914e7c1345fc8f87c68170b3aa798a956c2fe6a9eff88ac00000000",
+  "hex": "02000000000101fd296670b9d95353a5a9c1659ef9ad563e714f6fb9e9cc3f4c265ecd9afd7ff60100000000fdffffff01b882010000000000160014f1ad72d46aa89d5e622e42bbbb75064eebd9d1010247304402202cc47fe2a529a14765010845eaf393becd91e95df7ba5c142f33a0246382c107022065d7abafe6144e6af899d3311ba59a7c3c9fe8b01df6f022f28ca81fc1eac181012102b412b4329e450c854293c4c4f9d6e716aa9b6f7c7aa622500ddb15f28f215e0400000000",
   "complete": true
 }
-$ signedtx="02000000013a6e4279b799791049e1826602e84d2e36797e2005887b98c3ecf16b01b7f361010000006a4730440220335d15a2a2ca3ce6a302ce041686739d4a38eb0599a5ea08305de71965268d05022015f77a33cf7d613015b2aba5beb03088033625505ad5d4d0624defdbea22262b01210278608b54b8fb0d8379d3823d31f03a7c6ab0adffb07dd3811819fdfc34f8c132ffffffff01409c0000000000001976a914e7c1345fc8f87c68170b3aa798a956c2fe6a9eff88ac00000000"
+
+$ signedtx="02000000000101fd296670b9d95353a5a9c1659ef9ad563e714f6fb9e9cc3f4c265ecd9afd7ff60100000000fdffffff01b882010000000000160014f1ad72d46aa89d5e622e42bbbb75064eebd9d1010247304402202cc47fe2a529a14765010845eaf393becd91e95df7ba5c142f33a0246382c107022065d7abafe6144e6af899d3311ba59a7c3c9fe8b01df6f022f28ca81fc1eac181012102b412b4329e450c854293c4c4f9d6e716aa9b6f7c7aa622500ddb15f28f215e0400000000"
 ```
 Note that we captured the signed hex by hand, rather than trying to parse it out of the JSON object. A software package called "JQ" could do better, as we'll explain in an upcoming interlude.
 
@@ -204,63 +196,53 @@ Note that we captured the signed hex by hand, rather than trying to parse it out
 You've now got a ready-to-go raw transaction, but it doesn't count until you actually put it on the network, which you do with the `sendrawtransaction` command. You'll get back a txid:
 ```
 $ bitcoin-cli sendrawtransaction $signedtx
-a1fd550d1de727eccde6108c90d4ffec11ed83691e96e119d842b3f390e2f19a
+8a0d9ab73d81a1ce043d1ede0e737136e6d3352d3e0bc9590f9e8bbd91036dc2
 ```
-You'll immediately see that the UTXO and its money have been removed from your wallet:
+As usual, you'll immediately see that the UTXO and its money have been removed from your wallet (but you'll have a bit better understanding this time than in [§4.1](04_1_Sending_Coins_The_Easy_Way.m) since you explicitly chose the UTXO to be spent:
 ```
 $ bitcoin-cli listunspent
 [
   {
-    "txid": "ca4898d8f950df03d6bfaa00578bd0305d041d24788b630d0c4a32debcac9f36",
+    "txid": "f67ffd9acd5e264c3fcce9b96f4f713e56adf99e65c1a9a55353d9b9706629fd",
     "vout": 0,
-    "address": "mi25UrzHnvn3bpEfFCNqJhPWJn5b77a5NE",
-    "label": "",
-    "scriptPubKey": "76a9141b72503639a13f190bf79acf6d76255d772360b788ac",
-    "amount": 0.00010000,
-    "confirmations": 23,
+    "address": "tb1qr2yek5wu6ce245uexcf624laphdwwu4qlhhggm",
+    "scriptPubKey": "00141a899b51dcd632aad3993613a557fd0ddae772a0",
+    "amount": 0.01895537,
+    "confirmations": 7,
     "spendable": true,
     "solvable": true,
-    "desc": "pkh([d6043800/0'/0'/1']02fd5740996d853ea51a6904cf03257fc11204b0179f344c49739ec5b20b39c9ba)#62rud39c",
-    "safe": true
-  },
-  {
-    "txid": "91261eafae15ea53dedbea7c1db748c52bbc04a85859ffd0d839bda1421fda4c",
-    "vout": 0,
-    "address": "mjehC2KHzXcBDcwTd4LhZ2GzyzrZ3Kd3ff",
-    "label": "",
-    "scriptPubKey": "76a9142d573900aa357a38afd741fbf24b075d263ea6e088ac",
-    "amount": 0.00022000,
-    "confirmations": 6,
-    "spendable": true,
-    "solvable": true,
-    "desc": "pkh([d6043800/0'/0'/3']0278608b54b8fb0d8379d3823d31f03a7c6ab0adffb07dd3811819fdfc34f8c132)#nhjc3f8y",
+    "desc": "wpkh([b8309bae/84h/1h/0h/1/1]03c548187125947845c252fb14726ff3ce688d1b977235e9b8506c4ad64dfe1ea3)#dutca0cf",
+    "parent_descs": [
+      "wpkh([b8309bae/84h/1h/0h]tpubDDpSvPDUjstxFUEWzHkaL4qykf8vjNCspm8SZ26Z1wgPFbd63AdYrn4bDpEGPT1giJ6gcLW8Xou8fnhi35DJrUza9ikgu5dg2mDkd8jQpA6/1/*)#eeegkjmk"
+    ],
     "safe": true
   }
 ]
-
-$ bitcoin-cli getbalance
-0.00032000
 ```
-Soon `listtransactions` should show a confirmed transaction of category 'send".
+But soon `listtransactions` should show a confirmed transaction of category 'send".
 ```
- {
-    "address": "n2eMqTT929pb1RDNuqEnxdaLau1rxy3efi",
+  {
+    "address": "tb1q7xkh94r24zw4uc3wg2amkagxfm4an5gpwrgsnl",
     "category": "send",
-    "amount": -0.00040000,
+    "amount": -0.00099000,
+    "label": "",
     "vout": 0,
-    "fee": -0.00010000,
-    "confirmations": 1,
+    "fee": -0.00001000,
+    "confirmations": 0,
     "trusted": true,
-    "txid": "a1fd550d1de727eccde6108c90d4ffec11ed83691e96e119d842b3f390e2f19a",
+    "txid": "8a0d9ab73d81a1ce043d1ede0e737136e6d3352d3e0bc9590f9e8bbd91036dc2",
+    "wtxid": "f9cfb18a4683a03bae228f3e21a4939803655efaae51e67388673338103543bc",
     "walletconflicts": [
     ],
-    "time": 1592608574,
-    "timereceived": 1592608574,
-    "bip125-replaceable": "no",
+    "mempoolconflicts": [
+    ],
+    "time": 1772141891,
+    "timereceived": 1772141891,
+    "bip125-replaceable": "yes",
     "abandoned": false
   }
 ```
-You can see that it matches the `txid` and the `recipient` address. Not only does it show the `amount` sent, but it also shows the transaction `fee`. And, it's already received a confirmation, because we offered a fee that would get it swept up into a block quickly.
+You can see that it matches the `txid` and the `recipient` address. Not only does it show the `amount` sent, but it also shows the transaction `fee`, which is _hopefully_ what you intended (and indeed it matches the `0.00001` BTC that was planned, thanks to the wonders of `bc`).
 
 Congratulations! You're now a few satoshis poorer!
 
@@ -270,4 +252,4 @@ When money comes into your Bitcoin wallet, it remains as distinct amounts, calle
 
 ## What's Next?
 
-Step Back from "Sending Bitcoin Transactions" with [Interlude: Using JQ](04_2__Interlude_Using_JQ.md).
+Step Back from "Sending Bitcoin Transactions" with [Interlude: Using JQ](04_2a_Interlude_Using_JQ.md).
