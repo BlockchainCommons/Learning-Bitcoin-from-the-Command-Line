@@ -126,7 +126,7 @@ $ bitcoin-cli gettransaction $txid
 ```
 You can see not only the amount transferred (`0.001` BTC) but also a transaction fee (`0.00001410` BTC).
 
-If you look at `bitcoin-cli listunspent`, you will see that one of the transactions where you received money (probably from a faucet) is entirely gone, and that it's replaced by a new transaction that's dated to the same time as the money you sent out:
+If you look at `bitcoin-cli listunspent`, you will see that one of the transactions where you received money (probably from a faucet) is entirely gone. Don't panic! After your `sendtoaddress`  has been confirmed, it will be replaced by a new transaction that's dated to the same time as the money you sent out:
 ```
   {
     "txid": "cb48282e86c846b8357374d74e9ea24deeaeb48cf447634a8b951c98cfc559c5",
@@ -144,7 +144,7 @@ If you look at `bitcoin-cli listunspent`, you will see that one of the transacti
     "safe": true
   }
 ```
-This is all expected. Cryptocurrency doesn't come in bills and coins, like physical money, but instead in singular blobs. If someone sends you 0.01798971 BTC, then that entire amount is stored in the transaction that sent you the money. When you pay someone else, you use that transactions, send part of it to your recipient _and_ send the rest back to yourself as "change", forming a new address. More on that in the next section. Fortunately, `sendtoaddress` takes care of this for you, generating a change address and looping the remaining funds back: that's the additional transaction you see in your wallet (and why a previous transaction disappeared).
+This is all expected. Cryptocurrency doesn't come in bills and coins, like physical money, but instead in singular blobs. If someone sends you 0.01798971 BTC, then that entire amount is stored in the transaction that sent you the money. When you pay someone else, you use that transactions, send part of it to your recipient _and_ send the rest back to yourself as "change", forming a new address. More on that in the next section. Fortunately, `sendtoaddress` takes care of this for you, generating a change address and looping the remaining funds back: that's the additional transaction you see in your wallet (and why a previous transaction disappeared). It'll just take a short time to show up (usually 10 minutes or less if you're using robust transaction-fee values on Signet).
 
 ## Send Coins the Even Easier Way
 
