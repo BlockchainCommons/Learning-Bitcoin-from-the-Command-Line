@@ -2,16 +2,13 @@
 
 The following TODO items are intended for a 3.0 version of Learning Bitcoin from the Command Line
 
-## Immediate TODO (for 2/26): Sending Transactions
+## Immediate TODO (for 3/12): Cleanup
 
-1. <strike>Rewrite transaction fees in §4.1 to talk about vB, et al</strike>
-2. <strike>Add sendall RPC to §4.1</strike>
-3. <strike>Add args variable option to §4.3</strike>
-4. Change §4.1-4.5 to use P2WPKH
-5. Add Freezing Coins to §4.4
-6. Remove §4.6 on Segwit
-7. Add Info On Sending to Other Addresses (no biggie)
-8. Full Review of §4.1-4.5
+1. Bring chapter 1 up to date
+2. Bring chapter 2 up to date
+3. Double check §3.1 + 3.2
+4. Edit/Update Chapter 5
+5. Update RBF Discussions in §5.2 for it now being default
 
 ## Longer-Term TODO (Small Tasks)
 
@@ -231,6 +228,16 @@ See [release notes](https://bitcoincore.org/en/releases/0.21.0/).
 ---
 
 # Progress Log
+
+## Immediate TODO (for 2/26): Sending Transactions
+
+1. <strike>Rewrite transaction fees in §4.1 to talk about vB, et al</strike>
+2. <strike>Add sendall RPC to §4.1</strike>
+3. <strike>Add args variable option to §4.3</strike>
+4. <strike>Add Freezing Coins to §4.4</strike>
+4. <strike>Check & Revise §4.1-4.5</strike>
+6. <strike>Remove §4.6 on Segwit</strike>
+7. <strike>Write New §4.6 on Sending to Different Addresses</strike>
 
 ## Immediate TODO (for 2/19): Segwit
 
