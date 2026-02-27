@@ -7,8 +7,9 @@ The following TODO items are intended for a 3.0 version of Learning Bitcoin from
 1. Bring chapter 1 up to date
 2. Bring chapter 2 up to date
 3. Double check §3.1 + 3.2
-4. Edit/Update Chapter 5
-5. Update RBF Discussions in §5.2 for it now being default
+4. Put in some discussions about how we'll later import seed words, etc. into whatever chapter that is.
+5. Edit/Update Chapter 5
+6. Update RBF Discussions in §5.2 for it now being default
 
 ## Longer-Term TODO (Small Tasks)
 
@@ -100,6 +101,10 @@ The following updates could be part of v3.0 or could be further future, dependin
    * 15.1: Using miniscript
    * 15.2: Using Bitcoin Dev Kit (BDK)
    * 15.3: Planning for the Future
+
+As part of this, a new chapter
+* Put seed words into keytool to create xprv for Bitcoin Core
+* Convert Xprv from Bitcoin Core into SSKR
 
 ## Lightning Updates
 
