@@ -150,14 +150,14 @@ $ bitcoin-cli listunspent
 
 The `fundrawtransaction` makes it easy to fund raw transactions by automatically selecting your UTXOs, saving you from having to search them up. But sometimes there might be UTXOs that you _don't_ want to use, most frequently because they might correlate activities that you don't want correlated (e.g., if you do programming for politicians under a pseudonym, you might not want to spend money earned in that way on a family vacation, because it could break your pseudonymity). 
 
-To prevent this sort of correlation from accidentally happening, you can "lock" a sensitive UTXO so that it's never selected for automatic fund creation, such as `fundrawtransaction`. 
+To prevent this sort of correlation from accidentally happening, you can "lock" a sensitive UTXO so that it's never selected for automatic fund creation, such as with `fundrawtransaction`. 
 
-First, you need to identify the problematic transaction:
+First, you need to identify the problematic UTXO:
 ```
 $ txid="031c88b5ef382f20773381543f00a7d34694d7372382d5d4f6029d9bf86693f5"
 $ vout="0"
 ```
-Then you need to send it an `unlock=false` (e.g., "lock") argument and a JSON array of orbjects that each contain a UTXO
+Then you need to run the `lockunspent` command with an `unlock=false` (e.g., "lock") argument and a JSON array of orbjects that each contain a UTXO.
 ```
 $ bitcoin-cli -named lockunspent unlock=false transactions='''[ { "txid": "'$txid'", "vout": '$vout' } ]'''
 true
@@ -225,7 +225,7 @@ error code: -4
 error message:
 Insufficient funds
 ```
-The lock is removed just by changing the `unlock` variable to `true`. (`persistent` no longer matters.)
+The lock can be removed just by changing the `unlock` variable to `true`. (`persistent` no longer matters.)
 ```
 $ bitcoin-cli -named lockunspent unlock=true transactions='''[ { "txid": "'$txid'", "vout": '$vout' } ]'''
 true
