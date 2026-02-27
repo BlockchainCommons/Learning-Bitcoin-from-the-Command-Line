@@ -1,6 +1,6 @@
 # 4.5: Sending Coins with Automated Raw Transactions
 
-This chapter lays out three ways to send funds via Bitcoin's cli interface. [§4.1](04_1_Sending_Coins_The_Easy_Way.md) described how to do so with a simple command, and [§4.4](04_4_Sending_Coins_with_a_Raw_Transaction.md) detailed how to use a more dangerous raw transaction. This final section splits the difference by showing how to make raw transactions simpler and safer. 
+This chapter lays out three ways to send funds via Bitcoin's cli interface. [§4.1](04_1_Sending_Coins_The_Easy_Way.md) described how to do so with a simple command and [§4.4](04_4_Sending_Coins_with_a_Raw_Transaction.md) detailed how to use a more dangerous raw transaction. This final section splits the difference by showing how to make raw transactions simpler and safer using automation. 
 
 ## Let Bitcoin Calculate For You
 
@@ -8,23 +8,12 @@ The methodology for automated raw transactions is simple: you create a raw trans
 
 In order to use this command, you'll need to ensure that your ~/.bitcoin/bitcoin.conf file contains rational variables for calculating transaction fees. Please see [§4.1: Sending Coins The Easy Way](04_1_Sending_Coins_The_Easy_Way.md) for more information on this.
 
-For very conservative numbers, we suggested adding the following to the `bitcoin.conf`:
-```
-mintxfee=0.0001
-txconfirmtarget=6
-```
-To keep the tutorial moving along (and more generally to move money fast) we suggested the following:
-```
-mintxfee=0.001
-txconfirmtarget=1
-```
-
 ## Create a Bare Bones Raw Transaction
 
 To use `fundrawtransaction` you first need to create a bare-bones raw transaction that lists _no_ inputs and _no_ change address. You'll just list your recipient and how much you want to send them, in this case `$recipient` and `0.0002` BTC.
 ```
-$ recipient=n2eMqTT929pb1RDNuqEnxdaLau1rxy3efi
-$ unfinishedtx=$(bitcoin-cli -named createrawtransaction inputs='''[]''' outputs='''{ "'$recipient'": 0.0002 }''')
+$ recipient=tb1qg3lau83hm9e9tdvzr5k7aqtw3uv0dwkfct4xdn
+$ unfinishedtx=$(bitcoin-cli -named createrawtransaction inputs='''[]''' outputs='''{ "'$recipient'": 0.002 }''')
 ```
 
 ## Fund Your Bare Bones Transaction
@@ -33,12 +22,12 @@ You then tell `bitcoin-cli` to fund that bare-bones transaction:
 ```
 $ bitcoin-cli -named fundrawtransaction hexstring=$unfinishedtx
 {
-  "hex": "02000000012db87641c6a21e5a68b20c226428544978e6ac44964d5d8060d7388000c584eb0100000000feffffff02204e0000000000001976a914e7c1345fc8f87c68170b3aa798a956c2fe6a9eff88ac781e0000000000001600140cc9cdcf45d4ea17f5227a7ead52367aad10a88400000000",
-  "fee": 0.00022200,
+  "hex": "02000000016524475f2cb9b7af59f86d25183d6dbe79b41b248a5a40c5e608ce79ca9f61800000000000fdffffff02400d030000000000160014447fde1e37d97255b5821d2dee816e8f18f6bac9be711b0000000000160014362520eaa80f35e99a8823ef8ac56e67e4a6c2af00000000",
+  "fee": 0.00001410,
   "changepos": 1
 }
 ```
-That provides a lot of useful information, but once you're confident with how it works, you'll want to use JQ to save your hex to a variable, as usual:
+That provides useful information such as the seelected fee, but once you're confident with how it works, you'll want to use JQ to save your hex to a variable, as usual:
 ```
 $ rawtxhex3=$(bitcoin-cli -named fundrawtransaction hexstring=$unfinishedtx | jq -r '.hex')
 ```
@@ -50,81 +39,77 @@ Running `decoderawtransaction` will show that the raw transaction is now laid ou
 ```
 $ bitcoin-cli -named decoderawtransaction hexstring=$rawtxhex3
 {
-  "txid": "b3b4c2057dbfbef6690e975ede92fde805ddea13c730f58401939a52c9ac1b99",
-  "hash": "b3b4c2057dbfbef6690e975ede92fde805ddea13c730f58401939a52c9ac1b99",
+  "txid": "031c88b5ef382f20773381543f00a7d34694d7372382d5d4f6029d9bf86693f5",
+  "hash": "031c88b5ef382f20773381543f00a7d34694d7372382d5d4f6029d9bf86693f5",
   "version": 2,
-  "size": 116,
-  "vsize": 116,
-  "weight": 464,
+  "size": 113,
+  "vsize": 113,
+  "weight": 452,
   "locktime": 0,
   "vin": [
     {
-      "txid": "eb84c5008038d760805d4d9644ace67849542864220cb2685a1ea2c64176b82d",
-      "vout": 1,
+      "txid": "80619fca79ce08e6c5405a8a241bb479be6d3d18256df859afb7b92c5f472465",
+      "vout": 0,
       "scriptSig": {
         "asm": "",
         "hex": ""
       },
-      "sequence": 4294967294
+      "sequence": 4294967293
     }
   ],
   "vout": [
     {
-      "value": 0.00020000,
+      "value": 0.01798590,
       "n": 0,
       "scriptPubKey": {
-        "asm": "OP_DUP OP_HASH160 e7c1345fc8f87c68170b3aa798a956c2fe6a9eff OP_EQUALVERIFY OP_CHECKSIG",
-        "hex": "76a914e7c1345fc8f87c68170b3aa798a956c2fe6a9eff88ac",
-        "reqSigs": 1,
-        "type": "pubkeyhash",
-        "addresses": [
-          "n2eMqTT929pb1RDNuqEnxdaLau1rxy3efi"
-        ]
+        "asm": "0 fe1f80781617de742b087aa63df65179fe3c2512",
+        "desc": "addr(tb1qlc0cq7qkzl08g2cg02nrmaj308lrcfgjzec9lx)#7kazgeeu",
+        "hex": "0014fe1f80781617de742b087aa63df65179fe3c2512",
+        "address": "tb1qlc0cq7qkzl08g2cg02nrmaj308lrcfgjzec9lx",
+        "type": "witness_v0_keyhash"
       }
     },
     {
-      "value": 0.00007800,
+      "value": 0.00200000,
       "n": 1,
       "scriptPubKey": {
-        "asm": "0 a782f4c6e1e75a5b24f3d675d6f11b5ebf3b2142",
-        "hex": "0014a782f4c6e1e75a5b24f3d675d6f11b5ebf3b2142",
-        "reqSigs": 1,
-        "type": "witness_v0_keyhash",
-        "addresses": [
-          "tb1q57p0f3hpuad9kf8n6e6adugmt6lnkg2zzr592r"
-        ]
+        "asm": "0 447fde1e37d97255b5821d2dee816e8f18f6bac9",
+        "desc": "addr(tb1qg3lau83hm9e9tdvzr5k7aqtw3uv0dwkfct4xdn)#zau8pzqg",
+        "hex": "0014447fde1e37d97255b5821d2dee816e8f18f6bac9",
+        "address": "tb1qg3lau83hm9e9tdvzr5k7aqtw3uv0dwkfct4xdn",
+        "type": "witness_v0_keyhash"
       }
     }
   ]
 }
 ```
-One thing of interest here is the change address, which is the second `vout`. Note that it's a `tb1` address, which means that it's Bech32; when we gave Bitcoin Core the total ability to manage our change, it did so using its default address type, Bech32, and it worked fine. That's why our change to SegWit addresses in [§4.6](04_6_Creating_a_Segwit_Transaction.md) really isn't that big of a deal, but there are some gotchas for wider usage, which we'll talk about there.
 
 Though we saw the fee in the `fundrawtransaction` output, it's not visible here. However, you can verify it with the `txfee-calc.sh` JQ script created in the [JQ Interlude](https://github.com/BlockchainCommons/Learning-Bitcoin-from-the-Command-Line/blob/master/04_2__Interlude_Using_JQ.md):
 ```
 $ ~/txfee-calc.sh $rawtxhex3
-.000222
+.00001400
 ```
-Finally, you can use `getaddressinfo` to see that the generated change address really belongs to you:
+Finally, you can use `getaddressinfo` to see that the generated change address (the one receiving the surplus funds of 0.01798590) really belongs to you:
 ```
-$ bitcoin-cli -named getaddressinfo address=tb1q57p0f3hpuad9kf8n6e6adugmt6lnkg2zzr592r
+$ bitcoin-cli -named getaddressinfo address=tb1qlc0cq7qkzl08g2cg02nrmaj308lrcfgjzec9lx
 {
-  "address": "tb1q57p0f3hpuad9kf8n6e6adugmt6lnkg2zzr592r",
-  "scriptPubKey": "0014a782f4c6e1e75a5b24f3d675d6f11b5ebf3b2142",
+  "address": "tb1qlc0cq7qkzl08g2cg02nrmaj308lrcfgjzec9lx",
+  "scriptPubKey": "0014fe1f80781617de742b087aa63df65179fe3c2512",
   "ismine": true,
   "solvable": true,
-  "desc": "wpkh([d6043800/0'/1'/10']038a2702938e548eaec28feb92c7e4722042cfd1ea16bec9fc274640dc5be05ec5)#zpv26nar",
+  "desc": "wpkh([b8309bae/84h/1h/0h/1/8]0305e3de867c6d9927dc671845e46ea29149ec23dc91d367e4cbdcde4457b8566b)#hwpl2vrq",
+  "parent_desc": "wpkh([b8309bae/84h/1h/0h]tpubDDpSvPDUjstxFUEWzHkaL4qykf8vjNCspm8SZ26Z1wgPFbd63AdYrn4bDpEGPT1giJ6gcLW8Xou8fnhi35DJrUza9ikgu5dg2mDkd8jQpA6/1/*)#eeegkjmk",
   "iswatchonly": false,
   "isscript": false,
   "iswitness": true,
   "witness_version": 0,
-  "witness_program": "a782f4c6e1e75a5b24f3d675d6f11b5ebf3b2142",
-  "pubkey": "038a2702938e548eaec28feb92c7e4722042cfd1ea16bec9fc274640dc5be05ec5",
+  "witness_program": "fe1f80781617de742b087aa63df65179fe3c2512",
+  "pubkey": "0305e3de867c6d9927dc671845e46ea29149ec23dc91d367e4cbdcde4457b8566b",
   "ischange": true,
-  "timestamp": 1592335137,
-  "hdkeypath": "m/0'/1'/10'",
-  "hdseedid": "fdea8e2630f00d29a9d6ff2af7bf5b358d061078",
-  "hdmasterfingerprint": "d6043800",
+  "timestamp": 1772127861,
+  "hdkeypath": "m/84h/1h/0h/1/8",
+  "hdseedid": "0000000000000000000000000000000000000000",
+  "hdmasterfingerprint": "b8309bae",
   "labels": [
   ]
 }
@@ -144,15 +129,18 @@ In several minutes, you'll have your change back:
 $ bitcoin-cli listunspent
 [
   {
-    "txid": "8b9dd66c999966462a3d88d6ac9405d09e2aa409c0aa830bdd08dbcbd34a36fa",
-    "vout": 1,
-    "address": "tb1q57p0f3hpuad9kf8n6e6adugmt6lnkg2zzr592r",
-    "scriptPubKey": "0014a782f4c6e1e75a5b24f3d675d6f11b5ebf3b2142",
-    "amount": 0.00007800,
+    "txid": "031c88b5ef382f20773381543f00a7d34694d7372382d5d4f6029d9bf86693f5",
+    "vout": 0,
+    "address": "tb1qlc0cq7qkzl08g2cg02nrmaj308lrcfgjzec9lx",
+    "scriptPubKey": "0014fe1f80781617de742b087aa63df65179fe3c2512",
+    "amount": 0.01798590,
     "confirmations": 1,
     "spendable": true,
     "solvable": true,
-    "desc": "wpkh([d6043800/0'/1'/10']038a2702938e548eaec28feb92c7e4722042cfd1ea16bec9fc274640dc5be05ec5)#zpv26nar",
+    "desc": "wpkh([b8309bae/84h/1h/0h/1/8]0305e3de867c6d9927dc671845e46ea29149ec23dc91d367e4cbdcde4457b8566b)#hwpl2vrq",
+    "parent_descs": [
+      "wpkh([b8309bae/84h/1h/0h]tpubDDpSvPDUjstxFUEWzHkaL4qykf8vjNCspm8SZ26Z1wgPFbd63AdYrn4bDpEGPT1giJ6gcLW8Xou8fnhi35DJrUza9ikgu5dg2mDkd8jQpA6/1/*)#eeegkjmk"
+    ],
     "safe": true
   }
 ]
@@ -160,7 +148,97 @@ $ bitcoin-cli listunspent
 
 ## Freeze Your Coins
 
-[towrite]
+The `fundrawtransaction` makes it easy to fund raw transactions by automatically selecting your UTXOs, saving you from having to search them up. But sometimes there might be UTXOs that you _don't_ want to use, most frequently because they might correlate activities that you don't want correlated (e.g., if you do programming for politicians under a pseudonym, you might not want to spend money earned in that way on a family vacation, because it could break your pseudonymity). 
+
+To prevent this sort of correlation from accidentally happening, you can "lock" a sensitive UTXO so that it's never selected for automatic fund creation, such as `fundrawtransaction`. 
+
+First, you need to identify the problematic transaction:
+```
+$ txid="031c88b5ef382f20773381543f00a7d34694d7372382d5d4f6029d9bf86693f5"
+$ vout="0"
+```
+Then you need to send it an `unlock=false` (e.g., "lock") argument and a JSON array of orbjects that each contain a UTXO
+```
+$ bitcoin-cli -named lockunspent unlock=false transactions='''[ { "txid": "'$txid'", "vout": '$vout' } ]'''
+true
+```
+This will maintain the lock in memory. If you want it instead written to the wallet database, chose:
+```
+$ bitcoin-cli -named lockunspent unlock=false transactions='''[ { "txid": "'$txid'", "vout": '$vout' } ]''' persistent=true
+true
+```
+You can see the UTXO is locked with `listlockunspent`:
+```
+$ bitcoin-cli listlockunspent
+[
+  {
+    "txid": "031c88b5ef382f20773381543f00a7d34694d7372382d5d4f6029d9bf86693f5",
+    "vout": 0
+  }
+]
+```
+It's now also missing from your `listunspent` list:
+```
+$ bitcoin-cli listunspent
+[
+  {
+    "txid": "8a0d9ab73d81a1ce043d1ede0e737136e6d3352d3e0bc9590f9e8bbd91036dc2",
+    "vout": 0,
+    "address": "tb1q7xkh94r24zw4uc3wg2amkagxfm4an5gpwrgsnl",
+    "label": "",
+    "scriptPubKey": "0014f1ad72d46aa89d5e622e42bbbb75064eebd9d101",
+    "amount": 0.00099000,
+    "confirmations": 15,
+    "spendable": true,
+    "solvable": true,
+    "desc": "wpkh([b8309bae/84h/1h/0h/0/5]027650c44c6f71d50a173f3f18858490cf26d2661a1d9929deba9aca57c76d1e5b)#7ss7jfnn",
+    "parent_descs": [
+      "wpkh([b8309bae/84h/1h/0h]tpubDDpSvPDUjstxFUEWzHkaL4qykf8vjNCspm8SZ26Z1wgPFbd63AdYrn4bDpEGPT1giJ6gcLW8Xou8fnhi35DJrUza9ikgu5dg2mDkd8jQpA6/0/*)#gduft8tw"
+    ],
+    "safe": true
+  },
+  {
+    "txid": "d4ce7ab7db122373567addca4aa5a2866fc617b720db8147748b4108834144ff",
+    "vout": 1,
+    "address": "tb1q79st28w04n57z6ht8zasfrdy9804qe9u5l4ahf",
+    "scriptPubKey": "0014f160b51dcface9e16aeb38bb048da429df5064bc",
+    "amount": 0.00050000,
+    "confirmations": 3,
+    "spendable": true,
+    "solvable": true,
+    "desc": "wpkh([b8309bae/84h/1h/0h/1/6]0202c9ea711bd943d8c34a9a5ffb848a58609deacb432de4b097c5dfc32dc5595c)#4zwtrgdu",
+    "parent_descs": [
+      "wpkh([b8309bae/84h/1h/0h]tpubDDpSvPDUjstxFUEWzHkaL4qykf8vjNCspm8SZ26Z1wgPFbd63AdYrn4bDpEGPT1giJ6gcLW8Xou8fnhi35DJrUza9ikgu5dg2mDkd8jQpA6/1/*)#eeegkjmk"
+    ],
+    "safe": true
+  }
+]
+```
+Most importantly if you try try to fund an unfunded transaction, the locked UTXO cannot be spent:
+```
+nolock=$(bitcoin-cli -named createrawtransaction inputs='''[]''' outputs='''{ "'$recipient'": 0.01 }''')
+```
+In this case, the wallet has sufficient funds, but only if the locked UTXO is used, so `fundrawtransaction` refuses:
+```
+$ bitcoin-cli -named fundrawtransaction hexstring=$nolock
+error code: -4
+error message:
+Insufficient funds
+```
+The lock is removed just by changing the `unlock` variable to `true`. (`persistent` no longer matters.)
+```
+$ bitcoin-cli -named lockunspent unlock=true transactions='''[ { "txid": "'$txid'", "vout": '$vout' } ]'''
+true
+```
+And now that raw transaction will fund correctly:
+```
+$ bitcoin-cli -named fundrawtransaction hexstring=$nolock
+{
+  "hex": "0200000001f59366f89b9d02f6d4d5822337d79446d3a7003f54813377202f38efb5881c030000000000fdffffff02fc290c00000000001600142d5717c0d7b3a2d68d56be8d9231ed7a65d4d3f840420f0000000000160014447fde1e37d97255b5821d2dee816e8f18f6bac900000000",
+  "fee": 0.00001410,
+  "changepos": 0
+}
+```
 
 ## Summary: Sending Coins with Automated Raw Transactions
 
@@ -170,9 +248,9 @@ If you must send funds with raw transactions then `fundrawtransaction` gives you
 
 > _The advantages._ It provides a nice balance. If you're sending funds by hand and `sendtoaddress` doesn't offer enough control for whatever reason, you can get some of the advantages of raw transactions without the dangers. This methodology should be used whenever possible if you're sending raw transactions by hand.
 
-> _The disadvantages._ It's a hodge-podge. Though there are a few additional options for the `fundrawtransaction` command that weren't mentioned here, your control is still limited. You'd probably never want to use this method if you were writing a program where the whole goal is to know exactly what's going on.
+> _The disadvantages._ It's a hodge-podge. Though there are a few additional options for the `fundrawtransaction` command that weren't mentioned here, but even with the ability to lock UTXOs, your control is still limited. You'd probably never want to use this method if you were writing a program where the whole goal is to know exactly what's going on.
 
 ## What's Next?
 
-Complete your "Sending of Bitcoin Transactions" with [§4.6: Creating a Segwit Transaction](04_6_Creating_a_Segwit_Transaction.md).
+Complete your "Sending of Bitcoin Transactions" with [§4.6: Sending Coins to Other Addresses](04_6_Sending_Coins_to_Other_Addresses.md).
 
