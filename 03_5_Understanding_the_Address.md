@@ -34,6 +34,8 @@ The addresseses commonly in use for new Bitcoin addresses today are:
 * **✅ P2WSH (Pay to Witness Script Hash).** P2WSH is a SegWit address that can be unlocked by a script (rather than one or more private keys doing so). Scripts are described in [Chapter 11](11_0_Introducing_Bitcoin_Scripts.md) (and afterward). P2WSH deprecates P2SH.
 * **✅ P2TR.** Taproot is the newest Bitcoin address type, but it was soft forked back in 2021, so it should have wide acceptance at this point. It's considered to be SegWit v1. Due to its use of Schnorr signatures, it can produce smaller transactions for multisigs, has privacy advantages, and can also combine singular signatures with scripts. It hasn't been widely adopted yet. We'll examing Taproot transcations starting in [Chapter 9](09_0_Expanding_Bitcoin_Transactions_with_Schnorr.md).
 
+Other addresses such as [P2MR](https://github.com/bitcoin/bips/blob/master/bip-0360.mediawiki), which proposes a quantum-resistant address, may appear in the future.
+
 The following two address types are not in wide use, but still hold large amounts of old funds:
 
 * **❌ P2PKH (Pay to Public Key Hash).** The P2PKH address was the predominent address type prior to the introduction of SegWit, which replaced it with P2WKH. Most new addresses are now created with P2WPKH, since their transactions are cheaper, but many older P2PKH addresses still hold funds, since it was in use for roughly a decade.
