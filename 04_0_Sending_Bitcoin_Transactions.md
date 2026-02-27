@@ -26,3 +26,4 @@ Supporting objectives include the ability to:
   * [Section Four: Sending Coins with Raw Transactions](04_4_Sending_Coins_with_a_Raw_Transaction.md)
      * [Interlude: Using Curl](04_4__Interlude_Using_Curl.md)
   * [Section Five: Sending Coins with Automated Raw Transactions](04_5_Sending_Coins_with_Automated_Raw_Transactions.md)
+  * [Section Six: Sending Coins to Other Addresses](04_6_Sending_Coins_to_Other_Addresses.md)
