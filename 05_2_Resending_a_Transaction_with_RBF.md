@@ -201,7 +201,7 @@ In order to create a new RBF transaction by hand, all you have to do is create a
 Here's an example of sending a transaction with a very low fee:
 ```
 $ seqtx=$(bitcoin-cli -named createrawtransaction inputs='''[ { "txid": "'$utxo_txid'", "vout": '$utxo_vout' } ]''' outputs='''{ "'$recipient'": 0.001, "'$changeaddress'": 0.003002 }''')
-$(bitcoin-cli -named signrawtransactionwithwallet hexstring=$seqtx | jq -r '.hex')
+$ signedtx=$(bitcoin-cli -named signrawtransactionwithwallet hexstring=$seqtx | jq -r '.hex')
 $ bitcoin-cli -named sendrawtransaction hexstring=$signedtx
 cffcebcb841e4177a682527c8a10a7f7b1889d827b095c55f946d68ab8195508
 ```
@@ -261,7 +261,7 @@ $ bitcoin-cli listtransactions
   }
 ]
 ```
-As shown, they're listed as `bip125-replaceable` (which means that the RBF opt-in flag is set, so we don't even have to fall back on Full RBF) and that they have `conflicts`, both in the `wallet` and the `mempool` (because they use the same UTXO!)
+As shown, they're listed as `bip125-replaceable` (which means that the RBF opt-in flag is set, so we don't even have to fall back on Full RBF, and we could keep increasing the fees if this RBF wasn't enough) and that they have `conflicts`, both in the `wallet` and the `mempool` (because they use the same UTXO!)
 
 Eventually, the transaction with the larger fee should be accepted:
 ```
@@ -301,7 +301,7 @@ $ bitcoin-cli -named gettransaction txid=eb9980a5a6dc5b7859bb5b455e6dea8a71c1906
   }
 }
 ```
-Note taht the `mempoolconflicts` are gone and that `bip125-replaceable` is now set to `no` because of the confirmation.
+Now the the `mempoolconflicts` are gone and that `bip125-replaceable` is set to `no` because of the confirmation.
 
 Meanwhile, the original transaction with the lower fee starts picking up negative confirmations, to show its divergence from the blockchain:
 ```
@@ -344,55 +344,59 @@ Our recipients have their money, and the original, failed transaction will event
 
 Raw transactions are very powerful, and you can do a lot of interesting things by combining them with RBF. However, sometimes _all_ you want to do is free up a transaction that's been hanging. You can now do that with a simple command, `bumpfee`.
 
-For example, to increase the fee of transaction `4460175e8276d5a1935f6136e36868a0a3561532d44ddffb09b7cb878f76f927` you would run:
+For example, to increase the fee of transaction `1c12afac570292e99b4aed34c0452513b4ab8b7397e6a803e98a53b606e31c11` you would run:
 ```
-$ bitcoin-cli -named bumpfee txid=4460175e8276d5a1935f6136e36868a0a3561532d44ddffb09b7cb878f76f927
+$ bitcoin-cli -named bumpfee 1c12afac570292e99b4aed34c0452513b4ab8b7397e6a803e98a53b606e31c11
 {
-  "txid": "75208c5c8cbd83081a0085cd050fc7a4064d87c7d73176ad9a7e3aee5e70095f",
-  "origfee": 0.00000000,
-  "fee": 0.00022600,
+  "txid": "938d3755a91efbeead1dda30c0b808986410db1078f02500fc512a0ff6704872",
+  "origfee": 0.00000100,
+  "fee": 0.00000806,
   "errors": [
   ]
 }
 ```
-The result is the automatic generation of a new transaction that has a fee determined by your bitcoin.conf file:
+The result is the automatic generation of a new transaction that has a fee determined by your bitcoin.conf file. It can be discovered by looking at `listtransactions` and then examined with `gettransaction`
 ```
-$ bitcoin-cli -named gettransaction txid=75208c5c8cbd83081a0085cd050fc7a4064d87c7d73176ad9a7e3aee5e70095f
+$ bitcoin-cli gettransaction 938d3755a91efbeead1dda30c0b808986410db1078f02500fc512a0ff6704872
 {
-  "amount": -0.10000000,
-  "fee": -0.00022600,
+  "amount": -0.00010000,
+  "fee": -0.00000806,
   "confirmations": 0,
-  "trusted": false,
-  "txid": "75208c5c8cbd83081a0085cd050fc7a4064d87c7d73176ad9a7e3aee5e70095f",
+  "trusted": true,
+  "txid": "938d3755a91efbeead1dda30c0b808986410db1078f02500fc512a0ff6704872",
+  "wtxid": "73afdafc1c8f77d51597beafba472e5241e9266e4a93dfbaf00bc8f5807384a5",
   "walletconflicts": [
-    "4460175e8276d5a1935f6136e36868a0a3561532d44ddffb09b7cb878f76f927"
+    "1c12afac570292e99b4aed34c0452513b4ab8b7397e6a803e98a53b606e31c11"
   ],
-  "time": 1491605676,
-  "timereceived": 1491605676,
+  "mempoolconflicts": [
+  ],
+  "time": 1773356653,
+  "timereceived": 1773356653,
   "bip125-replaceable": "yes",
-  "replaces_txid": "4460175e8276d5a1935f6136e36868a0a3561532d44ddffb09b7cb878f76f927",
+  "replaces_txid": "1c12afac570292e99b4aed34c0452513b4ab8b7397e6a803e98a53b606e31c11",
   "details": [
     {
-      "account": "",
-      "address": "n2eMqTT929pb1RDNuqEnxdaLau1rxy3efi",
+      "address": "tb1qg3lau83hm9e9tdvzr5k7aqtw3uv0dwkfct4xdn",
       "category": "send",
-      "amount": -0.10000000,
-      "vout": 0,
-      "fee": -0.00022600,
+      "amount": -0.00010000,
+      "vout": 1,
+      "fee": -0.00000806,
       "abandoned": false
     }
   ],
-  "hex": "02000000014e843e22cb8ee522fbf4d8a0967a733685d2ad92697e63f52ce41bec8f7c8ac0020000006b48304502210094e54afafce093008172768d205d99ee2e9681b498326c077f0b6a845d9bbef702206d90256d5a2edee3cab1017b9b1c30b302530b0dd568e4af6f2d35380bbfaa280121029f39b2a19943fadbceb6697dbc859d4a53fcd3f9a8d2c8d523df2037e7c32a71010000000280969800000000001976a914e7c1345fc8f87c68170b3aa798a956c2fe6a9eff88ac38f25c05000000001976a914c101d8c34de7b8d83b3f8d75416ffaea871d664988ac00000000"
+  "hex": "0200000000010149814a1c05c6aca5d2dc0e396a90c1718aea6d5e455bbb59785bdca6a58099eb0100000000fdffffff029a420400000000001600147b1212b39c2796ae73b726e192aa207c334ce52f1027000000000000160014447fde1e37d97255b5821d2dee816e8f18f6bac90247304402204c080988284fcc0f4b825c97a046df7f6ddbe5276cd76059ece272d18a3a8ab6022009cbb87b2707b899356958b4fc0d61319b61659cda8847ba184bd678c3f2535201210302b2db8ca5241f14879051ee01413643da8d798cb348ace49ea7d71d3e135bb794810400",
+  "lastprocessedblock": {
+    "hash": "0000000c96de4354c533b4459f2b86581871825ce25f8797bb04425e68d49fdc",
+    "height": 295316
+  }
 }
 ```
 
 ## Summary: Resending a Transaction with RBF
 
-If a transaction is stuck, and you don't want to wait for it to expire entirely, if you opted-in to RBF, then you can double-spend using RBF to create a replacement transaction (or just use `bumpfee`).
+If a transaction is stuck, and you don't want to wait for it to expire entirely, then you can double-spend using RBF to create a replacement transaction (or just use `bumpfee`). You used to have to opt in, but now most wallets opt-in by default, and even if they didn't Full RBF should be available.
 
-> 🔥 ***What is the power of RBF?*** Obviously, RBF is very helpful if you created a transaction with too low of a fee and you need to get those funds through. However, the ability to generally replace unconfirmed transactions with updated ones has more power than just that (and is why you might want to continue using RBF with raw transactions, even following the advent of `bumpfee`). 
-
-> For example, you might send a transaction, and then before it's confirmed, combine it with a second transaction. This allows you to compress multiple transactions down into a single one, decreasing overall fees. It might also offer benefits to privacy. There are other reasons to use RBF too, for smart contracts or transaction cut-throughs, as described in the [Opt-in RBF FAQ](https://bitcoincore.org/en/faq/optin_rbf/).
+> 🔥 ***What is the power of RBF?*** Obviously, RBF is very helpful if you created a transaction with too low of a fee and you need to get those funds through. However, the ability to generally replace unconfirmed transactions with updated ones has more power than just that (and is why you might want to continue using RBF with raw transactions, even following the advent of `bumpfee`).  For example, you might send a transaction, and then before it's confirmed, combine it with a second transaction. This allows you to compress multiple transactions down into a single one, decreasing overall fees. It might also offer benefits to privacy. There are other reasons to use RBF too, for smart contracts or transaction cut-throughs, as described in the [Opt-in RBF FAQ](https://bitcoincore.org/en/faq/optin_rbf/).
 
 ## What's Next?
 
