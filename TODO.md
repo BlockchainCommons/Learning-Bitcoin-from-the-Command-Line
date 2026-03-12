@@ -4,7 +4,6 @@ The following TODO items are intended for a 3.0 version of Learning Bitcoin from
 
 ## Immediate TODO (for 3/12): Cleanup
 
-2. Bring chapter 2 up to date
 3. Double check §3.1 + 3.2
 4. Put in some discussions about how we'll later import seed words, etc. into whatever chapter that is.
 5. Edit/Update Chapter 5
@@ -237,6 +236,7 @@ See [release notes](https://bitcoincore.org/en/releases/0.21.0/).
 
 1. <strike>Bring chapter 1 up to date</strike>
 2. <strike>Cleared Recent PRs</strike>
+3. <strike>Bring chapter 2 up to date</strike>
 
 ## Immediate TODO (for 2/26): Sending Transactions
 
