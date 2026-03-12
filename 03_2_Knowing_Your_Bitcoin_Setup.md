@@ -6,7 +6,7 @@ Before you start playing with Bitcoin, you may always want to come to a better u
 
 To start with, you should understand where everything is kept: the `~/.bitcoin` directory.
 
-The main directory just contains your config file and the testnet directory:
+The main directory just contains your config file and the signet directory:
 ```
 $ ls ~/.bitcoin
 bitcoin.conf  signet
@@ -19,13 +19,13 @@ $ ls ~/.bitcoin/signet
 banlist.json  blocks      debug.log             peers.dat      wallets
 bitcoind.pid  chainstate  onion_v3_private_key  settings.json
 ```
-You shouldn't mess with most of these files and directories — particularly not the `blocks` and `chainstate` directories, which contain all of the blockchain data, and the information in your `wallets` directory, which will contain your personal wallet (when we set it up). However, do take careful note of the `debug.log` file, which you should refer to if you ever have problems with your setup.
+You shouldn't mess with most of these files and directories — particularly not the `blocks` and `chainstate` directories, which contain all of the blockchain data, and the information in your `wallets` directory, which will contain your personal wallet(s) when they're set up. However, do take careful note of the `debug.log` file, which you should refer to if you ever have problems with your setup.
 
-> :link: **SIGNET vs MAINNET:** If you're using mainnet, then _everything_ will instead be placed in the main `~/.bitcoin` directory. These various setups _do_ elegantly stack, so if you are using mainnet, signet, testnet, and regtest, you'll find that `~/.bitcoin` contains your config file and your mainnet data, the `~/.bitcoin/signet` directory contains your signet data, the `~/.bitcoin/testnet3` or `~/.bitcoin/testnet4` directory contains your testnet data, and the `~/.bitcoin/regtest` directory contains your regtest data.
+> 🔗 **SIGNET vs MAINNET:** If you're using mainnet, then _everything_ will instead be placed in the main `~/.bitcoin` directory. These various setups _do_ elegantly stack, so if you are using mainnet, signet, testnet, and regtest, you'll find that `~/.bitcoin` contains your config file and your mainnet data, the `~/.bitcoin/signet` directory contains your signet data, the `~/.bitcoin/testnet3` or `~/.bitcoin/testnet4` directory contains your testnet data, and the `~/.bitcoin/regtest` directory contains your regtest data.
 
 ## Know Your Bitcoin-cli Commands
 
-Most of your early work will be done with the `bitcoin-cli` command, which offers an easy interface to `bitcoind`. If you ever want more information on its usage, just run it with the `help` argument. Without any other arguments, it shows you every possible command:
+Most of your work in this course will be done with the `bitcoin-cli` command, which offers an easy interface to `bitcoind`. If you ever want more information on its usage, just run it with the `help` argument. Without any other arguments, it shows you every possible command:
 ```
 $ bitcoin-cli help
 == Blockchain ==
@@ -227,39 +227,35 @@ Examples:
 > curl --user myusername --data-binary '{"jsonrpc": "2.0", "id": "curltest", "method": "createwallet", "params": ["testwallet"]}' -H 'content-type: application/json' http://127.0.0.1:8332/
 > bitcoin-cli -named createwallet wallet_name=descriptors avoid_reuse=true load_on_startup=true
 > curl --user myusername --data-binary '{"jsonrpc": "2.0", "id": "curltest", "method": "createwallet", "params": {"wallet_name":"descriptors","avoid_reuse":true,"load_on_startup":true}}' -H 'content-type: application/json' http://127.0.0.1:8332/
-
 ```
-> :book: ***What is RPC?*** `bitcoin-cli` is just a handy interface that lets you send commands to the `bitcoind`. More specifically, it's an interface that lets you send RPC (or Remote Procedure Protocol) commands to the `bitcoind`. Often, the `bitcoin-cli` command and the RPC command have identical names and interfaces, but some `bitcoin-cli` commands instead provide shortcuts for more complex RPC requests. Generally, the `bitcoin-cli` interface is much cleaner and simpler than trying to send RPC commands by hand, using `curl` or some other method. However, it also has limitations as to what you can ultimately do.
+> 📖 ***What is RPC?*** `bitcoin-cli` is just a handy interface that lets you send commands to the `bitcoind`. More specifically, it's an interface that lets you send RPC (or Remote Procedure Protocol) commands to the `bitcoind`. Often, the `bitcoin-cli` command and the RPC command have identical names and interfaces, but some `bitcoin-cli` commands instead provide shortcuts for more complex RPC requests. Generally, the `bitcoin-cli` interface is much cleaner and simpler than trying to send RPC commands by hand, using `curl` or some other method. However, it also has limitations as to what you can ultimately do.
 
 ## Optional: Know Your Bitcoin Info
 
-A variety of bitcoin-cli commands can give you additional information on your bitcoin data. The most general ones are:
+A variety of bitcoin-cli commands can give you additional information on your bitcoin data. The most general ones is `bitcoin-cli -getinfo`, which returns information from different RPCs.
 
-`bitcoin-cli -getinfo` returns information from different RPCs (user-friendly)
-
-```diff
+```
 $ bitcoin-cli -getinfo
 
-! Chain: test
-Blocks: 1977694
-Headers: 1977694
-Verification progress: 0.9999993275374796
-Difficulty: 1
+Chain: signet
+Blocks: 295306
+Headers: 295306
+Verification progress: 100.0000%
+Difficulty: 0.04790444111119883
 
-+ Network: in 0, out 8, total 8
-Version: 219900
+Network: in 0, out 10, total 10
+Version: 300200
 Time offset (s): 0
-Proxy: N/A
-Min tx relay fee rate (BTC/kvB): 0.00001000
+Proxies: 127.0.0.1:9050 (onion)
+Min tx relay fee rate (BTC/kvB): 0.00000100
 
-@@ Wallet: ""@@
-Keypool size: 1000
-Unlocked until: 0
+Wallet: ""
+Keypool size: 4000
 Transaction fee rate (-paytxfee) (BTC/kvB): 0.00000000
 
-# Balance: 0.02853102
+Balance: 0.00500385
 
-- Warnings: unknown new rules activated (versionbit 28)
+Warnings: (none)
 
 ```
 
@@ -288,9 +284,9 @@ $ bitcoin-cli getnetworkinfo
   "localrelay": true,
   "timeoffset": 0,
   "networkactive": true,
-  "connections": 11,
+  "connections": 10,
   "connections_in": 0,
-  "connections_out": 11,
+  "connections_out": 10,
   "networks": [
     {
       "name": "ipv4",
@@ -332,17 +328,17 @@ $ bitcoin-cli getnetworkinfo
   "incrementalfee": 0.00000100,
   "localaddresses": [
     {
-      "address": "172.239.66.235",
+      "address": "74.207.243.158",
       "port": 38333,
       "score": 1
     },
     {
-      "address": "2a01:7e03::2000:92ff:fe75:3ec",
+      "address": "2600:3c01::2000:61ff:fe35:66b1",
       "port": 38333,
       "score": 1
     },
     {
-      "address": "km4bnrbemttglfbkafav2nf5mcy4x3l5jmi24fwtjjm3uba2ygycutyd.onion",
+      "address": "djna7ztirmrxzbdndkya4cf3s7ywin3qnttcauswuh633qyghexg4lid.onion",
       "port": 38333,
       "score": 4
     }
