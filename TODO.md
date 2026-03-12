@@ -5,7 +5,6 @@ The following TODO items are intended for a 3.0 version of Learning Bitcoin from
 ## Immediate TODO (for 3/12): Cleanup
 
 5. Edit/Update Chapter 5
-6. Update RBF Discussions in §5.2 for it now being default
 
 ## Longer-Term TODO (Small Tasks)
 
@@ -228,6 +227,8 @@ See [release notes](https://bitcoincore.org/en/releases/0.21.0/).
 3. <strike>Bring chapter 2 up to date</strike>
 4. <strike>Double check §3.1 + 3.2</strike>
 5. <strike>Put in some discussions about how we'll later import seed words, etc. into whatever chapter that is.</strike>
+6. <strike>Made sure §5.0 and §5.1 were up to date.</strike>
+7. <strike>Updated §5.2 for changes to RBF in recent years.</strike>
 
 ## Immediate TODO (for 2/26): Sending Transactions
 
