@@ -68,16 +68,10 @@ If you'd like to make your own translation, please see [Contributing](https://gi
 * [8.0: Expanding Bitcoin Transactions in Other Ways](08_0_Expanding_Bitcoin_Transactions_Other.md)
   * [8.1: Sending a Transaction with a Locktime](08_1_Sending_a_Transaction_with_a_Locktime.md)
   * [8.2: Sending a Transaction with Data](08_2_Sending_a_Transaction_with_Data.md) [**TO UPDATE**]
-* [9.0: Expanding Bitcoin Transactions with Schnorr](09_0_Expanding_Bitcoin_Transactions_with_Schnorr.md) [**TO WRITE**]
-  * [9.1: Understanding Schnorr & Taproot](09_1_Understanding_Schnorr_Taproot.md) [**TO WRITE**]
-  * [9.2: Sending Schnorr Signed Transactions](09_2_Sending_Schnorr_Signed_Transactions.md) [**TO WRITE**]
-  * [9.3: Sending a Schnorr Multisig](09_3_Sending_a_Schnorr_Multisig.md) [**TO WRITE**]    
-  * [9.4: Sending FROST Signed Transactions](09_4_Sending_FROST_Signed_Transactions.md) [**TO WRITE**]
-* [10.0: Expanding Bitcoin Transactions with Taproot](10_0_Expanding_Bitcoin_Transactions_with_Taproot.md) [**TO WRITE**]
-  * [10.1: Sending Basic Taproot Transactions](10_1_Sending_Basic_Taproot_Transactions.md) [**TO WRITE**]
-  * [10.2: Sending Advanced Taproot Transactions](10_2_Sending_Advanced_Taproot_Transactions.md) [**TO WRITE**]
 
-### PART THREE: SCRIPTING WITH BITCOIN
+### PART THREE: IMPORTING & EXPORTING YOUR SECRETS
+
+### PART FOUR: SCRIPTING WITH BITCOIN
 
 * [11.0: Introducing Bitcoin Scripts](11_0_Introducing_Bitcoin_Scripts.md)
   * [11.1: Understanding the Foundation of Transactions](11_1_Understanding_the_Foundation_of_Transactions.md)
@@ -106,7 +100,18 @@ If you'd like to make your own translation, please see [Contributing](https://gi
   * [16.2: Writing Complex Multisig Scripts](16_2_Writing_Complex_Multisig_Scripts.md)
   * [16.3: Empowering Bitcoin with Scripts](16_3_Empowering_Bitcoin_with_Scripts.md)
 
-### PART FOUR: MAINTAINING PRIVACY
+### PART FIVE: UPGRADING TO TAPROOT
+
+* [9.0: Expanding Bitcoin Transactions with Schnorr](09_0_Expanding_Bitcoin_Transactions_with_Schnorr.md) [**TO WRITE**]
+  * [9.1: Understanding Schnorr & Taproot](09_1_Understanding_Schnorr_Taproot.md) [**TO WRITE**]
+  * [9.2: Sending Schnorr Signed Transactions](09_2_Sending_Schnorr_Signed_Transactions.md) [**TO WRITE**]
+  * [9.3: Sending a Schnorr Multisig](09_3_Sending_a_Schnorr_Multisig.md) [**TO WRITE**]    
+  * [9.4: Sending FROST Signed Transactions](09_4_Sending_FROST_Signed_Transactions.md) [**TO WRITE**]
+* [10.0: Expanding Bitcoin Transactions with Taproot](10_0_Expanding_Bitcoin_Transactions_with_Taproot.md) [**TO WRITE**]
+  * [10.1: Sending Basic Taproot Transactions](10_1_Sending_Basic_Taproot_Transactions.md) [**TO WRITE**]
+  * [10.2: Sending Advanced Taproot Transactions](10_2_Sending_Advanced_Taproot_Transactions.md) [**TO WRITE**]
+
+### PART SIX: MAINTAINING PRIVACY
 
 * [17.0: Using Tor](16_0_Using_Tor.md)
   * [17.1: Verifying Your Tor Setup](17_1_Verifying_Your_Tor_Setup.md)
