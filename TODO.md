@@ -15,6 +15,17 @@ The following updates involve updates or the creation of new chapters, but their
    * New Subsection: Understanding Uniform Resources
    * New Subsection: Creating an Animated QR
    * New Subsection: Creating an Animated QR of a PSBT
+1. New Chapter: Using Other Command-Line Tools [this and next before scripts?]
+   * 9.1: Using seedtool
+   * 9.2: Using keytool
+   * 9.3: Using bytewords-cli
+   * 9.4: Using envelope
+   * GOALS INCLUDE: importing/transforming seed phrases; exporting/storing/SSKRing
+   * Might need also chapters on what the goals are 
+1. New Chapter: Using Miniscript Command-Line Tools [this and next before scripts?]
+   * 15.1: Using miniscript
+   * 15.2: Using Bitcoin Dev Kit (BDK)
+   * 15.3: Planning for the Future
 1. Revise Section: Understanding Timelock Options (11.1)
    * Explanation: Better distinguish differences
    * Reference: consider chart at in https://prestwi.ch/bitcoin-time-locks/
@@ -88,15 +99,6 @@ The following updates could be part of v3.0 or could be further future, dependin
    * For example in §3.4 could diagram HD keys, derivation of seed phrase to seed to key, etc
 1. New Graphics: Animated GIFs for key demos.
    * Reference: https://github.com/faressoft/terminalizer
-1. New Chapter: Using Other Command-Line Tools (between 8+9)
-   * 9.1: Using seedtool
-   * 9.2: Using keytool
-   * 9.3: Using bytewords-cli
-   * 9.4: Using envelope
-1. New Chapter: Using Miniscript Command-Line Tools (between 13+14)
-   * 15.1: Using miniscript
-   * 15.2: Using Bitcoin Dev Kit (BDK)
-   * 15.3: Planning for the Future
 
 As part of this, a new chapter
 * Put seed words into keytool to create xprv for Bitcoin Core
