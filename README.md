@@ -54,7 +54,7 @@ If you'd like to make your own translation, please see [Contributing](https://gi
   * [4.6: Sending Other Types of Transactions](04_6_Sending_Coins_to_Other_Addresses.md) 
 * [5.0: Controlling Bitcoin Transactions](05_0_Controlling_Bitcoin_Transactions.md)
   * [5.1 Watching for Stuck Transactions](05_1_Watching_for_Stuck_Transactions.md)
-  * [5.2: Resending a Transaction with RBF](05_2_Resending_a_Transaction_with_RBF.md) [**TO UPDATE**]
+  * [5.2: Resending a Transaction with RBF](05_2_Resending_a_Transaction_with_RBF.md)
   * [5.3: Funding a Transaction with CPFP](05_3_Funding_a_Transaction_with_CPFP.md)
 * [6.0: Expanding Bitcoin Transactions with Multisigs](06_0_Expanding_Bitcoin_Transactions_Multisigs.md)
   * [6.1: Sending a Transaction with a Multisig](06_1_Sending_a_Transaction_to_a_Multisig.md)
