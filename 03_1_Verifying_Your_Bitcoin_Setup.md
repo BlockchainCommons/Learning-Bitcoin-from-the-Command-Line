@@ -26,7 +26,7 @@ With that said, use of these aliases in _this_ document might accidentally obscu
 You'll begin your exploration of the Bitcoin network with the `bitcoin-cli` command. However, bitcoind _must_ be running to use bitcoin-cli, as bitcoin-cli sends JSON-RPC commands to the bitcoind. If you used our standard setup, bitcoind should already be up and running. You can double check by looking at the process table.
 ```
 $ ps auxww | grep bitcoind
-standup    455  1.3 34.4 3387536 1392904 ?     SLsl Jun16  59:30 /usr/local/bin/bitcoind -conf=/home/standup/.bitcoin/bitcoin.conf
+standup     9963 24.0 51.0 6602300 2048564 ?     SLsl 10:37  40:08 /usr/local/bin/bitcoind -conf=/home/standup/.bitcoin/bitcoin.conf
 ```
 If it's not running, you'll want to run `/usr/local/bin/bitcoind -daemon` by hand and also place it in your crontab.
 
@@ -35,26 +35,26 @@ If it's not running, you'll want to run `/usr/local/bin/bitcoind -daemon` by han
 You should have the whole blockchain downloaded before you start playing. Just run the `bitcoin-cli getblockcount` alias to see if it's all loaded. 
 ```
 $ bitcoin-cli getblockcount
-1772384
+295304
 ```
 That tells you what's loaded; you'll then need to check that against an online service that tells you the current block height.
 
-> :book: ***What is Block Height?*** Block height is the the distance that a particular block is removed from the genesis block. The current block height is the block height of the newest block added to a blockchain.
+> 📖 ***What is Block Height?*** Block height is the the distance that a particular block is removed from the genesis block. The current block height is the block height of the newest block added to a blockchain.
 
 You can do this by looking at a blocknet explorer, such as [the Mempool Signet explorer](https://mempool.space/signet). Does its most recent number match your `getblockcount`? If so, you're up to date.
 
-If you'd like an alias to look at everything at once, the following currently works for Signet, but may disappear at some time in the future:
+If you'd like an alias to look at everything at once, the following currently works for Signet, but may disappear at some time in the future since it depends on a third-party remote API:
 ```
 $ echo "alias btcblock='echo \$(bitcoin-cli -signet getblockcount)/\$(curl -s https://blockstream.info/signet/api/blocks/tip/height)'" >> .bash_profile
 $ source .bash_profile 
 $ btcblock
 
-288200/288200
+295304/295304
 ```
 
 > :link: **SIGNET vs MAINNET:** Remember that this tutorial generally assumes that you are using signet. If you're using the mainnet instead, you can retrieve the current block height with: `curl -s https://blockchain.info/q/getblockcount`. You can replace the latter half of the `btcblock` alias (between `/\$(` and `)'"`) with that.
 
-If you're not up-to-date, but your `getblockcount` is increasing, no problem. Total download time can take from an hour to several hours, depending on your setup.
+If you're not up-to-date, but your `getblockcount` is increasing, no problem. Total download time can take from 15 minutes to several hours, depending on your setup.
 
 ## Optional: Know Your Server Types
 
@@ -73,7 +73,8 @@ If you're running regtest, it probably contains this line:
 ```
 regtest=1
 ```
-However, if you want to run several different sorts of nodes simultaneously, you should leave the signet (or testnet or regtest) flag out of your configuration file. You can then choose whether you're using the mainnet, the signet, the testnet, or your regtest every time you run bitcoind or bitcoin-cli.
+
+If you want to run several different sorts of nodes simultaneously, you should instead leave the signet (or testnet or regtest) flag out of your configuration file. You can then choose whether you're using the mainnet, the signet, the testnet, or your regtest every time you run bitcoind or bitcoin-cli.
 
 Here's a set of aliases that would make that easier by creating a specific alias for starting and stopping the bitcoind, for going to the bitcoin directory, and for running bitcoin-cli, for each of the mainnet (which has no extra flags), the signet (which is -signet), the testnet (which is -testnet), or your regtest (which is -regtest).
 ```
@@ -103,7 +104,7 @@ For even more complexity, you could have each of your 'start' aliases use the -c
 
 ## Summary: Verifying Your Bitcoin Setup
 
-Before you start playing with bitcoin, you should make sure that your aliases are set up, your bitcoind is running, and your blocks are downloaded. You may also want to set up some access to alternative Bitcoin setups, if you're an advanced user.
+Before you start playing with bitcoin, you should make sure that your aliases are set up, your `bitcoind` is running, and your blocks are downloaded. You may also want to set up some access to alternative Bitcoin setups, if you're an advanced user.
 
 ## What's Next?
 
