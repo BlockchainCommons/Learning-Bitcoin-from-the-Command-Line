@@ -2,7 +2,7 @@
 
 If your Bitcoin transaction is stuck, and you're the sender, you can _replace_ (resend) it using RBF (replace-by-fee). However, that's not all that RBF can do: it's generally a powerful and multipurpose feature that allows Bitcoin senders to recreate transactions for a variety of reasons.
 
-## Opt-In RBF vs Full RBF
+## Understand Opt-In RBF vs Full RBF
 
 There are currently two versions of RBF that are present on the Bitcoin network: opt-in RBF and full RBF. Both do the same thing: they allow you to replace an existing unconfirmed transaction with a newer transaction that has a higher fee (and so is more likely to be confirmed).
 
