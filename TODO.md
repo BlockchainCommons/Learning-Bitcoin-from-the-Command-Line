@@ -25,6 +25,7 @@ The following updates involve updates or the creation of new chapters, but their
 1. Chapter 17+18
    * Talk about anti-correlation, anti-censorship, and anti-coercion as the three "c"s ("ac"s of privacy)
 1. Close out with return to chapter 1.0 to update (a) new-for-3.0 links; and (b) what the major parts are [and what's happened to Lightning/coding]
+1. If lightning is pulled to a parallel course (probably), also move lightning definitions in 1.1
      
 ## Longer-Longer-Term TODO (Big Tasks)
 
