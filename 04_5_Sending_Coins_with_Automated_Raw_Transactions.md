@@ -244,7 +244,7 @@ $ bitcoin-cli -named fundrawtransaction hexstring=$nolock
 
 If you must send funds with raw transactions then `fundrawtransaction` gives you a nice alternative where fees, inputs, and outputs are calculated for you, so you don't accidentally lose a bunch of money.
 
-> :fire: ***What is the power of sending coins with automated raw transactions?***
+> 🔥 ***What is the power of sending coins with automated raw transactions?***
 
 > _The advantages._ It provides a nice balance. If you're sending funds by hand and `sendtoaddress` doesn't offer enough control for whatever reason, you can get some of the advantages of raw transactions without the dangers. This methodology should be used whenever possible if you're sending raw transactions by hand.
 

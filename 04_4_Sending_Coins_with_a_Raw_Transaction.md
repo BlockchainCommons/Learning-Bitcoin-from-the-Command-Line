@@ -207,7 +207,7 @@ This also might be a good time to revisit a blockchain explorer, so that you can
 
 To send coins with raw transactions, you need to create a raw transaction with one or more inputs (to have sufficient funds) and one or more outputs (to retrieve change). Then, you can follow your normal procedure of using `createrawtransaction` with named arguments and JQ, as laid out in previous sections.
 
-> :fire: ***What is the power of sending coins with raw transactions?***
+> 🔥 ***What is the power of sending coins with raw transactions?***
 
 > _The advantages._ It gives you the best control. If your goal is to write a more intricate Bitcoin script or program, you'll probably use raw transactions so that you know exactly what's going on. That is also the _safest_ situation in which to use raw transactions, because you can programmatically ensure that you don't make mistakes.
 

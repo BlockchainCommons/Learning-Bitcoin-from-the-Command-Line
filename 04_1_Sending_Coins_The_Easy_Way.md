@@ -235,7 +235,7 @@ Why would you do this? Mainly to sweep a wallet.
 
 To send coins the easy way, make sure your transaction defaults are rationale, get an address, and send coins there. That's why they call it easy! Besides using `sendtoaddress`, you can also use `sendall`, but only if you want to empty a wallet!
 
-> :fire: ***What is the power of sending coins the easy way?***
+> 🔥 ***What is the power of sending coins the easy way?***
 
 > _The advantages._ It's easy. You don't have to worry about arcane things like UTXOs. You don't have to calculate transaction fees by hand, so you're not likely to make mistakes that cost you large amount`s of money. If your sole goal is to sit down at your computer and send some money, this is the way to go.
 

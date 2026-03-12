@@ -11,7 +11,7 @@ $ sudo apt-get install jq
 
 If that works, you're done!
 
-> :book: ***What is JQ?*** The repository explains it best, saying "jq is like sed for JSON data - you can use it to slice and filter and map and transform structured data with the same ease that sed, awk, grep and friends let you play with text."
+> 📖 ***What is JQ?*** The repository explains it best, saying "jq is like sed for JSON data - you can use it to slice and filter and map and transform structured data with the same ease that sed, awk, grep and friends let you play with text."
 
 Otherwise, you can download JQ from a [Github repository](https://stedolan.github.io/jq/). Just download a binary for Linux, OS X, or Windows, as appropriate.
 

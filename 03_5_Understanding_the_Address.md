@@ -22,7 +22,7 @@ SegWit came out of the Blocksize War of the '10s, where Bitcoin developers and u
 
 The specifics aren't that important. What is important is that P2WPKH, and a few other SegWit addresses that we'll meet shortly, are the default type of address; when you created an address in [§3.3](03_3_Setting_Up_Your_Wallet.md), you created a P2WPKH.
 
-> :book: **What is a fork?** A fork is a change to the Bitcoin protocol. This isn't a change to how one application (like Bitcoin Core) works, it's a change to how all of the members of the Bitcoin network agree to interact with each other. A hard fork makes new transactions incompatible with old transactions. It essentially creates two versions of Bitcoin (and most often has been used to actually create a new cryptocurrency). A soft fork ensures that old transactions remain compatible.
+> 📖 **What is a fork?** A fork is a change to the Bitcoin protocol. This isn't a change to how one application (like Bitcoin Core) works, it's a change to how all of the members of the Bitcoin network agree to interact with each other. A hard fork makes new transactions incompatible with old transactions. It essentially creates two versions of Bitcoin (and most often has been used to actually create a new cryptocurrency). A soft fork ensures that old transactions remain compatible.
 
 ### The Rest of the Addresses
 

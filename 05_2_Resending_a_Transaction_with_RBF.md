@@ -40,7 +40,7 @@ $ bitcoin-cli -named gettransaction txid=5b953a0bdfae0d11d20d195ea43ab7c31a5471d
 ```
 The `bip125-replaceable` flag will stay `yes` until the transaction receives confirmations. At that point, it is no longer replaceable.
 
-> :book: ***Should I trust transactions with no confirmations?*** No, never. This was true before RBF and it was true after RBF. Transactions must receive confirmations before they are trustworthy. This is especially true if a transaction is marked as `bip125-replaceable`, because then it can be ... replaced.
+> 📖 ***Should I trust transactions with no confirmations?*** No, never. This was true before RBF and it was true after RBF. Transactions must receive confirmations before they are trustworthy. This is especially true if a transaction is marked as `bip125-replaceable`, because then it can be ... replaced.
 
 > :information_source: **NOTE — SEQUENCE:** This is the first use of the `nSequence` value in Bitcoin. You can set it between 1 and 0xffffffff-2 (4294967293) and enable RBF, but if you're not careful you can run up against the parallel use of `nSequence` for relative timelocks. We suggest always setting it to "1", which is what Bitcoin Core does, but the other option is to set it to a value between 0xf0000000 (4026531840) and 0xffffffff-2 (4294967293). Setting it to "1" effectively makes relative timelocks irrelevent and setting it to 0xf0000000 or higher deactivates them. This is all explained further in [§11.3: Using CSV in Scripts](11_3_Using_CSV_in_Scripts.md). For now, just choose one of the non-conflicting values for `nSequence`.
 
@@ -65,7 +65,7 @@ The other thing to understand about RBF is that in order to use it, you must dou
 
 Faced with this conflict, the miners will know to use the one with the higher fee, and they'll be incentivized to do so by that higher fee.
 
-> :book: ***What is a double-spend?*** A double-spend occurs when someone sends the same electronic funds to two different people (or, to the same person twice, in two different transactions). This is a central problem for any e-cash system. It's solved in Bitcoin by the immutable ledger: once a transaction is sufficiently confirmed, no miners will verify transactions that reuse the same UTXO. However, it's possible to double-spend _before_ a transaction has been confirmed — which is why you always want one or more confirmations before you finalize a transaction. In the case of RBF, you purposefully double-spend because an initial transaction has stalled, and the miners accept your double-spend if you meet the specific criteria laid out by BIP 125.
+> 📖 ***What is a double-spend?*** A double-spend occurs when someone sends the same electronic funds to two different people (or, to the same person twice, in two different transactions). This is a central problem for any e-cash system. It's solved in Bitcoin by the immutable ledger: once a transaction is sufficiently confirmed, no miners will verify transactions that reuse the same UTXO. However, it's possible to double-spend _before_ a transaction has been confirmed — which is why you always want one or more confirmations before you finalize a transaction. In the case of RBF, you purposefully double-spend because an initial transaction has stalled, and the miners accept your double-spend if you meet the specific criteria laid out by BIP 125.
 
 > :warning: **WARNING:** Some early discussions of this policy suggested that the `nSequence` number also be increased. This in fact was the intended use of `nSequence` in its original form. This is _not_ a part of the published policy in BIP 125. In fact, increasing your sequence number can accidentally lock your transaction with a relative timelock, unless you use sequence numbers in the range of 0xf0000000 (4026531840) to 0xffffffff-2 (4294967293).
 
@@ -200,7 +200,7 @@ $ bitcoin-cli -named gettransaction txid=75208c5c8cbd83081a0085cd050fc7a4064d87c
 
 If a transaction is stuck, and you don't want to wait for it to expire entirely, if you opted-in to RBF, then you can double-spend using RBF to create a replacement transaction (or just use `bumpfee`).
 
-> :fire: ***What is the power of RBF?*** Obviously, RBF is very helpful if you created a transaction with too low of a fee and you need to get those funds through. However, the ability to generally replace unconfirmed transactions with updated ones has more power than just that (and is why you might want to continue using RBF with raw transactions, even following the advent of `bumpfee`). 
+> 🔥 ***What is the power of RBF?*** Obviously, RBF is very helpful if you created a transaction with too low of a fee and you need to get those funds through. However, the ability to generally replace unconfirmed transactions with updated ones has more power than just that (and is why you might want to continue using RBF with raw transactions, even following the advent of `bumpfee`). 
 
 > For example, you might send a transaction, and then before it's confirmed, combine it with a second transaction. This allows you to compress multiple transactions down into a single one, decreasing overall fees. It might also offer benefits to privacy. There are other reasons to use RBF too, for smart contracts or transaction cut-throughs, as described in the [Opt-in RBF FAQ](https://bitcoincore.org/en/faq/optin_rbf/).
 

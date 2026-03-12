@@ -21,7 +21,7 @@ tb1qhed3ausdjr6crntypcqjv6l2n2vtv2qv7dednu
 ```
 You can then use this variable in other commands which require the address (or do similar for any other complex output). The rest of this tutorial will use this style of saving information to variables when it's practical.
 
-> :book: ***When is it not practical to use command-line variables?*** Command-line variables aren't practical if you need to use the information somewhere other than on the command line. For example, saving an address may not actually be useful if you're just going to have to send it to someone else in an email. In addition, some future commands will output JSON objects instead of simple information, and variables can't be used to capture that information ... at least not without a _little_ more work.
+> 📖 ***When is it not practical to use command-line variables?*** Command-line variables aren't practical if you need to use the information somewhere other than on the command line. For example, saving an address may not actually be useful if you're just going to have to send it to someone else in an email. In addition, some future commands will output JSON objects instead of simple information, and variables can't be used to capture that information ... at least not without a _little_ more work.
 
 ## Summary: Using Command-Line Variables
 

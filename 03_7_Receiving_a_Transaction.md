@@ -8,7 +8,7 @@ To do anything more, you need to get some money. On signet this is done through 
 
 To use a faucet, you'll usually need to go to a URL and copy and paste in your address. Afterward, a transaction will be created that sends money from the faucet to you.
 
-> :book: ***What is a transaction?*** A transaction is a bitcoin exchange. The owner of some bitcoins uses his private key to access those coins, then locks the transaction using the recipient's public key, at least for a P2WPKH transaction.
+> 📖 ***What is a transaction?*** A transaction is a bitcoin exchange. The owner of some bitcoins uses his private key to access those coins, then locks the transaction using the recipient's public key, at least for a P2WPKH transaction.
 
 > :link: **SIGNET vs MAINNET:** Sadly, there are no faucets in real life. If you were playing on the mainnet, you'd need to go and actually buy bitcoins at a bitcoin exchange or ATM, or you'd need to get someone to send them to you. Signet life is much easier.
 
@@ -23,9 +23,9 @@ But wait, there's no balance yet!?
 
 Welcome to the world of Bitcoin latency. The problem is that your transaction hasn't yet been recorded in a block!
 
-> :book: ***What is a block?*** Transactions are transmitted across the network and gathered into blocks by miners. These blocks are secured with a mathematical proof-of-work, which proves that computing power has been expended as part of the block creation. It's that proof-of-work (multiplied over many blocks, each built atop the last) that ultimately keeps Bitcoin secure.
+> 📖 ***What is a block?*** Transactions are transmitted across the network and gathered into blocks by miners. These blocks are secured with a mathematical proof-of-work, which proves that computing power has been expended as part of the block creation. It's that proof-of-work (multiplied over many blocks, each built atop the last) that ultimately keeps Bitcoin secure.
 
-> :book: ***What is a miner?*** A miner is a participant of the Bitcoin network who works to create blocks. It's a paying job: when a miner successfully creates a block, they are paid a one-time reward plus the fees for the transactions in his block. Mining is big business. Miners tend to run on special hardware, accelerated in ways that make it more likely that they'll be able to create blocks. They also tend to be part of mining pools, where the miners all agree to share out the rewards when one of them successfully creates a block.
+> 📖 ***What is a miner?*** A miner is a participant of the Bitcoin network who works to create blocks. It's a paying job: when a miner successfully creates a block, they are paid a one-time reward plus the fees for the transactions in his block. Mining is big business. Miners tend to run on special hardware, accelerated in ways that make it more likely that they'll be able to create blocks. They also tend to be part of mining pools, where the miners all agree to share out the rewards when one of them successfully creates a block.
 
 You might have to wait patiently for those funds. Some faucets have a waiting queue before they'll distribute funds, and in any case it takes 10 minutes to make every block, even if a faucet sent a transaction immediately, it might take 10 minutes to arrive. Eventually, however, you should see funds:
 ```
@@ -33,13 +33,13 @@ $ bitcoin-cli getbalance
 0.00500090
 ```
 
-> :book: **Is Ten Minutes the Rule?** Ten minutes is the average amount of time it should take to generate a Bitcoin block. On Signet, it's pretty close to the rule, because the whole point of Signet is to have a regular, reliable testing environment. On Mainnet, the block time depends on when someone can randomly solve the tough proof-of-work problem that allows them to create a block. Sometimes it might take 30 minutes to generate a block, and then suddenly two more arrive a few minutes later each. Over time, the difficulty of the proof-of-work problem is moved up or down to bring the average back to 10 minutes per block.
+> 📖 **Is Ten Minutes the Rule?** Ten minutes is the average amount of time it should take to generate a Bitcoin block. On Signet, it's pretty close to the rule, because the whole point of Signet is to have a regular, reliable testing environment. On Mainnet, the block time depends on when someone can randomly solve the tough proof-of-work problem that allows them to create a block. Sometimes it might take 30 minutes to generate a block, and then suddenly two more arrive a few minutes later each. Over time, the difficulty of the proof-of-work problem is moved up or down to bring the average back to 10 minutes per block.
 
 ### Gain Confidence in Your Money
 
 You can use `bitcoin-cli getbalance "*" [n]`, where you replace `[n]` with an integer, to see if a confirmed balance is 'n' blocks deep.
 
-> :book: ***What is block depth?*** After a block is built and confirmed, another block is built on top of it, and another ... Because this is a stochastic process, there's some chance for reversal when a block is still new. Therefore, a block has to be buried several blocks deep in a chain before you can feel totally confident in your funds. Since each of those blocks tends to be built in an average of 10 minutes, it usually takes about an hour for a confirmed transaction to receive six blocks deep, which is the measure for full confidence in Bitcoin.
+> 📖 ***What is block depth?*** After a block is built and confirmed, another block is built on top of it, and another ... Because this is a stochastic process, there's some chance for reversal when a block is still new. Therefore, a block has to be buried several blocks deep in a chain before you can feel totally confident in your funds. Since each of those blocks tends to be built in an average of 10 minutes, it usually takes about an hour for a confirmed transaction to receive six blocks deep, which is the measure for full confidence in Bitcoin.
 
 The following shows that our transactions have been confirmed one time, but not twice:
 ```
@@ -145,7 +145,7 @@ $ bitcoin-cli listunspent
 ```
 Note that bitcoins are not just a homogeneous mess of cash jammed into your pocket. Each individual transaction that you receive or that you send is placed into the immutable blockchain ledger, in a block. You can see these individual transactions when you look at your unspent money. This means that bitcoin spending isn't quite as anonymous as you'd think. Though the addresses are fairly private, transactions can be examined as they go in and out of addresses. This makes privacy vulnerable to statistical analysis. It also introduces some potential non-fungibility to bitcoins, as you can track back through series of transactions, even if you can't track a specific "bitcoin".
 
-> :book: ***Why are all of these bitcoin amounts in decimals?*** Bitcoins are produced slowly, and so there are relatively few in circulation. As a result, each bitcoin over on the mainnet is worth quite a bit (~ $67,000 at the time of this writing). This means that people usually work in fractional amounts. In fact, the .005 in Signet coins would be worth about $300 if they were on the mainnet. For this reason, names have appeared for smaller amounts of bitcoins, including millibitcoins or mBTCs (one-thousandth of a bitcoin), microbitcoins or bits or μBTCs (one-millionth of a bitcoin), and satoshis (one hundred millionth of a bitcoin).
+> 📖 ***Why are all of these bitcoin amounts in decimals?*** Bitcoins are produced slowly, and so there are relatively few in circulation. As a result, each bitcoin over on the mainnet is worth quite a bit (~ $67,000 at the time of this writing). This means that people usually work in fractional amounts. In fact, the .005 in Signet coins would be worth about $300 if they were on the mainnet. For this reason, names have appeared for smaller amounts of bitcoins, including millibitcoins or mBTCs (one-thousandth of a bitcoin), microbitcoins or bits or μBTCs (one-millionth of a bitcoin), and satoshis (one hundred millionth of a bitcoin).
 
 ## Examine Your Transaction
 

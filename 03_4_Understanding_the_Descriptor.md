@@ -8,7 +8,7 @@ Private keys are what make the Bitcoin world go round. They're used to generate 
 
 The HD wallet, which is short for the Hierarchical Deterministic Wallet, was defined in [BIP-32](https://github.com/bitcoin/bips/blob/master/bip-0032.mediawiki). It's a hierarchical design where a single "seed" generates an extended private key, which includes not just the private key but also a "chain code" that can be used to create descendents of that key. The key and chain code can be used to deterministically generate chains of keys (and therefore addresses) for a variety of purposes. A Bitcoin HD wallet will typically have individual chains of keys (and addresses) for a variety of different address types. But, they can all be restored from that seed (or from that master extended private key) because of their determinism: the addresses are always created in the same way provided that you have the same starting points (your master extended private key and a specific index [0,1,...,n] for a specific type of address).
 
-> :book: ***What is a BIP?*** A BIP is a Bitcoin Improvement Proposal. It's an in-depth suggestion for a change to the Bitcoin Core code. Often, when a BIP has been sufficiently discussed and updated, it will become an actual part of the Bitcoin Core code. BIP-32 is one of many examples.
+> 📖 ***What is a BIP?*** A BIP is a Bitcoin Improvement Proposal. It's an in-depth suggestion for a change to the Bitcoin Core code. Often, when a BIP has been sufficiently discussed and updated, it will become an actual part of the Bitcoin Core code. BIP-32 is one of many examples.
 
 ## Understand Descriptor Wallets
 
@@ -16,15 +16,15 @@ Most of this course presumes that you're working entirely from a single node whe
 
 HD wallets offered a big step forward for managing this sort of interoperability, because they allowed you to load a single seed (or master extended private key) into a new wallet rather than having to move over a whole bag of keys. A few formats have been introduced to make it easy to move HD wallets, starting with seed phrases and the `xpub` and `xprv` formats. But they quickly proved inadequate. Seed phrases only defined the seed, not what it was used for. The `xprv` (and `xpub`) improved on that by defining the root of an HD tree, but they were very specific to a certain type of address. When a new address type was created, a new format was needed, resulting in the `yprv` and `ypub` formats. Then a third address type resulted in the creation of `zprv` and `zpub`. The system was quickly growing unmanageable. A new format was needed that described not just the extended keys, but also which address types they would be used to create. Because if you didn't have that, a new wallet would have to test a master extended public key against _every possible type of address_ and that was going to be very inefficient and time-consuming and still introduced the likelihood of losing funds.
 
-> :book: **What is a seed phase?** A collection of mnemonic words can define a seed. That seed is then used to generate an extended private key. Seed phrases are not currently used by Bitcoin Core, but they are in wide use in the larger Bitcoin ecosystem.
+> 📖 **What is a seed phase?** A collection of mnemonic words can define a seed. That seed is then used to generate an extended private key. Seed phrases are not currently used by Bitcoin Core, but they are in wide use in the larger Bitcoin ecosystem.
  
-> :book: ***What is xprv?*** Xprv stands for extended private key. This is the combination of a private key and a chain code. It's a private key that a whole sequence of children private keys can be derived from.
+> 📖 ***What is xprv?*** Xprv stands for extended private key. This is the combination of a private key and a chain code. It's a private key that a whole sequence of children private keys can be derived from.
 
-> :book: ***What is xpub?*** Xpub stands for extended public key. This is the combination of a public key and a chain code. It's a public key that a whole sequence of children public keys can be derived from.
+> 📖 ***What is xpub?*** Xpub stands for extended public key. This is the combination of a public key and a chain code. It's a public key that a whole sequence of children public keys can be derived from.
 
 Enter, at last, the descriptor wallet. A descriptor wallet collects together "output descriptors" (sometimes called "wallet descriptors") which each either define one address or for a special "ranged descriptor" a whole array of addresses, each at a separate index. They do so through the specification of a format that includes: a function (which defines how to unlock the Bitcoin at the address), a derivation path (which defines the purpose of an address, which mostly links it to a specific standard), either the master extended public key or the master extended private key, and a checksum to make sure that nothing has been corrupted.
 
-> :book: ***What is a Derivation Path?*** When you have hierarchical keys, you need to be able to define individual keys as descendents of the master key. For example `[0]` is the 0th key of the master key, `[0/1]` is the first son of the 0th key, `[0/1/1]` is the first grandson of the first son of the 0th key. Some keys also contain a `'` or `h` after the number, to show they're hardened, which protects them from a specific attack that could otherwise be used to derive a private key from a public key. You don't need to worry about the specifics, other than the fact that a derivation path like `[0/1/1/0/0]` describes a path down through a hierarchical tree and that descriptor wallets run specific calculations to deterministically determine the right address for a specific position in a tree. A derivation path defines a key, which means that a key represents a derivation path. They're equivalent.
+> 📖 ***What is a Derivation Path?*** When you have hierarchical keys, you need to be able to define individual keys as descendents of the master key. For example `[0]` is the 0th key of the master key, `[0/1]` is the first son of the 0th key, `[0/1/1]` is the first grandson of the first son of the 0th key. Some keys also contain a `'` or `h` after the number, to show they're hardened, which protects them from a specific attack that could otherwise be used to derive a private key from a public key. You don't need to worry about the specifics, other than the fact that a derivation path like `[0/1/1/0/0]` describes a path down through a hierarchical tree and that descriptor wallets run specific calculations to deterministically determine the right address for a specific position in a tree. A derivation path defines a key, which means that a key represents a derivation path. They're equivalent.
 
 The derivation path allows you to calculate the right key from the master extended key, but it's the introduction of functions into descriptors that makes them particularly powerful, because they allows descriptors to serve a number of different types of past, present, and future addresses (which we'll meet in [§3.5](03_5_Understanding_the_Address.md)).
 
@@ -266,7 +266,7 @@ $ bitcoin-cli deriveaddresses "wpkh([e18dae20/84h/1h/0h]tpubDC4ujMbsd9REzpGk3gnT
 ```
 This example shows the derivation of addresses from the BIP-84 ranged descriptor up through index "2". If you check this against the addresses created in [§3.3](03_3_Setting_Up_Your_Wallet.md), you'll see they're just the same. Which is of course the whole point of descriptors! They are deterministically derived in the same way every time. The main purpose of this function would be to export addresses to other services (for example, if you wanted to export watch-only addresses to another wallet-app).
 
-> :book: ***What is a watch-only address?*** A watch-only address allows you to watch for transactions related to an address (or to a whole family of addresses if you used a ranged descriptor), but not to spend funds on those addresses.
+> 📖 ***What is a watch-only address?*** A watch-only address allows you to watch for transactions related to an address (or to a whole family of addresses if you used a ranged descriptor), but not to spend funds on those addresses.
 
 ## Import a Descriptor
 
@@ -294,7 +294,7 @@ We've now unlocked the full power of descriptors by both importing and exporting
 
 Descriptors let you pass public keys and private keys among wallets, but more than that, they allow you to precisely and correctly define addresses and derive addresses of a lot of different sorts from a standardized description format. They're the heart of Bitcoin Core's descriptor wallets.
 
-> :fire: ***What is the power of descriptors?*** Descriptors allow you to import and export keys and addresses. That's great if you want to move between different wallets. As a developer, they also allow you to build up the precise sort of addresses that you're interested in creating.
+> 🔥 ***What is the power of descriptors?*** Descriptors allow you to import and export keys and addresses. That's great if you want to move between different wallets. As a developer, they also allow you to build up the precise sort of addresses that you're interested in creating.
 
 ## What's Next?
 

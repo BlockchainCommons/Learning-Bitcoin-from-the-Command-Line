@@ -6,7 +6,7 @@ You're now ready to create Bitcoin raw transactions. This allows you to send mon
 
 Before you dive into actually creating raw transactions, you should make sure you understand how a Bitcoin transaction works. It's all about the UTXOs.
 
-> :book: ***What is a UTXO?*** When you receive cash in your Bitcoin wallet, it appears as an individual transaction: a singular blob. Each of these transactions is called a Unspent Transaction Output (UTXO). It doesn't matter if various payments were made to the same address or to multiple addresses: each incoming transaction remains distinct in your wallet as a UTXO.
+> 📖 ***What is a UTXO?*** When you receive cash in your Bitcoin wallet, it appears as an individual transaction: a singular blob. Each of these transactions is called a Unspent Transaction Output (UTXO). It doesn't matter if various payments were made to the same address or to multiple addresses: each incoming transaction remains distinct in your wallet as a UTXO.
 
 When you create a new outgoing transaction, you gather together one or more UTXOs, each of which represents a blob of money that you received. You use these as inputs for a new transaction. Together their amount must equal what you want to spend _or more_. Then, you generate one or more outputs, which give the money represented by the inputs to one or more people. This creates new UTXOs for the recipients, which may then use _those_ to fund future transactions.
 
