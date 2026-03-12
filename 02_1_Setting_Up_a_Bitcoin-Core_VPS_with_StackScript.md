@@ -56,7 +56,7 @@ You're now ready to create a node based on the Stackscript.
    * **Cypherpunkpay.** These are options to install Cypherpunkpay on your server. They're primarily intended for other users of the Standup software and aren't used in this course, so you can just leave them be.
 4. Choose a region for where the Linode will be located.
 5. Select an Image
-   * **Target Image.** If you followed the instructions, this will only allow you to select "Debian 13" (though previous versions of this Stackscript worked with Debian 9 through 12, and might still.)
+   * **Target Image.** If you followed the instructions, this will only allow you to select "Debian 13" (though previous versions of this Stackscript worked with Debian 9 through 12 and might still.)
 
 ### Choose a Linode Plan
 
@@ -81,7 +81,7 @@ The following chart shows minimum requirements
 Note, there may be ways to reduce both costs.
 
 * For the setups we suggest as **Linode 4GB**, you may be able to reduce that to a Linode 2GB. Some versions of Bitcoin Core have worked well at that size, some have occasionally run out of memory and then recovered, and some have continuously run out of memory. Remember to up that swap space to maximize the odds of this working. Use at your own risk.
-* For the Unpruned Mainnet, which we suggest as a **Linode 64GB**, you can probably get by with a Linode 4GB, but add [Block Storage](https://cloud.linode.com/volumes/create) sufficient to store the blockchain. This is certainly a better long-term solution since the Bitcoin blockchain's storage requirements continuously increase if you don't prune, while the CPU requirements don't (or don't to the same degree). A 750 GibiByte storage would be $75 a month, which combined with a Linode 4GB is $95 a month, instead of $384, and more importantly you can keep growing it. We don't fully document this setup for two reasons (1) we don't suggest the unpruned mainnet setup, and so we suspect it's a much less common setup; and (2) we haven't tested how Linodes volumes compare to their intrinic SSDs for performance and usage. But there's full documentation on the Block Storage page. You'd need to set up the Linode, run its stackscript, but then interrupt it to move the blockchain storage over to a newly commissioned volume before continuing.
+* For the Unpruned Mainnet, which we suggest as a **Linode 64GB**, you can probably get by with a Linode 4GB, but add [Block Storage](https://cloud.linode.com/volumes/create) sufficient to store the blockchain. This is certainly a better long-term solution since the Bitcoin blockchain's storage requirements continuously increase if you don't prune, while the CPU requirements don't (or don't to the same degree). A 750 GibiByte storage would be $75 a month, which combined with a Linode 4GB is $95 a month, instead of $384, and more importantly you can keep growing it. We don't fully document this setup for two reasons (1) we don't suggest the unpruned mainnet setup, and so we suspect it's a much less common setup, particularly for this course; and (2) we haven't tested how Linodes volumes compare to their intrinic SSDs for performance and usage. But there's full documentation on the [Block Storage page](https://cloud.linode.com/volumes). You'd need to set up the Linode, run its stackscript, but then interrupt it to move the blockchain storage over to a newly commissioned volume before continuing.
 
 If you are running a deployment that will be transacting real Bitcoins, you may want to alternatively consider a Dedicated-CPU Linode, which tends to run 50% more expensive than the Shared-CPU Linode. We've generally found the Shared CPUs to be entirely sufficient, but for a wide deployment, you may wish to consider higher levels of reliability.
 
@@ -117,7 +117,7 @@ If you configured your VPS to use an SSH key, the login should be automatic (pos
 
 ### Wait a Few Minutes
 
-Here's a little catch: _your StackScript is running right now_. The BASH script gets executed the first time the VPS is booted. That means your VPS isn't ready yet.
+Here's a little catch: _your StackScript is running right now_. The Bash script gets executed the first time the VPS is booted. That means your VPS isn't ready yet.
 
 The total run time is about 10 minutes. So, go take a break, get an espresso, or otherwise relax for a few minutes. There are two parts of the script that take a while: the updating of all the Debian packages; and the downloading of the Bitcoin code. They shouldn't take more than 5 minutes each, which means if you come back in 10 minutes, you'll probably be ready to go.
 
@@ -135,9 +135,8 @@ At that point, your home directory should look like this:
 
 ```
 $ ls
-bitcoin-30.2-x86_64-linux-gnu.tar.gz  wget-btc-output.txt
-SHA256SUMS                            wget-btc-sha-asc-output.txt
-SHA256SUMS.asc                        wget-btc-sha-output.txt
+bitcoin-30.2-x86_64-linux-gnu.tar.gz  SHA256SUMS.asc       wget-btc-sha-asc-output.txt
+SHA256SUMS                            wget-btc-output.txt  wget-btc-sha-output.txt
 ```
 
 These are the various files that were used to install Bitcoin on your VPS. _None_ of them are necessary. We've just left them in case you want to do any additional verification. Otherwise, you can delete them:
@@ -201,7 +200,18 @@ Although the default Debian 13 image that we are using for your VPS has been mod
 
 ### Protected Services
 
-Your Bitcoin VPS installation is minimal and allows almost no communication. This is done through the uncomplicated firewall (`ufw`), which blocks everything except SSH connections. There's also some additional security possible for your RFC ports, thanks to the hidden services installed by Tor.
+Your Bitcoin VPS installation is minimal and allows almost no communication. This is done through the uncomplicated firewall (`ufw`), which blocks everything except SSH connections. You can verify that it's running as follows:
+```
+$ sudo ufw status
+Status: active
+
+To                         Action      From
+--                         ------      ----
+22/tcp                     ALLOW       Anywhere                  
+22/tcp (v6)                ALLOW       Anywhere (v6)             
+```
+
+There's also some additional security possible for your RFC ports, thanks to the hidden services installed by Tor.
 
 **Adjusting UFW.** You should probably leave UFW in its super-protected stage! You don't want to use a Bitcoin machine for other services, because everyone increases your vulnerability! If you decide otherwise, there are several [guides to UFW](https://www.digitalocean.com/community/tutorials/ufw-essentials-common-firewall-rules-and-commands) that will allow you to add services. As advertised, it's uncomplicated. For example adding mail services would just require opening the mail port: `sudo ufw allow 25`. But don't do that.
 
@@ -224,7 +234,7 @@ Debian is also set up to automatically upgrade itself, to ensure that it remains
 If for some reason you wanted to change this (_we don't suggest it_), you can do this:
 
 ```
-echo "unattended-upgrades unattended-upgrades/enable_auto_updates boolean false" | debconf-set-selections
+$ echo "unattended-upgrades unattended-upgrades/enable_auto_updates boolean false" | sudo debconf-set-selections
 ```
 
 _If you'd like to know more about what the Bitcoin Standup stackscript does, please see [Appendix I: Understanding Bitcoin Standup](A1_0_Understanding_Bitcoin_Standup.md)._
@@ -240,7 +250,7 @@ $ bitcoin-cli getblockcount
 ```
 If it's different every time you type the command, you need to wait before working with Bitcoin. This can take hours for a mainnet setup, but if you're using our suggested setup of pruned signet, it should be done in 15 minutes or so.
 
-But, once it settles at a number, you're ready to continue!
+Once it settles at a number, you're ready to continue!
 
 Still, it might be time for a few more espressos. But soon enough, your system will be ready to go, and you'll be read to start experimenting.
 
@@ -254,16 +264,16 @@ You have a few options for what's next:
 
    * Read the [StackScript](https://github.com/BlockchainCommons/Bitcoin-Standup-Scripts/blob/master/Scripts/LinodeStandUp.sh) to understand your setup.
    * Read what the StackScript does in [Appendix I](A1_0_Understanding_Bitcoin_Standup.md).
-   * Choose an entirely alternate methodology in [§2.2: Setting Up a Bitcoin-Core Machine via Other Means](02_2_Setting_Up_Bitcoin_Core_Other.md).
+   * Choose an entirely alternate methodology for creating your VPS in [§2.2: Setting Up a Bitcoin-Core Machine via Other Means](02_2_Setting_Up_Bitcoin_Core_Other.md).
    * Move on to "bitcoin-cli" with [Chapter Three: Understanding Your Bitcoin Setup](03_0_Understanding_Your_Bitcoin_Setup.md).
 
 ## Synopsis: Bitcoin Installation Types
 
-**Mainnet.** This will download the entirety of the Bitcoin blockchain. That's 280G of data (and getting more every day). 
+**Mainnet.** This will download the entirety of the Bitcoin blockchain. That's 725G of data (and getting more every day). 
 
 **Pruned Mainnet.** This will cut the blockchain you're storing down to just the last 550 blocks. If you're not mining or running some other Bitcoin service, this should be plenty for validation.
 
-**Signet.** This is the newest iteration of a testing network, where Bitcoins don't actually have value, and has largely surpassed Testnet. It's intended for experimentation and testing.  Its big advantage is that its block production is more reliable that Testnet, where Testnet could stall out for a while, then produce a bunch of blocks together. 
+**Signet.** This is the newest iteration of a testing network, where Bitcoins don't actually have value and has largely surpassed Testnet. It's intended for experimentation and testing.  Its big advantage is that its block production is more reliable that Testnet, where Testnet could stall out for a while, then produce a bunch of blocks together. 
 
 **Pruned Signet.** The last 550 blocks of Signet.
 
