@@ -133,18 +133,7 @@ The software work _may_ be deprecated or moved to a separate docment. That decis
   
 --
 
-## Listing of Updates
-
-## Legacy Updates
-
-* [ ] **Segwit**
-   * Segwit is now old enough that we should teach it as the default. That means that sections 3.1-4.5 should be rewritten to use Segwit as the default and 4.6 should be removed (with perhaps a bit of the information about the different types of addresses being preserved).
-   * It's _possible_ that the same should occur with 10.5, but it should first be reviewed to see if it's a meaningful building block in the scripting process (or not).
-* [ ] **Signet**
-* [ ] **Descriptor Wallets**
-* [ ] **Fees**
-   * There was some question of if `mintxfee` is still current, or if `paytxfee` should be used. I haven't seen any evidence of obsolence, but it'd be good to check this and make sure we're still on the best practices.
-   * This is discussed in [4.1](https://github.com/BlockchainCommons/Learning-Bitcoin-from-the-Command-Line/blob/master/04_1_Sending_Coins_The_Easy_Way.md)
+# Listing of Bitcoin Updates
 
 ## 30.0 Updates
 
