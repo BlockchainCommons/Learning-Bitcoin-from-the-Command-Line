@@ -4,31 +4,32 @@ If your Bitcoin transaction is stuck, and you're the sender, you can _replace_ (
 
 ## Opt-In RBF vs Full RBF
 
-There are currently two versions of RBF that are present on the Bitcoin network: opt-in RBF and full RBF. Both do the same thing: they allow you to replace an existing unconfirmed transaction with a newer transaction that has a higher fee, and so is more likely to be confirmed.
+There are currently two versions of RBF that are present on the Bitcoin network: opt-in RBF and full RBF. Both do the same thing: they allow you to replace an existing unconfirmed transaction with a newer transaction that has a higher fee (and so is more likely to be confirmed).
 
-* **Opt-In RBF** is the older version of RBF, defined by [BIP-125](https://github.com/bitcoin/bips/blob/master/bip-0125.mediawiki). It required you to signal in a transaction that the transaction could later be replaced, if needed. Without the signal in the original transaction, RBF was not allowed.
+* **Opt-In RBF** is the older version of RBF, originally defined by [BIP-125](https://github.com/bitcoin/bips/blob/master/bip-0125.mediawiki). It required you to signal in a transaction that the transaction could later be replaced if needed. Without the signal in the original transaction, RBF was not allowed.
 * **Full RBF** was introduced by Bitcoin Core as an option in 2022 and became the default in additional updates from 2024-2025. It allows any unconfirmed transaction to be updated with RBF, even without the opt-in signal.
 
-Both versions of RBF still exist on the network and as of this writing [opt-in RBF transactions tend to outnumber full RBF transactions](https://mempool.space/rbf). This may just be because many wallets got into the habit of opting in to RBF for all transactions, because you never knew when you'd have to replace one, but it also may be because RBF is ultimately a node policy: each node (each miner, each bitcoind, etc) gets to decide whether they will accept an replaced RBF transaction or not: if enough nodes reject an RBF transaction because it doesn't have an opt-in, it fails.
+Both versions of RBF still exist on the network and as of this writing [opt-in RBF transactions tend to outnumber full RBF transactions](https://mempool.space/rbf). This may just be because many wallets got into the habit of opting in to RBF for all transactions, because you never knew when you'd have to replace one, but it also may be because RBF is ultimately a node policy: each node (each miner, each bitcoind, etc) gets to decide whether they will accept a replaced RBF transaction or not: if enough nodes reject an RBF transaction because it doesn't have an opt-in, it fails.
 
-There is almost certainly enough acceptance of full RBF today for transactions to be replaceable even without the RBF flag, and it's almost certainly safer to include the RBF flag anyway, because it's simple to do as a default. As a result, this section will talk about how the RBF opt-in flag is set on Bitcoin transactions and then how to replace transactions with RBF (whether the flag was set on the original transaction or not).
+There is almost certainly enough acceptance of Full RBF today for transactions to be replaceable even without the RBF flag, and it's almost certainly safer to include the RBF flag anyway, because it's simple to do as a default. As a result, this section will talk about how the RBF opt-in flag is set on Bitcoin transactions and then how to replace transactions with RBF (whether the flag was set on the original transaction or not).
 
 ## Understand the Sequence Variable
 
-Satoshi Nakamoto originally allowed for replacement of Bitcoin transactions using the `sequence` variable (usually called `nSequence`) set on the inputs to a transactions. The idea was that a larger sequence should be used as a replacement if a previous sequence had not been confirmed. If was simple and it was quickly tossed out for a variety of reasons.
+Satoshi Nakamoto originally allowed for replacement of Bitcoin transactions using the `sequence` variable (usually called `nSequence`), which is set on the inputs to a transactions. The idea was that a larger sequence should be used as a replacement if a previous sequence had not been confirmed. If was simple and it was quickly tossed out for a variety of reasons.
 
-When RBF came around as a new version of transaction replacement, it went back to `sequence`, but with some new mechanics:
+When RBF came around as a new version of transaction replacement, it went back to the existing `sequence` variable, but with some new mechanics:
 
 * A `sequence` that was larger than 0 and less than than 0xffffffff-1 (4294967294) opted in to RBF.
 * The opt-in only required one input to have its `sequence`. If most of a transaction's inputs were set to disallow RBF, but a single input enabled RBF, then RBF was allowed.
+* If RBF was allowed on a transaction, it could then later be replaced.
 
-That was it! With RBF enabled, transactions could be replaced, with RBF disabled, transactions could not. (Except, as discussed, today many transactions can replaced even without the RBF opt-in.)
+That was it! With RBF enabled, transactions could be replaced; with RBF disabled, transactions could not. (Except today, all transactios can be replaced, _in theory_.)
 
 > ℹ️ **Sequence Usage (v1).** This is the first use of the `sequence` value in Bitcoin. You can set it between 1 and 0xffffffff-2 (4294967293) and enable RBF, but if you're not careful you can run up against the parallel use of `sequence` for relative timelocks. We suggest always setting it to "0xffffffff-2", which is what Bitcoin Core does, but the other option is to set it to to "1" or to a value between 0xf0000000 (4026531840) and 0xffffffff-2 (4294967293). Setting `sequence` to "1" effectively makes relative timelocks irrelevent and setting it to 0xf0000000 or higher deactivates them. This is all explained in later sections. For now, just choose one of the non-conflicting values for `sequence`.
 
 ## Understand How RBF Works
 
-Here's the complete sequence of how RBF works, summarised from BIP-125, which is probably more than you need to know:
+Here's the complete sequence of how RBF works, summarised from BIP-125. It's probably more than you need to know:
 
 1. The original transaction must signal replaceability (or more recently is always allowed).
 2. The new transaction fee must be higher than the original.
@@ -36,9 +37,7 @@ Here's the complete sequence of how RBF works, summarised from BIP-125, which is
 4. The new transaction must pay double the relay fees (which are a minor fee related to the cost of transmitting transactions, and are usually ignored here because of their small size).
 5. No more than 100 transactions and descendents can be replaced at one time.
 
-The other thing to understand about RBF is that in order to use it, you must double-spend. As noted, you're reusing one or more of the UTXOs that were in your original transaction. Just sending another transaction with a different UTXO to the same recipient won't do the trick (and will likely result in your losing money). Instead, you must purposefully create a conflict, where the same UTXO is used in two different transactions. 
-
-Faced with this conflict, the miners will know to use the one with the higher fee, and they'll be incentivized to do so by that higher fee.
+The core thing to understand about RBF is that in order to use it, you must double-spend. As noted, you're reusing one or more of the UTXOs that were in your original transaction. Just sending another transaction with a different UTXO to the same recipient won't do the trick (and will likely result in your losing money). Instead, you must purposefully create a conflict, where the same UTXO is used in two different transactions. Faced with this conflict, the miners will know to use the conflicted transaction with the higher fee, and they'll be incentivized to do so by that higher fee.
 
 > 📖 ***What is a double-spend?*** A double-spend occurs when someone sends the same electronic funds to two different people (or, to the same person twice, in two different transactions). This is a central problem for any e-cash system. It's solved in Bitcoin by the immutable ledger: once a transaction is sufficiently confirmed, no miners will verify transactions that reuse the same UTXO. However, it's possible to double-spend _before_ a transaction has been confirmed — which is why you always want one or more confirmations before you finalize a transaction. In the case of RBF, you purposefully double-spend because an initial transaction has stalled, and the miners accept your double-spend if you meet the specific criteria laid out by BIP 125.
 
@@ -131,7 +130,7 @@ $ bitcoin-cli -named gettransaction txid=1050f6e2d68e7e4555bd682f24157f9bb19f666
 ```
 As you can see, the single input for the transaction has an `sequence` value of `4294967293`. RBF is allowed (and relative timelocks are not).
 
-You might also notice a related value listed, `bip125-replaceable`, which is a `bitcoin-cli` shorthand that tells you whether a transaction can be replaced by RBF. To be eligible, it must have a `sequence` variable in the appropriate range, and it must not be confirmed. (This `bip125-replaceable` is set to `no` because the transaction has a confirmation. No more replacement at that point!)
+You might also notice a related value, `bip125-replaceable`, which is a `bitcoin-cli` shorthand that tells you whether a transaction can be replaced by RBF. To be eligible, the transaction must have a `sequence` variable in the appropriate range, and it must not be confirmed. (This `bip125-replaceable` is set to `no` because the transaction has a confirmation. No more replacement at that point!)
 
 You can also use `decoderawtransaction` to view the `sequence` variable in slightly terser form:
 ```
@@ -184,19 +183,19 @@ $ bitcoin-cli decoderawtransaction $rawtxhex3
 
 ## Reset the Sequence Variable
 
-The above examples drew from a default `bitcoin-cli` transaction. The sequence was already set to "4294967293", which demonstrated that RBF enabled because Bitcoin Core now flags all transactions with the RBF opt-in flag, so RBF is always allowed; whether other nodes use Full RBF or not, you'll be able to replace your transactions originally generated with `bitcoin-cli`. 
+The above examples drew from a default transaction created by `bitcoin-cli` . The sequence was already (by default!) set to "4294967293". By default, Bitcoin Core now flags all transactions with the RBF opt-in flag, so RBF is always allowed; whether other nodes use Full RBF or not, you'll be able to replace your transactions originally generated with `bitcoin-cli`. 
 
-However, you can chose to change this behavior. To do so, you create a raw transaction as described in [§4.2](04_2_Creating_a_Raw_Transaction.md), but you add a `sequence` variable to the `txid` and `vout` that you already have for any input. Since RBF is now on by default, you'd either be setting this to `0` for off (though there's little purpose when Full RBF is widely accepted on the 'net), or to some other value to allow timelocks (more on that in chapter 8).
+However, you can chose to change this behavior. To do so, you create a raw transaction as described in [§4.2](04_2_Creating_a_Raw_Transaction.md), but you add a `sequence` variable to the `txid` and `vout` that you already have for one of the inputs. Since RBF is now on by default, you'd either be setting this to `0` to turn it off (though there's little purpose when Full RBF is widely accepted on the 'net), or to some other value to allow timelocks (more on that in chapter 8).
 ```
 $ seqtx=$(bitcoin-cli -named createrawtransaction inputs='''[ { "txid": "'$utxo_txid'", "vout": '$utxo_vout', "sequence": 0 } ]''' outputs='''{ "'$recipient'": 0.001, "'$changeaddress'": 0.003 }''')
 ```
-You wouldn't do this at the moment, if you're just dealing with RBF, but you'll need to in the future for other purposes.
+If you're just dealing with RBF, there's no point in doing this, but you'll need to in the future for other purposes.
 
 ## Replace a Transaction the Hard Way: By Hand
 
 You now know how to enable RBF: it's probably allowed by Full RBF and it's probably allowed because your `sequence` variable is set to a value between 1 and 4294967293, but if it weren't, you could set the `sequence` by hand when you created a transaction. But how do you actually use RBF to replace an existing transaction?
 
-In order to create a new RBF transaction by hand, all you have to do is create a raw transaction that: (1) replaces a previous raw transaction that is not confirmed; (2) reuses one or more of the same UTXOs; (3) increases fees; and (4) pays the minimum bandwidth of both transactions [which is probably already taken care of by (3)].
+In order to create replacement RBF transaction by hand, all you have to do is create a raw transaction that: (1) replaces a previous raw transaction that is not confirmed; (2) reuses one or more of the same UTXOs; (3) increases fees; and (4) pays the minimum bandwidth of both transactions [which is probably already taken care of by (3)].
 
 Here's an example of sending a transaction with a very low fee:
 ```
@@ -205,7 +204,7 @@ $ signedtx=$(bitcoin-cli -named signrawtransactionwithwallet hexstring=$seqtx | 
 $ bitcoin-cli -named sendrawtransaction hexstring=$signedtx
 cffcebcb841e4177a682527c8a10a7f7b1889d827b095c55f946d68ab8195508
 ```
-Realizing the problem, we then resend it with a better fee using at least one of the same UTXOs:
+Realizing the problem, we then resend it with a better fee using at least one of the same UTXOs. We do that by decreasing the change amount; as we saw previously, any remaining funds always pay the transaction fee.
 ```
 $ seqtx=$(bitcoin-cli -named createrawtransaction inputs='''[ { "txid": "'$utxo_txid'", "vout": '$utxo_vout' } ]''' outputs='''{ "'$recipient'": 0.001, "'$changeaddress'": 0.0029 }''')
 $ signedtx=$(bitcoin-cli -named signrawtransactionwithwallet hexstring=$seqtx | jq -r '.hex')
@@ -261,7 +260,7 @@ $ bitcoin-cli listtransactions
   }
 ]
 ```
-As shown, they're listed as `bip125-replaceable` (which means that the RBF opt-in flag is set, so we don't even have to fall back on Full RBF, and we could keep increasing the fees if this RBF wasn't enough) and that they have `conflicts`, both in the `wallet` and the `mempool` (because they use the same UTXO!)
+As shown, they're listed as `bip125-replaceable` (which means that the RBF opt-in flag is set, so we don't even have to fall back on Full RBF) and that they have `conflicts`, both in the `wallet` and the `mempool` (because they use the same UTXO!)
 
 Eventually, the transaction with the larger fee should be accepted:
 ```
@@ -301,7 +300,7 @@ $ bitcoin-cli -named gettransaction txid=eb9980a5a6dc5b7859bb5b455e6dea8a71c1906
   }
 }
 ```
-Now the the `mempoolconflicts` are gone and that `bip125-replaceable` is set to `no` because of the confirmation.
+Now the `mempoolconflicts` are gone and that `bip125-replaceable` is set to `no` because of the confirmation.
 
 Meanwhile, the original transaction with the lower fee starts picking up negative confirmations, to show its divergence from the blockchain:
 ```
@@ -355,7 +354,7 @@ $ bitcoin-cli -named bumpfee 1c12afac570292e99b4aed34c0452513b4ab8b7397e6a803e98
   ]
 }
 ```
-The result is the automatic generation of a new transaction that has a fee determined by your bitcoin.conf file. It can be discovered by looking at `listtransactions` and then examined with `gettransaction`
+The result is the automatic generation of a new transaction that has a fee determined by your bitcoin.conf file. The new transaction can be discovered by looking at `listtransactions` and then examined with `gettransaction`
 ```
 $ bitcoin-cli gettransaction 938d3755a91efbeead1dda30c0b808986410db1078f02500fc512a0ff6704872
 {
