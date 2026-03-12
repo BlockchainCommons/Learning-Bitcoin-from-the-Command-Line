@@ -62,6 +62,11 @@ If your transaction is stuck longer than you want, you can typically do one of f
 
 This is an introduction to the power of Bitcoin transactions. If you know that a transaction is stuck, then you can decide to free it up with features like RBF or CPFP.
 
+| Role | Feature | 
+|-------|----------|
+| Sender | RBF | §5.2 |
+| Recipient | CPFP | §5.3 |
+
 ## What's Next?
 
 Continue "Controlling Bitcoin Transactions" with [§5.2: Resending a Transaction with RBF](05_2_Resending_a_Transaction_with_RBF.md).  
