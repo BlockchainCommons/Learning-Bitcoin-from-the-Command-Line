@@ -22,11 +22,9 @@ The following updates involve updates or the creation of new chapters, but their
 1. Revise Section: Understanding Timelock Options (11.1)
    * Explanation: Better distinguish differences
    * Reference: consider chart at in https://prestwi.ch/bitcoin-time-locks/
-  
-The next step in revisions is:
-
-1. Run through entire course & make sure all commands & responses are still accurate (likely redoing them all).
-
+1. Chapter 17+18
+   * Talk about anti-correlation, anti-censorship, and anti-coercion as the three "c"s ("ac"s of privacy)
+     
 ## Longer-Longer-Term TODO (Big Tasks)
 
 The following updates involve the large-scale work done on Schnorr and Taproot in Bitcoin Core 0.21 and 22. This represents a first cut at how to layout the work, but revision and expansion will likely be needed as everyone's understanding of these new technologies matures.
