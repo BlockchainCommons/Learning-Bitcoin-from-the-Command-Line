@@ -236,6 +236,7 @@ See [release notes](https://bitcoincore.org/en/releases/0.21.0/).
 ## Immediate TODO (for 3/12): Cleanup
 
 1. <strike>Bring chapter 1 up to date</strike>
+2. <strike>Cleared Recent PRs</strike>
 
 ## Immediate TODO (for 2/26): Sending Transactions
 
