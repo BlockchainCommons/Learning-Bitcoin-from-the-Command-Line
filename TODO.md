@@ -2,9 +2,7 @@
 
 The following TODO items are intended for a 3.0 version of Learning Bitcoin from the Command Line
 
-## Immediate TODO (for 3/12): Cleanup
-
-5. Edit/Update Chapter 5
+## Immediate TODO (for 3/12): Multisigs
 
 ## Longer-Term TODO (Small Tasks)
 
@@ -223,12 +221,13 @@ See [release notes](https://bitcoincore.org/en/releases/0.21.0/).
 ## Immediate TODO (for 3/12): Cleanup
 
 1. <strike>Bring chapter 1 up to date</strike>
-2. <strike>Cleared Recent PRs</strike>
+2. <strike>Clear Recent PRs</strike>
 3. <strike>Bring chapter 2 up to date</strike>
-4. <strike>Double check §3.1 + 3.2</strike>
-5. <strike>Put in some discussions about how we'll later import seed words, etc. into whatever chapter that is.</strike>
-6. <strike>Made sure §5.0 and §5.1 were up to date.</strike>
-7. <strike>Updated §5.2 for changes to RBF in recent years.</strike>
+4. <strike>Replace Gordian Server in §2.2 with Fully Noded Server</strike>
+5. <strike>Double check §3.1 + 3.2</strike>
+6. <strike>Put in some discussions about how we'll later import seed words in §3.4</strike>
+7. <strike>Lightly edit §5.0, §5.1, §5.3 for updates.</strike>
+8. <strike>Updated §5.2 for changes to RBF in recent years.</strike>
 
 ## Immediate TODO (for 2/26): Sending Transactions
 
