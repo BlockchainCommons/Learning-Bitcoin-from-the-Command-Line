@@ -41,7 +41,7 @@ import logging
 ```
 `pprint` will pretty print the `json` response from `bitcoind`.
 
-`logging` will print out the call you make to `bitcoind` and `bitcoind`'s respose, which is useful when you make a bunch of calls together. If you don't want the excessive output in the terminal just comment out the `logging` block.
+`logging` will print out the call you make to `bitcoind` and `bitcoind`'s response, which is useful when you make a bunch of calls together. If you don't want the excessive output in the terminal just comment out the `logging` block.
 
 ## Build Your Connection
 
@@ -357,7 +357,7 @@ There are five steps:
 
 ### 1. Select UTXO & Set Transaction Details
 
-In the folowing code snippet you first select the UTXO which we want to spend. Then you get its address, transaction id, and the vector index of the output. 
+In the following code snippet you first select the UTXO which we want to spend. Then you get its address, transaction id, and the vector index of the output. 
 
 ```py
 utxos = rpc_client.listunspent()

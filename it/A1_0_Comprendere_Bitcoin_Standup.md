@@ -12,7 +12,9 @@ Il fuso orario del tuo host è memorizzato in `/etc/timezone`, poi un file appro
 
 ## Passo 3: Aggiornamento di Debian
 
-Il gestore di pacchetti `apt-get` viene utilizzato per aggiornare la tua macchina e per installare `gnupg`, il generatore di numeri casuali `haveged` e il firewall non complicato `ufw`.
+Il gestore di pacchetti `apt-get` viene utilizzato per aggiornare la tua macchina e per installare `gnupg`, `git`, i generatori di numeri casuali `haveged` e `xxd` e il firewall non complicato `ufw`.
+
+I comandi `apt-get` vengono eseguiti con l'opzione `-y`, che dovrebbe forzare la risposta "sì" a tutte le domande e consentire l'esecuzione dello script senza interazione (ad esempio, come StackScript). Questo non ha funzionato con l'aggiornamento a Debian 13, poiché alcune domande rimanevano senza risposta e lo script si bloccava, quindi sono state aggiunte le opzioni `-o Dpkg::Options::="--force-confdef" -o Dpkg::Options::="--force-confold"` per dire: "Facciamo sul serio, niente domande!"
 
 La tua macchina è configurata per rimanere automaticamente aggiornata con `echo "unattended-upgrades unattended-upgrades/enable_auto_updates boolean true" | debconf-set-selections`.
 
@@ -20,7 +22,7 @@ La tua macchina è configurata per rimanere automaticamente aggiornata con `echo
 
 Viene creato un utente `standup`, che sarà utilizzato per le tue applicazioni Bitcoin. Ha anche permessi `sudo`, permettendoti di eseguire azioni privilegiate con questo account.
 
-Se hai fornito una chiave SSH, ti permetterà di accedere a questo account (altrimenti, devi usare la password creata durante la configurazione).
+Se hai fornito una chiave Standup SSH, ti permetterà di accedere a questo account (altrimenti, devi usare la password creata durante la configurazione).
 
 Se hai fornito un indirizzo IP, l'accesso `ssh` sarà limitato a tale indirizzo, per `/etc/hosts.allow`.
 
@@ -49,4 +51,3 @@ Bitcoin Standup utilizza script per cercare di eguagliare gran parte della funzi
 Se eri nel processo di creazione di un nodo Bitcoin per l'uso in questo corso, dovresti tornare al[Capitolo 2.1: Configurare Bitcoin Core VPS con StackScript](02_1_Configurare_Bitcoin-Core_VPS_con_StackScript.md).
 
 Se stai leggendo le appendici, continua con [Appendice A2: Compilare Bitcoin dal Codice Fonte](A2_0_Compilare_Bitcoin_dal_Codice_Fonte.md).
-

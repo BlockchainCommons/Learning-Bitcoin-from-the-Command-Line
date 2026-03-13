@@ -200,7 +200,7 @@ Anche con un ottimo strumento come `btcdeb` o risorse transitorie come i vari te
 
 Quindi l'unico modo per testare _veramente_ gli script Bitcoin è provarli su Testnet.
 
-E come lo fai? Si dà il caso che questo sia l'argomento del [Capitolo 10](110_0_Inserire_Scripts_di_Bitcoin_in_Transazioni_P2SH.md), che esamina l'introduzione di questi script astratti nel mondo reale di Bitcoin incorporandoli nelle transazioni P2SH. (Ma anche in questo caso, probabilmente avrai bisogno di un'API per inviare la tua transazione P2SH sulla rete Bitcoin, quindi i test completi saranno ancora possibili in futuro.)
+E come lo fai? Si dà il caso che questo sia l'argomento del [Capitolo 10](10_0_Inserire_Scripts_di_Bitcoin_in_Transazioni_P2SH.md), che esamina l'introduzione di questi script astratti nel mondo reale di Bitcoin incorporandoli nelle transazioni P2SH. (Ma anche in questo caso, probabilmente avrai bisogno di un'API per inviare la tua transazione P2SH sulla rete Bitcoin, quindi i test completi saranno ancora possibili in futuro.)
 
 _Quali_ siano gli altri metodi di test che hai utilizzato, testare uno script su Testnet dovrebbe essere il tuo test finale _prima_ di inserire lo script su Mainnet. Non fidarti che il tuo codice sia corretto; non limitarti a guardarlo. Non fidarti nemmeno dei simulatori o debugger che hai utilizzato. Farlo è un altro ottimo modo per perdere fondi su Bitcoin.
 

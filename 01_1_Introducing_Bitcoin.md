@@ -56,7 +56,7 @@ ECC does not receive much attention in this tutorial. That's because this tutori
 
 **_What is an Elliptic Curve?_** An elliptic curve is a geometric curve that takes the form `y`<sup>`2`</sup> = `x`<sup>`3`</sup>` + ax + b`. A specific elliptic curve is chosen by selecting specific values of `a` and `b`. The curve must then be carefully examined to determine if it works well for cryptography. For example, the secp256k1 curve used by Bitcoin is defined as `a=0` and `b=7`.
 
-Any line that intersects an elliptic curve will do so at either 1 or 3 points ... and that's the basis of elliptic-curve cryptography.
+Any line that intersects an elliptic curve will typically do so at 3 points (absent a few cases for infinity and intersections) ... and that's the basis of elliptic-curve cryptography.
 
 **_What are Finite Fields?_** A finite field is a finite set of numbers, where all addition, subtraction, multiplication, and division is defined so that it results in other numbers also in the same finite field. One simple way to create a finite field is through the use of a modulo function.
 
@@ -80,7 +80,7 @@ Though you need to understand the basics of how a blockchain works to understand
 
 **_Why Is It Called a Chain?_** Each block in the blockchain stores a hash of the block before it. This links the current block all the way back to the original "genesis block" through an unbroken chain. It's a way to create absolute order among possibly conflicting data. This also provides the security of blockchain, because each block is stacked atop an old one makes it harder to recreate the old block due to the proof-of-work algorithms used in block creation. Once several blocks have been built atop a block in the chain, it's essentially irreversible.
 
-**_What is a Fork?_** Occasionally two blocks are created around the same time. This temporarily creates a one-block fork, where either if the current blocks could be the "real" one. Every once in a while, a fork might expand to become two blocks, three blocks, or even four blocks long, but pretty quickly one side of the fork is determined to be the real one, and the other is "orphaned". This is part of the stochastic process of block creation, and demonstrates why several blocks must be built atop a block before it can be considered truly trustworthy and non-repudiable.
+**_What is a Fork?_** Occasionally two blocks are created around the same time. This temporarily creates a one-block fork, where either of the current blocks could be the "real" one. Every once in a while, a fork might expand to become two blocks, three blocks, or even four blocks long, but pretty quickly one side of the fork is determined to be the real one, and the other is "orphaned". This is part of the stochastic process of block creation, and demonstrates why several blocks must be built atop a block before it can be considered truly trustworthy and non-repudiable.
 
 ### Blockchain — In Short
 
@@ -123,7 +123,7 @@ Lightning is a layer-2 protocol that interacts with Bitcoin to allow users to ex
 
 Lightning is also the secondary focus of this tutorial. Though it's mostly about interacting directly with Bitcoin (and the `bitcoind`), it pays some attention to Lightning because it's an upcoming technology that is likely to become a popular alternative to Bitcoin in the near future. This book takes the same approach to Lightning as to Bitcoin: it teaches how to interact directly with a trusted Lightning daemon from the command line.
 
-Unlike with Bitcoin, there are actually several variants of Lightning. This tutorial uses the standard-compliant [c-lightning](https://github.com/ElementsProject/lightning) implementation as its trusted Lightning server.
+Unlike with Bitcoin, there are actually several variants of Lightning. This tutorial uses the standard-compliant [core lightning](https://github.com/ElementsProject/lightning) implementation as its trusted Lightning server.
 
 **_What is a Layer-2 Protocol?_** A layer-2 Bitcoin protocol works on top of Bitcoin. In this case, Lightning works atop Bitcoin, interacting with it through smart contracts.
 

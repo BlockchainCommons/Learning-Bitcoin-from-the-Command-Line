@@ -127,7 +127,7 @@ int main(void) {
 
   printf("Account xpub key: %s\r\n", a_xpub);
 
-  /* 6. Generate External Adress Key */
+  /* 6. Generate External Address Key */
 
   struct ext_key *key_external;  
 

@@ -44,7 +44,7 @@ El `scriptSig` para una dirección estándar multifirma debe enviar los operando
 0 $signature1 $signature2
 ```
 
-### Ejecutar una Guion de Multifirmas Sin Procesar
+### Ejecutar una Guión de Multifirmas Sin Procesar
 
 Para gastar un UTXO multifirma, ejecute `scriptSig` y `scriptPubKey` de la siguiente manera:
 ```

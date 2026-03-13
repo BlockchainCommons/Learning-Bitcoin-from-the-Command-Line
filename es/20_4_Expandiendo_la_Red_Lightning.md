@@ -4,9 +4,9 @@
 
 Estos dos capítulos han cubierto solo algunas de las actividades más importantes con Lightning. Se puede hacer mucho más y es posible una gran variedad. Lo que sigue son algunos consejos a seguir.
 
-## Usar Complementos de c-lightning
+## Usar Complementos de core lightning
 
-c-lightning es una implementación ligera, altamente pseronalizable y compatible con el estándar del protocolo de la Red Lightning. Extiende su funcionalidad usando complementos. Principalmente, estos son subprocesos que son inciados por el demonio `lightningd` y pueden interactuar con `lightningd` en una variedad de formas:
+core lightning es una implementación ligera, altamente pseronalizable y compatible con el estándar del protocolo de la Red Lightning. Extiende su funcionalidad usando complementos. Principalmente, estos son subprocesos que son inciados por el demonio `lightningd` y pueden interactuar con `lightningd` en una variedad de formas:
 
 * Las opciones de la línea de comandos permiten que los complementos registren sus propios argumentos de línea de comandos, que luego se exponen a través de `lightningd`.
 * El paso de comandos JSON-RPC permite que los complementos agreguen sus propios comandos a la interfaz JSON-RPC.
@@ -19,19 +19,19 @@ El repositorio de GitHub `lightningd` mantiene una lista actualizada de [complem
 
 ## Usar Carteras Móviles
 
-Actualmente conocemos dos billeteras Lightning móviles que admiten la implementación de c-lightning.
+Actualmente conocemos dos billeteras Lightning móviles que admiten la implementación de core lightning.
 
 Para dispositivos iOS, FullyNoded es una billetera de Bitcoin para iOS de código abierto que se conecta a través del servicio autenticado Tor V3 a su propio nodo completo. La funcionalidad FullyNoded se encuentra actualmente en desarrolo activo y en la fase de prueba beta inicial.
 
 *  [FullyNoded](https://github.com/Fonta1n3/FullyNoded/blob/master/Docs/Lightning.md)
 
-SparkWallet es una GUI de billetera minimalista para c-lightning, accesible a través de la web o mediante aplicaciones móviles y de escritorio para Android.
+SparkWallet es una GUI de billetera minimalista para core lightning, accesible a través de la web o mediante aplicaciones móviles y de escritorio para Android.
 
 *  [SparkWallet](https://github.com/shesek/spark-wallet)
 
 ## Usar Differentes Implementaciones Lightning
 
-c-lightning no es su única opción. Hoy en día existen tres implementaciones ampliamente utilizadas de la Red Network. Todos siguen los [documentos Basis of Lightning Technology (BOLT)](https://github.com/lightningnetwork/lightning-rfc), (la base de la tecnología lightning) que describen un protocolo de layer-2 para transferencias de bitcoins fuera de la cadena. Las especificaciones son actualmente un trabajo en progreso que aún se está redactando.
+core lightning no es su única opción. Hoy en día existen tres implementaciones ampliamente utilizadas de la Red Network. Todos siguen los [documentos Basis of Lightning Technology (BOLT)](https://github.com/lightningnetwork/lightning-rfc), (la base de la tecnología lightning) que describen un protocolo de layer-2 para transferencias de bitcoins fuera de la cadena. Las especificaciones son actualmente un trabajo en progreso que aún se está redactando.
 
 | Nombre  | Descripción | BitcoinStandup | Lenguaje | Repositorio |
 | ------------- | ------------- | :---: | ------------- | ------------- |

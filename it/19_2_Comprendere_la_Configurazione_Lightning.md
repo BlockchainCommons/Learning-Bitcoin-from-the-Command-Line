@@ -347,6 +347,6 @@ La directory `~/.lightning` contiene tutti i tuoi file, mentre `lightning-cli he
 
 ## Cosa Fare Dopo?
 
-Avrai bisogno di un secondo nodo Linode per testare il pagamento effettivo delle fatture. Se hai bisogno di supporto per configurarlo, leggi [Interludio: Intermezzo Accedere ad un Secondo Nodo Lightning](19_2_Intermezzo_Accedere_ad_un_Secondo_Nodo_Lightning.mdd).
+Avrai bisogno di un secondo nodo Linode per testare il pagamento effettivo delle fatture. Se hai bisogno di supporto per configurarlo, leggi [Interludio: Intermezzo Accedere ad un Secondo Nodo Lightning](19_2_Intermezzo_Accedere_ad_un_Secondo_Nodo_Lightning.md).
 
 Altrimenti, continua col argomento "Comprendere il Tuo Setup Lightning" nel [Capitolo 19.3: Creare un Canale in Lightning](19_3_Creare_un_Canale_in_Lightning.md).

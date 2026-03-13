@@ -8,7 +8,7 @@ Prima di inviare denaro sulla rete Bitcoin, dovresti pensare a quali commissioni
 
 > :book: ***Che cos'è una commissione di transazione?*** _Non esiste un pranzo gratis_. I minatori incorporano le transazioni nei blocchi perché sono pagati per farlo. Non solo vengono pagati dalla rete per effettuare il blocco, ma vengono anche pagati dagli utenti per includere le loro transazioni. Se non paghi una commissione, la tua transazione potrebbe rimanere bloccata... per sempre (o, fino a quando non verrà salvata da alcuni dei trucchi nel [Capitolo 5](05_0_Controllare_Transazioni_Bitcoin.md).
 
-Quando utilizzi metodi semplici e automatizzati per creare transazioni, come delineato qui e nel [Capitolo 4.5: Inviare Monete con Transazione Cruda Automatizzata](04_5_Inviare_Monete_con_Transazione_Cruda_Automatizzata.md), Bitcoin calcolerà le commissioni di transazione per te. Questo viene fatto utilizzando le commissioni variabili, in cui "bitcoind" osserva quanto tempo impiegano le transazioni per essere confermate e calcola automaticamente quanto spendere.
+Quando utilizzi metodi semplici e automatizzati per creare transazioni, come delineato qui e nel [Capitolo 4.5: Inviare Monete con Transazione Grezza Automatizzata](04_5_Inviare_Monete_con_Transazione_Grezza_Automatizzata.md), Bitcoin calcolerà le commissioni di transazione per te. Questo viene fatto utilizzando le commissioni variabili, in cui "bitcoind" osserva quanto tempo impiegano le transazioni per essere confermate e calcola automaticamente quanto spendere.
 
 Puoi contribuire a controllarlo inserendo valori razionali nel tuo `~/.bitcoin/bitcoin.conf`. I seguenti valori a basso costo garantirebbero che ci fosse una commissione di transazione minima di 10.000 satoshi per kByte di dati nella transazione e richiederebbero che le commissioni variabili raggiungano un buon importo per portare la transazione da qualche parte nei successivi sei blocchi.
 ```
@@ -103,4 +103,4 @@ Per inviare monete nel modo più semplice, assicurati che le impostazioni predef
 
 ## Con cosa andiamo avanti?
 
-Andiamo avanti col'invio di transazioni Bitcoin con [inviare Monete con Transazione Grezza](04_4_inviare_Monete_con_Transazione_Grezza.md).
+Andiamo avanti col'invio di transazioni Bitcoin con [inviare Monete con Transazione Grezza](04_4_Inviare_Monete_con_Transazione_Grezza.md).

@@ -1,6 +1,6 @@
 # 10.3: Ejecución de un Bitcoin Script con P2SH
 
-Ahora que concoce la teoría y la práctica detrás de las direcciones P2SH, está listo para convertir un script de Bitcoin no estándar en una transacción real. Reutilizaremos la secuencia de comandos de bloqueo simple de [§9.2: Ejecución de un Bitcoin Script](09_2_Ejecutando_un_Script_Bitcoin.md), `OP_ADD 99 OP_EQUAL`.
+Ahora que conoce la teoría y la práctica detrás de las direcciones P2SH, está listo para convertir un script de Bitcoin no estándar en una transacción real. Reutilizaremos la secuencia de comandos de bloqueo simple de [§9.2: Ejecución de un Bitcoin Script](09_2_Ejecutando_un_Script_Bitcoin.md), `OP_ADD 99 OP_EQUAL`.
 
 ## Crear una Transacción P2SH
 
@@ -95,6 +95,6 @@ Con esa segunda validación _también_ verdadera, el UTXO ahora se puede gastar!
 
 Una vez que conozca la técnica de construcción de P2SH, cualquier script se puede incrustar en una transacción de Bitcoin; y una vez que comprenda la técnica de validación de P2SH, es fácil ejecutar los scripts en dos rondas.
 
-## Que Sigue?
+## ¿Qué Sigue?
 
 Continúe "Incrustando Bitcoin Scripts" con [§10.4: Codificando una Multifirma](10_4_Codificando_una_Multifirma.md).

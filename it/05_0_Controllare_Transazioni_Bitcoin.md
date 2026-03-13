@@ -20,4 +20,4 @@ Gli obiettivi di supporto includono la capacità di:
 
  * [Capitolo 5.1:Guardare le Transazioni Ferme](05_1_Guardare_le_Transazioni_Ferme.md)
  * [Capitolo 5.2: Rinviare le Transazioni con RBF](05_2_Rinviare_le_Transazioni_con_RBF.md)
- * [Capitolo 5.3: Pagare una Transaccion con CPFP](05_3_Pagare_una_Transaccion_con_CPFP.md)
+ * [Capitolo 5.3: Pagare una Transazione con CPFP](05_3_Pagare_una_Transazione_con_CPFP.md)

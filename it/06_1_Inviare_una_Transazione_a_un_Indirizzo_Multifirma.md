@@ -97,7 +97,8 @@ L'_indirizzo_ è ciò che darai alle persone che vogliono inviare fondi. Noterai
 
 > :link: **TESTNET vs MAINNET:** Su testnet, il prefisso per gli indirizzi P2SH è "2", mentre su mainnet è "3".
 
-Il _redeemScript_ è ciò di cui hai bisogno per riscattare i fondi (insieme alle chiavi private per "m" degli "n" indirizzi). Questo script è un'altra caratteristica speciale degli indirizzi P2SH e verrà spiegato completamente nel [Capitolo 10.3 Eseguire un Script Bitcoin con P2SH](10_3_Eseguire_un_Script_Bitcoin_con_P2SH.md). Per ora, tieni presente che sono necessari alcuni dati per ottenere i tuoi soldi.
+Il _redeemScript_ è ciò di cui hai bisogno per riscattare i fondi (insieme alle chiavi private per "m" degli "n" indirizzi). Questo script è un'altra caratteristica speciale degli indirizzi P2SH e verrà spiegato completamente nel [Capitolo 10.3 Eseguire uno Script Bitcoin con P2SH](10_3_Eseguire_uno_Script_Bitcoin_con_P2SH.md). Per ora, tieni presente che sono
+necessari alcuni dati per ottenere i tuoi soldi.
 
 Il _descrittore_ è la descrizione standardizzata di un indirizzo che abbiamo incontrato nel [Capitolo 3.5 Comprendere il Descriptor](03_5_Comprendere_il_Descriptor.md). Fornisce un modo per importare nuovamente questo indirizzo sull'altra macchina, utilizzando l'RPC "importmulti".
 

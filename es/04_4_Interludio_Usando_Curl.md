@@ -221,7 +221,7 @@ Esta es casi la misma salida que recibe cuando escribe `bitcoin-cli listunspent`
 Después de saber dónde están sus fondos, el siguiente paso en la elaboración de una transacción es conseguir una dirección de cambio. A estas alturas, probablemente ya se haya hecho a la idea, y sabe que para los comandos RPC simples, todo lo que necesita hacer es ajustar el `method` es el comando `curl`:
 
 ```
-$ curl --user StandUp:8eaf562eaf45c33c3328bc66008f2dd1 --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "getrawchangeaddress", "params": ["", "legacy"] }' -H 'content-type: text/plain;' http://127.0.0.1:18332/ | jq -r '.'
+$ curl --user StandUp:8eaf562eaf45c33c3328bc66008f2dd1 --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "getrawchangeaddress", "params": ["legacy"] }' -H 'content-type: text/plain;' http://127.0.0.1:18332/ | jq -r '.'
 {
   "result": "mrSqN37TPs89GcidSZTvXmMzjxoJZ6RKoz",
   "error": null,
@@ -231,7 +231,7 @@ $ curl --user StandUp:8eaf562eaf45c33c3328bc66008f2dd1 --data-binary '{"jsonrpc"
 
 En este punto, podemos incluso volver a nuestra práctica estándar de guardar los resultados en variables con la ayuda adicional de `jq`:
 ```
-$ changeaddress=$(curl --user StandUp:8eaf562eaf45c33c3328bc66008f2dd1 --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "getrawchangeaddress", "params": ["", "legacy"] }' -H 'content-type: text/plain;' http://127.0.0.1:18332/ | jq -r '.result')
+$ changeaddress=$(curl --user StandUp:8eaf562eaf45c33c3328bc66008f2dd1 --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "getrawchangeaddress", "params": ["legacy"] }' -H 'content-type: text/plain;' http://127.0.0.1:18332/ | jq -r '.result')
 $ echo $changeaddress
 mqdfnjgWr2r3sCCeuTDfe8fJ1CnycF2e6R
 ```

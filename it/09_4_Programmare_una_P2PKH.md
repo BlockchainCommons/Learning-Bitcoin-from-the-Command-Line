@@ -385,4 +385,4 @@ L'invio a un indirizzo P2PKH era relativamente semplice quando utilizzavi solo `
 
 ## Qual è il prossimo argomento?
 
-Continua l' "Introduzione agli script Bitcoin" con [Capitolo 9.5: Scripting a P2WPKH](09_5_Scripting_a_P2WPKH.md).
+Continua l' "Introduzione agli script Bitcoin" con [Capitolo 9.5: Script di un P2WPKH](09_5_Programmare_una_P2WPKH.md).

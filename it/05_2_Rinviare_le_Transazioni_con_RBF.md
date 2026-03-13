@@ -218,4 +218,4 @@ Se una transazione è ferma e non vuoi aspettare che scada del tutto, se hai ade
 
 ## Cosa c'è dopo?
 
-Continua con "Controllo delle transazioni Bitcoin" nel [Capitolo 5.3: Pagare una Transaccion con CPFP](05_3_Pagare_una_Transaccion_con_CPFP.md).
+Continua con "Controllo delle transazioni Bitcoin" nel [Capitolo 5.3: Pagare una Transazione con CPFP](05_3_Pagare_una_Transazione_con_CPFP.md).

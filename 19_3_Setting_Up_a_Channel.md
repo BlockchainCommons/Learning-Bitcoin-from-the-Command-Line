@@ -2,29 +2,29 @@
 
 > :information_source: **NOTE:** This section has been recently added to the course and is an early draft that may still be awaiting review. Caveat reader.
 
-You now understand the basics of your Lightning setup, and hopefully have either created or been given info on a second Lightning node. You're ready to create your first Lightning Network channel. Of course, you'll need to understand what is, and how it's created using c-lightning.
+You now understand the basics of your Lightning setup, and hopefully have either created or been given info on a second Lightning node. You're ready to create your first Lightning Network channel. Of course, you'll need to understand what is, and how it's created using core lightning.
 
 > :book: ***What is a Lighting Channel?*** Simply, a lightning channel is a money tube that allows fast, cheap and private transfers of money without sending transactions to the blockchain.  More technically a channel is a 2-of-2 multisignature on-chain Bitcoin transaction that establishes a trustless financial relationship between two people or two agents. A certain amount of money is deposited into the channel, when then mantains a local database with bitcoin balance for both parties, keeping track of how much money they each have from the initial amount. The two users can then exchange bitcoins through their Lightning channel without ever writing to the Bitcoin blockchain. Only when they want to close out their channel do they settle their bitcoins to the blockchain, based on the final division of coins.
 
 > :book: ***How do Lightning Channels Create a Lightning Network?*** Although a Lightning channel only allows payment between two users, channels can be connected together to form a network that allows payments between members that doesn't have a direct channel between them. This creates a network among multiple people built from pairwise connections.
 
-In this section, we will continue using our c-lightning setup as our primary node.
+In this section, we will continue using our core lightning setup as our primary node.
 
 ## Create a Channel
 
 Creating a Lightning channel requires the following steps:
 
-* Fund your c-lightning wallet with some satoshis.
+* Fund your core lightning wallet with some satoshis.
 * Connect to a remote node as a peer.
 * Open a channel.
 
-### Fund Your c-lightning Wallet
+### Fund Your core lightning Wallet
 
-In order to move funds to a Lightning channel first requires funding your c-lightning wallet.
+In order to move funds to a Lightning channel first requires funding your core lightning wallet.
 
-> :book: ***What is a c-lightning wallet?*** C-lightning's standard implementation comes with a integrated Bitcoin wallet that allows you send and receive on-chain bitcoin transactions. This wallet will be used to create new channels.
+> :book: ***What is a core lightning wallet?*** core lightning's standard implementation comes with a integrated Bitcoin wallet that allows you send and receive on-chain bitcoin transactions. This wallet will be used to create new channels.
 
-The first thing you need to do is send some satoshis to your c-lightning wallet. You can create a new address using  `lightning-cli newaddr` command. This generates a new address that can subsequently be used to fund channels managed by the c-lightning node. You can specify the type of address wanted; if not specified, the address generated will be a bech32.
+The first thing you need to do is send some satoshis to your core lightning wallet. You can create a new address using  `lightning-cli newaddr` command. This generates a new address that can subsequently be used to fund channels managed by the core lightning node. You can specify the type of address wanted; if not specified, the address generated will be a bech32.
 
 ```
 $ lightning-cli --testnet newaddr
@@ -74,15 +74,15 @@ Note that the value is listed in satoshis or microsatoshis, not Bitcoin!
 
 > :book: ***What are satoshis and msat?*** You already met satoshis way back in [§3.4](03_4_Receiving_a_Transaction.md). One satoshi is one hundred millionth of a bitcoin, so 300,000 satoshi = 0.003 BTC. A satoshi is the smallest unit of currency on the Bitcoin network. But, the Lightning network can go smaller, so 1,000 msat, or millisatoshis, equal one satoshi. That means that 1 msat is one hundred billionth of a bitcoin, and 300,000,000 msat = 0.003 BTC.
 
-Now that you have funded your c-lightning wallet you will need information about a remote node to start creating channel process. 
+Now that you have funded your core lightning wallet you will need information about a remote node to start creating channel process. 
 
 ### Connect to a Remote Node
 
 The next thing you need to do is connect your node to a peer. This is done with the `lightning-cli connect` command. Remember that if you want more information on this command, you should type `lightning-cli help connect`.
 
-To connect your node to a remote peer you need its id, which represents the target node’s public key. As a convenience, `id` may be of the form `id@host` or `id@host:port`.  You may have retrieved this with `lightning-cli getinfo` (on c-lightning) or `lncli --network=testnet getinfo` (on LND) as discussed in the [previous interlude](19_2__Interlude_Accessing_a_Second_Lightning_Node.md). 
+To connect your node to a remote peer you need its id, which represents the target node’s public key. As a convenience, `id` may be of the form `id@host` or `id@host:port`.  You may have retrieved this with `lightning-cli getinfo` (on core lightning) or `lncli --network=testnet getinfo` (on LND) as discussed in the [previous interlude](19_2__Interlude_Accessing_a_Second_Lightning_Node.md). 
 
-We've selected the LND node, `032a7572dc013b6382cde391d79f292ced27305aa4162ec3906279fc4334602543`, which is located at IP address `45.33.35.151`, which we're going to connect to from our c-lightning node:
+We've selected the LND node, `032a7572dc013b6382cde391d79f292ced27305aa4162ec3906279fc4334602543`, which is located at IP address `45.33.35.151`, which we're going to connect to from our core lightning node:
 
 ```       
 $ lightning-cli --network=testnet connect 032a7572dc013b6382cde391d79f292ced27305aa4162ec3906279fc4334602543@45.33.35.151

@@ -184,7 +184,7 @@ Purtroppo, non tutte le interazioni tra Libwally e `bitcoin-cli` sono così flui
 
 ## Importare Chiavi Private
 
-Fortunatamente, puoi fare quasi la stessa cosa importando una chiave privata generata in Libwally. Dai un'occhiata a [genhd-for-import.c](src/17_7_genhd_for_import.c), una versione semplificata del programma `genhd` del [Capitolo 17.3](17_3_Usare_BIP32_in_Libwally.md) che utilizza anche la libreria `jansson` nel [Capitolo 16.1](116_1_Accedere_a_Bitcoind_con_Librerie_RPC.md) per un'uscita regolarizzata.
+Fortunatamente, puoi fare quasi la stessa cosa importando una chiave privata generata in Libwally. Dai un'occhiata a [genhd-for-import.c](src/17_7_genhd_for_import.c), una versione semplificata del programma `genhd` del [Capitolo 17.3](17_3_Usare_BIP32_in_Libwally.md) che utilizza anche la libreria `jansson` nel [Capitolo 16.1](16_1_Accedere_a_Bitcoind_con_Librerie_RPC.md) per un'uscita regolarizzata.
 
 Il codice aggiornato contiene anche una modifica importante: richiede un'impronta (fingerprint) da Libwally in modo da poter creare correttamente un percorso di derivazione:
 
@@ -199,7 +199,7 @@ Il codice aggiornato contiene anche una modifica importante: richiede un'impront
 
 > :warning: **ATTENZIONE:** Ricorda che l'impronta nel percorso di derivazione è arbitraria. Poiché Libwally ne fornisce una, la stiamo usando, ma se non ne avessi una, potresti aggiungere un codice esadecimale arbitrario di 4 byte come impronta al tuo percorso di derivazione.
 
-Assicurati di compilare il nuovo codice con la libreria `jansson`, dopo averla installata (se necessario) come indicato nel [Capitolo 16.1](116_1_Accedere_a_Bitcoind_con_Librerie_RPC.md).
+Assicurati di compilare il nuovo codice con la libreria `jansson`, dopo averla installata (se necessario) come indicato nel [Capitolo 16.1](16_1_Accedere_a_Bitcoind_con_Librerie_RPC.md).
 
 ```
 $ cc genhd-for-import.c -lwallycore -lsodium -ljansson -o genhd-for-import

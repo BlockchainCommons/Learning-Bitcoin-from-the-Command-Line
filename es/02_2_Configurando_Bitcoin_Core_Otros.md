@@ -17,7 +17,7 @@ paso a paso para configurar Bitcoin-Core con Amazon Web Services (AWS).
 * *[Configuración de un nodo Bitcoin en una Raspberry Pi 3](https://medium.com/@meeDamian/bitcoin-full-node-on-rbp3-revised-88bb7c8ef1d1).* Damian Mee explica 
 cómo configurar una Nodo completo de forma sencilla en una Raspberry Pi 3.
 
-## ¿Que sigue?
+## ¿Qué sigue?
 
 A menos que desee volver a una de las otras metodologías para crear un nodo Bitcoin-Core, debe:
 

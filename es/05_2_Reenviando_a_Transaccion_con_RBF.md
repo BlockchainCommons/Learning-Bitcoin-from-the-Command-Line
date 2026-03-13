@@ -210,6 +210,6 @@ Si una transacción está atascada y no desea esperar a que caduque por completo
 
 > Por ejemplo, puede enviar una transacción y luego, antes de que se confirme, combinarla con una segunda transacción. Esto le permite comprimir múltiples transacciones en una sola, disminuyendo las tarifas generales. También podría ofrecer beneficios a la privacidad. También hay otras razones para usar RBF, para contratos inteligentes o transacciones de corte, como se describe en el [Opt-in RBF FAQ](https://bitcoincore.org/en/faq/optin_rbf/).
 
-## Que Sigue?
+## ¿Qué Sigue?
 
-Continúe "Controlando las Transacciones de Bitcoin" con [§5.3: Financiando una Transacción con CPFP](05_3_Financiando_una_Transaccion_con_CPFP.md).  
+Continúe "Controlando las Transacciones de Bitcoin" con [§5.3: Financiando una Transacción con CPFP](05_3_Financiando_una_Transaccion_con_CPFP.md).

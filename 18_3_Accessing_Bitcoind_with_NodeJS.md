@@ -85,7 +85,7 @@ Obviously, your `user` and `pass` should again match what's in your `~/.bitcoin/
 
 Using BCRPC, you can use the same RPC commands you would usually use via ```bitcoin-cli``` with your `RpcAgent`, except they need to be in camelCase. For example, ```getblockhash``` would be ```getBlockHash``` instead.
 
-To print the newest block number, you just call `getBlockCount` thourgh your `RpcAgent`:
+To print the newest block number, you just call `getBlockCount` through your `RpcAgent`:
 
 ```
 agent.getBlockCount(function (err, blockCount) {

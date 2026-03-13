@@ -1,13 +1,19 @@
-# Learning Bitcoin from the Command Line 2.2.0
+# Learning Bitcoin from the Command Line 2.2.2
 ### _by Christopher Allen and Shannon Appelcline_
 
 ![](https://www.blockchaincommons.com/images/projects/lbtc-screen.png)
 
+---
+
+***In 2026, Learning Bitcoin from the Command Line is being brought up to date with a new 3.0 edition. If you want to see the work in progress, visit our [`lbtcftcl-v3.0` branch](https://github.com/BlockchainCommons/Learning-Bitcoin-from-the-Command-Line/tree/lbtcftcl-v3.0), which is already much more up-to-date than v2.2.2. But be aware it is being worked on through the end of the year, and so will not be complete or entirely coherent before then.***
+
+---
+
 Learning Bitcoin from the Command Line is a tutorial for working with Bitcoin (and Lightning) that teaches direct interaction with the servers themselves, as the most robust and secure way to begin cryptocurrency work.
 
-> NOTE: This is a draft in progress, so that I can get some feedback from early reviewers. It is not yet ready for use.
-
 _This tutorial assumes that you have some minimal background of how to use the command line interface. If not, there are many tutorials available, and I have one for Mac users at https://github.com/ChristopherA/intro-mac-command-line._
+
+_You may also be interested in our newer [Learning FROST from the Command Line course](https://learningfrost.blockchaincommons.com/)._
 
 ## Translations
 
@@ -134,8 +140,8 @@ If you'd like to make your own translation, please see [Contributing](https://gi
 **Status:** Finished.
 
 * [19.0: Understanding Your Lightning Setup](19_0_Understanding_Your_Lightning_Setup.md)
-  * [19.1: Verifying Your c-lightning Setup](19_1_Verifying_Your_Lightning_Setup.md)
-  * [19.2: Knowing Your c-lightning Setup](19_2_Knowing_Your_lightning_Setup.md)
+  * [19.1: Verifying Your core lightning Setup](19_1_Verifying_Your_Lightning_Setup.md)
+  * [19.2: Knowing Your core lightning Setup](19_2_Knowing_Your_lightning_Setup.md)
      * [Interlude: Accessing a Second Lightning Node](19_2__Interlude_Accessing_a_Second_Lightning_Node.md)
   * [19.3: Creating a Lightning Channel](19_3_Setting_Up_a_Channel.md)
 * [20.0: Using Lightning](20_0_Using_Lightning.md)
@@ -155,10 +161,17 @@ If you'd like to make your own translation, please see [Contributing](https://gi
 
 ## Status - Beta
 
-v2.1.0 of **Learning Bitcoin from the Command Line** is feature complete and has undergone full editing and integration. It is ready for learning
+v2.2.2 of **Learning Bitcoin from the Command Line** is feature complete and has undergone full editing and integration. It is ready for learning. However, it is out-of-date, focused on Bitcoin Core 22.0. We are currently working on [v3.0](TODO-30.md) of the course, for release toward the end of 2026. If you'd like to support work of that sort, become a [GitHub Sponsor](https://github.com/sponsors/BlockchainCommons) or support us at our [BTCPay Server](https://btcpay.blockchaincommons.com/), and let us know that **Learning Bitcoin** was the reason why.
 
-We are also tentatively considering what we could include in a [v3.0](TODO-30.md) of the course. If you'd like to support work of that sort, become a [GitHub Sponsor](https://github.com/sponsors/BlockchainCommons) or support us at our [BTCPay Server](https://btcpay.blockchaincommons.com/), and let us know that **Learning Bitcoin** was the reason why.
 ### Version History
+
+#### 2.2.2 (January 22, 2026)
+
+* Updated §2.1 and Appendix 1 to accomodate recent updates to [Bitcoin-Standup-Scripts](https://github.com/BlockchainCommons/Bitcoin-Standup-Scripts) as well as changes to the Linode interface.
+
+#### 2.2.1 (January 15, 2026)
+
+* Incorporation of PRs and Issues, to close out previous iteration of course, in prep for big 3.0 update.
 
 #### 2.2.0 (November 17, 2021)
 

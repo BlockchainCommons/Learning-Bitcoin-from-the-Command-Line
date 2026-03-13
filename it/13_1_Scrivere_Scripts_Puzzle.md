@@ -4,7 +4,7 @@ Gli Script Bitcoin _non_ devono necessariamente dipendere dalla conoscenza di un
 
 ## Scrivere Script di Algebra Semplici
 
-Il nostro primo vero script, dal [Capitolo 9.2: Eseguire uno Script di Bitcoin](009_2_Eseguire_uno_Script_di_Bitcoin.md), era un enigma algebrico. Quello script Bitcoin, `OP_ADD 99 OP_EQUAL`, potrebbe essere descritto alternativamente come `x + y = 99`.
+Il nostro primo vero script, dal [Capitolo 9.2: Eseguire uno Script di Bitcoin](09_2_Eseguire_uno_Script_di_Bitcoin.md), era un enigma algebrico. Quello script Bitcoin, `OP_ADD 99 OP_EQUAL`, potrebbe essere descritto alternativamente come `x + y = 99`.
 
 Questo tipo di script non ha molta applicabilità nel mondo reale, poiché è troppo facile rivendicare i fondi. Tuttavia, un concorso di risoluzione di enigmi che distribuisce piccole quantità di Bitcoin potrebbe proporlo come un intrattenimento divertente.
 
@@ -510,4 +510,4 @@ Gli script enigmatici sono una grande introduzione a script Bitcoin più realist
 
 ## Cosa c'è dopo?
 
-Continua "Progettare Veri Script Bitcoin" con [Capitolo 13.2: Scrivere Scripts Multifirma Complessi](13_2_Scrivere_Scripts_Multifirma_Complessi.md). 
+Continua "Progettare Veri Script Bitcoin" con [Capitolo 13.2: Scrivere Scripts Multifirma Complessi](13_2_Scrivere_Scripts_Multifirma_Complessi.md).

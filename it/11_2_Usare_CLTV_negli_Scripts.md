@@ -8,7 +8,7 @@
 
 Prima di approfondire CLTV, dovremmo prima ricordare come funziona `nLockTime`.
 
-Come dettagliato in [§8.1: Invio di una Transazione con un Locktime](08_1_Sending_a_Transaction_with_a_Locktime.md), il locktime è abilitato impostando due variabili, `nLockTime` e `nSequence`. Il `nSequence` deve essere impostato a meno di 0xffffffff (di solito: 0xffffffff-1), poi il `nLockTime` è interpretato come segue:
+Come dettagliato in [§8.1: Invio di una Transazione con un Locktime](08_1_Inviare_una_Transazione_con_Blocco_temporale.md), il locktime è abilitato impostando due variabili, `nLockTime` e `nSequence`. Il `nSequence` deve essere impostato a meno di 0xffffffff (di solito: 0xffffffff-1), poi il `nLockTime` è interpretato come segue:
 
 * Se il `nLockTime` è inferiore a 500 milioni, è interpretato come altezza di blocco.
 * Se il `nLockTime` è 500 milioni o più, è interpretato come un timestamp UNIX.
@@ -81,7 +81,7 @@ Il seguente semplice script di blocco potrebbe essere usato per trasformare un o
 
 ### Codificare uno Script CLTV
 
-Ovviamente, come per qualsiasi script Bitcoin complesso, questo script CLTV sarebbe effettivamente codificato in uno script P2SH, come spiegato in [§10.1: Comprendere le Basi di P2SH](10_1_Understanding_the_Foundation_of_P2SH.md) e [§10.2: Costruire la Struttura di P2SH](10_2_Building_the_Structure_of_P2SH.md).
+Ovviamente, come per qualsiasi script Bitcoin complesso, questo script CLTV sarebbe effettivamente codificato in uno script P2SH, come spiegato in [§10.1: Comprendere le Basi di P2SH](10_1_Comprendere_la_Base_di_P2SH.md) e [§10.2: Costruire la Struttura di P2SH](10_2_Construire_la_Struttura_di_P2SH.md).
 
 Supponendo che `<NextYear>` fosse l'intero "1546288031" (hex little-endian: 0x9f7b2a5c) e `<pubKeyHash>` fosse "371c20fb2e9899338ce5e99908e64fd30b789313", questo `redeemScript` sarebbe costruito come:
 

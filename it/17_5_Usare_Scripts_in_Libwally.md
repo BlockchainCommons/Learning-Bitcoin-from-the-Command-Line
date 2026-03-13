@@ -6,7 +6,7 @@ Molto tempo fa, nella Parte 3, mentre introducevamo gli Script, abbiamo detto ch
 
 ## Crea lo Script
 
-Creare lo script è la _cosa più facile_ da fare in Libwally. Prendi il seguente esempio, un semplice [Puzzle Script](/13_1_Writing_Puzzle_Scripts.md) al quale siamo tornati di tanto in tanto:
+Creare lo script è la _cosa più facile_ da fare in Libwally. Prendi il seguente esempio, un semplice [Puzzle Script](13_1_Scrivere_Scripts_Puzzle.md) al quale siamo tornati di tanto in tanto:
 
 ```
 OP_ADD 99 OP_EQUAL

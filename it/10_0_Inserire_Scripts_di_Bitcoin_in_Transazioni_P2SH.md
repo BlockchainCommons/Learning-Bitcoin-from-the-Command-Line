@@ -20,7 +20,7 @@ Gli obiettivi di supporto includono la capacità di:
 
 * [Capitolo 10.1: Comprendere la Base di P2SH](10_1_Comprendere_la_Base_di_P2SH.md)
 * [Capitolo 10.2: Construire la Struttura di P2SH](10_2_Construire_la_Struttura_di_P2SH.md)
-* [Capitolo 10.3: Eseguire un Script Bitcoin con P2SH](10_3_Eseguire_un_Script_Bitcoin_con_P2SH.md)
+* [Capitolo 10.3: Eseguire un Script Bitcoin con P2SH](10_3_Eseguire_uno_Script_Bitcoin_con_P2SH.md)
 * [Capitolo 10.4: Programmare una Multifirma](10_4_Programmare_una_Multifirma.md)
 * [Capitolo 10.5: Programmare uno Script Segwit](10_5_Programmare_uno_Script_Segwit.md)
 * [Capitolo 10.6: Spendere una Transazione P2SH](10_6_Spendere_una_Transazione_P2SH.md)

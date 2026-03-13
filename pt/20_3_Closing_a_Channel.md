@@ -177,7 +177,7 @@ $ bitcoin-cli --named getrawtransaction txid=f68de52d80a1076e36c677ef640539c50e3
   "blocktime": 1602713519
 }
 ```
-A entrada da transação é `66694d23ca15efe379e5f4a71d9be1a2d65e383b89ee3abe126ee36a12f23c1d`, que foi a transação de financiamento feita na seção [§19.3](19_3_Setting_Up_a_Channel.md). A transação tem duas saídas, uma para o node remoto e outra para a carteira local da c-lightning. A saída no índice 0 corresponde ao node remoto com um valor de 0,00010012 BTC e, a saída no índice 1 corresponde ao node local com um valor de 0,00089804 BTC.
+A entrada da transação é `66694d23ca15efe379e5f4a71d9be1a2d65e383b89ee3abe126ee36a12f23c1d`, que foi a transação de financiamento feita na seção [§19.3](19_3_Setting_Up_a_Channel.md). A transação tem duas saídas, uma para o node remoto e outra para a carteira local da core lightning. A saída no índice 0 corresponde ao node remoto com um valor de 0,00010012 BTC e, a saída no índice 1 corresponde ao node local com um valor de 0,00089804 BTC.
 
 A Lightning mostrará da mesma forma 89.804 satoshis retornados como um novo UTXO em nossa carteira:
 

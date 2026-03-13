@@ -13,7 +13,7 @@ Puoi verificarlo eseguendo:
 
 Se restituisce un numero di versione (ad es., `3.7.3` o `3.8.3`) allora hai python3 installato.
 
-Tuttavia, se in qualche modo non hai Python installato, dovrai compilarlo da sorgente come segue. Consulta la variante ["Compilare Python da Sorgente"](17_4_Accessing_Bitcoind_with_Python.md#variant-build-python-from-source) prima di continuare.
+Tuttavia, se in qualche modo non hai Python installato, dovrai compilarlo da sorgente come segue. Consulta la variante ["Compilare Python da Sorgente"](18_4_Accedere_a_Bitcoind_con_Python.md#variante-compilare-python-da-sorgente) prima di continuare.
 
 ### Configurare BitcoinRPC
 
@@ -482,7 +482,7 @@ Scopri di più su "Parlare con Bitcoin in Altri Linguaggi" in [18.5: Accesso a B
 
 ## Variante: Compilare Python da Sorgente
 
-Se hai bisogno di installare Python 3 da sorgente, segui queste istruzioni, poi continua con ["Creare un Progetto BitcoinRPC"](18_4_Accessing_Bitcoind_with_Python.md#create-a-bitcoinrpc-project).
+Se hai bisogno di installare Python 3 da sorgente, segui queste istruzioni, poi continua con ["Creare un Progetto BitcoinRPC"](18_4_Accessing_Bitcoind_with_Python.md#creare-un-progetto-bitcoinrpc).
 
 ### 1. Installare le Dipendenze
 

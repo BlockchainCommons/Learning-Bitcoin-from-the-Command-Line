@@ -86,7 +86,7 @@ int main(void) {
     
   }
   
-  /* 5. Generate External Adress Key + Sample Address*/
+  /* 5. Generate External Address Key + Sample Address*/
 
   struct ext_key *key_external;  
 

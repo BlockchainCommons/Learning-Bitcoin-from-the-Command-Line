@@ -121,7 +121,7 @@ Ecco cosa significano le singole parti:
 * 0x52 = OP_2
 * 0xae = OP_CHECKMULTISIG
 
-In altre parole, quel `redeemScript` era una traduzione di `2 02da2f10746e9778dd57bd0276a4f84101c4e0a711f9cfd9f09cde55acbdd2d191 02bfde48be4aa8f4bf76c570e98a8d287f9be5638412ab38dede8e78df82f33fa3 2 OP_CHECKMULTISIG`. Torneremo su questo script nel [Capitolo 10.4:Scripting a Multisig](10_4_Scripting_a_Multisig.md) quando dettaglieremo esattamente come funzionano i multisig all'interno del paradigma P2SH.
+In altre parole, quel `redeemScript` era una traduzione di `2 02da2f10746e9778dd57bd0276a4f84101c4e0a711f9cfd9f09cde55acbdd2d191 02bfde48be4aa8f4bf76c570e98a8d287f9be5638412ab38dede8e78df82f33fa3 2 OP_CHECKMULTISIG`. Torneremo su questo script nel [Capitolo 10.4:Programmare una Multifirma](10_4_Programmare_una_Multifirma.md) quando dettaglieremo esattamente come funzionano i multisig all'interno del paradigma P2SH.
 
 Se desideri un aiuto meccanico con questo tipo di traduzione in futuro, puoi usare `bitcoin-cli decodescript`:
 
@@ -190,5 +190,3 @@ Creare effettivamente lo script di blocco P2SH ti porta più a fondo nel cuore d
 ## Cosa c'è Dopo?
 
 Continua "Incorporare Bitcoin Scripts" con [Capitolo 10.3: Eseguire uno Script Bitcoin con P2SH](10_3_Eseguire_uno_Script_Bitcoin_con_P2SH.md).
-
-

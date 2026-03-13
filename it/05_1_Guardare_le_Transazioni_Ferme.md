@@ -49,7 +49,7 @@ Se la transazione rimane bloccata più a lungo del previsto, in genere puoi fare
 
 **3. Come mitente utilizza RBF.** Se sei il mittente della transazione e hai aderito a RBF (Replace-By-Fee), puo riprovare con una commissione più alta. Vedere [Capitolo 5.2: Rinviare le Transazioni con RBF](05_2_Rinviare_le_Transazioni_con_RBF.md).
 
-**4. Come destinatario utilizza CPFP.** In alternativa, se sei il destinatario della transazione, puoi utilizzare CPFP (Child-pays-for-parent) per utilizzare la transazione non confermata come input per una nuova transazione. Vedi [Capitolo 5.3: 05_3 Pagare una Transaccion con CPFP](05_3_Pagare_una_Transaccion_con_CPFP.md).
+**4. Come destinatario utilizza CPFP.** In alternativa, se sei il destinatario della transazione, puoi utilizzare CPFP (Child-pays-for-parent) per utilizzare la transazione non confermata come input per una nuova transazione. Vedi [Capitolo 5.3: 05_3 Pagare una Transazione con CPFP](05_3_Pagare_una_Transazione_con_CPFP.md).
 
 ## Riepilogo: Guardare le transazioni ferme
 

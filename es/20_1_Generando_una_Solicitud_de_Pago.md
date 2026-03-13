@@ -3,15 +3,15 @@
 
 > :information_source: **NOTA:** Esta sección se ha agregado recientemente al curso y es un borrador inicial que aún puede estar pendiente de revisión. Lector de advertencias.
 
-Esta sección describe cómo funcionan los pagos en Lightning Network, cómo crear una solicitud de pago (o _factura_), y, finalmente, cómo entenderla. Le emisión de facturas depende de que tenga un segundo nodo Lightning, como se describe en [Acceso a un Segundo Nodo Lightning](19_2_Interludio_Accediendo_a_un_Segundo_Nodo_Lightning.md). Estos ejemplos usarán un nodo LND como su nodo secundario, para demostrar aún más las posibilidades de Lightning Network. Para diferenciar entre los nodos en estos ejemplos, las solicitudes se mostrarán como `c$` para el nodo c-lightning y `lnd$` como el nodo LND. Si desea reproducir estos pasos, debe [instalar su propio nodo LND secundario](19_2_Interludio_Accediendo_a_un_Segundo_Nodo_Lightning.md#Crear-un-nuevo-nodo-LND). 
+Esta sección describe cómo funcionan los pagos en Lightning Network, cómo crear una solicitud de pago (o _factura_), y, finalmente, cómo entenderla. Le emisión de facturas depende de que tenga un segundo nodo Lightning, como se describe en [Acceso a un Segundo Nodo Lightning](19_2_Interludio_Accediendo_a_un_Segundo_Nodo_Lightning.md). Estos ejemplos usarán un nodo LND como su nodo secundario, para demostrar aún más las posibilidades de Lightning Network. Para diferenciar entre los nodos en estos ejemplos, las solicitudes se mostrarán como `c$` para el nodo core lightning y `lnd$` como el nodo LND. Si desea reproducir estos pasos, debe [instalar su propio nodo LND secundario](19_2_Interludio_Accediendo_a_un_Segundo_Nodo_Lightning.md#Crear-un-nuevo-nodo-LND). 
 
 > :book: ***¿Qué es una Factura?** Casi todos los pagos realizados en Lightning Network requieren una factura, que no es más que una **solicitud de pago** realizada por el destinatario del dinero y enviada por una variedad de medios al usario que paga. Todas las solicitudes de pago son de un solo uso. Las facturas Lightning utilizan la codificación bech32, que ya utiliza Segregated Witness para Bitcoin.
 
 ## Crear una Factura
 
-Para crear una nueva factura en c-lightning, usaría el comando `lightning-cli --testnet invoice`.
+Para crear una nueva factura en core lightning, usaría el comando `lightning-cli --testnet invoice`.
 
-Así es como funcionaría con c-lightning, usando argumentos de una cantidad (en millisatoshis), una etiqueta y una descripción.
+Así es como funcionaría con core lightning, usando argumentos de una cantidad (en millisatoshis), una etiqueta y una descripción.
 ```
 c$ lightning-cli --testnet invoice 100000 joe-payment "The money you owe me for dinner"
 {
@@ -22,7 +22,7 @@ c$ lightning-cli --testnet invoice 100000 joe-payment "The money you owe me for 
    "warning_mpp_capacity": "The total incoming capacity is still insufficient even if the payer had MPP capability."
 }
 ```
-Sin embargo, para este ejemplo, vamos a generar una factura en un nodo LND y luego pagarla en el nodo c-lightning. Esto requiere el comando `addinvoice` ligeramente diferente de LND.  Puede usar el argumento `--amt` para indicar la cantidad a pagar (en millisatoshis) y agregar una descripción usando el argumento `--memo`.
+Sin embargo, para este ejemplo, vamos a generar una factura en un nodo LND y luego pagarla en el nodo core lightning. Esto requiere el comando `addinvoice` ligeramente diferente de LND.  Puede usar el argumento `--amt` para indicar la cantidad a pagar (en millisatoshis) y agregar una descripción usando el argumento `--memo`.
 
 ```
 lnd$ lncli -n testnet addinvoice --amt 10000 --memo "First LN Payment - Learning Bitcoin and Lightning from the Command line."
@@ -64,7 +64,7 @@ La parte legible por humanos `ln` + `tb` + `100u`.
 
 ### Leer la Parte de la Factura de Datos
 
-El resto de la factura (`1p0cwnqtpp5djkdahy4hz0wc909y39ap9tm3rq2kk9320hw2jtntwv4x39uz6asdr5ge5hyum5ypxyugzsv9uk6etwwssz6gzvv4shymnfdenjqsnfw33k76twypskuepqf35kw6r5de5kueeqveex7mfqw35x2gzrdakk6ctwvssxc6twv5hqcqzpgsp5a9ryqw7t23myn9psd36ra5alzvp6lzhxua58609teslwqmdljpxs9qy9qsq9ee7h500jazef6c306psr0ncru469zgyr2m2h32c6ser28vrvh5j4q23c073xsvmjwgv9wtk2q7j6pj09fn53v2vkrdkgsjv7njh9aqqtjn3vd`) contiene una marca de tiempo, datos etiquetados específicamente y una firma. Obviamente, no puede leerlo usted mismo, pero puede pedirle a `lightning-cli` de c-lightning que lo haga con el comando `decodepay`:
+El resto de la factura (`1p0cwnqtpp5djkdahy4hz0wc909y39ap9tm3rq2kk9320hw2jtntwv4x39uz6asdr5ge5hyum5ypxyugzsv9uk6etwwssz6gzvv4shymnfdenjqsnfw33k76twypskuepqf35kw6r5de5kueeqveex7mfqw35x2gzrdakk6ctwvssxc6twv5hqcqzpgsp5a9ryqw7t23myn9psd36ra5alzvp6lzhxua58609teslwqmdljpxs9qy9qsq9ee7h500jazef6c306psr0ncru469zgyr2m2h32c6ser28vrvh5j4q23c073xsvmjwgv9wtk2q7j6pj09fn53v2vkrdkgsjv7njh9aqqtjn3vd`) contiene una marca de tiempo, datos etiquetados específicamente y una firma. Obviamente, no puede leerlo usted mismo, pero puede pedirle a `lightning-cli` de core lightning que lo haga con el comando `decodepay`:
 ```
 c$ lightning-cli --testnet decodepay lntb100u1p0cwnqtpp5djkdahy4hz0wc909y39ap9tm3rq2kk9320hw2jtntwv4x39uz6asdr5ge5hyum5ypxyugzsv9uk6etwwssz6gzvv4shymnfdenjqsnfw33k76twypskuepqf35kw6r5de5kueeqveex7mfqw35x2gzrdakk6ctwvssxc6twv5hqcqzpgsp5a9ryqw7t23myn9psd36ra5alzvp6lzhxua58609teslwqmdljpxs9qy9qsq9ee7h500jazef6c306psr0ncru469zgyr2m2h32c6ser28vrvh5j4q23c073xsvmjwgv9wtk2q7j6pj09fn53v2vkrdkgsjv7njh9aqqtjn3vd
 {

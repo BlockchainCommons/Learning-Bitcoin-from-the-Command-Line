@@ -390,6 +390,6 @@ Sin embargo, descubrir esa firma requiere comprender realmente los detalles de c
 
 Enviar a una dirección P2PKH era relativamente fácil cuando solo usaba `bitcoin-cli`. Al examinar el script de Bitcoin subyacente, se ponen al descubierto las funciones criptográficas que estaban implícitas en la financiación de esa transacción: cómo se desbloqueó el UTXO con una firma y una clave pública.
 
-## ¿Que sigue?
+## ¿Qué sigue?
 
 Continúe "Introduciendo los scripts de Bitcoin" con [§9.5: Codificando una P2WPKH](09_5_Codificando_una_P2WPKH.md).

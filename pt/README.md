@@ -134,8 +134,8 @@ Se você gostaria de fazer a sua própria tradução, por favor veja [Contribuin
 **Estado:** Finalizado.
 
 * [19.0: Compreendendo Nossa Configuração da Lightning](19_0_Understanding_Your_Lightning_Setup.md)
-  * [19.1: Verificando Nossa Configuração da c-lightning](19_1_Verifying_Your_Lightning_Setup.md)
-  * [19.2: Conhecendo Nossa Configuração da c-lightning](19_2_Knowing_Your_lightning_Setup.md)
+  * [19.1: Verificando Nossa Configuração da core lightning](19_1_Verifying_Your_Lightning_Setup.md)
+  * [19.2: Conhecendo Nossa Configuração da core lightning](19_2_Knowing_Your_lightning_Setup.md)
      * [Prefácio: Acessando um Segundo Node Lightning](19_2__Interlude_Accessing_a_Second_Lightning_Node.md)
   * [19.3: Criando um Canal Lightning](19_3_Setting_Up_a_Channel.md)
 * [20.0: Usando a Lightning](20_0_Using_Lightning.md)

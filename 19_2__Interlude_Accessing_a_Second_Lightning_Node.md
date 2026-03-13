@@ -10,7 +10,7 @@ There are four ways to do so (the first three of which are possible for your fir
 
 If someone else already has a Lightning node on the network of your choice, just ask them for their ID. 
 
-If they are are running c-lightning, they just need to use the `getinfo` command:
+If they are are running core lightning, they just need to use the `getinfo` command:
 ```
 $ lightning-cli getinfo
 lightning-cli: WARNING: default network changing in 2020: please set network=testnet in config!
@@ -50,9 +50,9 @@ lightning-cli: WARNING: default network changing in 2020: please set network=tes
 ```
 They can then tell you their `id` (`03240a4878a9a64aea6c3921a434e573845267b86e89ab19003b0c910a86d17687`). They will also need to tell you their IP address (`74.207.240.32`) and port (`9735`).
 
-## Create a New c-lightning Node
+## Create a New core lightning Node
 
-However, for testing purposes, you probably want to have a second node under you own control. The easiest way to do so is to create a second c-lightning node on a new machine, using either Bitcoin Standup, per [§2.1](02_1_Setting_Up_a_Bitcoin-Core_VPS_with_StackScript.md) or compiling it by hand, per [§19.1](19_1_Verifying_Your_Lightning_Setup.md).
+However, for testing purposes, you probably want to have a second node under you own control. The easiest way to do so is to create a second core lightning node on a new machine, using either Bitcoin Standup, per [§2.1](02_1_Setting_Up_a_Bitcoin-Core_VPS_with_StackScript.md) or compiling it by hand, per [§19.1](19_1_Verifying_Your_Lightning_Setup.md).
 
 Once you have your node running, you can run `getinfo` to retrieve your information, as shown above.
 
@@ -109,7 +109,7 @@ $ sudo cp $GOPATH/bin/lnd $GOPATH/bin/lncli /usr/bin
 
 ### Create an LND Config File
 
-Unlike with c-lightning, you will need to create a default config file for LND.
+Unlike with core lightning, you will need to create a default config file for LND.
 
 However first, you need to enable ZMQ on your Bitcoind, if you didn't already in [§16.3](16_3_Receiving_Bitcoind_Notifications_with_C.md).
 
@@ -212,7 +212,7 @@ $ sudo systemctl start lnd
 
 ### Enable Remote Connections
 
-Just as with c-lightning, you're going to need to make LND accessible to other nodes. Here's how to do so if you use `ufw`, as per the Bitcoin Standup setups:
+Just as with core lightning, you're going to need to make LND accessible to other nodes. Here's how to do so if you use `ufw`, as per the Bitcoin Standup setups:
 ```
 $ sudo ufw allow 9735
 ```
@@ -316,10 +316,10 @@ However, that definitely won't be the case for your first interaction with the L
 
 ## Summary: Accessing a Second Lightning Node
 
-You always need two Lightning nodes to form a channel. If you don't have someone else who is testing things out with you, you're going to need to create a second one, either using c-lightning or (as we will in our examples) LND.
+You always need two Lightning nodes to form a channel. If you don't have someone else who is testing things out with you, you're going to need to create a second one, either using core lightning or (as we will in our examples) LND.
 
 ## What's Next?
 
-Though you've possibly created an LND, c-lightning will remain the heart of our examples until we need to start using both of them, in [Chapter 19](19_0_Understanding_Your_Lightning_Setup.md).
+Though you've possibly created an LND, core lightning will remain the heart of our examples until we need to start using both of them, in [Chapter 19](19_0_Understanding_Your_Lightning_Setup.md).
 
 Continue "Understanding Your Lightning Setup" with [§19.3: Setting Up_a_Channel](19_3_Setting_Up_a_Channel.md).

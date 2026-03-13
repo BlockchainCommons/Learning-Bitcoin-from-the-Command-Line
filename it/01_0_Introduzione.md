@@ -37,11 +37,11 @@ Da dove si comincia? Questo libro è stato pensato per essere letto in sequenza.
 
 Se avete diversi livelli di abilità o volete imparare cose diverse, potete passare a parti diverse del libro:
 
-* Se si dispone già di un ambiente Bitcoin pronto per essere utilizzato, passa a [Capitolo Tre: Comprendere le Configurazioni di Bitcoin](03_0_Comprendere_le_Configurazioni_di_Bitcoin.md).
+* Se si dispone già di un ambiente Bitcoin pronto per essere utilizzato, passa a [Capitolo Tre: Comprendere le Configurazioni di Bitcoin](03_0_Comprendere_la_Configurazione_di_Bitcoin.md).
 * Se vi interessa solo lo scripting di Bitcoin, passate a [Capitolo Nove: Introduzione script di Bitcoin](09_0_Introduzione_script_di_Bitcoin.md).
-* Se volete solo leggere dell'uso dei linguaggi di programmazione, saltate a [Capitolo Sedici: Parlare con Bitcoind](16_0_Parlare_con_Bitcoind.md).
+* Se volete solo leggere dell'uso dei linguaggi di programmazione, saltate a [Capitolo Sedici: Parlare con Bitcoind](16_0_Parlare_a_Bitcoind_con_C.md).
 * Se invece non volete fare programmazione, saltate assolutamente i capitoli 15-17 durante la lettura e forse anche i capitoli 9-13. Il resto del corso dovrebbe avere senso anche senza di essi.
-* Se siete interessati solo a Lightning, fate un salto su [Capitolo dicianove: Comprendere La Configurazione Lightning](19_0_Comprendere_La_Configurazione_Lightning.md).
+* Se siete interessati solo a Lightning, fate un salto su [Capitolo dicianove: Comprendere La Configurazione Lightning](19_0_Comprendere_la_Configurazione_Lightning.md).
 * Se volete leggere i nuovi contenuti principali aggiunti per la v2 del corso (2020), dopo la v1 (2017), leggete:
    [Capitolo 3.5: Comprendere il Descriptor](03_5_Comprendere_il_Descriptor.md)
    [Capitolo 4.6: Creare una Transazione Segwit](04_6_Creare_una_Transazione_Segwit.md)
@@ -50,7 +50,7 @@ Se avete diversi livelli di abilità o volete imparare cose diverse, potete pass
    [Capitolo 10.5: Programmare uno Script Segwit](10_5_Programmare_uno_Script_Segwit.md)
    [Capitolo 14: Usare Tor](14_0_Usare_Tor.md)
    [Capitolo 15: Usare i2p](15_0_Usare_i2p.md)
-   [Capitolo 16: Parlare con Bitcoind](16_0_Parlare_con_Bitcoind.md)
+   [Capitolo 16: Parlare con Bitcoind](16_0_Parlare_a_Bitcoind_con_C.md)
    [Capitolo 17: Programmare Bitcoin con Libwally](17_0_Programmare_Bitcoin_con_Libwally.md)
    [Capitolo 18: Parlare a Bitcoind in Altri Linguaggi](18_0_Parlare_a_Bitcoind_in_Altri_Linguaggi.md)
    [Capitolo 19: Comprendere la Configurazione Lightning](19_0_Comprendere_la_Configurazione_Lightning.md)

@@ -24,7 +24,7 @@ Gli obiettivi di supporto includono la capacità di:
  * [Sezione 4.2: Creare una Transazione Grezza](04_2_Creare_una_Transazione_Grezza.md)
  * [Intermezzo: Usare JQ](04_2_Intermezzo_Usare_JQ.md)
  * [Sezione 4.3: Creare una Transazione Grezza con Alias](04_3_Creare_una_Transazione_Grezza_con_Alias.md)
- * [Sezione 4.4: Enviare Monete con Transazione Grezza](04_4_Enviare_Monete_con_Transazione_Grezza.md)
+ * [Sezione 4.4: Inviare Monete con Transazione Grezza](04_4_Inviare_Monete_con_Transazione_Grezza.md)
  * [Intermezzo: Usare Curl](04_4_Intermezzo_Usare_Curl.md)
  * [Sezione 4.5: Inviare Monete con Transazione Grezza Automatizzata](04_5_Inviare_Monete_con_Transazione_Grezza_Automatizzata.md)
  * [Sezione 4.6: Creare una Transazione Segwit](04_6_Creare_una_Transazione_Segwit.md)

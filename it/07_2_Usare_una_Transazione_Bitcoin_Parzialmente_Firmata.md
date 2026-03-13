@@ -591,7 +591,7 @@ Il modo migliore per gestire un CoinJoin è inviare il PSBT di base a tutte le p
 
 ## Riepilogo: utilizzo di una transazione Bitcoin parzialmente firmata
 
-Ora hai visto il processo PSBT che hai imparato in [§7.1](07_1_Creating_a_Partially_Signed_Bitcoin_Transaction.md) in uso in tre esempi di vita reale: creazione di un multi-sig, pooling di fondi e CoinJoining. Tutto ciò era teoricamente possibile nel Bitcoin classico facendo firmare più persone a transazioni attentamente costruite, ma i PSBT lo rendono standardizzato e semplice.
+Ora hai visto il processo PSBT che hai imparato in [§7.1](07_1_Creare_una_Transazione_Bitcoin_Parzialmente_Firmata.md) in uso in tre esempi di vita reale: creazione di un multi-sig, pooling di fondi e CoinJoining. Tutto ciò era teoricamente possibile nel Bitcoin classico facendo firmare più persone a transazioni attentamente costruite, ma i PSBT lo rendono standardizzato e semplice.
 
 > :fire: ***Qual è il potere di un PSBT?*** Un PSBT consente la creazione di transazioni trustless tra più parti e più macchine. Se più di una parte avesse bisogno di finanziare una transazione, se più di una parte avesse bisogno di firmare una transazione, o se una transazione dovesse essere creata su una macchina e firmata su un’altra, allora un PSBT rende tutto semplice senza dipendere dal meccanismi di firma parziale non standardizzati che esistevano prima del PSBT.
 

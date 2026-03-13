@@ -2,7 +2,7 @@
 
 > :information_source: **NOTA:** Questa sezione è stata recentemente aggiunta al corso ed è una bozza iniziale che potrebbe essere ancora in attesa di revisione. Lettore avvisato.
 
-Hai già visto un modo alternativo per accedere alle porte RPC di Bitcoind: `curl`, che è stato trattato in un [Interludio del Capitolo 4](04_4__Interlude_Using_Curl.md). Interagire con `bitcoind` tramite una libreria RPC in C non è diverso da questo, hai solo bisogno di alcune buone librerie per aiutarti. Questa sezione introduce un pacchetto chiamato `libbitcoinrpc`, che ti permette di accedere alla porta JSON-RPC di `bitcoind`. Utilizza la libreria `curl` per accedere ai dati e la libreria `jansson` per codificare e decodificare il JSON.
+Hai già visto un modo alternativo per accedere alle porte RPC di Bitcoind: `curl`, che è stato trattato in un [Interludio del Capitolo 4](04_4_Interlude_Using_Curl.md). Interagire con `bitcoind` tramite una libreria RPC in C non è diverso da questo, hai solo bisogno di alcune buone librerie per aiutarti. Questa sezione introduce un pacchetto chiamato `libbitcoinrpc`, che ti permette di accedere alla porta JSON-RPC di `bitcoind`. Utilizza la libreria `curl` per accedere ai dati e la libreria `jansson` per codificare e decodificare il JSON.
 
 ## Configurare libbitcoinrpc
 
@@ -117,7 +117,7 @@ Innanzitutto, inizializza la libreria:
 ```
 bitcoinrpc_global_init();
 ```
-Poi connettiti al tuo `bitcoind` con `bitcoinrpc_cl_init_params`. I quattro argomenti per `bitcoinrpc_cl_init_params` sono nome utente, password, indirizzo IP e porta. Dovresti già conoscere tutte queste informazioni dal tuo lavoro con [Curl](04_4__Interlude_Using_Curl.md). Come ricorderai, l'indirizzo IP 127.0.0.1 e la porta 18332 dovrebbero essere corretti per la configurazione standard del testnet descritta in questi documenti, mentre puoi estrarre l'utente e la password da `~/.bitcoin/bitcoin.conf`.
+Poi connettiti al tuo `bitcoind` con `bitcoinrpc_cl_init_params`. I quattro argomenti per `bitcoinrpc_cl_init_params` sono nome utente, password, indirizzo IP e porta. Dovresti già conoscere tutte queste informazioni dal tuo lavoro con [Curl](04_4_Intermezzo_Usare_Curl.md). Come ricorderai, l'indirizzo IP 127.0.0.1 e la porta 18332 dovrebbero essere corretti per la configurazione standard del testnet descritta in questi documenti, mentre puoi estrarre l'utente e la password da `~/.bitcoin/bitcoin.conf`.
 ```
 $ cat bitcoin.conf
 server=1

@@ -4,9 +4,9 @@
 
 These two chapters have covered just a few of the most important activities with Lightning. There's lots more that can be done, and lots of variety possible. What follows are some pointers forward.
 
-## Use c-lightning Plugins
+## Use core lightning Plugins
 
-c-lightning is a lightweight, highly customizable, and standard compliant implementation of the Lightning Network protocol. It extends it functionality using Plugins.  Mainly, these are subprocesses that are initiated by the `lightningd` daemon and can interact with `lightningd` in a variety of ways:
+core lightning is a lightweight, highly customizable, and standard compliant implementation of the Lightning Network protocol. It extends it functionality using Plugins.  Mainly, these are subprocesses that are initiated by the `lightningd` daemon and can interact with `lightningd` in a variety of ways:
 
 * Command line options allow plugins to register their own command line arguments, which are then exposed through `lightningd`.
 * JSON-RPC command passthrough allows plugins to add their own commands to the JSON-RPC interface.
@@ -19,19 +19,19 @@ The `lightningd` GitHub repo maintains a updated list of [plugins](https://githu
 
 ## Use Mobile Wallets
 
-We currently know of two mobile lightning wallets that support the c-lightning implementation.
+We currently know of two mobile lightning wallets that support the core lightning implementation.
 
 For iOS devices FullyNoded is an open-source iOS Bitcoin wallet that connects via Tor V3 authenticated service to your own full node. FullyNoded  functionality is currently under active development and in early beta testing phase.
 
 *  [FullyNoded](https://github.com/Fonta1n3/FullyNoded/blob/master/Docs/Lightning.md)
 
-SparkWallet is a minimalistic wallet GUI for c-lightning, accessible over the web or through mobile and desktop apps for Android. 
+SparkWallet is a minimalistic wallet GUI for core lightning, accessible over the web or through mobile and desktop apps for Android. 
 
 *  [SparkWallet](https://github.com/shesek/spark-wallet)
 
 ## Use Different Lightning Implementations
 
-c-lightning isn't your only option. Today there are three widely used implementations of the Lightning Network. All of them follow the [Basis of Lightning Technology (BOLT) documents](https://github.com/lightningnetwork/lightning-rfc), which describe a layer-2 protocol for off-chain bitcoin transfers. The specifications are currently a work-in-progress that is still being drafted.
+core lightning isn't your only option. Today there are three widely used implementations of the Lightning Network. All of them follow the [Basis of Lightning Technology (BOLT) documents](https://github.com/lightningnetwork/lightning-rfc), which describe a layer-2 protocol for off-chain bitcoin transfers. The specifications are currently a work-in-progress that is still being drafted.
 
 | Name  | Description | BitcoinStandup | Language | Repository |
 | ------------- | ------------- | :---: | ------------- | ------------- |

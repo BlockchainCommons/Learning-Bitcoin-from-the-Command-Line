@@ -106,9 +106,9 @@ Here's what the individual parts mean:
 
 * 0x52 = OP_2
 * 0x21 = OP_PUSHDATA 33 bytes (hex: 0x21)
-* 0x02da2f10746e9778dd57bd0276a4f84101c4e0a711f9cfd9f09cde55acbdd2d191 = the next 33 bytes (public-key hash)
+* 0x02da2f10746e9778dd57bd0276a4f84101c4e0a711f9cfd9f09cde55acbdd2d191 = the next 33 bytes (public key)
 * 0x21 = OP_PUSHDATA 33 bytes (hex: 0x21)
-* 0x02bfde48be4aa8f4bf76c570e98a8d287f9be5638412ab38dede8e78df82f33fa3 = the next 33 bytes (public-key hash)
+* 0x02bfde48be4aa8f4bf76c570e98a8d287f9be5638412ab38dede8e78df82f33fa3 = the next 33 bytes (public key)
 * 0x52 = OP_2
 * 0xae = OP_CHECKMULTISIG
 
