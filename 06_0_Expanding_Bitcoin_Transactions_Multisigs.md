@@ -17,6 +17,7 @@ Supporting objectives include the ability to:
    
 ## Table of Contents
 
-   * [Section One: Sending a Transaction with a Multsig](06_1_Sending_a_Transaction_to_a_Multisig.md)
-   * [Section Two: Spending a Transaction with a Multsig](06_2_Spending_a_Transaction_to_a_Multisig.md)
-   * [Section Three: Sending & Spending an Automated Multisig](06_3_Sending_an_Automated_Multisig.md)
+   * [Section One: Creating a Multisig with Public Keys](06_1_Creating_Multisig_Public_Keys.md)
+   * [Section Two: Creating a Multisig with Descriptors](06_2_Creating_Multisig_Descriptors.md)   
+   * [Section Three: Spending a Transaction with a Multsig](06_3_Spending_a_Transaction_to_a_Multisig.md)
+
