@@ -32,7 +32,7 @@ If you'd like to make your own translation, please see [Contributing](https://gi
   * [2.1: Setting Up a Bitcoin-Core VPS with Bitcoin Standup](02_1_Setting_Up_a_Bitcoin-Core_VPS_with_StackScript.md)
   * [2.2: Setting Up a Bitcoin-Core Machine via Other Means](02_2_Setting_Up_Bitcoin_Core_Other.md)
 
-### PART TWO: USING BITCOIN-CLI
+### PART TWO: SENDING TRANSACTIONS
 
 * [3.0: Understanding Your Bitcoin Setup](03_0_Understanding_Your_Bitcoin_Setup.md)
   * [3.1: Verifying Your Bitcoin Setup](03_1_Verifying_Your_Bitcoin_Setup.md)
@@ -56,6 +56,9 @@ If you'd like to make your own translation, please see [Contributing](https://gi
   * [5.1 Watching for Stuck Transactions](05_1_Watching_for_Stuck_Transactions.md)
   * [5.2: Resending a Transaction with RBF](05_2_Resending_a_Transaction_with_RBF.md)
   * [5.3: Funding a Transaction with CPFP](05_3_Funding_a_Transaction_with_CPFP.md)
+
+### PART THREE: EXPANDING BITCOIN
+
 * [6.0: Expanding Bitcoin Transactions with Multisigs](06_0_Expanding_Bitcoin_Transactions_Multisigs.md)
   * [6.1: Sending a Transaction with a Multisig](06_1_Sending_a_Transaction_to_a_Multisig.md)
   * [6.2: Spending a Transaction with a Multisig](06_2_Spending_a_Transaction_to_a_Multisig.md)
@@ -69,9 +72,9 @@ If you'd like to make your own translation, please see [Contributing](https://gi
   * [8.1: Sending a Transaction with a Locktime](08_1_Sending_a_Transaction_with_a_Locktime.md)
   * [8.2: Sending a Transaction with Data](08_2_Sending_a_Transaction_with_Data.md) [**TO UPDATE**]
 
-### PART THREE: IMPORTING & EXPORTING YOUR SECRETS
+### PART FOUR: IMPORTING & EXPORTING YOUR SECRETS
 
-### PART FOUR: SCRIPTING WITH BITCOIN
+### PART FIVE: SCRIPTING WITH BITCOIN
 
 * [11.0: Introducing Bitcoin Scripts](11_0_Introducing_Bitcoin_Scripts.md)
   * [11.1: Understanding the Foundation of Transactions](11_1_Understanding_the_Foundation_of_Transactions.md)
@@ -100,7 +103,7 @@ If you'd like to make your own translation, please see [Contributing](https://gi
   * [16.2: Writing Complex Multisig Scripts](16_2_Writing_Complex_Multisig_Scripts.md)
   * [16.3: Empowering Bitcoin with Scripts](16_3_Empowering_Bitcoin_with_Scripts.md)
 
-### PART FIVE: UPGRADING TO TAPROOT
+### PART SIX: UPGRADING TO TAPROOT
 
 * [9.0: Expanding Bitcoin Transactions with Schnorr](09_0_Expanding_Bitcoin_Transactions_with_Schnorr.md) [**TO WRITE**]
   * [9.1: Understanding Schnorr & Taproot](09_1_Understanding_Schnorr_Taproot.md) [**TO WRITE**]
@@ -111,7 +114,7 @@ If you'd like to make your own translation, please see [Contributing](https://gi
   * [10.1: Sending Basic Taproot Transactions](10_1_Sending_Basic_Taproot_Transactions.md) [**TO WRITE**]
   * [10.2: Sending Advanced Taproot Transactions](10_2_Sending_Advanced_Taproot_Transactions.md) [**TO WRITE**]
 
-### PART SIX: MAINTAINING PRIVACY
+### PART SEVEN: MAINTAINING PRIVACY
 
 * [17.0: Using Tor](16_0_Using_Tor.md)
   * [17.1: Verifying Your Tor Setup](17_1_Verifying_Your_Tor_Setup.md)
