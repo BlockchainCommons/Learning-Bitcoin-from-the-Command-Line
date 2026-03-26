@@ -4,7 +4,7 @@ The first way to vary how you send a basic transaction is to use a multisig. Thi
 
 ## Understand How Multisigs Work
 
-In a typical P2PKH or SegWit transaction, bitcoins are sent to an address based on your public key, which in turn means that the related private key is required to unlock the transaction, solving the cryptographic puzzle and allowing you to reuse the funds. But what if you could instead lock a transaction with _multiple_ private keys? This would effectively allow funds to be sent to a group of people, where those people all have to agree to reuse the funds.
+In a typical Bitcoin transaction, bitcoins are sent to an address based on your public key, which in turn means that the related private key is required to unlock the transaction, solving the cryptographic puzzle and allowing you to reuse the funds. But what if you could instead lock a transaction with _multiple_ private keys? This would effectively allow funds to be sent to a group of people, where those people all have to agree to reuse the funds.
 
 > :book: ***What is a multisignature?*** A multisignature is a methodology that allows more than one person to jointly create a digital signature. It's a general technique for the cryptographic use of keys that goes far beyond Bitcoin.
 
@@ -25,10 +25,12 @@ In order to lock a UTXO with multiple private keys, you must first create a mult
 To create a multisignature address, you must first ready the addresses that the multisig will combine. Best practice suggests that you always create new addresses. This means that the participants will each run the `getnewaddress` command on their own machine:
 ```
 machine1$ address1=$(bitcoin-cli getnewaddress)
+pubkey1=$(bitcoin-cli -named getaddressinfo address=$address1 | jq -r '.pubkey')
 ```
 And:
 ```
 machine2$ address2=$(bitcoin-cli getnewaddress)
+pubkey2=$(bitcoin-cli -named getaddressinfo address=$address2 | jq -r '.pubkey')
 ```
 Afterwards, one of the recipients (or perhaps some third party) will need to combine the addresses. 
 
