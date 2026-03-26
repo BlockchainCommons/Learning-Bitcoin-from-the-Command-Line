@@ -13,6 +13,7 @@ Technically, a multisignature cryptographic puzzle is created by Bitcoin using t
 As with normal addresses, there are multiple types of multisig addresses that have appeared as Bitcoin has evolved over the years. Currently, there is one deprecated address and three that are in active use. The following shows each, with the flag that you'll be using to create them for the `createmultisig` RPC.
 
 | Flag | Type | Prefix | Notes | 
+|------|------|--------|-------|
 | | P2MS | N/A | deprecated |
 | bech32 | P2WSH | bc1q<br>tb1q | |
 | legacy | P2SH | 3<br>2 | default |
