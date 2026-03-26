@@ -34,7 +34,12 @@ Next you create the descriptor. This requires two questions:
 1. What address type do you want to use? `sh` (P2SH) or `wsh` (P2WSH)
 2. What script function do you wan to use? `multi` (Bitcoin Core default) or `sortedmulti` (safer, but non-default)
 
-The following descriptor uses the `sortedmulti` function in a P2WSH address:
+You then write a descriptor of the form:
+```
+address-type(script-function(threshold,key1,key2,...))
+```
+
+The following descriptor uses the `sortedmulti` function in a P2WSH address with a threshold of 2 and 2 keys (e.g., a 2-of-2 multisig):
 ```
 machine1$ msdesc="wsh(sortedmulti(2,$pubkey3,$pubkey4))"
 ```
@@ -56,7 +61,7 @@ wsh(multi(2,021c04d13d7047bb8413ecf2f3a7f3c7172eaffff00040a67eb6b10cd57046b958,0
 
 ## Import the Descriptor
 
-You're now ready to import the descriptor.
+You've skipped right past the nead to use `createmultisig` to create your address. Instead, you're now ready to import the descriptor.
 
 You should reload the watch-only wallet you created in the previous section:
 ```
