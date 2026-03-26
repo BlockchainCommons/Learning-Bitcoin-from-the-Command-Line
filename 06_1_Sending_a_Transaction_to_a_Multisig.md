@@ -188,6 +188,40 @@ If you look at the `desc`riptor for the multisig that you created above, you'll 
 ```
 However, if it imports an address with type `sortedmulti`, it'll do the right thing, which is the whole point of descriptors!
 
+## Import a Multisig Address
+
+Though you used `bitcoin-cli` to create a multisig address, it won't be in any of your wallets. 
+
+To import it, you first need to create a watch-only wallet (without private keys and without any keys of its own):
+```
+$ bitcoin-cli -named createwallet wallet_name="watch_multi" disable_private_keys=true blank=true
+{
+  "name": "watch_multi"
+}
+```
+
+You can then import the descriptor to that wallet using the `descriptor` line from the `createmultisig` command:
+```
+$ bitcoin-cli -rpcwallet=watch_multi importdescriptors '[{ "desc": "wsh(multi(2,031aac673977274b5e76aad5fb6a420b0e1b7f49f89831388b71bd4a6e52684031,023b27451c83b9d6f8ab4573c5ff9eadf51c5d69bae7dfbbd7c06c21f939489fb2))#n3p6hus6", "timestamp":1770329126 }]'
+[
+  {
+    "success": true
+  }
+]
+```
+
+Looking at the addresses in that wallet will now list your multisig address, which will allow you to query when it has funds:
+```
+$ bitcoin-cli -rpcwallet=watch_multi getaddressesbylabel ""
+{
+  "tb1qj885390pmsaggamryky7w67ax8xq3dk673epgsyjy7d3gvmvevvqmq6jzy": {
+    "purpose": "receive"
+  }
+}
+```
+
+Remember per [§3.3](03_3_Setting_Up_Your_Wallet.md#optional-create-multiple-wallets) that you can `loadwallet`, `unloadwallet`, or use the `-rpcwallet` flag when multuple wallets are loaded. In this case, we're using `-rpcwallet` to make it clear that we're accessing something other than our default (`""`) wallet.
+
 ## Send to a Multisig Address
 
 Once you've got a multisig, you can send to it normally, either creating a transaction yourself from the command line or tapping a faucet. [§4.6](04_6_Sending_Coins_to_Other_Addresses.md) included a demonstration of sending to a P2SH address, and that's one of the types that is used to create multisig addresses.
