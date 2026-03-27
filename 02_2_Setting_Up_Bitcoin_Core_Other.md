@@ -16,4 +16,4 @@ Be sure that you are installing on a current version of your OS, to avoid proble
 
 Unless you want to return to one of the other methodologies for creating a Bitcoin-Core node, you should:
 
-   * Move on to "bitcoin-cli" with [Chapter Three: Understanding Your Bitcoin Setup](03_0_Understanding_Your_Bitcoin_Setup.md).
+   * Move on to "bitcoin-cli" with [Chapter Three: Preparing Your Bitcoin Wallet](03_0_Preparing_Your_Bitcoin_Wallet.md)

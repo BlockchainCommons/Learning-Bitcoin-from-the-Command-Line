@@ -52,13 +52,13 @@ $ btcblock
 295304/295304
 ```
 
-> :link: **SIGNET vs MAINNET:** Remember that this tutorial generally assumes that you are using signet. If you're using the mainnet instead, you can retrieve the current block height with: `curl -s https://blockchain.info/q/getblockcount`. You can replace the latter half of the `btcblock` alias (between `/\$(` and `)'"`) with that.
+> 🔗 **SIGNET vs MAINNET:** Remember that this tutorial generally assumes that you are using signet. If you're using the mainnet instead, you can retrieve the current block height with: `curl -s https://blockchain.info/q/getblockcount`. You can replace the latter half of the `btcblock` alias (between `/\$(` and `)'"`) with that.
 
 If you're not up-to-date, but your `getblockcount` is increasing, no problem. Total download time can take from 15 minutes to several hours, depending on your setup.
 
 ## Optional: Know Your Server Types
 
-> **SIGNET vs MAINNET:** When you set up your node, you choose to create it as either a Mainnet, Testnet, Signet, or Regtest node. Though this document presumes a Signet setup, it's worth understanding how you might access and use the other setup types — even all on the same machine! But, if you're a first-time user, skip on past this, as it's not necessary for a basic setup.
+> 🔗 **SIGNET vs MAINNET:** When you set up your node, you choose to create it as either a Mainnet, Testnet, Signet, or Regtest node. Though this document presumes a Signet setup, it's worth understanding how you might access and use the other setup types — even all on the same machine! But, if you're a first-time user, skip on past this, as it's not necessary for a basic setup.
 
 The type of setup is mainly controlled through the ~/.bitcoin/bitcoin.conf file. 
 If you're running signet, it probably contains this line:
@@ -108,4 +108,4 @@ Before you start playing with bitcoin, you should make sure that your aliases ar
 
 ## What's Next?
 
-Continue "Understanding Your Bitcoin Setup" with [§3.2: Knowing Your Bitcoin Setup](03_2_Knowing_Your_Bitcoin_Setup.md).
+Continue "Preparing Your Bitcoin Wallet" with [§3.2: Knowing Your Bitcoin Setup](03_2_Knowing_Your_Bitcoin_Setup.md).

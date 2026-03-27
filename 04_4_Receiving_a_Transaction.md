@@ -1,4 +1,4 @@
-# 3.7: Receiving a Transaction
+# 4.4: Receiving a Transaction
 
 You're now ready to receive some money at an address you created.
 
@@ -363,9 +363,9 @@ Faucets will give you money on the testnet. They come in as raw transactions, wh
 
 ## What's Next?
 
-For an aside on using command-line variables that will be vital to the rest of this course, read [Interlude: Using Command-Line Variables](03_7a_Interlude_Using_Command-Line_Variables.md).
+For an aside on using command-line variables that will be vital to the rest of this course, read [Interlude: Using Command-Line Variables](04_4a_Interlude_Using_Command-Line_Variables.md).
 
-If you're already comfortable with them, continue on to [Chapter Four: Sending Bitcoin Transactions](04_0_Sending_Bitcoin_Transactions.md).
+If you're already comfortable with them, continue on to [Chapter Five: Sending Bitcoin Transactions](05_0_Sending_Bitcoin_Transactions.md).
 
 
 

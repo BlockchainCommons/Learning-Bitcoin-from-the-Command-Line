@@ -1,4 +1,4 @@
-# 3.6: Creating QR Codes for Addresses
+# 4.3: Creating QR Codes for Addresses
 
 To date we've been displaying addresses as little bits of bech32- and base58-encoded data. That's great if you can cut and paste them or if you can store them in shell variables. But what if you're trying to transmit an address between devices that aren't on the same network, or that don't have a direct connection even if they are? That's where QR Codes come into play.
 
@@ -89,7 +89,7 @@ You won't be creating more QR Codes in this course (except when we briefly touch
 
 ## What's Next?
 
-Conclude "Understanding Your Bitcoin Setup" with [§3.7: Receiving a Transaction](03_7_Receiving_a_Transaction.md).
+Conclude "Preparing Your Bitcoin Addresses" with [§4.4: Receiving a Transaction](04_4_Receiving_a_Transaction.md).
 
 
 

@@ -1,8 +1,9 @@
 # 3.3: Setting Up Your Wallet
 
-You're now ready to start working with Bitcoin. To begin with, you'll need to create a wallet for sending and receiving funds.
+You're now ready to start working with Bitcoin. To begin with, you'll
+need to create a wallet for sending and receiving funds.
 
-> :warning: **VERSION WARNING:** Bitcoin Core is constantly
+> ⚠️ **Version Warning:** Bitcoin Core is constantly
 evolving. To reflect this, previous versions of this course offered
 "VERSION WARNING"s for features that had been recently introduced. For
 example, Bitcoin Core v0.21.0 (January 2021) stopped creating wallets
@@ -87,46 +88,6 @@ $ bitcoin-cli getwalletinfo
 
 You now have a Bitcoin wallet. But you can't receive funds with a wallet. For that you need an address, which is a specific repository for funds, derived from the private key information in your wallet: its one private key can generate many addresses.
 
-## Create an Address
-
-The next thing you need to do is create an address for receiving payments. This is done with the `bitcoin-cli getnewaddress` command. Remember that if you want more information on this command, you should type `bitcoin-cli help getnewaddress`. There are a variety of types of addresses, due to Bitcoin's evolution over the years. [§3.5](03_5_Understanding_the_Address.md) covers them all. For now, though we're just going to create an address of the default type, which is a Bech32 P2WPKH address.
-
-```
-$ bitcoin-cli getnewaddress
-tb1q05ua6g7njnjrtsjc0t9w3jc6g2leeznasf4ny9
-```
-If you keep typing the command, you'll get a different address each time:
-```
-$ bitcoin-cli getnewaddress
-tb1q0psqqqgy0fv5928wmk86ntu7hlax8dva7nl82p
-$ bitcoin-cli getnewaddress
-tb1q9f8j03uywqsxuxjefz68g7x4kduer2ky6shsf4
-```
-You can later look up the addresses you've generated with `bitcoin-cli getaddressesbylabel`, with the label being `""` unless you set one:
-```
-$ bitcoin-cli getaddressesbylabel ""
-{
-  "tb1q9f8j03uywqsxuxjefz68g7x4kduer2ky6shsf4": {
-    "purpose": "receive"
-  },
-  "tb1q0psqqqgy0fv5928wmk86ntu7hlax8dva7nl82p": {
-    "purpose": "receive"
-  },
-  "tb1q05ua6g7njnjrtsjc0t9w3jc6g2leeznasf4ny9": {
-    "purpose": "receive"
-  }
-}
-```
-Note that this address begins with an "tb1", which [means](https://en.bitcoin.it/wiki/List_of_address_prefixes) that it's a Bech32-encoded address on either signet or testnet. The discussion of different address types in [§3.5](03_5_Understanding_the_Address.md) will also talk about all of their identifying prefixes.
-
-> :link: **SIGNET vs MAINNET vs TESTNET:** The equivalent mainnet address would start with a "bc1".
-
-Take careful note of the address. You'll need to give it to whomever will be sending you funds.
-
-> 📖 ***What is a Bitcoin address?*** A Bitcoin address is literally where you receive money. It's like an email address, but for funds. It's based on a public key, though different address schemes adjust that in different ways. Unlike an email address, a Bitcoin address should be considered single use: use it to receive funds just _once_. When you want to receive funds from someone else or at some other time, generate a new address. This is suggested in large part to improve your privacy. The whole blockchain is immutable, which means that explorers can look at long chains of transactions over time, making it possible to statistically determine who you and your contacts are, no matter how careful you are. If you keep reusing the same address, then this becomes even easier.
-
-By creating your first Bitcoin address, you've also begun to fill in your Bitcoin wallet. More precisely, you've begun to fill the `wallet.dat` file in the appropriate `~/.bitcoin/signet /wallets/` directory. With a single address in hand, you could jump straight [§3.6: Receiving a Transaction](03_6_Receiving_a_Transaction.md) and begin receiving funds. However, before we get there, we're going to briefly discuss backing up your wallet and a few optional wallet commands that you might want to use in the future.
-
 ## Backup Your Wallet
 
 You can backup your wallet with the `bitcoin-cli backupwallet` command:
@@ -138,7 +99,7 @@ This will create a backup of the SQLite file that you can later restore from wit
 
 Just having a single backup will usually be enough to recover your wallet, because it'll contain the seed used to generate the wallet (more on that next chapter). However, it's good to regularly backup your wallet so that you don't lose data about your transactions. (A few commands also force the creation of a new seed, and you'd need to backup your wallet again in those cases.)
 
-## Optional: Encrypt Your Wallet
+## Encrypt Your Wallet (Optional)
 
 You can choose to encrypt your wallet. (It actually just encrypts the private information in your wallet, such as your private keys.) This is done with the `bitcoin-cli encryptwallet` command. 
 ```
@@ -158,7 +119,7 @@ If you want to lock your wallet back up earlier than that, you can use `bitcoin-
 $ bitcoin-cli walletlock
 ```
 
-## Optional: Reload Named Wallets
+## Reload Named Wallets (Optional)
 
 If you created a no-name (`""`) wallet, it will automatically load when you restart `bitcoind`. However, if you instead created a named wallet, it will not reload, forcing you to (initially) reload it by hand when you restart `bitcoind`.
 ```
@@ -167,7 +128,8 @@ $ bitcoin-cli loadwallet mainwallet
   "name": "mainwallet"
 }
 ```
-However, you can make a named wallet load on startup by adding a `true` to the end of the `bitcoin-cli loadwallet` command:
+You can make a named wallet load automatically on future startups by adding a `true` to the end of the `bitcoin-cli loadwallet` command:
+
 ```
 $ bitcoin-cli loadwallet mainwallet true
 {
@@ -176,7 +138,7 @@ $ bitcoin-cli loadwallet mainwallet true
 ```
 Afterward, the wallet that you must recently flagged in this way should always be the one that appaers at startup.
 
-## Optional: Create Multiple Wallets
+## Create Multiple Wallets (Optional)
 
 You can create multiple wallets if it's helpful for separating funds or separating different sorts of expenses:
 ```
@@ -228,7 +190,12 @@ $ bitcoin-cli listwallets
 ```
 As discussed above, named wallets will not load by default unless you use `loadwallet` with `true` as the second argument. In this example of `mainwallet` and `gamingfunds`, nothing would load when you restarted `bitcoind` unless you specified otherwise.
 
-## Optional: Prove Control
+In [§7.1](07_1_Creating_Multisig_Public_Keys.md), we'll create a
+second wallet to provide watch-only access to multisigs. Be sure to
+remember the `loadwallet` and `unloadwallet` commands, or else use
+`-rpcwallet` so that you can properly access the right wallet.
+
+## Prove Control (Optional)
 
 In previous versions of Bitcoin Core, you were able to prove control of an address with the `bicoin-cli signmessage` command. This is generally a nice feature because it allows you to offer assurance to someone sending you funds that you'll definitely be able to retrieve those funds (or at least that you can currently). Because of the advent of descriptor wallets, which we'll talk about in the next section, this is no longer possible. You still _can_ prove control of an address by deriving a WIF-format private key from the descriptor for a particular address and then using `bitcoin-cli signmessagewithprivkey` with that specific key, but that's a complex process that goes beyond the scope of this course.
 
@@ -240,4 +207,5 @@ You need to create an address to receive funds. That address is stored in a wall
 
 ## What's Next?
 
-Continue "Understanding Your Bitcoin Setup" with [§3.4: Undestanding the Descriptor](03_4_Understanding_the_Descriptor.md) and then [§3.5: Understanding the Address](03_5_Understanding_the_Address.md).
+Complete "Preparing Your Bitcoin Wallet" with [§3.4: Undestanding
+the Descriptor Wallet](03_4_Understanding_the_Descriptor_Wallet.md).

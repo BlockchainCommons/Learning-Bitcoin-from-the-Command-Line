@@ -265,7 +265,7 @@ You have a few options for what's next:
    * Read the [StackScript](https://github.com/BlockchainCommons/Bitcoin-Standup-Scripts/blob/master/Scripts/LinodeStandUp.sh) to understand your setup.
    * Read what the StackScript does in [Appendix I](A1_0_Understanding_Bitcoin_Standup.md).
    * Choose an entirely alternate methodology for creating your VPS in [§2.2: Setting Up a Bitcoin-Core Machine via Other Means](02_2_Setting_Up_Bitcoin_Core_Other.md).
-   * Move on to "bitcoin-cli" with [Chapter Three: Understanding Your Bitcoin Setup](03_0_Understanding_Your_Bitcoin_Setup.md).
+   * Move on to "bitcoin-cli" with [Chapter Three: Preparing Your Bitcoin Wallet](03_0_Preparing_Your_Bitcoin_Wallet.md)
 
 ## Synopsis: Bitcoin Installation Types
 

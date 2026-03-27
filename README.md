@@ -34,35 +34,40 @@ If you'd like to make your own translation, please see [Contributing](https://gi
 
 ### PART TWO: SENDING TRANSACTIONS
 
-* [3.0: Understanding Your Bitcoin Setup](03_0_Understanding_Your_Bitcoin_Setup.md)
+* [3.0: Preparing Your Bitcoin Wallet](03_0_Preparing_Your_Bitcoin_Wallet.md)
   * [3.1: Verifying Your Bitcoin Setup](03_1_Verifying_Your_Bitcoin_Setup.md)
   * [3.2: Knowing Your Bitcoin Setup](03_2_Knowing_Your_Bitcoin_Setup.md)
   * [3.3: Setting Up Your Wallet](03_3_Setting_Up_Your_Wallet.md) 
-  * [3.4: Understanding the Descriptor](03_4_Understanding_the_Descriptor.md)
-  * [3.5: Understanding the Address](03_5_Understanding_the_Address.md) 
-  * [3.6: Creating QR Codes for Addresses](03_6_Creating_QR_Codes_for_Addresses.md)
-  * [3.7: Receiving a Transaction](03_7_Receiving_a_Transaction.md)
-    * [Interlude: Using Command-Line Variables](03_7a_Interlude_Using_Command-Line_Variables.md)
-* [4.0: Sending Bitcoin Transactions](04_0_Sending_Bitcoin_Transactions.md) 
-  * [4.1: Sending Coins the Easy Way](04_1_Sending_Coins_The_Easy_Way.md) 
-  * [4.2: Creating a Raw Transaction](04_2_Creating_a_Raw_Transaction.md) 
-     * [Interlude: Using JQ](04_2a_Interlude_Using_JQ.md) 
-  * [4.3: Creating a Raw Transaction with Named Arguments](04_3_Creating_a_Raw_Transaction_with_Named_Arguments.md)
-  * [4.4: Sending Coins with Raw Transactions](04_4_Sending_Coins_with_a_Raw_Transaction.md)
-     * [Interlude: Using Curl](04_4a_Interlude_Using_Curl.md)
-  * [4.5: Sending Coins with Automated Raw Transactions](04_5_Sending_Coins_with_Automated_Raw_Transactions.md)
-  * [4.6: Sending Other Types of Transactions](04_6_Sending_Coins_to_Other_Addresses.md) 
-* [5.0: Controlling Bitcoin Transactions](05_0_Controlling_Bitcoin_Transactions.md)
-  * [5.1 Watching for Stuck Transactions](05_1_Watching_for_Stuck_Transactions.md)
-  * [5.2: Resending a Transaction with RBF](05_2_Resending_a_Transaction_with_RBF.md)
-  * [5.3: Funding a Transaction with CPFP](05_3_Funding_a_Transaction_with_CPFP.md)
+  * [3.4: Understanding the Descriptor Wallet](03_4_Understanding_the_Descriptor_Wallet.md)
+* [4.0: Preparing Your Bitcoin Addresses]  
+  * [4.1: Understanding the Address](04_1_Understanding_the_Address.md)
+  * [4.2: Creating an Address from a Descriptor](04_2_Creating_an_Address_from_a_Descriptor.md)
+  * [4.3: Creating QR Codes for Addresses](04_3Creating_QR_Codes_for_Addresses.md)
+  * [4.4: Receiving a Transaction](04_4_Receiving_a_Transaction.md)
+    * [Interlude: Using Command-Line Variables](04_4a_Interlude_Using_Command-Line_Variables.md)
+* [5.0: Sending Bitcoin Transactions](05_0_Sending_Bitcoin_Transactions.md) 
+  * [5.1: Sending Coins the Easy Way](05_1_Sending_Coins_The_Easy_Way.md) 
+  * [5.2: Creating a Raw Transaction](05_2_Creating_a_Raw_Transaction.md) 
+     * [Interlude: Using JQ](05_2a_Interlude_Using_JQ.md) 
+  * [5.3: Creating a Raw Transaction with Named Arguments](05_3_Creating_a_Raw_Transaction_with_Named_Arguments.md)
+  * [5.4: Sending Coins with Raw Transactions](05_4_Sending_Coins_with_a_Raw_Transaction.md)
+     * [Interlude: Using Curl](05_4a_Interlude_Using_Curl.md)
+  * [5.5: Sending Coins with Automated Raw Transactions](05_5_Sending_Coins_with_Automated_Raw_Transactions.md)
+  * [5.6: Sending Other Types of Transactions](05_6_Sending_Coins_to_Other_Addresses.md) 
+* [6.0: Controlling Bitcoin Transactions](06_0_Controlling_Bitcoin_Transactions.md)
+  * [6.1 Watching for Stuck Transactions](06_1_Watching_for_Stuck_Transactions.md)
+  * [6.2: Resending a Transaction with RBF](06_2_Resending_a_Transaction_with_RBF.md)
+  * [6.3: Funding a Transaction with CPFP](06_3_Funding_a_Transaction_with_CPFP.md)
 
 ### PART THREE: EXPANDING BITCOIN
 
-* [6.0: Expanding Bitcoin Transactions with Multisigs](06_0_Expanding_Bitcoin_Transactions_Multisigs.md)
-  * [6.1: Creating a Multisig with Public Keys](06_1_Creating_Multisig_Public_Keys.md)
-  * [6.2o: Creating a Multisig with Descriptors](06_2_Creating_Multisig_Descriptors.md)
-  * [6.3: Spending a Transaction with a Multisig](06_3_Spending_a_Transaction_to_a_Multisig.md)
+* [7.0: Expanding Bitcoin Transactions with Multisigs](07_0_Expanding_Bitcoin_Transactions_Multisigs.md)
+  * [7.1: Creating a Multisig with Public Keys](07_1_Creating_Multisig_Public_Keys.md)
+  * [7.2: Creating a Multisig with Descriptors](07_2_Creating_Multisig_Descriptors.md)
+  * [7.3: Spending a Transaction with a Multisig](07_3_Spending_a_Transaction_to_a_Multisig.md)
+
+[in progress]
+
 * [7.0: Expanding Bitcoin Transactions with PSBTs](07_0_Expanding_Bitcoin_Transactions_PSBTs.md)
   * [7.1: Creating a Partially Signed Bitcoin Transaction](07_1_Creating_a_Partially_Signed_Bitcoin_Transaction.md)
      * [Interlude: Creating Animated QR Codes](07_1a_Creating_Animated_QR_Codes.md) [**TO WRITE**]
