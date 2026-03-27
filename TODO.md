@@ -10,6 +10,7 @@ The following TODO items are intended for a 3.0 version of Learning Bitcoin from
 4. Write/Update §7.3 on Spending Multisigs (I think it's still possible!)
 5. Rewrite §8.1 to be specifically "Spending Multisigs with PSBTs"
 6. Rearrange & Edit Rest of PSBTs Accordingly
+7. Write Creating Animated QRs
 
 ## Longer-Term TODO (Small Tasks)
 
