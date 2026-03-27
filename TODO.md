@@ -2,16 +2,13 @@
 
 The following TODO items are intended for a 3.0 version of Learning Bitcoin from the Command Line
 
-## Immediate TODO (for 3/26): Multisigs & Descriptors
+## Immediate TODO (for 3/26): Multisigs & PSBTs
 
-1. Research new Multisig functions: enumeratesigners and displayaddress.
-2. Talk about creating different sorts of multisig addresses in §6.1
-3. New §6.2: creating descriptor multisig wallets?
-4. Consider whether to expand descriptor discussion in an earlier section for how to manipulate them
-   * Might need to break chapter 3 in two and make a new section on "Creating Descriptor Addresses" or something
-5. Move §6.2 on spending to §6.3 and bring it up to date.
-6. Consider current §6.3 given most functions have been removed. Anything to save? Anything with new functions? If so, §6.4
-   * See: https://github.com/bitcoin/bitcoin/issues/30175
+1. Renumber links on chapters 5+6
+2. Edit §7.1 + 7.2 on Multisigs
+3. Write/Update §7.3 on Spending Multisigs (I think it's still possible!)
+4. Rewrite §8.1 to be specifically "Spending Multisigs with PSBTs"
+5. Rearrange & Edit Rest of PSBTs Accordingly
 
 ## Longer-Term TODO (Small Tasks)
 
@@ -226,6 +223,13 @@ See [release notes](https://bitcoincore.org/en/releases/0.21.0/).
 ---
 
 # Progress Log
+
+## Immediate TODO (for 3/26): Multisigs & Descriptors
+
+1. <strike>Update §6.1 for creating different types of multisigs.</strike>
+2. <strike>New §6.2: creating multisigs from descriptors.</strike>
+3. <strike>Break Chapter Three into Chapters 3 + 4.</strike>
+4. <strike>New §4.2: Integrating Addresses & Descriptors.</strike>
 
 ## Immediate TODO (for 3/12): Cleanup
 
