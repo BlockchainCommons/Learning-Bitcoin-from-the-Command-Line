@@ -39,7 +39,7 @@ If you'd like to make your own translation, please see [Contributing](https://gi
   * [3.2: Knowing Your Bitcoin Setup](03_2_Knowing_Your_Bitcoin_Setup.md)
   * [3.3: Setting Up Your Wallet](03_3_Setting_Up_Your_Wallet.md) 
   * [3.4: Understanding the Descriptor Wallet](03_4_Understanding_the_Descriptor_Wallet.md)
-* [4.0: Preparing Your Bitcoin Addresses]  
+* [4.0: Preparing Your Bitcoin Addresses](04_0_Preparing_Your_Bitcoin_Addresses.md)
   * [4.1: Understanding the Address](04_1_Understanding_the_Address.md)
   * [4.2: Creating an Address from a Descriptor](04_2_Creating_an_Address_from_a_Descriptor.md)
   * [4.3: Creating QR Codes for Addresses](04_3Creating_QR_Codes_for_Addresses.md)
