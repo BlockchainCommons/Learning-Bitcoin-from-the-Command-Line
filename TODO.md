@@ -4,11 +4,12 @@ The following TODO items are intended for a 3.0 version of Learning Bitcoin from
 
 ## Immediate TODO (for 3/26): Multisigs & PSBTs
 
-1. Renumber links on chapters 5+6
-2. Edit §7.1 + 7.2 on Multisigs
-3. Write/Update §7.3 on Spending Multisigs (I think it's still possible!)
-4. Rewrite §8.1 to be specifically "Spending Multisigs with PSBTs"
-5. Rearrange & Edit Rest of PSBTs Accordingly
+1. See if Signet faucets or back and if not consider solutions
+2. Renumber links on chapters 5+6
+3. Edit §7.1 + 7.2 on Multisigs
+4. Write/Update §7.3 on Spending Multisigs (I think it's still possible!)
+5. Rewrite §8.1 to be specifically "Spending Multisigs with PSBTs"
+6. Rearrange & Edit Rest of PSBTs Accordingly
 
 ## Longer-Term TODO (Small Tasks)
 
