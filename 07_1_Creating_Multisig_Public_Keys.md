@@ -21,7 +21,7 @@ As with normal addresses, there are multiple types of multisig addresses that ha
 | `legacy` | P2SH | 3...<br>2... | default |
 | `p2sh-segwit` | P2SH-PWPKH | 3...<br>2... | |
 
-Multisigs have been somewhat neglected by Bitcoin Core since the SegWit transition, which is likely why `legacy` addresses are still the default. Nonetheless, just as with regular addresses, you can choose to create multisig addresses from any stage of the SegWit transition: `legacy` for pre-SegWit addresses; `p2sh-segwit` for adddresses used during the transition; and `bech32` for modern SegWit addresses.
+Multisigs have been somewhat neglected by Bitcoin Core since the transitions to SegWit and to descriptor wallets, which is likely why `legacy` addresses are still the default. Nonetheless, just as with regular addresses, you can choose to create multisig addresses from any stage of the SegWit transition: `legacy` for pre-SegWit addresses; `p2sh-segwit` for adddresses used during the transition; and `bech32` for modern SegWit addresses.
 
 Simple multisignatures require everyone in the group to sign the UTXO when it's spent. However, there's more complexity possible. Multisignatures are generally described as being "m of n". That means that the transaction is locked with a group of "n" keys, but only "m" of them are required to unlock the transaction, where m≤n.
 
