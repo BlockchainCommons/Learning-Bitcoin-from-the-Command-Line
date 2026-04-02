@@ -1,101 +1,112 @@
-# 6.2: Spending a Transaction with a Multisig
+# 7.3: Spending a Transaction with a Multisig
 
-The classic, and complex, way of spending funds sent to a multisignature address using `bitcoin-cli` requires that you do a lot of foot work.
+You've created a multisig and you've even imported it into a multisig wallet, but how do you spend it? The top answer today is PSBTs, which we'll meet in the next chapter, but Bitcoin Core offers an old school method as well.
 
 ## Find Your Funds
 
-To start with, you need to find your funds; your computer doesn't know to look for them, because they're not associated with any addresses in your wallet. You can alert `bitcoind` to do so using the `importaddress` command:
+You've already used `importdescriptors` to import your multisig into a watchonly wallet, perhaps using the descriptor provided by createmultisig (as explained in [§7.1](07_1_Creating_Multisig_Public_Keys.md)), perhaps using a descriptor that you created by hand (as described in [§7.2](07_2_Creating_Multisig_Descriptors.md)).
+
+Afterward the funds should show up when you `listunspent`:
 ```
-$ bitcoin-cli -named importaddress address=2NAGfA4nW6nrZkD5je8tSiAcYB9xL2xYMCz
-```
-If you've got a pruned node (and you probably do), you'll instead need to tell it not to rescan:
-```
-$ bitcoin-cli -named importaddress address=2NAGfA4nW6nrZkD5je8tSiAcYB9xL2xYMCz rescan="false"
-```
-If you prefer, you can import the address using its descriptor (and this is generally the better, more standardized answer):
-```
-$ bitcoin-cli importmulti '[{"desc": "sh(multi(2,02da2f10746e9778dd57bd0276a4f84101c4e0a711f9cfd9f09cde55acbdd2d191,02bfde48be4aa8f4bf76c570e98a8d287f9be5638412ab38dede8e78df82f33fa3))#0pazcr4y", "timestamp": "now", "watchonly": true}]'
+$ bitcoin-cli -rpcwallet=watchmulti listunspent
 [
   {
-    "success": true
+    "txid": "eb41b6d829e83d32ae8e3bd80ece0330db959a90a2c2a3d7f9bf7a177836133e",
+    "vout": 1,
+    "address": "tb1q8cg6qwhhv58zp005w6qnpfx8g6606awkjmf5yzlkulg0sc9phx8sqkltdd",
+    "label": "",
+    "witnessScript": "5221039395fa19d6512f03043210cd3e9a03a850f7a8d986c8f35d30f2efc281a8d3312103c57ed70775d7a616778514e738fef0946b4be4ee32440b19f65ddd6e345983c052ae",
+    "scriptPubKey": "00203e11a03af7650e20bdf4768130a4c746b4fd75d696d3420bf6e7d0f860a1b98f",
+    "amount": 0.00200000,
+    "confirmations": 16,
+    "spendable": true,
+    "solvable": true,
+    "desc": "wsh(multi(2,[38101947]039395fa19d6512f03043210cd3e9a03a850f7a8d986c8f35d30f2efc281a8d331,[0394feb3]03c57ed70775d7a616778514e738fef0946b4be4ee32440b19f65ddd6e345983c0))#n5s3dxtx",
+    "parent_descs": [
+      "wsh(multi(2,039395fa19d6512f03043210cd3e9a03a850f7a8d986c8f35d30f2efc281a8d331,03c57ed70775d7a616778514e738fef0946b4be4ee32440b19f65ddd6e345983c0))#k626xmlq"
+    ],
+    "safe": true
   }
 ]
 ```
-Afterward the funds should show up when you `listunspent` ... but they still aren't easily spendable. (In fact, your wallet may claim they're not `spendable` at all!)
 
-If for some reason you're not able to incorporate the address into your wallet, you can use `gettransaction` to get info instead (or look at a block explorer).
+However, they still aren't easily spendable (even if `bitcoin-cli` claims otherwise).
+
+## Spend You Funds
+
+There have traditionally been three ways to spend multisig funds using Bitcoin Core. The one most closely integrated with Bitcoin Core is to create a raw transaction, then to sign it with both of the wallets. That's what we'll use here.
+
+### Set Up Your Variables
+
+As usual, you need to know where your funds are going. Here, we're going to send funds to our normal, single-sig wallet, but send change back to the multisig:
+
 ```
-$ bitcoin-cli -named gettransaction txid=b164388854f9701051809eed166d9f6cedba92327e4296bf8a265a5da94f6521 verbose=true
+recipient=$(bitcoin-cli -rpcwallet="" getnewaddress)
+change=tb1q8cg6qwhhv58zp005w6qnpfx8g6606awkjmf5yzlkulg0sc9phx8sqkltdd
+```
+
+> ⚠️ **Do Not Reuse Addresses.** The best practice is to not reuse addresses in Bitcoin, because doing so creates easy-to-see correlation, as multiple transactions go in and out of the same address. However, to properly create a new multisig change address would require bringing together two new public keys. We could do that with a ranged descriptor, but it's beyond the scope of our simple single-use watch-only address we created, so for this example we're engaging in the bad practice of reusing our address for our change.
+
+Since we're successfully watching the multisig address, we can grab its UTXO and vout as usual:
+```
+utxo_txid=$(bitcoin-cli -rpcwallet="watchmulti" listunspent | jq -r '.[0] | .txid') 
+utxo_vout=$(bitcoin-cli -rpcwallet="watchmulti" listunspent | jq -r '.[0] | .vout')
+utxo_pubkey=$(bitcoin-cli -rpcwallet="watchmulti" listunspent | jq -r '.[0] | .scriptPubKey')
+```
+
+redeem_script="5221039395fa19d6512f03043210cd3e9a03a850f7a8d986c8f35d30f2efc281a8d3312103c57ed70775d7a616778514e738fef0946b4be4ee32440b19f65ddd6e345983c052ae"
+
+rawtxhex=$(bitcoin-cli -named createrawtransaction inputs='''[ { "txid": "'$utxo_txid'", "vout": '$utxo_vout' } ]''' outputs='''{ "'$recipient'": 0.01, "'$change'": 0.0099  }''')
+
+$ bitcoin-cli decoderawtransaction $rawtxhex
 {
-  "amount": -0.00006500,
-  "fee": -0.00001000,
-  "confirmations": 3,
-  "blockhash": "0000000000000165b5f602920088a7e36b11214161d6aaebf5229e3ed4f10adc",
-  "blockheight": 1773282,
-  "blockindex": 9,
-  "blocktime": 1592959320,
-  "txid": "b164388854f9701051809eed166d9f6cedba92327e4296bf8a265a5da94f6521",
-  "walletconflicts": [
-  ],
-  "time": 1592958753,
-  "timereceived": 1592958753,
-  "bip125-replaceable": "no",
-  "details": [
+  "txid": "2f07d92f7e13c13ced08ebaf63881fb804d05e5413d0013dbb559dc0805ee8f0",
+  "hash": "2f07d92f7e13c13ced08ebaf63881fb804d05e5413d0013dbb559dc0805ee8f0",
+  "version": 2,
+  "size": 125,
+  "vsize": 125,
+  "weight": 500,
+  "locktime": 0,
+  "vin": [
     {
-      "address": "2N8MytPW2ih27LctLjn6LfLFZZb1PFSsqBr",
-      "category": "send",
-      "amount": -0.00006500,
-      "vout": 0,
-      "fee": -0.00001000,
-      "abandoned": false
+      "txid": "eb41b6d829e83d32ae8e3bd80ece0330db959a90a2c2a3d7f9bf7a177836133e",
+      "vout": 1,
+      "scriptSig": {
+        "asm": "",
+        "hex": ""
+      },
+      "sequence": 4294967293
     }
   ],
-  "hex": "020000000001011b95a6055174ec64b82ef05b6aefc38f34d0e57197e40281ecd8287b4260dec60000000000ffffffff01641900000000000017a914a5d106eb8ee51b23cf60d8bd98bc285695f233f38702473044022070275f81ac4129e1d167ef7e700739f2899ea4c7f1adef3a4da29436f14fb97e02207310d4ec449eba49f0fa404ae45b9c82431d883490c7a0ed882ad0b5d7a623d0012102883bb5463e37d55252d8b3d5c2141b007b37c8a7db6211f75c955acc5ea325eb00000000",
-  "decoded": {
-    "txid": "b164388854f9701051809eed166d9f6cedba92327e4296bf8a265a5da94f6521",
-    "hash": "bdf4e3bc5d354a5dfa5528f172480976321d989d7e5806ac14f1fe9b0b1c093a",
-    "version": 2,
-    "size": 192,
-    "vsize": 111,
-    "weight": 441,
-    "locktime": 0,
-    "vin": [
-      {
-        "txid": "c6de60427b28d8ec8102e49771e5d0348fc3ef6a5bf02eb864ec745105a6951b",
-        "vout": 0,
-        "scriptSig": {
-          "asm": "",
-          "hex": ""
-        },
-        "txinwitness": [
-          "3044022070275f81ac4129e1d167ef7e700739f2899ea4c7f1adef3a4da29436f14fb97e02207310d4ec449eba49f0fa404ae45b9c82431d883490c7a0ed882ad0b5d7a623d001",
-          "02883bb5463e37d55252d8b3d5c2141b007b37c8a7db6211f75c955acc5ea325eb"
-        ],
-        "sequence": 4294967295
+  "vout": [
+    {
+      "value": 0.01000000,
+      "n": 0,
+      "scriptPubKey": {
+        "asm": "0 933439cf21eeff085ad1cc9ceb506810fd823779",
+        "desc": "addr(tb1qjv6rnnepamlsskk3ejwwk5rgzr7cydmeyaktds)#md8rtul5",
+        "hex": "0014933439cf21eeff085ad1cc9ceb506810fd823779",
+        "address": "tb1qjv6rnnepamlsskk3ejwwk5rgzr7cydmeyaktds",
+        "type": "witness_v0_keyhash"
       }
-    ],
-    "vout": [
-      {
-        "value": 0.00006500,
-        "n": 0,
-        "scriptPubKey": {
-          "asm": "OP_HASH160 a5d106eb8ee51b23cf60d8bd98bc285695f233f3 OP_EQUAL",
-          "hex": "a914a5d106eb8ee51b23cf60d8bd98bc285695f233f387",
-          "reqSigs": 1,
-          "type": "scripthash",
-          "addresses": [
-            "2N8MytPW2ih27LctLjn6LfLFZZb1PFSsqBr"
-          ]
-        }
+    },
+    {
+      "value": 0.00990000,
+      "n": 1,
+      "scriptPubKey": {
+        "asm": "0 3e11a03af7650e20bdf4768130a4c746b4fd75d696d3420bf6e7d0f860a1b98f",
+        "desc": "addr(tb1q8cg6qwhhv58zp005w6qnpfx8g6606awkjmf5yzlkulg0sc9phx8sqkltdd)#vjkdfwda",
+        "hex": "00203e11a03af7650e20bdf4768130a4c746b4fd75d696d3420bf6e7d0f860a1b98f",
+        "address": "tb1q8cg6qwhhv58zp005w6qnpfx8g6606awkjmf5yzlkulg0sc9phx8sqkltdd",
+        "type": "witness_v0_scripthash"
       }
-    ]
-  }
+    }
+  ]
 }
-```
 
-## Set Up Your Variables
+bitcoin-cli -rpcwallet="" -named signrawtransactionwithwallet hexstring=$rawtxhex prevtxs='''[ { "txid": "'$utxo_txid'", "vout": '$utxo_vout', "scriptPubKey": "'$utxo_pubkey'", "witnessScript": "'$redeem_script'", "amount": 0.02 } ]'''
 
-When you're ready to spend the funds received by a multisignature address, you're going need to collect a _lot_ of data: much more than you need when you spend a normal P2PKH or SegWit UTXO. That's in part because the info on the multisig address isn't in your wallet, and in part because you're spending money that was sent to a P2SH (pay-to-script-hash) address, and that's a lot more demanding.
+[and this isn't working ...]
 
 In total, you're going to need to collect three things: extended information about the UTXO; the redeemScript; and all the private keys involved. You'll of course need a new recipient address too. The private keys need to wait for the signing step, but everything else can be done now.
 
