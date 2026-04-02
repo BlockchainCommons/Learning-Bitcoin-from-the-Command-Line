@@ -1,4 +1,4 @@
-# 6.2: Creating a Multisig from Descriptors
+# 7.2: Creating a Multisig from Descriptors
 
 You can improve your control over the creation of a multisig by creating it by hand with a descriptor.
 
@@ -22,17 +22,21 @@ Afterward, you consolidate your info on to a single machine:
 
 ```
 machine2$ echo $pubkey4
-026137216df604722b973bb43d8ebffd10761a22b3dd98892904eb1163de8206ee
+027f5c103ada4029ff7b821c40a1ccff98704d87ace8caaf24fa52ee94b7e6de4b
 
-machine1$ pubkey4=026137216df604722b973bb43d8ebffd10761a22b3dd98892904eb1163de8206ee
+machine1$ pubkey4=027f5c103ada4029ff7b821c40a1ccff98704d87ace8caaf24fa52ee94b7e6de4b
 ```
 
 ## Create the Descriptor
 
-Next you create the descriptor. This requires two questions:
+Next you create the descriptor. This uses the same technique as you applied in [§4.2](04_2_Integrating_Addresses_Descriptors.md), except you'll be creating a slightly more complex multisignature descriptor.
+
+Doing so requires you answer four questions:
 
 1. What address type do you want to use? `sh` (P2SH) or `wsh` (P2WSH)
 2. What script function do you wan to use? `multi` (Bitcoin Core default) or `sortedmulti` (safer, but non-default)
+3. What is your threshold? (how many keys are required to unlock?)
+4. How many keys total are there? (how many keys could be used to meet the threshold?)
 
 You then write a descriptor of the form:
 ```
@@ -56,7 +60,7 @@ You can then create a descriptor with the checksum:
 machine1$ msdescwithcs=$msdesc#$mscs
 
 machine1$ echo $msdescwithcs
-wsh(multi(2,021c04d13d7047bb8413ecf2f3a7f3c7172eaffff00040a67eb6b10cd57046b958,026137216df604722b973bb43d8ebffd10761a22b3dd98892904eb1163de8206ee))#nvydugpc
+wsh(sortedmulti(2,03ae6bee76f15dcce5c67a910a484d2482270daa7f1ea38d0db3fc5ec31fe78ed9,027f5c103ada4029ff7b821c40a1ccff98704d87ace8caaf24fa52ee94b7e6de4b))#amajqzxw
 ```
 
 ## Import the Descriptor
@@ -65,16 +69,15 @@ You've skipped right past the nead to use `createmultisig` to create your addres
 
 You should reload the watch-only wallet you created in the previous section:
 ```
-$ bitcoin-cli loadwallet "watch_multi"
+$ bitcoin-cli loadwallet "watchmulti"
 {
-  "name": "watch_multi"
+  "name": "watchmulti"
 }
-standup@lbtc:~$
 ```
 
 Afterward, you can import the descriptor just like you did in the previous section:
 ```
-$  bitcoin-cli -rpcwallet=watch_multi importdescriptors '''[{ "desc": "'$msdescwithcs'", "timestamp": 1770329126 }]'''
+$ bitcoin-cli -rpcwallet=watchmulti importdescriptors '''[{ "desc": "'$msdescwithcs'", "timestamp": 1770329126 }]'''
 [
   {
     "success": true
@@ -85,12 +88,12 @@ $  bitcoin-cli -rpcwallet=watch_multi importdescriptors '''[{ "desc": "'$msdescw
 You should now see two addresses in your watch-only wallet: the one you create with `createmultisig` and the one you created by hand using a descriptor:
 
 ```
-$ bitcoin-cli -rpcwallet=watch_multi getaddressesbylabel ""
+$ bitcoin-cli -rpcwallet=watchmulti getaddressesbylabel ""
 {
-  "tb1qj885390pmsaggamryky7w67ax8xq3dk673epgsyjy7d3gvmvevvqmq6jzy": {
+  "tb1q8cg6qwhhv58zp005w6qnpfx8g6606awkjmf5yzlkulg0sc9phx8sqkltdd": {
     "purpose": "receive"
   },
-  "tb1qnx6ns5mn2435tqvu76nurwc2p2zahh6tcgh92hqn800z04ka7v7sggc0j8": {
+  "tb1q8lapgtw2fez7xxn4nwtrkzxzaajt5ju52vn4vzws58aexpxzsw9qu2fmc3": {
     "purpose": "receive"
   }
 }
@@ -102,6 +105,6 @@ You don't have to depend on the Bitcoin Core commands! As you grow increasingly 
 
 ## What's Next?
 
-Continue "Expanding Bitcoin Transactions" with [§6.3: Spending a
+Continue "Expanding Bitcoin Transactions" with [§7.3: Spending a
 Transaction to a
-Multisig](06_3_Spending_a_Transaction_to_a_Multisig.md).
+Multisig](07_3_Spending_a_Transaction_to_a_Multisig.md).
