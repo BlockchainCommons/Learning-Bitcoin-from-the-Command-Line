@@ -6,7 +6,7 @@ descriptor wallet contains ranged descriptors for four sorts of
 addresses.
 
 But you can also have _non-ranged_ descriptors for individual
-addresses. This section look at them.
+addresses. This section examines them.
 
 ## Examine an Address' Descriptor
 
@@ -69,8 +69,8 @@ hundreds or thousands of the other).
 
 In fact, you can derive addresses from a descriptor on your own,
 without having to use the `getnewaddress` command again and
-again. This is done with the `deriveaddresses` command, which you give
-a ranged descriptor, then tell it how far to derive to:
+again. This is done with the `deriveaddresses` command: you give
+it a ranged descriptor, then tell it how far to derive to:
 
 ```
 $ bitcoin-cli deriveaddresses "wpkh([e18dae20/84h/1h/0h]tpubDC4ujMbsd9REzpGk3gnTjkrfJFw1NnvCpx6QBbLj3CHBzcLmVzssTVP8meRAM1WW4pZnK6SCCPGyzi9eMfzSXoeFMNprqtgxG71VRXTmetu/0/*)#3658f8sn" 2
@@ -82,7 +82,7 @@ $ bitcoin-cli deriveaddresses "wpkh([e18dae20/84h/1h/0h]tpubDC4ujMbsd9REzpGk3gnT
 ```
 
 This example shows the derivation of addresses from the BIP-84 ranged
-ndescriptor up through index "2". If you check this against the
+descriptor up through index "2". If you check this against the
 addresses created in in the previous section, you'll see they're just
 the same. Which is of course the whole point of descriptors! They are
 deterministically derived in the same way every time.
@@ -97,37 +97,62 @@ you to watch for transactions related to an address (or to a whole
 family of addresses if you used a ranged descriptor), but not to spend
 funds on those addresses.
 
-## Create a Descriptor by Hand
+## Import Descriptors
 
-Not only can you derive addresses from a descriptor by hand, but you
-can also create a descriptor by hand.
+As shown in [§3.4](03_4_Understanding_the_Descriptor_Wallet.md), you can also import descriptors from one wallet to the other using the `importdescriptors` command.
 
-There is an extensive list of descriptors that you can create on the
-[Bitcoin Core
-GitHub](https://github.com/bitcoin/bitcoin/blob/master/doc/descriptors.md). Following
-are a few examples.
-
-Once you've created any descriptor, you can then import it with the
-`importdescriptors` command that you used in
-[§3.4](03_4_Understanding_the_Descriptor_Wallet.md).
-
-Here's what it looked like to import a ranged desccriptor to become one of the `active` descriptors used to generate addresses in your wallet:
 ```
 $ bitcoin-cli importdescriptors '[{ "desc": "wpkh(tprv8ZgxMBicQKsPd1dP4NpsFDpsLUCnZ7oyn4UEbYLw7if1EDVCxMgfSzAwP3aCr1YeRvX9GtGvHsCLdrM7zaDyh33jEj7joQoEeNEyJaSYm5p/84h/1h/0h/0/*)#grdqnase", "timestamp":1770329126, "active": true, "range": [0,10] }]'
 ```
 
-You will change some of the variables when you import the new
-descriptors you're creating below:
+This command takes a JSON object that you can [reformat](https://jsonformatter.curiousconcept.com/) for better clarity:
 
 ```
-* **`active`** is not set if this is not a ranged descriptor meant to become one of defaults for creating new addresses.
-* **`range`* is not set if it's a descriptor for a single address.
+[
+   {
+      "desc":"wpkh(tprv8ZgxMBicQKsPd1dP4NpsFDpsLUCnZ7oyn4UEbYLw7if1EDVCxMgfSzAwP3aCr1YeRvX9GtGvHsCLdrM7zaDyh33jEj7joQoEeNEyJaSYm5p/84h/1h/0h/0/*)#grdqnase",
+      "timestamp":1770329126,
+      "active":true,
+      "range":[
+         0,
+         10
+      ]
+   }
+]
+```
+
+As shown, it has four variables:
+
+* **`desc`** is the descriptor.
+* **`timestamp`** tells your server how far to go back looking for transactions related to this address.
+* **`active`** says that this descriptor should be used to generate new addresses of this type in your wallet.
+* **`range`** lists which addresses to import from this descriptor.
+
+This is just a step, because afterward you can derive addresses from that descriptor:
+
+> import descriptor ➡️ deriveaddresses
+
+## Create a Descriptor by Hand
+
+You can step even further back! You can create a descriptor by hand, then import it, then derive addresses from it:
+
+> create descriptor ➡️ import descriptor ➡️ deriveaddresses
+
+The creation of a descriptor is simple because there's a designated format for each type. The
+[Bitcoin Core
+GitHub](https://github.com/bitcoin/bitcoin/blob/master/doc/descriptors.md) has a listing of all them. Following
+are a few examples.
+
+When you import these descriptors, you'll make a few changes from the `importdescriptors` example above:
+
+* **`active`** will not be set if this is not a ranged descriptor meant to become one of the defaults for creating new addresses.
+* **`range`* will not be set if the descriptor is for a single address.
 
 ### Create a Watch-Only Wallet
 
-Your default wallet (`""`) is set to hold private keys. You can use
+One thing before you get started: your default wallet (`""`) is set to hold private keys. You can use
 that if you're importing descriptors where you have the private
-key. However, if you want to import descriptors without private keys,
+key, like the example above. However, if you want to import descriptors without private keys,
 you need to create a special watchonly wallet:
 
 ```
@@ -137,7 +162,7 @@ $ bitcoin-cli createwallet "watchonly" true true
 }
 ```
 
-The two `true`s are the magic sauce as shown in the help file:
+The two `true`s in this command are the magic sauce as shown in the help file:
 
 ```
 1. wallet_name             (string, required) The name for the new wallet. If this is a path, the wallet will be created at the path location.
@@ -148,7 +173,7 @@ The two `true`s are the magic sauce as shown in the help file:
 The first `true` disables the use of private keys, the second `true` tells the wallet not to create keys of its own.
 
 Remember that you're going to have to use `loadwallet` and
-`unloadwallet` to cycle to right wallet, or else use a `-rpcwallet`
+`unloadwallet` to cycle to the right wallet, or else use a `-rpcwallet`
 flag with every command to make sure you're using the wallet. (We'll
 do the latter in the following examples.)
 
@@ -263,7 +288,7 @@ bitcoin-cli -rpcwallet=watchonly importdescriptors '[{ "desc": "wpkh(02040bf9b12
 ]
 ```
 
-Voila, we have round-tripped the address via a descriptor with the public key:
+Voila, we have recreated our address using a descriptor and the public key:
 
 ```
 $ bitcoin-cli -rpcwallet=watchonly getaddressesbylabel ""
@@ -286,7 +311,7 @@ needed.
 
 This process could be repeated in a number of different ways. You
 could create a descriptor with a private key instead of a public key,
-and import it into non-watchonly wallet. You could create a ranged
+and import it into regular (non-watchonly) wallet. You could create a ranged
 descriptor by hand and import a whole set of addresses. Although it's
 not best practice, you could even use the same key to create different
 types of addresses. (Try it out: just replace the "wpkh" above with
@@ -296,7 +321,7 @@ instead of a P2WPKH address, unlocked by the same key.)
 The main purpose here is to show how descriptors work in practice, so
 that the link between descriptors and address is clear, and so you can
 easily create addresses from descriptors when it's helpful in the
-future, such as when we create multisigs.
+future, such as when we create multisigs in [§7.2](07_2_Creating_Multisig_Descriptors.md).
 
 ## Summary: Integrating Addresses and Descriptors
 
@@ -304,9 +329,12 @@ In the modern Bitcoin ecosystem, addresses and descriptors go hand in
 hand—and it's not just that you use ranged descriptors to create sets
 of address.
 
-* You can view descriptors from individual addresses.
+You can also step through a life cycle of descriptors:
+
+* You can create descriptors by hand.
+* You can import descriptors from other wallets.
 * You can derive addresses directly from descriptors.
-* You can generate descriptors by hand and turn them into addresses.
+* You can view descriptors from individual addresses.
 
 These are powerful techniques that we may not use a lot on the command
 line, but which are crucial to an overall understand of how Bitcoin
