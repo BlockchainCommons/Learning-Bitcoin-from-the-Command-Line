@@ -128,7 +128,7 @@ As shown, it has four variables:
 * **`active`** says that this descriptor should be used to generate new addresses of this type in your wallet.
 * **`range`** lists which addresses to import from this descriptor.
 
-This is just a step, because afterward you can derive addresses from that descriptor:
+This is just a step back, because afterward you can derive addresses from that descriptor:
 
 > import descriptor ➡️ deriveaddresses
 
