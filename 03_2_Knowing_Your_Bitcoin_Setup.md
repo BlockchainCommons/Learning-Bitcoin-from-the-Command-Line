@@ -355,4 +355,4 @@ The `~/.bitcoin` directory contains all of your files, while `bitcoin-cli help` 
 
 ## What's Next?
 
-Continue "Understanding Your Bitcoin Setup" with [§3.3: Setting Up Your Wallet](03_3_Setting_Up_Your_Wallet.md).
+Continue "Preparing Your Bitcoin Wallet" with [§3.3: Setting Up Your Wallet](03_3_Setting_Up_Your_Wallet.md).
