@@ -422,5 +422,5 @@ JQ makes it easy to extract information from JSON arrays and objects. It can als
 
 ## What's Next?
 
-Continue "Sending Bitcoin Transactions" with [§4.3 Creating a Raw Transaction with Named Arguments](04_3_Creating_a_Raw_Transaction_with_Named_Arguments.md).
+Continue "Sending Bitcoin Transactions" with [§5.3 Creating a Raw Transaction with Named Arguments](05_3_Creating_a_Raw_Transaction_with_Named_Arguments.md).
 

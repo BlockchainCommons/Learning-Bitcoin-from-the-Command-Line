@@ -1,12 +1,21 @@
-# 4.4: Sending Coins with Raw Transactions
+# 5.4: Sending Coins with Raw Transactions
 
-As noted at the start of this chapter, the `bitcoin-cli` interface offers three major ways to send coins. [§4.1](04_1_Sending_Coins_The_Easy_Way.md) talked about sending them the first way, using the `sendtoaddress` command. Since then, we've been building details on how to send coins a second way, with raw transactions. [§4.2](04_2_Creating_a_Raw_Transaction.md) taught how to create a raw transaction, an [Interlude](04_2__Interlude_Using_JQ.md) explained JQ, and [§4.3](04_3_Creating_a_Raw_Transaction_with_Named_Arguments.md) demonstrated named arguments.
+As noted at the start of this chapter, the `bitcoin-cli` interface
+offers three major ways to send
+coins. [§5.1](05_1_Sending_Coins_The_Easy_Way.md) talked about sending
+them the first way, using the `sendtoaddress` command. Since then,
+we've been building details on how to send coins a second way, with
+raw transactions. [§5.2](05_2_Creating_a_Raw_Transaction.md) taught
+how to create a raw transaction, an
+[Interlude](05_2__Interlude_Using_JQ.md) explained JQ, and
+[§5.3](05_3_Creating_a_Raw_Transaction_with_Named_Arguments.md)
+demonstrated named arguments.
 
 We can now put those together and actually send funds using a raw transaction (or more precisely, we can send funds in a way that actually represents a real transaction, rather than sending complete UTXOs, as was did in the previous two sections).
 
 ## Create a Change Address
 
-Our sample raw transactions in §4.2 and §4.3 were very simplistic: we sent the entirety of a UTXO to a new address. In real-life, you'll want to send someone an amount of money that doesn't match a UTXO. But, you'll recall that the excess money from a UTXO that's not sent to your recipient just becomes a transaction fee. So, how do you send someone just part of a UTXO, while keeping the rest for yourself?
+Our sample raw transactions in §5.2 and §5.3 were very simplistic: we sent the entirety of a UTXO to a new address. In real-life, you'll want to send someone an amount of money that doesn't match a UTXO. But, you'll recall that the excess money from a UTXO that's not sent to your recipient just becomes a transaction fee. So, how do you send someone just part of a UTXO, while keeping the rest for yourself?
 
 The solution is to _send_ the rest of the funds to a second address, a change address that you've created in your wallet specifically to receive them:
 ```
@@ -217,5 +226,5 @@ To send coins with raw transactions, you need to create a raw transaction with o
 
 See another alternative way to input commands with [Interlude: Using Curl](04_4__Interlude_Using_Curl.md).
 
-Or, if you prefer to skip what's frankly a digression, learn a final way to "Send Bitcoin Transactions" with [§4.5 Sending Coins with Automated Raw Transactions](04_5_Sending_Coins_with_Automated_Raw_Transactions.md).
+Or, if you prefer to skip what's frankly a digression, learn a final way to "Send Bitcoin Transactions" with [§5.5 Sending Coins with Automated Raw Transactions](05_5_Sending_Coins_with_Automated_Raw_Transactions.md).
 

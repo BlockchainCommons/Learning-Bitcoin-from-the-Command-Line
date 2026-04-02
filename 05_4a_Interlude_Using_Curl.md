@@ -377,4 +377,4 @@ But there are still reasons you'd use `curl` instead of `bitcoin-cli`:
 
 ## What's Next?
 
-Learn one more way to "Send Bitcoin Transactions" with [§4.5 Sending Coins with Automated Raw Transactions](04_5_Sending_Coins_with_Automated_Raw_Transactions.md).
+Learn one more way to "Send Bitcoin Transactions" with [§5.5 Sending Coins with Automated Raw Transactions](05_5_Sending_Coins_with_Automated_Raw_Transactions.md).

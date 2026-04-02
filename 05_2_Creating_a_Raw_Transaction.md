@@ -1,4 +1,4 @@
-# 4.2 Creating a Raw Transaction
+# 5.2 Creating a Raw Transaction
 
 You're now ready to create Bitcoin raw transactions. This allows you to send money but to craft the transactions as precisely as you want. This first section focuses on a simple one-input, one-output transaction. This sort of transaction _isn't_ actually that useful, because you're rarely going to want to send all of your money to one person (unless you're actually just forwarding it on, such as if you're sweeping things from one wallet to another). Therefore, we don't label this section as a way to send money. It's just a foundational stepping stone to _actually_ sending money with a raw transaction.
 
@@ -90,7 +90,7 @@ Each transaction has a fee associated with. It's _implicit_ when you send a raw 
 
 > ⚠️ **WARNING: Dangerous Calculations Ahead.** Calculating the transaction fee is a very dangerous part of raw transactions!! Because you automatically expend all of the amount in the UTXOs that you use, it's critically important to make sure that you know: (1) precisely what UTXOs you're using; (2) exactly how much money they contain; (3) exactly how much money you're sending out; and (4) what the difference is. If you mess up and you use the wrong UTXO (with more money than you thought) or if you send out too little money, the excess is lost. Forever. Don't make that mistake! Know your inputs and outputs _precisely_. Or better, don't use raw transactions except as part of a carefully considered and triple-checked program.
 
-> 📖 ***How much should you spend on transaction fees?*** [§4.1](04_1_Sending_Coins_The_Easy_Way.md#set-your-transaction-fee) contains extensive discussions of transaction fees. The TL;DR is that 1 sat/vB is usually sufficient in the modern day, though this course tends to use 10 sat/vB just to ensure that you don't have to sit around waiting for transactions to come back. A Bitcoin Explorer such as the [mempool explorer](https://mempool.space/) can alternatively show you what fees are currently being paid.
+> 📖 ***How much should you spend on transaction fees?*** [§5.1](05_1_Sending_Coins_The_Easy_Way.md#set-your-transaction-fee) contains extensive discussions of transaction fees. The TL;DR is that 1 sat/vB is usually sufficient in the modern day, though this course tends to use 10 sat/vB just to ensure that you don't have to sit around waiting for transactions to come back. A Bitcoin Explorer such as the [mempool explorer](https://mempool.space/) can alternatively show you what fees are currently being paid.
 
 Assuming a fee of 1 sat/vB and a SegWit transaction that's less than 250 Bytes would mean a fee of 250 satoshis, or 0.0000025 BTC, which would be a quarter if Bitcoin were worth $100,000 each. Not bad! (But we're going to move that up to 0.00001 for quick testing purposes.)
 
@@ -172,7 +172,7 @@ $ bitcoin-cli decoderawtransaction $rawtxhex
 
 Check the `vin`. Are you spending the right transaction? Does it contain the expected amount of money? (Check with `bitcoin-cli gettransaction` and be sure to look at the right `vout`.) Check your `vout`. Are you sending the right amount? Is it going to the right address? Finally, do the math to make sure the money balances. Does the value of the UTXO minus the amount being spent equal the expected transaction fee?
 
-> ℹ️  **NOTE: Sequence:** You may note that each input has a sequence number, set here to `4294967293`, which is `0xFFFFFFFF-2`. This is the last frontier of Bitcoin transactions, because it's a standard field in transactions that was originally intended for a specific purpose, but was never fully implemented. So now there's this integer sitting around in transactions that could be repurposed for other uses. And, in fact, it has been. As of this writing there are three different uses for the variable that's called `nSequence` in the Bitcoin Core code: it enables RBF, `nLockTime`, and relative timelocks. It used to always be set to `4294967295` (`0xFFFFFFFF`), which meant "nothing special", but nowadays it's set to  `4294967293` (`0xFFFFFFFF-2`), which means "allow Replace-by-Fee by default", which is explained in [§5.2](05_2_Resending_a_Transaction_with_RBF.md). Other values mean other things.
+> ℹ️  **NOTE: Sequence:** You may note that each input has a sequence number, set here to `4294967293`, which is `0xFFFFFFFF-2`. This is the last frontier of Bitcoin transactions, because it's a standard field in transactions that was originally intended for a specific purpose, but was never fully implemented. So now there's this integer sitting around in transactions that could be repurposed for other uses. And, in fact, it has been. As of this writing there are three different uses for the variable that's called `nSequence` in the Bitcoin Core code: it enables RBF, `nLockTime`, and relative timelocks. It used to always be set to `4294967295` (`0xFFFFFFFF`), which meant "nothing special", but nowadays it's set to  `4294967293` (`0xFFFFFFFF-2`), which means "allow Replace-by-Fee by default", which is explained in [§6.2](06_2_Resending_a_Transaction_with_RBF.md). Other values mean other things.
 
 ### Sign the Raw Transaction
 
@@ -198,7 +198,7 @@ You've now got a ready-to-go raw transaction, but it doesn't count until you act
 $ bitcoin-cli sendrawtransaction $signedtx
 8a0d9ab73d81a1ce043d1ede0e737136e6d3352d3e0bc9590f9e8bbd91036dc2
 ```
-As usual, you'll immediately see that the UTXO and its money have been removed from your wallet (but you'll have a bit better understanding this time than in [§4.1](04_1_Sending_Coins_The_Easy_Way.m) since you explicitly chose the UTXO to be spent:
+As usual, you'll immediately see that the UTXO and its money have been removed from your wallet (but you'll have a bit better understanding this time than in [§5.1](05_1_Sending_Coins_The_Easy_Way.m) since you explicitly chose the UTXO to be spent:
 ```
 $ bitcoin-cli listunspent
 [
@@ -252,4 +252,4 @@ When money comes into your Bitcoin wallet, it remains as distinct amounts, calle
 
 ## What's Next?
 
-Step Back from "Sending Bitcoin Transactions" with [Interlude: Using JQ](04_2a_Interlude_Using_JQ.md).
+Step Back from "Sending Bitcoin Transactions" with [Interlude: Using JQ](05_2a_Interlude_Using_JQ.md).

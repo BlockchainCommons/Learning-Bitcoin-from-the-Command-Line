@@ -1,4 +1,4 @@
-# 4.3 Creating a Raw Transaction with Named Arguments
+# 5.3 Creating a Raw Transaction with Named Arguments
 
 It can sometimes be daunting to figure out the right order for the arguments to a bitcoin-cli command. Fortunately, you can use _named arguments_ as an alternative.
 
@@ -104,4 +104,4 @@ _These docs will use named arguments for all future examples, for clarity and to
 
 ## What's Next?
 
-Continue "Sending Bitcoin Transactions" with [§4.4: Sending Coins with Raw Transactions](04_4_Sending_Coins_with_a_Raw_Transaction.md).
+Continue "Sending Bitcoin Transactions" with [§5.4: Sending Coins with Raw Transactions](05_4_Sending_Coins_with_a_Raw_Transaction.md).

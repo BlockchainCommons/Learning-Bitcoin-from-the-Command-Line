@@ -1,12 +1,18 @@
-# 4.5: Sending Coins with Automated Raw Transactions
+# 5.5: Sending Coins with Automated Raw Transactions
 
-This chapter lays out three ways to send funds via Bitcoin's cli interface. [§4.1](04_1_Sending_Coins_The_Easy_Way.md) described how to do so with a simple command and [§4.4](04_4_Sending_Coins_with_a_Raw_Transaction.md) detailed how to use a more dangerous raw transaction. This final section splits the difference by showing how to make raw transactions simpler and safer using automation. 
+This chapter lays out three ways to send funds via Bitcoin's cli
+interface. [§5.1](05_1_Sending_Coins_The_Easy_Way.md) described how to
+do so with a simple command and
+[§5.4](05_4_Sending_Coins_with_a_Raw_Transaction.md) detailed how to
+use a more dangerous raw transaction. This final section splits the
+difference by showing how to make raw transactions simpler and safer
+using automation.
 
 ## Let Bitcoin Calculate For You
 
 The methodology for automated raw transactions is simple: you create a raw transaction, but you use the `fundrawtransaction` command to ask the bitcoind to run the calculations for you.
 
-In order to use this command, you'll need to ensure that your ~/.bitcoin/bitcoin.conf file contains rational variables for calculating transaction fees. Please see [§4.1: Sending Coins The Easy Way](04_1_Sending_Coins_The_Easy_Way.md) for more information on this.
+In order to use this command, you'll need to ensure that your ~/.bitcoin/bitcoin.conf file contains rational variables for calculating transaction fees. Please see [§5.1: Sending Coins The Easy Way](05_1_Sending_Coins_The_Easy_Way.md) for more information on this.
 
 ## Create a Bare Bones Raw Transaction
 
@@ -252,5 +258,5 @@ If you must send funds with raw transactions then `fundrawtransaction` gives you
 
 ## What's Next?
 
-Complete your "Sending of Bitcoin Transactions" with [§4.6: Sending Coins to Other Addresses](04_6_Sending_Coins_to_Other_Addresses.md).
+Complete your "Sending of Bitcoin Transactions" with [§5.6: Sending Coins to Other Addresses](05_6_Sending_Coins_to_Other_Addresses.md).
 

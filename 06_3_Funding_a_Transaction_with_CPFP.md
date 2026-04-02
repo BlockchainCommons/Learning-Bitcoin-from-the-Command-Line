@@ -1,4 +1,4 @@
-# 5.3: Funding a Transaction with CPFP
+# 6.3: Funding a Transaction with CPFP
 
 If your Bitcoin transaction is stuck, and you're the _recipient_, you can clear it using CPFP (child-pays-for-parent). This is alternative to the _sender's_ ability to do so with RBF.
 
@@ -118,4 +118,6 @@ You can take advantage of the CPFP incentives to free up funds that have been se
 
 ## What's Next?
 
-Advance through "bitcoin-cli" with [Chapter Six: Expanding Bitcoin Transactions with Multisigs](06_0_Expanding_Bitcoin_Transactions_Multisigs.md).
+Move on to "Expanding Bitcoin Transactions" with [Chapter Seven:
+Expanding Bitcoin Transactions with
+Multisigs](06_0_Expanding_Bitcoin_Transactions_Multisigs.md).

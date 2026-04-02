@@ -1,4 +1,4 @@
-# 5.2: Resending a Transaction with RBF
+# 6.2: Resending a Transaction with RBF
 
 If your Bitcoin transaction is stuck, and you're the sender, you can _replace_ (resend) it using RBF (replace-by-fee). However, that's not all that RBF can do: it's generally a powerful and multipurpose feature that allows Bitcoin senders to recreate transactions for a variety of reasons.
 
@@ -185,7 +185,7 @@ $ bitcoin-cli decoderawtransaction $rawtxhex3
 
 The above examples drew from a default transaction created by `bitcoin-cli` . The sequence was already (by default!) set to "4294967293". By default, Bitcoin Core now flags all transactions with the RBF opt-in flag, so RBF is always allowed; whether other nodes use Full RBF or not, you'll be able to replace your transactions originally generated with `bitcoin-cli`. 
 
-However, you can chose to change this behavior. To do so, you create a raw transaction as described in [§4.2](04_2_Creating_a_Raw_Transaction.md), but you add a `sequence` variable to the `txid` and `vout` that you already have for one of the inputs. Since RBF is now on by default, you'd either be setting this to `0` to turn it off (though there's little purpose when Full RBF is widely accepted on the 'net), or to some other value to allow timelocks (more on that in chapter 8).
+However, you can chose to change this behavior. To do so, you create a raw transaction as described in [§5.2](05_2_Creating_a_Raw_Transaction.md), but you add a `sequence` variable to the `txid` and `vout` that you already have for one of the inputs. Since RBF is now on by default, you'd either be setting this to `0` to turn it off (though there's little purpose when Full RBF is widely accepted on the 'net), or to some other value to allow timelocks (more on that in chapter 8).
 ```
 $ seqtx=$(bitcoin-cli -named createrawtransaction inputs='''[ { "txid": "'$utxo_txid'", "vout": '$utxo_vout', "sequence": 0 } ]''' outputs='''{ "'$recipient'": 0.001, "'$changeaddress'": 0.003 }''')
 ```
@@ -399,4 +399,4 @@ If a transaction is stuck, and you don't want to wait for it to expire entirely,
 
 ## What's Next?
 
-Continue "Controlling Bitcoin Transactions" with [§5.3: Funding a Transaction with CPFP](05_3_Funding_a_Transaction_with_CPFP.md).  
+Continue "Controlling Bitcoin Transactions" with [§6.3: Funding a Transaction with CPFP](06_3_Funding_a_Transaction_with_CPFP.md).  

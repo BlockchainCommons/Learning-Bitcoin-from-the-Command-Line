@@ -1,4 +1,4 @@
-# 4.1: Sending Coins the Easy Way
+# 5.1: Sending Coins the Easy Way
 
 The `bitcoin-cli` offers three major ways to send coins: as one of a few simple commands; as a raw transaction; and as a raw transaction with calculation. Each has their own advantages and disadvantages. This first method for sending coins is also the simplest.
 
@@ -8,7 +8,7 @@ Before you send any money on the Bitcoin network, you should think about what tr
 
 > 📖 ***What is a transaction fee?*** There's no such thing as a free lunch. Miners incorporate transactions into blocks because they're paid to do so. Not only do they get paid by the network for making the block, but they also get paid by transactors for including their transactions. If you don't pay a fee, your transaction might get stuck ... forever (or, until saved by some of the tricks in [Chapter Five](05_0_Controlling_Bitcoin_Transactions.md)).
 
-When you're using the simple and automated methods for creating transactions, as outlined here and in [§4.5: Sending Coins with Automated Raw Transactions](04_5_Sending_Coins_with_Automated_Raw_Transactions.md), Bitcoin will calculate transaction fees for you. This is done using Floating Fees, where the `bitcoind` watches how long transactions are taking to confirm and automatically calculates for you what to spend.
+When you're using the simple and automated methods for creating transactions, as outlined here and in [§5.5: Sending Coins with Automated Raw Transactions](05_5_Sending_Coins_with_Automated_Raw_Transactions.md), Bitcoin will calculate transaction fees for you. This is done using Floating Fees, where the `bitcoind` watches how long transactions are taking to confirm and automatically calculates for you what to spend.
 
 You can help control how Floating Fees determines your transaction fees by putting rational values into your `~/.bitcoin/bitcoin.conf`. This is done by setting up to five values. They would usually be placed in the top of your file, but they could be placed in a `[test]`, `[regtest]`, or `[signet]` section if you want to place higher values for your testing (when you're waiting around), but lower values for actual payments on a real network.
 
@@ -243,4 +243,4 @@ To send coins the easy way, make sure your transaction defaults are rationale, g
 
 ## What's Next?
 
-Continue "Sending Bitcoin Transactions" with [§4.2 Creating a Raw Transaction](04_2_Creating_a_Raw_Transaction.md).
+Continue "Sending Bitcoin Transactions" with [§5.2 Creating a Raw Transaction](05_2_Creating_a_Raw_Transaction.md).
