@@ -41,7 +41,7 @@ If you'd like to make your own translation, please see [Contributing](https://gi
   * [3.4: Understanding the Descriptor Wallet](03_4_Understanding_the_Descriptor_Wallet.md)
 * [4.0: Preparing Your Bitcoin Addresses](04_0_Preparing_Your_Bitcoin_Addresses.md)
   * [4.1: Understanding the Address](04_1_Understanding_the_Address.md)
-  * [4.2: Creating an Address from a Descriptor](04_2_Creating_an_Address_from_a_Descriptor.md)
+  * [4.2: Integrating Addresses and Descriptors](04_2_Integrating_Addresses_Descriptors.md)
   * [4.3: Creating QR Codes for Addresses](04_3Creating_QR_Codes_for_Addresses.md)
   * [4.4: Receiving a Transaction](04_4_Receiving_a_Transaction.md)
     * [Interlude: Using Command-Line Variables](04_4a_Interlude_Using_Command-Line_Variables.md)
