@@ -142,7 +142,7 @@ Technically, the `redeemScript` can be recreated by rerunning `createmultisig` w
 
 ### Everything Matters
 
-Here's proof that all the defails matter:
+Here's proof that all the details matter:
 
 If you put your keys in a different order, a different address will be created:
 
