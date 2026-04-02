@@ -236,4 +236,4 @@ Multisig addresses lock funds to multiple private keys — possibly requiring al
 
 ## What's Next?
 
-Continue "Expanding Bitcoin Transactions" with [§6.2: Creating a Multisig from Descriptors](06_2_Spending_a_Transaction_to_a_Multisig.md).
+Continue "Expanding Bitcoin Transactions" with [§7.2: Creating a Multisig from Descriptors](07_2_Spending_a_Transaction_to_a_Multisig.md).
