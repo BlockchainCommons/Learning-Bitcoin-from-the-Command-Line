@@ -1,10 +1,10 @@
 # 8.1: Spending a Multisig with a PSBT
 
-In the future, `bitcoin-cli` may or may not improve its methodologies for natively spending multisig funds. But whether it does or not, there's a more modern way to spend multisigs in the modern: Partially Signed Bitcoin Transactions, or PSBTs. We're going to explore how to do so in this section, before diving into the further power of of PSBTs in the rest of this chapter.
+In the future, `bitcoin-cli` may or may not improve its methodologies for natively spending multisig funds. But whether it does or not, there's a more modern way to spend multisigs: Partially Signed Bitcoin Transactions, or PSBTs. We're going to explore how to do so in this section, before diving into the further power of of PSBTs in the rest of this chapter.
 
 ## Understand the PSBT: The Easy Stuff
 
-In brief: a PSBT is a specified format for collaboratively creating Bitcoin transactions. This collaboration is managed through the careful creation of roles:
+In brief: a PSBT is a specified format for collaboratively creating Bitcoin transactions. This collaboration is managed through the careful usage of roles, which serially or simultaneously manipulate a PSBT:
 
 * **Creator** makes the PSBT.
 * **Updater** adds UTXOs, scripts, and other data to the PSBT.
@@ -18,46 +18,44 @@ It's a simple progression, though the Signer may happen many times:
 
 These different roles may be taken on by different people, or the same person may fulfill several roles.
 
-There are also a lot of things that can be done with PSBTs, of which spending multisig funds, but we'll talk about those options more in the next section. For now, here's how to use a PSBT to respend multisig funds that are protected by keys in two different wallets and that are watched by funds in a separate, watch-only wallet.
+Though this section focuses on using PSBTs to spend multisigs, there are a other things that can be done with PSBTs, which we'll discuss more in the next section. For now, here's how to use a PSBT to respend multisig funds that are protected by keys in two different wallets and that are watched by funds in a separate, watch-only wallet.
 
 ## Use a PSBT to Spend MultiSig Funds
 
-In the last chapter, we sent funds to a multisig address:
+In the last chapter, we sent funds to a multisig address. Though the multisig keys are held on two different wallets, there's a third, watchonly, wallet that knows all about the multisig, even if it can't spend it.
 
 ```
 $ bitcoin-cli -rpcwallet=watchmulti getbalance
 0.00200000
 ```
 
-The co-owners of the multisig are now ready to split it up.
-
-### Collect Your Data
-
-Each co-owner supplies an address for receipt of the funds, then they're gathered on one machine:
+The co-owners of the multisig are now ready to split up its funds. They'll each supply an address for receipt of the funds.
 
 ```
 machine1$ split1=$(bitcoin-cli -rpcwallet="" getnewaddress)
+machine1$ echo $split1
 tb1qjpjx8wlhapsd0p5n9m7dl8e8myrpg4l9hu46rz
 
 machine2$ split2=$(bitcoin-cli -rpcwallet="" getnewaddress)
-machine2$ echo split2
+machine2$ echo $split2
 tb1q5u203aa6zf7jgjxk8rp7n5z83xfjwewd7u0a20
-
-machine1$ split2="tb1q5u203aa6zf7jgjxk8rp7n5z83xfjwewd7u0a20"
-```
-
-You also need to know the UTXO and vout of the transaction they're spending, as usual:
-
-```
-machine1$ utxo_txid=$(bitcoin-cli -rpcwallet=watchmulti listunspent | jq -r '.[0] | .txid')
-machine1$ utxo_vout=$(bitcoin-cli -rpcwallet=watchmulti listunspent | jq -r '.[0] | .vout')
 ```
 
 ### Create the PSBT
 
-One of the parties then creates a PSBT (that's the Creator role).
+One of the parties then creates a PSBT (that's the Creator role). They'll need to know all of the addresses, but also the basic UTXO information:
 
+```
+creator$ split1="tb1qjpjx8wlhapsd0p5n9m7dl8e8myrpg4l9hu46rz"
+creator$ split2="tb1q5u203aa6zf7jgjxk8rp7n5z83xfjwewd7u0a20"
+
+creator$ utxo_txid=$(bitcoin-cli -rpcwallet=watchmulti listunspent | jq -r '.[0] | .txid')
+creator$ utxo_vout=$(bitcoin-cli -rpcwallet=watchmulti listunspent | jq -r '.[0] | .vout')
+```
+
+They then use `createpsbt` to create the foundation of the PSBT that everything else will build on.
 You'll note that `createpsbt` looks a lot like the `createrawtransaction` command you met back in [§5.4](05_4_Sending_Coins_with_a_Raw_Transaction.md).
+
 ```
 creator$ psbt=$(bitcoin-cli -named createpsbt inputs='''[ { "txid": "'$utxo_txid'", "vout": '$utxo_vout' } ]''' outputs='''{ "'$split1'": 0.0009998,"'$split2'": 0.0009998 }''')
 ```
@@ -81,7 +79,7 @@ In this case, it needs more info on the UTXO and (though it's not listed yet) th
 
 ### Update the PSBT
 
- Both of the UTXO and the `redeemScript` were recorded in the `watchmulti` wallet when we imported the multisig. To add them we use the `walletprocesspsbt` command, which will always update a PSBT with info from the designated wallet.
+Both of the UTXO and the `redeemScript` were recorded in the `watchmulti` wallet when we imported the multisig. To add them we use the `walletprocesspsbt` command, which will always update a PSBT with info from the designated wallet.
  
 ```
 updater$ psbt=$(bitcoin-cli -rpcwallet="watchmulti" walletprocesspsbt $psbt | jq -r '.psbt')
@@ -119,6 +117,8 @@ $ echo $psbt
 cHNidP8BAHECAAAAAT4TNngXer/516PCopCaldswA84O2DuOrjI96CnYtkHrAQAAAAD9////AoyGAQAAAAAAFgAUDxr9tZEk6HuEqwJratxEZgdYqHmMhgEAAAAAABYAFKcU+Pe6En0kSNY4w+nQR4mTJ2XNAAAAAAABAIkCAAAAAWtqWUkvCC+bIQ0Y+RNM5sSiS4oPa9ILa4SV3YUMff7SbQEAAAD9////AteWBAAAAAAAIlEg35Pids1jTkfrgrzTG8LpPlzkPzi76pCjdVURwfnSLIhADQMAAAAAACIAID4RoDr3ZQ4gvfR2gTCkx0a0/XXWltNCC/bn0PhgobmPAAAAAAEBK0ANAwAAAAAAIgAgPhGgOvdlDiC99HaBMKTHRrT9ddaW00IL9ufQ+GChuY8BBUdSIQOTlfoZ1lEvAwQyEM0+mgOoUPeo2YbI810w8u/CgajTMSEDxX7XB3XXphZ3hRTnOP7wlGtL5O4yRAsZ9l3dbjRZg8BSriIGA5OV+hnWUS8DBDIQzT6aA6hQ96jZhsjzXTDy78KBqNMxBDgQGUciBgPFftcHddemFneFFOc4/vCUa0vk7jJECxn2Xd1uNFmDwAQDlP6zAAAA
 ```
 
+You should _always_ look at a PSBT before you sign it. This can be done with the `decodepsbt` command (a mirror to the `decoderawtransaction` RPC) which is shownin full below. You'll want to check in particular that the funds you're expecting to be used are what's being used, that everyone's receiving what you expect, and that there are no mistakes (such as too much money being spent on fees).
+
 Each person then signs that PSBT on their own machine, again using the `walletprocesspsbt` command.
 
 Here's the first user doing so:
@@ -127,7 +127,7 @@ machine1$ psbt_sig1=$(bitcoin-cli -rpcwallet="" walletprocesspsbt $psbt | jq -r 
 ```
 They indeed now see one less signer is needed:
 ```
-$ bitcoin-cli analyzepsbt $psbt_sig1
+machine1$ bitcoin-cli analyzepsbt $psbt_sig1
 {
   "inputs": [
     {
@@ -147,13 +147,13 @@ $ bitcoin-cli analyzepsbt $psbt_sig1
   "next": "signer"
 }
 ```
-The other user does the same thing:
+The other user does the same thing on their own machine
 ```
-machine$ psbt_sig2=$(bitcoin-cli -rpcwallet="" walletprocesspsbt $psbt | jq -r '.psbt')
+machine2$ psbt_sig2=$(bitcoin-cli -rpcwallet="" walletprocesspsbt $psbt | jq -r '.psbt')
 ```
 They see a mirrored result, with the other signature missing:
 ```
-$ psbt_sig2=$(bitcoin-cli -rpcwallet="" walletprocesspsbt $psbt | jq -r '.psbt')
+machine2$ psbt_sig2=$(bitcoin-cli -rpcwallet="" walletprocesspsbt $psbt | jq -r '.psbt')
 Shannons-MacBook-Pro:~ ShannonA$ bitcoin-cli analyzepsbt $psbt_sig2
 {
   "inputs": [
@@ -199,7 +199,7 @@ $ bitcoin-cli analyzepsbt $psbt_complete
 }
 ```
 
-The `decodepsbt` RPC (a mirror to the `decoderawtransaction` RPC) can be used at any stage to see what the PSBT looks like. This is a particularly good idea not that we're about to finalize it.
+It's also a good idea to use the `decodepsbt` command before you finalize things. Here's what that looks like:
 
 ```
 $ bitcoin-cli decodepsbt $psbt_complete
@@ -361,7 +361,8 @@ Obviously, there's a lot of data here. We can see our UTXO in the `vin`, the pay
 
 ### Finalize the PSBT
 
-The PSBT is just a transitory format, used for collaboratively creating and signing everything. Once it's signed and complete, you need to transalate it to a normal raw transaction, which is done with `finalizepsbt`
+The PSBT is just a transitory format, used for collaboratively creating and signing everything. Once the PSBT is signed and complete, you need to translate it to a normal raw transaction, which is done with `finalizepsbt`.
+
 ```
 extractor$ psbt_hex=$(bitcoin-cli finalizepsbt $psbt_complete | jq -r '.hex')
 ```
@@ -375,12 +376,13 @@ $ bitcoin-cli -named sendrawtransaction hexstring=$psbt_hex
 
 ## Summary: Spending a Multisig with a PSBT
 
-The PSBT, a collaborative method for creating transactions allowed you to spend a multisig. Here's the basic process we used here:
+The PSBT, a collaborative method for creating transactions, allowed you to spend a multisig. Here's the basic process we used :
 
-1. Create a bare PSBT that says what to spend and who to send it to.
+1. Create a bare PSBT that says what to spend and who to send it to. (A PSBT can be even barer than this, but more on that later!)
 2. Use a wallet that knows about the UTXOs to fill in that data.
 3. Have each required signer sign.
-4. Combine and finalize the PSBT, then send the transaction.
+4. Combine and finalize the PSBT.
+5. Send the transaction.
 
 > :fire: ***What's the power of a PSBT?*** A PSBT allows for the creation of trustless transactions between multiple parties and multiple machines. If more than one party would need to fund a transaction, if more than one party would need to sign a transaction, or if a transaction needs to be created on one machine and signed on another, then a PSBT makes it simple without depending on the non-standardized partial signing mechanisms that used to exist before PSBT.
 
