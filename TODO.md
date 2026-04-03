@@ -2,16 +2,14 @@
 
 The following TODO items are intended for a 3.0 version of Learning Bitcoin from the Command Line
 
-## Immediate TODO (for 3/26): Multisigs & PSBTs
+## Immediate TODO (for 4/16): Multisigs & PSBTs
 
-1. <strike>See if Signet faucets or back and if not consider solutions</strike>
-2. <strike>Edit §7.1 + 7.2 on Multisigs</strike>
-3. <strike>Edit/Revise §4.2 on Creating Descriptors</strike>
-2. Renumber links on chapters 5+6
-4. Write/Update §7.3 on Spending Multisigs (I think it's still possible!)
-5. Rewrite §8.1 to be specifically "Spending Multisigs with PSBTs"
-6. Rearrange & Edit Rest of PSBTs Accordingly
-7. Write Creating Animated QRs
+1. Make final decisions on what to include in §7.3: Spending Multisigs
+2. Reorg/Create New §8.2: "Advanced Functions for PSBTs"
+3. Reorg/Create New §8.3: "Other Use Cases for PSBTs"
+4. Update/Edit §8.4 on Hardware Integration with PSBTs
+5. Write Creating Animated QRs
+6. Prepare MkDocs for Chapters 1-8
 
 ## Longer-Term TODO (Small Tasks)
 
@@ -226,6 +224,14 @@ See [release notes](https://bitcoincore.org/en/releases/0.21.0/).
 ---
 
 # Progress Log
+
+## Immediate TODO (for 4/2): Multisigs & PSBTs
+
+1. <strike>See if Signet faucets or back and if not consider solutions</strike>
+2. <strike>Edit §7.1 + 7.2 on Multisigs</strike>
+3. <strike>Edit/Revise §4.2 on Creating Descriptors</strike>
+4. <strike>Renumber links on chapters 5+6</strike>
+5. <strike>Rewrite §8.1 to be specifically "Spending Multisigs with PSBTs"</strike>
 
 ## Immediate TODO (for 3/26): Multisigs & Descriptors
 
