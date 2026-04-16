@@ -8,7 +8,6 @@ After working through this chapter, a developer will be able to:
 
    * Create Multisignature Bitcoin Addresses Using Bitcoin Fundamentals
    * Create Multisignature Bitcoin Addresses Using Descriptors
-   * Spend Funds on Multisignature Adddresses
    
 Supporting objectives include the ability to:
 
