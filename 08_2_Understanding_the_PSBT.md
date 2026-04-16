@@ -1,29 +1,29 @@
 # 8.2: Understanding the PSBT Process
 
-Partially Signed Bitcoin Transactions (PSBTs) are the newest way to vary the creation of basic Bitcoin transactions. We used them in the last section to spend a multisig, but they have a number of other use cases. Before we dive into those in the next section, we're first going to review many of the basics of PSBTs that we glossed past in the previous section.
+Partially Signed Bitcoin Transactions (PSBTs) are the newest way to vary the creation of basic Bitcoin transactions. We used them in the last section to spend a multisig, but they have a number of other use cases. Before we dive into those in the next section, we're first going to review many of the basics of PSBTs that we glossed past in the previous section: the roles and the process, including a few new `bitcoin-cli` commands.
 
 ## Understand the PSBT: The Rest of the Story
 
-Multisignatures were great for the very specific case of jointly holding funds and setting rules for whom among the joint signers could authenticate the use of those funds. There are many use cases, such as: a spousal joint bank account (a 1-of-2 signature); a fiduciary requirement for dual control (a 2-of-2 signature); and an escrow (a 2-of-3 signature). 
+Multisignatures are great for the very specific situation of jointly holding funds and setting rules for whom among the joint signers can authenticate the use of those funds. There are many use cases, such as: a spousal joint bank account (a 1-of-2 multisig); a fiduciary requirement for dual control (a 2-of-2 multisig); and an escrow (a 2-of-3 multisig). 
 
-PSBTs may initially look sort of the same as multi-sigs because they have a single overlapping bit of functionality: the ability to jointly sign a transaction. However, they were created for a totally different use case. PSBTs recognize the need for multiple programs to jointly create a transaction for a number of different reasons, and they provide a regularized format for doing so. They're especially useful for use cases involving hardware wallets (for which, see [§8.4](https://github.com/BlockchainCommons/Learning-Bitcoin-from-the-Command-Line/blob/master/08_4_Integrating_with_Hardware_Wallets.md)), which are protected from full access to the internet and so tend to have minimal transaction history.
+PSBTs may initially look sort of the same as multisigs because they have a single overlapping bit of functionality: the ability to jointly sign a transaction. However, they were created for a totally different use case. PSBTs recognize the need for multiple programs to jointly create a transaction for a number of different reasons, and they provide a regularized format for doing so. They're especially useful for use cases involving hardware wallets (for which, see [§8.4](https://github.com/BlockchainCommons/Learning-Bitcoin-from-the-Command-Line/blob/master/08_4_Integrating_with_Hardware_Wallets.md)), which are protected from full access to the internet and so tend to have minimal transaction history.
 
 In general, PSBTs provide a number of functional elements that improve the use case of collaborative transaction creation:
 
 1. They provide a _standard_ for collaboratively creating transactions, whereas previous methodologies (including the multisig one from the previous chapter) were implementation dependent.
 2. They support a _wider variety of use cases_, including simple joint funding.
 3. They support _hardware wallets_ and other cases where a node may not have full transaction history.
-4. They optionally allow for the combination of _non-serialized transactions_, not requiring an ever-bigger hex code to be passed from user to user.
+4. They optionally allow for the combination of _non-serialized transactions_ rather than requiring an ever-bigger hex code to be passed from user to user.
 
 PSBTs do their work by supplementing normal transaction information with a set of inputs and outputs, each of which defines everything you need to know about those UTXOs, so that even an airgapped wallet can make an informed decision about signatures. Thus, an input lists out the amount of money in a UTXO and what needs to be done to spend it, while an output does the same for the UTXOs it's creating.
 
 > :book: ***What is a PSBT?*** As the name suggests, a PSBT is a transaction that has not been fully signed. That's important, because once a transaction is signed, its content is locked in. [BIP174](https://github.com/bitcoin/bips/blob/master/bip-0174.mediawiki) defined an abstracted methodology for putting PSBTs together that describes and standardizes roles in their collaborative creation. A *Creator* proposes a transaction; one or more *Updaters* supplement it; and one or more *Signers* authenticate it; before a *Finalizer* completes it; and an *Extracter* turns it into a transaction for the Bitcoin network. There may also be a *Combiner* who merges parallel PSBTs from different users. 
 
-This section will expand on the use of the standard PSBT roles (Creator, Updater, Signer, Finalizer, Extractor) and the various RPC roles that can be used to work with PSBT. [§8.3](08_3_Using_a_Partially_Signed_Bitcoin_Transaction.md) and [§8.4](08_4_Integrating_with_Hardware_Wallets.md) will then demonstrate some real-life examples of using PSBTs for a variety of purposes.
+This section will expand on the use of the standard PSBT roles (Creator, Updater, Signer, Finalizer, Extractor) and the various RPC functions that can be used to work with PSBTs. [§8.3](08_3_Using_a_Partially_Signed_Bitcoin_Transaction.md) and [§8.4](08_4_Integrating_with_Hardware_Wallets.md) will then demonstrate some real-life examples of using PSBTs for a variety of purposes.
 
 ## Review the Hand Creation Process
 
-Our multsig example in the previous section demonstrated a fairly simple paradigm outlined here:
+Our multsig example in the previous section demonstrated a fairly simple process outlined here:
 
 ![](images/psbt-roles-for-cli-1.png)
 
@@ -46,12 +46,12 @@ machine1$ psbt_sig1=$(bitcoin-cli -rpcwallet="" walletprocesspsbt $psbt | jq -r 
 machine2$ psbt_sig2=$(bitcoin-cli -rpcwallet="" walletprocesspsbt $psbt | jq -r '.psbt')
 ```
 
-* **Finalizer:** Signed PSBTs combined with `combinepsbt`.
+* **Combiner:** Signed PSBTs combined with `combinepsbt`.
 
 ```
-finalizer$ psbt_complete=$(bitcoin-cli combinepsbt '''["'$psbt_sig1'", "'$psbt_sig2'"]''')
+combiner$ psbt_complete=$(bitcoin-cli combinepsbt '''["'$psbt_sig1'", "'$psbt_sig2'"]''')
 ```
-* **Extractor:** Combined PSBT converted to a transaction with `finalizepsbt` and then sent as normal.
+* **Finalizer & Extractor:** Combined PSBT converted to a transaction with `finalizepsbt` and then sent as normal.
 
 ```
 extractor$ psbt_hex=$(bitcoin-cli finalizepsbt $psbt_complete | jq -r '.hex')
@@ -62,7 +62,7 @@ extractor$ bitcoin-cli -named sendrawtransaction hexstring=$psbt_hex
 
 As revealed by the diagram, there's an alternative to this methodology: instead of creating a psbt from scratch with `createpsbt`, you can instead create a transaction with `createrawtransaction` and then convert it.
 
-The creation is the sam process that you used started in [§4.2](04_2_Creating_a_Raw_Transaction.md):
+In this case, the PSBT begins as a raw transaction, using the same process that you used starting in [§4.2](04_2_Creating_a_Raw_Transaction.md):
 ```
 $ utxo_txid_1=$(bitcoin-cli listunspent | jq -r '.[0] | .txid')
 $ utxo_vout_1=$(bitcoin-cli listunspent | jq -r '.[0] | .vout')
@@ -73,7 +73,7 @@ c881a1591a792db7ec59b2fbaee4e0d428d1ab51fbcacd7b5927800be370f7e4 1 a58467182f73d
 $ recipient=tb1qcaedd724gts3aug73m78c7nfsv9d8zs9q6h2kd
 $ rawtxhex=$(bitcoin-cli -named createrawtransaction inputs='''[ { "txid": "'$utxo_txid_1'", "vout": '$utxo_vout_1' }, { "txid": "'$utxo_txid_2'", "vout": '$utxo_vout_2' } ]''' outputs='''{ "'$recipient'": 0.0000065 }''')
 ```
-Then you just use `converttopsbt` to change that hex into a PSBT:
+Then you just use `converttopsbt` to change that raw transaction into a PSBT:
 ```
 $ psbt=$(bitcoin-cli -named converttopsbt hexstring=$rawtxhex)
 $ echo $psbt
@@ -146,7 +146,7 @@ $ bitcoin-cli decodepsbt $psbt
 ```
 There's little reason to do this when you have the `createpsbt` command, but if for some reason it makes sense to start with a standard transaction (such as a use case where someone else is creating the transaction), this is how you move from that to PSBT.
 
-From here, you just `walletprocesspsbt`, `combinepsbt`, and `finalizepsbt` as usual.
+After converting to the PSBT format, you use `walletprocesspsbt`, `combinepsbt`, and `finalizepsbt` as usual.
 
 ## Automate PSBT Creation
 
@@ -215,9 +215,9 @@ $ bitcoin-cli getaddressinfo tb1qtjzxgu2pqez35tn42xlrzk0z6y9ffj8dq9kstj
   ]
 }
 ```
-That's great, but much as with `fundrawtransaction`, thebig advantage
 
-However, the big advantage of `walletcreatefundedpsbt` is that you can use it to self-fund by leaving out the `inputs`, just like `fundrawtransaction`. 
+However, the big advantage of `walletcreatefundedpsbt` is that you can use it to self-fund by leaving out the `inputs`, just like you did with `fundrawtransaction`. 
+
 ```
 $ psbt_new=$(bitcoin-cli -named walletcreatefundedpsbt inputs='''[]''' outputs='''{ "'$recipient'": 0.0000065 }''' | jq -r '.psbt')
 $ bitcoin-cli decodepsbt $psbt_new
@@ -384,13 +384,13 @@ $ bitcoin-cli analyzepsbt $psbt_new
 
 ### Sign Your Automated Transaction
 
-Here's an important lesson on the theme of PSBTs being more than just multisigs. Though you still have to walk through the roles of Creater/Updater/Signer/Finalizer/Extractor, you won't necessarily be using the pattern of going to different machines and then combining the results.
+Here's an important lesson on the theme of PSBTs being more than just multisigs. Though you still have to walk through the roles of Creater/Updater/Signer/(Combiner)/Finalizer/Extractor, you won't necessarily be using the pattern of going to different machines and then combining the results.
 
 In this case, `analyzepsbt` reports that a signature is needed, but it's just a single signature, required from the wallet you're currently using. As usual, you input that with `walletprocesspsbt`:
 ```
 $ psbt_new_f=$(bitcoin-cli walletprocesspsbt $psbt_new | jq -r '.psbt')
 ```
-Afterward, an analysis will show that the PSBT is about ready to go too:
+Afterward, an analysis will show that the PSBT is about ready to go:
 ```
 $ bitcoin-cli analyzepsbt $psbt_new_f
 {
@@ -413,7 +413,7 @@ Now would you really want to use `walletcreatefundedpsbt` if you were creating a
 
 To finalize the PSBT requires the exact same process as when you created a PSBT by hand.
 
-First, you use `finalizepsbt`, which will turn your PSBT back into hex. (It'll also take on the Finalizer role, if that didn't happen already.)
+First, you use `finalizepsbt`, which will turn your PSBT back into hex. 
 ```
 $ bitcoin-cli finalizepsbt $psbt_new_f
 {
@@ -429,7 +429,7 @@ $ bitcoin-cli -named sendrawtransaction hexstring=$psbt_hex
 ```
 ## Create a PSBT without a Wallet
 
-There's a third methodology for creating PSBTs, where all the information might not be in your wallet. This uses the `utxoupdatepsbt` command in the Updated role:
+There's a third methodology for creating PSBTs, where all the information might not be in your wallet. This uses the `utxoupdatepsbt` command in the Updater role:
 
 ![](images/psbt-roles-for-cli-3.png)
 
@@ -439,7 +439,7 @@ We prefer our methodology for teaching, because it breaks down the reading of th
 
 ## Summary: Understanding the PSBT Process
 
-Creating a PSBT involves a somewhat complex workflow of Creating, Updating, Signing, Finalizing, and Extracting a PSBT, after which it converts back into a raw transaction. Why would you go to all that trouble? You've already seen that it's the preferred way of signing multisig transactions in the modern Bitcoin world. It also has a number of other utilities, as outlined in the next section.
+Creating a PSBT involves a somewhat complex workflow of Creating, Updating, Signing, Finalizing, and Extracting a PSBT, after which it converts back into a raw transaction. Why would you go to all that trouble? You probably wouldn't on a singular transaction confined to your wallet (though we used that as an example here). However, you've already seen that it's the preferred way of signing multisig transactions in the modern Bitcoin world. It also has a number of other utilities, as outlined in the next section.
 
 ## What's Next?
 
