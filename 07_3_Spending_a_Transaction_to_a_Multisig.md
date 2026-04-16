@@ -1,15 +1,15 @@
 # 7.3: Spending a Transaction with a Multisig
 
-You've created a multisig and you've even imported it into a multisig wallet, but how do you spend it? It turns out that's a slightly difficult question in `bitcoin-cli` as it currently stands, which is going to require us to page over to the next chapter to find the best solution.
+You've created a multisig and you've even imported it into a multisig wallet, but how do you spend it? It turns out that's a slightly difficult question in `bitcoin-cli` as it currently stands, which is going to require us to turn the page to the next chapter to find the best solution.
 
 ## The Classic Methods
 
 Traditionally, `bitcoin-cli` offered two methodologies for spending multisigs:
 
 1. You created a transaction by hand; each user dumped their private keys (`dumpprivkey`) for their addresses; and then each signed the transaction (`signrawtransactionwithkey`) while also adding in the `redeemScript` by hand.
-2. Alternatively, you passed a transaction around by hand and had each user sign it with their wallet (`signrawtransactionwithwallet`).
+2. Alternatively, you passed a transaction around by hand and had each user sign it with their wallet (`signrawtransactionwithwallet`) while also adding on the `redeemScript`.
 
-In both techniques, the general workflow was the same: create a transaction; pass the transaction around to each signer; have each signer individually sign the transaction on their own machine; and then send it to the Bitcoin network when sufficient people has signed. This workflow is crucial to Bitcoin spending and something that we'll meet again in the next chapter (albeit, with somewhat more structure).
+In both techniques, the general workflow was the same: create a transaction; pass the transaction around to each signer; have each signer individually sign the transaction on their own machine; and then send it to the Bitcoin network when sufficient people has signed. This workflow is crucial to multisig spending and something that we'll meet again in the next chapter (albeit, with somewhat more structure).
 
 However, we won't be using it with these specific techniques.
 
@@ -23,7 +23,7 @@ Fortunately, there's a different method for spending multisigs that's not only f
 
 ## Summary: Spending a Transaction with a Multisig
 
-The methodology for spending multisig transactions has changed over time. Where it once upon a time was supported with a specific methodology, now it's instead a part of a larger technique called PSBTs. Even if Bitcoin Core were to restore some of its classic multisig functionality, PSBTs are the best-practice way to spend multisigs, because they're a large, interoperable specification.
+The methodology for spending multisig transactions has changed over time. Where it once upon a time was supported with a specific set of commands, now it's instead a part of a larger technique called PSBTs. Even if Bitcoin Core were to restore some of its classic multisig functionality, PSBTs are the best-practice way to spend multisigs, because they're a large, interoperable specification.
 
 ## What's Next?
 
