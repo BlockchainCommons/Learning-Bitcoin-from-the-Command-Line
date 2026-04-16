@@ -1,84 +1,91 @@
-# 7.1: Creating a Partially Signed Bitcoin Transaction
+# 8.2: Understanding the PSBT
 
-> :information_source: **NOTE:** This section has been recently added to the course and is an early draft that may still be awaiting review. Caveat reader.
+Partially Signed Bitcoin Transactions (PSBTs) are the newest way to vary the creation of basic Bitcoin transactions. We used them in the last section to spend a multisig, but they have a number of other use cases. Before we dive into those in the next section, we're first going to review many of the basics of PSBTs that we glossed past in the previous section.
 
-Partially Signed Bitcoin Transactions (PSBTs) are the newest way to vary the creation of basic Bitcoin transactions. They do so by introducing collaboration into every step of the process, allowing people (or programs) to not just authenticate transactions together (as with multisigs), but also to easily create, fund, and broadcast collaboratively. 
-
-## Understand How PSBTs Work
+## Understand the PSBT: The Rest of the Story
 
 Multisignatures were great for the very specific case of jointly holding funds and setting rules for whom among the joint signers could authenticate the use of those funds. There are many use cases, such as: a spousal joint bank account (a 1-of-2 signature); a fiduciary requirement for dual control (a 2-of-2 signature); and an escrow (a 2-of-3 signature). 
 
-> :book: ***What is a PSBT?*** As the name suggests, a PSBT is a transaction that has not been fully signed. That's important, because once a transaction is signed, its content is locked in. [BIP174](https://github.com/bitcoin/bips/blob/master/bip-0174.mediawiki) defined an abstracted methodology for putting PSBTs together that describes and standardizes roles in their collaborative creation. A *Creator* proposes a transaction; one or more *Updaters* supplement it; and one or more *Signers* authenticate it; before a *Finalizer* completes it; and an *Extracter* turns it into a transaction for the Bitcoin network. There may also be a *Combiner* who merges parallel PSBTs from different users. 
+PSBTs may initially look sort of the same as multi-sigs because they have a single overlapping bit of functionality: the ability to jointly sign a transaction. However, they were created for a totally different use case. PSBTs recognize the need for multiple programs to jointly create a transaction for a number of different reasons, and they provide a regularized format for doing so. They're especially useful for use cases involving hardware wallets (for which, see [§8.4](https://github.com/BlockchainCommons/Learning-Bitcoin-from-the-Command-Line/blob/master/08_4_Integrating_with_Hardware_Wallets.md)), which are protected from full access to the internet and so tend to have minimal transaction history.
 
-PSBTs may initially look sort of the same as multi-sigs because they have a single overlapping bit of functionality: the ability to jointly sign a transaction. However, they were created for a totally different use case. PSBTs recognize the need for multiple programs to jointly create a transaction for a number of different reasons, and they provide a regularized format for doing so. They're especially useful for use cases involving hardware wallets (for which, see [§7.3](https://github.com/BlockchainCommons/Learning-Bitcoin-from-the-Command-Line/blob/master/07_3_Integrating_with_Hardware_Wallets.md)), which are protected from full access to the internet and tend to have minimal transaction history.
+In general, PSBTs provide a number of functional elements that improve the use case of collaborative transaction creation:
 
-In general, PSBTs provide a number of functional elements that improve this use case:
-
-1. They provide a _standard_ for collaboratively creating transactions, whereas previous methodologies (including the multi-sig one from the previous chapter) were implementation dependent.
+1. They provide a _standard_ for collaboratively creating transactions, whereas previous methodologies (including the multisig one from the previous chapter) were implementation dependent.
 2. They support a _wider variety of use cases_, including simple joint funding.
 3. They support _hardware wallets_ and other cases where a node may not have full transaction history.
 4. They optionally allow for the combination of _non-serialized transactions_, not requiring an ever-bigger hex code to be passed from user to user.
 
 PSBTs do their work by supplementing normal transaction information with a set of inputs and outputs, each of which defines everything you need to know about those UTXOs, so that even an airgapped wallet can make an informed decision about signatures. Thus, an input lists out the amount of money in a UTXO and what needs to be done to spend it, while an output does the same for the UTXOs it's creating.
 
-This first section will outline the standard PSBT process of: Creator, Updater, Signer, Finalizer, Extractor. It'll do so from one machine, which will sort of make this look like a convoluted way to create a raw transaction. But, have faith, there's a purpose to this! [§7.2](07_2_Using_a_Partially_Signed_Bitcoin_Transaction.md) and [§7.3](/07_3_Integrating_with_Hardware_Wallets.md) will show some real-life examples of using PSBTs and will turn this simple system into a collaborative process shared between multiple machines that has real effects and creates real opportunities.
+> :book: ***What is a PSBT?*** As the name suggests, a PSBT is a transaction that has not been fully signed. That's important, because once a transaction is signed, its content is locked in. [BIP174](https://github.com/bitcoin/bips/blob/master/bip-0174.mediawiki) defined an abstracted methodology for putting PSBTs together that describes and standardizes roles in their collaborative creation. A *Creator* proposes a transaction; one or more *Updaters* supplement it; and one or more *Signers* authenticate it; before a *Finalizer* completes it; and an *Extracter* turns it into a transaction for the Bitcoin network. There may also be a *Combiner* who merges parallel PSBTs from different users. 
 
-## Create a PSBT the Old-Fashioned Way
-#### PSBT Role: Creator
+This section will expand on the use of the standard PSBT roles (Creator, Updater, Signer, Finalizer, Extractor) and the various RPC roles that can be used to work with PSBT. [§8.3](08_3_Using_a_Partially_Signed_Bitcoin_Transaction.md) and [§8.4](08_4_Integrating_with_Hardware_Wallets.md) will then demonstrate some real-life examples of using PSBTs for a variety of purposes.
 
-The easiest way to create a PSBT is to take an existing transaction and use `converttopsbt` to turn it into a PSBT. This is certainly not the _best_ way since it requires you to make a transaction for one format (a raw transaction) then convert it to another (PSBT), but if you've got old software that can only generate a raw transaction, you may need to use it.
+## Review the PSBT
 
-You just create your raw transaction normally:
+Our multsig example in the previous section sed a fairly simple paradigm outlined here:
 
+![](images/psbt-roles-for-cli-1.png)
+
+* **Creator:** UTXOs and outputs selected, then PSBT created with `createpsbt`.
+
+```
+creator$ psbt=$(bitcoin-cli -named createpsbt inputs='''[ { "txid": "'$utxo_txid'", "vout": '$utxo_vout' } ]''' outputs='''{ "'$split1'": 0.0009998,"'$split2'": 0.0009998 }''')
+```
+
+* **Updater:** Information on the UTXOs and the `redeemScript` provided by `walletprocesspsbt`.
+
+```
+updater$ psbt=$(bitcoin-cli -rpcwallet="watchmulti" walletprocesspsbt $psbt | jq -r '.psbt')
+```
+
+ * **Signer:** Multiple signers simultaneously signed with `walletprocesspsbt`.
+
+```
+machine1$ psbt_sig1=$(bitcoin-cli -rpcwallet="" walletprocesspsbt $psbt | jq -r '.psbt')
+machine2$ psbt_sig2=$(bitcoin-cli -rpcwallet="" walletprocesspsbt $psbt | jq -r '.psbt')
+```
+
+* **Finalizer:** Signed PSBTs combined with `combinepsbt`.
+
+```
+finalizer$ psbt_complete=$(bitcoin-cli combinepsbt '''["'$psbt_sig1'", "'$psbt_sig2'"]''')
+```
+* **Extractor:** Combined PSBT converted to a transaction with `finalizepsbt` and then sent as normal.
+
+```
+extractor$ psbt_hex=$(bitcoin-cli finalizepsbt $psbt_complete | jq -r '.hex')
+extractor$ bitcoin-cli -named sendrawtransaction hexstring=$psbt_hex
+```
+
+### The Convert Alternative
+
+As revealed by the diagram, there's an alternative to this methodology: instead of creating a psbt from scratch with `createpsbt`, you can instead create a transaction with `createrawtransaction` and then convert it.
+
+The creation is the sam process that you used started in [§4.2](04_2_Creating_a_Raw_Transaction.md):
 ```
 $ utxo_txid_1=$(bitcoin-cli listunspent | jq -r '.[0] | .txid')
 $ utxo_vout_1=$(bitcoin-cli listunspent | jq -r '.[0] | .vout')
 $ utxo_txid_2=$(bitcoin-cli listunspent | jq -r '.[1] | .txid')
 $ utxo_vout_2=$(bitcoin-cli listunspent | jq -r '.[1] | .vout')
 $ echo $utxo_txid_1 $utxo_vout_1 $utxo_txid_2 $utxo_vout_2
-c6de60427b28d8ec8102e49771e5d0348fc3ef6a5bf02eb864ec745105a6951b 1 8748eff5f12ca886e3603d9e30227dcb3f0332e0706c4322fec96001f7c7f41c 0
+c881a1591a792db7ec59b2fbaee4e0d428d1ab51fbcacd7b5927800be370f7e4 1 a58467182f73d5510d80cfb1841d2fe77be4878f05a1f80883a709f361e60ade 526
 $ recipient=tb1qcaedd724gts3aug73m78c7nfsv9d8zs9q6h2kd
 $ rawtxhex=$(bitcoin-cli -named createrawtransaction inputs='''[ { "txid": "'$utxo_txid_1'", "vout": '$utxo_vout_1' }, { "txid": "'$utxo_txid_2'", "vout": '$utxo_vout_2' } ]''' outputs='''{ "'$recipient'": 0.0000065 }''')
 ```
-Then you convert it:
+Then you just use `converttopsbt` to change that hex into a PSBT:
 ```
 $ psbt=$(bitcoin-cli -named converttopsbt hexstring=$rawtxhex)
 $ echo $psbt
-cHNidP8BAHsCAAAAAhuVpgVRdOxkuC7wW2rvw4800OVxl+QCgezYKHtCYN7GAQAAAAD/////HPTH9wFgyf4iQ2xw4DIDP8t9IjCePWDjhqgs8fXvSIcAAAAAAP////8BigIAAAAAAAAWABTHctb5VULhHvEejvx8emmDCtOKBQAAAAAAAAAA
+cHNidP8BAHsCAAAAAuT3cOMLgCdZe83K+1Gr0SjU4OSu+7JZ7LcteRpZoYHIAQAAAAD9////3grmYfMJp4MI+KEFj4fke+cvHYSxz4ANUdVzLxhnhKUOAgAAAP3///8BigIAAAAAAAAWABTHctb5VULhHvEejvx8emmDCtOKBQAAAAAAAAAA
 ```
-You'll note that the PSBT encoding looks very different from the transaction hex.
-
-But if you can, you want to create the PSBT directly instead ...
-
-## Create a PSBT the Hard Way
-#### PSBT Role: Creator
-
-The first methodology for creating a PSBT without going through another format is the PSBT-equivalent of `createrawtransaction`. It's called `createpsbt` and it gives you maximal control at the cost of maximal labor and the maximal opportunity for error.
-
-The CLI should look quite familiar, just with a new RPC command:
+Decoding that will reveal all of the details of your raw transaction are now in the PSBT format:
 ```
-$ psbt_1=$(bitcoin-cli -named createpsbt inputs='''[ { "txid": "'$utxo_txid_1'", "vout": '$utxo_vout_1' }, { "txid": "'$utxo_txid_2'", "vout": '$utxo_vout_2' } ]''' outputs='''{ "'$recipient'": 0.0000065 }''')
-```
-The Bitcoin Core team made sure that `createpsbt` worked much like `createrawtransaction`, so you don't need to learn a different creation format.
-
-You can verify that the new PSBT is the same as the one created by `converttopsbt`:
-```
-$ echo $psbt_1
-cHNidP8BAHsCAAAAAhuVpgVRdOxkuC7wW2rvw4800OVxl+QCgezYKHtCYN7GAQAAAAD/////HPTH9wFgyf4iQ2xw4DIDP8t9IjCePWDjhqgs8fXvSIcAAAAAAP////8BigIAAAAAAAAWABTHctb5VULhHvEejvx8emmDCtOKBQAAAAAAAAAA
-$ if [ "$psbt" == "$psbt_1" ]; then     echo "PSBTs are equal"; else     echo "PSBTs are not equal"; fi
-PSBTs are equal
-```
-
-## Examine a PSBT
-#### PSBT Role: Any
-
-So what does your PSBT actually look like? You can see that with the `decodepsbt` command:
-```
-$ bitcoin-cli -named decodepsbt psbt=$psbt
+$ bitcoin-cli decodepsbt $psbt
 {
   "tx": {
-    "txid": "ea73a631b456d2b041ed73bf5767946408c6ff067716929a68ecda2e3e4de6d3",
-    "hash": "ea73a631b456d2b041ed73bf5767946408c6ff067716929a68ecda2e3e4de6d3",
+    "txid": "a9de10742be82f0abbefba9e8898aa37359b58a7ccb99a420493d20fe33bf7a7",
+    "hash": "a9de10742be82f0abbefba9e8898aa37359b58a7ccb99a420493d20fe33bf7a7",
     "version": 2,
     "size": 123,
     "vsize": 123,
@@ -86,22 +93,22 @@ $ bitcoin-cli -named decodepsbt psbt=$psbt
     "locktime": 0,
     "vin": [
       {
-        "txid": "c6de60427b28d8ec8102e49771e5d0348fc3ef6a5bf02eb864ec745105a6951b",
+        "txid": "c881a1591a792db7ec59b2fbaee4e0d428d1ab51fbcacd7b5927800be370f7e4",
         "vout": 1,
         "scriptSig": {
           "asm": "",
           "hex": ""
         },
-        "sequence": 4294967295
+        "sequence": 4294967293
       },
       {
-        "txid": "8748eff5f12ca886e3603d9e30227dcb3f0332e0706c4322fec96001f7c7f41c",
-        "vout": 0,
+        "txid": "a58467182f73d5510d80cfb1841d2fe77be4878f05a1f80883a709f361e60ade",
+        "vout": 526,
         "scriptSig": {
           "asm": "",
           "hex": ""
         },
-        "sequence": 4294967295
+        "sequence": 4294967293
       }
     ],
     "vout": [
@@ -110,16 +117,19 @@ $ bitcoin-cli -named decodepsbt psbt=$psbt
         "n": 0,
         "scriptPubKey": {
           "asm": "0 c772d6f95542e11ef11e8efc7c7a69830ad38a05",
+          "desc": "addr(tb1qcaedd724gts3aug73m78c7nfsv9d8zs9q6h2kd)#grf2vhfp",
           "hex": "0014c772d6f95542e11ef11e8efc7c7a69830ad38a05",
-          "reqSigs": 1,
-          "type": "witness_v0_keyhash",
-          "addresses": [
-            "tb1qcaedd724gts3aug73m78c7nfsv9d8zs9q6h2kd"
-          ]
+          "address": "tb1qcaedd724gts3aug73m78c7nfsv9d8zs9q6h2kd",
+          "type": "witness_v0_keyhash"
         }
       }
     ]
   },
+  "global_xpubs": [
+  ],
+  "psbt_version": 0,
+  "proprietary": [
+  ],
   "unknown": {
   },
   "inputs": [
@@ -134,139 +144,9 @@ $ bitcoin-cli -named decodepsbt psbt=$psbt
   ]
 }
 ```
-It's important to note that even though we've defined the fundamentals of the transaction: the `vins` of where the money is coming from and the `vouts` of where it's going to, we haven't yet defined the `inputs` and `outputs` that are the heart of a PSBT and that are required for offline users to assess them. This is expected: the role of the Creator as defined in [BIP174](https://github.com/bitcoin/bips/blob/master/bip-0174.mediawiki) is to outline the transaction, while the role of the Updater is to start filling in the PSBT-specific data. (Other commands combine the Creator and Updater roles, but `createpsbt` doesn't because it doesn't have access to your wallet.)
+There's little reason to do this when you have the `createpsbt` command, but if for some reason it makes sense to start with a standard transaction (such as a use case where someone else is creating the transaction), this is how you move from that to PSBT.
 
-You can also use the `analyzepsbt` command to look at its current state:
-```
-standup@btctest20:~$ bitcoin-cli -named analyzepsbt psbt=$psbt
-{
-  "inputs": [
-    {
-      "has_utxo": false,
-      "is_final": false,
-      "next": "updater"
-    },
-    {
-      "has_utxo": false,
-      "is_final": false,
-      "next": "updater"
-    }
-  ],
-  "next": "updater"
-}
-```
-Similarly, `analyzepsbt` shows us a PSBT that needs work. We get a look at each of the two `inputs` (corresponding to the two `vins`), and neither one has the information it needs.
-
-## Finalize a PSBT
-#### PSBT Role: Updater, Signer, Finalizer
-
-There is a `utxoupdatepsbt` command that can be used to Update UTXOs, importing their descriptor information by hand, but you don't want to use it unless you have a use case where you don't have all of that information in the wallets of everyone who will be signing the PSBT.
-
-> :information_source: **NOTE:** If  you choose to Update the PSBT with `utxoupdatepsbt`, you would still need to use `walletprocesspsbt` to Sign it: it's the only Signer-role command for PSBTs that's available in `bitcoin-cli`.
-
-Instead, you should use `walletprocesspsbt`, which will Update, Sign, and Finalize:
-```
-$ bitcoin-cli walletprocesspsbt $psbt
-{
-  "psbt": "cHNidP8BAHsCAAAAAhuVpgVRdOxkuC7wW2rvw4800OVxl+QCgezYKHtCYN7GAQAAAAD/////HPTH9wFgyf4iQ2xw4DIDP8t9IjCePWDjhqgs8fXvSIcAAAAAAP////8BigIAAAAAAAAWABTHctb5VULhHvEejvx8emmDCtOKBQAAAAAAAQEfAQAAAAAAAAAWABRsRdOvqHYghsS9dtinGsfJduGRlgEIawJHMEQCIAqJbxz6dBzNpfaDu4XZXb+DbDkM3UWnhezh9UdmeVghAiBRxMlW2o0wEtphtUZRWIiJOaGtXfsQbB4lovkvE4eRIgEhArrDpkX9egpTfGJ6039faVBYxY0ZzrADPpE/Gpl14A3uAAEBH0gDAAAAAAAAFgAU1ZEJG4B0ojde2ZhanEsY7+z9QWUBCGsCRzBEAiB+sNNCO4xiFQ+DoHVrqqk9yM0V4H9ZSyExx1PW7RbjsgIgUeWkQ3L7aAv1xIe7h+8PZb8ECsXg1UzbtPW8wd2qx0UBIQKIO7VGPjfVUlLYs9XCFBsAezfIp9tiEfdclVrMXqMl6wAA",
-  "complete": true
-}
-```
-Obviously, you're going to need to save that `psbt` information using `jq`:
-```
-$ psbt_f=$(bitcoin-cli walletprocesspsbt $psbt | jq -r '.psbt')
-```
-You can see the `inputs` have now been filled in:
-```
-$ bitcoin-cli decodepsbt $psbt_f
-{
-  "tx": {
-    "txid": "ea73a631b456d2b041ed73bf5767946408c6ff067716929a68ecda2e3e4de6d3",
-    "hash": "ea73a631b456d2b041ed73bf5767946408c6ff067716929a68ecda2e3e4de6d3",
-    "version": 2,
-    "size": 123,
-    "vsize": 123,
-    "weight": 492,
-    "locktime": 0,
-    "vin": [
-      {
-        "txid": "c6de60427b28d8ec8102e49771e5d0348fc3ef6a5bf02eb864ec745105a6951b",
-        "vout": 1,
-        "scriptSig": {
-          "asm": "",
-          "hex": ""
-        },
-        "sequence": 4294967295
-      },
-      {
-        "txid": "8748eff5f12ca886e3603d9e30227dcb3f0332e0706c4322fec96001f7c7f41c",
-        "vout": 0,
-        "scriptSig": {
-          "asm": "",
-          "hex": ""
-        },
-        "sequence": 4294967295
-      }
-    ],
-    "vout": [
-      {
-        "value": 0.00000650,
-        "n": 0,
-        "scriptPubKey": {
-          "asm": "0 c772d6f95542e11ef11e8efc7c7a69830ad38a05",
-          "hex": "0014c772d6f95542e11ef11e8efc7c7a69830ad38a05",
-          "reqSigs": 1,
-          "type": "witness_v0_keyhash",
-          "addresses": [
-            "tb1qcaedd724gts3aug73m78c7nfsv9d8zs9q6h2kd"
-          ]
-        }
-      }
-    ]
-  },
-  "unknown": {
-  },
-  "inputs": [
-    {
-      "witness_utxo": {
-        "amount": 0.00000001,
-        "scriptPubKey": {
-          "asm": "0 6c45d3afa8762086c4bd76d8a71ac7c976e19196",
-          "hex": "00146c45d3afa8762086c4bd76d8a71ac7c976e19196",
-          "type": "witness_v0_keyhash",
-          "address": "tb1qd3za8tagwcsgd39awmv2wxk8e9mwryvktqmkkg"
-        }
-      },
-      "final_scriptwitness": [
-        "304402200a896f1cfa741ccda5f683bb85d95dbf836c390cdd45a785ece1f54766795821022051c4c956da8d3012da61b5465158888939a1ad5dfb106c1e25a2f92f1387912201",
-        "02bac3a645fd7a0a537c627ad37f5f695058c58d19ceb0033e913f1a9975e00dee"
-      ]
-    },
-    {
-      "witness_utxo": {
-        "amount": 0.00000840,
-        "scriptPubKey": {
-          "asm": "0 d591091b8074a2375ed9985a9c4b18efecfd4165",
-          "hex": "0014d591091b8074a2375ed9985a9c4b18efecfd4165",
-          "type": "witness_v0_keyhash",
-          "address": "tb1q6kgsjxuqwj3rwhkenpdfcjccalk06st9z0k0kh"
-        }
-      },
-      "final_scriptwitness": [
-        "304402207eb0d3423b8c62150f83a0756baaa93dc8cd15e07f594b2131c753d6ed16e3b2022051e5a44372fb680bf5c487bb87ef0f65bf040ac5e0d54cdbb4f5bcc1ddaac74501",
-        "02883bb5463e37d55252d8b3d5c2141b007b37c8a7db6211f75c955acc5ea325eb"
-      ]
-    }
-  ],
-  "outputs": [
-    {
-    }
-  ],
-  "fee": 0.00000191
-}
-```
-Or to be more precise: (1) the PSBT has been updated with the `witness_utxo` information; (2) the PSBT has been signed; and (3) the PSBT has been finalized.
-
+From here, you just `walletprocesspsbt`, `combinepsbt`, and `finalizepsbt` as usual.
 
 ## Create a PSBT the Easy Way
 #### PSBT Role: Creator, Updater
