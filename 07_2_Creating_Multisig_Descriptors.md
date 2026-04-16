@@ -4,7 +4,7 @@ You can improve your control over the creation of a multisig by creating it by h
 
 ## Collect the Keys
 
-The basic process is much the same as in [§6.1](06_1_Creating_Multisig_Public_Keys.md): it starts with collecting keys from two machines:
+The basic process is much the same as in [§7.1](07_1_Creating_Multisig_Public_Keys.md): it starts with collecting keys from two machines:
 
 ```
 machine1$ address3=$(bitcoin-cli getnewaddress)
