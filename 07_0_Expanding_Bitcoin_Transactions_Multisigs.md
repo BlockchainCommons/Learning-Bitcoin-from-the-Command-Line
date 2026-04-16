@@ -11,7 +11,7 @@ After working through this chapter, a developer will be able to:
    
 Supporting objectives include the ability to:
 
-   * Understand How to Spend Funds Sent to a Multisignature
+   * Understand the Theory of Spending Multisig Fudns
    * Plan for the Power of Multisignatures
    
 ## Table of Contents
