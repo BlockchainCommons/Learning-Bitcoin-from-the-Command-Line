@@ -31,9 +31,9 @@ Simple multisignatures require everyone in the group to sign the UTXO when it's 
 
 In order to lock a UTXO with multiple private keys, you must first create a multisignature address. 
 
-This requires a number of steps:
+There are a few ways to do this. The method described in this section, which depends on the `createmultisig` command, requires the following steps.
 
-1. Generate "n" addresses.
+1. Generate "n" addresses, preferably on different machines.
 2. Record the public key for each address.
 3. Consolidate the public keys onto a single machine.
 4. Create the multisig on one of the machines with the `createmultisig` RPC command.
@@ -85,7 +85,7 @@ machine2$ bitcoin-cli -named getaddressinfo address=$address2
 ```
 The `pubkey` address (`03c57ed70775d7a616778514e738fef0946b4be4ee32440b19f65ddd6e345983c0`) is what's required. 
 
-You can retrieve it from both machines with the following commands:
+You can retrieve it from your two machines with the following commands:
 
 ```
 machine1$ pubkey1=$(bitcoin-cli -named getaddressinfo address=$address1 | jq -r '.pubkey')
@@ -101,9 +101,9 @@ machine2$ pubkey2=$(bitcoin-cli -named getaddressinfo address=$address2 | jq -r 
 
 Via some safe, _accurate_ means, copy the public keys to a single machine.
 
-> ⚠️ **Public Keys Are Potentially Insecure.** Bitcoin's use of public-key hashes as addresses instead of public keys represents an additional layer of security. Therefore, sending a public key slightly increases the vulnerability of the associated address, for some far-future possibility of a compromise of the elliptic curve. You shouldn't worry about having to occasionally send out a public key for a usage such as this, but you should be aware that the public-key hashes represent security, and so the actual public keys should not be sent around willy nilly.
+> ⚠️ **Public Keys Are Potentially Insecure.** Bitcoin's use of public-key hashes as addresses instead of public keys represents an additional layer of security. Therefore, sending a public key slightly increases the vulnerability of the associated address, for some increasingly near compromise of the elliptic curve by quantum cryptography. At the moment, you shouldn't worry about having to occasionally send out a public key for a usage such as this, but you should be aware that the public-key hashes represent security, and so the actual public keys should not be sent around willy nilly.
 
-The following examples presume the `$pubkey2` variable from machine2 was copied to a `$pubkey2` variable on machine1 (but either would work)
+The following examples presume the `$pubkey2` variable from machine2 was copied to a `$pubkey2` variable on machine1 (but using either machine or even a third party would work).
 
 ### Create the Multisig
 
@@ -116,29 +116,31 @@ machine1$ bitcoin-cli -named createmultisig nrequired=2 keys='''["'$pubkey1'","'
   "descriptor": "wsh(multi(2,039395fa19d6512f03043210cd3e9a03a850f7a8d986c8f35d30f2efc281a8d331,03c57ed70775d7a616778514e738fef0946b4be4ee32440b19f65ddd6e345983c0))#k626xmlq"
 }
 ```
-When creating the multisignature address, you list how many signatures are required with the `nrequired` argument (that's "m" in a "m-of-n" multisignature), then you list the total set of possible signatures with the `keys` argument (that's "n"). Note that the the `keys` entries likely came from different places. In this case, we included `$pubkey1` from the local machine and `$pubkey2` that we filled in using the public key from a remote machine.
+When creating the multisignature address, you list how many signatures are required with the `nrequired` argument (that's "m" in a "m-of-n" multisignature), then you list the total set of possible signatures with the `keys` argument (that's "n"), and finally you tell it what type of address to create. Note that the the `keys` entries likely came from different places. In this case, we included `$pubkey1` from the local machine and `$pubkey2` that we filled in using the public key from a remote machine.
 
-> ℹ️ **m-of-n vs. n-of-n.** This example shows the creation of a simple 2-of-2 ("n-of-n") multisig. If you instead want to create an m-of-n signature where "m < n", you adjust the `nrequired` field and/or the number of signatures in the `keys` JSON object. For a 1-of-2 multisig, you'd set `nrequired=1` and also list two keys, while for a 2-of-3 multisig, you'd leave `nrequired=2`, but add one more public key to the `keys` listing.
+> ℹ️ **m-of-n vs. n-of-n.** This example shows the creation of a simple 2-of-2 ("n-of-n") multisig. If you instead want to create an m-of-n signature where "m < n", you adjust the `nrequired` field and/or the number of signatures in the `keys` JSON object. For a 1-of-2 multisig, you'd set `nrequired=1` and also list two keys, while for a 2-of-3 multisig, you'd leave `nrequired=2`, but add one more public key to the `keys` listing. We've written considerably more about designing multisigs, and in particular why you'd want to use different flavors of m-of-n and n-of-n in the Smart Custody document, ["Designing Multisig for Independence & Resilience"](https://github.com/BlockchainCommons/SmartCustody/blob/master/Docs/Multisig.md).
 
 When used correctly, `createmultisig` returns three results, all of which are critically important.
 
 * The ***address*** is what you'll give out to people who want to send funds. It will always be a script address instead of a normal public-key-hash address, though for native SegWit address, they all look the same, either `bc1q` or `tb1q`. In any case, as we saw in [§4.6](4_6_Sending_Coins_to_Other_Addresses.md), all the addresses receive coins in the same way, so you don't need to worry about which it us. 
-* The ***redeemScript*** is what you need to redeem the funds (along with the private keys for "m" of the "n" addresses). This script is another special feature of P2SH addresses and will be fully explained in [§10.3: Running a Bitcoin Script with P2SH](10_3_Running_a_Bitcoin_Script_with_P2SH.md). For now, just be aware that it's a bit of data that's required to get your money.
-* The ***descriptor*** is the standardized description for an address that we met in [§3.4: Understanding the Descriptor](03_4_Understanding_the_Descriptor.md). It provides one way that you could import this address back to the other machine, using the `importdescriptors` RPC.
+* The ***redeemScript*** is what you need to redeem the funds (along with the private keys for "m" of the "n" addresses). This script is another special feature of P2SH addresses and will be fully explained in [§10.3: Running a Bitcoin Script with P2SH](10_3_Running_a_Bitcoin_Script_with_P2SH.md). For now, just be aware that it's a bit of data that's required to get your money. 
+* The ***descriptor*** is the standardized description for an address that we met in [§3.4: Understanding the Descriptor](03_4_Understanding_the_Descriptor.md). It provides one way that you could import this address back to the other machine, using the `importdescriptors` RPC. Importing the descriptor into `bitcoin-cli` will also recreate the `redeemScript` you need to spend the funds, nonetheless keeping a redundant copy of the `redeemScript` is always a best practice.
 
-> 📖 ***What is a script address?*** A script address is a different type of recipient than a standard SegWit address, used for funds whose redemption are based on more complex Bitcoin Scripts. It can be a P2SH, P2WSH, or P2TR address. `bitcoin-cli` uses P2SH encapsulation to help standardize and simplify its multisigs as "P2SH multisigs", just like P2SH-SegWit was using P2SH to standardize its SegWit addresses and make them fully backward compatible.
+> 📖 ***What is a script address?*** A script address is a different type of recipient than a standard SegWit address, used for funds whose redemption are based on more complex Bitcoin Scripts. `bitcoin-cli` uses script encapsulation to help standardize and simplify its multisigs as "P2SH multisigs", just like P2SH-SegWit was using P2SH to standardize its SegWit addresses and make them fully backward compatible. A multisig can be a P2SH, P2WSH, or P2TR address.
 
 > ⚠️ **Multisig Size Limits.** Classic multisigs have a limit to 20-of-20 multisigs and the classic `redeemScript` could only fit 15 public keys. P2WSH multisigs, like the ones described in this chapter, can be no bigger than that.
 
 ### Record Crucial Info
 
-Here's an important caveat: nothing about your multisig is saved into your wallet using these basic techniques. In order to later redeem money sent to this multisignature address, you're going to need to retain two crucial bits of information:
+Here's an important caveat: nothing about your multisig is saved into your wallet using these basic techniques. In order to later redeem money sent to this multisignature address, you're going to need to retain three crucial bits of information:
 
    * A list of the Bitcoin addresses used in the multisig, _in order_.
    * The type of address created.
    * The `redeemScript` output by `createmultsig`.
-   
+  
 Technically, the `redeemScript` can be recreated by rerunning `createmultisig` with the complete list of public keys _in the same order_ and with the right m-of-n count and the right address type. But, it's better to hold onto it and save yourself stress and grief.
+
+The descriptor also keeps a copy of all of this information. (If you look, you'll see it contains both the type of address and the ordering, and the `redeemScript` arises naturally from that.) That's another reason that descriptors are great.
 
 ### Everything Matters
 
@@ -180,9 +182,9 @@ machine1$ bitcoin-cli -named createmultisig nrequired=2 keys='''["'$pubkey1'","'
 }
 ```
 
-To be precise, each ordering and each address type creates a different _redeemScript_. That means that if you used these basic techniques and failed to save the redeemScript as you were instructed, you'll have to walk through an ever-increasing number of variations to find the right one when you try and spend your funds!
+To be precise, each ordering and each address type creates a different _redeemScript_. That means that if you used these basic techniques and failed to save the redeemScript and/or the descriptor as you were instructed, you'll have to walk through an ever-increasing number of variations to find the right one when you try and spend your funds!
 
-[BIP67](https://github.com/bitcoin/bips/blob/master/bip-0067.mediawiki) suggests a way to lexicographically order keys, so that they always generate the same multisignatures. ColdCard and Electrum are among the wallets that already support this. Of course, this can cause troubles on its own if you don't know if a multisig address was created with sorted or unsorted keys. Once more, [descriptors](03_5_Understanding_the_Descriptor.md) come to the rescue. If a multisig is unsorted, it's built with the function `multi` and if it's sorted it's built with the function `sortedmulti`.
+[BIP67](https://github.com/bitcoin/bips/blob/master/bip-0067.mediawiki) suggests a way to lexicographically order keys, so that they always generate the same multisignatures. ColdCard and Electrum are among the wallets that already support this. Of course, this can cause troubles on its own if you don't know if a multisig address was created with sorted or unsorted keys. But once more [descriptors](03_5_Understanding_the_Descriptor.md) come to the rescue. If a multisig is unsorted, it's built with the function `multi` and if it's sorted it's built with the function `sortedmulti`.
 
 If you look at the `desc`riptor for the multisig that you created above, you'll see that Bitcoin Core doesn't currently sort its multisigs:
 ```
@@ -194,7 +196,7 @@ However, if it imports an address with type `sortedmulti`, it'll do the right th
 
 Though you used `bitcoin-cli` to create a multisig address, it won't be in any of your wallets. 
 
-To import it, you first need to create a watch-only wallet (without private keys and without any keys of its own):
+To import it into a wallet, you first need to create a watch-only wallet (without private keys and without any keys of its own):
 ```
 $ bitcoin-cli -named createwallet wallet_name="watchmulti" disable_private_keys=true blank=true
 {
@@ -226,7 +228,7 @@ Remember per [§3.3](03_3_Setting_Up_Your_Wallet.md#optional-create-multiple-wal
 
 ## Send to a Multisig Address
 
-Once you've got a multisig, you can send to it normally, either creating a transaction yourself from the command line or tapping a faucet. [§4.6](04_6_Sending_Coins_to_Other_Addresses.md) included a demonstration of sending to a P2SH address, and that's one of the types that is used to create multisig addresses.
+Once you've got a multisig, you can send to it normally, either creating a transaction yourself from the command line or tapping a faucet. [§4.6](04_6_Sending_Coins_to_Other_Addresses.md) included a demonstration of sending to a P2SH address, and that's one of the script-address types that is used to create multisig addresses.
 
 ## Summary: Sending a Transaction with a Multisig
 
