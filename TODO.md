@@ -4,11 +4,12 @@ The following TODO items are intended for a 3.0 version of Learning Bitcoin from
 
 ## Immediate TODO (for 4/30): Hardware Wallets & Book & Locktime
 
-1. Edit §8.5: Using Hardware Wallets
-2. Get README & Ch. 8 Summary up to date with new section ordering
-3. Prepare Index for Mkdocs
-4. Prepare MkDocs for Chapters 1-8
-5. Update Chapter 9 on Locktime
+1. Edit §8.4: Animated QRs
+2. Revise §8.5: Using Hardware Wallets
+3. Get README & Ch. 8 Summary up to date with new section ordering
+4. Prepare Index for Mkdocs
+5. Prepare MkDocs for Chapters 1-8
+6. Update Chapter 9 on Locktime
 
 ## Longer-Term TODO (Small Tasks)
 
