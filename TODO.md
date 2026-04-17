@@ -15,15 +15,11 @@ The following TODO items are intended for a 3.0 version of Learning Bitcoin from
 
 The following updates involve updates or the creation of new chapters, but their additions are generally bounded and known.
 
-1. New Interlude: Creating Animated QR Codes (after 7.1)
-   * New Subsection: Understanding Uniform Resources
-   * New Subsection: Creating an Animated QR
-   * New Subsection: Creating an Animated QR of a PSBT
 1. New Chapter: Using Other Command-Line Tools [this and next before scripts?]
-   * 9.1: Using seedtool
-   * 9.2: Using keytool
-   * 9.3: Using bytewords-cli
-   * 9.4: Using envelope
+   * 10.1: Using seedtool
+   * 10.2: Using keytool
+   * 10.3: Using bytewords-cli
+   * 10.4: Using envelope
    * GOALS INCLUDE: importing/transforming seed phrases; exporting/storing/SSKRing
    * Might need also chapters on what the goals are 
 1. New Chapter: Using Miniscript Command-Line Tools [this and next before scripts?]
