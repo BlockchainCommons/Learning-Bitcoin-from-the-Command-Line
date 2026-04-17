@@ -1,4 +1,4 @@
-# 8.4: Created Animated QR Codes
+# 8.4: Creating Animated QR Codes
 
 As discussed in [§4.3: Creating QR Codes for Addresses](04_3_Creating_QR_Codes_for_Addresses.md), QR codes are a great method for transmitting data across airgaps. They're also great for ensuring that there are no mistakes in your transmission. Unfortunately, QR codes are limited to 2953 bytes of binary data. That's sufficient for an address or a seed, but it's not big enough for a PSBT.
 
@@ -120,5 +120,36 @@ Bitcoin Core doesn't know anything about Animated QRs, which makes sense as it's
 
 The following shows the process, using [Sparrow Wallet](https://sparrowwallet.com/) as a coordinator and [Gordian Seed Tool]((https://apps.apple.com/us/app/gordian-seed-tool/id1545088229)) as a seed vault.
 
-**Step 1: Create the PSBT:**
+**Step 1: [Coordinator] Create the PSBT:**
 
+![](images/psbt-signing-1.jpg)
+
+**Step 2: [Coordinator] Generate the Animated QR:**
+
+![](images/psbt-signing-2.jpg)
+
+(only one frame is shown here)
+
+**Step 3: [Seed Vault] Read the Animated QR:**
+
+![](images/psbt-signing-3.jpg)
+
+**Step 4: [Seed Vault] Review the PSBT:**
+
+![](images/psbt-signing-4.jpg)
+
+**Step 5: [Seed Vault] Approve the PSBT:**
+
+![](images/psbt-signing-5.jpg)
+
+## Summary: Creating Animated QR Codes
+
+As with the QRs of [§4.3](04_3_Creating_QR_Codes_for_Addresses.md), you won't make any more use of Animated QRs in this course, because the command line fundamentally isn't a graphical environment.
+
+And as with the QRs of §4.3, the Animated QRs discussed here will have wide applicability when you move into the larger Bitcoin world. They are a vital tool for bridging airgaps, because QRs can't store large PSBTs.
+
+> :fire: ***What's the power of a Animated QRs?*** Animated QRs allow you to transfer larger amounts of information, such as a PSBT, across an airgap. This allows you to store seeds and keys used for signing Bitcoin transactions on a device not directly connected to the internet, making them safer and less prone to compromise. The use of Animated QRs to pass PSBTs back and forth ensures that the whole process remains easy to use.
+
+## What's Next?
+
+Consluding "Expanding Bitcoin Transactions with PSBTs" with our fourth real-world use case, [§8.5: Integrating with Hardware Wallets](08_5_Integrating_with_Hardware_Wallets.md).
