@@ -138,11 +138,15 @@ The following shows the process, using [Sparrow Wallet](https://sparrowwallet.co
 
 **Step 4: [Seed Vault] Review the PSBT:**
 
-![](images/psbt-signing-4.jpg)
+<center>
+  <img src="images/psbt-signing-4.jpg" width="33%">
+</center>
 
 **Step 5: [Seed Vault] Approve the PSBT:**
 
-![](images/psbt-signing-5.jpg)
+<center>
+  <img src="images/psbt-signing-5.jpg" width="33%">
+</center>
 
 ## Summary: Creating Animated QR Codes
 
