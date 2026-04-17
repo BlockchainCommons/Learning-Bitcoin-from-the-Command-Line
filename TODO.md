@@ -2,14 +2,13 @@
 
 The following TODO items are intended for a 3.0 version of Learning Bitcoin from the Command Line
 
-## Immediate TODO (for 4/16): Multisigs & PSBTs
+## Immediate TODO (for 4/30): Hardware Wallets & Book & Locktime
 
-1. Make final decisions on what to include in §7.3: Spending Multisigs
-2. Reorg/Create New §8.2: "Advanced Functions for PSBTs"
-3. Reorg/Create New §8.3: "Other Use Cases for PSBTs"
-4. Update/Edit §8.4 on Hardware Integration with PSBTs
-5. Write Creating Animated QRs
-6. Prepare MkDocs for Chapters 1-8
+1. Edit §8.5: Using Hardware Wallets
+2. Get README & Ch. 8 Summary up to date with new section ordering
+3. Prepare Index for Mkdocs
+4. Prepare MkDocs for Chapters 1-8
+5. Update Chapter 9 on Locktime
 
 ## Longer-Term TODO (Small Tasks)
 
@@ -224,6 +223,14 @@ See [release notes](https://bitcoincore.org/en/releases/0.21.0/).
 ---
 
 # Progress Log
+
+## Immediate TODO (for 4/16): Multisigs & PSBTs
+
+1. <strike>Make final decisions on what to include in §7.3: Spending Multisigs</strike>
+2. <strike>Rewrite §7.3</strike>
+3. <strike>Reorg/Create New §8.2: "Advanced Functions for PSBTs"</strike>
+4. <strike>Reorg/Create New §8.3: "Other Use Cases for PSBTs"</strike>
+5. <strike>Write §8.4: Creating Animated QRs</strike>
 
 ## Immediate TODO (for 4/2): Multisigs & PSBTs
 
