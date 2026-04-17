@@ -132,7 +132,9 @@ The following shows the process, using [Sparrow Wallet](https://sparrowwallet.co
 
 **Step 3: [Seed Vault] Read the Animated QR:**
 
-![](images/psbt-signing-3.jpg)
+<center>
+  <img src="../images/psbt-signing-3.jpg">
+</center>
 
 **Step 4: [Seed Vault] Review the PSBT:**
 
