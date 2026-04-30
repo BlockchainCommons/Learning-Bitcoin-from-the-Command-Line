@@ -70,12 +70,9 @@ If you'd like to make your own translation, please see [Contributing](https://gi
   * [8.2: Understanding the PSBT](docs/08_2_Understanding_the_PSBT.md)
   * [8.3: Using a Partially Signed Bitcoin Transaction](docs/08_3_Using_a_Partially_Signed_Bitcoin_Transaction.md)
   * [8.4: Creating Animated QR Codes](docs/08_4_Creating_Animated_QR_Codes.md)
-
-[in progress]
-
-* [8.0: Expanding Bitcoin Transactions in Other Ways](docs/08_0_Expanding_Bitcoin_Transactions_Other.md)
-  * [8.1: Sending a Transaction with a Locktime](docs/08_1_Sending_a_Transaction_with_a_Locktime.md)
-  * [8.2: Sending a Transaction with Data](docs/08_2_Sending_a_Transaction_with_Data.md) [**TO UPDATE**]
+* [9.0: Expanding Bitcoin Transactions in Other Ways](docs/09_0_Expanding_Bitcoin_Transactions_Other.md)
+  * [9.1: Sending a Transaction with a Locktime](docs/09_1_Sending_a_Transaction_with_a_Locktime.md)
+  * [9.2: Sending a Transaction with Data](docs/09_2_Sending_a_Transaction_with_Data.md)
 
 ### PART FOUR: IMPORTING & EXPORTING YOUR SECRETS
 
