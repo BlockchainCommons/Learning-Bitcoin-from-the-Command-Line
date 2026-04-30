@@ -2,9 +2,7 @@ name: ci
 on:
   push:
     branches:
-      - master 
-      - main
-      - lbtcftclv3.0
+      - lbtcftcl-v3.0
 permissions:
   contents: write
 jobs:
