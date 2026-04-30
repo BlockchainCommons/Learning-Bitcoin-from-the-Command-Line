@@ -3,8 +3,9 @@
 
 ![](https://www.blockchaincommons.com/images/projects/lbtc-screen.png)
 
-_This work is currently in process, but the files linked here have
-been revised and are in a fairly complete state._
+<i>This work is currently <b><font color="red">in process</font></b>,
+but the files linked here have been revised and are in a fairly
+complete state.</i>
 
 ## Table of Contents
 
@@ -55,4 +56,8 @@ been revised and are in a fairly complete state._
     * [8.3: Using a Partially Signed Bitcoin Transaction](08_3_Using_a_Partially_Signed_Bitcoin_Transaction.md)
     * [8.4: Creating Animated QR Codes](08_4_Creating_Animated_QR_Codes.md)
 
-_Learning Bitcoin v1.0 was created in part under the sponsorship of [Blockstream](https://blockstream.com/). Learning Bitcoin v2.0 was self-funded by [Blockchain Commons](https://www.blockchaincommons.com/). Learning Bitcoin v3.0 was funded by a grant from [HRF](https://hrf.org/)._
+---
+
+> _Learning Bitcoin v1.0 was created in part under the sponsorship of [Blockstream](https://blockstream.com/). Learning Bitcoin v2.0 was self-funded by [Blockchain Commons](https://www.blockchaincommons.com/). Learning Bitcoin v3.0 was funded by a grant from [HRF](https://hrf.org/)._
+
+---
