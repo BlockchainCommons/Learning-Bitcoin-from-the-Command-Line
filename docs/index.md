@@ -7,9 +7,7 @@
 but the files linked here have been revised and are in a fairly
 complete state.</i>
 
-## Table of Contents
-
-### PART ONE: PREPARING FOR BITCOIN
+## Part One: Preparing for Bitcoin
 
 * [**1.0: Introduction to Programming with Bitcoin Core and Lightning**](01_0_Introduction.md)
     * [Interlude: Introducing Bitcoin](01_1_Introducing_Bitcoin.md)
@@ -17,7 +15,7 @@ complete state.</i>
     * [2.1: Setting Up a Bitcoin-Core VPS with Bitcoin Standup](02_1_Setting_Up_a_Bitcoin-Core_VPS_with_StackScript.md)
     * [2.2: Setting Up a Bitcoin-Core Machine via Other Means](02_2_Setting_Up_Bitcoin_Core_Other.md)
 
-### PART TWO: SENDING TRANSACTIONS
+## Part Two: Sending Transactions
 
 * [**3.0: Preparing Your Bitcoin Wallet**](03_0_Preparing_Your_Bitcoin_Wallet.md)
     * [3.1: Verifying Your Bitcoin Setup](03_1_Verifying_Your_Bitcoin_Setup.md)
@@ -44,7 +42,7 @@ complete state.</i>
     * [6.2: Resending a Transaction with RBF](06_2_Resending_a_Transaction_with_RBF.md)
     * [6.3: Funding a Transaction with CPFP](06_3_Funding_a_Transaction_with_CPFP.md)
 
-### PART THREE: EXPANDING BITCOIN
+## Part Three: Expanding Bitcoin
 
 * [**7.0: Expanding Bitcoin Transactions with Multisigs**](07_0_Expanding_Bitcoin_Transactions_Multisigs.md)
     * [7.1: Creating a Multisig with Public Keys](07_1_Creating_Multisig_Public_Keys.md)
