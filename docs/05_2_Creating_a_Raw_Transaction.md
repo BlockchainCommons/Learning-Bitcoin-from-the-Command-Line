@@ -172,7 +172,20 @@ $ bitcoin-cli decoderawtransaction $rawtxhex
 
 Check the `vin`. Are you spending the right transaction? Does it contain the expected amount of money? (Check with `bitcoin-cli gettransaction` and be sure to look at the right `vout`.) Check your `vout`. Are you sending the right amount? Is it going to the right address? Finally, do the math to make sure the money balances. Does the value of the UTXO minus the amount being spent equal the expected transaction fee?
 
-> ℹ️  **NOTE: Sequence:** You may note that each input has a sequence number, set here to `4294967293`, which is `0xFFFFFFFF-2`. This is the last frontier of Bitcoin transactions, because it's a standard field in transactions that was originally intended for a specific purpose, but was never fully implemented. So now there's this integer sitting around in transactions that could be repurposed for other uses. And, in fact, it has been. As of this writing there are three different uses for the variable that's called `nSequence` in the Bitcoin Core code: it enables RBF, `nLockTime`, and relative timelocks. It used to always be set to `4294967295` (`0xFFFFFFFF`), which meant "nothing special", but nowadays it's set to  `4294967293` (`0xFFFFFFFF-2`), which means "allow Replace-by-Fee by default", which is explained in [§6.2](06_2_Resending_a_Transaction_with_RBF.md). Other values mean other things.
+> ℹ️ **Sequence Usages.** You may note that each input has a sequence
+number, set here to `4294967293`, which is `0xFFFFFFFF-2`. This is the
+last frontier of Bitcoin transactions, because it's a standard field
+in transactions that was originally intended for a specific purpose,
+but was never fully implemented. So now there's this integer sitting
+around in transactions that could be repurposed for other uses. And,
+in fact, it has been. As of this writing there are three different
+uses for the variable that's called `nSequence` in the Bitcoin Core
+code: it enables RBF, `nLockTime`, and relative timelocks. It used to
+always be set to `4294967295` (`0xFFFFFFFF`), which meant "nothing
+special", but nowadays it's set to `4294967293` (`0xFFFFFFFF-2`),
+which means "allow Replace-by-Fee by default", which is explained in
+[§6.2](06_2_Resending_a_Transaction_with_RBF.md). Other values mean
+other things.
 
 ### Sign the Raw Transaction
 

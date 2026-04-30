@@ -25,7 +25,7 @@ When RBF came around as a new version of transaction replacement, it went back t
 
 That was it! With RBF enabled, transactions could be replaced; with RBF disabled, transactions could not. (Except today, all transactios can be replaced, _in theory_.)
 
-> ℹ️ **Sequence Usage (v1).** This is the first use of the `sequence` value in Bitcoin. You can set it between 1 and 0xffffffff-2 (4294967293) and enable RBF, but if you're not careful you can run up against the parallel use of `sequence` for relative timelocks. We suggest always setting it to "0xffffffff-2", which is what Bitcoin Core does, but the other option is to set it to to "1" or to a value between 0xf0000000 (4026531840) and 0xffffffff-2 (4294967293). Setting `sequence` to "1" effectively makes relative timelocks irrelevent and setting it to 0xf0000000 or higher deactivates them. This is all explained in later sections. For now, just choose one of the non-conflicting values for `sequence`.
+> ℹ️ **Sequence Usage #1.** This is the first use of the `sequence` value in Bitcoin. You can set it between 1 and 0xffffffff-2 (4294967293) and enable RBF, but if you're not careful you can run up against the parallel use of `sequence` for relative timelocks. We suggest always setting it to "0xffffffff-2", which is what Bitcoin Core does, but the other option is to set it to to "1" or to a value between 0xf0000000 (4026531840) and 0xffffffff-2 (4294967293). Setting `sequence` to "1" effectively makes relative timelocks irrelevent and setting it to 0xf0000000 or higher deactivates them. This is all explained in later sections. For now, just choose one of the non-conflicting values for `sequence`.
 
 ## Understand How RBF Works
 

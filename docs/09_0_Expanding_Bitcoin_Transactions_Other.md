@@ -1,6 +1,11 @@
 # Chapter Eight: Expanding Bitcoin Transactions in Other Ways
 
-The definition of basic transactions back in [Chapter Six](06_0_Expanding_Bitcoin_Transactions_Multisigs.md) said that they sent _funds_ _immediately_, but those are both elements that can be changed. This final section on Expanding Bitcoin Transactions talks about how to send things other than cash and how to do it at a time other than now.
+The definition of basic transactions back in [Chapter
+Seven](07_0_Expanding_Bitcoin_Transactions_Multisigs/) said that they
+sent [a] funds [b] immediately, but those are both elements that can be
+changed. This final section on Expanding Bitcoin Transactions talks
+about how to send things other than cash and how to do it at a time
+other than now.
 
 ## Objectives for This Section
 
