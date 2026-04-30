@@ -65,14 +65,14 @@ If you'd like to make your own translation, please see [Contributing](https://gi
   * [7.1: Creating a Multisig with Public Keys](07_1_Creating_Multisig_Public_Keys.md)
   * [7.2: Creating a Multisig with Descriptors](07_2_Creating_Multisig_Descriptors.md)
   * [7.3: Spending a Transaction with a Multisig](07_3_Spending_a_Transaction_to_a_Multisig.md)
+* [8.0: Expanding Bitcoin Transactions with PSBTs](08_0_Expanding_Bitcoin_Transactions_PSBTs.md)
+  * [8.1: Spending a Multisig with a PSBT[(08_1_Spending_a_Multisig_with_a_PSBT.md)
+  * [8.2: Understanding the PSBT](08_2_Understanding_the_PSBT.md)
+  * [8.3: Using a Partially Signed Bitcoin Transaction](08_3_Using_a_Partially_Signed_Bitcoin_Transaction.md)
+  * [8.4: Creating Animated QR Codes](08_4_Creating_Animated_QR_Codes.md)
 
 [in progress]
 
-* [7.0: Expanding Bitcoin Transactions with PSBTs](07_0_Expanding_Bitcoin_Transactions_PSBTs.md)
-  * [7.1: Creating a Partially Signed Bitcoin Transaction](07_1_Creating_a_Partially_Signed_Bitcoin_Transaction.md)
-     * [Interlude: Creating Animated QR Codes](07_1a_Creating_Animated_QR_Codes.md) [**TO WRITE**]
-  * [7.2: Using a Partially Signed Bitcoin Transaction](07_2_Using_a_Partially_Signed_Bitcoin_Transaction.md)
-  * [7.3: Integrating with Hardware Wallets](07_3_Integrating_with_Hardware_Wallets.md)
 * [8.0: Expanding Bitcoin Transactions in Other Ways](08_0_Expanding_Bitcoin_Transactions_Other.md)
   * [8.1: Sending a Transaction with a Locktime](08_1_Sending_a_Transaction_with_a_Locktime.md)
   * [8.2: Sending a Transaction with Data](08_2_Sending_a_Transaction_with_Data.md) [**TO UPDATE**]
