@@ -1,0 +1,57 @@
+# Learning Bitcoin from the Command Line 3.0 (in process)
+### _by Christopher Allen and Shannon Appelcline_
+
+![](https://www.blockchaincommons.com/images/projects/lbtc-screen.png)
+
+_This work is currently in process, but the files linked here have
+been revised and are in a fairly complete state._
+
+## Table of Contents
+
+### PART ONE: PREPARING FOR BITCOIN
+
+* [1.0: Introduction to Programming with Bitcoin Core and Lightning](01_0_Introduction.md)
+    * [Interlude: Introducing Bitcoin](01_1_Introducing_Bitcoin.md)
+* [2.0: Setting Up a Bitcoin-Core VPS](02_0_Setting_Up_a_Bitcoin-Core_VPS.md)
+  * [2.1: Setting Up a Bitcoin-Core VPS with Bitcoin Standup](02_1_Setting_Up_a_Bitcoin-Core_VPS_with_StackScript.md)
+  * [2.2: Setting Up a Bitcoin-Core Machine via Other Means](02_2_Setting_Up_Bitcoin_Core_Other.md)
+
+### PART TWO: SENDING TRANSACTIONS
+
+* [3.0: Preparing Your Bitcoin Wallet](03_0_Preparing_Your_Bitcoin_Wallet.md)
+  * [3.1: Verifying Your Bitcoin Setup](03_1_Verifying_Your_Bitcoin_Setup.md)
+  * [3.2: Knowing Your Bitcoin Setup](03_2_Knowing_Your_Bitcoin_Setup.md)
+  * [3.3: Setting Up Your Wallet](03_3_Setting_Up_Your_Wallet.md) 
+  * [3.4: Understanding the Descriptor Wallet](03_4_Understanding_the_Descriptor_Wallet.md)
+* [4.0: Preparing Your Bitcoin Addresses](04_0_Preparing_Your_Bitcoin_Addresses.md)
+  * [4.1: Understanding the Address](04_1_Understanding_the_Address.md)
+  * [4.2: Integrating Addresses and Descriptors](04_2_Integrating_Addresses_Descriptors.md)
+  * [4.3: Creating QR Codes for Addresses](04_3Creating_QR_Codes_for_Addresses.md)
+  * [4.4: Receiving a Transaction](04_4_Receiving_a_Transaction.md)
+    * [Interlude: Using Command-Line Variables](04_4a_Interlude_Using_Command-Line_Variables.md)
+* [5.0: Sending Bitcoin Transactions](05_0_Sending_Bitcoin_Transactions.md) 
+  * [5.1: Sending Coins the Easy Way](05_1_Sending_Coins_The_Easy_Way.md) 
+  * [5.2: Creating a Raw Transaction](05_2_Creating_a_Raw_Transaction.md) 
+     * [Interlude: Using JQ](05_2a_Interlude_Using_JQ.md) 
+  * [5.3: Creating a Raw Transaction with Named Arguments](05_3_Creating_a_Raw_Transaction_with_Named_Arguments.md)
+  * [5.4: Sending Coins with Raw Transactions](05_4_Sending_Coins_with_a_Raw_Transaction.md)
+     * [Interlude: Using Curl](05_4a_Interlude_Using_Curl.md)
+  * [5.5: Sending Coins with Automated Raw Transactions](05_5_Sending_Coins_with_Automated_Raw_Transactions.md)
+  * [5.6: Sending Other Types of Transactions](05_6_Sending_Coins_to_Other_Addresses.md) 
+* [6.0: Controlling Bitcoin Transactions](06_0_Controlling_Bitcoin_Transactions.md)
+  * [6.1 Watching for Stuck Transactions](06_1_Watching_for_Stuck_Transactions.md)
+  * [6.2: Resending a Transaction with RBF](06_2_Resending_a_Transaction_with_RBF.md)
+  * [6.3: Funding a Transaction with CPFP](06_3_Funding_a_Transaction_with_CPFP.md)
+
+### PART THREE: EXPANDING BITCOIN
+
+* [7.0: Expanding Bitcoin Transactions with Multisigs](07_0_Expanding_Bitcoin_Transactions_Multisigs.md)
+  * [7.1: Creating a Multisig with Public Keys](07_1_Creating_Multisig_Public_Keys.md)
+  * [7.2: Creating a Multisig with Descriptors](07_2_Creating_Multisig_Descriptors.md)
+  * [7.3: Spending a Transaction with a Multisig](07_3_Spending_a_Transaction_to_a_Multisig.md)
+* [8.0: Expanding Bitcoin Transactions with PSBTs](08_0_Expanding_Bitcoin_Transactions_PSBTs.md)
+  * [8.1: Spending a Multisig with a PSBT[(08_1_Spending_a_Multisig_with_a_PSBT.md)
+  * [8.2: Understanding the PSBT](08_2_Understanding_the_PSBT.md)
+  * [8.3: Using a Partially Signed Bitcoin Transaction](08_3_Using_a_Partially_Signed_Bitcoin_Transaction.md)
+  * [8.4: Creating Animated QR Codes](08_4_Creating_Animated_QR_Codes.md)
+
