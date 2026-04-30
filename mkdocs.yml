@@ -1,0 +1,10 @@
+site_name: Learning Bitcoin from the Command Line
+site_url: https://learningbitcoin.blockchaincommons.com
+repo_url: https://github.com/BlockchainCommons/Learning-Bitcoin-from-the-Command-Line/tree/lbtcftcl-v3.0
+
+theme:
+  name: material
+  color_mode: dark
+  user_color_mode_toggle: true
+  icon:
+    logo: material/bitcoin
