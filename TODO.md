@@ -2,19 +2,17 @@
 
 The following TODO items are intended for a 3.0 version of Learning Bitcoin from the Command Line
 
-## Immediate TODO (for 4/30): Hardware Wallets & Book & Locktime
+## Immediate TODO (for 5/14): Other CLI Tools
 
-1. <strike>Edit §8.4: Animated QRs</strike>
-2. Revise §8.5: Using Hardware Wallets
-3. <strike>Get README & Ch. 8 Summary up to date with new section ordering</strike>
-4. <strike>Prepare Index for Mkdocs</strike>
-5. <strike>Prepare MkDocs for Chapters 1-8</strike>
-6. <strike>Update Chapter 9 on Locktime</strike>
+1. Test Out Means for Moving Master Key into Bitcoin CLI
+2. If It Works Write Chapter 10 on Tools for Creating Seeds & Keys
+3. Write Chapter 11 on Tools for Storing Master Key
 
 ## Longer-Term TODO (Small Tasks)
 
 The following updates involve updates or the creation of new chapters, but their additions are generally bounded and known.
 
+1. Decide on §8.5: Using Hardware Wallets
 1. New Chapter: Using Other Command-Line Tools [this and next before scripts?]
    * 10.1: Using seedtool
    * 10.2: Using keytool
@@ -220,6 +218,14 @@ See [release notes](https://bitcoincore.org/en/releases/0.21.0/).
 ---
 
 # Progress Log
+
+## Immediate TODO (for 4/30): Hardware Wallets & Book & Locktime
+
+1. <strike>Edit §8.4: Animated QRs</strike>
+2. <strike>Get README & Ch. 8 Summary up to date with new section ordering</strike>
+3. <strike>Prepare Index for Mkdocs</strike>
+4. <strike>Prepare MkDocs for Chapters 1-8</strike>
+5. <strike>Update Chapter 9 on Locktime</strike>
 
 ## Immediate TODO (for 4/16): Multisigs & PSBTs
 
