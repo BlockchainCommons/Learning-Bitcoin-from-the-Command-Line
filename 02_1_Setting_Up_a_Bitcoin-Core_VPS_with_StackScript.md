@@ -125,7 +125,7 @@ If you're impatient you can jump ahead and `sudo tail -f /standup.log` which wil
 
 ## Verify Your Installation
 
-You'll know that stackscrpit is done when the `tail` of the `standup.log` says something like the following:
+You'll know that stackscript is done when the `tail` of the `standup.log` says something like the following:
 ```
 /root/StackScript - Bitcoin is setup as a service and will automatically start if your VPS reboots and so is Tor
 /root/StackScript - You can manually stop Bitcoin with: sudo systemctl stop bitcoind.service
