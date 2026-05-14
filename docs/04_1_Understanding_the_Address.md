@@ -118,7 +118,7 @@ find all four derivation paths that you saw in
 The following chart lists out the prefixes and encoding methods for each address type:
 
 | Type | Path | Mainnet | Testnet | Encoding |
-|------|-------------|--------|----|
+|------|------|--------|----|---------------|
 | P2PK | N/A | N/A | N/A | public key |
 | P2MS | N/A | N/A | N/A | public keys |
 | P2PKH | /44h/ | 1... | m...<br>n...| base58 |
