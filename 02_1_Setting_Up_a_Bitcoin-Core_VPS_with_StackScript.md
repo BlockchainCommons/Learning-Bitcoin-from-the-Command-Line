@@ -89,7 +89,7 @@ If you are running a deployment that will be transacting real Bitcoins, you may 
 
 You may now want to change your Linode VPS's name from the default `linodexxxxxxxx`. For instance you might name it `bitcoin-signet-pruned` to differentiate it from other VPSs in your account.
 
-The last thing you need to do is enter a root password. (If you missed anything, you'll be told so now!). You'll also have the option to add an SSH key for the root user aat this point. We again suggest doing so for both security and convenience purposes.
+The last thing you need to do is enter a root password. (If you missed anything, you'll be told so now!). You'll also have the option to add an SSH key for the root user at this point. We again suggest doing so for both security and convenience purposes.
 
 Linode at this point offers a few choices that have changed over time, but currently include: disk encryption, VPC, firewall, and VLAN. These are generally security features that you would want to consider for a real-world deployment, but don't need to worry about for a testing deployment. (We'd suggest at least a firewall and the disk encryption for a real-world deployment, but we leave that to you and your security people.)
 
@@ -242,7 +242,7 @@ If it's different every time you type the command, you need to wait before worki
 
 But, once it settles at a number, you're ready to continue!
 
-Still, it might be time for a few more espressos. But soon enough, your system will be ready to go, and you'll be read to start experimenting.
+Still, it might be time for a few more espressos. But soon enough, your system will be ready to go, and you'll be ready to start experimenting.
 
 ## Summary: Setting Up a Bitcoin-Core VPS by Hand
 
@@ -263,7 +263,7 @@ You have a few options for what's next:
 
 **Pruned Mainnet.** This will cut the blockchain you're storing down to just the last 550 blocks. If you're not mining or running some other Bitcoin service, this should be plenty for validation.
 
-**Signet.** This is the newest iteration of a testing network, where Bitcoins don't actually have value, and has largely surpassed Testnet. It's intended for experimentation and testing.  Its big advantage is that its block production is more reliable that Testnet, where Testnet could stall out for a while, then produce a bunch of blocks together. 
+**Signet.** This is the newest iteration of a testing network, where Bitcoins don't actually have value, and has largely surpassed Testnet. It's intended for experimentation and testing.  Its big advantage is that its block production is more reliable than Testnet, where Testnet could stall out for a while, then produce a bunch of blocks together. 
 
 **Pruned Signet.** The last 550 blocks of Signet.
 
