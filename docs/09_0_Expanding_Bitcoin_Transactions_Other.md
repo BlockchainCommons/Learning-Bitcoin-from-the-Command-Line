@@ -1,4 +1,4 @@
-# Chapter Eight: Expanding Bitcoin Transactions in Other Ways
+# Chapter Nine: Expanding Bitcoin Transactions in Other Ways
 
 The definition of basic transactions back in [Chapter
 Seven](07_0_Expanding_Bitcoin_Transactions_Multisigs/) said that they
