@@ -21,15 +21,24 @@ private key, which includes not just the private key but also a "chain
 code" that can be used to create descendents of that key. The key and
 chain code can be used to deterministically generate chains of keys
 (and therefore addresses) for a variety of purposes. A Bitcoin HD
-wallet will typically have individual chains of keys (and addresses)
-for a variety of different address types. But, they can all be
-restored from that seed (or from that master extended private key)
-because of their determinism: the addresses are always created in the
-same way provided that you have the same starting points (which
-include your master extended private key and a specific index
-[0,1,...,n] for a specific type of address).
+wallet will typically have individual accounts, which are chains of
+keys (and addresses) for a variety of different address types. But,
+they can all be restored from that seed (or from that master extended
+private key) because of their determinism: the addresses are always
+created in the same way provided that you have the same starting
+points (which include your master extended private key and a specific
+index [0,1,...,n] for a specific type of address).
 
-> 📖 ***What is a BIP?*** A BIP is a Bitcoin Improvement Proposal. It's an in-depth suggestion for a change to the Bitcoin Core code. Often, when a BIP has been sufficiently discussed and updated, it will become an actual part of the Bitcoin Core code. BIP-32 is one of many examples.
+> 📖 ***What is a BIP?*** A BIP is a Bitcoin Improvement
+Proposal. It's an in-depth suggestion for a change to the Bitcoin Core
+code. Often, when a BIP has been sufficiently discussed and updated,
+it will become an actual part of the Bitcoin Core code. BIP-32 is one
+of many examples.
+
+The higher levels of secrets, the seeds and the master keys, are
+largely hidden from you in Bitcoin Core, but we'll talk about how to
+import them from the larger ecosystem in [chapter
+10](10_0_Working_with_Secrets.md).
 
 ## Understand Descriptor Wallets
 
@@ -61,19 +70,14 @@ didn't have that, a new wallet would have to test a master extended
 public key against _every possible type of address_ and that was going
 to be very inefficient and time-consuming and still introduced the
 likelihood of losing funds.
-
-> 📖 **What is a seed phase?** A collection of mnemonic words can
-define a seed. That seed is then used to generate an extended private
-key. Seed phrases are not currently used by Bitcoin Core, but they are
-in wide use in the larger Bitcoin ecosystem. Future chapters will talk
-about how to use third-party tools to transform seed phrases into keys
-that can be imported into `bitcoin-cli`.
  
 > 📖 ***What is xprv?*** Xprv stands for extended private key. This is
 the combination of a private key and a chain code. It's a private key
 that a whole sequence of children private keys can be derived from.
 
-> 📖 ***What is xpub?*** Xpub stands for extended public key. This is the combination of a public key and a chain code. It's a public key that a whole sequence of children public keys can be derived from.
+> 📖 ***What is xpub?*** Xpub stands for extended public key. This is
+the combination of a public key and a chain code. It's a public key
+that a whole sequence of children public keys can be derived from.
 
 Enter, at last, the descriptor wallet. A descriptor wallet collects
 together "output descriptors" (sometimes called "wallet descriptors"),
@@ -81,10 +85,12 @@ which each either define one address or, with a special "ranged
 descriptor", a whole array of addresses, each at a separate
 index. They do so through the specification of a format that includes:
 one or more nested functions (which define how to unlock the Bitcoin
-at the address), a derivation path (which defines the purpose of an
-address, which mostly links it to a specific standard), either the
-master extended public key or the master extended private key, and a
-checksum to make sure that nothing has been corrupted.
+at the address), a derivation path (which not only derives a specific
+account or address key from the master key but also provides
+information by defining the purpose of an address, which mostly links
+it to a specific standard), either the account public key or the
+account private key, and a checksum to make sure that nothing has been
+corrupted.
 
 > 📖 ***What is a Derivation Path?*** When you have hierarchical keys,
 you need to be able to define individual keys as descendents of the
@@ -103,7 +109,7 @@ equivalent.
 
 The derivation path allows you to calculate the right key from the
 master extended key, but it's the introduction of functions into
-descriptors that makes them particularly powerful, because they allows
+descriptors that makes them particularly powerful, because they allow
 descriptors to serve a number of different types of past, present, and
 future addresses (which we'll meet in
 [§4.1](04_1_Understanding_the_Address.md)).
@@ -232,13 +238,13 @@ can deterministically be created on the fly.
 
 * There are four types of addresses, which we'll meet in the next chapter (`pkh`, `sh`, `tr`, and `wpkh`).
 * Each type of address supports external addresses (for receiving funds from other wallets) and internal addresses (for sending change back to this wallet), as defined by `internal`.
-* Each type of address has its own key (e.g., `tpubDCsocyjrtJLXKJ3atFwKf6FiPheuVNV27B1swsGiNvk4cuPhVTsCDvusSNcH8thnS68FPFotgHqo9FHNGrvhtx6ZqdbWBQTWrCgK9xous17`).
+* Each type of address has its own account key (e.g., `tpubDCsocyjrtJLXKJ3atFwKf6FiPheuVNV27B1swsGiNvk4cuPhVTsCDvusSNcH8thnS68FPFotgHqo9FHNGrvhtx6ZqdbWBQTWrCgK9xous17`).
 * Each type of address supports a range of addresses, initially running 0 to 999.
 
-In other words, even though you have 8 descriptors, that's replacing
-thousands of addresses.  Thatt's a huge boon for backups (when you
-want to protect your funds) and for moving control of your funds from
-one wallet-app to another.
+In other words, even though you have eight descriptors, that's
+replacing thousands of addresses.  That's a huge boon for backups
+(when you want to protect your funds) and for moving control of your
+funds from one wallet-app to another.
 
 With that understood, we can look more closely at one of the descriptors:
 
@@ -269,7 +275,7 @@ As for the descriptor itself, let's break that down further:
 * **Function: `wpkh`.** The function that is used to create an address from that key. In this cases it's `wpkh`. That stands for "Witness Public Key Hash," which is one of the methods used to unlock a Bech32 address, which we'll meet in the next chapter.
 * **Fingerprint: `e18dae20`.** This is a fingerprint of the master extended public key. It tells you which secret was used to generate this address. The fingerprint is *not* necessary to generate the keys and addresses for a derivation, it's just helpful if you need to go back and find the secret that generated your extended keys.
 * **Derivation Path: `/84h/1h/0h`.** This describes what part of an HD wallet is being exported. This is the 0th child key of the 1st child of the 84th child in the HD tree. The various levels in the derivation path have very specific meanings as defined in [BIP-44](https://en.bitcoin.it/wiki/BIP_0044): `/purpose/coin_type/account/`. The purpose of this derivation path is "84", which means that it follows [BIP-84](https://github.com/bitcoin/bips/blob/master/bip-0084.mediawiki), which describes WPKH derivation. The coin type is "1", which means that it's a testnet or signet coin. (A mainnet coin could would be "0".) The account is "0", as it's the only account in our wallet.
-* **Key: `tpubDC4ujMbsd9REzpGk3gnTjkrfJFw1NnvCpx6QBbLj3CHBzcLmVzssTVP8meRAM1WW4pZnK6SCCPGyzi9eMfzSXoeFMNprqtgxG71VRXTmetu`.** This is the signet or testnet extended master public key that was used to generate this derived key. (A private key could be here instead. A public key would demonstrate how to watch this series of addresses, while a private key would show to control them.)
+* **Key: `tpubDC4ujMbsd9REzpGk3gnTjkrfJFw1NnvCpx6QBbLj3CHBzcLmVzssTVP8meRAM1WW4pZnK6SCCPGyzi9eMfzSXoeFMNprqtgxG71VRXTmetu`.** This is the signet or testnet account public key for this address type. (A private key could be here instead. A public key would demonstrate how to watch this series of addresses, while a private key would show to control them.)
 * **Range: `/0/*`.** These are actually the final two parts of the derivation path, which are defined by BIP-44 as `change/address_index`. The "0" says it's an external address. (An internal or change address would be "1".) The `*` says it's a ranged address, which means that it's defining a whole set of WPKH addresses that could be created.
 * **`#3658f8sn"`.** This is a checksum showing the descriptor isn't corrupted.
 
@@ -347,4 +353,4 @@ creating.
 
 ## What's Next?
 
-MOove on to "addresses" with [Chapter Three: Preparing Your Bitcoin Addresses](04_0_Preparing_Your_Bitcoin_Addresses.md).
+Move on to "addresses" with [Chapter Three: Preparing Your Bitcoin Addresses](04_0_Preparing_Your_Bitcoin_Addresses.md).
