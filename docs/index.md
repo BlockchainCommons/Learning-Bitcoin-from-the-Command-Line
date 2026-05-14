@@ -25,7 +25,7 @@ complete state.</i>
 * [**4.0: Preparing Your Bitcoin Addresses**](04_0_Preparing_Your_Bitcoin_Addresses.md)
     * [4.1: Understanding the Address](04_1_Understanding_the_Address.md)
     * [4.2: Integrating Addresses and Descriptors](04_2_Integrating_Addresses_Descriptors.md)
-    * [4.3: Creating QR Codes for Addresses]04_3_Creating_QR_Codes_for_Addresses.md)
+    * [4.3: Creating QR Codes for Addresses](04_3_Creating_QR_Codes_for_Addresses.md)
     * [4.4: Receiving a Transaction](04_4_Receiving_a_Transaction.md)
         * [Interlude: Using Command-Line Variables](04_4a_Interlude_Using_Command-Line_Variables.md)
 * [**5.0: Sending Bitcoin Transactions**](05_0_Sending_Bitcoin_Transactions.md) 

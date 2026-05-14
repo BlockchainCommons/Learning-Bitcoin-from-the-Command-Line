@@ -1,5 +1,0 @@
-$ envelope generate seed
-ur:seed/oyadgdcfahmuqzcfeevsdkfrftlgktykvwgtmtjllskgzo
-
-$ envelope generate prvkeys ur:seed/oyadgdcfahmuqzcfeevsdkfrftlgktykvwgtmtjllskgzo
-ur:crypto-prvkeys/lftansgohdcxhfzcdrcsptcyfzqdzmwdhebartlgflolctpyjkaepyonjeaytejlecwljohkkofetansgehdcxhnfrykkkgsotttethkjtetlaswpeyllkiaamaesapliajelthfyltllkskhdhnlemkjzjoro
