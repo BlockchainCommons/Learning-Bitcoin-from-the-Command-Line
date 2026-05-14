@@ -98,7 +98,7 @@ These last four address types are more totally deprecated:
 | P2WSH | Pay to Witness Script Hash | 4% |
 | P2TR | Pay to Taproot | 0.1% |
 
-## Understand Address Prefixes
+## Understand Address Prefixes & Derivation Paths
 
 Each different type of address is formed in a different way. An
 address can be derived in a different way, encoded in a different way,
@@ -109,17 +109,23 @@ prefix is always different for mainnet and for the various testing
 networks (signet, testnet, regtest) so that you don't confuse fake
 funds and real funds.
 
+Each different type of address also has a different derivation
+path. To be precise, the `/purpose/` found at the start of the
+derivation path defines the type of address that is generated. You'll
+find all four derivation paths that you saw in
+[§3.4](03_4_Understanding_the_Descriptor_Wallet.md ) listed below.
+
 The following chart lists out the prefixes and encoding methods for each address type:
 
-| Type | Mainnet | Testnet | Encoding |
+| Type | Path | Mainnet | Testnet | Encoding |
 |------|-------------|--------|----|
-| P2PK | N/A | N/A | public key |
-| P2MS | N/A | N/A | public keys |
-| P2PKH | 1... | m...<br>n...| base58 |
-| P2SH<br>P2SH-P2WPKH<br>P2SH-P2WSH | 3... | 2... | base58 |
-| P2WPKH | bc1q... | tb1q...| bech32 |
-| P2WSH | bc1q... | tb1q...| bech32 |
-| P2TR | bc1p... | tb1p...| bech32m |
+| P2PK | N/A | N/A | N/A | public key |
+| P2MS | N/A | N/A | N/A | public keys |
+| P2PKH | /44h/ | 1... | m...<br>n...| base58 |
+| P2SH<br>P2SH-P2WPKH<br>P2SH-P2WSH | /49h/ | 3... | 2... | base58 |
+| P2WPKH | /84h/ | bc1q... | tb1q...| bech32 |
+| P2WSH | N/A | bc1q... | tb1q...| bech32 |
+| P2TR | /86h/| bc1p... | tb1p...| bech32m |
 
 ## Create a P2WPKH Address
 
