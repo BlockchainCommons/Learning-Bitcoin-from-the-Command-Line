@@ -57,6 +57,15 @@ complete state.</i>
     * [9.1: Sending a Transaction with a Locktime](docs/09_1_Sending_a_Transaction_with_a_Locktime.md)
     * [9.2: Sending a Transaction with Data](docs/09_2_Sending_a_Transaction_with_Data.md)
 
+## Part Four: Exploring the Ecosystem
+
+* [**10.0: Working with Secrets**](10_0_Working_with_Secrets.md )
+   * [10.1: Creating Secrets from the Command Line](10_1_Creating_Secrets_from_the_Command_Line.md)
+   * [10.2: Converting Secrets with Keytool](10_2_Converting_Secrets_with_Keytool.md)
+   * [10.3: Importing Secrets to Bitcoin Core](10_3_Importing_Secrets_to_Bitcoin_Core.md)
+   * [10.4: Exporting Secrets from Bitcoin Core] (10_4_Exporting_Secrets_from_Bitcoin_Core.md)
+   * [10.5: Storing Secrets with Envelope] (10_5_Storing_Secrets_with_Envelope.md)
+
 ---
 
 > _Learning Bitcoin v1.0 was created in part under the sponsorship of [Blockstream](https://blockstream.com/). Learning Bitcoin v2.0 was self-funded by [Blockchain Commons](https://www.blockchaincommons.com/). Learning Bitcoin v3.0 was funded by a grant from [HRF](https://hrf.org/)._
