@@ -96,7 +96,7 @@ descriptors, laying each out as a ranged descriptor:
 ```
 DESC_WPKH="wpkh([$FINGERPRINT$ADP_NOM_WPKH]$AKEY58_WPKH/0/*)"
 DESC_PKH="pkh([$FINGERPRINT$ADP_NOM_PKH]$AKEY58_PKH/0/*)"
-
+```
 Here's your WPKH descriptor:
 ```
 echo $DESC_WPKH
