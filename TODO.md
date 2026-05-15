@@ -4,6 +4,7 @@ The following TODO items are intended for a 3.0 version of Learning Bitcoin from
 
 ## Immediate TODO (for 5/28): Other CLI Tools
 
+1. Edit 10.3
 1. Write 10.4: Exporting Keys from Bitcoin-CLI
 2. Write 10.5: Storing Keys with Envelope
 3. Rewrite 10.0: Chapter Intro
