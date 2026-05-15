@@ -2,24 +2,18 @@
 
 The following TODO items are intended for a 3.0 version of Learning Bitcoin from the Command Line
 
-## Immediate TODO (for 5/14): Other CLI Tools
+## Immediate TODO (for 5/28): Other CLI Tools
 
-1. Test Out Means for Moving Master Key into Bitcoin CLI
-2. If It Works Write Chapter 10 on Tools for Creating Seeds & Keys
-3. Write Chapter 11 on Tools for Storing Master Key
+1. Write 10.4: Exporting Keys from Bitcoin-CLI
+2. Write 10.5: Storing Keys with Envelope
+3. Rewrite 10.0: Chapter Intro
+4. Investigate Miniscript & BDK
+5. Start on Scripts
 
 ## Longer-Term TODO (Small Tasks)
 
 The following updates involve updates or the creation of new chapters, but their additions are generally bounded and known.
 
-1. Decide on §8.5: Using Hardware Wallets
-1. New Chapter: Using Other Command-Line Tools [this and next before scripts?]
-   * 10.1: Using seedtool
-   * 10.2: Using keytool
-   * 10.3: Using bytewords-cli
-   * 10.4: Using envelope
-   * GOALS INCLUDE: importing/transforming seed phrases; exporting/storing/SSKRing
-   * Might need also chapters on what the goals are 
 1. New Chapter: Using Miniscript Command-Line Tools [this and next before scripts?]
    * 15.1: Using miniscript
    * 15.2: Using Bitcoin Dev Kit (BDK)
@@ -218,6 +212,14 @@ See [release notes](https://bitcoincore.org/en/releases/0.21.0/).
 ---
 
 # Progress Log
+
+## Immediate TODO (for 5/14): Other CLI Tools
+
+1. <strike>Test Out Means for Moving Master Key into Bitcoin CLI</strike>
+2. <strike>Write 10.0: Intro to Import/Export</strike>
+3. <strike>Write 10.1: Creating Seeds with Seedtool</strike>
+4. <strike>Write 10.2: Transforming Keys with Keytool</strike>
+5. <strike>Write 10.3: Importing Keys into Bitcoin-CLI</strike>
 
 ## Immediate TODO (for 4/30): Hardware Wallets & Book & Locktime
 
