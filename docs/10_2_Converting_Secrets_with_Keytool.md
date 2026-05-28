@@ -2,7 +2,7 @@
 
 Seeds are great for portability and interoperability ... except that
 Bitcoin Core won't accept them as input. Instead, you need to generate
-a key for import into Bitcoin Core.
+keys for import into Bitcoin Core.
 
 ## Understand How the Key Hierarchy Works
 
@@ -28,15 +28,14 @@ If you're using a Debian Linux machine, the following listing of packages will g
 sudo apt-get install llvm clang lsb-release wget git apt-transport-https pkg-config autoconf libtool libc++-dev libc++abi-dev python3 python3-setuptools
 ```
 
-Afterward you can install LLVM for Python and link up `python` so that `keytool` can find it.:
+Afterward you can install LLVM for Python and link up `python` so that `keytool` can find it:
 ```
 sudo bash -c "$(wget -O - https://apt.llvm.org/llvm.sh)"
 sudo ln -s /usr/bin/python3 /usr/bin/python
 ```
 
 Blockchain Commons has alternative instructions for installing on
-[MacOS with
-Homebrew](https://github.com/BlockchainCommons/keytool-cli/tree/master#macos).
+[MacOS with Homebrew](https://github.com/BlockchainCommons/keytool-cli/tree/master#macos).
 
 Once you've got a robust Python environment, you can clone the repo and compile it:
 
@@ -60,13 +59,12 @@ chapter. If not, see
 [§10.1](10_1_Creating_Secrets_from_the_Command_Line/#use-seedtool) for
 how to do so.
 
-To start with, we should fingerprint the master key derived from that
+To start with, you should fingerprint the master key derived from that
 seed. Though this isn't technically required for Bitcoin Core
 descriptors, it nonetheless can be used in the future as metadata that
-will tell us what seed was used to create certain descriptors. We can
-fingerprint a seed with `keytool`.
+will tell us what seed was used to create certain descriptors.
 
-With `keytool` you're going to input your seed with `--seed` and then
+When using `keytool` you're going to input your seed with `--seed` and then
 ask for a certain type of output, in this case,
 `master-key-fingerprint`.
 
@@ -82,16 +80,14 @@ echo $FINGERPRINT
 | 35dad980
 ```
 
-You'll note that we skipped right past the master key here. That's
+You'll note that you skipped right past the step of creating the master private key and deriving the master public key before finger printing it. That's
 because `keytool` is smart and does all of the intermediary
 calculations without asking you. So here it goes from the seed through
 the private master key through the public master key to the
 fingerprint, and you only have to worry about the first and last
 steps.
 
-(We're actually never going to output the master key, because we have
-the seed for our main backup, and we're going to generate the account
-keys needed by Bitcoin Core.)
+(We're actually never going to output those master keys because we only care about things further down the hierarchy.)
 
 ## Convert to an Account Key
 
@@ -110,7 +106,7 @@ AKEY58_WPKH=$(keytool --seed $SEED --account-derivation-path $ADP_WPKH account-k
 
 We've stored that key in two forms.
 
-A UR format will be handy for use with other Blockchain Commons CLIs.
+The `$AKEY` variable contains a UR format that will be handy for use with other Blockchain Commons CLIs.
 
 ```
 echo $AKEY_WPKH
@@ -118,7 +114,7 @@ echo $AKEY_WPKH
 | ur:crypto-hdkey/onaoykaxhdclaedwfyeekpzoeepluebbtblnkksafedwmkssclfmbyidylskdwuelyfypkbakibehsaahdcxrdkenlhkqznbntgrhhmsmtbzmohljypmhllozorsesqdsomngseccfwdetbdmycxamoeadlncsghykaeykaeykaocyectntalaaycysktytardvlnlihie
 ```
 
-A base58 format is needed for use with Bitcoin Core.
+The `$AKEY58` is base 58 format, which is needed for use with Bitcoin Core.
 
 ```
 echo $AKEY58_WPKH
@@ -126,7 +122,7 @@ echo $AKEY58_WPKH
 | xprv9z7kiySAUeGtnrbQpzqFsE8uDQufoofkLqxW2kPRcLppKx6kthUEfp4mTjyQijpcfQ5iXgYVH9EzASguJ1PNTU3YnztKGmmtBJciRU9iFre
 ```
 
-You could use this same methodology to create an account for any
+You could use this same methodology to create an account key for any
 path. For example, the following would create a legacy PKH account:
 
 ```
