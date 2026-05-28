@@ -321,7 +321,7 @@ instead of a P2WPKH address, unlocked by the same key.)
 The main purpose here is to show how descriptors work in practice, so
 that the link between descriptors and address is clear, and so you can
 easily create addresses from descriptors when it's helpful in the
-future, such as when we create multisigs in [§7.2](07_2_Creating_Multisig_Descriptors.md).
+future, such as when we create multisigs in [§7.2](07_2_Creating_Multisig_Descriptors.md) and when we create descriptors from remote seeds in [§10.3](10_3_Importing_Secrets_to_Bitcoin_Core.md).
 
 ## Summary: Integrating Addresses and Descriptors
 
