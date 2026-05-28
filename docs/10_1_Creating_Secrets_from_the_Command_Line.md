@@ -25,7 +25,7 @@ address).
 
 The descriptors that we first encountered in §3.4 are made up of the lower-level secrets in this hierarcy:
 ```
-wpkh([e18dae20/84h/1h/0h]tpubDC4ujMbsd9REzpGk3gnTjkrfJFw1NnvCpx6QBbLj3CHBzcLmVzssTVP8meRAM1WW4pZnK6SCCPGyzi9eMfzSXoeFMNprqtgxG71VRXTmetu/0/*)#3658f8sn"
+| wpkh([e18dae20/84h/1h/0h]tpubDC4ujMbsd9REzpGk3gnTjkrfJFw1NnvCpx6QBbLj3CHBzcLmVzssTVP8meRAM1WW4pZnK6SCCPGyzi9eMfzSXoeFMNprqtgxG71VRXTmetu/0/*)#3658f8sn"
 ```
 
 Here:
@@ -77,7 +77,7 @@ we suggest, follow a three-step process.
 First, install the C compiler:
 
 ```
-$ sudo apt-get install build-essential
+sudo apt-get install build-essential
 ```
 
 Second, use `curl` to install Rust. The following will install it into
@@ -85,13 +85,13 @@ your current account. Choose the "Proceed with standard installation" option whe
 asked:
 
 ```
-$ curl https://sh.rustup.rs -sSf | sh
+curl https://sh.rustup.rs -sSf | sh
 ```
 
 Third, reset your environment:
 
 ```
-$ . "$HOME/.cargo/env"
+. "$HOME/.cargo/env"
 ```
 
 For Mac, follow a similar procedure, but skip the `apt-get` and
@@ -107,7 +107,7 @@ Once you have Rust installed, installing Rust packages is easy. The
 following will install `seedtool`:
 
 ```
-$ cargo install seedtool-cli
+cargo install seedtool-cli
 ```
 
 > ⚠️ **Memory Pressure.** We've had our little 4G Debian Linode get
@@ -120,9 +120,10 @@ warnings, reboot the machine and try again (continuing with whatever package you
 Using seedtool is also ridiculously easy. You run `seedtool` and it generates a seed.
 
 ```
-$ SEED=$(seedtool)
-$ echo $SEED
-f6cfffce024b5b1a8d8925aa6903d039
+SEED=$(seedtool)
+echo $SEED
+
+| f6cfffce024b5b1a8d8925aa6903d039
 ```
 
 You've now got a seed that you can use to generate entire hierarchies of Bitcoin addresses!
@@ -159,8 +160,9 @@ recover them. Choosing `-o bip39` will output your seed as an
 English-language BIP-39 word list:
 
 ```
-$ seedtool -i hex $SEED -o bip39
-walnut lend vicious afraid remember minute curtain caution price elite village inhale
+seedtool -i hex $SEED -o bip39
+
+| walnut lend vicious afraid remember minute curtain caution price elite village inhale
 ```
 
 This word list can then be stored somewhere safe. The [#SmartCustody
@@ -185,8 +187,9 @@ that you used in [§8.4](08_4_Creating_Animated_QR_Codes.md).)
 You can output as Bytewords with `-o btw`
 
 ```
-$ seedtool -i hex $SEED -o btw
-yawn task zoom taco also gear help city lung loud data peck iron apex taxi eyes kept miss ramp huts
+seedtool -i hex $SEED -o btw
+
+| yawn task zoom taco also gear help city lung loud data peck iron apex taxi eyes kept miss ramp huts
 ```
 
 ### Backup as SSKR
@@ -213,21 +216,23 @@ that defines the threshold. The output is all done in Blockchain
 Commons specified formats. The following outputs SSKR shares as URs:
 
 ```
-$ seedtool -i hex $SEED -o sskr --groups 2-of-3 --sskr-format ur
-ur:sskr/gocfaaaeadaenskelybeetesvytptnehrytaemsnetjemhpanlcp
-ur:sskr/gocfaaaeadadpdpscknbmtensncnbbdaaasgaholrpsortuywpsp
-ur:sskr/gocfaaaeadaowkstoxjelbdirhechlcftyzmgucwfheetdeooxvl
+seedtool -i hex $SEED -o sskr --groups 2-of-3 --sskr-format ur
+
+| ur:sskr/gocfaaaeadaenskelybeetesvytptnehrytaemsnetjemhpanlcp
+| ur:sskr/gocfaaaeadadpdpscknbmtensncnbbdaaasgaholrpsortuywpsp
+| ur:sskr/gocfaaaeadaowkstoxjelbdirhechlcftyzmgucwfheetdeooxvl
 ```
 
 `seedtool -i sskr` can then be used to input any two of these shares
 and regenerate the seed:
 
 ```
-$ seedtool -i sskr
+seedtool -i sskr
 ur:sskr/gocfaaaeadaenskelybeetesvytptnehrytaemsnetjemhpanlcp
 ur:sskr/gocfaaaeadaowkstoxjelbdirhechlcftyzmgucwfheetdeooxvl
 ^D
-f6cfffce024b5b1a8d8925aa6903d039
+
+| f6cfffce024b5b1a8d8925aa6903d039
 ```
 
 [#SmartCustody](https://github.com/BlockchainCommons/SmartCustody/blob/master/Docs/SSKR-Sharing.md)
