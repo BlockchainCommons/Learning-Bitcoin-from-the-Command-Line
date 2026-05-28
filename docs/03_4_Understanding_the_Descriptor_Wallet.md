@@ -274,9 +274,9 @@ As for the descriptor itself, let's break that down further:
 
 * **Function: `wpkh`.** The function that is used to create an address from that key. In this cases it's `wpkh`. That stands for "Witness Public Key Hash," which is one of the methods used to unlock a Bech32 address, which we'll meet in the next chapter.
 * **Fingerprint: `e18dae20`.** This is a fingerprint of the master extended public key. It tells you which secret was used to generate this address. The fingerprint is *not* necessary to generate the keys and addresses for a derivation, it's just helpful if you need to go back and find the secret that generated your extended keys.
-* **Derivation Path: `/84h/1h/0h`.** This describes what part of an HD wallet is being exported. This is the 0th child key of the 1st child of the 84th child in the HD tree. The various levels in the derivation path have very specific meanings as defined in [BIP-44](https://en.bitcoin.it/wiki/BIP_0044): `/purpose/coin_type/account/`. The purpose of this derivation path is "84", which means that it follows [BIP-84](https://github.com/bitcoin/bips/blob/master/bip-0084.mediawiki), which describes WPKH derivation. The coin type is "1", which means that it's a testnet or signet coin. (A mainnet coin could would be "0".) The account is "0", as it's the only account in our wallet.
-* **Key: `tpubDC4ujMbsd9REzpGk3gnTjkrfJFw1NnvCpx6QBbLj3CHBzcLmVzssTVP8meRAM1WW4pZnK6SCCPGyzi9eMfzSXoeFMNprqtgxG71VRXTmetu`.** This is the signet or testnet account public key for this address type. (A private key could be here instead. A public key would demonstrate how to watch this series of addresses, while a private key would show to control them.)
-* **Range: `/0/*`.** These are actually the final two parts of the derivation path, which are defined by BIP-44 as `change/address_index`. The "0" says it's an external address. (An internal or change address would be "1".) The `*` says it's a ranged address, which means that it's defining a whole set of WPKH addresses that could be created.
+* **Derivation Path for Key: `/84h/1h/0h`.** This describes the derivation path used to create the key in the desciptor from the fingerprinted master key. This is the 0th child key of the 1st child of the 84th child in the HD tree. The various levels in the derivation path have very specific meanings as defined in [BIP-44](https://en.bitcoin.it/wiki/BIP_0044): `/purpose/coin_type/account/`. The purpose of this derivation path is "84", which means that it follows [BIP-84](https://github.com/bitcoin/bips/blob/master/bip-0084.mediawiki), which describes WPKH derivation. The coin type is "1", which means that it's a testnet or signet coin. (A mainnet coin could would be "0".) The account is "0", as it's the only account in our wallet.
+* **Key: `tpubDC4ujMbsd9REzpGk3gnTjkrfJFw1NnvCpx6QBbLj3CHBzcLmVzssTVP8meRAM1WW4pZnK6SCCPGyzi9eMfzSXoeFMNprqtgxG71VRXTmetu`.** This is key derived from the fingerprinted master key using the derivation path. In this case, since the derivation path was `84h/1h/0h`, it's an account key (to be precise, an account public key for testnet). A private key could be here instead: a public key would demonstrate how to watch this series of addresses, while a private key would show to control them.
+* **Derivation Path for Addresses: `/0/*`.** This is the rest of the five-part derivation path. What's in the `[brackets]` shows how to derive the key in the descriptor from the fingerprinted master key, while what's here shows you how to derive addresses from that key. Again, BIP-44 defines these levels of the derivation path: they're `change/address_index`. The "0" says it's an external address. (An internal or change address would be "1".) The `*` says it's a ranged address, which means that it's defining a whole set of WPKH addresses that could be created. Each of those addresses has its own "index" (`0`, `1`, etc).
 * **`#3658f8sn"`.** This is a checksum showing the descriptor isn't corrupted.
 
 So that's what everything means in a descriptor.
@@ -321,7 +321,7 @@ error message:
 
 ## Import a Descriptor
 
-The really important feature of descriptors is that you can take them to another (remote) machine and import them. This is done with the `importdescriptors` command. The following example shows the import of the private-key version of our BIP-84 ranged descriptor into another wallet:
+The really important feature of descriptors is that you can take them to another (remote) machine and import them. This is done with the `importdescriptors` command. The following example shows the import of a BIP-84 ranged descriptor containing a master private key into another wallet:
 ```
 $ bitcoin-cli importdescriptors '[{ "desc": "wpkh(tprv8ZgxMBicQKsPd1dP4NpsFDpsLUCnZ7oyn4UEbYLw7if1EDVCxMgfSzAwP3aCr1YeRvX9GtGvHsCLdrM7zaDyh33jEj7joQoEeNEyJaSYm5p/84h/1h/0h/0/*)#grdqnase", "timestamp":1770329126, "active": true, "range": [0,10] }]'
 [
@@ -334,7 +334,7 @@ $ bitcoin-cli importdescriptors '[{ "desc": "wpkh(tprv8ZgxMBicQKsPd1dP4NpsFDpsLU
 You'll note that this is a much more complex `bitcoin-cli` command
 than anything we've used before. It requires the input of a JSON array
 with a variety of different variables. (Which is a pain.) The `desc`
-is that private-key descriptor, the `timestamp` says how much of the
+is that master-private-key descriptor, the `timestamp` says how much of the
 blockchain to rescan, the `range` says how much of the range to
 import, and the `active` says that this descriptor can be used to
 create new addresses. After importing it, this descriptor becomes the
