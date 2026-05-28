@@ -98,7 +98,7 @@ bitcoin-cli listdescriptors
 | ...
 |   ]
 | }
-...
+```
 
 By default, each descriptor shown by `listdescriptors` contains the
 account public key for that descriptor. You'll note that they're the
