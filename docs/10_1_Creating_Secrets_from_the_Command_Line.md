@@ -1,16 +1,16 @@
 # 10.1: Creating Secrets from the Command Line
 
-Bitcoin addresses are ultimately built on a hierarchy of secrets. In
+Bitcoin addresses are built on a hierarchy of secrets. In
 an HD wallet, a seed leads to a master key which leads to an account
 key which leads to address keys. However, in Bitcoin Core, you never
-see the seed, even though it's the fundamental use of interoperability
+see the seed, even though it's the fundamental unit of interoperability
 for the wider Bitcoin ecosystem. This section shows you how to create
 a seed, which we'll import into Bitcoin Core over the course of this
 chapter.
 
 ## Understand How Seeds Work
 
-A seed is a secret. It's a large number. As we discussed in
+A seed is a secret. It's a large number. As discussed in
 [§3.4](03_4_Understanding_the_Descriptor_Wallet.md), it's also the
 foundation of a hierarchy of secrets:
 
@@ -20,12 +20,12 @@ account derivation path (e.g., `84h/0h/0h` for a P2WPKH account).
 * Address private keys are derived from an account private key and an
 address derivation path (e.g., `0/0` for the first external
 address).
-* Public keys are derived from the associated public keys.
+* Public keys are derived from the associated private keys.
 * Addresses are derived from address public keys.
 
-The descriptors that we first encountered in §3.4 are made up of the lower-level secrets in this hierarchy:
+The descriptors that we first encountered in §3.4 are made up of the lower-level secrets in this hierarcy:
 ```
-wpkh([e18dae20/84h/1h/0h]tpubDC4ujMbsd9REzpGk3gnTjkrfJFw1NnvCpx6QBbLj3CHBzcLmVzssTVP8meRAM1WW4pZnK6SCCPGyzi9eMfzSXoeFMNprqtgxG71VRXTmetu/0/*)#3658f8sn",
+wpkh([e18dae20/84h/1h/0h]tpubDC4ujMbsd9REzpGk3gnTjkrfJFw1NnvCpx6QBbLj3CHBzcLmVzssTVP8meRAM1WW4pZnK6SCCPGyzi9eMfzSXoeFMNprqtgxG71VRXTmetu/0/*)#3658f8sn"
 ```
 
 Here:
@@ -81,7 +81,7 @@ $ sudo apt-get install build-essential
 ```
 
 Second, use `curl` to install Rust. The following will install it into
-your current account. Choose the "standard installation" when you're
+your current account. Choose the "Proceed with standard installation" option when you're
 asked:
 
 ```
@@ -113,7 +113,7 @@ $ cargo install seedtool-cli
 > ⚠️ **Memory Pressure.** We've had our little 4G Debian Linode get
 stuck when we asked it to install multiple Rust crates back to
 back. If a `cargo install` seems to get stuck, with "memory pressure"
-warnings, reboot the machine and try again.
+warnings, reboot the machine and try again (continuing with whatever package you were installing).
 
 ## Use Seedtool
 
@@ -153,7 +153,7 @@ secrets. But these are a great start.
 ### Backup as BIP-39
 
 [BIP-39](https://github.com/bitcoin/bips/blob/master/bip-0039.mediawiki)
-invented the idea of a seed phrase. It allows a seed to be converted
+invented the idea of a mnemonic seed phrase. It allows a seed to be converted
 into a list of words that are less prone to errors when you store and
 recover them. Choosing `-o bip39` will output your seed as an
 English-language BIP-39 word list:
@@ -165,7 +165,7 @@ walnut lend vicious afraid remember minute curtain caution price elite village i
 
 This word list can then be stored somewhere safe. The [#SmartCustody
 course](https://www.smartcustody.com/) suggests inscribing it into
-metal. This should make your seed much less prone to loss.
+metal and locking it in a vault or safe. This should make your seed much less prone to loss (while still protecting it from compromise).
 
 > 📖 **What is a seed phase?** A collection of 12 or 24 ordered
 mnemonic words can define a seed.  Though seed phrases are not
@@ -180,7 +180,7 @@ are more regular that BIP-39 words and chosen to be easy to remember
 and hard to confuse. (They're also the foundation of the
 [UR](https://developer.blockchaincommons.com/ur/) and [Animated
 QR](https://developer.blockchaincommons.com/animated-qrs/) technology
-that you used [§8.4](08_4_Creating_Animated_QR_Codes.md).)
+that you used in [§8.4](08_4_Creating_Animated_QR_Codes.md).)
 
 You can output as Bytewords with `-o btw`
 
@@ -197,12 +197,12 @@ secret is stolen). The more copies of something you make, the better
 your chance of recovering that secret, but the more likely someone
 else steals it.
 
-Shamir's Secret Sharing resolves that issue by letting you shard a
+Shamir's Secret Sharing resolves this issue by letting you shard a
 secret, distribute the shares created, and then reconstruct your
 secret from some fraction (a "threshold") of those shares. It's common
 to create shares with a 2-of-3 threshold (there are three shares, but
 you can reconstruct from any two) or a 3-of-5 threshold (there are
-five shares, you can reconstruct from any three).
+five shares, but you can reconstruct from any three).
 
 [SSKR](https://developer.blockchaincommons.com/sskr/) is Blockchain
 Commons' expansion of Shamir's Secret Sharing, which is built into
