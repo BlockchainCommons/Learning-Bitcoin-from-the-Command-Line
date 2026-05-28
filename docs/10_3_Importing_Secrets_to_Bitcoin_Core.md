@@ -2,14 +2,14 @@
 
 You've used your seed (from §10.1) to generate account keys (in
 §10.2), which is what you need to create descriptors that will allow
-you to use Bitcoin Core with your external seed.
+you to input addresses derived from the seed into Bitcoin Core.
 
 ## Use Mainnet
 
 You may have noted that we've been using the `coin_type` of `0` in
 this chapter's examples and generating `xprv`. That's because
 `keytool` is focused on real-world/mainnet uses, not testnet.  That
-means you're going to need to use mainnet to test out how import and
+means you're going to need to use mainnet to test out how to import and
 export works in this chapter.
 
 To ensure this, go to ~/.bitcoin/bitcoin.conf and change the `signet=1` line to `signet=0`:
@@ -42,7 +42,7 @@ cat bitcoin.conf
 | rpcport=38332
 ```
 
-You then need to dind `bitcoind` in your process table:
+You then need to find `bitcoind` in your process table:
 ```
 ps auxww | grep bitcoin
 
@@ -61,7 +61,7 @@ This will restart `bitcoind` with the new config file, which will now be using m
 
 You're now ready to create a descriptor, just like you did in
 [§4.2](04_2_Integrating_Addresses_Descriptors.md), except this time
-you're going to be creating a wallet descriptor for an account.
+you're going to be creating a wallet descriptor for a whole account.
 
 If you review
 [§3.4](3_4_Understanding_the_Descriptor_Wallet/#examine-descriptors-with-listdescriptors), you can see that WPKH descriptors look like this:
@@ -106,19 +106,19 @@ echo $DESC_WPKH
 
 Here's your PKH descriptor:
 ```
-$ echo $DESC_PKH
+echo $DESC_PKH
 
 | pkh([35dad980/44h/0h/0h]xprv9z9awxh6i3ii4MwxeQpBedgcS5utbeZwcThsWCSeHurKrMJ2FHFnzPFscd1WhpsNT18wMctBw6KcfgzPWiGUDTPDV59czbSUPdmD6L5yogy/0/*)
 ```
 
-As an aside, you could `keytool` produce an output descriptor if
+As an aside, you can use `keytool` to produce an output descriptor if
 you've uncertain about the format, but it produces a watch-only
 descriptor, which means you'll have to subsituted the `xprv` for the
-`xpub` and it also will doesn't show the fingerprint if you tell it a
+`xpub` and it also doesn't show the fingerprint if you tell it a
 specific account derivation path, so it's probably better to do it by
-hand, and really get a good understanding of how the descriptor works.
+hand (and really get a good understanding of how the descriptor works).
 
-Here's a clean output (minus the `xpub`) of a default `84h` descriptor:
+Nonetheless, here's an example of how an `output-descriptor` output works for keytool using the default derivation path (which is `84h/0h/0h`):
 
 ```
 keytool --seed $SEED --address-index '*' output-descriptor
@@ -144,7 +144,9 @@ bitcoin-cli getdescriptorinfo $DESC_WPKH
 | }
 ```
 
-Then you can use `jq` to capture the checksums for both descriptors:
+Note that these results actually include two checksums! The first one (`p5auymld`) is paired with a new copy of your descriptor that replaces the private key with the public key. You'll ignore that! The second one (`ac2yuqwk`) is the checksum for the private key descriptor that you entered.
+
+You can use `jq` to capture the checksums for both descriptors:
 
 ```
 CS_WPKH=$(bitcoin-cli getdescriptorinfo $DESC_WPKH | jq -r '.checksum')
@@ -163,7 +165,7 @@ When you're moving wallets (or descriptors) between apps, you always
 want to make sure that they look the same on your source and
 destination systems. The best way to do that is to check addresses.
 
-As we've seen, we can do that with `deriveaddresses`, which will show
+Using `bitcoin-cli`, you can check address with `deriveaddresses`, which will show
 the addresses associated with a descriptor.
 
 Here are the first three WPKH addresses on Bitcoin Core:
@@ -177,9 +179,8 @@ bitcoin-cli deriveaddresses $DESC_WITH_CS_WPKH 2
 | ]
 ```
 
-On `keytool`, we can go all the way back to the seed, and link that
-with the account derivation path to addresses of a specific type. This
-is a very robust check, because it verifies that our derivation of the
+On `keytool`, you can go all the way back to the seed and use the account derivation path to output addresses of a specific type. This
+is a very robust check, because it verifies that the derivation of the
 account key was done correctly:
 
 ```
@@ -195,7 +196,7 @@ bc1q96auv67f4ell2ayrgauwghhkrf50e30g8mthgy
 
 All three check out!
 
-We can do the same with our PKH addresses.
+You can do the same with your PKH addresses.
 
 Here they are in Bitcoin Core:
 ```
@@ -223,17 +224,18 @@ keytool --seed $SEED --account-derivation-path m/44h/0h/0h --address-index 2 add
 
 ## Import Addresses
 
-You're ready to import the addrsses.
+You're ready to import the addresses.
 
 First, you need to create a wallet without any descriptors of its own:
 ```
-$ bitcoin-cli -named createwallet wallet_name="seed" blank=true
-{
-  "name": "seed"
-}
+bitcoin-cli -named createwallet wallet_name="seed" blank=true
+
+| {
+|   "name": "seed"
+| }
 ```
 
-Now, you just need to import the descriptor with the `importdescriptors` command that you've used previously:
+Then, you just need to import the descriptor with the `importdescriptors` command that you've used previously:
 
 ```
 bitcoin-cli -rpcwallet=seed importdescriptors '''[{ "desc": "'$DESC_WITH_CS_WPKH'", "timestamp":1770329126, "active": true, "range": [0,100] }]'''
@@ -245,7 +247,7 @@ bitcoin-cli -rpcwallet=seed importdescriptors '''[{ "desc": "'$DESC_WITH_CS_WPKH
 | ]
 ```
 
-Again we want to check an address:
+Again, you want to check an address:
 
 ```
 bitcoin-cli -rpcwallet=seed getnewaddress
@@ -253,7 +255,7 @@ bitcoin-cli -rpcwallet=seed getnewaddress
 | bc1q7jn4qxknxr3d58jwzjyw3x93w7qxwhkypftgaz
 ```
 
-We can do the same with the PKH address now:
+You can do the same with the PKH address now:
 ```
 bitcoin-cli -rpcwallet=seed importdescriptors '''[{ "desc": "'$DESC_WITH_CS_PKH'", "timestamp":1770329126, "active": true, "range": [0,100] }]'''
 
@@ -274,24 +276,25 @@ bitcoin-cli -named -rpcwallet=seed getnewaddress address_type=legacy
 
 ## Make Change
 
-You can generate WPKH and PKH addresses derived from your seed using your Bitcoin Core wallet.
+You can now generate WPKH and PKH addresses derived from your seed using your Bitcoin Core wallet.
 
 There's one catch that's obvious when you try to make change:
 
 ```
-$ bitcoin-cli -rpcwallet="seed" getrawchangeaddress
-error code: -4
-error message:
-Error: This wallet has no available keys
+bitcoin-cli -rpcwallet="seed" getrawchangeaddress
+
+| error code: -4
+| error message:
+| Error: This wallet has no available keys
 ```
 
 This is entirely expected. As we've seen previously, the fourth digit
 in a derivation path says whether an address is intended for external
-usage (`0`) or for change (`1`). To make a change address we use the
+usage (`0`) or for change (`1`). To make a change address you use the
 same account key, but change the address derivation range from `0/*`
 to `1/*.
 
-We do this in new variables:
+This is easy to set up by creating a new variable for the descriptor (and its checksum) that uses `1/*` instead of `0/*` for the ranged address derivation path.
 
 ```
 DESC_WPKH_C="wpkh([$FINGERPRINT$ADP_NOM_WPKH]$AKEY58_WPKH/1/*)"
@@ -299,7 +302,7 @@ CS_WPKH_C=$(bitcoin-cli getdescriptorinfo $DESC_WPKH_C | jq -r '.checksum')
 DESC_WITH_CS_WPKH_C=$DESC_WPKH_C#$CS_WPKH_C
 ```
 
-Then import. We also need to set the `internal:` value to true for this to work.
+Once you have that, you can import. You also need to set the `internal:` value for `importdescriptors` to `true` for this to work.
 
 ```
 bitcoin-cli -rpcwallet=seed importdescriptors '''[{ "desc": "'$DESC_WITH_CS_WPKH_C'", "timestamp":1770329126, "internal": true, "active": true, "range": [0,999] }]'''
@@ -310,7 +313,7 @@ bitcoin-cli -rpcwallet=seed importdescriptors '''[{ "desc": "'$DESC_WITH_CS_WPKH
 ]
 ```
 
-Now we can make change:
+Now you can make change:
 
 ```
 bitcoin-cli -rpcwallet="seed" getrawchangeaddress
@@ -318,7 +321,7 @@ bitcoin-cli -rpcwallet="seed" getrawchangeaddress
 | bc1qpecala06gpe3cm3xamfnga92h3yvksvxspgdld
 ```
 
-## Examing Your Wallet
+## Examining Your Wallet
 
 If you `listdescriptors` on your seed-based wallet, you can now see three different descriptors:
 
