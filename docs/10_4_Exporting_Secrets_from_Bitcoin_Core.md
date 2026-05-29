@@ -226,7 +226,7 @@ Since all of the descriptors include the master private key, you can
 retrieve it from any of them.
 
 ```
-MP_KEY=$(echo ${DESC_ARRAY[0]} | awk -F"[()]" '{print $2}')
+MP_KEY=$(echo ${DESC_ARRAY[0]} | awk -F"[()]" '{print $2}' | awk -F"/" '{print $1}')
 echo $MP_KEY
 
 | xprv9s21ZrQH143K4YGw3kaAmh3ezx1Xo4AanFmnX8TbaGghuNxXP9MDt2rPrLDyouX5kg9fiDJn7BELPnWRKwtVFn6aUBaNYJC9Mu6s39DnAo4/44h/0h/0h/0/*

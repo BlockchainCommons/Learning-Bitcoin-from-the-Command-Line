@@ -64,7 +64,7 @@ complete state.</i>
    * [10.2: Converting Secrets with Keytool](10_2_Converting_Secrets_with_Keytool.md)
    * [10.3: Importing Secrets to Bitcoin Core](10_3_Importing_Secrets_to_Bitcoin_Core.md)
    * [10.4: Exporting Secrets from Bitcoin Core](10_4_Exporting_Secrets_from_Bitcoin_Core.md)
-   * [10.5: Storing Secrets with Envelope] (10_5_Storing_Secrets_with_Envelope.md)
+   * [10.5: Storing Secrets with Envelope](10_5_Storing_Secrets_with_Envelope.md)
 
 ---
 
