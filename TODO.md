@@ -2,14 +2,10 @@
 
 The following TODO items are intended for a 3.0 version of Learning Bitcoin from the Command Line
 
-## Immediate TODO (for 5/28): Other CLI Tools
+## Immediate TODO (for 6/11): Other CLI Tools
 
-1. Edit 10.3
-1. Write 10.4: Exporting Keys from Bitcoin-CLI
-2. Write 10.5: Storing Keys with Envelope
-3. Rewrite 10.0: Chapter Intro
-4. Investigate Miniscript & BDK
-5. Start on Scripts
+1. Investigate Miniscript & BDK
+1. Start on Scripts
 
 ## Longer-Term TODO (Small Tasks)
 
@@ -213,6 +209,13 @@ See [release notes](https://bitcoincore.org/en/releases/0.21.0/).
 ---
 
 # Progress Log
+
+## Immediate TODO (for 5/28): Other CLI Tools
+
+1. <strike>Edit 10.3</strike>
+1. <strike>Write 10.4: Exporting Keys from Bitcoin-CLI</strike>
+2. <strike>Write 10.5: Storing Keys with Envelope</strike>
+3. <strike>Rewrite 10.0: Chapter Intro</strike>
 
 ## Immediate TODO (for 5/14): Other CLI Tools
 
