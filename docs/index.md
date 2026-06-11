@@ -66,6 +66,15 @@ complete state.</i>
    * [10.4: Exporting Secrets from Bitcoin Core](10_4_Exporting_Secrets_from_Bitcoin_Core.md)
    * [10.5: Storing Secrets with Envelope](10_5_Storing_Secrets_with_Envelope.md)
 
+## Part Five: Scripting with Bitcoin
+
+* [11.0: Introducing Bitcoin Scripts](11_0_Introducing_Bitcoin_Scripts.md)
+  * [11.1: Understanding the Foundation of Transactions](11_1_Understanding_the_Foundation_of_Transactions.md)
+  * [11.2: Running a Bitcoin Script](11_2_Running_a_Bitcoin_Script.md)
+  * [11.3: Testing a Bitcoin Script](11_3_Testing_a_Bitcoin_Script.md)
+  * [11.4: Scripting a P2PKH](11_4_Scripting_a_P2PKH.md)
+  * [11.5: Scripting a P2WPKH](11_5_Scripting_a_P2WPKH.md)
+
 ---
 
 > _Learning Bitcoin v1.0 was created in part under the sponsorship of [Blockstream](https://blockstream.com/). Learning Bitcoin v2.0 was self-funded by [Blockchain Commons](https://www.blockchaincommons.com/). Learning Bitcoin v3.0 was funded by a grant from [HRF](https://hrf.org/)._
