@@ -68,7 +68,7 @@ complete state.</i>
 
 ## Part Five: Scripting with Bitcoin
 
-* [**11.0: Introducing Bitcoin Scripts](11_0_Introducing_Bitcoin_Scripts.md**)
+* [**11.0: Introducing Bitcoin Scripts**](11_0_Introducing_Bitcoin_Scripts.md)
     * [11.1: Understanding the Foundation of Transactions](11_1_Understanding_the_Foundation_of_Transactions.md)
     * [11.2: Running a Bitcoin Script](11_2_Running_a_Bitcoin_Script.md)
     * [11.3: Testing a Bitcoin Script](11_3_Testing_a_Bitcoin_Script.md)
