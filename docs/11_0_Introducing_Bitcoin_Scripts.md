@@ -22,8 +22,9 @@ After working through this chapter, a developer will be able to:
 Supporting objectives include the ability to:
 
    * Understand the Purpose of Bitcoin Scripts
-   * Understand How P2WPKH Works with Scripting
    * Understand the Needs for Bitcoin Script Testing
+   * Understand How P2PKH Works with Scripting
+   * Understand How P2WPKH Abstracts Scripting
    
 ## Table of Contents
 
