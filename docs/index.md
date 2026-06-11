@@ -60,20 +60,20 @@ complete state.</i>
 ## Part Four: Exploring the Ecosystem
 
 * [**10.0: Working with Secrets**](10_0_Working_with_Secrets.md )
-   * [10.1: Creating Secrets from the Command Line](10_1_Creating_Secrets_from_the_Command_Line.md)
-   * [10.2: Converting Secrets with Keytool](10_2_Converting_Secrets_with_Keytool.md)
-   * [10.3: Importing Secrets to Bitcoin Core](10_3_Importing_Secrets_to_Bitcoin_Core.md)
-   * [10.4: Exporting Secrets from Bitcoin Core](10_4_Exporting_Secrets_from_Bitcoin_Core.md)
-   * [10.5: Storing Secrets with Envelope](10_5_Storing_Secrets_with_Envelope.md)
+    * [10.1: Creating Secrets from the Command Line](10_1_Creating_Secrets_from_the_Command_Line.md)
+    * [10.2: Converting Secrets with Keytool](10_2_Converting_Secrets_with_Keytool.md)
+    * [10.3: Importing Secrets to Bitcoin Core](10_3_Importing_Secrets_to_Bitcoin_Core.md)
+    * [10.4: Exporting Secrets from Bitcoin Core](10_4_Exporting_Secrets_from_Bitcoin_Core.md)
+    * [10.5: Storing Secrets with Envelope](10_5_Storing_Secrets_with_Envelope.md)
 
 ## Part Five: Scripting with Bitcoin
 
-* [11.0: Introducing Bitcoin Scripts](11_0_Introducing_Bitcoin_Scripts.md)
-  * [11.1: Understanding the Foundation of Transactions](11_1_Understanding_the_Foundation_of_Transactions.md)
-  * [11.2: Running a Bitcoin Script](11_2_Running_a_Bitcoin_Script.md)
-  * [11.3: Testing a Bitcoin Script](11_3_Testing_a_Bitcoin_Script.md)
-  * [11.4: Scripting a P2PKH](11_4_Scripting_a_P2PKH.md)
-  * [11.5: Scripting a P2WPKH](11_5_Scripting_a_P2WPKH.md)
+* [**11.0: Introducing Bitcoin Scripts](11_0_Introducing_Bitcoin_Scripts.md**)
+    * [11.1: Understanding the Foundation of Transactions](11_1_Understanding_the_Foundation_of_Transactions.md)
+    * [11.2: Running a Bitcoin Script](11_2_Running_a_Bitcoin_Script.md)
+    * [11.3: Testing a Bitcoin Script](11_3_Testing_a_Bitcoin_Script.md)
+    * [11.4: Scripting a P2PKH](11_4_Scripting_a_P2PKH.md)
+    * [11.5: Scripting a P2WPKH](11_5_Scripting_a_P2WPKH.md)
 
 ---
 
