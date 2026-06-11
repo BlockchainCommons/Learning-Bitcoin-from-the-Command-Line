@@ -27,8 +27,8 @@ Supporting objectives include the ability to:
    
 ## Table of Contents
 
-* [Section One: Understanding the Foundation of Transactions](09_1_Understanding_the_Foundation_of_Transactions.md)
-* [Section Two: Running a Bitcoin Script](09_2_Running_a_Bitcoin_Script.md)
-* [Section Three: Testing a Bitcoin Script](09_3_Testing_a_Bitcoin_Script.md)
-* [Section Four: Scripting a P2WPKH](09_5_Scripting_a_P2WPKH.md)
-* [Section Five: Scripting a P2PKH](09_4_Scripting_a_P2PKH.md)
+* [Section One: Understanding the Foundation of Transactions](11_1_Understanding_the_Foundation_of_Transactions.md)
+* [Section Two: Running a Bitcoin Script](11_2_Running_a_Bitcoin_Script.md)
+* [Section Three: Testing a Bitcoin Script](11_3_Testing_a_Bitcoin_Script.md)
+* [Section Five: Scripting a P2PKH](11_4_Scripting_a_P2PKH.md)
+* [Section Four: Scripting a P2WPKH](11_5_Scripting_a_P2WPKH.md)
