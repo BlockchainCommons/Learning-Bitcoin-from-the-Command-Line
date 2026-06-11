@@ -34,20 +34,20 @@ and it's available through `bitcoin-cli` (which is why it's the only
 timelock covered in this section). A parallel method, which locks a
 transaction with a relative time, is defined in [BIP
 68](https://github.com/bitcoin/bips/blob/master/bip-0068.mediawiki)
-and covered in [§11.3: Using CSV in
-Scripts](11_3_Using_CSV_in_Scripts.md).
+and covered in [§13.3: Using CSV in
+Scripts](13_3_Using_CSV_in_Scripts.md).
 
-> Bitcoin Script further empowers both sorts of timelocks, allowing
-for the locking of individual outputs instead of entire
-transactions. Absolute timelocks do so with the Script opcode
+> Bitcoin Script and its "opcodes" further empowers both sorts of
+timelocks, allowing for the locking of individual outputs instead of
+entire transactions. Absolute timelocks do so with the Script opcode
 OP_CHECKLOCKTIMEVERIFY, which is defined in [BIP
 65](https://github.com/bitcoin/bips/blob/master/bip-0065.mediawiki)
-and covered in [§11.2: Using CLTV in
-Scripts](11_2_Using_CLTV_in_Scripts.md), while relative timelocks aare
+and covered in [§13.2: Using CLTV in
+Scripts](13_2_Using_CLTV_in_Scripts.md), while relative timelocks aare
 linked to the Script opcode OP_CHECKSEQUENCEVERIFY, which is defined
 in [BIP
 112](https://github.com/bitcoin/bips/blob/master/bip-0112.mediawiki)
-and also covered in [§11.3](11_3_Using_CSV_in_Scripts.md).
+and also covered in [§13.3](13_3_Using_CSV_in_Scripts.md).
 
 ## Create a Locktime Transaction
 

@@ -3,7 +3,9 @@
 The final way to vary how you send a basic transaction is to use the
 transaction to send data instead of funds (or really, in addition to
 funds). This gives you the ability to embed information in the
-blockchain. It is done through a special `OP_RETURN` command.
+blockchain. It is done through a special `OP_RETURN` command, which is
+another opcode, an element of Bitcoin scripts that we'll meet in
+[§11.1](11_1_Understanding_the_Foundation_of_Transactions).
 
 The catch? It's controversial. Many people think you shouldn't put
 data onto the Bitcoin chain at all. For a long time, `OP_RETURN` was
