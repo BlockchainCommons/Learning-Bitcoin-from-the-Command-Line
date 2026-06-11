@@ -90,7 +90,8 @@ transaction fee:
 
 ```
 utxo_txid=$(bitcoin-cli listunspent | jq -r '.[1] | .txid') 
-utxo_vout=$(bitcoin-cli listunspent | jq -r '.[1] | .vout')recipient=$(bitcoin-cli -named getrawchangeaddress address_type=legacy)
+utxo_vout=$(bitcoin-cli listunspent | jq -r '.[1] | .vout')
+recipient=$(bitcoin-cli -named getrawchangeaddress address_type=legacy)
 rawtxhex=$(bitcoin-cli -named createrawtransaction inputs='''[ { "txid": "'$utxo_txid'", "vout": '$utxo_vout' } ]''' outputs='''{ "'$recipient'": 0.00098 }''')
 signedtx=$(bitcoin-cli -named signrawtransactionwithwallet hexstring=$rawtxhex | jq -r '.hex')
 ```
