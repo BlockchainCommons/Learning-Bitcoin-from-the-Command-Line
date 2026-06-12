@@ -2,10 +2,11 @@
 
 The following TODO items are intended for a 3.0 version of Learning Bitcoin from the Command Line
 
-## Immediate TODO (for 6/11): Other CLI Tools
+## Immediate TODO (for 6/25): Scripts
 
-1. Investigate Miniscript & BDK
-1. Start on Scripts
+1. Edit §12.0, 12.1
+2. Revise Rest of Chapter 12
+3. Revise Chapter 13
 
 ## Longer-Term TODO (Small Tasks)
 
@@ -26,6 +27,8 @@ The following updates involve updates or the creation of new chapters, but their
 ## Longer-Longer-Term TODO (Big Tasks)
 
 The following updates involve the large-scale work done on Schnorr and Taproot in Bitcoin Core 0.21 and 22. This represents a first cut at how to layout the work, but revision and expansion will likely be needed as everyone's understanding of these new technologies matures.
+
+* New Section: Miniscript (after Scripts)
 
 **Chapter X: Expanding Bitcoin Transactions with Schnorr** (currently new chapters 9+10, with revised TOC)
 
@@ -209,6 +212,12 @@ See [release notes](https://bitcoincore.org/en/releases/0.21.0/).
 ---
 
 # Progress Log
+
+## Immediate TODO (for 6/11): Scripts
+
+1. <strike>Investigate Miniscript & BDK</strike>
+2. <strike>Revise Chapter 11</strike>
+3. <strike>Revise §12.0, §12.1</strike>
 
 ## Immediate TODO (for 5/28): Other CLI Tools
 
