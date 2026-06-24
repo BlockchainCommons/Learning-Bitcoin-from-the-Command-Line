@@ -3,6 +3,10 @@
 
 ![](https://www.blockchaincommons.com/images/projects/lbtc-screen.png)
 
+<i>This work is currently <b><font color="red">in process</font></b>,
+but the files linked here have been revised and are in a fairly
+complete state.</i>
+
 <div style="float: right">
   <p>
     <a href="https://developer.blockchaincommons.com/resources/">
@@ -16,9 +20,6 @@
   </p>
 </div>
 
-<i>This work is currently <b><font color="red">in process</font></b>,
-but the files linked here have been revised and are in a fairly
-complete state.</i>
 
 ## Part One: Preparing for Bitcoin
 
