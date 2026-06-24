@@ -3,6 +3,19 @@
 
 ![](https://www.blockchaincommons.com/images/projects/lbtc-screen.png)
 
+<div style="float: right">
+  <p>
+    <a href="https://developer.blockchaincommons.com/resources/">
+      <img src="https://developer.blockchaincommons.com/assets/badges/cat-resources.png" width=150px>
+    </a>
+  </p>
+  <p>
+    <a href=".">
+      <img src="https://developer.blockchaincommons.com/assets/badges/learning-bitcoin.png" width=150px>
+    </a>
+  </p>
+</div>
+
 <i>This work is currently <b><font color="red">in process</font></b>,
 but the files linked here have been revised and are in a fairly
 complete state.</i>
