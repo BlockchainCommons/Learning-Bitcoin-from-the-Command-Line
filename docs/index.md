@@ -1,5 +1,6 @@
 # Learning Bitcoin from the Command Line 3.0
 ### _by Christopher Allen and Shannon Appelcline_
+#### A [Blockchain Commons Course](https://developer.blockchaincommons.com/courses/)
 
 ![](https://www.blockchaincommons.com/images/projects/lbtc-screen.png)
 
