@@ -89,6 +89,12 @@ complete state.</i>
     * [11.3: Testing a Bitcoin Script](11_3_Testing_a_Bitcoin_Script.md)
     * [11.4: Scripting a P2PKH](11_4_Scripting_a_P2PKH.md)
     * [11.5: Scripting a P2WPKH](11_5_Scripting_a_P2WPKH.md)
+* [**12.0: Embedding Bitcoin Scripts in P2SH & P2SH Transactions](12_0_Embedding_Bitcoin_Scripts_in_P2SH_Transactions.md)
+    * [12.1: Understanding the Foundation of P2SH & P2WSH](12_1_Understanding_the_Foundation_of_P2WSH.md)
+    * [12.2: Building the Structure of P2SH & P2WSH](12_2_Building_the_Structure_of_P2WSH.md)  
+    * [12.3: Running a Bitcoin Script with P2SH or P2WSH](12_3_Running_a_Bitcoin_Script_with_P2WSH.md)
+    * [12.4: Scripting a Multisig](12_4_Scripting_a_Multisig.md)
+    * [12.5: Spending a P2SH or P2WSH Transaction](12_5_Spending_a_P2WSH_Transaction.md)
 
 ---
 
