@@ -1,4 +1,4 @@
-# 1131: Understanding Timelock Options
+# 13.1: Understanding Timelock Options
 
 In [§9.1: Sending a Transaction with a
 Locktime](09_1_Sending_a_Transaction_with_a_Locktime.md), `nLocktime`
