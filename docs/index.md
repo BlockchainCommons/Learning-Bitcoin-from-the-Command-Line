@@ -99,7 +99,7 @@ complete state.</i>
     * [13.1: Understanding Timelock Options](13_1_Understanding_Timelock_Options.md)
     * [13.2: Using CLTV in Scripts](13_2_Using_CLTV_in_Scripts.md)
     * [13.3: Using CSV in Scripts](13_3_Using_CSV_in_Scripts.md)
-* [**14.0: Expanding Bitcoin Scripts](14_0_Expanding_Bitcoin_Scripts.md)
+* [**14.0: Expanding Bitcoin Scripts**](14_0_Expanding_Bitcoin_Scripts.md)
     * [14.1: Using Script Conditionals](14_1_Using_Script_Conditionals.md)
     * [14.2: Using Other Script Commands](14_2_Using_Other_Script_Commands.md)
 
