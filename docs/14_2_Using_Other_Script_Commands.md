@@ -1,8 +1,14 @@
-# 12.2: Using Other Script Commands
+# 14.2: Using Other Script Commands
 
-You may already have in hand most of the Bitcoin Script opcodes that you'll be using in most scripts. However, Bitcoin Script offers a lot more options, which might be exactly what you need to create the financial instrument of your dreams.
+You may already have in hand most of the Bitcoin Script opcodes that
+you'll be using in most scripts. However, Bitcoin Script offers a lot
+more options, which might be exactly what you need to create the
+financial instrument of your dreams.
 
-You should consult the [Bitcoin Script page](https://en.bitcoin.it/wiki/Script) for a more thorough look at all of these and many other commands. This section only highlights the most notable opcodes.
+You should consult the [Bitcoin Script
+page](https://en.bitcoin.it/wiki/Script) for a more thorough look at
+all of these and many other commands. This section only highlights the
+most notable opcodes.
 
 ## Understand Arithmetic Opcodes
 
@@ -46,7 +52,10 @@ Test three numbers:
 
 ## Understand Stack Opcodes
 
-There are a shocking number of stack opcodes, but other than `OP_DROP`, `OP_DUP`, and sometimes `OP_SWAP` they're generally not necessary if you're careful about stack ordering. Nonetheless, here are a few of the more interesting ones:
+There are a shocking number of stack opcodes, but other than
+`OP_DROP`, `OP_DUP`, and sometimes `OP_SWAP` they're generally not
+necessary if you're careful about stack ordering. Nonetheless, here
+are a few of the more interesting ones:
 
 * OP_DEPTH (0x74) — Pushes the size of the stack
 * OP_DROP	(0x75) — Pops the top stack item
@@ -78,8 +87,13 @@ Also see: `OP_CODESEPARATOR` (0xab), `OP_CHECKSIGVERIFY` (0xad), and `OP_CHECKMU
 
 ## Summary: Using Other Script Commands
 
-Bitcoin Script includes a wide array of arithmetic, stack, and cryptographic opcodes. Most of these additional opcodes are probably not as common as the ones discussed in previous sections, but nonetheless they're available if they're just what you need to write your Script!
+Bitcoin Script includes a wide array of arithmetic, stack, and
+cryptographic opcodes. Most of these additional opcodes are probably
+not as common as the ones discussed in previous sections, but
+nonetheless they're available if they're just what you need to write
+your Script!
 
 ## What's Next?
 
-Advance through "Bitcoin Scripting" with [Chapter Thirteen: Designing Real Bitcoin Scripts](13_0_Designing_Real_Bitcoin_Scripts.md).
+Advance through "Bitcoin Scripting" with [Chapter Fifteen: Designing
+Real Bitcoin Scripts](15_0_Designing_Real_Bitcoin_Scripts.md).

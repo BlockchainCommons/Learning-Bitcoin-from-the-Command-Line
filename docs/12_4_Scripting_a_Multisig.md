@@ -1,10 +1,22 @@
-# 10.4: Scripting a Multisig
+# 12.4: Scripting a Multisig
 
-Before we close out this intro to P2SH scripting, it's worth examining a more realistic example. Ever since [§6.1](06_1_Sending_a_Transaction_to_a_Multisig.md), we've been casually saying that the `bitcoin-cli` interface wraps its multisig transaction in a P2SH transaction. In fact, this is the standard methodology for creating multisigs on the Blockchain. Here's how that works, in depth.
+Before we close out this intro to P2SH scripting, it's worth examining
+a more realistic example. Ever since [chapter
+7](07_0_Expanding_Bitcoin_Transactions_Multisigs.md), we've been
+casually saying that the `bitcoin-cli` interface wraps its multisig
+transaction in a P2SH or P2WSH transaction. In fact, this is the
+standard methodology for creating multisigs on the Blockchain. Here's
+how that works, in depth.
 
 ## Understand the Multisig Code
 
-Multisig transactions are created in Bitcoin using the `OP_CHECKMULTISIG` code. `OP_CHECKMULTISIG` expects a long string of arguments that looks like this: `0 ... sigs ... <m> ... public keys ... <n> OP_CHECKMULTISIG`. When `OP_CHECKMULTISIG` is run, it does the following:
+Multisig transactions are created in Bitcoin using the
+`OP_CHECKMULTISIG` code. `OP_CHECKMULTISIG` expects a long string of
+arguments that looks like this: `0 ... sigs ... <m> ... public keys
+... <n> OP_CHECKMULTISIG`.
+
+When `OP_CHECKMULTISIG` is run, it does the
+following:
 
 1. Pop the first value from the stack (`<n>`).
 2. Pop "n" values from the stack as public keys.
@@ -18,37 +30,71 @@ The operands of `OP_MULTISIG` are typically divided, with the `0` and
 the signatures coming from the unlocking script and the "m", "n", and
 public keys being detailed by the locking script.
 
-The requirement for that `0` as the first operand for `OP_CHECKMULTISIG` is a consensus rule. Because the original version of `OP_CHECKMULTISIG` accidentally popped an extra item off the stack, Bitcoin must forever follow that standard, lest complex redemption scripts from that time period accidentally be broken, rendering old funds unredeemable. 
+The requirement for that `0` as the first operand for
+`OP_CHECKMULTISIG` is a consensus rule. Because the original version
+of `OP_CHECKMULTISIG` accidentally popped an extra item off the stack,
+Bitcoin must forever follow that standard, lest complex redemption
+scripts from that time period accidentally be broken, rendering old
+funds unredeemable.
 
-> :book: ***What is a consensus rule?*** These are the rules that the Bitcoin nodes follow to work together. In large part they're defined by the Bitcoin Core code. These rules include lots of obvious mandates, such as the limit to how many Bitcoins are created for each block and the rules for how transactions may be respent. However, they also include fixes for bugs that have appeared over the years, because once a bug has been introduced into the Bitcoin codebase, it must be continually supported, lest old Bitcoins become unspendable. 
+> 📖 ***What is a consensus rule?*** These are the rules that the
+Bitcoin nodes follow to work together. They're defined by BIPs and to
+a lesser extent by the Bitcoin Core reference app.  These rules
+include lots of obvious mandates, such as the limit to how many
+Bitcoins are created for each block and the rules for how transactions
+may be respent. However, they also include fixes for bugs that have
+appeared over the years, because once a bug has been introduced into
+the Bitcoin codebase, it must be continually supported, lest old
+Bitcoins become unspendable.
 
-## Create a Raw Multisig 
+## Create a Raw (P2MS) Multisig 
 
-As discussed in [§10.1: Understanding the Foundation of P2SH](10_1_Understanding_the_Foundation_of_P2SH.md), multisigs are one of the standard Bitcoin transaction types. A transaction can be created with a locking script that uses the raw `OP_CHECKMULTISIG` command, and it will be accepted into a block. This is the classic methodology for using multisigs in Bitcoin.
+As discussed in [§12.1: Understanding the Foundation of P2SH &
+P2WSH](12_1_Understanding_the_Foundation_of_P2WSH.md), multisigs are
+one of the standard Bitcoin transaction types, using the old P2MS
+address. A transaction can be created with a locking script that uses
+the raw `OP_CHECKMULTISIG` command, and it will be accepted into a
+block. This is the oldest, deprecated methodology for using multisigs
+in Bitcoin.
 
-As an example, we will revisit the multisig created in [§6.1](06_1_Sending_a_Transaction_to_a_Multisig.md) one final time and build a new locking script for it using this methodology. As you may recall, that was a 2-of-2 multisig built from `$pubkey1` and `$pubkey2`. 
+As an example, we will revisit the multisig created in
+[§7.1](07_1_Creating_Multisig_Public_Keys) and build a new locking
+script for it using this methodology. As you may recall, that was a
+2-of-2 multisig built from `$pubkey1` and `$pubkey2`.
 
-As `OP_CHECKMULTISIG` locking script requires the "m" (`2`), the public keys, and the "n" (`2`), you could write the following `scriptPubKey`:
+As `OP_CHECKMULTISIG` locking script requires the "m" (`2`), the
+public keys, and the "n" (`2`), you could write the following
+`scriptPubKey`:
+
 ```
 2 $pubkey1 $pubkey2 2 OP_CHECKMULTISIG
 ```
-If this looks familiar, that's because it's the multisig that you deserialized in [§10.2: Building the Structure of P2SH](10_2_Building_the_Structure_of_P2SH.md).
+
+If this looks familiar, that's because it's the same type of multisig
+that you analyzed in [§12.2: Building the Structure of
+P2SH & P2WSH](12_2_Building_the_Structure_of_P2WSH.md).
+
 ```
 2 02da2f10746e9778dd57bd0276a4f84101c4e0a711f9cfd9f09cde55acbdd2d191 02bfde48be4aa8f4bf76c570e98a8d287f9be5638412ab38dede8e78df82f33fa3 2 OP_CHECKMULTISIG
 ```
 
-> **WARNING:** For classic `OP_CHECKMULTISIG` signatures, "n" must be ≤ 3 for the transaction to be standard.
+> ⚠️ **Simple Signatures Only!** For classic P2MS, "n" must be ≤ 3 for the transaction to be standard.
 
-## Unlock a Raw Multisig
+## Unlock a Raw (P2MS) Multisig
 
-The `scriptSig` for a standard multisig address must then submit the missing operands for `OP_CHECKMULTISIG`: a `0` followed by "m" signatures. For example:
+The `scriptSig` for a standard multisig address must then submit the
+missing operands for `OP_CHECKMULTISIG`: a `0` followed by "m"
+signatures. For example:
+
 ```
 0 $signature1 $signature2
 ```
 
 ### Run a Raw Multisig Script 
 
-In order to spend a multisig UTXO, you run the `scriptSig` and `scriptPubKey` as follows:
+In order to spend a multisig UTXO, you concatenate the `scriptSig` and
+`scriptPubKey` as follows:
+
 ```
 Script: 0 $signature1 $signature2 2 $pubkey1 $pubkey2 2 OP_CHECKMULTISIG
 Stack: [ ]
@@ -90,18 +136,33 @@ Stack: [ True ]
 ```
 ## Understand the Limitations of Raw Multisig Scripts
 
-Unfortunately, the technique of embedding a raw multisig into a transaction has some notable drawbacks:
+Unfortunately, the technique of embedding a raw multisig into a
+transaction has some notable drawbacks:
 
 1. Because there's no standard address format for multisigs, each sender has to: enter a long and cumbersome multisig script; have software that allows this; and be trusted not to mess it up.
 2. Because multisigs can be much longer than typical locking scripts, the blockchain incurs more costs. This requires higher transaction fees from the sender and creates more nuisance for every node.
+3. The public keys were exposed in P2MS scripts, which made the address more vulnerable to attack.
 
-These were generally problems with any sort of complex Bitcoin script, but they quickly became very real problems when applied to multisigs, which were some of the first complex scripts to be widely used on the Bitcoin network. P2SH transactions were created to solve these problems, starting in 2012. 
+The frist two were generally problems with any sort of complex Bitcoin
+script, but they quickly became very real problems when applied to
+multisigs, which were some of the first complex scripts to be widely
+used on the Bitcoin network. P2SH transactions were created to solve
+these problems, starting in 2012.
 
-> :book: ***What is a P2SH multisig?*** P2SH multisigs were the first implementation of P2SH transactions. They simply package up a standard multisig transaction into a standard P2SH transaction. This allows for address standardization; reduces data storage; and increases "m" and "n" counts.
+> 📖 ***What is a P2SH multisig?*** P2SH multisigs were the first
+implementation of P2SH transactions. They simply package up a standard
+multisig transaction into a standard P2SH transaction. This allows for
+address standardization; reduces data storage; protects public keys;
+and increases "m" and "n" counts.
+
+> 📖 ***What is a P2WSH multisig?*** P2WSH multisigs are the newest
+iteration of multisigs, using P2WSH instead of P2SH.
 
 ## Create a P2SH Multisig
 
-P2SH multisigs are the modern methodology for creating multisigs on the Blockchain. They can be created very simply, using the same process seen in the previous sections.
+P2SH multisigs are the modern methodology for creating multisigs on
+the Blockchain. They can be created very simply, using the same
+process seen in the previous sections.
 
 ### Create the Lock for the P2SH Multisig
 
@@ -120,7 +181,9 @@ You can then create a transaction using that `scriptPubKey`.
 
 ## Unlock the P2SH Multisig
 
-To unlock this multisig transaction requires that the recipient produce a scriptSig that includes the two signatures and the `redeemScript`.
+To unlock this multisig transaction requires that the recipient
+produce a scriptSig that includes the two signatures and the
+`redeemScript`.
 
 ### Run the First Round of P2SH Validation
 
@@ -140,12 +203,36 @@ Then, run the multisig script:
 3. Validate `0 $signature1 $signature2 2 $pubkey1 $pubkey2 2 OP_CHECKMULTISIG`.
 4. Succeed if the operands fulfill the deserialized `redeemScript`.
 
-Now you know how the multisig transaction in [§6.1](06_1_Sending_a_Transaction_to_a_Multisig.md) was actually created, how it was  validated for spending, and why that `redeemScript` was so important.
+Now you know how the multisig transaction in
+[§7.1](07_1_Creating_Multisig_Public_Keys.md) was actually created,
+how it was validated for spending, and why a `redeemScript` is
+important.
+
+## Create a P2WSH Multisig
+
+As usual, creating a P2WSH multisig matches the style of creating a
+P2SH, except the hasing and encoding are slightly different.
+
+1. Serialize `2 $pubkey1 $pubkey2 2 OP_CHECKMULTISIG`.
+   1. `<serializedMultiSig>` = "522102da2f10746e9778dd57bd0276a4f84101c4e0a711f9cfd9f09cde55acbdd2d1912102bfde48be4aa8f4bf76c570e98a8d287f9be5638412ab38dede8e78df82f33fa352ae"
+2. Save `<serializedMultiSig>` for future reference as the redeemScript.
+   1. `<redeemScript>` = "522102da2f10746e9778dd57bd0276a4f84101c4e0a711f9cfd9f09cde55acbdd2d1912102bfde48be4aa8f4bf76c570e98a8d287f9be5638412ab38dede8e78df82f33fa352ae"
+3. SHA-256 hash the serialized script.
+   1. `<hashedMultiSig>` = "6fe9f451ccedb8e4090b822dcad973d0388a37b4c89fd1aed485110adecab2a9"
+4. Produce a P2WSH Multisig locking script that includes the hashed script (`OP_0 <hashedMultisig>`).
+   1. `scriptPubKey` = "00206fe9f451ccedb8e4090b822dcad973d0388a37b4c89fd1aed485110adecab2a9"
 
 ## Summary: Creating Multisig Scripts
 
-Multisigs are a standard transaction type, but they're a bit cumbersome to use, so they're regularly incorporated in P2SH transactions, as was the case in [§6.1](06_1_Sending_a_Transaction_to_a_Multisig.md) when we created our first multisigs. The result is cleaner, smaller, and more standardized — but more importantly, it's a great real-world example of how P2SH scripts really work.
+Multisigs are a standard transaction type, but they're a bit
+cumbersome to use, so they're regularly incorporated in P2SH or P2WSH
+transactions, as was the case in
+[§7.1](07_1_Creating_Multisig_Public_Keys.md) when we created our
+first multisigs. The result is cleaner, smaller, and more standardized
+— but more importantly, it's a great real-world example of how P2SH
+and P2WSH scripts really work.
 
 ## What's Next?
 
-Continue "Embedding Bitcoin Scripts" with [§10.5: Scripting a Segwit Script](10_5_Scripting_a_Segwit_Script.md)
+Continue "Embedding Bitcoin Scripts" with [§12.5: Spending a P2SH or
+P2WSH](12_5_Spending_a_P2SH_Transaction.md).
