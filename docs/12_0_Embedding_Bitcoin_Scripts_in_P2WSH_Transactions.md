@@ -18,11 +18,7 @@ After working through this chapter, a developer will be able to:
 Supporting objectives include the ability to:
 
    * Understand the P2SH Script
-<<<<<<< HEAD:docs/12_0_Embedding_Bitcoin_Scripts_in_P2SH_Transactions.md
    * Understand the P2WSH Variation
-=======
-   * Understand the P2WSH Script
->>>>>>> 1249ca2bccdb5063655bb6cc4b1a3bd3c2a4a907:docs/12_0_Embedding_Bitcoin_Scripts_in_P2WSH_Transactions.md
    * Understand the Multisig Script
    * Understand How to Spend Funds Sent to a P2SH or P2WSH
    
