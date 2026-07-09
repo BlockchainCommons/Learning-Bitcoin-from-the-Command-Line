@@ -65,8 +65,9 @@ sudo make install
 After all of that, you should have a copy of `btcdeb`:
 
 ```
-$ which btcdeb
-/usr/local/bin/btcdeb
+which btcdeb
+
+| /usr/local/bin/btcdeb
 ```
 
 ## Use btcdeb

@@ -1,6 +1,9 @@
-# Chapter 13: Designing Real Bitcoin Scripts
+# Chapter 15: Designing Real Bitcoin Scripts
 
-Our Bitcoin Scripts to date have been largely theoretical examples, because we've still been putting together the puzzle pieces. Now, with the full Bitcoin Script repertoire in hand, we're ready to dig into several real-world Bitcoin Scripts and see how they work.
+Our Bitcoin Scripts to date have been largely theoretical examples,
+because we've still been putting together the puzzle pieces. Now, with
+the full Bitcoin Script repertoire in hand, we're ready to dig into
+several real-world Bitcoin Scripts and see how they work.
 
 ## Objectives for This Chapter
 
@@ -16,6 +19,6 @@ Supporting objectives include the ability to:
 
 ## Table of Contents
 
-  * [Section One: Writing Puzzles Scripts](13_1_Writing_Puzzle_Scripts.md)
-  * [Section Two: Writing Complex Multisig Scripts](13_2_Writing_Complex_Multisig_Scripts.md) 
-  * [Section Three: Empowering Bitcoin with Scripts](13_3_Empowering_Bitcoin_with_Scripts.md)
+  * [Section One: Writing Puzzles Scripts](15_1_Writing_Puzzle_Scripts.md)
+  * [Section Two: Writing Complex Multisig Scripts](15_2_Writing_Complex_Multisig_Scripts.md) 
+  * [Section Three: Empowering Bitcoin with Scripts](15_3_Empowering_Bitcoin_with_Scripts.md)
