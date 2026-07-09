@@ -103,13 +103,13 @@ First, you'll need the IP address. Click on the "Linodes" tab and you should see
 
 Go to your local console and login to the `standup` account using that address:
 
-```
+```sh
 ssh standup@[IP-ADDRESS]
 ```
 
 For example:
 
-```
+```sh
 ssh standup@192.168.33.11
 ```
 
@@ -126,53 +126,55 @@ If you're impatient you can jump ahead and `sudo tail -f /standup.log` which wil
 ## Verify Your Installation
 
 You'll know that stackscrpit is done when the `tail` of the `standup.log` says something like the following:
-```
-/root/StackScript - Bitcoin is setup as a service and will automatically start if your VPS reboots and so is Tor
-/root/StackScript - You can manually stop Bitcoin with: sudo systemctl stop bitcoind.service
-/root/StackScript - You can manually start Bitcoin with: sudo systemctl start bitcoind.service
+```sh
+| /root/StackScript - Bitcoin is setup as a service and will automatically start if your VPS reboots and so is Tor
+| /root/StackScript - You can manually stop Bitcoin with: sudo systemctl stop bitcoind.service
+| /root/StackScript - You can manually start Bitcoin with: sudo systemctl start bitcoind.service
 ```
 At that point, your home directory should look like this:
 
-```
-$ ls
-bitcoin-30.2-x86_64-linux-gnu.tar.gz  SHA256SUMS.asc       wget-btc-sha-asc-output.txt
-SHA256SUMS                            wget-btc-output.txt  wget-btc-sha-output.txt
+```sh
+ls
+
+| bitcoin-30.2-x86_64-linux-gnu.tar.gz  SHA256SUMS.asc       wget-btc-sha-asc-output.txt
+| SHA256SUMS                            wget-btc-output.txt  wget-btc-sha-output.txt
 ```
 
 These are the various files that were used to install Bitcoin on your VPS. _None_ of them are necessary. We've just left them in case you want to do any additional verification. Otherwise, you can delete them:
 
-```
-$ rm *
+```sh
+rm *
 ```
 
 ### Verify the Bitcoin Setup
 
 In order to ensure that the downloaded Bitcoin release is valid, the StackScript checks both the signature and the SHA checksum. You should verify that both of those tests came back right:
 
-```
-$ sudo grep VERIFICATION /standup.log
+```sh
+sudo grep VERIFICATION /standup.log
 ```
 
 If you see something like the following, all should be well:
 
-```
-/root/StackScript - SIG VERIFICATION SUCCESS: 8 GOOD SIGNATURES FOUND.
-/root/StackScript - SHA VERIFICATION SUCCESS / SHA: bitcoin-30.2-x86_64-linux-gnu.tar.gz: OK
+```sh
+| /root/StackScript - SIG VERIFICATION SUCCESS: 8 GOOD SIGNATURES FOUND.
+| /root/StackScript - SHA VERIFICATION SUCCESS / SHA: bitcoin-30.2-x86_64-linux-gnu.tar.gz: OK
 ```
 If either of those two checks instead reads "VERIFICATION ERROR", then there's a problem.
 
 The log also contains more information on the Signatures, if you want to make sure you know _who_ signed the Bitcoin release:
-```
-$ sudo grep -i good /standup.log
-/root/StackScript - SIG VERIFICATION SUCCESS: 8 GOOD SIGNATURES FOUND.
-gpg: Good signature from ".0xB10C <b10c@b10c.me>" [unknown]
-gpg: Good signature from "Ava Chow <me@achow101.com>" [unknown]
-gpg: Good signature from "Stephan Oeste (it) <it@oeste.de>" [unknown]
-gpg: Good signature from "Michael Ford (bitcoin-otc) <fanquake@gmail.com>" [unknown]
-gpg: Good signature from "Oliver Gugger <gugger@gmail.com>" [unknown]
-gpg: Good signature from "Hennadii Stepanov (GitHub key) <32963518+hebasto@users.noreply.github.com>" [unknown]
-gpg: Good signature from "Matthew Zipkin (GitHub Signing Key) <pinheadmz@gmail.com>" [unknown]
-gpg: Good signature from "Sjors Provoost <sjors@sprovoost.nl>" [unknown]
+```sh
+sudo grep -i good /standup.log
+
+| /root/StackScript - SIG VERIFICATION SUCCESS: 8 GOOD SIGNATURES FOUND.
+| gpg: Good signature from ".0xB10C <b10c@b10c.me>" [unknown]
+| gpg: Good signature from "Ava Chow <me@achow101.com>" [unknown]
+| gpg: Good signature from "Stephan Oeste (it) <it@oeste.de>" [unknown]
+| gpg: Good signature from "Michael Ford (bitcoin-otc) <fanquake@gmail.com>" [unknown]
+| gpg: Good signature from "Oliver Gugger <gugger@gmail.com>" [unknown]
+| gpg: Good signature from "Hennadii Stepanov (GitHub key) <32963518+hebasto@users.noreply.github.com>" [unknown]
+| gpg: Good signature from "Matthew Zipkin (GitHub Signing Key) <pinheadmz@gmail.com>" [unknown]
+| gpg: Good signature from "Sjors Provoost <sjors@sprovoost.nl>" [unknown]
 ```
 Since this is all scripted, it's possible that there's just been a minor change that has caused the script's checks not to work right. (This has happened a few times over the existence of the script that became Standup.) But, it's also possible that someone is trying to encourage you to run a fake copy of the Bitcoin daemon. So, _be very sure you know what happened before you make use of Bitcoin!_
 
@@ -182,13 +184,13 @@ You may also want to read through all of the setup log files, to make sure that 
 
 It's best to look through the standard StackScript log file, which has all of the output, including errors:
 
-`$ sudo more /standup.log`
+`sudo more /standup.log`
 
 Note that it is totally normal to see _some_ errors, particularly when running the very noisy gpg software and when various things try to access the non-existant `/dev/tty` device.
 
 If you want instead to look at a smaller set of info, all of the errors should be in:
 
-`$ sudo more /standup.err`
+`sudo more /standup.err`
 
 It still has a fair amount of information that isn't errors, but it's a quicker read.
 
@@ -201,14 +203,15 @@ Although the default Debian 13 image that we are using for your VPS has been mod
 ### Protected Services
 
 Your Bitcoin VPS installation is minimal and allows almost no communication. This is done through the uncomplicated firewall (`ufw`), which blocks everything except SSH connections. You can verify that it's running as follows:
-```
-$ sudo ufw status
-Status: active
+```sh
+sudo ufw status
 
-To                         Action      From
---                         ------      ----
-22/tcp                     ALLOW       Anywhere                  
-22/tcp (v6)                ALLOW       Anywhere (v6)             
+| Status: active
+| 
+| To                         Action      From
+| --                         ------      ----
+| 22/tcp                     ALLOW       Anywhere                  
+| 22/tcp (v6)                ALLOW       Anywhere (v6)             
 ```
 
 There's also some additional security possible for your RFC ports, thanks to the hidden services installed by Tor.
@@ -223,7 +226,7 @@ If you defined "SSH-allowed IPs", SSH (and SCP) access to the server is severely
 
 For example:
 
-```
+```sh
 sshd: 127.0.0.1, 192.128.23.1
 ```
 
@@ -233,8 +236,8 @@ Debian is also set up to automatically upgrade itself, to ensure that it remains
 
 If for some reason you wanted to change this (_we don't suggest it_), you can do this:
 
-```
-$ echo "unattended-upgrades unattended-upgrades/enable_auto_updates boolean false" | sudo debconf-set-selections
+```sh
+echo "unattended-upgrades unattended-upgrades/enable_auto_updates boolean false" | sudo debconf-set-selections
 ```
 
 _If you'd like to know more about what the Bitcoin Standup stackscript does, please see [Appendix I: Understanding Bitcoin Standup](A1_0_Understanding_Bitcoin_Standup.md)._
@@ -244,9 +247,10 @@ _If you'd like to know more about what the Bitcoin Standup stackscript does, ple
 So now you probably want to play with Bitcoin!
 
 But wait, your Bitcoin daemon is probably still downloading blocks. The `bitcoin-cli getblockcount` will tell you how you're currently doing:
-```
-$ bitcoin-cli getblockcount
-288191
+```sh
+bitcoin-cli getblockcount
+
+| 288191
 ```
 If it's different every time you type the command, you need to wait before working with Bitcoin. This can take hours for a mainnet setup, but if you're using our suggested setup of pruned signet, it should be done in 15 minutes or so.
 
