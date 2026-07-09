@@ -1,4 +1,4 @@
- # 13.1: Writing Puzzle Scripts
+ # 15.1: Writing Puzzle Scripts
 
 Bitcoin Scripts _don't_ actually have to depend on the knowledge of a
 secret key. They can instead be puzzles of any sort.
