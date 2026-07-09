@@ -102,7 +102,11 @@ complete state.</i>
 * [**14.0: Expanding Bitcoin Scripts**](14_0_Expanding_Bitcoin_Scripts.md)
     * [14.1: Using Script Conditionals](14_1_Using_Script_Conditionals.md)
     * [14.2: Using Other Script Commands](14_2_Using_Other_Script_Commands.md)
-
+* [15.0: Designing Real Bitcoin Scripts](docs/15_0_Designing_Real_Bitcoin_Scripts.md)
+    * [15.1: Writing Puzzles Scripts](docs/15_1_Writing_Puzzle_Scripts.md)
+    * [15.2: Writing Complex Multisig Scripts](docs/15_2_Writing_Complex_Multisig_Scripts.md)
+    * [15.3: Empowering Bitcoin with Scripts](docs/15_3_Empowering_Bitcoin_with_Scripts.md)
+    
 ---
 
 > _Learning Bitcoin v1.0 was created in part under the sponsorship of [Blockstream](https://blockstream.com/). Learning Bitcoin v2.0 was self-funded by [Blockchain Commons](https://www.blockchaincommons.com/). Learning Bitcoin v3.0 was funded by a grant from [HRF](https://hrf.org/)._
