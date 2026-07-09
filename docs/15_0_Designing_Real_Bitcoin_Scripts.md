@@ -3,7 +3,8 @@
 Our Bitcoin Scripts to date have been largely theoretical examples,
 because we've still been putting together the puzzle pieces. Now, with
 the full Bitcoin Script repertoire in hand, we're ready to dig into
-several real-world Bitcoin Scripts and see how they work.
+several real-world Bitcoin Scripts and see how they work, including
+puzzle scripts, complex multisigs, and Lightning smart contracts.
 
 ## Objectives for This Chapter
 
