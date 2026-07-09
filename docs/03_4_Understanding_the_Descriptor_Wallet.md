@@ -126,109 +126,110 @@ Your Bitcoin Core wallet is a descriptor wallet because it creates its
 Bitcoin addresses from "ranged descriptors".  You can look at them
 with `bitcoin-cli listdescriptors`:
 
-```
-$ bitcoin-cli listdescriptors
-{
-  "wallet_name": "",
-  "descriptors": [
-    {
-      "desc": "pkh([e18dae20/44h/1h/0h]tpubDCsocyjrtJLXKJ3atFwKf6FiPheuVNV27B1swsGiNvk4cuPhVTsCDvusSNcH8thnS68FPFotgHqo9FHNGrvhtx6ZqdbWBQTWrCgK9xous17/0/*)#5q6np9at",
-      "timestamp": 1770329126,
-      "active": true,
-      "internal": false,
-      "range": [
-        0,
-        999
-      ],
-      "next": 0,
-      "next_index": 0
-    },
-    {
-      "desc": "pkh([e18dae20/44h/1h/0h]tpubDCsocyjrtJLXKJ3atFwKf6FiPheuVNV27B1swsGiNvk4cuPhVTsCDvusSNcH8thnS68FPFotgHqo9FHNGrvhtx6ZqdbWBQTWrCgK9xous17/1/*)#95ljusdn",
-      "timestamp": 1770329126,
-      "active": true,
-      "internal": true,
-      "range": [
-        0,
-        999
-      ],
-      "next": 0,
-      "next_index": 0
-    },
-    {
-      "desc": "sh(wpkh([e18dae20/49h/1h/0h]tpubDCmuiGVie2yYNXiwi6ymC2qamb7RdEXKeo8HZtkLAtaCcLHFGvHBY4W3Fx9rTjxYdxkb1kvkLp86oDvdxmYjvrVXpcVG2XptmYu8rYsAirP/0/*))#jdj8slnk",
-      "timestamp": 1770329126,
-      "active": true,
-      "internal": false,
-      "range": [
-        0,
-        999
-      ],
-      "next": 0,
-      "next_index": 0
-    },
-    {
-      "desc": "sh(wpkh([e18dae20/49h/1h/0h]tpubDCmuiGVie2yYNXiwi6ymC2qamb7RdEXKeo8HZtkLAtaCcLHFGvHBY4W3Fx9rTjxYdxkb1kvkLp86oDvdxmYjvrVXpcVG2XptmYu8rYsAirP/1/*))#8vu3gqxf",
-      "timestamp": 1770329127,
-      "active": true,
-      "internal": true,
-      "range": [
-        0,
-        999
-      ],
-      "next": 0,
-      "next_index": 0
-    },
-    {
-      "desc": "tr([e18dae20/86h/1h/0h]tpubDC5ZrtRv5CURANE3oWS1cK7mE9t93KnZfUApDs3dg8xxDuGMsuSejCLeh4yKeqkvHknRboWEctS2BSGQxXhsCx1dgPCTCwjF4a9mgq999Af/0/*)#h4xmum5n",
-      "timestamp": 1770329126,
-      "active": true,
-      "internal": false,
-      "range": [
-        0,
-        999
-      ],
-      "next": 0,
-      "next_index": 0
-    },
-    {
-      "desc": "tr([e18dae20/86h/1h/0h]tpubDC5ZrtRv5CURANE3oWS1cK7mE9t93KnZfUApDs3dg8xxDuGMsuSejCLeh4yKeqkvHknRboWEctS2BSGQxXhsCx1dgPCTCwjF4a9mgq999Af/1/*)#xpr6pwyt",
-      "timestamp": 1770329127,
-      "active": true,
-      "internal": true,
-      "range": [
-        0,
-        999
-      ],
-      "next": 0,
-      "next_index": 0
-    },
-    {
-      "desc": "wpkh([e18dae20/84h/1h/0h]tpubDC4ujMbsd9REzpGk3gnTjkrfJFw1NnvCpx6QBbLj3CHBzcLmVzssTVP8meRAM1WW4pZnK6SCCPGyzi9eMfzSXoeFMNprqtgxG71VRXTmetu/0/*)#3658f8sn",
-      "timestamp": 1770329126,
-      "active": true,
-      "internal": false,
-      "range": [
-        0,
-        1001
-      ],
-      "next": 3,
-      "next_index": 3
-    },
-    {
-      "desc": "wpkh([e18dae20/84h/1h/0h]tpubDC4ujMbsd9REzpGk3gnTjkrfJFw1NnvCpx6QBbLj3CHBzcLmVzssTVP8meRAM1WW4pZnK6SCCPGyzi9eMfzSXoeFMNprqtgxG71VRXTmetu/1/*)#qw3x5jqt",
-      "timestamp": 1770329127,
-      "active": true,
-      "internal": true,
-      "range": [
-        0,
-        999
-      ],
-      "next": 0,
-      "next_index": 0
-    }
-  ]
-}
+```sh
+bitcoin-cli listdescriptors
+
+| {
+|   "wallet_name": "",
+|   "descriptors": [
+|     {
+|       "desc": "pkh([e18dae20/44h/1h/0h]tpubDCsocyjrtJLXKJ3atFwKf6FiPheuVNV27B1swsGiNvk4cuPhVTsCDvusSNcH8thnS68FPFotgHqo9FHNGrvhtx6ZqdbWBQTWrCgK9xous17/0/*)#5q6np9at",
+|       "timestamp": 1770329126,
+|       "active": true,
+|       "internal": false,
+|       "range": [
+|         0,
+|         999
+|       ],
+|       "next": 0,
+|       "next_index": 0
+|     },
+|     {
+|       "desc": "pkh([e18dae20/44h/1h/0h]tpubDCsocyjrtJLXKJ3atFwKf6FiPheuVNV27B1swsGiNvk4cuPhVTsCDvusSNcH8thnS68FPFotgHqo9FHNGrvhtx6ZqdbWBQTWrCgK9xous17/1/*)#95ljusdn",
+|       "timestamp": 1770329126,
+|       "active": true,
+|       "internal": true,
+|       "range": [
+|         0,
+|         999
+|       ],
+|       "next": 0,
+|       "next_index": 0
+|     },
+|     {
+|       "desc": "sh(wpkh([e18dae20/49h/1h/0h]tpubDCmuiGVie2yYNXiwi6ymC2qamb7RdEXKeo8HZtkLAtaCcLHFGvHBY4W3Fx9rTjxYdxkb1kvkLp86oDvdxmYjvrVXpcVG2XptmYu8rYsAirP/0/*))#jdj8slnk",
+|       "timestamp": 1770329126,
+|       "active": true,
+|       "internal": false,
+|       "range": [
+|         0,
+|         999
+|       ],
+|       "next": 0,
+|       "next_index": 0
+|     },
+|     {
+|       "desc": "sh(wpkh([e18dae20/49h/1h/0h]tpubDCmuiGVie2yYNXiwi6ymC2qamb7RdEXKeo8HZtkLAtaCcLHFGvHBY4W3Fx9rTjxYdxkb1kvkLp86oDvdxmYjvrVXpcVG2XptmYu8rYsAirP/1/*))#8vu3gqxf",
+|       "timestamp": 1770329127,
+|       "active": true,
+|       "internal": true,
+|       "range": [
+|         0,
+|         999
+|       ],
+|       "next": 0,
+|       "next_index": 0
+|     },
+|     {
+|       "desc": "tr([e18dae20/86h/1h/0h]tpubDC5ZrtRv5CURANE3oWS1cK7mE9t93KnZfUApDs3dg8xxDuGMsuSejCLeh4yKeqkvHknRboWEctS2BSGQxXhsCx1dgPCTCwjF4a9mgq999Af/0/*)#h4xmum5n",
+|       "timestamp": 1770329126,
+|       "active": true,
+|       "internal": false,
+|       "range": [
+|         0,
+|         999
+|       ],
+|       "next": 0,
+|       "next_index": 0
+|     },
+|     {
+|       "desc": "tr([e18dae20/86h/1h/0h]tpubDC5ZrtRv5CURANE3oWS1cK7mE9t93KnZfUApDs3dg8xxDuGMsuSejCLeh4yKeqkvHknRboWEctS2BSGQxXhsCx1dgPCTCwjF4a9mgq999Af/1/*)#xpr6pwyt",
+|       "timestamp": 1770329127,
+|       "active": true,
+|       "internal": true,
+|       "range": [
+|         0,
+|         999
+|       ],
+|       "next": 0,
+|       "next_index": 0
+|     },
+|     {
+|       "desc": "wpkh([e18dae20/84h/1h/0h]tpubDC4ujMbsd9REzpGk3gnTjkrfJFw1NnvCpx6QBbLj3CHBzcLmVzssTVP8meRAM1WW4pZnK6SCCPGyzi9eMfzSXoeFMNprqtgxG71VRXTmetu/0/*)#3658f8sn",
+|       "timestamp": 1770329126,
+|       "active": true,
+|       "internal": false,
+|       "range": [
+|         0,
+|         1001
+|       ],
+|       "next": 3,
+|       "next_index": 3
+|     },
+|     {
+|       "desc": "wpkh([e18dae20/84h/1h/0h]tpubDC4ujMbsd9REzpGk3gnTjkrfJFw1NnvCpx6QBbLj3CHBzcLmVzssTVP8meRAM1WW4pZnK6SCCPGyzi9eMfzSXoeFMNprqtgxG71VRXTmetu/1/*)#qw3x5jqt",
+|       "timestamp": 1770329127,
+|       "active": true,
+|       "internal": true,
+|       "range": [
+|         0,
+|         999
+|       ],
+|       "next": 0,
+|       "next_index": 0
+|     }
+|   ]
+| }
 ```
 
 Wow, that's a lot! But it's really just a listing of eight descriptors
@@ -248,19 +249,19 @@ funds from one wallet-app to another.
 
 With that understood, we can look more closely at one of the descriptors:
 
-```
-{
-  "desc": "wpkh([e18dae20/84h/1h/0h]tpubDC4ujMbsd9REzpGk3gnTjkrfJFw1NnvCpx6QBbLj3CHBzcLmVzssTVP8meRAM1WW4pZnK6SCCPGyzi9eMfzSXoeFMNprqtgxG71VRXTmetu/0/*)#3658f8sn",
-  "timestamp": 1770329126,
-  "active": true,
-  "internal": false,
-  "range": [
-    0,
-    1001
-  ],
-  "next": 3,
-  "next_index": 3
-},
+```sh
+| {
+|   "desc": "wpkh([e18dae20/84h/1h/0h]tpubDC4ujMbsd9REzpGk3gnTjkrfJFw1NnvCpx6QBbLj3CHBzcLmVzssTVP8meRAM1WW4pZnK6SCCPGyzi9eMfzSXoeFMNprqtgxG71VRXTmetu/0/*)#3658f8sn",
+|   "timestamp": 1770329126,
+|   "active": true,
+|   "internal": false,
+|   "range": [
+|     0,
+|     1001
+|   ],
+|   "next": 3,
+|   "next_index": 3
+| },
 ```
 This contains:
 * **`desc`:** The descriptor.
@@ -286,49 +287,56 @@ So that's what everything means in a descriptor.
 ## Examine Descriptors with `getdescriptorinfo`
 
 Descriptors can be also be examined with another command, `bitcoin-cli getdescriptorinfo`:
-```
-$ bitcoin-cli getdescriptorinfo "wpkh([e18dae20/84h/1h/0h]tpubDC4ujMbsd9REzpGk3gnTjkrfJFw1NnvCpx6QBbLj3CHBzcLmVzssTVP8meRAM1WW4pZnK6SCCPGyzi9eMfzSXoeFMNprqtgxG71VRXTmetu/0/*)#3658f8sn"
-{
-  "descriptor": "wpkh([e18dae20/84h/1h/0h]tpubDC4ujMbsd9REzpGk3gnTjkrfJFw1NnvCpx6QBbLj3CHBzcLmVzssTVP8meRAM1WW4pZnK6SCCPGyzi9eMfzSXoeFMNprqtgxG71VRXTmetu/0/*)#3658f8sn",
-  "checksum": "3658f8sn",
-  "isrange": true,
-  "issolvable": true,
-  "hasprivatekeys": false
-}
+
+```sh
+bitcoin-cli getdescriptorinfo "wpkh([e18dae20/84h/1h/0h]tpubDC4ujMbsd9REzpGk3gnTjkrfJFw1NnvCpx6QBbLj3CHBzcLmVzssTVP8meRAM1WW4pZnK6SCCPGyzi9eMfzSXoeFMNprqtgxG71VRXTmetu/0/*)#3658f8sn"
+
+| {
+|   "descriptor": "wpkh([e18dae20/84h/1h/0h]tpubDC4ujMbsd9REzpGk3gnTjkrfJFw1NnvCpx6QBbLj3CHBzcLmVzssTVP8meRAM1WW4pZnK6SCCPGyzi9eMfzSXoeFMNprqtgxG71VRXTmetu/0/*)#3658f8sn",
+|   "checksum": "3658f8sn",
+|   "isrange": true,
+|   "issolvable": true,
+|   "hasprivatekeys": false
+| }
 ```
 This is a pretty sparse description that includes the `descriptor` and its `checksum` and confirms that it's a ranged descriptor (`isrange`), that our wallet has the private key (`issolvable`), and that the private key isn't included in the descriptor and that there's instead a public key (`hasprivatekeys`). Beyond that information, `getdescriptorinfo` serves two other purposes:
 
 1. If you don't have the checksum (which is required for other descriptor-related `bitcoin-cli` commands), you can enter the descriptor into `getdescriptorinfo` without it, and it'll be calculated for you.
 
-```
-$ bitcoin-cli getdescriptorinfo "wpkh([e18dae20/84h/1h/0h]tpubDC4ujMbsd9REzpGk3gnTjkrfJFw1NnvCpx6QBbLj3CHBzcLmVzssTVP8meRAM1WW4pZnK6SCCPGyzi9eMfzSXoeFMNprqtgxG71VRXTmetu/0/*)"
-{
-  "descriptor": "wpkh([e18dae20/84h/1h/0h]tpubDC4ujMbsd9REzpGk3gnTjkrfJFw1NnvCpx6QBbLj3CHBzcLmVzssTVP8meRAM1WW4pZnK6SCCPGyzi9eMfzSXoeFMNprqtgxG71VRXTmetu/0/*)#3658f8sn",
-  "checksum": "3658f8sn",
-  "isrange": true,
-  "issolvable": true,
-  "hasprivatekeys": false
-}
+```sh
+bitcoin-cli getdescriptorinfo "wpkh([e18dae20/84h/1h/0h]tpubDC4ujMbsd9REzpGk3gnTjkrfJFw1NnvCpx6QBbLj3CHBzcLmVzssTVP8meRAM1WW4pZnK6SCCPGyzi9eMfzSXoeFMNprqtgxG71VRXTmetu/0/*)"
+
+| {
+|   "descriptor": "wpkh([e18dae20/84h/1h/0h]tpubDC4ujMbsd9REzpGk3gnTjkrfJFw1NnvCpx6QBbLj3CHBzcLmVzssTVP8meRAM1WW4pZnK6SCCPGyzi9eMfzSXoeFMNprqtgxG71VRXTmetu/0/*)#3658f8sn",
+|   "checksum": "3658f8sn",
+|   "isrange": true,
+|   "issolvable": true,
+|   "hasprivatekeys": false
+| }
 ```
 
 2. If your descriptor is invalid, `getdescriptorinfo` will tell you:
-```
-$ bitcoin-cli getdescriptorinfo "cow([e18dae20/84h/1h/0h]tpubDC4ujMbsd9REzpGk3gnTjkrfJFw1NnvCpx6QBbLj3CHBzcLmVzssTVP8meRAM1WW4pZnK6SCCPGyzi9eMfzSXoeFMNprqtgxG71VRXTmetu/0/*)"
-error code: -5
-error message:
-'cow([e18dae20/84h/1h/0h]tpubDC4ujMbsd9REzpGk3gnTjkrfJFw1NnvCpx6QBbLj3CHBzcLmVzssTVP8meRAM1WW4pZnK6SCCPGyzi9eMfzSXoeFMNprqtgxG71VRXTmetu/0/*)' is not a valid descriptor function
+
+```sh
+bitcoin-cli getdescriptorinfo "cow([e18dae20/84h/1h/0h]tpubDC4ujMbsd9REzpGk3gnTjkrfJFw1NnvCpx6QBbLj3CHBzcLmVzssTVP8meRAM1WW4pZnK6SCCPGyzi9eMfzSXoeFMNprqtgxG71VRXTmetu/0/*)"
+
+| error code: -5
+| error message:
+| 'cow([e18dae20/84h/1h/0h]tpubDC4ujMbsd9REzpGk3gnTjkrfJFw1NnvCpx6QBbLj3CHBzcLmVzssTVP8meRAM1WW4pZnK6SCCPGyzi9eMfzSXoeFMNprqtgxG71VRXTmetu/0/*)' is not a valid descriptor function
 ```
 
 ## Import a Descriptor
 
 The really important feature of descriptors is that you can take them to another (remote) machine and import them. This is done with the `importdescriptors` command. The following example shows the import of a BIP-84 ranged descriptor containing a master private key into another wallet:
-```
-$ bitcoin-cli importdescriptors '[{ "desc": "wpkh(tprv8ZgxMBicQKsPd1dP4NpsFDpsLUCnZ7oyn4UEbYLw7if1EDVCxMgfSzAwP3aCr1YeRvX9GtGvHsCLdrM7zaDyh33jEj7joQoEeNEyJaSYm5p/84h/1h/0h/0/*)#grdqnase", "timestamp":1770329126, "active": true, "range": [0,10] }]'
-[
-  {
-    "success": true
-  }
-]
+
+```sh
+bitcoin-cli importdescriptors '[{ "desc": "wpkh(tprv8ZgxMBicQKsPd1dP4NpsFDpsLUCnZ7oyn4UEbYLw7if1EDVCxMgfSzAwP3aCr1YeRvX9GtGvHsCLdrM7zaDyh33jEj7joQoEeNEyJaSYm5p/84h/1h/0h/0/*)#grdqnase", "timestamp":1770329126, "active": true, "range": [0,10] }]'
+
+| [
+|   {
+|     "success": true
+|   }
+| ]
 ```
 
 You'll note that this is a much more complex `bitcoin-cli` command
