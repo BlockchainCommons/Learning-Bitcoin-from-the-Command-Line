@@ -134,31 +134,39 @@ create one.  This is done with the `bitcoin-cli getnewaddress`
 command.  With no arguments, it creates an address of the default
 type, which is a Bech32 P2WPKH address.
 
+```sh
+bitcoin-cli getnewaddress
+
+| tb1q05ua6g7njnjrtsjc0t9w3jc6g2leeznasf4ny9
 ```
-$ bitcoin-cli getnewaddress
-tb1q05ua6g7njnjrtsjc0t9w3jc6g2leeznasf4ny9
-```
+
 If you keep typing the command, you'll get a different address each time:
-```
-$ bitcoin-cli getnewaddress
-tb1q0psqqqgy0fv5928wmk86ntu7hlax8dva7nl82p
-$ bitcoin-cli getnewaddress
-tb1q9f8j03uywqsxuxjefz68g7x4kduer2ky6shsf4
+
+```sh
+bitcoin-cli getnewaddress
+
+| tb1q0psqqqgy0fv5928wmk86ntu7hlax8dva7nl82p
+
+bitcoin-cli getnewaddress
+
+| tb1q9f8j03uywqsxuxjefz68g7x4kduer2ky6shsf4
 ```
 You can later look up the addresses you've generated with `bitcoin-cli getaddressesbylabel`, with the label being `""` unless you set one:
+
 ```
-$ bitcoin-cli getaddressesbylabel ""
-{
-  "tb1q9f8j03uywqsxuxjefz68g7x4kduer2ky6shsf4": {
-    "purpose": "receive"
-  },
-  "tb1q0psqqqgy0fv5928wmk86ntu7hlax8dva7nl82p": {
-    "purpose": "receive"
-  },
-  "tb1q05ua6g7njnjrtsjc0t9w3jc6g2leeznasf4ny9": {
-    "purpose": "receive"
-  }
-}
+bitcoin-cli getaddressesbylabel ""
+
+| {
+|   "tb1q9f8j03uywqsxuxjefz68g7x4kduer2ky6shsf4": {
+|     "purpose": "receive"
+|   },
+|   "tb1q0psqqqgy0fv5928wmk86ntu7hlax8dva7nl82p": {
+|     "purpose": "receive"
+|   },
+|   "tb1q05ua6g7njnjrtsjc0t9w3jc6g2leeznasf4ny9": {
+|     "purpose": "receive"
+|   }
+| }
 ```
 
 Note that this address begins with an "tb1", which as noted above reveals that it's a
@@ -195,18 +203,23 @@ time, you may want to create other sorts of addresses. The
 Missing from this is P2WSH, but that's because it has its own methods for creation, as are described later in the book.
 
 The following commands use `getnewaddress` to generate an address with no label `""` for each of the four types:
-```
-$ bitcoin-cli getnewaddress "" bech32
-tb1quqv4shd6ts0t6ew5l8kcqvvxgvr8drtr7ajew2
 
-$ bitcoin-cli getnewaddress "" bech32m
-tb1pps29f3evn5lscg82a2wceyl8p6s0wckjvp3zllw2myn6xg6xxvxqcekkxd
+```sh
+bitcoin-cli getnewaddress "" bech32
 
-$ bitcoin-cli getnewaddress "" legacy
-mueEcK86JTvMrge7qibsRdMes6ET5oAGgd
+| tb1quqv4shd6ts0t6ew5l8kcqvvxgvr8drtr7ajew2
 
-$ bitcoin-cli getnewaddress "" p2sh-segwit
-2NAzFNuopaor2YnqVA2QC4KYme6HxWTk7jq
+bitcoin-cli getnewaddress "" bech32m
+
+| tb1pps29f3evn5lscg82a2wceyl8p6s0wckjvp3zllw2myn6xg6xxvxqcekkxd
+
+bitcoin-cli getnewaddress "" legacy
+
+| mueEcK86JTvMrge7qibsRdMes6ET5oAGgd
+
+bitcoin-cli getnewaddress "" p2sh-segwit
+
+| 2NAzFNuopaor2YnqVA2QC4KYme6HxWTk7jq
 ```
 Note that the address prefixes match each of the expected types, with `p2sh-segwit` revealing itself as actually being a P2SH transaction.
 

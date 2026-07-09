@@ -23,9 +23,10 @@ QR Codes can also be used to transmit content across airgaps. A QR Code, or Quic
 One of the simplest methods for encoding data as a QR Code is the `qrencode` program, which is available for a variety of playforms from the internet. 
 
 If you set up your machine with the Bitcoin Standup Scripts, as we suggest, you already have it.
-```
-$ which qrencode
-/usr/bin/qrencode
+
+```sh
+which qrencode
+| /usr/bin/qrencode
 ```
 
 > 🍎 **OTHER OSES.** Mac and Windows both have access to `qrencode` as well. If you're using a Mac, you can install [Homebrew](https://brew.sh/) and then brew up `qrencode`. If you're using Windows, versions are available for download.
@@ -33,10 +34,12 @@ $ which qrencode
 ## Encode Addresses with qrencode
 
 One of the most common uses of QR Coins in Bitcoin is to encode addresses. This can be as simple as outputting your `getnewaddress` command to `qrencode` and then outputting (`-o`) that to a file:
-```
-$ bitcoin-cli getnewaddress | qrencode -o newaddress.jpg
-$ ls -la newaddress.jpg 
--rw-r--r-- 1 standup sudo 404 Feb 19 16:04 newaddress.jpg
+
+```sh
+bitcoin-cli getnewaddress | qrencode -o newaddress.jpg
+ls -la newaddress.jpg 
+
+| -rw-r--r-- 1 standup sudo 404 Feb 19 16:04 newaddress.jpg
 ```
 Here's what that code looks like:
 
@@ -52,25 +55,26 @@ First, decode it and see what it really says. This can often be done with a mobi
 
 Second, check the text of the QR with the person who sent it to you. For addresses, checking the first several and last several addresses can be enough. In this case, if asked, the QR sender could verify the address against their wallet with `getaddressesbylabel` and see that `tb1qguyxx...93xk3nhu` is indeed in there.
 
-```
-$ bitcoin-cli getaddressesbylabel ""
-{
-  "mueEcK86JTvMrge7qibsRdMes6ET5oAGgd": {
-    "purpose": "receive"
-  },
-  "2NAzFNuopaor2YnqVA2QC4KYme6HxWTk7jq": {
-    "purpose": "receive"
-  },
-  "tb1qguyxx0e50kvsc8a73dh2tpatk4kqlg93xk3nhu": {
-    "purpose": "receive"
-  },
-  "tb1quqv4shd6ts0t6ew5l8kcqvvxgvr8drtr7ajew2": {
-    "purpose": "receive"
-  },
-  "tb1pps29f3evn5lscg82a2wceyl8p6s0wckjvp3zllw2myn6xg6xxvxqcekkxd": {
-    "purpose": "receive"
-  }
-}
+```sh
+bitcoin-cli getaddressesbylabel ""
+
+| {
+|   "mueEcK86JTvMrge7qibsRdMes6ET5oAGgd": {
+|     "purpose": "receive"
+|   },
+|   "2NAzFNuopaor2YnqVA2QC4KYme6HxWTk7jq": {
+|     "purpose": "receive"
+|   },
+|   "tb1qguyxx0e50kvsc8a73dh2tpatk4kqlg93xk3nhu": {
+|     "purpose": "receive"
+|   },
+|   "tb1quqv4shd6ts0t6ew5l8kcqvvxgvr8drtr7ajew2": {
+|     "purpose": "receive"
+|   },
+|   "tb1pps29f3evn5lscg82a2wceyl8p6s0wckjvp3zllw2myn6xg6xxvxqcekkxd": {
+|     "purpose": "receive"
+|   }
+| }
 ```
 
 ## Other Uses for QRs

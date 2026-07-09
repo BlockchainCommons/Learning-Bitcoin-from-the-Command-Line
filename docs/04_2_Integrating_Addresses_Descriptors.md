@@ -14,44 +14,46 @@ You created a set of three addresses in the previous section. You can
 see the details of any individual address with the `getaddressinfo`
 command, including its individual descriptor:
 
-```
-$ bitcoin-cli getaddressinfo tb1q9f8j03uywqsxuxjefz68g7x4kduer2ky6shsf4
-{
-  "address": "tb1q9f8j03uywqsxuxjefz68g7x4kduer2ky6shsf4",
-  "scriptPubKey": "00142a4f27c78470206e1a5948b47478d5b37991aac4",
-  "ismine": true,
-  "solvable": true,
-  "desc": "wpkh([e18dae20/84h/1h/0h/0/2]02040bf9b12e48bbbcbf72ef5197bc18067db378411ae6220f1d0a77da2ee7dbba)#dqt0983r",
-  "parent_desc": "wpkh([e18dae20/84h/1h/0h]tpubDC4ujMbsd9REzpGk3gnTjkrfJFw1NnvCpx6QBbLj3CHBzcLmVzssTVP8meRAM1WW4pZnK6SCCPGyzi9eMfzSXoeFMNprqtgxG71VRXTmetu/0/*)#3658f8sn",
-  "iswatchonly": false,
-  "isscript": false,
-  "iswitness": true,
-  "witness_version": 0,
-  "witness_program": "2a4f27c78470206e1a5948b47478d5b37991aac4",
-  "pubkey": "02040bf9b12e48bbbcbf72ef5197bc18067db378411ae6220f1d0a77da2ee7dbba",
-  "ischange": false,
-  "timestamp": 1770329126,
-  "hdkeypath": "m/84h/1h/0h/0/2",
-  "hdseedid": "0000000000000000000000000000000000000000",
-  "hdmasterfingerprint": "e18dae20",
-  "labels": [
-    ""
-  ]
-}
+```sh
+
+bitcoin-cli getaddressinfo tb1q9f8j03uywqsxuxjefz68g7x4kduer2ky6shsf4
+
+| {
+|   "address": "tb1q9f8j03uywqsxuxjefz68g7x4kduer2ky6shsf4",
+|   "scriptPubKey": "00142a4f27c78470206e1a5948b47478d5b37991aac4",
+|   "ismine": true,
+|   "solvable": true,
+|   "desc": "wpkh([e18dae20/84h/1h/0h/0/2]02040bf9b12e48bbbcbf72ef5197bc18067db378411ae6220f1d0a77da2ee7dbba)#dqt0983r",
+|   "parent_desc": "wpkh([e18dae20/84h/1h/0h]tpubDC4ujMbsd9REzpGk3gnTjkrfJFw1NnvCpx6QBbLj3CHBzcLmVzssTVP8meRAM1WW4pZnK6SCCPGyzi9eMfzSXoeFMNprqtgxG71VRXTmetu/0/*)#3658f8sn",
+|   "iswatchonly": false,
+|   "isscript": false,
+|   "iswitness": true,
+|   "witness_version": 0,
+|   "witness_program": "2a4f27c78470206e1a5948b47478d5b37991aac4",
+|   "pubkey": "02040bf9b12e48bbbcbf72ef5197bc18067db378411ae6220f1d0a77da2ee7dbba",
+|   "ischange": false,
+|   "timestamp": 1770329126,
+|   "hdkeypath": "m/84h/1h/0h/0/2",
+|   "hdseedid": "0000000000000000000000000000000000000000",
+|   "hdmasterfingerprint": "e18dae20",
+|   "labels": [
+|     ""
+|   ]
+| }
 ```
 
 This reveals the descriptor for this individual address:
 
-```
-  "desc": "wpkh([e18dae20/84h/1h/0h/0/2]02040bf9b12e48bbbcbf72ef5197bc18067db378411ae6220f1d0a77da2ee7dbba)#dqt0983r",
+```sh
+| "desc": "wpkh([e18dae20/84h/1h/0h/0/2]02040bf9b12e48bbbcbf72ef5197bc18067db378411ae6220f1d0a77da2ee7dbba)#dqt0983r",
 ```
 
 You can compare that to the `parent_desc`, which contains the ranged
 descriptor that this address descriptor is descended from (and that
 you also saw when you listed out all of your descriptors):
 
-```
-  "parent_desc": "wpkh([e18dae20/84h/1h/0h]tpubDC4ujMbsd9REzpGk3gnTjkrfJFw1NnvCpx6QBbLj3CHBzcLmVzssTVP8meRAM1WW4pZnK6SCCPGyzi9eMfzSXoeFMNprqtgxG71VRXTmetu/0/*)#3658f8sn",
+```sh
+| "parent_desc": "wpkh([e18dae20/84h/1h/0h]tpubDC4ujMbsd9REzpGk3gnTjkrfJFw1NnvCpx6QBbLj3CHBzcLmVzssTVP8meRAM1WW4pZnK6SCCPGyzi9eMfzSXoeFMNprqtgxG71VRXTmetu/0/*)#3658f8sn",
 ```
 
 They're in slightly different formats as the non-ranged address has
@@ -72,13 +74,14 @@ without having to use the `getnewaddress` command again and
 again. This is done with the `deriveaddresses` command: you give
 it a ranged descriptor, then tell it how far to derive to:
 
-```
-$ bitcoin-cli deriveaddresses "wpkh([e18dae20/84h/1h/0h]tpubDC4ujMbsd9REzpGk3gnTjkrfJFw1NnvCpx6QBbLj3CHBzcLmVzssTVP8meRAM1WW4pZnK6SCCPGyzi9eMfzSXoeFMNprqtgxG71VRXTmetu/0/*)#3658f8sn" 2
-[
-  "tb1q05ua6g7njnjrtsjc0t9w3jc6g2leeznasf4ny9",
-  "tb1q0psqqqgy0fv5928wmk86ntu7hlax8dva7nl82p",
-  "tb1q9f8j03uywqsxuxjefz68g7x4kduer2ky6shsf4"
-]
+```sh
+bitcoin-cli deriveaddresses "wpkh([e18dae20/84h/1h/0h]tpubDC4ujMbsd9REzpGk3gnTjkrfJFw1NnvCpx6QBbLj3CHBzcLmVzssTVP8meRAM1WW4pZnK6SCCPGyzi9eMfzSXoeFMNprqtgxG71VRXTmetu/0/*)#3658f8sn" 2
+
+| [
+|   "tb1q05ua6g7njnjrtsjc0t9w3jc6g2leeznasf4ny9",
+|   "tb1q0psqqqgy0fv5928wmk86ntu7hlax8dva7nl82p",
+|   "tb1q9f8j03uywqsxuxjefz68g7x4kduer2ky6shsf4"
+| ]
 ```
 
 This example shows the derivation of addresses from the BIP-84 ranged
@@ -101,24 +104,24 @@ funds on those addresses.
 
 As shown in [§3.4](03_4_Understanding_the_Descriptor_Wallet.md), you can also import descriptors from one wallet to the other using the `importdescriptors` command.
 
-```
-$ bitcoin-cli importdescriptors '[{ "desc": "wpkh(tprv8ZgxMBicQKsPd1dP4NpsFDpsLUCnZ7oyn4UEbYLw7if1EDVCxMgfSzAwP3aCr1YeRvX9GtGvHsCLdrM7zaDyh33jEj7joQoEeNEyJaSYm5p/84h/1h/0h/0/*)#grdqnase", "timestamp":1770329126, "active": true, "range": [0,10] }]'
+```sh
+bitcoin-cli importdescriptors '[{ "desc": "wpkh(tprv8ZgxMBicQKsPd1dP4NpsFDpsLUCnZ7oyn4UEbYLw7if1EDVCxMgfSzAwP3aCr1YeRvX9GtGvHsCLdrM7zaDyh33jEj7joQoEeNEyJaSYm5p/84h/1h/0h/0/*)#grdqnase", "timestamp":1770329126, "active": true, "range": [0,10] }]'
 ```
 
 This command takes a JSON object that you can [reformat](https://jsonformatter.curiousconcept.com/) for better clarity:
 
 ```
-[
-   {
-      "desc":"wpkh(tprv8ZgxMBicQKsPd1dP4NpsFDpsLUCnZ7oyn4UEbYLw7if1EDVCxMgfSzAwP3aCr1YeRvX9GtGvHsCLdrM7zaDyh33jEj7joQoEeNEyJaSYm5p/84h/1h/0h/0/*)#grdqnase",
-      "timestamp":1770329126,
-      "active":true,
-      "range":[
-         0,
-         10
-      ]
-   }
-]
+| [
+|    {
+|       "desc":"wpkh(tprv8ZgxMBicQKsPd1dP4NpsFDpsLUCnZ7oyn4UEbYLw7if1EDVCxMgfSzAwP3aCr1YeRvX9GtGvHsCLdrM7zaDyh33jEj7joQoEeNEyJaSYm5p/84h/1h/0h/0/*)#grdqnase",
+|       "timestamp":1770329126,
+|       "active":true,
+|       "range":[
+|          0,
+|          10
+|       ]
+|    }
+| ]
 ```
 
 As shown, it has four variables:
@@ -155,19 +158,20 @@ that if you're importing descriptors where you have the private
 key, like the example above. However, if you want to import descriptors without private keys,
 you need to create a special watchonly wallet:
 
-```
-$ bitcoin-cli createwallet "watchonly" true true
-{
-  "name": "watchonly"
-}
+```sh
+bitcoin-cli createwallet "watchonly" true true
+
+| {
+|   "name": "watchonly"
+| }
 ```
 
 The two `true`s in this command are the magic sauce as shown in the help file:
 
-```
-1. wallet_name             (string, required) The name for the new wallet. If this is a path, the wallet will be created at the path location.
-2. disable_private_keys    (boolean, optional, default=false) Disable the possibility of private keys (only watchonlys are possible in this mode).
-3. blank                   (boolean, optional, default=false) Create a blank wallet. A blank wallet has no keys.
+```sh
+| 1. wallet_name             (string, required) The name for the new wallet. If this is a path, the wallet will be created at the path location.
+| 2. disable_private_keys    (boolean, optional, default=false) Disable the possibility of private keys (only watchonlys are possible in this mode).
+| 3. blank                   (boolean, optional, default=false) Create a blank wallet. A blank wallet has no keys.
 ```
 
 The first `true` disables the use of private keys, the second `true` tells the wallet not to create keys of its own.
@@ -180,6 +184,7 @@ do the latter in the following examples.)
 ### Create an Address Descriptor
 
 An address descriptor takes the form:
+
 ```
 addr(ADDR)
 ```
@@ -197,47 +202,51 @@ addr(tb1q9f8j03uywqsxuxjefz68g7x4kduer2ky6shsf4)
 
 2. Feed the descriptor into `getdescriptorinfo` to get a checksum.
 
-```
-$ bitcoin-cli getdescriptorinfo "addr(tb1q9f8j03uywqsxuxjefz68g7x4kduer2ky6shsf4)"
-{
-  "descriptor": "addr(tb1q9f8j03uywqsxuxjefz68g7x4kduer2ky6shsf4)#4vmsvy3l",
-  "checksum": "4vmsvy3l",
-  "isrange": false,
-  "issolvable": false,
-  "hasprivatekeys": false
-}
+```sh
+bitcoin-cli getdescriptorinfo "addr(tb1q9f8j03uywqsxuxjefz68g7x4kduer2ky6shsf4)"
+
+| {
+|   "descriptor": "addr(tb1q9f8j03uywqsxuxjefz68g7x4kduer2ky6shsf4)#4vmsvy3l",
+|   "checksum": "4vmsvy3l",
+|   "isrange": false,
+|   "issolvable": false,
+|   "hasprivatekeys": false
+| }
 ```
 
 3. Import the descriptor with checksum.
 
 ```
-$ bitcoin-cli -rpcwallet=watchonly importdescriptors '[{ "desc": "addr(tb1q9f8j03uywqsxuxjefz68g7x4kduer2ky6shsf4)#4vmsvy3l", "timestamp":1770329126 }]'
-[
-  {
-    "success": true
-  }
-]
+bitcoin-cli -rpcwallet=watchonly importdescriptors '[{ "desc": "addr(tb1q9f8j03uywqsxuxjefz68g7x4kduer2ky6shsf4)#4vmsvy3l", "timestamp":1770329126 }]'
+
+| [
+|   {
+|     "success": true
+|   }
+| ]
 ```
 
 Looking at the newly imported address reveals that the metadata is somewhat different from what was in the original wallet:
+
 ```
-$ bitcoin-cli -rpcwallet=watchonly getaddressinfo tb1q9f8j03uywqsxuxjefz68g7x4kduer2ky6shsf4
-{
-  "address": "tb1q9f8j03uywqsxuxjefz68g7x4kduer2ky6shsf4",
-  "scriptPubKey": "00142a4f27c78470206e1a5948b47478d5b37991aac4",
-  "ismine": true,
-  "solvable": false,
-  "parent_desc": "addr(tb1q9f8j03uywqsxuxjefz68g7x4kduer2ky6shsf4)#4vmsvy3l",
-  "iswatchonly": false,
-  "isscript": false,
-  "iswitness": true,
-  "witness_version": 0,
-  "witness_program": "2a4f27c78470206e1a5948b47478d5b37991aac4",
-  "ischange": false,
-  "labels": [
-    ""
-  ]
-}
+bitcoin-cli -rpcwallet=watchonly getaddressinfo tb1q9f8j03uywqsxuxjefz68g7x4kduer2ky6shsf4
+
+| {
+|   "address": "tb1q9f8j03uywqsxuxjefz68g7x4kduer2ky6shsf4",
+|   "scriptPubKey": "00142a4f27c78470206e1a5948b47478d5b37991aac4",
+|   "ismine": true,
+|   "solvable": false,
+|   "parent_desc": "addr(tb1q9f8j03uywqsxuxjefz68g7x4kduer2ky6shsf4)#4vmsvy3l",
+|   "iswatchonly": false,
+|   "isscript": false,
+|   "iswitness": true,
+|   "witness_version": 0,
+|   "witness_program": "2a4f27c78470206e1a5948b47478d5b37991aac4",
+|   "ischange": false,
+|   "labels": [
+|     ""
+|   ]
+| }
 ```
 
 For example, we no longer have the ranged `parent_desc` and this one
@@ -254,8 +263,8 @@ If we go back to our original `getaddressinfo`, we can find that the
 public key for the address
 `tb1q9f8j03uywqsxuxjefz68g7x4kduer2ky6shsf4` is:
 
-```
-  "pubkey": "02040bf9b12e48bbbcbf72ef5197bc18067db378411ae6220f1d0a77da2ee7dbba",
+```sh
+| "pubkey": "02040bf9b12e48bbbcbf72ef5197bc18067db378411ae6220f1d0a77da2ee7dbba",
 ```
 
 That means the wpkh descriptor would be:
@@ -266,37 +275,40 @@ wpkh(02040bf9b12e48bbbcbf72ef5197bc18067db378411ae6220f1d0a77da2ee7dbba)
 
 We retrieve a checksum for it:
 
-```
-$ bitcoin-cli getdescriptorinfo "wpkh(02040bf9b12e48bbbcbf72ef5197bc18067db378411ae6220f1d0a77da2ee7dbba)"
-{
-  "descriptor": "wpkh(02040bf9b12e48bbbcbf72ef5197bc18067db378411ae6220f1d0a77da2ee7dbba)#3303qrm5",
-  "checksum": "3303qrm5",
-  "isrange": false,
-  "issolvable": true,
-  "hasprivatekeys": false
-}
+```sh
+bitcoin-cli getdescriptorinfo "wpkh(02040bf9b12e48bbbcbf72ef5197bc18067db378411ae6220f1d0a77da2ee7dbba)"
+
+| {
+|   "descriptor": "wpkh(02040bf9b12e48bbbcbf72ef5197bc18067db378411ae6220f1d0a77da2ee7dbba)#3303qrm5",
+|   "checksum": "3303qrm5",
+|   "isrange": false,
+|   "issolvable": true,
+|   "hasprivatekeys": false
+| }
 ```
 
 Then we import it:
 
 ```
 bitcoin-cli -rpcwallet=watchonly importdescriptors '[{ "desc": "wpkh(02040bf9b12e48bbbcbf72ef5197bc18067db378411ae6220f1d0a77da2ee7dbba)#3303qrm5", "timestamp":1770329126 }]'
-[
-  {
-    "success": true
-  }
-]
+
+| [
+|   {
+|     "success": true
+|   }
+| ]
 ```
 
 Voila, we have recreated our address using a descriptor and the public key:
 
 ```
-$ bitcoin-cli -rpcwallet=watchonly getaddressesbylabel ""
-{
-  "tb1q9f8j03uywqsxuxjefz68g7x4kduer2ky6shsf4": {
-    "purpose": "receive"
-  }
-}
+bitcoin-cli -rpcwallet=watchonly getaddressesbylabel ""
+
+| {
+|   "tb1q9f8j03uywqsxuxjefz68g7x4kduer2ky6shsf4": {
+|     "purpose": "receive"
+|   }
+| }
 ```
 
 > 📖 **Why didn't we supply a derivation path?** Derivation paths
