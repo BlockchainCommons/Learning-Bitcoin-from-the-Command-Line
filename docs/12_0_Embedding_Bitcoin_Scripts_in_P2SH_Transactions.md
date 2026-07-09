@@ -16,7 +16,8 @@ After working through this chapter, a developer will be able to:
    
 Supporting objectives include the ability to:
 
-   * Understand the P2WSH Script
+   * Understand the P2SH Script
+   * Understand the P2WSH Variation
    * Understand the Multisig Script
    * Understand the Various Segwit Variations of Scripts
    * Understand How to Spend Funds Sent to a P2WSH
