@@ -122,19 +122,19 @@ Bitcoin Script is composed.
 
 Here are some examples of spending policies:
 
-1. You must have the key:
+**You must have the key.**
 
    ```
    pk(key)
    ```
 
-2. One of two keys may sign:
+**One of two keys may sign.**
 
    ```
    or(pk(key1),pk(key2))
    ```
 
-3. One of two keys may sign, but it'll probably be the first one.
+**One of two keys may sign, but it'll probably be the first one.**
 
    ```
    or(9@pk(key1),pk(key2))
@@ -144,25 +144,25 @@ Here are some examples of spending policies:
    [§15.2](15_2_Writing_Complex_Multisig_Scripts.md) can similarly be
    created:_
 
-4. A multisig with a single signer or two-out-of three co-signers:
+**A multisig with a single signer or two-out-of three co-signers.**
 
    ```
    or(pk(president),thresh(2,pk(vp1),pk(vp2),pk(vp3)))
    ```
 
-5. A two-of-three multisig with a required signer:
+**A two-of-three multisig with a required signer.**
 
    ```
    and(pk(required),or(pk(opt1),pk(opt2)))
    ```
 
-6. A required escrow agent with timelock protection.
+**A required escrow agent with timelock protection.**
 
    ```
    or(and(pk(escrow),or(pk(buyer),pk(seller))),thresh(3,after(1783637422),pk(buyer),pk(seller)))
    ```
 
-7. An open escrow with buyer protection.
+**An open escrow with buyer protection.**
 
    ```
    or(thresh(2,pk(escrow),pk(buyer),pk(seller)),and(after(1783637422),pk(buyer)))
@@ -216,7 +216,7 @@ A [complete reference](https://bitcoin.sipa.be/miniscript/) is available at sipa
 
 Here's how the above examples convert from Policy to Miniscript:
 
-1. **You must have the key.**
+**You must have the key.**
 
    This stays just the same:
 
@@ -224,7 +224,7 @@ Here's how the above examples convert from Policy to Miniscript:
    pk(key)
    ```
 
-2. **One of two keys may sign.**
+**One of two keys may sign.**
 
    The `or` is turned into boolean or (`or_b`) and a swap (`s:`) is
    added that's needed for the script to work.
@@ -237,7 +237,7 @@ Here's how the above examples convert from Policy to Miniscript:
    or_b(pk(key1),s:pk(key2))
    ```
 
-3. **One of two keys may sign, but it'll probably be the first one.**
+**One of two keys may sign, but it'll probably be the first one.**
 
    The weighting turns the `or` into an `or_d`, which uses `IFDUP
    NOTIF` to check the more likely condition (`key1`) and on failure
@@ -253,7 +253,7 @@ Here's how the above examples convert from Policy to Miniscript:
    ```
 
 
-4. **A multisig with a single signer or two-out-of three co-signers.**
+**A multisig with a single signer or two-out-of three co-signers.**
 
    Again, an `or_d` is used, presuming the single-sig is more likely,
    while the `thresh` is turned into a `multi`.
@@ -266,7 +266,7 @@ Here's how the above examples convert from Policy to Miniscript:
    or_d(pk(president),multi(2,vp1,vp2,vp3))
    ```
 
-5. **A two-of-three multisig with a required signer.**
+**A two-of-three multisig with a required signer.**
 
    The two non-required signers are checked with an `or_c`: if one
    fails, then the other is checked. The second one is verified with a
@@ -281,7 +281,7 @@ Here's how the above examples convert from Policy to Miniscript:
    and_v(or_c(pk(opt1),v:pk(opt2)),pk(required))
    ```
 
-6. **A required escrow agent with timelock protection.**
+**A required escrow agent with timelock protection.**
 
    The `andor` says to either check the escrow agent's public key and
    the second condition, or else run the third condition. The second
@@ -300,7 +300,7 @@ Here's how the above examples convert from Policy to Miniscript:
    andor(pk(escrow),c:or_i(pk_h(buyer),pk_h(seller)),and_v(and_v(v:pk(buyer),v:pk(seller)),after(1783637422)))
    ```
 
-7. **An open escrow with buyer protection.**
+**An open escrow with buyer protection.**
 
    This last example similarly using an `andor` to say: either the
    buyer's key and after a timelock, or a multisig. The `thresh` is
