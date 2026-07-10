@@ -101,7 +101,7 @@ Miniscript. Bitcoin Representations are included for those policy
 functions that are identical in Miniscript.
 
 | Policy | Representation | Notes |
-|---------|------------|
+|---------|------------|-----|
 | pk(key) | | Require key signature |
 | after(num) | `<num> CHECKLOCKTIMEVERIFY` | Enforce absolute timelock |
 | older(num) | `<num> CHECKSEQUENCEVERIFY` | Enforce relative timelock |
@@ -219,6 +219,7 @@ Here's how the above examples convert from Policy to Miniscript:
 1. **You must have the key.**
 
    This stays just the same:
+
    ```
    pk(key)
    ```
