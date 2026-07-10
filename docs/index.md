@@ -102,10 +102,17 @@ complete state.</i>
 * [**14.0: Expanding Bitcoin Scripts**](14_0_Expanding_Bitcoin_Scripts.md)
     * [14.1: Using Script Conditionals](14_1_Using_Script_Conditionals.md)
     * [14.2: Using Other Script Commands](14_2_Using_Other_Script_Commands.md)
-* [**15.0: Designing Real Bitcoin Scripts**](docs/15_0_Designing_Real_Bitcoin_Scripts.md)
-    * [15.1: Writing Puzzles Scripts](docs/15_1_Writing_Puzzle_Scripts.md)
-    * [15.2: Writing Complex Multisig Scripts](docs/15_2_Writing_Complex_Multisig_Scripts.md)
-    * [15.3: Empowering Bitcoin with Scripts](docs/15_3_Empowering_Bitcoin_with_Scripts.md)
+* [**15.0: Designing Real Bitcoin Scripts**](15_0_Designing_Real_Bitcoin_Scripts.md)
+    * [15.1: Writing Puzzles Scripts](15_1_Writing_Puzzle_Scripts.md)
+    * [15.2: Writing Complex Multisig Scripts](15_2_Writing_Complex_Multisig_Scripts.md)
+    * [15.3: Empowering Bitcoin with Scripts](15_3_Empowering_Bitcoin_with_Scripts.md)
+* [**16.0: Using Miniscript**](16_0_Using_Miniscript.md)
+    * [16.1: Understanding Miniscript](16_1_Understanding_Miniscript.md)
+    * [16.2: Converting Policy] (pending)
+    * [16.3: Converting Miniscript] (pending)    
+    * [16.4: Using Miniscript with Descriptors]
+    * [16.5: Using Bitcoin Dev Kit (BDK)] (pending)
+    
     
 ---
 
