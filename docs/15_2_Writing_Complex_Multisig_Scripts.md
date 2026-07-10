@@ -23,58 +23,58 @@ the unlocking script. Using `OP_DEPTH 1 OP_EQUAL` will tell you if
 there is one item on the stack, and you then go from there.
 
 The full locking script would be `OP_DEPTH 1 OP_EQUAL IF <pubKeyPres>
-OP_CHECKSIGNATURE ELSE 2 <pubKeyVPA> <pubKeyVPB> <pubKeyVPC> 3
+OP_CHECKSIG ELSE 2 <pubKeyVPA> <pubKeyVPB> <pubKeyVPC> 3
 OP_CHECKMULTISIG ENDIF`
 
 If run by the president, it would look like this:
 
 ```
-Script: <sigPres> OP_DEPTH 1 OP_EQUAL IF <pubKeyPres> OP_CHECKSIGNATURE ELSE 2 <pubKeyVPA> <pubKeyVPB> <pubKeyVPC> 3 OP_CHECKMULTISIG ENDIF
+Script: <sigPres> OP_DEPTH 1 OP_EQUAL IF <pubKeyPres> OP_CHECKSIG ELSE 2 <pubKeyVPA> <pubKeyVPB> <pubKeyVPC> 3 OP_CHECKMULTISIG ENDIF
 Stack: [ ]
 
-Script: OP_DEPTH 1 OP_EQUAL IF <pubKeyPres> OP_CHECKSIGNATURE ELSE 2 <pubKeyVPA> <pubKeyVPB> <pubKeyVPC> 3 OP_CHECKMULTISIG ENDIF
+Script: OP_DEPTH 1 OP_EQUAL IF <pubKeyPres> OP_CHECKSIG ELSE 2 <pubKeyVPA> <pubKeyVPB> <pubKeyVPC> 3 OP_CHECKMULTISIG ENDIF
 Stack: [ <sigPres> ]
 
-Script: 1 OP_EQUAL IF <pubKeyPres> OP_CHECKSIGNATURE ELSE 2 <pubKeyVPA> <pubKeyVPB> <pubKeyVPC> 3 OP_CHECKMULTISIG ENDIF
+Script: 1 OP_EQUAL IF <pubKeyPres> OP_CHECKSIG ELSE 2 <pubKeyVPA> <pubKeyVPB> <pubKeyVPC> 3 OP_CHECKMULTISIG ENDIF
 Running: <SigPres> OP_DEPTH
 Stack: [ <sigPres> 1 ]
 
-Script: OP_EQUAL IF <pubKeyPres> OP_CHECKSIGNATURE ELSE 2 <pubKeyVPA> <pubKeyVPB> <pubKeyVPC> 3 OP_CHECKMULTISIG ENDIF
+Script: OP_EQUAL IF <pubKeyPres> OP_CHECKSIG ELSE 2 <pubKeyVPA> <pubKeyVPB> <pubKeyVPC> 3 OP_CHECKMULTISIG ENDIF
 Stack: [ <sigPres> 1 1 ]
 
-Script: IF <pubKeyPres> OP_CHECKSIGNATURE ELSE 2 <pubKeyVPA> <pubKeyVPB> <pubKeyVPC> 3 OP_CHECKMULTISIG ENDIF
+Script: IF <pubKeyPres> OP_CHECKSIG ELSE 2 <pubKeyVPA> <pubKeyVPB> <pubKeyVPC> 3 OP_CHECKMULTISIG ENDIF
 Running: 1 1 OP_EQUAL
 Stack: [ <sigPres> True ]
 ```
 Because the result is `True`, the Script now collapses to the `IF` statement:
 ```
-Script: <pubKeyPres> OP_CHECKSIGNATURE
+Script: <pubKeyPres> OP_CHECKSIG
 Running: True IF
 Stack: [ <sigPres> ]
 
-Script: OP_CHECKSIGNATURE
+Script: OP_CHECKSIG
 Stack: [ <sigPres> <pubKeyPres> ]
 
 Script: 
-Running: <sigPres> <pubKeyPres> OP_CHECKSIGNATURE
+Running: <sigPres> <pubKeyPres> OP_CHECKSIG
 Stack: [ True ]
 ```
 If run by two vice-presidents, it would look like this:
 ```
-Script: 0 <sigVPA> <sigVPB> OP_DEPTH 1 OP_EQUAL IF <pubKeyPres> OP_CHECKSIGNATURE ELSE 2 <pubKeyVPA> <pubKeyVPB> <pubKeyVPC> 3 OP_CHECKMULTISIG ENDIF
+Script: 0 <sigVPA> <sigVPB> OP_DEPTH 1 OP_EQUAL IF <pubKeyPres> OP_CHECKSIG ELSE 2 <pubKeyVPA> <pubKeyVPB> <pubKeyVPC> 3 OP_CHECKMULTISIG ENDIF
 Stack: [ ]
 
-Script: OP_DEPTH 1 OP_EQUAL IF <pubKeyPres> OP_CHECKSIGNATURE ELSE 2 <pubKeyVPA> <pubKeyVPB> <pubKeyVPC> 3 OP_CHECKMULTISIG ENDIF
+Script: OP_DEPTH 1 OP_EQUAL IF <pubKeyPres> OP_CHECKSIG ELSE 2 <pubKeyVPA> <pubKeyVPB> <pubKeyVPC> 3 OP_CHECKMULTISIG ENDIF
 Stack: [ 0 <sigVPA> <sigVPB> ]
 
-Script: 1 OP_EQUAL IF <pubKeyPres> OP_CHECKSIGNATURE ELSE 2 <pubKeyVPA> <pubKeyVPB> <pubKeyVPC> 3 OP_CHECKMULTISIG ENDIF
+Script: 1 OP_EQUAL IF <pubKeyPres> OP_CHECKSIG ELSE 2 <pubKeyVPA> <pubKeyVPB> <pubKeyVPC> 3 OP_CHECKMULTISIG ENDIF
 Running: 0 <sigVPA> <sigVPB> OP_DEPTH
 Stack: [ 0 <sigVPA> <sigVPB> 3 ]
 
-Script: OP_EQUAL IF <pubKeyPres> OP_CHECKSIGNATURE ELSE 2 <pubKeyVPA> <pubKeyVPB> <pubKeyVPC> 3 OP_CHECKMULTISIG ENDIF
+Script: OP_EQUAL IF <pubKeyPres> OP_CHECKSIG ELSE 2 <pubKeyVPA> <pubKeyVPB> <pubKeyVPC> 3 OP_CHECKMULTISIG ENDIF
 Stack: [ 0 <sigVPA> <sigVPB> 3 1 ]
 
-Script: IF <pubKeyPres> OP_CHECKSIGNATURE ELSE 2 <pubKeyVPA> <pubKeyVPB> <pubKeyVPC> 3 OP_CHECKMULTISIG ENDIF
+Script: IF <pubKeyPres> OP_CHECKSIG ELSE 2 <pubKeyVPA> <pubKeyVPB> <pubKeyVPC> 3 OP_CHECKMULTISIG ENDIF
 Running: 3 1 OP_EQUAL
 Stack: [ 0 <sigVPA> <sigVPB> False ]
 ```
@@ -93,7 +93,7 @@ Stack: [ True ]
 ```
 
 You might notice that the President's signature just uses a simple
-`OP_CHECKSIGNATURE` rather than the more complex code usually required
+`OP_CHECKSIG` rather than the more complex code usually required
 for a P2PKH. We can get away with including the public key in the
 locking script, obviating the usual rigamarole, because it's hashed
 and won't be revealed (through the `redeemScript`) until the
@@ -106,7 +106,7 @@ remembers this being a 2-of-3 multisig. One option is to decide that's
 an acceptable failure condition, because the President is using the
 multsig incorrectly. Another option is to turn the 2-of-3 multisig
 into a 2-of-4 multisig, just in case the President doesn't tolerate
-failure: `OP_DEPTH 1 OP_EQUAL IF <pubKeyPres> OP_CHECKSIGNATURE ELSE 2
+failure: `OP_DEPTH 1 OP_EQUAL IF <pubKeyPres> OP_CHECKSIG ELSE 2
 <pubKeyVPA> <pubKeyVPB> <pubKeyVPC> <pubKeyPres> 4 OP_CHECKMULTISIG
 ENDIF`. This would allow the President to mistakenly sign with any
 Vice President, but wouldn't impact things if two Vice Presidents
@@ -202,7 +202,7 @@ IF
 ELSE
 
     <+30Days> OP_CHECKSEQUENCEVERIFY OP_DROP
-    <pubKeyA> OP_CHECKSIGNATURE
+    <pubKeyA> OP_CHECKSIG
 
 ENDIF
 ```
