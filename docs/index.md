@@ -108,10 +108,9 @@ complete state.</i>
     * [15.3: Empowering Bitcoin with Scripts](15_3_Empowering_Bitcoin_with_Scripts.md)
 * [**16.0: Using Miniscript**](16_0_Using_Miniscript.md)
     * [16.1: Understanding Miniscript](16_1_Understanding_Miniscript.md)
-    * [16.2: Converting Policy] (pending)
-    * [16.3: Converting Miniscript] (pending)    
-    * [16.4: Using Miniscript with Descriptors]
-    * [16.5: Using Bitcoin Dev Kit (BDK)] (pending)
+    * [16.2: Converting Miniscript](16_2_Converting_Miniscript.md)
+    * [16.3: Using Miniscript with Descriptors] (pending)
+    * [16.4: Using Bitcoin Dev Kit (BDK)] (pending)
     
     
 ---
