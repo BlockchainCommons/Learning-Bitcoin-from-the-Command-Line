@@ -1,4 +1,4 @@
- # 16.1: Understanding Miniscript & Policy
+# 16.1: Understanding Miniscript & Policy
 
 In recent years a subset of Bitcoin Scripts has appeared called
 Miniscript, courtesy of [BIP
