@@ -91,7 +91,7 @@ The standard procedure is therefore:
 
 1. User writes spending policy for coins.
 2. User or app compiles policy into Miniscript.
-3. App compiles Miniscript into Bitcoin Script for use  on address.
+3. App encodes Miniscript into Bitcoin Script for use  on address.
 
 ## Know Policy
 
@@ -334,4 +334,4 @@ Script. Policy makes it easy for users to design spending policy.
 ## What's Next?
 
 Continue "Using Miniscript" with [§16.2: Converting
-Policy](16_2_Converting_Policy.md).
+Miniscript & Policy](16_2_Converting_Miniscript.md).

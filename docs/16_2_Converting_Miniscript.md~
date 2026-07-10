@@ -1,0 +1,55 @@
+# 16.2: Converting Policy & Miniscript
+
+There are currently no command-line functions available to convert
+Policy into Miniscript. However, an official Peter Wuille's website is
+easy to use and as official as you get in the Bitcoin world. In
+addition, some wallets allow the direct use of scripting policy and
+some APIs exist for conversion.
+
+## Compile Policy on the Web
+
+The [bitcoin.sipa.be miniscript
+site](https://bitcoin.sipa.be/miniscript/) contains the most
+accessible "Policy to Miniscript compiler":
+
+[pic1]
+
+Enter a policy and click "Compile" and it will show the output,
+including the Miniscript conversion, analysis of transaction costs,
+and even the Bitcoin Script that the Miniscript runs as.
+
+[pic2]
+
+## Encode Miniscript on the Web
+
+The "Analyze a Miniscript" section of [the
+website](https://bitcoin.sipa.be/miniscript/) similarly allows you to
+encode Miniscript into Bitcoin Script, which you could then use to
+form an address as described in the previous chapters' discussion of
+P2SH and P2WSH.
+
+[pic3]
+
+## Convert Policy & Miniscript with APIs
+
+Conversion software is available through various APIs.
+
+* [miniscript-policies](https://github.com/bitcoinerlab/miniscript-policies), which exposes C++ code from the sipa website
+* [rust-miniscript](https://github.com/rust-bitcoin/rust-miniscript/tree/master), which includes a policy compiler
+* [miniscript](https://github.com/bitcoinerlab/miniscript), a Miniscript analyzer in Typescript
+
+## Summary: Converting Policy & Miniscript
+
+Miniscript and Policy are great new tools for creating Bitcoin
+Scripts, but at the moment you can't convert between the various forms
+on the command line. Nonetheless, the [bitcoin.sipa.be miniscript
+site](https://bitcoin.sipa.be/miniscript/) offers great tools that
+will allow you to do the conversion, and then return to the command
+line with whatever scripting version you prefer.
+
+## What's Next?
+
+Continue "Using Miniscript" with [§16.2: Converting
+Policy](16_2_Converting_Policy.md).
+
+# 16.2: Converting Policy & Miniscript

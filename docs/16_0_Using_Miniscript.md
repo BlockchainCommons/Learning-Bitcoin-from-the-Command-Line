@@ -26,7 +26,6 @@ Supporting objectives include the ability to:
 ## Table of Contents
 
   * [Section One: Understanding Miniscript & Policy](16_1_Understanding_Miniscript.md)
-  * [Section Two: Converting Policy](16_2_Converting_Miniscript.md)
-  * [Section Three: Converting Miniscript](16_3_Converting_Miniscript.md)
-  * [Section Four: Using Miniscript with Descriptors](16_4_Using_Miniscript_with_Descriptors.md)
-  * [Section Five: Using Bitcoin Dev Kit (BDK)](16_5_Using_BDK.md)
+  * [Section Two: Converting Miniscript & Policy](16_2_Converting_Miniscript.md)
+  * [Section Three: Using Miniscript with Descriptors](16_3_Using_Miniscript_with_Descriptors.md)
+  * [Section Four: Using Bitcoin Dev Kit (BDK)](16_4_Using_BDK.md)
