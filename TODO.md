@@ -2,10 +2,11 @@
 
 The following TODO items are intended for a 3.0 version of Learning Bitcoin from the Command Line
 
-## Immediate TODO (for 7/9): Puzzles & Miniscript
+## Immediate TODO (for 7/23): Taproot
 
-1. Revise Chapter 15
-3. Write Chapter 16
+1. Write 16.3: Miniscript & Descriptors
+2. Write 16.4: BDK
+3. Make Final Decisions about Taproot Chapters
 
 ## Longer-Term TODO (Small Tasks)
 
@@ -188,13 +189,19 @@ See [release notes](https://bitcoincore.org/en/releases/0.21.0/).
 
 # Progress Log
 
+## Immediate TODO (for 7/9): Scripts
+
+1. <strike>Revise Chapter 15</strike>
+2. <strike>Wrote & Edited 16.0-16.1: Intros</strike>
+3. <strike>Wrote 16.2: Converting Miniscript</strike>
+
 ## Immediate TODO (for 6/25): Scripts
 
 1. <strike>Edit §12.0, 12.1</strike>
 2. <strike>Incorporate P2WSH into Rest of Chapter 12</strike>
 3. <strike>Revise Chapter 13</strike>
 4. <strike>Revise Chapter 14</strike>
-5. <script>Plot Out New Chapter 16, miniscript</script>
+5. <strike>Plot Out New Chapter 16, miniscript</strike>
 
 ## Immediate TODO (for 6/11): Scripts
 
