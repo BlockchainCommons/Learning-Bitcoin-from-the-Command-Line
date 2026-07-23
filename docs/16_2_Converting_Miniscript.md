@@ -99,7 +99,7 @@ issue.)
 Conversion software is available through various APIs.
 
 * [miniscript-policies](https://github.com/bitcoinerlab/miniscript-policies), which exposes C++ code from the sipa website
-* [rust-miniscript](https://github.com/rust-bitcoin/rust-miniscript/tree/master), which includes a policy compiler
+* [rust-miniscript](https://github.com/rust-bitcoin/rust-miniscript/tree/master), which includes a policy compiler. It's also the basis of BDK, which we'll meet in [§16.4](16_4_Using_BDK.md).
 * [miniscript](https://github.com/bitcoinerlab/miniscript), a Miniscript analyzer in Typescript
 
 ## Summary: Converting Policy & Miniscript
