@@ -218,101 +218,101 @@ Here's how the above examples convert from Policy to Miniscript:
 
 **You must have the key.**
 
-   This stays just the same:
+This stays just the same:
 
-   ```
-   pk(key)
-   ```
+```
+pk(key)
+```
 
 **One of two keys may sign.**
 
-   The `or` is turned into boolean or (`or_b`) and a swap (`s:`) is
-   added that's needed for the script to work.
+The `or` is turned into boolean or (`or_b`) and a swap (`s:`) is added
+that's needed for the script to work.
    
-   ```
-   or(pk(key1),pk(key2))
+```
+or(pk(key1),pk(key2))
    
-   ⬇️
+⬇️
    
-   or_b(pk(key1),s:pk(key2))
-   ```
+or_b(pk(key1),s:pk(key2))
+```
 
 **One of two keys may sign, but it'll probably be the first one.**
 
-   The weighting turns the `or` into an `or_d`, which uses `IFDUP
-   NOTIF` to check the more likely condition (`key1`) and on failure
-   check the least likely condition (`key2`), which also requires the
-   use of `pkh` instead of `pk` for the second key.
+The weighting turns the `or` into an `or_d`, which uses `IFDUP
+NOTIF` to check the more likely condition (`key1`) and on failure
+check the least likely condition (`key2`), which also requires the
+use of `pkh` instead of `pk` for the second key.
    
-   ```
-   or(9@pk(key1),pk(key2))
+```
+or(9@pk(key1),pk(key2))
 
-   ⬇️
+⬇️
 
-   or_d(pk(key1),pkh(key2))
-   ```
+or_d(pk(key1),pkh(key2))
+```
 
 
 **A multisig with a single signer or two-out-of three co-signers.**
 
-   Again, an `or_d` is used, presuming the single-sig is more likely,
-   while the `thresh` is turned into a `multi`.
+Again, an `or_d` is used, presuming the single-sig is more likely,
+while the `thresh` is turned into a `multi`.
    
-   ```
-   or(pk(president),thresh(2,pk(vp1),pk(vp2),pk(vp3)))
+```
+or(pk(president),thresh(2,pk(vp1),pk(vp2),pk(vp3)))
 
-   ⬇️
+⬇️
 
-   or_d(pk(president),multi(2,vp1,vp2,vp3))
-   ```
+or_d(pk(president),multi(2,vp1,vp2,vp3))
+```
 
 **A two-of-three multisig with a required signer.**
 
-   The two non-required signers are checked with an `or_c`: if one
-   fails, then the other is checked. The second one is verified with a
-   `v:` (if both fail, then quit there). Then,
-   that result and the required signature are checked with `and_v`.
+The two non-required signers are checked with an `or_c`: if one
+fails, then the other is checked. The second one is verified with a
+`v:` (if both fail, then quit there). Then,
+that result and the required signature are checked with `and_v`.
    
-   ```
-   and(pk(required),or(pk(opt1),pk(opt2)))
+```
+and(pk(required),or(pk(opt1),pk(opt2)))
 
-   ⬇️
+⬇️
 
-   and_v(or_c(pk(opt1),v:pk(opt2)),pk(required))
-   ```
+and_v(or_c(pk(opt1),v:pk(opt2)),pk(required))
+```
 
 **A required escrow agent with timelock protection.**
 
-   The `andor` says to either check the escrow agent's public key and
-   the second condition, or else run the third condition. The second
-   condition is a signature check (`c:`) of either the buyer or
-   seller's key (`or_i`). The alternative condition is a pair of
-   `and_v`, which together make up the three-of-three threshold laid
-   out for the buyer key, seller key, and timelock, with each of the
-   signature checks having a verify (`v:`) to show that if they fail,
-   the whole thing fails.
+The `andor` says to either check the escrow agent's public key and the
+second condition, or else run the third condition. The second
+condition is a signature check (`c:`) of either the buyer or seller's
+key (`or_i`). The alternative condition is a pair of `and_v`, which
+together make up the three-of-three threshold laid out for the buyer
+key, seller key, and timelock, with each of the signature checks
+having a verify (`v:`) to show that if they fail, the whole thing
+fails.
    
-   ```
-   or(and(pk(escrow),or(pk(buyer),pk(seller))),thresh(3,after(1783637422),pk(buyer),pk(seller)))
+```
+or(and(pk(escrow),or(pk(buyer),pk(seller))),thresh(3,after(1783637422),pk(buyer),pk(seller)))
 
-   ⬇️
+⬇️
 
-   andor(pk(escrow),c:or_i(pk_h(buyer),pk_h(seller)),and_v(and_v(v:pk(buyer),v:pk(seller)),after(1783637422)))
-   ```
+andor(pk(escrow),c:or_i(pk_h(buyer),pk_h(seller)),and_v(and_v(v:pk(buyer),v:pk(seller)),after(1783637422)))
+```
 
 **An open escrow with buyer protection.**
 
-   This last example similarly using an `andor` to say: either the
-   buyer's key and after a timelock, or a multisig. The `thresh` is
-   again turned into a `multi`.
+This last example similarly using an `andor` to say: either the
+buyer's key and after a timelock, or a multisig. The `thresh` is
+again turned into a `multi`.
    
-   ```
-   or(thresh(2,pk(escrow),pk(buyer),pk(seller)),and(after(1783637422),pk(buyer)))
+```
+or(thresh(2,pk(escrow),pk(buyer),pk(seller)),and(after(1783637422),pk(buyer)))
 
-   ⬇️
-
-   andor(pk(buyer),after(1783637422),multi(2,escrow,buyer,seller))
-   ```
+⬇️
+ 
+andor(pk(buyer),after(1783637422),multi(2,escrow,buyer,seller))
+```
 
 Again, you shouldn't worry about knowing how to compose these
 Miniscript functions, but you should be able to reasonably read them
