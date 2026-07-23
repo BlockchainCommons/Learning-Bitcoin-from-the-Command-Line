@@ -1,10 +1,12 @@
 # 16.2: Converting Policy & Miniscript
 
-There are currently no command-line functions available to convert
-Policy into Miniscript. However, a convertor at Peter Wuille's website
-is easy to use and as official as you get in the Bitcoin world. In
-addition, some wallets allow the direct use of scripting policy and
-some APIs exist for conversion.
+There are currently limited command-line functions available to
+convert Policy into Miniscript. (BDK-CLI can do so, but it's a whole set
+competitor to `bitcoin-cli`, so we're going to approach it separately
+in [§16.4](16_4_Using_BDK.md).)  However, a convertor at Peter
+Wuille's website is easy to use and as official as you get in the
+Bitcoin world. In addition, some wallets allow the direct use of
+scripting policy and some APIs exist for conversion.
 
 ## Compile Policy on the Web
 
@@ -106,10 +108,11 @@ Conversion software is available through various APIs.
 
 Miniscript and Policy are great new tools for creating Bitcoin
 Scripts, but at the moment you can't convert between the various forms
-on the command line. Nonetheless, the [bitcoin.sipa.be miniscript
-site](https://bitcoin.sipa.be/miniscript/) offers great tools that
-will allow you to do the conversion, and then return to the command
-line with whatever scripting version you prefer.
+on the command line unless you install `bdk-cli`, a command-line
+program that deserves a course of its own. Nonetheless, the
+[bitcoin.sipa.be miniscript site](https://bitcoin.sipa.be/miniscript/)
+offers great tools that will allow you to do the conversion, and then
+return to the command line with whatever scripting version you prefer.
 
 ## What's Next?
 
