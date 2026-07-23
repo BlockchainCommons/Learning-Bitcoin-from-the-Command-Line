@@ -311,7 +311,7 @@ Here's how the above examples convert from Policy to Miniscript:
 
    ⬇️
 
-   andor(pk(buyer2),after(1783637422),multi(2,escrow,buyer,seller))
+   andor(pk(buyer),after(1783637422),multi(2,escrow,buyer,seller))
    ```
 
 Again, you shouldn't worry about knowing how to compose these
