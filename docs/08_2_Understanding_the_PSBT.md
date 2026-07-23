@@ -25,7 +25,7 @@ This section will expand on the use of the standard PSBT roles (Creator, Updater
 
 Our multsig example in the previous section demonstrated a fairly simple process outlined here:
 
-![](images/psbt-roles-for-cli-1.png)
+![](/images/08_1_psbt-roles-for-cli-1.png)
 
 * **Creator:** UTXOs and outputs selected, then PSBT created with `createpsbt`.
 
@@ -152,7 +152,7 @@ After converting to the PSBT format, you use `walletprocesspsbt`, `combinepsbt`,
 
 If you think that there should be a command for PSBTs that's the equivalent of `fundrawtransaction` used in [§4.5](04_5_Sending_Coins_with_Automated_Raw_Transactions.md), you'll be pleased to know there is: `walletcreatefundedpsbt`. 
 
-![](images/psbt-roles-for-cli-2.png)
+![](/images/08_2_psbt-roles-for-cli-2.png)
 
 You can use `walletcreatefundedpsbt` just the same as `createpsbt`:
 ```
@@ -431,7 +431,7 @@ $ bitcoin-cli -named sendrawtransaction hexstring=$psbt_hex
 
 There's a third methodology for creating PSBTs, where all the information might not be in your wallet. This uses the `utxoupdatepsbt` command in the Updater role:
 
-![](images/psbt-roles-for-cli-3.png)
+![](/images/08_2_psbt-roles-for-cli-3.png)
 
 If you recall in the previous section, you first created a watchonly wallet from a descriptor, then read in the information from that wallet with `walletprocesspsbt`. `utxoupdatepsbt` instead cuts out the middleman by allowing your PSBT to be updated straight from the descriptor _but only for Segwit inputs and outputs_.
 

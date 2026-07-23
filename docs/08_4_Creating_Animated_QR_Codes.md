@@ -187,11 +187,11 @@ The following shows the process, using [Sparrow Wallet](https://sparrowwallet.co
 
 **Signing Step 1: [Coordinator] Create the PSBT:**
 
-![](images/psbt-signing-1.jpg)
+![](/images/08_4_psbt-signing-1.jpg)
 
 **Signing Step 2: [Coordinator] Generate the Animated QR:**
 
-![](images/psbt-signing-2.jpg)
+![](/images/08_4_psbt-signing-2.jpg)
 
 (only one frame is shown here)
 
@@ -204,13 +204,13 @@ The following shows the process, using [Sparrow Wallet](https://sparrowwallet.co
 <table width="100%">
   <tr width="100%">
     <td width=33.33%">
-      <img src="images/psbt-signing-3.jpg" width="33%">
+      <img src="/images/08_4_psbt-signing-3.jpg" width="33%">
     </td>
     <td width=33.33%">
-      <img src="images/psbt-signing-4.jpg" width="33%">
+      <img src="/images/08_4_psbt-signing-4.jpg" width="33%">
     </td>
     <td width=33.33%">
-      <img src="images/psbt-signing-5.jpg" width="33%">
+      <img src="/images/08_4_psbt-signing-5.jpg" width="33%">
     </td>
   </tr>
 </table>

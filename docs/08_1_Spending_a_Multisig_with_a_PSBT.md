@@ -14,7 +14,7 @@ In brief: a PSBT is a specified format for collaboratively creating Bitcoin tran
 
 It's a simple progression, though the Signer may happen many times:
 
-![](images/psbt-roles-for-cli-1.png)
+![](/images/08_1_psbt-roles-for-cli-1.png)
 
 These different roles may be taken on by different people, or the same person may fulfill several roles.
 
