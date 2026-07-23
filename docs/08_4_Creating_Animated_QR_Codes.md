@@ -197,23 +197,15 @@ The following shows the process, using [Sparrow Wallet](https://sparrowwallet.co
 
 **Signing Step 3: [Seed Vault] Read the Animated QR:**
 
+      <img src="/images/08_4_psbt-signing-3.jpg" width="33%">
+
 **Signing Step 4: [Seed Vault] Review the PSBT:**
+
+      <img src="/images/08_4_psbt-signing-4.jpg" width="33%">
 
 **Signing Step 5: [Seed Vault] Approve the PSBT:**
 
-<table width="100%">
-  <tr width="100%">
-    <td width=33.33%">
-      <img src="/images/08_4_psbt-signing-3.jpg" width="33%">
-    </td>
-    <td width=33.33%">
-      <img src="/images/08_4_psbt-signing-4.jpg" width="33%">
-    </td>
-    <td width=33.33%">
       <img src="/images/08_4_psbt-signing-5.jpg" width="33%">
-    </td>
-  </tr>
-</table>
 
 ## Summary: Creating Animated QR Codes
 
