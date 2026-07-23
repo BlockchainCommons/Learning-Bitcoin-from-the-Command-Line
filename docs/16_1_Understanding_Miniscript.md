@@ -231,9 +231,11 @@ that's needed for the script to work.
    
 ```
 or(pk(key1),pk(key2))
-   
-⬇️
-   
+```
+
+BECOMES
+
+```
 or_b(pk(key1),s:pk(key2))
 ```
 
@@ -246,9 +248,11 @@ use of `pkh` instead of `pk` for the second key.
    
 ```
 or(9@pk(key1),pk(key2))
+```
 
-⬇️
+BECOMES
 
+```
 or_d(pk(key1),pkh(key2))
 ```
 
@@ -260,9 +264,11 @@ while the `thresh` is turned into a `multi`.
    
 ```
 or(pk(president),thresh(2,pk(vp1),pk(vp2),pk(vp3)))
+```
 
-⬇️
+BECOMES
 
+```
 or_d(pk(president),multi(2,vp1,vp2,vp3))
 ```
 
@@ -275,9 +281,11 @@ that result and the required signature are checked with `and_v`.
    
 ```
 and(pk(required),or(pk(opt1),pk(opt2)))
+```
 
-⬇️
+BECOMES
 
+```
 and_v(or_c(pk(opt1),v:pk(opt2)),pk(required))
 ```
 
@@ -294,9 +302,11 @@ fails.
    
 ```
 or(and(pk(escrow),or(pk(buyer),pk(seller))),thresh(3,after(1783637422),pk(buyer),pk(seller)))
+```
 
-⬇️
+BECOMES
 
+```
 andor(pk(escrow),c:or_i(pk_h(buyer),pk_h(seller)),and_v(and_v(v:pk(buyer),v:pk(seller)),after(1783637422)))
 ```
 
@@ -308,9 +318,11 @@ again turned into a `multi`.
    
 ```
 or(thresh(2,pk(escrow),pk(buyer),pk(seller)),and(after(1783637422),pk(buyer)))
+```
 
-⬇️
- 
+BECOMES
+
+```
 andor(pk(buyer),after(1783637422),multi(2,escrow,buyer,seller))
 ```
 
