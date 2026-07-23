@@ -12,13 +12,13 @@ The [bitcoin.sipa.be miniscript
 site](https://bitcoin.sipa.be/miniscript/) contains the most
 accessible "Policy to Miniscript compiler":
 
-![](/images/16_2_miniscript-site-1.png)
+[![](/images/16_2_miniscript-site-1.png)](/images/16_2_miniscript-site-1.png)
 
 Enter a policy and click "Compile" and it will show the output,
 including the Miniscript conversion, analysis of transaction costs,
 and even the Bitcoin Script that the Miniscript runs as.
 
-![](/images/16_2_miniscript-site-2.png)
+[![](/images/16_2_miniscript-site-2.png)](/images/16_2_miniscript-site-2.png)
 
 > ⚠️ **Duplicate Names Not Allowed.** The sipa.be website doesn't like
 it when you use the same name for multiple variables (e.g., "buyer" or
@@ -33,7 +33,7 @@ encode Miniscript into Bitcoin Script, which you could then use to
 form an address as described in the previous chapters' discussion of
 P2SH and P2WSH.
 
-![](/images/16_2_miniscript-site-3.png)
+[![](/images/16_2_miniscript-site-3.png)](/images/16_2_miniscript-site-3.png)
 
 ## Examine Policy to Bitcoin Script Conversions
 
