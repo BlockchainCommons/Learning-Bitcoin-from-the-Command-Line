@@ -109,7 +109,7 @@ complete state.</i>
 * [**16.0: Using Miniscript**](16_0_Using_Miniscript.md)
     * [16.1: Understanding Miniscript](16_1_Understanding_Miniscript.md)
     * [16.2: Converting Miniscript](16_2_Converting_Miniscript.md)
-    * [16.3: Using Miniscript with Descriptors] (pending)
+    * [16.3: Using Miniscript with Descriptors](16_3_Using_Miniscript_with_Descriptors.md)
     * [16.4: Using Bitcoin Dev Kit (BDK)] (pending)
     
     
