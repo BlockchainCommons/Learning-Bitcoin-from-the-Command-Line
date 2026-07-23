@@ -222,8 +222,8 @@ The following shows the process, using [Sparrow Wallet](https://sparrowwallet.co
 **Signing Step 5: [Seed Vault] Approve the PSBT:**
 
 <center>
-  <a href="/images/08_4_psbt-signing-4.jpg">
-    <img src="/images/08_4_psbt-signing-4.jpg" width="33%">
+  <a href="/images/08_4_psbt-signing-5.jpg">
+    <img src="/images/08_4_psbt-signing-5.jpg" width="33%">
   </a>
 </center>
 
