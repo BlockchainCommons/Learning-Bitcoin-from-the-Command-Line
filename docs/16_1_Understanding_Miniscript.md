@@ -180,7 +180,7 @@ represented in Bitcoin Script:
 |------------|----------------|-------|
 | `andor` | `[X] NOTIF [Z] ELSE [Y] ENDIF` | 
 | `and_b` | `[X] [Y] BOOLAND` | boolean output |
-| `and_n` | `[X] NOTIF 0 ELSE [Y] ENDIF` | andor(X,Y,0) |
+| `and_n` | `[X] NOTIF 0 ELSE [Y] ENDIF` | `andor(X,Y,0)` |
 | `and_v` | `[X] [Y]` | varied output |
 | `or_b` | `[X] [Y] BOOLOR` | boolean output |
 | `or_c` | `[X] NOTIF [Y] ENDIF` | verify or stop |
@@ -210,6 +210,7 @@ Third, wrappers are added. The most common are:
 |------------|----------------|-------|
 | c: | [X] CHECKSIG | check signature |
 | s: | SWAP [X] | swap the top of the stack |
+| t: | [X] 1 | `and_v(X,1)` |
 | v: | [X] VERIFY | verify or stop |
 
 A [complete reference](https://bitcoin.sipa.be/miniscript/) is available at sipa.be.
