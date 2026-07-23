@@ -6,11 +6,11 @@ you to input addresses derived from the seed into Bitcoin Core.
 
 ## Use Mainnet
 
-You may have noted that we've been using the `coin_type` of `0` in
-this chapter's examples and generating `xprv`. That's because
-`keytool` is focused on real-world/mainnet uses, not testnet.  That
-means you're going to need to use mainnet to test out how to import and
-export works in this chapter.
+As mentioned in the last section, we've been working with mainnet in
+the examples in this chapter.  As a result, the `coin_type` has been
+`0h` in our `m/purpose'/coin_type'/account'/` derivation paths, and
+we've been generating `xprv`.  That means you're going to need to use
+mainnet to test out how to import and export works in this chapter.
 
 To ensure this, go to ~/.bitcoin/bitcoin.conf and change the `signet=1` line to `signet=0`:
 
@@ -50,12 +50,13 @@ ps auxww | grep bitcoin
 | standup    24945  0.0  0.0   6520  2240 pts/0    S+   17:13   0:00 grep bitcoin
 ```
 
-Thenconvince it to die (`kill -9`):
+Then convince it to die (`kill -9`):
 ``` 
 kill -9 24832
 ```
 
-This will restart `bitcoind` with the new config file, which will now be using mainnet instead of signet.
+This will restart `bitcoind` with the new config file, which will now
+be using mainnet instead of signet.
 
 ## Create a Descriptor
 
@@ -114,11 +115,14 @@ echo $DESC_PKH
 As an aside, you can use `keytool` to produce an output descriptor if
 you've uncertain about the format, but it produces a watch-only
 descriptor, which means you'll have to subsituted the `xprv` for the
-`xpub` and it also doesn't show the fingerprint if you tell it a
+`xpub`, and it also doesn't show the fingerprint if you tell it a
 specific account derivation path, so it's probably better to do it by
-hand (and really get a good understanding of how the descriptor works).
+hand (and really get a good understanding of how the descriptor
+works).
 
-Nonetheless, here's an example of how an `output-descriptor` output works for keytool using the default derivation path (which is `84h/0h/0h`):
+Nonetheless, here's an example of how an `output-descriptor` output
+works for keytool using the default derivation path (which is
+`84h/0h/0h`):
 
 ```
 keytool --seed $SEED --address-index '*' output-descriptor

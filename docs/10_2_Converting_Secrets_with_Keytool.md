@@ -80,14 +80,19 @@ echo $FINGERPRINT
 | 35dad980
 ```
 
-You'll note that you skipped right past the step of creating the master private key and deriving the master public key before finger printing it. That's
-because `keytool` is smart and does all of the intermediary
-calculations without asking you. So here it goes from the seed through
-the private master key through the public master key to the
-fingerprint, and you only have to worry about the first and last
-steps.
+You'll note that you skipped right past the step of creating the
+master private key and deriving the master public key before finger
+printing it. That's because `keytool` is smart and does all of the
+intermediary calculations without asking you. So here it goes from the
+seed through the private master key through the public master key to
+the fingerprint, and you only have to worry about the first and last
+steps. (We're actually never going to output those master keys because we
+only care about things further down the hierarchy.)
 
-(We're actually never going to output those master keys because we only care about things further down the hierarchy.)
+For ease of understanding, we've also chosen to work with mainnet
+keys, so we don't constantly have to flag testnet on all the
+conversions. (Keytool does support testnet, but we're going to save
+that for a future chapter, after you've learned the basics).
 
 ## Convert to an Account Key
 
