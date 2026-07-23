@@ -235,7 +235,7 @@ $ bitcoin-cli -named gettransaction txid="33173618421804343e8f6cc21316d97a24f743
 
 ## Send a SegWit Transaction The Hard Way
 
-You can similarly fund a transaction with a Bech32 address with no difference to the techniques you've learned so far. Here's an exactly of doing so with a complete raw transaction:
+You can similarly fund a transaction with a Bech32 address with no difference to the techniques you've learned so far. Here's an example of doing so with a complete raw transaction:
 ```
 $ changeaddress=$(bitcoin-cli getrawchangeaddress)
 $ echo $changeaddress
