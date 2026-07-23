@@ -1,8 +1,8 @@
 # 16.2: Converting Policy & Miniscript
 
 There are currently no command-line functions available to convert
-Policy into Miniscript. However, an official Peter Wuille's website is
-easy to use and as official as you get in the Bitcoin world. In
+Policy into Miniscript. However, a convertor at Peter Wuille's website
+is easy to use and as official as you get in the Bitcoin world. In
 addition, some wallets allow the direct use of scripting policy and
 some APIs exist for conversion.
 
@@ -90,9 +90,9 @@ produce more compact results: it produces code using 10 elements vs 14
 in our original. That likely means that it's fewer bytes and so
 slightly cheaper to put in a block.
 
-(Is it more or less readable? That's a different
-question, but with Miniscript and especially Policy there, readability
-becomes less of an issue.)
+(Is it more or less readable? That's a different question, but with
+Miniscript and especially Policy there, readability becomes less of an
+issue.)
 
 ## Convert Policy & Miniscript with APIs
 
@@ -113,7 +113,5 @@ line with whatever scripting version you prefer.
 
 ## What's Next?
 
-Continue "Using Miniscript" with [§16.2: Converting
-Policy](16_2_Converting_Policy.md).
-
-# 16.2: Converting Policy & Miniscript
+Continue "Using Miniscript" with [§16.3: Using Miniscript with Descriptors]
+(16_3_Using_Miniscript_with_Descriptors.md).

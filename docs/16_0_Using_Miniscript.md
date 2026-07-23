@@ -2,10 +2,10 @@
 
 Bitcoin Script is somewhat unwieldly and it's definitely not
 regularized. Different people can write the same thing in dramatically
-different ways. That created two needs: first, to create a subset of
-Bitcoin Script that could be analyzed an regularized; and second, to
-create a abstraction of that to allow for the easy design of spending
-policies. Miniscript was created to meet the first need, and
+different ways. That resulted in two needs: first, to design a subset
+of Bitcoin Script that could be analyzed and regularized; and second,
+to create a abstraction of that to allow for the easy description of
+spending policies. Miniscript was created to meet the first need, and
 Miniscript policy (or just Policy) was created for the second. This
 chapter runs through how they work and how they can currently be used
 in Bitcoin Core and other tools

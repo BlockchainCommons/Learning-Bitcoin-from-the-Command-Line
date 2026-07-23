@@ -13,13 +13,13 @@ design.
 Miniscript just does what Bitcoin Script does. Or rather, it does just
 what a subset of Bitcoin Script does, and in a more constrained way.
 
-So, why have Miniscript at all? [BIP
-379](https://github.com/bitcoin/bips/blob/master/bip-0379.md) offers a
-number of reasons for the creation of a second layer of Bitcoin
-Scripting languages; Miniscript works around the open design of
+So, why have Miniscript at all? It works around the open design of
 Bitcoin Script to create something that is more analyzable and
 composable, allowing for the simpler creation of predictable Bitcoin
-Scripts.
+Scripts. [BIP
+379](https://github.com/bitcoin/bips/blob/master/bip-0379.md) offers a
+number of additional reasons for the creation of a second layer of
+Bitcoin Scripting languages.
 
 Miniscript is meant to:
 
@@ -62,11 +62,11 @@ Generally, Miniscript can recognize the following types of Bitcoin Script functi
 * If/Else Statements
 * Thresholds of Other Functions (e.g. k-of-n conditions are met)
 
-Miniscript also includes types (referring to whether fragments verify,
-set up a key for verification, or do something else with the stack);
-and wrappers (which convert between types and do other stack-based
-manipulation), and which are designated by a letter followed by a
-colon in Miniscript, such as `s:pk(key)` .
+Miniscript also includes types (referring to whether fragments verify
+their results, set up a key for verification, or do something else
+with the stack); and wrappers (which convert between types and do
+stack-based manipulation), and which are designated by a letter
+followed by a colon in Miniscript, such as `s:pk(key)` .
 
 Miniscript is meant to be a composable and analyzable version of
 Bitcoin Script, but not necessarily a design language. For example
@@ -97,8 +97,8 @@ The standard procedure is therefore:
 
 Unlike Miniscript, Policy is not fully specified. However, it's
 generally understood to include the following abstractions of
-Miniscript. Bitcoin Representations are included for those policy
-functions that are identical in Miniscript.
+Miniscript. (Bitcoin representations are included for those policy
+functions that always compile into the Miniscript code.)
 
 | Policy | Representation | Notes |
 |---------|------------|-----|
@@ -285,7 +285,7 @@ Here's how the above examples convert from Policy to Miniscript:
 
    The `andor` says to either check the escrow agent's public key and
    the second condition, or else run the third condition. The second
-   condition is a signature check (`c:`) or either the buyer or
+   condition is a signature check (`c:`) of either the buyer or
    seller's key (`or_i`). The alternative condition is a pair of
    `and_v`, which together make up the three-of-three threshold laid
    out for the buyer key, seller key, and timelock, with each of the
@@ -323,7 +323,7 @@ in the future, you can understand it.
 
 Miniscript offers a regularized, interopable way to represent Bitcoin
 Script that can be analyzed and optimized. Policy abstracts that
-further to make it easy to design spending policy. You can create at
+further to make it easy to design spending rules. You can create at
 either level, convert, then use enter the Miniscript or converted
 Bitcoin Script to create an address, depending on the functionality of
 the wallet you're using.
