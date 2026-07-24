@@ -71,7 +71,7 @@ KEYVP3=$(keytool --seed $SEEDVP3 --account-derivation-path m/84h/1h/0h/0h --netw
 echo $KEYVP3
    
 | tpubDE4kssfB4wqobfE3GWmYFkyV7giscXNG9HbXu2NykHoF1z9Tf4osozgPX4VZ8MnWxytKfeXAa89oZi9NUNauoLYcY51gFghUia34aAuj6sb
-   ```
+```
 
 ### 4. Place the Keys in the Minidescriptor
 
