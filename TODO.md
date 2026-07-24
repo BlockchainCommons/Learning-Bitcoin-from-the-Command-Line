@@ -2,21 +2,18 @@
 
 The following TODO items are intended for a 3.0 version of Learning Bitcoin from the Command Line
 
-## Immediate TODO (for 7/23): Taproot
+## Immediate TODO (for 8/6): Cleanup & Taproot
 
-1. Write 16.3: Miniscript & Descriptors
-2. Write 16.4: BDK
-3. Make Final Decisions about Taproot Chapters
+1. Edit 16.4
+2. Decide whether to redo 10 with signet
+3. Update to 31.1
+4. Make Final Decisions about Taproot Chapters
+5.. Start on Taproot
 
 ## Longer-Term TODO (Small Tasks)
 
 The following updates involve updates or the creation of new chapters, but their additions are generally bounded and known.
 
-1. New Chapter: Using Miniscript Command-Line Tools [this and next before scripts?]
-   * 16.1: Introducing miniscript
-   * 16.2: Creating Bitcoin Scripts from miniscript
-   * 16.3: Using Miniscript with Descriptors
-   * 16.4: Using Bitcoin Dev Kit (BDK)
 1. Chapter 17+18
    * Talk about anti-correlation, anti-censorship, and anti-coercion as the three "c"s ("ac"s of privacy)
 1. Close out with return to chapter 1.0 to update (a) new-for-3.0 links; and (b) what the major parts are [and what's happened to Lightning/coding]
@@ -188,6 +185,11 @@ See [release notes](https://bitcoincore.org/en/releases/0.21.0/).
 ---
 
 # Progress Log
+
+## Immediate TODO (for 7/23): Miniscript
+
+1. <strike>Write 16.3: Miniscript & Descriptors</strike>
+2. <strike>Write 16.4: BDK</strike>
 
 ## Immediate TODO (for 7/9): Scripts
 
