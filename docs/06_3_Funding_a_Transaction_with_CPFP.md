@@ -18,82 +18,89 @@ Funding a transaction with CPFP is a very simple process using the methods you'r
    
    You do have one other option: use `bitcoin-cli getrawmempool`, which can be used to list the contents of your entire mempool, where the unconfirmed transactions will be. You may have to dig through several if the mempool is particularly busy. You can then get more information on a specific transaction with `bitcoin-cli getrawtransaction` with the verbose flag set to `true`:
 
-```
-$ bitcoin-cli getrawmempool
-[
-  "72ab93c9e66f3cad39620f4689748704012b9f28acf896b348208e0fc0bafa73",
-  "115ff6412b832f7292d2117708ef88eb61be6a24bd8f0360e7dd73c02cafa36c",
-  "074a5055b8d3ae1282b913cd6c063911b2bc8f414eed4f44efc6a0459364dc80",
-  "e5f2e728aad9aafa1eab72c3654068c50cbbd5605f850f2b8a88375e580077e0"
-]
+```sh
+bitcoin-cli getrawmempool
 
-$ bitcoin-cli getrawtransaction 115ff6412b832f7292d2117708ef88eb61be6a24bd8f0360e7dd73c02cafa36c true
-{
-  "txid": "115ff6412b832f7292d2117708ef88eb61be6a24bd8f0360e7dd73c02cafa36c",
-  "hash": "cbebd8db046db6a265ce1e8c5ccf2127bbdb5f13d89bca9de0f46c25d33383ed",
-  "version": 2,
-  "size": 223,
-  "vsize": 142,
-  "weight": 565,
-  "locktime": 295321,
-  "vin": [
-    {
-      "txid": "a2de81cb60a445e4766c45d168f51d4caa57990859126d2553dba84b5f6ee4ea",
-      "vout": 0,
-      "scriptSig": {
-        "asm": "",
-        "hex": ""
-      },
-      "txinwitness": [
-        "3044022022cd7118792474d35a4ef6b4b3189d9fa88e2c6e8e2cc953598a0b9f2004bf8702207b1e72005eec6994dc4ad9099dbb640766ae50c10ecc13729fc107fd2d7cdacf01",
-        "021ab1d59b685df8373c8b5ba2fc2f1c5695a91f435df3bfbe73d7fd6797dab98a"
-      ],
-      "sequence": 4294967293
-    }
-  ],
-  "vout": [
-    {
-      "value": 0.00001000,
-      "n": 0,
-      "scriptPubKey": {
-        "asm": "OP_HASH160 c524be5df153dd875bd4dc92c4b8593403c1defd OP_EQUAL",
-        "desc": "addr(2NBDd84nZm882RwvKHifVMyHVzVsMDMStJr)#6c3e9nhz",
-        "hex": "a914c524be5df153dd875bd4dc92c4b8593403c1defd87",
-        "address": "2NBDd84nZm882RwvKHifVMyHVzVsMDMStJr",
-        "type": "scripthash"
-      }
-    },
-    {
-      "value": 1.28985887,
-      "n": 1,
-      "scriptPubKey": {
-        "asm": "0 df9bb477b0c1e15c123343ddb6001de7f3f08e4f",
-        "desc": "addr(tb1qm7dmgaasc8s4cy3ng0wmvqqaulelprj0vgvyys)#qs0dv45g",
-        "hex": "0014df9bb477b0c1e15c123343ddb6001de7f3f08e4f",
-        "address": "tb1qm7dmgaasc8s4cy3ng0wmvqqaulelprj0vgvyys",
-        "type": "witness_v0_keyhash"
-      }
-    }
-  ],
-  "hex": "02000000000101eae46e5f4ba8db53256d1259089957aa4c1df568d1456c76e445a460cb81dea20000000000fdffffff02e80300000000000017a914c524be5df153dd875bd4dc92c4b8593403c1defd871f2bb00700000000160014df9bb477b0c1e15c123343ddb6001de7f3f08e4f02473044022022cd7118792474d35a4ef6b4b3189d9fa88e2c6e8e2cc953598a0b9f2004bf8702207b1e72005eec6994dc4ad9099dbb640766ae50c10ecc13729fc107fd2d7cdacf0121021ab1d59b685df8373c8b5ba2fc2f1c5695a91f435df3bfbe73d7fd6797dab98a99810400"
-}
+| [
+|   "72ab93c9e66f3cad39620f4689748704012b9f28acf896b348208e0fc0bafa73",
+|   "115ff6412b832f7292d2117708ef88eb61be6a24bd8f0360e7dd73c02cafa36c",
+|   "074a5055b8d3ae1282b913cd6c063911b2bc8f414eed4f44efc6a0459364dc80",
+|   "e5f2e728aad9aafa1eab72c3654068c50cbbd5605f850f2b8a88375e580077e0"
+| ]
+
+bitcoin-cli getrawtransaction 115ff6412b832f7292d2117708ef88eb61be6a24bd8f0360e7dd73c02cafa36c true
+
+| {
+|   "txid": "115ff6412b832f7292d2117708ef88eb61be6a24bd8f0360e7dd73c02cafa36c",
+|   "hash": "cbebd8db046db6a265ce1e8c5ccf2127bbdb5f13d89bca9de0f46c25d33383ed",
+|   "version": 2,
+|   "size": 223,
+|   "vsize": 142,
+|   "weight": 565,
+|   "locktime": 295321,
+|   "vin": [
+|     {
+|       "txid": "a2de81cb60a445e4766c45d168f51d4caa57990859126d2553dba84b5f6ee4ea",
+|       "vout": 0,
+|       "scriptSig": {
+|         "asm": "",
+|         "hex": ""
+|       },
+|       "txinwitness": [
+|         "3044022022cd7118792474d35a4ef6b4b3189d9fa88e2c6e8e2cc953598a0b9f2004bf8702207b1e72005eec6994dc4ad9099dbb640766ae50c10ecc13729fc107fd2d7cdacf01",
+|         "021ab1d59b685df8373c8b5ba2fc2f1c5695a91f435df3bfbe73d7fd6797dab98a"
+|       ],
+|       "sequence": 4294967293
+|     }
+|   ],
+|   "vout": [
+|     {
+|       "value": 0.00001000,
+|       "n": 0,
+|       "scriptPubKey": {
+|         "asm": "OP_HASH160 c524be5df153dd875bd4dc92c4b8593403c1defd OP_EQUAL",
+|         "desc": "addr(2NBDd84nZm882RwvKHifVMyHVzVsMDMStJr)#6c3e9nhz",
+|         "hex": "a914c524be5df153dd875bd4dc92c4b8593403c1defd87",
+|         "address": "2NBDd84nZm882RwvKHifVMyHVzVsMDMStJr",
+|         "type": "scripthash"
+|       }
+|     },
+|     {
+|       "value": 1.28985887,
+|       "n": 1,
+|       "scriptPubKey": {
+|         "asm": "0 df9bb477b0c1e15c123343ddb6001de7f3f08e4f",
+|         "desc": "addr(tb1qm7dmgaasc8s4cy3ng0wmvqqaulelprj0vgvyys)#qs0dv45g",
+|         "hex": "0014df9bb477b0c1e15c123343ddb6001de7f3f08e4f",
+|         "address": "tb1qm7dmgaasc8s4cy3ng0wmvqqaulelprj0vgvyys",
+|         "type": "witness_v0_keyhash"
+|       }
+|     }
+|   ],
+|   "hex": "02000000000101eae46e5f4ba8db53256d1259089957aa4c1df568d1456c76e445a460cb81dea20000000000fdffffff02e80300000000000017a914c524be5df153dd875bd4dc92c4b8593403c1defd871f2bb00700000000160014df9bb477b0c1e15c123343ddb6001de7f3f08e4f02473044022022cd7118792474d35a4ef6b4b3189d9fa88e2c6e8e2cc953598a0b9f2004bf8702207b1e72005eec6994dc4ad9099dbb640766ae50c10ecc13729fc107fd2d7cdacf0121021ab1d59b685df8373c8b5ba2fc2f1c5695a91f435df3bfbe73d7fd6797dab98a99810400"
+| }
 ```
-Look through the `vout` array. Find the object that matches your address. The `n` value is your `vout`. You now have everything you need to create a new CPFP transaction.
-```
-$ utxo_txid=115ff6412b832f7292d2117708ef88eb61be6a24bd8f0360e7dd73c02cafa36c
-$ utxo_vout=1
-$ recipient2=$(bitcoin-cli getrawchangeaddress)
+
+Look through the `vout` array. Find the object that matches your
+address. The `n` value is your `vout`. You now have everything you
+need to create a new CPFP transaction.
+
+```sh
+utxo_txid=115ff6412b832f7292d2117708ef88eb61be6a24bd8f0360e7dd73c02cafa36c
+utxo_vout=1
+recipient2=$(bitcoin-cli getrawchangeaddress)
 ```
 
    2. Create a raw transaction using your unconfirmed transaction as an input.
    3. Double your expected transaction fees (or more). (This transaction uses a fee of about $1.41, which is ridiculous based on current fees, but definitely should be enough to free up the transaction.)
    
 When you take these steps, everything should look totally normal, despite the fact that you're working with an unconfirmed transaction. To verify that all was well, we even looked at the results of our signature before we saved off the information to a variable:
-```
-$ rawtxhex=$(bitcoin-cli -named createrawtransaction inputs='''[ { "txid": "'$utxo_txid'", "vout": '$utxo_vout' } ]''' outputs='''{ "'$recipient2'": 1.28983887 }''')
 
-$ signedtx=$(bitcoin-cli -named signrawtransaction hexstring=$rawtxhex | jq -r '.hex')
-$ txid=$(bitcoin-cli -named sendrawtransaction hexstring=$signedtx)
+```sh
+rawtxhex=$(bitcoin-cli -named createrawtransaction inputs='''[ { "txid": "'$utxo_txid'", "vout": '$utxo_vout' } ]''' outputs='''{ "'$recipient2'": 1.28983887 }''')
+
+signedtx=$(bitcoin-cli -named signrawtransaction hexstring=$rawtxhex | jq -r '.hex')
+txid=$(bitcoin-cli -named sendrawtransaction hexstring=$signedtx)
 ```
 
    4. Crossing your fingers is not needed. You have verified your data is correct. From this point on, things are out of your hands.
@@ -120,4 +127,4 @@ You can take advantage of the CPFP incentives to free up funds that have been se
 
 Move on to "Expanding Bitcoin Transactions" with [Chapter Seven:
 Expanding Bitcoin Transactions with
-Multisigs](06_0_Expanding_Bitcoin_Transactions_Multisigs.md).
+Multisigs](07_0_Expanding_Bitcoin_Transactions_Multisigs.md).
