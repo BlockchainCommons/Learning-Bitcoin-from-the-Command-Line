@@ -54,6 +54,7 @@ getdeploymentinfo ( "blockhash" )
 getdescriptoractivity ["blockhash",...] [scanobjects,...] ( include_mempool )
 getdifficulty
 getmempoolancestors "txid" ( verbose )
+getmempoolcluster "txid"
 getmempooldescendants "txid" ( verbose )
 getmempoolentry "txid"
 getmempoolinfo
@@ -61,7 +62,7 @@ getrawmempool ( verbose mempool_sequence )
 gettxout "txid" n ( include_mempool )
 gettxoutproof ["txid",...] ( "blockhash" )
 gettxoutsetinfo ( "hash_type" hash_or_height use_index )
-gettxspendingprevout [{"txid":"hex","vout":n},...]
+gettxspendingprevout [{"txid":"hex","vout":n},...] ( {"mempool_only":bool,"return_spending_tx":bool,...} )
 importmempool "filepath" ( options )
 loadtxoutset "path"
 preciousblock "blockhash"
@@ -109,6 +110,7 @@ setban "subnet" "command" ( bantime absolute )
 setnetworkactive state
 
 == Rawtransactions ==
+abortprivatebroadcast "id"
 analyzepsbt "psbt"
 combinepsbt ["psbt",...]
 combinerawtransaction ["hexstring",...]
@@ -121,6 +123,7 @@ decodescript "hexstring"
 descriptorprocesspsbt "psbt" ["",{"desc":"str","range":n or [n,n]},...] ( "sighashtype" bip32derivs finalize )
 finalizepsbt "psbt" ( extract )
 fundrawtransaction "hexstring" ( options iswitness )
+getprivatebroadcastinfo
 getrawtransaction "txid" ( verbosity "blockhash" )
 joinpsbts ["psbt",...]
 sendrawtransaction "hexstring" ( maxfeerate maxburnamount )
@@ -187,7 +190,6 @@ sendall ["address",{"address":amount,...},...] ( conf_target "estimate_mode" fee
 sendmany ( "" ) {"address":amount,...} ( minconf "comment" ["address",...] replaceable conf_target "estimate_mode" fee_rate verbose )
 sendtoaddress "address" amount ( "comment" "comment_to" subtractfeefromamount replaceable conf_target "estimate_mode" avoid_reuse fee_rate verbose )
 setlabel "address" "label"
-settxfee amount
 setwalletflag "flag" ( value )
 signmessage "address" "message"
 signrawtransactionwithwallet "hexstring" ( [{"txid":"hex","vout":n,"scriptPubKey":"hex","redeemScript":"hex","witnessScript":"hex","amount":amount},...] "sighashtype" )
@@ -202,7 +204,6 @@ walletprocesspsbt "psbt" ( sign "sighashtype" bip32derivs finalize )
 
 == Zmq ==
 getzmqnotifications
-
 ```
 You can also type `bitcoin-cli help [command]` to get even more extensive info on that command. For example:
 
