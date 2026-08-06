@@ -55,9 +55,11 @@ txconfirmtarget=1
 In order to get through this tutorial, we're willing to spend 10,000 satoshis per kB on every transaction (about a buck and a half for common SegWit transactions), and we want to get each transaction into the next block! (Not recommended for real money!)
 
 After you've edited your bitcoin.conf file, you'll want to kill and restart bitcoind.
-```
-$ bitcoin-cli stop
-$ bitcoind -daemon
+
+```sh
+bitcoin-cli stop
+
+bitcoind -daemon
 ```
 
 ## Get an Address
@@ -67,10 +69,12 @@ You need somewhere to send your coins to. Usually, someone would send you an add
 ## Send the Coins
 
 You're now ready to send some coins. This is actually quite simple via the command line. You just use `bitcoin-cli sendtoaddress [address] [amount]`. So, to send a little coinage to the address `tb1qg3lau83hm9e9tdvzr5k7aqtw3uv0dwkfct4xdn` just requires:
-```
-$ txid=$(bitcoin-cli sendtoaddress tb1qg3lau83hm9e9tdvzr5k7aqtw3uv0dwkfct4xdn 0.001)
-$ echo $txid
-cb48282e86c846b8357374d74e9ea24deeaeb48cf447634a8b951c98cfc559c5
+
+```sh
+txid=$(bitcoin-cli sendtoaddress tb1qg3lau83hm9e9tdvzr5k7aqtw3uv0dwkfct4xdn 0.001)
+echo $txid
+
+| cb48282e86c846b8357374d74e9ea24deeaeb48cf447634a8b951c98cfc559c5
 ```
 
 Make sure the address you write in is where you want the money to go. Make _double_ sure. If you make mistakes in Bitcoin, there's no going back.
@@ -88,143 +92,154 @@ You'll receive a txid back when you issue this command.
 ## Examine Your Transaction
 
 You can look at your transaction using your transaction id:
-```
-$ bitcoin-cli gettransaction $txid
-{
-  "amount": -0.00100000,
-  "fee": -0.00001410,
-  "confirmations": 4,
-  "blockhash": "00000000b594f3a382e1b13fac4847d8790dda630f31335e0e0c42abaaaef7b6",
-  "blockheight": 293297,
-  "blockindex": 2,
-  "blocktime": 1772134375,
-  "txid": "cb48282e86c846b8357374d74e9ea24deeaeb48cf447634a8b951c98cfc559c5",
-  "wtxid": "f8f52643b864848b668307df03e192bedf0349ba3c067258c9fb698652061f82",
-  "walletconflicts": [
-  ],
-  "mempoolconflicts": [
-  ],
-  "time": 1772133414,
-  "timereceived": 1772133414,
-  "bip125-replaceable": "no",
-  "details": [
-    {
-      "address": "tb1qg3lau83hm9e9tdvzr5k7aqtw3uv0dwkfct4xdn",
-      "category": "send",
-      "amount": -0.00100000,
-      "vout": 0,
-      "fee": -0.00001410,
-      "abandoned": false
-    }
-  ],
-  "hex": "02000000000101356d1fee7ad60b61af6289b394394e83470b7eb31014533bca3753387b1a53af8702000000fdffffff02a086010000000000160014447fde1e37d97255b5821d2dee816e8f18f6bac9420c0300000000001600141026285b51dc0aa759119f4b5f63cb364a5aa8cd02473044022069e48cacbeabe4e83892d84380d2bc01ccb0d7bc253fb1d9e9198e7fbd26544702201e9b1eeb83f380a184f9f24882d8c8aa2a3516fb9013816038578869f8ce5b58012103abf1f9337ad039d7c80f34e9de656cf479de074251ae2601bca7f8c05e984a23ac790400",
-  "lastprocessedblock": {
-    "hash": "00000007d62a1ce40b164b7e8b909e743e1a43f1f0a740e5d4d4b776f40d841b",
-    "height": 293300
-  }
-}
+
+```sh
+bitcoin-cli gettransaction $txid
+
+| {
+|   "amount": -0.00100000,
+|   "fee": -0.00001410,
+|   "confirmations": 4,
+|   "blockhash": "00000000b594f3a382e1b13fac4847d8790dda630f31335e0e0c42abaaaef7b6",
+|   "blockheight": 293297,
+|   "blockindex": 2,
+|   "blocktime": 1772134375,
+|   "txid": "cb48282e86c846b8357374d74e9ea24deeaeb48cf447634a8b951c98cfc559c5",
+|   "wtxid": "f8f52643b864848b668307df03e192bedf0349ba3c067258c9fb698652061f82",
+|   "walletconflicts": [
+|   ],
+|   "mempoolconflicts": [
+|   ],
+|   "time": 1772133414,
+|   "timereceived": 1772133414,
+|   "bip125-replaceable": "no",
+|   "details": [
+|     {
+|       "address": "tb1qg3lau83hm9e9tdvzr5k7aqtw3uv0dwkfct4xdn",
+|       "category": "send",
+|       "amount": -0.00100000,
+|       "vout": 0,
+|       "fee": -0.00001410,
+|       "abandoned": false
+|     }
+|   ],
+|   "hex": "02000000000101356d1fee7ad60b61af6289b394394e83470b7eb31014533bca3753387b1a53af8702000000fdffffff02a086010000000000160014447fde1e37d97255b5821d2dee816e8f18f6bac9420c0300000000001600141026285b51dc0aa759119f4b5f63cb364a5aa8cd02473044022069e48cacbeabe4e83892d84380d2bc01ccb0d7bc253fb1d9e9198e7fbd26544702201e9b1eeb83f380a184f9f24882d8c8aa2a3516fb9013816038578869f8ce5b58012103abf1f9337ad039d7c80f34e9de656cf479de074251ae2601bca7f8c05e984a23ac790400",
+|   "lastprocessedblock": {
+|     "hash": "00000007d62a1ce40b164b7e8b909e743e1a43f1f0a740e5d4d4b776f40d841b",
+|     "height": 293300
+|   }
+| }
 ```
 You can see not only the amount transferred (`0.001` BTC) but also a transaction fee (`0.00001410` BTC).
 
 If you look at `bitcoin-cli listunspent`, you will see that one of the transactions where you received money (probably from a faucet) is entirely gone. Don't panic! After your `sendtoaddress`  has been confirmed, it will be replaced by a new transaction that's dated to the same time as the money you sent out:
+
+```sh
+|   {
+|     "txid": "cb48282e86c846b8357374d74e9ea24deeaeb48cf447634a8b951c98cfc559c5",
+|     "vout": 1,
+|     "address": "tb1qzqnzsk63ms92wkg3na947c7txe9942xdlajgzs",
+|     "scriptPubKey": "00141026285b51dc0aa759119f4b5f63cb364a5aa8cd",
+|     "amount": 0.00199746,
+|     "confirmations": 4,
+|     "spendable": true,
+|     "solvable": true,
+|     "desc": "wpkh([b8309bae/84h/1h/0h/1/0]02af4466702f92acef7f9e333cfed298740c15ea0fbeaae0c307d41745792483c6)#up0l68qf",
+|     "parent_descs": [
+|       "wpkh([b8309bae/84h/1h/0h]tpubDDpSvPDUjstxFUEWzHkaL4qykf8vjNCspm8SZ26Z1wgPFbd63AdYrn4bDpEGPT1giJ6gcLW8Xou8fnhi35DJrUza9ikgu5dg2mDkd8jQpA6/1/*)#eeegkjmk"
+|     ],
+|     "safe": true
+|   }
 ```
-  {
-    "txid": "cb48282e86c846b8357374d74e9ea24deeaeb48cf447634a8b951c98cfc559c5",
-    "vout": 1,
-    "address": "tb1qzqnzsk63ms92wkg3na947c7txe9942xdlajgzs",
-    "scriptPubKey": "00141026285b51dc0aa759119f4b5f63cb364a5aa8cd",
-    "amount": 0.00199746,
-    "confirmations": 4,
-    "spendable": true,
-    "solvable": true,
-    "desc": "wpkh([b8309bae/84h/1h/0h/1/0]02af4466702f92acef7f9e333cfed298740c15ea0fbeaae0c307d41745792483c6)#up0l68qf",
-    "parent_descs": [
-      "wpkh([b8309bae/84h/1h/0h]tpubDDpSvPDUjstxFUEWzHkaL4qykf8vjNCspm8SZ26Z1wgPFbd63AdYrn4bDpEGPT1giJ6gcLW8Xou8fnhi35DJrUza9ikgu5dg2mDkd8jQpA6/1/*)#eeegkjmk"
-    ],
-    "safe": true
-  }
-```
+
 This is all expected. Cryptocurrency doesn't come in bills and coins, like physical money, but instead in singular blobs. If someone sends you 0.01798971 BTC, then that entire amount is stored in the transaction that sent you the money. When you pay someone else, you use that transactions, send part of it to your recipient _and_ send the rest back to yourself as "change", forming a new address. More on that in the next section. Fortunately, `sendtoaddress` takes care of this for you, generating a change address and looping the remaining funds back: that's the additional transaction you see in your wallet (and why a previous transaction disappeared). It'll just take a short time to show up (usually 10 minutes or less if you're using robust transaction-fee values on Signet).
 
 ## Send Coins the Even Easier Way
 
 There's perhaps an even easier way to send coins in Bitcoin, though it has less applicability than `sendtoaddress`. It's `sendall` and it works like this:
-```
-$ bitcoin-cli sendall '["tb1qxe0nn84xxw76jfc0s93g8kuefu2llglcvscy28"]'
-{
-  "txid": "593a8eec3302c76532f6cd5f2e2c0e2f5eb1b3bd9b45d72279ad23b23cf13005",
-  "complete": true
-}
+
+```sh
+bitcoin-cli sendall '["tb1qxe0nn84xxw76jfc0s93g8kuefu2llglcvscy28"]'
+
+| {
+|   "txid": "593a8eec3302c76532f6cd5f2e2c0e2f5eb1b3bd9b45d72279ad23b23cf13005",
+|   "complete": true
+| }
 ```
 You give `sendall` a JSON array of address (just one here), and it'll send _all_ the money from your wallet to those addresses, equally split among them. There are some additional options, such as specifying amounts for certain addresses, with the balance of the funds then being divided among the rest. 
 
 If you start with a wallet with multiple transactions:
-```
-$ bitcoin-cli listunspent
-[
-  {
-    "txid": "f2351b40729f714abd5eaeb4bd387b97268c89995c0d5f90fc3558954d5911c5",
-    "vout": 1,
-    "address": "tb1qxmx50fc06jt67nw6eqdcsm3rexgn6qvcet3rcm",
-    "label": "",
-    "scriptPubKey": "001436cd47a70fd497af4ddac81b886e23c9913d0198",
-    "amount": 0.01798971,
-    "confirmations": 9,
-    "spendable": true,
-    "solvable": true,
-    "desc": "wpkh([b8309bae/84h/1h/0h/0/2]033dbb8f06ec43956d9f177e43d9d3bb9b2021cf78feb2a48116a984a54ef5a7db)#q3jnn2nv",
-    "parent_descs": [
-      "wpkh([b8309bae/84h/1h/0h]tpubDDpSvPDUjstxFUEWzHkaL4qykf8vjNCspm8SZ26Z1wgPFbd63AdYrn4bDpEGPT1giJ6gcLW8Xou8fnhi35DJrUza9ikgu5dg2mDkd8jQpA6/0/*)#gduft8tw"
-    ],
-    "safe": true
-  },
-  {
-    "txid": "cb48282e86c846b8357374d74e9ea24deeaeb48cf447634a8b951c98cfc559c5",
-    "vout": 1,
-    "address": "tb1qzqnzsk63ms92wkg3na947c7txe9942xdlajgzs",
-    "scriptPubKey": "00141026285b51dc0aa759119f4b5f63cb364a5aa8cd",
-    "amount": 0.00199746,
-    "confirmations": 4,
-    "spendable": true,
-    "solvable": true,
-    "desc": "wpkh([b8309bae/84h/1h/0h/1/0]02af4466702f92acef7f9e333cfed298740c15ea0fbeaae0c307d41745792483c6)#up0l68qf",
-    "parent_descs": [
-      "wpkh([b8309bae/84h/1h/0h]tpubDDpSvPDUjstxFUEWzHkaL4qykf8vjNCspm8SZ26Z1wgPFbd63AdYrn4bDpEGPT1giJ6gcLW8Xou8fnhi35DJrUza9ikgu5dg2mDkd8jQpA6/1/*)#eeegkjmk"
-    ],
-    "safe": true
-  }
-]
+
+```sh
+bitcoin-cli listunspent
+
+| [
+|   {
+|     "txid": "f2351b40729f714abd5eaeb4bd387b97268c89995c0d5f90fc3558954d5911c5",
+|     "vout": 1,
+|     "address": "tb1qxmx50fc06jt67nw6eqdcsm3rexgn6qvcet3rcm",
+|     "label": "",
+|     "scriptPubKey": "001436cd47a70fd497af4ddac81b886e23c9913d0198",
+|     "amount": 0.01798971,
+|     "confirmations": 9,
+|     "spendable": true,
+|     "solvable": true,
+|     "desc": "wpkh([b8309bae/84h/1h/0h/0/2]033dbb8f06ec43956d9f177e43d9d3bb9b2021cf78feb2a48116a984a54ef5a7db)#q3jnn2nv",
+|     "parent_descs": [
+|       "wpkh([b8309bae/84h/1h/0h]tpubDDpSvPDUjstxFUEWzHkaL4qykf8vjNCspm8SZ26Z1wgPFbd63AdYrn4bDpEGPT1giJ6gcLW8Xou8fnhi35DJrUza9ikgu5dg2mDkd8jQpA6/0/*)#gduft8tw"
+|     ],
+|     "safe": true
+|   },
+|   {
+|     "txid": "cb48282e86c846b8357374d74e9ea24deeaeb48cf447634a8b951c98cfc559c5",
+|     "vout": 1,
+|     "address": "tb1qzqnzsk63ms92wkg3na947c7txe9942xdlajgzs",
+|     "scriptPubKey": "00141026285b51dc0aa759119f4b5f63cb364a5aa8cd",
+|     "amount": 0.00199746,
+|     "confirmations": 4,
+|     "spendable": true,
+|     "solvable": true,
+|     "desc": "wpkh([b8309bae/84h/1h/0h/1/0]02af4466702f92acef7f9e333cfed298740c15ea0fbeaae0c307d41745792483c6)#up0l68qf",
+|     "parent_descs": [
+|       "wpkh([b8309bae/84h/1h/0h]tpubDDpSvPDUjstxFUEWzHkaL4qykf8vjNCspm8SZ26Z1wgPFbd63AdYrn4bDpEGPT1giJ6gcLW8Xou8fnhi35DJrUza9ikgu5dg2mDkd8jQpA6/1/*)#eeegkjmk"
+|     ],
+|     "safe": true
+|   }
+| ]
 ```
 
 It'll be emptied out by this command:
-```
-$ bitcoin-cli listunspent
-[
-]
+
+```sh
+bitcoin-cli listunspent
+
+| [
+| ]
 ```
 
 After sufficient blocks have been confirmed, the recipient should see the funds, minus transaction fees (which are by default set to 1 sat/vB, ignoring values such as `mintxfee`).
 
-```
-$ bitcoin-cli listunspent
-[
-  {
-    "txid": "593a8eec3302c76532f6cd5f2e2c0e2f5eb1b3bd9b45d72279ad23b23cf13005",
-    "vout": 0,
-    "address": "tb1qxe0nn84xxw76jfc0s93g8kuefu2llglcvscy28",
-    "label": "",
-    "scriptPubKey": "0014365f399ea633bda9270f816283db994f15ffa3f8",
-    "amount": 0.01996947,
-    "confirmations": 1,
-    "spendable": true,
-    "solvable": true,
-    "desc": "wpkh([b8309bae/84h/1h/0h/0/3]02e60a25d4492c3ddd4a31cdba5d57df163359e623e3fb2eda15b8ffc050e0cc42)#wfg3yz80",
-    "parent_descs": [
-      "wpkh([b8309bae/84h/1h/0h]tpubDDpSvPDUjstxFUEWzHkaL4qykf8vjNCspm8SZ26Z1wgPFbd63AdYrn4bDpEGPT1giJ6gcLW8Xou8fnhi35DJrUza9ikgu5dg2mDkd8jQpA6/0/*)#gduft8tw"
-    ],
-    "safe": true
-  }
-]
+```sh
+bitcoin-cli listunspent
+
+| [
+|   {
+|     "txid": "593a8eec3302c76532f6cd5f2e2c0e2f5eb1b3bd9b45d72279ad23b23cf13005",
+|     "vout": 0,
+|     "address": "tb1qxe0nn84xxw76jfc0s93g8kuefu2llglcvscy28",
+|     "label": "",
+|     "scriptPubKey": "0014365f399ea633bda9270f816283db994f15ffa3f8",
+|     "amount": 0.01996947,
+|     "confirmations": 1,
+|     "spendable": true,
+|     "solvable": true,
+|     "desc": "wpkh([b8309bae/84h/1h/0h/0/3]02e60a25d4492c3ddd4a31cdba5d57df163359e623e3fb2eda15b8ffc050e0cc42)#wfg3yz80",
+|     "parent_descs": [
+|       "wpkh([b8309bae/84h/1h/0h]tpubDDpSvPDUjstxFUEWzHkaL4qykf8vjNCspm8SZ26Z1wgPFbd63AdYrn4bDpEGPT1giJ6gcLW8Xou8fnhi35DJrUza9ikgu5dg2mDkd8jQpA6/0/*)#gduft8tw"
+|     ],
+|     "safe": true
+|   }
+| ]
 ```
 
 Why would you do this? Mainly to sweep a wallet.
