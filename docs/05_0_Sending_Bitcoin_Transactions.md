@@ -21,9 +21,9 @@ Supporting objectives include the ability to:
   
   * [Section One: Sending Coins the Easy Way](05_1_Sending_Coins_The_Easy_Way.md)
   * [Section Two: Creating a Raw Transaction](05_2_Creating_a_Raw_Transaction.md)
-     * [Interlude: Using JQ](05_2__Interlude_Using_JQ.md)
+     * [Interlude: Using JQ](05_2a_Interlude_Using_JQ.md)
   * [Section Three: Creating a Raw Transaction with Named Arguments](05_3_Creating_a_Raw_Transaction_with_Named_Arguments.md)
   * [Section Four: Sending Coins with Raw Transactions](05_4_Sending_Coins_with_a_Raw_Transaction.md)
-     * [Interlude: Using Curl](05_4__Interlude_Using_Curl.md)
+     * [Interlude: Using Curl](05_4a_Interlude_Using_Curl.md)
   * [Section Five: Sending Coins with Automated Raw Transactions](05_5_Sending_Coins_with_Automated_Raw_Transactions.md)
   * [Section Six: Sending Coins to Other Addresses](05_6_Sending_Coins_to_Other_Addresses.md)

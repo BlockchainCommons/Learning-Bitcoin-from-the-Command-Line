@@ -7,7 +7,7 @@ them the first way, using the `sendtoaddress` command. Since then,
 we've been building details on how to send coins a second way, with
 raw transactions. [§5.2](05_2_Creating_a_Raw_Transaction.md) taught
 how to create a raw transaction, an
-[Interlude](05_2__Interlude_Using_JQ.md) explained JQ, and
+[Interlude](05_2a_Interlude_Using_JQ.md) explained JQ, and
 [§5.3](05_3_Creating_a_Raw_Transaction_with_Named_Arguments.md)
 demonstrated named arguments.
 
@@ -242,7 +242,8 @@ To send coins with raw transactions, you need to create a raw transaction with o
 
 ## What's Next?
 
-See another alternative way to input commands with [Interlude: Using Curl](04_4__Interlude_Using_Curl.md).
+See another alternative way to input commands with [Interlude: Using
+Curl](05_4a_Interlude_Using_Curl.md).
 
 Or, if you prefer to skip what's frankly a digression, learn a final way to "Send Bitcoin Transactions" with [§5.5 Sending Coins with Automated Raw Transactions](05_5_Sending_Coins_with_Automated_Raw_Transactions.md).
 
