@@ -233,6 +233,13 @@ echo $MP_KEY
 | xprv9s21ZrQH143K4YGw3kaAmh3ezx1Xo4AanFmnX8TbaGghuNxXP9MDt2rPrLDyouX5kg9fiDJn7BELPnWRKwtVFn6aUBaNYJC9Mu6s39DnAo4/44h/0h/0h/0/*
 ```
 
+## Return to Signet
+
+If you moved over to mainnet as suggested for this chapter, remember
+to [return to
+signet](https://learningbitcoin.blockchaincommons.com/10_3_Importing_Secrets_to_Bitcoin_Core/#use-mainnet)
+now. You just need to set the `signet` flag back to `signet=1` and kill the `bitcoind` process to restart it.
+
 ## Summary: Exporting Secrets from Bitcoin Core
 
 Bitcoin Core doesn't currently allow you to export the seed. However,

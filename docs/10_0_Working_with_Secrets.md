@@ -14,6 +14,7 @@ After working through this chapter, a developer will be able to:
    * Create a Seed Outside of Bitcoin Core
    * Import Keys from that Seed into Bitcoin Core
    * Export Keys from Bitcoin Core for Storage Elsewhere
+   * Use Shamir's Secret Sharing to Protect Secrets
    
 Supporting objectives include the ability to:
 

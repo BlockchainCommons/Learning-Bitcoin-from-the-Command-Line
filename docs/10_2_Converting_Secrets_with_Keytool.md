@@ -92,7 +92,7 @@ only care about things further down the hierarchy.)
 For ease of understanding, we've also chosen to work with mainnet
 keys, so we don't constantly have to flag testnet on all the
 conversions. (Keytool does support testnet, but we're going to save
-that for a future chapter, after you've learned the basics).
+that for a future chapter, after you've learned the basics.)
 
 ## Convert to an Account Key
 
