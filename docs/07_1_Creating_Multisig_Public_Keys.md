@@ -224,7 +224,11 @@ $ bitcoin-cli -rpcwallet=watchmulti getaddressesbylabel ""
 }
 ```
 
-Remember per [§3.3](03_3_Setting_Up_Your_Wallet.md#optional-create-multiple-wallets) that you can `loadwallet`, `unloadwallet`, or use the `-rpcwallet` flag when multuple wallets are loaded. In this case, we're using `-rpcwallet` to make it clear that we're accessing something other than our default (`""`) wallet.
+Remember per
+[§3.3](03_3_Setting_Up_Your_Wallet.md#optional-create-multiple-wallets)
+that you can `loadwallet`, `unloadwallet`, or use the `-rpcwallet`
+flag when multuple wallets are loaded. In this case, we're using
+`-rpcwallet` to make it clear that we're accessing the "watchmulti" wallet.
 
 ## Send to a Multisig Address
 

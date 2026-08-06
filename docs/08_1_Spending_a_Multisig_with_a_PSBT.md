@@ -32,11 +32,11 @@ $ bitcoin-cli -rpcwallet=watchmulti getbalance
 The co-owners of the multisig are now ready to split up its funds. They'll each supply an address for receipt of the funds.
 
 ```
-machine1$ split1=$(bitcoin-cli -rpcwallet="" getnewaddress)
+machine1$ split1=$(bitcoin-cli -rpcwallet="mainwallet" getnewaddress)
 machine1$ echo $split1
 tb1qjpjx8wlhapsd0p5n9m7dl8e8myrpg4l9hu46rz
 
-machine2$ split2=$(bitcoin-cli -rpcwallet="" getnewaddress)
+machine2$ split2=$(bitcoin-cli -rpcwallet="mainwallet" getnewaddress)
 machine2$ echo $split2
 tb1q5u203aa6zf7jgjxk8rp7n5z83xfjwewd7u0a20
 ```
@@ -262,7 +262,7 @@ Each person then signs that PSBT on their own machine, again using the `walletpr
 
 Here's the first user doing so:
 ```
-machine1$ psbt_sig1=$(bitcoin-cli -rpcwallet="" walletprocesspsbt $psbt | jq -r '.psbt')
+machine1$ psbt_sig1=$(bitcoin-cli -rpcwallet="mainwallet" walletprocesspsbt $psbt | jq -r '.psbt')
 ```
 They indeed now see one less signer is needed:
 ```
@@ -288,11 +288,11 @@ machine1$ bitcoin-cli analyzepsbt $psbt_sig1
 ```
 The other user does the same thing on their own machine
 ```
-machine2$ psbt_sig2=$(bitcoin-cli -rpcwallet="" walletprocesspsbt $psbt | jq -r '.psbt')
+machine2$ psbt_sig2=$(bitcoin-cli -rpcwallet="mainwallet" walletprocesspsbt $psbt | jq -r '.psbt')
 ```
 They see a mirrored result, with the other signature missing:
 ```
-machine2$ psbt_sig2=$(bitcoin-cli -rpcwallet="" walletprocesspsbt $psbt | jq -r '.psbt')
+machine2$ psbt_sig2=$(bitcoin-cli -rpcwallet="mainwallet" walletprocesspsbt $psbt | jq -r '.psbt')
 Shannons-MacBook-Pro:~ ShannonA$ bitcoin-cli analyzepsbt $psbt_sig2
 {
   "inputs": [

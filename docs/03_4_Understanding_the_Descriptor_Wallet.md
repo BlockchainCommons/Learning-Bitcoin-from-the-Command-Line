@@ -130,7 +130,7 @@ with `bitcoin-cli listdescriptors`:
 bitcoin-cli listdescriptors
 
 | {
-|   "wallet_name": "",
+|   "wallet_name": "mainwallet",
 |   "descriptors": [
 |     {
 |       "desc": "pkh([e18dae20/44h/1h/0h]tpubDCsocyjrtJLXKJ3atFwKf6FiPheuVNV27B1swsGiNvk4cuPhVTsCDvusSNcH8thnS68FPFotgHqo9FHNGrvhtx6ZqdbWBQTWrCgK9xous17/0/*)#5q6np9at",

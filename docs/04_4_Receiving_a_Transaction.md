@@ -67,7 +67,7 @@ The `bitcoin-cli getwalletinfo` command gives you more information on the balanc
 bitcoin-cli getwalletinfo
 
 | {
-|   "walletname": "",
+|   "walletname": "mainwallet",
 |   "walletversion": 169900,
 |   "format": "sqlite",
 |   "txcount": 3,

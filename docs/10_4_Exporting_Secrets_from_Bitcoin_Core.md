@@ -11,8 +11,9 @@ We're going to continue working in
 for this example, but you should use a Bitcoin Core-generated wallet,
 not the descriptor-based wallet we imported in the last section.
 
-Unload your "seed" wallet from the last section or create a new ""
-wallet depending on what you've done to date with Bitcoin Core.
+Unload your "seed" wallet from the last section or create a new
+default (e.g., "mainwallet")" wallet depending on what you've done to
+date with Bitcoin Core.
 
 ```
 bitcoin-cli unloadwallet "seed"
@@ -23,7 +24,7 @@ bitcoin-cli unloadwallet "seed"
 bitcoin-cli listwallets
 
 | [
-|   ""
+|   "mainwallet"
 | ]
 ```
 
@@ -56,7 +57,7 @@ of times:
 bitcoin-cli listdescriptors
 
 | {
-|   "wallet_name": "",
+|   "wallet_name": "mainwallet",
 |   "descriptors": [
 |     {
 |       "desc": "pkh([3ce1d173/44h/0h/0h]xpub6BxVLeeQGSK4tVGLLZopaabNwFUZe223FfLCAa3PWNxpwqnCcZVRvDNH13fKh4Ea5w785U9a7u1LX5Tu9m9gpdi2i5PEE6aMNvXGi2LuKdV/0/*)#q8nl9w4h",
@@ -117,10 +118,10 @@ you add a `true` argument (which sets the `private` named argument to
 true).
 
 ```
-bitcoin-cli -rpcwallet="" listdescriptors true
+bitcoin-cli -rpcwallet="mainwallet" listdescriptors true
 
 | {
-|   "wallet_name": "",
+|   "wallet_name": "mainwallet",
 |   "descriptors": [
 |     {
 |       "desc": "pkh(xprv9s21ZrQH143K4YGw3kaAmh3ezx1Xo4AanFmnX8TbaGghuNxXP9MDt2rPrLDyouX5kg9fiDJn7BELPnWRKwtVFn6aUBaNYJC9Mu6s39DnAo4/44h/0h/0h/0/*)#e0uydrgt",
