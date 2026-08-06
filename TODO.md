@@ -4,11 +4,8 @@ The following TODO items are intended for a 3.0 version of Learning Bitcoin from
 
 ## Immediate TODO (for 8/6): Cleanup & Taproot
 
-1. Edit 16.4
-2. Decide whether to redo 10 with signet
-3. Update to 31.1
 4. Make Final Decisions about Taproot Chapters
-5.. Start on Taproot
+5. Start on Taproot
 
 ## Longer-Term TODO (Small Tasks)
 
@@ -186,6 +183,13 @@ See [release notes](https://bitcoincore.org/en/releases/0.21.0/).
 
 # Progress Log
 
+## Immediate TODO (for 8/6): Cleanup & Taproot
+
+1. <strike>Updated Scripts to BTCC 31.1</strike>
+2. <strike>Removed "" Wallet per 31.1</strike>
+3. <strike>Edited 16.4</strike>
+4. <strike>Reformatted Output of Chapter 5-6</strike>
+
 ## Immediate TODO (for 7/23): Miniscript
 
 1. <strike>Write 16.3: Miniscript & Descriptors</strike>
@@ -196,6 +200,7 @@ See [release notes](https://bitcoincore.org/en/releases/0.21.0/).
 1. <strike>Revise Chapter 15</strike>
 2. <strike>Wrote & Edited 16.0-16.1: Intros</strike>
 3. <strike>Wrote 16.2: Converting Miniscript</strike>
+4. <strike>Reformatted Output of Chapters 1-4</strike>
 
 ## Immediate TODO (for 6/25): Scripts
 
