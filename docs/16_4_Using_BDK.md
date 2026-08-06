@@ -30,13 +30,14 @@ RPC. Usually, we'd choose RPC, so that we can use our own private
 server ... except `bdk-cli` doesn't sync properly with a pruned node.
 
 So we're instead going to use `electrum`, as
-`ssl://mempool.space:60602` provides access to a public Signet server.
+`ssl://mempool.space:60602` provides access to a public Signet
+Electrum server.
 
 ### Config a Wallet
 
 All commands in `bdk-cli` are hierarchical, so for example you have a
-`wallet` command and as a `config` command that allows you to create a
-wallet from a descriptor (much like `importdescriptors` for
+`wallet` command and under that a `config` command that allows you to
+create a wallet from a descriptor (much like `importdescriptors` for
 `bitcoin-cli`).
 
 In this case, we're going to demonstrate basic `bdk-cli` functionality
@@ -45,39 +46,42 @@ moving funds between wallets) by copying a descriptor from
 `bitcoin-cli` to `bdk-cli`.
 
 Here's our Segwit descriptors from `bitcoin-cli`, with their private keys:
+
 ```sh
 bitcoin-cli listdescriptors true
-{
-   ...
-    {
-      "desc": "wpkh(tprv8ZgxMBicQKsPfCYFA9DANn81pjg3GPfAzLEdtywSxJAL3pGz41CgVZ8ChvdULoetthwZmd7nYvghRBaY2wDvg1WoStSumpGcdqRW3ZdpY1b/84h/1h/0h/0/*)#9fxgzcuj",
-      "timestamp": 1784828880,
-      "active": true,
-      "internal": false,
-      "range": [
-        0,
-        1000
-      ],
-      "next": 1,
-      "next_index": 1
-    },
-    {
-      "desc": "wpkh(tprv8ZgxMBicQKsPfCYFA9DANn81pjg3GPfAzLEdtywSxJAL3pGz41CgVZ8ChvdULoetthwZmd7nYvghRBaY2wDvg1WoStSumpGcdqRW3ZdpY1b/84h/1h/0h/1/*)#5arfldv2",
-      "timestamp": 1784828881,
-      "active": true,
-      "internal": true,
-      "range": [
-        0,
-        999
-      ],
-      "next": 0,
-      "next_index": 0
-    }
-  ]
-}
+
+| {
+|    ...
+|     {
+|       "desc": "wpkh(tprv8ZgxMBicQKsPfCYFA9DANn81pjg3GPfAzLEdtywSxJAL3pGz41CgVZ8ChvdULoetthwZmd7nYvghRBaY2wDvg1WoStSumpGcdqRW3ZdpY1b/84h/1h/0h/0/*)#9fxgzcuj",
+|       "timestamp": 1784828880,
+|       "active": true,
+|       "internal": false,
+|       "range": [
+|         0,
+|         1000
+|       ],
+|       "next": 1,
+|       "next_index": 1
+|     },
+|     {
+|       "desc": "wpkh(tprv8ZgxMBicQKsPfCYFA9DANn81pjg3GPfAzLEdtywSxJAL3pGz41CgVZ8ChvdULoetthwZmd7nYvghRBaY2wDvg1WoStSumpGcdqRW3ZdpY1b/84h/1h/0h/1/*)#5arfldv2",
+|       "timestamp": 1784828881,
+|       "active": true,
+|       "internal": true,
+|       "range": [
+|         0,
+|         999
+|       ],
+|       "next": 0,
+|       "next_index": 0
+|     }
+|   ]
+| }
 ```
 
-The following command will then import those descriptors into `bdk-cli`:
+The following command will then import those descriptors into
+`bdk-cli`:
 
 ```sh
 bdk-cli \
@@ -94,13 +98,16 @@ bdk-cli \
 default to command-line variables, but here we're showing them in
 their full glory to demonstrate how they work.)
 
-After some warnings you should see:
+After some warnings, you should see:
+
 ```
 | {
 |   "message": "Wallet 'bitcoincore' initialized successfully in \"/home/standup/.bdk-bitcoin/config.toml\""
 | }
 ```
-Commands like `wallets` and `descriptor` will now show you what's available in your `bdk-cli` wallet.
+
+Commands like `wallets` and `descriptor` will now show you what's
+available in your `bdk-cli` wallet.
 
 ```
 bdk-cli descriptor
@@ -197,16 +204,17 @@ now, we just want to see how BDK works with miniscript!
 
 ## Compile Policy with BDK
 
-For our current purposes, really exciting part of BDK is its Policy
-comiler, because it's the only command-line Miniscript Policy that we
-know about.
+For our current purposes, the really exciting part of BDK is its
+Policy compiler, because it's the only command-line Miniscript Policy
+that we know about.
 
 You access it with the `compile` command (which was one of
 `--features` that you enabled when you installed `bdk-cli`). Not only
 will it compile from Policy to Miniscript, but it'll also embed your
 Miniscript as a Minidescriptor.
 
-Here's an example of our executive Policy in its abstract form:
+Here's an example of compiling the executive policy from previous
+sections.
 
 ```sh
 bdk-cli compile "or(pk(president),thresh(2,pk(vp1),pk(vp2),pk(vp3)))"
@@ -226,19 +234,26 @@ Beyond that, we see that `bdk-cli` indeed added on both the `wsh()`
 and the checksum. This is a descriptor that is fully ready to import
 into `bitcoin-cli`, `bdk-cli`, or the other wallet of your choice.
 
-Or it would be if you'd use the keys, but that's easy to do too:
+Or it would be if you'd use the keys, but that's easy to do too, using
+the `seedtool` and `keytool` apps from [chapter
+10](10_0_Working_with_Secrets.md).:
 
 ```
 SEEDPP=$(seedtool)
 KEYPP=$(keytool --seed $SEEDPP --account-derivation-path m/84h/1h/0h/0h --network testnet account-key-base58)
+
 SEEDVP1P=$(seedtool)
 KEYVP1P=$(keytool --seed $SEEDVP1P --account-derivation-path m/84h/1h/0h/0h --network testnet account-key-base58)
+
 SEEDVP2P=$(seedtool)
 KEYVP2P=$(keytool --seed $SEEDVP2P --account-derivation-path m/84h/1h/0h/0h --network testnet account-key-base58)
+
 SEEDVP3P=$(seedtool)
 KEYVP3P=$(keytool --seed $SEEDVP3P --account-derivation-path m/84h/1h/0h/0h --network testnet account-key-base58)
+
 EXEC_PRIVATE=$(echo "or(pk($KEYPP/*),thresh(2,pk($KEYVP1P/*),pk($KEYVP2P/*),pk($KEYVP3P/*)))")
 EXEC_PRIVATE_DESC=$(bdk-cli compile $EXEC_PRIVATE | jq -r '.descriptor')
+echo $EXEC_PRIVATE_DESC
 
 | wsh(t:or_c(pk(tprv8hmuNrAoEFnCr2MaRNjX94GjAxDiKxG5FVhPjJE6jqbEBCY5o3FEvvC3hRqjEHbAR1CTSUhcHCHTmDsCqo27YpyAMVokseWzzjSBan2zYrN/*),v:multi(2,tprv8inKZ567XARkdHGUzvyH741df7ZsVTTs2cg6yCgMJPxxhN7GKgpb2LYbg4h9fGGnnu5BXZMW2EeD89g5kuAMZXK9GCizPySjv7jefHaYsNp/*,tprv8iPGcCodCT5SrQoq1uXNQUV1iBjpgEXH6eQgV5EavAsUTw5wVa8eaCMgNpmQECX6C6jTSjpJs3tQZyZXBEhJ9FxmK4t5jVwLdheaKPzn6yA/*,tprv8hZzKjjEA4e9tCW2XVsUud17Ftbn71NBjVCW275K3gvKVwxbNDrPvoEuDFiScjtAEr4TLGiEn2L3tJixuLxdEWbNppLPNnbuhECK22BpHGr/*)))#2lzcceyf
 ```
@@ -260,6 +275,7 @@ bdk-cli \
 ```
 
 You'll immediately be able to see it in your list of wallets:
+
 ```sh
 bdk-cli wallets
 
@@ -296,6 +312,7 @@ bdk-cli wallets
 ```
 
 And you can generate addresses from it:
+
 
 ```sh
 bdk-cli wallet --wallet execs new_address
