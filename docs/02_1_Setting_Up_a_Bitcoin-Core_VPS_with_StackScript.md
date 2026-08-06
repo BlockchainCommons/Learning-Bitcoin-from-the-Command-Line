@@ -136,7 +136,7 @@ At that point, your home directory should look like this:
 ```sh
 ls
 
-| bitcoin-30.2-x86_64-linux-gnu.tar.gz  SHA256SUMS.asc       wget-btc-sha-asc-output.txt
+| bitcoin-31.1-x86_64-linux-gnu.tar.gz  SHA256SUMS.asc       wget-btc-sha-asc-output.txt
 | SHA256SUMS                            wget-btc-output.txt  wget-btc-sha-output.txt
 ```
 
@@ -157,8 +157,8 @@ sudo grep VERIFICATION /standup.log
 If you see something like the following, all should be well:
 
 ```sh
-| /root/StackScript - SIG VERIFICATION SUCCESS: 8 GOOD SIGNATURES FOUND.
-| /root/StackScript - SHA VERIFICATION SUCCESS / SHA: bitcoin-30.2-x86_64-linux-gnu.tar.gz: OK
+| /root/StackScript - SIG VERIFICATION SUCCESS: 11 GOOD SIGNATURES FOUND.
+| /root/StackScript - SHA VERIFICATION SUCCESS / SHA: bitcoin-31.1-x86_64-linux-gnu.tar.gz: OK
 ```
 If either of those two checks instead reads "VERIFICATION ERROR", then there's a problem.
 
