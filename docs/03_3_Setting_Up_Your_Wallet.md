@@ -33,24 +33,21 @@ ls ~/.bitcoin/signet/wallets
 | 
 ```
 
-That's because Bitcoin Core doesn't create a wallet by default, but creating one is quite simple. You just run `bitcoin-cli createwallet` and choose a name for your wallet. If you choose no name (`""`) you're creating a wallet that will be loaded by default (which is helpful!). But you could also choose a real name like `"mainwallet"` if you plan to run multiple wallets. (We suggest the use of a no-name wallet for this tutorial, for reasons of simplicity, as we'll discuss later.)
+That's because Bitcoin Core doesn't create a wallet by default, but creating one is quite simple. You just run `bitcoin-cli createwallet` and choose a name for your wallet. 
+
+> ⚠️ **Version Warning:** For most of its existence, Bitcoin Core allowed you to create a no-name wallet (`""`) that would be used by default. As of early 2026, this is no longer the case. You instead get the error `"Wallet name cannot be empty"`. If you find old docs that talk about default or `""` wallets, that's why.
 
 Here's what the creation looks like:
 ```sh
-bitcoin-cli createwallet ""
+bitcoin-cli createwallet "mainwallet"
 
 | {
-|   "name": ""
+|   "name": "mainwallet"
 | }
 ```
 
-If you created a `""` wallet, your `wallets` directory will have files in it:
 
-```sh
-| wallet.dat  wallet.dat-journal
-```
-
-If you created a named wallet, the `wallets` directory will instead have a subdirectory by that name, and the subdirectory will have the files.
+Your `wallets` directory will now have a subdirectory by that name, and the subdirectory will have files for the wallet.
 
 ```sh
 ls ~/.bitcoin/signet/wallets
@@ -69,28 +66,28 @@ You can see details on your wallet with the `bitcoin-cli getwalletinfo` command:
 ```sh
 
 bitcoin-cli getwalletinfo
+
 | {
-|   "walletname": "",
+|   "walletname": "mainwallet",
 |   "walletversion": 169900,
 |   "format": "sqlite",
 |   "txcount": 0,
 |   "keypoolsize": 4000,
 |   "keypoolsize_hd_internal": 4000,
-|   "paytxfee": 0.00000000,
 |   "private_keys_enabled": true,
 |   "avoid_reuse": false,
 |   "scanning": false,
 |   "descriptors": true,
 |   "external_signer": false,
 |   "blank": false,
-|   "birthtime": 1770328126,
+|   "birthtime": 1786042801,
 |   "flags": [
 |     "last_hardened_xpub_cached",
 |     "descriptor_wallet"
 |   ],
 |   "lastprocessedblock": {
-|     "hash": "0000000bd5046d28c2c02a60be14f2d3f1909277e574fa01279190dbe468a6e0",
-|     "height": 290283
+|     "hash": "0000001120ffcc19671b009ed9c9cf7b6542fcd041e25f276830e0aeab228fcb",
+|     "height": 316515
 |   }
 | }
 ```
@@ -136,7 +133,7 @@ bitcoin-cli walletlock
 
 ## Reload Named Wallets (Optional)
 
-If you created a no-name (`""`) wallet, it will automatically load when you restart `bitcoind`. However, if you instead created a named wallet, it will not reload, forcing you to (initially) reload it by hand when you restart `bitcoind`.
+Your wallet will not automatically reload if you restart `bitcoind`, forcing you to (initially) reload it by hand when you restart `bitcoind`.
 
 ```sh
 bitcoin-cli loadwallet mainwallet
@@ -145,7 +142,7 @@ bitcoin-cli loadwallet mainwallet
 |   "name": "mainwallet"
 | }
 ```
-You can make a named wallet load automatically on future startups by adding a `true` to the end of the `bitcoin-cli loadwallet` command:
+You can make your wallet load automatically on future startups by adding a `true` to the end of the `bitcoin-cli loadwallet` command:
 
 ```sh
 bitcoin-cli loadwallet mainwallet true
@@ -154,7 +151,7 @@ bitcoin-cli loadwallet mainwallet true
 |   "name": "mainwallet"
 | }
 ```
-Afterward, the wallet that you must recently flagged in this way should always be the one that appaers at startup.
+Afterward, the wallet that you must recently flagged in this way should always be the one that appears at startup.
 
 ## Create Multiple Wallets (Optional)
 
@@ -226,7 +223,7 @@ bitcoin-cli listwallets
 | ]
 ```
 
-As discussed above, named wallets will not load by default unless you
+As discussed above, wallets will not load by default unless you
 use `loadwallet` with `true` as the second argument. In this example
 of `mainwallet` and `gamingfunds`, nothing would load when you
 restarted `bitcoind` unless you specified otherwise.
