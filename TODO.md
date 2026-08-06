@@ -11,6 +11,8 @@ The following TODO items are intended for a 3.0 version of Learning Bitcoin from
 
 **Chapter 17: Expanding Bitcoin Transactions with Schnorr**
 
+[original roadmap, advantages: https://bitcoincore.org/en/2017/03/23/schnorr-signature-aggregation/]
+
 * New Section 17.1: Understanding Schnorr Signatures
    * New Subsection: Understanding the Math of Schnorr
       * Explanation: Add + subtract for one signature
