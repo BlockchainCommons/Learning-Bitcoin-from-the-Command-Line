@@ -9,56 +9,68 @@ The following TODO items are intended for a 3.0 version of Learning Bitcoin from
 
 ## Taproot Plan
 
-**Chapter 17: Expanding Bitcoin Transactions with Schnorr**
+**Part Six: Expanding Bitcoin with Taproot**
 
-[original roadmap, advantages: https://bitcoincore.org/en/2017/03/23/schnorr-signature-aggregation/]
+**Chapter 17: Introducing Taproot**
 
-* New Section 17.1: Understanding Schnorr Signatures
-   * New Subsection: Understanding the Math of Schnorr
+* 17.1: Breaking Down Taproot
+   * Learn About the Taproot Soft Fork
+       * Bitcoin Taproot is a soft fork upgrade activated on November 14, 2021. It bundles three Bitcoin Improvement Proposals: Schnorr signatures (BIP340), Taproot (BIP341), and Tapscript (BIP342).
+      * Reference: https://github.com/bitcoin/bips/blob/master/bip-0340.mediawiki
+      * Reference: https://github.com/bitcoin/bips/blob/master/bip-0341.mediawiki
+      * Reference: https://github.com/bitcoin/bips/blob/master/bip-0342.mediawiki
+      * Explanation: Expanding Segwit
+      * Explanation: Integrating Schnorr Signatures
+      * [original roadmap, advantages: https://bitcoincore.org/en/2017/03/23/schnorr-signature-aggregation/]
+   * Learn About bech32m
+* 17.2: Updating to Taproot
+   * Update to Taproot: bitcoin-cli createwalletdescriptor
+
+**Chapter 18: Using Schnorr Signatures**
+
+* 18.1: Understanding Schnorr Signatures
+   * Understand the Math of Schnorr
       * Explanation: Add + subtract for one signature
-   * New Subsection: Supporting MuSig
-   * New Subsection: Understanding the Use of Adapter Signatures
-   * New Subsection: Knowing the Advantages of Schnorr
+   * Understand the Use of Adapter Signatures
+   * Know the Advantages of Schnorr
       * Explanation: size, 64 bytes vs 72, better for multisigs
       * Explanation: speed, linear, validate a million-sig multisig in 2 minutes
       * Explanation: privacy, no difference between MuSig and sig, no detection of Lightning
+      * Explanation: even more privacy; scripts and other addresses are indistinbuishable
       * Explanation: also better security, non-malleability
       * Reference: https://github.com/bitcoin/bips/blob/master/bip-0340.mediawiki
-* New Section 17.2: Using Schnorr Signatures
-   * New Subsection: Signing with Schnorr
-   * New Subsection: Adding a Schnorr Signature
-   * New Subsection: Reading a Schnorr Signature 
-   * New Subsection: Using Schnorr with Taproot   
+* 18.2: Creating Schnorr Addresses
+   * Create a Schnorr Address
+   * Import a Schnorr Descriptor
+   * Spend a Taproot Transaction
+* 18.3: Using Bitcoin with FROST
+* 18.4: Using Bitcoin with Musig2 (?)
 
-**Chapter 18: Improving Bitcoin Scripts with Taproot** 
+**Chapter 19: Using Tapscript** 
 
-* New Section 18.1: Understanding MAST
-   * New Subsection: Improving Privacy with MAST
-   * New Subsection: Laying out a Script in MAST
-   * New Subsection: Knowing the Advantages of MAST
+* 19.1: Understanding MAST
+   * Understand the Design of MAST
+   * Know the Advantages of MAST
       * Explanation: larger scripts
       * Explanation: hidden branches of scripts
+      * Explanation: privacy
       * Explanation: fungibility
       * https://github.com/bitcoin/bips/blob/master/bip-0114.mediawiki
-* New Section 18.2: Understanding Taproot
-   * New Subsection: Integrating MAST with Taproot
-      * Explanation: Expanding Segwit
-      * Explanation: Integrating Schnorr Signatures
-   * New Subsection: KNowing the Advantages of Taproot
-      * Explanation: even more privacy; scripts and other addresses are indistinbuishable
-      * Reference: https://github.com/bitcoin/bips/blob/master/bip-0341.mediawiki
-      * Reference: https://github.com/bitcoin/bips/blob/master/bip-0342.mediawiki
-* New Subsection 18.3: Creating a Taproot Script
-   * New Subsection: Defining a Taproot Script
+   * Understand Tapscript
+   *   Privacy with MAST
+   * New Subsection: Laying out a Script in MAST
+   * New Subsection: Knowing the Advantages of MAST
+* 19.2: Designing Tapscripts
+   * Create a Tapscript
       * Explanation: Segwit v1, 32-byte program, not P2SH wrapped, leaf version is 0xc0
-   * New Codes: OP_CHECKSIGADD and OP_SUCCESS
-   * Cut Codes: OP_CHECKMULTISIG and OP_CHECKMULTISIGVERIFY
-   * Reference: https://twitter.com/pwuille/status/1459778730369368067
-* New Subsection 18.4: Importing a tr Desciptor
-* New Subsection 18.5: Using Taproot in Practice
-   * New Subsection: Making a Taproot Payment
-   * New Subsection: Validating a Taproot Script
- 
+      * New Codes: OP_CHECKSIGADD and OP_SUCCESS
+      * Cut Codes: OP_CHECKMULTISIG and OP_CHECKMULTISIGVERIFY
+   * [no way to use currently]
+* 19.3: Creating a Schnorr Multisig
+   * Undestand multi_a [BIP 387]
+   * Import a Schnorr Multisig
+   * Spend a Schnorr Multisig
+
 ## Longer-Term TODO (Small Tasks)
 
 The following updates involve updates or the creation of new chapters, but their additions are generally bounded and known.
