@@ -20,6 +20,7 @@ The following TODO items are intended for a 3.0 version of Learning Bitcoin from
       * Reference: https://github.com/bitcoin/bips/blob/master/bip-0341.mediawiki
       * Reference: https://github.com/bitcoin/bips/blob/master/bip-0342.mediawiki
       * BIP 114, 117?
+      * Nice diagrams: https://www.bitstack-app.com/en/learn-bitcoin/understanding-bitcoin-taproot-upgrade?c=EUR
       * Explanation: Expanding Segwit
       * Explanation: Integrating Schnorr Signatures
       * [original roadmap, advantages: https://bitcoincore.org/en/2017/03/23/schnorr-signature-aggregation/]
