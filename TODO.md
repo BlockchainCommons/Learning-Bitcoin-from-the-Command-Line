@@ -19,6 +19,7 @@ The following TODO items are intended for a 3.0 version of Learning Bitcoin from
       * Reference: https://github.com/bitcoin/bips/blob/master/bip-0340.mediawiki
       * Reference: https://github.com/bitcoin/bips/blob/master/bip-0341.mediawiki
       * Reference: https://github.com/bitcoin/bips/blob/master/bip-0342.mediawiki
+      * BIP 114, 117?
       * Explanation: Expanding Segwit
       * Explanation: Integrating Schnorr Signatures
       * [original roadmap, advantages: https://bitcoincore.org/en/2017/03/23/schnorr-signature-aggregation/]
@@ -49,7 +50,7 @@ The following TODO items are intended for a 3.0 version of Learning Bitcoin from
 **Chapter 19: Using Tapscript** 
 
 * 19.1: Understanding MAST
-   * Understand the Design of MAST
+   * Understand the Design of MAST [BIP114]
    * Know the Advantages of MAST
       * Explanation: larger scripts
       * Explanation: hidden branches of scripts
@@ -63,6 +64,7 @@ The following TODO items are intended for a 3.0 version of Learning Bitcoin from
 * 19.2: Designing Tapscripts
    * Create a Tapscript
       * Explanation: Segwit v1, 32-byte program, not P2SH wrapped, leaf version is 0xc0
+      * See "Script Execution" in BIP 342 for Changes from Script
       * New Codes: OP_CHECKSIGADD and OP_SUCCESS
       * Cut Codes: OP_CHECKMULTISIG and OP_CHECKMULTISIGVERIFY
    * [no way to use currently]
