@@ -2,10 +2,9 @@
 
 The following TODO items are intended for a 3.0 version of Learning Bitcoin from the Command Line
 
-## Immediate TODO (for 8/6): Cleanup & Taproot
+## Immediate TODO (for 8/13): Cleanup & Taproot
 
-4. Make Final Decisions about Taproot Chapters
-5. Start on Taproot
+1. Write Chapter 17
 
 ## Taproot Plan
 
@@ -15,7 +14,8 @@ The following TODO items are intended for a 3.0 version of Learning Bitcoin from
 
 * 17.1: Breaking Down Taproot
    * Learn About the Taproot Soft Fork
-       * Bitcoin Taproot is a soft fork upgrade activated on November 14, 2021. It bundles three Bitcoin Improvement Proposals: Schnorr signatures (BIP340), Taproot (BIP341), and Tapscript (BIP342).
+      * Bitcoin Taproot is a soft fork upgrade activated on November 14, 2021. It bundles three Bitcoin Improvement Proposals: Schnorr signatures (BIP340), Taproot (BIP341), and Tapscript (BIP342).
+      * Informally, the resulting design is as follows: a new witness version is added (version 1), whose programs consist of 32-byte encodings of points Q. Q is computed as P + hash(P||m)G for a public key P, and the root m of a Merkle tree whose leaves consist of a version number and a script. These outputs can be spent directly by providing a signature for Q, or indirectly by revealing P, the script and leaf version, inputs that satisfy the script, and a Merkle path that proves Q committed to that leaf. All hashes in this construction (the hash for computing Q from P, the hashes inside the Merkle tree's inner nodes, and the signature hashes used) are tagged to guarantee domain separation.
       * Reference: https://github.com/bitcoin/bips/blob/master/bip-0340.mediawiki
       * Reference: https://github.com/bitcoin/bips/blob/master/bip-0341.mediawiki
       * Reference: https://github.com/bitcoin/bips/blob/master/bip-0342.mediawiki
@@ -205,6 +205,7 @@ See [release notes](https://bitcoincore.org/en/releases/0.21.0/).
 2. <strike>Removed "" Wallet per 31.1</strike>
 3. <strike>Edited 16.4</strike>
 4. <strike>Reformatted Output of Chapter 5-6</strike>
+5. <strike>Planned Out Chapter 17-19 on Taproot</strike>
 
 ## Immediate TODO (for 7/23): Miniscript
 
