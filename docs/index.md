@@ -111,7 +111,13 @@ complete state.</i>
     * [16.2: Converting Miniscript](16_2_Converting_Miniscript.md)
     * [16.3: Using Miniscript with Descriptors](16_3_Using_Miniscript_with_Descriptors.md)
     * [16.4: Using Bitcoin Dev Kit (BDK)](16_4_Using_BDK.md)
-    
+
+## Part Six: Using Taproot
+
+* [**17.0: Introducing Taproot**](17_0_Introducing_Taproot.md)
+    * [17.1: Breaking Down Taproot](17_1_Breaking_Down_Taproot.md)
+    * [17.2: Updating to Taproot](17_2_Updating_To_Taproot.md)
+
     
 ---
 

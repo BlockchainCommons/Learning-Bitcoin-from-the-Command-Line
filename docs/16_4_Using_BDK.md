@@ -333,4 +333,5 @@ import Miniscript containing private keys.
 
 ## What's Next?
 
-The next section will be all new, on Taproot!
+Move on to "Using Taproot" with [Chapter Seventeen: Introducing
+Tapscript](17_0_Introducing_Taproot.md).
