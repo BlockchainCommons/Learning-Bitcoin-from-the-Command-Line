@@ -59,7 +59,8 @@ Afterward, your Taproot descriptors will be part of your `listdescriptors` listi
 
 ```sh
 if (bitcoin-cli listdescriptors | jq -r '.descriptors[].desc' | grep "86h" | grep "tr") >& /dev/null; then echo "✅ Taproot descriptors are present"; fi
-✅ Taproot descriptors are present
+
+| ✅ Taproot descriptors are present
 ```
 
 If you make a mistake and try to create Taproot descriptors that already exist, no problem:
