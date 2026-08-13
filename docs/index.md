@@ -116,7 +116,7 @@ complete state.</i>
 
 * [**17.0: Introducing Taproot**](17_0_Introducing_Taproot.md)
     * [17.1: Breaking Down Taproot](17_1_Breaking_Down_Taproot.md)
-    * [17.2: Updating to Taproot](17_2_Updating_To_Taproot.md)
+    * [17.2: Updating to Taproot](17_2_Updating_to_Taproot.md)
 
     
 ---

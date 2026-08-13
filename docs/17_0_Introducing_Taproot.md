@@ -31,4 +31,4 @@ Supporting objectives include the ability to:
 ## Table of Contents
 
 * [Section One: Breaking Down Taproot](17_1_Breaking_Down_Taproot.md)
-* [Section Two: Updating to Taproot](17_2_Updating_To_Taproot.md)
+* [Section Two: Updating to Taproot](17_2_Updating_to_Taproot.md)
