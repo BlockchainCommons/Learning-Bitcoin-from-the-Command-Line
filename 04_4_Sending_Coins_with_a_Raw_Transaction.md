@@ -140,7 +140,7 @@ $ bitcoin-cli listunspent
   }
 ]
 ```
-And the change will eventuall arrive:
+And the change will eventually arrive:
 ```
 [
   {
