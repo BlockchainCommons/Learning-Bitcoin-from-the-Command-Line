@@ -4,7 +4,8 @@ The following TODO items are intended for a 3.0 version of Learning Bitcoin from
 
 ## Immediate TODO (for 8/13): Cleanup & Taproot
 
-1. Write Chapter 17
+1. Edit Chapter 18.0, 18.1
+2. Write + Edit 18.2-18.4
 
 ## Taproot Plan
 
@@ -200,6 +201,14 @@ See [release notes](https://bitcoincore.org/en/releases/0.21.0/).
 ---
 
 # Progress Log
+
+## Immediate TODO (for 8/13): Taproot
+
+1. <strike>Wrote + Edited 17.0: Taproot Chapter Head</strike>
+2. <strike>Wrote + Edited 17.1: Breaking Down Taproot</strike>
+3. <strike>Wrote + Edited 17.2: Updating to Taproot</strike>
+4. <strike>Wrote 18.0: Schnorr Chapter Head</strike>
+5. <strike>Wrote 18.1: Understanding Schnorr</strike>
 
 ## Immediate TODO (for 8/6): Cleanup & Taproot
 
