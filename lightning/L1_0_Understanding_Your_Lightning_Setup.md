@@ -20,7 +20,7 @@ Supporting objectives include the ability to:
 
 ## Table of Contents
 
-* [Section One: Verifying Your core lightning Setup](19_1_Verifying_Your_Lightning_Setup.md)
-* [Section Two: Knowing Your core lightning Setup](19_2_Knowing_Your_lightning_Setup.md)
-   * [Interlude: Accessing a Second Lightning Node](19_2__Interlude_Accessing_a_Second_Lightning_Node.md)
-* [Section Three: Creating a Lightning Channel](19_3_Setting_Up_a_Channel.md)
+* [Section One: Verifying Your core lightning Setup](L11_Verifying_Your_Lightning_Setup.md)
+* [Section Two: Knowing Your core lightning Setup](L12_Knowing_Your_lightning_Setup.md)
+   * [Interlude: Accessing a Second Lightning Node](L12__Interlude_Accessing_a_Second_Lightning_Node.md)
+* [Section Three: Creating a Lightning Channel](L13_Setting_Up_a_Channel.md)

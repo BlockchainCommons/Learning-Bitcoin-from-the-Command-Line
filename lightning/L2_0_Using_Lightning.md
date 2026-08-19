@@ -19,7 +19,7 @@ Supporting objectives include the ability to:
    
 ## Table of Contents
 
-* [Section One: Generating a Payment Request](20_1_Generate_a_Payment_Request.md)
-* [Section Two: Paying an Invoice](20_2_Paying_a_Invoice.md)
-* [Section Three: Closing a Lightning Channel](20_3_Closing_a_Channel.md)
-* [Section Four: Expanding the Lightning Network](20_4_Lightning_Network_Review.md)
+* [Section One: Generating a Payment Request](L2_1_Generate_a_Payment_Request.md)
+* [Section Two: Paying an Invoice](L2_2_Paying_a_Invoice.md)
+* [Section Three: Closing a Lightning Channel](L2_3_Closing_a_Channel.md)
+* [Section Four: Expanding the Lightning Network](L2_4_Lightning_Network_Review.md)
