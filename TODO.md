@@ -4,8 +4,10 @@ The following TODO items are intended for a 3.0 version of Learning Bitcoin from
 
 ## Immediate TODO (for 8/13): Cleanup & Taproot
 
-1. Edit Chapter 18.0, 18.1
-2. Write + Edit 18.2-18.4
+1. Fix Standup to correctly restart Bitcoin on reboot
+1. Fully pull lightning out of Ch. 1
+2. Edit Chapter 18.0, 18.1
+3. Write + Edit 18.2-18.4
 
 ## Taproot Plan
 
