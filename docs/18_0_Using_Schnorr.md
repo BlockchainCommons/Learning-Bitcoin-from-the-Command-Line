@@ -3,8 +3,8 @@
 The Taproot update is built on Schnorr, a digital signature
 methodology invented by Claus Schnorr. It's a signature system that
 wasn't quite available when the genesis block was created, but which
-has been under consideration ever since because of the advantages it
-offers.
+has been under consideration ever since for use with Bitcoin because
+of the advantages it offers.
 
 All new P2TR addresses are signed with Schnorr signatures. This can
 include standard signatures internal to Bitcoin but also signatures
