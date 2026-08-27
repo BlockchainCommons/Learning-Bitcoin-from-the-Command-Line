@@ -245,8 +245,7 @@ means that if they are later put on the blockchain an enforced
 time-lapse can be very helpful. [Hashed Timelock
 Contracts](https://en.bitcoin.it/wiki/Hashed_Timelock_Contracts) have
 been one such implementation, empowering the Lightning payment
-network. They're discussed in [§15.3: Empowering Bitcoin with
-Scripts](15_3_Empowering_Bitcoin_with_Scripts.md).
+network.
 
 ## What's Next?
 
