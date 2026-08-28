@@ -5,6 +5,10 @@ The following TODO items are intended for a 3.0 version of Learning Bitcoin from
 ## Immediate TODO (for 8/13): Cleanup & Taproot
 
 1. Fix Standup to correctly restart Bitcoin on reboot
+1. Redo all descriptor examples to use "now"
+
+## Immediate TODO (for 8/13): Cleanup & Taproot
+
 1. Fully pull lightning out of Ch. 1
 2. Edit Chapter 18.0, 18.1
 3. Write + Edit 18.2-18.4
@@ -203,6 +207,14 @@ See [release notes](https://bitcoincore.org/en/releases/0.21.0/).
 ---
 
 # Progress Log
+
+## Immediate TODO (for 8/27): Intro & Taproot
+
+1. <strike>Revised/Update 1.0 & 1.1 Intros</strike>
+2. <strike>Expunged Lightning from Course</strike>
+3. <strike>Wrote 18.2: Creating Taproot Addresses</strike>
+4. <strike>Wrote 18.3: Signing with FROST</strike>
+5. <strike>Worked on 18.4: Signing with MuSig2</strike>
 
 ## Immediate TODO (for 8/13): Taproot
 
