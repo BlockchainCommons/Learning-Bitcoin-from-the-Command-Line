@@ -206,7 +206,7 @@ now, we just want to see how BDK works with miniscript!
 
 For our current purposes, the really exciting part of BDK is its
 Policy compiler, because it's the only command-line Miniscript Policy
-that we know about.
+compiler that we know about.
 
 You access it with the `compile` command (which was one of
 `--features` that you enabled when you installed `bdk-cli`). Not only
@@ -225,7 +225,7 @@ bdk-cli compile "or(pk(president),thresh(2,pk(vp1),pk(vp2),pk(vp3)))"
 ```
 
 It's interesting to note that `bdk-cli` chose a different compilation
-that `sipa.be`, which instead picked
+than `sipa.be`, which instead picked
 `or_d(pk(president),multi(2,vp1,vp2,vp3))`, but as we said Policy is
 not fully specified: it's the encoding from Miniscript to Bitcoin
 Script that is meant to be full analyzable and consistent.
