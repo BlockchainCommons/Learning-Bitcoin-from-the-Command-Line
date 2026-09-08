@@ -13,7 +13,7 @@ use it as a Policy compiler.
 ## Install BDK
 
 `bdk-cli` is a Rust package, so it can be installed with cargo. You'll
-want to add either the `electrum or the `rpc` feature (to talk to a
+want to add either the `electrum` or the `rpc` feature (to talk to a
 `bitcoind` server) and the `compiler` feature (to get access to BDK's
 Policy compiler.
 
