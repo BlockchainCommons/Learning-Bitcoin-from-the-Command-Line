@@ -1,6 +1,11 @@
 # Chapter Six: Controlling Bitcoin Transactions
 
-Sending a transaction isn't always the end of the story. Using the RBF (replace-by-fee) and CPFP (child-pays-for-parent) protocols, a developer can continue to control the transaction after it's been sent, to improve efficiency or to recover transactions that get stuck. These methods will begin to spotlight the true power of Bitcoin.
+Sending a transaction isn't always the end of the story. Using the RBF
+(replace-by-fee) and CPFP (child-pays-for-parent) protocols, a
+developer can continue to control the transaction after it's been
+sent, to improve efficiency or to recover transactions that get
+stuck. These methods will begin to spotlight the true power of
+Bitcoin.
 
 ## Objectives for This Section
 
