@@ -13,7 +13,15 @@ ls ~/.bitcoin
 
 | bitcoin.conf  signet
 ```
-The setup guides in [Chapter Two: Creating a Bitcoin-Core VPS](02_0_Setting_Up_a_Bitcoin-Core_VPS.md) laid out a standardized config file. [§3.1: Verifying Your Bitcoin Setup](03_1_Verifying_Your_Bitcoin_Setup.md) suggested how to change it to support more advanced setups. If you're interested in learning even more about the config file, you may wish to consult [Jameson Lopp's Bitcoin Core Config Generator](https://jlopp.github.io/bitcoin-core-config-generator/).
+
+The setup guides in [Chapter Two: Creating a Bitcoin-Core
+VPS](02_0_Setting_Up_a_Bitcoin-Core_VPS.md) laid out a standardized
+config file. [§3.1: Verifying Your Bitcoin
+Setup](03_1_Verifying_Your_Bitcoin_Setup.md) suggested how to change
+it to support more advanced setups. If you're interested in learning
+even more about the config file, you may wish to consult [Jameson
+Lopp's Bitcoin Core Config
+Generator](https://jlopp.github.io/bitcoin-core-config-generator/).
 
 Moving back to your ~/.bitcoin directory, you'll find that the `signet` directory contains all of the guts:
 
@@ -30,10 +38,10 @@ You shouldn't mess with most of these files and directories — particularly not
 ## Know Your Bitcoin-cli Commands
 
 Most of your work in this course will be done with the `bitcoin-cli`
-command, which offers an easy interface to `bitcoind`. If you ever
-want more information on its usage, just run it with the `help`
-argument. Without any other arguments, it shows you every possible
-command. Here are teh results of `bitcoin-cli help`:
+command, which offers an easy interface to `bitcoind` through RPC. If
+you ever want more information on its usage, just run it with the
+`help` argument. Without any other arguments, it shows you every
+possible command. Here are the results of `bitcoin-cli help`:
 
 ```sh
 == Blockchain ==
@@ -205,6 +213,7 @@ walletprocesspsbt "psbt" ( sign "sighashtype" bip32derivs finalize )
 == Zmq ==
 getzmqnotifications
 ```
+
 You can also type `bitcoin-cli help [command]` to get even more extensive info on that command. For example:
 
 ```sh
@@ -240,7 +249,16 @@ bitcoin-cli help createwallet
 | > curl --user myusername --data-binary '{"jsonrpc": "2.0", "id": "curltest", "method": "createwallet", "params": {"wallet_name":"descriptors","avoid_reuse":true,"load_on_startup":true}}' -H 'content-type: application/json' http://127.0.0.1:8332/
 ```
 
-> 📖 ***What is RPC?*** `bitcoin-cli` is just a handy interface that lets you send commands to the `bitcoind`. More specifically, it's an interface that lets you send RPC (or Remote Procedure Protocol) commands to the `bitcoind`. Often, the `bitcoin-cli` command and the RPC command have identical names and interfaces, but some `bitcoin-cli` commands instead provide shortcuts for more complex RPC requests. Generally, the `bitcoin-cli` interface is much cleaner and simpler than trying to send RPC commands by hand, using `curl` or some other method. However, it also has limitations as to what you can ultimately do.
+> 📖 ***What is RPC?*** `bitcoin-cli` is just a handy interface that
+lets you send commands to the `bitcoind`. More specifically, it's an
+interface that lets you send RPC (or Remote Procedure Protocol)
+commands to the `bitcoind`. Often, the `bitcoin-cli` command and the
+RPC command have identical names and arguments, but some `bitcoin-cli`
+commands instead provide shortcuts for more complex RPC
+requests. Generally, the `bitcoin-cli` interface is much cleaner and
+simpler than trying to send RPC commands by hand, using `curl` or some
+other method. However, it also has limitations as to what you can
+ultimately do.
 
 ## Optional: Know Your Bitcoin Info
 
@@ -362,7 +380,8 @@ bitcoin-cli getnetworkinfo
 | }
 ```
 
-Feel free to test out any of these and to use "bitcoin-cli help" if you want more information on what any of them do.
+Feel free to test out any of these and to use "bitcoin-cli help" if
+you want more information on what any of them do.
 
 ## Summary: Knowing Your Bitcoin Setup
 

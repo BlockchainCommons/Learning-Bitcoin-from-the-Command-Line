@@ -21,7 +21,7 @@ all the functions herein.
 >
 > Be aware that sometimes functions
 are deprecated and removed, so if you are using a newer version
-there's a small chance that something may no longer be available.
+there's a small (but real) chance that some commands may no longer be available.
 
 ## Create a Wallet
 
@@ -45,7 +45,6 @@ bitcoin-cli createwallet "mainwallet"
 |   "name": "mainwallet"
 | }
 ```
-
 
 Your `wallets` directory will now have a subdirectory by that name, and the subdirectory will have files for the wallet.
 
@@ -91,9 +90,29 @@ bitcoin-cli getwalletinfo
 |   }
 | }
 ```
-> 📖 ***What is a Bitcoin wallet?*** A Bitcoin wallet is the digital equivalent of a physical wallet. It stores information on the amount of bitcoins you have and where it's located (addresses), as well as the ways you can use to spend it. Spending physical money is intuitive, but to spend Bitcoin, users need to provide the correct _private key_. We will explain this in more detail throughout the course, but what you should know for now is that this public-private key dynamic is part of what makes Bitcoin secure and trustless. Your key pair information is saved in the `wallet.dat` file, in addition to data about preferences and transactions. For the most part, you won't have to worry about that private key: `bitcoind` will use it when it's needed. However, this makes the `wallet.dat` file extremely important: if you lose it, you lose your private keys, and if you lose your private keys, you lose your funds!
 
-You now have a Bitcoin wallet. But you can't receive funds with a wallet. For that you need an address, which is a specific repository for funds, derived from the private key information in your wallet: its one private key can generate many addresses.
+> 📖 ***What is a Bitcoin wallet?*** A Bitcoin wallet is the digital
+equivalent of a physical wallet. It stores information on the amount
+of bitcoin you have and where it's located (at addresses), as well as
+the ways you can spend it. Spending physical money is intuitive, but
+to spend Bitcoin, users need to provide the correct _private key_. We
+will explain this in more detail throughout the course, but what you
+should know for now is that this public-private key dynamic is part of
+what makes Bitcoin secure and trustless. Your key pair information is
+saved in the `wallet.dat` file, in addition to data about preferences
+and transactions. For the most part, you won't have to worry about
+that private key: `bitcoind` will use it when it's needed. However,
+this makes the `wallet.dat` file extremely important: if you lose it,
+you lose your private keys, and if you lose your private keys, you
+lose your funds! There are backup methods, discussed below, and you
+can also find information in [Chapter 10: Working with
+Secrets](10_0_Working_with_Secrets.md) on improving the resilience of
+a Bitcoin wallet.
+
+You now have a Bitcoin wallet. But you can't receive funds with a
+wallet. For that you need an address, which is a specific repository
+for funds, derived from the private key information in your wallet:
+its one private key can generate many addresses.
 
 ## Backup Your Wallet
 
@@ -105,18 +124,31 @@ bitcoin-cli backupwallet ~/backups/mainwallet.dat
 ```
 This will create a backup of the SQLite file that you can later restore from with the `bitcoin-cli restorewallet` command. It's probably best used if you'll be backing up your wallet to a secure (encrypted) storage area.
 
-Just having a single backup will usually be enough to recover your wallet, because it'll contain the seed used to generate the wallet (more on that next chapter). However, it's good to regularly backup your wallet so that you don't lose data about your transactions. (A few commands also force the creation of a new seed, and you'd need to backup your wallet again in those cases.)
+Just having a single backup will usually be enough to recover your
+wallet, because it'll contain the seed used to generate the wallet
+(more on that next chapter). However, it's good to regularly back up
+your wallet so that you don't lose data about your transactions. (A
+few commands also force the creation of a new seed, and you'd need to
+backup your wallet again in those cases.)
 
 ## Encrypt Your Wallet (Optional)
 
-You can choose to encrypt your wallet. (It actually just encrypts the private information in your wallet, such as your private keys.) This is done with the `bitcoin-cli encryptwallet` command. 
+You can choose to encrypt your wallet. (It actually just encrypts the
+private information in your wallet, such as your private keys.) This
+is done with the `bitcoin-cli encryptwallet` command.
 
 ```sh
 bitcoin-cli encryptwallet "your-great-password"
 
 | wallet encrypted; The keypool has been flushed and a new HD seed was generated. You need to make a new backup with the backupwallet RPC.
 ```
-You should _definitely_ encrypt your wallet if you are using `bitcoin-cli` to deal with real money, but you probably shouldn't do it for this course (or any other use of test networks) because it'll just add new hoops to jump through test out funds. Note that this is one of those functions that generates an additional seed: make sure you backup your wallet again afterward if you run it.
+
+You should _definitely_ encrypt your wallet if you are using
+`bitcoin-cli` to deal with real money, but you probably shouldn't do
+it for this course (or any other use of test networks) because it'll
+just add new hoops to jump through test out funds. Note that this is
+one of those functions that generates an additional seed: make sure
+you back up your wallet again afterward if you run it.
 
 Once you have encrypted your wallet, you'll be required to enter a passphrase prior to running many commands:
 
@@ -223,10 +255,10 @@ bitcoin-cli listwallets
 | ]
 ```
 
-As discussed above, wallets will not load by default unless you
-use `loadwallet` with `true` as the second argument. In this example
-of `mainwallet` and `gamingfunds`, nothing would load when you
-restarted `bitcoind` unless you specified otherwise.
+As discussed above, wallets will not load by default unless you use
+`loadwallet` with `true` as the second argument. In this example of
+`mainwallet` and `gamingfunds`, nothing would load when you restarted
+`bitcoind` unless you specified otherwise.
 
 In [§7.1](07_1_Creating_Multisig_Public_Keys.md), we'll create a
 second wallet to provide watch-only access to multisigs. Be sure to
@@ -235,13 +267,30 @@ remember the `loadwallet` and `unloadwallet` commands, or else use
 
 ## Prove Control (Optional)
 
-In previous versions of Bitcoin Core, you were able to prove control of an address with the `bicoin-cli signmessage` command. This is generally a nice feature because it allows you to offer assurance to someone sending you funds that you'll definitely be able to retrieve those funds (or at least that you can currently). Because of the advent of descriptor wallets, which we'll talk about in the next section, this is no longer possible. You still _can_ prove control of an address by deriving a WIF-format private key from the descriptor for a particular address and then using `bitcoin-cli signmessagewithprivkey` with that specific key, but that's a complex process that goes beyond the scope of this course.
+In previous versions of Bitcoin Core, you were able to prove control
+of an address with the `bitcoin-cli signmessage` command. This is
+generally a nice feature because it allows you to offer assurance to
+someone sending you funds that you'll definitely be able to retrieve
+those funds (or at least that you can currently). Because of the
+advent of descriptor wallets (which we'll talk about in the next
+section), this is no longer possible. You still _can_ prove control of
+an address by deriving a WIF-format private key from the descriptor
+for a particular address and then using `bitcoin-cli
+signmessagewithprivkey` with that specific key, but that's a complex
+process that goes beyond the scope of this course.
 
 Just keep in mind for the moment that proof of control is a nice feature if you can manage it.
 
 ## Summary: Setting Up Your Wallet
 
-You need to create an address to receive funds. That address is stored in a wallet, which you can backup. But, there's more to both the wallet and the address: wallets are supported by an interoperable description system called descriptors; and addresses come in a variety of types. We'll cover those in the next two chapters before we finally get to some funds. We'll also be seeing lots more wallet commands in the future, but they'll be things like checking your balance, which require you to have those funds!
+You need to create an address to receive funds. That address is stored
+in a wallet, which you can back up. But, there's more to both the
+wallet and the address: wallets are supported by an interoperable
+description system called descriptors; and addresses come in a variety
+of types. We'll cover those in this and the next chapter before we
+finally get to some funds. We'll also be seeing lots more wallet
+commands in the future, but they'll be things like checking your
+balance, which require you to have those funds!
 
 ## What's Next?
 

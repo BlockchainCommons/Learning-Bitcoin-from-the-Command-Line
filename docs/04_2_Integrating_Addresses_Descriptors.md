@@ -56,12 +56,12 @@ you also saw when you listed out all of your descriptors):
 | "parent_desc": "wpkh([e18dae20/84h/1h/0h]tpubDC4ujMbsd9REzpGk3gnTjkrfJFw1NnvCpx6QBbLj3CHBzcLmVzssTVP8meRAM1WW4pZnK6SCCPGyzi9eMfzSXoeFMNprqtgxG71VRXTmetu/0/*)#3658f8sn",
 ```
 
-They're in slightly different formats as the non-ranged address has
-the derivation path all together rather than it being split in
-two. But other than that, there are just two changes:
+There are a few differences between the two:
 
 * The wallet descriptor has a range of addresses `0/*`, while the address descriptor displays one specific index in that range `0/2`.
-* The checksums are different, as you'd expect due to the differences in the index number.
+* The wallet descriptor contains an account key (for all the addresses), while the address descriptor contains an account key (for the individual address).
+* The derivation path is split up differently, which is what shows that the wallet descriptor has an account key and the address descriptor an address key.
+* The checksums are different, as you'd expect due to the other changes.
 
 That's all that's different between a wallet descriptor and an address
 descriptor (and that similarity is how the one is used to derive
@@ -71,8 +71,9 @@ hundreds or thousands of the other).
 
 In fact, you can derive addresses from a descriptor on your own,
 without having to use the `getnewaddress` command again and
-again. This is done with the `deriveaddresses` command: you give
-it a ranged descriptor, then tell it how far to derive to:
+again. This is done with the `deriveaddresses` command: you give it a
+ranged descriptor, then tell it how far to derive to:
+
 
 ```sh
 bitcoin-cli deriveaddresses "wpkh([e18dae20/84h/1h/0h]tpubDC4ujMbsd9REzpGk3gnTjkrfJFw1NnvCpx6QBbLj3CHBzcLmVzssTVP8meRAM1WW4pZnK6SCCPGyzi9eMfzSXoeFMNprqtgxG71VRXTmetu/0/*)#3658f8sn" 2
@@ -90,10 +91,11 @@ addresses created in in the previous section, you'll see they're just
 the same. Which is of course the whole point of descriptors! They are
 deterministically derived in the same way every time.
 
-The main purpose of this function would be to export addresses to
-other services (for example, if you wanted to export watch-only
-addresses to another wallet-app of if you wanted to watch a multisig
-address, as we will in chapter 7).
+The main purpose of the `deriveaddresses function would be to export
+addresses to other services (for example, if you wanted to export
+watch-only addresses to another wallet-app of if you wanted to watch a
+multisig address, as we will in [Chapter
+7](g07_0_Expanding_Bitcoin_Transactions_Multisigs.md)).
 
 > 📖 ***What is a watch-only address?*** A watch-only address allows
 you to watch for transactions related to an address (or to a whole
@@ -102,19 +104,22 @@ funds on those addresses.
 
 ## Import Descriptors
 
-As shown in [§3.4](03_4_Understanding_the_Descriptor_Wallet.md), you can also import descriptors from one wallet to the other using the `importdescriptors` command.
+As shown in [§3.4](03_4_Understanding_the_Descriptor_Wallet.md), you
+can also import descriptors from one wallet to the other using the
+`importdescriptors` command.
 
 ```sh
-bitcoin-cli importdescriptors '[{ "desc": "wpkh(tprv8ZgxMBicQKsPd1dP4NpsFDpsLUCnZ7oyn4UEbYLw7if1EDVCxMgfSzAwP3aCr1YeRvX9GtGvHsCLdrM7zaDyh33jEj7joQoEeNEyJaSYm5p/84h/1h/0h/0/*)#grdqnase", "timestamp":1770329126, "active": true, "range": [0,10] }]'
+bitcoin-cli importdescriptors '[{ "desc": "wpkh(tprv8ZgxMBicQKsPd1dP4NpsFDpsLUCnZ7oyn4UEbYLw7if1EDVCxMgfSzAwP3aCr1YeRvX9GtGvHsCLdrM7zaDyh33jEj7joQoEeNEyJaSYm5p/84h/1h/0h/0/*)#grdqnase", "timestamp": "now", "active": true, "range": [0,10] }]'
 ```
 
-This command takes a JSON object that you can [reformat](https://jsonformatter.curiousconcept.com/) for better clarity:
+Note that the JSON object that we're passing here (and in §3.4) can be
+[reformatted](https://jsonformatter.curiousconcept.com/) for better clarity:
 
 ```
 | [
 |    {
 |       "desc":"wpkh(tprv8ZgxMBicQKsPd1dP4NpsFDpsLUCnZ7oyn4UEbYLw7if1EDVCxMgfSzAwP3aCr1YeRvX9GtGvHsCLdrM7zaDyh33jEj7joQoEeNEyJaSYm5p/84h/1h/0h/0/*)#grdqnase",
-|       "timestamp":1770329126,
+|       "timestamp": "now",
 |       "active":true,
 |       "range":[
 |          0,
@@ -124,32 +129,23 @@ This command takes a JSON object that you can [reformat](https://jsonformatter.c
 | ]
 ```
 
-As shown, it has four variables:
+Here's a more extensive list at the four variables we're using
 
 * **`desc`** is the descriptor.
 * **`timestamp`** tells your server how far to go back looking for transactions related to this address.
 * **`active`** says that this descriptor should be used to generate new addresses of this type in your wallet.
 * **`range`** lists which addresses to import from this descriptor.
 
-This is just a step back, because afterward you can derive addresses from that descriptor:
-
-> import descriptor ➡️ deriveaddresses
-
 ## Create a Descriptor by Hand
 
-You can step even further back! You can create a descriptor by hand, then import it, then derive addresses from it:
+So far we've been handed descriptors by various `bitcoin-cli`
+commands, but you can actually create them by hand as well (and doing
+so is often an important component of moving funds around).
 
-> create descriptor ➡️ import descriptor ➡️ deriveaddresses
-
-The creation of a descriptor is simple because there's a designated format for each type. The
-[Bitcoin Core
-GitHub](https://github.com/bitcoin/bitcoin/blob/master/doc/descriptors.md) has a listing of all them. Following
-are a few examples.
-
-When you import these descriptors, you'll make a few changes from the `importdescriptors` example above:
-
-* **`active`** will not be set if this is not a ranged descriptor meant to become one of the defaults for creating new addresses.
-* **`range`* will not be set if the descriptor is for a single address.
+The creation of a descriptor is simple because there's a designated
+format for each type. The [Bitcoin Core
+GitHub](https://github.com/bitcoin/bitcoin/blob/master/doc/descriptors.md)
+has a listing of all them. Following are a few examples.
 
 ### Create a Watch-Only Wallet
 
@@ -177,9 +173,9 @@ The two `true`s in this command are the magic sauce as shown in the help file:
 The first `true` disables the use of private keys, the second `true` tells the wallet not to create keys of its own.
 
 Remember that you're going to have to use `loadwallet` and
-`unloadwallet` to cycle to the right wallet, or else use a `-rpcwallet`
-flag with every command to make sure you're using the wallet. (We'll
-do the latter in the following examples.)
+`unloadwallet` to cycle to the right wallet, or else use a
+`-rpcwallet` flag with every command to make sure you're using the
+wallet. (We'll do the latter in the following examples.)
 
 ### Create an Address Descriptor
 
@@ -217,7 +213,7 @@ bitcoin-cli getdescriptorinfo "addr(tb1q9f8j03uywqsxuxjefz68g7x4kduer2ky6shsf4)"
 3. Import the descriptor with checksum.
 
 ```
-bitcoin-cli -rpcwallet=watchonly importdescriptors '[{ "desc": "addr(tb1q9f8j03uywqsxuxjefz68g7x4kduer2ky6shsf4)#4vmsvy3l", "timestamp":1770329126 }]'
+bitcoin-cli -rpcwallet=watchonly importdescriptors '[{ "desc": "addr(tb1q9f8j03uywqsxuxjefz68g7x4kduer2ky6shsf4)#4vmsvy3l", "timestamp": "now" }]'
 
 | [
 |   {
@@ -257,7 +253,7 @@ shown by the identical `scriptPubKey`, a topic we'll return to).
 ### Create a Keyed Descriptor
 
 The `pk`, `pkh`, and `wpkh` descriptors are all equally easy to
-create, since they just the form of `function(key)`.
+create, since they just take the form of `function(key)`.
 
 If we go back to our original `getaddressinfo`, we can find that the
 public key for the address
@@ -290,7 +286,7 @@ bitcoin-cli getdescriptorinfo "wpkh(02040bf9b12e48bbbcbf72ef5197bc18067db378411a
 Then we import it:
 
 ```
-bitcoin-cli -rpcwallet=watchonly importdescriptors '[{ "desc": "wpkh(02040bf9b12e48bbbcbf72ef5197bc18067db378411ae6220f1d0a77da2ee7dbba)#3303qrm5", "timestamp":1770329126 }]'
+bitcoin-cli -rpcwallet=watchonly importdescriptors '[{ "desc": "wpkh(02040bf9b12e48bbbcbf72ef5197bc18067db378411ae6220f1d0a77da2ee7dbba)#3303qrm5", "timestamp": "now" }]'
 
 | [
 |   {
@@ -323,17 +319,21 @@ needed.
 
 This process could be repeated in a number of different ways. You
 could create a descriptor with a private key instead of a public key,
-and import it into regular (non-watchonly) wallet. You could create a ranged
-descriptor by hand and import a whole set of addresses. Although it's
-not best practice, you could even use the same key to create different
-types of addresses. (Try it out: just replace the "wpkh" above with
-"pkh", get a new checksum, and import and you'll have a P2PKH address
-instead of a P2WPKH address, unlocked by the same key.)
+and import it into regular (non-watchonly) wallet. You could create a
+ranged descriptor by hand and import a whole set of
+addresses. Although it's not best practice, you could even use the
+same key to create different types of addresses. (Try it out: just
+replace the "wpkh" above with "pkh", get a new checksum, and import
+and you'll have a P2PKH address instead of a P2WPKH address, unlocked
+by the same key.)
 
 The main purpose here is to show how descriptors work in practice, so
 that the link between descriptors and address is clear, and so you can
 easily create addresses from descriptors when it's helpful in the
-future, such as when we create multisigs in [§7.2](07_2_Creating_Multisig_Descriptors.md) and when we create descriptors from remote seeds in [§10.3](10_3_Importing_Secrets_to_Bitcoin_Core.md).
+future, such as when we create multisigs in
+[§7.2](07_2_Creating_Multisig_Descriptors.md) and when we create
+descriptors from remote seeds in
+[§10.3](10_3_Importing_Secrets_to_Bitcoin_Core.md).
 
 ## Summary: Integrating Addresses and Descriptors
 
@@ -349,7 +349,7 @@ You can also step through a life cycle of descriptors:
 * You can view descriptors from individual addresses.
 
 These are powerful techniques that we may not use a lot on the command
-line, but which are crucial to an overall understand of how Bitcoin
+line, but which are crucial to an overall understanding of how Bitcoin
 works.
 
 ## What's Next?

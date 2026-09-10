@@ -15,7 +15,9 @@ whole commands to maintain clarity.
 
 ## Test Out a Named Argument
 
-To learn what the names are for the arguments of a command, consult `bitcoin-cli help` for that command. It will list the arguments in their proper order, but will now also give names for each of them.
+To learn what the names are for the arguments of a command, consult
+`bitcoin-cli help` for that command. It will list the arguments in
+their proper order, but will now also give names for each of them.
 
 For example, `bitcoin-cli help getbalance` lists these arguments:
 
@@ -37,7 +39,8 @@ bitcoin-cli -named getbalance minconf=1
 
 ## Test Out a Raw Transaction
 
-Here's what the commands for sending a raw transaction would look like with named arguments:
+Here's what the commands for sending a raw transaction would look like
+with named arguments:
 
 ```sh
 utxo_txid=$(bitcoin-cli listunspent | jq -r '.[0] | .txid') 
@@ -110,10 +113,19 @@ This technique will _not_ be used in this course because it obfuscates what you'
 
 ## Summary: Creating a Raw Transaction with Named Arguments
 
-By running `bitcoin-cli` with the `-named` flag, you can use named arguments rather than depending on ordered arguments. `bitcoin-cli help` will always show you the right name for each argument. This can result in more robust, easier-to-read, less error-prone code.
+By running `bitcoin-cli` with the `-named` flag, you can use named
+arguments rather than depending on ordered arguments. `bitcoin-cli
+help` will always show you the right name for each argument. This can
+result in more robust, easier-to-read, less error-prone code.
 
-_These docs will use named arguments for all future examples, for clarity and to establish best practices. However, it will also show all arguments in the correct order. So, if you prefer not to use named args, just strip out the '-named' flag and all of the "name="s and the examples should continue to work correctly, except in cases where we've skipped arguments._
+_These docs will use named arguments for most future examples, for
+clarity and to establish best practices. However, it will also show
+all arguments in the correct order. So, if you prefer not to use named
+args, just strip out the '-named' flag and all of the "name="s and the
+examples should continue to work correctly, except in cases where
+we've skipped arguments._
 
 ## What's Next?
 
-Continue "Sending Bitcoin Transactions" with [§5.4: Sending Coins with Raw Transactions](05_4_Sending_Coins_with_a_Raw_Transaction.md).
+Continue "Sending Bitcoin Transactions" with [§5.4: Sending Coins with
+Raw Transactions](05_4_Sending_Coins_with_a_Raw_Transaction.md).

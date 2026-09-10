@@ -4,32 +4,54 @@ You're now ready to receive some money at an address you created.
 
 ## Get Some Money
 
-To do anything more, you need to get some money. On signet this is done through faucets. Since the money is all pretend, you just go to a faucet, request some money, and it will be sent over to you. We suggest using the faucet at [https://faucet.coinbin.org/](https://faucet.coinbin.org/) or [https://signet257.bublina.eu.org/](https://signet257.bublina.eu.org/). If they're not available for some reason, search for "bitcoin signet faucet", and you should find others.
+To do anything more, you need to get some money. On signet this is
+done through faucets. Since the money is all pretend, you just go to a
+faucet, request some money, and it will be sent over to you. We
+suggest using the faucet at
+[https://signet257.bublina.eu.org/](https://signet257.bublina.eu.org/)
+or [https://faucet.coinbin.org/](https://faucet.coinbin.org/). If
+they're not available for some reason, search for "bitcoin signet
+faucet", and you should find others.
 
-To use a faucet, you'll usually need to go to a URL and copy and paste in your address. Afterward, a transaction will be created that sends money from the faucet to you.
+To use a faucet, you'll usually need to go to a URL and copy and paste
+in your address. Afterward, a transaction will be created that sends
+money from the faucet to you.
 
-> 📖 ***What is a transaction?*** A transaction is a bitcoin exchange. The owner of some bitcoins uses his private key to access those coins, then locks the transaction using the recipient's public key, at least for a P2WPKH transaction.
+> 📖 ***What is a transaction?*** A transaction is a bitcoin transfer
+of funds. The owner of some bitcoins uses his private key to access
+coins, then locks the transaction using the recipient's public key, at
+least for a P2WPKH transaction.
 
-> :link: **SIGNET vs MAINNET:** Sadly, there are no faucets in real life. If you were playing on the mainnet, you'd need to go and actually buy bitcoins at a bitcoin exchange or ATM, or you'd need to get someone to send them to you. Signet life is much easier.
+> 🔗 **SIGNET vs MAINNET:** Sadly, there are no faucets in real
+life. If you were playing on the mainnet, you'd need to go and
+actually buy bitcoins at a bitcoin exchange or ATM, or you'd need to
+get someone to send them to you. Signet life is much easier.
 
 ## Verify Your Money
 
-After you've requested your money, you should be able to verify it with the `bitcoin-cli getbalance` command:
+After you've requested your money, you should be able to verify it
+with the `bitcoin-cli getbalance` command:
 
 ```sh
 bitcoin-cli getbalance
 
 | 0.00000000
 ```
+
 But wait, there's no balance yet!?
 
-Welcome to the world of Bitcoin latency. The problem is that your transaction hasn't yet been recorded in a block!
+Welcome to the world of Bitcoin latency. The problem is that your
+transaction hasn't yet been recorded in a block!
 
 > 📖 ***What is a block?*** Transactions are transmitted across the network and gathered into blocks by miners. These blocks are secured with a mathematical proof-of-work, which proves that computing power has been expended as part of the block creation. It's that proof-of-work (multiplied over many blocks, each built atop the last) that ultimately keeps Bitcoin secure.
 
-> 📖 ***What is a miner?*** A miner is a participant of the Bitcoin network who works to create blocks. It's a paying job: when a miner successfully creates a block, they are paid a one-time reward plus the fees for the transactions in his block. Mining is big business. Miners tend to run on special hardware, accelerated in ways that make it more likely that they'll be able to create blocks. They also tend to be part of mining pools, where the miners all agree to share out the rewards when one of them successfully creates a block.
+> 📖 ***What is a miner?*** A miner is a participant of the Bitcoin network who works to create blocks. It's a paying job: when a miner successfully creates a block, they are paid a one-time reward plus the fees for the transactions in their block. Mining is big business. Miners tend to run on special hardware, accelerated in ways that make it more likely that they'll be able to create blocks. They also tend to be part of mining pools, where the miners all agree to share out the rewards when one of them successfully creates a block.
 
-You might have to wait patiently for those funds. Some faucets have a waiting queue before they'll distribute funds, and in any case it takes 10 minutes to make every block, even if a faucet sent a transaction immediately, it might take 10 minutes to arrive. Eventually, however, you should see funds:
+You might have to wait patiently for those funds. Some faucets have a
+waiting queue before they'll distribute funds, and in any case it
+takes 10 minutes to make every block, even if a faucet sent a
+transaction immediately, it might take 10 minutes to
+arrive. Eventually, however, you should see funds:
 
 ```sh
 bitcoin-cli getbalance
@@ -37,13 +59,30 @@ bitcoin-cli getbalance
 | 0.00500090
 ```
 
-> 📖 **Is Ten Minutes the Rule?** Ten minutes is the average amount of time it should take to generate a Bitcoin block. On Signet, it's pretty close to the rule, because the whole point of Signet is to have a regular, reliable testing environment. On Mainnet, the block time depends on when someone can randomly solve the tough proof-of-work problem that allows them to create a block. Sometimes it might take 30 minutes to generate a block, and then suddenly two more arrive a few minutes later each. Over time, the difficulty of the proof-of-work problem is moved up or down to bring the average back to 10 minutes per block.
+> 📖 **Is Ten Minutes the Rule?** Ten minutes is the average amount of
+time it should take to generate a Bitcoin block. On Signet, it's
+pretty close to the rule, because the whole point of Signet is to have
+a regular, reliable testing environment. On Mainnet, the block time
+depends on when someone can randomly solve the tough proof-of-work
+problem that allows them to create a block. Sometimes it might take 30
+minutes to generate a block, and then suddenly two more arrive a few
+minutes later each. Over time, the difficulty of the proof-of-work
+problem is moved up or down to bring the average back to 10 minutes
+per block.
 
 ### Gain Confidence in Your Money
 
-You can use `bitcoin-cli getbalance "*" [n]`, where you replace `[n]` with an integer, to see if a confirmed balance is 'n' blocks deep.
+You can use `bitcoin-cli getbalance "*" [n]`, where you replace `[n]`
+with an integer, to see if a confirmed balance is 'n' blocks deep.
 
-> 📖 ***What is block depth?*** After a block is built and confirmed, another block is built on top of it, and another ... Because this is a stochastic process, there's some chance for reversal when a block is still new. Therefore, a block has to be buried several blocks deep in a chain before you can feel totally confident in your funds. Since each of those blocks tends to be built in an average of 10 minutes, it usually takes about an hour for a confirmed transaction to receive six blocks deep, which is the measure for full confidence in Bitcoin.
+> 📖 ***What is block depth?*** After a block is built and confirmed,
+another block is built on top of it, and another ... Because this is a
+stochastic process, there's some chance for reversal when a block is
+still new. Therefore, a block has to be buried several blocks deep in
+a chain before you can feel totally confident in your funds. Since
+each of those blocks tends to be built in an average of 10 minutes, it
+usually takes about an hour for a confirmed transaction to receive six
+blocks deep, which is the measure for full confidence in Bitcoin.
 
 The following shows that our transactions have been confirmed one time, but not twice:
 
@@ -58,11 +97,14 @@ bitcoin-cli getbalance "*" 2
 ```
 Obviously, every ten minutes or so this depth will increase.
 
-Of course, on the Signet, no one is that worried about how reliable your funds are. You'll be able to spend your money as soon as it's confirmed.
+Of course, on the Signet, no one is that worried about how reliable
+your funds are. You'll be able to spend your money as soon as it's
+confirmed.
 
 ## Verify Your Wallet
 
 The `bitcoin-cli getwalletinfo` command gives you more information on the balance of your wallet:
+
 ```
 bitcoin-cli getwalletinfo
 
@@ -94,7 +136,9 @@ bitcoin-cli getwalletinfo
 
 ## Discover Your Transaction ID
 
-Your money came into your wallet via a transaction. You can discover that transactionid (txid) with the `bitcoin-cli listtransactions` command:
+Your money came into your wallet via a transaction. You can discover
+that transaction's id (`txid`) with the `bitcoin-cli listtransactions`
+command:
 
 ```sh
 bitcoin-cli listtransactions
@@ -130,9 +174,16 @@ bitcoin-cli listtransactions
 | ]
 ```
 
-This shows one transaction (`8954c067d0d3b47825300effeff9501a584c9644bfd58764a6af08a1f084f67c`) for a specific ammount (`0.00500090`) which was received by a specific address in your wallet (`2NAzFNuopaor2YnqVA2QC4KYme6HxWTk7jq`).
+This shows one transaction
+(`8954c067d0d3b47825300effeff9501a584c9644bfd58764a6af08a1f084f67c`)
+for a specific ammount (`0.00500090`) which was received by a specific
+address in your wallet (`2NAzFNuopaor2YnqVA2QC4KYme6HxWTk7jq`).
 
-You can access similar information with the `bitcoin-cli listunspent` command, but it only shows the transactions for the money that you haven't spent. These are called UTXOs, and will be vitally important when you're sending money back out into the Bitcoin world:
+You can access similar information with the `bitcoin-cli listunspent`
+command, but it only shows the transactions for the money that you
+haven't spent. These are called UTXOs (unspent transactions) and will
+be vitally important when you're sending money back out into the
+Bitcoin world:
 
 ```sh
 bitcoin-cli listunspent
@@ -158,13 +209,32 @@ bitcoin-cli listunspent
 | ]
 ```
 
-Note that bitcoins are not just a homogeneous mess of cash jammed into your pocket. Each individual transaction that you receive or that you send is placed into the immutable blockchain ledger, in a block. You can see these individual transactions when you look at your unspent money. This means that bitcoin spending isn't quite as anonymous as you'd think. Though the addresses are fairly private, transactions can be examined as they go in and out of addresses. This makes privacy vulnerable to statistical analysis. It also introduces some potential non-fungibility to bitcoins, as you can track back through series of transactions, even if you can't track a specific "bitcoin".
+Note that bitcoins are not just a homogeneous mess of cash jammed into
+your pocket. Each individual transaction that you receive or that you
+send is placed into the immutable blockchain ledger, in a block. You
+can see these individual transactions when you look at your unspent
+money. This means that bitcoin spending isn't quite as anonymous as
+you'd think. Though the addresses are fairly private, transactions can
+be examined as they go in and out of addresses. This makes privacy
+vulnerable to statistical analysis. It also introduces some potential
+non-fungibility to bitcoins, as you can track back through series of
+transactions, even if you can't track a specific "bitcoin".
 
-> 📖 ***Why are all of these bitcoin amounts in decimals?*** Bitcoins are produced slowly, and so there are relatively few in circulation. As a result, each bitcoin over on the mainnet is worth quite a bit (~ $67,000 at the time of this writing). This means that people usually work in fractional amounts. In fact, the .005 in Signet coins would be worth about $300 if they were on the mainnet. For this reason, names have appeared for smaller amounts of bitcoins, including millibitcoins or mBTCs (one-thousandth of a bitcoin), microbitcoins or bits or μBTCs (one-millionth of a bitcoin), and satoshis (one hundred millionth of a bitcoin).
+> 📖 ***Why are all of these bitcoin amounts in decimals?*** Bitcoins
+are produced slowly, and so there are relatively few in
+circulation. As a result, each bitcoin over on the mainnet is worth
+quite a bit (~$77,000 at the time of this writing). This means that
+people usually work in fractional amounts. In fact, the .005 in Signet
+coins would be worth about $300 if they were on the mainnet. For this
+reason, names have appeared for smaller amounts of bitcoins, including
+millibitcoins or mBTCs (one-thousandth of a bitcoin), microbitcoins or
+bits or μBTCs (one-millionth of a bitcoin), and satoshis (one hundred
+millionth of a bitcoin).
 
 ## Examine Your Transaction
 
-You can get more information on a transaction with the `bitcoin-cli gettransaction` command:
+You can get more information on a transaction with the `bitcoin-cli
+gettransaction` command:
 
 ```sh
 bitcoin-cli gettransaction 8954c067d0d3b47825300effeff9501a584c9644bfd58764a6af08a1f084f67c
@@ -207,7 +277,9 @@ bitcoin-cli gettransaction 8954c067d0d3b47825300effeff9501a584c9644bfd58764a6af0
 |   }
 | }
 ```
-The `gettransaction` command will detail transactions that are in your wallet, such as this one, that was sent to us.
+
+The `gettransaction` command will detail transactions that are in your
+wallet, such as this one, which was sent to us.
 
 Note that `gettransaction` has two optional arguments:
 
@@ -224,7 +296,9 @@ bitcoin-cli help gettransaction
 | 3. verbose              (boolean, optional, default=false) Whether to include a `decoded` field containing the decoded transaction (equivalent to RPC decoderawtransaction)
 ```
 
-By setting these two true or false, we can choose to include watch-only addresses in the output (which we don't care about) or look at more verbose output (which we do).
+By setting these two true or false, we can choose to include
+watch-only addresses in the output (which we don't care about) or look
+at more verbose output (which we do).
 
 Here's what this data instead looks at when we set `include_watchonly` to `false` and `verbose` to `true`.
 
@@ -360,15 +434,34 @@ bitcoin-cli gettransaction 8954c067d0d3b47825300effeff9501a584c9644bfd58764a6af0
 |
 ```
 
-Now you can see the full information on the transaction, including all of the inputs ("vin") and all the outputs ("vout). One of the interesting things to note is that although we received .00500090 BTC in the transaction, the same amount was sent to dozens of additional addresses (the full list was cut down to just the first several). It is quite typical for a transaction to have multiple inputs and/or multiple outputs.
+Now you can see the full information on the transaction, including all
+of the inputs ("vin") and all the outputs ("vout"). One of the
+interesting things to note is that although we received .00500090 BTC
+in the transaction, the same amount was sent to dozens of additional
+addresses (the full list was cut down to just the first several). It
+is quite typical for a transaction to have multiple inputs (if you
+need to mush together multiple UTXOs to have enough funds) and/or
+multiple outputs (if you're sending to multiple addresses).
 
-There is another command, `getrawtransaction`, which allows you to look at transactions that are not in your wallet. However, it requires you to have an unpruned node and `txindex=1` in your `bitcoin.conf` file. Unless you have a serious need for information not in your wallet, it's probably just better to use a Bitcoin explorer for this sort of thing ...
+There is another command, `getrawtransaction`, which allows you to
+look at transactions that are not in your wallet. However, it requires
+you to have an unpruned node and `txindex=1` in your `bitcoin.conf`
+file. Unless you have a serious need for information not in your
+wallet, it's probably just better to use a Bitcoin explorer for this
+sort of thing ...
 
 ## Optional: Use a Block Explorer
 
-Even looking at the verbose information for a transaction can be a little intimidating. The main goal of this tutorial is to teach how to deal with raw transactions from the command line, but we're happy to talk about other tools when they're applicable. One of those tools is a block explorer, which you can use to look at transactions from a web browser in a much friendlier format.
+Even looking at the verbose information for a transaction can be a
+little intimidating. The main goal of this tutorial is to teach you
+how to deal with raw transactions from the command line, but we're
+happy to talk about other tools when they're applicable. One of those
+tools is a block explorer, which you can use to look at transactions
+from a web browser in a much friendlier format.
 
-Currently, our preferred block explorer is [https://mempool.space/](https://mempool.space/), which has options for mainnet, signet, testnet3, and testnet4.
+Currently, our preferred block explorer is
+[https://mempool.space/](https://mempool.space/), which has options
+for mainnet, signet, testnet3, and testnet4.
 
 You can use it to look up transactions for an address:
 
@@ -378,11 +471,18 @@ You can also use it to look at individual transactions:
 
 [https://mempool.space/signet/tx/8954c067d0d3b47825300effeff9501a584c9644bfd58764a6af08a1f084f67c](https://mempool.space/signet/tx/8954c067d0d3b47825300effeff9501a584c9644bfd58764a6af08a1f084f67c)
 
-A block explorer doesn't generally provide any more information than a command line look at a raw transaction; it just does a good job of highlighting the important information and putting together the puzzle pieces, including the transaction fees behind a transaction, another concept that we'll be covering in future sections.
+A block explorer doesn't generally provide any more information than a
+command line look at a raw transaction; it just does a good job of
+highlighting the important information and putting together the puzzle
+pieces, including the transaction fees behind a transaction, another
+concept that we'll be covering in future sections.
 
 ## Summary: Receiving a Transaction
 
-Faucets will give you money on the testnet. They come in as raw transactions, which can be examined with `gettransaction` or a block explorer. Once you've receive a transaction, you can see it in your balance and your wallet.
+Faucets will give you money on the testnet. They come in as UTXOs,
+which can be examined with `gettransaction` or a block explorer. Once
+you've receive a transaction, you can see it in your balance and your
+wallet.
 
 ## What's Next?
 

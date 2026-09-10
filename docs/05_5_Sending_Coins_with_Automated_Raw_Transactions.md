@@ -4,19 +4,27 @@ This chapter lays out three ways to send funds via Bitcoin's cli
 interface. [§5.1](05_1_Sending_Coins_The_Easy_Way.md) described how to
 do so with a simple command and
 [§5.4](05_4_Sending_Coins_with_a_Raw_Transaction.md) detailed how to
-use a more dangerous raw transaction. This final section splits the
+create a more dangerous raw transaction. This final section splits the
 difference by showing how to make raw transactions simpler and safer
 using automation.
 
 ## Let Bitcoin Calculate For You
 
-The methodology for automated raw transactions is simple: you create a raw transaction, but you use the `fundrawtransaction` command to ask the bitcoind to run the calculations for you.
+The methodology for automated raw transactions is simple: you create a
+raw transaction, but you use the `fundrawtransaction` command to ask
+the bitcoind to run the calculations for you.
 
-In order to use this command, you'll need to ensure that your ~/.bitcoin/bitcoin.conf file contains rational variables for calculating transaction fees. Please see [§5.1: Sending Coins The Easy Way](05_1_Sending_Coins_The_Easy_Way.md) for more information on this.
+In order to use this command, you'll need to ensure that your
+~/.bitcoin/bitcoin.conf file contains rational variables for
+calculating transaction fees. Please see [§5.1: Sending Coins The Easy
+Way](05_1_Sending_Coins_The_Easy_Way.md) for more information on this.
 
 ## Create a Bare Bones Raw Transaction
 
-To use `fundrawtransaction` you first need to create a bare-bones raw transaction that lists _no_ inputs and _no_ change address. You'll just list your recipient and how much you want to send them, in this case `$recipient` and `0.0002` BTC.
+To use `fundrawtransaction` you first need to create a bare-bones raw
+transaction that lists _no_ inputs and _no_ change address. You'll
+just list your recipient and how much you want to send them, in this
+case `$recipient` and `0.0002` BTC.
 
 ```sh
 recipient=tb1qg3lau83hm9e9tdvzr5k7aqtw3uv0dwkfct4xdn
@@ -36,7 +44,11 @@ bitcoin-cli -named fundrawtransaction hexstring=$unfinishedtx
 |   "changepos": 1
 | }
 ```
-That provides useful information such as the seelected fee, but once you're confident with how it works, you'll want to use JQ to save your hex to a variable, as usual:
+
+That provides useful information such as the selected fee, but once
+you're confident with how it works, you'll want to use JQ to save your
+hex to a variable, as usual:
+
 
 ```sh
 rawtxhex3=$(bitcoin-cli -named fundrawtransaction hexstring=$unfinishedtx | jq -r '.hex')
@@ -101,7 +113,7 @@ bitcoin-cli -named decoderawtransaction hexstring=$rawtxhex3
 Though we saw the fee in the `fundrawtransaction` output, it's not
 visible here. However, you can verify it with the `txfee-calc.sh` JQ
 script created in the [JQ
-Interlude](https://github.com/BlockchainCommons/Learning-Bitcoin-from-the-Command-Line/blob/master/05_2a_Interlude_Using_JQ.md):
+Interlude](05_2a_Interlude_Using_JQ.md):
 
 ```sh
 ~/txfee-calc.sh $rawtxhex3
@@ -109,7 +121,9 @@ Interlude](https://github.com/BlockchainCommons/Learning-Bitcoin-from-the-Comman
 | .00001400
 ```
 
-Finally, you can use `getaddressinfo` to see that the generated change address (the one receiving the surplus funds of 0.01798590) really belongs to you:
+Finally, you can use `getaddressinfo` to see that the generated change
+address (the one receiving the surplus funds of 0.01798590) really
+belongs to you:
 
 ```sh
 bitcoin-cli -named getaddressinfo address=tb1qlc0cq7qkzl08g2cg02nrmaj308lrcfgjzec9lx
@@ -174,9 +188,17 @@ bitcoin-cli listunspent
 
 ## Freeze Your Coins
 
-The `fundrawtransaction` makes it easy to fund raw transactions by automatically selecting your UTXOs, saving you from having to search them up. But sometimes there might be UTXOs that you _don't_ want to use, most frequently because they might correlate activities that you don't want correlated (e.g., if you do programming for politicians under a pseudonym, you might not want to spend money earned in that way on a family vacation, because it could break your pseudonymity). 
+The `fundrawtransaction` makes it easy to fund raw transactions by
+automatically selecting your UTXOs, saving you from having to search
+them up. But sometimes there might be UTXOs that you _don't_ want to
+use, most frequently because they might correlate activities that you
+don't want correlated (e.g., if you do programming for politicians
+under a pseudonym, you might not want to spend money earned in that
+way on a family vacation, because it could break your pseudonymity).
 
-To prevent this sort of correlation from accidentally happening, you can "lock" a sensitive UTXO so that it's never selected for automatic fund creation, such as with `fundrawtransaction`. 
+To prevent this sort of correlation from accidentally happening, you
+can "lock" a sensitive UTXO so that it's never selected for automatic
+fund creation, such as with `fundrawtransaction`.
 
 First, you need to identify the problematic UTXO:
 
@@ -184,14 +206,17 @@ First, you need to identify the problematic UTXO:
 txid="031c88b5ef382f20773381543f00a7d34694d7372382d5d4f6029d9bf86693f5"
 vout="0"
 ```
-Then you need to run the `lockunspent` command with an `unlock=false` (e.g., "lock") argument and a JSON array of orbjects that each contain a UTXO.
+
+Then you need to run the `lockunspent` command with an `unlock=false`
+(e.g., "lock") argument and a JSON array of objects that each contain
+a UTXO.
 
 ```sh
 bitcoin-cli -named lockunspent unlock=false transactions='''[ { "txid": "'$txid'", "vout": '$vout' } ]'''
 
 | true
 ```
-This will maintain the lock in memory. If you want it instead written to the wallet database, chose:
+This will maintain the lock in volatile memory. If you want it instead written to the wallet database, chose:
 
 ```sh
 bitcoin-cli -named lockunspent unlock=false transactions='''[ { "txid": "'$txid'", "vout": '$vout' } ]''' persistent=true
@@ -210,7 +235,7 @@ bitcoin-cli listlockunspent
 |   }
 | ]
 ```
-It's now also missing from your `listunspent` list:
+It will also be absent from your `listunspent` list:
 
 ```sh
 bitcoin-cli listunspent
@@ -290,9 +315,13 @@ If you must send funds with raw transactions then `fundrawtransaction` gives you
 
 > _The advantages._ It provides a nice balance. If you're sending funds by hand and `sendtoaddress` doesn't offer enough control for whatever reason, you can get some of the advantages of raw transactions without the dangers. This methodology should be used whenever possible if you're sending raw transactions by hand.
 
-> _The disadvantages._ It's a hodge-podge. Though there are a few additional options for the `fundrawtransaction` command that weren't mentioned here, but even with the ability to lock UTXOs, your control is still limited. You'd probably never want to use this method if you were writing a program where the whole goal is to know exactly what's going on.
+> _The disadvantages._ It's a hodge-podge. There are a few additional
+options for the `fundrawtransaction` command that weren't mentioned
+here, but even with the ability to lock UTXOs, your control is still
+limited. You'd probably never want to use this method if you were
+writing a program where the whole goal is to know exactly what's going
+on.
 
 ## What's Next?
 
 Complete your "Sending of Bitcoin Transactions" with [§5.6: Sending Coins to Other Addresses](05_6_Sending_Coins_to_Other_Addresses.md).
-

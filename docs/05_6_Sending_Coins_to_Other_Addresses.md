@@ -1,12 +1,17 @@
 # 5.6: Sending Coins to Other Addresses
 
-You've sent coins to P2WPKH addresses by a variety of means. But what if you want to send coins to other address types?
+You've sent coins to P2WPKH addresses by a variety of means. But what
+if you want to send coins to other address types?
 
 It turns out that it's so simple that you don't have to think about it.
 
 ## Send Coins to Supported Addresses
 
-If you want to send a coin to any supported address described in [§4.1](04_1_Understanding_the_Address.md) you can do so with any of the methodologies described to date. There's nothing more: it just works, because Bitcoin is backward compatible and because Bitcoin Core is going to always be on the leading edge of new address types.
+If you want to send a coin to any supported address described in
+[§4.1](04_1_Understanding_the_Address.md) you can do so with any of
+the methodologies described to date. There's nothing more: it just
+works, because Bitcoin is backward compatible and because Bitcoin Core
+is going to always be on the leading edge of new address types.
 
 Here's some examples, using the simple `sendtoaddress` command from [§5.1](05_1_Sending_Coins_The_Easy_Way.md). (Addresses are drawn from the [recycle page](https://signet257.bublina.eu.org/about.html#recycle) on the [Alt Signet Faucet](https://signet257.bublina.eu.org/).
 

@@ -34,7 +34,7 @@ Bech32 address (to describe its encoding method) or a SegWit address
 (to describe how its signature is stored), but there are other types
 of addresses that are also Bech32-encoded or SegWit.
 
-SegWit came out of the Blocksize War of the '10s, where Bitcoin
+SegWit came out of the Block Size Wars of the '10s, where Bitcoin
 developers and users were trying to figure out a way to speed up the
 Bitcoin blockchain by allowing more transactions to be sent in less
 time. The result was the SegWit soft fork. It solved the problem by
@@ -52,7 +52,14 @@ and a few other SegWit addresses that we'll meet shortly, are the
 default type of address; when you create address by default you'll be
 creating a P2WPKH.
 
-> 📖 **What is a fork?** A fork is a change to the Bitcoin protocol. This isn't a change to how one application (like Bitcoin Core) works, it's a change to how all of the members of the Bitcoin network agree to interact with each other. A hard fork makes new transactions incompatible with old transactions. It essentially creates two versions of Bitcoin (and most often has been used to actually create a new cryptocurrency). A soft fork ensures that old transactions remain compatible.
+> 📖 **What is a fork?** A fork is a change to the Bitcoin
+protocol. This isn't a change to how one application (like Bitcoin
+Core) works, it's a change to how all of the members of the Bitcoin
+network agree to interact with each other. A hard fork makes new
+transactions incompatible with old transactions. It essentially
+creates two versions of Bitcoin (and most often has been used to
+actually create a new cryptocurrency). A soft fork ensures that old
+transactions remain compatible.
 
 ### The Rest of the Addresses
 
@@ -68,8 +75,8 @@ they come up and you want to figure out what they do exactly.
 The addresseses commonly in use for new Bitcoin addresses today are:
 
 * **✅ P2WPKH (Pay to Witness Public Hash).** P2WPKH is a SegWit address that can be unlocked with a single key. This is the default address type for Bitcoin Core, and what you'll mostly be using. P2WPKH deprecates P2PKH.
-* **✅ P2WSH (Pay to Witness Script Hash).** P2WSH is a SegWit address that can be unlocked by a script (rather than one or more private keys doing so). Scripts are described in [Chapter 11](11_0_Introducing_Bitcoin_Scripts.md) (and afterward). P2WSH deprecates P2SH.
-* **✅ P2TR.** Taproot is the newest Bitcoin address type, but it was soft forked back in 2021, so it should have wide acceptance at this point. It's considered to be SegWit v1. Due to its use of Schnorr signatures, it can produce smaller transactions for multisigs, has privacy advantages, and can also combine singular signatures with scripts. It hasn't been widely adopted yet. We'll examing Taproot transactions starting in [Chapter 9](09_0_Expanding_Bitcoin_Transactions_with_Schnorr.md).
+* **✅ P2WSH (Pay to Witness Script Hash).** P2WSH is a SegWit address that can be unlocked by a script (rather than a private key doing so). Scripts are described in [Chapter 11](11_0_Introducing_Bitcoin_Scripts.md) (and afterward). P2WSH deprecates P2SH.
+* **✅ P2TR.** Taproot is the newest Bitcoin address type, but it was soft forked back in 2021, so it should have wide acceptance at this point (but not necessarily wide usage). It's considered to be SegWit v1. Due to its use of Schnorr signatures, it can produce smaller transactions for multisigs, has privacy advantages, and can also combine singular signatures with scripts. We'll examing Taproot transactions starting in [Chapter 17: Introducing Taproot](17_0_Introducing_Taproot.md).
  
 Other addresses such as
 [P2MR](https://github.com/bitcoin/bips/blob/master/bip-0360.mediawiki),
@@ -84,16 +91,24 @@ These last four address types are more totally deprecated:
 
 * **❌ P2PK (Pay to Public Key).** This address type was used in the earliest days of Bitcoin and soon phased out. It pays directly to a public key, rather than the hash of a public key. Revealing your public key can actually be dangerous since quantum computing or other future processor improvements might be able to brute force a private key given a public key. That's why modern addresses moved to those hashes, which can't be reversed.
 * **❌ P2MS (Pay to Multisig).** Most Bitcoin transactions are signed by a single key, which allows a single person to decide to send the Bitcoin. Multisigs instead allow multiple people to do so. P2MS was the initial attempt to support this, but it exposed public keys (like P2PK did) and only allowed a maximum of three signatures. It was quickly replaced by P2SH scripts, and more recently by P2WSH and P2TR. 
-* **❌ P2SH-P2WPKH and ❌P2SH-P2WSH.** When SegWit was being deployed, people wanted to send to it even before their wallets had been upgraded. These two "Nested Segwit" or "Wrapped Address" types offered the opportunity to do so by using a classic P2SH (scripting) address to incorporate the SegWit mechanics. These are actually just P2SH addresses with specific scripts, not a proper address type, and they're no longer needed since the SegWit upgrade is long past.
+* **❌ P2SH-P2WPKH and ❌P2SH-P2WSH.** When SegWit was being deployed, people wanted to send to it even before their wallets had been upgraded. The "Nested Segwit" or "Wrapped Address" address types offered the opportunity to do so by using a classic P2SH (scripting) address to incorporate the SegWit mechanics. These are actually just P2SH addresses with specific scripts, not a proper address type, and they're no longer needed since the SegWit upgrade is long past.
 
-[Unchained Capital](https://www.unchained.com/blog/bitcoin-address-types-compared) conducted a survey of address types back in 2023. Besides giving more details on all of the address types, it also lists how much of the Bitcoin supply is held in each address type. Though some deprecated addresses (particularly P2PKH and P2SH) still hold large amounts of Bitcoin, that's a historic artifact. Some of those funds may be forever lost (due to lost keys) while others may be being held for the long term.
+[Unchained
+Capital](https://www.unchained.com/blog/bitcoin-address-types-compared)
+conducted a survey of address types back in 2023. Besides giving more
+details on all of the address types, it also lists how much of the
+Bitcoin supply is held in each address type. Though some deprecated
+addresses (particularly P2PKH and P2SH) still hold large amounts of
+Bitcoin, that's a historic artifact. Some of those funds may be
+forever lost (due to lost keys) while others may be being held for the
+long term.
   
 | Type | Description | Fund % |
 |------|-------------|--------|
 | P2PK | Pay to Public Key | 9% |
 | P2MS | Pay to Multisig | 0%+ |
 | P2PKH | Pay to Public Key Hash | 43% |
-| P2SH | Pay to Script hash | 24% |
+| P2SH | Pay to Script Hash | 24% |
 | P2WPKH | Pay to Witness Public Key Hash | 20% |
 | P2WSH | Pay to Witness Script Hash | 4% |
 | P2TR | Pay to Taproot | 0.1% |
@@ -176,7 +191,18 @@ a Bech32-encoded address on either signet or testnet.
 
 Take careful note of the address. You'll need to give it to whomever will be sending you funds.
 
-> 📖 ***What is a Bitcoin address?*** A Bitcoin address is literally where you receive money. It's like an email address, but for funds. It's based on a public key, though different address schemes adjust that in different ways. Unlike an email address, a Bitcoin address should be considered single use: use it to receive funds just _once_. When you want to receive funds from someone else or at some other time, generate a new address. This is suggested in large part to improve your privacy. The whole blockchain is immutable, which means that explorers can look at long chains of transactions over time, making it possible to statistically determine who you and your contacts are, no matter how careful you are. If you keep reusing the same address, then this becomes even easier.
+> 📖 ***What is a Bitcoin address?*** A Bitcoin address is literally
+where you receive money. It's like an email address, but for
+funds. It's based on a public key, though different address schemes
+adjust that in different ways. Unlike an email address, a Bitcoin
+address should be considered single use: use it to receive funds just
+_once_. When you want to receive funds from someone else or at some
+other time, generate a new address. This is suggested in large part to
+improve your privacy. The whole blockchain is immutable, which means
+that explorers can look at long chains of transactions over time,
+making it possible to statistically determine who you and your
+contacts are, no matter how careful you are. If you keep reusing the
+same address, then this becomes even easier.
 
 By creating your first Bitcoin address, you've also begun to fill in
 your Bitcoin wallet. More precisely, you've begun to fill the
@@ -184,8 +210,8 @@ your Bitcoin wallet. More precisely, you've begun to fill the
 directory. With a single address in hand, you could jump straight
 [§4.4: Receiving a Transaction](04_4_Receiving_a_Transaction.md) and
 begin receiving funds. However, before we get there, we're going to
-briefly discuss backing up your wallet and a few optional wallet
-commands that you might want to use in the future.
+talk some about other address types and how to input and output them
+in a variety of formats.
 
 ## Create Other Address Types
 
@@ -221,7 +247,9 @@ bitcoin-cli getnewaddress "" p2sh-segwit
 
 | 2NAzFNuopaor2YnqVA2QC4KYme6HxWTk7jq
 ```
-Note that the address prefixes match each of the expected types, with `p2sh-segwit` revealing itself as actually being a P2SH transaction.
+
+Note that the address prefixes match each of the expected types, with
+`p2sh-segwit` revealing itself as actually being a P2SH transaction.
 
 It seems likely that the `legacy` and `p2sh-segwit` flags will be
 sunset some time in the future, as they were added to support the

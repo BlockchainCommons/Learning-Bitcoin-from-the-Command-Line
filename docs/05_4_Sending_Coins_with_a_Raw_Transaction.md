@@ -11,11 +11,19 @@ how to create a raw transaction, an
 [§5.3](05_3_Creating_a_Raw_Transaction_with_Named_Arguments.md)
 demonstrated named arguments.
 
-We can now put those together and actually send funds using a raw transaction (or more precisely, we can send funds in a way that actually represents a real transaction, rather than sending complete UTXOs, as was did in the previous two sections).
+We can now put those together and actually send funds using a raw
+transaction (or more precisely, we can send funds in a way that
+actually represents a real transaction, rather than sending complete
+UTXOs, as was did in the previous two sections).
 
 ## Create a Change Address
 
-Our sample raw transactions in §5.2 and §5.3 were very simplistic: we sent the entirety of a UTXO to a new address. In real-life, you'll want to send someone an amount of money that doesn't match a UTXO. But, you'll recall that the excess money from a UTXO that's not sent to your recipient just becomes a transaction fee. So, how do you send someone just part of a UTXO, while keeping the rest for yourself?
+Our sample raw transactions in §5.2 and §5.3 were very simplistic: we
+sent the entirety of a UTXO to a new address. In real-life, you'll
+want to send someone an amount of money that doesn't match a
+UTXO. But, you'll recall that the excess money from a UTXO that's not
+sent to your recipient just becomes a transaction fee. So, how do you
+send someone just part of a UTXO, while keeping the rest for yourself?
 
 The solution is to _send_ the rest of the funds to a second address, a change address that you've created in your wallet specifically to receive them:
 
@@ -25,15 +33,36 @@ echo $changeaddress
 
 | tb1qjrs9jr572nfyg5un8f2rzjdngml0mvskxlyd09
 ```
-Note that this uses a new function: `getrawchangeaddress`. It's largely the same as `getnewaddress` but is optimized for use as a change address in a raw transaction, so it doesn't do things like make entries in your address book. You now have an additional address inside your wallet, so that you can receive change from a UTXO! In order to use it, you'll need to create a raw transaction with two outputs.
+
+Note that this uses a new function: `getrawchangeaddress`. It's
+largely the same as `getnewaddress` but is optimized for use as a
+change address in a raw transaction, so it doesn't do things like make
+entries in your address book. (It'll also be an internal address,
+rather than an external address, which as you saw in
+[§3.4](03_4_Understanding_the_Descriptor_Wallet.md) has a slightly
+different scriptor.)
+
+You now have an additional address that you can to use to receive
+change from a UTXO! But you'll need to create a raw transaction with
+two outputs, but not one.
 
 ## Pick Sufficient UTXOs
 
-Our sample raw transactions of the previous two sections were simple in another way: they assumed that there was enough money in a single UTXO to cover the transaction. Often this will be the case, but sometimes you'll want to create transactions that spends more money than you have in a single UTXO. To do so, you must create a raw transaction with two (or more) inputs.
+Our sample raw transactions of the previous two sections were simple
+in another way: they assumed that there was enough money in a single
+UTXO to cover the transaction. Often this will be the case, but
+sometimes you'll want to create transactions that spends more money
+than you have in a single UTXO. To do so, you must create a raw
+transaction with two (or more) inputs.
 
 ## Write a Real Raw Transaction
 
-To summarize: creating a real raw transaction to send coins will sometimes require multiple inputs and will almost always require multiple outputs, one of which is a change address. We'll be creating that sort of more realistic transaction here, in a new example that shows a real-life example of sending funds via Bitcoin's second methodology, raw transactions.
+To summarize: creating a real raw transaction to send coins will
+sometimes require multiple inputs and will almost always require
+multiple outputs, one of which is a change address. We'll be creating
+that sort of more realistic transaction here, in a new example that
+shows a real-life example of sending funds via Bitcoin's second
+methodology, raw transactions.
 
 We've got three UTXOs in our wallet. 
 
@@ -94,7 +123,7 @@ We're going to be spending the 0th and the 2nd so that we can sum up .02 BTC.
 
 ### Set Up Your Variables
 
-We already have `$changeaddress` and `$recipient` variables from previous examples:
+We already have our `$changeaddress` and will choose a new `$recipient`.
 
 ```sh
 echo $changeaddress
@@ -117,16 +146,29 @@ utxo_vout_2=$(bitcoin-cli listunspent | jq -r '.[2] | .vout')
 
 ### Write the Transaction
 
-Writing the actual raw transaction is surprisingly simple. All you need to do is include an additional, comma-separated JSON object in the JSON array of inputs and an additional, comma-separated key-value pair in the JSON object of outputs.
+Writing the actual raw transaction is surprisingly simple. All you
+need to do is include an additional, comma-separated JSON object in
+the JSON array of inputs and an additional, comma-separated key-value
+pair in the JSON object of outputs.
 
-Here's the example. Note the multiple inputs after the `inputs` arg and the multiple outputs after the `outputs` arg.
+Here's the example. Note the multiple inputs after the `inputs` arg
+and the multiple outputs after the `outputs` arg.
 
 ```sh
 rawtxhex2=$(bitcoin-cli -named createrawtransaction inputs='''[ { "txid": "'$utxo_txid_1'", "vout": '$utxo_vout_1' }, { "txid": "'$utxo_txid_2'", "vout": '$utxo_vout_2' } ]''' outputs='''{ "'$recipient'": 0.02, "'$changeaddress'": 0.00194 }''')
 ```
-We were _very_ careful figuring out our money math. These two UTXOs contain 0.02195147 BTC. After sending 0.02 BTC, we'll have 0.00195147 BTC left. We chose 0.00001147 BTC the transaction fee. To accommodate that fee, we set our change to .00194 BTC. If we'd messed up our math and instead set our change to .000195 BTC, that additional BTC would be lost to the miners! If we'd forgot to make change at all, then the whole excess would have disappeared. So, again, _be careful_. 
 
-Fortunately, we can triple-check with the `btctxfee` alias from the JQ Interlude:
+We were _very_ careful figuring out our money math. These two UTXOs
+contain 0.02195147 BTC. After sending 0.02 BTC to the recipient, we
+will have 0.00195147 BTC left. We chose 0.00001147 BTC for the
+transaction fee. To accommodate that fee, we set our change to .00194
+BTC. If we'd messed up our math and instead set our change to .000194
+BTC, that additional BTC would be lost to the miners! If we'd forgot
+to make change at all, then the whole excess would have
+disappeared. So, again, _be careful_.
+
+Fortunately, we can triple-check with the `btctxfee` alias from the [JQ
+Interlude](05_2a_Interlude_Using_JQ.md):
 
 ```
 ./txfee-calc.sh $rawtxhex2
@@ -136,7 +178,7 @@ Fortunately, we can triple-check with the `btctxfee` alias from the JQ Interlude
 
 ### Finish It Up
 
-You can now sign, seal, and deliver your transaction, and it's yours (and the faucet's):
+You can now sign, seal, and deliver your transaction, and it's yours (and the recipient's):
 
 ```sh
 signedtx2=$(bitcoin-cli -named signrawtransactionwithwallet hexstring=$rawtxhex2 | jq -r '.hex')
@@ -149,7 +191,9 @@ bitcoin-cli -named sendrawtransaction hexstring=$signedtx2
 
 As usual, your money will be in flux for a while: the change will be unavailable until the transaction actually gets confirmed and a new UTXO is given to you.
 
-But, in 10 minutes or less (probably), you'll have your remaining money back and fully spendable again. For now, we're still waiting, and so can only see that one UTXO that we didn't spend:
+But, in 10 minutes or less (probably), you'll have your remaining
+money back and fully spendable again. For now, we're still waiting,
+and so can only see that one UTXO that we didn't spend:
 
 ```sh
 bitcoin-cli listunspent
@@ -228,11 +272,18 @@ But eventually the change will arrive (and for that matter, the spent funds too,
 | ]
 ```
 
-This also might be a good time to revisit a blockchain explorer, so that you can see more intuitively how the inputs, outputs, and transaction fee are all laid out: [80619fca79ce08e6c5405a8a241bb479be6d3d18256df859afb7b92c5f472465](https://mempool.space/signet/tx/80619fca79ce08e6c5405a8a241bb479be6d3d18256df859afb7b92c5f472465).
+This also might be a good time to revisit a blockchain explorer, so
+that you can see more intuitively how the inputs, outputs, and
+transaction fee are all laid out:
+[80619fca79ce08e6c5405a8a241bb479be6d3d18256df859afb7b92c5f472465](https://mempool.space/signet/tx/80619fca79ce08e6c5405a8a241bb479be6d3d18256df859afb7b92c5f472465).
 
 ## Summary: Sending Coins with Raw Transactions
 
-To send coins with raw transactions, you need to create a raw transaction with one or more inputs (to have sufficient funds) and one or more outputs (to retrieve change). Then, you can follow your normal procedure of using `createrawtransaction` with named arguments and JQ, as laid out in previous sections.
+To send coins with raw transactions, you need to create a raw
+transaction with one or more inputs (to have sufficient funds) and one
+or more outputs (to retrieve change). Then, you can follow your normal
+procedure of using `createrawtransaction` with named arguments and JQ,
+as laid out in previous sections.
 
 > 🔥 ***What is the power of sending coins with raw transactions?***
 
@@ -245,5 +296,8 @@ To send coins with raw transactions, you need to create a raw transaction with o
 See another alternative way to input commands with [Interlude: Using
 Curl](05_4a_Interlude_Using_Curl.md).
 
-Or, if you prefer to skip what's frankly a digression, learn a final way to "Send Bitcoin Transactions" with [§5.5 Sending Coins with Automated Raw Transactions](05_5_Sending_Coins_with_Automated_Raw_Transactions.md).
+Or, if you prefer to skip what's frankly a digression, learn a final
+way to "Send Bitcoin Transactions" with [§5.5 Sending Coins with
+Automated Raw
+Transactions](05_5_Sending_Coins_with_Automated_Raw_Transactions.md).
 

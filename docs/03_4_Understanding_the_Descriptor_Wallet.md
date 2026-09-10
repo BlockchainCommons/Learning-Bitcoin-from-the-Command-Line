@@ -37,7 +37,7 @@ of many examples.
 
 The higher levels of secrets, the seeds and the master keys, are
 largely hidden from you in Bitcoin Core, but we'll talk about how to
-import them from the larger ecosystem in [chapter
+import them from the larger ecosystem in [Chapter
 10](10_0_Working_with_Secrets.md).
 
 ## Understand Descriptor Wallets
@@ -51,7 +51,7 @@ devices) and even setting up wallets to watch over funds controlled by
 different wallets.
 
 HD wallets offered a big step forward for managing this sort of
-interoperability, because they allowed you to load a single seed (or
+interoperability because they allowed you to load a single seed (or
 master extended private key) into a new wallet rather than having to
 move over a whole bag of keys. A few formats were quickly introduced
 to make it easy to move HD wallets, starting with seed phrases and the
@@ -68,7 +68,7 @@ A new format was needed that described not just the extended keys, but
 also which address types they would be used to create. Because if you
 didn't have that, a new wallet would have to test a master extended
 public key against _every possible type of address_ and that was going
-to be very inefficient and time-consuming and still introduced the
+to be very inefficient and time-consuming and still offered the
 likelihood of losing funds.
  
 > 📖 ***What is xprv?*** Xprv stands for extended private key. This is
@@ -88,11 +88,10 @@ one or more nested functions (which define how to unlock the Bitcoin
 at the address), a derivation path (which not only derives a specific
 account or address key from the master key but also provides
 information by defining the purpose of an address, which mostly links
-it to a specific standard), either the account public key or the
-account private key, and a checksum to make sure that nothing has been
-corrupted.
+it to a specific standard), either a public key or a private key, and
+a checksum to make sure that nothing has been corrupted.
 
-> 📖 ***What is a Derivation Path?*** When you have hierarchical keys,
+> 📖 ***What is a Derivation Path?*** When you use hierarchical keys,
 you need to be able to define individual keys as descendents of the
 master key. For example `[0]` is the 0th key of the master key,
 `[0/1]` is the first son of the 0th key, `[0/1/1]` is the first son of
@@ -238,8 +237,8 @@ eight descriptors actually represent a large number of addresses that
 can deterministically be created on the fly.
 
 * There are four types of addresses, which we'll meet in the next chapter (`pkh`, `sh`, `tr`, and `wpkh`).
-* Each type of address supports external addresses (for receiving funds from other wallets) and internal addresses (for sending change back to this wallet), as defined by `internal`.
-* Each type of address has its own account key (e.g., `tpubDCsocyjrtJLXKJ3atFwKf6FiPheuVNV27B1swsGiNvk4cuPhVTsCDvusSNcH8thnS68FPFotgHqo9FHNGrvhtx6ZqdbWBQTWrCgK9xous17`).
+* Each type of address supports `external` addresses (for receiving funds from other wallets) and `internal` addresses (for sending change back to this wallet).
+* Each type of address has its own account key (e.g., `tpubDCsocyjrtJLXKJ3atFwKf6FiPheuVNV27B1swsGiNvk4cuPhVTsCDvusSNcH8thnS68FPFotgHqo9FHNGrvhtx6ZqdbWBQTWrCgK9xous17`), which is derived key for that derivation path.
 * Each type of address supports a range of addresses, initially running 0 to 999.
 
 In other words, even though you have eight descriptors, that's
@@ -276,8 +275,8 @@ As for the descriptor itself, let's break that down further:
 * **Function: `wpkh`.** The function that is used to create an address from that key. In this cases it's `wpkh`. That stands for "Witness Public Key Hash," which is one of the methods used to unlock a Bech32 address, which we'll meet in the next chapter.
 * **Fingerprint: `e18dae20`.** This is a fingerprint of the master extended public key. It tells you which secret was used to generate this address. The fingerprint is *not* necessary to generate the keys and addresses for a derivation, it's just helpful if you need to go back and find the secret that generated your extended keys.
 * **Derivation Path for Key: `/84h/1h/0h`.** This describes the derivation path used to create the key in the desciptor from the fingerprinted master key. This is the 0th child key of the 1st child of the 84th child in the HD tree. The various levels in the derivation path have very specific meanings as defined in [BIP-44](https://en.bitcoin.it/wiki/BIP_0044): `/purpose/coin_type/account/`. The purpose of this derivation path is "84", which means that it follows [BIP-84](https://github.com/bitcoin/bips/blob/master/bip-0084.mediawiki), which describes WPKH derivation. The coin type is "1", which means that it's a testnet or signet coin. (A mainnet coin could would be "0".) The account is "0", as it's the only account in our wallet.
-* **Key: `tpubDC4ujMbsd9REzpGk3gnTjkrfJFw1NnvCpx6QBbLj3CHBzcLmVzssTVP8meRAM1WW4pZnK6SCCPGyzi9eMfzSXoeFMNprqtgxG71VRXTmetu`.** This is key derived from the fingerprinted master key using the derivation path. In this case, since the derivation path was `84h/1h/0h`, it's an account key (to be precise, an account public key for testnet). A private key could be here instead: a public key would demonstrate how to watch this series of addresses, while a private key would show to control them.
-* **Derivation Path for Addresses: `/0/*`.** This is the rest of the five-part derivation path. What's in the `[brackets]` shows how to derive the key in the descriptor from the fingerprinted master key, while what's here shows you how to derive addresses from that key. Again, BIP-44 defines these levels of the derivation path: they're `change/address_index`. The "0" says it's an external address. (An internal or change address would be "1".) The `*` says it's a ranged address, which means that it's defining a whole set of WPKH addresses that could be created. Each of those addresses has its own "index" (`0`, `1`, etc).
+* **Key: `tpubDC4ujMbsd9REzpGk3gnTjkrfJFw1NnvCpx6QBbLj3CHBzcLmVzssTVP8meRAM1WW4pZnK6SCCPGyzi9eMfzSXoeFMNprqtgxG71VRXTmetu`.** This is key derived from the fingerprinted master key using the derivation path. In this case, since the derivation path was `84h/1h/0h`, it's an account key (to be precise, an account public key for testnetWPKH addresses). A private key could be here instead: a public key would demonstrate how to watch this series of addresses, while a private key would show to control them.
+* **Derivation Path for Addresses: `/0/*`.** This is the rest of the five-part derivation path. What's in the `[brackets]` shows you how to derive the key in the descriptor from the fingerprinted master key, while what's here shows you how to derive addresses from that key. Again, BIP-44 defines these levels of the derivation path: they're `change/address_index`. The "0" says it's an external address. (An internal or change address would be "1".) The `*` says it's a ranged address, which means that it's defining a whole set of WPKH addresses that could be created. Each of those addresses has its own "index" (`0`, `1`, etc).
 * **`#3658f8sn"`.** This is a checksum showing the descriptor isn't corrupted.
 
 So that's what everything means in a descriptor.
@@ -301,7 +300,7 @@ bitcoin-cli getdescriptorinfo "wpkh([e18dae20/84h/1h/0h]tpubDC4ujMbsd9REzpGk3gnT
 ```
 This is a pretty sparse description that includes the `descriptor` and its `checksum` and confirms that it's a ranged descriptor (`isrange`), that our wallet has the private key (`issolvable`), and that the private key isn't included in the descriptor and that there's instead a public key (`hasprivatekeys`). Beyond that information, `getdescriptorinfo` serves two other purposes:
 
-1. If you don't have the checksum (which is required for other descriptor-related `bitcoin-cli` commands), you can enter the descriptor into `getdescriptorinfo` without it, and it'll be calculated for you.
+#1. If you don't have the checksum (which is required for other descriptor-related `bitcoin-cli` commands), you can enter the descriptor into `getdescriptorinfo` without it, and it'll be calculated for you.
 
 ```sh
 bitcoin-cli getdescriptorinfo "wpkh([e18dae20/84h/1h/0h]tpubDC4ujMbsd9REzpGk3gnTjkrfJFw1NnvCpx6QBbLj3CHBzcLmVzssTVP8meRAM1WW4pZnK6SCCPGyzi9eMfzSXoeFMNprqtgxG71VRXTmetu/0/*)"
@@ -315,7 +314,7 @@ bitcoin-cli getdescriptorinfo "wpkh([e18dae20/84h/1h/0h]tpubDC4ujMbsd9REzpGk3gnT
 | }
 ```
 
-2. If your descriptor is invalid, `getdescriptorinfo` will tell you:
+#2. If your descriptor is invalid, `getdescriptorinfo` will tell you:
 
 ```sh
 bitcoin-cli getdescriptorinfo "cow([e18dae20/84h/1h/0h]tpubDC4ujMbsd9REzpGk3gnTjkrfJFw1NnvCpx6QBbLj3CHBzcLmVzssTVP8meRAM1WW4pZnK6SCCPGyzi9eMfzSXoeFMNprqtgxG71VRXTmetu/0/*)"
@@ -330,7 +329,7 @@ bitcoin-cli getdescriptorinfo "cow([e18dae20/84h/1h/0h]tpubDC4ujMbsd9REzpGk3gnTj
 The really important feature of descriptors is that you can take them to another (remote) machine and import them. This is done with the `importdescriptors` command. The following example shows the import of a BIP-84 ranged descriptor containing a master private key into another wallet:
 
 ```sh
-bitcoin-cli importdescriptors '[{ "desc": "wpkh(tprv8ZgxMBicQKsPd1dP4NpsFDpsLUCnZ7oyn4UEbYLw7if1EDVCxMgfSzAwP3aCr1YeRvX9GtGvHsCLdrM7zaDyh33jEj7joQoEeNEyJaSYm5p/84h/1h/0h/0/*)#grdqnase", "timestamp":1770329126, "active": true, "range": [0,10] }]'
+bitcoin-cli importdescriptors '[{ "desc": "wpkh(tprv8ZgxMBicQKsPd1dP4NpsFDpsLUCnZ7oyn4UEbYLw7if1EDVCxMgfSzAwP3aCr1YeRvX9GtGvHsCLdrM7zaDyh33jEj7joQoEeNEyJaSYm5p/84h/1h/0h/0/*)#grdqnase", "timestamp": "now", "active": true, "range": [0,10] }]'
 
 | [
 |   {
@@ -342,16 +341,23 @@ bitcoin-cli importdescriptors '[{ "desc": "wpkh(tprv8ZgxMBicQKsPd1dP4NpsFDpsLUCn
 You'll note that this is a much more complex `bitcoin-cli` command
 than anything we've used before. It requires the input of a JSON array
 with a variety of different variables. (Which is a pain.) The `desc`
-is that master-private-key descriptor, the `timestamp` says how much of the
-blockchain to rescan, the `range` says how much of the range to
+is that master-private-key descriptor, the `timestamp` says how much
+of the blockchain to rescan (which could be a UNIX time value, but we
+generally suggest "now"), the `range` says how much of the range to
 import, and the `active` says that this descriptor can be used to
 create new addresses. After importing it, this descriptor becomes the
-main (`active`) one for your wallet, which will be used to derive new addresses.
+main (`active`) one for your wallet, which will be used to derive new
+addresses.
+
+We'll examine the command and the JSON in more depth in [§4.2](04_2_Integrating_Addresses_Descriptors.md).
 
 ## Summary: Understanding the Descriptor
 
 Descriptor wallets define large numbers of keys with a single simple
-description for each type of address in your wallet. Currently, there are eight ranged descriptors in each Bitcoin Core Wallet, defining internal and external addresses for the four in-use types of Bitcoin addresses.
+description for each type of address in your wallet. Currently, there
+are eight ranged descriptors in each Bitcoin Core Wallet, defining
+internal and external addresses for the four in-use types of Bitcoin
+addresses.
 
 > 🔥 ***What is the power of descriptors?*** Descriptors allow you to
 import and export sets of keys and addresses. That's great if you want
@@ -361,4 +367,4 @@ creating.
 
 ## What's Next?
 
-Move on to "addresses" with [Chapter Three: Preparing Your Bitcoin Addresses](04_0_Preparing_Your_Bitcoin_Addresses.md).
+Move on to "addresses" with [Chapter Four: Preparing Your Bitcoin Addresses](04_0_Preparing_Your_Bitcoin_Addresses.md).

@@ -1,33 +1,39 @@
 # Interlude: Introducing Bitcoin
 
 Before you can get started programming Bitcoin, you should have a
-basic understanding of what they are and how they work. This section
+basic understanding of what it is and how it works. This section
 provides that overview. Many more definitions will appear within the
-document itself; this is only intended to lay the foundation.
+course itself; this is only intended to lay the foundation.
 
 ## About Bitcoin
 
-Bitcoin is a programmatic system that allows for the transfer of the bitcoin currency. It is enabled by a decentralized, peer-to-peer system of nodes, which include full nodes, wallets, and miners. Working together, they ensure that bitcoin transactions are fast and non-repudiable. Thanks to the decentralized nature of the system, these transactions are also censorship-resistant and can provide other advantages such as pseudonymity and non-correlation if used well.
+Bitcoin is a programmatic system that allows for the transfer of the
+bitcoin currency. It is enabled by a decentralized, peer-to-peer
+network that include full nodes, wallets, and miners. Working
+together, they ensure that bitcoin transactions are fast and
+non-repudiable. Thanks to the decentralized nature of the system,
+these transactions are also censorship-resistant and can provide other
+advantages such as pseudonymity and non-correlation if used well.
 
 Obviously, Bitcoin is the heart of this book, but it's also the
 originator of blockchains, which are also detailed in this tutorial,
-as well as many other cryptocurrencies such as Ethereum and Litecoin,
-and many layer-2 technologies such as Lightning, which are not.
+as well as many other cryptocurrencies such as Ethereum, Zcash, and
+Litecoin, and many layer-2 technologies such as Lightning, which are
+not.
 
 > 📖 **_How are coins transferred?_** Bitcoin currency isn't physical
-coins. Instead it's an endless series of ownership reassignments. When
-one person sends coins to another, that transfer is stored as a
-transaction. It's the transaction that actually records the ownership
-of the money, not any token local to the owner's wallet or their
-machine.
+coins. Instead it's an endless series of ownership reassignments
+written into a ledger. When one person sends coins to another, that
+transfer is stored as a transaction. It's the transaction that
+actually records the ownership of the money, not any token local to
+the owner's wallet or their machine.
 
 > 📖 **_Who can you send coins to?_** The vast majority of bitcoin
-transactions involve coins being sent to individual people (or at
-least to individual Bitcoin addresses). However, more complex
-methodologies can be used to send bitcoins to groups of people or to
-scripts. These various methodologies have names like P2WPKH, multisig,
-and P2WSH. [§4.1](04_1_Understanding_the_Address.md) covers many of
-these options.
+transactions involve coins being sent to individual people. However,
+more complex methodologies can be used to send bitcoins to groups of
+people or to scripts. These various methodologies have names like
+P2WPKH, multisig, and P2WSH. [§4.1](04_1_Understanding_the_Address.md)
+covers many of these options.
 
 > 📖 **_How are transactions stored?_** Transactions are combined into
 larger blocks of data, which are then written to the blockchain
@@ -52,7 +58,7 @@ that proves you're the owner of the public key that a transaction was
 sent to: this proof of ownership is the puzzle that's being
 solved. Funds are further protected by the use of hashes. Public keys
 aren't actually stored in the blockchain until the funds are spent:
-only public-key hashes are. This means that even if quantum computer
+only public-key hashes are. This means that even if quantum computing
 were to come along, Bitcoin transactions would remain protected by
 this second level of cryptography.
 
@@ -66,7 +72,7 @@ Bitcoin functionality. Much Bitcoin work is done through the
 commands. Many people send those RPC commands through the
 `bitcoin-cli` program, which provides an even simpler
 interface. Non-programmers don't even worry about these minutia, but
-instead use programmed wallets with simpler interfaces.
+instead use programmed wallets with still simpler interfaces.
 
 ### Bitcoin — In Short
 
@@ -80,9 +86,9 @@ transaction is recorded in an immutable global ledger.
 > 🔥 ***What is the power of Bitcoin?*** Bitcoin allows for the
 creation of pseudonymous identifiers (addresses based on the hashes of
 public keys) that can be used to transfer digital currency. It
-supports the right to transact through a reduction in potential
-censorship and coercion. That makes it particularly important in
-places where centralized authorities are not trusted to take on these
+supports the right to transact by reducing the potential of censorship
+and coercion. That makes it particularly important in places where
+centralized authorities are not trusted to take on these
 responsibilities, whether that's due to a corrupt government or the
 censorship of a traditional payment processor.
 
@@ -97,13 +103,32 @@ transaction is typically sent to an address that is a hashed public
 key. The recipient is then able to retrieve the money by revealing
 both the public key and the private key.
 
-> 📖 **_What is a public key?_** A public key is the key given out to other people. In a typical public-key system, a user generates a public key and a private key, then he gives the public key to all and sundry. 
+> 📖 **_What is a public key?_** A public key is the key given out to
+other people. In a typical public-key system, a user generates a
+public key and a private key, then he gives the public key to all and
+sundry.
 
-> 📖 **_What is a private key?_** A private key is linked to a public key in a key pair. In a typical public-key system, a user keeps his private key secure and uses it to engage in asymmetric signing and encryption activities.
+> 📖 **_What is a private key?_** A private key is linked to a public
+key in a key pair. In a typical public-key system, a user keeps his
+private key secure and uses it to engage in asymmetric signing and
+encryption activities.
 
-> 📖 **_What is encryption?_** Encryption is a methodology for making data unreadable. In symmetric encryption, the encoding is done with a singular "symmetric" key that allows either encryption or decryption. In asymmetric encryption, the encryption is typically done with a public key, which then requires the private key for decryption.
+> 📖 **_What is encryption?_** Encryption is a methodology for making
+data unreadable. In symmetric encryption, the encoding is done with a
+singular "symmetric" key that allows either encryption or
+decryption. In asymmetric encryption, the encryption is typically done
+with a public key, which then requires the private key for decryption.
 
-> 📖 **_What is a signature?_** A message (or more commonly, a hash of a message) can be signed with a private key, creating a signature. Anyone with the corresponding public key can then validate the signature, which verifies that the signer owns the private key associated with the public key in question. _SegWit_ is a specific format for storing a signature on the Bitcoin network that we'll meet down the line. The traditional Bitcoin signature was ECDSA, but with the Taproot upgrade, Schnorr signatures are now available as well.
+> 📖 **_What is a signature?_** A message (or more commonly, a hash of
+a message) can be signed with a private key, creating a
+signature. Anyone with the corresponding public key can then validate
+the signature, which verifies that the signer owns the private key
+associated with the public key in question and that they validated the
+message content. Signatures used to be stored as part of a
+transaction, but with the _SegWit_ upgrade, their locations was
+changed. These signatures used to always be ECDSA, but with the
+_Taproot_ upgrade, Schnorr signatures became available as well. (We'll
+talk more about SegWit and Taproot in the future.)
 
 > 📖 **_What is a hash function?_** A hash function is an algorithm
 frequently used with cryptography. It's a way to map a large,
@@ -119,9 +144,16 @@ transactions resistant to quantum computing.
 
 ### Public-Key Cryptography — In Short
 
-One way to think of public-key cryptography is: _a way for anyone to protect data such that only an authorized person can access it, and such that the authorized person can prove that he will have that access._
+One way to think of public-key cryptography is: _a way for anyone to
+protect data such that only an authorized person can access it, and
+such that the authorized person can prove that they will have that
+access._
 
-> 🔥 ***What is the power of public-key cryptography?*** Public-key cryptography allows asymmetric (trap door) activities: one user can encrypt data that can only be decrypted by another; or one person can create signatures that can be verified (but not duplicated) by others. Asymmetric signatures are what make Bitcoin go round.
+> 🔥 ***What is the power of public-key cryptography?*** Public-key
+cryptography allows asymmetric (trap door) activities: one user can
+encrypt data that can only be decrypted by another; or one person can
+create signatures that can be verified (but not duplicated) by
+others. Asymmetric signatures are what make Bitcoin go round.
  
 ## About ECC
 
@@ -149,7 +181,7 @@ a few cases for infinity and intersections) ... and that's the basis
 of elliptic-curve cryptography.
 
 > 📖 **_What are finite fields?_** A finite field is a finite set of
-numbers, where all addition, subtraction, multiplication, and division
+numbers where all addition, subtraction, multiplication, and division
 is defined so that it results in other numbers also in the same finite
 field. One simple way to create a finite field is through the use of a
 modulo function.
@@ -184,17 +216,21 @@ that the finite field for secp256k1 is slightly smaller than 256 bits,
 which means that all public keys will be 256 bits long, just like the
 private keys are.)
 
-**_What are the advantages of ECC?_** The main advantage of ECC is that it allows the same security as classic public-key cryptography with a much smaller key. A 256-bit elliptic-curve public key corresponds to a 3072-bit traditional (RSA) public key.
+**_What are the advantages of ECC?_** The main advantage of ECC is
+that it allows the same security as classic public-key cryptography
+with a much smaller key. A 256-bit elliptic-curve public key
+corresponds to a 3072-bit traditional (RSA) public key.
 
 ### ECC - In Short
 
-One way to think of ECC is: _a way to enable public-key cryptography that uses very small keys and very obscure math._
+One way to think of ECC is: _a way to enable public-key cryptography
+that uses very small keys and very obscure math._
 
-> 🔥 ***What is the power of ECC?*** The power of ECC is in its small
-keys. This is important for blockchains because every signature with
-every private key is recorded on the blockchain forever. Before the
-block size wars of the '10s, blocks were getting too crowded, making
-it harder (and more expensive) to create successful Bitcoin
+> 🔥 ***What is the power of ECC?*** The power of ECC lies in its
+small keys. This is important for blockchains because every signature
+with every private key is recorded on the blockchain forever. Before
+the Block Size Wars of the '10s, blocks were getting too crowded,
+making it harder (and more expensive) to create successful Bitcoin
 transactions. That would be even worse without the power of ECC.
 
 ## About Blockchains
@@ -224,7 +260,7 @@ it harder to recreate the old block due to the proof-of-work
 algorithms used in block creation. Once several blocks have been built
 atop a block in the chain, it's essentially irreversible.
 
-> 📖 **_What is proof of work_** Blockchains are a "trustless"
+> 📖 **_What is proof of work?_** Blockchains are a "trustless"
 technology, which means that no one has to actually trust anyone else
 involved in transactions. Instead, trust is created by the technology
 itself. For Bitcoin, that means that when a transaction happens, you
@@ -263,7 +299,7 @@ each other.
 
 ## Is Blockchain Right for Me?
 
-If you want to transact bitcoins, then obviously blockchain is right
+If you want to transact bitcoin, then obviously blockchain is right
 for you. However, more widely, blockchain has become a popular
 buzz-word even though it's not a magic bullet for all technical
 problems. With that said, there are many specific situations where
@@ -295,10 +331,10 @@ Blockchains probably _will not_ be helpful if:
     * e.g.: in less than 10 minutes on a Bitcoin-like network, in less than 2.5 minutes on a Litecoin-like network, in less than 15 seconds on an Ethereum-like network
 
 Do note that there may still be solutions for some of these situations
-within the Bitcoin ecosystem. For example, payment channels are
-rapidly addressing questions of liquidity and payment finality, while
-related cryptocurrencies such as Zcash allow for secrecy using
-"shielded" transactions.
+within the Bitcoin ecosystem. For example, payment channels such as
+Lightning are rapidly addressing questions of liquidity and payment
+finality, while related cryptocurrencies such as Zcash allow for
+secrecy using "shielded" transactions.
 
 ## About Other Technologies
 
@@ -311,8 +347,8 @@ this course, but may be covered in other Blockchain Commons courses.
 > 📖 **_What is a layer-2 protocol?_** A layer-2 Bitcoin protocol
 works on top of Bitcoin. 
 
-> 📖 **_What is Lightning?_** A layer-2 Bitcoin protocol that locks
-coins with smart contracts and then allows them to be transacted
+> 📖 **_What is Lightning?_** It's a layer-2 Bitcoin protocol that
+locks coins with smart contracts and then allows them to be transacted
 "off-chain". We are seeking funding for a "Learning Lightning from the
 Command Line" course, but in the meantime you can find our old,
 out-of-date material on the topic in the [Lightning directory on
@@ -320,18 +356,18 @@ GitHub](https://github.com/BlockchainCommons/Learning-Bitcoin-from-the-Command-L
 
 > 📖 **_What are alternate signature systems?_** Bitcoin supports two
 types of signatures, ECDSA (in most transactions) and Schnorr (in
-Taproot transactions). However, different protocols can built with a
+Taproot transactions). However, different protocols can built to use a
 signature system. Two of the potential protocols for Schnorr, which
 can be used to generate Bitcoin signatures, are MuSig2 and FROST.
 
 > 📖 **_What is FROST?_** FROST is a threshold-based Schnorr signature
-system, which allows m-of-n signatures. Our [Learning FROST from the
+system that allows m-of-n signatures. Our [Learning FROST from the
 Command Line](https://learningfrost.blockchaincommons.com/) course
-covers it in more details, though some information can also be found
+covers it in more detail, though some information can also be found
 in [Chapter 18: Using Schnorr](18_0_Using_Schnorr.md).
 
-> 📖 **_What are variant toolkits?_** Bitcoin Core, which contains
-`bitcoind` and `bitcoin-cli`, which are linked via RPC commands, is
+> 📖 **_What are variant toolkits?_** Bitcoin Core is comprised of
+`bitcoind` and `bitcoin-cli`, which are linked via RPC commands. It's
 just one toolkit for transacting Bitcoin. We use it because it's the
 most "official" toolkit and because its command-line app is
 robust. However, there are other CLIs and there are even more
@@ -356,4 +392,5 @@ as FROST, but these go beyond the bounds of this course.
 
 ## What's Next?
 
-Advance through "Preparing for Bitcoin" with [Chapter Two: Setting Up a Bitcoin-Core VPS](02_0_Setting_Up_a_Bitcoin-Core_VPS.md).
+Advance through "Preparing for Bitcoin" with [Chapter Two: Setting Up
+a Bitcoin-Core VPS](02_0_Setting_Up_a_Bitcoin-Core_VPS.md).

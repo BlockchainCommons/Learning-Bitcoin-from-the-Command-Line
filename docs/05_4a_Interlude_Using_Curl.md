@@ -2,17 +2,30 @@
 
 `bitcoin-cli` is ultimately just a wrapper. It's a way to interface with `bitcoind` from the command line, providing simplified access to its many RPC commands. But RPC can, of course, be accessed directly. That's what this interlude is about: directly connecting to RPC with the `curl` command.
 
-It won't be used much in the future chapters, but it's an important building block that you can see as an alternative access to `bitcoind` is you so prefer.
+It won't be used much in the future chapters, but it's an important
+building block that you can see as an alternative way to access to
+`bitcoind` is you so prefer.
 
 ## Know Your Curl
 
-`curl`, short for "see URL", is a command-line tool that allows you to directly access URLs in a programmatic way. It's an easy way to interact with servers like `bitcoind` that listen to ports on the internet and that speak a variety of protocols. Curl is also available as a library for many programming languages, such as C, Java, PHP, and Python. So, once you know how to work with Curl, you'll have a strong foundation for using a lot of different API.
+`curl`, short for "see URL", is a command-line tool that allows you to
+directly access URLs in a programmatic way. It's an easy way to
+interact with servers like `bitcoind` that listen to ports on the
+internet and that speak a variety of protocols. Curl is also available
+as a library for many programming languages, such as C, Java, PHP, and
+Python. So, once you know how to work with Curl, you'll have a strong
+foundation for using a lot of different API.
 
 In order to use `curl` with `bitcoind`, you must know three things: the standard format, the user name and password, and the correct port.
 
 ### Know Your Format
 
-The `bitcoin-cli` commands are all linked to RPC commands in `bitcoind`. That makes the transition from using `bitcoin-cli` to using `curl` very simple. In fact, if you look at any of the help pages for `bitcoin-cli`, you'll see that they list not only the `bitcoin-cli` commands, but also parallel `curl` commands. For example, here is `bitcoin-cli help getmininginfo`:
+The `bitcoin-cli` commands are all linked to RPC commands in
+`bitcoind`. That makes the transition from using `bitcoin-cli` to
+using `curl` very simple. In fact, if you look at any of the help
+pages for `bitcoin-cli`, you'll see that they list not only the
+`bitcoin-cli` commands, but also parallel `curl` commands. For
+example, here is `bitcoin-cli help getmininginfo`:
 
 ```sh
 bitcoin-cli help getmininginfo
@@ -59,7 +72,9 @@ _Whenever you're unsure about how to curl an RPC command, just look at the bitco
 
 ### Know Your User Name
 
-In order to speak with the `bitcoind` port, you need a user name and password. These were created as part of your initial Bitcoin setup, and can be found in `~/.bitcoin/bitcoin.conf`.
+In order to speak with the `bitcoind` port, you need an RPC user name
+and password. These were created as part of your initial Bitcoin
+setup, and can be found in `~/.bitcoin/bitcoin.conf`.
 
 For example, here's our current setup:
 
@@ -93,7 +108,14 @@ cat ~/.bitcoin/bitcoin.conf
 
 Our user name is `StandUp` and our password is `4b42b0447b08784cb41adedac54d7f26`.
 
-> **WARNING:** Clearly, it's not very secure to have this information in a plain text file. You can instead omit the `rpcpassword` from your `bitcoin.conf` file, and have `bitcoind` generate a new cookie whenever it starts up. The downside of this is that it makes use of RPC commands by other applications, such as the ones detailed in this chapter, more difficult. So, we're going to stick with the plain `rpcuser` and `rpcpassword` information for now, but for production software, consider moving to cookies.
+> ⚠️ **SECURITY WARNING:** Clearly, it's not very secure to have this
+information in a plain text file. You can instead omit the
+`rpcpassword` from your `bitcoin.conf` file, and have `bitcoind`
+generate a new cookie whenever it starts up. The downside of this is
+that it makes use of RPC commands by other applications, such as the
+ones detailed in this chapter, more difficult. So, we're going to
+stick with the plain `rpcuser` and `rpcpassword` information for now,
+but for production software, consider moving to cookies.
 
 The secure way to RPC with `bitcoind` is as follows:
 
@@ -111,13 +133,20 @@ The insecure way to do so is as follows:
 ```sh
 curl --user StandUp:4b42b0447b08784cb41adedac54d7f26 --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "getmininginfo", "params": [] }' -H 'content-type: text/plain;' http://127.0.0.1:38332/
 ```
-> ⚠️ **WARNING: Password Not Secure!** Entering your password on the command line may put your password into the process table and/or save it into a history. This is even less recommended than putting it in a file, except for testing on signet (or testnet). If you want to do it anywhere else, make sure you know what you're doing!
+
+> ⚠️ **WARNING: Password Not Secure!** Entering your password on the
+command line may put your password into the process table and/or save
+it into a history. This is even less recommended than putting it in a
+file, except for testing on signet (or testnet). If you want to do it
+anywhere else, make sure you know what you're doing!
 
 ### Know Your Command & Parameters
 
 With all of that in hand, you're ready to send off standard RPC commands with `curl` ... but you still need to know how to incorporate the two elements that tend to change in the `curl` command.
 
-The first is `method`, which is the RPC method being used. This should generally match the command names you've been feeding into `bitcoin-cli` for ages.
+The first is `method`, which is the RPC method being used. This should
+generally match the command names you've previously fed into
+`bitcoin-cli`.
 
 The second is `params`, which is a JSON array of parameters. These are the same as the arguments (or named arguments) that you've been using. They're also the most confusing part of `curl`, in large part because they're a structured array rather than a simple list.
 
@@ -142,9 +171,17 @@ curl --user StandUp:4b42b0447b08784cb41adedac54d7f26 --data-binary '{"jsonrpc": 
 
 Note that we provided the method, `getmininginfo`, and the parameter, `[]`, but that everything else was the standard `curl` command line.
 
-> ⚠️ **WARNING: RPC May Not Allow.** If you get a result like "Failed to connect to 127.0.0.1 port 8332: Connection refused", be sure that a line like `rpcallowip=127.0.0.1` is in your ~/.bitcoin/bitcoin.conf. If things still don't work, be sure that you're allowing access to port 38332 (or 8332) from localhost. Our standard setup from [Chapter Two: Creating a Bitcoin-Core VPS](02_0_Setting_Up_a_Bitcoin-Core_VPS.md) should do all of this.
+> ⚠️ **WARNING: RPC May Not Allow.** If you get a result like "Failed
+to connect to 127.0.0.1 port 8332: Connection refused", be sure that a
+line like `rpcallowip=127.0.0.1` is in your
+~/.bitcoin/bitcoin.conf. If things still don't work, be sure that
+you're allowing access to port 38332 (or 8332) from localhost. Our
+standard setup from [Chapter Two: Creating a Bitcoin-Core
+VPS](02_0_Setting_Up_a_Bitcoin-Core_VPS.md) should do all of this.
 
-The result is another JSON array, which is unfortunately ugly to read if you're using `curl` by hand. Fortunately, you can clean it up  simply by piping it through `jq`:
+The result is another JSON array, which is unfortunately ugly to read
+if you're using `curl` by hand. Fortunately, you can clean it up
+simply by piping it through `jq`:
 
 ```sh
 curl --user StandUp:4b42b0447b08784cb41adedac54d7f26 --data-binary '{"jsonrpc": "1.0", "id":"curltest", "method": "getmininginfo", "params": [] }' -H 'content-type: text/plain;' http://127.0.0.1:38332/ 2> /dev/null | jq -r '.'
@@ -173,7 +210,9 @@ curl --user StandUp:4b42b0447b08784cb41adedac54d7f26 --data-binary '{"jsonrpc": 
 | }
 ```
 
-The '2>' throws out the connectivity reporting that `curl` reports, and then we send the rest to `jq`, which ensures that everything will be output in a correctly indented form. 
+The '2>' throws out the connectivity reporting that `curl` sends back,
+and then we send the rest to `jq`, which ensures that everything will
+be output in a correctly indented form.
 
 ## Manipulate Your Wallet
 
@@ -312,7 +351,13 @@ curl --user StandUp:4b42b0447b08784cb41adedac54d7f26 --data-binary '{"jsonrpc": 
 | }
 ```
 
-> ⚠️ **WARNING: Parameter Order Matters!** The parameters order is important when you are sending RPC commands using curl. There's only one argument for `getrawchangeaddress`, but consider its close cousin `getnewaddress`. That takes two arguments: first label, then type. If we sent that same `"params": ["legacy"]` instead of `"params": ["", "legacy"]`, we would get a `bech32` address with a label of `"legacy"` instead of a `legacy` address, so pay attention to the order!
+> ⚠️ **WARNING: Parameter Order Matters!** The parameters order is
+important when you are sending RPC commands using curl. There's only
+one argument for `getrawchangeaddress`, but consider its close cousin
+`getnewaddress`. That takes two arguments: first label, then type. If
+we sent that same `"params": ["legacy"]` instead of `"params": ["",
+"legacy"]`, we would get a `bech32` address with a label of `"legacy"`
+instead of a `legacy` address, so pay attention to the order!
 
 At this point, we can even revert to our standard practice of saving results to variables with additional help from `jq`:
 
@@ -373,11 +418,16 @@ The heart of the transaction is, of course, the `params` JSON array, which we're
 
 Note that the entire `params` is lodged in `[]`s to mark the parameters array.
 
-We've also varied up the quoting from how things worked in `bitcoin-cli`, to start and end each array and object within the `params` array with `''` instead of our traditional `'''`. That's because the entire set of JSON arguments already has a `'` around it. As usual, just take a look at the bizarre shell quoting and get used to it.
+We've also varied up the quoting from how things worked in
+`bitcoin-cli`, to start and end each array and object within the
+`params` array with `''` instead of our traditional `'''`. That's
+because the entire set of JSON arguments already has a `'` around
+it. As usual, just take a look at the bizarre shell quoting and get
+used to it.
 
 However, there's one last thing of note in this example, and it can be _maddening_ if you miss it. When you executed a `createrawtransaction` command with `bitcoin-cli` the JSON array of inputs and the JSON object of outputs were each distinct parameters, so they were separated by a space. Now, because they're part of that `params` JSON array, they're separated by a comma (`,`). Miss that and you'll get a `parse error` without much additional information.
 
-> ⚠️ **WARNING: Loggin Ahead.** Ever having troubles debugging your `curl`? Add the argument `--trace-ascii /tmp/foo`. Full information on what's being sent to the server will be saved in `/tmp/foo` (or whatever file name you provide).
+> ⚠️ **WARNING: Logging Ahead.** Ever having troubles debugging your `curl`? Add the argument `--trace-ascii /tmp/foo`. Full information on what's being sent to the server will be saved in `/tmp/foo` (or whatever file name you provide).
 
 Having verified that things work, you probably want to save the hex code into a variable:
 
@@ -405,7 +455,12 @@ Whew! We're not going to do that again! (Using `bitcoin-cli` is complex enough!)
 
 ## Summary: Accessing Bitcoind with Curl
 
-Having finished this section, you may feel that accessing `bitcoind` via `curl` is very much like accessing it through `bitcoin-cli` ... but more cumbersome. And, you'd be right. `bitcoin-cli` has pretty complete RPC functionality, so anything that you do through `curl` you can probably do through `bitcoin-cli`. Which is why we're going to continue concentrating on `bitcoin-cli` following this digression.
+Having finished this section, you may feel that accessing `bitcoind`
+via `curl` is very much like accessing it through `bitcoin-cli`
+... but more cumbersome. And, you'd be right. `bitcoin-cli` has pretty
+complete RPC functionality, so anything that you do through `curl` you
+can probably do through `bitcoin-cli`. Which is why we're going to
+continue concentrating on `bitcoin-cli` following this digression.
 
 But there are still reasons you'd use `curl` instead of `bitcoin-cli`:
 
