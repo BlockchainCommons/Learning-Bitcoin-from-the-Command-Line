@@ -1,0 +1,4483 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+        <link rel="canonical" href="https://learningbitcoin.blockchaincommons.com/P3_4_Accessing_Bitcoind_with_Python/">
+      
+      
+        <link rel="prev" href="../P3_3_Accessing_Bitcoind_with_NodeJS/">
+      
+      
+        <link rel="next" href="../P3_5_Accessing_Bitcoind_with_Rust/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.7">
+    
+    
+      
+        <title>18.4: Accessing Bitcoind with Python - Learning Bitcoin from the Command Line</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.ec1eaa64.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    <body dir="ltr">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#184-accessing-bitcoind-with-python" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href=".." title="Learning Bitcoin from the Command Line" class="md-header__button md-logo" aria-label="Learning Bitcoin from the Command Line" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M14.24 10.56c-.31 1.24-2.24.61-2.84.44l.55-2.18c.62.18 2.61.44 2.29 1.74m-3.11 1.56-.6 2.41c.74.19 3.03.92 3.37-.44.36-1.42-2.03-1.79-2.77-1.97m10.57 2.3c-1.34 5.36-6.76 8.62-12.12 7.28S.963 14.94 2.3 9.58A9.996 9.996 0 0 1 14.42 2.3c5.35 1.34 8.61 6.76 7.28 12.12m-7.49-6.37.45-1.8-1.1-.25-.44 1.73c-.29-.07-.58-.14-.88-.2l.44-1.77-1.09-.26-.45 1.79c-.24-.06-.48-.11-.7-.17l-1.51-.38-.3 1.17s.82.19.8.2c.45.11.53.39.51.64l-1.23 4.93c-.05.14-.21.32-.5.27.01.01-.8-.2-.8-.2L6.87 15l1.42.36c.27.07.53.14.79.2l-.46 1.82 1.1.28.45-1.81c.3.08.59.15.87.23l-.45 1.79 1.1.28.46-1.82c1.85.35 3.27.21 3.85-1.48.5-1.35 0-2.15-1-2.66.72-.19 1.26-.64 1.41-1.62.2-1.33-.82-2.04-2.2-2.52"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Learning Bitcoin from the Command Line
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              18.4: Accessing Bitcoind with Python
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/BlockchainCommons/Learning-Bitcoin-from-the-Command-Line/tree/lbtcftcl-v3.0" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href=".." title="Learning Bitcoin from the Command Line" class="md-nav__button md-logo" aria-label="Learning Bitcoin from the Command Line" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M14.24 10.56c-.31 1.24-2.24.61-2.84.44l.55-2.18c.62.18 2.61.44 2.29 1.74m-3.11 1.56-.6 2.41c.74.19 3.03.92 3.37-.44.36-1.42-2.03-1.79-2.77-1.97m10.57 2.3c-1.34 5.36-6.76 8.62-12.12 7.28S.963 14.94 2.3 9.58A9.996 9.996 0 0 1 14.42 2.3c5.35 1.34 8.61 6.76 7.28 12.12m-7.49-6.37.45-1.8-1.1-.25-.44 1.73c-.29-.07-.58-.14-.88-.2l.44-1.77-1.09-.26-.45 1.79c-.24-.06-.48-.11-.7-.17l-1.51-.38-.3 1.17s.82.19.8.2c.45.11.53.39.51.64l-1.23 4.93c-.05.14-.21.32-.5.27.01.01-.8-.2-.8-.2L6.87 15l1.42.36c.27.07.53.14.79.2l-.46 1.82 1.1.28.45-1.81c.3.08.59.15.87.23l-.45 1.79 1.1.28.46-1.82c1.85.35 3.27.21 3.85-1.48.5-1.35 0-2.15-1-2.66.72-.19 1.26-.64 1.41-1.62.2-1.33-.82-2.04-2.2-2.52"/></svg>
+
+    </a>
+    Learning Bitcoin from the Command Line
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/BlockchainCommons/Learning-Bitcoin-from-the-Command-Line/tree/lbtcftcl-v3.0" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href=".." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Learning Bitcoin from the Command Line 3.0
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../01_0_Introduction/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter One: Introduction to Learning Bitcoin Core from the Command Line
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../01_1_Introducing_Bitcoin/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Interlude: Introducing Bitcoin
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../02_0_Setting_Up_a_Bitcoin-Core_VPS/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter Two: Creating a Bitcoin-Core VPS
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../02_1_Setting_Up_a_Bitcoin-Core_VPS_with_StackScript/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    2.1: Setting Up a Bitcoin-Core VPS with Bitcoin Standup
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../02_2_Setting_Up_Bitcoin_Core_Other/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    2.2: Setting Up a Bitcoin-Core Machine via Other Means
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../03_0_Preparing_Your_Bitcoin_Wallet/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter Three: Preparing Your Bitcoin Wallet
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../03_1_Verifying_Your_Bitcoin_Setup/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    3.1: Verifying Your Bitcoin Setup
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../03_2_Knowing_Your_Bitcoin_Setup/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    3.2: Knowing Your Bitcoin Setup
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../03_3_Setting_Up_Your_Wallet/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    3.3: Setting Up Your Wallet
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../03_4_Understanding_the_Descriptor_Wallet/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    3.4: Understanding the Descriptor Wallet
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../04_0_Preparing_Your_Bitcoin_Addresses/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter Four: Preparing Your Bitcoin Addresses
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../04_1_Understanding_the_Address/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    4.1: Understanding the Address
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../04_2_Integrating_Addresses_Descriptors/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    4.2: Integrating Addresses and Descriptors
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../04_3_Creating_QR_Codes_for_Addresses/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    4.3: Creating QR Codes for Addresses
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../04_4_Receiving_a_Transaction/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    4.4: Receiving a Transaction
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../04_4a_Interlude_Using_Command-Line_Variables/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Interlude: Using Command-Line Variables
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../05_0_Sending_Bitcoin_Transactions/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter Five: Sending Bitcoin Transactions
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../05_1_Sending_Coins_The_Easy_Way/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    5.1: Sending Coins the Easy Way
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../05_2_Creating_a_Raw_Transaction/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    5.2 Creating a Raw Transaction
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../05_2a_Interlude_Using_JQ/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Interlude: Using JQ
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../05_3_Creating_a_Raw_Transaction_with_Named_Arguments/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    5.3 Creating a Raw Transaction with Named Arguments
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../05_4_Sending_Coins_with_a_Raw_Transaction/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    5.4: Sending Coins with Raw Transactions
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../05_4a_Interlude_Using_Curl/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Interlude: Using Curl
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../05_5_Sending_Coins_with_Automated_Raw_Transactions/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    5.5: Sending Coins with Automated Raw Transactions
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../05_6_Sending_Coins_to_Other_Addresses/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    5.6: Sending Coins to Other Addresses
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../06_0_Controlling_Bitcoin_Transactions/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter Six: Controlling Bitcoin Transactions
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../06_1_Watching_for_Stuck_Transactions/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    6.1: Watching for Stuck Transactions
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../06_2_Resending_a_Transaction_with_RBF/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    6.2: Resending a Transaction with RBF
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../06_3_Funding_a_Transaction_with_CPFP/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    6.3: Funding a Transaction with CPFP
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../07_0_Expanding_Bitcoin_Transactions_Multisigs/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter Seven: Expanding Bitcoin Transactions with Multisigs
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../07_1_Creating_Multisig_Public_Keys/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    7.1: Creating a Multisig from Public Keys
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../07_2_Creating_Multisig_Descriptors/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    7.2: Creating a Multisig from Descriptors
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../07_3_Spending_a_Transaction_to_a_Multisig/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    7.3: Spending a Transaction with a Multisig
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../08_0_Expanding_Bitcoin_Transactions_PSBTs/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter Eight: Expanding Bitcoin Transactions with PSBTs
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../08_1_Spending_a_Multisig_with_a_PSBT/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    8.1: Spending a Multisig with a PSBT
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../08_2_Understanding_the_PSBT/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    8.2: Understanding the PSBT Process
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../08_3_Using_a_Partially_Signed_Bitcoin_Transaction/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    8.3: Using a Partially Signed Bitcoin Transaction
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../08_4_Creating_Animated_QR_Codes/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    8.4: Creating Animated QR Codes
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../09_0_Expanding_Bitcoin_Transactions_Other/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter Nine: Expanding Bitcoin Transactions in Other Ways
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../09_1_Sending_a_Transaction_with_a_Locktime/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    9.1: Sending a Transaction with a Locktime
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../09_2_Sending_a_Transaction_with_Data/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    9.2: Sending a Transaction with Data
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../10_0_Working_with_Secrets/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter Ten: Working with Secrets
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../10_1_Creating_Secrets_from_the_Command_Line/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    10.1: Creating Secrets from the Command Line
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../10_2_Converting_Secrets_with_Keytool/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    10.2: Converting Secrets with Keytool
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../10_3_Importing_Secrets_to_Bitcoin_Core/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    10.3: Importing Secrets to Bitcoin Core
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../10_4_Exporting_Secrets_from_Bitcoin_Core/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    10.4: Exporting Secrets from Bitcoin Core
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../10_5_Storing_Secrets_with_Envelope/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    10.5: Storing Secrets with Envelope
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../11_0_Introducing_Bitcoin_Scripts/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 11: Introducing Bitcoin Scripts
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../11_1_Understanding_the_Foundation_of_Transactions/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    11.1: Understanding the Foundation of Transactions
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../11_2_Running_a_Bitcoin_Script/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    11.2: Running a Bitcoin Script
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../11_3_Testing_a_Bitcoin_Script/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    11.3: Testing a Bitcoin Script
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../11_4_Scripting_a_P2PKH/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    11.4: Scripting a P2PKH
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../11_5_Scripting_a_P2WPKH/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    11.5: Scripting a P2WPKH
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../12_0_Embedding_Bitcoin_Scripts_in_P2WSH_Transactions/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 12: Embedding Bitcoin Scripts in P2SH &amp; P2WSH Transactions
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../12_1_Understanding_the_Foundation_of_P2WSH/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    12.1: Understanding the Foundation of P2SH &amp; P2WSH
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../12_2_Building_the_Structure_of_P2WSH/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    12.2: Building the Structure of P2SH &amp; P2WSH
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../12_3_Running_a_Bitcoin_Script_with_P2WSH/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    12.3: Running a Bitcoin Script with P2SH or P2WSH
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../12_4_Scripting_a_Multisig/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    12.4: Scripting a Multisig
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../12_5_Spending_a_P2WSH_Transaction/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    12.5: Spending a P2SH or P2WSH Transaction
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../13_0_Empowering_Timelock_with_Bitcoin_Scripts/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 13: Empowering Timelock with Bitcoin Scripts
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../13_1_Understanding_Timelock_Options/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    13.1: Understanding Timelock Options
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../13_2_Using_CLTV_in_Scripts/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    13.2: Using CLTV in Scripts
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../13_3_Using_CSV_in_Scripts/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    13.3: Using CSV in Scripts
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../14_0_Expanding_Bitcoin_Scripts/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 14: Expanding Bitcoin Scripts
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../14_1_Using_Script_Conditionals/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    14.1: Using Script Conditionals
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../14_2_Using_Other_Script_Commands/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    14.2: Using Other Script Commands
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../15_0_Designing_Real_Bitcoin_Scripts/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 15: Designing Real Bitcoin Scripts
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../15_1_Writing_Puzzle_Scripts/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    15 1 Writing Puzzle Scripts
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../15_2_Writing_Complex_Multisig_Scripts/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    15.2: Writing Complex Multisig Scripts
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../15_3_Empowering_Bitcoin_with_Scripts/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    15 3 Empowering Bitcoin with Scripts
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../16_0_Using_Miniscript/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 16: Using Miniscript
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../16_1_Understanding_Miniscript/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    16.1: Understanding Miniscript &amp; Policy
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../16_2_Converting_Miniscript/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    16.2: Converting Policy &amp; Miniscript
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../16_3_Using_Miniscript_with_Descriptors/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    16.3: Using Miniscript with Descriptors
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../16_4_Using_BDK/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    16.4: Using BDK with Miniscript
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../17_0_Introducing_Taproot/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 17: Introducing Taproot
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../17_1_Breaking_Down_Taproot/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    17.1: Breaking Down Taproot
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../17_2_Updating_to_Taproot/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    17.2: Updating to Taproot
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../18_0_Using_Schnorr/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 18: Using Schnorr
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../18_1_Understanding_Schorr/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    18.1: Understanding Schnorr Signatures
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../18_3_Using_Bitcoin_With_FROST/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    18.3: Using Bitcoin with FROST
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../20_0_Using_Tor/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 14: Using Tor
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../20_1_Verifying_Your_Tor_Setup/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    14.1: Verifying Your Tor Setup
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../20_2_Changing_Your_Bitcoin_Hidden_Services/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 14.2: Changing Your Bitcoin Hidden Services
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../20_3_Adding_SSH_Hiddben_Services/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 14.3: Adding SSH Hidden Services
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../21_0_Using_i2p/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 15: Using I2P
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../21_1_i2p_service/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    15.1: Bitcoin Core as an I2P (Invisible Internet Project) service
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../A1_0_Understanding_Bitcoin_Standup/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Appendix I: Understanding Bitcoin Standup
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../A2_0_Compiling_Bitcoin_from_Source/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Appendix II: Compiling Bitcoin from Source
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../A3_0_Using_Bitcoin_Regtest/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Appendix III: Using Bitcoin Regtest
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../P1_0_Talking_to_Bitcoind/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 16: Talking to Bitcoind with C
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../P1_1_Accessing_Bitcoind_with_C/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    16.1: Accessing Bitcoind in C with RPC Libraries
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../P1_2_Programming_Bitcoind_with_C/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    16.2: Programming Bitcoind in C with RPC Libraries
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../P1_3_Receiving_Bitcoind_Notifications_with_C/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    16.3 Receiving Notifications in C with ZMQ Libraries
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../P2_0_Programming_with_Libwally/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 17: Programming with Libwally
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../P2_1_Setting_Up_Libwally/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    17.1: Setting Up Libwally
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../P2_2_Using_BIP39_in_Libwally/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    17.2: Using BIP39 in Libwally
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../P2_3_Using_BIP32_in_Libwally/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    17.3: Using BIP32 in Libwally
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../P2_4_Using_PSBTs_in_Libwally/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    17.4: Using PSBTs in Libwally
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../P2_5_Using_Scripts_in_Libwally/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    17.5: Using Scripts in Libwally
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../P2_6_Using_Other_Functions_in_Libwally/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    17.6: Using Other Functions in Libwally
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../P2_7_Integrating_Libwally_and_Bitcoin-CLI/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    17.7: Integrating Libwally and Bitcoin-CLI
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../P3_0_Talking_to_Bitcoind_Other/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 18: Talking to Bitcoind with Other Languages
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../P3_1_Accessing_Bitcoind_with_Go/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    18.1: Accessing Bitcoind with Go
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../P3_2_Accessing_Bitcoind_with_Java/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    18.2: Accessing Bitcoind with Java
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../P3_3_Accessing_Bitcoind_with_NodeJS/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    18.3: Accessing Bitcoind with NodeJS
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    18.4: Accessing Bitcoind with Python
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    18.4: Accessing Bitcoind with Python
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#set-up-python" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Set Up Python
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Set Up Python">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#set-up-bitcoinrpc" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Set Up BitcoinRPC
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#create-a-bitcoinrpc-project" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Create a BitcoinRPC Project
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#build-your-connection" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Build Your Connection
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Build Your Connection">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#make-an-rpc-call" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Make an RPC Call
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#make-an-rpc-call-with-arguments" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Make an RPC Call with Arguments
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#run-your-code" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Run Your Code
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#look-up-funds" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Look Up Funds
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Look Up Funds">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#retrieve-an-array" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Retrieve an Array
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#explore-a-utxo" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Explore a UTXO
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#create-an-address" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Create an Address
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#send-a-transaction" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Send a Transaction
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Send a Transaction">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-select-utxo-set-transaction-details" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. Select UTXO &amp; Set Transaction Details
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-create-raw-transaction" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Create Raw Transaction
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-sign-raw-transaction" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. Sign Raw Transaction
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4-broadcast-transaction" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. Broadcast Transaction
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#run-your-code_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Run Your Code
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#summary-accessing-bitcoind-with-python" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Summary: Accessing Bitcoind with Python
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#whats-next" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        What's Next?
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#variant-build-python-from-source" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Variant: Build Python from Source
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Variant: Build Python from Source">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-install-dependencies" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. Install Dependencies
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-download-extract-python" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Download &amp; Extract Python
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-compile-python-source-check-installation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. Compile Python Source &amp; Check Installation:
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../P3_5_Accessing_Bitcoind_with_Rust/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    18.5: Accessing Bitcoind with Rust
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../P3_6_Accessing_Bitcoind_with_Swift/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    18.6: Accessing Bitcoind with Swift
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../T1_0_Expanding_Bitcoin_Transactions_with_Schnorr/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    T1 0 Expanding Bitcoin Transactions with Schnorr
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../XX_X_Integrating_with_Hardware_Wallets/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    7.3: Integrating with Hardware Wallets
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_113" >
+        
+          
+          <label class="md-nav__link" for="__nav_113" id="__nav_113_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Images
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_113_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_113">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Images
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_113_1" >
+        
+          
+          <label class="md-nav__link" for="__nav_113_1" id="__nav_113_1_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Logos
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_113_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_113_1">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Logos
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../images/logos/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Index
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#set-up-python" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Set Up Python
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Set Up Python">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#set-up-bitcoinrpc" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Set Up BitcoinRPC
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#create-a-bitcoinrpc-project" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Create a BitcoinRPC Project
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#build-your-connection" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Build Your Connection
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Build Your Connection">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#make-an-rpc-call" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Make an RPC Call
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#make-an-rpc-call-with-arguments" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Make an RPC Call with Arguments
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#run-your-code" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Run Your Code
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#look-up-funds" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Look Up Funds
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Look Up Funds">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#retrieve-an-array" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Retrieve an Array
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#explore-a-utxo" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Explore a UTXO
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#create-an-address" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Create an Address
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#send-a-transaction" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Send a Transaction
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Send a Transaction">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-select-utxo-set-transaction-details" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. Select UTXO &amp; Set Transaction Details
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-create-raw-transaction" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Create Raw Transaction
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-sign-raw-transaction" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. Sign Raw Transaction
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4-broadcast-transaction" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. Broadcast Transaction
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#run-your-code_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Run Your Code
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#summary-accessing-bitcoind-with-python" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Summary: Accessing Bitcoind with Python
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#whats-next" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        What's Next?
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#variant-build-python-from-source" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Variant: Build Python from Source
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Variant: Build Python from Source">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-install-dependencies" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. Install Dependencies
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-download-extract-python" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Download &amp; Extract Python
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-compile-python-source-check-installation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. Compile Python Source &amp; Check Installation:
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  
+  
+
+
+<h1 id="184-accessing-bitcoind-with-python">18.4: Accessing Bitcoind with Python</h1>
+<blockquote>
+<p>:information_source: <strong>NOTE:</strong> This section has been recently added to the course and is an early draft that may still be awaiting review. Caveat reader.</p>
+</blockquote>
+<p>This section explains how to interact with <code>bitcoind</code> using the Python programming language and the <a href="https://github.com/jgarzik/python-bitcoinrpc">Python-BitcoinRPC</a>.</p>
+<h2 id="set-up-python">Set Up Python</h2>
+<p>If you already have Bitcoin Core installed, you should have Python 3 available as well.
+You can check this by running:</p>
+<p><code>$ python3 --version</code></p>
+<p>If it returns a version number (e.g., <code>3.7.3</code> or <code>3.8.3</code>) then you have python3 installed. </p>
+<p>However, if you somehow do not have Python installed, you'll need build it from source as follows. Please see the <a href="17_4_Accessing_Bitcoind_with_Python.md#variant-build-python-from-source">"Building Python from Source"</a> variant before continuing.</p>
+<h3 id="set-up-bitcoinrpc">Set Up BitcoinRPC</h3>
+<p>Whether you used an existing Python or built it from source, you're now ready to install  the <code>python-bitcoinrpc</code> library:</p>
+<pre><code>$ pip3 install python-bitcoinrpc
+</code></pre>
+<p>If you don't have <code>pip</code> installed, you'll need to run the following:</p>
+<pre><code>$ sudo apt install python3-pip
+</code></pre>
+<p>(Then repeat the <code>pip3 install python-bitcoinrpc</code> instructions.)</p>
+<h3 id="create-a-bitcoinrpc-project">Create a BitcoinRPC Project</h3>
+<p>You'll generally need to include appropriate declarations from <code>bitcoinrpc</code> in your Bitcoin projects in Python. The following will give you access to the RPC based commands:</p>
+<pre><code class="language-py">from bitcoinrpc.authproxy import AuthServiceProxy, JSONRPCException
+</code></pre>
+<p>You may also find the following useful:</p>
+<pre><code class="language-py">from pprint import pprint
+import logging
+</code></pre>
+<p><code>pprint</code> will pretty print the <code>json</code> response from <code>bitcoind</code>.</p>
+<p><code>logging</code> will print out the call you make to <code>bitcoind</code> and <code>bitcoind</code>'s response, which is useful when you make a bunch of calls together. If you don't want the excessive output in the terminal just comment out the <code>logging</code> block.</p>
+<h2 id="build-your-connection">Build Your Connection</h2>
+<p>You are now ready to start interacting with <code>bitcoind</code> by establishing a connection. Create a file called <code>btcrpc.py</code> and type the following:</p>
+<pre><code class="language-py">logging.basicConfig()
+logging.getLogger(&quot;BitcoinRPC&quot;).setLevel(logging.DEBUG)
+# rpc_user and rpc_password are set in the bitcoin.conf file
+rpc_user = &quot;StandUp&quot;
+rpc_pass = &quot;6305f1b2dbb3bc5a16cd0f4aac7e1eba&quot;
+rpc_host = &quot;127.0.0.1&quot;
+rpc_client = AuthServiceProxy(f&quot;http://{rpc_user}:{rpc_pass}@{rpc_host}:18332&quot;, timeout=120)
+</code></pre>
+<p>The arguments in the URL are <code>&lt;rpc_username&gt;:&lt;rpc_password&gt;@&lt;host_IP_address&gt;:&lt;port&gt;</code>. As usual, the <code>user</code> and <code>pass</code> are found in your <code>~/.bitcoin/bitcoin.conf</code>, while the <code>host</code> is your localhost, and the port is <code>18332</code> for testnet. The <code>timeout</code> argument is specified since sockets timeout under heavy load on the mainnet. If you get <code>socket.timeout: timed out</code> response, be patient and increase the <code>timeout</code>.</p>
+<blockquote>
+<p>:link: <strong>MAINNET VS TESTNET:</strong> The port would be 8332 for a mainnet setup.</p>
+</blockquote>
+<h3 id="make-an-rpc-call">Make an RPC Call</h3>
+<p>If <code>rpc_client</code> is successfully initialized, you'll be able to send off RPC commands to your bitcoin node.</p>
+<p>In order to use an RPC method from <code>python-bitcoinrpc</code>, you'll use <code>rpc_client</code> object that you created, which provides most of the functionality that can be accessed through <code>bitcoin-cli</code>, using the same method names.</p>
+<p>For example, the following will retrieve the blockcount of your node:</p>
+<pre><code class="language-py">block_count = rpc_client.getblockcount()
+print(&quot;---------------------------------------------------------------&quot;)
+print(&quot;Block Count:&quot;, block_count)
+print(&quot;---------------------------------------------------------------\n&quot;)
+</code></pre>
+<p>You should see the following output with <code>logging</code> enabled :</p>
+<pre><code class="language-sh">DEBUG:BitcoinRPC:-3-&gt; getblockcount []
+DEBUG:BitcoinRPC:&lt;-3- 1773020
+---------------------------------------------------------------
+Block Count: 1773020
+---------------------------------------------------------------
+</code></pre>
+<h3 id="make-an-rpc-call-with-arguments">Make an RPC Call with Arguments</h3>
+<p>You can use that blockcount as an argument to retrieve the blockhash of a block and also to retrieve details of that block.</p>
+<p>This is done by send your <code>rpc_client</code> object commands with an argument:</p>
+<pre><code class="language-py">blockhash = rpc_client.getblockhash(block_count)
+block = rpc_client.getblock(blockhash)
+</code></pre>
+<p>The <code>getblockhash</code> will return a single value, while the <code>getblock</code> will return an associative array of information about the block, which includes an array under <code>block['tx']</code> providing details on each transaction within the block:</p>
+<pre><code class="language-py">nTx = block['nTx']
+if nTx &gt; 10:
+    it_txs = 10
+    list_tx_heading = &quot;First 10 transactions: &quot;
+else:
+    it_txs = nTx
+    list_tx_heading = f&quot;All the {it_txs} transactions: &quot;
+print(&quot;---------------------------------------------------------------&quot;)
+print(&quot;BLOCK: &quot;, block_count)
+print(&quot;-------------&quot;)
+print(&quot;Block Hash...: &quot;, blockhash)
+print(&quot;Merkle Root..: &quot;, block['merkleroot'])
+print(&quot;Block Size...: &quot;, block['size'])
+print(&quot;Block Weight.: &quot;, block['weight'])
+print(&quot;Nonce........: &quot;, block['nonce'])
+print(&quot;Difficulty...: &quot;, block['difficulty'])
+print(&quot;Number of Tx.: &quot;, nTx)
+print(list_tx_heading)
+print(&quot;---------------------&quot;)
+i = 0
+while i &lt; it_txs:
+    print(i, &quot;:&quot;, block['tx'][i])
+    i += 1
+print(&quot;---------------------------------------------------------------\n&quot;)
+</code></pre>
+<h3 id="run-your-code">Run Your Code</h3>
+<p>You can retrieve <a href="src/18_4_getinfo.py">the src code</a> and run it with <code>python3</code>:</p>
+<pre><code>$ python3 getinfo.py
+---------------------------------------------------------------
+Block Count: 1831106
+---------------------------------------------------------------
+---------------------------------------------------------------
+BLOCK:  1831106
+-------------
+Block Hash...:  00000000000003b2ea7c2cdfffd86156ad1f5606ab58e128940a2534d1348b04
+Merkle Root..:  056a547fe59208167eef86fa694263728fb684119254b340c1f86bdd423a8082
+Block Size...:  52079
+Block Weight.:  128594
+Nonce........:  1775583700
+Difficulty...:  4194304
+Number of Tx.:  155
+First 10 transactions: 
+---------------------
+0 : d228d55112e3aa26265b0118cfdc98345c229d20fe074b9afb87107c03ce11b5
+1 : 92822e8e34fafb472b87c99ea3f3e16440452b3f361ed86c6fa62175173fb750
+2 : fa7c67600c14d4aa350a9674688f1429577954f4a6c5e4639d06c8964824f647
+3 : 3a91d1527e308e5603dafde7ab17824f441a73a779d2571d073466dc9e8451b2
+4 : 30fd0e5527b1522e7b26a4818b9edac80fe47c0c39fc34705478a49e684708d0
+5 : 24c5372b38c78cbaf5b0b305925502a491bc0c1b5758f50c0bd335abb6ae85f5
+6 : be70e125a5793efc5e32051fecba0668df971bdf371138c8261201c2a46b2d38
+7 : 41ebf52c847a59ba0aeb4425c74e89a01e91defa86a82785ff53ed4668054561
+8 : dc8211b4ce122f87692e7c203672e3eb1ffc44c0a307eafcc560323fcc5fae78
+9 : 59e2d8e11cad287eacf3207e64a373f65059286b803ef0981510193ae29cbc8c
+---------------------------------------------------------------
+</code></pre>
+<h2 id="look-up-funds">Look Up Funds</h2>
+<p>You can similarly retrieve your wallet's information with the <code>getwalletinfo</code> RPC:</p>
+<pre><code class="language-py">wallet_info = rpc_client.getwalletinfo()
+print(&quot;---------------------------------------------------------------&quot;)
+print(&quot;Wallet Info:&quot;)
+print(&quot;-----------&quot;)
+pprint(wallet_info)
+print(&quot;---------------------------------------------------------------\n&quot;)
+</code></pre>
+<p>You should have an output similar to the following with <code>logging</code> disabled:</p>
+<pre><code class="language-sh">---------------------------------------------------------------
+Wallet Info:
+-----------
+{'avoid_reuse': False,
+ 'balance': Decimal('0.07160443'),
+ 'hdseedid': '6dko666b1cc0d69b7eb0539l89eba7b6390kdj02',
+ 'immature_balance': Decimal('0E-8'),
+ 'keypoololdest': 1542245729,
+ 'keypoolsize': 999,
+ 'keypoolsize_hd_internal': 1000,
+ 'paytxfee': Decimal('0E-8'),
+ 'private_keys_enabled': True,
+ 'scanning': False,
+ 'txcount': 9,
+ 'unconfirmed_balance': Decimal('0E-8'),
+ 'walletname': '',
+ 'walletversion': 169900}
+---------------------------------------------------------------
+</code></pre>
+<p>Other informational commands such as <code>getblockchaininfo</code>, <code>getnetworkinfo</code>, <code>getpeerinfo</code>, and <code>getblockchaininfo</code> will work similarly.</p>
+<p>Other commands can give you specific information on select elements within your wallet.</p>
+<h3 id="retrieve-an-array">Retrieve an Array</h3>
+<p>The <code>listtransactions</code> RPC allows you to look at the most recent 10 transactions on your system (or some arbitrary set of transactions using the <code>count</code> and <code>skip</code> arguments). It shows how an RPC command can return an easy-to-manipulate array:</p>
+<pre><code class="language-py">tx_list = rpc_client.listtransactions()
+pprint(tx_list)
+</code></pre>
+<h3 id="explore-a-utxo">Explore a UTXO</h3>
+<p>You can similarly use <code>listunspent</code> to get an array of UTXOs on your system:</p>
+<pre><code class="language-py">print(&quot;Exploring UTXOs&quot;)
+## List UTXOs
+utxos = rpc_client.listunspent()
+print(&quot;Utxos: &quot;)
+print(&quot;-----&quot;)
+pprint(utxos)
+print(&quot;------------------------------------------\n&quot;)
+</code></pre>
+<p>In order to manipulate an array like the one returned from <code>listtransactions</code> or <code>listunspent</code>, you just grab the appropriate item from the appropriate element of the array:</p>
+<pre><code>## Select a UTXO - first one selected here
+utxo_txid = utxos[0]['txid']
+</code></pre>
+<p>For <code>listunspent</code>, you get a <code>txid</code>. You can retrieve information about it with <code>gettransaction</code>, then decode that with <code>decoderawtransaction</code>:</p>
+<pre><code>utxo_hex = rpc_client.gettransaction(utxo_txid)['hex']
+
+utxo_tx_details = rpc_client.decoderawtransaction(utxo_hex)
+
+print(&quot;Details of Utxo with txid:&quot;, utxo_txid)
+print(&quot;---------------------------------------------------------------&quot;)
+print(&quot;UTXO Details:&quot;)
+print(&quot;------------&quot;)
+pprint(utxo_tx_details)
+print(&quot;---------------------------------------------------------------\n&quot;)
+</code></pre>
+<p>This code is available at <a href="src/18_4_walletinfo.py">walletinfo.py</a>.</p>
+<pre><code>$ python3 walletinfo.py 
+---------------------------------------------------------------
+Wallet Info:
+-----------
+{'avoid_reuse': False,
+ 'balance': Decimal('0.01031734'),
+ 'hdseedid': 'da5a1b058deb9e51ecffef1b0ddc069a5dfb2c5f',
+ 'immature_balance': Decimal('0E-8'),
+ 'keypoololdest': 1596567843,
+ 'keypoolsize': 1000,
+ 'keypoolsize_hd_internal': 999,
+ 'paytxfee': Decimal('0E-8'),
+ 'private_keys_enabled': True,
+ 'scanning': False,
+ 'txcount': 6,
+ 'unconfirmed_balance': Decimal('0E-8'),
+ 'walletname': '',
+ 'walletversion': 169900}
+---------------------------------------------------------------
+
+Utxos: 
+-----
+[{'address': 'mv9cjEnS2o1EygBMdrz99LzhM8KeEMoXDg',
+  'amount': Decimal('0.00001000'),
+  'confirmations': 1180,
+  'desc': &quot;pkh([ce0c7e14/0'/0'/25']02d0541b9211aecd25913f7fdecfc1b469215fa326d52067b1b3f7efbd12316472)#n06pq9q5&quot;,
+  'label': '-addresstype',
+  'safe': True,
+  'scriptPubKey': '76a914a080d1a10f5e7a02d0a291f118982ed19e8cfcd788ac',
+  'solvable': True,
+  'spendable': True,
+  'txid': '84207ffec658ae29ad1fdd330d8a13613303c3cf281ce628fadeb7636ffb535e',
+  'vout': 0},
+ {'address': 'tb1qrcf8c29966tvqxhwrtd2se3rj6jeqtll3r46a4',
+  'amount': Decimal('0.01029734'),
+  'confirmations': 1180,
+  'desc': &quot;wpkh([ce0c7e14/0'/1'/26']02c581259ba7e6aef6d7ea23adb08f7c7f10c4c678f2e097a4074639e7685d4805)#j3pctfhf&quot;,
+  'safe': True,
+  'scriptPubKey': '00141e127c28a5d696c01aee1adaa8662396a5902fff',
+  'solvable': True,
+  'spendable': True,
+  'txid': '84207ffec658ae29ad1fdd330d8a13613303c3cf281ce628fadeb7636ffb535e',
+  'vout': 1},
+ {'address': 'mzDxbtYY3LBBBJ6HhaBAtnHv6c51BRBTLE',
+  'amount': Decimal('0.00001000'),
+  'confirmations': 1181,
+  'desc': &quot;pkh([ce0c7e14/0'/0'/23']0377bdd176f985b4af2f6bdbb22c2925b6007b6c07ba171f75e65990c002615e98)#3y6ef6vu&quot;,
+  'label': '-addresstype',
+  'safe': True,
+  'scriptPubKey': '76a914cd339342b06042bb986a45e73d56db46acc1e01488ac',
+  'solvable': True,
+  'spendable': True,
+  'txid': '1679bee019c61608340b79810377be2798efd4d2ec3ace0f00a1967af70666b9',
+  'vout': 1}]
+------------------------------------------
+
+Details of Utxo with txid: 84207ffec658ae29ad1fdd330d8a13613303c3cf281ce628fadeb7636ffb535e
+---------------------------------------------------------------
+UTXO Details:
+------------
+{'hash': '0c6c27f58f122329bbc53a91f290b35ce23bd2708706b21a04cdc387dc8e2fd9',
+ 'locktime': 1831103,
+ 'size': 225,
+ 'txid': '84207ffec658ae29ad1fdd330d8a13613303c3cf281ce628fadeb7636ffb535e',
+ 'version': 2,
+ 'vin': [{'scriptSig': {'asm': '', 'hex': ''},
+          'sequence': 4294967294,
+          'txid': '1679bee019c61608340b79810377be2798efd4d2ec3ace0f00a1967af70666b9',
+          'txinwitness': ['3044022014b3e2359fb46d8cbc4cd30fa991b455edfa4b419a4c64a53fcdfc79e3ca89db022010cefc3268bc252d55f1982c426328b709b47d02332def9e2efb3b12de2cf0d301',
+                          '0351b470e87b44e8e9607acf09b8d4543c51c93c17dc741176319e60202091f2be'],
+          'vout': 0}],
+ 'vout': [{'n': 0,
+           'scriptPubKey': {'addresses': ['mv9cjEnS2o1EygBMdrz99LzhM8KeEMoXDg'],
+                            'asm': 'OP_DUP OP_HASH160 '
+                                   'a080d1a10f5e7a02d0a291f118982ed19e8cfcd7 '
+                                   'OP_EQUALVERIFY OP_CHECKSIG',
+                            'hex': '76a914a080d1a10f5e7a02d0a291f118982ed19e8cfcd788ac',
+                            'reqSigs': 1,
+                            'type': 'pubkeyhash'},
+           'value': Decimal('0.00001000')},
+          {'n': 1,
+           'scriptPubKey': {'addresses': ['tb1qrcf8c29966tvqxhwrtd2se3rj6jeqtll3r46a4'],
+                            'asm': '0 1e127c28a5d696c01aee1adaa8662396a5902fff',
+                            'hex': '00141e127c28a5d696c01aee1adaa8662396a5902fff',
+                            'reqSigs': 1,
+                            'type': 'witness_v0_keyhash'},
+           'value': Decimal('0.01029734')}],
+ 'vsize': 144,
+ 'weight': 573}
+---------------------------------------------------------------
+</code></pre>
+<h2 id="create-an-address">Create an Address</h2>
+<p>Creating a new address with Python 3 just requires the use of an RPC like <code>getnewaddress</code> or <code>getrawchangeaddress</code>.</p>
+<pre><code>new_address = rpc_client.getnewaddress(&quot;Learning-Bitcoin-from-the-Command-Line&quot;)
+new_change_address = rpc_client.getrawchangeaddress()
+</code></pre>
+<p>In this example, you give the <code>getnewaddress</code> command an argument: the <code>Learning-Bitcoin-from-the-Command-Line</code> label.</p>
+<h2 id="send-a-transaction">Send a Transaction</h2>
+<p>Creating a transaction in Python 3 requires combining some of the previous examples (of creating addresses and retrieving UTXOs) with some new RPC commands for creating, signing, and sending a transaction — much as you've done previously from the command line.</p>
+<p>There are five steps:</p>
+<ol>
+<li>Create two addresses, one that will act as recipient and the other for change.</li>
+<li>Select a UTXO and set transaction details.</li>
+<li>Create a raw transaction.</li>
+<li>Sign the raw transaction with the private key of the UTXO.</li>
+<li>Broadcast the transaction on the bitcoin testnet.</li>
+</ol>
+<h3 id="1-select-utxo-set-transaction-details">1. Select UTXO &amp; Set Transaction Details</h3>
+<p>In the following code snippet you first select the UTXO which we want to spend. Then you get its address, transaction id, and the vector index of the output. </p>
+<pre><code class="language-py">utxos = rpc_client.listunspent()
+selected_utxo = utxos[0]  # again, selecting the first utxo here
+utxo_address = selected_utxo['address']
+utxo_txid = selected_utxo['txid']
+utxo_vout = selected_utxo['vout']
+utxo_amt = float(selected_utxo['amount'])
+</code></pre>
+<p>Next, you also retrieve the recipient address to which you want to send the bitcoins, calculate the amount of bitcoins you want to send, and calculate the miner fee and the change amount. Here, the amount is arbitrarily split in two and a miner fee is arbitrarily set.</p>
+<pre><code class="language-py">recipient_address = new_address
+recipient_amt = utxo_amt / 2  # sending half coins to recipient
+miner_fee = 0.00000300        # choose appropriate fee based on your tx size
+change_address = new_change_address
+change_amt = float('%.8f'%((utxo_amt - recipient_amt) - miner_fee))
+</code></pre>
+<blockquote>
+<p>:warning: <strong>WARNING:</strong> Obviously a real program would make more sophisticated choices about what UTXO to use, what to do with the funds, and what miner's fee to pay.</p>
+</blockquote>
+<h3 id="2-create-raw-transaction">2. Create Raw Transaction</h3>
+<p>Now you have all the information to send a transaction, but before you can send one, you have to create a transaction. </p>
+<pre><code class="language-py">txids_vouts = [{&quot;txid&quot;: utxo_txid, &quot;vout&quot;: utxo_vout}]
+addresses_amts = {f&quot;{recipient_address}&quot;: recipient_amt, f&quot;{change_address}&quot;: change_amt}
+unsigned_tx_hex = rpc_client.createrawtransaction(txids_vouts, addresses_amts)
+</code></pre>
+<p>Remember that the format of the <code>createrawtransaction</code> command is:</p>
+<p><code>$ bitcoin-cli createrawtransaction '[{"txid": &lt;utxo_txid&gt;, "vout": &lt;vector_id&gt;}]' '{"&lt;address&gt;": &lt;amount&gt;}'</code></p>
+<p>The <code>txids_vouts</code> is thus a list and the <code>addresses_amts</code> is a python dictionary, to match with the format of <code>createrawtransaction</code>.</p>
+<p>If you want to see more about the details of the transaction that you've created, you can use <code>decoderawtransaction</code>, either in Python 3 or with <code>bitcoin-cli</code>.</p>
+<h3 id="3-sign-raw-transaction">3. Sign Raw Transaction</h3>
+<p>Signing a transaction is often the trickiest part of sending a transaction programmatically. Here you retrieve a private key from an address with <code>dumpprivkey</code> and place it in an array:</p>
+<pre><code class="language-py">address_priv_key = []  # list of priv keys of each utxo
+address_priv_key.append(rpc_client.dumpprivkey(utxo_address))
+</code></pre>
+<p>You can then use that array (which should contain the private keys of every UTXO that is being spent) to sign your <code>unsigned_tx_hex</code>:</p>
+<pre><code class="language-py">signed_tx = rpc_client.signrawtransactionwithkey(unsigned_tx_hex, address_priv_key)
+</code></pre>
+<p>This returns a JSON object with the signed transaction's hex, and whether it was signed completely or not:</p>
+<h3 id="4-broadcast-transaction">4. Broadcast Transaction</h3>
+<p>Finally, you are ready to broadcast the signed transaction on the bitcoin network:</p>
+<pre><code class="language-py">send_tx = rpc_client.sendrawtransaction(signed_tx['hex'])
+</code></pre>
+<h3 id="run-your-code_1">Run Your Code</h3>
+<p>The <a href="src/18_4_sendtx.py">sample code</a> is full of <code>print</code> statements to demonstrate all of the data available at every point:</p>
+<pre><code>$ python3 sendtx.py 
+Creating a Transaction
+---------------------------------------------------------------
+Transaction Details:
+-------------------
+UTXO Address.......:  mv9cjEnS2o1EygBMdrz99LzhM8KeEMoXDg
+UTXO Txid..........:  84207ffec658ae29ad1fdd330d8a13613303c3cf281ce628fadeb7636ffb535e
+Vector ID of Output:  0
+UTXO Amount........:  1e-05
+Tx Amount..........:  5e-06
+Recipient Address..:  tb1qca0elxxqzw5xc0s3yq5qhapzzj90ka0zartu6y
+Change Address.....:  tb1qrveukqrvqm9h6fua99xvcxgnvdx507dg8e8hrt
+Miner Fee..........:  3e-06
+Change Amount......:  2e-06
+---------------------------------------------------------------
+
+---------------------------------------------------------------
+Unsigned Transaction Hex:  02000000015e53fb6f63b7defa28e61c28cfc3033361138a0d33dd1fad29ae58c6fe7f20840000000000ffffffff02f401000000000000160014c75f9f98c013a86c3e1120280bf422148afb75e2c8000000000000001600141b33cb006c06cb7d279d294ccc1913634d47f9a800000000
+---------------------------------------------------------------
+
+---------------------------------------------------------------
+Signed Transaction: 
+----------------------
+{'complete': True,
+ 'hex': '02000000015e53fb6f63b7defa28e61c28cfc3033361138a0d33dd1fad29ae58c6fe7f2084000000006a47304402205da9b2234ea057c9ef3b7794958db6c650c72dedff1a90d2915147a5f6413f2802203756552aba0dd8ebd71b0f28341becc01b28d8b28af063d7c8ce89f9c69167f8012102d0541b9211aecd25913f7fdecfc1b469215fa326d52067b1b3f7efbd12316472ffffffff02f401000000000000160014c75f9f98c013a86c3e1120280bf422148afb75e2c8000000000000001600141b33cb006c06cb7d279d294ccc1913634d47f9a800000000'}
+---------------------------------------------------------------
+
+---------------------------------------------------------------
+TXID of sent transaction:  187f8baa222f9f37841d966b6bad59b8131cfacca861cbe9bfc8656bd16a44cc
+</code></pre>
+<h2 id="summary-accessing-bitcoind-with-python">Summary: Accessing  Bitcoind with Python</h2>
+<p>Accessing Bitcoind with Python is very easy while using the <code>python-bitcoinrpc</code> library. The first thing to always do is to establish a connection with your <code>bitcoind</code> instance, then you can call all of the bitcoin API calls as described in the bitcoin-core documentation. This makes it easy to create small or large programs to manage your own node, check balances, or create cool applications on top, as you access the full power of <code>bitcoin-cli</code>.</p>
+<h2 id="whats-next">What's Next?</h2>
+<p>Learn more about "Talking to Bitcoin in Other Languages" in <a href="18_5_Accessing_Bitcoind_with_Rust.md">18.5: Accessing Bitcoin with Rust</a>.</p>
+<h2 id="variant-build-python-from-source">Variant: Build Python from Source</h2>
+<p>If you need to install Python 3 from source, follow these instructions, then continue with <a href="18_4_Accessing_Bitcoind_with_Python.md#create-a-bitcoinrpc-project">"Create a BitcoinRPC Project"</a>.</p>
+<h3 id="1-install-dependencies">1. Install Dependencies</h3>
+<pre><code class="language-sh">$ sudo apt-get install build-essential checkinstall
+$ sudo apt-get install libreadline-gplv2-dev libncursesw5-dev libssl-dev libsqlite3-dev tk-dev libgdbm-dev libc6-dev libbz2-dev libffi-dev zlib1g-dev
+</code></pre>
+<h3 id="2-download-extract-python">2. Download &amp; Extract Python</h3>
+<pre><code class="language-sh">$ wget https://www.python.org/ftp/python/3.8.3/Python-3.8.3.tgz
+$ tar -xzf Python-3.8.3.tgz
+</code></pre>
+<h3 id="3-compile-python-source-check-installation">3. Compile Python Source &amp; Check Installation:</h3>
+<pre><code class="language-sh">$ cd Python-3.8.3
+$ sudo ./configure --enable-optimizations
+$ sudo make -j 8  # enter the number of cores of your system you want to use to speed up the build process.
+$ sudo make altinstall
+$ python3.8 --version
+</code></pre>
+<p>After you get the version output, remove the source file:</p>
+<pre><code class="language-sh">$ rm Python-3.8.3.tgz
+</code></pre>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "..", "features": [], "search": "../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.d7400e89.min.js"></script>
+      
+    
+  </body>
+</html>

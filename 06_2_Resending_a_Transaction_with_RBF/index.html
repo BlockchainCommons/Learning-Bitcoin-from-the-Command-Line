@@ -1,0 +1,4185 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+        <link rel="canonical" href="https://learningbitcoin.blockchaincommons.com/06_2_Resending_a_Transaction_with_RBF/">
+      
+      
+        <link rel="prev" href="../06_1_Watching_for_Stuck_Transactions/">
+      
+      
+        <link rel="next" href="../06_3_Funding_a_Transaction_with_CPFP/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.7">
+    
+    
+      
+        <title>6.2: Resending a Transaction with RBF - Learning Bitcoin from the Command Line</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.ec1eaa64.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    <body dir="ltr">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#62-resending-a-transaction-with-rbf" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href=".." title="Learning Bitcoin from the Command Line" class="md-header__button md-logo" aria-label="Learning Bitcoin from the Command Line" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M14.24 10.56c-.31 1.24-2.24.61-2.84.44l.55-2.18c.62.18 2.61.44 2.29 1.74m-3.11 1.56-.6 2.41c.74.19 3.03.92 3.37-.44.36-1.42-2.03-1.79-2.77-1.97m10.57 2.3c-1.34 5.36-6.76 8.62-12.12 7.28S.963 14.94 2.3 9.58A9.996 9.996 0 0 1 14.42 2.3c5.35 1.34 8.61 6.76 7.28 12.12m-7.49-6.37.45-1.8-1.1-.25-.44 1.73c-.29-.07-.58-.14-.88-.2l.44-1.77-1.09-.26-.45 1.79c-.24-.06-.48-.11-.7-.17l-1.51-.38-.3 1.17s.82.19.8.2c.45.11.53.39.51.64l-1.23 4.93c-.05.14-.21.32-.5.27.01.01-.8-.2-.8-.2L6.87 15l1.42.36c.27.07.53.14.79.2l-.46 1.82 1.1.28.45-1.81c.3.08.59.15.87.23l-.45 1.79 1.1.28.46-1.82c1.85.35 3.27.21 3.85-1.48.5-1.35 0-2.15-1-2.66.72-.19 1.26-.64 1.41-1.62.2-1.33-.82-2.04-2.2-2.52"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Learning Bitcoin from the Command Line
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              6.2: Resending a Transaction with RBF
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/BlockchainCommons/Learning-Bitcoin-from-the-Command-Line/tree/lbtcftcl-v3.0" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href=".." title="Learning Bitcoin from the Command Line" class="md-nav__button md-logo" aria-label="Learning Bitcoin from the Command Line" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M14.24 10.56c-.31 1.24-2.24.61-2.84.44l.55-2.18c.62.18 2.61.44 2.29 1.74m-3.11 1.56-.6 2.41c.74.19 3.03.92 3.37-.44.36-1.42-2.03-1.79-2.77-1.97m10.57 2.3c-1.34 5.36-6.76 8.62-12.12 7.28S.963 14.94 2.3 9.58A9.996 9.996 0 0 1 14.42 2.3c5.35 1.34 8.61 6.76 7.28 12.12m-7.49-6.37.45-1.8-1.1-.25-.44 1.73c-.29-.07-.58-.14-.88-.2l.44-1.77-1.09-.26-.45 1.79c-.24-.06-.48-.11-.7-.17l-1.51-.38-.3 1.17s.82.19.8.2c.45.11.53.39.51.64l-1.23 4.93c-.05.14-.21.32-.5.27.01.01-.8-.2-.8-.2L6.87 15l1.42.36c.27.07.53.14.79.2l-.46 1.82 1.1.28.45-1.81c.3.08.59.15.87.23l-.45 1.79 1.1.28.46-1.82c1.85.35 3.27.21 3.85-1.48.5-1.35 0-2.15-1-2.66.72-.19 1.26-.64 1.41-1.62.2-1.33-.82-2.04-2.2-2.52"/></svg>
+
+    </a>
+    Learning Bitcoin from the Command Line
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/BlockchainCommons/Learning-Bitcoin-from-the-Command-Line/tree/lbtcftcl-v3.0" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href=".." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Learning Bitcoin from the Command Line 3.0
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../01_0_Introduction/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter One: Introduction to Learning Bitcoin Core from the Command Line
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../01_1_Introducing_Bitcoin/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Interlude: Introducing Bitcoin
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../02_0_Setting_Up_a_Bitcoin-Core_VPS/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter Two: Creating a Bitcoin-Core VPS
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../02_1_Setting_Up_a_Bitcoin-Core_VPS_with_StackScript/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    2.1: Setting Up a Bitcoin-Core VPS with Bitcoin Standup
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../02_2_Setting_Up_Bitcoin_Core_Other/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    2.2: Setting Up a Bitcoin-Core Machine via Other Means
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../03_0_Preparing_Your_Bitcoin_Wallet/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter Three: Preparing Your Bitcoin Wallet
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../03_1_Verifying_Your_Bitcoin_Setup/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    3.1: Verifying Your Bitcoin Setup
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../03_2_Knowing_Your_Bitcoin_Setup/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    3.2: Knowing Your Bitcoin Setup
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../03_3_Setting_Up_Your_Wallet/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    3.3: Setting Up Your Wallet
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../03_4_Understanding_the_Descriptor_Wallet/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    3.4: Understanding the Descriptor Wallet
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../04_0_Preparing_Your_Bitcoin_Addresses/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter Four: Preparing Your Bitcoin Addresses
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../04_1_Understanding_the_Address/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    4.1: Understanding the Address
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../04_2_Integrating_Addresses_Descriptors/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    4.2: Integrating Addresses and Descriptors
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../04_3_Creating_QR_Codes_for_Addresses/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    4.3: Creating QR Codes for Addresses
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../04_4_Receiving_a_Transaction/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    4.4: Receiving a Transaction
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../04_4a_Interlude_Using_Command-Line_Variables/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Interlude: Using Command-Line Variables
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../05_0_Sending_Bitcoin_Transactions/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter Five: Sending Bitcoin Transactions
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../05_1_Sending_Coins_The_Easy_Way/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    5.1: Sending Coins the Easy Way
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../05_2_Creating_a_Raw_Transaction/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    5.2 Creating a Raw Transaction
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../05_2a_Interlude_Using_JQ/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Interlude: Using JQ
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../05_3_Creating_a_Raw_Transaction_with_Named_Arguments/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    5.3 Creating a Raw Transaction with Named Arguments
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../05_4_Sending_Coins_with_a_Raw_Transaction/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    5.4: Sending Coins with Raw Transactions
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../05_4a_Interlude_Using_Curl/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Interlude: Using Curl
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../05_5_Sending_Coins_with_Automated_Raw_Transactions/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    5.5: Sending Coins with Automated Raw Transactions
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../05_6_Sending_Coins_to_Other_Addresses/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    5.6: Sending Coins to Other Addresses
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../06_0_Controlling_Bitcoin_Transactions/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter Six: Controlling Bitcoin Transactions
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../06_1_Watching_for_Stuck_Transactions/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    6.1: Watching for Stuck Transactions
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    6.2: Resending a Transaction with RBF
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    6.2: Resending a Transaction with RBF
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#understand-opt-in-rbf-vs-full-rbf" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Understand Opt-In RBF vs Full RBF
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#understand-the-sequence-variable" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Understand the Sequence Variable
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#understand-how-rbf-works" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Understand How RBF Works
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#check-the-sequence-variable" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Check the Sequence Variable
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#reset-the-sequence-variable" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Reset the Sequence Variable
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#replace-a-transaction-the-hard-way-by-hand" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Replace a Transaction the Hard Way: By Hand
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#replace-a-transaction-the-easy-way-by-bumpfee" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Replace a Transaction the Easy Way: By bumpfee
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#summary-resending-a-transaction-with-rbf" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Summary: Resending a Transaction with RBF
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#whats-next" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        What's Next?
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../06_3_Funding_a_Transaction_with_CPFP/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    6.3: Funding a Transaction with CPFP
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../07_0_Expanding_Bitcoin_Transactions_Multisigs/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter Seven: Expanding Bitcoin Transactions with Multisigs
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../07_1_Creating_Multisig_Public_Keys/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    7.1: Creating a Multisig from Public Keys
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../07_2_Creating_Multisig_Descriptors/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    7.2: Creating a Multisig from Descriptors
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../07_3_Spending_a_Transaction_to_a_Multisig/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    7.3: Spending a Transaction with a Multisig
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../08_0_Expanding_Bitcoin_Transactions_PSBTs/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter Eight: Expanding Bitcoin Transactions with PSBTs
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../08_1_Spending_a_Multisig_with_a_PSBT/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    8.1: Spending a Multisig with a PSBT
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../08_2_Understanding_the_PSBT/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    8.2: Understanding the PSBT Process
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../08_3_Using_a_Partially_Signed_Bitcoin_Transaction/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    8.3: Using a Partially Signed Bitcoin Transaction
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../08_4_Creating_Animated_QR_Codes/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    8.4: Creating Animated QR Codes
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../09_0_Expanding_Bitcoin_Transactions_Other/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter Nine: Expanding Bitcoin Transactions in Other Ways
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../09_1_Sending_a_Transaction_with_a_Locktime/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    9.1: Sending a Transaction with a Locktime
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../09_2_Sending_a_Transaction_with_Data/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    9.2: Sending a Transaction with Data
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../10_0_Working_with_Secrets/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter Ten: Working with Secrets
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../10_1_Creating_Secrets_from_the_Command_Line/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    10.1: Creating Secrets from the Command Line
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../10_2_Converting_Secrets_with_Keytool/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    10.2: Converting Secrets with Keytool
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../10_3_Importing_Secrets_to_Bitcoin_Core/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    10.3: Importing Secrets to Bitcoin Core
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../10_4_Exporting_Secrets_from_Bitcoin_Core/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    10.4: Exporting Secrets from Bitcoin Core
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../10_5_Storing_Secrets_with_Envelope/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    10.5: Storing Secrets with Envelope
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../11_0_Introducing_Bitcoin_Scripts/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 11: Introducing Bitcoin Scripts
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../11_1_Understanding_the_Foundation_of_Transactions/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    11.1: Understanding the Foundation of Transactions
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../11_2_Running_a_Bitcoin_Script/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    11.2: Running a Bitcoin Script
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../11_3_Testing_a_Bitcoin_Script/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    11.3: Testing a Bitcoin Script
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../11_4_Scripting_a_P2PKH/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    11.4: Scripting a P2PKH
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../11_5_Scripting_a_P2WPKH/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    11.5: Scripting a P2WPKH
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../12_0_Embedding_Bitcoin_Scripts_in_P2WSH_Transactions/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 12: Embedding Bitcoin Scripts in P2SH &amp; P2WSH Transactions
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../12_1_Understanding_the_Foundation_of_P2WSH/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    12.1: Understanding the Foundation of P2SH &amp; P2WSH
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../12_2_Building_the_Structure_of_P2WSH/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    12.2: Building the Structure of P2SH &amp; P2WSH
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../12_3_Running_a_Bitcoin_Script_with_P2WSH/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    12.3: Running a Bitcoin Script with P2SH or P2WSH
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../12_4_Scripting_a_Multisig/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    12.4: Scripting a Multisig
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../12_5_Spending_a_P2WSH_Transaction/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    12.5: Spending a P2SH or P2WSH Transaction
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../13_0_Empowering_Timelock_with_Bitcoin_Scripts/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 13: Empowering Timelock with Bitcoin Scripts
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../13_1_Understanding_Timelock_Options/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    13.1: Understanding Timelock Options
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../13_2_Using_CLTV_in_Scripts/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    13.2: Using CLTV in Scripts
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../13_3_Using_CSV_in_Scripts/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    13.3: Using CSV in Scripts
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../14_0_Expanding_Bitcoin_Scripts/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 14: Expanding Bitcoin Scripts
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../14_1_Using_Script_Conditionals/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    14.1: Using Script Conditionals
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../14_2_Using_Other_Script_Commands/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    14.2: Using Other Script Commands
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../15_0_Designing_Real_Bitcoin_Scripts/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 15: Designing Real Bitcoin Scripts
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../15_1_Writing_Puzzle_Scripts/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    15 1 Writing Puzzle Scripts
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../15_2_Writing_Complex_Multisig_Scripts/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    15.2: Writing Complex Multisig Scripts
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../15_3_Empowering_Bitcoin_with_Scripts/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    15 3 Empowering Bitcoin with Scripts
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../16_0_Using_Miniscript/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 16: Using Miniscript
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../16_1_Understanding_Miniscript/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    16.1: Understanding Miniscript &amp; Policy
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../16_2_Converting_Miniscript/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    16.2: Converting Policy &amp; Miniscript
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../16_3_Using_Miniscript_with_Descriptors/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    16.3: Using Miniscript with Descriptors
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../16_4_Using_BDK/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    16.4: Using BDK with Miniscript
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../17_0_Introducing_Taproot/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 17: Introducing Taproot
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../17_1_Breaking_Down_Taproot/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    17.1: Breaking Down Taproot
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../17_2_Updating_to_Taproot/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    17.2: Updating to Taproot
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../18_0_Using_Schnorr/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 18: Using Schnorr
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../18_1_Understanding_Schorr/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    18.1: Understanding Schnorr Signatures
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../18_3_Using_Bitcoin_With_FROST/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    18.3: Using Bitcoin with FROST
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../20_0_Using_Tor/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 14: Using Tor
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../20_1_Verifying_Your_Tor_Setup/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    14.1: Verifying Your Tor Setup
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../20_2_Changing_Your_Bitcoin_Hidden_Services/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 14.2: Changing Your Bitcoin Hidden Services
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../20_3_Adding_SSH_Hiddben_Services/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 14.3: Adding SSH Hidden Services
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../21_0_Using_i2p/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 15: Using I2P
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../21_1_i2p_service/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    15.1: Bitcoin Core as an I2P (Invisible Internet Project) service
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../A1_0_Understanding_Bitcoin_Standup/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Appendix I: Understanding Bitcoin Standup
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../A2_0_Compiling_Bitcoin_from_Source/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Appendix II: Compiling Bitcoin from Source
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../A3_0_Using_Bitcoin_Regtest/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Appendix III: Using Bitcoin Regtest
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../P1_0_Talking_to_Bitcoind/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 16: Talking to Bitcoind with C
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../P1_1_Accessing_Bitcoind_with_C/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    16.1: Accessing Bitcoind in C with RPC Libraries
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../P1_2_Programming_Bitcoind_with_C/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    16.2: Programming Bitcoind in C with RPC Libraries
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../P1_3_Receiving_Bitcoind_Notifications_with_C/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    16.3 Receiving Notifications in C with ZMQ Libraries
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../P2_0_Programming_with_Libwally/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 17: Programming with Libwally
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../P2_1_Setting_Up_Libwally/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    17.1: Setting Up Libwally
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../P2_2_Using_BIP39_in_Libwally/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    17.2: Using BIP39 in Libwally
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../P2_3_Using_BIP32_in_Libwally/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    17.3: Using BIP32 in Libwally
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../P2_4_Using_PSBTs_in_Libwally/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    17.4: Using PSBTs in Libwally
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../P2_5_Using_Scripts_in_Libwally/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    17.5: Using Scripts in Libwally
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../P2_6_Using_Other_Functions_in_Libwally/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    17.6: Using Other Functions in Libwally
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../P2_7_Integrating_Libwally_and_Bitcoin-CLI/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    17.7: Integrating Libwally and Bitcoin-CLI
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../P3_0_Talking_to_Bitcoind_Other/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 18: Talking to Bitcoind with Other Languages
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../P3_1_Accessing_Bitcoind_with_Go/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    18.1: Accessing Bitcoind with Go
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../P3_2_Accessing_Bitcoind_with_Java/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    18.2: Accessing Bitcoind with Java
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../P3_3_Accessing_Bitcoind_with_NodeJS/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    18.3: Accessing Bitcoind with NodeJS
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../P3_4_Accessing_Bitcoind_with_Python/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    18.4: Accessing Bitcoind with Python
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../P3_5_Accessing_Bitcoind_with_Rust/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    18.5: Accessing Bitcoind with Rust
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../P3_6_Accessing_Bitcoind_with_Swift/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    18.6: Accessing Bitcoind with Swift
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../T1_0_Expanding_Bitcoin_Transactions_with_Schnorr/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    T1 0 Expanding Bitcoin Transactions with Schnorr
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../XX_X_Integrating_with_Hardware_Wallets/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    7.3: Integrating with Hardware Wallets
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_113" >
+        
+          
+          <label class="md-nav__link" for="__nav_113" id="__nav_113_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Images
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_113_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_113">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Images
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_113_1" >
+        
+          
+          <label class="md-nav__link" for="__nav_113_1" id="__nav_113_1_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Logos
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_113_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_113_1">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Logos
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../images/logos/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Index
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#understand-opt-in-rbf-vs-full-rbf" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Understand Opt-In RBF vs Full RBF
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#understand-the-sequence-variable" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Understand the Sequence Variable
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#understand-how-rbf-works" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Understand How RBF Works
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#check-the-sequence-variable" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Check the Sequence Variable
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#reset-the-sequence-variable" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Reset the Sequence Variable
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#replace-a-transaction-the-hard-way-by-hand" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Replace a Transaction the Hard Way: By Hand
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#replace-a-transaction-the-easy-way-by-bumpfee" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Replace a Transaction the Easy Way: By bumpfee
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#summary-resending-a-transaction-with-rbf" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Summary: Resending a Transaction with RBF
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#whats-next" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        What's Next?
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  
+  
+
+
+<h1 id="62-resending-a-transaction-with-rbf">6.2: Resending a Transaction with RBF</h1>
+<p>If your Bitcoin transaction is stuck, and you're the sender, you can
+<em>replace</em> (resend) it using RBF (replace-by-fee). However, that's not
+all that RBF can do: it's generally a powerful and multipurpose
+feature that allows Bitcoin senders to recreate transactions for a
+variety of reasons.</p>
+<h2 id="understand-opt-in-rbf-vs-full-rbf">Understand Opt-In RBF vs Full RBF</h2>
+<p>There are currently two versions of RBF that are present on the Bitcoin network: opt-in RBF and full RBF. Both do the same thing: they allow you to replace an existing unconfirmed transaction with a newer transaction that has a higher fee (and so is more likely to be confirmed).</p>
+<ul>
+<li><strong>Opt-In RBF</strong> is the older version of RBF, originally defined by
+<a href="https://github.com/bitcoin/bips/blob/master/bip-0125.mediawiki">BIP-125</a>. It
+required you to signal in a transaction that the transaction could
+later be replaced if needed. Without the signal in the original
+transaction, RBF was not allowed.</li>
+<li><strong>Full RBF</strong> was introduced by Bitcoin Core as an option in 2022 and
+became the default in additional updates from 2024-2025. It allows any
+unconfirmed transaction to be updated with RBF, even without the
+opt-in signal.</li>
+</ul>
+<p>Both versions of RBF still exist on the network and as of this writing
+<a href="https://mempool.space/rbf">opt-in RBF transactions tend to outnumber full RBF
+transactions</a>. This may just be because
+many wallets got into the habit of opting in to RBF for all
+transactions, because you never knew when you'd have to replace one,
+but it also may be because RBF is ultimately a node policy: each node
+(each miner, each bitcoind, etc) gets to decide whether they will
+accept a replaced RBF transaction or not: if enough nodes reject an
+RBF transaction because it doesn't have an opt-in, it fails.</p>
+<p>There is almost certainly enough acceptance of Full RBF today for
+transactions to be replaceable even without the RBF flag, and it's
+almost certainly safer to include the RBF flag anyway, because it's
+simple to do as a default. As a result, this section will talk about
+how the RBF opt-in flag is set on Bitcoin transactions and then how to
+replace transactions with RBF (whether the flag was set on the
+original transaction or not).</p>
+<h2 id="understand-the-sequence-variable">Understand the Sequence Variable</h2>
+<p>Satoshi Nakamoto originally allowed for replacement of Bitcoin transactions using the <code>sequence</code> variable (usually called <code>nSequence</code>), which is set on the inputs to a transactions. The idea was that a larger sequence should be used as a replacement if a previous sequence had not been confirmed. If was simple and it was quickly tossed out for a variety of reasons.</p>
+<p>When RBF came around as a new version of transaction replacement, it
+went back to the existing <code>sequence</code> variable, but with some new
+mechanics:</p>
+<ul>
+<li>A <code>sequence</code> that was larger than 0 and less than than 0xffffffff-1 (4294967294) opted in to RBF.</li>
+<li>The opt-in only required one input to have its <code>sequence</code>. If most of a transaction's inputs were set to disallow RBF, but a single input enabled RBF, then RBF was allowed.</li>
+<li>If RBF was allowed on a transaction, it could then later be replaced.</li>
+</ul>
+<p>That was it! With RBF enabled, transactions could be replaced; with
+RBF disabled, transactions could not. (Except today, all transactios
+can be replaced, <em>in theory</em>.)</p>
+<blockquote>
+<p>ℹ️ <strong>Sequence Usage #1.</strong> This is the first use of the <code>sequence</code>
+value in Bitcoin. You can set it between 1 and 0xffffffff-2
+(4294967293) and enable RBF, but if you're not careful you can run up
+against the parallel use of <code>sequence</code> for relative timelocks. We
+suggest always setting it to "0xffffffff-2", which is what Bitcoin
+Core does, but the other option is to set it to to "1" or to a value
+between 0xf0000000 (4026531840) and 0xffffffff-2 (4294967293). Setting
+<code>sequence</code> to "1" effectively makes relative timelocks irrelevent and
+setting it to 0xf0000000 or higher deactivates them. This is all
+explained in later sections. For now, just choose one of the
+non-conflicting values for <code>sequence</code>.</p>
+</blockquote>
+<h2 id="understand-how-rbf-works">Understand How RBF Works</h2>
+<p>Here's the complete sequence of how RBF works, summarised from
+BIP-125. It's probably more than you need to know:</p>
+<ol>
+<li>The original transaction must signal replaceability (or more recently is always allowed).</li>
+<li>The new transaction fee must be higher than the original.</li>
+<li>The new transaction must not have any new unconfirmed inputs (and it must share at least one input with the original).</li>
+<li>The new transaction must pay double the relay fees (which are a minor fee related to the cost of transmitting transactions, and are usually ignored here because of their small size).</li>
+<li>No more than 100 transactions and descendents can be replaced at one time.</li>
+</ol>
+<p>The core thing to understand about RBF is that in order to use it, you
+must double-spend. As noted, you're reusing one or more of the UTXOs
+that were in your original transaction. Just sending another
+transaction with a different UTXO to the same recipient won't do the
+trick (and will likely result in your losing money). Instead, you must
+purposefully create a conflict, where the same UTXO is used in two
+different transactions. Faced with this conflict, the miners will know
+to use the conflicted transaction with the higher fee, and they'll be
+incentivized to do so by that higher fee.</p>
+<blockquote>
+<p>📖 <strong><em>What is a double-spend?</em></strong> A double-spend occurs when someone
+sends the same electronic funds to two different people (or, to the
+same person twice, in two different transactions). This is a central
+problem for any e-cash system. It's solved in Bitcoin by the immutable
+ledger: once a transaction is sufficiently confirmed, no miners will
+verify transactions that reuse the same UTXO. However, it's possible
+to double-spend <em>before</em> a transaction has been confirmed — which is
+why you always want one or more confirmations before you finalize a
+transaction. In the case of RBF, you purposefully double-spend because
+an initial transaction has stalled, and the miners accept your
+double-spend if you meet the specific criteria laid out by BIP 125.</p>
+</blockquote>
+<h2 id="check-the-sequence-variable">Check the Sequence Variable</h2>
+<p>You can check the <code>sequence</code> variable of a transaction by looking at the <code>verbose</code> format of <code>gettransaction</code>.</p>
+<pre><code class="language-sh"> bitcoin-cli -named gettransaction txid=1050f6e2d68e7e4555bd682f24157f9bb19f666cf2ba1d1b3ff959ff4f893654 verbose=true
+
+| {
+|   &quot;amount&quot;: -0.00100000,
+|   &quot;fee&quot;: -0.00000141,
+|   &quot;confirmations&quot;: 1,
+|   &quot;blockhash&quot;: &quot;0000000c1dc879a623845990aae757f8e38c83474c4a0e1de9cb988cef69f15f&quot;,
+|   &quot;blockheight&quot;: 295311,
+|   &quot;blockindex&quot;: 50,
+|   &quot;blocktime&quot;: 1773350929,
+|   &quot;txid&quot;: &quot;1050f6e2d68e7e4555bd682f24157f9bb19f666cf2ba1d1b3ff959ff4f893654&quot;,
+|   &quot;wtxid&quot;: &quot;d98414f5627f10337c9c2f4ff096a4ec5d15b91898ebf3fac3fa21b9ad299740&quot;,
+|   &quot;walletconflicts&quot;: [
+|   ],
+|   &quot;mempoolconflicts&quot;: [
+|   ],
+|   &quot;time&quot;: 1773350380,
+|   &quot;timereceived&quot;: 1773350380,
+|   &quot;bip125-replaceable&quot;: &quot;no&quot;,
+|   &quot;details&quot;: [
+|     {
+|       &quot;address&quot;: &quot;tb1qg3lau83hm9e9tdvzr5k7aqtw3uv0dwkfct4xdn&quot;,
+|       &quot;category&quot;: &quot;send&quot;,
+|       &quot;amount&quot;: -0.00100000,
+|       &quot;vout&quot;: 1,
+|       &quot;fee&quot;: -0.00000141,
+|       &quot;abandoned&quot;: false
+|     }
+|   ],
+|   &quot;hex&quot;: &quot;02000000000101b345bc2c6d1410c949c25edbdd96eecea02a0675f2c561d473b8a58b8e88a8735d01000000fdffffff02741b06000000000016001499981dc044f0b3f893d27cb4b246dd65ffd8bde7a086010000000000160014447fde1e37d97255b5821d2dee816e8f18f6bac90247304402200391dde68ab21714f3ff352a4ef0c38b038d5bf6695787ad2c0583dc5b80b7110220581985bb88df2b452e188a60a558b2b26d47d1e0adc9c60d7d7eb569419e9d920121021b78fa3ed908a1ed1c2623a2311015b347de707d507d147dc0e83d84ec06255200000000&quot;,
+|   &quot;decoded&quot;: {
+|     &quot;txid&quot;: &quot;1050f6e2d68e7e4555bd682f24157f9bb19f666cf2ba1d1b3ff959ff4f893654&quot;,
+|     &quot;hash&quot;: &quot;d98414f5627f10337c9c2f4ff096a4ec5d15b91898ebf3fac3fa21b9ad299740&quot;,
+|     &quot;version&quot;: 2,
+|     &quot;size&quot;: 222,
+|     &quot;vsize&quot;: 141,
+|     &quot;weight&quot;: 561,
+|     &quot;locktime&quot;: 0,
+|     &quot;vin&quot;: [
+|       {
+|         &quot;txid&quot;: &quot;73a8888e8ba5b873d461c5f275062aa0ceee96dddb5ec249c910146d2cbc45b3&quot;,
+|         &quot;vout&quot;: 349,
+|         &quot;scriptSig&quot;: {
+|           &quot;asm&quot;: &quot;&quot;,
+|           &quot;hex&quot;: &quot;&quot;
+|         },
+|         &quot;txinwitness&quot;: [
+|           &quot;304402200391dde68ab21714f3ff352a4ef0c38b038d5bf6695787ad2c0583dc5b80b7110220581985bb88df2b452e188a60a558b2b26d47d1e0adc9c60d7d7eb569419e9d9201&quot;,
+|           &quot;021b78fa3ed908a1ed1c2623a2311015b347de707d507d147dc0e83d84ec062552&quot;
+|         ],
+|         &quot;sequence&quot;: 4294967293
+|       }
+|     ],
+|     &quot;vout&quot;: [
+|       {
+|         &quot;value&quot;: 0.00400244,
+|         &quot;n&quot;: 0,
+|         &quot;scriptPubKey&quot;: {
+|           &quot;asm&quot;: &quot;0 99981dc044f0b3f893d27cb4b246dd65ffd8bde7&quot;,
+|           &quot;desc&quot;: &quot;addr(tb1qnxvpmszy7zel3y7j0j6ty3kavhla30088mrk3d)#e4e0tqst&quot;,
+|           &quot;hex&quot;: &quot;001499981dc044f0b3f893d27cb4b246dd65ffd8bde7&quot;,
+|           &quot;address&quot;: &quot;tb1qnxvpmszy7zel3y7j0j6ty3kavhla30088mrk3d&quot;,
+|           &quot;type&quot;: &quot;witness_v0_keyhash&quot;
+|         }
+|       },
+|       {
+|         &quot;value&quot;: 0.00100000,
+|         &quot;n&quot;: 1,
+|         &quot;scriptPubKey&quot;: {
+|           &quot;asm&quot;: &quot;0 447fde1e37d97255b5821d2dee816e8f18f6bac9&quot;,
+|           &quot;desc&quot;: &quot;addr(tb1qg3lau83hm9e9tdvzr5k7aqtw3uv0dwkfct4xdn)#zau8pzqg&quot;,
+|           &quot;hex&quot;: &quot;0014447fde1e37d97255b5821d2dee816e8f18f6bac9&quot;,
+|           &quot;address&quot;: &quot;tb1qg3lau83hm9e9tdvzr5k7aqtw3uv0dwkfct4xdn&quot;,
+|           &quot;type&quot;: &quot;witness_v0_keyhash&quot;
+|         }
+|       }
+|     ]
+|   },
+|   &quot;lastprocessedblock&quot;: {
+|     &quot;hash&quot;: &quot;0000000c1dc879a623845990aae757f8e38c83474c4a0e1de9cb988cef69f15f&quot;,
+|     &quot;height&quot;: 295311
+|   }
+| }
+</code></pre>
+<p>As you can see, the single input for the transaction has a <code>sequence</code>
+value of <code>4294967293</code>. RBF is allowed (and relative timelocks are
+not).</p>
+<p>You might also notice a related value, <code>bip125-replaceable</code>, which is a <code>bitcoin-cli</code> shorthand that tells you whether a transaction can be replaced by RBF. To be eligible, the transaction must have a <code>sequence</code> variable in the appropriate range, and it must not be confirmed. (This <code>bip125-replaceable</code> is set to <code>no</code> because the transaction has a confirmation. No more replacement at that point!)</p>
+<p>You can also use <code>decoderawtransaction</code> to view the <code>sequence</code> variable in slightly terser form:</p>
+<pre><code class="language-sh">bitcoin-cli decoderawtransaction $rawtxhex3
+
+| {
+|   &quot;txid&quot;: &quot;1050f6e2d68e7e4555bd682f24157f9bb19f666cf2ba1d1b3ff959ff4f893654&quot;,
+|   &quot;hash&quot;: &quot;1050f6e2d68e7e4555bd682f24157f9bb19f666cf2ba1d1b3ff959ff4f893654&quot;,
+|   &quot;version&quot;: 2,
+|   &quot;size&quot;: 113,
+|   &quot;vsize&quot;: 113,
+|   &quot;weight&quot;: 452,
+|   &quot;locktime&quot;: 0,
+|   &quot;vin&quot;: [
+|     {
+|       &quot;txid&quot;: &quot;73a8888e8ba5b873d461c5f275062aa0ceee96dddb5ec249c910146d2cbc45b3&quot;,
+|       &quot;vout&quot;: 349,
+|       &quot;scriptSig&quot;: {
+|         &quot;asm&quot;: &quot;&quot;,
+|         &quot;hex&quot;: &quot;&quot;
+|       },
+|       &quot;sequence&quot;: 4294967293
+|     }
+|   ],
+|   &quot;vout&quot;: [
+|     {
+|       &quot;value&quot;: 0.00400244,
+|       &quot;n&quot;: 0,
+|       &quot;scriptPubKey&quot;: {
+|         &quot;asm&quot;: &quot;0 99981dc044f0b3f893d27cb4b246dd65ffd8bde7&quot;,
+|         &quot;desc&quot;: &quot;addr(tb1qnxvpmszy7zel3y7j0j6ty3kavhla30088mrk3d)#e4e0tqst&quot;,
+|         &quot;hex&quot;: &quot;001499981dc044f0b3f893d27cb4b246dd65ffd8bde7&quot;,
+|         &quot;address&quot;: &quot;tb1qnxvpmszy7zel3y7j0j6ty3kavhla30088mrk3d&quot;,
+|         &quot;type&quot;: &quot;witness_v0_keyhash&quot;
+|       }
+|     },
+|     {
+|       &quot;value&quot;: 0.00100000,
+|       &quot;n&quot;: 1,
+|       &quot;scriptPubKey&quot;: {
+|         &quot;asm&quot;: &quot;0 447fde1e37d97255b5821d2dee816e8f18f6bac9&quot;,
+|         &quot;desc&quot;: &quot;addr(tb1qg3lau83hm9e9tdvzr5k7aqtw3uv0dwkfct4xdn)#zau8pzqg&quot;,
+|         &quot;hex&quot;: &quot;0014447fde1e37d97255b5821d2dee816e8f18f6bac9&quot;,
+|         &quot;address&quot;: &quot;tb1qg3lau83hm9e9tdvzr5k7aqtw3uv0dwkfct4xdn&quot;,
+|         &quot;type&quot;: &quot;witness_v0_keyhash&quot;
+|       }
+|     }
+|   ]
+| }
+</code></pre>
+<h2 id="reset-the-sequence-variable">Reset the Sequence Variable</h2>
+<p>The above examples drew from a default transaction created by
+<code>bitcoin-cli</code> . The sequence was already (by default!) set to
+"4294967293". By default, Bitcoin Core now flags all transactions with
+the RBF opt-in flag, so RBF is always allowed; whether other nodes use
+Full RBF or not, you'll be able to replace your transactions
+originally generated with <code>bitcoin-cli</code>.</p>
+<p>However, you can chose to change this behavior. To do so, you create a
+raw transaction as described in
+<a href="../05_2_Creating_a_Raw_Transaction/">§5.2</a>, but you add a <code>sequence</code>
+variable to one of the inputs (alongside the <code>txid</code> and <code>vout</code>). Since
+RBF is now on by default, you'd either be setting this to <code>0</code> to turn
+it off (though there's little purpose when Full RBF is widely accepted
+on the 'net), or to some other value to allow timelocks (more on that
+in chapter 8).</p>
+<pre><code class="language-sh">seqtx=$(bitcoin-cli -named createrawtransaction inputs='''[ { &quot;txid&quot;: &quot;'$utxo_txid'&quot;, &quot;vout&quot;: '$utxo_vout', &quot;sequence&quot;: 0 } ]''' outputs='''{ &quot;'$recipient'&quot;: 0.001, &quot;'$changeaddress'&quot;: 0.003 }''')
+</code></pre>
+<p>If you're just dealing with RBF, there's no point in doing this, but you'll need to in the future for other purposes.</p>
+<h2 id="replace-a-transaction-the-hard-way-by-hand">Replace a Transaction the Hard Way: By Hand</h2>
+<p>You now know how to enable RBF: it's probably allowed by Full RBF and
+it's probably allowed because your <code>sequence</code> variable is set to a
+value between 1 and 4294967293, but if it weren't, you could set the
+<code>sequence</code> by hand when you created a transaction. But how do you
+actually use RBF to replace an existing transaction?</p>
+<p>In order to create replacement RBF transaction by hand, all you have to do is create a raw transaction that: (1) replaces a previous raw transaction that is not confirmed; (2) reuses one or more of the same UTXOs; (3) increases fees; and (4) pays the minimum bandwidth of both transactions [which is probably already taken care of by (3)].</p>
+<p>Here's an example of sending a transaction with a very low fee:</p>
+<pre><code class="language-sh">seqtx=$(bitcoin-cli -named createrawtransaction inputs='''[ { &quot;txid&quot;: &quot;'$utxo_txid'&quot;, &quot;vout&quot;: '$utxo_vout' } ]''' outputs='''{ &quot;'$recipient'&quot;: 0.001, &quot;'$changeaddress'&quot;: 0.003002 }''')
+
+signedtx=$(bitcoin-cli -named signrawtransactionwithwallet hexstring=$seqtx | jq -r '.hex')
+
+bitcoin-cli -named sendrawtransaction hexstring=$signedtx
+
+| cffcebcb841e4177a682527c8a10a7f7b1889d827b095c55f946d68ab8195508
+</code></pre>
+<p>Realizing the problem, we then resend it with a better fee using at least one of the same UTXOs. We do that by decreasing the change amount; as we saw previously, any remaining funds always pay the transaction fee.</p>
+<pre><code class="language-sh">seqtx=$(bitcoin-cli -named createrawtransaction inputs='''[ { &quot;txid&quot;: &quot;'$utxo_txid'&quot;, &quot;vout&quot;: '$utxo_vout' } ]''' outputs='''{ &quot;'$recipient'&quot;: 0.001, &quot;'$changeaddress'&quot;: 0.0029 }''')
+
+signedtx=$(bitcoin-cli -named signrawtransactionwithwallet hexstring=$seqtx | jq -r '.hex')
+
+bitcoin-cli -named sendrawtransaction hexstring=$signedtx
+
+| eb9980a5a6dc5b7859bb5b455e6dea8a71c1906a390edcd2a5acc6051c4a8149
+</code></pre>
+<p>That's all that's required to use RBF in the modern day where RBF is turned on by default by most wallets, and where Full RBF would be available it it weren't!</p>
+<p>Initially <code>listtransactions</code> demonstrates both transactions:</p>
+<pre><code class="language-sh">bitcoin-cli listtransactions
+| [
+|   {
+|     &quot;address&quot;: &quot;tb1qg3lau83hm9e9tdvzr5k7aqtw3uv0dwkfct4xdn&quot;,
+|     &quot;category&quot;: &quot;send&quot;,
+|     &quot;amount&quot;: -0.00100000,
+|     &quot;vout&quot;: 0,
+|     &quot;fee&quot;: -0.00000044,
+|     &quot;confirmations&quot;: 0,
+|     &quot;trusted&quot;: false,
+|     &quot;txid&quot;: &quot;cffcebcb841e4177a682527c8a10a7f7b1889d827b095c55f946d68ab8195508&quot;,
+|     &quot;wtxid&quot;: &quot;ded34ab60bdc9cd298348c91929bcee3f0458ccd5cef3f51cc95b5fa80318fe4&quot;,
+|     &quot;walletconflicts&quot;: [
+|       &quot;eb9980a5a6dc5b7859bb5b455e6dea8a71c1906a390edcd2a5acc6051c4a8149&quot;
+|     ],
+|     &quot;mempoolconflicts&quot;: [
+|       &quot;eb9980a5a6dc5b7859bb5b455e6dea8a71c1906a390edcd2a5acc6051c4a8149&quot;
+|     ],
+|     &quot;time&quot;: 1773354920,
+|     &quot;timereceived&quot;: 1773354920,
+|     &quot;bip125-replaceable&quot;: &quot;yes&quot;,
+|     &quot;abandoned&quot;: false
+|   },
+|   {
+|     &quot;address&quot;: &quot;tb1qg3lau83hm9e9tdvzr5k7aqtw3uv0dwkfct4xdn&quot;,
+|     &quot;category&quot;: &quot;send&quot;,
+|     &quot;amount&quot;: -0.00100000,
+|     &quot;vout&quot;: 0,
+|     &quot;fee&quot;: -0.00010244,
+|     &quot;confirmations&quot;: 0,
+|     &quot;trusted&quot;: true,
+|     &quot;txid&quot;: &quot;eb9980a5a6dc5b7859bb5b455e6dea8a71c1906a390edcd2a5acc6051c4a8149&quot;,
+|     &quot;wtxid&quot;: &quot;4715973d9aed02a3f26c42eb81f1077f464421ea50505152782f792f855d8756&quot;,
+|     &quot;walletconflicts&quot;: [
+|       &quot;cffcebcb841e4177a682527c8a10a7f7b1889d827b095c55f946d68ab8195508&quot;
+|     ],
+|     &quot;mempoolconflicts&quot;: [
+|     ],
+|     &quot;time&quot;: 1773354943,
+|     &quot;timereceived&quot;: 1773354943,
+|     &quot;bip125-replaceable&quot;: &quot;yes&quot;,
+|     &quot;abandoned&quot;: false
+|   }
+| ]
+</code></pre>
+<p>As shown, they're listed as <code>bip125-replaceable</code> (which means that the RBF opt-in flag is set, so we don't even have to fall back on Full RBF) and that they have <code>conflicts</code>, both in the <code>wallet</code> and the <code>mempool</code> (because they use the same UTXO!)</p>
+<p>Eventually, the transaction with the larger fee should be accepted:</p>
+<pre><code class="language-sh">bitcoin-cli -named gettransaction txid=eb9980a5a6dc5b7859bb5b455e6dea8a71c1906a390edcd
+2a5acc6051c4a8149
+
+| {
+|   &quot;amount&quot;: -0.00100000,
+|   &quot;fee&quot;: -0.00010244,
+|   &quot;confirmations&quot;: 2,
+|   &quot;blockhash&quot;: &quot;00000003be7eb7f4eb252441a0eda9cc55ef7ae8342995d8151eea3409885c24&quot;,
+|   &quot;blockheight&quot;: 295314,
+|   &quot;blockindex&quot;: 2,
+|   &quot;blocktime&quot;: 1773355616,
+|   &quot;txid&quot;: &quot;eb9980a5a6dc5b7859bb5b455e6dea8a71c1906a390edcd2a5acc6051c4a8149&quot;,
+|   &quot;wtxid&quot;: &quot;4715973d9aed02a3f26c42eb81f1077f464421ea50505152782f792f855d8756&quot;,
+|   &quot;walletconflicts&quot;: [
+|     &quot;cffcebcb841e4177a682527c8a10a7f7b1889d827b095c55f946d68ab8195508&quot;
+|   ],
+|   &quot;mempoolconflicts&quot;: [
+|   ],
+|   &quot;time&quot;: 1773354943,
+|   &quot;timereceived&quot;: 1773354943,
+|   &quot;bip125-replaceable&quot;: &quot;no&quot;,
+|   &quot;details&quot;: [
+|     {
+|       &quot;address&quot;: &quot;tb1qg3lau83hm9e9tdvzr5k7aqtw3uv0dwkfct4xdn&quot;,
+|       &quot;category&quot;: &quot;send&quot;,
+|       &quot;amount&quot;: -0.00100000,
+|       &quot;vout&quot;: 0,
+|       &quot;fee&quot;: -0.00010244,
+|       &quot;abandoned&quot;: false
+|     }
+|   ],
+|   &quot;hex&quot;: &quot;020000000001015436894fff59f93f1b1dbaf26c669fb19b7f15242f68bd55457e8ed6e2f650100000000000fdffffff02a086010000000000160014447fde1e37d97255b5821d2dee816e8f18f6bac9d06c0400000000001600147b1212b39c2796ae73b726e192aa207c334ce52f02473044022016edca707550fddb4457778865cad3a18bc50025e34c59858bce01f18649788102202f0075018f6a4db8b713b939d56a452c56645d5b51b6a93242c3532fd432709e0121036d3ef06bbf57ab531fcc457b79176bea87e322db5e7d254d8702c6e59c5d3b9c00000000&quot;,
+|   &quot;lastprocessedblock&quot;: {
+|     &quot;hash&quot;: &quot;000000145528df59836e3e85e619b399f4b95352cb39d4c3db706d5dbab0ae44&quot;,
+|     &quot;height&quot;: 295315
+|   }
+|
+| }
+</code></pre>
+<p>Now the <code>mempoolconflicts</code> are gone and that <code>bip125-replaceable</code> is set to <code>no</code> because of the confirmation.</p>
+<p>Meanwhile, the original transaction with the lower fee starts picking up negative confirmations, to show its divergence from the blockchain:</p>
+<pre><code class="language-sh">bitcoin-cli -named gettransaction txid=cffcebcb841e4177a682527c8a10a7f7b1889d827b095c55f946d68ab8195508
+
+| {
+|   &quot;amount&quot;: -0.00100000,
+|   &quot;fee&quot;: -0.00000044,
+|   &quot;confirmations&quot;: -2,
+|   &quot;trusted&quot;: false,
+|   &quot;txid&quot;: &quot;cffcebcb841e4177a682527c8a10a7f7b1889d827b095c55f946d68ab8195508&quot;,
+|   &quot;wtxid&quot;: &quot;ded34ab60bdc9cd298348c91929bcee3f0458ccd5cef3f51cc95b5fa80318fe4&quot;,
+|   &quot;walletconflicts&quot;: [
+|     &quot;eb9980a5a6dc5b7859bb5b455e6dea8a71c1906a390edcd2a5acc6051c4a8149&quot;
+|   ],
+|   &quot;mempoolconflicts&quot;: [
+|   ],
+|   &quot;time&quot;: 1773354920,
+|   &quot;timereceived&quot;: 1773354920,
+|   &quot;bip125-replaceable&quot;: &quot;yes&quot;,
+|   &quot;details&quot;: [
+|     {
+|       &quot;address&quot;: &quot;tb1qg3lau83hm9e9tdvzr5k7aqtw3uv0dwkfct4xdn&quot;,
+|       &quot;category&quot;: &quot;send&quot;,
+|       &quot;amount&quot;: -0.00100000,
+|       &quot;vout&quot;: 0,
+|       &quot;fee&quot;: -0.00000044,
+|       &quot;abandoned&quot;: false
+|     }
+|   ],
+|   &quot;hex&quot;: &quot;020000000001015436894fff59f93f1b1dbaf26c669fb19b7f15242f68bd55457e8ed6e2f650100000000000fdffffff02a086010000000000160014447fde1e37d97255b5821d2dee816e8f18f6bac9a8940400000000001600147b1212b39c2796ae73b726e192aa207c334ce52f0247304402206d52697eab994b764ffae5220d06c4e867a9ceff609c79a3338de78e0ca427e802202d42489c026e2c28ac4b3c3fb7262fadabe944485994b696c07fe88a922e765f0121036d3ef06bbf57ab531fcc457b79176bea87e322db5e7d254d8702c6e59c5d3b9c00000000&quot;,
+|   &quot;lastprocessedblock&quot;: {
+|     &quot;hash&quot;: &quot;000000145528df59836e3e85e619b399f4b95352cb39d4c3db706d5dbab0ae44&quot;,
+|     &quot;height&quot;: 295315
+|   }
+| }
+</code></pre>
+<p>Our recipients have their money, and the original, failed transaction will eventually fall out of the mempool.</p>
+<h2 id="replace-a-transaction-the-easy-way-by-bumpfee">Replace a Transaction the Easy Way: By bumpfee</h2>
+<p>Raw transactions are very powerful, and you can do a lot of interesting things by combining them with RBF. However, sometimes <em>all</em> you want to do is free up a transaction that's been hanging. You can now do that with a simple command, <code>bumpfee</code>.</p>
+<p>For example, to increase the fee of transaction <code>1c12afac570292e99b4aed34c0452513b4ab8b7397e6a803e98a53b606e31c11</code> you would run:</p>
+<pre><code class="language-sh">bitcoin-cli -named bumpfee 1c12afac570292e99b4aed34c0452513b4ab8b7397e6a803e98a53b606e31c11
+
+| {
+|   &quot;txid&quot;: &quot;938d3755a91efbeead1dda30c0b808986410db1078f02500fc512a0ff6704872&quot;,
+|   &quot;origfee&quot;: 0.00000100,
+|   &quot;fee&quot;: 0.00000806,
+|   &quot;errors&quot;: [
+|   ]
+| }
+</code></pre>
+<p>The result is the automatic generation of a new transaction that has a fee determined by your bitcoin.conf file. The new transaction can be discovered by looking at <code>listtransactions</code> and then examined with <code>gettransaction</code></p>
+<pre><code class="language-sh">bitcoin-cli gettransaction 938d3755a91efbeead1dda30c0b808986410db1078f02500fc512a0ff6704872
+
+| {
+|   &quot;amount&quot;: -0.00010000,
+|   &quot;fee&quot;: -0.00000806,
+|   &quot;confirmations&quot;: 0,
+|   &quot;trusted&quot;: true,
+|   &quot;txid&quot;: &quot;938d3755a91efbeead1dda30c0b808986410db1078f02500fc512a0ff6704872&quot;,
+|   &quot;wtxid&quot;: &quot;73afdafc1c8f77d51597beafba472e5241e9266e4a93dfbaf00bc8f5807384a5&quot;,
+|   &quot;walletconflicts&quot;: [
+|     &quot;1c12afac570292e99b4aed34c0452513b4ab8b7397e6a803e98a53b606e31c11&quot;
+|   ],
+|   &quot;mempoolconflicts&quot;: [
+|   ],
+|   &quot;time&quot;: 1773356653,
+|   &quot;timereceived&quot;: 1773356653,
+|   &quot;bip125-replaceable&quot;: &quot;yes&quot;,
+|   &quot;replaces_txid&quot;: &quot;1c12afac570292e99b4aed34c0452513b4ab8b7397e6a803e98a53b606e31c11&quot;,
+|   &quot;details&quot;: [
+|     {
+|       &quot;address&quot;: &quot;tb1qg3lau83hm9e9tdvzr5k7aqtw3uv0dwkfct4xdn&quot;,
+|       &quot;category&quot;: &quot;send&quot;,
+|       &quot;amount&quot;: -0.00010000,
+|       &quot;vout&quot;: 1,
+|       &quot;fee&quot;: -0.00000806,
+|       &quot;abandoned&quot;: false
+|     }
+|   ],
+|   &quot;hex&quot;: &quot;0200000000010149814a1c05c6aca5d2dc0e396a90c1718aea6d5e455bbb59785bdca6a58099eb0100000000fdffffff029a420400000000001600147b1212b39c2796ae73b726e192aa207c334ce52f1027000000000000160014447fde1e37d97255b5821d2dee816e8f18f6bac90247304402204c080988284fcc0f4b825c97a046df7f6ddbe5276cd76059ece272d18a3a8ab6022009cbb87b2707b899356958b4fc0d61319b61659cda8847ba184bd678c3f2535201210302b2db8ca5241f14879051ee01413643da8d798cb348ace49ea7d71d3e135bb794810400&quot;,
+|   &quot;lastprocessedblock&quot;: {
+|     &quot;hash&quot;: &quot;0000000c96de4354c533b4459f2b86581871825ce25f8797bb04425e68d49fdc&quot;,
+|     &quot;height&quot;: 295316
+|   }
+| }
+</code></pre>
+<h2 id="summary-resending-a-transaction-with-rbf">Summary: Resending a Transaction with RBF</h2>
+<p>If a transaction is stuck, and you don't want to wait for it to expire
+entirely, then you can double-spend using RBF to create a replacement
+transaction (or just use <code>bumpfee</code>). You used to have to opt in, but
+now most wallets opt-in by default, and even if they didn't Full RBF
+should be available.</p>
+<blockquote>
+<p>🔥 <strong><em>What is the power of RBF?</em></strong> Obviously, RBF is very helpful if you created a transaction with too low of a fee and you need to get those funds through. However, the ability to generally replace unconfirmed transactions with updated ones has more power than just that (and is why you might want to continue using RBF with raw transactions, even following the advent of <code>bumpfee</code>).  For example, you might send a transaction, and then before it's confirmed, combine it with a second transaction. This allows you to compress multiple transactions down into a single one, decreasing overall fees. It might also offer benefits to privacy. There are other reasons to use RBF too, for smart contracts or transaction cut-throughs, as described in the <a href="https://bitcoincore.org/en/faq/optin_rbf/">Opt-in RBF FAQ</a>.</p>
+</blockquote>
+<h2 id="whats-next">What's Next?</h2>
+<p>Continue "Controlling Bitcoin Transactions" with <a href="../06_3_Funding_a_Transaction_with_CPFP/">§6.3: Funding a Transaction with CPFP</a>.  </p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "..", "features": [], "search": "../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.d7400e89.min.js"></script>
+      
+    
+  </body>
+</html>

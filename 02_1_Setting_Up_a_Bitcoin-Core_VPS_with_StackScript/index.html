@@ -1,0 +1,4354 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+        <link rel="canonical" href="https://learningbitcoin.blockchaincommons.com/02_1_Setting_Up_a_Bitcoin-Core_VPS_with_StackScript/">
+      
+      
+        <link rel="prev" href="../02_0_Setting_Up_a_Bitcoin-Core_VPS/">
+      
+      
+        <link rel="next" href="../02_2_Setting_Up_Bitcoin_Core_Other/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.7">
+    
+    
+      
+        <title>2.1: Setting Up a Bitcoin-Core VPS with Bitcoin Standup - Learning Bitcoin from the Command Line</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.ec1eaa64.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    <body dir="ltr">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#21-setting-up-a-bitcoin-core-vps-with-bitcoin-standup" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href=".." title="Learning Bitcoin from the Command Line" class="md-header__button md-logo" aria-label="Learning Bitcoin from the Command Line" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M14.24 10.56c-.31 1.24-2.24.61-2.84.44l.55-2.18c.62.18 2.61.44 2.29 1.74m-3.11 1.56-.6 2.41c.74.19 3.03.92 3.37-.44.36-1.42-2.03-1.79-2.77-1.97m10.57 2.3c-1.34 5.36-6.76 8.62-12.12 7.28S.963 14.94 2.3 9.58A9.996 9.996 0 0 1 14.42 2.3c5.35 1.34 8.61 6.76 7.28 12.12m-7.49-6.37.45-1.8-1.1-.25-.44 1.73c-.29-.07-.58-.14-.88-.2l.44-1.77-1.09-.26-.45 1.79c-.24-.06-.48-.11-.7-.17l-1.51-.38-.3 1.17s.82.19.8.2c.45.11.53.39.51.64l-1.23 4.93c-.05.14-.21.32-.5.27.01.01-.8-.2-.8-.2L6.87 15l1.42.36c.27.07.53.14.79.2l-.46 1.82 1.1.28.45-1.81c.3.08.59.15.87.23l-.45 1.79 1.1.28.46-1.82c1.85.35 3.27.21 3.85-1.48.5-1.35 0-2.15-1-2.66.72-.19 1.26-.64 1.41-1.62.2-1.33-.82-2.04-2.2-2.52"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Learning Bitcoin from the Command Line
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              2.1: Setting Up a Bitcoin-Core VPS with Bitcoin Standup
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/BlockchainCommons/Learning-Bitcoin-from-the-Command-Line/tree/lbtcftcl-v3.0" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href=".." title="Learning Bitcoin from the Command Line" class="md-nav__button md-logo" aria-label="Learning Bitcoin from the Command Line" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M14.24 10.56c-.31 1.24-2.24.61-2.84.44l.55-2.18c.62.18 2.61.44 2.29 1.74m-3.11 1.56-.6 2.41c.74.19 3.03.92 3.37-.44.36-1.42-2.03-1.79-2.77-1.97m10.57 2.3c-1.34 5.36-6.76 8.62-12.12 7.28S.963 14.94 2.3 9.58A9.996 9.996 0 0 1 14.42 2.3c5.35 1.34 8.61 6.76 7.28 12.12m-7.49-6.37.45-1.8-1.1-.25-.44 1.73c-.29-.07-.58-.14-.88-.2l.44-1.77-1.09-.26-.45 1.79c-.24-.06-.48-.11-.7-.17l-1.51-.38-.3 1.17s.82.19.8.2c.45.11.53.39.51.64l-1.23 4.93c-.05.14-.21.32-.5.27.01.01-.8-.2-.8-.2L6.87 15l1.42.36c.27.07.53.14.79.2l-.46 1.82 1.1.28.45-1.81c.3.08.59.15.87.23l-.45 1.79 1.1.28.46-1.82c1.85.35 3.27.21 3.85-1.48.5-1.35 0-2.15-1-2.66.72-.19 1.26-.64 1.41-1.62.2-1.33-.82-2.04-2.2-2.52"/></svg>
+
+    </a>
+    Learning Bitcoin from the Command Line
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/BlockchainCommons/Learning-Bitcoin-from-the-Command-Line/tree/lbtcftcl-v3.0" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href=".." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Learning Bitcoin from the Command Line 3.0
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../01_0_Introduction/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter One: Introduction to Learning Bitcoin Core from the Command Line
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../01_1_Introducing_Bitcoin/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Interlude: Introducing Bitcoin
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../02_0_Setting_Up_a_Bitcoin-Core_VPS/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter Two: Creating a Bitcoin-Core VPS
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    2.1: Setting Up a Bitcoin-Core VPS with Bitcoin Standup
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    2.1: Setting Up a Bitcoin-Core VPS with Bitcoin Standup
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#getting-started-with-linode" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Getting Started with Linode
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Getting Started with Linode">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#set-up-a-linode-account" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Set Up a Linode Account
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#consider-two-factor-authentication" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Consider Two-Factor Authentication
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#creating-the-linode-image-using-a-stackscript" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Creating the Linode Image using a StackScript
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Creating the Linode Image using a StackScript">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#load-the-stackscript" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Load the StackScript
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#do-the-initial-setup" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Do the Initial Setup
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#choose-a-linode-plan" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Choose a Linode Plan
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#do-the-final-setup" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Do the Final Setup
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#login-to-your-vps" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Login to Your VPS
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Login to Your VPS">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#wait-a-few-minutes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Wait a Few Minutes
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#verify-your-installation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Verify Your Installation
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Verify Your Installation">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#verify-the-bitcoin-setup" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Verify the Bitcoin Setup
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#read-the-logs" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Read the Logs
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#what-we-have-wrought" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        What We Have Wrought
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="What We Have Wrought">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#protected-services" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Protected Services
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#protected-shells" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Protected Shells
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#automated-upgrades" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Automated Upgrades
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#playing-with-bitcoin" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Playing with Bitcoin
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#summary-setting-up-a-bitcoin-core-vps-by-hand" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Summary: Setting Up a Bitcoin-Core VPS by Hand
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#whats-next" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        What's Next?
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#synopsis-bitcoin-installation-types" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Synopsis: Bitcoin Installation Types
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../02_2_Setting_Up_Bitcoin_Core_Other/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    2.2: Setting Up a Bitcoin-Core Machine via Other Means
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../03_0_Preparing_Your_Bitcoin_Wallet/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter Three: Preparing Your Bitcoin Wallet
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../03_1_Verifying_Your_Bitcoin_Setup/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    3.1: Verifying Your Bitcoin Setup
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../03_2_Knowing_Your_Bitcoin_Setup/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    3.2: Knowing Your Bitcoin Setup
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../03_3_Setting_Up_Your_Wallet/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    3.3: Setting Up Your Wallet
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../03_4_Understanding_the_Descriptor_Wallet/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    3.4: Understanding the Descriptor Wallet
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../04_0_Preparing_Your_Bitcoin_Addresses/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter Four: Preparing Your Bitcoin Addresses
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../04_1_Understanding_the_Address/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    4.1: Understanding the Address
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../04_2_Integrating_Addresses_Descriptors/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    4.2: Integrating Addresses and Descriptors
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../04_3_Creating_QR_Codes_for_Addresses/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    4.3: Creating QR Codes for Addresses
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../04_4_Receiving_a_Transaction/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    4.4: Receiving a Transaction
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../04_4a_Interlude_Using_Command-Line_Variables/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Interlude: Using Command-Line Variables
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../05_0_Sending_Bitcoin_Transactions/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter Five: Sending Bitcoin Transactions
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../05_1_Sending_Coins_The_Easy_Way/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    5.1: Sending Coins the Easy Way
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../05_2_Creating_a_Raw_Transaction/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    5.2 Creating a Raw Transaction
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../05_2a_Interlude_Using_JQ/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Interlude: Using JQ
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../05_3_Creating_a_Raw_Transaction_with_Named_Arguments/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    5.3 Creating a Raw Transaction with Named Arguments
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../05_4_Sending_Coins_with_a_Raw_Transaction/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    5.4: Sending Coins with Raw Transactions
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../05_4a_Interlude_Using_Curl/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Interlude: Using Curl
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../05_5_Sending_Coins_with_Automated_Raw_Transactions/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    5.5: Sending Coins with Automated Raw Transactions
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../05_6_Sending_Coins_to_Other_Addresses/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    5.6: Sending Coins to Other Addresses
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../06_0_Controlling_Bitcoin_Transactions/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter Six: Controlling Bitcoin Transactions
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../06_1_Watching_for_Stuck_Transactions/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    6.1: Watching for Stuck Transactions
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../06_2_Resending_a_Transaction_with_RBF/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    6.2: Resending a Transaction with RBF
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../06_3_Funding_a_Transaction_with_CPFP/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    6.3: Funding a Transaction with CPFP
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../07_0_Expanding_Bitcoin_Transactions_Multisigs/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter Seven: Expanding Bitcoin Transactions with Multisigs
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../07_1_Creating_Multisig_Public_Keys/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    7.1: Creating a Multisig from Public Keys
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../07_2_Creating_Multisig_Descriptors/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    7.2: Creating a Multisig from Descriptors
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../07_3_Spending_a_Transaction_to_a_Multisig/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    7.3: Spending a Transaction with a Multisig
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../08_0_Expanding_Bitcoin_Transactions_PSBTs/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter Eight: Expanding Bitcoin Transactions with PSBTs
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../08_1_Spending_a_Multisig_with_a_PSBT/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    8.1: Spending a Multisig with a PSBT
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../08_2_Understanding_the_PSBT/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    8.2: Understanding the PSBT Process
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../08_3_Using_a_Partially_Signed_Bitcoin_Transaction/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    8.3: Using a Partially Signed Bitcoin Transaction
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../08_4_Creating_Animated_QR_Codes/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    8.4: Creating Animated QR Codes
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../09_0_Expanding_Bitcoin_Transactions_Other/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter Nine: Expanding Bitcoin Transactions in Other Ways
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../09_1_Sending_a_Transaction_with_a_Locktime/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    9.1: Sending a Transaction with a Locktime
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../09_2_Sending_a_Transaction_with_Data/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    9.2: Sending a Transaction with Data
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../10_0_Working_with_Secrets/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter Ten: Working with Secrets
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../10_1_Creating_Secrets_from_the_Command_Line/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    10.1: Creating Secrets from the Command Line
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../10_2_Converting_Secrets_with_Keytool/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    10.2: Converting Secrets with Keytool
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../10_3_Importing_Secrets_to_Bitcoin_Core/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    10.3: Importing Secrets to Bitcoin Core
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../10_4_Exporting_Secrets_from_Bitcoin_Core/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    10.4: Exporting Secrets from Bitcoin Core
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../10_5_Storing_Secrets_with_Envelope/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    10.5: Storing Secrets with Envelope
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../11_0_Introducing_Bitcoin_Scripts/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 11: Introducing Bitcoin Scripts
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../11_1_Understanding_the_Foundation_of_Transactions/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    11.1: Understanding the Foundation of Transactions
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../11_2_Running_a_Bitcoin_Script/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    11.2: Running a Bitcoin Script
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../11_3_Testing_a_Bitcoin_Script/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    11.3: Testing a Bitcoin Script
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../11_4_Scripting_a_P2PKH/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    11.4: Scripting a P2PKH
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../11_5_Scripting_a_P2WPKH/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    11.5: Scripting a P2WPKH
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../12_0_Embedding_Bitcoin_Scripts_in_P2WSH_Transactions/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 12: Embedding Bitcoin Scripts in P2SH &amp; P2WSH Transactions
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../12_1_Understanding_the_Foundation_of_P2WSH/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    12.1: Understanding the Foundation of P2SH &amp; P2WSH
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../12_2_Building_the_Structure_of_P2WSH/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    12.2: Building the Structure of P2SH &amp; P2WSH
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../12_3_Running_a_Bitcoin_Script_with_P2WSH/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    12.3: Running a Bitcoin Script with P2SH or P2WSH
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../12_4_Scripting_a_Multisig/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    12.4: Scripting a Multisig
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../12_5_Spending_a_P2WSH_Transaction/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    12.5: Spending a P2SH or P2WSH Transaction
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../13_0_Empowering_Timelock_with_Bitcoin_Scripts/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 13: Empowering Timelock with Bitcoin Scripts
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../13_1_Understanding_Timelock_Options/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    13.1: Understanding Timelock Options
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../13_2_Using_CLTV_in_Scripts/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    13.2: Using CLTV in Scripts
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../13_3_Using_CSV_in_Scripts/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    13.3: Using CSV in Scripts
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../14_0_Expanding_Bitcoin_Scripts/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 14: Expanding Bitcoin Scripts
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../14_1_Using_Script_Conditionals/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    14.1: Using Script Conditionals
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../14_2_Using_Other_Script_Commands/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    14.2: Using Other Script Commands
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../15_0_Designing_Real_Bitcoin_Scripts/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 15: Designing Real Bitcoin Scripts
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../15_1_Writing_Puzzle_Scripts/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    15 1 Writing Puzzle Scripts
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../15_2_Writing_Complex_Multisig_Scripts/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    15.2: Writing Complex Multisig Scripts
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../15_3_Empowering_Bitcoin_with_Scripts/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    15 3 Empowering Bitcoin with Scripts
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../16_0_Using_Miniscript/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 16: Using Miniscript
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../16_1_Understanding_Miniscript/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    16.1: Understanding Miniscript &amp; Policy
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../16_2_Converting_Miniscript/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    16.2: Converting Policy &amp; Miniscript
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../16_3_Using_Miniscript_with_Descriptors/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    16.3: Using Miniscript with Descriptors
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../16_4_Using_BDK/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    16.4: Using BDK with Miniscript
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../17_0_Introducing_Taproot/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 17: Introducing Taproot
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../17_1_Breaking_Down_Taproot/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    17.1: Breaking Down Taproot
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../17_2_Updating_to_Taproot/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    17.2: Updating to Taproot
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../18_0_Using_Schnorr/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 18: Using Schnorr
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../18_1_Understanding_Schorr/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    18.1: Understanding Schnorr Signatures
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../18_3_Using_Bitcoin_With_FROST/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    18.3: Using Bitcoin with FROST
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../20_0_Using_Tor/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 14: Using Tor
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../20_1_Verifying_Your_Tor_Setup/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    14.1: Verifying Your Tor Setup
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../20_2_Changing_Your_Bitcoin_Hidden_Services/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 14.2: Changing Your Bitcoin Hidden Services
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../20_3_Adding_SSH_Hiddben_Services/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 14.3: Adding SSH Hidden Services
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../21_0_Using_i2p/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 15: Using I2P
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../21_1_i2p_service/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    15.1: Bitcoin Core as an I2P (Invisible Internet Project) service
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../A1_0_Understanding_Bitcoin_Standup/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Appendix I: Understanding Bitcoin Standup
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../A2_0_Compiling_Bitcoin_from_Source/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Appendix II: Compiling Bitcoin from Source
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../A3_0_Using_Bitcoin_Regtest/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Appendix III: Using Bitcoin Regtest
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../P1_0_Talking_to_Bitcoind/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 16: Talking to Bitcoind with C
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../P1_1_Accessing_Bitcoind_with_C/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    16.1: Accessing Bitcoind in C with RPC Libraries
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../P1_2_Programming_Bitcoind_with_C/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    16.2: Programming Bitcoind in C with RPC Libraries
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../P1_3_Receiving_Bitcoind_Notifications_with_C/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    16.3 Receiving Notifications in C with ZMQ Libraries
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../P2_0_Programming_with_Libwally/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 17: Programming with Libwally
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../P2_1_Setting_Up_Libwally/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    17.1: Setting Up Libwally
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../P2_2_Using_BIP39_in_Libwally/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    17.2: Using BIP39 in Libwally
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../P2_3_Using_BIP32_in_Libwally/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    17.3: Using BIP32 in Libwally
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../P2_4_Using_PSBTs_in_Libwally/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    17.4: Using PSBTs in Libwally
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../P2_5_Using_Scripts_in_Libwally/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    17.5: Using Scripts in Libwally
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../P2_6_Using_Other_Functions_in_Libwally/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    17.6: Using Other Functions in Libwally
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../P2_7_Integrating_Libwally_and_Bitcoin-CLI/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    17.7: Integrating Libwally and Bitcoin-CLI
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../P3_0_Talking_to_Bitcoind_Other/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 18: Talking to Bitcoind with Other Languages
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../P3_1_Accessing_Bitcoind_with_Go/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    18.1: Accessing Bitcoind with Go
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../P3_2_Accessing_Bitcoind_with_Java/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    18.2: Accessing Bitcoind with Java
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../P3_3_Accessing_Bitcoind_with_NodeJS/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    18.3: Accessing Bitcoind with NodeJS
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../P3_4_Accessing_Bitcoind_with_Python/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    18.4: Accessing Bitcoind with Python
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../P3_5_Accessing_Bitcoind_with_Rust/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    18.5: Accessing Bitcoind with Rust
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../P3_6_Accessing_Bitcoind_with_Swift/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    18.6: Accessing Bitcoind with Swift
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../T1_0_Expanding_Bitcoin_Transactions_with_Schnorr/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    T1 0 Expanding Bitcoin Transactions with Schnorr
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../XX_X_Integrating_with_Hardware_Wallets/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    7.3: Integrating with Hardware Wallets
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_113" >
+        
+          
+          <label class="md-nav__link" for="__nav_113" id="__nav_113_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Images
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_113_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_113">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Images
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_113_1" >
+        
+          
+          <label class="md-nav__link" for="__nav_113_1" id="__nav_113_1_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Logos
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_113_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_113_1">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Logos
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../images/logos/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Index
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#getting-started-with-linode" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Getting Started with Linode
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Getting Started with Linode">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#set-up-a-linode-account" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Set Up a Linode Account
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#consider-two-factor-authentication" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Consider Two-Factor Authentication
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#creating-the-linode-image-using-a-stackscript" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Creating the Linode Image using a StackScript
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Creating the Linode Image using a StackScript">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#load-the-stackscript" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Load the StackScript
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#do-the-initial-setup" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Do the Initial Setup
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#choose-a-linode-plan" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Choose a Linode Plan
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#do-the-final-setup" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Do the Final Setup
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#login-to-your-vps" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Login to Your VPS
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Login to Your VPS">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#wait-a-few-minutes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Wait a Few Minutes
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#verify-your-installation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Verify Your Installation
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Verify Your Installation">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#verify-the-bitcoin-setup" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Verify the Bitcoin Setup
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#read-the-logs" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Read the Logs
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#what-we-have-wrought" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        What We Have Wrought
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="What We Have Wrought">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#protected-services" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Protected Services
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#protected-shells" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Protected Shells
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#automated-upgrades" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Automated Upgrades
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#playing-with-bitcoin" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Playing with Bitcoin
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#summary-setting-up-a-bitcoin-core-vps-by-hand" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Summary: Setting Up a Bitcoin-Core VPS by Hand
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#whats-next" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        What's Next?
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#synopsis-bitcoin-installation-types" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Synopsis: Bitcoin Installation Types
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  
+  
+
+
+<h1 id="21-setting-up-a-bitcoin-core-vps-with-bitcoin-standup">2.1: Setting Up a Bitcoin-Core VPS with Bitcoin Standup</h1>
+<p>This document explains how to set up a VPS (Virtual Private Sever) to
+run a Bitcoin node on Linode.com using an automated StackScript from
+the <a href="https://github.com/BlockchainCommons/Bitcoin-Standup-Scripts">Bitcoin Standup
+project</a>. You
+just need to enter a few commands and boot your VPS. Almost
+immediately after you boot, you'll find your new Bitcoin node happily
+downloading blocks.</p>
+<blockquote>
+<p>⚠️ <strong>Use VPS for Tests Only.</strong> Don’t use a VPS for a bitcoin wallet
+with significant real funds; see
+<a href="http://blog.thestateofme.com/2012/03/03/lessons-to-be-learned-from-the-linode-bitcoin-incident/">http://blog.thestateofme.com/2012/03/03/lessons-to-be-learned-from-the-linode-bitcoin-incident/</a>. It
+is very nice to be able experiment with real bitcoin transactions on a
+live node without tying up a self-hosted server on a local
+network. It's also useful to be able to use an iPhone or iPad to
+communicate via SSH to your VPS to do some simple bitcoin tasks. But a
+higher level of safety is required for significant funds.</p>
+</blockquote>
+<ul>
+<li>If you want to understand what this setup does, read <a href="../A1_0_Understanding_Bitcoin_Standup/">Appendix I: Understanding Bitcoin Standup</a> as you install.</li>
+<li>If you want to instead set up on a machine other than a Linode VPS, such as an AWS machine or a Mac, goto <a href="../02_2_Setting_Up_Bitcoin_Core_Other/">§2.2: Setting Up a Bitcoin-Core via Other Means</a></li>
+<li>If you already have a Bitcoin node running, goto <a href="../03_0_Preparing_Your_Bitcoin_Wallet/">Chapter Three: Preparing Your Bitcoin Wallet</a>.</li>
+</ul>
+<h2 id="getting-started-with-linode">Getting Started with Linode</h2>
+<p>Linode (now Akamai Cloud) is a Cloud Hosting service that offers
+quick, cheap Linux servers with SSD storage. We use them for this
+tutorial primarily because their BASH-driven StackScripts offer an
+easy way to automatically set up a Bitcoin node with no fuss and no
+muss.</p>
+<h3 id="set-up-a-linode-account">Set Up a Linode Account</h3>
+<p>You can create a Linode account by going here:</p>
+<pre><code>https://www.linode.com
+</code></pre>
+<p>If you prefer, the following referral code will give you two months
+worth of free usage (up to $100), great for learning Bitcoin:</p>
+<p><a href="https://www.linode.com/?r=3c7fa15a78407c9a3d4aefb027539db2557b3765">https://www.linode.com/?r=3c7fa15a78407c9a3d4aefb027539db2557b3765</a></p>
+<p>You'll need to provide an email address and later preload money from a credit card or PayPal for future costs.</p>
+<p>When you're done, you should land on <a href="https://cloud.linode.com/linodes">https://cloud.linode.com/linodes</a>.</p>
+<h3 id="consider-two-factor-authentication">Consider Two-Factor Authentication</h3>
+<p>Your server security won't be complete if people can break into your
+Linode account, so consider setting up Two-Factor Authentication for
+it. You can find this setting on your <a href="https://cloud.linode.com/profile/auth">My Profile: Password &amp;
+Authentication page</a>. If you
+don't do this now, make a TODO item to come back and do it later.</p>
+<h2 id="creating-the-linode-image-using-a-stackscript">Creating the Linode Image using a StackScript</h2>
+<h3 id="load-the-stackscript">Load the StackScript</h3>
+<p>Download the <a href="https://github.com/BlockchainCommons/Bitcoin-Standup-Scripts/blob/master/Scripts/LinodeStandUp.sh">Linode Standup
+Script</a>
+from the <a href="https://github.com/BlockchainCommons/Bitcoin-Standup-Scripts">Bitcoin Standup Scripts
+repo</a>. This
+script automates all Bitcoin VPS setup instructions. If you want to be
+particulary prudent, read it over carefully. If you are satisfied, you
+can copy that StackScript into your own account by going to the
+<a href="https://cloud.linode.com/stackscripts">Stackscripts page</a> on your
+Linode account and selecting to <a href="https://cloud.linode.com/stackscripts/create">Create New
+Stackscript</a>. Give it a
+good name (we use <code>Bitcoin Standup</code>), then copy and paste the
+script. Choose Debian 13 for your target image and "Save" it.</p>
+<h3 id="do-the-initial-setup">Do the Initial Setup</h3>
+<p>You're now ready to create a node based on the Stackscript.</p>
+<ol>
+<li>On the <a href="https://cloud.linode.com/stackscripts?type=account">Stackscripts page</a>, click on the "..." to the right of your new script and choose "Deploy New Linode".</li>
+<li>Enter the password for the "standup" user. (This will be the account that runs <code>bitcoind</code>.)</li>
+<li>Fill in a short and a fully qualified hostname</li>
+<li><strong>Short Hostname.</strong> Pick a name for your VPS. For example, "mybtctest".</li>
+<li><strong>Fully Qualified Hostname.</strong> If you're going to include this VPS as part of a network with full DNS records, type in the hostname with its domain. For example, "mybtctest.mydomain.com". Otherwise, just repeat the short hostname and add ".local", for example "mybtctest.local".</li>
+<li>Fill in the appropriate advanced options. </li>
+<li><strong>Installation Type.</strong> This is likely "Mainnet" or "Pruned Mainnet" if you are setting up a node for usage and "Signet" or "Pruned Signet" if you're just playing around. The bulk of this tutorial will assume you chose "Pruned Signet", but you should still be able to follow along with other types. See the <a href="#synopsis-bitcoin-installation-types">Synopsis</a> for more information on these options. </li>
+<li><strong>Timezone.</strong> The timezone your machine is set to.</li>
+<li><strong>Security: Tor X25519 Public Key.</strong> This is a public key to add to Tor's list of authorized clients. If you don't use it, anyone who gets the QR code for your node can access it. You'll get this public key from whichever client you're using to connect to your node. For example, if you use <a href="https://github.com/BlockchainCommons/FullyNoded-2">FullyNoded 2</a>, you can go to its settings and "Export Tor V3 Authentication Public Key" for use here. (In cases where you're just working from the command line, don't worry about this!)</li>
+<li><strong>Security: Standup SSH Key.</strong> Copy your local computer's SSH key here; this allows you be able to automatically login in via SSH to the standup account. If you haven't setup an SSH key on your local computer yet, there are good instructions for it on <a href="https://help.github.com/articles/generating-a-new-ssh-key-and-adding-it-to-the-ssh-agent/">Github</a>.  Using an SSH key will give you a simpler and safer way to log in to your server.</li>
+<li><strong>Security: SSH-Allowed IPs.</strong> This is a comma-separated list of IPs that will be allowed to SSH into the VPS. For example "192.168.1.15,192.168.1.16". If you do not enter any IPs, <em>your VPS will not be very secure</em>. It will constantly be bombarded by attackers trying to find their way in, and they may very well succeed.</li>
+<li><strong>Cypherpunkpay.</strong> These are options to install Cypherpunkpay on your server. They're primarily intended for other users of the Standup software and aren't used in this course, so you can just leave them be.</li>
+<li>Choose a region for where the Linode will be located.</li>
+<li>Select an Image</li>
+<li><strong>Target Image.</strong> If you followed the instructions, this will only allow you to select "Debian 13" (though previous versions of this Stackscript worked with Debian 9 through 12 and might still.)</li>
+</ol>
+<h3 id="choose-a-linode-plan">Choose a Linode Plan</h3>
+<p>You'll next need to choose a Linode plan.</p>
+<p>Linode will default to Dedicated-CPU plans, but you can select the
+more cost-efficient Shared-CPU instead. A Shared-CPU Linode 4GB will
+suffice for most setups, including: Pruned Mainnet, Pruned Testnet,
+Pruned Signet, and even non-Pruned Signet. They all use less than 50G
+of storage and 4GB is a comfortable amount of memory. This is the
+setup we suggest. It runs $20 per month.</p>
+<p>If you want to instead have a non-Pruned Mainnet in a VPS, you'll need
+to install a Linode with a disk in excess of 715G(!), which is
+currently the Linode 64 GB, which has 1280G of storage and 64G of
+memory and costs approximately $384 per month. We do <em>not</em> suggest
+this. (But see below for alternatives.)</p>
+<p>The following chart shows minimum requirements</p>
+<table>
+<thead>
+<tr>
+<th>Setup</th>
+<th>Memory</th>
+<th>Storage</th>
+<th>Linode</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Mainnet</td>
+<td>2G</td>
+<td>~715G</td>
+<td>Linode 64GB</td>
+</tr>
+<tr>
+<td>Pruned Mainnet</td>
+<td>2G</td>
+<td>~5G</td>
+<td>Linode 4GB</td>
+</tr>
+<tr>
+<td>Signet</td>
+<td>2G</td>
+<td>~15G</td>
+<td>Linode 4GB</td>
+</tr>
+<tr>
+<td>Pruned Signet</td>
+<td>2G</td>
+<td>~5G</td>
+<td>Linode 4GB</td>
+</tr>
+<tr>
+<td>Testnet</td>
+<td>2G</td>
+<td>~170G</td>
+<td>Linode 16GB</td>
+</tr>
+<tr>
+<td>Pruned Testnet</td>
+<td>2G</td>
+<td>~5G</td>
+<td>Linode 4GB</td>
+</tr>
+<tr>
+<td>Regtest</td>
+<td>2G</td>
+<td>~</td>
+<td>Linode 4GB</td>
+</tr>
+</tbody>
+</table>
+<p>Note, there may be ways to reduce both costs.</p>
+<ul>
+<li>For the setups we suggest as <strong>Linode 4GB</strong>, you may be able to reduce that to a Linode 2GB. Some versions of Bitcoin Core have worked well at that size, some have occasionally run out of memory and then recovered, and some have continuously run out of memory. Remember to up that swap space to maximize the odds of this working. Use at your own risk.</li>
+<li>For the Unpruned Mainnet, which we suggest as a <strong>Linode 64GB</strong>, you can probably get by with a Linode 4GB, but add <a href="https://cloud.linode.com/volumes/create">Block Storage</a> sufficient to store the blockchain. This is certainly a better long-term solution since the Bitcoin blockchain's storage requirements continuously increase if you don't prune, while the CPU requirements don't (or don't to the same degree). A 750 GibiByte storage would be $75 a month, which combined with a Linode 4GB is $95 a month, instead of $384, and more importantly you can keep growing it. We don't fully document this setup for two reasons (1) we don't suggest the unpruned mainnet setup, and so we suspect it's a much less common setup, particularly for this course; and (2) we haven't tested how Linodes volumes compare to their intrinic SSDs for performance and usage. But there's full documentation on the <a href="https://cloud.linode.com/volumes">Block Storage page</a>. You'd need to set up the Linode, run its stackscript, but then interrupt it to move the blockchain storage over to a newly commissioned volume before continuing.</li>
+</ul>
+<p>If you are running a deployment that will be transacting real Bitcoins, you may want to alternatively consider a Dedicated-CPU Linode, which tends to run 50% more expensive than the Shared-CPU Linode. We've generally found the Shared CPUs to be entirely sufficient, but for a wide deployment, you may wish to consider higher levels of reliability.</p>
+<h3 id="do-the-final-setup">Do the Final Setup</h3>
+<p>You may now want to change your Linode VPS's name from the default <code>linodexxxxxxxx</code>. For instance you might name it <code>bitcoin-signet-pruned</code> to differentiate it from other VPSs in your account.</p>
+<p>The last thing you need to do is enter a root password. (If you missed anything, you'll be told so now!). You'll also have the option to add an SSH key for the root user. We again suggest doing so for both security and convenience purposes.</p>
+<p>Linode at this point offers a few choices that have changed over time, but currently include: disk encryption, VPC, firewall, and VLAN. These are generally security features that you would want to consider for a real-world deployment, but don't need to worry about for a testing deployment. (We'd suggest at least a firewall and the disk encryption for a real-world deployment, but we leave that to you and your security people.)</p>
+<p>Click "Deploy" to initialize your disks and to prepare your VPS. The
+whole queue should run in less than a minute. When it's done you
+should see it in the "Host Job Queue", green "Success" buttons stating
+"Disk Create from StackScript - Setting password for root… done." and
+"Create Filesystem - 256MB Swap Image" (or something similar; messages
+can change over time)..</p>
+<h2 id="login-to-your-vps">Login to Your VPS</h2>
+<p>If you watch your Linode control panel, you should see the new computer spin up. When the job has reached 100%, you'll be able to log in.</p>
+<p>First, you'll need the IP address. Click on the "Linodes" tab and you should see a listing of your VPS, the fact that it's running, its "plan", its IP address, and some other information.</p>
+<p>Go to your local console and login to the <code>standup</code> account using that address:</p>
+<pre><code class="language-sh">ssh standup@[IP-ADDRESS]
+</code></pre>
+<p>For example:</p>
+<pre><code class="language-sh">ssh standup@192.168.33.11
+</code></pre>
+<p>If you configured your VPS to use an SSH key, the login should be
+automatic (possibly requiring your SSH password to unlock your
+key). If you didn't configure a SSH key, then you'll need to type in
+the standup password.</p>
+<h3 id="wait-a-few-minutes">Wait a Few Minutes</h3>
+<p>Here's a little catch: <em>your StackScript is still running right
+now</em>. The Bash script gets executed the first time the VPS is
+booted. That means your VPS isn't ready yet.</p>
+<p>The total run time is about 10 minutes. So, go take a break, get an espresso, or otherwise relax for a few minutes. There are two parts of the script that take a while: the updating of all the Debian packages; and the downloading of the Bitcoin code. They shouldn't take more than 5 minutes each, which means if you come back in 10 minutes, you'll probably be ready to go.</p>
+<p>If you're impatient you can jump ahead and <code>sudo tail -f /standup.log</code>
+which will display the current progress of installation, as described
+in the next section. </p>
+<h2 id="verify-your-installation">Verify Your Installation</h2>
+<p>You'll know that stackscrpit is done when the <code>tail</code> of the <code>standup.log</code> says something like the following:</p>
+<pre><code class="language-sh">| /root/StackScript - Bitcoin is setup as a service and will automatically start if your VPS reboots and so is Tor
+| /root/StackScript - You can manually stop Bitcoin with: sudo systemctl stop bitcoind.service
+| /root/StackScript - You can manually start Bitcoin with: sudo systemctl start bitcoind.service
+</code></pre>
+<blockquote>
+<p>⚠️ <strong>LOGGING WARNING:</strong> We've seen some recent versions of Linode
+stop logging before they get to the end, even though they happily
+complete the script. If this seems to happen, don't panic, just wait
+the 10 minutes or so and then check things out.</p>
+</blockquote>
+<p>At that point, your home directory should look like this:</p>
+<pre><code class="language-sh">ls
+
+| bitcoin-31.1-x86_64-linux-gnu.tar.gz  SHA256SUMS.asc       wget-btc-sha-asc-output.txt
+| SHA256SUMS                            wget-btc-output.txt  wget-btc-sha-output.txt
+</code></pre>
+<p>These are the various files that were used to install Bitcoin on your
+VPS. <em>None</em> of them are necessary. We've just left them in case you
+want to do any additional verification. Otherwise, you can delete
+them:</p>
+<pre><code class="language-sh">rm *
+</code></pre>
+<p>But you may want to verify first ...</p>
+<h3 id="verify-the-bitcoin-setup">Verify the Bitcoin Setup</h3>
+<p>In order to ensure that the downloaded Bitcoin release is valid, the
+StackScript checks both the signature and the SHA checksum. You should
+verify that both of those tests came back right:</p>
+<pre><code class="language-sh">sudo grep VERIFICATION /standup.log
+</code></pre>
+<p>If you see something like the following, all should be well:</p>
+<pre><code class="language-sh">| /root/StackScript - SIG VERIFICATION SUCCESS: 11 GOOD SIGNATURES FOUND.
+| /root/StackScript - SHA VERIFICATION SUCCESS / SHA: bitcoin-31.1-x86_64-linux-gnu.tar.gz: OK
+</code></pre>
+<p>If either of those two checks instead reads "VERIFICATION ERROR", then there's a problem.</p>
+<p>The log also contains more information on the Signatures, if you want
+to make sure you know <em>who</em> signed the Bitcoin release:</p>
+<pre><code class="language-sh">sudo grep -i good /standup.log
+
+| /root/StackScript - SIG VERIFICATION SUCCESS: 8 GOOD SIGNATURES FOUND.
+| gpg: Good signature from &quot;.0xB10C &lt;b10c@b10c.me&gt;&quot; [unknown]
+| gpg: Good signature from &quot;Ava Chow &lt;me@achow101.com&gt;&quot; [unknown]
+| gpg: Good signature from &quot;Stephan Oeste (it) &lt;it@oeste.de&gt;&quot; [unknown]
+| gpg: Good signature from &quot;Michael Ford (bitcoin-otc) &lt;fanquake@gmail.com&gt;&quot; [unknown]
+| gpg: Good signature from &quot;Oliver Gugger &lt;gugger@gmail.com&gt;&quot; [unknown]
+| gpg: Good signature from &quot;Hennadii Stepanov (GitHub key) &lt;32963518+hebasto@users.noreply.github.com&gt;&quot; [unknown]
+| gpg: Good signature from &quot;Matthew Zipkin (GitHub Signing Key) &lt;pinheadmz@gmail.com&gt;&quot; [unknown]
+| gpg: Good signature from &quot;Sjors Provoost &lt;sjors@sprovoost.nl&gt;&quot; [unknown]
+</code></pre>
+<p>Since this is all scripted, it's possible that there's just been a minor change that has caused the script's checks not to work right. (This has happened a few times over the existence of the script that became Standup.) But, it's also possible that someone is trying to encourage you to run a fake copy of the Bitcoin daemon. So, <em>be very sure you know what happened before you make use of Bitcoin!</em></p>
+<h3 id="read-the-logs">Read the Logs</h3>
+<p>You may also want to read through all of the setup log files, to make sure that nothing unexpected happened during the installation.</p>
+<p>It's best to look through the standard StackScript log file, which has all of the output, including errors:</p>
+<p><code>sudo more /standup.log</code></p>
+<p>Note that it is totally normal to see <em>some</em> errors, particularly when running the very noisy gpg software and when various things try to access the non-existant <code>/dev/tty</code> device.</p>
+<p>If you want instead to look at a smaller set of info, all of the errors should be in:</p>
+<p><code>sudo more /standup.err</code></p>
+<p>It still has a fair amount of information that isn't errors, but it's a quicker read.</p>
+<p>If all look good, congratulations, you have a functioning Bitcoin node using Linode!</p>
+<h2 id="what-we-have-wrought">What We Have Wrought</h2>
+<p>Although the default Debian 13 image that we are using for your VPS
+has been modified by Linode to be relatively secure, your Bitcoin node
+as installed through the Linode StackScript is set up with an even
+higher level of security. You may find this limiting, or be unable to
+do things that you expect. Here are a few notes on that:</p>
+<h3 id="protected-services">Protected Services</h3>
+<p>Your Bitcoin VPS installation is minimal and allows almost no
+communication. This is done through the uncomplicated firewall
+(<code>ufw</code>), which blocks everything except SSH connections. You can
+verify that it's running as follows:</p>
+<pre><code class="language-sh">sudo ufw status
+
+| Status: active
+| 
+| To                         Action      From
+| --                         ------      ----
+| 22/tcp                     ALLOW       Anywhere                  
+| 22/tcp (v6)                ALLOW       Anywhere (v6)             
+</code></pre>
+<p>There's also some additional security possible for your RFC ports, thanks to the hidden services installed by Tor.</p>
+<p><strong>Adjusting UFW.</strong> You should probably leave UFW in its super-protected stage! You don't want to use a Bitcoin machine for other services, because everyone increases your vulnerability! If you decide otherwise, there are several <a href="https://www.digitalocean.com/community/tutorials/ufw-essentials-common-firewall-rules-and-commands">guides to UFW</a> that will allow you to add services. As advertised, it's uncomplicated. For example adding mail services would just require opening the mail port: <code>sudo ufw allow 25</code>. But don't do that.</p>
+<p><strong>Adjusting Tor.</strong> You might want to better protect services like SSH. See <a href="../20_0_Using_Tor/">Chapter 20: Using Tor</a> for more on Tor.</p>
+<h3 id="protected-shells">Protected Shells</h3>
+<p>If you defined "SSH-allowed IPs", SSH (and SCP) access to the server is severely restricted. <code>/etc/hosts.deny</code> disallows anyone from logging in. <em>We do not suggest changing this</em>. <code>/etc/hosts.allow</code> then allows specific IP addresses. Just add more IP addresses in a comma-separated list if you need to offer more access.</p>
+<p>For example:</p>
+<pre><code class="language-sh">sshd: 127.0.0.1, 192.128.23.1
+</code></pre>
+<h3 id="automated-upgrades">Automated Upgrades</h3>
+<p>Debian is also set up to automatically upgrade itself, to ensure that it remains abreast of the newest security patches.</p>
+<p>If for some reason you wanted to change this (<em>we don't suggest it</em>), you can do this:</p>
+<pre><code class="language-sh">echo &quot;unattended-upgrades unattended-upgrades/enable_auto_updates boolean false&quot; | sudo debconf-set-selections
+</code></pre>
+<p><em>If you'd like to know more about what the Bitcoin Standup stackscript does, please see <a href="../A1_0_Understanding_Bitcoin_Standup/">Appendix I: Understanding Bitcoin Standup</a>.</em></p>
+<h2 id="playing-with-bitcoin">Playing with Bitcoin</h2>
+<p>So now you probably want to play with Bitcoin!</p>
+<p>But wait, your Bitcoin daemon is probably still downloading blocks. The <code>bitcoin-cli getblockcount</code> will tell you how you're currently doing:</p>
+<pre><code class="language-sh">bitcoin-cli getblockcount
+
+| 288191
+</code></pre>
+<p>If it's different every time you type the command, you need to wait before working with Bitcoin. This can take hours for a mainnet setup, but if you're using our suggested setup of pruned signet, it should be done in 15 minutes or so.</p>
+<p>Once it settles at a number, you're ready to continue!</p>
+<p>Still, it might be time for a few more espressos. But soon enough, your system will be ready to go, and you'll be read to start experimenting.</p>
+<h2 id="summary-setting-up-a-bitcoin-core-vps-by-hand">Summary: Setting Up a Bitcoin-Core VPS by Hand</h2>
+<p>Creating a Bitcoin-Core VPS with the Standup scripts made the whole process quick, simple and (hopefully) painless.</p>
+<h2 id="whats-next">What's Next?</h2>
+<p>You have a few options for what's next:</p>
+<ul>
+<li>Read the <a href="https://github.com/BlockchainCommons/Bitcoin-Standup-Scripts/blob/master/Scripts/LinodeStandUp.sh">StackScript</a> to understand your setup.</li>
+<li>Read what the StackScript does in <a href="../A1_0_Understanding_Bitcoin_Standup/">Appendix I</a>.</li>
+<li>Choose an entirely alternate methodology for creating your VPS in <a href="../02_2_Setting_Up_Bitcoin_Core_Other/">§2.2: Setting Up a Bitcoin-Core Machine via Other Means</a>.</li>
+<li>Move on to "bitcoin-cli" with <a href="../03_0_Preparing_Your_Bitcoin_Wallet/">Chapter Three: Preparing Your Bitcoin Wallet</a></li>
+</ul>
+<h2 id="synopsis-bitcoin-installation-types">Synopsis: Bitcoin Installation Types</h2>
+<p><strong>Mainnet.</strong> This will download the entirety of the Bitcoin blockchain. That's 725G of data (and getting more every day). </p>
+<p><strong>Pruned Mainnet.</strong> This will cut the blockchain you're storing down to just the last 550 blocks. If you're not mining or running some other Bitcoin service, this should be plenty for validation.</p>
+<p><strong>Signet.</strong> This is the newest iteration of a testing network, where Bitcoins don't actually have value and has largely surpassed Testnet. It's intended for experimentation and testing.  Its big advantage is that its block production is more reliable that Testnet, where Testnet could stall out for a while, then produce a bunch of blocks together. </p>
+<p><strong>Pruned Signet.</strong> The last 550 blocks of Signet.</p>
+<p><strong>Testnet.</strong> The older testing network, still useful to some for the ability for miners to force block reorgs (and likely for other specific testing purposes). There are two versions: <code>testnet3</code> and <code>testnet4</code>.</p>
+<p><strong>Pruned Testnet.</strong> This is just the last 550 blocks of Testnet ... because the Testnet blockchain is pretty big now too.</p>
+<p><strong>Private Regtest.</strong> This is Regression Testing Mode, which lets you run a totally local Bitcoin server. It allows for even more in-depth testing. There's no pruning needed here, because you'll be starting from scratch. This is a very different setup, and so is covered in <a href="../A3_0_Using_Bitcoin_Regtest/">Appendix 3</a>.</p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "..", "features": [], "search": "../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.d7400e89.min.js"></script>
+      
+    
+  </body>
+</html>

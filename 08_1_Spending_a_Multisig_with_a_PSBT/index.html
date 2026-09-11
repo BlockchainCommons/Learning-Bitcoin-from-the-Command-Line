@@ -1,0 +1,4211 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+        <link rel="canonical" href="https://learningbitcoin.blockchaincommons.com/08_1_Spending_a_Multisig_with_a_PSBT/">
+      
+      
+        <link rel="prev" href="../08_0_Expanding_Bitcoin_Transactions_PSBTs/">
+      
+      
+        <link rel="next" href="../08_2_Understanding_the_PSBT/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.7">
+    
+    
+      
+        <title>8.1: Spending a Multisig with a PSBT - Learning Bitcoin from the Command Line</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.ec1eaa64.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    <body dir="ltr">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#81-spending-a-multisig-with-a-psbt" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href=".." title="Learning Bitcoin from the Command Line" class="md-header__button md-logo" aria-label="Learning Bitcoin from the Command Line" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M14.24 10.56c-.31 1.24-2.24.61-2.84.44l.55-2.18c.62.18 2.61.44 2.29 1.74m-3.11 1.56-.6 2.41c.74.19 3.03.92 3.37-.44.36-1.42-2.03-1.79-2.77-1.97m10.57 2.3c-1.34 5.36-6.76 8.62-12.12 7.28S.963 14.94 2.3 9.58A9.996 9.996 0 0 1 14.42 2.3c5.35 1.34 8.61 6.76 7.28 12.12m-7.49-6.37.45-1.8-1.1-.25-.44 1.73c-.29-.07-.58-.14-.88-.2l.44-1.77-1.09-.26-.45 1.79c-.24-.06-.48-.11-.7-.17l-1.51-.38-.3 1.17s.82.19.8.2c.45.11.53.39.51.64l-1.23 4.93c-.05.14-.21.32-.5.27.01.01-.8-.2-.8-.2L6.87 15l1.42.36c.27.07.53.14.79.2l-.46 1.82 1.1.28.45-1.81c.3.08.59.15.87.23l-.45 1.79 1.1.28.46-1.82c1.85.35 3.27.21 3.85-1.48.5-1.35 0-2.15-1-2.66.72-.19 1.26-.64 1.41-1.62.2-1.33-.82-2.04-2.2-2.52"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Learning Bitcoin from the Command Line
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              8.1: Spending a Multisig with a PSBT
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/BlockchainCommons/Learning-Bitcoin-from-the-Command-Line/tree/lbtcftcl-v3.0" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href=".." title="Learning Bitcoin from the Command Line" class="md-nav__button md-logo" aria-label="Learning Bitcoin from the Command Line" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M14.24 10.56c-.31 1.24-2.24.61-2.84.44l.55-2.18c.62.18 2.61.44 2.29 1.74m-3.11 1.56-.6 2.41c.74.19 3.03.92 3.37-.44.36-1.42-2.03-1.79-2.77-1.97m10.57 2.3c-1.34 5.36-6.76 8.62-12.12 7.28S.963 14.94 2.3 9.58A9.996 9.996 0 0 1 14.42 2.3c5.35 1.34 8.61 6.76 7.28 12.12m-7.49-6.37.45-1.8-1.1-.25-.44 1.73c-.29-.07-.58-.14-.88-.2l.44-1.77-1.09-.26-.45 1.79c-.24-.06-.48-.11-.7-.17l-1.51-.38-.3 1.17s.82.19.8.2c.45.11.53.39.51.64l-1.23 4.93c-.05.14-.21.32-.5.27.01.01-.8-.2-.8-.2L6.87 15l1.42.36c.27.07.53.14.79.2l-.46 1.82 1.1.28.45-1.81c.3.08.59.15.87.23l-.45 1.79 1.1.28.46-1.82c1.85.35 3.27.21 3.85-1.48.5-1.35 0-2.15-1-2.66.72-.19 1.26-.64 1.41-1.62.2-1.33-.82-2.04-2.2-2.52"/></svg>
+
+    </a>
+    Learning Bitcoin from the Command Line
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/BlockchainCommons/Learning-Bitcoin-from-the-Command-Line/tree/lbtcftcl-v3.0" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href=".." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Learning Bitcoin from the Command Line 3.0
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../01_0_Introduction/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter One: Introduction to Learning Bitcoin Core from the Command Line
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../01_1_Introducing_Bitcoin/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Interlude: Introducing Bitcoin
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../02_0_Setting_Up_a_Bitcoin-Core_VPS/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter Two: Creating a Bitcoin-Core VPS
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../02_1_Setting_Up_a_Bitcoin-Core_VPS_with_StackScript/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    2.1: Setting Up a Bitcoin-Core VPS with Bitcoin Standup
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../02_2_Setting_Up_Bitcoin_Core_Other/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    2.2: Setting Up a Bitcoin-Core Machine via Other Means
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../03_0_Preparing_Your_Bitcoin_Wallet/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter Three: Preparing Your Bitcoin Wallet
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../03_1_Verifying_Your_Bitcoin_Setup/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    3.1: Verifying Your Bitcoin Setup
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../03_2_Knowing_Your_Bitcoin_Setup/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    3.2: Knowing Your Bitcoin Setup
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../03_3_Setting_Up_Your_Wallet/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    3.3: Setting Up Your Wallet
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../03_4_Understanding_the_Descriptor_Wallet/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    3.4: Understanding the Descriptor Wallet
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../04_0_Preparing_Your_Bitcoin_Addresses/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter Four: Preparing Your Bitcoin Addresses
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../04_1_Understanding_the_Address/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    4.1: Understanding the Address
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../04_2_Integrating_Addresses_Descriptors/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    4.2: Integrating Addresses and Descriptors
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../04_3_Creating_QR_Codes_for_Addresses/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    4.3: Creating QR Codes for Addresses
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../04_4_Receiving_a_Transaction/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    4.4: Receiving a Transaction
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../04_4a_Interlude_Using_Command-Line_Variables/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Interlude: Using Command-Line Variables
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../05_0_Sending_Bitcoin_Transactions/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter Five: Sending Bitcoin Transactions
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../05_1_Sending_Coins_The_Easy_Way/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    5.1: Sending Coins the Easy Way
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../05_2_Creating_a_Raw_Transaction/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    5.2 Creating a Raw Transaction
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../05_2a_Interlude_Using_JQ/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Interlude: Using JQ
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../05_3_Creating_a_Raw_Transaction_with_Named_Arguments/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    5.3 Creating a Raw Transaction with Named Arguments
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../05_4_Sending_Coins_with_a_Raw_Transaction/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    5.4: Sending Coins with Raw Transactions
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../05_4a_Interlude_Using_Curl/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Interlude: Using Curl
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../05_5_Sending_Coins_with_Automated_Raw_Transactions/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    5.5: Sending Coins with Automated Raw Transactions
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../05_6_Sending_Coins_to_Other_Addresses/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    5.6: Sending Coins to Other Addresses
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../06_0_Controlling_Bitcoin_Transactions/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter Six: Controlling Bitcoin Transactions
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../06_1_Watching_for_Stuck_Transactions/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    6.1: Watching for Stuck Transactions
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../06_2_Resending_a_Transaction_with_RBF/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    6.2: Resending a Transaction with RBF
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../06_3_Funding_a_Transaction_with_CPFP/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    6.3: Funding a Transaction with CPFP
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../07_0_Expanding_Bitcoin_Transactions_Multisigs/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter Seven: Expanding Bitcoin Transactions with Multisigs
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../07_1_Creating_Multisig_Public_Keys/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    7.1: Creating a Multisig from Public Keys
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../07_2_Creating_Multisig_Descriptors/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    7.2: Creating a Multisig from Descriptors
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../07_3_Spending_a_Transaction_to_a_Multisig/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    7.3: Spending a Transaction with a Multisig
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../08_0_Expanding_Bitcoin_Transactions_PSBTs/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter Eight: Expanding Bitcoin Transactions with PSBTs
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    8.1: Spending a Multisig with a PSBT
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    8.1: Spending a Multisig with a PSBT
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#understand-the-psbt-the-easy-stuff" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Understand the PSBT: The Easy Stuff
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#use-a-psbt-to-spend-multisig-funds" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Use a PSBT to Spend MultiSig Funds
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Use a PSBT to Spend MultiSig Funds">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#create-the-psbt" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Create the PSBT
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#update-the-psbt" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Update the PSBT
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#sign-the-psbt" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Sign the PSBT
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#combine-the-psbt" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Combine the PSBT
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#finalize-the-psbt" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Finalize the PSBT
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#summary-spending-a-multisig-with-a-psbt" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Summary: Spending a Multisig with a PSBT
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#whats-next" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        What's Next?
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../08_2_Understanding_the_PSBT/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    8.2: Understanding the PSBT Process
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../08_3_Using_a_Partially_Signed_Bitcoin_Transaction/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    8.3: Using a Partially Signed Bitcoin Transaction
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../08_4_Creating_Animated_QR_Codes/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    8.4: Creating Animated QR Codes
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../09_0_Expanding_Bitcoin_Transactions_Other/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter Nine: Expanding Bitcoin Transactions in Other Ways
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../09_1_Sending_a_Transaction_with_a_Locktime/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    9.1: Sending a Transaction with a Locktime
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../09_2_Sending_a_Transaction_with_Data/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    9.2: Sending a Transaction with Data
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../10_0_Working_with_Secrets/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter Ten: Working with Secrets
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../10_1_Creating_Secrets_from_the_Command_Line/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    10.1: Creating Secrets from the Command Line
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../10_2_Converting_Secrets_with_Keytool/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    10.2: Converting Secrets with Keytool
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../10_3_Importing_Secrets_to_Bitcoin_Core/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    10.3: Importing Secrets to Bitcoin Core
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../10_4_Exporting_Secrets_from_Bitcoin_Core/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    10.4: Exporting Secrets from Bitcoin Core
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../10_5_Storing_Secrets_with_Envelope/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    10.5: Storing Secrets with Envelope
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../11_0_Introducing_Bitcoin_Scripts/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 11: Introducing Bitcoin Scripts
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../11_1_Understanding_the_Foundation_of_Transactions/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    11.1: Understanding the Foundation of Transactions
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../11_2_Running_a_Bitcoin_Script/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    11.2: Running a Bitcoin Script
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../11_3_Testing_a_Bitcoin_Script/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    11.3: Testing a Bitcoin Script
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../11_4_Scripting_a_P2PKH/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    11.4: Scripting a P2PKH
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../11_5_Scripting_a_P2WPKH/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    11.5: Scripting a P2WPKH
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../12_0_Embedding_Bitcoin_Scripts_in_P2WSH_Transactions/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 12: Embedding Bitcoin Scripts in P2SH &amp; P2WSH Transactions
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../12_1_Understanding_the_Foundation_of_P2WSH/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    12.1: Understanding the Foundation of P2SH &amp; P2WSH
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../12_2_Building_the_Structure_of_P2WSH/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    12.2: Building the Structure of P2SH &amp; P2WSH
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../12_3_Running_a_Bitcoin_Script_with_P2WSH/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    12.3: Running a Bitcoin Script with P2SH or P2WSH
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../12_4_Scripting_a_Multisig/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    12.4: Scripting a Multisig
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../12_5_Spending_a_P2WSH_Transaction/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    12.5: Spending a P2SH or P2WSH Transaction
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../13_0_Empowering_Timelock_with_Bitcoin_Scripts/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 13: Empowering Timelock with Bitcoin Scripts
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../13_1_Understanding_Timelock_Options/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    13.1: Understanding Timelock Options
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../13_2_Using_CLTV_in_Scripts/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    13.2: Using CLTV in Scripts
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../13_3_Using_CSV_in_Scripts/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    13.3: Using CSV in Scripts
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../14_0_Expanding_Bitcoin_Scripts/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 14: Expanding Bitcoin Scripts
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../14_1_Using_Script_Conditionals/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    14.1: Using Script Conditionals
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../14_2_Using_Other_Script_Commands/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    14.2: Using Other Script Commands
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../15_0_Designing_Real_Bitcoin_Scripts/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 15: Designing Real Bitcoin Scripts
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../15_1_Writing_Puzzle_Scripts/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    15 1 Writing Puzzle Scripts
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../15_2_Writing_Complex_Multisig_Scripts/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    15.2: Writing Complex Multisig Scripts
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../15_3_Empowering_Bitcoin_with_Scripts/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    15 3 Empowering Bitcoin with Scripts
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../16_0_Using_Miniscript/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 16: Using Miniscript
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../16_1_Understanding_Miniscript/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    16.1: Understanding Miniscript &amp; Policy
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../16_2_Converting_Miniscript/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    16.2: Converting Policy &amp; Miniscript
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../16_3_Using_Miniscript_with_Descriptors/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    16.3: Using Miniscript with Descriptors
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../16_4_Using_BDK/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    16.4: Using BDK with Miniscript
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../17_0_Introducing_Taproot/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 17: Introducing Taproot
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../17_1_Breaking_Down_Taproot/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    17.1: Breaking Down Taproot
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../17_2_Updating_to_Taproot/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    17.2: Updating to Taproot
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../18_0_Using_Schnorr/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 18: Using Schnorr
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../18_1_Understanding_Schorr/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    18.1: Understanding Schnorr Signatures
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../18_3_Using_Bitcoin_With_FROST/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    18.3: Using Bitcoin with FROST
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../20_0_Using_Tor/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 14: Using Tor
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../20_1_Verifying_Your_Tor_Setup/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    14.1: Verifying Your Tor Setup
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../20_2_Changing_Your_Bitcoin_Hidden_Services/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 14.2: Changing Your Bitcoin Hidden Services
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../20_3_Adding_SSH_Hiddben_Services/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 14.3: Adding SSH Hidden Services
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../21_0_Using_i2p/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 15: Using I2P
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../21_1_i2p_service/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    15.1: Bitcoin Core as an I2P (Invisible Internet Project) service
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../A1_0_Understanding_Bitcoin_Standup/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Appendix I: Understanding Bitcoin Standup
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../A2_0_Compiling_Bitcoin_from_Source/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Appendix II: Compiling Bitcoin from Source
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../A3_0_Using_Bitcoin_Regtest/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Appendix III: Using Bitcoin Regtest
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../P1_0_Talking_to_Bitcoind/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 16: Talking to Bitcoind with C
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../P1_1_Accessing_Bitcoind_with_C/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    16.1: Accessing Bitcoind in C with RPC Libraries
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../P1_2_Programming_Bitcoind_with_C/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    16.2: Programming Bitcoind in C with RPC Libraries
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../P1_3_Receiving_Bitcoind_Notifications_with_C/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    16.3 Receiving Notifications in C with ZMQ Libraries
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../P2_0_Programming_with_Libwally/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 17: Programming with Libwally
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../P2_1_Setting_Up_Libwally/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    17.1: Setting Up Libwally
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../P2_2_Using_BIP39_in_Libwally/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    17.2: Using BIP39 in Libwally
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../P2_3_Using_BIP32_in_Libwally/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    17.3: Using BIP32 in Libwally
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../P2_4_Using_PSBTs_in_Libwally/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    17.4: Using PSBTs in Libwally
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../P2_5_Using_Scripts_in_Libwally/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    17.5: Using Scripts in Libwally
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../P2_6_Using_Other_Functions_in_Libwally/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    17.6: Using Other Functions in Libwally
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../P2_7_Integrating_Libwally_and_Bitcoin-CLI/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    17.7: Integrating Libwally and Bitcoin-CLI
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../P3_0_Talking_to_Bitcoind_Other/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 18: Talking to Bitcoind with Other Languages
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../P3_1_Accessing_Bitcoind_with_Go/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    18.1: Accessing Bitcoind with Go
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../P3_2_Accessing_Bitcoind_with_Java/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    18.2: Accessing Bitcoind with Java
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../P3_3_Accessing_Bitcoind_with_NodeJS/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    18.3: Accessing Bitcoind with NodeJS
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../P3_4_Accessing_Bitcoind_with_Python/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    18.4: Accessing Bitcoind with Python
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../P3_5_Accessing_Bitcoind_with_Rust/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    18.5: Accessing Bitcoind with Rust
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../P3_6_Accessing_Bitcoind_with_Swift/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    18.6: Accessing Bitcoind with Swift
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../T1_0_Expanding_Bitcoin_Transactions_with_Schnorr/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    T1 0 Expanding Bitcoin Transactions with Schnorr
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../XX_X_Integrating_with_Hardware_Wallets/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    7.3: Integrating with Hardware Wallets
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_113" >
+        
+          
+          <label class="md-nav__link" for="__nav_113" id="__nav_113_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Images
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_113_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_113">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Images
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_113_1" >
+        
+          
+          <label class="md-nav__link" for="__nav_113_1" id="__nav_113_1_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Logos
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_113_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_113_1">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Logos
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../images/logos/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Index
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#understand-the-psbt-the-easy-stuff" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Understand the PSBT: The Easy Stuff
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#use-a-psbt-to-spend-multisig-funds" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Use a PSBT to Spend MultiSig Funds
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Use a PSBT to Spend MultiSig Funds">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#create-the-psbt" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Create the PSBT
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#update-the-psbt" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Update the PSBT
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#sign-the-psbt" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Sign the PSBT
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#combine-the-psbt" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Combine the PSBT
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#finalize-the-psbt" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Finalize the PSBT
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#summary-spending-a-multisig-with-a-psbt" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Summary: Spending a Multisig with a PSBT
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#whats-next" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        What's Next?
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  
+  
+
+
+<h1 id="81-spending-a-multisig-with-a-psbt">8.1: Spending a Multisig with a PSBT</h1>
+<p>In the future, <code>bitcoin-cli</code> may or may not improve its methodologies for natively spending multisig funds. But whether it does or not, there's a more modern way to spend multisigs that that's the recommend best practice: Partially Signed Bitcoin Transactions, or PSBTs. We're going to explore how to use them to spend multisig funds in this section, before diving into the further power of of PSBTs in the rest of this chapter.</p>
+<h2 id="understand-the-psbt-the-easy-stuff">Understand the PSBT: The Easy Stuff</h2>
+<p>In brief: a PSBT is a specified format for collaboratively creating Bitcoin transactions. This collaboration is managed through the careful usage of roles, which serially or simultaneously manipulate a PSBT:</p>
+<ul>
+<li><strong>Creator</strong> makes the PSBT.</li>
+<li><strong>Updater</strong> adds UTXOs, scripts, and other data to the PSBT.</li>
+<li><strong>Signer</strong> signs the PSBT.</li>
+<li><strong>Finalizer</strong> closes out the PSBT, possibly combining PSBTs from multiple Signers.</li>
+<li><strong>Extractor</strong> turns the PSBT into a transaction for the Bitcoin network.</li>
+</ul>
+<p>It's a simple progression, though the Signer may happen many times:</p>
+<p><img alt="" src="/images/08_1_psbt-roles-for-cli-1.png" /></p>
+<p>These different roles may be taken on by different people, or the same person may fulfill several roles.</p>
+<p>Though this section focuses on using PSBTs to spend multisigs, there are a other things that can be done with PSBTs, which we'll discuss more in the rest of this chapter. For now, here's how to use a PSBT to respend multisig funds that are protected by keys in two different wallets and that are watched by funds in a separate, watch-only wallet.</p>
+<h2 id="use-a-psbt-to-spend-multisig-funds">Use a PSBT to Spend MultiSig Funds</h2>
+<p>In the last chapter, we sent funds to a multisig address. Though the multisig keys are held on two different wallets, there's a third, watchonly, wallet that knows all about the multisig, even if it can't spend it.</p>
+<pre><code>$ bitcoin-cli -rpcwallet=watchmulti getbalance
+0.00200000
+</code></pre>
+<p>The co-owners of the multisig are now ready to split up its funds. They'll each supply an address for receipt of the funds.</p>
+<pre><code>machine1$ split1=$(bitcoin-cli -rpcwallet=&quot;mainwallet&quot; getnewaddress)
+machine1$ echo $split1
+tb1qjpjx8wlhapsd0p5n9m7dl8e8myrpg4l9hu46rz
+
+machine2$ split2=$(bitcoin-cli -rpcwallet=&quot;mainwallet&quot; getnewaddress)
+machine2$ echo $split2
+tb1q5u203aa6zf7jgjxk8rp7n5z83xfjwewd7u0a20
+</code></pre>
+<h3 id="create-the-psbt">Create the PSBT</h3>
+<p>One of the parties then creates a PSBT (that's the Creator role). They'll need to know all of the addresses as well as the basic information on the UTXO that they're spending:</p>
+<pre><code>creator$ split1=&quot;tb1qjpjx8wlhapsd0p5n9m7dl8e8myrpg4l9hu46rz&quot;
+creator$ split2=&quot;tb1q5u203aa6zf7jgjxk8rp7n5z83xfjwewd7u0a20&quot;
+
+creator$ utxo_txid=$(bitcoin-cli -rpcwallet=watchmulti listunspent | jq -r '.[0] | .txid')
+creator$ utxo_vout=$(bitcoin-cli -rpcwallet=watchmulti listunspent | jq -r '.[0] | .vout')
+</code></pre>
+<p>They then use <code>createpsbt</code> to create the foundation of the PSBT that everything else will build on.
+You'll note that <code>createpsbt</code> looks a lot like the <code>createrawtransaction</code> command you met back in <a href="../05_4_Sending_Coins_with_a_Raw_Transaction/">§5.4</a>.</p>
+<pre><code>creator$ psbt=$(bitcoin-cli -named createpsbt inputs='''[ { &quot;txid&quot;: &quot;'$utxo_txid'&quot;, &quot;vout&quot;: '$utxo_vout' } ]''' outputs='''{ &quot;'$split1'&quot;: 0.0009998,&quot;'$split2'&quot;: 0.0009998 }''')
+</code></pre>
+<p>At every stage, you can use the <code>analyzepsbt</code> RPC to see what's needed as the next step in the PSBT.</p>
+<pre><code>$ bitcoin-cli analyzepsbt $psbt
+{
+  &quot;inputs&quot;: [
+    {
+      &quot;has_utxo&quot;: false,
+      &quot;is_final&quot;: false,
+      &quot;next&quot;: &quot;updater&quot;
+    }
+  ],
+  &quot;next&quot;: &quot;updater&quot;
+}
+</code></pre>
+<p>In this case, info on the UTXO is required as well as (though it's not listed yet) the <code>redeemScript</code>.</p>
+<h3 id="update-the-psbt">Update the PSBT</h3>
+<p>Both of the UTXO and the <code>redeemScript</code> were recorded in the <code>watchmulti</code> wallet when we imported the multisig through the descriptor. To add them, we go to that wallet and use the <code>walletprocesspsbt</code> command, which will always update a PSBT with info from the designated wallet.</p>
+<pre><code>updater$ psbt=$(bitcoin-cli -rpcwallet=&quot;watchmulti&quot; walletprocesspsbt $psbt | jq -r '.psbt')
+</code></pre>
+<p>We can now reanalyze the PSBT and see that it's figured out everything about what's being spent (including the <code>redeemScript</code>). The PSBT is ready to go, it just needs signers:</p>
+<pre><code>$ bitcoin-cli analyzepsbt $psbt
+{
+  &quot;inputs&quot;: [
+    {
+      &quot;has_utxo&quot;: true,
+      &quot;is_final&quot;: false,
+      &quot;next&quot;: &quot;signer&quot;,
+      &quot;missing&quot;: {
+        &quot;signatures&quot;: [
+          &quot;38101947394ce3e088b6ba84c19783731b603363&quot;,
+          &quot;0394feb37f7674b769309337445da86b99dee83f&quot;
+        ]
+      }
+    }
+  ],
+  &quot;estimated_vsize&quot;: 168,
+  &quot;estimated_feerate&quot;: 0.00000238,
+  &quot;fee&quot;: 0.00000040,
+  &quot;next&quot;: &quot;signer&quot;
+}
+</code></pre>
+<h3 id="sign-the-psbt">Sign the PSBT</h3>
+<p>Here's one of the magic features of PSBTs: they can be updated and signed in parallel! The Creator/Updater just sends the PSBT to each person:</p>
+<pre><code>$ echo $psbt
+cHNidP8BAHECAAAAAT4TNngXer/516PCopCaldswA84O2DuOrjI96CnYtkHrAQAAAAD9////AoyGAQAAAAAAFgAUDxr9tZEk6HuEqwJratxEZgdYqHmMhgEAAAAAABYAFKcU+Pe6En0kSNY4w+nQR4mTJ2XNAAAAAAABAIkCAAAAAWtqWUkvCC+bIQ0Y+RNM5sSiS4oPa9ILa4SV3YUMff7SbQEAAAD9////AteWBAAAAAAAIlEg35Pids1jTkfrgrzTG8LpPlzkPzi76pCjdVURwfnSLIhADQMAAAAAACIAID4RoDr3ZQ4gvfR2gTCkx0a0/XXWltNCC/bn0PhgobmPAAAAAAEBK0ANAwAAAAAAIgAgPhGgOvdlDiC99HaBMKTHRrT9ddaW00IL9ufQ+GChuY8BBUdSIQOTlfoZ1lEvAwQyEM0+mgOoUPeo2YbI810w8u/CgajTMSEDxX7XB3XXphZ3hRTnOP7wlGtL5O4yRAsZ9l3dbjRZg8BSriIGA5OV+hnWUS8DBDIQzT6aA6hQ96jZhsjzXTDy78KBqNMxBDgQGUciBgPFftcHddemFneFFOc4/vCUa0vk7jJECxn2Xd1uNFmDwAQDlP6zAAAA
+</code></pre>
+<p>You should <em>always</em> look at a PSBT before you sign it. This can be done with the <code>decodepsbt</code> command (a mirror to the <code>decoderawtransaction</code> RPC) which is shownin full below. You'll want to check in particular that the funds you're expecting to be used are what's being used, that everyone's receiving what you expect, and that there are no mistakes (such as too much money being spent on fees).</p>
+<pre><code>$ bitcoin-cli decodepsbt cHNidP8BAHECAAAAAT4TNngXer/516PCopCaldswA84O2DuOrjI96CnYtkHrAQAAAAD9////AoyGAQAAAAAAFgAUDxr9tZEk6HuEqwJratxEZgdYqHmMhgEAAAAAABYAFKcU+Pe6En0kSNY4w+nQR4mTJ2XNAAAAAAABAIkCAAAAAWtqWUkvCC+bIQ0Y+RNM5sSiS4oPa9ILa4SV3YUMff7SbQEAAAD9////AteWBAAAAAAAIlEg35Pids1jTkfrgrzTG8LpPlzkPzi76pCjdVURwfnSLIhADQMAAAAAACIAID4RoDr3ZQ4gvfR2gTCkx0a0/XXWltNCC/bn0PhgobmPAAAAAAEBK0ANAwAAAAAAIgAgPhGgOvdlDiC99HaBMKTHRrT9ddaW00IL9ufQ+GChuY8BBUdSIQOTlfoZ1lEvAwQyEM0+mgOoUPeo2YbI810w8u/CgajTMSEDxX7XB3XXphZ3hRTnOP7wlGtL5O4yRAsZ9l3dbjRZg8BSriIGA5OV+hnWUS8DBDIQzT6aA6hQ96jZhsjzXTDy78KBqNMxBDgQGUciBgPFftcHddemFneFFOc4/vCUa0vk7jJECxn2Xd1uNFmDwAQDlP6zAAAA
+{
+  &quot;tx&quot;: {
+    &quot;txid&quot;: &quot;32199698903c02a90510e77b04948edad7c41dec926e2af057e7782a57d5841b&quot;,
+    &quot;hash&quot;: &quot;32199698903c02a90510e77b04948edad7c41dec926e2af057e7782a57d5841b&quot;,
+    &quot;version&quot;: 2,
+    &quot;size&quot;: 113,
+    &quot;vsize&quot;: 113,
+    &quot;weight&quot;: 452,
+    &quot;locktime&quot;: 0,
+    &quot;vin&quot;: [
+      {
+        &quot;txid&quot;: &quot;eb41b6d829e83d32ae8e3bd80ece0330db959a90a2c2a3d7f9bf7a177836133e&quot;,
+        &quot;vout&quot;: 1,
+        &quot;scriptSig&quot;: {
+          &quot;asm&quot;: &quot;&quot;,
+          &quot;hex&quot;: &quot;&quot;
+        },
+        &quot;sequence&quot;: 4294967293
+      }
+    ],
+    &quot;vout&quot;: [
+      {
+        &quot;value&quot;: 0.00099980,
+        &quot;n&quot;: 0,
+        &quot;scriptPubKey&quot;: {
+          &quot;asm&quot;: &quot;0 0f1afdb59124e87b84ab026b6adc44660758a879&quot;,
+          &quot;desc&quot;: &quot;addr(tb1qpud0mdv3yn58hp9tqf4k4hzyvcr432re5gdhc6)#ttwtnak8&quot;,
+          &quot;hex&quot;: &quot;00140f1afdb59124e87b84ab026b6adc44660758a879&quot;,
+          &quot;address&quot;: &quot;tb1qpud0mdv3yn58hp9tqf4k4hzyvcr432re5gdhc6&quot;,
+          &quot;type&quot;: &quot;witness_v0_keyhash&quot;
+        }
+      },
+      {
+        &quot;value&quot;: 0.00099980,
+        &quot;n&quot;: 1,
+        &quot;scriptPubKey&quot;: {
+          &quot;asm&quot;: &quot;0 a714f8f7ba127d2448d638c3e9d04789932765cd&quot;,
+          &quot;desc&quot;: &quot;addr(tb1q5u203aa6zf7jgjxk8rp7n5z83xfjwewd7u0a20)#knxneukg&quot;,
+          &quot;hex&quot;: &quot;0014a714f8f7ba127d2448d638c3e9d04789932765cd&quot;,
+          &quot;address&quot;: &quot;tb1q5u203aa6zf7jgjxk8rp7n5z83xfjwewd7u0a20&quot;,
+          &quot;type&quot;: &quot;witness_v0_keyhash&quot;
+        }
+      }
+    ]
+  },
+  &quot;global_xpubs&quot;: [
+  ],
+  &quot;psbt_version&quot;: 0,
+  &quot;proprietary&quot;: [
+  ],
+  &quot;unknown&quot;: {
+  },
+  &quot;inputs&quot;: [
+    {
+      &quot;witness_utxo&quot;: {
+        &quot;amount&quot;: 0.00200000,
+        &quot;scriptPubKey&quot;: {
+          &quot;asm&quot;: &quot;0 3e11a03af7650e20bdf4768130a4c746b4fd75d696d3420bf6e7d0f860a1b98f&quot;,
+          &quot;desc&quot;: &quot;addr(tb1q8cg6qwhhv58zp005w6qnpfx8g6606awkjmf5yzlkulg0sc9phx8sqkltdd)#vjkdfwda&quot;,
+          &quot;hex&quot;: &quot;00203e11a03af7650e20bdf4768130a4c746b4fd75d696d3420bf6e7d0f860a1b98f&quot;,
+          &quot;address&quot;: &quot;tb1q8cg6qwhhv58zp005w6qnpfx8g6606awkjmf5yzlkulg0sc9phx8sqkltdd&quot;,
+          &quot;type&quot;: &quot;witness_v0_scripthash&quot;
+        }
+      },
+      &quot;non_witness_utxo&quot;: {
+        &quot;txid&quot;: &quot;eb41b6d829e83d32ae8e3bd80ece0330db959a90a2c2a3d7f9bf7a177836133e&quot;,
+        &quot;hash&quot;: &quot;eb41b6d829e83d32ae8e3bd80ece0330db959a90a2c2a3d7f9bf7a177836133e&quot;,
+        &quot;version&quot;: 2,
+        &quot;size&quot;: 137,
+        &quot;vsize&quot;: 137,
+        &quot;weight&quot;: 548,
+        &quot;locktime&quot;: 0,
+        &quot;vin&quot;: [
+          {
+            &quot;txid&quot;: &quot;d2fe7d0c85dd95846b0bd26b0f8a4ba2c4e64c13f9180d219b2f082f49596a6b&quot;,
+            &quot;vout&quot;: 365,
+            &quot;scriptSig&quot;: {
+              &quot;asm&quot;: &quot;&quot;,
+              &quot;hex&quot;: &quot;&quot;
+            },
+            &quot;sequence&quot;: 4294967293
+          }
+        ],
+        &quot;vout&quot;: [
+          {
+            &quot;value&quot;: 0.00300759,
+            &quot;n&quot;: 0,
+            &quot;scriptPubKey&quot;: {
+              &quot;asm&quot;: &quot;1 df93e276cd634e47eb82bcd31bc2e93e5ce43f38bbea90a3755511c1f9d22c88&quot;,
+              &quot;desc&quot;: &quot;rawtr(df93e276cd634e47eb82bcd31bc2e93e5ce43f38bbea90a3755511c1f9d22c88)#gamut0k2&quot;,
+              &quot;hex&quot;: &quot;5120df93e276cd634e47eb82bcd31bc2e93e5ce43f38bbea90a3755511c1f9d22c88&quot;,
+              &quot;address&quot;: &quot;tb1pm7f7yakdvd8y06uzhnf3hshf8ewwg0ech04fpgm425gur7wj9jyqh82xcx&quot;,
+              &quot;type&quot;: &quot;witness_v1_taproot&quot;
+            }
+          },
+          {
+            &quot;value&quot;: 0.00200000,
+            &quot;n&quot;: 1,
+            &quot;scriptPubKey&quot;: {
+              &quot;asm&quot;: &quot;0 3e11a03af7650e20bdf4768130a4c746b4fd75d696d3420bf6e7d0f860a1b98f&quot;,
+              &quot;desc&quot;: &quot;addr(tb1q8cg6qwhhv58zp005w6qnpfx8g6606awkjmf5yzlkulg0sc9phx8sqkltdd)#vjkdfwda&quot;,
+              &quot;hex&quot;: &quot;00203e11a03af7650e20bdf4768130a4c746b4fd75d696d3420bf6e7d0f860a1b98f&quot;,
+              &quot;address&quot;: &quot;tb1q8cg6qwhhv58zp005w6qnpfx8g6606awkjmf5yzlkulg0sc9phx8sqkltdd&quot;,
+              &quot;type&quot;: &quot;witness_v0_scripthash&quot;
+            }
+          }
+        ]
+      },
+      &quot;witness_script&quot;: {
+        &quot;asm&quot;: &quot;2 039395fa19d6512f03043210cd3e9a03a850f7a8d986c8f35d30f2efc281a8d331 03c57ed70775d7a616778514e738fef0946b4be4ee32440b19f65ddd6e345983c0 2 OP_CHECKMULTISIG&quot;,
+        &quot;hex&quot;: &quot;5221039395fa19d6512f03043210cd3e9a03a850f7a8d986c8f35d30f2efc281a8d3312103c57ed70775d7a616778514e738fef0946b4be4ee32440b19f65ddd6e345983c052ae&quot;,
+        &quot;type&quot;: &quot;multisig&quot;
+      },
+      &quot;bip32_derivs&quot;: [
+        {
+          &quot;pubkey&quot;: &quot;039395fa19d6512f03043210cd3e9a03a850f7a8d986c8f35d30f2efc281a8d331&quot;,
+          &quot;master_fingerprint&quot;: &quot;38101947&quot;,
+          &quot;path&quot;: &quot;m&quot;
+        },
+        {
+          &quot;pubkey&quot;: &quot;03c57ed70775d7a616778514e738fef0946b4be4ee32440b19f65ddd6e345983c0&quot;,
+          &quot;master_fingerprint&quot;: &quot;0394feb3&quot;,
+          &quot;path&quot;: &quot;m&quot;
+        }
+      ]
+    }
+  ],
+  &quot;outputs&quot;: [
+    {
+    },
+    {
+    }
+  ],
+  &quot;fee&quot;: 0.00000040
+}
+</code></pre>
+<p>Each person then signs that PSBT on their own machine, again using the <code>walletprocesspsbt</code> command.</p>
+<p>Here's the first user doing so:</p>
+<pre><code>machine1$ psbt_sig1=$(bitcoin-cli -rpcwallet=&quot;mainwallet&quot; walletprocesspsbt $psbt | jq -r '.psbt')
+</code></pre>
+<p>They indeed now see one less signer is needed:</p>
+<pre><code>machine1$ bitcoin-cli analyzepsbt $psbt_sig1
+{
+  &quot;inputs&quot;: [
+    {
+      &quot;has_utxo&quot;: true,
+      &quot;is_final&quot;: false,
+      &quot;next&quot;: &quot;signer&quot;,
+      &quot;missing&quot;: {
+        &quot;signatures&quot;: [
+          &quot;0394feb37f7674b769309337445da86b99dee83f&quot;
+        ]
+      }
+    }
+  ],
+  &quot;estimated_vsize&quot;: 168,
+  &quot;estimated_feerate&quot;: 0.00000238,
+  &quot;fee&quot;: 0.00000040,
+  &quot;next&quot;: &quot;signer&quot;
+}
+</code></pre>
+<p>The other user does the same thing on their own machine</p>
+<pre><code>machine2$ psbt_sig2=$(bitcoin-cli -rpcwallet=&quot;mainwallet&quot; walletprocesspsbt $psbt | jq -r '.psbt')
+</code></pre>
+<p>They see a mirrored result, with the other signature missing:</p>
+<pre><code>machine2$ psbt_sig2=$(bitcoin-cli -rpcwallet=&quot;mainwallet&quot; walletprocesspsbt $psbt | jq -r '.psbt')
+Shannons-MacBook-Pro:~ ShannonA$ bitcoin-cli analyzepsbt $psbt_sig2
+{
+  &quot;inputs&quot;: [
+    {
+      &quot;has_utxo&quot;: true,
+      &quot;is_final&quot;: false,
+      &quot;next&quot;: &quot;signer&quot;,
+      &quot;missing&quot;: {
+        &quot;signatures&quot;: [
+          &quot;38101947394ce3e088b6ba84c19783731b603363&quot;
+        ]
+      }
+    }
+  ],
+  &quot;estimated_vsize&quot;: 168,
+  &quot;estimated_feerate&quot;: 0.00000238,
+  &quot;fee&quot;: 0.00000040,
+  &quot;next&quot;: &quot;signer&quot;
+}
+</code></pre>
+<h3 id="combine-the-psbt">Combine the PSBT</h3>
+<p>Someone now takes receipt of both PSBTs and uses the <code>combinepsbt</code> RPC to bring them together:</p>
+<pre><code>finalizer$ psbt_complete=$(bitcoin-cli combinepsbt '''[&quot;'$psbt_sig1'&quot;, &quot;'$psbt_sig2'&quot;]''')
+</code></pre>
+<p>It looks good!</p>
+<pre><code>$ bitcoin-cli analyzepsbt $psbt_complete
+{
+  &quot;inputs&quot;: [
+    {
+      &quot;has_utxo&quot;: true,
+      &quot;is_final&quot;: false,
+      &quot;next&quot;: &quot;finalizer&quot;
+    }
+  ],
+  &quot;estimated_vsize&quot;: 168,
+  &quot;estimated_feerate&quot;: 0.00000238,
+  &quot;fee&quot;: 0.00000040,
+  &quot;next&quot;: &quot;finalizer&quot;
+}
+</code></pre>
+<p>It's again a good idea to use the <code>decodepsbt</code> command before you finalize things. Here's what that looks like now:</p>
+<pre><code>$ bitcoin-cli decodepsbt $psbt_complete
+{
+  &quot;tx&quot;: {
+    &quot;txid&quot;: &quot;32199698903c02a90510e77b04948edad7c41dec926e2af057e7782a57d5841b&quot;,
+    &quot;hash&quot;: &quot;32199698903c02a90510e77b04948edad7c41dec926e2af057e7782a57d5841b&quot;,
+    &quot;version&quot;: 2,
+    &quot;size&quot;: 113,
+    &quot;vsize&quot;: 113,
+    &quot;weight&quot;: 452,
+    &quot;locktime&quot;: 0,
+    &quot;vin&quot;: [
+      {
+        &quot;txid&quot;: &quot;eb41b6d829e83d32ae8e3bd80ece0330db959a90a2c2a3d7f9bf7a177836133e&quot;,
+        &quot;vout&quot;: 1,
+        &quot;scriptSig&quot;: {
+          &quot;asm&quot;: &quot;&quot;,
+          &quot;hex&quot;: &quot;&quot;
+        },
+        &quot;sequence&quot;: 4294967293
+      }
+    ],
+    &quot;vout&quot;: [
+      {
+        &quot;value&quot;: 0.00099980,
+        &quot;n&quot;: 0,
+        &quot;scriptPubKey&quot;: {
+          &quot;asm&quot;: &quot;0 0f1afdb59124e87b84ab026b6adc44660758a879&quot;,
+          &quot;desc&quot;: &quot;addr(tb1qpud0mdv3yn58hp9tqf4k4hzyvcr432re5gdhc6)#ttwtnak8&quot;,
+          &quot;hex&quot;: &quot;00140f1afdb59124e87b84ab026b6adc44660758a879&quot;,
+          &quot;address&quot;: &quot;tb1qpud0mdv3yn58hp9tqf4k4hzyvcr432re5gdhc6&quot;,
+          &quot;type&quot;: &quot;witness_v0_keyhash&quot;
+        }
+      },
+      {
+        &quot;value&quot;: 0.00099980,
+        &quot;n&quot;: 1,
+        &quot;scriptPubKey&quot;: {
+          &quot;asm&quot;: &quot;0 a714f8f7ba127d2448d638c3e9d04789932765cd&quot;,
+          &quot;desc&quot;: &quot;addr(tb1q5u203aa6zf7jgjxk8rp7n5z83xfjwewd7u0a20)#knxneukg&quot;,
+          &quot;hex&quot;: &quot;0014a714f8f7ba127d2448d638c3e9d04789932765cd&quot;,
+          &quot;address&quot;: &quot;tb1q5u203aa6zf7jgjxk8rp7n5z83xfjwewd7u0a20&quot;,
+          &quot;type&quot;: &quot;witness_v0_keyhash&quot;
+        }
+      }
+    ]
+  },
+  &quot;global_xpubs&quot;: [
+  ],
+  &quot;psbt_version&quot;: 0,
+  &quot;proprietary&quot;: [
+  ],
+  &quot;unknown&quot;: {
+  },
+  &quot;inputs&quot;: [
+    {
+      &quot;witness_utxo&quot;: {
+        &quot;amount&quot;: 0.00200000,
+        &quot;scriptPubKey&quot;: {
+          &quot;asm&quot;: &quot;0 3e11a03af7650e20bdf4768130a4c746b4fd75d696d3420bf6e7d0f860a1b98f&quot;,
+          &quot;desc&quot;: &quot;addr(tb1q8cg6qwhhv58zp005w6qnpfx8g6606awkjmf5yzlkulg0sc9phx8sqkltdd)#vjkdfwda&quot;,
+          &quot;hex&quot;: &quot;00203e11a03af7650e20bdf4768130a4c746b4fd75d696d3420bf6e7d0f860a1b98f&quot;,
+          &quot;address&quot;: &quot;tb1q8cg6qwhhv58zp005w6qnpfx8g6606awkjmf5yzlkulg0sc9phx8sqkltdd&quot;,
+          &quot;type&quot;: &quot;witness_v0_scripthash&quot;
+        }
+      },
+      &quot;non_witness_utxo&quot;: {
+        &quot;txid&quot;: &quot;eb41b6d829e83d32ae8e3bd80ece0330db959a90a2c2a3d7f9bf7a177836133e&quot;,
+        &quot;hash&quot;: &quot;eb41b6d829e83d32ae8e3bd80ece0330db959a90a2c2a3d7f9bf7a177836133e&quot;,
+        &quot;version&quot;: 2,
+        &quot;size&quot;: 137,
+        &quot;vsize&quot;: 137,
+        &quot;weight&quot;: 548,
+        &quot;locktime&quot;: 0,
+        &quot;vin&quot;: [
+          {
+            &quot;txid&quot;: &quot;d2fe7d0c85dd95846b0bd26b0f8a4ba2c4e64c13f9180d219b2f082f49596a6b&quot;,
+            &quot;vout&quot;: 365,
+            &quot;scriptSig&quot;: {
+              &quot;asm&quot;: &quot;&quot;,
+              &quot;hex&quot;: &quot;&quot;
+            },
+            &quot;sequence&quot;: 4294967293
+          }
+        ],
+        &quot;vout&quot;: [
+          {
+            &quot;value&quot;: 0.00300759,
+            &quot;n&quot;: 0,
+            &quot;scriptPubKey&quot;: {
+              &quot;asm&quot;: &quot;1 df93e276cd634e47eb82bcd31bc2e93e5ce43f38bbea90a3755511c1f9d22c88&quot;,
+              &quot;desc&quot;: &quot;rawtr(df93e276cd634e47eb82bcd31bc2e93e5ce43f38bbea90a3755511c1f9d22c88)#gamut0k2&quot;,
+              &quot;hex&quot;: &quot;5120df93e276cd634e47eb82bcd31bc2e93e5ce43f38bbea90a3755511c1f9d22c88&quot;,
+              &quot;address&quot;: &quot;tb1pm7f7yakdvd8y06uzhnf3hshf8ewwg0ech04fpgm425gur7wj9jyqh82xcx&quot;,
+              &quot;type&quot;: &quot;witness_v1_taproot&quot;
+            }
+          },
+          {
+            &quot;value&quot;: 0.00200000,
+            &quot;n&quot;: 1,
+            &quot;scriptPubKey&quot;: {
+              &quot;asm&quot;: &quot;0 3e11a03af7650e20bdf4768130a4c746b4fd75d696d3420bf6e7d0f860a1b98f&quot;,
+              &quot;desc&quot;: &quot;addr(tb1q8cg6qwhhv58zp005w6qnpfx8g6606awkjmf5yzlkulg0sc9phx8sqkltdd)#vjkdfwda&quot;,
+              &quot;hex&quot;: &quot;00203e11a03af7650e20bdf4768130a4c746b4fd75d696d3420bf6e7d0f860a1b98f&quot;,
+              &quot;address&quot;: &quot;tb1q8cg6qwhhv58zp005w6qnpfx8g6606awkjmf5yzlkulg0sc9phx8sqkltdd&quot;,
+              &quot;type&quot;: &quot;witness_v0_scripthash&quot;
+            }
+          }
+        ]
+      },
+      &quot;partial_signatures&quot;: {
+        &quot;03c57ed70775d7a616778514e738fef0946b4be4ee32440b19f65ddd6e345983c0&quot;: &quot;304402205817b258f77032a4c3f516e8cbff2a2d52da790666c95d065fb6e287d90f83be02205aea18a1120ce911008b2f678523ac969abb7237a0ae725c002a2b44ae6e90d901&quot;,
+        &quot;039395fa19d6512f03043210cd3e9a03a850f7a8d986c8f35d30f2efc281a8d331&quot;: &quot;304402206ccab96aa1b137fd7a59459b374755ae80494e6a9804810c53e6cda10e69946602202ce285f7f2625f8f184d7d8e548f5cb8c1e26c2b1a3e9ed8be5e2b24f06c08d001&quot;
+      },
+      &quot;witness_script&quot;: {
+        &quot;asm&quot;: &quot;2 039395fa19d6512f03043210cd3e9a03a850f7a8d986c8f35d30f2efc281a8d331 03c57ed70775d7a616778514e738fef0946b4be4ee32440b19f65ddd6e345983c0 2 OP_CHECKMULTISIG&quot;,
+        &quot;hex&quot;: &quot;5221039395fa19d6512f03043210cd3e9a03a850f7a8d986c8f35d30f2efc281a8d3312103c57ed70775d7a616778514e738fef0946b4be4ee32440b19f65ddd6e345983c052ae&quot;,
+        &quot;type&quot;: &quot;multisig&quot;
+      },
+      &quot;bip32_derivs&quot;: [
+        {
+          &quot;pubkey&quot;: &quot;039395fa19d6512f03043210cd3e9a03a850f7a8d986c8f35d30f2efc281a8d331&quot;,
+          &quot;master_fingerprint&quot;: &quot;38101947&quot;,
+          &quot;path&quot;: &quot;m&quot;
+        },
+        {
+          &quot;pubkey&quot;: &quot;03c57ed70775d7a616778514e738fef0946b4be4ee32440b19f65ddd6e345983c0&quot;,
+          &quot;master_fingerprint&quot;: &quot;0394feb3&quot;,
+          &quot;path&quot;: &quot;m&quot;
+        }
+      ]
+    }
+  ],
+  &quot;outputs&quot;: [
+    {
+      &quot;bip32_derivs&quot;: [
+        {
+          &quot;pubkey&quot;: &quot;03563abd9a7dd354eb08e7cb180d4297922b09139dfe1d2563bc59d6eb98335ef0&quot;,
+          &quot;master_fingerprint&quot;: &quot;d2743951&quot;,
+          &quot;path&quot;: &quot;m/84h/1h/0h/0/10&quot;
+        }
+      ]
+    },
+    {
+      &quot;bip32_derivs&quot;: [
+        {
+          &quot;pubkey&quot;: &quot;034f2dc681dfbd0f0004dc87aa0d66531890cd8c077469342cb12d1ad055aa2b54&quot;,
+          &quot;master_fingerprint&quot;: &quot;e18dae20&quot;,
+          &quot;path&quot;: &quot;m/84h/1h/0h/0/8&quot;
+        }
+      ]
+    }
+  ],
+  &quot;fee&quot;: 0.00000040
+}
+</code></pre>
+<p>Obviously, there's a lot of data here. We can still see our UTXO in the <code>vin</code>, the payouts in the <code>vout</code>, and lots more. The big change from last time is the addition of the two <code>partial_signatures</code>.</p>
+<h3 id="finalize-the-psbt">Finalize the PSBT</h3>
+<p>The PSBT is just a transitory format, used for collaboratively creating and signing everything. Once the PSBT is signed and complete, you need to translate it to a normal raw transaction, which is done with <code>finalizepsbt</code>.</p>
+<pre><code>extractor$ psbt_hex=$(bitcoin-cli finalizepsbt $psbt_complete | jq -r '.hex')
+</code></pre>
+<p>You can then transmit it, as usual:</p>
+<pre><code>extractor$ bitcoin-cli -named sendrawtransaction hexstring=$psbt_hex
+32199698903c02a90510e77b04948edad7c41dec926e2af057e7782a57d5841b
+</code></pre>
+<h2 id="summary-spending-a-multisig-with-a-psbt">Summary: Spending a Multisig with a PSBT</h2>
+<p>The PSBT, a collaborative method for creating transactions, allowed you to spend a multisig. Here's the basic process we used:</p>
+<ol>
+<li>Create a bare PSBT that says what to spend and who to send it to. (A PSBT can be even barer than this, but more on that later!)</li>
+<li>Use a wallet that knows about the UTXOs to fill in that data.</li>
+<li>Have each required signer sign.</li>
+<li>Combine and finalize the PSBT.</li>
+<li>Send the transaction.</li>
+</ol>
+<blockquote>
+<p>:fire: <strong><em>What's the power of a PSBT?</em></strong> A PSBT allows for the creation of trustless transactions between multiple parties and multiple machines. If more than one party would need to fund a transaction, if more than one party would need to sign a transaction, or if a transaction needs to be created on one machine and signed on another, then a PSBT makes it simple without depending on the non-standardized partial signing mechanisms that used to exist before PSBT.</p>
+</blockquote>
+<h2 id="whats-next">What's Next?</h2>
+<p>Continue "Expanding Bitcoin Transactions with PSBTs" with <a href="../08_2_Understanding_the_PSBT/">§8.2: Undestanding the PSBT</a>.</p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "..", "features": [], "search": "../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.d7400e89.min.js"></script>
+      
+    
+  </body>
+</html>

@@ -1,0 +1,3864 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+        <link rel="canonical" href="https://learningbitcoin.blockchaincommons.com/08_4_Creating_Animated_QR_Codes/">
+      
+      
+        <link rel="prev" href="../08_3_Using_a_Partially_Signed_Bitcoin_Transaction/">
+      
+      
+        <link rel="next" href="../09_0_Expanding_Bitcoin_Transactions_Other/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.7">
+    
+    
+      
+        <title>8.4: Creating Animated QR Codes - Learning Bitcoin from the Command Line</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.ec1eaa64.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    <body dir="ltr">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#84-creating-animated-qr-codes" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href=".." title="Learning Bitcoin from the Command Line" class="md-header__button md-logo" aria-label="Learning Bitcoin from the Command Line" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M14.24 10.56c-.31 1.24-2.24.61-2.84.44l.55-2.18c.62.18 2.61.44 2.29 1.74m-3.11 1.56-.6 2.41c.74.19 3.03.92 3.37-.44.36-1.42-2.03-1.79-2.77-1.97m10.57 2.3c-1.34 5.36-6.76 8.62-12.12 7.28S.963 14.94 2.3 9.58A9.996 9.996 0 0 1 14.42 2.3c5.35 1.34 8.61 6.76 7.28 12.12m-7.49-6.37.45-1.8-1.1-.25-.44 1.73c-.29-.07-.58-.14-.88-.2l.44-1.77-1.09-.26-.45 1.79c-.24-.06-.48-.11-.7-.17l-1.51-.38-.3 1.17s.82.19.8.2c.45.11.53.39.51.64l-1.23 4.93c-.05.14-.21.32-.5.27.01.01-.8-.2-.8-.2L6.87 15l1.42.36c.27.07.53.14.79.2l-.46 1.82 1.1.28.45-1.81c.3.08.59.15.87.23l-.45 1.79 1.1.28.46-1.82c1.85.35 3.27.21 3.85-1.48.5-1.35 0-2.15-1-2.66.72-.19 1.26-.64 1.41-1.62.2-1.33-.82-2.04-2.2-2.52"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Learning Bitcoin from the Command Line
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              8.4: Creating Animated QR Codes
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/BlockchainCommons/Learning-Bitcoin-from-the-Command-Line/tree/lbtcftcl-v3.0" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href=".." title="Learning Bitcoin from the Command Line" class="md-nav__button md-logo" aria-label="Learning Bitcoin from the Command Line" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M14.24 10.56c-.31 1.24-2.24.61-2.84.44l.55-2.18c.62.18 2.61.44 2.29 1.74m-3.11 1.56-.6 2.41c.74.19 3.03.92 3.37-.44.36-1.42-2.03-1.79-2.77-1.97m10.57 2.3c-1.34 5.36-6.76 8.62-12.12 7.28S.963 14.94 2.3 9.58A9.996 9.996 0 0 1 14.42 2.3c5.35 1.34 8.61 6.76 7.28 12.12m-7.49-6.37.45-1.8-1.1-.25-.44 1.73c-.29-.07-.58-.14-.88-.2l.44-1.77-1.09-.26-.45 1.79c-.24-.06-.48-.11-.7-.17l-1.51-.38-.3 1.17s.82.19.8.2c.45.11.53.39.51.64l-1.23 4.93c-.05.14-.21.32-.5.27.01.01-.8-.2-.8-.2L6.87 15l1.42.36c.27.07.53.14.79.2l-.46 1.82 1.1.28.45-1.81c.3.08.59.15.87.23l-.45 1.79 1.1.28.46-1.82c1.85.35 3.27.21 3.85-1.48.5-1.35 0-2.15-1-2.66.72-.19 1.26-.64 1.41-1.62.2-1.33-.82-2.04-2.2-2.52"/></svg>
+
+    </a>
+    Learning Bitcoin from the Command Line
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/BlockchainCommons/Learning-Bitcoin-from-the-Command-Line/tree/lbtcftcl-v3.0" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href=".." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Learning Bitcoin from the Command Line 3.0
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../01_0_Introduction/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter One: Introduction to Learning Bitcoin Core from the Command Line
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../01_1_Introducing_Bitcoin/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Interlude: Introducing Bitcoin
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../02_0_Setting_Up_a_Bitcoin-Core_VPS/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter Two: Creating a Bitcoin-Core VPS
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../02_1_Setting_Up_a_Bitcoin-Core_VPS_with_StackScript/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    2.1: Setting Up a Bitcoin-Core VPS with Bitcoin Standup
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../02_2_Setting_Up_Bitcoin_Core_Other/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    2.2: Setting Up a Bitcoin-Core Machine via Other Means
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../03_0_Preparing_Your_Bitcoin_Wallet/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter Three: Preparing Your Bitcoin Wallet
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../03_1_Verifying_Your_Bitcoin_Setup/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    3.1: Verifying Your Bitcoin Setup
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../03_2_Knowing_Your_Bitcoin_Setup/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    3.2: Knowing Your Bitcoin Setup
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../03_3_Setting_Up_Your_Wallet/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    3.3: Setting Up Your Wallet
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../03_4_Understanding_the_Descriptor_Wallet/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    3.4: Understanding the Descriptor Wallet
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../04_0_Preparing_Your_Bitcoin_Addresses/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter Four: Preparing Your Bitcoin Addresses
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../04_1_Understanding_the_Address/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    4.1: Understanding the Address
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../04_2_Integrating_Addresses_Descriptors/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    4.2: Integrating Addresses and Descriptors
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../04_3_Creating_QR_Codes_for_Addresses/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    4.3: Creating QR Codes for Addresses
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../04_4_Receiving_a_Transaction/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    4.4: Receiving a Transaction
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../04_4a_Interlude_Using_Command-Line_Variables/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Interlude: Using Command-Line Variables
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../05_0_Sending_Bitcoin_Transactions/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter Five: Sending Bitcoin Transactions
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../05_1_Sending_Coins_The_Easy_Way/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    5.1: Sending Coins the Easy Way
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../05_2_Creating_a_Raw_Transaction/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    5.2 Creating a Raw Transaction
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../05_2a_Interlude_Using_JQ/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Interlude: Using JQ
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../05_3_Creating_a_Raw_Transaction_with_Named_Arguments/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    5.3 Creating a Raw Transaction with Named Arguments
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../05_4_Sending_Coins_with_a_Raw_Transaction/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    5.4: Sending Coins with Raw Transactions
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../05_4a_Interlude_Using_Curl/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Interlude: Using Curl
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../05_5_Sending_Coins_with_Automated_Raw_Transactions/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    5.5: Sending Coins with Automated Raw Transactions
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../05_6_Sending_Coins_to_Other_Addresses/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    5.6: Sending Coins to Other Addresses
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../06_0_Controlling_Bitcoin_Transactions/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter Six: Controlling Bitcoin Transactions
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../06_1_Watching_for_Stuck_Transactions/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    6.1: Watching for Stuck Transactions
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../06_2_Resending_a_Transaction_with_RBF/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    6.2: Resending a Transaction with RBF
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../06_3_Funding_a_Transaction_with_CPFP/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    6.3: Funding a Transaction with CPFP
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../07_0_Expanding_Bitcoin_Transactions_Multisigs/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter Seven: Expanding Bitcoin Transactions with Multisigs
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../07_1_Creating_Multisig_Public_Keys/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    7.1: Creating a Multisig from Public Keys
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../07_2_Creating_Multisig_Descriptors/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    7.2: Creating a Multisig from Descriptors
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../07_3_Spending_a_Transaction_to_a_Multisig/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    7.3: Spending a Transaction with a Multisig
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../08_0_Expanding_Bitcoin_Transactions_PSBTs/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter Eight: Expanding Bitcoin Transactions with PSBTs
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../08_1_Spending_a_Multisig_with_a_PSBT/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    8.1: Spending a Multisig with a PSBT
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../08_2_Understanding_the_PSBT/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    8.2: Understanding the PSBT Process
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../08_3_Using_a_Partially_Signed_Bitcoin_Transaction/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    8.3: Using a Partially Signed Bitcoin Transaction
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    8.4: Creating Animated QR Codes
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    8.4: Creating Animated QR Codes
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#the-power-of-uniform-resources" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The Power of Uniform Resources
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#create-an-animated-qr" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Create an Animated QR
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Create an Animated QR">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#create-an-animated-psbt" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Create an Animated PSBT
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#sign-with-an-animated-qr" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Sign with an Animated QR
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#summary-creating-animated-qr-codes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Summary: Creating Animated QR Codes
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#whats-next" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        What's Next?
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../09_0_Expanding_Bitcoin_Transactions_Other/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter Nine: Expanding Bitcoin Transactions in Other Ways
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../09_1_Sending_a_Transaction_with_a_Locktime/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    9.1: Sending a Transaction with a Locktime
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../09_2_Sending_a_Transaction_with_Data/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    9.2: Sending a Transaction with Data
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../10_0_Working_with_Secrets/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter Ten: Working with Secrets
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../10_1_Creating_Secrets_from_the_Command_Line/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    10.1: Creating Secrets from the Command Line
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../10_2_Converting_Secrets_with_Keytool/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    10.2: Converting Secrets with Keytool
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../10_3_Importing_Secrets_to_Bitcoin_Core/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    10.3: Importing Secrets to Bitcoin Core
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../10_4_Exporting_Secrets_from_Bitcoin_Core/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    10.4: Exporting Secrets from Bitcoin Core
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../10_5_Storing_Secrets_with_Envelope/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    10.5: Storing Secrets with Envelope
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../11_0_Introducing_Bitcoin_Scripts/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 11: Introducing Bitcoin Scripts
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../11_1_Understanding_the_Foundation_of_Transactions/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    11.1: Understanding the Foundation of Transactions
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../11_2_Running_a_Bitcoin_Script/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    11.2: Running a Bitcoin Script
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../11_3_Testing_a_Bitcoin_Script/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    11.3: Testing a Bitcoin Script
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../11_4_Scripting_a_P2PKH/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    11.4: Scripting a P2PKH
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../11_5_Scripting_a_P2WPKH/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    11.5: Scripting a P2WPKH
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../12_0_Embedding_Bitcoin_Scripts_in_P2WSH_Transactions/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 12: Embedding Bitcoin Scripts in P2SH &amp; P2WSH Transactions
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../12_1_Understanding_the_Foundation_of_P2WSH/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    12.1: Understanding the Foundation of P2SH &amp; P2WSH
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../12_2_Building_the_Structure_of_P2WSH/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    12.2: Building the Structure of P2SH &amp; P2WSH
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../12_3_Running_a_Bitcoin_Script_with_P2WSH/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    12.3: Running a Bitcoin Script with P2SH or P2WSH
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../12_4_Scripting_a_Multisig/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    12.4: Scripting a Multisig
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../12_5_Spending_a_P2WSH_Transaction/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    12.5: Spending a P2SH or P2WSH Transaction
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../13_0_Empowering_Timelock_with_Bitcoin_Scripts/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 13: Empowering Timelock with Bitcoin Scripts
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../13_1_Understanding_Timelock_Options/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    13.1: Understanding Timelock Options
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../13_2_Using_CLTV_in_Scripts/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    13.2: Using CLTV in Scripts
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../13_3_Using_CSV_in_Scripts/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    13.3: Using CSV in Scripts
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../14_0_Expanding_Bitcoin_Scripts/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 14: Expanding Bitcoin Scripts
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../14_1_Using_Script_Conditionals/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    14.1: Using Script Conditionals
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../14_2_Using_Other_Script_Commands/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    14.2: Using Other Script Commands
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../15_0_Designing_Real_Bitcoin_Scripts/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 15: Designing Real Bitcoin Scripts
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../15_1_Writing_Puzzle_Scripts/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    15 1 Writing Puzzle Scripts
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../15_2_Writing_Complex_Multisig_Scripts/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    15.2: Writing Complex Multisig Scripts
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../15_3_Empowering_Bitcoin_with_Scripts/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    15 3 Empowering Bitcoin with Scripts
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../16_0_Using_Miniscript/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 16: Using Miniscript
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../16_1_Understanding_Miniscript/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    16.1: Understanding Miniscript &amp; Policy
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../16_2_Converting_Miniscript/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    16.2: Converting Policy &amp; Miniscript
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../16_3_Using_Miniscript_with_Descriptors/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    16.3: Using Miniscript with Descriptors
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../16_4_Using_BDK/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    16.4: Using BDK with Miniscript
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../17_0_Introducing_Taproot/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 17: Introducing Taproot
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../17_1_Breaking_Down_Taproot/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    17.1: Breaking Down Taproot
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../17_2_Updating_to_Taproot/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    17.2: Updating to Taproot
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../18_0_Using_Schnorr/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 18: Using Schnorr
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../18_1_Understanding_Schorr/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    18.1: Understanding Schnorr Signatures
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../18_3_Using_Bitcoin_With_FROST/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    18.3: Using Bitcoin with FROST
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../20_0_Using_Tor/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 14: Using Tor
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../20_1_Verifying_Your_Tor_Setup/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    14.1: Verifying Your Tor Setup
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../20_2_Changing_Your_Bitcoin_Hidden_Services/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 14.2: Changing Your Bitcoin Hidden Services
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../20_3_Adding_SSH_Hiddben_Services/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 14.3: Adding SSH Hidden Services
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../21_0_Using_i2p/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 15: Using I2P
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../21_1_i2p_service/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    15.1: Bitcoin Core as an I2P (Invisible Internet Project) service
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../A1_0_Understanding_Bitcoin_Standup/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Appendix I: Understanding Bitcoin Standup
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../A2_0_Compiling_Bitcoin_from_Source/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Appendix II: Compiling Bitcoin from Source
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../A3_0_Using_Bitcoin_Regtest/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Appendix III: Using Bitcoin Regtest
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../P1_0_Talking_to_Bitcoind/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 16: Talking to Bitcoind with C
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../P1_1_Accessing_Bitcoind_with_C/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    16.1: Accessing Bitcoind in C with RPC Libraries
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../P1_2_Programming_Bitcoind_with_C/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    16.2: Programming Bitcoind in C with RPC Libraries
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../P1_3_Receiving_Bitcoind_Notifications_with_C/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    16.3 Receiving Notifications in C with ZMQ Libraries
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../P2_0_Programming_with_Libwally/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 17: Programming with Libwally
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../P2_1_Setting_Up_Libwally/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    17.1: Setting Up Libwally
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../P2_2_Using_BIP39_in_Libwally/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    17.2: Using BIP39 in Libwally
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../P2_3_Using_BIP32_in_Libwally/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    17.3: Using BIP32 in Libwally
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../P2_4_Using_PSBTs_in_Libwally/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    17.4: Using PSBTs in Libwally
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../P2_5_Using_Scripts_in_Libwally/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    17.5: Using Scripts in Libwally
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../P2_6_Using_Other_Functions_in_Libwally/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    17.6: Using Other Functions in Libwally
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../P2_7_Integrating_Libwally_and_Bitcoin-CLI/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    17.7: Integrating Libwally and Bitcoin-CLI
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../P3_0_Talking_to_Bitcoind_Other/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 18: Talking to Bitcoind with Other Languages
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../P3_1_Accessing_Bitcoind_with_Go/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    18.1: Accessing Bitcoind with Go
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../P3_2_Accessing_Bitcoind_with_Java/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    18.2: Accessing Bitcoind with Java
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../P3_3_Accessing_Bitcoind_with_NodeJS/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    18.3: Accessing Bitcoind with NodeJS
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../P3_4_Accessing_Bitcoind_with_Python/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    18.4: Accessing Bitcoind with Python
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../P3_5_Accessing_Bitcoind_with_Rust/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    18.5: Accessing Bitcoind with Rust
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../P3_6_Accessing_Bitcoind_with_Swift/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    18.6: Accessing Bitcoind with Swift
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../T1_0_Expanding_Bitcoin_Transactions_with_Schnorr/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    T1 0 Expanding Bitcoin Transactions with Schnorr
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../XX_X_Integrating_with_Hardware_Wallets/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    7.3: Integrating with Hardware Wallets
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_113" >
+        
+          
+          <label class="md-nav__link" for="__nav_113" id="__nav_113_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Images
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_113_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_113">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Images
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_113_1" >
+        
+          
+          <label class="md-nav__link" for="__nav_113_1" id="__nav_113_1_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Logos
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_113_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_113_1">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Logos
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../images/logos/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Index
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#the-power-of-uniform-resources" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The Power of Uniform Resources
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#create-an-animated-qr" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Create an Animated QR
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Create an Animated QR">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#create-an-animated-psbt" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Create an Animated PSBT
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#sign-with-an-animated-qr" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Sign with an Animated QR
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#summary-creating-animated-qr-codes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Summary: Creating Animated QR Codes
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#whats-next" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        What's Next?
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  
+  
+
+
+<h1 id="84-creating-animated-qr-codes">8.4: Creating Animated QR Codes</h1>
+<p>As discussed in <a href="../04_3_Creating_QR_Codes_for_Addresses/">§4.3: Creating QR Codes for
+Addresses</a>, QR codes are a
+great method for transmitting data across airgaps. They're also great
+for ensuring that there are no mistakes in your
+transmission. Unfortunately, QR codes are limited to 2953 bytes of
+binary data. That's sufficient for an address or a seed, but it's not
+big enough for most PSBTs.</p>
+<p>Animated QRs, which use multiple frames to depict data, are the
+answer.</p>
+<h2 id="the-power-of-uniform-resources">The Power of Uniform Resources</h2>
+<p>Blockchain Commons solved the problem of animated QRs with <a href="https://developer.blockchaincommons.com/ur/">Uniform
+Resources, or URs</a>, which
+are a methodology for encoding data as plain-text strings that are
+also well-formed URIs.</p>
+<p>The specifics of encoding URs are overviewed on <a href="https://developer.blockchaincommons.com/ur/#how-do-urs-work">Blockchain Commons'
+UR page</a>
+and fully specified in
+<a href="https://github.com/BlockchainCommons/Research/blob/master/papers/bcr-2020-005-ur.md">BCR-2020-005</a>. In
+short, you:</p>
+<ol>
+<li>Encode your data as CBOR.</li>
+<li>Convert the CBOR to minimal-format <a href="https://developer.blockchaincommons.com/bytewords/">Bytewords</a>.</li>
+<li>Prefix the Bytewords with <code>ur:type/</code>.</li>
+</ol>
+<p>There are
+<a href="https://developer.blockchaincommons.com/ur/#libraries">libraries</a>
+that take care of all of this for you, as well a <a href="https://github.com/BlockchainCommons/bytewords-cli">command-line
+program</a> that can
+be used to generate minimal Bytewords format from CBOR.</p>
+<p>The magic sauce in URs is the ability to sequence, creating
+<a href="https://github.com/BlockchainCommons/Research/blob/master/papers/bcr-2024-001-multipart-ur.md">multi-part
+URs</a>.</p>
+<p>This is what allows the creation of Animated QRs: data is converted to
+UR format and sequenced, then each individuals fragment is used as the
+foundation of a single frame of the Animated QR.</p>
+<h2 id="create-an-animated-qr">Create an Animated QR</h2>
+<p>Blockchain Commons doesn't currently have a command-line tool for creating Animated QRs.</p>
+<p>Our <a href="https://github.com/BlockchainCommons/URDemo">URKit</a> does demo the
+conversion of messages to animated QRs as a full MacOS app. Similarly,
+<a href="https://apps.apple.com/us/app/gordian-seed-tool/id1545088229">Gordian Seed
+Tool</a>
+will display animated QRs for some elements.</p>
+<p>However, the easiest method to testbed the creation of animated QRs currently is the <a href="https://irfan798.github.io/bcur.me/#multi-ur">BC-UR playground</a>.</p>
+<h3 id="create-an-animated-psbt">Create an Animated PSBT</h3>
+<p>Converting from a PSBT to an Animated QR of that PSBT is a five-step
+process.</p>
+<p>We're going to use the following PSBT as an example, which is the one
+from <a href="../08_1_Spending_a_Multisig_with_a_PSBT/#sign-the-psbt">§8.1</a>.</p>
+<pre><code>psbt=&quot;cHNidP8BAHECAAAAAT4TNngXer/516PCopCaldswA84O2DuOrjI96CnYtkHrAQAAAAD9////AoyGAQAAAAAAFgAUDxr9tZEk6HuEqwJratxEZgdYqHmMhgEAAAAAABYAFKcU+Pe6En0kSNY4w+nQR4mTJ2XNAAAAAAABAIkCAAAAAWtqWUkvCC+bIQ0Y+RNM5sSiS4oPa9ILa4SV3YUMff7SbQEAAAD9////AteWBAAAAAAAIlEg35Pids1jTkfrgrzTG8LpPlzkPzi76pCjdVURwfnSLIhADQMAAAAAACIAID4RoDr3ZQ4gvfR2gTCkx0a0/XXWltNCC/bn0PhgobmPAAAAAAEBK0ANAwAAAAAAIgAgPhGgOvdlDiC99HaBMKTHRrT9ddaW00IL9ufQ+GChuY8BBUdSIQOTlfoZ1lEvAwQyEM0+mgOoUPeo2YbI810w8u/CgajTMSEDxX7XB3XXphZ3hRTnOP7wlGtL5O4yRAsZ9l3dbjRZg8BSriIGA5OV+hnWUS8DBDIQzT6aA6hQ96jZhsjzXTDy78KBqNMxBDgQGUciBgPFftcHddemFneFFOc4/vCUa0vk7jJECxn2Xd1uNFmDwAQDlP6zAAAA&quot;
+</code></pre>
+<p><strong>Creation Step 1:</strong> Convert the PSBT from Base64 (that's the standard PSBT format that always starts with <code>cH</code> and ends with <code>AAAA</code>) to hex.</p>
+<p>This can be done from the command as long as you have access to the
+(standard) <code>base64</code> and <code>xxd</code> tools:</p>
+<pre><code>$ psbt_hex=$(echo $psbt | base64 -d | xxd -p -c 0)
+$ echo $psbt_hex
+70736274ff01007102000000013e133678177abff9d7a3c2a2909a95db3003ce0ed83b8eae323de829d8b641eb0100000000fdffffff028c860100000000001600140f1afdb59124e87b84ab026b6adc44660758a8798c86010000000000160014a714f8f7ba127d2448d638c3e9d04789932765cd000000000001008902000000016b6a59492f082f9b210d18f9134ce6c4a24b8a0f6bd20b6b8495dd850c7dfed26d01000000fdffffff02d796040000000000225120df93e276cd634e47eb82bcd31bc2e93e5ce43f38bbea90a3755511c1f9d22c88400d0300000000002200203e11a03af7650e20bdf4768130a4c746b4fd75d696d3420bf6e7d0f860a1b98f0000000001012b400d0300000000002200203e11a03af7650e20bdf4768130a4c746b4fd75d696d3420bf6e7d0f860a1b98f0105475221039395fa19d6512f03043210cd3e9a03a850f7a8d986c8f35d30f2efc281a8d3312103c57ed70775d7a616778514e738fef0946b4be4ee32440b19f65ddd6e345983c052ae2206039395fa19d6512f03043210cd3e9a03a850f7a8d986c8f35d30f2efc281a8d3310438101947220603c57ed70775d7a616778514e738fef0946b4be4ee32440b19f65ddd6e345983c0040394feb3000000
+</code></pre>
+<p>If you prefer (or if you don't have these tools on your machine),
+<a href="https://learnmeabitcoin.com/technical/transaction/psbt/">Learn Me a
+Bitcoin</a> has
+a nice tool specifically for converting PSBTs between Base64 and Hex.</p>
+<p><strong>Creation Step 2:</strong> Prepare the PSBT for CBOR encoding.</p>
+<p>The <a href="https://github.com/BlockchainCommons/Research/blob/master/papers/bcr-2020-006-urtypes.md">UR
+registry</a>
+should be referenced next.  It specifies how to convert any data into
+UR encoding using CBOR. The <a href="https://github.com/BlockchainCommons/Research/blob/master/papers/bcr-2020-006-urtypes.md#partially-signed-bitcoin-transaction-psbt-psbt">PSBT
+CDDL</a>
+says that PSBTs are easy to convert: you just represent them as a bare
+hexadecimal.</p>
+<p>In CBOR diagnostic notation that's:</p>
+<pre><code>h'hexcode'
+</code></pre>
+<p>So:</p>
+<pre><code>$ psbt_cbor_notation=&quot;h'$psbt_hex'&quot;
+$ echo $psbt_cbor_notation
+h'70736274ff01007102000000013e133678177abff9d7a3c2a2909a95db3003ce0ed83b8eae323de829d8b641eb0100000000fdffffff028c860100000000001600140f1afdb59124e87b84ab026b6adc44660758a8798c86010000000000160014a714f8f7ba127d2448d638c3e9d04789932765cd000000000001008902000000016b6a59492f082f9b210d18f9134ce6c4a24b8a0f6bd20b6b8495dd850c7dfed26d01000000fdffffff02d796040000000000225120df93e276cd634e47eb82bcd31bc2e93e5ce43f38bbea90a3755511c1f9d22c88400d0300000000002200203e11a03af7650e20bdf4768130a4c746b4fd75d696d3420bf6e7d0f860a1b98f0000000001012b400d0300000000002200203e11a03af7650e20bdf4768130a4c746b4fd75d696d3420bf6e7d0f860a1b98f0105475221039395fa19d6512f03043210cd3e9a03a850f7a8d986c8f35d30f2efc281a8d3312103c57ed70775d7a616778514e738fef0946b4be4ee32440b19f65ddd6e345983c052ae2206039395fa19d6512f03043210cd3e9a03a850f7a8d986c8f35d30f2efc281a8d3310438101947220603c57ed70775d7a616778514e738fef0946b4be4ee32440b19f65ddd6e345983c0040394feb3000000'
+</code></pre>
+<p><strong>Creation Step 3:</strong> Convert the PSBT to CBOR.</p>
+<p>You now need to convert your CBOR diagnostic notation to binary CBOR
+(and you might have skipped right to this, because it's really easy to
+do for a bare hexadecimal number). If you have Ruby installed, you can
+do this with the <a href="https://github.com/cabo/cbor-diag">CBOR diagonistic
+utilities</a>. Here, we also convert
+it back from binary to hex with <code>xxd</code>:</p>
+<pre><code>$ psbt_cbor=$(echo $psbt_cbor_notation | diag2cbor.rb | xxd -p -c0)
+$ echo $psbt_cbor
+5901d170736274ff01007102000000013e133678177abff9d7a3c2a2909a95db3003ce0ed83b8eae323de829d8b641eb0100000000fdffffff028c860100000000001600140f1afdb59124e87b84ab026b6adc44660758a8798c86010000000000160014a714f8f7ba127d2448d638c3e9d04789932765cd000000000001008902000000016b6a59492f082f9b210d18f9134ce6c4a24b8a0f6bd20b6b8495dd850c7dfed26d01000000fdffffff02d796040000000000225120df93e276cd634e47eb82bcd31bc2e93e5ce43f38bbea90a3755511c1f9d22c88400d0300000000002200203e11a03af7650e20bdf4768130a4c746b4fd75d696d3420bf6e7d0f860a1b98f0000000001012b400d0300000000002200203e11a03af7650e20bdf4768130a4c746b4fd75d696d3420bf6e7d0f860a1b98f0105475221039395fa19d6512f03043210cd3e9a03a850f7a8d986c8f35d30f2efc281a8d3312103c57ed70775d7a616778514e738fef0946b4be4ee32440b19f65ddd6e345983c052ae2206039395fa19d6512f03043210cd3e9a03a850f7a8d986c8f35d30f2efc281a8d3310438101947220603c57ed70775d7a616778514e738fef0946b4be4ee32440b19f65ddd6e345983c0040394feb3000000
+</code></pre>
+<p>You might note that all that happened is that a <code>5901d1</code> got prepended
+to the hex, which is the length of the PSBT. (That's how hex is
+depicted in CBOR: with just its size prepended.)</p>
+<p>If you prefer (or didn't want to install Ruby on your machine), you
+can go to <a href="https://cbor.me/">cbor.me</a>, which will convert CBOR
+diagnostic notation (on the left of the web page) to CBOR (right).</p>
+<p><strong>Creation Step 4:</strong> Convert the CBOR PSBT to a UR</p>
+<p>Encoding the CBOR as a UR now requires converting the CBOR to <a href="https://developer.blockchaincommons.com/bytewords/">minimal
+bytewords</a> and
+adding the prefix 'ur:psbt/'</p>
+<p>Blockchain Commons has a <a href="https://github.com/BlockchainCommons/bytewords-cli"><code>bytewords-cli</code></a> that will do the trick:</p>
+<pre><code>$ psbt_bw=$(bytewords -i hex -o minimal $psbt_cbor)
+$ echo $psbt_bw
+hkadttjojkidjyzmadaejsaoaeaeaeadfmbwenkschknrsyttsotsaoemhnymduydyaxtobatpfrmnpleyfsvsdttprpfpwmadaeaeaeaezczmzmzmaolklnadaeaeaeaeaecmaebbbscyzcremedkvskglrpyaojeimuofyiyathdpdkklklnadaeaeaeaeaecmaebbosbbyaylrdbgkidkfdtbetsrwltiflldmudiihsnaeaeaeaeaeadaeldaoaeaeaeadjeimhkgadlaydlndclbtcsytbwgsvassoegrlebsjetdbdjelrmdutlpbnkizetdjnadaeaeaezczmzmzmaotsmtaaaeaeaeaeaecpgycxurmuvokosniaglflwmlfrftecwsawlfmhhvefhetrkwdmhotkpgobyseyttddwlofzbtaxaeaeaeaeaecpaecxfmbynbftylihbacxrywkkolydyoxstfgqzzckptbmttefwbdynvdtiyahnoyrhmyaeaeaeaeadaddnfzbtaxaeaeaeaeaecpaecxfmbynbftylihbacxrywkkolydyoxstfgqzzckptbmttefwbdynvdtiyahnoyrhmyadahflgmclaxmumdzscftbgydlaxaaeybesnfmnyaxpdgdylpdtalnspwfhldywzwssalypdteehclaxskkbtsatkptsolcmktlpbbvdetzewtmwjegrvewyeyfybdcfynhlutjteehklsrtgmplcpamaxmumdzscftbgydlaxaaeybesnfmnyaxpdgdylpdtalnspwfhldywzwssalypdteehaaetbecfflcpamaxskkbtsatkptsolcmktlpbbvdetzewtmwjegrvewyeyfybdcfynhlutjteehklsrtaaaxmwzeqdaeaeaelsdastje
+</code></pre>
+<p>You then just add the UR prefix by hand:</p>
+<pre><code>$ psbt_ur=&quot;ur:psbt/$psbt_bw&quot;
+$ echo $psbt_ur
+ur:psbt/hkadttjojkidjyzmadaejsaoaeaeaeadfmbwenkschknrsyttsotsaoemhnymduydyaxtobatpfrmnpleyfsvsdttprpfpwmadaeaeaeaezczmzmzmaolklnadaeaeaeaeaecmaebbbscyzcremedkvskglrpyaojeimuofyiyathdpdkklklnadaeaeaeaeaecmaebbosbbyaylrdbgkidkfdtbetsrwltiflldmudiihsnaeaeaeaeaeadaeldaoaeaeaeadjeimhkgadlaydlndclbtcsytbwgsvassoegrlebsjetdbdjelrmdutlpbnkizetdjnadaeaeaezczmzmzmaotsmtaaaeaeaeaeaecpgycxurmuvokosniaglflwmlfrftecwsawlfmhhvefhetrkwdmhotkpgobyseyttddwlofzbtaxaeaeaeaeaecpaecxfmbynbftylihbacxrywkkolydyoxstfgqzzckptbmttefwbdynvdtiyahnoyrhmyaeaeaeaeadaddnfzbtaxaeaeaeaeaecpaecxfmbynbftylihbacxrywkkolydyoxstfgqzzckptbmttefwbdynvdtiyahnoyrhmyadahflgmclaxmumdzscftbgydlaxaaeybesnfmnyaxpdgdylpdtalnspwfhldywzwssalypdteehclaxskkbtsatkptsolcmktlpbbvdetzewtmwjegrvewyeyfybdcfynhlutjteehklsrtgmplcpamaxmumdzscftbgydlaxaaeybesnfmnyaxpdgdylpdtalnspwfhldywzwssalypdteehaaetbecfflcpamaxskkbtsatkptsolcmktlpbbvdetzewtmwjegrvewyeyfybdcfynhlutjteehklsrtaaaxmwzeqdaeaeaelsdastje
+</code></pre>
+<p>As usual, there's an online alternative. You go to the <a href="https://irfan798.github.io/bcur.me/#converter">BC-UR
+converter</a> and choose
+"Hex (CBOR)" as the input and "Single UR" as the output, then paste
+your hex into the big input box. You'll also need to flag the output
+as "psbt" as it will start out "unknown".</p>
+<p><strong>Creation Step 5: Create an Animated QR</strong></p>
+<p>The final step of creating the Animated QR from the UR is only available online at the <a href="https://irfan798.github.io/bcur.me/#multi-ur">BC-UR Multi-UR and QR Generator</a>.</p>
+<p>If you used the BC-UR converter to create your UR, just click the "Send to Multi-UR" button.</p>
+<p>If you did everything to this point on the command line, go to the <a href="https://irfan798.github.io/bcur.me/#multi-ur">BC-UR Multi-UR and QR Generator</a> and paste your <code>$psbt_ur</code> into the input box</p>
+<p>Afterward, scroll down and click "Generate Multi-UR and QR". You'll see the UR sequences show up to the top right and the Animated QR to the bottom. </p>
+<p>If you now were to read that Animated QR into a wallet that understands animated QRs, it would hopefully pop up a screen either asking you to sign the PSBT, or telling you that it doesn't have the right key for signing. <a href="https://apps.apple.com/us/app/gordian-seed-tool/id1545088229">Gordian Seed Tool</a> is a reference app that includes signing, but there are many more, as Animated QRs have come into wide use.</p>
+<p><strong>Review the Steps</strong></p>
+<p>It probably seemed like a lot of work to convert into Animated QRs. That's only because we had to string together either several command line applications or several different websites. Programmatically the process is simple:</p>
+<ol>
+<li>Convert the PSBT from base64 to hex.</li>
+<li>Turn the hex into CBOR by adding its size (<code>h'</code>).</li>
+<li>Convert the CBOR into a UR using minimal bytewords.</li>
+<li>Fragment the UR as desired, and use each fragment to generate a GIF frame.</li>
+</ol>
+<h2 id="sign-with-an-animated-qr">Sign with an Animated QR</h2>
+<p>Bitcoin Core doesn't know anything about Animated QRs, which makes
+sense as <code>bitcoin-cli</code> is a command-line program. But they're in wide
+use in the larger Bitcoin ecosystems so that seeds and keys can be
+held on better protected mobile devices, where they sign PSBTs
+transferred through an airgap using Animated QRs.</p>
+<p>The following shows the process, using <a href="https://sparrowwallet.com/">Sparrow Wallet</a> as a coordinator and <a href="(https://apps.apple.com/us/app/gordian-seed-tool/id1545088229)">Gordian Seed Tool</a> as a seed vault.</p>
+<p><strong>Signing Step 1: [Coordinator] Create the PSBT:</strong></p>
+<center>
+  <a href="/images/08_4_psbt-signing-1.jpg">
+    <img src="/images/08_4_psbt-signing-1.jpg">
+  </a>
+</center>
+
+<p><strong>Signing Step 2: [Coordinator] Generate the Animated QR:</strong></p>
+<center>
+  <a href="/images/08_4_psbt-signing-2.jpg">
+    <img src="/images/08_4_psbt-signing-2.jpg">
+  </a>
+</center>
+
+<p>(only one frame is shown here)</p>
+<p><strong>Signing Step 3: [Seed Vault] Read the Animated QR:</strong></p>
+<center>
+  <a href="/images/08_4_psbt-signing-3.jpg">
+    <img src="/images/08_4_psbt-signing-3.jpg" width="33%">
+  </a>
+</center>
+
+<p><strong>Signing Step 4: [Seed Vault] Review the PSBT:</strong></p>
+<center>
+  <a href="/images/08_4_psbt-signing-4.jpg">
+    <img src="/images/08_4_psbt-signing-4.jpg" width="33%">
+  </a>
+</center>
+
+<p><strong>Signing Step 5: [Seed Vault] Approve the PSBT:</strong></p>
+<center>
+  <a href="/images/08_4_psbt-signing-5.jpg">
+    <img src="/images/08_4_psbt-signing-5.jpg" width="33%">
+  </a>
+</center>
+
+<h2 id="summary-creating-animated-qr-codes">Summary: Creating Animated QR Codes</h2>
+<p>As with the QRs of <a href="../04_3_Creating_QR_Codes_for_Addresses/">§4.3</a>,
+you won't make any more use of Animated QRs in this course, because
+the command line fundamentally isn't a graphical environment.</p>
+<p>And as with the QRs of §4.3, the Animated QRs discussed here will have
+wide applicability when you move into the larger Bitcoin world. They
+are a vital tool for bridging airgaps, because QRs can't store large
+PSBTs.</p>
+<blockquote>
+<p>:fire: <strong><em>What's the power of a Animated QRs?</em></strong> Animated QRs allow
+you to transfer larger amounts of information, such as a PSBT, across
+an airgap. This allows you to store seeds and keys used for signing
+Bitcoin transactions on a device not directly connected to the
+internet, making them safer and less prone to compromise. The use of
+Animated QRs to pass PSBTs back and forth ensures that the whole
+process remains easy to use.</p>
+</blockquote>
+<h2 id="whats-next">What's Next?</h2>
+<p>Take the next step in "Expanding Bitcoin Transactions" in <a href="../09_0_Expanding_Bitcoin_Transactions_Other/">Chapter
+Nine: Expanding Bitcoin Transactions in Other
+Ways</a>.</p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "..", "features": [], "search": "../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.d7400e89.min.js"></script>
+      
+    
+  </body>
+</html>
