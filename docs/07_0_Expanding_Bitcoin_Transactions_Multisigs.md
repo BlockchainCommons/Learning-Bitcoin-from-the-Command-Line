@@ -1,6 +1,11 @@
 # Chapter Seven: Expanding Bitcoin Transactions with Multisigs
 
-Basic bitcoin transactions: (1) send funds; (2) to a single recipient; (3) from a single machine; (4) immediately. However, all four parts of this definition can be expanded using more complex Bitcoin transactions. This first chapter of "Expanding Bitcoin Transactions" shows how to vary points (2) and (3) by sending money to an address that represents multiple recipients (or at least, multiple signers).
+Basic bitcoin transactions: (1) send funds; (2) to a single recipient;
+(3) from a single machine; (4) immediately. However, all four parts of
+this definition can be expanded using more complex Bitcoin
+transactions. This first chapter of "Expanding Bitcoin Transactions"
+shows how to vary points (2) and (3) by sending money to an address
+that represents multiple recipients (or at least, multiple signers).
 
 ## Objectives for This Section
 
