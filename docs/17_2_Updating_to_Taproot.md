@@ -1,6 +1,7 @@
 # 17.2: Updating to Taproot
 
-You probably don't need to update to Taproot, but if you do, here's how.
+You probably don't need to update to Taproot, but if you do, here's
+how.
 
 ## Check for Taproot
 
@@ -63,7 +64,8 @@ if (bitcoin-cli listdescriptors | jq -r '.descriptors[].desc' | grep "86h" | gre
 | ✅ Taproot descriptors are present
 ```
 
-If you make a mistake and try to create Taproot descriptors that already exist, no problem:
+If you make a mistake and try to create Taproot descriptors that
+already exist, no problem:
 
 ```sh
 bitcoin-cli createwalletdescriptor bech32m

@@ -1,6 +1,6 @@
 # 17.1: Breaking Down Taproot
 
-Taproot was a Bitcoin upgrade that activated on November 14, 2021 and
+Taproot was a Bitcoin upgrade that activated on November 14, 2021. It
 supports the new "Taproot" SegWit v1 address. However, it's much more
 than that due to its incorporation of multiple Bitcoin Improvement
 Proposals, which together create a complex network of new rules and
@@ -22,10 +22,11 @@ and its successors. Here's a bit more about what that all means.
 
 ### Understand Schnorr Signatures (BIP 340)
 
-The first building block of Taproot is the Schnorr Signature.
+The first building block of Taproot is the Schnorr Signature which is
+defined in BIP 340..
 
 Signatures are, of course, what unlock Bitcoin transactions. P2PKH and
-PW2PKH UTXOs are locked with a public key, which is hashed to form the
+P2WPKH UTXOs are locked with a public key, which is hashed to form the
 receiving address of a transaction. A signature from the linked
 private key then unlocks the transaction and allows it to be
 spent. That signature was traditionally an ECDSA signature.
@@ -36,29 +37,28 @@ secured with the discrete logarithm problem.
 
 Taproot addresses are instead locked and unlocked with Schnorr
 signatures. These signatures have long been seen as an improvement
-over ECDSA and other traditional signature schemes particularly
-because of their aggregatable signatures and their adapter signatures.
-However, they were still under patent in the United States when
-Bitcoin was released, and even afterward it took a while for their use
-to be fully regularized. The Taproot update finally brought them into
-Bitcoin.
+over ECDSA and other traditional signature schemes because of their
+aggregatable signatures and their adapter signatures. However, they
+were still under patent in the United States when Bitcoin was
+released, and even afterward it took a while for their use to be fully
+regularized. The Taproot update finally brought them into Bitcoin.
 
 More on Schnorr Signatures can be found in [§18.1: Understanding
 Schnorr](18_1_Understanding_Schorr.md).]
 
 ### Understanding Taproot (BIP 341)
 
-The Taproot BIP proper defines the Segwit v1 (P2TR) address. It uses
-the aggregatability of Schnorr signatures to allow addresses to be
-unlocked in one of two ways: via a key path (private key signature) or
-via a script path (scripted spending conditions).
+BIP 341, the Taproot BIP proper, defines the Segwit v1 (P2TR)
+address. It uses the aggregatability of Schnorr signatures to allow
+addresses to be unlocked in one of two ways: via a key path (private
+key signature) or via a script path (scripted spending conditions).
 
 Script paths are embedded in a Merkle Tree, or a MAST, a concept that
 was previously described in [BIP
 114](https://github.com/bitcoin/bips/blob/master/bip-0114.mediawiki). A
 MAST contains different scripts within a binary hash tree: each leaf
-commits to a script with a hash. A Taproot address then commits to the
-root of the hash tree as a "tweak" that is added to the Taproot
+uses a hash to commit to a script. A Taproot address then commits to
+the root of the hash tree as a "tweak" that is added to the Taproot
 address thanks to the aggregatability of Schnorr.
 
 > 📖 ***What is a Commitment?** When you hash data, you create a
@@ -81,8 +81,8 @@ The bottom line? Taproot allows an address to be spent using a typical
 private key or one of a number of scripts. 
 
 Any P2TR address (`bc1p` on mainnet or `tb1q` on testnet) is a Taproot
-address that is locked and unlocked with Schnorr signatures. More on Taproot addresses
-can be found in [§18.2: Understanding Taproot
+address that is locked and unlocked with Schnorr signatures. More on
+Taproot addresses can be found in [§18.2: Understanding Taproot
 Addresses](18_2_Creating_Taproot_Addresses.md).
 
 More on MAST can be found in [§19.1: Understanding

@@ -12,10 +12,11 @@ address with a private key) and script paths (e.g., unlocking an
 address per the rules of a Bitcoin Script, or more properly, with
 Tapscript). Essentially, P2TR integrates both P2WPKH and P2WSH.
 
-But the Taproot upgrade actually combines three different BIPs and
-most of its functionality isn't available in Bitcoin Core, which can
-leave it somewhat difficult to grasp. The following chapters attempt
-to make it more graspable.
+However, that's just the simplest level of explanation: the Taproot
+upgrade actually combines three different BIPs and most of its
+functionality isn't available in Bitcoin Core, which can leave it
+somewhat difficult to grasp. The following chapters attempt to make it
+more graspable.
 
 ## Objectives for This Chapter
 
