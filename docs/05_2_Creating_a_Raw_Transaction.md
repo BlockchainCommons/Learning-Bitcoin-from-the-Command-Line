@@ -109,6 +109,14 @@ this tutorial, we accidentally spent the wrong transaction, even
 though it had about 10x as much value. Almost all of that was lost to
 the miners.)
 
+> ⚠️ **WARNING: Raw Transactions are Legacy!** Raw transactions are the
+_old_ way to do things and are considered legacy. We continue to use
+them in this course because they lay out the elements of transactions
+in the most obvious and intuitive way. However, it's possible that
+newer features (from SegWit up) may not be correctly supported by raw
+transactions. If you have problems, you should use
+[PSBTs](08_0_Expanding_Bitcoin_Transactions_PSBTs/) instead.
+
 ### Prepare the Raw Transaction
 
 For best practices, we'll start out each transaction by carefully
