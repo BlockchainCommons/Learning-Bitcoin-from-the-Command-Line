@@ -31,8 +31,8 @@ content as a whole: a user simply reveals the leaf and then each of
 the hashes that it contributes to, up to the root hash.
 
 <center>
-  <a href="19_1_Understanding_MAST.png">
-    <img src="19_1_Understanding_MAST.png">
+  <a href="images/19_1_Understanding_MAST.png">
+    <img src="images/19_1_Understanding_MAST.png">
   </a>
 </center>
 
