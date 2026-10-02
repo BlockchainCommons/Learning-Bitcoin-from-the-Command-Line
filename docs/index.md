@@ -118,6 +118,11 @@ complete state.</i>
     * [17.1: Breaking Down Taproot](17_1_Breaking_Down_Taproot.md)
     * [17.2: Updating to Taproot](17_2_Updating_to_Taproot.md)
 
+* [**18.0: Using Schnorr**](18_0_Using_Schnorr.md)
+   * [18.1: Understanding Schnorr](18_1_Understanding_Schorr.md)
+   * [18.2: Creating Taproot Addresses](18_2_Creating_Taproot_Addresses.md)
+   * [18.3: Using Bitcoin with FROST](18_3_Using_Bitcoin_With_FROST.md)
+   * [Section Four: Using Bitcoin with MuSig2] (pending)
     
 ---
 
