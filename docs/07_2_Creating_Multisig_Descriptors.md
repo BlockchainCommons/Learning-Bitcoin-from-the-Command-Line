@@ -21,6 +21,20 @@ machine2$ pubkey4=$(bitcoin-cli -named getaddressinfo address=$address4 | jq -r 
 
 Afterward, you consolidate your info on to a single machine:
 
+> ℹ️ **Multi Multisig Methods.** This section lays out the standard
+methodology for creating a multisig: different people on different
+machines will each contribute a key and will then each sign on their
+own machine. It's how multisigs are likely to really work in the wild,
+which is why it's offered as a first example. However, when we return
+to multisigs under Taproot, in
+[§18.3](18_3_Using_Bitcoin_With_MuSig2.md) and
+[§19.3](19_3_Creating_a_Taproot_Multisig.md), we'll instead use a
+simpler method of extracting the information from separate
+wallets. This is definitely not how you should utilize multisigs in
+the wild (because it offers little additional protection), but it
+makes it easier to demonstrate how they work in a format that you can
+follow along.
+
 ## Create the Descriptor
 
 Next you create the descriptor. This uses the same technique as you applied in [§4.2](04_2_Integrating_Addresses_Descriptors.md), except you'll be creating a slightly more complex multisignature descriptor.

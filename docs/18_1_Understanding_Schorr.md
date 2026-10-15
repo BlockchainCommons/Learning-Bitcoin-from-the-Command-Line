@@ -26,8 +26,7 @@ be added together (sA+sB) and they can be validated by adding together
 the two public keys (pA+pB). The summed-up signature is the same size
 as a singular signature, and the summed-up public key is the same size
 as a singular public key. There's also no way to distinguish a
-summed-up key or signature from a singular key or
-signature.
+summed-up key or signature from a singular key or signature.
 
 Advantages of this include:
 
@@ -41,9 +40,9 @@ There are some challenges with using Schnorr for multisigs. In
 particular, simplistic ("naive") aggregation of signatures leads to
 the key cancellation attack, where a key can be removed from an
 aggregate if an attacker knows certain information. This has resulted
-in more complex signing systems such as FROST (discussed in
-[§18.3](18_3_Using_Bitcoin_With_FROST.md)), MuSig2 (discussed in
-[§18.4](18_4_Using_Bitcoin_With_MuSig2.md)), and the use of a Merkle
+in more complex signing systems such as MuSig2 (discussed in
+[§18.3](18_3_Using_Bitcoin_With_MuSig2.md)), FROST (discussed in
+[§18.4](18_4_Using_Bitcoin_With_FROST.md)), and the use of a Merkle
 tree (discussed in [§19.3](19_3_Creating_a_Schnorr_Multisig.md)) being
 required to access Schnorr's multisig aggregation advantages.
 
@@ -92,7 +91,7 @@ multisigs and also supports the creation of Taproot addresses.
 
 > 🔥 ***What is the power of Schnorr?*** In large part, it's
 aggregatability. Any two signatures look the same, whether they're
-singular signaturess, a bunch of signatures added together, or a
+singular signatures, a bunch of signatures added together, or a
 signature with a tweak to define something else (such as a script
 path).
 

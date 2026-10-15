@@ -1,0 +1,449 @@
+# 18.4: Using Bitcoin with MuSig2
+
+There are two major Schnorr signature systems that have been built to
+allow Schnorr multisigs. The first was FROST and the second is MuSig2.
+
+## Understand MuSig2
+
+MuSig2 is another Schnorr signing scheme that avoids the cancellation
+attack. The big difference between it and FROST is that while FROST is
+a threshold signing scheme (m of n), MuSig2 is merely a multisig
+method (n of n). The only current methodology for using MuSig2 to
+create a threshold signature is to create a MAST that lays out each of
+the possibilities, as briefly mentioned in
+[§19.3](19_3_Creating_a_Schnorr_Multisig.md).
+
+FROST being able to natively offer threshold signatures is a big
+advantage. However, MuSig2 also has an advantage of its own:
+accountability. In FROST, you need insider information to know who
+signed a multisig. In MuSig2, you can always guarantee every signator.
+
+As with most tools, you should choose the proper one for your needs.
+
+## Use MuSig2
+
+TRY THREE
+
+bitcoin-cli createwallet musig1
+
+| {
+|   "name": "musig1"
+| }
+
+bitcoin-cli createwallet musig2
+{
+  "name": "musig2"
+}
+
+
+musigaddress1=$(bitcoin-cli -rpcwallet=musig1 getnewaddress)
+musigaddress2=$(bitcoin-cli -rpcwallet=musig2 getnewaddress)
+
+musigpubkey1=$(bitcoin-cli -rpcwallet=musig1 -named getaddressinfo address=$musigaddress1 | jq -r '.pubkey')
+musigpubkey2=$(bitcoin-cli -rpcwallet=musig2 -named getaddressinfo address=$musigaddress2 | jq -r '.pubkey')
+
+musigdesc="tr(musig($musigpubkey1,$musigpubkey2))"
+musigcs=$(bitcoin-cli getdescriptorinfo $musigdesc | jq -r '.checksum')
+musigdescwithcs=$musigdesc#$musigcs
+
+bitcoin-cli createwallet "musigwatchonly" true true
+{
+  "name": "musigwatchonly"
+}
+
+bitcoin-cli -rpcwallet=musigwatchonly importdescriptors '''[{ "desc": "'$musigdescwithcs'", "timestamp": "now" }]'''
+[
+  {
+    "success": true
+  }
+]
+
+
+bitcoin-cli -rpcwallet=musigwatchonly getaddressesbylabel ""
+
+{
+  "tb1plj6kpu6mw7pd0jngwaz6555aehjudg05reh2jy2mjq0quyuzyvjsfkhw57": {
+    "purpose": "receive"
+  }
+}
+
+
+[mail]
+
+PART TWO
+
+split1=$(bitcoin-cli -rpcwallet=musig1 getnewaddress)
+split2=$(bitcoin-cli -rpcwallet=musig2 getnewaddress)
+
+utxo_txid=$(bitcoin-cli -rpcwallet=musigwatchonly listunspent | jq -r '.[0] | .txid')
+utxo_vout=$(bitcoin-cli -rpcwallet=musigwatchonly listunspent | jq -r '.[0] | .vout')
+
+psbt=$(bitcoin-cli -named createpsbt inputs='''[ { "txid": "'$utxo_txid'", "vout": '$utxo_vout' } ]''' outputs='''{ "'$split1'": 0.0000498,"'$split2'": 0.0000498 }''')
+
+bitcoin-cli analyzepsbt $psbt
+{
+  "inputs": [
+    {
+      "has_utxo": false,
+      "is_final": false,
+      "next": "updater"
+    }
+  ],
+  "next": "updater"
+}
+
+
+psbt=$(bitcoin-cli -rpcwallet="musigwatchonly" walletprocesspsbt $psbt | jq -r '.psbt')
+
+bitcoin-cli analyzepsbt $psbt
+
+{
+  "inputs": [
+    {
+      "has_utxo": true,
+      "is_final": false,
+      "next": "updater"
+    }
+  ],
+  "estimated_vsize": 130,
+  "estimated_feerate": 0.00093092,
+  "fee": 0.00012102,
+  "next": "updater"
+}
+
+
+sig1=$(bitcoin-cli -rpcwallet="musig1" walletprocesspsbt $psbt | jq -r '.psbt')
+sig2=$(bitcoin-cli -rpcwallet="musig2" walletprocesspsbt $psbt | jq -r '.psbt')
+psbt_round1=$(bitcoin-cli combinepsbt '''["'$sig1'", "'$sig2'"]''')
+
+bitcoin-cli analyzepsbt $psbt_round1
+{
+  "inputs": [
+    {
+      "has_utxo": true,
+      "is_final": false,
+      "next": "updater"
+    }
+  ],
+  "estimated_vsize": 130,
+  "estimated_feerate": 0.00093092,
+  "fee": 0.00012102,
+  "next": "updater"
+}
+
+bitcoin-cli decodepsbt $psbt_round1
+{
+  "tx": {
+    "txid": "b7b61fde33cf4bd92ca2a2bf0dd18c2d1c647fce2bcb153bc65a55df23e77c2f",
+    "hash": "b7b61fde33cf4bd92ca2a2bf0dd18c2d1c647fce2bcb153bc65a55df23e77c2f",
+    "version": 2,
+    "size": 113,
+    "vsize": 113,
+    "weight": 452,
+    "locktime": 0,
+    "vin": [
+      {
+        "txid": "da394f1decbfa228b0e24a3dfd48fad059bac2c25d5029d2c4fd64cc01688900",
+        "vout": 473,
+        "scriptSig": {
+          "asm": "",
+          "hex": ""
+        },
+        "sequence": 4294967293
+      }
+    ],
+    "vout": [
+      {
+        "value": 0.00290000,
+        "n": 0,
+        "scriptPubKey": {
+          "asm": "0 79f006598b3a92338566a33ad2c851614666a841",
+          "desc": "addr(tb1q08cqvkvt82fr8ptx5vad9jz3v9rxd2zpzv7mkq)#x8vd6m8w",
+          "hex": "001479f006598b3a92338566a33ad2c851614666a841",
+          "address": "tb1q08cqvkvt82fr8ptx5vad9jz3v9rxd2zpzv7mkq",
+          "type": "witness_v0_keyhash"
+        }
+      },
+      {
+        "value": 0.00290000,
+        "n": 1,
+        "scriptPubKey": {
+          "asm": "0 49efd0e52318e535fd4b013c8ca9769ad9bb281c",
+          "desc": "addr(tb1qf8hapefrrrjntl2tqy7ge2tkntvmk2quah4a9e)#x5c9s5a2",
+          "hex": "001449efd0e52318e535fd4b013c8ca9769ad9bb281c",
+          "address": "tb1qf8hapefrrrjntl2tqy7ge2tkntvmk2quah4a9e",
+          "type": "witness_v0_keyhash"
+        }
+      }
+    ]
+  },
+  "global_xpubs": [
+  ],
+  "psbt_version": 0,
+  "proprietary": [
+  ],
+  "unknown": {
+  },
+  "inputs": [
+    {
+      "witness_utxo": {
+        "amount": 0.00592102,
+        "scriptPubKey": {
+          "asm": "1 fcb560f35b7782d7ca687745aa529dcde5c6a1f41e6ea9115b901e0e13822325",
+          "desc": "rawtr(fcb560f35b7782d7ca687745aa529dcde5c6a1f41e6ea9115b901e0e13822325)#svd2lm0a",
+          "hex": "5120fcb560f35b7782d7ca687745aa529dcde5c6a1f41e6ea9115b901e0e13822325",
+          "address": "tb1plj6kpu6mw7pd0jngwaz6555aehjudg05reh2jy2mjq0quyuzyvjsfkhw57",
+          "type": "witness_v1_taproot"
+        }
+      },
+      "taproot_bip32_derivs": [
+        {
+          "pubkey": "319ae6ea6d8e51dec150cca7c947deb32c53f13fc7a419196c6a45cc383251bd",
+          "master_fingerprint": "1af283b0",
+          "path": "m",
+          "leaf_hashes": [
+          ]
+        },
+        {
+          "pubkey": "b3ddf561bcb16f12a8bdae9dc5577229f892b538fe296cec680b43a51aea706f",
+          "master_fingerprint": "e90bd7e0",
+          "path": "m",
+          "leaf_hashes": [
+          ]
+        },
+        {
+          "pubkey": "f73be05fa2dae3ac969bb40667b6c66d9e92ddde302053a4b1602ee540fbd95e",
+          "master_fingerprint": "be075d2d",
+          "path": "m",
+          "leaf_hashes": [
+          ]
+        }
+      ],
+      "taproot_internal_key": "f73be05fa2dae3ac969bb40667b6c66d9e92ddde302053a4b1602ee540fbd95e",
+      "musig2_participant_pubkeys": [
+        {
+          "aggregate_pubkey": "03f73be05fa2dae3ac969bb40667b6c66d9e92ddde302053a4b1602ee540fbd95e",
+          "participant_pubkeys": [
+            "02319ae6ea6d8e51dec150cca7c947deb32c53f13fc7a419196c6a45cc383251bd",
+            "02b3ddf561bcb16f12a8bdae9dc5577229f892b538fe296cec680b43a51aea706f"
+          ]
+        }
+      ],
+      "musig2_pubnonces": [
+        {
+          "participant_pubkey": "02319ae6ea6d8e51dec150cca7c947deb32c53f13fc7a419196c6a45cc383251bd",
+          "aggregate_pubkey": "02fcb560f35b7782d7ca687745aa529dcde5c6a1f41e6ea9115b901e0e13822325",
+          "pubnonce": "036772d6511251888c0461be416592de501648f706006732b1390639a9359e30f7030bba86343255e5b7eebc276084b077421bb45d4ba466430180653ed829652c40"
+        },
+        {
+          "participant_pubkey": "02b3ddf561bcb16f12a8bdae9dc5577229f892b538fe296cec680b43a51aea706f",
+          "aggregate_pubkey": "02fcb560f35b7782d7ca687745aa529dcde5c6a1f41e6ea9115b901e0e13822325",
+          "pubnonce": "03ec44562d6bd19a57d47ab0f5554bcddce6385c877b54590df898cc8251dabea6031dc5ffcf5928073f8be736a7cad82845a8c26e86a78938f007ad5372fe5018bf"
+        }
+      ]
+    }
+  ],
+  "outputs": [
+    {
+      "bip32_derivs": [
+        {
+          "pubkey": "03c544d7c0329494974195c51c630b7f14eb919f7dbc5c7bec49184ca19f7f64ef",
+          "master_fingerprint": "0355e63d",
+          "path": "m/84h/1h/0h/0/1"
+        }
+      ]
+    },
+    {
+      "bip32_derivs": [
+        {
+          "pubkey": "02d209e51b70dac6d8e4c0c510964d7c957074bbff64272b14314cf90315d44ca2",
+          "master_fingerprint": "d6ca3dc0",
+          "path": "m/84h/1h/0h/0/1"
+        }
+      ]
+    }
+  ],
+  "fee": 0.00012102
+}
+
+sig1b=$(bitcoin-cli -rpcwallet="musig1" walletprocesspsbt $psbt_round1 | jq -r '.psbt')
+standup@lbtc:~$ sig1b=$(bitcoin-cli -rpcwallet="musig1" walletprocesspsbt $psbt_round1 | jq -r '.psbt')^C
+standup@lbtc:~$ sig2b=$(bitcoin-cli -rpcwallet="musig2" walletprocesspsbt $psbt_round1 | jq -r '.psbt')
+standup@lbtc:~$ psbt_round2=$(bitcoin-cli combinepsbt '''["'$sig1b'", "'$sig2b'"]''')
+
+bitcoin-cli analyzepsbt $psbt_round2
+{
+  "inputs": [
+    {
+      "has_utxo": true,
+      "is_final": false,
+      "next": "finalizer"
+    }
+  ],
+  "fee": 0.00012102,
+  "next": "finalizer"
+}
+standup@lbtc:~$ bitcoin-cli decodepsbt $psbt_round2
+{
+  "tx": {
+    "txid": "b7b61fde33cf4bd92ca2a2bf0dd18c2d1c647fce2bcb153bc65a55df23e77c2f",
+    "hash": "b7b61fde33cf4bd92ca2a2bf0dd18c2d1c647fce2bcb153bc65a55df23e77c2f",
+    "version": 2,
+    "size": 113,
+    "vsize": 113,
+    "weight": 452,
+    "locktime": 0,
+    "vin": [
+      {
+        "txid": "da394f1decbfa228b0e24a3dfd48fad059bac2c25d5029d2c4fd64cc01688900",
+        "vout": 473,
+        "scriptSig": {
+          "asm": "",
+          "hex": ""
+        },
+        "sequence": 4294967293
+      }
+    ],
+    "vout": [
+      {
+        "value": 0.00290000,
+        "n": 0,
+        "scriptPubKey": {
+          "asm": "0 79f006598b3a92338566a33ad2c851614666a841",
+          "desc": "addr(tb1q08cqvkvt82fr8ptx5vad9jz3v9rxd2zpzv7mkq)#x8vd6m8w",
+          "hex": "001479f006598b3a92338566a33ad2c851614666a841",
+          "address": "tb1q08cqvkvt82fr8ptx5vad9jz3v9rxd2zpzv7mkq",
+          "type": "witness_v0_keyhash"
+        }
+      },
+      {
+        "value": 0.00290000,
+        "n": 1,
+        "scriptPubKey": {
+          "asm": "0 49efd0e52318e535fd4b013c8ca9769ad9bb281c",
+          "desc": "addr(tb1qf8hapefrrrjntl2tqy7ge2tkntvmk2quah4a9e)#x5c9s5a2",
+          "hex": "001449efd0e52318e535fd4b013c8ca9769ad9bb281c",
+          "address": "tb1qf8hapefrrrjntl2tqy7ge2tkntvmk2quah4a9e",
+          "type": "witness_v0_keyhash"
+        }
+      }
+    ]
+  },
+  "global_xpubs": [
+  ],
+  "psbt_version": 0,
+  "proprietary": [
+  ],
+  "unknown": {
+  },
+  "inputs": [
+    {
+      "witness_utxo": {
+        "amount": 0.00592102,
+        "scriptPubKey": {
+          "asm": "1 fcb560f35b7782d7ca687745aa529dcde5c6a1f41e6ea9115b901e0e13822325",
+          "desc": "rawtr(fcb560f35b7782d7ca687745aa529dcde5c6a1f41e6ea9115b901e0e13822325)#svd2lm0a",
+          "hex": "5120fcb560f35b7782d7ca687745aa529dcde5c6a1f41e6ea9115b901e0e13822325",
+          "address": "tb1plj6kpu6mw7pd0jngwaz6555aehjudg05reh2jy2mjq0quyuzyvjsfkhw57",
+          "type": "witness_v1_taproot"
+        }
+      },
+      "taproot_bip32_derivs": [
+        {
+          "pubkey": "319ae6ea6d8e51dec150cca7c947deb32c53f13fc7a419196c6a45cc383251bd",
+          "master_fingerprint": "1af283b0",
+          "path": "m",
+          "leaf_hashes": [
+          ]
+        },
+        {
+          "pubkey": "b3ddf561bcb16f12a8bdae9dc5577229f892b538fe296cec680b43a51aea706f",
+          "master_fingerprint": "e90bd7e0",
+          "path": "m",
+          "leaf_hashes": [
+          ]
+        },
+        {
+          "pubkey": "f73be05fa2dae3ac969bb40667b6c66d9e92ddde302053a4b1602ee540fbd95e",
+          "master_fingerprint": "be075d2d",
+          "path": "m",
+          "leaf_hashes": [
+          ]
+        }
+      ],
+      "taproot_internal_key": "f73be05fa2dae3ac969bb40667b6c66d9e92ddde302053a4b1602ee540fbd95e",
+      "musig2_participant_pubkeys": [
+        {
+          "aggregate_pubkey": "03f73be05fa2dae3ac969bb40667b6c66d9e92ddde302053a4b1602ee540fbd95e",
+          "participant_pubkeys": [
+            "02319ae6ea6d8e51dec150cca7c947deb32c53f13fc7a419196c6a45cc383251bd",
+            "02b3ddf561bcb16f12a8bdae9dc5577229f892b538fe296cec680b43a51aea706f"
+          ]
+        }
+      ],
+      "musig2_pubnonces": [
+        {
+          "participant_pubkey": "02319ae6ea6d8e51dec150cca7c947deb32c53f13fc7a419196c6a45cc383251bd",
+          "aggregate_pubkey": "02fcb560f35b7782d7ca687745aa529dcde5c6a1f41e6ea9115b901e0e13822325",
+          "pubnonce": "036772d6511251888c0461be416592de501648f706006732b1390639a9359e30f7030bba86343255e5b7eebc276084b077421bb45d4ba466430180653ed829652c40"
+        },
+        {
+          "participant_pubkey": "02b3ddf561bcb16f12a8bdae9dc5577229f892b538fe296cec680b43a51aea706f",
+          "aggregate_pubkey": "02fcb560f35b7782d7ca687745aa529dcde5c6a1f41e6ea9115b901e0e13822325",
+          "pubnonce": "03ec44562d6bd19a57d47ab0f5554bcddce6385c877b54590df898cc8251dabea6031dc5ffcf5928073f8be736a7cad82845a8c26e86a78938f007ad5372fe5018bf"
+        }
+      ],
+      "musig2_partial_sigs": [
+        {
+          "participant_pubkey": "02319ae6ea6d8e51dec150cca7c947deb32c53f13fc7a419196c6a45cc383251bd",
+          "aggregate_pubkey": "02fcb560f35b7782d7ca687745aa529dcde5c6a1f41e6ea9115b901e0e13822325",
+          "partial_sig": "d4566f7317280efeb0df495a7419b83bae5ba701b67e45266dd94dd5c712fde1"
+        },
+        {
+          "participant_pubkey": "02b3ddf561bcb16f12a8bdae9dc5577229f892b538fe296cec680b43a51aea706f",
+          "aggregate_pubkey": "02fcb560f35b7782d7ca687745aa529dcde5c6a1f41e6ea9115b901e0e13822325",
+          "partial_sig": "0f6e6c809fc1381285fe935daac70551ded5649fd1e946fcd297fc8f49e60a86"
+        }
+      ]
+    }
+  ],
+  "outputs": [
+    {
+      "bip32_derivs": [
+        {
+          "pubkey": "03c544d7c0329494974195c51c630b7f14eb919f7dbc5c7bec49184ca19f7f64ef",
+          "master_fingerprint": "0355e63d",
+          "path": "m/84h/1h/0h/0/1"
+        }
+      ]
+    },
+    {
+      "bip32_derivs": [
+        {
+          "pubkey": "02d209e51b70dac6d8e4c0c510964d7c957074bbff64272b14314cf90315d44ca2",
+          "master_fingerprint": "d6ca3dc0",
+          "path": "m/84h/1h/0h/0/1"
+        }
+      ]
+    }
+  ],
+  "fee": 0.00012102
+}
+
+standup@lbtc:~$ bitcoin-cli analyzepsbt $psbt_round2
+{
+  "inputs": [
+    {
+      "has_utxo": true,
+      "is_final": false,
+      "next": "finalizer"
+    }
+  ],
+  "fee": 0.00012102,
+  "next": "finalizer"
+}
+
+psbt_hex=$(bitcoin-cli finalizepsbt $psbt_round2 | jq -r '.hex')
+
+bitcoin-cli -named sendrawtransaction hexstring=$psbt_hex
+b7b61fde33cf4bd92ca2a2bf0dd18c2d1c647fce2bcb153bc65a55df23e77c2f

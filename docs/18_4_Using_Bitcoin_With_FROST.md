@@ -1,29 +1,24 @@
-# 18.3: Using Bitcoin with FROST
+# 18.4: Using Bitcoin with FROST
 
-As demonstrated in the previous section, signing with Schnorr is
-easy. But what abouting signing Schnorr multisigs? There are at the
-moment three main ways to do so: FROST and MuSig2 can be seamlessly
-integrated into a Bitcoin transaction (but aren't seamlessly
-integrated into Bitcoin Core). Instead, Bitcoin Core depends on its
-Merkle trees for multisigs. This section and the next cover FROST and
-MuSig2 (in limited ways), while the next chapter includes discusison
-of MAST multisigs.
+There are two major Schnorr signature systems that have been built to
+allow Schnorr multisigs. The first was MuSig2 and the second is FROST.
 
 ## Understand FROST
 
-Bitcoin multisigs can't be naively created using Schnorr. If you just
-aggregate two keys, it's possible to cancel out one of the keys
-(provided you *know* the public key you're cancelling) and then sign
-with the other key. To resolve this requires a more complex
-protocols. One of these is FROST.
-
 FROST, which stands for Flexible Round-Optimized Schnorr Threshold
 Signatures is a threshold signature that allows for m-of-n Schnorr
-multisigs without succumbation to the cancellation attack. It does
-this through "signing shares" that can either be generated on a single
-machine and sent out or (more securely) generated using secure
+multisigs without succumbing to the cancellation attack. It does this
+through "signing shares" that can either be generated on a single
+machine and then distributed or (more securely) generated using secure
 multi-party computation (SMPC) so that the full key never exists in a
 single place.
+
+FROST being able to natively offer threshold signatures is a big
+advantage over MuSig2's multisig-only signatures. However, MuSig2 also
+has an advantage of its own: accountability. In FROST, you need
+insider information to know who signed a multisig. In MuSig2, you can
+always guarantee every signator. As with most tools, you should
+choose the proper one for your needs.
 
 ## Use FROST
 
@@ -34,12 +29,12 @@ singular Schnorr key. They're indistinguishable, and so they look just
 the same to a wallet.
 
 The trick comes in signing, in order to unlock the puzzle box of the
-FROST lock. A wallet _could_ support this functionality, but Bitcoin
-Core does not. In order to unlock funds locked into an address defined
-by a FROST public key, you therefore have to generate the appropriate
-signature _outside_ of Bitcoin Core and then sneak it into a Bitcoin
-transaction. This _is_ possible, but only with quite a few additional
-tools.
+FROST lock. A wallet _could_ support this functionality, but (unlike
+with MuSig2) Bitcoin Core does not. In order to unlock funds locked
+into an address defined by a FROST public key, you therefore have to
+generate the appropriate signature _outside_ of Bitcoin Core and then
+sneak it into a Bitcoin transaction. This _is_ possible, but only with
+quite a few additional tools.
 
 Our [Learning FROST from the Command
 Line](https://learningfrost.blockchaincommons.com/) course is a
@@ -60,9 +55,9 @@ Line](https://learningfrost.blockchaincommons.com/) for the specifics.
 ### Create a FROST Address
 
 Creating a FROST address is a simple creation of a FROST group (which
-isn't support by Bitcoin Core) followed by implementation of the
-techniques that you've previously used to work with descriptor-based
-content.
+also isn't supported by Bitcoin Core) followed by implementation of
+the techniques that you've previously used to work with
+descriptor-based content.
 
 1. Choose the "n" members of a FROST group.
 2. Choose what the "m" threshold will be.
@@ -77,7 +72,7 @@ supported by Bitcoin Core.
 
 1. Generate a PSBT to spend funds.
 2. Extract the sighash from the PSBT using a special tool.
-3. Use a FROST tool such as ZF FROST to create a threshold signature of the sighash.
+3. Use a FROST tool such as ZF FROST to create a threshold signature of the sighash. This is a multiround process, just like MuSig2.
 4. Use a special tool to place the signature into the UTXO with the proper `sighash` flag.
 5. Finalize and send the PSBT.
 
@@ -90,8 +85,8 @@ actually signs a hash of the transaction: the sighash. Each
 transaction has multiple inputs (where funds are coming from) and
 multiple outputs (where funds are going to). Whether a sighash
 contains all, some, or none of the inputs and all, some, or none of
-the outputs is determined by a specific `sighash` flag, which is applied
-to each signature.
+the outputs is determined by a specific `sighash` flag, which is
+applied to each signature.
 
 ## Summary: Using Bitcoin with FROST
 
@@ -106,5 +101,5 @@ inserting that signature into a transaction.
 
 ## What's Next?
 
-Continue "Using Schnorr" with [§18.4: Using Bitcoin With MuSig2](18_4_Using_Bitcoin_With_MuSig2.md).
-
+Continue "Using Taproot" with [Chapter Nineteen: Using
+Schnorr](19_0_Using_Tapscript.md).

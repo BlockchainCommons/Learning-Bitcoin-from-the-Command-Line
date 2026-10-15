@@ -6,8 +6,8 @@ requires a Schnorr signature, is simplicity itself.
 ## Create a P2TR Address
 
 A Taproot address requires that its UTXO be signed with a Schnorr
-signature. All that you need to do to create one is generate an
-address of type `bech32m` and then receive funds there.
+signature. All that's required to create one is generating an address
+of type `bech32m` and then receiving funds there.
 
 ```sh
 bitcoin-cli -named getnewaddress address_type=bech32m
@@ -69,7 +69,7 @@ This is in comparison to a Segwit v0 address, which is `witness_v0_keyhash`:
 
 ## Sign with Schnorr
 
-Spending your P2TR UTXO and signing with a Schnorr signature just
+Spending a P2TR UTXO and signing with a Schnorr signature just
 requires you to create and send a transaction, using any of the
 techniques from [chapter 5](05_0_Sending_Bitcoin_Transactions.md).
 
@@ -175,5 +175,5 @@ when you're ready to spend them.
 
 ## What's Next?
 
-Continue "Using Schnorr" with [§18.3: Using Bitcoin With FROST](18_3_Using_Bitcoin_With_FROST.md).
+Continue "Using Schnorr" with [§18.3: Using Bitcoin With MuSig2](18_3_Using_Bitcoin_With_MuSig.md).
 

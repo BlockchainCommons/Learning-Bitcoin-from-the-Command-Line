@@ -16,8 +16,8 @@ and FROST threshold sigs.
 After working through this chapter, a developer will be able to:
 
    * Sign with Schnorr
-   * Sign with FROST
    * Sign with MuSig
+   * Sign with FROST
 
 Supporting objectives include the ability to:
 
@@ -27,5 +27,5 @@ Supporting objectives include the ability to:
 
 * [Section One: Understanding Schnorr](18_1_Understanding_Schorr.md)
 * [Section Two: Creating Taproot Addresses](18_2_Creating_Taproot_Addresses.md)
-* [Section Three: Using Bitcoin with FROST](18_3_Using_Bitcoin_With_FROST.md)
-* [Section Four: Using Bitcoin with MuSig2](18_4_Using_Bitcoin_With_MuSig2.md)
+* [Section Three: Using Bitcoin with MuSig2](18_3_Using_Bitcoin_With_MuSig2.md)
+* [Section Four: Using Bitcoin with FROST](18_4_Using_Bitcoin_With_FROST.md)

@@ -82,6 +82,6 @@ use `createwalletdescriptor bech32m` to do so.
 
 ## What's Next?
 
-Continue "Using Taproot" with [Chapter Eightteen: Using
+Continue "Using Taproot" with [Chapter Eighteen: Using
 Schnorr](18_0_Using_Schnorr.md).
 
