@@ -2,80 +2,15 @@
 
 The following TODO items are intended for a 3.0 version of Learning Bitcoin from the Command Line
 
-## Immediate TODO (for 8/13): Cleanup & Taproot
+## Remaining TODOS for Three Final Days
 
-1. Edit 19.0+19.1
-2. Write + Edit 19.2+19.3
-3. Finalize 18.4 One Way or the Other
-
-## Taproot Plan
-
-**Part Six: Expanding Bitcoin with Taproot**
-
-**Chapter 17: Introducing Taproot**
-
-* 17.1: Breaking Down Taproot
-   * Learn About the Taproot Soft Fork
-      * Bitcoin Taproot is a soft fork upgrade activated on November 14, 2021. It bundles three Bitcoin Improvement Proposals: Schnorr signatures (BIP340), Taproot (BIP341), and Tapscript (BIP342).
-      * Informally, the resulting design is as follows: a new witness version is added (version 1), whose programs consist of 32-byte encodings of points Q. Q is computed as P + hash(P||m)G for a public key P, and the root m of a Merkle tree whose leaves consist of a version number and a script. These outputs can be spent directly by providing a signature for Q, or indirectly by revealing P, the script and leaf version, inputs that satisfy the script, and a Merkle path that proves Q committed to that leaf. All hashes in this construction (the hash for computing Q from P, the hashes inside the Merkle tree's inner nodes, and the signature hashes used) are tagged to guarantee domain separation.
-      * Reference: https://github.com/bitcoin/bips/blob/master/bip-0340.mediawiki
-      * Reference: https://github.com/bitcoin/bips/blob/master/bip-0341.mediawiki
-      * Reference: https://github.com/bitcoin/bips/blob/master/bip-0342.mediawiki
-      * BIP 114, 117?
-      * Nice diagrams: https://www.bitstack-app.com/en/learn-bitcoin/understanding-bitcoin-taproot-upgrade?c=EUR
-      * Good description of tweak + key composition: https://learnmeabitcoin.com/technical/script/p2tr/
-      * Explanation: Expanding Segwit
-      * Explanation: Integrating Schnorr Signatures
-      * [original roadmap, advantages: https://bitcoincore.org/en/2017/03/23/schnorr-signature-aggregation/]
-   * Learn About bech32m
-* 17.2: Updating to Taproot
-   * Update to Taproot: bitcoin-cli createwalletdescriptor
-
-**Chapter 18: Using Schnorr Signatures**
-
-* 18.1: Understanding Schnorr Signatures
-   * Understand the Math of Schnorr
-      * Explanation: Add + subtract for one signature
-   * Understand the Use of Adapter Signatures
-   * Know the Advantages of Schnorr
-      * Explanation: size, 64 bytes vs 72, better for multisigs
-      * Explanation: speed, linear, validate a million-sig multisig in 2 minutes
-      * Explanation: privacy, no difference between MuSig and sig, no detection of Lightning
-      * Explanation: even more privacy; scripts and other addresses are indistinbuishable
-      * Explanation: also better security, non-malleability
-      * Reference: https://github.com/bitcoin/bips/blob/master/bip-0340.mediawiki
-* 18.2: Creating Schnorr Addresses
-   * Create a Schnorr Address
-   * Import a Schnorr Descriptor
-   * Spend a Taproot Transaction
-* 18.3: Using Bitcoin with FROST
-* 18.4: Using Bitcoin with Musig2 (?)
-
-**Chapter 19: Using Tapscript** 
-
-* 19.1: Understanding MAST
-   * Understand the Design of MAST [BIP114]
-   * Know the Advantages of MAST
-      * Explanation: larger scripts
-      * Explanation: hidden branches of scripts
-      * Explanation: privacy
-      * Explanation: fungibility
-      * https://github.com/bitcoin/bips/blob/master/bip-0114.mediawiki
-   * Understand Tapscript
-   *   Privacy with MAST
-   * New Subsection: Laying out a Script in MAST
-   * New Subsection: Knowing the Advantages of MAST
-* 19.2: Designing Tapscripts
-   * Create a Tapscript
-      * Explanation: Segwit v1, 32-byte program, not P2SH wrapped, leaf version is 0xc0
-      * See "Script Execution" in BIP 342 for Changes from Script
-      * New Codes: OP_CHECKSIGADD and OP_SUCCESS
-      * Cut Codes: OP_CHECKMULTISIG and OP_CHECKMULTISIGVERIFY
-   * [no way to use currently]
-* 19.3: Creating a Schnorr Multisig
-   * Undestand multi_a [BIP 387]
-   * Import a Schnorr Multisig
-   * Spend a Schnorr Multisig
+1. Decide on Tor Chapter
+2. Decide on I2P Chapter
+3. Decide on Appendices
+4. Clean Out Software Chapters
+5. Archive Hardware Wallets
+6. Final Edit Chapters 9-19+
+7. Archive Future TODO Possibilities
 
 ## Longer-Term TODO (Small Tasks)
 
@@ -86,12 +21,6 @@ The following updates involve updates or the creation of new chapters, but their
 1. Close out with return to chapter 1.0 to update (a) new-for-3.0 links; and (b) what the major parts are [and what's happened to Lightning/coding]
 1. If lightning is pulled to a parallel course (probably), also move lightning definitions in 1.1
      
-## Longer-Longer-Term TODO (Big Tasks)
-
-The following updates involve the large-scale work done on Schnorr and Taproot in Bitcoin Core 0.21 and 22. This represents a first cut at how to layout the work, but revision and expansion will likely be needed as everyone's understanding of these new technologies matures.
-
-
-
 ## Further Updates (TIME PERMITTING)
 
 The following updates could be part of v3.0 or could be further future, depending on how long the above takes. My guess is that they'll get incorporated come late spring or summer.
@@ -202,6 +131,13 @@ See [release notes](https://bitcoincore.org/en/releases/0.21.0/).
 ---
 
 # Progress Log
+
+## Immediate TODO (for 10/15): Taproot Finale
+
+1. Got MuSig2 working & Wrote 18.4
+2. Wrote 19.2 (Tapscript) & 19.3 (Tapscript Multisig)
+3. Edited Chapters 17-19
+4. Edited Chapter 8
 
 ## Immediate TODO (for 10/1): Cleanup & Taproot
 
