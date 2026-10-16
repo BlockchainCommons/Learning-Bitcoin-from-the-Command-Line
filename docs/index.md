@@ -123,9 +123,9 @@ complete state.</i>
     * [18.3: Four: Using Bitcoin with MuSig2](18_3_Using_Bitcoin_With_MuSig2.md)
     * [18.4: Using Bitcoin with FROST](18_4_Using_Bitcoin_With_FROST.md)
 * [**19.0: Understanding Tapscript**](19_0_Using_Tapscript.md)
-   * [19.1: Understanding MAST](19_1_Understanding_MAST.md)
-   * [19.2: Designing Tapscripts](19_2_Designing_Tapscripts.md)
-   * [19.3: Creating a Taproot Multisig](19_3_Creating_a_Taproot_Multisig.md)
+    * [19.1: Understanding MAST](19_1_Understanding_MAST.md)
+    * [19.2: Designing Tapscripts](19_2_Designing_Tapscripts.md)
+    * [19.3: Creating a Taproot Multisig](19_3_Creating_a_Taproot_Multisig.md)
 
 ---
 
