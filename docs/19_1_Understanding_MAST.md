@@ -30,8 +30,8 @@ data input into the tree. A hash tree is usually represented just by
 its root hash.
 
 <center>
-  <a href="images/19_1_Understanding_MAST.png">
-    <img src="images/19_1_Understanding_MAST.png">
+  <a href="/images/19_1_Understanding_MAST.png">
+    <img src="/images/19_1_Understanding_MAST.png">
   </a>
 </center>
 
