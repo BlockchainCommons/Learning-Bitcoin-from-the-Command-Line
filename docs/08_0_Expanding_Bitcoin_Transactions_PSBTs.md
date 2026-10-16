@@ -7,7 +7,7 @@ creating collaborative transactions has been taken up by a newer
 specification: partially signed bitcoin transactions (PSBTs).
 
 This chapter will examine the usage of PSBTs, starting with that
-multisig you created in the last chapter, and moving on to three more
+multisig you created in the last chapter, and moving on to two more
 real-world use cases for their usage:
 
 1. Spending multisig funds (§8.1)
