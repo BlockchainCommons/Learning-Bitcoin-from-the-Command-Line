@@ -3,8 +3,8 @@
 Schnorr is the enabler of the Taproot upgrade: it's what makes
 everything else possible. Sure, it has advantages of its own, such as
 the ability to aggregate FROST and MuSig2 multisigs, but its greatest
-power may be its support for combining keypaths and scriptpaths into a
-single address.
+power may be its support for combining key paths and script paths into
+a single address.
 
 Doing so requires two additional elements, both of which are outlined
 in this chapter. First, it requires the ability to store multiple
@@ -28,7 +28,8 @@ Supporting objectives include the ability to:
    * Understand Merkle Trees
    * Understand the Differences of Tapscript
    * Understand the Varieties of Multisig
-
+   * Understand how Key Paths and Script Paths Combine
+   
 ## Table of Contents
 
 * [Section One: Understanding MAST](19_1_Understanding_MAST.md)

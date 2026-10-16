@@ -117,13 +117,16 @@ complete state.</i>
 * [**17.0: Introducing Taproot**](17_0_Introducing_Taproot.md)
     * [17.1: Breaking Down Taproot](17_1_Breaking_Down_Taproot.md)
     * [17.2: Updating to Taproot](17_2_Updating_to_Taproot.md)
-
 * [**18.0: Using Schnorr**](18_0_Using_Schnorr.md)
     * [18.1: Understanding Schnorr](18_1_Understanding_Schorr.md)
     * [18.2: Creating Taproot Addresses](18_2_Creating_Taproot_Addresses.md)
     * [18.3: Four: Using Bitcoin with MuSig2](18_3_Using_Bitcoin_With_MuSig2.md)
     * [18.4: Using Bitcoin with FROST](18_4_Using_Bitcoin_With_FROST.md)
-    
+* [**19.0: Understanding Tapscript**](19_0_Using_Tapscript.md)
+   * [19.1: Understanding MAST](19_1_Understanding_MAST.md)
+   * [19.2: Designing Tapscripts](19_2_Designing_Tapscripts.md)
+   * [19.3: Creating a Taproot Multisig](19_3_Creating_a_Taproot_Multisig.md)
+
 ---
 
 > _Learning Bitcoin v1.0 was created in part under the sponsorship of [Blockstream](https://blockstream.com/). Learning Bitcoin v2.0 was self-funded by [Blockchain Commons](https://www.blockchaincommons.com/). Learning Bitcoin v3.0 was funded by a grant from [HRF](https://hrf.org/)._

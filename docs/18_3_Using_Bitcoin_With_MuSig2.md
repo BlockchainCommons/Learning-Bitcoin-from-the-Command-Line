@@ -21,7 +21,7 @@ n). That means that, by default, all of the participants in a MuSig2
 signature must sign. The only current methodology for using MuSig2 to
 create a threshold signature is to create a MAST that lays out each of
 the possibilities, as briefly mentioned in
-[§19.3](19_3_Creating_a_Schnorr_Multisig.md).
+[§19.2]( 19_2_Designing_Tapscripts.md).
 
 ## Create a MuSig2 Address
 
