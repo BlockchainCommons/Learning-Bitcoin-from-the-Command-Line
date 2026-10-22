@@ -74,7 +74,7 @@ complete state.</i>
 
 ## Part Four: Exploring the Ecosystem
 
-* [**10.0: Working with Secrets**](10_0_Working_with_Secrets.md )
+* [**10.0: Working with Bitcoin Secrets**](10_0_Working_with_Secrets.md )
     * [10.1: Creating Secrets from the Command Line](10_1_Creating_Secrets_from_the_Command_Line.md)
     * [10.2: Converting Secrets with Keytool](10_2_Converting_Secrets_with_Keytool.md)
     * [10.3: Importing Secrets to Bitcoin Core](10_3_Importing_Secrets_to_Bitcoin_Core.md)

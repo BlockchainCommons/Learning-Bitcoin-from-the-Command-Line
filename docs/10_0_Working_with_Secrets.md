@@ -1,4 +1,4 @@
-# Chapter Ten: Working with Secrets
+# Chapter Ten: Working with Bitcoin Secrets
 
 Bitcoin Core protects you from most of the specifics of how the
 addresses in your descriptor wallet are created. In doing so, it also

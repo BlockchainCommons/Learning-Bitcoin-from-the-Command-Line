@@ -178,4 +178,4 @@ still support proof of existence and timestamping.
 ## What's Next?
 
 Move on to "Importing & Exporting Your Secrets" with [Chapter Ten:
-Creating Bitcoin Secrets](10_0_Creating_Bitcoin_Secrets.md)
+Working with Bitcoin Secrets](10_0_Creating_Bitcoin_Secrets.md)
