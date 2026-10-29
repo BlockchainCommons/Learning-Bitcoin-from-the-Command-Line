@@ -123,7 +123,9 @@ machine2$ bitcoin-cli -named getaddressinfo address=$address2
 | }
 ```
 
-The `pubkey` address (`03c57ed70775d7a616778514e738fef0946b4be4ee32440b19f65ddd6e345983c0`) is what's required. 
+The `pubkey` field
+(`03c57ed70775d7a616778514e738fef0946b4be4ee32440b19f65ddd6e345983c0`)
+is what's required.
 
 You can retrieve it from your two machines with the following commands:
 
@@ -136,6 +138,20 @@ And:
 ```
 machine2$ pubkey2=$(bitcoin-cli -named getaddressinfo address=$address2 | jq -r '.pubkey')
 ```
+
+Alternatively, a pubkey can be retrieved with the `derivehdaddress`
+function and the derivation path, e.g.:
+
+```sh
+bitcoin-cli derivehdkey 84h/1h/0h/0/3
+
+| {
+|   "origin": "[82fb0c91/84h/1h/0h/0/3]",
+|   "xpub": "tpubDGrxTepr3h3UqDWxuMqCU7i97azCq5U4PeaAyWzNHtV6Lr4Ujr9X5oYtMFdtEnMGdwZZ9Vtgh3dQaVPEXpVXUFxU25iEBDWUhfbjcXQ5HBY"
+| }
+```
+
+This will give you an xpub or tpub key rather than a hex key, but either can be used.
 
 ### Consolidate the Public Keys
 
