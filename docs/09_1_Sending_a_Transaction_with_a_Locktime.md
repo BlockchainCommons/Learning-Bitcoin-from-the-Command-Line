@@ -88,7 +88,7 @@ you need to first know what the current block height is. `bitcoin-cli
 getblockcount` will tell you what your local machine thinks the block
 height is. You may want to double-check with a Bitcoin explorer.
 
-```
+```sh
 $ bitcoin-cli getblockcount
 302373
 ```
@@ -120,7 +120,7 @@ Once you have figured out your locktime, all you need to do is write
 up a typical raw transaction, with a third variable (after `inputs`
 and `outputs`) for `locktime`:
 
-```
+```sh
 rawtxhex=$(bitcoin-cli -named createrawtransaction inputs='''[ { "txid": "'$utxo_txid'", "vout": '$utxo_vout' } ]''' outputs='''{ "'$recipient'": 0.001, "'$changeaddress'": 0.013 }''' locktime=302378)
 ```
 
@@ -131,7 +131,7 @@ exemplify how locktime works without sitting around for a long time to
 wait and see what happens.
 
 Here's what the created transaction looks like:
-```
+```sh
 bitcoin-cli -named decoderawtransaction hexstring=$rawtxhex
 
 | {
@@ -205,7 +205,7 @@ to set the sequence to less than `0xffffffff` by hand.
 
 By now you're probably well familiar with finishing things up:
 
-```
+```sh
 signedtx=$(bitcoin-cli -named signrawtransactionwithwallet hexstring=$rawtxhex | jq -r '.hex')
 
 bitcoin-cli -named sendrawtransaction hexstring=$signedtx

@@ -21,7 +21,7 @@ message or you might be hashing existing data. For example,
 `sha256sum` produces 256 bits of data, which you can use to commit to
 a document such as a contract.
 
-```
+```sh
 $ sha256sum contract.pdf
 b9f81a8919e5aba39aeb86145c684010e6e559b580a85003ae25d78237a12e75  contract.pdf
 $ op_return_data="b9f81a8919e5aba39aeb86145c684010e6e559b580a85003ae25d78237a12e75"
@@ -42,7 +42,7 @@ address, minus a transaction fee, while also using the same
 transaction to create an OP_RETURN.
 
 Here's the standard setup:
-```
+```sh
 bitcoin-cli listunspent
 
 | [
@@ -75,13 +75,13 @@ You can now write a new rawtransaction with two outputs: one is your
 change address to get back (most of) your money, the other is a data
 address, which is the `bitcoin-cli` term for an OP_RETURN.
 
-```
+```sh
 rawtxhex=$(bitcoin-cli -named createrawtransaction inputs='''[ { "txid": "'$utxo_txid'", "vout": '$utxo_vout' } ]''' outputs='''{ "data": "'$op_return_data'", "'$changeaddress'": 0.00233 }''')
 ```
 
 
 Here's what that transaction actually looks like:
-```
+```sh
 bitcoin-cli -named decoderawtransaction hexstring=$rawtxhex
 
 | {
@@ -141,7 +141,7 @@ right after it.
 Sign your raw transaction and send it, and soon that OP_RETURN will be
 embedded in the blockchain!
 
-```
+```sh
 signedtx=$(bitcoin-cli -named signrawtransactionwithwallet hexstring=$rawtxhex | jq -r '.hex')
 bitcoin-cli -named sendrawtransaction hexstring=$signedtx
 
