@@ -15,6 +15,12 @@ The following TODO items are intended for a 3.0 version of Learning Bitcoin from
 9. Reference `addhdkey` in secrets section per https://bitcoincore.org/en/releases/32.1/
 10. Mention `derivehdkey` in multisig per https://bitcoincore.org/en/releases/32.1/
 11. Look Through Issues/PRs
+12. Add New network options to setup
+
+## Finalization Day #1 (10/29)
+
+1. Edited Chatper 9
+2. Updated/Revised Chapter 20 (Tor)
 
 ## Longer-Term TODO (Small Tasks)
 
