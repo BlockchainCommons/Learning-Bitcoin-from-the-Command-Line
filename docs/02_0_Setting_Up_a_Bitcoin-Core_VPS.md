@@ -5,7 +5,12 @@ running Bitcoin. The articles in this chapter describe how to do so,
 primarily by using a VPS (Virtual Private Server).
 
 > ⚠️ **VERSION WARNING:** This version of the course was built with
-Bitcoin Core 31.1 (July 2026).
+Bitcoin Core 30.2 (January 2026) for early parts of the course and
+Bitcoin Core 31.1 (July 2026).for later parts of the course. It was
+finalized with Bitcoin Core 32.1 (October 2026). All input is believed
+to work up to Bitcoin Core 32.1 (but send an Issue or PR If you find a
+problem), but some output may very slightly vary to reflect the
+earlier versions.
 
 ## Objectives for this Chapter
 

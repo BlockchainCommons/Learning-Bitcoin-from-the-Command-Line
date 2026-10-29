@@ -10,7 +10,8 @@ another opcode, an element of Bitcoin scripts that we'll meet in
 The catch? It's controversial. Many people think you shouldn't put
 data onto the Bitcoin chain at all. For a long time, `OP_RETURN` was
 limited to 80 bytes to minimize its use, but in recent years it's
-become unlimited.
+become unlimited (which suggests that it's more commonly accepted than
+it might have been in days past).
 
 ## Create Your Data
 
@@ -42,29 +43,30 @@ transaction to create an OP_RETURN.
 
 Here's the standard setup:
 ```
-$ bitcoin-cli listunspent
-[
-  {
-    "txid": "9c1f8e701638cf58c8430f8ffd30c5235948268ecabb6af07d0dc378fff29d9e",
-    "vout": 478,
-    "address": "tb1qqgep7ahfekud8fg4nu9h80llxm6a33g00w3k6h",
-    "label": "",
-    "scriptPubKey": "001402321f76e9cdb8d3a5159f0b73bfff36f5d8c50f",
-    "amount": 0.00233627,
-    "confirmations": 5,
-    "spendable": true,
-    "solvable": true,
-    "desc": "wpkh([d2d90038/84h/1h/0h/0/0]02323fe5e590877ec4308c3f19017498b5c1dcb39b4072a3204ddea0aad1b8d7f4)#7ln5e0qc",
-    "parent_descs": [
-      "wpkh([d2d90038/84h/1h/0h]tpubDD6bEYfJAjaN62Ndw8h39GLSkJ4JhWw8DBMKjJezKfB95A7JcWr2DZSRix5YrNwbU8fcjgDLy2ecNp6QT6E6h4QK9TFpqnJ6qkuUwyqfDhL/0/*)#kjjtltgy"
-    ],
-    "safe": true
-  }
-]
+bitcoin-cli listunspent
 
-$ utxo_txid=$(bitcoin-cli listunspent | jq -r '.[0] | .txid')
-$ utxo_vout=$(bitcoin-cli listunspent | jq -r '.[0] | .vout')
-$ changeaddress=$(bitcoin-cli getrawchangeaddress)
+| [
+|   {
+|     "txid": "9c1f8e701638cf58c8430f8ffd30c5235948268ecabb6af07d0dc378fff29d9e",
+|     "vout": 478,
+|     "address": "tb1qqgep7ahfekud8fg4nu9h80llxm6a33g00w3k6h",
+|     "label": "",
+|     "scriptPubKey": "001402321f76e9cdb8d3a5159f0b73bfff36f5d8c50f",
+|     "amount": 0.00233627,
+|     "confirmations": 5,
+|     "spendable": true,
+|     "solvable": true,
+|     "desc": "wpkh([d2d90038/84h/1h/0h/0/0]02323fe5e590877ec4308c3f19017498b5c1dcb39b4072a3204ddea0aad1b8d7f4)#7ln5e0qc",
+|     "parent_descs": [
+|       "wpkh([d2d90038/84h/1h/0h]tpubDD6bEYfJAjaN62Ndw8h39GLSkJ4JhWw8DBMKjJezKfB95A7JcWr2DZSRix5YrNwbU8fcjgDLy2ecNp6QT6E6h4QK9TFpqnJ6qkuUwyqfDhL/0/*)#kjjtltgy"
+|     ],
+|     "safe": true
+|   }
+| ]
+
+utxo_txid=$(bitcoin-cli listunspent | jq -r '.[0] | .txid')
+utxo_vout=$(bitcoin-cli listunspent | jq -r '.[0] | .vout')
+changeaddress=$(bitcoin-cli getrawchangeaddress)
 ```
 
 ## Write A Raw Transaction
@@ -80,51 +82,51 @@ rawtxhex=$(bitcoin-cli -named createrawtransaction inputs='''[ { "txid": "'$utxo
 
 Here's what that transaction actually looks like:
 ```
-$ bitcoin-cli -named decoderawtransaction hexstring=$rawtxhex
-{
-  "txid": "56af5070c97995ac30ad69770ed0f2afbc25daedb12fe20a79216f50801618b1",
-  "hash": "56af5070c97995ac30ad69770ed0f2afbc25daedb12fe20a79216f50801618b1",
-  "version": 2,
-  "size": 125,
-  "vsize": 125,
-  "weight": 500,
-  "locktime": 0,
-  "vin": [
-    {
-      "txid": "9c1f8e701638cf58c8430f8ffd30c5235948268ecabb6af07d0dc378fff29d9e",
-      "vout": 478,
-      "scriptSig": {
-        "asm": "",
-        "hex": ""
-      },
-      "sequence": 4294967293
-    }
-  ],
-  "vout": [
-    {
-      "value": 0.00000000,
-      "n": 0,
-      "scriptPubKey": {
-        "asm": "OP_RETURN b9f81a8919e5aba39aeb86145c684010e6e559b580a85003ae25d78237a12e75",
-        "desc": "raw(6a20b9f81a8919e5aba39aeb86145c684010e6e559b580a85003ae25d78237a12e75)#nvcr5fqt",
-        "hex": "6a20b9f81a8919e5aba39aeb86145c684010e6e559b580a85003ae25d78237a12e75",
-        "type": "nulldata"
-      }
-    },
-    {
-      "value": 0.00233000,
-      "n": 1,
-      "scriptPubKey": {
-        "asm": "0 b6dee3adaf8e3a7fd51645d0c76ae5c914fb2604",
-        "desc": "addr(tb1qkm0w8td03ca8l4gkghgvw6h9ey20kfsyreqwny)#53rfascv",
-        "hex": "0014b6dee3adaf8e3a7fd51645d0c76ae5c914fb2604",
-        "address": "tb1qkm0w8td03ca8l4gkghgvw6h9ey20kfsyreqwny",
-        "type": "witness_v0_keyhash"
-      }
-    }
-  ]
-}
+bitcoin-cli -named decoderawtransaction hexstring=$rawtxhex
 
+| {
+|   "txid": "56af5070c97995ac30ad69770ed0f2afbc25daedb12fe20a79216f50801618b1",
+|   "hash": "56af5070c97995ac30ad69770ed0f2afbc25daedb12fe20a79216f50801618b1",
+|   "version": 2,
+|   "size": 125,
+|   "vsize": 125,
+|   "weight": 500,
+|   "locktime": 0,
+|   "vin": [
+|     {
+|       "txid": "9c1f8e701638cf58c8430f8ffd30c5235948268ecabb6af07d0dc378fff29d9e",
+|       "vout": 478,
+|       "scriptSig": {
+|         "asm": "",
+|         "hex": ""
+|       },
+|       "sequence": 4294967293
+|     }
+|   ],
+|   "vout": [
+|     {
+|       "value": 0.00000000,
+|       "n": 0,
+|       "scriptPubKey": {
+|         "asm": "OP_RETURN b9f81a8919e5aba39aeb86145c684010e6e559b580a85003ae25d78237a12e75",
+|         "desc": "raw(6a20b9f81a8919e5aba39aeb86145c684010e6e559b580a85003ae25d78237a12e75)#nvcr5fqt",
+|         "hex": "6a20b9f81a8919e5aba39aeb86145c684010e6e559b580a85003ae25d78237a12e75",
+|         "type": "nulldata"
+|       }
+|     },
+|     {
+|       "value": 0.00233000,
+|       "n": 1,
+|       "scriptPubKey": {
+|         "asm": "0 b6dee3adaf8e3a7fd51645d0c76ae5c914fb2604",
+|         "desc": "addr(tb1qkm0w8td03ca8l4gkghgvw6h9ey20kfsyreqwny)#53rfascv",
+|         "hex": "0014b6dee3adaf8e3a7fd51645d0c76ae5c914fb2604",
+|         "address": "tb1qkm0w8td03ca8l4gkghgvw6h9ey20kfsyreqwny",
+|         "type": "witness_v0_keyhash"
+|       }
+|     }
+|   ]
+| }
 ```
 
 As you can see, this sends the majority of the money straight back to
@@ -140,10 +142,10 @@ Sign your raw transaction and send it, and soon that OP_RETURN will be
 embedded in the blockchain!
 
 ```
-signedtx=$(bitcoin-cli -named signrawtransactionwithwallet hexstring=$rawtxhex | jq -r \
-'.hex')
-$ bitcoin-cli -named sendrawtransaction hexstring=$signedtx
-56af5070c97995ac30ad69770ed0f2afbc25daedb12fe20a79216f50801618b1
+signedtx=$(bitcoin-cli -named signrawtransactionwithwallet hexstring=$rawtxhex | jq -r '.hex')
+bitcoin-cli -named sendrawtransaction hexstring=$signedtx
+
+| 56af5070c97995ac30ad69770ed0f2afbc25daedb12fe20a79216f50801618b1
 ```
 
 ## Check Your OP_RETURN
@@ -160,10 +162,10 @@ prefix to avoid muddying the data space.
 
 ## Summary: Sending a Transaction with Data
 
-You can use an `OP_RETURN` opcode to store up to 80 bytes of data on
-the blockchain. You do this with the `data` codeword for a `vout`. You
-still have to send money along too, but you just send it back to a
-change address, minus a transaction fee.
+You can use an `OP_RETURN` opcode to store data on the blockchain. You
+do this with the `data` codeword for a `vout`. You still have to send
+money along too, but you just send it back to a change address, minus
+a transaction fee.
 
 > 🔥 _What is the Power of OP_RETURN?_ The OP_RETURN opens up whole
 new possibilities for the blockchain, because you can embed data that
@@ -178,4 +180,4 @@ still support proof of existence and timestamping.
 ## What's Next?
 
 Move on to "Importing & Exporting Your Secrets" with [Chapter Ten:
-Working with Bitcoin Secrets](10_0_Creating_Bitcoin_Secrets.md)
+Working with Secrets](10_0_Working_with_Secrets.md).

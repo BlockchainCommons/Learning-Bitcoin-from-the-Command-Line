@@ -26,7 +26,7 @@ ability to cancel is one of the main points of a Locktime transaction.
 specifically, it's what locktime is called internal to the Bitcoin
 Core source code.
 
-> :book: **_What is a timelock?_** Locktime is just one way to lock
+> 📖 **_What is a timelock?_** Locktime is just one way to lock
 Bitcoin transactions until some point in the future; collectively
 these methods are called timelocks. Locktime is the most basic
 timelock method. It locks an entire transaction with an absolute time,
@@ -37,7 +37,7 @@ transaction with a relative time, is defined in [BIP
 and covered in [§13.3: Using CSV in
 Scripts](13_3_Using_CSV_in_Scripts.md).
 
-> Bitcoin Script and its "opcodes" further empowers both sorts of
+> Bitcoin Script and its "opcodes" further empower both sorts of
 timelocks, allowing for the locking of individual outputs instead of
 entire transactions. Absolute timelocks do so with the Script opcode
 OP_CHECKLOCKTIMEVERIFY, which is defined in [BIP
@@ -75,10 +75,10 @@ that, it's just more intuitive because it creates a direct correlation
 between some calendar date and the time when the transaction can be
 mined.
 
-> ⚠️ **WARNING:** Locktime with UNIX timestamps has a bit of wriggle
-room: the release of blocks isn't regular and block times can be two
-hours ahead of real time, so a locktime actually means "within a few
-hours of this time, plus or minus".
+> ⚠️ **Some Timing Inaccuracy Possible:** Locktime with UNIX timestamps
+has a bit of wiggle room: the release of blocks isn't regular and
+block times can be two hours ahead of real time, so a locktime
+actually means "within a few hours of this time, plus or minus".
 
 ### Figure Out Your Locktime By Block Height
 
@@ -102,25 +102,26 @@ one.
 
 > 📖 **_Why Would I Use a Blockheight?_** Unlike with timestamps,
 there's no fuzziness for blockheights. If you set a blockheight of
-120,000 for your locktime, then there's absolutely no way for it to go
-into block 119,999. This can make it easier to algorithmically control
-your locktimed transaction. The downside is that you can't be as sure
-of when precisely the locktime will be.
+120,000 for your locktime, then there's absolutely no way for your
+transaction to go into block 119,999. This can make it easier to
+algorithmically control your locktimed transaction. The downside is
+that you can't be as sure of when precisely the locktime will be.
 
-> ⚠️ **WARNING:** If you want to set a block-height locktime, you must
-set the locktime to less than 500 million. If you set it to 500
-million or over, your number will instead be interpreted as a
-timestamp. Since the UNIX timestamp of 500 million was November 5,
-1985, that probably means that your transaction will be put into a
+> ⚠️ **500 Million is the Limit!** If you want to set a block-height
+locktime, you must set the locktime to less than 500 million. If you
+set it to 500 million or over, your number will instead be interpreted
+as a timestamp. Since the UNIX timestamp of 500 million was November
+5, 1985, that probably means that your transaction will be put into a
 block at the miners' first opportunity.
 
 ## Write Your Transaction
 
 Once you have figured out your locktime, all you need to do is write
-up a typical raw transaction, with a third variable for `locktime`:
+up a typical raw transaction, with a third variable (after `inputs`
+and `outputs`) for `locktime`:
 
 ```
-$ rawtxhex=$(bitcoin-cli -named createrawtransaction inputs='''[ { "txid": "'$utxo_txid'", "vout": '$utxo_vout' } ]''' outputs='''{ "'$recipient'": 0.001, "'$changeaddress'": 0.013 }''')
+rawtxhex=$(bitcoin-cli -named createrawtransaction inputs='''[ { "txid": "'$utxo_txid'", "vout": '$utxo_vout' } ]''' outputs='''{ "'$recipient'": 0.001, "'$changeaddress'": 0.013 }''' locktime=302378)
 ```
 
 Note that this usage of `locktime` is under 500 million, which means
@@ -131,51 +132,52 @@ wait and see what happens.
 
 Here's what the created transaction looks like:
 ```
-$ bitcoin-cli -named decoderawtransaction hexstring=$rawtxhex 
-{
-  "txid": "adb314f5e60e5e38a53a506e668eb7204638d36234fff437eb24711f13117330",
-  "hash": "adb314f5e60e5e38a53a506e668eb7204638d36234fff437eb24711f13117330",
-  "version": 2,
-  "size": 113,
-  "vsize": 113,
-  "weight": 452,
-  "locktime": 302378,
-  "vin": [
-    {
-      "txid": "9c1f8e701638cf58c8430f8ffd30c5235948268ecabb6af07d0dc378fff29d9e",
-      "vout": 478,
-      "scriptSig": {
-        "asm": "",
-        "hex": ""
-      },
-      "sequence": 4294967293
-    }
-  ],
-  "vout": [
-    {
-      "value": 0.00100000,
-      "n": 0,
-      "scriptPubKey": {
-        "asm": "0 102accd89423260c16a9149e50601cd5eff36ad8",
-        "desc": "addr(tb1qzq4veky5yvnqc94fzj09qcqu6hhlx6kcazvs7g)#trtezash",
-        "hex": "0014102accd89423260c16a9149e50601cd5eff36ad8",
-        "address": "tb1qzq4veky5yvnqc94fzj09qcqu6hhlx6kcazvs7g",
-        "type": "witness_v0_keyhash"
-      }
-    },
-    {
-      "value": 0.01300000,
-      "n": 1,
-      "scriptPubKey": {
-        "asm": "0 513ed4ed3a8657646fa72c70d6194b85ccab1d38",
-        "desc": "addr(tb1q2yldfmf6setkgma893cdvx2tshx2k8fckwaggv)#m55ayk3a",
-        "hex": "0014513ed4ed3a8657646fa72c70d6194b85ccab1d38",
-        "address": "tb1q2yldfmf6setkgma893cdvx2tshx2k8fckwaggv",
-        "type": "witness_v0_keyhash"
-      }
-    }
-  ]
-}
+bitcoin-cli -named decoderawtransaction hexstring=$rawtxhex
+
+| {
+|   "txid": "adb314f5e60e5e38a53a506e668eb7204638d36234fff437eb24711f13117330",
+|   "hash": "adb314f5e60e5e38a53a506e668eb7204638d36234fff437eb24711f13117330",
+|   "version": 2,
+|   "size": 113,
+|   "vsize": 113,
+|   "weight": 452,
+|   "locktime": 302378,
+|   "vin": [
+|     {
+|       "txid": "9c1f8e701638cf58c8430f8ffd30c5235948268ecabb6af07d0dc378fff29d9e",
+|       "vout": 478,
+|       "scriptSig": {
+|         "asm": "",
+|         "hex": ""
+|       },
+|       "sequence": 4294967293
+|     }
+|   ],
+|   "vout": [
+|     {
+|       "value": 0.00100000,
+|       "n": 0,
+|       "scriptPubKey": {
+|         "asm": "0 102accd89423260c16a9149e50601cd5eff36ad8",
+|         "desc": "addr(tb1qzq4veky5yvnqc94fzj09qcqu6hhlx6kcazvs7g)#trtezash",
+|         "hex": "0014102accd89423260c16a9149e50601cd5eff36ad8",
+|         "address": "tb1qzq4veky5yvnqc94fzj09qcqu6hhlx6kcazvs7g",
+|         "type": "witness_v0_keyhash"
+|       }
+|     },
+|     {
+|       "value": 0.01300000,
+|       "n": 1,
+|       "scriptPubKey": {
+|         "asm": "0 513ed4ed3a8657646fa72c70d6194b85ccab1d38",
+|         "desc": "addr(tb1q2yldfmf6setkgma893cdvx2tshx2k8fckwaggv)#m55ayk3a",
+|         "hex": "0014513ed4ed3a8657646fa72c70d6194b85ccab1d38",
+|         "address": "tb1q2yldfmf6setkgma893cdvx2tshx2k8fckwaggv",
+|         "type": "witness_v0_keyhash"
+|       }
+|     }
+|   ]
+| }
 ```
 
 Note that the sequence number (`4294967293`) is less than
@@ -186,28 +188,31 @@ your locktime will be ignored.
 
 > ℹ️ **Sequence Usage #2.** This is the second use of the `nSequence`
 value in Bitcoin. As with RBF, `nSequence` is again used as an opt-in,
-this time for the use of locktime. 0xffffffff-2 (4294967293) is now
-the preferred value for signalling locktime because it purposefully
-allows the use of both RBF (which requires `nSequence < 0xffffffff-1`)
-and absolute locktime but disallows relative timelock (which requires
+this time for the use of locktime. 0xffffffff-2 (4294967293) is the
+preferred value for signalling locktime because it purposefully allows
+the use of both RBF (which requires `nSequence < 0xffffffff-1`) and
+absolute locktime but disallows relative timelock (which requires
 `nSequence < 0xf0000000`), the other use of the `nSequence` value. If
 you set `nSequence` lower than `0xf0000000`, then you will activate
-relative timelocks your transaction, which is probably not what you
+relative timelocks for your transaction, which is probably not what you
 want.
 
-> ⚠️ **WARNING:** If you are creating a locktime raw transaction by
-some other means than `bitcoin-cli`, you will have to set the sequence
-to less than `0xffffffff` by hand.
+> ⚠️ **Setting the Sequence by Hand:** If you are creating a locktime
+raw transaction by some other means than `bitcoin-cli`, you will have
+to set the sequence to less than `0xffffffff` by hand.
 
 ## Send Your Transaction
 
 By now you're probably well familiar with finishing things up:
+
 ```
-$ signedtx=$(bitcoin-cli -named signrawtransactionwithwallet hexstring=$rawtxhex | jq -r '.hex')
-$ bitcoin-cli -named sendrawtransaction hexstring=$signedtx
-error code: -26
-error message:
-non-final
+signedtx=$(bitcoin-cli -named signrawtransactionwithwallet hexstring=$rawtxhex | jq -r '.hex')
+
+bitcoin-cli -named sendrawtransaction hexstring=$signedtx
+
+| error code: -26
+| error message:
+| non-final
 ```
 Whoop! What's that error!?
 
