@@ -45,7 +45,7 @@ possible command. Here are the results of `bitcoin-cli help`:
 
 ```sh
 == Blockchain ==
-dumptxoutset "path" ( "type" {"rollback":n,...} )
+dumptxoutset "path" ( "type" {"rollback":n,"in_memory":bool,...} )
 getbestblockhash
 getblock "blockhash" ( verbosity )
 getblockchaininfo
@@ -86,9 +86,11 @@ waitfornewblock ( timeout "current_tip" )
 
 == Control ==
 getmemoryinfo ( "mode" )
+getopenrpcinfo ( show_hidden )
 getrpcinfo
 help ( "command" )
 logging ( ["include_category",...] ["exclude_category",...] )
+rpc.discover
 stop
 uptime
 
@@ -105,6 +107,7 @@ submitheader "hexdata"
 addnode "node" "command" ( v2transport )
 clearbanned
 disconnectnode ( "address" nodeid )
+exportasmap "path"
 getaddednodeinfo ( "node" )
 getaddrmaninfo
 getconnectioncount
@@ -122,8 +125,8 @@ abortprivatebroadcast "id"
 analyzepsbt "psbt"
 combinepsbt ["psbt",...]
 combinerawtransaction ["hexstring",...]
-converttopsbt "hexstring" ( permitsigdata iswitness )
-createpsbt [{"txid":"hex","vout":n,"sequence":n},...] [{"address":amount,...},{"data":"hex"},...] ( locktime replaceable version )
+converttopsbt "hexstring" ( permitsigdata iswitness psbt_version )
+createpsbt [{"txid":"hex","vout":n,"sequence":n},...] [{"address":amount,...},{"data":"hex"},...] ( locktime replaceable version psbt_version )
 createrawtransaction [{"txid":"hex","vout":n,"sequence":n},...] [{"address":amount,...},{"data":"hex"},...] ( locktime replaceable version )
 decodepsbt "psbt"
 decoderawtransaction "hexstring" ( iswitness )
@@ -146,7 +149,7 @@ enumeratesigners
 == Util ==
 createmultisig nrequired ["key",...] ( "address_type" )
 deriveaddresses "descriptor" ( range )
-estimatesmartfee conf_target ( "estimate_mode" )
+estimatesmartfee conf_target ( "estimate_mode" {"fee_rate_estimator":"str","verbosity":n} )
 getdescriptorinfo "descriptor"
 getindexinfo ( "index_name" )
 signmessagewithprivkey "privkey" "message"
@@ -156,11 +159,14 @@ verifymessage "address" "signature" "message"
 == Wallet ==
 abandontransaction "txid"
 abortrescan
+addhdkey ( "hdkey" )
 backupwallet "destination"
 bumpfee "txid" ( options )
 createwallet "wallet_name" ( disable_private_keys blank "passphrase" avoid_reuse descriptors load_on_startup external_signer )
 createwalletdescriptor "type" ( {"internal":bool,"hdkey":"str",...} )
+derivehdkey "path" ( {"private":bool,"hdkey":"str",...} )
 encryptwallet "passphrase"
+exportwatchonlywallet "destination"
 getaddressesbylabel "label"
 getaddressinfo "address"
 getbalance ( "dummy" minconf include_watchonly avoid_reuse )
@@ -188,7 +194,7 @@ listwalletdir
 listwallets
 loadwallet "filename" ( load_on_startup )
 lockunspent unlock ( [{"txid":"hex","vout":n},...] persistent )
-migratewallet ( "wallet_name" "passphrase" )
+migratewallet ( "wallet_name" "passphrase" load_wallet )
 psbtbumpfee "txid" ( options )
 removeprunedfunds "txid"
 rescanblockchain ( start_height stop_height )
@@ -201,9 +207,9 @@ setlabel "address" "label"
 setwalletflag "flag" ( value )
 signmessage "address" "message"
 signrawtransactionwithwallet "hexstring" ( [{"txid":"hex","vout":n,"scriptPubKey":"hex","redeemScript":"hex","witnessScript":"hex","amount":amount},...] "sighashtype" )
-simulaterawtransaction ( ["rawtx",...] {"include_watchonly":bool,...} )
+simulaterawtransaction ["rawtx",...] ( {"include_watchonly":bool,...} )
 unloadwallet ( "wallet_name" load_on_startup )
-walletcreatefundedpsbt ( [{"txid":"hex","vout":n,"sequence":n,"weight":n},...] ) [{"address":amount,...},{"data":"hex"},...] ( locktime options bip32derivs version )
+walletcreatefundedpsbt ( [{"txid":"hex","vout":n,"sequence":n,"weight":n},...] ) [{"address":amount,...},{"data":"hex"},...] ( locktime options bip32derivs version psbt_version )
 walletdisplayaddress "address"
 walletlock
 walletpassphrase "passphrase" timeout
@@ -268,22 +274,20 @@ A variety of bitcoin-cli commands can give you additional information on your bi
 bitcoin-cli -getinfo
 
 | Chain: signet
-| Blocks: 295306
-| Headers: 295306
+| Blocks: 328557
+| Headers: 328557
 | Verification progress: 100.0000%
-| Difficulty: 0.04790444111119883
+| Difficulty: 0.0469234982654738
 | 
 | Network: in 0, out 10, total 10
-| Version: 300200
+| Version: 320100
 | Time offset (s): 0
 | Proxies: 127.0.0.1:9050 (onion)
 | Min tx relay fee rate (BTC/kvB): 0.00000100
 | 
-| Wallet: ""
+| Wallet: mainwallet
 | Keypool size: 4000
-| Transaction fee rate (-paytxfee) (BTC/kvB): 0.00000000
-| 
-| Balance: 0.00500385
+| Balance: 0.01459711
 | 
 | Warnings: (none)
 ```
@@ -304,9 +308,9 @@ For example `bitcoin-cli getnetworkinfo` gives you a variety of information on y
 bitcoin-cli getnetworkinfo
 
 | {
-|   "version": 300200,
-|   "subversion": "/Satoshi:30.2.0/",
-|   "protocolversion": 70016,
+|   "version": 320100,
+|   "subversion": "/Satoshi:32.1.0/",
+|   "protocolversion": 70017,
 |   "localservices": "0000000000000c08",
 |   "localservicesnames": [
 |     "WITNESS",
@@ -315,6 +319,19 @@ bitcoin-cli getnetworkinfo
 |   ],
 |   "localrelay": true,
 |   "timeoffset": 0,
+|   "tx_send_rate": 14,
+|   "inv_buckets": {
+|     "inbound": {
+|       "backlog": 0,
+|       "count_tok": 420,
+|       "size_tok": 50000000
+|     },
+|     "outbound": {
+|       "backlog": 0,
+|       "count_tok": 420,
+|       "size_tok": 50000000
+|     }
+|   },
 |   "networkactive": true,
 |   "connections": 10,
 |   "connections_in": 0,
@@ -360,17 +377,17 @@ bitcoin-cli getnetworkinfo
 |   "incrementalfee": 0.00000100,
 |   "localaddresses": [
 |     {
-|       "address": "74.207.243.158",
+|       "address": "192.155.81.186",
 |       "port": 38333,
 |       "score": 1
 |     },
 |     {
-|       "address": "2600:3c01::2000:61ff:fe35:66b1",
+|       "address": "2600:3c01::2000:d9ff:fe05:a3b6",
 |       "port": 38333,
 |       "score": 1
 |     },
 |     {
-|       "address": "djna7ztirmrxzbdndkya4cf3s7ywin3qnttcauswuh633qyghexg4lid.onion",
+|       "address": "gpp7dfgrhttrz25mysiamgfrkti4oizvdnzu7zjo67lupbomp6etxsqd.onion",
 |       "port": 38333,
 |       "score": 4
 |     }

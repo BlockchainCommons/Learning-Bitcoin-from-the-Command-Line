@@ -195,8 +195,9 @@ At that point, your home directory should look like this:
 ```sh
 ls
 
-| bitcoin-31.1-x86_64-linux-gnu.tar.gz  SHA256SUMS.asc       wget-btc-sha-asc-output.txt
-| SHA256SUMS                            wget-btc-output.txt  wget-btc-sha-output.txt
+| bitcoin-32.1-x86_64-linux-gnu.tar.gz  wget-btc-output.txt
+| SHA256SUMS                            wget-btc-sha-asc-output.txt
+| SHA256SUMS.asc                        wget-btc-sha-output.txt
 ```
 
 These are the various files that were used to install Bitcoin on your
@@ -223,8 +224,8 @@ sudo grep VERIFICATION /standup.log
 If you see something like the following, all should be well:
 
 ```sh
-| /root/StackScript - SIG VERIFICATION SUCCESS: 11 GOOD SIGNATURES FOUND.
-| /root/StackScript - SHA VERIFICATION SUCCESS / SHA: bitcoin-31.1-x86_64-linux-gnu.tar.gz: OK
+/root/StackScript - SIG VERIFICATION SUCCESS: 8 GOOD SIGNATURES FOUND.
+/root/StackScript - SHA VERIFICATION SUCCESS / SHA: bitcoin-32.1-x86_64-linux-gnu.tar.gz: OK
 ```
 If either of those two checks instead reads "VERIFICATION ERROR", then there's a problem.
 
@@ -234,15 +235,15 @@ to make sure you know _who_ signed the Bitcoin release:
 ```sh
 sudo grep -i good /standup.log
 
-| /root/StackScript - SIG VERIFICATION SUCCESS: 8 GOOD SIGNATURES FOUND.
-| gpg: Good signature from ".0xB10C <b10c@b10c.me>" [unknown]
-| gpg: Good signature from "Ava Chow <me@achow101.com>" [unknown]
-| gpg: Good signature from "Stephan Oeste (it) <it@oeste.de>" [unknown]
-| gpg: Good signature from "Michael Ford (bitcoin-otc) <fanquake@gmail.com>" [unknown]
-| gpg: Good signature from "Oliver Gugger <gugger@gmail.com>" [unknown]
-| gpg: Good signature from "Hennadii Stepanov (GitHub key) <32963518+hebasto@users.noreply.github.com>" [unknown]
-| gpg: Good signature from "Matthew Zipkin (GitHub Signing Key) <pinheadmz@gmail.com>" [unknown]
-| gpg: Good signature from "Sjors Provoost <sjors@sprovoost.nl>" [unknown]
+/root/StackScript - SIG VERIFICATION SUCCESS: 8 GOOD SIGNATURES FOUND.
+gpg: Good signature from "Ava Chow <me@achow101.com>" [unknown]
+gpg: Good signature from "Ben Carman <benthecarman@live.com>" [unknown]
+gpg: Good signature from "Michael Ford (bitcoin-otc) <fanquake@gmail.com>" [unknown]
+gpg: Good signature from "Oliver Gugger <gugger@gmail.com>" [unknown]
+gpg: Good signature from "Matthew Zipkin (GitHub Signing Key) <pinheadmz@gmail.com>" [unknown]
+gpg: Good signature from "sedited <seb.kung@gmail.com>" [unknown]
+gpg: Good signature from "Sjors Provoost <sjors@sprovoost.nl>" [unknown]
+gpg: Good signature from "Will Clark <will@256k1.dev>" [unknown]
 ```
 Since this is all scripted, it's possible that there's just been a minor change that has caused the script's checks not to work right. (This has happened a few times over the existence of the script that became Standup.) But, it's also possible that someone is trying to encourage you to run a fake copy of the Bitcoin daemon. So, _be very sure you know what happened before you make use of Bitcoin!_
 
