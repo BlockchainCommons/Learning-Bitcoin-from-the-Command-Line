@@ -11,6 +11,8 @@ The following TODO items are intended for a 3.0 version of Learning Bitcoin from
 5. Archive Hardware Wallets
 6. Final Edit Chapters 9-19+
 7. Archive Future TODO Possibilities
+8. Decide on Redoing PSBT with Constructor role per https://github.com/bitcoin/bips/blob/master/bip-0370.mediawiki
+9. Look Through Issues/PRs
 
 ## Longer-Term TODO (Small Tasks)
 
