@@ -2,14 +2,13 @@
 
 The following TODO items are intended for a 3.0 version of Learning Bitcoin from the Command Line
 
-## Remaining TODOS for Three Final Days
+## Remaining TODOS for Two Final Days
 
-1. Decide on Tor Chapter
 2. Decide on I2P Chapter
 3. Decide on Appendices
 4. Clean Out Software Chapters
 5. Archive Hardware Wallets
-6. Final Edit Chapters 9-19+
+6. Final Edit Chapters 10-20+
 7. Archive Future TODO Possibilities
 8. Decide on Redoing PSBT Diagrams with Constructor role per https://github.com/bitcoin/bips/blob/master/bip-0370.mediawiki
 9. Reference `addhdkey` in secrets section per https://bitcoincore.org/en/releases/32.1/

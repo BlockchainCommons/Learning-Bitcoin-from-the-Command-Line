@@ -127,6 +127,13 @@ complete state.</i>
     * [19.2: Designing Tapscripts](19_2_Designing_Tapscripts.md)
     * [19.3: Creating a Taproot Multisig](19_3_Creating_a_Taproot_Multisig.md)
 
+## Part Seven: Improving Privacy
+
+* [**20.0: Using Tor**](20_0_Using_Tor.md)
+    * [20.1: Verifying Your Tor Setup](20_1_Verifying_Your_Tor_Setup.md)
+    * [20.2: Changing Your Bitcoin Hidden Services](20_2_Changing_Your_Bitcoin_Hidden_Services.md)
+    * [20.3: Adding SSH Hidden Services](20_3_Adding_SSH_Hidden_Services.md)
+
 ---
 
 > _Learning Bitcoin v1.0 was created in part under the sponsorship of [Blockstream](https://blockstream.com/). Learning Bitcoin v2.0 was self-funded by [Blockchain Commons](https://www.blockchaincommons.com/). Learning Bitcoin v3.0 was funded by a grant from [HRF](https://hrf.org/)._
