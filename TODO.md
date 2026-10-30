@@ -18,7 +18,8 @@ The following TODO items are intended for a 3.0 version of Learning Bitcoin from
 
 1. Edited Chapter 9
 2. Updated/Revised Chapter 20 (Tor)
-3. Made BTC 32.1 Updates (derivehdkey, addhdkey)
+3. Updated/Revised Chapter 21 (I2P)
+4. Made BTC 32.1 Updates (derivehdkey, addhdkey)
 
 ## Longer-Term TODO (Small Tasks)
 

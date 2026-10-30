@@ -291,3 +291,9 @@ alternate way to unlock the transaction.
 A Taproot multisig therefore doesn't just show another way to create
 multisigs. It also displays the full power of Taproot, which will only
 increase in the future as it achieves greater usage.
+
+## What's Next?
+
+You're done with Bitcoin! But if you want to move on to "Improving
+Privacy", start with [Chapter Twenty: Using Tor](20_0_Using_Tor.md).
+
