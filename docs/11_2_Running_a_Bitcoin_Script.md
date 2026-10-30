@@ -153,10 +153,10 @@ how the key of `scriptSig` fits into the lock of `scriptPubKey`.
 
 > ⚠️ **Standards Required!** The above is a non-standard transaction
 type. It would not actually be accepted by nodes running Bitcoin Core
-with the standard settings. [§12.1: Building a Bitcoin Script with
-P2SH](12_1_Understanding_the_Foundation_of_P2SH.md) discusses how you
-actually _could_ run a Bitcoin Script like this, using the power of
-P2SH.
+with the standard settings. [§12.1: Understanding the Foundation of
+P2SH & P2WSH](12_1_Understanding_the_Foundation_of_P2WSH.md) discusses
+how you actually _could_ run a Bitcoin Script like this, using the
+power of P2SH.
 
 ### Get the Results
 
@@ -182,4 +182,4 @@ top of the stack at the end is non-zero, then the UTXO is unlocked.
 ## What's Next?
 
 Continue "Introducing Bitcoin Scripts" with [§11.3: Testing a Bitcoin
-Script](09_3_Testing_a_Bitcoin_Script.md).
+Script](11_3_Testing_a_Bitcoin_Script.md).

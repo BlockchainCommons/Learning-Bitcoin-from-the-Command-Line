@@ -25,7 +25,7 @@ UTXO can then be spent.
 The fact that transactions are locked with scripts means that they can
 be locked in a variety of different ways, requiring a variety of
 different keys. In fact, the different sorts of addresses that we met
-in [§4.1](04_1_Understanding_the_Address) each have a different sort
+in [§4.1](04_1_Understanding_the_Addressmd) each have a different sort
 of script and use different "opcodes" (or functions) within that
 script:
 
@@ -54,7 +54,6 @@ data storage, also depends on specific opcodes:
 typically associated with machine-language code, and is a simple
 function (or "operator").
 
-
 ## Access Scripts In Your Transactions
 
 It turns out that scripts are somewhat hidden from the user in
@@ -76,7 +75,7 @@ P2PKH output.
 If you don't already have a "legacy" (P2PKH) address that contains
 funds, you can generate one with `getnewaddress`:
 
-```
+```sh
 bitcoin-cli -named getnewaddress address_type=legacy
 
 | moNhddRsGhaF18L5e62vEisLZxnzEV2VbF
@@ -88,7 +87,7 @@ You can now create a quick raw transaction by grabbing that unspent
 "legacy" UTXO and resending it to a Legacy change address, minus a
 transaction fee:
 
-```
+```sh
 utxo_txid=$(bitcoin-cli listunspent | jq -r '.[1] | .txid') 
 utxo_vout=$(bitcoin-cli listunspent | jq -r '.[1] | .vout')
 recipient=$(bitcoin-cli -named getrawchangeaddress address_type=legacy)
@@ -103,7 +102,7 @@ complete transaction that you can examine.
 
 You can now examine your transaction in depth by using `decoderawtransaction` on the `$signedtx`:
 
-```
+```sh
 bitcoin-cli -named decoderawtransaction hexstring=$signedtx
 
 | {
@@ -193,7 +192,6 @@ Before we leave this foundation behind, we're going to look at a
 different type of locking script. Here's what the `scriptPubKey` looks like
 in a classic P2SH multisig. 
 
-
 ```
 |       "scriptPubKey": {
 |         "asm": "OP_HASH160 a5d106eb8ee51b23cf60d8bd98bc285695f233f3 OP_EQUAL",
@@ -210,6 +208,7 @@ in a classic P2SH multisig.
 SegWit deals with standard transactions.)
 
 Compare that to the `scriptPubKey` from your new P2PKH transaction:
+
 ```
 |       "scriptPubKey": {
 |         "asm": "OP_DUP OP_HASH160 dd78bf31853bd9c0e7cb108fc98d799955d60987 OP_EQUALVERIFY OP_CHECKSIG",

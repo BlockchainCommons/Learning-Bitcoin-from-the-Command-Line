@@ -78,7 +78,8 @@ The following will run Bitcoin Core I2P services:
    /usr/local/bin/bitcoind -conf=/home/standup/.bitcoin/bitcoin.conf -daemon
    ```
 
-5. Check `debug.log` to see if I2P was setup correctly, or if any errors appeared in the logs.  
+5. Check `debug.log` to see if I2P was setup correctly, or if any errors appeared in the logs.
+
    ```sh
    grep i2p ~/.bitcoin/signet/debug.log 
 

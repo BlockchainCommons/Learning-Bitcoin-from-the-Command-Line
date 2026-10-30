@@ -1,6 +1,6 @@
 # 11.5: Scripting a P2WPKH
 
-Though P2PKHs do a great job explaining the fundamental way that
+Though P2PKHs do a great job monstrating the fundamental way that
 Bitcoin Scripts work, what about native SegWit P2WPKH scripts, which
 are today the majority of Bitcoin transactions? As it turns out,
 P2WPKH addresses don't use Bitcoin Scripts like traditional Bitcoin
@@ -183,7 +183,7 @@ To a large extent you _don't_ script a P2WPKH. Instead, Bitcoin Core
 creates the transaction in a different way, placing the witness
 information in a different place rather than a traditional
 `scriptSig`. That means that P2WPKHs are a digression from the Bitcoin
-Scripts of this part of the book, because they're an expansion of
+Scripts of this part of the course, because they're an expansion of
 Bitcoin that steps away from traditional Scripting (or rather: that
 integrates their work into the node software.)
 
@@ -203,4 +203,4 @@ point).
 
 Continue "Bitcoin Scripting" with [Chapter 12: Embedding Bitcoin
 Scripts in P2SH
-Transactions](12_0_Embedding_Bitcoin_Scripts_in_P2SH_Transactions.md).
+Transactions](12_0_Embedding_Bitcoin_Scripts_in_P2WSH_Transactions.md).

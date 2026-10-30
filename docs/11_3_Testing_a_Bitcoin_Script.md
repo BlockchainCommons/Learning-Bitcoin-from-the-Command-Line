@@ -2,12 +2,12 @@
 
 Bitcoin Scripting allows for considerable additional control over
 Bitcoin transactions, but it's also somewhat dangerous. As we'll
-describe in [§12.1](12_1_Understanding_the_Foundation_of_P2SH.md), the
-actual Scripts are somewhat isolated from the Bitcoin network, which
-means that it's possible to write a script and have it accepted by the
-network even if it's impossible to redeem from that script! So, you
-need to thoroughly test your Scripts before you put your money into
-them.
+describe in [§12.1](12_1_Understanding_the_Foundation_of_P2WSH.md),
+the actual Scripts are somewhat isolated from the Bitcoin network,
+which means that it's possible to write a script and have it accepted
+by the network even if it's impossible to redeem from that script! So,
+you need to thoroughly test your Scripts before you put your money
+into them.
 
 This chapter therefore describes a prime method for testing Bitcoin
 Scripts, which we'll also be using for occasional examples throughout
@@ -34,9 +34,8 @@ current directory. We've chosen to do so in our `~standup` directory.
 ```
 ls
 
-| bitcoin-30.2-x86_64-linux-gnu.tar.gz  SHA256SUMS.asc               wget-btc-sha-output.txt
-| btcdeb                                wget-btc-output.txt
-| SHA256SUMS                            wget-btc-sha-asc-output.txt
+| bitcoin-32.1-x86_64-linux-gnu.tar.gz  keytool-cli  SHA256SUMS.asc       wget-btc-sha-asc-output.txt
+| btcdeb                                SHA256SUMS   wget-btc-output.txt  wget-btc-sha-output.txt
 ```
 
 Afterward, you must install required C++ and other packages.
@@ -45,7 +44,7 @@ Afterward, you must install required C++ and other packages.
 sudo apt-get install autoconf libtool g++ pkg-config make
 ```
 
-You should also install readline, as this makes the debugger a lot
+You should also install readline, as it makes the debugger a lot
 easier to use by supporting history using up/down arrows, left-right
 movement, autocompletion using tab, and other good user interfaces.
 
@@ -73,7 +72,7 @@ which btcdeb
 ## Use btcdeb
 
 `btcdeb` works like a standard debugger. It takes a script (as well as
-any number of stack entries) as a startup argument. You then can
+any number of stack entries) as a startup argument. You can then
 `step` through the script.
 
 If you instead start it up with no arguments, you simply get an
@@ -85,7 +84,7 @@ actions directly.
 The following example shows the use of `btcdeb` for the addition example from the previous section, `1 2 OP_ADD`
 
 ```
-btcdeb 5.0.24 -- type `btcdeb -h` for start up options
+btcdeb '[1 2 OP_ADD]'
 
 | LOG: signing segwit taproot
 | notice: btcdeb has gotten quieter; use --verbose if necessary (this message is temporary)
@@ -290,10 +289,10 @@ So the only way to _really_ test Bitcoin Scripts is to try them out on
 Signet.
 
 And how do you do that? As it happens that's the topic of [chapter
-12](12_0_Embedding_Bitcoin_Scripts_in_P2SH_Transactions.md), which
+12](12_0_Embedding_Bitcoin_Scripts_in_P2WSH_Transactions.md), which
 looks into introducing these abstract scripts to the real world of
-Bitcoin by embedding them in P2SH transactions. (But even then, you
-will probably need an API to push your P2SH transaction onto the
+Bitcoin by embedding them in P2WSH transactions. (But even then, you
+will probably need an API to push your P2WSH transaction onto the
 Bitcoin network, so full testing will still be a ways in the future.)
 
 _Whatever_ other testing methods you've used, testing a script on
