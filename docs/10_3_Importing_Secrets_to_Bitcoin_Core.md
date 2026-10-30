@@ -14,7 +14,7 @@ mainnet to test out how to import and export works in this chapter.
 
 To ensure this, go to ~/.bitcoin/bitcoin.conf and change the `signet=1` line to `signet=0`:
 
-```
+```sh
 cat bitcoin.conf
 
 | server=1
@@ -43,7 +43,7 @@ cat bitcoin.conf
 ```
 
 You then need to find `bitcoind` in your process table:
-```
+```sh
 ps auxww | grep bitcoin
 
 | standup    24832  3.1  9.8 4931716 395660 ?      SLsl 17:07   0:11 /usr/local/bin/bitcoind -conf=/home/standup/.bitcoin/bitcoin.conf
@@ -51,12 +51,16 @@ ps auxww | grep bitcoin
 ```
 
 Then convince it to die (`kill -9`):
-``` 
+```sh
 kill -9 24832
 ```
 
-This will restart `bitcoind` with the new config file, which will now
+This will then restart `bitcoind` with the new config file, which will now
 be using mainnet instead of signet.
+
+```sh
+/usr/local/bin/bitcoind -conf=/home/standup/.bitcoin/bitcoin.conf -daemon
+```
 
 ## Create a Descriptor
 
@@ -67,7 +71,7 @@ you're going to be creating a wallet descriptor for a whole account.
 If you review
 [§3.4](3_4_Understanding_the_Descriptor_Wallet/#examine-descriptors-with-listdescriptors), you can see that WPKH descriptors look like this:
 
-```
+```sh
       "desc": "wpkh([e18dae20/84h/1h/0h]tpubDC4ujMbsd9REzpGk3gnTjkrfJFw1NnvCpx6QBbLj3CHBzcLmVzssTVP8meRAM1WW4pZnK6SCCPGyzi9eMfzSXoeFMNprqtgxG71VRXTmetu/0/*)#3658f8sn",
       ...
       "desc": "wpkh([1bbc6484/84h/0h/0h]xpub6BfHmLzHGdGL3yXKFead4LtYqkDES6aFYMpieipj1WvdnXyvj5UZ4KYGsnAphLLjovhvrvs8u7S7zPHE1wFg4yhdp7REJRsyiDqVfQbNB8f/1/*)#827z83pg",
@@ -148,7 +152,11 @@ bitcoin-cli getdescriptorinfo $DESC_WPKH
 | }
 ```
 
-Note that these results actually include two checksums! The first one (`p5auymld`) is paired with a new copy of your descriptor that replaces the private key with the public key. You'll ignore that! The second one (`ac2yuqwk`) is the checksum for the private key descriptor that you entered.
+Note that these results actually include two checksums! The first one
+(`p5auymld`) is paired with a new copy of your descriptor that
+replaces the private key with the public key. You'll ignore that! The
+second one (`ac2yuqwk`) is the checksum for the private key descriptor
+that you entered.
 
 You can use `jq` to capture the checksums for both descriptors:
 
@@ -169,8 +177,8 @@ When you're moving wallets (or descriptors) between apps, you always
 want to make sure that they look the same on your source and
 destination systems. The best way to do that is to check addresses.
 
-Using `bitcoin-cli`, you can check address with `deriveaddresses`, which will show
-the addresses associated with a descriptor.
+Using `bitcoin-cli`, you can check address with `deriveaddresses`,
+which will show the addresses associated with a descriptor.
 
 Here are the first three WPKH addresses on Bitcoin Core:
 ```
@@ -325,7 +333,7 @@ bitcoin-cli -rpcwallet="seed" getrawchangeaddress
 | bc1qpecala06gpe3cm3xamfnga92h3yvksvxspgdld
 ```
 
-## Examining Your Wallet
+## Examine Your Wallet
 
 If you `listdescriptors` on your seed-based wallet, you can now see three different descriptors:
 
@@ -382,6 +390,137 @@ based on your seed until you had all 8 descriptors that are in the
 standard wallet created by Bitcoin Core. (The difference would be that
 you would have clear control of a seed, without having to worry about
 Bitcoin Core's unique file format for their wallets.)
+
+## Take the Easy Route
+
+Bitcoin 32.1 theoretically make it easier to go through this rigamarole by allowing the import of a master key.
+
+You create a new, blank wallet:
+```sh
+bitcoin-cli -named createwallet wallet_name="easy" blank=true
+{
+  "name": "easy"
+}
+```
+
+And then rather than an account key, you create a master key from your
+seed (using `keytool` from the last section):
+
+```sh
+MKEY=$(keytool --seed $SEED master-key-base58)
+
+echo $MKEY
+| xprv9s21ZrQH143K4H9v2NvxHsXd53wwQjraAZKAJReU1v9KornBPxuEK8UioPCeT5B3m8dGA2umL99QpjHuaqWYnAvzU6BzuFwNp447vSmNcsz
+```
+
+Afterward, you can add your key to your wallet with `addhdkey`:
+
+```sh
+bitcoin-cli -rpcwallet="easy" addhdkey $MKEY
+
+| {
+|   "xpub": "xpub661MyMwAqRbcGmEP8QTxf1UMd5nRpCaRXnEm6p45aFgJgf7KwWDUrvoCefrN6A5N1HRSgBLEMCnUcKFsE1UhFpAHsZ9THfr5CEfwJbbW21v"
+| }
+```
+
+This places in a special `unused` descriptor in your wallet:
+```sh
+bitcoin-cli listdescriptors
+
+| {
+|   "wallet_name": "easy",
+|   "descriptors": [
+|     {
+|       "desc": "unused(xpub661MyMwAqRbcGmEP8QTxf1UMd5nRpCaRXnEm6p45aFgJgf7KwWDUrvoCefrN6A5N1HRSgBLEMCnUcKFsE1UhFpAHsZ9THfr5CEfwJbbW21v)#wqtz26jx",
+|       "timestamp": 1793317171,
+|       "active": false
+|     }
+|   ]
+| }
+```
+
+There's a `createwalletdescriptor` RPC that will fill in missing
+descriptors, which we're going to talk a bit more about in
+[§17.2](17_2_Updating_to_Taproot.md), and you might expect that would
+fill in your descriptors now that you have a key:
+
+```sh
+bitcoin-cli -rpcwallet="easy" createwalletdescriptor bech32
+error code: -5
+error message:
+Unable to determine which HD key to use from active descriptors. Please specify with 'hdkey'
+```
+
+But even with just one key in the wallet, `bitcoin-cli` doesn't know to use it.
+
+Instead, you have to translate into the master public key, which you can
+see with the `listdescriptors` command now that the key is sort of in
+the wallet
+(`xpub661MyMwAqRbcGmEP8QTxf1UMd5nRpCaRXnEm6p45aFgJgf7KwWDUrvoCefrN6A5N1HRSgBLEMCnUcKFsE1UhFpAHsZ9THfr5CEfwJbbW21v)#wqtz26jx`) and you can `createwalletdescriptor` from that:
+
+```
+MKEY_PUB=xpub661MyMwAqRbcGmEP8QTxf1UMd5nRpCaRXnEm6p45aFgJgf7KwWDUrvoCefrN6A5N1HRSgBLEMCnUcKFsE1UhFpAHsZ9THfr5CEfwJbbW21v
+
+bitcoin-cli -rpcwallet="easy" createwalletdescriptor bech32 '''{ "hdkey": "'$MKEY_PUB'" }'''
+
+| {
+|   "descs": [
+|     "wpkh([35dad980/84h/0h/0h]xpub6D778Uy4K1qC1Lfsw2NGEN5dmSkADGPbi4t6q8o3AgMoCkRuSEnVDcPFK28WujQRgvY47UBXJ2zJJ5ZBKELMwA3AS9Zo3yUU8XNu5dZE5As/0/*)#p5auymld",
+|     "wpkh([35dad980/84h/0h/0h]xpub6D778Uy4K1qC1Lfsw2NGEN5dmSkADGPbi4t6q8o3AgMoCkRuSEnVDcPFK28WujQRgvY47UBXJ2zJJ5ZBKELMwA3AS9Zo3yUU8XNu5dZE5As/1/*)#sqcaew04"
+|   ]
+| }
+```
+
+You can then verify by looking at your descriptors and address
+
+```sh
+bitcoin-cli listdescriptors
+
+| {
+|   "wallet_name": "easy",
+|   "descriptors": [
+|     {
+|       "desc": "unused(xpub661MyMwAqRbcGmEP8QTxf1UMd5nRpCaRXnEm6p45aFgJgf7KwWDUrvoCefrN6A5N1HRSgBLEMCnUcKFsE1UhFpAHsZ9THfr5CEfwJbbW21v)#wqtz26jx",
+|       "timestamp": 1793317171,
+|       "active": false
+|     },
+|     {
+|       "desc": "wpkh([35dad980/84h/0h/0h]xpub6D778Uy4K1qC1Lfsw2NGEN5dmSkADGPbi4t6q8o3AgMoCkRuSEnVDcPFK28WujQRgvY47UBXJ2zJJ5ZBKELMwA3AS9Zo3yUU8XNu5dZE5As/0/*)#p5auymld",
+|       "timestamp": 1793317521,
+|       "active": true,
+|       "internal": false,
+|       "range": [
+|         0,
+|         999
+|       ],
+|       "next": 0,
+|       "next_index": 0
+|     },
+|     {
+|       "desc": "wpkh([35dad980/84h/0h/0h]xpub6D778Uy4K1qC1Lfsw2NGEN5dmSkADGPbi4t6q8o3AgMoCkRuSEnVDcPFK28WujQRgvY47UBXJ2zJJ5ZBKELMwA3AS9Zo3yUU8XNu5dZE5As/1/*)#sqcaew04",
+|       "timestamp": 1793317521,
+|       "active": true,
+|       "internal": true,
+|       "range": [
+|         0,
+|         999
+|       ],
+|       "next": 0,
+|       "next_index": 0
+|     }
+|   ]
+| }
+
+bitcoin-cli -rpcwallet="easy" getnewaddress
+
+| bc1q7jn4qxknxr3d58jwzjyw3x93w7qxwhkypftgaz
+```
+
+That integration of `addhdkey` and `createwalletdescriptor` may
+improve in a future version of Bitcoin Core; they were still brand new
+when we tested this out. But for now the jury is out as to whether
+this is really easier (and it definitely doesn't give you the
+understanding of descriptors that rebuilding from hand does).
 
 ## Summary: Importing Secrets to Bitcoin Core
 

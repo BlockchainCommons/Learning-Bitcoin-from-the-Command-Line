@@ -1,9 +1,9 @@
 # 10.1: Creating Secrets from the Command Line
 
-Bitcoin addresses are built on a hierarchy of secrets. In
-an HD wallet, a seed leads to a master key which leads to an account
-key which leads to address keys. However, in Bitcoin Core, you never
-see the seed, even though it's the fundamental unit of interoperability
+Bitcoin addresses are built on a hierarchy of secrets. In an HD
+wallet, a seed leads to a master key which leads to an account key
+which leads to address keys. However, in Bitcoin Core, you never see
+the seed, even though it's the fundamental unit of interoperability
 for the wider Bitcoin ecosystem. This section shows you how to create
 a seed, which we'll import into Bitcoin Core over the course of this
 chapter.
@@ -94,7 +94,7 @@ Third, reset your environment:
 . "$HOME/.cargo/env"
 ```
 
-For Mac, follow a similar procedure, but skip the `apt-get` and
+For Macs, follow a similar procedure, but skip the `apt-get` and
 instead `xcode-select --install` if you don't have a C compiler
 installed.
 
@@ -117,7 +117,8 @@ warnings, reboot the machine and try again (continuing with whatever package you
 
 ## Use Seedtool
 
-Using seedtool is also ridiculously easy. You run `seedtool` and it generates a seed.
+Using seedtool is also ridiculously easy. You run `seedtool` and it
+generates a seed.
 
 ```
 SEED=$(seedtool)
@@ -126,7 +127,8 @@ echo $SEED
 | f6cfffce024b5b1a8d8925aa6903d039
 ```
 
-You've now got a seed that you can use to generate entire hierarchies of Bitcoin addresses!
+You've now got a seed that you can use to generate entire hierarchies
+of Bitcoin addresses!
 
 ## Backup Your Seed
 
@@ -140,8 +142,8 @@ your favorite format with `-o [type]`. This includes a variety of
 output formats that are great for backup.
 
 > ⚠️ **Don't Forget the -i.** If you omit the `-i` flag, `seedtool`
-will instead generate a new seed and then convert that. That's almost
-definitely not what you want!
+will instead generate a new seed and then convert that. That's likely
+not what you want!
 
 `seedtool --help` lists all the possible output (and input)
 formats. Three are discussed below: BIP-39 (`bip39`), Bytewords
@@ -149,15 +151,15 @@ formats. Three are discussed below: BIP-39 (`bip39`), Bytewords
 
 [§10.5](10_5_Storing_Secrets_with_Envelope.md) will discuss how to use
 Gordian Envelope for even more powerful and resilient storage of
-secrets. But these are a great start.
+secrets. But the following formats are a great start.
 
 ### Backup as BIP-39
 
 [BIP-39](https://github.com/bitcoin/bips/blob/master/bip-0039.mediawiki)
-invented the idea of a mnemonic seed phrase. It allows a seed to be converted
-into a list of words that are less prone to errors when you store and
-recover them. Choosing `-o bip39` will output your seed as an
-English-language BIP-39 word list:
+invented the idea of a mnemonic seed phrase. It allows a seed to be
+converted into a list of words that are less prone to errors when you
+store and recover them. Choosing `-o bip39` will output your seed as
+an English-language BIP-39 word list:
 
 ```
 seedtool -i hex $SEED -o bip39
@@ -167,7 +169,8 @@ seedtool -i hex $SEED -o bip39
 
 This word list can then be stored somewhere safe. The [#SmartCustody
 course](https://www.smartcustody.com/) suggests inscribing it into
-metal and locking it in a vault or safe. This should make your seed much less prone to loss (while still protecting it from compromise).
+metal and locking it in a vault or safe. This should make your seed
+much less prone to loss (while still protecting it from compromise).
 
 > 📖 **What is a seed phase?** A collection of 12 or 24 ordered
 mnemonic words can define a seed.  Though seed phrases are not
@@ -178,11 +181,12 @@ Bitcoin ecosystem.
 
 Blockchain Commons has its own set of mnemonic words,
 [Bytewords](https://developer.blockchaincommons.com/bytewords/), which
-are more regular that BIP-39 words and chosen to be easy to remember
-and hard to confuse. (They're also the foundation of the
+are more regular that BIP-39 words and were chosen to be easy to
+remember and hard to confuse. (They're also the foundation of the
 [UR](https://developer.blockchaincommons.com/ur/) and [Animated
-QR](https://developer.blockchaincommons.com/animated-qrs/) technology
-that you used in [§8.4](08_4_Creating_Animated_QR_Codes.md).)
+QR](https://developer.blockchaincommons.com/animated-qrs/)
+technologies that you used in
+[§8.4](08_4_Creating_Animated_QR_Codes.md).)
 
 You can output as Bytewords with `-o btw`
 
@@ -236,7 +240,7 @@ ur:sskr/gocfaaaeadaowkstoxjelbdirhechlcftyzmgucwfheetdeooxvl
 ```
 
 [#SmartCustody](https://github.com/BlockchainCommons/SmartCustody/blob/master/Docs/SSKR-Sharing.md)
-contains more information on how to design a scenario for how many
+contains more information on how to design an SSKR scenario, including how many
 shares to create, where to store them, and what threshold to use.
 
 ## Summary: Creating Secrets from the Command Line

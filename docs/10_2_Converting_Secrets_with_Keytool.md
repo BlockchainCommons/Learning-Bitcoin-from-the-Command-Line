@@ -10,9 +10,9 @@ keys for import into Bitcoin Core.
 hierarchy of seed, keys, and addresses used in Bitcoin. We're going to
 be talking about three of those elements in this section.
 
-* **Seed.** This is the foundation of a BIP-32 HD wallet. Bitcoin Core doesn't expose them.
-* **Master Key.** A key derived directly from the seed. The root of a BIP-32 HD wallet. This has been exposed in some versions of Bitcoin Core, but currently you can only see the fingerprint of the master public key.
-* **Account Key.** A key derived from the master key and a specific account deriviation path. It's included in both the external and internal descriptors for a specific address type. This is what you see when you `listdescriptors` in Bitcoin Core.
+* **Seed.** The foundation of a BIP-32 HD wallet. Bitcoin Core doesn't expose them.
+* **Master Key.** A key derived directly from the seed. The root of a BIP-32 HD wallet. This has been exposed in some versions of Bitcoin Core and can be seen if you `listdescriptors true` to see private keys.
+* **Account Key.** A key derived from the master key and a specific account deriviation path. It's included in both the external and internal descriptors for a specific address type. This is what you see when you `listdescriptors` (without `true`) in Bitcoin Core.
 
 ## Install Your Own Seed Convertor
 
@@ -25,7 +25,7 @@ and C++ libraries.
 
 If you're using a Debian Linux machine, the following listing of packages will get you everything you need:
 ```
-sudo apt-get install llvm clang lsb-release wget git apt-transport-https pkg-config autoconf libtool libc++-dev libc++abi-dev python3 python3-setuptools
+sudo apt-get install llvm clang lsb-release wget git apt-transport-https pkg-config autoconf libtool libc++-dev libc++abi-dev python3 python3-setuptools make
 ```
 
 Afterward you can install LLVM for Python and link up `python` so that `keytool` can find it:
@@ -62,7 +62,7 @@ how to do so.
 To start with, you should fingerprint the master key derived from that
 seed. Though this isn't technically required for Bitcoin Core
 descriptors, it nonetheless can be used in the future as metadata that
-will tell us what seed was used to create certain descriptors.
+will verify what seed was used to create certain descriptors.
 
 When using `keytool` you're going to input your seed with `--seed` and then
 ask for a certain type of output, in this case,
@@ -86,8 +86,8 @@ printing it. That's because `keytool` is smart and does all of the
 intermediary calculations without asking you. So here it goes from the
 seed through the private master key through the public master key to
 the fingerprint, and you only have to worry about the first and last
-steps. (We're actually never going to output those master keys because we
-only care about things further down the hierarchy.)
+steps. (We're actually never going to output those master keys because
+we only care about things further down the hierarchy.)
 
 For ease of understanding, we've also chosen to work with mainnet
 keys, so we don't constantly have to flag testnet on all the

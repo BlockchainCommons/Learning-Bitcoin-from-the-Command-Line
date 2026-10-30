@@ -11,12 +11,17 @@ We're going to continue working in
 for this example, but you should use a Bitcoin Core-generated wallet,
 not the descriptor-based wallet we imported in the last section.
 
-Unload your "seed" wallet from the last section or create a new
+Unload any new wallets you created in the last section and/or create a new
 default (e.g., "mainwallet")" wallet depending on what you've done to
 date with Bitcoin Core.
 
 ```
 bitcoin-cli unloadwallet "seed"
+
+| {
+| }
+
+bitcoin-cli unloadwallet "easy"
 
 | {
 | }
@@ -50,8 +55,8 @@ might have funds.
 ## Understand Bitcoin Core Outputs
 
 The `listdescriptors` RPC command is what you use to retrieve
-information about your keys and descriptors for export. You've seen it a number
-of times:
+information about your keys and descriptors for export. You've seen it
+a number of times:
 
 ```
 bitcoin-cli listdescriptors
@@ -238,7 +243,7 @@ echo $MP_KEY
 If you moved over to mainnet as suggested for this chapter, remember
 to [return to
 signet](https://learningbitcoin.blockchaincommons.com/10_3_Importing_Secrets_to_Bitcoin_Core/#use-mainnet)
-now. You just need to set the `signet` flag back to `signet=1` and kill the `bitcoind` process to restart it.
+now. You just need to set the `signet` flag back to `signet=1` and kill the `bitcoind` process and restart it.
 
 ## Summary: Exporting Secrets from Bitcoin Core
 
@@ -249,7 +254,7 @@ the `listdescriptors` command
 ## What's Next?
 
 Conclude "Exploring the Ecosystem" with [§10.5: Storing Secrets with
-Envelope](0_5_Storing_Secrets_with_Envelope.md).
+Envelope](10_5_Storing_Secrets_with_Envelope.md).
 
 
 
