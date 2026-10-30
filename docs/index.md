@@ -133,7 +133,9 @@ complete state.</i>
     * [20.1: Verifying Your Tor Setup](20_1_Verifying_Your_Tor_Setup.md)
     * [20.2: Changing Your Bitcoin Hidden Services](20_2_Changing_Your_Bitcoin_Hidden_Services.md)
     * [20.3: Adding SSH Hidden Services](20_3_Adding_SSH_Hidden_Services.md)
-
+* [**21.0: Using i2p**](21_0_Using_i2p.md)
+    * [21.1: Running Bitcoin as an i2p Service](21_1_i2p_service.md)
+    
 ---
 
 > _Learning Bitcoin v1.0 was created in part under the sponsorship of [Blockstream](https://blockstream.com/). Learning Bitcoin v2.0 was self-funded by [Blockchain Commons](https://www.blockchaincommons.com/). Learning Bitcoin v3.0 was funded by a grant from [HRF](https://hrf.org/)._

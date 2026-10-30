@@ -4,22 +4,15 @@ The following TODO items are intended for a 3.0 version of Learning Bitcoin from
 
 ## Remaining TODOS for Two Final Days
 
-2. Decide on I2P Chapter
-3. Decide on Appendices
-4. Clean Out Software Chapters
-5. Archive Hardware Wallets
-6. Final Edit Chapters 10-20+
-7. Archive Future TODO Possibilities
-8. Decide on Redoing PSBT Diagrams with Constructor role per https://github.com/bitcoin/bips/blob/master/bip-0370.mediawiki
-11. Look Through Issues/PRs
-12. Add New network options to setup
-
-## Finalization Day #1 (10/29)
-
-1. Edited Chapter 9
-2. Updated/Revised Chapter 20 (Tor)
-3. Updated/Revised Chapter 21 (I2P)
-4. Made BTC 32.1 Updates (derivehdkey, addhdkey)
+1. Decide on I2P Chapter
+2. Decide on Appendices
+3. Clean Out Software Chapters
+4. Archive Hardware Wallets
+5. Final Edit Chapters 12-21+
+6. Archive Future TODO Possibilities
+7. Decide on Redoing PSBT Diagrams with Constructor role per https://github.com/bitcoin/bips/blob/master/bip-0370.mediawiki
+8. Look Through Issues/PRs
+9. Add New network options to setup
 
 ## Longer-Term TODO (Small Tasks)
 
@@ -140,6 +133,13 @@ See [release notes](https://bitcoincore.org/en/releases/0.21.0/).
 ---
 
 # Progress Log
+
+## Finalization Day #1 (10/29)
+
+1. Edited Chapter 9-11
+2. Updated/Revised Chapter 20 (Tor)
+3. Updated/Revised Chapter 21 (I2P)
+4. Made BTC 32.1 Updates (derivehdkey, addhdkey)
 
 ## Immediate TODO (for 10/15): Taproot Finale
 
