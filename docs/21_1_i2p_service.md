@@ -49,107 +49,107 @@ To use I2P, you will need to open the following ports, which are required by I2P
 
 The following will run Bitcoin Core I2P services:
 
-1. Install `i2pd` on Ubuntu:
+#1 Install `i2pd` on Ubuntu:
 
-   ```sh
-   sudo apt-get install i2pd
-   ```
+```sh
+sudo apt-get install i2pd
+```
 
    For installing on other OSes, see [these docs](https://i2pd.readthedocs.io/en/latest/user-guide/install/)
 
-2. [Run](https://i2pd.readthedocs.io/en/latest/user-guide/run/) the I2P service:
+#2 [Run](https://i2pd.readthedocs.io/en/latest/user-guide/run/) the I2P service:
 
-   ```sh
-   sudo systemctl start i2pd.service
-   ```
+```sh
+sudo systemctl start i2pd.service
+```
 
-3. Add the following lines in `bitcoin.conf`: 
+#3 Add the following lines in `bitcoin.conf`: 
 
-   ```sh
-   i2psam=127.0.0.1:7656
-   debug=i2p
-   ```
-   The logging option, `debug=i2p`, is used to record additional information in the debug log about your I2P configuration and connections. The default location for this debugging file on Linux is: `~/.bitcoin/debug.log`:
+```sh
+i2psam=127.0.0.1:7656
+debug=i2p
+```
 
-4. Restart `bitcoind`
+The logging option, `debug=i2p`, is used to record additional information in the debug log about your I2P configuration and connections. The default location for this debugging file on Linux is: `~/.bitcoin/debug.log`:
 
-   ```sh
-   kill [IP]
-   /usr/local/bin/bitcoind -conf=/home/standup/.bitcoin/bitcoin.conf -daemon
-   ```
+#4 Restart `bitcoind`
 
-5. Check `debug.log` to see if I2P was setup correctly, or if any errors appeared in the logs.
+```sh
+kill [IP]
+/usr/local/bin/bitcoind -conf=/home/standup/.bitcoin/bitcoin.conf -daemon
+```
 
-   ```sh
-   grep i2p ~/.bitcoin/signet/debug.log 
+#5 Check `debug.log` to see if I2P was setup correctly, or if any errors appeared in the logs.
 
-   | 2026-10-30T00:32:24Z Config file arg: debug="i2p"
-   | 2026-10-30T00:32:24Z Config file arg: i2psam="127.0.0.1:7656"
-   | 2026-10-30T00:32:26Z i2paccept thread start
-   | 2026-10-30T00:32:26Z [i2p] Creating persistent I2P SAM session b8ce018cdd with 127.0.0.1:7656
-   ```
+```sh
+grep i2p ~/.bitcoin/signet/debug.log 
+
+| 2026-10-30T00:32:24Z Config file arg: debug="i2p"
+| 2026-10-30T00:32:24Z Config file arg: i2psam="127.0.0.1:7656"
+| 2026-10-30T00:32:26Z i2paccept thread start
+| 2026-10-30T00:32:26Z [i2p] Creating persistent I2P SAM session b8ce018cdd with 127.0.0.1:7656
+```
    
-6. Confirm `i2p_private_key` was created in the Bitcoin Core data directory. The first time Bitcoin Core connects to the I2P router, its I2P address (and corresponding private key) will be automatically generated and saved in a file named *i2p_private_key*:
+#6 Confirm `i2p_private_key` was created in the Bitcoin Core data directory. The first time Bitcoin Core connects to the I2P router, its I2P address (and corresponding private key) will be automatically generated and saved in a file named *i2p_private_key*:
 
-   ```sh
-   ls ~/.bitcoin/signet/
-   
-   | banlist.json  blocks      debug.log  i2p_private_key  onion_v3_private_key  settings.json
-   | bitcoind.pid  chainstate  fees       mempool.dat      peers.dat             wallets
-   ```
+```sh
+ls ~/.bitcoin/signet/
 
-7. Check that `bitcoin-cli getnetworkinfo` show that i2p is reachable:
+| banlist.json  blocks      debug.log  i2p_private_key  onion_v3_private_key  settings.json
+| bitcoind.pid  chainstate  fees       mempool.dat      peers.dat             wallets
+```
 
-   ```sh
-   bitcoin-cli getnetworkinfo
+#7 Check that `bitcoin-cli getnetworkinfo` show that i2p is reachable:
 
-   | {
-   |
-   | ...
-   |
-   |   "networks": [
-   |     {
-   |       "name": "ipv4",
-   |       "limited": false,
-   |       "reachable": true,
-   |       "proxy": "",
-   |       "proxy_randomize_credentials": false
-   |     },
-   |     {
-   |       "name": "ipv6",
-   |       "limited": false,
-   |       "reachable": true,
-   |       "proxy": "",
-   |       "proxy_randomize_credentials": false
-   |     },
-   |     {
-   |       "name": "onion",
-   |       "limited": false,
-   |       "reachable": true,
-   |       "proxy": "127.0.0.1:9050",
-   |       "proxy_randomize_credentials": true
-   |     },
-   |     {
-   |       "name": "i2p",
-   |       "limited": false,
-   |       "reachable": true,
-   |       "proxy": "127.0.0.1:7656",
-   |       "proxy_randomize_credentials": false
-   |     },
-   |     {
-   |       "name": "cjdns",
-   |       "limited": true,
-   |       "reachable": false,
-   |       "proxy": "",
-   |       "proxy_randomize_credentials": false
-   |     }
-   |   ],
-   |
-   | ...
-   |
-   | }
+```sh
+bitcoin-cli getnetworkinfo
 
-   ```
+| {
+|
+| ...
+|
+|   "networks": [
+|     {
+|       "name": "ipv4",
+|       "limited": false,
+|       "reachable": true,
+|       "proxy": "",
+|       "proxy_randomize_credentials": false
+|     },
+|     {
+|       "name": "ipv6",
+|       "limited": false,
+|       "Reachable": true,
+|       "proxy": "",
+|       "proxy_randomize_credentials": false
+|     },
+|     {
+|       "name": "onion",
+|       "limited": false,
+|       "reachable": true,
+|       "proxy": "127.0.0.1:9050",
+|       "proxy_randomize_credentials": true
+|     },
+|     {
+|       "name": "i2p",
+|       "limited": false,
+|       "reachable": true,
+|       "proxy": "127.0.0.1:7656",
+|       "proxy_randomize_credentials": false
+|     },
+|     {
+|       "name": "cjdns",
+|       "limited": true,
+|       "reachable": false,
+|       "proxy": "",
+|       "proxy_randomize_credentials": false
+|     }
+|   ],
+|
+| ...
+|
+| }
+```
   
 You now have your Bitcoin server accessible through the I2P network at your new local address.
 
