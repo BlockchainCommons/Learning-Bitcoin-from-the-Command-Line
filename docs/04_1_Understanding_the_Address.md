@@ -215,16 +215,16 @@ in a variety of formats.
 
 ## Create Other Address Types
 
-Though you'll stick with the default P2PWKH addresses most of the
+Though you'll stick with the default P2WPKH addresses most of the
 time, you may want to create other sorts of addresses. The
 `getnewaddress` RPC actually offers four types:
 
 | Flag | Type | Notes |
 |------|------|-------|
-| bech32 | P2PKH | default |
+| bech32 | P2WPKH | default |
 | bech32m | P2TR | |
-| legacy | P2PK | deprecated |
-| p2sh-segwit | P2SH-PWPKH | deprecated |
+| legacy | P2PKH | deprecated |
+| p2sh-segwit | P2SH-P2WPKH | deprecated |
 
 Missing from this is P2WSH, but that's because it has its own methods for creation, as are described later in the book.
 
