@@ -223,7 +223,7 @@ time, you may want to create other sorts of addresses. The
 |------|------|-------|
 | bech32 | P2WPKH | default |
 | bech32m | P2TR | |
-| legacy | P2PK | deprecated |
+| legacy | P2PKH | deprecated |
 | p2sh-segwit | P2SH-P2WPKH | deprecated |
 
 Missing from this is P2WSH, but that's because it has its own methods for creation, as are described later in the book.
