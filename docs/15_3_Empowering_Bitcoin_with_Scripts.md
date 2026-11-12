@@ -35,7 +35,7 @@ from reverting back to an old transaction that's more beneficial to
 them? The answer is _revocation_. A simplified example in BIP 112,
 which offers one of the stepping stones to Lightning, shows how: you
 give the participant who would be harmed by reversion to a revoked
-transaction the ability to reclaim the funds himself if the the other
+transaction the ability to reclaim the funds themself if the the other
 participant illegitimately tries to use the revoked transaction.
 
 For example, presume that Alice and Bob update the commitment
@@ -174,6 +174,7 @@ Script: OP_DROP <pubKeyAlice> OP_CHECKSIG
 Running: <+24Hours> OP_CHECKSEQUENCEVERIFY 
 Stack: [ <sigAlice> <+24Hours> ] — Script EXITS
 ```
+
 #### Run the Lock Script for Victimized Bob
 
 What this means is that Bob has 24 hours to reclaim his funds if Alice
@@ -222,7 +223,7 @@ closing down the proto-Lightning channel. She puts the transaction on
 the chain and she waits 24 hours. Bob can't do anything about it
 because he doesn't have the recovation code. Then, after the wait,
 Alice reclaims her funds. (Bob does the same thing with his own final
-commtiment transaction.)
+commitment transaction.)
 
 ### Lock with Hashed Time-Lock Contracts
 
@@ -251,7 +252,7 @@ other.
 
 #### Lock the Recipient's Transaction
 
-Once more, we're going to start looking at Alice's commitment
+Once more, we're going to start by looking at Alice's commitment
 transaction, which shows funds that she's received:
 
 ```
@@ -410,5 +411,5 @@ all the tools to do the same yourself.
 
 ## What's Next?
 
-Move on to "Using Miniscript" with [Chapter Fourteen: Using
+Move on to "Using Miniscript" with [Chapter Sixteen: Using
 Miniscript](16_0_Using_Miniscript.md).

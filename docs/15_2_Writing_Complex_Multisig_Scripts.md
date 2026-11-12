@@ -114,11 +114,11 @@ wanted to (correctly) sign.
 
 ### Write a Multisig with a Required Signer
 
-Another multisig possibility involves have a m-of-n multisig where one
-of the signers is required. This can usually be managed by breaking
-the multisig down into multiple m of n-1 multisigs. For example, a
-2-of-3 multisig where one of the signers is required would actually be
-two 2-of-2 multisigs, each including the required signer.
+Another multisig possibility is an m-of-n multisig where one of the
+signers is required. This can usually be managed by breaking the
+multisig down into multiple m of n-1 multisigs. For example, a 2-of-3
+multisig where one of the signers is required would actually be two
+2-of-2 multisigs, each including the required signer.
 
 Here's a simple way to script that:
 ```
@@ -184,15 +184,17 @@ NOTIF
 ENDIF
 ```
 
-First, you test a signature for the buyer and the escrow agent, then a signature for the seller and the escrow agent. If both of those fail and 30 days have passed, then you also allow a signature for the buyer and seller.
+First, you test a signature for the buyer and the escrow agent, then a
+signature for the seller and the escrow agent. If both of those fail
+and 30 days have passed, then you also allow a signature for the buyer
+and seller.
 
 ### Write a Buyer-Centric Escrow Multisig
 
 [BIP
 112](https://github.com/bitcoin/bips/blob/master/bip-0112.mediawiki#Escrow_with_Timeout)
-offers a different example of this sort of escrow that doesn't have
-the extra protections to prevent going around the escrow agent, but
-which does give Alice total control if the escrow fails.
+offers a different example of this sort of escrow that instead gives
+Alice total control if the escrow fails.
 
 ```
 IF
@@ -210,9 +212,14 @@ ENDIF
 Here, any two of the three signers can release the money at any time,
 but after 30 days Alice can retrieve her money on her own.
 
-Note that this Script requires a `True` or `False` to be passed in to identify which branch is being used. This is a simpler, less computationally intensive way to support branches in a Bitcoin Script; it's fairly common.
+Note that this Script requires a `True` or `False` to be passed in to
+identify which branch is being used. This is a simpler, less
+computationally intensive way to support branches in a Bitcoin Script;
+it's fairly common.
 
-Early on, the following `sigScript` would be allowed: `0 <signer1> <signer2> True`. After 30 days, Alice could produce a `sigScript` like this: `<sigA> False`.
+Early on, the following `sigScript` would be allowed: `0 <signer1>
+<signer2> True`. After 30 days, Alice could produce a `sigScript` like
+this: `<sigA> False`.
 
 ## Summary: Writing Complex Multisig Scripts
 
@@ -231,4 +238,5 @@ certain times.
 
 ## What's Next?
 
-Continue "Designing Real Bitcoin Scripts" with [§15.3: Empowering Bitcoin with Scripts](15_3_Empowering_Bitcoin_with_Scripts.md).
+Continue "Designing Real Bitcoin Scripts" with [§15.3: Empowering
+Bitcoin with Scripts](15_3_Empowering_Bitcoin_with_Scripts.md).

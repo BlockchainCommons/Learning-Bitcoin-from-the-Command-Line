@@ -583,8 +583,8 @@ Second, the actual redemption isn't secure. Normally, a Bitcoin
 transaction is protected by the signature. Because the signature
 covers the transaction, no one on the network can rewrite that
 transaction to instead send to their address without invalidating the
-signature (and thus the transaction). That isn't true with a
-transactions whose inputs are just numbers. Anyone could grab the
+signature (and therefore the transaction). That isn't true with a
+transaction whose inputs are just numbers. Anyone could grab the
 transaction and rewrite it to allow them to steal the funds. If they
 can get their transaction into a block before yours, they win, and you
 don't get the puzzle money. There are solutions for this, but they
