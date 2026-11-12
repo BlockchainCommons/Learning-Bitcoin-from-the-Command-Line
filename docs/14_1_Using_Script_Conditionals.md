@@ -93,7 +93,7 @@ ENDIF
  OP_EQUALVERIFY 
  OP_CHECKSIG
 ```
-So, you might think, if the `OP_DUP` is successful, then we get to do the first block, else the second. But that doesn't make any sense! Why wouldn't the `OP_DUP` succeed?!
+So, you might think, if the `OP_DUP` is successful, then we get to do the first block, else the second. But that doesn't make any sense! Why wouldn't the `OP_DUP` succeed?
 
 And, indeed, it doesn't make any sense, because we accidentally read
 the statement using thewrong notation. The correct reading of this is:
@@ -229,13 +229,21 @@ Script: IF OP_CHECKSIG ELSE OP_DUP OP_HASH160 <pubKeyHashB> OP_EQUALVERIFY OP_CH
 Running: <pubKeyHashB> <pubKeyHashA> OP_EQUAL
 Stack: [ <signatureB> <pubKeyB> False ]
 ```
-Whoop! The result was `False` because `<pubKeyHashB>` does not equal `<pubKeyHashA>`. Now when the `IF` runs, it collapses down to just the `ELSE` statement:
+
+Whoop! The result was `False` because `<pubKeyHashB>` does not equal
+`<pubKeyHashA>`. Now when the `IF` runs, it collapses down to just the
+`ELSE` statement:
+
 ```
 Script: OP_DUP OP_HASH160 <pubKeyHashB> OP_EQUALVERIFY OP_CHECKSIG
 Running: False IF
 Stack: [ <signatureB> <pubKeyB> ]
 ```
-Afterward, we go through the whole rigamarole again, starting with another `OP_DUP`, but eventually testing against the other `pubKeyHash`:
+
+Afterward, we go through the whole rigamarole again, starting with
+another `OP_DUP`, but eventually testing against the other
+`pubKeyHash`:
+
 ```
 Script: OP_HASH160 <pubKeyHashB> OP_EQUALVERIFY OP_CHECKSIG
 Running: <pubKeyB> OP_DUP
