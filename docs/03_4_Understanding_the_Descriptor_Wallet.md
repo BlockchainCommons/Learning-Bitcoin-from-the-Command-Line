@@ -300,7 +300,7 @@ bitcoin-cli getdescriptorinfo "wpkh([e18dae20/84h/1h/0h]tpubDC4ujMbsd9REzpGk3gnT
 ```
 This is a pretty sparse description that includes the `descriptor` and its `checksum` and confirms that it's a ranged descriptor (`isrange`), that our wallet has the private key (`issolvable`), and that the private key isn't included in the descriptor and that there's instead a public key (`hasprivatekeys`). Beyond that information, `getdescriptorinfo` serves two other purposes:
 
-#1. If you don't have the checksum (which is required for other descriptor-related `bitcoin-cli` commands), you can enter the descriptor into `getdescriptorinfo` without it, and it'll be calculated for you.
+[1] If you don't have the checksum (which is required for other descriptor-related `bitcoin-cli` commands), you can enter the descriptor into `getdescriptorinfo` without it, and it'll be calculated for you.
 
 ```sh
 bitcoin-cli getdescriptorinfo "wpkh([e18dae20/84h/1h/0h]tpubDC4ujMbsd9REzpGk3gnTjkrfJFw1NnvCpx6QBbLj3CHBzcLmVzssTVP8meRAM1WW4pZnK6SCCPGyzi9eMfzSXoeFMNprqtgxG71VRXTmetu/0/*)"
@@ -314,7 +314,7 @@ bitcoin-cli getdescriptorinfo "wpkh([e18dae20/84h/1h/0h]tpubDC4ujMbsd9REzpGk3gnT
 | }
 ```
 
-#2. If your descriptor is invalid, `getdescriptorinfo` will tell you:
+[2] If your descriptor is invalid, `getdescriptorinfo` will tell you:
 
 ```sh
 bitcoin-cli getdescriptorinfo "cow([e18dae20/84h/1h/0h]tpubDC4ujMbsd9REzpGk3gnTjkrfJFw1NnvCpx6QBbLj3CHBzcLmVzssTVP8meRAM1WW4pZnK6SCCPGyzi9eMfzSXoeFMNprqtgxG71VRXTmetu/0/*)"

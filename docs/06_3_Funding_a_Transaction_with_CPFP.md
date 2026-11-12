@@ -31,7 +31,7 @@ put into a block.
 
 Funding a transaction with CPFP is a very simple process using the methods you're already familiar with:
 
-#1. Find the `txid` and `vout` of the unconfirmed transaction. This
+[1] Find the `txid` and `vout` of the unconfirmed transaction. This
 may be the trickiest part, as `bitcoin-cli` generally tries to protect
 you from unconfirmed transactions. The sender might be able to send
 you this info; even with just the `txid`, you should be able to figure
@@ -117,9 +117,9 @@ utxo_vout=1
 recipient2=$(bitcoin-cli getrawchangeaddress)
 ```
 
-#2. Create a raw transaction using your unconfirmed transaction as an input.
+[2] Create a raw transaction using your unconfirmed transaction as an input.
 
-#3. Double your expected transaction fees (or more). (This transaction
+[3] Double your expected transaction fees (or more). (This transaction
 uses a fee of about $1.41, which is ridiculous based on current fees,
 but definitely should be enough to free up the transaction.)
    
@@ -131,7 +131,7 @@ signedtx=$(bitcoin-cli -named signrawtransaction hexstring=$rawtxhex | jq -r '.h
 txid=$(bitcoin-cli -named sendrawtransaction hexstring=$signedtx)
 ```
 
-#4. Crossing your fingers is not needed. You have verified your data
+[4] Crossing your fingers is not needed. You have verified your data
 is correct. From this point on, things are out of your hands.
    
 Your transactions may go through quickly. They may not. It all depends
