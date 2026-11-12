@@ -23,7 +23,7 @@ and its successors. Here's a bit more about what that all means.
 ### Understand Schnorr Signatures (BIP 340)
 
 The first building block of Taproot is the Schnorr Signature which is
-defined in BIP 340..
+defined in BIP 340.
 
 Signatures are, of course, what unlock Bitcoin transactions. P2PKH and
 P2WPKH UTXOs are locked with a public key, which is hashed to form the
@@ -56,16 +56,16 @@ key signature) or via a script path (scripted spending conditions).
 Script paths are embedded in a Merkle Tree, or a MAST, a concept that
 was previously described in [BIP
 114](https://github.com/bitcoin/bips/blob/master/bip-0114.mediawiki). A
-MAST contains different scripts within a binary hash tree: each leaf
-uses a hash to commit to a script. A Taproot address then commits to
-the root of the hash tree as a "tweak" that is added to the Taproot
-address thanks to the aggregatability of Schnorr.
+MAST is a binary hash tree that can contain a variety of scripts: each
+leaf uses a hash to commit to an individual script. A Taproot address
+then commits to the root of the hash tree as a "tweak" that is added
+to the Taproot address thanks to the aggregatability of Schnorr.
 
 > 📖 ***What is a Commitment?** When you hash data, you create a
 representation of the data that doesn't reveal the data itself, but
 can later be used to prove what the data is (and that you know
 it). This is how P2SH and P2WSH work: the "Script Hash" is a
-commitment to the script that can unlock the UTXO. With Taproot, an
+commitment to the script that unlocks the UTXO. With Taproot, an
 address commits to a Merkle Tree of scripts using the Merkle Root
 hash--which is applied as a tweak to the public key to form the
 address.
@@ -110,7 +110,8 @@ Each of these parts will receive additional discussion in later sections.
 
 > 🔥 ***What is the power of Taproot?*** Taproot allows keys and a
 huge multitude of scripts to be used interchangeably and privately
-with a single Bitcoin address.
+with a single Bitcoin address. It's a one-stop address that is
+efficient, cheap, multi-faceted, and powerful.
 
 ## What's Next?
 

@@ -9,7 +9,7 @@ SegWit was 'segwit v0' while Taproot is 'segwit v1').
 The most fundamental expansion of Taproot is the ability to use a
 single address to combine rules for key paths (e.g., unlocking an
 address with a private key) and script paths (e.g., unlocking an
-address per the rules of a Bitcoin Script, or more properly, with
+address per the rules of a Bitcoin Script, or, more properly, with
 Tapscript). Essentially, P2TR integrates both P2WPKH and P2WSH.
 
 However, that's just the simplest level of explanation: the Taproot
