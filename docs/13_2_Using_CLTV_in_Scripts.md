@@ -33,12 +33,12 @@ compares that argument to the current time. If it's too early, the
 script fails; if the time condition has been met, the script carries
 on.
 
-Because CLTV is just part of a script (and presumably part of a P2WSH
-transaction), a CLTV transaction is not kept out of the mempool like
-an `nLockTime` transaction is; as soon as it's verified, it goes onto
-the blockchain, and the funds are considered spent. The trick is that
-all the outputs that were locked with the CLTV aren't available for
-_respending_ until the CLTV allows it.
+Because CLTV is just part of a script (and presumably part of a P2SH
+or P2WSH transaction), a CLTV transaction is not kept out of the
+mempool like an `nLockTime` transaction is; as soon as it's verified,
+it goes onto the blockchain, and the funds are considered spent. The
+trick is that all the outputs that were locked with the CLTV aren't
+available for _respending_ until the CLTV allows it.
 
 ### Understand a CLTV Absolute Time
 
@@ -77,7 +77,7 @@ A locking script will only allow a transaction to respend a UTXO
 locked with a CLTV if `OP_CHECKLOCKTIMEVERIFY` verifies all of the
 following:
 
-* The `nSequence` field of the new transaction must be set to less than 0xffffffff, usually 0xffffffff-2 to avoid confilcts with relative timelocks.
+* The `nSequence` field of the new transaction must be set to less than 0xffffffff, usually 0xffffffff-2 to avoid conflicts with relative timelocks.
 * CLTV must pop an operand off the stack and it must be 0 or greater.
 * Both the stack operand and `nLockTime` must either be above or below 500 million, to depict the same sort of absolute timelock (blockheight or time).
 * The `nLockTime` value of the new transaction must be greater than or equal to the stack operand.
@@ -118,9 +118,9 @@ The following simple locking script could be used to transform a P2PKH output to
 Of course, as with any complex Bitcoin Scripts, this CLTV script would
 actually be encoded in a P2SH script, as explained in [§12.1:
 Understanding the Foundation of
-P2SH](12_1_Understanding_the_Foundation_of_P2SH.md) and [§12.2:
+P2SH & P2WSH](12_1_Understanding_the_Foundation_of_P2WSH.md) and [§12.2:
 Building the Structure of
-P2SH](12_2_Building_the_Structure_of_P2SH.md).
+P2SH & P2WSH](12_2_Building_the_Structure_of_P2WSH.md).
 
 Assuming that `<NextYear>` were the integer "1546288031"
 (little-endian hex: 0x9f7b2a5c) and `<pubKeyHash>` were
@@ -136,10 +136,11 @@ Which translates into hex as:
 ```
 As usual `btcc` can automate this for you.
 ```
-$ btcc 0x9f7b2a5c OP_CHECKLOCKTIMEVERIFY OP_DROP OP_DUP OP_HASH160 0x371c20fb2e9899338ce5e99908e64fd30b789313 OP_EQUALVERIFY OP_CHECKSIG
-049f7b2a5cb17576a914371c20fb2e9899338ce5e99908e64fd30b78931388ac
+btcc 0x9f7b2a5c OP_CHECKLOCKTIMEVERIFY OP_DROP OP_DUP OP_HASH160 0x371c20fb2e9899338ce5e99908e64fd30b789313 OP_EQUALVERIFY OP_CHECKSIG
+
+| 049f7b2a5cb17576a914371c20fb2e9899338ce5e99908e64fd30b78931388ac
 ```
-The `decodescript` RPC can verify that we got it right:
+The `decodescript` RPC can thenverify that you got it right:
 ```
 bitcoin-cli -named decodescript hexstring=049f7b2a5cb17576a914371c20fb2e9899338ce5e99908e64fd30b78931388ac
 
@@ -212,7 +213,7 @@ Stack: [ <signature> <pubKey> ]
 Finally, the remainder of the script runs, which is a normal check of a signature and public key.
 
 ## Summary: Using CLTV in Scripts
-p
+
 `OP_CHECKLOCKTIMEVERIFY` is a simple opcode that looks at a single
 argument, interprets it as a blockheight or UNIX timestamp, and only
 allows its UTXO to be unlocked if that blockheight or UNIX timestamp

@@ -86,11 +86,14 @@ hexvalue=$(printf '%x\n' $nvalue)
 ```
 Finally, bitwise-or the 23rd bit into the hex value you created:
 ```
-$ relativevalue=$(printf '%x\n' $((0x$hexvalue | 0x400000)))
-$ echo $relativevalue
-4076a7
-$ printf "%d\n" "0x$relativevalue"
-4224679
+relativevalue=$(printf '%x\n' $((0x$hexvalue | 0x400000)))
+echo $relativevalue
+
+| 4076a7
+
+printf "%d\n" "0x$relativevalue"
+
+| 4224679
 ```
 
 If you convert that back you'll see that 4224679 =
@@ -151,8 +154,8 @@ input. It is _not_ a timespan after you create the transaction. If you
 use a UTXO that's already been confirmed a hundred times, and you
 place a relative timelock of 100 blocks on it, it will be eligible for
 mining immediately. Relative timelocks have some very specific uses,
-but they probably don't apply if your only goal is to determine some
-set time in the future.
+but they probably don't apply if your only goal is to restrict
+spending until some set time in the future.
 
 ### Understand How CSV Really Works
 
@@ -177,7 +180,7 @@ requiring an `OP_DROP` when you're all done.
 
 A script that would lock funds until six months had passed following
 the mining of the input, and that would then require a standard
-P2PKH-style signature would look as follows:
+P2PKH-style signature, would look as follows:
 
 ```
 <+6Months> OP_CHECKSEQUENCEVERIFY OP_DROP OP_DUP OP_HASH160 <pubKeyHash> OP_EQUALVERIFY OP_CHECKSIG
@@ -195,21 +198,25 @@ This can be done with the `integer2lehex.sh` shell script from the previous chap
 
 For a relative time of 100 blocks:
 ```
-$ ./integer2lehex.sh 100
-Integer: 100
-LE Hex: 64
-Length: 1 bytes
-Hexcode: 0164
+./integer2lehex.sh 100
+
+| Integer: 100
+| LE Hex: 64
+| Length: 1 bytes
+| Hexcode: 0164
 ```
+
 Though that should be padded out to `000064`, requiring a code of `03000064`.
 
 For a relative time of 6 months:
+
 ```
-$ ./integer2lehex.sh 4224679
-Integer: 4224679
-LE Hex: a77640
-Length: 3 bytes
-Hexcode: 03a77640
+./integer2lehex.sh 4224679
+
+| Integer: 4224679
+| LE Hex: a77640
+| Length: 3 bytes
+| Hexcode: 03a77640
 ```
 
 ## Spend a CSV UTXO

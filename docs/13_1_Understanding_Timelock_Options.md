@@ -2,10 +2,10 @@
 
 In [§9.1: Sending a Transaction with a
 Locktime](09_1_Sending_a_Transaction_with_a_Locktime.md), `nLocktime`
-offered a great first option for locking transactions so that they
-couldn't be spent until some point in the future — based either on
-time or blockheight. But, that's not the only way to put a timelock on
-a transaction.
+was introduced as a great first option for locking transactions so
+that they can't be spent until some point in the future, based either
+on time or blockheight. But that's not the only way to put a timelock
+on a transaction.
 
 ## Understand the Limitations of nLockTime
 
