@@ -1,39 +1,40 @@
 # 12.3: Running a Bitcoin Script with P2SH or P2WSH
 
 Now that you know both the theory
-([§12.1](12_1_Understanding_the_Foundation_of_PW2SH.md)) and practice
+([§12.1](12_1_Understanding_the_Foundation_of_P2WSH.md)) and practice
 ([§12.2](12_2_Building_the_Structure_of_P2WSH.md)) behind P2SH and
 P2WSH addresses, you're ready to turn a non-standard Bitcoin Script
-into an actual transaction. We'll be reusing the simple locking script
-from [§11.2: Running a Bitcoin
+into an actual transaction. We'll be reusing the simple (but not
+secure) locking script from [§11.2: Running a Bitcoin
 Script](11_2_Running_a_Bitcoin_Script.md), `OP_ADD 99 OP_EQUAL`.
 
 ## Create a P2SH Transaction
 
 We're going to format this as a P2SH transaction, so that we can
-easily run through the entire unlocking process as part of the locking
-script. But, it would be exactly the same as a P2WSH transaction, just
-with a different hashing and encoding mechanism.
+easily run through the entire unlocking process. We'll repeat the
+exercise with a P2WSH script later in thie section, but it will be the
+same, just with a different hashing and encoding mechanism.
 
 To lock a transaction with this script, do the following:
 
-1. Serialize `OP_ADD 99 OP_EQUAL`:
-   1. OP_ADD = 0x93 — a simple opcode translation
-   2. 99 = 0x01, 0x63 — this opcode pushes one byte onto the stack, 99 (hex: 0x63)
+#1 Serialize `OP_ADD 99 OP_EQUAL`:
+   - OP_ADD = 0x93 — a simple opcode translation
+   - 99 = 0x01, 0x63 — this opcode pushes one byte onto the stack, 99 (hex: 0x63)
       * No worries about endian conversion because it's only one byte
-   3. OP_EQUAL = 0x87 — a simple opcode translation
-   4. `<serialized99Equal>` = "93016387" 
-   
+   - OP_EQUAL = 0x87 — a simple opcode translation
+   - `<serialized99Equal>` = "93016387" 
+
+Here's a double-check:
 ```
 btcc OP_ADD 99 OP_EQUAL
 
 | 93016387
 ```
 
-2. Save `<serialized99Equal>` for future reference as the `redeemScript`.
-   1. `<redeemScript>` = "93016387"
-3. SHA-256 and RIPEMD-160 hash the serialized script.
-   1. `<hashed99Equal>` = "3f58b4f7b14847a9083694b9b3b52a4cea2569ed"
+#2 Save `<serialized99Equal>` for future reference as the `redeemScript`.
+   - `<redeemScript>` = "93016387"
+#3 SHA-256 and RIPEMD-160 hash the serialized script.
+   - `<hashed99Equal>` = "3f58b4f7b14847a9083694b9b3b52a4cea2569ed"
 
 ```
 echo -n $redeemScript | xxd -r -p | openssl dgst -sha256 -binary | openssl dgst -rmd160
@@ -41,7 +42,7 @@ echo -n $redeemScript | xxd -r -p | openssl dgst -sha256 -binary | openssl dgst 
 | RIPEMD-160(stdin)= 3f58b4f7b14847a9083694b9b3b52a4cea2569ed
 ```
 
-4. Produce a P2SH locking script that includes the `<hashed99Equal>`. That's `a914` + hash + `87`.
+#4 Produce a P2SH locking script that includes the `<hashed99Equal>`. That's `a914` + hash + `87`.
    1. `scriptPubKey` = "a9143f58b4f7b14847a9083694b9b3b52a4cea2569ed87"
 
 You can then create a transaction using this `scriptPubKey`, probably via an API.
@@ -58,7 +59,7 @@ The process of unlocking the P2SH transaction then begins with a first
 round of validation, which checks that the redeem script matches the
 hashed value in the locking script.
 
-Concatenate `scriptSig` and `scriptPubKey` and execute them, as normal:
+To ddo so, we concatenate `scriptSig` and `scriptPubKey` and execute them, as normal:
 ```
 Script: 1 98 <serialized99Equal> OP_HASH160 <hashed99Equal> OP_EQUAL
 Stack: []
@@ -91,10 +92,10 @@ However, because this was a P2SH script, the execution isn't done.
 
 ### Run the Second Round of Validation
 
-For the second round of validation, verify that the values in the
-unlocking script satisfy the `redeemScript`: deserialize the
-`redeemScript` ("93016387" = "OP_ADD 99 OP_EQUAL"), then execute it
-using the items in the `scriptSig` prior to the serialized script:
+For the second round of validation, verify the values in the unlocking
+script satisfy the `redeemScript`: deserialize the `redeemScript`
+("93016387" = "OP_ADD 99 OP_EQUAL"), then execute it using the items
+in the `scriptSig` prior to the serialized script:
 
 ```
 Script: 1 98 OP_ADD 99 OP_EQUAL

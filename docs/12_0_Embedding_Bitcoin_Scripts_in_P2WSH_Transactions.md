@@ -1,7 +1,7 @@
 # Chapter 12: Embedding Bitcoin Scripts in P2SH & P2WSH Transactions
 
 Bitcoin Script moves down several levels of abstraction, allowing you
-to minutely control the redemption conditions of Bitcoin funds. But,
+to minutely control the redemption conditions of Bitcoin funds. But
 how do you actually incorporate those Bitcoin Scripts into the
 transactions you've been building to date? The answer is a new sort of
 Bitcoin transaction, the P2WSH (formerly: the P2SH, which we'll also

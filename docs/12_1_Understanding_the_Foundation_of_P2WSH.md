@@ -8,13 +8,13 @@ requires a very specific technique.
 
 Here's the gotcha for using Bitcoin Scripts: for security reasons,
 most Bitcoin nodes will only accept "standard" Bitcoin transactions:
-the deprecated P2PK and P2MS, the older P2PKH and P2SH, the unspendable
-OP_RETURN, the anyone-can-spend P2WPKH and P2WSH, and the
+the deprecated P2PK and P2MS, the older P2PKH and P2SH, the
+unspendable OP_RETURN, the anyone-can-spend P2WPKH and P2WSH, and the
 we-haven't-met-it-yet P2TR. If anything other than the well-understood
 sets of opcodes that define these addresses appears as a
 `scriptPubKey`, it won't be broadcast.
 
-For the various ways to pay to public keys (or do nothing), the
+Ignoring the two script options for a moment, that means the
 `scriptPubKey` must be one of the following:
 
 * __Pay to Public Key (P2PK)__ — `<pubKey> OP_CHECKSIG`
@@ -25,8 +25,8 @@ For the various ways to pay to public keys (or do nothing), the
 * __Pay to Taproot (P2TR)__ - `OP_1 <pubKeyTweaked>` (we'll get to this)
 
 So how do you write a more complex Bitcoin Script? The answer to that
-lies in two of the final sorts of standard transactions: P2SH and
-P2WSH.  You can put any sort of long and complex script into these
+lies the two final sorts of standard transactions: P2SH and P2WSH.
+You can put any sort of long and complex script into these
 transactions, but the scripts are then hashed, and that hash is
 compared as part of the `scriptPubKey` sequence. It's a clever way to
 simultaneously allow arbitrary scripts but also keep things
@@ -40,10 +40,10 @@ looking at the standard P2SH script, then look at how P2WSH has
 extended and varied that.
 
 The first step in looking at a P2SH address is creating one. Though
-scripts can get quite complex, this it's easy to create a reference
-P2SH script because Bitcoin Core recognizes two standard addresses
-that are created as P2SHes: multisigs and the transitionary
-P2SH-Segwit address.
+scripts can get quite complex, it's easy to create a reference P2SH
+script because Bitcoin Core recognizes two standard addresses that are
+created as P2SHes: multisigs and the transitionary P2SH-Segwit
+address.
 
 We're going to create a P2SH multisig address by gathering public
 keys, then using a descriptor to input them, using the same technique
@@ -59,12 +59,13 @@ We're going to place that in a special `multi-sh` wallet and then fund that addr
 ```
 bitcoin-cli -rpcwallet="multi-sh" importdescriptors '''[{ "desc": "'$msdescwithcs'", "timestamp": 1780329126 }]'''
 
-$ bitcoin-cli -rpcwallet="multi-sh" getaddressesbylabel ""
-{
-  "2Mwn9cDed35LbNoQtJhucjaap1UFAtbQnfm": {
-    "purpose": "receive"
-  }
-}
+bitcoin-cli -rpcwallet="multi-sh" getaddressesbylabel ""
+
+| {
+|   "2Mwn9cDed35LbNoQtJhucjaap1UFAtbQnfm": {
+|     "purpose": "receive"
+|   }
+| }
 ```
 
 We fund it so that we can examine the `scriptPubKey` (locking script)
@@ -115,7 +116,8 @@ somewhat legacy, but continues to be used in P2PKH and P2WPKH scripts
 (for public key hashes), and in P2SH scripts (for older script
 hashes).
 
-Overall, five steps are required to create the hash for a P2SH address:
+Overall, five steps are required to create the hash for a P2SH
+address:
 
 1. Create an arbitrary locking script with Bitcoin Script.
 2. Create a serialized version of that locking script.
@@ -202,7 +204,8 @@ Here's an identical multisig made using P2WSH instead of P2SH:
 
 ```
 echo $msdescwithcs
-wsh(sortedmulti(1,028e10b07f53498fe64b248fc820c88ebf4ae55be328125bea2f68c88b2668b2e2,034b1cd6a8a75d5875bd7d1cec28b4c105c82729181902bd75051418606c88e6fa))#756kxqyu
+
+| wsh(sortedmulti(1,028e10b07f53498fe64b248fc820c88ebf4ae55be328125bea2f68c88b2668b2e2,034b1cd6a8a75d5875bd7d1cec28b4c105c82729181902bd75051418606c88e6fa))#756kxqyu
 ```
 
 Its `scriptPubKey` replaces the `OP_HASH160` and `OP_EQUAL` with a

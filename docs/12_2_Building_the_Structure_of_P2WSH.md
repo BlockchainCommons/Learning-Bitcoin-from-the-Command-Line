@@ -1,11 +1,12 @@
 # 12.2: Building the Structure of P2SH & P2WSH
 
-In the previous section we overviewed the theory of how to create P2SH
-& P2WSH transactions to hold Bitcoin Scripts. The actual practice of
-doing so is _much more difficult_, but for the sake of completeness,
-we're going to look at it here. This is probably not something you'd
-ever do without an API, so if it gets too intimidating, be aware that
-we'll be returning to pristine, high-level Scripts in a moment.
+In the previous section, we overviewed the theory of how to create
+P2SH & P2WSH transactions to hold Bitcoin Scripts. The actual practice
+of doing so is _much more difficult_, but for the sake of
+completeness, we're going to look at it here. This is probably not
+something you'd ever do without an API, so if it gets too
+intimidating, be aware that we'll be returning to pristine, high-level
+Scripts in a moment.
 
 We're going to be following the major steps from the previous section:
 create a locking script; serialize it as hex; translate it to binary;
@@ -17,17 +18,20 @@ of scripts); translate that to hex.
 
 Any P2WSH transaction starts with a locking script. This is the
 subject of the rest of this Part. You can use any of the Bitcoin
-Script methods described therein to create any sort of locking script,
-as long as the resulting serialized `redeemScript` is 3600 bytes or
-less for P2WSH transactions, (520 bytes or less for older P2SH transactions.
+Script methods described in these various chapters to create any sort
+of locking script, as long as the resulting serialized `redeemScript`
+is 3600 bytes or less for P2WSH transactions (520 bytes or less for
+older P2SH transactions).
 
 > 📖 ***Why are P2SH scripts limited in size?*** The old 520-byte
 limit was due to backward compatibility: 520 bytes at one time was the
 maximum that you could push onto the stack at once (which was crucial,
 as the whole `redeemScript` is pushed onto the stack). When Segwit
 came along, it suggested a consensus rule of 10,000 bytes as a new
-maximum script length. However, Bitcoin Core only adopted a 3,600 byte
-maximum, so that's become the new de facto limit.
+maximum script length. However, Bitcoin Core adopted a lower 3,600
+byte maximum, so that's become the new de facto limit.
+
+We'll offer a real example of doing this in [§12.2](12_2_Building_the_Structure_of_P2WSH.md).
 
 ## Serialize a Locking Script the Hard Way
 
@@ -35,7 +39,7 @@ After you create a locking script, you need to serialize it before it
 can be input into Bitcoin. This is a two-part process. First, you must
 turn it into hexcode, then you must transform that hex into binary.
 
-What follows is the hard, step-by-step method to do it. It's great for
+What follows is the hard, step-by-step method to do so. It's great for
 understanding how everything works, but if you just want to have an
 app do it for you, jump forward.
 
@@ -61,8 +65,8 @@ page](https://en.bitcoin.it/wiki/Script):
 
 The integers are the most troublesome part of a locking-script
 translation. We're going to step through all the work that's needed,
-but note that we have a script to take care of things automatically
-further on.
+but note that we have a script to automatically take care of this
+translation further on.
 
 First, you should verify that your number falls between -2147483647
 and 2147483647, the range of four-byte integers when the most
@@ -100,11 +104,10 @@ echo $lehex
 | 9f7b2a5c
 ```
 
-In addition, you always need to know the size of any data that you put
-on the stack, so that you can precede it with the proper opcode. You
-can just remember that every two hexadecimal characters is one
-byte. Or, you can use `echo -n` piped to `wc -c`, and divide that in
-half:
+You always need to know the size of any data that you put on the
+stack, so that you can precede it with the proper opcode. You can just
+remember that every two hexadecimal characters is one byte. Or, you
+can use `echo -n` piped to `wc -c`, and divide that in half:
 
 ```
 echo -n $lehex | wc -c | awk '{print $1/2}'
@@ -128,7 +131,7 @@ echo $neglehex
 | 9f7b2adc
 ```
 
-### Alternative: Run The Integer Conversion Script
+#### Alternative: Run The Integer Conversion Script
 
 A complete script for changing an integer between -2147483647 and
 2147483647 to a little-endian signed-magnitude representation in hex
@@ -136,7 +139,7 @@ can be found in the [src code
 directory](https://github.com/BlockchainCommons/Learning-Bitcoin-from-the-Command-Line/blob/master/src/12_2_integer2lehex.sh). You
 can download it as `integer2lehex.sh`.
 
-> ⚠️ **Code Note Ready for Deployment:** This script has not been
+> ⚠️ **Code Not Ready for Deployment:** This script has not been
 robustly checked. If you are going to use it to create real locking
 scripts you should make sure to double-check and test your results.
 
@@ -243,10 +246,11 @@ which can be used to serialize Bitcoin scripts.
 Here's how you would use it to reverse-reverse engineer the multisig address that we took apart:
 
 ```
-$ btcc 2 02da2f10746e9778dd57bd0276a4f84101c4e0a711f9cfd9f09cde55acbdd2d191 02bfde48be4aa8f4bf76c570e98a8d287f9be5638412ab38dede8e78df82f33fa3 2 OP_CHECKMULTISIG
-warning: ambiguous input 2 is interpreted as a numeric value; use OP_2 to force into opcode
-warning: ambiguous input 2 is interpreted as a numeric value; use OP_2 to force into opcode
-522102da2f10746e9778dd57bd0276a4f84101c4e0a711f9cfd9f09cde55acbdd2d1912102bfde48be4aa8f4bf76c570e98a8d287f9be5638412ab38dede8e78df82f33fa352ae
+btcc 2 02da2f10746e9778dd57bd0276a4f84101c4e0a711f9cfd9f09cde55acbdd2d191 02bfde48be4aa8f4bf76c570e98a8d287f9be5638412ab38dede8e78df82f33fa3 2 OP_CHECKMULTISIG
+
+| warning: ambiguous input 2 is interpreted as a numeric value; use OP_2 to force into opcode
+| warning: ambiguous input 2 is interpreted as a numeric value; use OP_2 to force into opcode
+| 522102da2f10746e9778dd57bd0276a4f84101c4e0a711f9cfd9f09cde55acbdd2d1912102bfde48be4aa8f4bf76c570e98a8d287f9be5638412ab38dede8e78df82f33fa352ae
 ```
 
 That's a lot easier than figuring that out by hand!
@@ -328,13 +332,16 @@ btcc 0 6fe9f451ccedb8e4090b822dcad973d0388a37b4c89fd1aed485110adecab2a9
 | 00206fe9f451ccedb8e4090b822dcad973d0388a37b4c89fd1aed485110adecab2a9
 ```
 
+Again, these numbers will always be the same: `0020` followed by the
+script hash.
+
 > 📖 **How Does Bitcoin Recognize the difference between a P2WPKH and
 a P2WSH transaction?** They may look the same, since the
-`scriptPubKey` starts with a `00` for both, but the next byte isn't
-the same: it's `20` for a P2WSH, which says to push the 32-byte
-SHA-256 script hash and it's `14` for a P2WPKH, which says to push the
-20-byte RIPEMD-160 public key hash. Looking at that second byte
-therefore tells you whether an address is P2WPKH or P2WSH
+`scriptPubKey` starts with a `00` (SegWit v0) for both, but the next
+byte isn't the same: it's `20` for a P2WSH, which says to push the
+32-byte SHA-256 script hash and it's `14` for a P2WPKH, which says to
+push the 20-byte RIPEMD-160 public key hash. Looking at that second
+byte therefore tells you whether an address is P2WPKH or P2WSH
 
 ## Check Our Math
 
@@ -379,7 +386,7 @@ into the guts of Bitcoin than you've ever gone before. Though it's
 helpful to know how all of this works at a very low level, it's most
 likely that you'll have an API taking care of all of the heavy-lifting
 for you. Your task will simply be to create the Bitcoin Script to do
-the locking ... which is the main topic of the rest of this Part
+the locking ... which is the main topic of the rest of this Part.
 
 ## What's Next?
 

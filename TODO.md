@@ -4,7 +4,6 @@ The following TODO items are intended for a 3.0 version of Learning Bitcoin from
 
 ## Remaining TODOS for Two Final Days
 
-1. Decide on I2P Chapter
 2. Decide on Appendices
 3. Clean Out Software Chapters
 4. Archive Hardware Wallets
