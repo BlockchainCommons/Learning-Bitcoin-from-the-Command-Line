@@ -33,6 +33,7 @@ btcc OP_ADD 99 OP_EQUAL
 
 [2] Save `<serialized99Equal>` for future reference as the `redeemScript`.
    - `<redeemScript>` = "93016387"
+
 [3] SHA-256 and RIPEMD-160 hash the serialized script.
    - `<hashed99Equal>` = "3f58b4f7b14847a9083694b9b3b52a4cea2569ed"
 
