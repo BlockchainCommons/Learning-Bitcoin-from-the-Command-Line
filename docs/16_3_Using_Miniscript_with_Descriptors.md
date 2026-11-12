@@ -28,9 +28,10 @@ or(pk(president),thresh(2,pk(vp1),pk(vp2),pk(vp3)))
    
 ### 2. Convert the Policy to Miniscript
 
-Compiling our Policy at
-[bitcoin.sipa.be](https://bitcoin.sipa.be/miniscript/) gives us our
-Miniscript:
+Compiling this Policy at
+[bitcoin.sipa.be](https://bitcoin.sipa.be/miniscript/) gives the
+corresponding Miniscript:
+
 
 ```
 or_d(pk(president),multi(2,vp1,vp2,vp3))
@@ -38,14 +39,15 @@ or_d(pk(president),multi(2,vp1,vp2,vp3))
 
 ### 3. Gather the Keys
 
-To enter a minidescriptor into Bitcoin Core requires that you fill
-in the keys that should be used using base58 format. Since these
-Miniscripts are currently read-only, that means entering the xpubs,
+To enter a minidescriptor into Bitcoin Core requires that you fill in
+rthe keys using base58 format. Since Bitcoin Core only creates
+read-only addresses at this time, that means entering the xpubs,
 
 Various people involved in a Minidescriptor might have created their
-keys in a variety of ways. Our executives used `seedtool` and
-`keytool` from [chapter 10](10_0_Working_with_Secrets.md) to create
-their secrets as follows:
+keys in a variety of ways. Our executives used `seedtool` from
+[chapter 10](10_0_Working_with_Secrets.md). The following converts
+those eeds in xpubs with `keytool`, also discussed in that chapter.
+
 
 ```
 SEEDP=$(seedtool)
@@ -75,10 +77,10 @@ echo $KEYVP3
 
 ### 4. Place the Keys in the Minidescriptor
 
-We gathered `84h/1h/0h/0h` keys. They're intended to support coins
-that are Segwit (`84h`), testnet (`1h`), first account (`0h`),
-non-change (`0h`). To allow for a range of addresses, we then
-supplement each key with a `/*` when we place it in our minscript.
+The keys all had a derivation path of `84h/1h/0h/0h`. They're intended
+to support coins that are Segwit (`84h`), testnet (`1h`), first
+account (`0h`), non-change (`0h`). To allow for a range of addresses,
+we supplement each key with a `/*` when we place it in our minscript.
    
 (⚠️ We would have liked to collect `84h/1h/0h` keys and then defined
 them as `0h/*`, which would be more normative use, but Bitcoin Core
@@ -94,9 +96,9 @@ echo $EXEC_MINID
 
 5. **Make a Wish**
 
-To turn our Miniscript into a descriptor (a minidescriptor)
-requires one more thing. It has to be defined with a normal
-descriptor function.
+To turn our Miniscript into a descriptor (a minidescriptor) requires
+one more thing. It has to be defined with a normal descriptor
+function.
 
 Minidescriptors are currently only readable in Bitcoin Core as P2WSH
 addresses (not P2TR addresses). That requires a final step of
@@ -114,8 +116,7 @@ echo $EXEC_MINID
 
 The Minidescriptor that you've created should theoretically be
 readable anywhere that supports Miniscript descriptors. To incorporate
-it specifically into Bitcoin Core requires the following additional
-steps:
+it into Bitcoin Core requires the following additional steps:
 
 ### 6. Add the Checksum
 
@@ -168,7 +169,7 @@ Now you can import:
    
 ```
 bitcoin-cli -rpcwallet=watchmini importdescriptors '''[{ "desc":
-"'$EXEC_MINID'", "timestamp": 1790329126 }]'''
+"'$EXEC_MINID'", "timestamp": "now" }]'''
    
 | [
 |   {

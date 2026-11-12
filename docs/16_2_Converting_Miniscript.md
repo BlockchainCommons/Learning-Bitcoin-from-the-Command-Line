@@ -1,16 +1,17 @@
 # 16.2: Converting Policy & Miniscript
 
 There are currently limited command-line functions available to
-convert Policy into Miniscript. (BDK-CLI can do so, but it's a whole set
-competitor to `bitcoin-cli`, so we're going to approach it separately
-in [§16.4](16_4_Using_BDK.md).)  However, a convertor at Peter
-Wuille's website is easy to use and as official as you get in the
-Bitcoin world. In addition, some wallets allow the direct use of
-scripting policy and some APIs exist for conversion.
+convert Policy into Miniscript. (BDK-CLI can do so, but it's a
+wholesale competitor to `bitcoin-cli`, so we're going to approach it
+separately in [§16.4](16_4_Using_BDK.md).) There's an easy
+alternative: a convertor at Peter Wuille's website is easy to use and
+as official as you get in the Bitcoin world. In addition, some wallets
+allow the direct use of scripting policy and some APIs exist for
+conversion.
 
 ## Compile Policy on the Web
 
-The [bitcoin.sipa.be miniscript
+Peter Wuille's [bitcoin.sipa.be miniscript
 site](https://bitcoin.sipa.be/miniscript/) contains the most
 accessible "Policy to Miniscript compiler":
 
@@ -41,7 +42,7 @@ P2SH and P2WSH.
 
 Try using the sipa.be website to examine a few of the Bitcoin Scripts
 from chapter 15, especially the ones we already converted in the
-previous section. 
+previous section.
 
 For example, here's the policy for our president or two vice-presidents script:
 
@@ -49,7 +50,7 @@ For example, here's the policy for our president or two vice-presidents script:
 or(pk(president),thresh(2,pk(vp1),pk(vp2),pk(vp3)))
 ```
 
-In [§15.2](15_2_Writing_Complex_Multisig_Scripts/) we wrote it as follows:
+In [§15.2](15_2_Writing_Complex_Multisig_Scripts.md) we wrote it as follows:
 
 ```
 OP_DEPTH
@@ -98,7 +99,7 @@ issue.)
 
 ## Convert Policy & Miniscript with APIs
 
-Conversion software is available through various APIs.
+Conversion software is also available through various APIs.
 
 * [miniscript-policies](https://github.com/bitcoinerlab/miniscript-policies), which exposes C++ code from the sipa website
 * [rust-miniscript](https://github.com/rust-bitcoin/rust-miniscript/tree/master), which includes a policy compiler. It's also the basis of BDK, which we'll meet in [§16.4](16_4_Using_BDK.md).
@@ -111,7 +112,7 @@ Scripts, but at the moment you can't convert between the various forms
 on the command line unless you install `bdk-cli`, a command-line
 program that deserves a course of its own. Nonetheless, the
 [bitcoin.sipa.be miniscript site](https://bitcoin.sipa.be/miniscript/)
-offers great tools that will allow you to do the conversion, and then
+offers great tools that will allow you to do the conversion and then
 return to the command line with whatever scripting version you prefer.
 
 ## What's Next?

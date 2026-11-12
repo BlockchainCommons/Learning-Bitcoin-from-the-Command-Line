@@ -10,8 +10,8 @@ design.
 
 ## Understand the Purpose of Miniscript
 
-Miniscript just does what Bitcoin Script does. Or rather, it does just
-what a subset of Bitcoin Script does, and in a more constrained way.
+Miniscript just does what Bitcoin Script does. Or rather, it does what
+a subset of Bitcoin Script does and in a more constrained way.
 
 So, why have Miniscript at all? It works around the open design of
 Bitcoin Script to create something that is more analyzable and
@@ -24,7 +24,7 @@ Bitcoin Scripting languages.
 Miniscript is meant to:
 
 * Create the most efficient Bitcoin Scripts.
-* Easily composable multiple spending conditions (like the variable multisigs of [§15.2](15_2_Writing_Complex_Multisig_Scripts.md).
+* Easily compose multiple spending conditions (like the variable multisigs of [§15.2](15_2_Writing_Complex_Multisig_Scripts.md).
 * Allow analysis of Bitcoin Scripts.
 * Determine whether resource limitations might prevent spending a Bitcoin Script.
 
@@ -65,7 +65,7 @@ Generally, Miniscript can recognize the following types of Bitcoin Script functi
 Miniscript also includes types (referring to whether fragments verify
 their results, set up a key for verification, or do something else
 with the stack); and wrappers (which convert between types and do
-stack-based manipulation), and which are designated by a letter
+stack-based manipulation) and which are designated by a letter
 followed by a colon in Miniscript, such as `s:pk(key)` .
 
 Miniscript is meant to be a composable and analyzable version of
@@ -89,8 +89,8 @@ Miniscript._
 
 The standard procedure is therefore:
 
-1. User writes spending policy for coins.
-2. User or app compiles policy into Miniscript.
+1. User writes spending Policy for coins.
+2. User or app compiles Policy into Miniscript.
 3. App encodes Miniscript into Bitcoin Script for use  on address.
 
 ## Know Policy
@@ -313,9 +313,9 @@ andor(pk(escrow),c:or_i(pk_h(buyer),pk_h(seller)),and_v(and_v(v:pk(buyer),v:pk(s
 
 **An open escrow with buyer protection.**
 
-This last example similarly using an `andor` to say: either the
-buyer's key and after a timelock, or a multisig. The `thresh` is
-again turned into a `multi`.
+This last example similarly uses an `andor` to say: either the buyer's
+key and after a timelock or a multisig. The `thresh` is again turned
+into a `multi`.
    
 ```
 or(thresh(2,pk(escrow),pk(buyer),pk(seller)),and(after(1783637422),pk(buyer)))
@@ -328,9 +328,10 @@ andor(pk(buyer),after(1783637422),multi(2,escrow,buyer,seller))
 ```
 
 Again, you shouldn't worry about knowing how to compose these
-Miniscript functions, but you should be able to reasonably read them
-and suss out what they're doing, so that if you're handed Miniscript
-in the future, you can understand it.
+Miniscript functions (because as can be seen, they can get quite
+complex), but you should be able to reasonably read them and suss out
+what they're doing, so that if you're handed Miniscript in the future,
+you can understand it.
 
 ## Summary: Understanding Miniscript
 

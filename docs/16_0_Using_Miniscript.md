@@ -8,7 +8,7 @@ to create a abstraction of that to allow for the easy description of
 spending policies. Miniscript was created to meet the first need, and
 Miniscript policy (or just Policy) was created for the second. This
 chapter runs through how they work and how they can currently be used
-in Bitcoin Core and other tools
+with Bitcoin Core and other tools.
 
 ## Objectives for This Chapter
 

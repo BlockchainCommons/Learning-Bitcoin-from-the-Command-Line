@@ -45,7 +45,7 @@ In this case, we're going to demonstrate basic `bdk-cli` functionality
 moving funds between wallets) by copying a descriptor from
 `bitcoin-cli` to `bdk-cli`.
 
-Here's our Segwit descriptors from `bitcoin-cli`, with their private keys:
+Here are the Segwit descriptors from `bitcoin-cli`, with their private keys:
 
 ```sh
 bitcoin-cli listdescriptors true
@@ -145,7 +145,7 @@ bdk-cli wallets
 | }
 ```
 
-You'll note wallet has saved information like your server and your
+You'll note `bdk-cli` has saved information like your server and your
 network so that you don't have to keep typing it in!
 
 At this point, you'd usually want to check addresses. Here's the first
@@ -236,7 +236,9 @@ into `bitcoin-cli`, `bdk-cli`, or the other wallet of your choice.
 
 Or it would be if you'd use the keys, but that's easy to do too, using
 the `seedtool` and `keytool` apps from [chapter
-10](10_0_Working_with_Secrets.md).:
+10](10_0_Working_with_Secrets.md). This is similar to what we did in
+the last section, but this time we're getting the private keys,
+because unlike Bitcoin Core, BDK will support them:
 
 ```
 SEEDPP=$(seedtool)
@@ -262,7 +264,7 @@ echo $EXEC_PRIVATE_DESC
 
 This descriptor can't currently be imported into `bitcoin-cli`
 (because it includes private keys), but it'll work fine in `bdk-cli`,
-which has put more focus into Miniscript:
+which has put more attention into Miniscript work:
 
 ```sh
 bdk-cli \
