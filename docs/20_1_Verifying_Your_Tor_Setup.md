@@ -2,10 +2,10 @@
 
 If you did a standard installation with [Bitcoin
 Standup](https://github.com/BlockchainCommons/Bitcoin-Standup) then
-you should have Tor set up as part of your Bitcoin node: Tor is
-installed and has created hidden services for the Bitcoin RPC ports;
-while an onion address has also been created for `bitcoind`. This
-section talks about what all of that is and what to do with it.
+you Tor is installed and has created hidden services for the Bitcoin
+RPC ports; while an onion address has also been created for
+`bitcoind`. This section talks about what all of that is and what to
+do with it.
 
 > 📖 ***What is Tor?*** Tor is a low-latency anonymity and overlay
 network based on onion routing and path-building design for enabling
@@ -17,7 +17,7 @@ name derived from the acronym for the original software project name:
 peer-to-peer network that listens for transactions and propagates them
 using a public IP address.  When connecting to the network not using
 Tor, you would share your IP address, which could expose your
-location, your uptime, and others details to third parties — which is
+location, your uptime, and others details to third parties, which is
 an undesirable privacy practice. To protect yourself online you should
 use tools like Tor to hide your connection details. Tor allows you to
 improve your privacy online as your data is cryptographically encoded
@@ -71,14 +71,14 @@ metadata to compromise anonymity and potentially identify users.
 
 There are also studies that suggest that possible exploits of
 Bitcoin's anti-DoS protection could allow an attacker to force other
-users who use Tor to connect exclusively through his Tor Exit nodes or
-to his Bitcoin peers, isolating the client from the rest of the
-Bitcoin network and exposing them to censorship, correlation, and
-other attacks.
+users who use Tor to connect exclusively through the attacker's Tor
+Exit nodes or to their Bitcoin peers, isolating the client from the
+rest of the Bitcoin network and exposing them to censorship,
+correlation, and other attacks.
 
 Similarly, Bitcoin Tor users could be fingerprint-attacked by setting
 an address cookie on their nodes. This would also allow correlation
-and thus deanonymization.
+and so deanonymization.
 
 Meanwhile, even over Tor, Bitcoin is only a pseudoanonymous service
 due to the many dangers of correlation that stem from the permanent
@@ -86,7 +86,8 @@ ledger itself. This means that Bitcoin usage over Tor is actually more
 likely to be _deanonymized_ than other services (and could lead to the
 deanonymization of other activities).
 
-With that said, Tor is generally considered safer than the alternative, which is non-anonymous browsing.
+With that said, Tor is generally considered safer than the
+alternative, which is non-anonymous browsing.
 
 ## Verify Your Tor Setup
 
@@ -95,16 +96,17 @@ Bitcoin Standup, the following will verify that Tor is running on your
 system.
 
 ```
-$ sudo -u debian-tor tor --verify-config
+sudo -u debian-tor tor --verify-config
 ```
 
 If Tor is installed correctly you should output like this:
 ```
-Oct 29 12:10:58.346 [notice] Tor 0.4.9.14 running on Linux with Libevent 2.1.13-stable, OpenSSL 3.5.7, Zlib 1.3.1, Liblzma 5.8.1, Libzstd 1.5.7 and Glibc 2.41 as libc.
-Oct 29 12:10:58.346 [notice] Tor can't help you if you use it wrong! Learn how to be safe at https://support.torproject.org/faq/staying-anonymous/
-Oct 29 12:10:58.346 [notice] Read configuration file "/etc/tor/torrc".
+| Oct 29 12:10:58.346 [notice] Tor 0.4.9.14 running on Linux with Libevent 2.1.13-stable, OpenSSL 3.5.7, Zlib 1.3.1, Liblzma 5.8.1, Libzstd 1.5.7 and Glibc 2.41 as libc.
+| Oct 29 12:10:58.346 [notice] Tor can't help you if you use it wrong! Learn how to be safe at https://support.torproject.org/faq/staying-anonymous/
+| Oct 29 12:10:58.346 [notice] Read configuration file "/etc/tor/torrc".
 Configuration was valid
 ```
+
 > ⚠️ **Verification is Limited:** This just means that Tor is running, not that its being used for all (or any) connections.
 
 At this point you should be able to use Tor in two ways. First, you
@@ -134,10 +136,11 @@ HiddenServicePort 18332 127.0.0.1:18332
 HiddenServicePort 18443 127.0.0.1:18443
 HiddenServicePort 8332 127.0.0.1:8332
 ```
+
 > 🔗 **SIGNET vs MAINNET:** Mainnet RPC is run on port 8332, testnet on port 18332, regtest on port 18443, signet on port 38332.
 
 > ℹ️ **Note the Directory:** The `HiddenServiceDir` is where all the
-files are kept for this particular service. If you need to lookup your
+files are kept for this particular service. If you need to look up your
 onion address, access keys, or add authorized clients, this is where
 to do so! (It will require root/sudo access on the default Standup
 setup.)
@@ -147,8 +150,7 @@ The easy way to test your RPC Hidden Service is to use the
 API](https://github.com/BlockchainCommons/Bitcoin-Standup/blob/master/Docs/Quick-Connect-API.md)
 built into Bitcoin Standup. Just download the QR code found at
 `/qrcode.png` and scan it using a wallet or node that support
-QuickConnect, such as [The Gordian
-Wallet](https://github.com/BlockchainCommons/FullyNoded-2). When you
+QuickConnect, such as [Fully Noded](https://fullynoded.app/) When you
 scan the QR, you should see the wallet sync up with your node; it's
 doing so using the RPC hidden services.
 
@@ -158,7 +160,7 @@ normal UNIX command to a Tor-protected command. It's difficult because
 you need to grab three pieces of information.
 
 1. **Your Hidden Service Port.** This comes from `/etc/tor/torrc/`. By default, all of the Tor ports are set to mirror the regular TCP/IP ports, so the Signet server is at 38332.
-2. **Your Tor Address.** This is in the `hostname` file in the `HiddenServiceDir` directory defined in `/etc/tor/torrc`. By default the file is thus `/var/lib/tor/standup/hostname`. It's protected, so you'll need to `sudo` to access it:
+2. **Your Tor Address.** This is in the `hostname` file in the `HiddenServiceDir` directory defined in `/etc/tor/torrc`. By default the file is therefore `/var/lib/tor/standup/hostname`. It's protected, so you'll need to `sudo` to access it:
 ```
 sudo more /var/lib/tor/standup/hostname
 
@@ -185,12 +187,12 @@ torify bitcoin-cli -rpcconnect=w3ibwqdeshamshemws242opykpjo2a7wduk6xrmsp6vuovgpj
 
 > ⚠️ **ISPs May Block You:** Unfortunately, ISPs and cloud providers
 increasingly are blocking ports. Wallets and `bitcoin-cli` may both be
-unable to connect to the torified RPC ports that you have set up. 
+unable to connect to the torified RPC ports that you have set up.
 
 ### Verify Your Tor Setup for Bitcoind
 
 Bitcoin Standup also ensures that your `bitcoind` is set up to
-optionally communicate on an onion address.
+optionally communicate with other Bitcoin servers on an onion address.
 
 You can verify the initial setup of Tor for `bitcoind` by grepping for "tor" in the `debug.log` in your data directory:
 
@@ -396,8 +398,8 @@ discussed in the next section.
 Tor is a software package installed at part of Bitcoin Standup that
 allows you to exchange communications anonymously. It will protect
 both your RPC ports (8332, 18332, 38332) and your `bitcoind` ports
-(8333, 18333, 3833) — but you have to actively connect to the onion
-address to use them! Tor is a building stone of privacy and security
+(8333, 18333, 38333) — but you have to actively connect to the onion
+address to use them! Tor is a building block of privacy and security
 for your Bitcoin setup, and you can verify it's available and linked
 to Bitcoin with a few simple commands.
 

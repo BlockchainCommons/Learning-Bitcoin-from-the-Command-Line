@@ -9,7 +9,7 @@ security and privacy. This section demonstrates how by introducing an
 
 New services are created by adding them to the `/etc/tor/torrc` file.
 
-The following must be done as root:
+The following, done as root, will add a hidden SSH service:
 ```
 sudo cat >> /etc/tor/torrc << EOF
 HiddenServiceDir /var/lib/tor/hidden-service-ssh/

@@ -5,8 +5,7 @@ Standup](https://github.com/BlockchainCommons/Bitcoin-Standup-Scripts). It
 will help to keep your server secure, which is critically important
 when you're dealing with cryptocurrency. This is the first of a few
 chapters that expands beyond Bitcoin to talk about the larger world of
-privacy—which is critical for maintaining the security of your Bitcoin
-server.
+privacy.
 
 ## Objectives for This Chapter
 
