@@ -4,14 +4,13 @@ The following TODO items are intended for a 3.0 version of Learning Bitcoin from
 
 ## Remaining TODOS for Two Final Days
 
-2. Decide on Appendices
-3. Clean Out Software Chapters
-4. Archive Hardware Wallets
-5. Final Edit Chapters 12-21+
-6. Archive Future TODO Possibilities
-7. Decide on Redoing PSBT Diagrams with Constructor role per https://github.com/bitcoin/bips/blob/master/bip-0370.mediawiki
-8. Look Through Issues/PRs
-9. Add New network options to setup
+1. Decide on Appendices
+2. Clean Out Software Chapters
+3. Archive Hardware Wallets
+4. Archive Future TODO Possibilities
+5. Decide on Redoing PSBT Diagrams with Constructor role per https://github.com/bitcoin/bips/blob/master/bip-0370.mediawiki
+6. Look Through Issues/PRs
+7. Add New Linode network options to setup
 
 ## Longer-Term TODO (Small Tasks)
 
@@ -132,6 +131,10 @@ See [release notes](https://bitcoincore.org/en/releases/0.21.0/).
 ---
 
 # Progress Log
+
+## Finalization Day #2 (11/12)
+
+1. Edited Chaptesr 12-21
 
 ## Finalization Day #1 (10/29)
 
