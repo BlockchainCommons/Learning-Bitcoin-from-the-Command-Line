@@ -26,7 +26,7 @@ prone to human mistakes. Bech32m is a modified version of bech32
 defined in
 [BIP-350](https://github.com/bitcoin/bips/blob/master/bip-0350.mediawiki). It's
 used for Segwit v1 (Taproot). It resolves a small issue where deleting
-"q"s before a final "p" did not invalidate the checksum.
+"q"s before a final "p" did not invalidate the checksum in the older bech32.
 
 A bech32m address starts with bc1p (for mainnet) or tb1p (for testnet
 and signet) where a bech32 address starts with bc1q (for mainnet) or
@@ -35,7 +35,8 @@ tb1q (for testnet and signet).
 ## Examine a P2TR Address
 
 If you look at a `decoderawtransaction` for a transaction sent to a
-P2TR address, the main thing you note is that the `type` is now `witness_v1_taproot`:
+P2TR address, the main thing you note is that the `type` is now
+`witness_v1_taproot`:
 
 ```sh
 |     {
@@ -168,12 +169,12 @@ Bitcoin program will sign with Schnorr when you go to spend it.
 
 ## Summary: Creating Taproot Addresses
 
-Creating Taproot address in Bitcoin Core simply requires that you
+Creating a Taproot address in Bitcoin Core simply requires that you
 create a `bech32m` address with `createnewaddress`. Funds sent to the
 address will then be locked with Schnorr, and you'll sign with Schnorr
 when you're ready to spend them.
 
 ## What's Next?
 
-Continue "Using Schnorr" with [§18.3: Using Bitcoin With MuSig2](18_3_Using_Bitcoin_With_MuSig.md).
+Continue "Using Schnorr" with [§18.3: Using Bitcoin With MuSig2](18_3_Using_Bitcoin_With_MuSig2.md).
 

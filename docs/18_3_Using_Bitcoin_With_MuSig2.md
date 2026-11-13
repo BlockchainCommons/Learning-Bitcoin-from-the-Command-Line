@@ -12,7 +12,7 @@ MuSig2, while the next chapter includes discusison of MAST multisigs.
 
 Bitcoin multisigs can't be naively created using Schnorr. If you just
 aggregate two keys, it's possible to cancel out one of the keys
-(provided you *know* the public key you're cancelling) and then sign
+provided you *know* the public key you're cancelling and then sign
 with the other key. To resolve this requires a more complex
 protocols. One of these is MuSig2.
 
@@ -21,7 +21,7 @@ n). That means that, by default, all of the participants in a MuSig2
 signature must sign. The only current methodology for using MuSig2 to
 create a threshold signature is to create a MAST that lays out each of
 the possibilities, as briefly mentioned in
-[§19.2]( 19_2_Designing_Tapscripts.md).
+[§19.2](19_2_Designing_Tapscripts.md).
 
 ## Create a MuSig2 Address
 
@@ -61,7 +61,7 @@ musigpubkey2=$(bitcoin-cli -rpcwallet=musig2 -named getaddressinfo address=$musi
 ```
 
 You can then use the "tr(musig(...))" descriptor, to denote this
-address as a MuSig2 Taproot address, when combining these public keys.
+address as a MuSig2 Taproot address.
 
 ```sh
 musigdesc="tr(musig($musigpubkey1,$musigpubkey2))"
@@ -88,7 +88,7 @@ bitcoin-cli -rpcwallet=musigwatchonly importdescriptors '''[{ "desc": "'$musigde
 | ]
 ```
 
-Now you just need your address:
+Now you can retrieve your MuSig2 address:
 
 ```sh
 bitcoin-cli -rpcwallet=musigwatchonly getaddressesbylabel ""
@@ -107,8 +107,8 @@ The question will be how to retrieve them!
 
 ## Spend from a MuSig2 Address
 
-As we saw in [§8.1](8_1_Spending_a_Multisig_with_a_PSBT), the best way
-to spend a multisig is through a PSBT. That's the case for MuSig2
+As we saw in [§8.1](08_1_Spending_a_Multisig_with_a_PSBT.md), the best
+way to spend a multisig is through a PSBT. That's the case for MuSig2
 multisigs as well.
 
 The process of spending the funds therefore start with the creation of
@@ -168,7 +168,7 @@ bitcoin-cli analyzepsbt $psbt
 ```
 
 It does, but it doesn't tell you that the "signer" is the next step,
-as we'd expect. It turns out that `analyzepsbt` doesn't properly
+as yu'd expect. It turns out that `analyzepsbt` doesn't properly
 support MuSig2 signatures as of Bitcoin Core 31.1, and so it's not
 going to show you the next steps properly until you're ready to
 finalize.
@@ -210,8 +210,8 @@ bitcoin-cli analyzepsbt $psbt_round1
 ```
 
 A look with `decodepsbt` reveals that quite a lot has gone on,
-including the addition of pubkeys and pubnonces (whatever those are!)
-from each participant, but there are no signatures!
+including the addition of pubkeys and pubnonces (more on this
+momentarily!)  from each participant, but there are no signatures!
 
 ```sh
 bitcoin-cli decodepsbt $psbt_round1
@@ -361,8 +361,8 @@ can they create a final signature.
 For MuSig2, in the first round, each participant offers a "pubnonce":
 essentially a bit of randomness that sort of fills the role of a
 public key. In the second round, they then sign using their private
-nonce and their private key. Those signature shares are then combined to
-produce the final signature.
+nonce and their private key. Those signature shares are then combined
+to produce the final signature.
 
 You've conducted the first round of the MuSig2 protocol, and acquired
 the nonces, but another round is required to acquire the signatures.
@@ -576,5 +576,5 @@ combine the PSBTs again; and send.
 ## What's Next?
 
 Continue "Using Schnorr" with [§18.4: Using Bitcoin With
-MuSig2](18_4_Using_Bitcoin_With_MuSig2.md).
+FROST](18_4_Using_Bitcoin_With_FROST.md).
 

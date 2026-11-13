@@ -10,13 +10,12 @@ Mathematically, Schnorr signatures take advantage of finite fields
 empower the discrete logarithm problem. It's easy to get from a
 private key to a public key, but all but impossible to go the opposite
 direction, with is obviously the trapdoor characteristic required so
-that public-key cryptography (and therefore signature systems) can
-work.
+that public-key cryptography (and therefore signature systems) works.
 
 But the math doesn't really matter to your understanding of why
 Schnorr signatures are a big upgrade for Bitcoin. That largely comes
-done to another singular characteristic of Schnorr signatures: because
-of their linearity, they're simply aggregatable.
+down to a singular characteristic of Schnorr signatures: because of
+their linearity, they're simply aggregatable.
 
 ### Understand Aggregatable Multisig
 
@@ -41,15 +40,15 @@ particular, simplistic ("naive") aggregation of signatures leads to
 the key cancellation attack, where a key can be removed from an
 aggregate if an attacker knows certain information. This has resulted
 in more complex signing systems such as MuSig2 (discussed in
-[§18.3](18_3_Using_Bitcoin_With_MuSig2.md)), FROST (discussed in
-[§18.4](18_4_Using_Bitcoin_With_FROST.md)), and the use of a Merkle
-tree (discussed in [§19.3](19_3_Creating_a_Schnorr_Multisig.md)) being
-required to access Schnorr's multisig aggregation advantages.
+[§18.3](18_3_Using_Bitcoin_With_MuSig2.md)) and FROST (discussed in
+[§18.4](18_4_Using_Bitcoin_With_FROST.md)) of the use of a Merkle tree
+(discussed in [§19.3](19_3_Creating_a_Taproot_Multisig.md) being
+required to use Taproot multisigs.
 
 ### Understand Tweaked Signatures
 
-Because a Schnorr signature's equation is linear it can be modified in
-other ways than just adding Schnorr signatures together. In
+Because a Schnorr signature's equation is linear, it can be modified
+in other ways than just adding Schnorr signatures together. In
 particular, you can add a "tweak" to it, which is a static value. You
 adjust ("tweak") the public key (and so the address) with a specific
 value. You then adjust ("tweak") the private key with the same value
@@ -85,9 +84,10 @@ ECDSA. These include:
 ## Summary: Understanding Schnorr Signatures
 
 Schnorr signatures are a big improvement over ECDSA in large part
-because of their linearity, which makes them trivially
-aggregatable. This allows for the creation of static-sized, private
-multisigs and also supports the creation of Taproot addresses.
+because of their linearity, which makes them trivially (but hopefully
+not naively) aggregatable. This allows for the creation of
+static-sized, private multisigs and also supports the creation of
+Taproot addresses.
 
 > 🔥 ***What is the power of Schnorr?*** In large part, it's
 aggregatability. Any two signatures look the same, whether they're

@@ -17,24 +17,24 @@ FROST being able to natively offer threshold signatures is a big
 advantage over MuSig2's multisig-only signatures. However, MuSig2 also
 has an advantage of its own: accountability. In FROST, you need
 insider information to know who signed a multisig. In MuSig2, you can
-always guarantee every signator. As with most tools, you should
-choose the proper one for your needs.
+always guarantee every signator. As with most tools, you should choose
+the proper one for your needs.
 
 ## Use FROST
 
-Any Bitcoin wallet can create a Taproot address that is built on a
-FROST-generated key rather than a singular Schnorr key. That's the
-beauty of Schnorr: a multisig FROST key looks exactly the same as a
-singular Schnorr key. They're indistinguishable, and so they look just
-the same to a wallet.
+Any Bitcoin wallet can create a Taproot address from a FROST-generated
+key rather than using a singular Schnorr key. That's the beauty of
+Schnorr: a multisig FROST key looks exactly the same as a singular
+Schnorr key. They're indistinguishable, and so they look just the same
+to a wallet.
 
-The trick comes in signing, in order to unlock the puzzle box of the
-FROST lock. A wallet _could_ support this functionality, but (unlike
-with MuSig2) Bitcoin Core does not. In order to unlock funds locked
-into an address defined by a FROST public key, you therefore have to
-generate the appropriate signature _outside_ of Bitcoin Core and then
-sneak it into a Bitcoin transaction. This _is_ possible, but only with
-quite a few additional tools.
+The trick comes in signing, to unlock the puzzle box of the FROST
+lock. A wallet _could_ support this functionality, but (unlike with
+MuSig2) Bitcoin Core does not. In order to unlock funds locked into an
+address defined by a FROST public key, you therefore have to generate
+the appropriate signature _outside_ of Bitcoin Core and then sneak it
+into a Bitcoin transaction. This _is_ possible, but only with quite a
+few additional tools.
 
 Our [Learning FROST from the Command
 Line](https://learningfrost.blockchaincommons.com/) course is a
@@ -45,8 +45,9 @@ best tools to date to do this work from the command line, and how to
 create signature shares among the members of a "FROST
 group". [Learning FROST
 §4.2](https://learningfrost.blockchaincommons.com/04_2_Signing_PSBTs_with_FROST/)
-then shows the precise methodology for signing with FROST, once you
-have everything installed and built.
+then shows the precise methodology for signing with FROST once you
+have everything installed and built and then importing that signature
+into Bitcoin Core.
 
 What follows are just the outlines to explain the methodology; you
 should consult [Learning FROST from the Command
@@ -54,7 +55,7 @@ Line](https://learningfrost.blockchaincommons.com/) for the specifics.
 
 ### Create a FROST Address
 
-Creating a FROST address is a simple creation of a FROST group (which
+Creating a FROST address requires the creation of a FROST group (which
 also isn't supported by Bitcoin Core) followed by implementation of
 the techniques that you've previously used to work with
 descriptor-based content.
@@ -62,7 +63,7 @@ descriptor-based content.
 1. Choose the "n" members of a FROST group.
 2. Choose what the "m" threshold will be.
 3. Apply the FROST protocol to generate individual signing shares and an aggregate public key using ZF Tools or another FROST toolkit.
-4. Generate a descriptor by pairing "tr(aggregate public key)" with a generated checksum, per the technique in [§4.2](04_2_Integrating_Addresses_Descriptors/).
+4. Generate a descriptor by pairing "tr(aggregate public key)" with a generated checksum, per the technique in [§4.2](04_2_Integrating_Addresses_Descriptors.md).
 5. Use `deriveaddresses` to generate one or more addresses for the descriptor.
 
 ### Spend a FROST Address
@@ -92,11 +93,11 @@ applied to each signature.
 
 Bitcoin Core doesn't directly support FROST signatures. But, the
 aggregatable nature of FROST signatures, which results in all of them
-looking the same, means that it will correctly process a FROST
-signature if you give it one. You can create a FROST address with
-"tr(public-key)", where the public key is a FROST aggregated key; you
-can generate an address from that descriptor as usual; and then you
-can spend funds by signing with the appropriate signing shares and
+looking the same, means that Bitcoin Core will correctly process a
+FROST signature if you give it one. You can create a FROST address
+with "tr(public-key)", where the public key is a FROST aggregated key;
+you can generate an address from that descriptor as usual; and then
+you can spend funds by signing with the appropriate signing shares and
 inserting that signature into a transaction.
 
 ## What's Next?

@@ -7,9 +7,9 @@ has been under consideration for use with Bitcoin ever since because
 of the advantages it offers.
 
 All new P2TR addresses are signed with Schnorr signatures. This can
-include standard signatures internal to Bitcoin but also signatures
-from more advanced Schnorr signature systems such as MuSig2 multisigs
-and FROST threshold sigs.
+include standard single signatures and also signatures from more
+advanced Schnorr signature systems such as MuSig2 multisigs and FROST
+threshold sigs.
 
 ## Objectives for This Chapter
 
