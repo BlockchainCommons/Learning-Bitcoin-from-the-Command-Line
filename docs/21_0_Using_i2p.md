@@ -28,4 +28,4 @@ Supporting objectives include the ability to:
 
 ## Table of Contents
 
-* [Section One: Bitcoin Core as an I2P (Invisible Internet Project) service](15_1_i2p_service.md)
+* [Section One: Bitcoin Core as an I2P (Invisible Internet Project) service](21_1_i2p_service.md)

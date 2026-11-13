@@ -1,4 +1,4 @@
-21.1: Runing Bitcoin as an i2p Service
+# 21.1: Runing Bitcoin as an i2p Service
 
 Rather than using the proxy-based Tor service to ensure the privacy of
 your Bitcoin communications, you may instead wish to use I2P, which is
@@ -13,7 +13,7 @@ relays. Since hidden services (such as Bitcoin access) are core to the
 design of I2P, they have also been better optimized:
 
 |  | Tor | I2P |
-| :---         |     :---:      |          ---: |
+| :---:         |     :---:      |          :---: |
 | Routing   | [Onion](https://www.onion-router.net/)     | [Garlic](https://geti2p.net/en/docs/how/garlic-routing)    |
 | Network Database     | Trusted [Directory Servers](https://blog.torproject.org/possible-upcoming-attempts-disable-tor-network)       | [Distributed network database](https://geti2p.net/en/docs/how/network-database)      |
 | Relay     | **Two-way** encrypted connections between each Relay       | **One-way** connections between every server in its tunnels      |
@@ -29,7 +29,7 @@ if you choose to support only I2P, only Tor, or both. These
 configurations, which limit outgoing clearnet connections, are made in
 Bitcoin Core using the `onlynet` argument in your `bitcoin.conf`.
 
-* `onlynet=onion`, which limits outgoing connections to Tor, can expose a node to Sybil attacks and can create network partitioning, because of limited connections between Tornet and the clearnet.
+* `onlynet=onion`, which limits outgoing connections to Tor, can expose a node to Sybil attacks and can create network partitioning because of limited connections between Tornet and the clearnet.
 * `onlynet=onion` and `onlynet=i2p` in conjunction, which runs Onion service with I2P service is experimental for now.
 
 ## Install I2P
@@ -49,7 +49,7 @@ To use I2P, you will need to open the following ports, which are required by I2P
 
 The following will run Bitcoin Core I2P services:
 
-**1:** Install `i2pd` on Ubuntu:
+[1] Install `i2pd`. The following will do so on the Debian setup suggested in this tutorial.
 
 ```sh
 sudo apt-get install i2pd
@@ -57,29 +57,32 @@ sudo apt-get install i2pd
 
    For installing on other OSes, see [these docs](https://i2pd.readthedocs.io/en/latest/user-guide/install/)
 
-**2:** [Run](https://i2pd.readthedocs.io/en/latest/user-guide/run/) the I2P service:
+[2] [Run](https://i2pd.readthedocs.io/en/latest/user-guide/run/) the I2P service:
 
 ```sh
 sudo systemctl start i2pd.service
 ```
 
-**3:** Add the following lines in `bitcoin.conf`: 
+[3] Add the following lines in `bitcoin.conf`: 
 
 ```sh
 i2psam=127.0.0.1:7656
 debug=i2p
 ```
 
-The logging option, `debug=i2p`, is used to record additional information in the debug log about your I2P configuration and connections. The default location for this debugging file on Linux is: `~/.bitcoin/debug.log`:
+The logging option, `debug=i2p`, is used to record additional
+information in the debug log about your I2P configuration and
+connections. The default location for this debugging file on Linux is:
+`~/.bitcoin/debug.log`:
 
-**4:** Restart `bitcoind`
+[4] Restart `bitcoind`
 
 ```sh
 kill [IP]
 /usr/local/bin/bitcoind -conf=/home/standup/.bitcoin/bitcoin.conf -daemon
 ```
 
-**5:** Check `debug.log` to see if I2P was setup correctly, or if any errors appeared in the logs.
+[5] Check `debug.log` to see if I2P was setup correctly, or if any errors appeared in the logs.
 
 ```sh
 grep i2p ~/.bitcoin/signet/debug.log 
@@ -90,7 +93,10 @@ grep i2p ~/.bitcoin/signet/debug.log
 | 2026-10-30T00:32:26Z [i2p] Creating persistent I2P SAM session b8ce018cdd with 127.0.0.1:7656
 ```
    
-**6:** Confirm `i2p_private_key` was created in the Bitcoin Core data directory. The first time Bitcoin Core connects to the I2P router, its I2P address (and corresponding private key) will be automatically generated and saved in a file named *i2p_private_key*:
+[6] Confirm `i2p_private_key` was created in the Bitcoin Core data
+directory. The first time Bitcoin Core connects to the I2P router, its
+I2P address (and corresponding private key) will be automatically
+generated and saved in a file named *i2p_private_key*:
 
 ```sh
 ls ~/.bitcoin/signet/
@@ -99,7 +105,8 @@ ls ~/.bitcoin/signet/
 | bitcoind.pid  chainstate  fees       mempool.dat      peers.dat             wallets
 ```
 
-**7:** Check that `bitcoin-cli getnetworkinfo` show that i2p is reachable:
+[7] Check that `bitcoin-cli getnetworkinfo` shows that i2p is
+reachable:
 
 ```sh
 bitcoin-cli getnetworkinfo
@@ -151,7 +158,8 @@ bitcoin-cli getnetworkinfo
 | }
 ```
   
-You now have your Bitcoin server accessible through the I2P network at your new local address.
+You now have your Bitcoin server accessible through the I2P network at
+your new local address.
 
 ## Summary: Bitcoin Core as an I2P (Invisible Internet Project) service
 
