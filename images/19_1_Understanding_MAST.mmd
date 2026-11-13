@@ -1,0 +1,21 @@
+flowchart TD
+
+root["#ABCDEFGH"]:::root --> rootleft["#ABCD"]:::branch
+rootleft --> AB["#AB"]:::branch
+rootleft --> CD["#CD"]:::branch
+root --> rootright["#EFGH"]:::branch
+rootright --> EF["#EF"]:::branch
+rootright --> GH["#GH"]:::branch
+AB --> A["#A"]:::leaf
+AB --> B["#B"]:::leaf
+CD --> C["#C"]:::leaf
+CD --> D["#D"]:::leaf
+EF --> E["#E"]:::leaf
+EF --> F["#F"]:::leaf
+GH --> G["#G"]:::leaf
+GH --> H["#H"]:::leaf
+
+classDef root stroke:#6E260E,stroke-width:4px;
+classDef branch stroke:#C4A484,stroke-width:4px;
+classDef leaf stroke:#0f0,stroke-width:4px;
+
