@@ -23,8 +23,8 @@ It includes the following major variations to Bitcoin Script:
 
 Obviously, the big change is in multisigs.
 
-[§12.4](2_4_Scripting_a_Multisig/) showed how multisigs were laid out
-with traditional Bitcoin Script:
+[§12.4](12_4_Scripting_a_Multisig.md) showed how multisigs were laid
+out with traditional Bitcoin Script:
 
 This is a 2-of-2 multisig Bitcoin Script:
 
@@ -32,7 +32,9 @@ This is a 2-of-2 multisig Bitcoin Script:
 2 $pubkey1 $pubkey2 2 OP_CHECKMULTISIG
 ```
 
-This is the same 2-of-2 multisig in Tapscript:
+This is the same 2-of-2 multisig in Tapscript. It uses
+`OP_CHECKSIGADD` to sum up the number of successful signatures and
+then checks that against a threshold with `OP_NUMEQUAL`.
 
 ```
 $pubkey1 OP_CHECKSIG $pubkey2 OP_CHECKSIGADD 2 OP_NUMEQUAL
@@ -51,15 +53,16 @@ This is the same 2-of-3 multisig in Tapscript:
 $pubkey1 OP_CHECKSIG $pubkey2 OP_CHECKSIGADD $pubkey3 OP_CHECKSIGADD 2 OP_NUMEQUAL
 ```
 
-Multisigs can also be rebuilt in Taproot by using multiple leaves of
-the Merkle Tree. For example, an m-of-n threshold signature could be
-built using a number of Merkle leaves that each check a different
-m-of-m threshold. For example, if you wanted a 2-of-3 threshold
-signature that allowed any two of ABC to sign, you could build leaves
-for three 2-of-2 multisigs, covering AB, BC, and AC.  (This is the
-methodology needed to turn MuSig2 into a threshold signature system.)
-Alternatively, leaves could be built to check against aggregate public
-keys, pushing the whole question of multisigs out to Schnorr.
+Multisigs can alternatively be rebuilt in Taproot by using multiple
+leaves of the Merkle Tree. For example, an m-of-n threshold signature
+could be built using a number of Merkle leaves that each check a
+different m-of-m threshold. For example, if you wanted a 2-of-3
+threshold signature that allowed any two of ABC to sign, you could
+build leaves for three 2-of-2 multisigs, covering AB, BC, and AC.
+(This is the methodology needed to turn MuSig2 into a threshold
+signature system.)  Alternatively, leaves could be built to check
+against aggregate public keys, pushing the whole question of multisigs
+out to Schnorr.
 
 But we're going to stick with the basic method of scripting with
 `OP_CHECKSIGADD`, because that's the method built into Bitcoin

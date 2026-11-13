@@ -33,8 +33,8 @@ power of Taproot.
 
 As it happens, we already have an example that does exactly that, the
 excutives example laid out using Bitcoin Script in
-[§15.2](15_2_Writing_Complex_Multisig_Scripts) and Miniscript in
-[§16.4](16_4_Using_BDK). We're going to turn it into a real address
+[§15.2](15_2_Writing_Complex_Multisig_Scripts.md) and Miniscript in
+[§16.4](16_4_Using_BDK.md). We're going to turn it into a real address
 here, where either one president or two out of three vice-presidents
 can spend from their multisig address.
 
@@ -141,9 +141,8 @@ abscond=$(bitcoin-cli -rpcwallet=prez getnewaddress)
 psbt=$(bitcoin-cli -named createpsbt inputs='''[ { "txid": "'$utxo_txid'", "vout": '$utxo_vout' } ]''' outputs='''{ "'$abscond'": 0.00195 }''')
 ```
 
-As usual, the first thing that's needed is to add the information
-about the UTXO to the PSBT, which you can do from the watchonly wallet
-with the descriptor.
+As usual, you first need to add the information about the UTXO to the
+PSBT, which you can do from the watchonly wallet with the descriptor.
 
 ```sh
 psbt=$(bitcoin-cli -rpcwallet="prezwatchonly" walletprocesspsbt $psbt | jq -r '.psbt')
@@ -250,7 +249,7 @@ bitcoin-cli analyzepsbt $vp2psbt
 | }
 ```
 
-Instead we have to combine them and then we're ready for the finalizer.
+Instead you have to combine them and then you're ready for the finalizer.
 
 ```sh
 vppsbt=$(bitcoin-cli combinepsbt '''["'$vp1psbt'", "'$vp2psbt'"]''')

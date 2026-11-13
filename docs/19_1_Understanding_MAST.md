@@ -12,9 +12,9 @@ historic usage.)
 
 A Merkle Tree is also known as a hash tree. That's because it's a tree
 of hashes. Data is hashed to form the leaves at the bottom level of
-the tree. Then hashes are combined to form a node. Usually a Merkle
-tree is a binary hash tree, which means that every pair of hashes are
-combined.
+the tree. Those hashes are then combined to form nodes. Usually a
+Merkle tree is a binary hash tree, which means that each pair of
+hashes are combined.
 
 > 📖 **_What is a hash?_** A hash is the output of a hash
 function. It's a short, fixed-length representation of a longer
@@ -26,7 +26,7 @@ hash from the input, but you can't derive the input from the hash.
 As you ascend in a hash tree, more hashes are combined, resulting in
 fewer and fewer nodes. Ultimately, you get a root hash that represents
 all of the individual hashes of the tree, and so all of the individual
-data input into the tree. A hash tree is usually represented just by
+data input into the tree. A hash tree is usually represented by just
 its root hash.
 
 <center>
@@ -43,7 +43,7 @@ each of the hashes that it contributes to, up to the root hash.
 
 MAST is a simple application of the Merkle Tree to Bitcoin Scripts:
 each leaf represents a Bitcoin Script (or rather, the slightly varied
-Tapscript) that can be used to unlock the funds at a Taproot
+Tapscript) that can be used to unlock the funds held in a Taproot
 address. That Merkle Tree is then brought into a Bitcoin address using
 Taproot.
 
