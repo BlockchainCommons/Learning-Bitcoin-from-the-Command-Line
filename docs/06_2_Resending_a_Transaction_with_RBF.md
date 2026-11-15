@@ -40,13 +40,13 @@ original transaction or not).
 
 ## Understand the Sequence Variable
 
-Satoshi Nakamoto originally allowed for replacement of Bitcoin transactions using the `sequence` variable (usually called `nSequence`), which is set on the inputs to a transactions. The idea was that a larger sequence should be used as a replacement if a previous sequence had not been confirmed. If was simple and it was quickly tossed out for a variety of reasons.
+Satoshi Nakamoto originally allowed for replacement of Bitcoin transactions using the `sequence` variable (usually called `nSequence`), which is set on the inputs to a transactions. The idea was that a larger sequence should be used as a replacement if a previous sequence had not been confirmed. It was simple and it was quickly tossed out for a variety of reasons.
 
 When RBF came around as a new version of transaction replacement, it
 went back to the existing `sequence` variable, but with some new
 mechanics:
 
-* A `sequence` that was larger than 0 and less than than 0xffffffff-1 (4294967294) opted in to RBF.
+* A `sequence` that was larger than 0 and less than 0xffffffff-1 (4294967294) opted in to RBF.
 * The opt-in only required one input to have its `sequence`. If most of a transaction's inputs were set to disallow RBF, but a single input enabled RBF, then RBF was allowed.
 * If RBF was allowed on a transaction, it could then later be replaced.
 
